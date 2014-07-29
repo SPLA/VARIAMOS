@@ -1,0 +1,51 @@
+package com.cfm.productline.configurator.solution;
+
+import java.awt.BorderLayout;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import com.cfm.productline.configurator.treetable.ConfigurationNode;
+import com.cfm.productline.solver.Configuration;
+
+@SuppressWarnings("serial")
+public class SolutionPanel extends JPanel{
+
+	private SolutionTreeTable table;
+	private SolutionDataModel model;
+	
+	public SolutionPanel(ConfigurationNode root){
+		setBorder(BorderFactory.createTitledBorder("Solutions"));
+		setLayout(new BorderLayout());
+		model = new SolutionDataModel(root);
+		table = new SolutionTreeTable(model);
+		
+		JPanel container = new JPanel(new BorderLayout());
+		container.add(table.getTableHeader(), BorderLayout.NORTH);
+		container.add(table, BorderLayout.CENTER);
+		add(new JScrollPane(container), BorderLayout.CENTER);
+	}
+	
+	public void addSolution(Configuration solution){
+		table.addSolution(solution);
+		
+	}
+	
+	public List<Configuration> getAllSolutions() {
+		return table.getAllSolutions();
+	}
+
+	public void clearSolutions() {
+		table.clearSolutions();
+	}
+
+	public void expand(){
+		table.expandRow(0);
+	}
+
+	public SolutionDataModel getModel() {
+		return model;
+	}
+}

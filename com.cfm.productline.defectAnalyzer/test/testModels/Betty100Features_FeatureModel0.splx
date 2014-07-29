@@ -1,0 +1,175 @@
+<feature_model name="Betty100Features_">
+<meta>
+<data name="description"></data>
+<data name="creator"></data>
+<data name="email"></data>
+<data name="date"></data>
+<data name="department"></data>
+<data name="organization"></data>
+<data name="address"></data>
+<data name="phone"></data>
+<data name="website"></data>
+<data name="reference"></data>
+</meta><feature_tree>
+:r root (root)
+	:m F1 (F1)
+	:m F2 (F2)
+	:o F3 (F3)
+		:o F33 (F33)
+		:g [1,1]
+			: F34 (F34)
+			: F35 (F35)
+	:m F4 (F4)
+		:m F36 (F36)
+		:o F37 (F37)
+		:m F38 (F38)
+		:g [1,2]
+			: F39 (F39)
+			: F40 (F40)
+		:g [1,1]
+			: F41 (F41)
+			: F42 (F42)
+	:g [1,3]
+		: F5 (F5)
+			:m F8 (F8)
+				:m F56 (F56)
+					:o F83 (F83)
+					:o F84 (F84)
+					:o F85 (F85)
+					:o F86 (F86)
+					:o F87 (F87)
+				:m F57 (F57)
+				:o F58 (F58)
+				:m F59 (F59)
+					:g [1,2]
+						: F72 (F72)
+						: F73 (F73)
+					:g [1,1]
+						: F74 (F74)
+						: F75 (F75)
+				:m F60 (F60)
+			:m F9 (F9)
+				:m F14 (F14)
+					:o F45 (F45)
+						:m F98 (F98)
+						:o F99 (F99)
+					:o F46 (F46)
+					:o F47 (F47)
+					:m F48 (F48)
+						:g [1,1]
+							: F62 (F62)
+							: F63 (F63)
+						:g [1,1]
+							: F64 (F64)
+							: F65 (F65)
+					:g [1,3]
+						: F49 (F49)
+						: F50 (F50)
+							:o F76 (F76)
+							:m F77 (F77)
+							:o F78 (F78)
+							:o F79 (F79)
+							:m F80 (F80)
+								:o F96 (F96)
+								:m F97 (F97)
+							:g [1,1]
+								: F81 (F81)
+								: F82 (F82)
+						: F51 (F51)
+					:g [1,1]
+						: F52 (F52)
+							:o F66 (F66)
+							:m F67 (F67)
+							:m F68 (F68)
+							:m F69 (F69)
+								:o F88 (F88)
+								:o F89 (F89)
+								:m F90 (F90)
+								:m F91 (F91)
+								:o F92 (F92)
+								:o F93 (F93)
+								:g [1,2]
+									: F94 (F94)
+									: F95 (F95)
+							:g [1,1]
+								: F70 (F70)
+								: F71 (F71)
+						: F53 (F53)
+						: F54 (F54)
+							:m F55 (F55)
+				:o F15 (F15)
+					:o F43 (F43)
+					:o F44 (F44)
+				:o F16 (F16)
+					:o F24 (F24)
+					:m F25 (F25)
+					:m F26 (F26)
+					:o F27 (F27)
+					:o F28 (F28)
+					:g [1,2]
+						: F29 (F29)
+						: F30 (F30)
+					:g [1,1]
+						: F31 (F31)
+						: F32 (F32)
+			:g [1,2]
+				: F10 (F10)
+					:o F17 (F17)
+					:o F18 (F18)
+						:m F23 (F23)
+					:m F19 (F19)
+					:o F20 (F20)
+					:g [1,2]
+						: F21 (F21)
+						: F22 (F22)
+							:m F61 (F61)
+				: F11 (F11)
+			:g [1,1]
+				: F12 (F12)
+				: F13 (F13)
+		: F6 (F6)
+		: F7 (F7)
+</feature_tree>
+<constraints>
+R-79: ~F54 or ~F47
+R-80: ~F93 or ~F47
+R-81: ~F39 or F77
+R-82: ~F33 or F31
+R-83: ~F38 or ~F91
+R-84: ~F58 or F70
+R-85: ~F79 or ~F21
+R-86: ~F6 or F76
+R-87: ~F78 or F3
+R-88: ~F32 or ~F20
+R-89: ~F36 or ~F86
+R-90: ~F90 or ~F26
+R-91: ~F36 or ~F35
+R-92: ~F40 or F22
+R-93: ~F8 or F3
+R-94: ~F56 or F46
+R-95: ~F30 or ~F66
+R-96: ~F91 or ~F93
+R-97: ~F92 or ~F35
+R-98: ~F66 or ~F88
+R-99: ~F6 or ~F1
+R-100: ~F1 or F63
+R-101: ~F47 or ~F40
+R-102: ~F33 or F83
+R-103: ~F98 or ~F92
+R-104: ~F8 or ~F77
+R-105: ~F28 or F60
+R-106: ~F63 or F32
+R-107: ~F72 or F15
+R-108: ~F45 or F31
+R-109: ~F17 or ~F34
+R-110: ~F2 or ~F21
+R-111: ~F55 or ~F12
+R-112: ~F50 or ~F44
+R-113: ~F74 or F86
+R-114: ~F21 or F97
+R-115: ~F10 or ~F85
+R-116: ~F82 or ~F47
+R-117: ~F44 or F35
+R-118: ~F19 or F59
+</constraints>
+</feature_model>

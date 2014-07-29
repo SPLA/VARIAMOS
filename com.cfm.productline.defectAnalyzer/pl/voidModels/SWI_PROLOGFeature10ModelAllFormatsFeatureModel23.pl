@@ -1,0 +1,20 @@
+:-use_module(library(clpfd)).
+productline(L):-
+L=[Root,F1,F2,F5,F6,F7,F3,F8,F4,F9],
+L ins 0..1,
+Root #= 1,
+Root#<==>F1,
+Root#<==>F2,
+F2#<==>F5,
+F2#<==>F6,
+F2#<==>F7,
+F3#<==>F8,
+F4#<==>F9,
+(1 - F1) + (1 - F2) #> 0,
+(1 - F9) + F1 #> 0,
+(1 - F8) + F2 #> 0,
+(1 - F6) + (1 - F4) #> 0,
+(1 - F1) + F7 #> 0,
+1 * Root #=< F4 + F3,
+F4 + F3 #=< 2 * Root,
+label(L).

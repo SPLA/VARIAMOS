@@ -1,0 +1,64 @@
+<feature_model name="Betty25Features_">
+<meta>
+<data name="description"></data>
+<data name="creator"></data>
+<data name="email"></data>
+<data name="date"></data>
+<data name="department"></data>
+<data name="organization"></data>
+<data name="address"></data>
+<data name="phone"></data>
+<data name="website"></data>
+<data name="reference"></data>
+</meta><feature_tree>
+:r root (root)
+	:o F1 (F1)
+		:m F2 (F2)
+		:m F3 (F3)
+		:o F4 (F4)
+		:o F5 (F5)
+		:o F6 (F6)
+		:m F7 (F7)
+			:m F24 (F24)
+			:m F25 (F25)
+			:m F26 (F26)
+			:g [1,1]
+				: F27 (F27)
+				: F28 (F28)
+				: F29 (F29)
+		:g [1,1]
+			: F8 (F8)
+				:m F10 (F10)
+			: F9 (F9)
+				:o F11 (F11)
+				:o F12 (F12)
+				:m F13 (F13)
+					:o F15 (F15)
+					:o F16 (F16)
+					:m F17 (F17)
+					:g [1,2]
+						: F18 (F18)
+						: F19 (F19)
+					:g [1,2]
+						: F20 (F20)
+						: F21 (F21)
+					:g [1,1]
+						: F22 (F22)
+						: F23 (F23)
+				:o F14 (F14)
+</feature_tree>
+<constraints>
+R-24: ~F12 or ~F21
+R-25: ~F11 or ~F7
+R-26: ~F26 or ~F3
+R-27: ~F6 or ~F28
+R-28: ~F17 or ~F3
+R-29: ~F10 or ~F14
+R-30: ~F27 or ~F10
+R-31: ~F25 or F11
+R-32: ~F26 or ~F11
+R-33: ~F15 or ~F29
+R-34: ~F25 or F9
+R-35: ~F21 or ~F22
+</constraints>
+</feature_model>

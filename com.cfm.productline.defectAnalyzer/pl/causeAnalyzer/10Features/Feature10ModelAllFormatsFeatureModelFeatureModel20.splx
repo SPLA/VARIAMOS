@@ -1,0 +1,32 @@
+<feature_model name="Feature10ModelAllFormatsFeatureModel">
+<meta>
+<data name="description"></data>
+<data name="creator"></data>
+<data name="email"></data>
+<data name="date"></data>
+<data name="department"></data>
+<data name="organization"></data>
+<data name="address"></data>
+<data name="phone"></data>
+<data name="website"></data>
+<data name="reference"></data>
+</meta><feature_tree>
+:r root (root)
+	:o F1 (F1)
+		:m F4 (F4)
+			:m F5 (F5)
+	:o F2 (F2)
+	:o F3 (F3)
+		:o F6 (F6)
+			:m F7 (F7)
+			:g [1,2]
+				: F8 (F8)
+				: F9 (F9)
+</feature_tree>
+<constraints>
+R-9: ~F2 or F8
+R-10: ~F3 or ~F4
+R-11: ~F7 or ~F5
+R-12: ~F9 or F5
+</constraints>
+</feature_model>

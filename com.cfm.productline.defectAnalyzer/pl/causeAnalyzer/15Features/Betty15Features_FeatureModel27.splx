@@ -1,0 +1,38 @@
+<feature_model name="Betty15Features_">
+<meta>
+<data name="description"></data>
+<data name="creator"></data>
+<data name="email"></data>
+<data name="date"></data>
+<data name="department"></data>
+<data name="organization"></data>
+<data name="address"></data>
+<data name="phone"></data>
+<data name="website"></data>
+<data name="reference"></data>
+</meta><feature_tree>
+:r root (root)
+	:o F1 (F1)
+	:m F2 (F2)
+	:m F3 (F3)
+	:o F4 (F4)
+		:o F8 (F8)
+		:o F9 (F9)
+		:m F10 (F10)
+		:m F11 (F11)
+	:o F5 (F5)
+		:m F14 (F14)
+	:o F6 (F6)
+	:m F7 (F7)
+		:o F12 (F12)
+		:o F13 (F13)
+</feature_tree>
+<constraints>
+R-15: ~F10 or ~F14
+R-16: ~F5 or F4
+R-17: ~F13 or F12
+R-18: ~F7 or F11
+R-19: ~F3 or F2
+R-20: ~F1 or ~F6
+</constraints>
+</feature_model>
