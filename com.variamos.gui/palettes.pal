@@ -1,0 +1,143 @@
+{
+  "palettes": [
+    {
+      "name": "Dynamic",
+      "nodes": [
+        {
+          "prototype": {
+            "vars": {
+              "Name": {
+                "name": "Name",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Description": {
+                "name": "Description",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Validity": {
+                "name": "Validity",
+                "value": true,
+                "type": "Boolean",
+                "domain": null
+              },
+              "Visibility": {
+                "name": "Visibility",
+                "value": true,
+                "type": "Boolean",
+                "domain": null
+              },
+              "Identifier": {
+                "name": "Identifier",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Other": {
+                "name": "Test",
+                "value": "toto",
+                "type": "String",
+                "domain": null
+              },
+              "Allocation": {
+                "name": "Allocation",
+                "value": "",
+                "type": "String",
+                "domain": null
+              }
+            },
+            "varAttributes": [
+              {
+                "name": "height",
+                "value": 0,
+                "type": "Integer",
+                "domain": null
+              }
+            ],
+            "assets": []
+          },
+          "name": "VariableContexto",
+          "icon": "/com/variamos/pl/editor/images/plcons.png",
+          "styleName": "shape=rectangle;color=blue",
+          "width": 80,
+          "height": 40
+        },
+        {
+          "prototype": {
+            "vars": {
+              "Name": {
+                "name": "Name",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Description": {
+                "name": "Description",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Validity": {
+                "name": "Validity",
+                "value": true,
+                "type": "Boolean",
+                "domain": null
+              },
+              "Visibility": {
+                "name": "Visibility",
+                "value": true,
+                "type": "Boolean",
+                "domain": null
+              },
+              "Identifier": {
+                "name": "Identifier",
+                "value": "",
+                "type": "String",
+                "domain": null
+              },
+              "Other": {
+                "name": "Test",
+                "value": "toto",
+                "type": "String",
+                "domain": null
+              },
+              "Allocation": {
+                "name": "Allocation",
+                "value": "",
+                "type": "String",
+                "domain": null
+              }
+            },
+            "varAttributes": [
+              {
+                "name": "height",
+                "value": 0,
+                "type": "Integer",
+                "domain": null
+              }
+            ],
+            "assets": []
+          },
+          "name": "Soft Goal",
+          "icon": "/com/variamos/pl/editor/images/plnode.png",
+          "styleName": "shape=cloud",
+          "width": 80,
+          "height": 40
+        }
+      ],
+      "edges": [
+        {
+          "value": "Optional",
+          "name": "Optional",
+          "icon": "/com/variamos/pl/editor/images/ploptional.png",
+          "styleName": "ploptional",
+          "width": 80,
+          "height": 40
+        }
+      ]
+    }
+  ]
+}

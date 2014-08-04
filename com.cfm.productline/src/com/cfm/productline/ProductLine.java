@@ -25,6 +25,7 @@ public class ProductLine {
 		vElements = new HashMap<String, VariabilityElement>();
 		constraints = new HashMap<>();
 		assetModel = new AssetModel();
+		name="";
 	}
 
 //	public Map<String, VariabilityPoint> getVps() {
