@@ -1,12 +1,20 @@
-package com.mxgraph.examples.swing.editor;
+package com.variamos.gui.pl.editor;
 
 import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/*
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.awt.GraphicsEnvironment;
+*/
+
+
+
+
+
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -14,25 +22,38 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-import com.mxgraph.examples.swing.editor.EditorActions.ColorAction;
+
+
+
+
+
+
+import com.mxgraph.examples.swing.editor.BasicGraphEditor;
+/*import com.mxgraph.examples.swing.editor.EditorActions.ColorAction;
 import com.mxgraph.examples.swing.editor.EditorActions.FontStyleAction;
-import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
+
 import com.mxgraph.examples.swing.editor.EditorActions.KeyValueAction;
+import com.mxgraph.examples.swing.editor.EditorActions.PrintAction;
+*/
 import com.mxgraph.examples.swing.editor.EditorActions.NewAction;
 import com.mxgraph.examples.swing.editor.EditorActions.OpenAction;
-import com.mxgraph.examples.swing.editor.EditorActions.PrintAction;
 import com.mxgraph.examples.swing.editor.EditorActions.SaveAction;
+import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
+
+/*
+ * import com.mxgraph.swing.util.mxGraphActions;
+import com.mxgraph.util.mxConstants;
+*/
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
-import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.view.mxGraph;
+import com.mxgraph.util.mxResources;
+//import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 
-public class EditorToolBar extends JToolBar
+public class PLEditorToolBar extends JToolBar
 {
 
 	/**
@@ -50,7 +71,7 @@ public class EditorToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public EditorToolBar(final BasicGraphEditor editor, int orientation)
+	public PLEditorToolBar(final BasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
@@ -65,14 +86,15 @@ public class EditorToolBar extends JToolBar
 				"/com/mxgraph/examples/swing/images/save.gif"));
 
 		addSeparator();
-
+		/*
 		add(editor.bind("Print", new PrintAction(),
 				"/com/mxgraph/examples/swing/images/print.gif"));
 
-		addSeparator();
+		addSeparator();*/
 
 		add(editor.bind("Cut", TransferHandler.getCutAction(),
 				"/com/mxgraph/examples/swing/images/cut.gif"));
+		
 		add(editor.bind("Copy", TransferHandler.getCopyAction(),
 				"/com/mxgraph/examples/swing/images/copy.gif"));
 		add(editor.bind("Paste", TransferHandler.getPasteAction(),
@@ -94,7 +116,8 @@ public class EditorToolBar extends JToolBar
 
 		// Gets the list of available fonts from the local graphics environment
 		// and adds some frequently used fonts at the beginning of the list
-		GraphicsEnvironment env = GraphicsEnvironment
+		
+		/*GraphicsEnvironment env = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		List<String> fonts = new ArrayList<String>();
 		fonts.addAll(Arrays.asList(new String[] { "Helvetica", "Verdana",
@@ -110,9 +133,7 @@ public class EditorToolBar extends JToolBar
 
 		fontCombo.addActionListener(new ActionListener()
 		{
-			/**
-			 * 
-			 */
+
 			public void actionPerformed(ActionEvent e)
 			{
 				String font = fontCombo.getSelectedItem().toString();
@@ -136,9 +157,6 @@ public class EditorToolBar extends JToolBar
 
 		sizeCombo.addActionListener(new ActionListener()
 		{
-			/**
-			 * 
-			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				mxGraph graph = editor.getGraphComponent().getGraph();
@@ -176,12 +194,13 @@ public class EditorToolBar extends JToolBar
 				"/com/mxgraph/examples/swing/images/linecolor.gif"));
 		add(editor.bind("Fill", new ColorAction("Fill",
 				mxConstants.STYLE_FILLCOLOR),
-				"/com/mxgraph/examples/swing/images/fillcolor.gif"));
+				"/com/mxgraph/examples/swing/images/fillcolor.gif"));*/
 
 		addSeparator();
 
 		final mxGraphView view = editor.getGraphComponent().getGraph()
 				.getView();
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
 				"200%", "150%", "100%", "75%", "50%", mxResources.get("page"),
 				mxResources.get("width"), mxResources.get("actualSize") });

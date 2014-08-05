@@ -161,6 +161,11 @@ public class BasicGraphEditor extends JPanel
 	/**
 	 * 
 	 */
+	
+	public BasicGraphEditor()
+	{
+		
+	}
 	public BasicGraphEditor(String appTitle, mxGraphComponent component)
 	{
 		// Stores and updates the frame title
@@ -361,12 +366,17 @@ public class BasicGraphEditor extends JPanel
 			public void stateChanged(ChangeEvent changeEvent) {
 				JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
 		        int index = sourceTabbedPane.getSelectedIndex();
-		        System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
+		        //System.out.println("Tab changed to: " + sourceTabbedPane.getTitleAt(index));
 			}
 			
 		});
 		
 		return palette;
+	}
+	
+	public void clearPalettes()
+	{
+		libraryPane.removeAll();
 	}
 
 	/**
