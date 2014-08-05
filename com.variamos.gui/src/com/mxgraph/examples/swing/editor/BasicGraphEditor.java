@@ -136,6 +136,16 @@ public class BasicGraphEditor extends JPanel
 	/**
 	 * 
 	 */
+	
+	
+	protected int perspective = 0;
+	
+	public int getPerspective() {
+		return perspective;
+	}
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
+	}
 	protected mxIEventListener undoHandler = new mxIEventListener()
 	{
 		public void invoke(Object source, mxEventObject evt)

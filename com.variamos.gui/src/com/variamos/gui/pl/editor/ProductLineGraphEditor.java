@@ -227,19 +227,19 @@ public class ProductLineGraphEditor extends BasicGraphEditor{
 	
 	private void loadScriptedPalettes() {
 		//Load palette from file
-		try {
-			FileReader reader;
-			reader = new FileReader(new File("palettes.pal"));
-			Gson gson = new GsonBuilder().setPrettyPrinting()
-					.serializeNulls()
-					.registerTypeAdapter(Object.class, new NaturalDeserializer())
-					.create();
-			PaletteDatabase db = gson.fromJson(reader, PaletteDatabase.class);
-			loadPaletteDatabase(db);
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			FileReader reader;
+//			reader = new FileReader(new File("palettes.pal"));
+//			Gson gson = new GsonBuilder().setPrettyPrinting()
+//					.serializeNulls()
+//					.registerTypeAdapter(Object.class, new NaturalDeserializer())
+//					.create();
+//			PaletteDatabase db = gson.fromJson(reader, PaletteDatabase.class);
+//			loadPaletteDatabase(db);
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 	}
 	
