@@ -85,7 +85,7 @@
 	
 	
 	<add as="rqgoal">
-		<add as="shape" value="rect-iso"/>
+		<add as="shape" value="rect-str"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -94,13 +94,14 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqsoftgoal">
-		<add as="shape" value="rect-iso"/>
+		<add as="shape" value="rect-sof"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
-		<add as="verticalAlign" value="middle"/>		
-		<add as="strokeColor" value="white"/>
+		<add as="verticalAlign" value="middle"/>	
+		<add as="fillColor" value="white"/>	
+		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqfunreq">
 		<add as="shape" value="rect-top"/>
@@ -109,7 +110,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
-		<add as="fillColor" value="blue"/>
+		<add as="fillColor" value="#002060"/>
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqoper">
@@ -119,7 +120,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="blue"/>		
+		<add as="fillColor" value="#002060"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 
@@ -130,7 +131,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="blue"/>		
+		<add as="fillColor" value="#002060"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="rqglobcnxt">
@@ -149,7 +150,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="FFFF33"/>		
+		<add as="fillColor" value="#A6C3DD"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqsoftdep">
@@ -159,7 +160,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="blue"/>		
+		<add as="fillColor" value="#E1EBF3"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 	
@@ -170,6 +171,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
+		<add as="fillColor" value="#E1EBF3"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="rqasset">

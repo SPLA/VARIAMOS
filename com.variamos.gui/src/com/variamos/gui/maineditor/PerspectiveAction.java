@@ -23,7 +23,7 @@ public class PerspectiveAction extends AbstractEditorAction
 		public void actionPerformed(ActionEvent e)
 		{
 			BasicGraphEditor editor = getEditor(e);
-
+			int perspective = editor.getPerspective();
 			if (editor != null)
 			{
 				if (!editor.isModified()
@@ -36,20 +36,22 @@ public class PerspectiveAction extends AbstractEditorAction
 					
 					mxGraph graph = editor.getGraphComponent().getGraph();
 					JButton jb = (JButton)e.getSource();
-					if (jb.getText().equals(mxResources.get("productLineButton")))
+					if (perspective != 0 && jb.getText().equals(mxResources.get("productLineButton")))
 					{
 						System.out.println("product");
 						PLPalettesLoader.loadRegularPalette(pge.insertPalette(mxResources.get("productLinePalette")), (ProductLineGraph)pge.getGraphComponent().getGraph());
 						PLPalettesLoader.loadScriptedPalettes(pge.insertPalette("Dynamic"));
-						
+						editor.setPerspective(0);
 					}
-					if (jb.getText().equals(mxResources.get("defectAnalyzerButton")))
+					if (perspective != 1 &&  jb.getText().equals(mxResources.get("defectAnalyzerButton")))
 							{
-						System.out.println("defect");
+							System.out.println("defect");
+							editor.setPerspective(1);
 							}
-					if (jb.getText().equals(mxResources.get("requirementsButton")))
+					if (perspective != 2 && jb.getText().equals(mxResources.get("requirementsButton")))
 					{
 						System.out.println("requirements");
+						editor.setPerspective(2);
 						
 						//RQPalettesLoader.loadRegularPalette(pge.insertPalette(mxResources.get("requirementsPalette")), (ProductLineGraph)pge.getGraphComponent().getGraph());
 						//RQPalettesLoader.loadScriptedPalettes(pge.insertPalette("tmp"));

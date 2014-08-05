@@ -118,7 +118,7 @@ public class PLPalettesLoader {
 	
 	public static void loadScriptedPalettes(EditorPalette palette) {
 		//Load palette from file
-		try {
+/*		try {
 			FileReader reader;
 			reader = new FileReader(new File("palettes.pal"));
 			Gson gson = new GsonBuilder().setPrettyPrinting()
@@ -131,7 +131,7 @@ public class PLPalettesLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	*/	
 	}
 	private static void loadPaletteDatabase(PaletteDatabase db, EditorPalette palette) {
 		for(PaletteDefinition pal : db.palettes){
