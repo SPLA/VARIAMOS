@@ -59,8 +59,8 @@
             ],
             "assets": []
           },
-          "name": "VariableContexto",
-          "icon": "/com/variamos/pl/editor/images/plcons.png",
+          "name": "ContextVariable",
+          "icon": "/com/variamos/gui/pl/editor/images/plcons.png",
           "styleName": "shape=rectangle;color=blue",
           "width": 80,
           "height": 40
@@ -122,7 +122,7 @@
             "assets": []
           },
           "name": "Soft Goal",
-          "icon": "/com/variamos/pl/editor/images/plnode.png",
+          "icon": "/com/variamos/gui/pl/editor/images/plnode.png",
           "styleName": "shape=cloud",
           "width": 80,
           "height": 40
@@ -132,7 +132,7 @@
         {
           "value": "Optional",
           "name": "Optional",
-          "icon": "/com/variamos/pl/editor/images/ploptional.png",
+          "icon": "/com/variamos/gui/pl/editor/images/ploptional.png",
           "styleName": "ploptional",
           "width": 80,
           "height": 40

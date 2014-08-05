@@ -4,10 +4,11 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 import javax.swing.TransferHandler;
 
-//import com.cfm.productline.editor.actions.FigureAction;
 import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
 import com.mxgraph.swing.util.mxGraphActions;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.pl.editor.actions.FigureAction;
 
 public class EditorPopupMenu extends JPopupMenu
 {
@@ -84,11 +85,11 @@ public class EditorPopupMenu extends JPopupMenu
 				.getSelectAllAction()));
 	}
 	public static void populateFigureMenu(JMenu menu, BasicGraphEditor editor) {
-/*		menu.add( editor.bind("Cloud", new FigureAction(mxConstants.SHAPE_CLOUD ) ));
+		menu.add( editor.bind("Cloud", new FigureAction(mxConstants.SHAPE_CLOUD ) ));
 		menu.add( editor.bind("Ellipse", new FigureAction(mxConstants.SHAPE_ELLIPSE) ));
 		menu.add( editor.bind("Double Ellipse", new FigureAction(mxConstants.SHAPE_DOUBLE_ELLIPSE ) ));
 		menu.add( editor.bind("Rectangle", new FigureAction(mxConstants.SHAPE_RECTANGLE ) ));
 		menu.add( editor.bind("Rhombus", new FigureAction(mxConstants.SHAPE_RHOMBUS ) ));
 		menu.add( editor.bind("Triangle", new FigureAction(mxConstants.SHAPE_TRIANGLE ) ));
-*/                                                                                                                                                                                                                                          	};
+                                                                                                                                                                                                                                          	};
 }
