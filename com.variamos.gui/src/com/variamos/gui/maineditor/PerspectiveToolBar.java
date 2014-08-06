@@ -71,6 +71,8 @@ public class PerspectiveToolBar extends JToolBar
 	 * 
 	 */
 	private static final long serialVersionUID = -8015443128436394471L;
+	private JButton buttons[] = new JButton[3];
+	private BasicGraphEditor editor;
 
 	/**
 	 * 
@@ -78,6 +80,7 @@ public class PerspectiveToolBar extends JToolBar
 	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
+		this.editor = editor;
 		setBackground(new Color(220,220,220));
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
 				.createEmptyBorder(3, 3, 3, 3), getBorder()));
@@ -88,19 +91,41 @@ public class PerspectiveToolBar extends JToolBar
 		JLabel lb ;
 		lb = new JLabel("Perspectives:  ");
 		add (lb);
-		JButton bt = new JButton(mxResources.get("productLineButton"));
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
-		bt.setBackground(new Color(200,200,200));
-		bt = new JButton(mxResources.get("defectAnalyzerButton"));
-		bt.setEnabled(false);
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
-		bt = new JButton(mxResources.get("requirementsButton"));
-		bt.setEnabled(false);
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
+		buttons[0] = new JButton(mxResources.get("productLineButton"));
+		add (buttons[0]);
+		buttons[0].addActionListener(new PerspectiveAction(this));
+		buttons[1] = new JButton(mxResources.get("defectAnalyzerButton"));
+		//buttons[1].setEnabled(false);
+		buttons[0].setSelected(true);
+		add (buttons[1]);
+		buttons[1].addActionListener(new PerspectiveAction(this));
+		buttons[2] = new JButton(mxResources.get("requirementsButton"));
+		//buttons[2].setEnabled(false);
+		add (buttons[2]);
+		buttons[2].addActionListener(new PerspectiveAction(this));
 		// Sets the zoom in the zoom combo the current value
-		
+	}
+	public void updateButtons()
+	{
+		switch (editor.getPerspective()){
+		case 0 :
+			buttons[0].setSelected(true);
+			buttons[1].setSelected(false);
+			buttons[2].setSelected(false);
+			editor.setLayout(0);
+			break;
+		case 1 :
+			buttons[0].setSelected(false);
+			buttons[1].setSelected(true);
+			buttons[2].setSelected(false);
+			editor.setLayout(1);
+			break;
+		case 2 :
+			buttons[0].setSelected(false);
+			buttons[1].setSelected(false);
+			buttons[2].setSelected(true);
+			editor.setLayout(2);
+			break;
+			}
 	}
 }

@@ -63,45 +63,45 @@ public class ProductLineGraph extends AbstractGraph {
 	}
 
 	public void loadStencil() {
-//		try {
-//			String filename = Stencils.class.getResource(
-//					"/com/variamos/gui/rq/editor/style/shapes.xml").getPath();
-//			Document doc;
-//
-//			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
-//
-//			Element shapes = (Element) doc.getDocumentElement();
-//			NodeList list = shapes.getElementsByTagName("shape");
-//
-//			for (int i = 0; i < list.getLength(); i++) {
-//				Element shape = (Element) list.item(i);
-//				mxStencilRegistry.addStencil(shape.getAttribute("name"),
-//						new mxStencil(shape) {
-//							protected mxGraphicsCanvas2D createCanvas(
-//									final mxGraphics2DCanvas gc) {
-//								// Redirects image loading to graphics canvas
-//								return new mxGraphicsCanvas2D(gc.getGraphics()) {
-//									protected Image loadImage(String src) {
-//										// Adds image base path to relative
-//										// image URLs
-//										if (!src.startsWith("/")
-//												&& !src.startsWith("http://")
-//												&& !src.startsWith("https://")
-//												&& !src.startsWith("file:")) {
-//											src = gc.getImageBasePath() + src;
-//										}
-//
-//										// Call is cached
-//										return gc.loadImage(src);
-//									}
-//								};
-//							}
-//						});
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			String filename = Stencils.class.getResource(
+					"/com/variamos/gui/rq/editor/style/shapes.xml").getPath();
+			Document doc;
+
+			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
+
+			Element shapes = (Element) doc.getDocumentElement();
+			NodeList list = shapes.getElementsByTagName("shape");
+
+			for (int i = 0; i < list.getLength(); i++) {
+				Element shape = (Element) list.item(i);
+				mxStencilRegistry.addStencil(shape.getAttribute("name"),
+						new mxStencil(shape) {
+							protected mxGraphicsCanvas2D createCanvas(
+									final mxGraphics2DCanvas gc) {
+								// Redirects image loading to graphics canvas
+								return new mxGraphicsCanvas2D(gc.getGraphics()) {
+									protected Image loadImage(String src) {
+										// Adds image base path to relative
+										// image URLs
+										if (!src.startsWith("/")
+												&& !src.startsWith("http://")
+												&& !src.startsWith("https://")
+												&& !src.startsWith("file:")) {
+											src = gc.getImageBasePath() + src;
+										}
+
+										// Call is cached
+										return gc.loadImage(src);
+									}
+								};
+							}
+						});
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void setProductLine(ProductLine pl) {

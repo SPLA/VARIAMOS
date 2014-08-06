@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.rq.editor;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,6 +9,7 @@ import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveProductsAction;
+import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 import com.variamos.gui.pl.editor.actions.ExitAction;
 import com.variamos.gui.pl.editor.actions.NewAction;
 import com.variamos.gui.pl.editor.actions.OpenAction;
@@ -21,11 +22,11 @@ import com.variamos.gui.pl.editor.actions.VerifyFalseProductLineModelAction;
 import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 
 @SuppressWarnings("serial")
-public class ProductLineMenuBar extends JMenuBar{
+public class RequirementsMenuBar extends JMenuBar{
 	
 	ProductLineGraphEditor editor;
 	
-	public ProductLineMenuBar(BasicGraphEditor editor){
+	public RequirementsMenuBar(BasicGraphEditor editor){
 		init(editor);
 	}
 	
@@ -78,20 +79,6 @@ public class ProductLineMenuBar extends JMenuBar{
 		menu.add(editor.graphLayout("circleLayout", true));
 		add(menu);
 		
-		menu = (JMenu) menu.add(new JMenu(mxResources.get("verifyDefects")));
-		menu.add(editor.bind(mxResources.get("verifyVoidModel"), new VerifyVoidModelAction()));
-		menu.add(editor.bind(mxResources.get("verifyFalseProductLine"), new VerifyFalseProductLineModelAction()));
-		menu.add(editor.bind(mxResources.get("verifyDeadElement"), new VerifyDeadElementAction()));
-		menu.add(editor.bind(mxResources.get("verifyFalseOptionalElements"), new  VerifyFalseOptionalElementAction()));
-		menu.addSeparator();
-		add(menu);
-
-		menu = (JMenu) menu.add(new JMenu(mxResources.get("configurationTab")));
-		menu.add(editor.bind(mxResources.get("configure"), new ConfigureAction()));
-		menu.add(editor.bind(mxResources.get("saveConfiguration"), new SaveConfigurationAction(true)));
-		menu.add(editor.bind(mxResources.get("loadConfiguration"), new LoadConfigurationAction()));
-		menu.add(editor.bind(mxResources.get("saveProducts"), new SaveProductsAction()));
-		add(menu);
 	}
 	
 	

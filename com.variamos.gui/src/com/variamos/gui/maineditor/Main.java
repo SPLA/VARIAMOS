@@ -38,6 +38,6 @@ public class Main {
 		ProductLineGraph plGraph = new ProductLineGraph();
 		ProductLineGraphEditor config = new ProductLineGraphEditor("Configurator - VariaMos", new VariamosGraphComponent(plGraph));
 		config.editProductLine(pl);
-		config.createFrame(new ProductLineMenuBar(config)).setVisible(true);
+		config.createFrame().setVisible(true);
 	}
 }
