@@ -10,24 +10,40 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //import com.cfm.productline.defectAnalyzer.VariabilityModelCauseAnalyzer;
-import com.cfm.productline.defectAnalyzer.VariabilityModelVerifier;
-import com.cfm.productline.dto.VMAnalyzerInDTO;
-import com.cfm.productline.dto.VMCauseAnalyzerInDTO;
-import com.cfm.productline.dto.VMTransformerInDTO;
-import com.cfm.productline.exceptions.FunctionalException;
-import com.cfm.productline.exceptions.TransformerException;
-import com.cfm.productline.model.defect.Defect;
-import com.cfm.productline.model.defect.VoidModel;
-import com.cfm.productline.model.defectAnalyzerModel.AnalyzedCorrectionSet;
-import com.cfm.productline.model.defectAnalyzerModel.Dependency;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityElement;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
-import com.cfm.productline.model.diagnostic.Diagnostic;
-import com.cfm.productline.model.enums.CorrectionSetIdentificationType;
-import com.cfm.productline.model.enums.NotationType;
-import com.cfm.productline.model.enums.SolverEditorType;
-import com.cfm.productline.transformer.VariabilityModelTransformer;
+
+import com.variamos.core.enums.NotationType;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.core.exceptions.TransformerException;
+import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
+import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
+import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.defectAnalyzer.model.AnalyzedCorrectionSet;
+import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.VariabilityElement;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.defectAnalyzer.model.defects.Defect;
+import com.variamos.defectAnalyzer.model.defects.VoidModel;
+import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
 public class CauseAnalyzerApplicationCaseTest {
 //
