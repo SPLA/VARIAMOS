@@ -23,12 +23,14 @@ public class Refas {
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
 	protected String name;
+	protected GoalModel goalModel;
 	protected AssetModel assetModel;
 	
 	public Refas(){
 		vElements = new HashMap<String, VariabilityElement>();
 		constraints = new HashMap<>();
 		assetModel = new AssetModel();
+		goalModel = new GoalModel();
 		name="";
 	}
 
@@ -149,7 +151,7 @@ public class Refas {
 		}
 		return "Vp" + id;
 	}
-	
+		
 	public List<Constraint> getConstraintsFor(VariabilityElement vp){
 		List<Constraint> cons = new LinkedList<Constraint>();
 		for(Constraint c : constraints.values())
