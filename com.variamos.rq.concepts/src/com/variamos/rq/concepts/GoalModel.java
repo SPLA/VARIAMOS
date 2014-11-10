@@ -18,31 +18,31 @@ public class GoalModel implements Serializable{
 	
 	public void addGoal(Goal asset){
 		if( asset.getIdentifier() == null )
-			asset.setIdentifier(nextAssetId());
+			asset.setIdentifier(getNextGoalId());
 		
 		if( asset.getName() == null )
 			asset.setName(asset.getIdentifier());
 		
-		assets.put(asset.getIdentifier(), asset);
+		goals.put(asset.getIdentifier(), asset);
 	}
 	
-	public Asset findAsset(String identifier){
-		return assets.get(identifier);
+	public Goal findAsset(String identifier){
+		return goals.get(identifier);
 	}
 	
-	private String nextAssetId(){
-		int id = assets.size();
-		while( assets.containsKey("Asset" + id) ){
+	private String getNextGoalId(){
+		int id = goals.size();
+		while( goals.containsKey("G" + id) ){
 			id ++;
 		}
-		return "Asset" + id;
+		return "G" + id;
 	}
 
-	public Map<String, Asset> getAssets() {
-		return assets;
+	public Map<String, Goal> getAssets() {
+		return goals;
 	}
 
-	public void setAssets(Map<String, Asset> assets) {
-		this.assets = assets;
+	public void setAssets(Map<String, Goal> assets) {
+		this.goals = assets;
 	}
 }
