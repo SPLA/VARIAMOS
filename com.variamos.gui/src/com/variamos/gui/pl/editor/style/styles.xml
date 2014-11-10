@@ -85,7 +85,7 @@
 	
 	
 	<add as="rqgoal">
-		<add as="shape" value="rect-str"/>
+		<add as="shape" value="rect-goal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -94,7 +94,7 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqsoftgoal">
-		<add as="shape" value="rect-sof"/>
+		<add as="shape" value="rect-soft2"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -114,7 +114,7 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="rqoper">
-		<add as="shape" value="rect-side"/>
+		<add as="shape" value="hexa-oper"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -174,7 +174,7 @@
 		<add as="fillColor" value="#E1EBF3"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
-		<add as="rqasset">
+		<add as="rqcompon">
 		<add as="shape" value="component"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
@@ -183,5 +183,13 @@
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>
-	
+		<add as="rqmeansend">
+		<add as="shape" value="meansend"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>	
 </mxStylesheet>

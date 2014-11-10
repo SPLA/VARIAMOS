@@ -27,6 +27,7 @@ import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
+import com.variamos.rq.concepts.Goal;
 
 public class RQPalettesLoader {
 	public static void loadConceptsPalette(EditorPalette palette,
@@ -37,14 +38,14 @@ public class RQPalettesLoader {
 				new ImageIcon(
 						GraphEditor.class
 								.getResource("/com/variamos/gui/rq/editor/images/goal.png")),
-				"rqgoal", 100, 40, new VariabilityElement());
-		palette.addTemplate(
+				"rqgoal", 100, 40, new Goal());
+/*		palette.addTemplate(
 				mxResources.get("functionalRequirementTitle"),
 				new ImageIcon(
 						GraphEditor.class
 								.getResource("/com/variamos/gui/rq/editor/images/funreq.png")),
 				"rqfunreq", 100, 40, new VariabilityElement());
-		palette.addTemplate(
+*/		palette.addTemplate(
 				mxResources.get("operationalizationTitle"),
 				new ImageIcon(
 						GraphEditor.class
@@ -90,11 +91,11 @@ public class RQPalettesLoader {
 								.getResource("/com/variamos/gui/rq/editor/images/claim.png")),
 				"rqclaim", 110, 50, new VariabilityElement());
 		palette.addTemplate(
-				mxResources.get("generalAssetTitle"),
+				mxResources.get("componentTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/asset.png")),
-				"rqasset", 110, 50, new VariabilityElement());
+								.getResource("/com/variamos/gui/rq/editor/images/component.png")),
+				"rqcompon", 110, 50, new VariabilityElement());
 		
 		final ProductLineGraph graph = plgraph;
 
@@ -122,6 +123,15 @@ public class RQPalettesLoader {
 	public static void loadRelationsPalette(EditorPalette palette,
 			ProductLineGraph plgraph) {
 		// Load regular palette
+	
+	palette
+	.addTemplate(
+			mxResources.get("meansendTitle"),
+			new ImageIcon(
+					GraphEditor.class
+					.getResource("/com/variamos/gui/rq/editor/images/meansend.png")),
+					"rqmeansend", 80, 40, new VariabilityElement());
+		
 	palette
 	.addEdgeTemplate(
 			mxResources.get("optionalIconTitle"),

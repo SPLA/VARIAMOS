@@ -16,7 +16,24 @@
 
 	</foreground>
 </shape>
-<shape name="rect-sof" aspect="variable">
+<shape name="rect-goal" aspect="variable">
+	<background>
+		<strokewidth width="10"/>
+		<path>
+			<move x="20" y="0"/>
+			<line x="100" y="0"/>
+			<line x="80" y="100"/>
+			<line x="0" y="100"/>
+			<line x="20" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+
+	</foreground>
+</shape>
+<shape name="rect-soft" aspect="variable">
 	<background>
 		<strokewidth width="2"/>
 		<path>
@@ -31,6 +48,33 @@
 	</background>
 	<foreground>
 
+	</foreground>
+</shape>
+<shape name="rect-soft2" aspect="variable">
+	<connections>
+		<constraint x="50" y="0" perimeter="0"/>
+		<constraint x="0" y="75" perimeter="0"/>
+		<constraint x="100" y="75" perimeter="0"/>
+	</connections>
+	<foreground>
+		<strokecolor color="#000000"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<stroke/>
+		<path>
+			<move x="3" y="23"/>
+			<quad x1="7" y1="0" x2="20" y2="7"/>
+			<quad x1="30" y1="15" x2="45" y2="10"/>
+			<quad x1="65" y1="7" x2="80" y2="3"/>
+			<quad x1="100" y1="0" x2="100" y2="25"/>			
+			<quad x1="100" y1="50" x2="97" y2="78"/>			
+			<quad x1="93" y1="100" x2="80" y2="93"/>
+			<quad x1="70" y1="85" x2="55" y2="90"/>			
+			<quad x1="35" y1="93" x2="20" y2="97"/>
+			<quad x1="0" y1="100" x2="0" y2="75"/>			
+			<quad x1="0" y1="50" x2="3" y2="23"/>
+		</path>
+		<stroke/>
 	</foreground>
 </shape>
 <shape name="rect-top" aspect="variable">
@@ -63,6 +107,44 @@
 			<line x="100" y="100"/>
 			<line x="0" y="100"/>
 			<line x="0" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</foreground>
+</shape>
+
+<shape name="hexa-oper" aspect="variable">
+	<background>
+		<fillstroke color="#666666"/>
+		<strokewidth width="0"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="0" y="50"/>
+			<line x="10" y="100"/>
+			<line x="3" y="50"/>
+			<line x="10" y="0"/>
+			<move x="90" y="0"/>
+			<line x="100" y="50"/>
+			<line x="90" y="100"/>
+			<line x="97" y="50"/>
+			<line x="90" y="0"/>
+			<close/>
+		</path>
+		<stroke/>		
+		<fillstroke/>
+	</background>
+	<foreground>
+		<strokewidth width="2"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="0" y="50"/>
+			<line x="10" y="100"/>
+			<line x="90" y="100"/>
+			<line x="100" y="50"/>
+			<line x="90" y="0"/>
+			<line x="10" y="0"/>
 			<close/>
 		</path>
 		<stroke/>
@@ -189,7 +271,32 @@
 		<fillstroke/>
 	</foreground>
 </shape>
-
+<shape name="meansend" aspect="variable">
+	<connections>
+		<constraint x="0.5" y="0" perimeter="0"/>
+		<constraint x="0" y="0.75" perimeter="0"/>
+		<constraint x="100" y="0.75" perimeter="0"/>
+	</connections>
+	<foreground>
+		<strokecolor color="#000000"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<path crisp="0">
+			<move x="50" y="0"/>
+			<line x="50" y="25"/>
+			<line x="100" y="75"/>
+			<move x="50" y="25"/>
+			<line x="0" y="75"/>
+		</path>
+		<stroke/>
+		<path>
+			<move x="25" y="50"/>
+			<quad x1="35" y1="75" x2="50" y2="80"/>
+			<quad x1="75" y1="75" x2="75" y2="50"/>
+		</path>
+		<stroke/>
+	</foreground>
+</shape>
 
 
 
