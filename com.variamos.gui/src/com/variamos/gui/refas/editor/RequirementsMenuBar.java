@@ -1,15 +1,15 @@
-package com.variamos.gui.rq.editor;
+package com.variamos.gui.refas.editor;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import com.mxgraph.examples.swing.editor.BasicGraphEditor;
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveProductsAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 import com.variamos.gui.pl.editor.actions.ExitAction;
 import com.variamos.gui.pl.editor.actions.NewAction;
 import com.variamos.gui.pl.editor.actions.OpenAction;
@@ -24,7 +24,7 @@ import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 @SuppressWarnings("serial")
 public class RequirementsMenuBar extends JMenuBar{
 	
-	ProductLineGraphEditor editor;
+	VariamosGraphEditor editor;
 	
 	public RequirementsMenuBar(BasicGraphEditor editor){
 		init(editor);

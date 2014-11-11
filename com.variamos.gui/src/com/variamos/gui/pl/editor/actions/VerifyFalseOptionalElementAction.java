@@ -12,7 +12,7 @@ import com.cfm.productline.model.defect.Defect;
 import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
 import com.cfm.productline.model.enums.SolverEditorType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
@@ -25,7 +25,7 @@ public class VerifyFalseOptionalElementAction extends AbstractEditorAction {
 		ProductLine pl = null;
 		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
-		ProductLineGraphEditor editor = getEditor(e);
+		VariamosGraphEditor editor = getEditor(e);
 		editor.bringUpTab("Messages");
 		/*mxGraphComponent graphComponent = editor.getGraphComponent();
 		mxGraph graph = graphComponent.getGraph();

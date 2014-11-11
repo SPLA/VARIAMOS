@@ -1,4 +1,4 @@
-package com.variamos.rq.concepts;
+package com.variamos.refas.concepts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GoalModel implements Serializable{
-	private static final long serialVersionUID = 5153432059224220508L;
+	private static final long serialVersionUID = 5153411159224220508L;
 	
 	private Map<String, Goal> goals;
 	
@@ -38,11 +38,11 @@ public class GoalModel implements Serializable{
 		return "G" + id;
 	}
 
-	public Map<String, Goal> getAssets() {
+	public Map<String, Goal> getGoals() {
 		return goals;
 	}
 
-	public void setAssets(Map<String, Goal> assets) {
+	public void setGoals(Map<String, Goal> assets) {
 		this.goals = assets;
 	}
 }

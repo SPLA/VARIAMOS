@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -13,6 +13,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Collection;
 import java.io.IOException;
+
+
+
+
 /*import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.List;
@@ -46,6 +50,7 @@ import com.mxgraph.examples.swing.editor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
+import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -53,9 +58,13 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraphSelectionModel;
-import com.variamos.gui.maineditor.PerspectiveToolBar;
-import com.variamos.gui.maineditor.GraphTree;
-import com.variamos.gui.maineditor.VariamosGraphComponent;
+import com.variamos.gui.pl.editor.ConfiguratorPanel;
+import com.variamos.gui.pl.editor.PLEditorPopupMenu;
+import com.variamos.gui.pl.editor.PLEditorToolBar;
+import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
+import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.gui.pl.editor.SpringUtilities;
+import com.variamos.gui.pl.editor.VariabilityAttributeList;
 import com.variamos.gui.pl.editor.widgets.Widget;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.pl.editor.logic.ConstraintMode;
@@ -66,8 +75,16 @@ import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 //import com.variamos.pl.editor.logic.PaletteDatabase.ScriptedVariabilityElement;
 
+/**
+ * @author jcmunoz
+ *
+ */
+/**
+ * @author jcmunoz
+ *
+ */
 @SuppressWarnings("serial")
-public class ProductLineGraphEditor extends BasicGraphEditor{
+public class VariamosGraphEditor extends BasicGraphEditor{
 
 	static
 	{
@@ -86,15 +103,27 @@ public class ProductLineGraphEditor extends BasicGraphEditor{
 	protected ConfiguratorPanel configurator;
 	protected JTextArea messagesArea;
 	protected JPanel propertiesPanel;
+	private AbstractGraphEditorFunctions graphEditorFunctions;
 	
+	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
+		return graphEditorFunctions;
+	}
+	
+	public void setGraphEditorFunctions(AbstractGraphEditorFunctions gef) {
+		graphEditorFunctions = gef;
+	}
+
+
 	// Bottom tabs
 	protected JTabbedPane extensionTabs;
 	
 	protected int mode = 0;
 	
-	public ProductLineGraphEditor(String appTitle, VariamosGraphComponent component) {
+	public VariamosGraphEditor(String appTitle, VariamosGraphComponent component) {
 		super(appTitle, component);
-		loadRegularPalette();
+		graphEditorFunctions = new PLGraphEditorFunctions();
+		loadRegularPalette(insertPalette(mxResources.get("productLinePalette")));
+		//loadRegularPalette();
 		loadScriptedPalettes();
 		//loadPalettes();
 		registerEvents();
@@ -134,7 +163,15 @@ public class ProductLineGraphEditor extends BasicGraphEditor{
 			}
 		});
 	}
-
+	
+	/**
+	 * @param palette
+	 * Load palette according to instantiated class
+	 */
+	public void loadRegularPalette(EditorPalette palette) {
+		graphEditorFunctions.loadRegularPalette(palette, getGraphComponent());
+	}
+	
 	private void loadRegularPalette() {
 		//Load regular palette
 		EditorPalette palette = insertPalette(mxResources.get("productLinePalette"));
@@ -554,7 +591,7 @@ public class ProductLineGraphEditor extends BasicGraphEditor{
 	{
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
 				graphComponent);
-		PLEditorPopupMenu menu = new PLEditorPopupMenu(ProductLineGraphEditor.this);
+		PLEditorPopupMenu menu = new PLEditorPopupMenu(VariamosGraphEditor.this);
 		menu.show(graphComponent, pt.x, pt.y);
 
 		e.consume();

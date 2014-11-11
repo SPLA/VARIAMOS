@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.refas.editor;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,22 +17,21 @@ import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.IntegerType;
 import com.cfm.productline.type.StringType;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.VariabilityParameterDialog.DialogButtonAction;
+import com.variamos.gui.refas.editor.GoalsParameterDialog.DialogButtonAction;
 
 @SuppressWarnings("serial")
-public class VariabilityAttributeList extends JList<Variable> {
-	private VariamosGraphEditor editor;
+public class GoalsAttributeList extends JList<Variable> {
+	private RefasGraphEditor editor;
 	private VariabilityElement element;
 	
 	private Variable spoof = new Variable("Add ...", "Add ...", StringType.IDENTIFIER);
 	
-	public VariabilityAttributeList(VariamosGraphEditor editor){
+	public GoalsAttributeList(RefasGraphEditor editor){
 		this.editor = editor;
 		init(null);
 	}
 
-	public VariabilityAttributeList(VariamosGraphEditor editor, VariabilityElement elm) {
+	public GoalsAttributeList(RefasGraphEditor editor, VariabilityElement elm) {
 		this.editor = editor;
 		this.element = elm;
 		init(elm.getVarAttributes());
@@ -107,7 +106,7 @@ public class VariabilityAttributeList extends JList<Variable> {
 		//Domain
 		final Variable domain = new Variable("Domain", domainRepresentation, StringType.IDENTIFIER);
 		
-		final VariabilityParameterDialog dialog = new VariabilityParameterDialog(editor, name, domain);
+		final GoalsParameterDialog dialog = new GoalsParameterDialog(editor, name, domain);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@Override
 			public boolean onAction() {

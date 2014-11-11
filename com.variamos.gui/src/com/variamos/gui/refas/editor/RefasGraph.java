@@ -1,4 +1,4 @@
-package com.variamos.gui.rq.editor;
+package com.variamos.gui.refas.editor;
 
 import java.util.Hashtable;
 
@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.ExcludesConstraint;
 import com.cfm.productline.constraints.GenericConstraint;
@@ -28,14 +27,16 @@ import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.GraphTree;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.pl.editor.logic.ConstraintMode;
+import com.variamos.refas.concepts.Goal;
+import com.variamos.refas.concepts.Refas;
 
-public class RequirementsGraph extends AbstractGraph {
+public class RefasGraph extends AbstractGraph {
 
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 	
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
 	
-	public RequirementsGraph() {
+	public RefasGraph() {
 		init();
 	}
 
@@ -53,7 +54,97 @@ public class RequirementsGraph extends AbstractGraph {
 	
 //TODO review from here for requirements
 	
-	public void setProductLine(ProductLine pl){
+	private void addingVertex(mxCell cell) {
+		
+		if( cell.getValue() instanceof VariabilityElement ){
+			VariabilityElement elm = (VariabilityElement) cell.getValue();
+			
+			if( elm.getIdentifier() != null && !"".equals(elm.getIdentifier()) )
+				return;
+			
+			Refas pl = getRefas();
+			String id = pl.getNextVPId();
+			
+			//Aqui se setea el name y id por primera vez.
+			elm.setIdentifier(id);
+			elm.setName(id);
+			
+			//Change the cell id in the model.
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(cell.getId());
+			model.getCells().put(id, cell);
+			cell.setId(id);
+		}
+		
+		if( cell.getValue() instanceof GroupConstraint ){
+			GroupConstraint gc = (GroupConstraint) cell.getValue();
+		
+			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
+				return;
+			
+			Refas pl = getRefas();
+			String id = pl.getNextConstraintId();
+			
+			gc.setIdentifier(id);
+			
+			//Change the cell id in the model
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(cell.getId());
+			model.getCells().put(id, cell);
+			cell.setId(id);
+		}
+		if( cell.getValue() instanceof GenericConstraint ){
+			GenericConstraint gc = (GenericConstraint) cell.getValue();
+			
+			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
+				return;
+			
+			Refas pl = getRefas();
+			String id = pl.getNextConstraintId();
+			
+			gc.setIdentifier(id);
+			
+			//Change the cell id in the model
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(cell.getId());
+			model.getCells().put(id, cell);
+			cell.setId(id);
+		}
+		
+		if( cell.getValue() instanceof Asset ){
+			Asset a = (Asset) cell.getValue();
+			
+			if( a.getIdentifier() != null && !"".equals(a.getIdentifier()))
+				return;
+			
+			Refas pl = getRefas();
+			pl.addAsset(a);
+			
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(cell.getId());
+			model.getCells().put(a.getIdentifier(), cell);
+			cell.setId(a.getIdentifier());
+		}
+		
+		if( cell.getValue() instanceof Goal ){
+			Goal a = (Goal) cell.getValue();
+			
+			if( a.getIdentifier() != null && !"".equals(a.getIdentifier()))
+				return;
+			
+			Refas pl = getRefas();
+			pl.addGoal(a);
+			
+			mxGraphModel model = (mxGraphModel) getModel();
+			model.getCells().remove(cell.getId());
+			model.getCells().put(a.getIdentifier(), cell);
+			cell.setId(a.getIdentifier());
+		}
+		
+		
+	}
+	
+	public void setRefas(Refas pl){
 		buildFromProductLine(pl);
 		mxGraphLayout layout = new mxFastOrganicLayout(this);
         layout.execute( getDefaultParent() );
@@ -106,8 +197,8 @@ public class RequirementsGraph extends AbstractGraph {
 		}
 	}
 	
-	public ProductLine getProductLine(){
-		ProductLine pl = new ProductLine();
+	public Refas getRefas(){
+		Refas pl = new Refas();
 		
 		//Object[] vertices = getChildVertices(getDefaultParent());
 		Object[] vertices = mxGraphModel.getChildCells(getModel(), getDefaultParent(), true, false);
@@ -172,7 +263,7 @@ public class RequirementsGraph extends AbstractGraph {
 		return pl;
 	}
 
-	public void buildFromProductLine2(ProductLine pl, GraphTree pli) {
+	public void buildFromRefas(Refas pl, RefasGraphTree pli) {
 		
 		for (VariabilityElement vp : pl.getVariabilityElements())
 		{
@@ -183,7 +274,7 @@ public class RequirementsGraph extends AbstractGraph {
 		}
 	}
 	
-	private void buildFromProductLine(ProductLine pl) {
+	private void buildFromProductLine(Refas pl) {
 		
 		for (VariabilityElement vp : pl.getVariabilityElements())
 			insertVertex(null, vp.getIdentifier(), vp, 0, 0, 80, 40, "plnode");
@@ -194,7 +285,7 @@ public class RequirementsGraph extends AbstractGraph {
 		//pl.printDebug(System.out);
 	}
 	
-	private void buildConstraint(ProductLine pl, Constraint c){
+	private void buildConstraint(Refas pl, Constraint c){
 		/*
 		 * TODO constraints of the new language
 		if( c instanceof OptionalConstraint ){
