@@ -32,8 +32,8 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;
@@ -126,7 +126,7 @@ public class SaveAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e)
 	{
 		BasicGraphEditor editor = getEditor(e);
-		ProductLineGraphEditor editor2 = getEditor(e);
+		VariamosGraphEditor editor2 = getEditor(e);
 		ProductLine pl = null;
 
 		if (editor != null)

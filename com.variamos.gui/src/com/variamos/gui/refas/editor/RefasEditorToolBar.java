@@ -1,4 +1,4 @@
-package com.variamos.gui.rq.editor;
+package com.variamos.gui.refas.editor;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -41,7 +41,7 @@ import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 
-public class RequirementsToolBar extends JToolBar
+public class RefasEditorToolBar extends JToolBar
 {
 
 	/**
@@ -59,7 +59,7 @@ public class RequirementsToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public RequirementsToolBar(final BasicGraphEditor editor, int orientation)
+	public RefasEditorToolBar(final BasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory

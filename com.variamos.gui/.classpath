@@ -9,6 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.defectAnalyzer"/>
 	<classpathentry kind="lib" path="lib/splot_prolog.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.pl.configurator"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.rq.concepts"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.concepts"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,4 +1,4 @@
-package com.variamos.gui.rq.editor;
+package com.variamos.gui.refas.editor;
 
 import java.io.File;
 import java.io.FileReader;
@@ -27,7 +27,7 @@ import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-import com.variamos.rq.concepts.Goal;
+import com.variamos.refas.concepts.Goal;
 
 public class RQPalettesLoader {
 	public static void loadConceptsPalette(EditorPalette palette,
@@ -37,64 +37,64 @@ public class RQPalettesLoader {
 				mxResources.get("goalTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/goal.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/goal.png")),
 				"rqgoal", 100, 40, new Goal());
 /*		palette.addTemplate(
 				mxResources.get("functionalRequirementTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/funreq.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/funreq.png")),
 				"rqfunreq", 100, 40, new VariabilityElement());
 */		palette.addTemplate(
 				mxResources.get("operationalizationTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/operational.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/operational.png")),
 				"rqoper", 100, 40, new VariabilityElement());
 
 		palette.addTemplate(
 				mxResources.get("softGoalTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/softgoal.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/softgoal.png")),
 				"rqsoftgoal", 100, 40, new VariabilityElement());
 
 		palette.addTemplate(
 				mxResources.get("contextGroupTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/contextgrp.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/contextgrp.png")),
 				"rqcontextgrp", 100, 40, new VariabilityElement());
 		palette.addTemplate(
 				mxResources.get("globalContextTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/globCnxtVar.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/globCnxtVar.png")),
 				"rqglobcnxt", 100, 40, new VariabilityElement());
 		palette.addTemplate(
 				mxResources.get("localContextTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/localCnxtVar.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/localCnxtVar.png")),
 				"rqlocalcnxt", 100, 40, new VariabilityElement());		
 
 		palette.addTemplate(
 				mxResources.get("softDependencyTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/softdep.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/softdep.png")),
 				"rqsoftdep", 100, 40, new VariabilityElement());
 		palette.addTemplate(
 				mxResources.get("claimTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/claim.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/claim.png")),
 				"rqclaim", 110, 50, new VariabilityElement());
 		palette.addTemplate(
 				mxResources.get("componentTitle"),
 				new ImageIcon(
 						GraphEditor.class
-								.getResource("/com/variamos/gui/rq/editor/images/component.png")),
+								.getResource("/com/variamos/gui/refas/editor/images/component.png")),
 				"rqcompon", 110, 50, new VariabilityElement());
 		
 		final ProductLineGraph graph = plgraph;
@@ -129,7 +129,7 @@ public class RQPalettesLoader {
 			mxResources.get("meansendTitle"),
 			new ImageIcon(
 					GraphEditor.class
-					.getResource("/com/variamos/gui/rq/editor/images/meansend.png")),
+					.getResource("/com/variamos/gui/refas/editor/images/meansend.png")),
 					"rqmeansend", 80, 40, new VariabilityElement());
 		
 	palette

@@ -162,6 +162,8 @@ public abstract class AbstractGraph extends mxGraph {
 			model.getCells().put(a.getIdentifier(), cell);
 			cell.setId(a.getIdentifier());
 		}
+		
+		
 	}
 	
 	private void removingEdge(mxCell cell){

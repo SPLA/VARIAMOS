@@ -65,7 +65,7 @@ public class ProductLineGraph extends AbstractGraph {
 	public void loadStencil() {
 		try {
 			String filename = Stencils.class.getResource(
-					"/com/variamos/gui/rq/editor/style/shapes.xml").getPath();
+					"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 			Document doc;
 
 			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));

@@ -5,6 +5,7 @@ import javax.swing.JMenuBar;
 
 import com.mxgraph.examples.swing.editor.BasicGraphEditor;
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
@@ -23,7 +24,7 @@ import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 @SuppressWarnings("serial")
 public class ProductLineMenuBar extends JMenuBar{
 	
-	ProductLineGraphEditor editor;
+	VariamosGraphEditor editor;
 	
 	public ProductLineMenuBar(BasicGraphEditor editor){
 		init(editor);

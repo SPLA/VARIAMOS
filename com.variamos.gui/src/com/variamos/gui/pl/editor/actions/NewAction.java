@@ -9,7 +9,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
 public class NewAction extends AbstractEditorAction
@@ -27,7 +27,7 @@ public class NewAction extends AbstractEditorAction
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
 				{
-					((ProductLineGraphEditor)editor).editProductLineReset();
+					((VariamosGraphEditor)editor).editProductLineReset();
 					mxGraph graph = editor.getGraphComponent().getGraph();
 
 					// Check modified flag and display save dialog

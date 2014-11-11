@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
 public class ConfigureAction extends AbstractEditorAction {
@@ -14,7 +14,7 @@ public class ConfigureAction extends AbstractEditorAction {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		ProductLineGraphEditor editor = getEditor(evt);
+		VariamosGraphEditor editor = getEditor(evt);
 		editor.bringUpExtension(mxResources.get("configurationTab"));
 		editor.getConfigurator().configure(editor.getEditedProductLine());
 		

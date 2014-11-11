@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.refas.editor;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -17,16 +17,17 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.Widget;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
+import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 
 /**
  * @author unknown
  *
  */
 @SuppressWarnings("serial")
-public class VariabilityParameterDialog extends JDialog{
+public class GoalsParameterDialog extends JDialog{
 	private HashMap<String, Widget> widgets;
 	private DialogButtonAction onAccept, onCancel;
 	
@@ -34,7 +35,7 @@ public class VariabilityParameterDialog extends JDialog{
 		public boolean onAction();
 	}
 	
-	public VariabilityParameterDialog(VariamosGraphEditor editor, Variable... arguments){
+	public GoalsParameterDialog(RefasGraphEditor editor, Variable... arguments){
 		super(editor.getFrame(), "Parameters");
 		
 		setLayout(new BorderLayout());
@@ -42,7 +43,7 @@ public class VariabilityParameterDialog extends JDialog{
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 		
-		WidgetFactory factory = new WidgetFactory(editor);
+		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 		
 		widgets = new HashMap<String, Widget>();
 		

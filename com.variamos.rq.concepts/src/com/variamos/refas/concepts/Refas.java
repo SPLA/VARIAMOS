@@ -1,4 +1,4 @@
-package com.variamos.rq.concepts;
+package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
 import java.util.Collection;
@@ -19,6 +19,10 @@ import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.cfm.productline.constraints.TwoOperandConstraint;
 
+/**
+ * @author jcmunoz
+ * Initially Copied from ProductLine
+ */
 public class Refas {
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
@@ -227,6 +231,14 @@ public class Refas {
 	
 	public Map<String, Asset> getAssets(){
 		return assetModel.getAssets();
+	}
+	
+	public void addGoal( Goal a ){
+		goalModel.addGoal(a);
+	}
+	
+	public Map<String, Goal> getGoals(){
+		return goalModel.getGoals();
 	}
 	
 	public VariabilityElement getVariabilityElement(String string) {

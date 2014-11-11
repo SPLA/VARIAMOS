@@ -8,7 +8,6 @@ import com.cfm.productline.ProductLine;
 //import com.cfm.productline.io.SXFMReader;
 
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
 
 import fm.FeatureModelException;
@@ -36,7 +35,7 @@ public class Main {
 		
 		
 		ProductLineGraph plGraph = new ProductLineGraph();
-		ProductLineGraphEditor config = new ProductLineGraphEditor("Configurator - VariaMos", new VariamosGraphComponent(plGraph));
+		VariamosGraphEditor config = new VariamosGraphEditor("Configurator - VariaMos", new VariamosGraphComponent(plGraph));
 		config.editProductLine(pl);
 		config.createFrame().setVisible(true);
 	}

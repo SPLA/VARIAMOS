@@ -59,7 +59,12 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		getConnectionHandler().addListener(mxEvent.CONNECT, onConnect);
 	}
 	
-	private mxIEventListener onConnect = new mxIEventListener(){
+	private mxIEventListener onConnect = /**
+	 * @author 
+	 * jcmunoz: Creates relations between nodes, works for group constraints now.
+	 *
+	 */
+	new mxIEventListener(){
 
 		@Override
 		public void invoke(Object sender, mxEventObject evt) {

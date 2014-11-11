@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor.widgets;
+package com.variamos.gui.refas.editor.widgets;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,15 +9,17 @@ import com.cfm.productline.type.IntegerType;
 import com.cfm.productline.type.RealType;
 import com.cfm.productline.type.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.pl.editor.widgets.*;
+import com.variamos.gui.refas.editor.RefasGraphEditor;
 
 
 @SuppressWarnings("deprecation")
-public class WidgetFactory {
+public class RefasWidgetFactory {
 	//private DomainRegister register;
 	
 	private Map<String, Class<? extends Widget>> widgetReg;
 	
-	public WidgetFactory(VariamosGraphEditor editor){
+	public RefasWidgetFactory(RefasGraphEditor editor){
 		//this.register = editor.getDomainRegister();
 		
 		widgetReg = new HashMap<String, Class<? extends Widget>>();

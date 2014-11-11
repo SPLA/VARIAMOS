@@ -14,8 +14,8 @@ import com.mxgraph.examples.swing.editor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
@@ -40,12 +40,12 @@ public class OpenAction extends AbstractEditorAction{
 	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
 		
 		
-		((ProductLineGraphEditor)editor).editProductLineReset();
+		((VariamosGraphEditor)editor).editProductLineReset();
 		
 		SXFMReader reader = new SXFMReader();
 		ProductLine pl = reader.readFile(file.getAbsolutePath());
 		
-		((ProductLineGraphEditor)editor).editProductLine(pl);
+		((VariamosGraphEditor)editor).editProductLine(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(editor);
@@ -128,13 +128,13 @@ public class OpenAction extends AbstractEditorAction{
 //								codec.decode(
 //										document.getDocumentElement(),
 //										graph.getModel());
-								((ProductLineGraphEditor)editor).editProductLineReset();
+								((VariamosGraphEditor)editor).editProductLineReset();
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc
 										.getSelectedFile());
 								
-								((ProductLineGraphEditor)editor).populateIndex(((ProductLineGraph)graph).getProductLine());
+								((VariamosGraphEditor)editor).populateIndex(((ProductLineGraph)graph).getProductLine());
 
 								resetEditor(editor);
 							}

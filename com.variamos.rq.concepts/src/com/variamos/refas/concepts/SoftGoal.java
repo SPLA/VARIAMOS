@@ -1,4 +1,4 @@
-package com.variamos.rq.concepts;
+package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
 
 @SuppressWarnings("serial")
-public class Goal extends VariabilityElement {
+public class SoftGoal extends VariabilityElement {
 	
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");
@@ -38,7 +38,7 @@ public class Goal extends VariabilityElement {
 	//For Allocating a resource (image, text ...)
 	//private String allocation;
 	
-	public Goal(){
+	public SoftGoal(){
 		super();
 
 		vars.put(VAR_NAME, StringType.newVariable(VAR_NAME));
@@ -68,7 +68,7 @@ public class Goal extends VariabilityElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public Goal(String id) {
+	public SoftGoal(String id) {
 		this();
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
