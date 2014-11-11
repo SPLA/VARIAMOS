@@ -29,11 +29,11 @@ public class Goal extends VariabilityElement {
 								VAR_VALIDITY = "Validity",
 								VAR_ALLOCATION = "Allocation";
 	
-	protected Map<String, Variable> vars = new HashMap<>();
+	//protected Map<String, Variable> vars = new HashMap<>();
 	
 //	protected Variable value = new IntegerRangeDomain().makeVariable("value");
-	protected List<Variable> varAttributes = new Vector<>();
-	protected List<String> assets; 
+	//protected List<Variable> varAttributes = new Vector<>();
+	//protected List<String> assets; 
 	
 	//For Allocating a resource (image, text ...)
 	//private String allocation;
