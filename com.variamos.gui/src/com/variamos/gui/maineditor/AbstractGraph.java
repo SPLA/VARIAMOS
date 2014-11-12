@@ -174,7 +174,11 @@ public abstract class AbstractGraph extends mxGraph {
 			cell.setId(a.getIdentifier());
 		}
 		
+<<<<<<< HEAD
 		return true;
+=======
+		
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 	}
 	
 	private void removingEdge(mxCell cell){

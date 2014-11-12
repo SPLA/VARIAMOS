@@ -135,7 +135,11 @@ public class OpenAction extends AbstractEditorAction{
 								editor.setCurrentFile(fc
 										.getSelectedFile());
 								
+<<<<<<< HEAD
 								((VariamosGraphEditor)editor).populateIndex(((AbstractGraph)graph).getProductLine());
+=======
+								((VariamosGraphEditor)editor).populateIndex(((ProductLineGraph)graph).getProductLine());
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 
 								resetEditor(editor);
 							}

@@ -61,8 +61,12 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
+<<<<<<< HEAD
 import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefassMenuBar;
+=======
+import com.variamos.gui.refas.editor.RequirementsMenuBar;
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 
 /**
  * @author example mxgraph

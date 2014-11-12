@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+<<<<<<< HEAD
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
@@ -24,6 +25,15 @@ public class SoftGoal extends AbstractElement {
 	{
 		return "SG_";	
 	}
+=======
+import com.cfm.productline.VariabilityElement;
+import com.cfm.productline.Variable;
+import com.cfm.productline.type.BooleanType;
+import com.cfm.productline.type.StringType;
+
+@SuppressWarnings("serial")
+public class SoftGoal extends VariabilityElement {
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 	
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");

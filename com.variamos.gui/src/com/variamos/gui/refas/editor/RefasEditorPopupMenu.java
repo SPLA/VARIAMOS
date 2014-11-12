@@ -2,6 +2,7 @@ package com.variamos.gui.refas.editor;
 
 import javax.swing.JMenu;
 
+<<<<<<< HEAD
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPopupMenu;
 import com.mxgraph.util.mxConstants;
@@ -15,6 +16,21 @@ public class RefasEditorPopupMenu extends EditorPopupMenu
 	{
 		super(editor);
 
+=======
+import com.mxgraph.examples.swing.editor.BasicGraphEditor;
+import com.mxgraph.examples.swing.editor.EditorPopupMenu;
+import com.mxgraph.util.mxConstants;
+import com.variamos.gui.pl.editor.actions.FigureAction;
+
+public class RefasEditorPopupMenu extends EditorPopupMenu
+{
+	private static final long serialVersionUID = -3132749132150242191L;
+	
+	public RefasEditorPopupMenu(BasicGraphEditor editor)
+	{
+		super(editor);
+		
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 	}
 	/**
 	 * 

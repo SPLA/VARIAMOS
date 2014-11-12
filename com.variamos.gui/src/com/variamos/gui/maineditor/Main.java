@@ -59,5 +59,22 @@ public class Main {
 			break;
 		}
 		
+<<<<<<< HEAD
+=======
+		//ProductLine pl = getProductLine("");
+	//	SXFMReader reader = new SXFMReader();
+		//ProductLine pl = reader.readFile("fm.splx");
+		ProductLine pl = new ProductLine();
+//		pl.printDebug(System.out);
+//		System.out.println("Roots : " + pl.getRoots());
+		
+//		printProlog(pl);
+		
+		
+		ProductLineGraph plGraph = new ProductLineGraph();
+		VariamosGraphEditor config = new VariamosGraphEditor("Configurator - VariaMos", new VariamosGraphComponent(plGraph));
+		config.editProductLine(pl);
+		config.createFrame().setVisible(true);
+>>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
 	}
 }
