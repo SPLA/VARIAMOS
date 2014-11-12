@@ -9,8 +9,9 @@ import javax.swing.JOptionPane;
 
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.DefaultFileFilter;
+import com.variamos.gui.maineditor.AbstractGraph;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
@@ -134,7 +135,7 @@ public class OpenAction extends AbstractEditorAction{
 								editor.setCurrentFile(fc
 										.getSelectedFile());
 								
-								((VariamosGraphEditor)editor).populateIndex(((ProductLineGraph)graph).getProductLine());
+								((VariamosGraphEditor)editor).populateIndex(((AbstractGraph)graph).getProductLine());
 
 								resetEditor(editor);
 							}

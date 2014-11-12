@@ -20,6 +20,10 @@ import com.cfm.productline.type.StringType;
  */
 @SuppressWarnings("serial")
 public class Goal extends VariabilityElement {
+	public String getClassId()
+	{
+		return "G_";
+	}
 	
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");
@@ -46,9 +50,7 @@ public class Goal extends VariabilityElement {
 	*/
 	
 	
-	protected List<String> operationalizations; 
-	protected List<String> goals;
-	protected List<String> assumptions;
+	protected List<String> elements; 
 	//For Allocating a resource (image, text ...)
 	//private String allocation;
 	

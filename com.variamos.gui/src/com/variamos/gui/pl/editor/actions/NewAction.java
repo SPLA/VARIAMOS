@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;

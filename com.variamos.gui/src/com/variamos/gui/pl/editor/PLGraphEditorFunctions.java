@@ -1,13 +1,18 @@
 package com.variamos.gui.pl.editor;
 
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 import com.cfm.productline.Asset;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
@@ -15,12 +20,25 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.editor.logic.ConstraintMode;
 
 public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
-	public PLGraphEditorFunctions ()
-	{}
+	public PLGraphEditorFunctions (VariamosGraphEditor editor)
+	{
+		super(editor);
+	}
+	
+	public void updateEditor (){
+		editor.editProductLineReset();
+		editor.clearPalettes();
+		System.out.println("productlines");
+		editor.setPerspective(0);
+		editor.loadRegularPalette(editor.insertPalette(mxResources
+				.get("productLinePalette")));
+	}
 	public void loadRegularPalette(EditorPalette palette, mxGraphComponent graphComponent) {
 		//Load regular palette
 		//EditorPalette palette = insertPalette(mxResources.get("productLinePalette"));
@@ -85,7 +103,7 @@ public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 				.getResource("/com/variamos/gui/pl/editor/images/plcons.png")), 
 					"plasset", 60, 30, new Asset());
 		
-		final ProductLineGraph graph = (ProductLineGraph) graphComponent.getGraph();
+		final AbstractGraph graph = (AbstractGraph) graphComponent.getGraph();
 		
 		palette.addListener(mxEvent.SELECT, new mxIEventListener()
 		{
@@ -110,4 +128,14 @@ public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		});
 		
 	}
+	public void showGraphPopupMenu(MouseEvent e, mxGraphComponent graphComponent, BasicGraphEditor editor)
+	{
+		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+				graphComponent);
+		PLEditorPopupMenu menu = new PLEditorPopupMenu(editor);
+		menu.show(graphComponent, pt.x, pt.y);
+
+		e.consume();
+	}
+	
 }

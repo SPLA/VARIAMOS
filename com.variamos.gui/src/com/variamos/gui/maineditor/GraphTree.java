@@ -17,14 +17,13 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 
 @SuppressWarnings("serial")
 public class GraphTree extends JTree{
 	
 	//private static final String SELECTED_NODE = "ProductLineIndex.SELECTED_NODE";
 	//private mxEventSource evtSource;
-	private ProductLineGraph graph;
+	private AbstractGraph graph;
 	
 	public void reset(){
 		
@@ -105,7 +104,7 @@ public class GraphTree extends JTree{
 		return (DefaultTreeModel) super.getModel();
 	}
 	
-	public void bind(ProductLineGraph graph){
+	public void bind(AbstractGraph graph){
 		graph.addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 			
 			@Override
@@ -137,7 +136,7 @@ public class GraphTree extends JTree{
 			}
 		});
 		
-		graph.addListener(ProductLineGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
+		graph.addListener(AbstractGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
 			
 			@Override
 			public void invoke(Object sender, mxEventObject evt) {

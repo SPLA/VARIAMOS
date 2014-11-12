@@ -1,4 +1,4 @@
-package com.mxgraph.examples.swing.editor;
+package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -157,9 +157,33 @@ public class BasicGraphEditor extends JPanel
 	
 	protected JSplitPane graphAndRight;
 	
-	protected int perspective = 0;
+	protected int perspective = 2;
 	
+	public void setLayout(int perspective)
+	{
+		switch(perspective){
+		case 0:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(150);
+			graphAndRight.setDividerLocation(400);			
+			frame.setJMenuBar(new ProductLineMenuBar(this));
+			break;
+		case 1:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
 
+			frame.setJMenuBar(new ProductLineMenuBar(this));
+			break;
+		case 2:
+			center.setDividerLocation(25);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			//frame.setJMenuBar(new RequirementsMenuBar(this));
+			frame.setJMenuBar(new ProductLineMenuBar(this));
+			break;
+		}
+	}
 	
 	public int getPerspective() {
 		return perspective;
@@ -197,10 +221,11 @@ public class BasicGraphEditor extends JPanel
 	{
 		
 	}
-	public BasicGraphEditor(String appTitle, mxGraphComponent component)
+	public BasicGraphEditor(String appTitle, mxGraphComponent component, int perspective)
 	{
 		// Stores and updates the frame title
 		this.appTitle = appTitle;
+		this.perspective = perspective;
 
 		// Stores a reference to the graph and creates the command history
 		graphComponent = component;
@@ -525,17 +550,24 @@ public class BasicGraphEditor extends JPanel
 	 * 
 	 */
 	protected void showGraphPopupMenu(MouseEvent e)
-	{		
-		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+	{
+		graphEditorFunctions.showGraphPopupMenu(e, graphComponent, this);
+		/*Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
 				graphComponent);
 		EditorPopupMenu menu = new EditorPopupMenu(BasicGraphEditor.this);
 		menu.show(graphComponent, pt.x, pt.y);
 
 		e.consume();
-		
+		*/
 	}
 
-
+	/**
+	 * @param palette
+	 * Load palette according to instantiated class
+	 */
+	public void loadRegularPalette(EditorPalette palette) {
+		graphEditorFunctions.loadRegularPalette(palette, getGraphComponent());
+	}
 	
 	/**
 	 * 
@@ -867,7 +899,10 @@ public class BasicGraphEditor extends JPanel
 		frame = new JFrame();
 		frame.getContentPane().add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setJMenuBar(menuBar);
+		if (menuBar == null)
+			setLayout(2);
+		else
+			frame.setJMenuBar(menuBar);
 		frame.setSize(870, 740);
 
 		// Updates the frame title

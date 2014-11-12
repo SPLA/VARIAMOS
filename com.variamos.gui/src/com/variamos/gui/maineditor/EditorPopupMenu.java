@@ -1,10 +1,10 @@
-package com.mxgraph.examples.swing.editor;
+package com.variamos.gui.maineditor;
 
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 import javax.swing.TransferHandler;
 
-import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
+import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;

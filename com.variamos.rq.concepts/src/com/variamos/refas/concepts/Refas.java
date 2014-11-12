@@ -1,14 +1,17 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.AssetModel;
 import com.cfm.productline.Constraint;
@@ -27,15 +30,69 @@ public class Refas {
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
 	protected String name;
-	protected GoalModel goalModel;
+	protected ModelView[] modelViews;
+	public ModelView[] getModelViews() {
+		return modelViews;
+	}
+
 	protected AssetModel assetModel;
 	
 	public Refas(){
 		vElements = new HashMap<String, VariabilityElement>();
-		constraints = new HashMap<>();
-		assetModel = new AssetModel();
-		goalModel = new GoalModel();
+		constraints = new HashMap<>(); //old, from ProductLine
+		assetModel = new AssetModel(); //old, from ProductLine
+		defaultModelViews();
 		name="";
+	}
+	
+	/**
+	 * jcmunoz: temporal method to fill valid element by models
+	 * model order: Goals, SG, Context, SG Satisficing, Assets
+	 */
+	
+	public boolean[] elementsValidation(String element)
+	{
+		boolean [] valid = new boolean[5];
+		for (int i = 0; i<5;i++)
+		{
+			if (modelViews[i].getValidElements().contains(element))
+				valid[i]=true;
+		}
+		
+		return valid;
+	}
+	public void defaultModelViews()
+	{
+		modelViews = new ModelView[5];
+		
+		ArrayList<String> validElements = new ArrayList<String>();
+		validElements.add("Goal");
+		validElements.add("Operationalization");
+		validElements.add("Assumption");		
+		modelViews[0] = new ModelView(validElements);
+		
+		validElements = new ArrayList<String>();
+		validElements.add("SoftGoal");
+		modelViews[1] = new ModelView(validElements);
+		
+		validElements = new ArrayList<String>();
+		validElements.add("ContextGroup");
+		validElements.add("ContextVariable");	
+		modelViews[2] = new ModelView(validElements);
+		
+		validElements = new ArrayList<String>();
+		validElements.add("Claim");
+		validElements.add("SoftGoal");
+		validElements.add("SoftDependency");
+		validElements.add("Operationalization");
+		validElements.add("ContextVariable");
+		modelViews[3] = new ModelView(validElements);
+		
+		validElements = new ArrayList<String>();
+		validElements.add("Asset");
+		validElements.add("Operationalization");			
+		modelViews[4] = new ModelView(validElements);
+		
 	}
 
 //	public Map<String, VariabilityPoint> getVps() {
@@ -233,12 +290,12 @@ public class Refas {
 		return assetModel.getAssets();
 	}
 	
-	public void addGoal( Goal a ){
-		goalModel.addGoal(a);
+	public boolean addElement(int modelView, AbstractElement a ){
+		return modelViews[modelView].addElement(a);
 	}
 	
-	public Map<String, Goal> getGoals(){
-		return goalModel.getGoals();
+		public Map<String, AbstractElement> getElements(int modelView){
+		return modelViews[modelView].getElements();
 	}
 	
 	public VariabilityElement getVariabilityElement(String string) {

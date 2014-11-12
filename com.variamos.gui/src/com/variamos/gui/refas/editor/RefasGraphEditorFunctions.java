@@ -1,13 +1,17 @@
 package com.variamos.gui.refas.editor;
 
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 import com.cfm.productline.Asset;
 import com.cfm.productline.VariabilityElement;
-import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
@@ -15,25 +19,43 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.concepts.Goal;
+import com.variamos.refas.concepts.*;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
-	public RefasGraphEditorFunctions ()
-	{}
+	
+	public RefasGraphEditorFunctions (VariamosGraphEditor editor)
+	{
+		super(editor);
+	}
+	
+	public void updateEditor (){
+		editor.editProductLineReset();
+		editor.clearPalettes();
+		System.out.println("requirements");
+		editor.setPerspective(2);
+		editor.loadRegularPalette(editor.insertPalette(mxResources
+				.get("conceptsPalette")));
+		editor.loadRegularPalette(editor.insertPalette(mxResources
+				.get("relationsPalette")));
+	}
+	
 	public void loadRegularPalette(EditorPalette palette, mxGraphComponent graphComponent) {
 		//Load regular palette
 		//EditorPalette palette = insertPalette(mxResources.get("productLinePalette"));
 		if (palette.getName().equals(mxResources
 				.get("conceptsPalette")))
-		loadConceptsPalette(palette, (ProductLineGraph)graphComponent.getGraph());
+		loadConceptsPalette(palette, (AbstractGraph)graphComponent.getGraph());
 		else
-		loadRelationsPalette(palette, (ProductLineGraph)graphComponent.getGraph());
+		loadRelationsPalette(palette, (AbstractGraph)graphComponent.getGraph());
 	}
 	public  void loadConceptsPalette(EditorPalette palette,
-				ProductLineGraph plgraph) {
+			AbstractGraph plgraph) {
 			// Load regular palette
 			palette.addTemplate(
 					mxResources.get("goalTitle"),
@@ -41,65 +63,65 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/goal.png")),
 					"rqgoal", 100, 40, new Goal());
-	/*		palette.addTemplate(
-					mxResources.get("functionalRequirementTitle"),
+			palette.addTemplate(
+					mxResources.get("assumptionTitle"),
 					new ImageIcon(
 							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/funreq.png")),
-					"rqfunreq", 100, 40, new VariabilityElement());
-	*/		palette.addTemplate(
+									.getResource("/com/variamos/gui/refas/editor/images/assump.png")),
+					"rqassump", 100, 40, new Assumption());
+			palette.addTemplate(
 					mxResources.get("operationalizationTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/operational.png")),
-					"rqoper", 100, 40, new VariabilityElement());
+					"rqoper", 100, 40, new Operationalization());
 
 			palette.addTemplate(
 					mxResources.get("softGoalTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/softgoal.png")),
-					"rqsoftgoal", 100, 40, new VariabilityElement());
+					"rqsoftgoal", 100, 40, new SoftGoal());
 
 			palette.addTemplate(
 					mxResources.get("contextGroupTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/contextgrp.png")),
-					"rqcontextgrp", 100, 40, new VariabilityElement());
+					"rqcontextgrp", 100, 40, new ContextGroup());
 			palette.addTemplate(
 					mxResources.get("globalContextTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/globCnxtVar.png")),
-					"rqglobcnxt", 100, 40, new VariabilityElement());
+					"rqglobcnxt", 100, 40, new ContextVariable());
 			palette.addTemplate(
 					mxResources.get("localContextTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/localCnxtVar.png")),
-					"rqlocalcnxt", 100, 40, new VariabilityElement());		
+					"rqlocalcnxt", 100, 40, new ContextVariable());		
 
 			palette.addTemplate(
 					mxResources.get("softDependencyTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/softdep.png")),
-					"rqsoftdep", 100, 40, new VariabilityElement());
+					"rqsoftdep", 100, 40, new SoftDependency());
 			palette.addTemplate(
 					mxResources.get("claimTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/claim.png")),
-					"rqclaim", 110, 50, new VariabilityElement());
+					"rqclaim", 110, 50, new Claim());
 			palette.addTemplate(
-					mxResources.get("componentTitle"),
+					mxResources.get("assetTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/component.png")),
-					"rqcompon", 110, 50, new VariabilityElement());
+					"rqcompon", 110, 50, new Asset());
 			
-			final ProductLineGraph graph = plgraph;
+			final AbstractGraph graph = plgraph;
 
 			palette.addListener(mxEvent.SELECT, new mxIEventListener() {
 				public void invoke(Object sender, mxEventObject evt) {
@@ -123,16 +145,16 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 		
 		public static void loadRelationsPalette(EditorPalette palette,
-				ProductLineGraph plgraph) {
+				AbstractGraph plgraph) {
 			// Load regular palette
 		
-		palette
-		.addTemplate(
-				mxResources.get("meansendTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/refas/editor/images/meansend.png")),
-						"rqmeansend", 80, 40, new VariabilityElement());
+			palette
+			.addTemplate(
+					mxResources.get("groupIconTitle"),
+					new ImageIcon(
+							GraphEditor.class
+							.getResource("/com/variamos/gui/pl/editor/images/plgroup.png")),
+							"plgroup", 20, 20, new GroupConstraint());
 			
 		palette
 		.addEdgeTemplate(
@@ -165,7 +187,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 						"plexcludes", 80, 40, ConstraintMode.Excludes);
 		
 
-		final ProductLineGraph graph = plgraph;
+		final AbstractGraph graph = plgraph;
 		
 		palette.addListener(mxEvent.SELECT, new mxIEventListener()
 		{
@@ -182,7 +204,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 					if (graph.getModel().isEdge(obj))
 					{
 						mxCell cell = (mxCell)obj;
-						((ProductLineGraph) graph).setConsMode( (ConstraintMode) cell.getValue());
+						((AbstractGraph) graph).setConsMode( (ConstraintMode) cell.getValue());
 					}
 				}
 			}
@@ -190,5 +212,14 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		});
 
 		}
+		public void showGraphPopupMenu(MouseEvent e, mxGraphComponent graphComponent, BasicGraphEditor editor)
+		{
+			Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+					graphComponent);
+			PLEditorPopupMenu menu = new PLEditorPopupMenu(editor);
+			//RefasEditorPopupMenu menu = new RefasEditorPopupMenu(editor);
+			menu.show(graphComponent, pt.x, pt.y);
 
+			e.consume();
+		}
 }

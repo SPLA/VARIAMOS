@@ -6,6 +6,11 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public abstract class Constraint implements Serializable, Editable{
+	public static String getClassId()
+	{
+		return "Co_";
+		
+	}
 	protected String identifier;
 	protected String text;
 	

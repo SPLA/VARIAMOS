@@ -6,14 +6,11 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-import com.cfm.productline.Asset;
+
+
 import com.cfm.productline.VariabilityElement;
-import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
@@ -29,6 +26,10 @@ import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 import com.variamos.refas.concepts.Goal;
 
+/**
+ * @author jcmunoz
+ * Not required - maybe script and bd loads for dynamic palettes
+ */
 public class RQPalettesLoader {
 	public static void loadConceptsPalette(EditorPalette palette,
 			ProductLineGraph plgraph) {

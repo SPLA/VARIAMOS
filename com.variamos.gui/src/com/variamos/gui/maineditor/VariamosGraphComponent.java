@@ -14,7 +14,6 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 
 @SuppressWarnings("serial")
@@ -69,7 +68,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		@Override
 		public void invoke(Object sender, mxEventObject evt) {
 			mxCell insertedCell = (mxCell) evt.getProperty("cell");
-			ProductLineGraph graph = (ProductLineGraph) getGraph();
+			AbstractGraph graph = (AbstractGraph) getGraph();
 			
 			mxCell source = (mxCell) insertedCell.getSource();
 			mxCell target = (mxCell) insertedCell.getTarget();

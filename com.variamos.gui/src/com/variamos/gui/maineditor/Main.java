@@ -13,30 +13,51 @@ import com.variamos.gui.pl.editor.ProductLineMenuBar;
 import fm.FeatureModelException;
 
 public class Main {
-	
-	public static void main(String[] ar) throws FeatureModelException, IOException{
-		try
-		{
+
+	public static void main(String[] ar) throws FeatureModelException,
+			IOException {
+		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+
+		int options = 2; // 0 old way to load product lines
+
+		switch (options) {
+		case 0:
+			// ProductLine pl = getProductLine("");
+			// SXFMReader reader = new SXFMReader();
+			// ProductLine pl = reader.readFile("fm.splx");
+			ProductLine pl = new ProductLine();
+			// pl.printDebug(System.out);
+			// System.out.println("Roots : " + pl.getRoots());
+
+			// printProlog(pl);
+			ProductLineGraph plGraph = new ProductLineGraph();
+			VariamosGraphEditor config = new VariamosGraphEditor(
+					"Configurator - VariaMos", new VariamosGraphComponent(
+							plGraph),0);
+			config.editProductLine(pl);
+			config.createFrame().setVisible(true);
+			break;
+
+		case 1: // load ProductLine perspective directly
+
+			// String file = "fm.splx"
+			String file=null;
+			VariamosGraphEditor config2 = VariamosGraphEditor.loader(
+					"Configurator - VariaMos", file, "ProductLine");
+			config2.createFrame().setVisible(true);
+			break;
+
+		case 2: //load Refas perspective directly
+			String file2=null;
+			VariamosGraphEditor config3 = VariamosGraphEditor.loader(
+					"Configurator - VariaMos", file2, "Refas");
+			config3.createFrame().setVisible(true);
+			break;
+		}
 		
-		//ProductLine pl = getProductLine("");
-	//	SXFMReader reader = new SXFMReader();
-		//ProductLine pl = reader.readFile("fm.splx");
-		ProductLine pl = new ProductLine();
-//		pl.printDebug(System.out);
-//		System.out.println("Roots : " + pl.getRoots());
-		
-//		printProlog(pl);
-		
-		
-		ProductLineGraph plGraph = new ProductLineGraph();
-		VariamosGraphEditor config = new VariamosGraphEditor("Configurator - VariaMos", new VariamosGraphComponent(plGraph));
-		config.editProductLine(pl);
-		config.createFrame().setVisible(true);
 	}
 }

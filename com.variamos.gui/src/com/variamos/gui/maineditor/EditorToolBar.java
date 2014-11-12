@@ -1,8 +1,12 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.maineditor;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -10,26 +14,25 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
+import com.variamos.gui.maineditor.EditorActions.ColorAction;
+import com.variamos.gui.maineditor.EditorActions.FontStyleAction;
+import com.variamos.gui.maineditor.EditorActions.HistoryAction;
+import com.variamos.gui.maineditor.EditorActions.KeyValueAction;
 import com.variamos.gui.maineditor.EditorActions.NewAction;
 import com.variamos.gui.maineditor.EditorActions.OpenAction;
+import com.variamos.gui.maineditor.EditorActions.PrintAction;
 import com.variamos.gui.maineditor.EditorActions.SaveAction;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
-
-/*
- * import com.mxgraph.swing.util.mxGraphActions;
-import com.mxgraph.util.mxConstants;
-*/
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
-//import com.mxgraph.view.mxGraph;
+import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
 
-public class PLEditorToolBar extends JToolBar
+public class EditorToolBar extends JToolBar
 {
 
 	/**
@@ -47,53 +50,51 @@ public class PLEditorToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public PLEditorToolBar(final VariamosGraphEditor variamosGraphEditor, int orientation)
+	public EditorToolBar(final BasicGraphEditor editor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
 				.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
 
-		add(variamosGraphEditor.bind("New", new NewAction(),
+		add(editor.bind("New", new NewAction(),
 				"/com/mxgraph/examples/swing/images/new.gif"));
-		add(variamosGraphEditor.bind("Open", new OpenAction(),
+		add(editor.bind("Open", new OpenAction(),
 				"/com/mxgraph/examples/swing/images/open.gif"));
-		add(variamosGraphEditor.bind("Save", new SaveAction(false),
+		add(editor.bind("Save", new SaveAction(false),
 				"/com/mxgraph/examples/swing/images/save.gif"));
 
 		addSeparator();
-		/*
+
 		add(editor.bind("Print", new PrintAction(),
 				"/com/mxgraph/examples/swing/images/print.gif"));
 
-		addSeparator();*/
+		addSeparator();
 
-		add(variamosGraphEditor.bind("Cut", TransferHandler.getCutAction(),
+		add(editor.bind("Cut", TransferHandler.getCutAction(),
 				"/com/mxgraph/examples/swing/images/cut.gif"));
-		
-		add(variamosGraphEditor.bind("Copy", TransferHandler.getCopyAction(),
+		add(editor.bind("Copy", TransferHandler.getCopyAction(),
 				"/com/mxgraph/examples/swing/images/copy.gif"));
-		add(variamosGraphEditor.bind("Paste", TransferHandler.getPasteAction(),
+		add(editor.bind("Paste", TransferHandler.getPasteAction(),
 				"/com/mxgraph/examples/swing/images/paste.gif"));
 
 		addSeparator();
 
-		add(variamosGraphEditor.bind("Delete", mxGraphActions.getDeleteAction(),
+		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),
 				"/com/mxgraph/examples/swing/images/delete.gif"));
 
 		addSeparator();
 
-		add(variamosGraphEditor.bind("Undo", new HistoryAction(true),
+		add(editor.bind("Undo", new HistoryAction(true),
 				"/com/mxgraph/examples/swing/images/undo.gif"));
-		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
+		add(editor.bind("Redo", new HistoryAction(false),
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
 		addSeparator();
 
 		// Gets the list of available fonts from the local graphics environment
 		// and adds some frequently used fonts at the beginning of the list
-		
-		/*GraphicsEnvironment env = GraphicsEnvironment
+		GraphicsEnvironment env = GraphicsEnvironment
 				.getLocalGraphicsEnvironment();
 		List<String> fonts = new ArrayList<String>();
 		fonts.addAll(Arrays.asList(new String[] { "Helvetica", "Verdana",
@@ -109,7 +110,9 @@ public class PLEditorToolBar extends JToolBar
 
 		fontCombo.addActionListener(new ActionListener()
 		{
-
+			/**
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				String font = fontCombo.getSelectedItem().toString();
@@ -133,6 +136,9 @@ public class PLEditorToolBar extends JToolBar
 
 		sizeCombo.addActionListener(new ActionListener()
 		{
+			/**
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e)
 			{
 				mxGraph graph = editor.getGraphComponent().getGraph();
@@ -170,13 +176,12 @@ public class PLEditorToolBar extends JToolBar
 				"/com/mxgraph/examples/swing/images/linecolor.gif"));
 		add(editor.bind("Fill", new ColorAction("Fill",
 				mxConstants.STYLE_FILLCOLOR),
-				"/com/mxgraph/examples/swing/images/fillcolor.gif"));*/
+				"/com/mxgraph/examples/swing/images/fillcolor.gif"));
 
 		addSeparator();
 
-		final mxGraphView view = variamosGraphEditor.getGraphComponent().getGraph()
+		final mxGraphView view = editor.getGraphComponent().getGraph()
 				.getView();
-		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
 				"200%", "150%", "100%", "75%", "50%", mxResources.get("page"),
 				mxResources.get("width"), mxResources.get("actualSize") });
@@ -226,7 +231,7 @@ public class PLEditorToolBar extends JToolBar
 			 */
 			public void actionPerformed(ActionEvent e)
 			{
-				mxGraphComponent graphComponent = variamosGraphEditor.getGraphComponent();
+				mxGraphComponent graphComponent = editor.getGraphComponent();
 
 				// Zoomcombo is changed when the scale is changed in the diagram
 				// but the change is ignored here
@@ -262,7 +267,7 @@ public class PLEditorToolBar extends JToolBar
 						}
 						catch (Exception ex)
 						{
-							JOptionPane.showMessageDialog(variamosGraphEditor, ex
+							JOptionPane.showMessageDialog(editor, ex
 									.getMessage());
 						}
 					}

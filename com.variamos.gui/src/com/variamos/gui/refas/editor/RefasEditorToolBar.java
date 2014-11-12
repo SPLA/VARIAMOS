@@ -10,23 +10,18 @@ import java.util.List;
 import java.awt.GraphicsEnvironment;
 */
 
+
+
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-/*import com.mxgraph.examples.swing.editor.EditorActions.ColorAction;
-import com.mxgraph.examples.swing.editor.EditorActions.FontStyleAction;
-
-import com.mxgraph.examples.swing.editor.EditorActions.KeyValueAction;
-import com.mxgraph.examples.swing.editor.EditorActions.PrintAction;
-*/
-import com.mxgraph.examples.swing.editor.EditorActions.NewAction;
-import com.mxgraph.examples.swing.editor.EditorActions.OpenAction;
-import com.mxgraph.examples.swing.editor.EditorActions.SaveAction;
-import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
+import com.variamos.gui.maineditor.EditorActions.NewAction;
+import com.variamos.gui.maineditor.EditorActions.OpenAction;
+import com.variamos.gui.maineditor.EditorActions.SaveAction;
+import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 
 /*
  * import com.mxgraph.swing.util.mxGraphActions;
@@ -59,18 +54,18 @@ public class RefasEditorToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public RefasEditorToolBar(final BasicGraphEditor editor, int orientation)
+	public RefasEditorToolBar(final RefasGraphEditor refasGraphEditor, int orientation)
 	{
 		super(orientation);
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
 				.createEmptyBorder(3, 3, 3, 3), getBorder()));
 		setFloatable(false);
 
-		add(editor.bind("New", new NewAction(),
+		add(refasGraphEditor.bind("New", new NewAction(),
 				"/com/mxgraph/examples/swing/images/new.gif"));
-		add(editor.bind("Open", new OpenAction(),
+		add(refasGraphEditor.bind("Open", new OpenAction(),
 				"/com/mxgraph/examples/swing/images/open.gif"));
-		add(editor.bind("Save", new SaveAction(false),
+		add(refasGraphEditor.bind("Save", new SaveAction(false),
 				"/com/mxgraph/examples/swing/images/save.gif"));
 
 		addSeparator();
@@ -80,24 +75,24 @@ public class RefasEditorToolBar extends JToolBar
 
 		addSeparator();*/
 
-		add(editor.bind("Cut", TransferHandler.getCutAction(),
+		add(refasGraphEditor.bind("Cut", TransferHandler.getCutAction(),
 				"/com/mxgraph/examples/swing/images/cut.gif"));
 		
-		add(editor.bind("Copy", TransferHandler.getCopyAction(),
+		add(refasGraphEditor.bind("Copy", TransferHandler.getCopyAction(),
 				"/com/mxgraph/examples/swing/images/copy.gif"));
-		add(editor.bind("Paste", TransferHandler.getPasteAction(),
+		add(refasGraphEditor.bind("Paste", TransferHandler.getPasteAction(),
 				"/com/mxgraph/examples/swing/images/paste.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Delete", mxGraphActions.getDeleteAction(),
+		add(refasGraphEditor.bind("Delete", mxGraphActions.getDeleteAction(),
 				"/com/mxgraph/examples/swing/images/delete.gif"));
 
 		addSeparator();
 
-		add(editor.bind("Undo", new HistoryAction(true),
+		add(refasGraphEditor.bind("Undo", new HistoryAction(true),
 				"/com/mxgraph/examples/swing/images/undo.gif"));
-		add(editor.bind("Redo", new HistoryAction(false),
+		add(refasGraphEditor.bind("Redo", new HistoryAction(false),
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
 		addSeparator();
@@ -186,7 +181,7 @@ public class RefasEditorToolBar extends JToolBar
 
 		addSeparator();
 
-		final mxGraphView view = editor.getGraphComponent().getGraph()
+		final mxGraphView view = refasGraphEditor.getGraphComponent().getGraph()
 				.getView();
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
@@ -238,7 +233,7 @@ public class RefasEditorToolBar extends JToolBar
 			 */
 			public void actionPerformed(ActionEvent e)
 			{
-				mxGraphComponent graphComponent = editor.getGraphComponent();
+				mxGraphComponent graphComponent = refasGraphEditor.getGraphComponent();
 
 				// Zoomcombo is changed when the scale is changed in the diagram
 				// but the change is ignored here
@@ -274,7 +269,7 @@ public class RefasEditorToolBar extends JToolBar
 						}
 						catch (Exception ex)
 						{
-							JOptionPane.showMessageDialog(editor, ex
+							JOptionPane.showMessageDialog(refasGraphEditor, ex
 									.getMessage());
 						}
 					}

@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
@@ -13,6 +12,7 @@ import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
 import com.variamos.gui.pl.editor.PLPalettesLoader;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.refas.editor.RQPalettesLoader;
+import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 
@@ -43,12 +43,13 @@ public class PerspectiveAction extends AbstractEditorAction {
 				if (perspectiveInd != 0
 						&& jb.getText().equals(
 								mxResources.get("productLineButton"))) {
-					editor.setGraphEditorFunctions (new PLGraphEditorFunctions());
-					editor.editProductLineReset();
-					editor.clearPalettes();
-					System.out.println("product");
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("productLinePalette")));
+					editor.setGraphEditorFunctions (new PLGraphEditorFunctions(editor));
+					editor.updateEditor();
+//					editor.editProductLineReset();
+//					editor.clearPalettes();
+//					System.out.println("product");
+//					editor.loadRegularPalette(editor.insertPalette(mxResources
+//							.get("productLinePalette")));
 				/*	PLPalettesLoader.loadRegularPalette(editor.insertPalette(mxResources
 									.get("productLinePalette")),
 							(ProductLineGraph) editor.getGraphComponent().getGraph());
@@ -65,15 +66,16 @@ public class PerspectiveAction extends AbstractEditorAction {
 				if (perspectiveInd != 2
 						&& jb.getText().equals(mxResources.get("requirementsButton"))) {
 
-					editor.setGraphEditorFunctions (new RefasGraphEditorFunctions());
-					editor.editProductLineReset();
-					editor.clearPalettes();
-					System.out.println("requirements");
-					editor.setPerspective(2);
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("conceptsPalette")));
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("relationsPalette")));
+					editor.setGraphEditorFunctions (new RefasGraphEditorFunctions(editor));
+					editor.updateEditor();
+//					editor.editProductLineReset();
+//					editor.clearPalettes();
+//					System.out.println("requirements");
+//					editor.setPerspective(2);
+//					editor.loadRegularPalette(editor.insertPalette(mxResources
+//							.get("conceptsPalette")));
+//					editor.loadRegularPalette(editor.insertPalette(mxResources
+//							.get("relationsPalette")));
 					/*
 					 	RQPalettesLoader.loadConceptsPalette(editor
 					 
@@ -89,7 +91,12 @@ public class PerspectiveAction extends AbstractEditorAction {
 				mxCell root = new mxCell();
 				root.insert(new mxCell());
 				graph.getModel().setRoot(root);
-
+				
+				graph.addCell(new mxCell("mv0"));
+				graph.addCell(new mxCell("mv1"));
+				graph.addCell(new mxCell("mv2"));
+				graph.addCell(new mxCell("mv3"));
+				graph.addCell(new mxCell("mv4"));
 				editor.setModified(false);
 				editor.setCurrentFile(null);
 				editor.getGraphComponent().zoomAndCenter();

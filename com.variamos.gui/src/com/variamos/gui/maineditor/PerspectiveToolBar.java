@@ -4,23 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/*
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.awt.GraphicsEnvironment;
-*/
-
-
-
-
-
-
-
-
-
-
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,26 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-
-
-
-
-
-
 import javax.swing.border.Border;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.EditorToolBar;
-/*import com.mxgraph.examples.swing.editor.EditorActions.ColorAction;
-import com.mxgraph.examples.swing.editor.EditorActions.FontStyleAction;
-
-import com.mxgraph.examples.swing.editor.EditorActions.KeyValueAction;
-import com.mxgraph.examples.swing.editor.EditorActions.PrintAction;
-*/
-import com.mxgraph.examples.swing.editor.EditorActions.NewAction;
-import com.mxgraph.examples.swing.editor.EditorActions.OpenAction;
-import com.mxgraph.examples.swing.editor.EditorActions.SaveAction;
-import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorToolBar;
+import com.variamos.gui.maineditor.EditorActions.NewAction;
+import com.variamos.gui.maineditor.EditorActions.OpenAction;
+import com.variamos.gui.maineditor.EditorActions.SaveAction;
+import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 
 /*
  * import com.mxgraph.swing.util.mxGraphActions;
@@ -77,7 +48,7 @@ public class PerspectiveToolBar extends JToolBar
 	/**
 	 * 
 	 */
-	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation)
+	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation, int perspective)
 	{
 		super(orientation);
 		this.editor = editor;
@@ -91,19 +62,19 @@ public class PerspectiveToolBar extends JToolBar
 		JLabel lb ;
 		lb = new JLabel("Perspectives:  ");
 		add (lb);
-		buttons[0] = new JButton(mxResources.get("productLineButton"));
-		add (buttons[0]);
-		buttons[0].addActionListener(new PerspectiveAction(this));
-		buttons[1] = new JButton(mxResources.get("defectAnalyzerButton"));
-		//buttons[1].setEnabled(false);
-		buttons[0].setSelected(true);
-		add (buttons[1]);
-		buttons[1].addActionListener(new PerspectiveAction(this));
 		buttons[2] = new JButton(mxResources.get("requirementsButton"));
 		//buttons[2].setEnabled(false);
 		add (buttons[2]);
 		buttons[2].addActionListener(new PerspectiveAction(this));
-		// Sets the zoom in the zoom combo the current value
+		buttons[0] = new JButton(mxResources.get("productLineButton"));
+		add (buttons[0]);
+		buttons[0].addActionListener(new PerspectiveAction(this));
+		buttons[1] = new JButton(mxResources.get("defectAnalyzerButton"));
+		//buttons[1].setEnabled(false);		
+		add (buttons[1]);
+		buttons[1].addActionListener(new PerspectiveAction(this));
+		buttons[perspective].setSelected(true);
+		
 	}
 	public void updateButtons()
 	{

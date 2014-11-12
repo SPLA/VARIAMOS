@@ -1,11 +1,13 @@
 package com.variamos.gui.maineditor;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.w3c.dom.Document;
 
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
@@ -64,25 +66,31 @@ public abstract class AbstractGraph extends mxGraph {
 				Object[] removedCells = (Object[]) evt.getProperty("cells");
 				for( Object remObj : removedCells ){
 					mxCell cell = (mxCell)remObj;
-					if( cell.isEdge() ){
+					if( cell.isEdge() ){						
 						removingEdge(cell);
 					}
+					else
+						removingClones(cell);
 				}
 			}
 		});
 		
 		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 			
-			@Override
+	
 			public void invoke(Object sender, mxEventObject evt) {
 				Object[] addedCells = (Object[]) evt.getProperty("cells");
+				@SuppressWarnings("unchecked")
+				Map<String, Object> m = (Map<String, Object>) evt.getProperties();
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				int indexCell = (int) evt.getProperty("index");
 				for( Object obj : addedCells ){
 					mxCell cell = (mxCell)obj;
 					if( cell == null )
 						return;
 					
 					if( !cell.isEdge() ){
-						addingVertex(cell);
+						addingVertex(cell, parentCell, indexCell);
 					}
 				}
 			}
@@ -90,14 +98,17 @@ public abstract class AbstractGraph extends mxGraph {
 			
 		});
 	}
+
+	protected void removingClones(mxCell cell)
+	{}
 	
-	private void addingVertex(mxCell cell) {
+	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		
 		if( cell.getValue() instanceof VariabilityElement ){
 			VariabilityElement elm = (VariabilityElement) cell.getValue();
 			
 			if( elm.getIdentifier() != null && !"".equals(elm.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextVPId();
@@ -117,7 +128,7 @@ public abstract class AbstractGraph extends mxGraph {
 			GroupConstraint gc = (GroupConstraint) cell.getValue();
 		
 			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextConstraintId();
@@ -134,7 +145,7 @@ public abstract class AbstractGraph extends mxGraph {
 			GenericConstraint gc = (GenericConstraint) cell.getValue();
 			
 			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextConstraintId();
@@ -152,7 +163,7 @@ public abstract class AbstractGraph extends mxGraph {
 			Asset a = (Asset) cell.getValue();
 			
 			if( a.getIdentifier() != null && !"".equals(a.getIdentifier()))
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			pl.addAsset(a);
@@ -163,7 +174,7 @@ public abstract class AbstractGraph extends mxGraph {
 			cell.setId(a.getIdentifier());
 		}
 		
-		
+		return true;
 	}
 	
 	private void removingEdge(mxCell cell){
@@ -191,7 +202,7 @@ public abstract class AbstractGraph extends mxGraph {
 			mxCell cell = (mxCell)obj;
 			Object value = cell.getValue();
 						
-			if( value instanceof VariabilityElement ){
+			if( value instanceof AbstractElement ){
 				VariabilityElement vp = (VariabilityElement)value;
 				//cell.setVisible(visibility && vp.isVisible());
 				boolean vis = visibility && vp.isVisible();

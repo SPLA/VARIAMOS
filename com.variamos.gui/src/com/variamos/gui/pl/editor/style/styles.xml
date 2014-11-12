@@ -103,8 +103,8 @@
 		<add as="fillColor" value="white"/>	
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="rqfunreq">
-		<add as="shape" value="rect-top"/>
+	<add as="rqassump">
+		<add as="shape" value="rect-str"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>

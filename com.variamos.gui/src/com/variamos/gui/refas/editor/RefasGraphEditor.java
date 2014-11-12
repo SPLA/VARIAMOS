@@ -14,14 +14,8 @@ import java.io.FileReader;
 import java.util.Collection;
 import java.io.IOException;
 
-
-
-
-
-/*import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.List;
-*/
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,8 +40,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
@@ -73,7 +67,6 @@ import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-//import com.variamos.pl.editor.logic.PaletteDatabase.ScriptedVariabilityElement;
 import com.variamos.refas.concepts.Refas;
 
 @SuppressWarnings("serial")
@@ -103,7 +96,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 	protected int mode = 0;
 	
 	public RefasGraphEditor(String appTitle, VariamosGraphComponent component) {
-		super(appTitle, component);
+		super(appTitle, component,2);
 		loadRegularPalette();
 		loadScriptedPalettes();
 		//loadPalettes();
@@ -577,7 +570,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		jp.setLayout(new BorderLayout());
 	    jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),BorderLayout.WEST);
 	    jp.add(new JLabel(),BorderLayout.CENTER);
-		jp.add(new PerspectiveToolBar(this, JToolBar.HORIZONTAL),BorderLayout.EAST);
+		jp.add(new PerspectiveToolBar(this, JToolBar.HORIZONTAL,perspective),BorderLayout.EAST);
 		add (jp, BorderLayout.NORTH);
 	}
 }

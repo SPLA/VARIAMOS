@@ -5,7 +5,12 @@ import java.io.Serializable;
 import com.cfm.productline.type.IntegerType;
 import com.cfm.productline.type.StringType;
 
-public class Asset implements Serializable, Editable{
+public class Asset extends AbstractElement implements Serializable, Editable{
+	public String getClassId()
+	{
+		return "Asset_";
+		
+	}
 	private static final long serialVersionUID = -6535463614831756558L;
 	
 	private String identifier;

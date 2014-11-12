@@ -2,8 +2,8 @@ package com.variamos.gui.pl.editor;
 
 import javax.swing.JMenu;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPopupMenu;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPopupMenu;
 import com.mxgraph.util.mxConstants;
 import com.variamos.gui.pl.editor.actions.FigureAction;
 

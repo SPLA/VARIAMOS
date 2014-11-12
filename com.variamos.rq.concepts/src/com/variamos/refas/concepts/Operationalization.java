@@ -1,4 +1,4 @@
-package com.cfm.productline;
+package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
 import java.io.Serializable;
@@ -8,23 +8,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import com.cfm.productline.VariabilityElement;
+import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
 
+/**
+ * @author jcmunoz
+ * Initally copies from VariabilityElement
+ * Extended variables commented
+ */
 @SuppressWarnings("serial")
-public class VariabilityElement extends AbstractElement implements Serializable, Prototype, Editable{
-	
+public class Operationalization extends VariabilityElement {
 	public String getClassId()
 	{
-		return "VP_";
-		
+		return "Op_";		
 	}
+	
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");
 //	protected Variable varDescription = StringType.newVariable("Description");
 //	protected Variable varVisible = BooleanType.newVariable("Visibility");
 //	protected Variable varValidity = BooleanType.newVariable("Validity");
 //	protected Variable varAllocation = StringType.newVariable("Allocation");
+	
+	/*
+	 * From extends
+	 
 	public static final String 	VAR_NAME = "Name",
 								VAR_IDENTIFIER = "Identifier",
 								VAR_DESCRIPTION = "Description",
@@ -37,11 +47,16 @@ public class VariabilityElement extends AbstractElement implements Serializable,
 //	protected Variable value = new IntegerRangeDomain().makeVariable("value");
 	protected List<Variable> varAttributes = new Vector<>();
 	protected List<String> assets; 
+	*/
 	
+	
+	protected List<String> operationalizations; 
+	protected List<String> goals;
+	protected List<String> assumptions;
 	//For Allocating a resource (image, text ...)
 	//private String allocation;
 	
-	public VariabilityElement(){
+	public Operationalization(){
 		super();
 
 		vars.put(VAR_NAME, StringType.newVariable(VAR_NAME));
@@ -71,7 +86,7 @@ public class VariabilityElement extends AbstractElement implements Serializable,
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public VariabilityElement(String id) {
+	public Operationalization(String id) {
 		this();
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));

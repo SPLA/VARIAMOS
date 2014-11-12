@@ -8,13 +8,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
 
+/**
+ * @author jcmunoz
+ * This class needs revision
+ */
 @SuppressWarnings("serial")
-public class SoftGoal extends VariabilityElement {
+public class SoftGoal extends AbstractElement {
+	public String getClassId()
+	{
+		return "SG_";	
+	}
 	
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");

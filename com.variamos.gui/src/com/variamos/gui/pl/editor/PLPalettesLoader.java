@@ -13,7 +13,7 @@ import com.cfm.productline.constraints.GroupConstraint;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
