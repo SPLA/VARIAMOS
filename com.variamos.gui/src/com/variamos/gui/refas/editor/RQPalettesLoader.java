@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-<<<<<<< HEAD
 
 
 import com.cfm.productline.VariabilityElement;
@@ -21,7 +20,6 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
@@ -31,31 +29,9 @@ import com.variamos.refas.concepts.Goal;
  * @author jcmunoz
  * Not required - maybe script and bd loads for dynamic palettes
  */
-=======
-import com.cfm.productline.Asset;
-import com.cfm.productline.VariabilityElement;
-import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
-import com.mxgraph.model.mxCell;
-import com.mxgraph.swing.util.mxGraphTransferable;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxResources;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-import com.variamos.refas.concepts.Goal;
 
->>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
+
+
 public class RQPalettesLoader {
 	public static void loadConceptsPalette(EditorPalette palette,
 			ProductLineGraph plgraph) {

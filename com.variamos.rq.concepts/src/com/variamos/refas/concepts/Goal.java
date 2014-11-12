@@ -20,7 +20,6 @@ import com.cfm.productline.type.StringType;
  */
 @SuppressWarnings("serial")
 public class Goal extends VariabilityElement {
-<<<<<<< HEAD
 	public String getClassId()
 	{
 		return "G_";
@@ -52,37 +51,7 @@ public class Goal extends VariabilityElement {
 	
 	
 	protected List<String> elements; 
-=======
-	
-//	protected Variable varName = StringType.newVariable("Name");
-//	protected Variable varIdentifier = StringType.newVariable("Identifier");
-//	protected Variable varDescription = StringType.newVariable("Description");
-//	protected Variable varVisible = BooleanType.newVariable("Visibility");
-//	protected Variable varValidity = BooleanType.newVariable("Validity");
-//	protected Variable varAllocation = StringType.newVariable("Allocation");
-	
-	/*
-	 * From extends
-	 
-	public static final String 	VAR_NAME = "Name",
-								VAR_IDENTIFIER = "Identifier",
-								VAR_DESCRIPTION = "Description",
-								VAR_VISIBILITY = "Visibility",
-								VAR_VALIDITY = "Validity",
-								VAR_ALLOCATION = "Allocation";
-	
-	protected Map<String, Variable> vars = new HashMap<>();
-	
-//	protected Variable value = new IntegerRangeDomain().makeVariable("value");
-	protected List<Variable> varAttributes = new Vector<>();
-	protected List<String> assets; 
-	*/
-	
-	
-	protected List<String> operationalizations; 
-	protected List<String> goals;
-	protected List<String> assumptions;
->>>>>>> branch 'development' of https://github.com/jcmunozf/VARIAMOS
+
 	//For Allocating a resource (image, text ...)
 	//private String allocation;
 	
