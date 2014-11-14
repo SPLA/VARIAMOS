@@ -1,7 +1,6 @@
 package com.variamos.gui.refas.editor;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -24,45 +23,17 @@ public class ModelButtonAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 
 		VariamosGraphEditor editor = getEditor(e);
-		int modelInd = editor.getModel();
+		int modelInd = editor.getModelViewIndex();
 		if (editor != null) {
 			JButton jb = (JButton) e.getSource();
-			if (modelInd != 0
-					&& jb.getText().equals(mxResources.get("goalModelButton"))) {
-				System.out.println(mxResources.get("goalModelButton"));
-				editor.setVisibleModel(0);
-			}
-			if (modelInd != 1
-					&& jb.getText().equals(
-							mxResources.get("softgoalModelButton"))) {
-				System.out.println(mxResources.get("softgoalModelButton"));
-				editor.setVisibleModel(1);
-			}
-			if (modelInd != 2
-					&& jb.getText().equals(
-							mxResources.get("contextModelButton"))) {
-
-				editor.setGraphEditorFunctions(new RefasGraphEditorFunctions(
-						editor));
-				System.out.println(mxResources.get("contextModelButton"));
-				editor.setVisibleModel(2);
-			}
-			if (modelInd != 3
-					&& jb.getText().equals(
-							mxResources.get("sgsatisModelButton"))) {
-
-				editor.setGraphEditorFunctions(new RefasGraphEditorFunctions(
-						editor));
-				System.out.println(mxResources.get("sgsatisModelButton"));
-				editor.setVisibleModel(3);
-			}
-			if (modelInd != 4
-					&& jb.getText().equals(mxResources.get("assetModelButton"))) {
-
-				editor.setGraphEditorFunctions(new RefasGraphEditorFunctions(
-						editor));
-				System.out.println(mxResources.get("assetModelButton"));
-				editor.setVisibleModel(4);
+			for (int i = 0; i< Integer.parseInt(mxResources.get("modelViews")); i++)
+			{
+				if (modelInd != i && jb.getText().equals(mxResources.get("modelViewButton"+i)))
+				{
+					System.out.println(mxResources.get("modelViewButton"+i));
+					editor.setVisibleModel(i);
+					editor.updateView();
+				}
 			}
 			updateButtons((JPanel) jb.getParent(), jb);
 

@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Collection;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SpringLayout;
 
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -29,7 +31,6 @@ import com.cfm.productline.type.DomainRegister;
 //import com.cfm.productline.type.IntegerType;
 
 import com.mxgraph.canvas.mxGraphics2DCanvas;
-import com.mxgraph.examples.swing.GraphEditor;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
@@ -40,7 +41,11 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
+import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+
+import java.util.ArrayList;
+
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.PLEditorToolBar;
 import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
@@ -51,10 +56,10 @@ import com.variamos.gui.pl.editor.widgets.Widget;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
+//import com.variamos.pl.editor.logic.PaletteDatabase;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 //import com.variamos.pl.editor.logic.PaletteDatabase.ScriptedVariabilityElement;
 
 import com.variamos.refas.concepts.Refas;
@@ -79,16 +84,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// ignore
 		}
 	}
-	private int modelView = 0;
+	private int modelViewIndex = 0;
+	private ArrayList<String> validElements = null;
 
-	public int getModel() {
-		return modelView;
+	public int getModelViewIndex() {
+		return modelViewIndex;
 	}
 
-	public void setVisibleModel(int model) {
-		modelView = model;
+	public void setVisibleModel(int modelIndex) {
+		setDefaultButton();
+		modelViewIndex = modelIndex;
 		RefasGraph mode = ((RefasGraph) getGraphComponent().getGraph());
-		mode.setModelView(model);
+		validElements = mode.getValidElements(modelViewIndex);
+		mode.setModelViewIndex(modelIndex);
 		mode.showElements();
 
 		propertiesPanel.repaint();
@@ -115,31 +123,34 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected int mode = 0;
 
 	public void updateEditor() {
-		graphEditorFunctions.updateEditor();
+		editProductLineReset();
+		graphEditorFunctions.updateEditor(this.validElements,
+				getGraphComponent(), modelViewIndex);
 		perspectiveToolBar.updateButtons();
+	}
+
+	public void updateView() {
+		graphEditorFunctions.updateView(this.validElements,
+				getGraphComponent(), modelViewIndex);
+		// perspectiveToolBar.updateButtons();
 	}
 
 	public VariamosGraphEditor(String appTitle,
 			VariamosGraphComponent component, int perspective) {
 		super(appTitle, component, perspective);
-		
-		if (perspective==0) {
-			setPerspective(0);
-			graphEditorFunctions = new PLGraphEditorFunctions(this);
-			graphEditorFunctions.updateEditor();
-			// loadRegularPalette(insertPalette(mxResources.get("productLinePalette")));
-		} else {
-			setPerspective(2);
-			graphEditorFunctions = new RefasGraphEditorFunctions(this);		
-			graphEditorFunctions.updateEditor();
-			// loadRegularPalette(insertPalette(mxResources.get("conceptsPalette")));
-			// loadRegularPalette(insertPalette(mxResources.get("relationsPalette")));
-		}
 
 		// loadRegularPalette();
 		loadScriptedPalettes();
 		// loadPalettes();
 		registerEvents();
+
+		if (perspective == 0) {
+			setPerspective(0);
+			graphEditorFunctions = new PLGraphEditorFunctions(this);
+			graphEditorFunctions.updateEditor(validElements,
+					getGraphComponent(), modelViewIndex);
+			// loadRegularPalette(insertPalette(mxResources.get("productLinePalette")));
+		}
 	}
 
 	/**
@@ -151,10 +162,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public static VariamosGraphEditor loader(String appTitle, String file,
 			String perspective) throws FeatureModelException {
 		ProductLine pl = null;
-		Refas r1 = null;
-		int persp= 0;
+
+		int persp = 0;
 		if (perspective.equals("ProductLine")) {
-			persp= 0;
+			persp = 0;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				pl = reader.readFile(file);
@@ -168,8 +179,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							plGraph), persp);
 			vge.editProductLine(pl);
 			return vge;
-		} else {
-			persp= 2;
+		} else if (perspective.equals("modeling")) {
+			persp = 2;
+			Refas r1 = null;
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
@@ -177,24 +189,88 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				refasGraph = new RefasGraph();
 			} else {
 				{
-				r1 = new Refas();
-				refasGraph = new RefasGraph();
-				refasGraph.addCell(new mxCell("mv0"));
-				refasGraph.addCell(new mxCell("mv1"));
-				refasGraph.addCell(new mxCell("mv2"));
-				refasGraph.addCell(new mxCell("mv3"));
-				refasGraph.addCell(new mxCell("mv4"));				
+					r1 = new Refas();
+					refasGraph = new RefasGraph();
+
 				}
-				
+
 				// ProductLineGraph plGraph2 = new ProductLineGraph();
 				VariamosGraphEditor vge2 = new VariamosGraphEditor(
 						"Configurator - VariaMos", new VariamosGraphComponent(
 								refasGraph), persp);
 				vge2.editRefas(r1);
+				vge2.createFrame().setVisible(true);
+				vge2.setVisibleModel(0);
+				vge2.setPerspective(2);
+				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
+				vge2.updateEditor();
+				mxCell root = new mxCell();
+				root.insert(new mxCell());
+				refasGraph.getModel().setRoot(root);
+				refasGraph.addCell(new mxCell("mv0"));
+				refasGraph.addCell(new mxCell("mv1"));
+				refasGraph.addCell(new mxCell("mv2"));
+				refasGraph.addCell(new mxCell("mv3"));
+				refasGraph.addCell(new mxCell("mv4"));
+
+				return vge2;
+			}
+		} else if (perspective.equals("metamodeling")) {
+			//todo: change for metamodeling
+			persp = 3;
+			Refas r1 = null;
+			RefasGraph refasGraph = null;
+			if (file != null) {
+				SXFMReader reader = new SXFMReader();
+				r1 = reader.readRefasFile(file);
+				refasGraph = new RefasGraph();
+			} else {
+				{
+					r1 = new Refas();
+					refasGraph = new RefasGraph();
+
+				}
+
+				// ProductLineGraph plGraph2 = new ProductLineGraph();
+				VariamosGraphEditor vge2 = new VariamosGraphEditor(
+						"Configurator - VariaMos", new VariamosGraphComponent(
+								refasGraph), persp);
+				vge2.editRefas(r1);
+				vge2.createFrame().setVisible(true);
+				vge2.setVisibleModel(0);
+				vge2.setPerspective(3);
+				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
+				vge2.updateEditor();
+				mxCell root = new mxCell();
+				root.insert(new mxCell());
+				refasGraph.getModel().setRoot(root);
 				return vge2;
 			}
 		}
 		return null;
+	}
+
+	public void resetView() {
+		editProductLineReset();
+		mxGraph graph = getGraphComponent().getGraph();
+		updateEditor();
+		// Check modified flag and display save dialog
+		mxCell root = new mxCell();
+		root.insert(new mxCell());
+		graph.getModel().setRoot(root);
+		if (perspective == 2) {
+			setGraphEditorFunctions(new RefasGraphEditorFunctions(this));
+
+			graph.addCell(new mxCell("mv0"));
+			graph.addCell(new mxCell("mv1"));
+			graph.addCell(new mxCell("mv2"));
+			graph.addCell(new mxCell("mv3"));
+			graph.addCell(new mxCell("mv4"));
+		}
+
+		setModified(false);
+		setCurrentFile(null);
+		getGraphComponent().zoomAndCenter();
 	}
 
 	private void registerEvents() {
@@ -460,13 +536,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void editProductLineReset() {
 		productLineIndex.reset();
+		editRefas(new Refas());
 	}
 
 	public void populateIndex(ProductLine pl) {
 
 		// productLineIndex.populate(pl);
-		AbstractGraph plGraph = (AbstractGraph) getGraphComponent()
-				.getGraph();
+		AbstractGraph plGraph = (AbstractGraph) getGraphComponent().getGraph();
 		plGraph.buildFromProductLine2(pl, productLineIndex);
 		// ((mxGraphModel) plGraph.getModel()).clear();
 		// plGraph.setProductLine(pl);
@@ -527,6 +603,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				public void focusLost(FocusEvent arg0) {
 					// Makes it pull the values.
 					Variable v = w.getVariable();
+					if (v.getType().equals("String"))
+						v.setValue(AbstractElement.multiLine(v.toString(), 15));
 					System.out.println("Focus Lost: " + v.hashCode() + " val: "
 							+ v.getValue());
 					// v.setVariableValue("hola");
@@ -629,24 +707,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	 * 
 	 * }
 	 */
-	private void loadPaletteDatabase(PaletteDatabase db) {
-		for (PaletteDefinition pal : db.palettes) {
-			EditorPalette palette = insertPalette(pal.name);
-			for (PaletteNode node : pal.nodes) {
-				palette.addTemplate(
-						node.name,
-						new ImageIcon(GraphEditor.class.getResource(node.icon)),
-						node.styleName, node.width, node.height, node.prototype);
-			}
-
-			for (PaletteEdge edge : pal.edges) {
-				palette.addEdgeTemplate(edge.name, new ImageIcon(
-						GraphEditor.class.getResource(edge.icon)),
-						edge.styleName, edge.width, edge.height, edge.value);
-			}
-		}
-	}
-
+	/*
+	 * private void loadPaletteDatabase(PaletteDatabase db) { for
+	 * (PaletteDefinition pal : db.palettes) { EditorPalette palette =
+	 * insertPalette(pal.name); for (PaletteNode node : pal.nodes) {
+	 * palette.addTemplate( node.name, new
+	 * ImageIcon(GraphEditor.class.getResource(node.icon)), node.styleName,
+	 * node.width, node.height, node.prototype); }
+	 * 
+	 * for (PaletteEdge edge : pal.edges) { palette.addEdgeTemplate(edge.name,
+	 * new ImageIcon( GraphEditor.class.getResource(edge.icon)), edge.styleName,
+	 * edge.width, edge.height, edge.value); } } }
+	 */
 	// moved to functions classes
 	// protected void showGraphPopupMenus(MouseEvent e)
 	// {
@@ -665,7 +737,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 				BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
-		perspectiveToolBar = new PerspectiveToolBar(this, JToolBar.HORIZONTAL, perspective);
+		perspectiveToolBar = new PerspectiveToolBar(this, JToolBar.HORIZONTAL,
+				perspective);
 		jp.add(perspectiveToolBar, BorderLayout.EAST);
 		add(jp, BorderLayout.NORTH);
-}}
+	}
+}

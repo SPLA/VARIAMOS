@@ -1,12 +1,10 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +20,25 @@ import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.cfm.productline.constraints.TwoOperandConstraint;
+import com.mxgraph.util.mxResources;
 
 /**
  * @author jcmunoz
  * Initially Copied from ProductLine
  */
 public class Refas {
+	
+	/**
+	 * Adds required resources for i18n
+	 */
+	static {
+		try {
+			mxResources.add("com/mxgraph/examples/swing/resources/editor");
+		} catch (Exception e) {
+			// ignore
+		}
+	}
+	
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
 	protected String name;
@@ -54,7 +65,7 @@ public class Refas {
 	public boolean[] elementsValidation(String element)
 	{
 		boolean [] valid = new boolean[5];
-		for (int i = 0; i<5;i++)
+		for (int i = 0; i< Integer.parseInt(mxResources.get("modelViews")); i++)
 		{
 			if (modelViews[i].getValidElements().contains(element))
 				valid[i]=true;
@@ -62,47 +73,56 @@ public class Refas {
 		
 		return valid;
 	}
+	
+	public ArrayList<String> getValidElements(int modelView)
+	{
+		if (modelView>=modelViews.length)
+			return null;
+		else
+			return modelViews[modelView].getValidElements();
+	}
+	
 	public void defaultModelViews()
 	{
-		modelViews = new ModelView[5];
+		ArrayList<String> validElements[] = new ArrayList[Integer.parseInt(mxResources.get("modelViews"))];
+		modelViews = new ModelView[Integer.parseInt(mxResources.get("modelViews"))];
 		
-		ArrayList<String> validElements = new ArrayList<String>();
-		validElements.add("Goal");
-		validElements.add("Operationalization");
-		validElements.add("Assumption");		
-		modelViews[0] = new ModelView(validElements);
+		for (int i = 0 ; i < Integer.parseInt(mxResources.get("modelViews")); i++)
+		{
+			validElements[i]	= new ArrayList<String>();
+		}
 		
-		validElements = new ArrayList<String>();
-		validElements.add("SoftGoal");
-		modelViews[1] = new ModelView(validElements);
+		//todo: load from metamodel concepts and relations associated to each model view
+		validElements[0].add("Goal");
+		validElements[0].add("Operationalization");
+		validElements[0].add("Assumption");
+		validElements[0].add("GroupGConstraint");
 		
-		validElements = new ArrayList<String>();
-		validElements.add("ContextGroup");
-		validElements.add("ContextVariable");	
-		modelViews[2] = new ModelView(validElements);
+		validElements[1].add("SoftGoal");
 		
-		validElements = new ArrayList<String>();
-		validElements.add("Claim");
-		validElements.add("SoftGoal");
-		validElements.add("SoftDependency");
-		validElements.add("Operationalization");
-		validElements.add("ContextVariable");
-		modelViews[3] = new ModelView(validElements);
+		validElements[2].add("ContextGroup");
+		validElements[2].add("GlobalContextVariable");
+		validElements[2].add("LocalContextVariable");
 		
-		validElements = new ArrayList<String>();
-		validElements.add("Asset");
-		validElements.add("Operationalization");			
-		modelViews[4] = new ModelView(validElements);
+		validElements[3].add("Claim");
+		validElements[3].add("SoftGoal");
+		validElements[3].add("SoftDependency");
+		validElements[3].add("Operationalization");
+		validElements[3].add("ContextVariable");
+		validElements[3].add("GroupGConstraint");
 		
+		validElements[4].add("Asset");
+		validElements[4].add("Operationalization");
+		validElements[4].add("GroupGConstraint");
+
+		for (int i = 0 ; i < Integer.parseInt(mxResources.get("modelViews")); i++)
+		{
+			modelViews[i] = new ModelView(validElements[i]);
+		}
+		
+
 	}
 
-//	public Map<String, VariabilityPoint> getVps() {
-//		return vps;
-//	}
-//
-//	public void setVps(Map<String, VariabilityPoint> vps) {
-//		this.vps = vps;
-//	}
 
 	public Collection<Constraint> getConstraints() {
 		return constraints.values();
@@ -137,6 +157,9 @@ public class Refas {
 		}
 	}
 	
+	public String addConstraint(int modelView, Constraint a ){
+		return modelViews[modelView].addConstraint(a);
+	}
 	public void addConstraint(Constraint c){
 		String id = c.getIdentifier();
 		//System.out.println(id );
@@ -291,7 +314,7 @@ public class Refas {
 		return assetModel.getAssets();
 	}
 	
-	public boolean addElement(int modelView, AbstractElement a ){
+	public String addElement(int modelView, AbstractElement a ){
 		return modelViews[modelView].addElement(a);
 	}
 	

@@ -3,31 +3,23 @@ package com.variamos.gui.refas.editor;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
-import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
-import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
-import com.variamos.gui.pl.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.pl.editor.actions.ExitAction;
 import com.variamos.gui.pl.editor.actions.NewAction;
 import com.variamos.gui.pl.editor.actions.OpenAction;
 import com.variamos.gui.pl.editor.actions.SaveAction;
 import com.variamos.gui.pl.editor.actions.ToggleAssetVisibilityAction;
 import com.variamos.gui.pl.editor.actions.TogglePLVisibilityAction;
-import com.variamos.gui.pl.editor.actions.VerifyDeadElementAction;
-import com.variamos.gui.pl.editor.actions.VerifyFalseOptionalElementAction;
-import com.variamos.gui.pl.editor.actions.VerifyFalseProductLineModelAction;
-import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 
 @SuppressWarnings("serial")
 public class RequirementsMenuBar extends JMenuBar{
 	
 	VariamosGraphEditor editor;
 	
-	public RequirementsMenuBar(BasicGraphEditor editor){
-		init(editor);
+	public RequirementsMenuBar(BasicGraphEditor basicGraphEditor){
+		init(basicGraphEditor);
 	}
 	
 	private void init(BasicGraphEditor editor){

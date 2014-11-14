@@ -9,13 +9,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
-import com.variamos.gui.pl.editor.PLPalettesLoader;
-import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.refas.editor.RQPalettesLoader;
-
-import com.variamos.gui.refas.editor.RefasGraph;
-
-import com.variamos.gui.refas.editor.RefasGraphEditor;
+import com.variamos.gui.refas.editor.MetaGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 
 @SuppressWarnings("serial")
@@ -44,59 +38,49 @@ public class PerspectiveAction extends AbstractEditorAction {
 				JButton jb = (JButton) e.getSource();
 				if (perspectiveInd != 0
 						&& jb.getText().equals(
-								mxResources.get("productLineButton"))) {
+								mxResources.get("plPerspButton"))) {
 
 					editor.setGraphEditorFunctions (new PLGraphEditorFunctions(editor));
-					editor.editProductLineReset();
 					editor.clearPalettes();
-					System.out.println("product");
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("productLinePalette")));
-
+					System.out.println("productButton");
+					editor.updateEditor();
+					editor.setPerspective(0);					
 				}
 				if (perspectiveInd != 1
-						&& jb.getText().equals(mxResources.get("defectAnalyzerButton"))) {
-					editor.editProductLineReset();
+						&& jb.getText().equals(mxResources.get("defectAnalyzerPerspButton"))) {
+					editor.updateEditor();
 					editor.clearPalettes();
-					System.out.println("defect");
+					System.out.println("defectButton");
 					editor.setPerspective(1);
 				}
 				if (perspectiveInd != 2
-						&& jb.getText().equals(mxResources.get("requirementsButton"))) {
-
+						&& jb.getText().equals(mxResources.get("modelingPerspButton"))) {
 					editor.setGraphEditorFunctions (new RefasGraphEditorFunctions(editor));
-					editor.updateEditor();
-
-					editor.editProductLineReset();
-					editor.clearPalettes();
-					System.out.println("requirements");
 					editor.setPerspective(2);
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("conceptsPalette")));
-					editor.loadRegularPalette(editor.insertPalette(mxResources
-							.get("relationsPalette")));
-
-					/*
-					 	RQPalettesLoader.loadConceptsPalette(editor
-					 
-							.insertPalette(mxResources.get("conceptsPalette")),
-							(ProductLineGraph) editor.getGraphComponent().getGraph());
-					RQPalettesLoader.loadRelationsPalette(
-							editor.insertPalette(mxResources.get("relationsPalette")),
-							(ProductLineGraph) editor.getGraphComponent()
-									.getGraph());
-									*/
+					editor.clearPalettes();
+					editor.updateEditor();					
+					
+					System.out.println("modelingButton");
+					mxCell root = new mxCell();
+					root.insert(new mxCell());
+					graph.getModel().setRoot(root);
+					
+					graph.addCell(new mxCell("mv0"));
+					graph.addCell(new mxCell("mv1"));
+					graph.addCell(new mxCell("mv2"));
+					graph.addCell(new mxCell("mv3"));
+					graph.addCell(new mxCell("mv4"));
+				}
+				if (perspectiveInd != 3
+						&& jb.getText().equals(mxResources.get("metamodelingPerspButton"))) {
+					editor.setGraphEditorFunctions (new MetaGraphEditorFunctions(editor));
+					editor.setPerspective(3);
+					editor.clearPalettes();
+					editor.updateEditor();		
+					System.out.println("metamodelingButton");
 				}
 				// Check modified flag and display save dialog
-				mxCell root = new mxCell();
-				root.insert(new mxCell());
-				graph.getModel().setRoot(root);
-				
-				graph.addCell(new mxCell("mv0"));
-				graph.addCell(new mxCell("mv1"));
-				graph.addCell(new mxCell("mv2"));
-				graph.addCell(new mxCell("mv3"));
-				graph.addCell(new mxCell("mv4"));
+
 				editor.setModified(false);
 				editor.setCurrentFile(null);
 				editor.getGraphComponent().zoomAndCenter();

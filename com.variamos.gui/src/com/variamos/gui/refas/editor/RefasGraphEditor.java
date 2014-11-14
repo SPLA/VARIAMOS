@@ -10,11 +10,9 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileReader;
-import java.util.Collection;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.util.List;
+import java.util.Collection;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +24,7 @@ import javax.swing.JToolBar;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
@@ -34,13 +33,8 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.type.DomainRegister;
-//import com.cfm.productline.type.IntegerType;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
@@ -51,22 +45,21 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraphSelectionModel;
-import com.variamos.gui.maineditor.AbstractGraph;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.PerspectiveToolBar;
-import com.variamos.gui.maineditor.GraphTree;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.Widget;
-import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
+//import com.variamos.pl.editor.logic.PaletteDatabase;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 import com.variamos.refas.concepts.Refas;
+//import com.cfm.productline.type.IntegerType;
 
 @SuppressWarnings("serial")
 public class RefasGraphEditor extends BasicGraphEditor{
@@ -96,7 +89,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 	
 	public RefasGraphEditor(String appTitle, VariamosGraphComponent component) {
 		super(appTitle, component,2);
-		loadRegularPalette();
+		
 		loadScriptedPalettes();
 		//loadPalettes();
 		registerEvents();
@@ -135,96 +128,6 @@ public class RefasGraphEditor extends BasicGraphEditor{
 				}
 			}
 		});
-	}
-
-	private void loadRegularPalette() {
-		//Load regular palette
-		EditorPalette palette = insertPalette(mxResources.get("productLinePalette"));
-		
-		palette
-			.addTemplate(
-					mxResources.get("varElementIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/plnode.png")),
-					"plnode", 80, 40, new VariabilityElement());
-		
-		palette
-		.addEdgeTemplate(
-				mxResources.get("optionalIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/ploptional.png")),
-						"ploptional", 80, 40, ConstraintMode.Optional);
-		
-		palette
-		.addEdgeTemplate(
-				mxResources.get("mandatoryIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/plmandatory.png")),
-						"plmandatory", 80, 40, ConstraintMode.Mandatory);
-		palette
-		.addEdgeTemplate(
-				mxResources.get("requiresIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/plrequires.png")),
-						"plrequires", 80, 40, ConstraintMode.Requires);
-		palette
-		.addEdgeTemplate(
-				mxResources.get("excludesIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/plexcludes.png")),
-						"plexcludes", 80, 40, ConstraintMode.Excludes);
-		
-		palette
-		.addTemplate(
-				mxResources.get("groupIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/plgroup.png")),
-						"plgroup", 20, 20, new GroupConstraint());
-		
-		palette
-		.addTemplate(
-				mxResources.get("constraintIconTitle"),
-				new ImageIcon(
-						GraphEditor.class
-						.getResource("/com/variamos/gui/pl/editor/images/plcons.png")),
-						"plcons", 60, 30, new GenericConstraint());
-		
-		//For the assets
-		palette.addTemplate("Asset", new ImageIcon(
-				GraphEditor.class
-				.getResource("/com/variamos/gui/pl/editor/images/plcons.png")), 
-					"plasset", 60, 30, new Asset());
-		
-		final RefasGraph graph = (RefasGraph)getGraphComponent().getGraph();
-		
-		palette.addListener(mxEvent.SELECT, new mxIEventListener()
-		{
-			public void invoke(Object sender, mxEventObject evt)
-			{
-				Object tmp = evt.getProperty("transferable");
-				graph.setConsMode(ConstraintMode.None);
-				
-				if (tmp instanceof mxGraphTransferable)
-				{
-					mxGraphTransferable t = (mxGraphTransferable) tmp;
-					Object obj = t.getCells()[0];
-
-					if (graph.getModel().isEdge(obj))
-					{
-						mxCell cell = (mxCell)obj;
-						((RefasGraph) graph).setConsMode( (ConstraintMode) cell.getValue());
-					}
-				}
-			}
-
-		});
-		
 	}
 	
 	private void loadScriptedPalettes() {
@@ -407,6 +310,8 @@ public class RefasGraphEditor extends BasicGraphEditor{
 				public void focusLost(FocusEvent arg0) {
 					//Makes it pull the values.
 					Variable v = w.getVariable();
+					if (v.getType().equals("String"))
+						v.setValue(AbstractElement.multiLine(v.toString(), 15));
 					System.out.println("Focus Lost: " + v.hashCode() + " val: " + v.getValue());
 					//v.setVariableValue("hola");
 					onVariableEdited(elm);
@@ -423,7 +328,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 				@Override
 				public void propertyChange(PropertyChangeEvent evt) {
 					if( Widget.PROPERTY_VALUE.equals( evt.getPropertyName() ) ){
-						w.getVariable();
+						w.getVariable();						
 						onVariableEdited(elm);
 					}
 				}
@@ -478,57 +383,8 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		((RefasGraph)getGraphComponent().getGraph()).refreshVariable(e);
 	}
 	
-//	public DomainRegister getDomainRegister(){
-//		return domainRegister;
-//	}
-	
-	//Not used method
-/*	public void loadPalettes(){
-		//Load first palette
-		PaletteDefinition pl = new PaletteDefinition();
-		pl.name = "Product Lines";
-		
-		PaletteNode node = new PaletteNode();
-		ScriptedVariabilityElement elm = new ScriptedVariabilityElement();
-		List<Variable> atts = new ArrayList<>();
-		atts.add(new Variable("height", 0, IntegerType.IDENTIFIER));
-		elm.setVarAttributes(atts);
-		node.prototype = elm;
-		node.width = 80;
-		node.height = 40;
-		node.icon = "/com/variamos/pl/editor/images/plnode.png";
-		node.name = "Variability Element";
-		node.styleName = "plnode";
-		pl.nodes.add(node);
-		
-		PaletteEdge edge = new PaletteEdge();
-		edge.name = "Optional";
-		edge.icon = "/com/variamos/pl/editor/images/ploptional.png";
-		edge.styleName = "ploptional";
-		edge.width = 80;
-		edge.height = 40;
-		edge.value = ConstraintMode.Optional;
-		
-		pl.edges.add(edge);
 
-		PaletteDatabase db = new PaletteDatabase();
-	//	db.palettes.add(pl);
-		
-		loadPaletteDatabase(db);
-		
-		//Load second palette
-		try {
-			FileWriter writer;
-			writer = new FileWriter(new File("palettes.pal"));
-			Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-			gson.toJson(db, writer);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-*/
+	/*
 	private void loadPaletteDatabase(PaletteDatabase db) {
 		for(PaletteDefinition pal : db.palettes){
 			EditorPalette palette = insertPalette(pal.name);
@@ -551,6 +407,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 			}
 		}
 	}
+	*/
 
 	protected void showGraphPopupMenu(MouseEvent e)
 	{

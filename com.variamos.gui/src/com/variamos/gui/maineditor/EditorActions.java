@@ -45,6 +45,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.w3c.dom.Document;
 
+import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.analysis.mxDistanceCostFunction;
 import com.mxgraph.analysis.mxGraphAnalysis;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
@@ -52,7 +53,6 @@ import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.io.mxGdCodec;
-import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencilShape;
@@ -72,6 +72,7 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
+import com.variamos.gui.pl.editor.ProductLineGraph;
 
 /**
  *
@@ -738,6 +739,12 @@ public class EditorActions
 								.createVmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					}
+					else if (ext.equalsIgnoreCase("sxfm"))
+					{
+						SXFMWriter writer = new SXFMWriter();
+						ProductLineGraph plGraph = (ProductLineGraph)graph;
+						mxUtils.writeFile(writer.getSXFMContent(plGraph.getProductLine()), filename);
+					}
 					else if (ext.equalsIgnoreCase("html"))
 					{
 						mxUtils.writeFile(mxXmlUtils.getXml(mxCellRenderer
@@ -745,6 +752,7 @@ public class EditorActions
 								.getDocumentElement()), filename);
 					}
 					else if (ext.equalsIgnoreCase("mxe")
+							||ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml"))
 					{
 						mxCodec codec = new mxCodec();
@@ -1434,16 +1442,7 @@ public class EditorActions
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
 				{
-					mxGraph graph = editor.getGraphComponent().getGraph();
-
-					// Check modified flag and display save dialog
-					mxCell root = new mxCell();
-					root.insert(new mxCell());
-					graph.getModel().setRoot(root);
-
-					editor.setModified(false);
-					editor.setCurrentFile(null);
-					editor.getGraphComponent().zoomAndCenter();
+					((VariamosGraphEditor)editor).resetView();
 				}
 			}
 		}
@@ -1590,8 +1589,10 @@ public class EditorActions
 		/**
 		 * 
 		 */
-		protected void resetEditor(BasicGraphEditor editor)
+		protected void resetEditor(VariamosGraphEditor editor)
 		{
+			editor.setVisibleModel(0);
+			editor.updateView();
 			editor.setModified(false);
 			editor.getUndoManager().clear();
 			editor.getGraphComponent().zoomAndCenter();
@@ -1600,7 +1601,7 @@ public class EditorActions
 		/**
 		 * Reads XML+PNG format.
 		 */
-		protected void openXmlPng(BasicGraphEditor editor, File file)
+		protected void openXmlPng(VariamosGraphEditor editor, File file)
 				throws IOException
 		{
 			Map<String, String> text = mxPngTextDecoder
@@ -1724,7 +1725,7 @@ public class EditorActions
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".png"))
 								{
-									openXmlPng(editor, fc.getSelectedFile());
+									openXmlPng((VariamosGraphEditor)editor, fc.getSelectedFile());
 								}
 								else if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".txt"))
@@ -1748,7 +1749,7 @@ public class EditorActions
 									editor.setCurrentFile(fc
 											.getSelectedFile());
 
-									resetEditor(editor);
+									resetEditor((VariamosGraphEditor)editor);
 								}
 							}
 							catch (IOException ex)

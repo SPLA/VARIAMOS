@@ -1,12 +1,10 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
@@ -86,8 +84,14 @@ public class Operationalization extends VariabilityElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public Operationalization(String id) {
-		this();
+	public Operationalization(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public Operationalization(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		

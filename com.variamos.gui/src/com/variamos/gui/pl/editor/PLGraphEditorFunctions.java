@@ -3,6 +3,7 @@ package com.variamos.gui.pl.editor;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
@@ -32,13 +33,13 @@ public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		super(editor);
 	}
 	
-	public void updateEditor (){
+	public void updateEditor (ArrayList<String> validEelements, mxGraphComponent graphComponent, int modelViewIndex){
 		editor.editProductLineReset();
 		editor.clearPalettes();
 		System.out.println("productlines");
-		editor.setPerspective(0);
-		editor.loadRegularPalette(editor.insertPalette(mxResources
-				.get("productLinePalette")));
+		editor.setPerspective(0);		
+		loadRegularPalette(editor.insertPalette(mxResources
+				.get("productLinePalette")),graphComponent);
 	}
 	public void loadRegularPalette(EditorPalette palette, mxGraphComponent graphComponent) {
 		//Load regular palette

@@ -8,7 +8,6 @@ import com.cfm.productline.ProductLine;
 //import com.cfm.productline.io.SXFMReader;
 
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.ProductLineMenuBar;
 
 import fm.FeatureModelException;
 
@@ -53,16 +52,25 @@ public class Main {
 
 		case 2: //load Refas perspective directly
 			String file2=null;
-			VariamosGraphEditor config3 = VariamosGraphEditor.loader(
-					"Configurator - VariaMos", file2, "Refas");
-			config3.createFrame().setVisible(true);
+			VariamosGraphEditor.loader(
+					"Configurator - VariaMos", file2, "modeling");
+			//config3.setPerspective(2);
+			//config3.updateEditor();
+			break;
+			
+		case 3: //load Refas perspective directly
+			String file3=null;
+			VariamosGraphEditor.loader(
+					"Configurator - VariaMos", file3, "metamodeling");
+			//config3.setPerspective(2);
+			//config3.updateEditor();
 			break;
 		}
 		
 		//ProductLine pl = getProductLine("");
 	//	SXFMReader reader = new SXFMReader();
 		//ProductLine pl = reader.readFile("fm.splx");
-		ProductLine pl = new ProductLine();
+	//	ProductLine pl = new ProductLine();
 //		pl.printDebug(System.out);
 //		System.out.println("Roots : " + pl.getRoots());
 		

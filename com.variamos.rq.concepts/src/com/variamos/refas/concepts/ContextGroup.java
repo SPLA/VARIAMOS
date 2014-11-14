@@ -1,7 +1,6 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
@@ -36,7 +34,10 @@ public class ContextGroup extends AbstractElement {
 								VAR_DESCRIPTION = "Description",
 								VAR_VISIBILITY = "Visibility",
 								VAR_VALIDITY = "Validity",
-								VAR_ALLOCATION = "Allocation";
+								VAR_ALLOCATION = "Allocation",
+								VAR_SCOPE = "Scope-global/local",
+								VAR_TYPE = "Type-user/System",
+								VAR_GROUPING = "Grouping context";
 	
 	protected Map<String, Variable> vars = new HashMap<>();
 	
@@ -56,6 +57,9 @@ public class ContextGroup extends AbstractElement {
 		vars.put(VAR_VISIBILITY, BooleanType.newVariable(VAR_VISIBILITY));
 		vars.put(VAR_VALIDITY, BooleanType.newVariable(VAR_VALIDITY));
 		vars.put(VAR_ALLOCATION, StringType.newVariable(VAR_ALLOCATION));
+		vars.put(VAR_SCOPE, BooleanType.newVariable(VAR_SCOPE));
+		vars.put(VAR_TYPE, BooleanType.newVariable(VAR_TYPE));
+		vars.put(VAR_GROUPING, BooleanType.newVariable(VAR_GROUPING));
 		
 		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
 		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
@@ -77,8 +81,14 @@ public class ContextGroup extends AbstractElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public ContextGroup(String id) {
-		this();
+	public ContextGroup(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public ContextGroup(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		
@@ -194,7 +204,9 @@ public class ContextGroup extends AbstractElement {
 
 	public String getName() {
 		//return name;
-		return (String)getVariableValue(VAR_NAME);
+		return (String)getVariableValue(VAR_NAME) + "\n"+
+		(getVariable(VAR_GROUPING).getAsBoolean()?"":((getVariable(VAR_SCOPE).getAsBoolean()?"{Global}":"{Local}")+
+				(getVariable(VAR_TYPE).getAsBoolean()?"{User}":"{System}")));
 	}
 
 	public void setName(String name) {
@@ -215,7 +227,10 @@ public class ContextGroup extends AbstractElement {
 			vars.get(VAR_NAME),
 			vars.get(VAR_DESCRIPTION),
 			vars.get(VAR_VISIBILITY),
-			vars.get(VAR_VALIDITY)
+			vars.get(VAR_VALIDITY),
+			vars.get(VAR_SCOPE),
+			vars.get(VAR_TYPE),
+			vars.get(VAR_GROUPING)
 		};
 	}
 

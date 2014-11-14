@@ -11,6 +11,24 @@ public class Asset extends AbstractElement implements Serializable, Editable{
 		return "Asset_";
 		
 	}
+	public Asset()
+	{
+		super();
+	}
+	public Asset(String alias)
+	{
+		super();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public Asset(String alias, String id)
+	{
+		this(alias);
+		identifier = id;
+		
+	}
+	
 	private static final long serialVersionUID = -6535463614831756558L;
 	
 	private String identifier;

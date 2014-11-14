@@ -1,11 +1,7 @@
 package com.variamos.gui.maineditor;
 
-import java.util.Hashtable;
-import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.w3c.dom.Document;
 
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
@@ -15,13 +11,13 @@ import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
-import com.mxgraph.io.mxCodec;
+
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxUtils;
+
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 import com.variamos.pl.editor.logic.ConstraintMode;
@@ -80,8 +76,6 @@ public abstract class AbstractGraph extends mxGraph {
 	
 			public void invoke(Object sender, mxEventObject evt) {
 				Object[] addedCells = (Object[]) evt.getProperty("cells");
-				@SuppressWarnings("unchecked")
-				Map<String, Object> m = (Map<String, Object>) evt.getProperties();
 				mxCell parentCell = (mxCell) evt.getProperty("parent");
 				int indexCell = (int) evt.getProperty("index");
 				for( Object obj : addedCells ){
@@ -92,6 +86,7 @@ public abstract class AbstractGraph extends mxGraph {
 					if( !cell.isEdge() ){
 						addingVertex(cell, parentCell, indexCell);
 					}
+						addingEdge(cell, parentCell, indexCell);
 				}
 			}
 
@@ -100,6 +95,8 @@ public abstract class AbstractGraph extends mxGraph {
 	}
 
 	protected void removingClones(mxCell cell)
+	{}
+	protected void addingEdge(mxCell cell, mxCell parent, int index)
 	{}
 	
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
@@ -115,7 +112,7 @@ public abstract class AbstractGraph extends mxGraph {
 			
 			//Aqui se setea el name y id por primera vez.
 			elm.setIdentifier(id);
-			elm.setName(id);
+			elm.setName("<<new>>");
 			
 			//Change the cell id in the model.
 			mxGraphModel model = (mxGraphModel) getModel();

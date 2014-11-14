@@ -1,12 +1,10 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+
 
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
@@ -85,8 +83,14 @@ public class Goal extends VariabilityElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public Goal(String id) {
-		this();
+	public Goal(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public Goal(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		
@@ -202,7 +206,7 @@ public class Goal extends VariabilityElement {
 
 	public String getName() {
 		//return name;
-		return (String)getVariableValue(VAR_NAME);
+		return (String)getVariableValue(VAR_IDENTIFIER)+"\n"+(String)getVariableValue(VAR_NAME);
 	}
 
 	public void setName(String name) {
@@ -227,76 +231,12 @@ public class Goal extends VariabilityElement {
 		};
 	}
 
-//	public Variable getVarName() {
-//		return varName;
-//	}
-//
-//	public void setVarName(Variable varName) {
-//		this.varName = varName;
-//	}
-//
-//	public Variable getVarIdentifier() {
-//		return varIdentifier;
-//	}
-//
-//	public void setVarIdentifier(Variable varIdentifier) {
-//		this.varIdentifier = varIdentifier;
-//	}
-//
-//	public Variable getVarDescription() {
-//		return varDescription;
-//	}
-//
-//	public void setVarDescription(Variable varDescription) {
-//		this.varDescription = varDescription;
-//	}
-//
-//	public Variable getVarVisible() {
-//		return varVisible;
-//	}
-//
-//	public void setVarVisible(Variable varVisible) {
-//		this.varVisible = varVisible;
-//	}
-//
-//	public Variable getVarValidity() {
-//		return varValidity;
-//	}
-//
-//	public void setVarValidity(Variable varValidity) {
-//		this.varValidity = varValidity;
-//	}
-//
-//	public Variable getVarAllocation() {
-//		return varAllocation;
-//	}
-//
-//	public void setVarAllocation(Variable varAllocation) {
-//		this.varAllocation = varAllocation;
-//	}
-
-//	public Variable getValue() {
-//		return value;
-//	}
-//
-//	public void setValue(Variable value) {
-//		this.value = value;
-//	}
-
 	public List<Variable> getVarAttributes() {
 		return varAttributes;
 	}
 
 	public void setVarAttributes(List<Variable> varAttributes) {
 		this.varAttributes = varAttributes;
-	}
-
-	public List<String> getAssets() {
-		return assets;
-	}
-
-	public void setAssets(List<String> assets) {
-		this.assets = assets;
 	}
 
 	public Map<String, Variable> getVars() {

@@ -8,7 +8,6 @@ import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.IntegerType;
 import com.cfm.productline.type.RealType;
 import com.cfm.productline.type.StringType;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.widgets.*;
 import com.variamos.gui.refas.editor.RefasGraphEditor;
 

@@ -9,6 +9,10 @@ import com.cfm.productline.type.StringType;
 
 public class GenericConstraint extends Constraint {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1976898089L;
 	private Variable varText = StringType.newVariable("Text");
 	//protected String text;
 	

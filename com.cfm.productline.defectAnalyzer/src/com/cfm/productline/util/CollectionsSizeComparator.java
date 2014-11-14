@@ -3,14 +3,14 @@ package com.cfm.productline.util;
 import java.util.Comparator;
 import java.util.List;
 
-public class CollectionsSizeComparator  implements Comparator  {
+public class CollectionsSizeComparator  implements Comparator<List>  {
 
 	@Override
-	public int compare(Object o1, Object o2) {
+	public int compare(List o1, List o2) {
 		
-		if (((List) o1).size() > ((List) o1).size()) {
+		if ( o1.size() > o1.size()) {
             return 1;
-        } else if (((List) o1).size() < (((List) o2)).size()) {
+        } else if (o1.size() < o2.size()) {
             return -1;
         } else {
             return 0;

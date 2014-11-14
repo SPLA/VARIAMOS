@@ -43,7 +43,7 @@ public class SXFMReader {
 		
 		for(FeatureTreeNode node : featureModel.getNodes()){
 			if( !(node instanceof FeatureGroup) )//This node has no information
-				pl.addVariabilityPoint(new VariabilityElement(node.getID()));
+				pl.addVariabilityPoint(new VariabilityElement(null,node.getID()));
 			
 			addConstraintFromRefas(pl, node);
 		}
@@ -69,7 +69,7 @@ public class SXFMReader {
 		
 		for(FeatureTreeNode node : featureModel.getNodes()){
 			if( !(node instanceof FeatureGroup) )//This node has no information
-				pl.addVariabilityPoint(new VariabilityElement(node.getID()));
+				pl.addVariabilityPoint(new VariabilityElement(null,node.getID()));
 			
 			addConstraintFrom(pl, node);
 		}

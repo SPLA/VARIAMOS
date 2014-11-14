@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Constraint;
-import com.cfm.productline.VariabilityElement;
 
 /**
  * @author jcmunoz Class to handle dinamyc model with elements and constraints.
@@ -17,10 +16,6 @@ public class ModelView implements Serializable {
 	private static final long serialVersionUID = 5153411159224220508L;
 
 	private ArrayList<String> validElements;
-	public ArrayList<String> getValidElements() {
-		return validElements;
-	}
-
 	private Map<String, AbstractElement> elements;
 	private Map<String, Constraint> constraints; // Methods missing to handle
 
@@ -30,20 +25,37 @@ public class ModelView implements Serializable {
 		constraints = new HashMap<>();
 	}
 
-	public boolean addElement(AbstractElement element) {
-		Class elementClass = element.getClass();
+	public ArrayList<String> getValidElements() {
+		return validElements;
+	}
+	public String addElement(AbstractElement element) {
 		String id = getNextElementId(element);
-		String name = elementClass.getSimpleName();
+		String name = element.getAlias();
 		if (validElements.contains(name)) {
 			if (element instanceof AbstractElement) {
 				AbstractElement varElement = (AbstractElement) element;
 				varElement.setIdentifier(id);
-				varElement.setName(id);
+				varElement.setName("<<new>>");
 			}
 			elements.put(id, element);
-			return true;
+			return id;
 		} else
-			return false;
+			return null;
+	}
+	
+	public String addConstraint(Constraint constraint) {
+		Class<? extends Constraint> constraintClass = constraint.getClass();
+		String id = getNextConstraintId(constraint);
+		String name = constraintClass.getSimpleName();
+		if (validElements.contains(name)) {
+			if (constraint instanceof Constraint) {
+				Constraint varElement = (Constraint) constraint;
+				varElement.setIdentifier(id);				
+			}
+			constraints.put(id, constraint);
+			return id;
+		} else
+			return null;
 	}
 
 	public AbstractElement findElement(String identifier) {
@@ -55,6 +67,16 @@ public class ModelView implements Serializable {
 		int id = 1;
 		String classId = element.getClassId();
 		while (elements.containsKey(classId + id)) {
+			id++;
+		}
+		return classId+ id;
+	}
+	
+	private String getNextConstraintId(Constraint element) {
+
+		int id = 1;
+		String classId = element.getClassId();
+		while (constraints.containsKey(classId + id)) {
 			id++;
 		}
 		return classId+ id;

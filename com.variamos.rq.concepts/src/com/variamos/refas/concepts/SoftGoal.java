@@ -1,16 +1,13 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
@@ -38,6 +35,7 @@ public class SoftGoal extends AbstractElement {
 								VAR_VISIBILITY = "Visibility",
 								VAR_VALIDITY = "Validity",
 								VAR_ALLOCATION = "Allocation";
+	
 	
 	protected Map<String, Variable> vars = new HashMap<>();
 	
@@ -78,8 +76,15 @@ public class SoftGoal extends AbstractElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public SoftGoal(String id) {
-		this();
+	
+	public SoftGoal(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public SoftGoal(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		

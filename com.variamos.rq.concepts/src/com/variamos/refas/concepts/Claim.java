@@ -1,7 +1,6 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
@@ -36,7 +34,9 @@ public class Claim extends AbstractElement {
 								VAR_DESCRIPTION = "Description",
 								VAR_VISIBILITY = "Visibility",
 								VAR_VALIDITY = "Validity",
-								VAR_ALLOCATION = "Allocation";
+								VAR_ALLOCATION = "Allocation",
+										VAR_OPERATIONALIZATIONS = "Operationalizations",
+										VAR_CONDITION = "Conditional_Expression";
 	
 	protected Map<String, Variable> vars = new HashMap<>();
 	
@@ -56,6 +56,8 @@ public class Claim extends AbstractElement {
 		vars.put(VAR_VISIBILITY, BooleanType.newVariable(VAR_VISIBILITY));
 		vars.put(VAR_VALIDITY, BooleanType.newVariable(VAR_VALIDITY));
 		vars.put(VAR_ALLOCATION, StringType.newVariable(VAR_ALLOCATION));
+		vars.put(VAR_CONDITION, StringType.newVariable(VAR_CONDITION));
+		vars.put(VAR_OPERATIONALIZATIONS, StringType.newVariable(VAR_OPERATIONALIZATIONS));
 		
 		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
 		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
@@ -77,8 +79,14 @@ public class Claim extends AbstractElement {
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public Claim(String id) {
-		this();
+	public Claim(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public Claim(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		
@@ -194,7 +202,10 @@ public class Claim extends AbstractElement {
 
 	public String getName() {
 		//return name;
-		return (String)getVariableValue(VAR_NAME);
+		return (String)getVariableValue(VAR_IDENTIFIER)+"\n"+
+		//		(String)getVariableValue(VAR_NAME)+"\n"+
+		(String)getVariableValue(VAR_OPERATIONALIZATIONS)+"\n"+
+		(String)getVariableValue(VAR_CONDITION);
 	}
 
 	public void setName(String name) {
@@ -212,68 +223,15 @@ public class Claim extends AbstractElement {
 	
 	public Variable[] getEditableVariables(){
 		return new Variable[]{
-			vars.get(VAR_NAME),
+		//	vars.get(VAR_NAME),
 			vars.get(VAR_DESCRIPTION),
-			vars.get(VAR_VISIBILITY),
-			vars.get(VAR_VALIDITY)
+		//	vars.get(VAR_VISIBILITY),
+		//	vars.get(VAR_VALIDITY),
+			vars.get(VAR_CONDITION),
+			vars.get(VAR_OPERATIONALIZATIONS)
+			
 		};
 	}
-
-//	public Variable getVarName() {
-//		return varName;
-//	}
-//
-//	public void setVarName(Variable varName) {
-//		this.varName = varName;
-//	}
-//
-//	public Variable getVarIdentifier() {
-//		return varIdentifier;
-//	}
-//
-//	public void setVarIdentifier(Variable varIdentifier) {
-//		this.varIdentifier = varIdentifier;
-//	}
-//
-//	public Variable getVarDescription() {
-//		return varDescription;
-//	}
-//
-//	public void setVarDescription(Variable varDescription) {
-//		this.varDescription = varDescription;
-//	}
-//
-//	public Variable getVarVisible() {
-//		return varVisible;
-//	}
-//
-//	public void setVarVisible(Variable varVisible) {
-//		this.varVisible = varVisible;
-//	}
-//
-//	public Variable getVarValidity() {
-//		return varValidity;
-//	}
-//
-//	public void setVarValidity(Variable varValidity) {
-//		this.varValidity = varValidity;
-//	}
-//
-//	public Variable getVarAllocation() {
-//		return varAllocation;
-//	}
-//
-//	public void setVarAllocation(Variable varAllocation) {
-//		this.varAllocation = varAllocation;
-//	}
-
-//	public Variable getValue() {
-//		return value;
-//	}
-//
-//	public void setValue(Variable value) {
-//		this.value = value;
-//	}
 
 	public List<Variable> getVarAttributes() {
 		return varAttributes;

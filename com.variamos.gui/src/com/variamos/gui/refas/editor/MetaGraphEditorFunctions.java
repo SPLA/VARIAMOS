@@ -29,68 +29,35 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.refas.concepts.*;
 
-public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
+public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	private ArrayList<PaletteElement> paletteElements = new ArrayList<PaletteElement>();
 
-	public RefasGraphEditorFunctions(VariamosGraphEditor editor) {
+	public MetaGraphEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
-		paletteElements.add(new PaletteElement("Goal", "goalTitle",
-				"/com/variamos/gui/refas/editor/images/goal.png", "rqgoal",
-				100, 40, "com.variamos.refas.concepts.Goal"));
-		paletteElements.add(new PaletteElement("Assumption", "assumptionTitle",
+		paletteElements.add(new PaletteElement("Assumption", "metaconceptTitle",
 				"/com/variamos/gui/refas/editor/images/assump.png", "rqassump",
 				100, 40, "com.variamos.refas.concepts.Assumption"));
-		paletteElements.add(new PaletteElement("Operationalization",
-				"operationalizationTitle",
-				"/com/variamos/gui/refas/editor/images/operational.png",
-				"rqoper", 100, 40, "com.variamos.refas.concepts.Operationalization"));
-		paletteElements.add(new PaletteElement("SoftGoal", "softGoalTitle",
-				"/com/variamos/gui/refas/editor/images/softgoal.png",
-				"rqsoftgoal", 100, 40, "com.variamos.refas.concepts.SoftGoal"));
-		paletteElements.add(new PaletteElement("ContextGroup",
-				"contextGroupTitle",
-				"/com/variamos/gui/refas/editor/images/contextgrp.png",
-				"rqcontextgrp", 100, 40, "com.variamos.refas.concepts.ContextGroup"));
-		paletteElements.add(new PaletteElement("GlobalContextVariable",
-				"globalContextTitle",
-				"/com/variamos/gui/refas/editor/images/globCnxtVar.png",
-				"rqglobcnxt", 100, 40, "com.variamos.refas.concepts.ContextVariable"));
-		paletteElements.add(new PaletteElement("LocalContextVariable",
-				"localContextTitle",
-				"/com/variamos/gui/refas/editor/images/localCnxtVar.png",
-				"rqlocalcnxt", 100, 40, "com.variamos.refas.concepts.ContextVariable"));
-		paletteElements.add(new PaletteElement("SoftDependency",
-				"softDependencyTitle",
-				"/com/variamos/gui/refas/editor/images/softdep.png",
-				"rqsoftdep", 100, 40, "com.variamos.refas.concepts.SoftDependency"));
-		paletteElements.add(new PaletteElement("Claim", "claimTitle",
-				"/com/variamos/gui/refas/editor/images/claim.png", "rqclaim",
-				100, 50, "com.variamos.refas.concepts.Claim"));
-		paletteElements.add(new PaletteElement("Asset", "assetTitle",
-				"/com/variamos/gui/refas/editor/images/component.png",
-				"rqcompon", 100, 50, "com.cfm.productline.Asset"));
-		paletteElements.add(new PaletteElement("GroupGConstraint",
-				"groupIconTitle",
+		paletteElements.add(new PaletteElement("GroupConstraint",	"metarelationTitle",
 				"/com/variamos/gui/pl/editor/images/plgroup.png", "plgroup",
-				20, 20, "com.variamos.refas.concepts.GroupGConstraint"));
+				20, 20, "com.cfm.productline.constraints.GroupConstraint"));
 	}
 
 	public void updateEditor(ArrayList<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.editProductLineReset();
-		editor.setPerspective(2);
-		System.out.println("requirements");
+		editor.setPerspective(3);
+		System.out.println("metamodeling");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
 	public void updateView (ArrayList<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)
 	{ 		
 		editor.clearPalettes();		
 		EditorPalette palette = editor.insertPalette(mxResources
-				.get("modelViewPalette" + modelViewIndex));
+				.get("metamodelViewPalette"));
 		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
 		loadPalette(palette, validElements, refasGraph);
-		palette = editor.insertPalette(mxResources.get("conceptsPalette"));
+		palette = editor.insertPalette(mxResources.get("allmodelingPalette"));
 		loadPalette(palette, null, refasGraph);
 		
 	}

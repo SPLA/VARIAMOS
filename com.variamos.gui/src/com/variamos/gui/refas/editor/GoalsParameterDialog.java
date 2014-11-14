@@ -19,7 +19,6 @@ import javax.swing.SpringLayout;
 import com.cfm.productline.Variable;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.Widget;
-import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 
 /**

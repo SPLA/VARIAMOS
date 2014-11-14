@@ -9,14 +9,13 @@ import javax.swing.JOptionPane;
 
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
-import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.AbstractGraph;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
@@ -31,8 +30,10 @@ public class OpenAction extends AbstractEditorAction{
 	/**
 	 * 
 	 */
-	protected void resetEditor(BasicGraphEditor editor)
+	protected void resetEditor(VariamosGraphEditor editor)
 	{
+		editor.setVisibleModel(0);
+		editor.updateView();
 		editor.setModified(false);
 		editor.getUndoManager().clear();
 		editor.getGraphComponent().zoomAndCenter();
@@ -40,16 +41,16 @@ public class OpenAction extends AbstractEditorAction{
 	
 	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
 		
-		
-		((VariamosGraphEditor)editor).editProductLineReset();
+		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+		variamosEditor.editProductLineReset();
 		
 		SXFMReader reader = new SXFMReader();
 		ProductLine pl = reader.readFile(file.getAbsolutePath());
 		
-		((VariamosGraphEditor)editor).editProductLine(pl);
+		variamosEditor.editProductLine(pl);
 		
 		editor.setCurrentFile(file);
-		resetEditor(editor);
+		resetEditor(variamosEditor);
 	}
 	
 	/**
@@ -129,13 +130,14 @@ public class OpenAction extends AbstractEditorAction{
 //								codec.decode(
 //										document.getDocumentElement(),
 //										graph.getModel());
-								((VariamosGraphEditor)editor).editProductLineReset();
+								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+								variamosEditor.editProductLineReset();
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc
 										.getSelectedFile());
-										((VariamosGraphEditor)editor).populateIndex(((AbstractGraph)graph).getProductLine());
-								resetEditor(editor);
+									variamosEditor.populateIndex(((AbstractGraph)graph).getProductLine());
+								resetEditor(variamosEditor);
 							}
 						}
 						catch (IOException | FeatureModelException ex )

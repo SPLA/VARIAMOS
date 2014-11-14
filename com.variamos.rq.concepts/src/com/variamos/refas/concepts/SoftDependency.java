@@ -1,7 +1,6 @@
 package com.variamos.refas.concepts;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
@@ -36,7 +34,8 @@ public class SoftDependency extends AbstractElement {
 								VAR_DESCRIPTION = "Description",
 								VAR_VISIBILITY = "Visibility",
 								VAR_VALIDITY = "Validity",
-								VAR_ALLOCATION = "Allocation";
+								VAR_ALLOCATION = "Allocation",
+								VAR_CONDITION = "Conditional_Expression";
 	
 	protected Map<String, Variable> vars = new HashMap<>();
 	
@@ -56,6 +55,7 @@ public class SoftDependency extends AbstractElement {
 		vars.put(VAR_VISIBILITY, BooleanType.newVariable(VAR_VISIBILITY));
 		vars.put(VAR_VALIDITY, BooleanType.newVariable(VAR_VALIDITY));
 		vars.put(VAR_ALLOCATION, StringType.newVariable(VAR_ALLOCATION));
+		vars.put(VAR_CONDITION, StringType.newVariable(VAR_CONDITION));
 		
 		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
 		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
@@ -71,14 +71,22 @@ public class SoftDependency extends AbstractElement {
 	
 	public void setVariableValue(String name, Object value){
 		//GARA
+		if (name.equals(VAR_CONDITION))
+			value = multiLine((String)value,15);
 		getVariable(name).setValue(value);
 	}
 	
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public SoftDependency(String id) {
-		this();
+	public SoftDependency(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
+	public SoftDependency(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		
@@ -194,7 +202,9 @@ public class SoftDependency extends AbstractElement {
 
 	public String getName() {
 		//return name;
-		return (String)getVariableValue(VAR_NAME);
+		return (String)getVariableValue(VAR_IDENTIFIER)+"\n"+
+			//	(String)getVariableValue(VAR_NAME)+"\n"+
+		(String)getVariableValue(VAR_CONDITION);
 	}
 
 	public void setName(String name) {
@@ -212,10 +222,11 @@ public class SoftDependency extends AbstractElement {
 	
 	public Variable[] getEditableVariables(){
 		return new Variable[]{
-			vars.get(VAR_NAME),
+		//	vars.get(VAR_NAME),
 			vars.get(VAR_DESCRIPTION),
-			vars.get(VAR_VISIBILITY),
-			vars.get(VAR_VALIDITY)
+		//	vars.get(VAR_VISIBILITY),
+		//	vars.get(VAR_VALIDITY),
+			vars.get(VAR_CONDITION)
 		};
 	}
 
