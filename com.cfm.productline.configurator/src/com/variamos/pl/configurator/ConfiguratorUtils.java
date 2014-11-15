@@ -12,7 +12,7 @@ import com.cfm.productline.ProductLine;
 import com.cfm.productline.productLine.Pl2Hlcl;
 import com.cfm.productline.prologEditors.Hlcl2GnuPrologExact;
 import com.cfm.productline.prologEditors.PrologTransformParameters;
-import com.cfm.productline.solver.PrologSolver;
+import com.cfm.productline.solver.GNUPrologSolver;
 
 public class ConfiguratorUtils {
 	
@@ -31,7 +31,7 @@ public class ConfiguratorUtils {
 		String code = t.transform(prog, params);
 		
 		try {
-			PrologSolver.consultString(prolog, code);
+			GNUPrologSolver.consultString(prolog, code);
 		} catch (PrologException e) {
 			e.printStackTrace();
 		}

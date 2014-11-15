@@ -1,14 +1,14 @@
 package com.variamos.pl.editor.defectAnalyzer;
 
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.defectAnalyzer.VariabilityModelVerifier;
-import com.cfm.productline.dto.VMAnalyzerInDTO;
-import com.cfm.productline.dto.VMTransformerInDTO;
-import com.cfm.productline.exceptions.TransformerException;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
-import com.cfm.productline.model.enums.NotationType;
-import com.cfm.productline.model.enums.SolverEditorType;
-import com.cfm.productline.transformer.VariabilityModelTransformer;
+import com.variamos.core.enums.NotationType;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.TransformerException;
+import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
 public class DefectAnalyzerUtil {
 

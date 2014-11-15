@@ -13,7 +13,7 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
 import com.cfm.productline.solver.ConfigurationTaskListener;
-import com.cfm.productline.solver.PrologSolver;
+import com.cfm.productline.solver.GNUPrologSolver;
 import com.cfm.productline.solver.Solver;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
 
@@ -27,7 +27,7 @@ public class Configurator  {
 	private List<Configuration> products;
 	private Solver solver;	
 	public Configurator(){
-		solver = new PrologSolver(new GNUPrologContext());
+		solver = new GNUPrologSolver(new GNUPrologContext());
 		
 		//initComponents();
 	}
@@ -95,7 +95,7 @@ public class Configurator  {
 	public void performConfiguration(Configuration configuration, ConfigurationOptions configOptions, ConfigurationTaskListener listener, ProductLine pl) {
 			
 		GNUPrologContext ctx = new GNUPrologContext();
-		PrologSolver solver = new PrologSolver(ctx);
+		GNUPrologSolver solver = new GNUPrologSolver(ctx);
 		solver.setProductLine(pl);
 		configuration.debugPrint();
 		ConfigurationTask task = new ConfigurationTask(solver, configuration, configOptions, listener);
