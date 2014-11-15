@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.ComparisonExpression;
 import com.cfm.hlcl.HlclFactory;
@@ -51,7 +52,7 @@ public class Pl2Hlcl {
 		return prog;
 	}
 	
-	public static HlclProgram transformExact(ProductLine pl){
+	public static HlclProgram transformExact(AbstractModel pl){
 		Map<String, Identifier> idMap = new HashMap<>();
 		
 		//Add a header for the program
