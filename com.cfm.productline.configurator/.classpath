@@ -10,7 +10,8 @@
 	<classpathentry kind="lib" path="lib/mxgraph.jar"/>
 	<classpathentry kind="lib" path="lib/splot_prolog.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.compiler"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.defectAnalyzer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
