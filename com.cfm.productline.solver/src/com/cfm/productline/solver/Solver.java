@@ -15,5 +15,12 @@ public interface Solver {
 	public void nextSolution();
 	public int getSolutionsCount();
 	public Object getProductLine();
+	
+	
+	/**
+	 * @param programPath
+	 * @return true, constraint program saved in @programPath is satisfiable, false otherwise
+	 */
+	public boolean isSatisfiable(String programPath);
 	public Map<String, List<Integer>> reduceDomain(Configuration config, ConfigurationOptions params);
 }

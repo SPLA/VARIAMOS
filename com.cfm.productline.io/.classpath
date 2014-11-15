@@ -5,5 +5,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/sxfm.jar"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/com.cfm.productline"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.concepts"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
+

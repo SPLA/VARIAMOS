@@ -1,9 +1,15 @@
 package com.cfm.productline.solver;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * @author David Lopez
+ * @author Luisa Rincon  <lufe089@gmail.com@>
+ * @version 1.2
+ * 
+ * It was eliminated imports and it was added some documentation
+ */
 public class Configuration {
 	
 	public static final int 	IGNORED = -1,
@@ -24,11 +30,19 @@ public class Configuration {
 		return this;
 	}
 	
+	/**
+	 * @param id: name of variabilityElement 
+	 * @return Assign 1 to variabilityElement
+	 */
 	public Configuration enforce(String id){
 		configuration.put(id, ENFORCED);
 		return this;
 	}
 	
+	/**
+	 * @param id: name of variabilityElement 
+	 * @return Assign 1 to variabilityElement
+	 */
 	public Configuration ban(String id){
 		configuration.put(id, BANNED);
 		return this;

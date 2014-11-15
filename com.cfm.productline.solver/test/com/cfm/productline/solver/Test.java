@@ -12,7 +12,7 @@ public class Test {
 	public static void main(String[] args) throws FeatureModelException{
 		
 		PrologContext ctx = new GNUPrologContext();
-		PrologSolver solver = new PrologSolver(ctx);
+		GNUPrologSolver solver = new GNUPrologSolver(ctx);
 		
 		SXFMReader reader = new SXFMReader();
 		ProductLine pl = reader.readFile("fm.splx");

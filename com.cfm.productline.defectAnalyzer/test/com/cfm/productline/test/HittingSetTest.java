@@ -6,9 +6,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.cfm.productline.defectAnalyzer.HittingSetIdentifier;
-import com.cfm.productline.exceptions.FunctionalException;
-import com.cfm.productline.model.defectAnalyzerModel.Dependency;
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.defectAnalyzer.HittingSetIdentifier;
+import com.variamos.defectAnalyzer.model.Dependency;
 
 public class HittingSetTest {
 

@@ -6,13 +6,13 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.dto.VMTransformerInDTO;
-import com.cfm.productline.exceptions.TransformerException;
 import com.cfm.productline.io.SXFMReader;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
-import com.cfm.productline.model.enums.NotationType;
-import com.cfm.productline.model.enums.SolverEditorType;
-import com.cfm.productline.transformer.VariabilityModelTransformer;
+import com.variamos.core.enums.NotationType;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.TransformerException;
+import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
 import fm.FeatureModelException;
 

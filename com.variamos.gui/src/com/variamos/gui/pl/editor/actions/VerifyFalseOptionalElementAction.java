@@ -6,11 +6,11 @@ import java.util.List;
 import javax.swing.JTextArea;
 
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.defectAnalyzer.VariabilityModelVerifier;
-import com.cfm.productline.exceptions.FunctionalException;
-import com.cfm.productline.model.defect.Defect;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
-import com.cfm.productline.model.enums.SolverEditorType;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;

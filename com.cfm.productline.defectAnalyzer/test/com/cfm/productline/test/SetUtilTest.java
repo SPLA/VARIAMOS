@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.cfm.productline.util.SetUtil;
+import com.variamos.defectAnalyzer.util.SetUtil;
 
 public class SetUtilTest {
 

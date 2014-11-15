@@ -1,30 +1,5 @@
 package com.cfm.productline.test;
 
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.cfm.productline.ProductLine;
-import com.cfm.productline.defectAnalyzer.VariabilityModelVerifier;
-import com.cfm.productline.dto.VMAnalyzerInDTO;
-import com.cfm.productline.dto.VMTransformerInDTO;
-import com.cfm.productline.exceptions.FunctionalException;
-import com.cfm.productline.exceptions.TransformerException;
-import com.cfm.productline.io.SXFMReader;
-import com.cfm.productline.model.defect.Defect;
-import com.cfm.productline.model.defect.NonAttainableDomain;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityElement;
-import com.cfm.productline.model.defectAnalyzerModel.VariabilityModel;
-import com.cfm.productline.model.enums.NotationType;
-import com.cfm.productline.model.enums.SolverEditorType;
-import com.cfm.productline.transformer.VariabilityModelTransformer;
-
-import fm.FeatureModelException;
 
 public class VerificationOperationsTest {
 
