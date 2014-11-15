@@ -254,7 +254,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		return configurator;
 	}
 	
-	public void editRefasReset(){
+	public void editModelReset(){
 		productLineIndex.reset();
 	}
 	
@@ -274,7 +274,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		
 		RefasGraph plGraph = (RefasGraph)getGraphComponent().getGraph();
 		((mxGraphModel) plGraph.getModel()).clear();
-		plGraph.setRefas(pl);
+		plGraph.setModel(pl);
 		
 		//productLineIndex.populate(pl);
 		

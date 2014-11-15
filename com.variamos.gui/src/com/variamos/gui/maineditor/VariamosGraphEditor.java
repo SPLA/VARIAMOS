@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SpringLayout;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
@@ -87,6 +88,43 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int modelViewIndex = 0;
 	private ArrayList<String> validElements = null;
 
+	protected DomainRegister domainRegister = new DomainRegister();
+	protected GraphTree productLineIndex;
+	protected ConfiguratorPanel configurator;
+	protected JTextArea messagesArea;
+	protected JPanel propertiesPanel;
+	protected PerspectiveToolBar perspectiveToolBar;
+	// Bottom tabs
+	protected JTabbedPane extensionTabs;
+
+	protected int mode = 0;
+
+	public VariamosGraphEditor(String appTitle,
+			VariamosGraphComponent component, int perspective, AbstractModel abstractModel) {
+		super(appTitle, component, perspective);
+
+		// loadRegularPalette();
+		loadScriptedPalettes();
+		// loadPalettes();
+		registerEvents();
+		((AbstractGraph)graphComponent.getGraph()).setModel(abstractModel);
+		if (perspective == 0) {
+			setPerspective(0);
+			graphEditorFunctions = new PLGraphEditorFunctions(this);
+			graphEditorFunctions.updateEditor(validElements,
+					getGraphComponent(), modelViewIndex);
+			// loadRegularPalette(insertPalette(mxResources.get("productLinePalette")));
+		}
+	}
+
+	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
+		return graphEditorFunctions;
+	}
+
+	public void setGraphEditorFunctions(AbstractGraphEditorFunctions gef) {
+		graphEditorFunctions = gef;
+	}
+
 	public int getModelViewIndex() {
 		return modelViewIndex;
 	}
@@ -102,28 +140,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		propertiesPanel.repaint();
 	}
 
-	protected DomainRegister domainRegister = new DomainRegister();
-	protected GraphTree productLineIndex;
-	protected ConfiguratorPanel configurator;
-	protected JTextArea messagesArea;
-	protected JPanel propertiesPanel;
-	protected PerspectiveToolBar perspectiveToolBar;
-
-	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
-		return graphEditorFunctions;
-	}
-
-	public void setGraphEditorFunctions(AbstractGraphEditorFunctions gef) {
-		graphEditorFunctions = gef;
-	}
-
-	// Bottom tabs
-	protected JTabbedPane extensionTabs;
-
-	protected int mode = 0;
-
 	public void updateEditor() {
-		editProductLineReset();
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
 		perspectiveToolBar.updateButtons();
@@ -135,24 +152,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// perspectiveToolBar.updateButtons();
 	}
 
-	public VariamosGraphEditor(String appTitle,
-			VariamosGraphComponent component, int perspective) {
-		super(appTitle, component, perspective);
-
-		// loadRegularPalette();
-		loadScriptedPalettes();
-		// loadPalettes();
-		registerEvents();
-
-		if (perspective == 0) {
-			setPerspective(0);
-			graphEditorFunctions = new PLGraphEditorFunctions(this);
-			graphEditorFunctions.updateEditor(validElements,
-					getGraphComponent(), modelViewIndex);
-			// loadRegularPalette(insertPalette(mxResources.get("productLinePalette")));
-		}
-	}
-
 	/**
 	 * @param appTitle
 	 * @param component
@@ -161,35 +160,33 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	 */
 	public static VariamosGraphEditor loader(String appTitle, String file,
 			String perspective) throws FeatureModelException {
-		ProductLine pl = null;
+		AbstractModel abstractModel = null;
 
 		int persp = 0;
 		if (perspective.equals("ProductLine")) {
 			persp = 0;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				pl = reader.readFile(file);
+				abstractModel = reader.readFile(file);
 			} else
 
-				pl = new ProductLine();
+				abstractModel = new ProductLine();
 			ProductLineGraph plGraph = new ProductLineGraph();
 			// plGraph.add
 			VariamosGraphEditor vge = new VariamosGraphEditor(
 					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph), persp);
-			vge.editProductLine(pl);
+							plGraph), persp, abstractModel);
 			return vge;
 		} else if (perspective.equals("modeling")) {
 			persp = 2;
-			Refas r1 = null;
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				r1 = reader.readRefasFile(file);
+				abstractModel = reader.readRefasFile(file);
 				refasGraph = new RefasGraph();
 			} else {
 				{
-					r1 = new Refas();
+					abstractModel = new Refas();
 					refasGraph = new RefasGraph();
 
 				}
@@ -197,8 +194,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// ProductLineGraph plGraph2 = new ProductLineGraph();
 				VariamosGraphEditor vge2 = new VariamosGraphEditor(
 						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph), persp);
-				vge2.editRefas(r1);
+								refasGraph), persp, abstractModel);
 				vge2.createFrame().setVisible(true);
 				vge2.setVisibleModel(0);
 				vge2.setPerspective(2);
@@ -216,17 +212,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				return vge2;
 			}
 		} else if (perspective.equals("metamodeling")) {
-			//todo: change for metamodeling
+			// todo: change for metamodeling
 			persp = 3;
-			Refas r1 = null;
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				r1 = reader.readRefasFile(file);
+				abstractModel = reader.readRefasFile(file);
 				refasGraph = new RefasGraph();
 			} else {
 				{
-					r1 = new Refas();
+					abstractModel = new Refas();
 					refasGraph = new RefasGraph();
 
 				}
@@ -234,8 +229,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// ProductLineGraph plGraph2 = new ProductLineGraph();
 				VariamosGraphEditor vge2 = new VariamosGraphEditor(
 						"Configurator - VariaMos", new VariamosGraphComponent(
-								refasGraph), persp);
-				vge2.editRefas(r1);
+								refasGraph), persp, abstractModel);
 				vge2.createFrame().setVisible(true);
 				vge2.setVisibleModel(0);
 				vge2.setPerspective(3);
@@ -250,10 +244,31 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return null;
 	}
 
+	public void editModel(AbstractModel pl) {
+		// productLineIndex.reset();
+		 AbstractGraph abstractGraph= null;
+		 
+		 //todo: review other perspectives
+		 if (perspective ==0 || perspective ==1)
+			 abstractGraph = new ProductLineGraph();
+		 if (perspective ==2 || perspective ==3)
+			 abstractGraph = new RefasGraph();
+//		 abstractGraph = (AbstractGraph) getGraphComponent()
+//				.getGraph();
+		 ((VariamosGraphComponent)graphComponent).updateGraph(abstractGraph);
+		 registerEvents();
+
+		abstractGraph.setModel(pl);
+
+
+	//	 productLineIndex.populate(pl);
+
+	}
+
+	
 	public void resetView() {
-		editProductLineReset();
-		mxGraph graph = getGraphComponent().getGraph();
 		updateEditor();
+		mxGraph graph = getGraphComponent().getGraph();
 		// Check modified flag and display save dialog
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
@@ -310,99 +325,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 		});
 	}
-
-	// private void loadRegularPalette() {
-	// //Load regular palette
-	// EditorPalette palette =
-	// insertPalette(mxResources.get("productLinePalette"));
-	//
-	// palette
-	// .addTemplate(
-	// mxResources.get("varElementIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plnode.png")),
-	// "plnode", 80, 40, new VariabilityElement());
-	//
-	// palette
-	// .addEdgeTemplate(
-	// mxResources.get("optionalIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/ploptional.png")),
-	// "ploptional", 80, 40, ConstraintMode.Optional);
-	//
-	// palette
-	// .addEdgeTemplate(
-	// mxResources.get("mandatoryIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plmandatory.png")),
-	// "plmandatory", 80, 40, ConstraintMode.Mandatory);
-	// palette
-	// .addEdgeTemplate(
-	// mxResources.get("requiresIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plrequires.png")),
-	// "plrequires", 80, 40, ConstraintMode.Requires);
-	// palette
-	// .addEdgeTemplate(
-	// mxResources.get("excludesIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plexcludes.png")),
-	// "plexcludes", 80, 40, ConstraintMode.Excludes);
-	//
-	// palette
-	// .addTemplate(
-	// mxResources.get("groupIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plgroup.png")),
-	// "plgroup", 20, 20, new GroupConstraint());
-	//
-	// palette
-	// .addTemplate(
-	// mxResources.get("constraintIconTitle"),
-	// new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plcons.png")),
-	// "plcons", 60, 30, new GenericConstraint());
-	//
-	// //For the assets
-	// palette.addTemplate("Asset", new ImageIcon(
-	// GraphEditor.class
-	// .getResource("/com/variamos/gui/pl/editor/images/plcons.png")),
-	// "plasset", 60, 30, new Asset());
-	//
-	// final ProductLineGraph graph =
-	// (ProductLineGraph)getGraphComponent().getGraph();
-	//
-	// palette.addListener(mxEvent.SELECT, new mxIEventListener()
-	// {
-	// public void invoke(Object sender, mxEventObject evt)
-	// {
-	// Object tmp = evt.getProperty("transferable");
-	// graph.setConsMode(ConstraintMode.None);
-	//
-	// if (tmp instanceof mxGraphTransferable)
-	// {
-	// mxGraphTransferable t = (mxGraphTransferable) tmp;
-	// Object obj = t.getCells()[0];
-	//
-	// if (graph.getModel().isEdge(obj))
-	// {
-	// mxCell cell = (mxCell)obj;
-	// ((ProductLineGraph) graph).setConsMode( (ConstraintMode)
-	// cell.getValue());
-	// }
-	// }
-	// }
-	//
-	// });
-	//
-	// }
 
 	private void loadScriptedPalettes() {
 		// Load palette from file
@@ -534,9 +456,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return configurator;
 	}
 
-	public void editProductLineReset() {
+	public void editModelReset() {
 		productLineIndex.reset();
-		editRefas(new Refas());
+		if (perspective == 0)
+			editModel(new ProductLine());
+		else
+
+			editModel(new Refas());
 	}
 
 	public void populateIndex(ProductLine pl) {
@@ -549,31 +475,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	}
 
-	public void editProductLine(ProductLine pl) {
-		// productLineIndex.reset();
 
-		ProductLineGraph plGraph = (ProductLineGraph) getGraphComponent()
-				.getGraph();
-		((mxGraphModel) plGraph.getModel()).clear();
-		plGraph.setProductLine(pl);
-
-		// productLineIndex.populate(pl);
-
-	}
-
-	public void editRefas(Refas pl) {
-		// productLineIndex.reset();
-
-		RefasGraph refasGraph = (RefasGraph) getGraphComponent().getGraph();
-		((mxGraphModel) refasGraph.getModel()).clear();
-		refasGraph.setRefas(pl);
-
-		// productLineIndex.populate(pl);
-
-	}
-
-	public ProductLine getEditedProductLine() {
-		return ((ProductLineGraph) getGraphComponent().getGraph())
+	public AbstractModel getEditedModel() {
+		return ((AbstractGraph) getGraphComponent().getGraph())
 				.getProductLine();
 	}
 

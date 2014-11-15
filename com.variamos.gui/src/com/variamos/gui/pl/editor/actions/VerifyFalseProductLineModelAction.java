@@ -37,7 +37,7 @@ public class VerifyFalseProductLineModelAction extends
 		pl = plGraph.getProductLine();*/
 		
 		
-		pl = editor.getEditedProductLine();
+		pl = (ProductLine)editor.getEditedModel();
 		
 		pl.printDebug(System.out);
 

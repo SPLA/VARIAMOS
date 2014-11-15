@@ -3,10 +3,10 @@ package com.variamos.gui.pl.editor;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+import com.variamos.gui.common.actions.ConfigureAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveProductsAction;

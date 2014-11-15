@@ -1,28 +1,22 @@
 package com.variamos.gui.refas.editor;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
-
-
 
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.util.mxResources;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
+//import com.variamos.pl.editor.logic.PaletteDatabase;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 import com.variamos.refas.concepts.Goal;
 
 /**
@@ -210,7 +204,7 @@ public class RQPalettesLoader {
 		}
 */
 	}
-
+/*
 	private static void loadPaletteDatabase(PaletteDatabase db,
 			EditorPalette palette) {
 		for (PaletteDefinition pal : db.palettes) {
@@ -228,5 +222,5 @@ public class RQPalettesLoader {
 						edge.styleName, edge.width, edge.height, edge.value);
 			}
 		}
-	}
+	}*/
 }

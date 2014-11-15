@@ -78,8 +78,8 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public void updateEditor(ArrayList<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
-		editor.editProductLineReset();
 		editor.setPerspective(2);
+		editor.editModelReset();
 		System.out.println("requirements");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}

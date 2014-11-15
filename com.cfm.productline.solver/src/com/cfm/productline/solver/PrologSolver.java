@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.Domain;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.LiteralBooleanExpression;
@@ -39,7 +40,7 @@ public class PrologSolver implements Solver{
 	
 	private PrologEngine prolog ;
 	private PrologTermFactory ptf ;
-	private ProductLine pl;
+	private AbstractModel pl;
 	private QueryResult qr;
 	
 	public PrologSolver(PrologContext ctx){
@@ -96,7 +97,7 @@ public class PrologSolver implements Solver{
 	}
 
 	@Override
-	public void setProductLine(ProductLine pl) {
+	public void setProductLine(AbstractModel pl) {
 		this.pl = pl;
 	}
 
@@ -198,7 +199,7 @@ public class PrologSolver implements Solver{
 			ids.add(elm.getName());
 			vars.put(elm.getName(), ptf.newVariable(elm.getName()));
 		}
-		
+		//todo: jcmunoz should be threated in the same way
 		for(Asset a : pl.getAssets().values()){
 			ids.add(a.getIdentifier());
 			vars.put(a.getIdentifier(), ptf.newVariable(a.getIdentifier()));
@@ -251,7 +252,7 @@ public class PrologSolver implements Solver{
 	}
 
 	@Override
-	public ProductLine getProductLine() {
+	public AbstractModel getProductLine() {
 		return pl;
 	}
 

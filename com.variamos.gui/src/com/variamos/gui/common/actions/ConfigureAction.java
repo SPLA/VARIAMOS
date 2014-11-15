@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.configurator.guiactions;
+package com.variamos.gui.common.actions;
 
 import java.awt.event.ActionEvent;
 
@@ -16,7 +16,7 @@ public class ConfigureAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent evt) {
 		VariamosGraphEditor editor = getEditor(evt);
 		editor.bringUpExtension(mxResources.get("configurationTab"));
-		editor.getConfigurator().configure(editor.getEditedProductLine());
+		editor.getConfigurator().configure(editor.getEditedModel());
 		
 		//editor.getConfigurator().performConfiguration();
 	}

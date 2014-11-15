@@ -214,10 +214,17 @@ public class EditorMenuBar extends JMenuBar
 		submenu = (JMenu) menu.add(new JMenu(mxResources.get("zoom")));
 
 		submenu.add(editor.bind("400%", new ScaleAction(4)));
+		submenu.add(editor.bind("300%", new ScaleAction(3)));
+		submenu.add(editor.bind("250%", new ScaleAction(1.5)));
 		submenu.add(editor.bind("200%", new ScaleAction(2)));
+		submenu.add(editor.bind("175%", new ScaleAction(1.75)));
 		submenu.add(editor.bind("150%", new ScaleAction(1.5)));
-		submenu.add(editor.bind("100%", new ScaleAction(1)));
+		submenu.add(editor.bind("125%", new ScaleAction(1.25)));
+		submenu.add(editor.bind("110%", new ScaleAction(1.1)));
+		submenu.add(editor.bind("100%", new ScaleAction(1.0)));	
+		submenu.add(editor.bind("90%", new ScaleAction(0.9)));
 		submenu.add(editor.bind("75%", new ScaleAction(0.75)));
+		submenu.add(editor.bind("67%", new ScaleAction(0.67)));
 		submenu.add(editor.bind("50%", new ScaleAction(0.5)));
 
 		submenu.addSeparator();

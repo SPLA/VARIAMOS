@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.canvas.mxICanvas;
@@ -127,7 +128,7 @@ public class SaveAction extends AbstractEditorAction {
 	{
 		BasicGraphEditor editor = getEditor(e);
 		VariamosGraphEditor editor2 = getEditor(e);
-		ProductLine pl = null;
+		AbstractModel pl = null;
 
 		if (editor != null)
 		{
@@ -275,7 +276,7 @@ public class SaveAction extends AbstractEditorAction {
 				}
 				else if (ext.equalsIgnoreCase("pl"))
 				{
-					pl = editor2.getEditedProductLine();
+					pl = editor2.getEditedModel();
 					pl.printDebug(System.out);
 					//ProductLineGraph plGraph = (ProductLineGraph)graph;
 					//generatePrologFile(plGraph.getProductLine(), filename);
@@ -340,7 +341,7 @@ public class SaveAction extends AbstractEditorAction {
 		}
 	}
 
-	private void generatePrologFile(ProductLine pl, String filename) throws IOException, FeatureModelException {
+	private void generatePrologFile(AbstractModel pl, String filename) throws IOException, FeatureModelException {
 		SXFMWriter writer = new SXFMWriter();
 		System.out.println(writer.getSXFMContent(pl));
 		

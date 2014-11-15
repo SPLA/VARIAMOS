@@ -36,7 +36,7 @@ public class VerifyDeadElementAction extends AbstractEditorAction {
 		pl = plGraph.getProductLine();*/
 		
 		//PUSE ESTA
-		pl = editor.getEditedProductLine();
+		pl = (ProductLine)editor.getEditedModel();
 		//pl.printDebug(System.out);
 		
 

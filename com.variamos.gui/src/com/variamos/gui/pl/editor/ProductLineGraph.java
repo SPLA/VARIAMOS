@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
@@ -104,7 +105,8 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
-	public void setProductLine(ProductLine pl) {
+	public void setModel(AbstractModel abstractModel) {
+		ProductLine pl = (ProductLine) abstractModel;
 		buildFromProductLine(pl);
 		mxGraphLayout layout = new mxFastOrganicLayout(this);
 		layout.execute(getDefaultParent());

@@ -1,7 +1,9 @@
 package com.variamos.refas.concepts;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
@@ -16,30 +18,72 @@ public class GroupGConstraint extends Constraint implements Editable {
 	public static final int INFINITE = -1;
 
 	//private int lowerLimit, upperLimit;	
-	private Variable varLowerLimit = IntegerType.newVariable("lowerLimit"), 
-					varUpperLimit = IntegerType.newVariable("upperLimit"),
-					varShowLimit = BooleanType.newVariable("ShowLimit"),
-					varCardinality = StringType.newVariable("Cardinality"),
-					varType = StringType.newVariable("Type");
+	public static final String 	VAR_IDENTIFIER = "Identifier",
+			VAR_DESCRIPTION = "Description",
+			VAR_VISIBILITY = "Visibility",
+			VAR_VALIDITY = "Validity",
+			VAR_ALLOCATION = "Allocation",
+			VAR_TEXT = "Text",
+					VAR_LOWERLIMIT = "Lower limit",
+					VAR_UPPERLIMIT = "Upper limit",
+					VAR_SHOWLIMIT = "Range/Cardinality",
+					VAR_CARDINALITY = "Carinality (AND,OR,XOR)",
+					VAR_TYPE = "Type(Means-ends, required.etc)todo:enum",
+					VAR_PARENT = "Parent";
+	
+	protected Map<String, Variable> vars = new HashMap<>();
+	
 	private List<String> children;
-	private String parent;
 
 	public GroupGConstraint() {
 		super();
-		parent = null;
+		
+		vars.put(VAR_IDENTIFIER, StringType.newVariable(VAR_IDENTIFIER));
+		vars.put(VAR_DESCRIPTION, StringType.newVariable(VAR_DESCRIPTION));
+		vars.put(VAR_VISIBILITY, BooleanType.newVariable(VAR_VISIBILITY));
+		vars.put(VAR_VALIDITY, BooleanType.newVariable(VAR_VALIDITY));
+		vars.put(VAR_ALLOCATION, StringType.newVariable(VAR_ALLOCATION));
+		vars.put(VAR_TEXT, StringType.newVariable(VAR_TEXT));
+		vars.put(VAR_LOWERLIMIT, IntegerType.newVariable(VAR_LOWERLIMIT));
+		vars.put(VAR_UPPERLIMIT, IntegerType.newVariable(VAR_UPPERLIMIT));
+		vars.put(VAR_SHOWLIMIT, BooleanType.newVariable(VAR_SHOWLIMIT));
+		vars.put(VAR_CARDINALITY, StringType.newVariable(VAR_CARDINALITY));
+		vars.put(VAR_TYPE, StringType.newVariable(VAR_TYPE));
+		vars.put(VAR_PARENT, StringType.newVariable(VAR_PARENT));
+		
+		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
+		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
+
 		children = new ArrayList<>();
 	}
 
+	public Variable getVariable(String name){
+		return vars.get(name);
+	}
+	
+	public void setVariableValue(String name, Object value){
+		//GARA
+		getVariable(name).setValue(value);
+	}
+	
+	public Object getVariableValue(String name){
+		return getVariable(name).getValue();
+	}
+	
+	public GroupGConstraint(String alias) {
+		this ();
+		if (alias != null)
+			this.alias = alias;
+	}
+	
 	public GroupGConstraint(String parent, int lowerLimit, int upperLimit) {
 		this();
-		varLowerLimit.setValue(lowerLimit);
-		varUpperLimit.setValue(upperLimit);
-		varShowLimit.setValue(true);
-		varType.setValue("");
-		//this.lowerLimit = lowerLimit;
-		//this.upperLimit = upperLimit;
-		// children.add(parent);
-		this.parent = firstUpperCaseString(parent);
+		setVariableValue(VAR_LOWERLIMIT, lowerLimit);
+		setVariableValue(VAR_UPPERLIMIT, upperLimit);
+		setVariableValue(VAR_SHOWLIMIT, true);
+		setVariableValue(VAR_TYPE, "");
+		setVariableValue(VAR_PARENT, firstUpperCaseString(parent));
+
 	}
 
 	// This element is at the position 0 at all times
@@ -52,10 +96,11 @@ public class GroupGConstraint extends Constraint implements Editable {
 		// children.remove(id);
 		// children.add(0, id);
 
-		parent = firstUpperCaseString(id);
+		setVariableValue(VAR_PARENT, firstUpperCaseString(id));
+
 
 		// If the parent was a child, remove it.
-		children.remove(parent);
+		children.remove(getVariableValue(VAR_PARENT));
 	}
 
 	public String getParent() {
@@ -63,7 +108,7 @@ public class GroupGConstraint extends Constraint implements Editable {
 		// return null;
 		// return children.get(0);
 
-		return parent;
+		return getVariableValue(VAR_PARENT).toString();
 	}
 
 	public int getChildCount() {
@@ -79,52 +124,44 @@ public class GroupGConstraint extends Constraint implements Editable {
 	@Override
 	public List<String> getRelatedIds() {
 		List<String> related = new ArrayList<>(1 + children.size());
-		related.add(parent);
+		related.add(getVariableValue(VAR_PARENT).toString());
 		related.addAll(children);
 		return related;
 		// return children;
 	}
 
 	public int getLowerLimit() {
-		return varLowerLimit.getAsInteger();
+		return Integer.parseInt(getVariableValue(VAR_LOWERLIMIT).toString());
 	}
 
 	public void setLowerLimit(int lowerLimit) {
-		varLowerLimit.setValue(lowerLimit);
+		setVariableValue(VAR_LOWERLIMIT, lowerLimit);
 	}
 
 	public int getUpperLimit() {
-		return varUpperLimit.getAsInteger();
+		return Integer.parseInt(getVariableValue(VAR_UPPERLIMIT).toString());
+
 	}
 
 	public void setUpperLimit(int upperLimit) {
-		varUpperLimit.setValue(upperLimit);
+		setVariableValue(VAR_UPPERLIMIT, upperLimit);
 	}
 
 	public void addChildId(String childId) {
-		// Adding children before parent... must add a null in parent
-		// if( children.size() == 0 )
-		// children.add(null);
-		//
-		// //What if the children is the parent?
-		// if( childId.equals(getParent()) )
-		// setParent(null);
-		//
-		// children.add(childId);
-		// If this child was the parent?
-		if (childId == parent)
-			parent = null;
+
+		if (childId.equals(getVariableValue(VAR_PARENT).toString()))
+			setVariableValue(VAR_PARENT, null);
 		children.add(firstUpperCaseString(childId));
 	}
 
 	public String getCardinalityString() {
 		StringBuffer buf = new StringBuffer();
 		String upper = (getUpperLimit() == INFINITE) ? "*" : "" + getUpperLimit();
-		if (varShowLimit.getAsBoolean())
+		if ((Boolean)getVariableValue(VAR_SHOWLIMIT))
 			buf.append("[").append(getLowerLimit()).append(", ").append(upper).append("]");
 		else
-			buf.append(varCardinality.toString());
-		buf.append(" - "+varType.toString());
+			buf.append(getVariableValue(VAR_CARDINALITY));
+		buf.append(" - "+getVariableValue(VAR_TYPE));
 		return buf.toString();
 	}
 
@@ -133,7 +170,7 @@ public class GroupGConstraint extends Constraint implements Editable {
 		StringBuffer buf = new StringBuffer();
 
 		String cardString = getCardinalityString();
-		buf.append(parent).append(" ").append(cardString).append("{");
+		buf.append(getVariableValue(VAR_PARENT).toString()).append(" ").append(cardString).append("{");
 
 		for (int i = 0; i < children.size(); i++) {
 			buf.append(firstUpperCaseString(children.get(i)));
@@ -165,23 +202,32 @@ public class GroupGConstraint extends Constraint implements Editable {
 
 	@Override
 	public Variable[] getEditableVariables() {
-		return new Variable[]{ varLowerLimit, varUpperLimit, varShowLimit, varCardinality, varType };
+		return new Variable[]{ 		vars.get(VAR_DESCRIPTION),
+		vars.get(VAR_VISIBILITY), 
+		vars.get(VAR_VALIDITY),
+		vars.get(VAR_ALLOCATION), 
+		vars.get(VAR_TEXT), 
+		vars.get(VAR_LOWERLIMIT),
+		vars.get(VAR_UPPERLIMIT),
+		vars.get(VAR_SHOWLIMIT), 
+		vars.get(VAR_CARDINALITY), 
+		vars.get(VAR_TYPE)  };
 	}
 
-	public Variable getVarLowerLimit() {
-		return varLowerLimit;
-	}
+//	public Variable getVarLowerLimit() {
+//		return getVariableValue(VAR_LOWERLIMIT);
+//	}
 
 	public void setVarLowerLimit(Variable varLowerLimit) {
-		this.varLowerLimit = varLowerLimit;
+		setVariableValue(VAR_LOWERLIMIT, varLowerLimit);
 	}
 
-	public Variable getVarUpperLimit() {
-		return varUpperLimit;
-	}
+//	public Variable getVarUpperLimit() {
+//		return getVariableValue(VAR_UPPERLIMIT);
+//	}
 
 	public void setVarUpperLimit(Variable varUpperLimit) {
-		this.varUpperLimit = varUpperLimit;
+		setVariableValue(VAR_UPPERLIMIT, varUpperLimit);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.editor;
+package com.variamos.gui.refas.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+
 import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.BinaryDomain;
 import com.cfm.productline.Constraint;
@@ -39,11 +40,13 @@ import com.variamos.gui.pl.configurator.solution.SolutionPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
+import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
+import com.variamos.refas.concepts.Refas;
 
 /**
  * @author unknown
@@ -51,8 +54,8 @@ import com.variamos.pl.configurator.io.ConfigurationDTO;
  *
  */
 @SuppressWarnings("serial")
-public class ConfiguratorPanel extends AbstractConfigurationPanel {
-	private ProductLine productLine;
+public class RefasConfiguratorPanel extends AbstractConfigurationPanel {
+	private Refas refas;
 	
 	//Configurator table settings
 	private ConfigurationTreeTable table;
@@ -67,7 +70,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	
 	private JList<String> additionalConstraints;
 	
-	public ConfiguratorPanel(){
+	public RefasConfiguratorPanel(){
 		configurator = new Configurator();
 	//	solver = new PrologSolver(new GNUPrologContext());
 		
@@ -130,7 +133,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				Integer num = Integer.parseInt(txtNumConf.getText());
 				
 				if(num == null){
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this, "Invalid Number", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(RefasConfiguratorPanel.this, "Invalid Number", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				
@@ -148,7 +151,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				Integer num = Integer.parseInt(txtNumConf.getText());
 				
 				if(num == null){
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this, "Invalid Number", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(RefasConfiguratorPanel.this, "Invalid Number", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				
@@ -324,19 +327,20 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 	*/
 	
-	public ProductLine getProductLine() {
-		return this.productLine;
+	public Refas getRefas() {
+		return this.refas;
 	}
 
 	public void setStatus(String string) {
 		lblStatus.setText(string);
 	}
 
+	//todo: change to refas
 	public void configure(AbstractModel am) {
-		ProductLine pl = (ProductLine) am;
+		Refas pl = (Refas)am;
 		this.removeAll();
 		initComponents();
-		this.productLine = pl;
+		this.refas = pl;
 		configurator.setSolverProductLine(pl);
 		
 		List<VariabilityElement> ordered = new ArrayList<VariabilityElement>(pl.getVariabilityElements());
@@ -411,7 +415,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	public void performConfiguration() {
 		DefaultConfigurationTaskListener listener = new DefaultConfigurationTaskListener(this);
 		Configuration configuration = getCurrentConfiguration();
-		configurator.performConfiguration(configuration,getCurrentOptions(), listener, productLine);
+		configurator.performConfiguration(configuration,getCurrentOptions(), listener, refas);
 	}
 
 	public void setValueToVariable(Variable variable, Integer value, int index) {

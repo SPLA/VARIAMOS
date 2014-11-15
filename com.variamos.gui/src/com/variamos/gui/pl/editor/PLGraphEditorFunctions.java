@@ -34,10 +34,10 @@ public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 	}
 	
 	public void updateEditor (ArrayList<String> validEelements, mxGraphComponent graphComponent, int modelViewIndex){
-		editor.editProductLineReset();
+		editor.setPerspective(0);	
+		editor.editModelReset();
 		editor.clearPalettes();
 		System.out.println("productlines");
-		editor.setPerspective(0);		
 		loadRegularPalette(editor.insertPalette(mxResources
 				.get("productLinePalette")),graphComponent);
 	}

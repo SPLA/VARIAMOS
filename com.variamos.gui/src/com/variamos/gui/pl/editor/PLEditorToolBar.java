@@ -178,7 +178,7 @@ public class PLEditorToolBar extends JToolBar
 				.getView();
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
-				"200%", "150%", "100%", "75%", "50%", mxResources.get("page"),
+				"300%", "200%","175%", "150%","125%","110%", "100%", "90%", "75%","67%", "50%", mxResources.get("page"),
 				mxResources.get("width"), mxResources.get("actualSize") });
 		zoomCombo.setEditable(true);
 		zoomCombo.setMinimumSize(new Dimension(75, 0));

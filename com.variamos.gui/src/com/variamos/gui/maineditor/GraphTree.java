@@ -11,6 +11,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.model.mxCell;
@@ -87,7 +88,7 @@ public class GraphTree extends JTree{
 		return node;
 	}
 	
-	public void populate(ProductLine pl){
+	public void populate(AbstractModel pl){
 		getRoot().setUserObject(pl);
 		getModel().nodeChanged(getRoot());
 	}

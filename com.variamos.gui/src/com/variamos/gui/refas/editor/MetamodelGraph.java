@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
@@ -265,8 +266,8 @@ public class MetamodelGraph extends AbstractGraph {
 		}
 	}
 
-	public void setRefas(Refas pl) {
-		refas = pl;
+	public void setModel(AbstractModel pl) {
+		refas = (Refas)pl;
 		buildFromProductLine(pl);
 		mxGraphLayout layout = new mxFastOrganicLayout(this);
 		layout.execute(getDefaultParent()); // todo change root?
@@ -450,7 +451,7 @@ public class MetamodelGraph extends AbstractGraph {
 		}
 	}
 
-	private void buildFromProductLine(Refas pl) {
+	private void buildFromProductLine(AbstractModel pl) {
 
 		for (VariabilityElement vp : pl.getVariabilityElements())
 			insertVertex(null, vp.getIdentifier(), vp, 0, 0, 80, 40, "plnode");
@@ -461,7 +462,7 @@ public class MetamodelGraph extends AbstractGraph {
 		// pl.printDebug(System.out);
 	}
 
-	private void buildConstraint(Refas pl, Constraint c) {
+	private void buildConstraint(AbstractModel pl, Constraint c) {
 		/*
 		 * TODO constraints of the new language if( c instanceof
 		 * OptionalConstraint ){ OptionalConstraint oc = (OptionalConstraint)c;

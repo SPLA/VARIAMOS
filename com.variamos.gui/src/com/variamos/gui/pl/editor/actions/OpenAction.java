@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
@@ -42,12 +43,12 @@ public class OpenAction extends AbstractEditorAction{
 	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
 		
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
-		variamosEditor.editProductLineReset();
+		variamosEditor.editModelReset();
 		
 		SXFMReader reader = new SXFMReader();
-		ProductLine pl = reader.readFile(file.getAbsolutePath());
+		AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
-		variamosEditor.editProductLine(pl);
+		variamosEditor.editModel(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);
@@ -131,7 +132,7 @@ public class OpenAction extends AbstractEditorAction{
 //										document.getDocumentElement(),
 //										graph.getModel());
 								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
-								variamosEditor.editProductLineReset();
+								variamosEditor.editModelReset();
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc

@@ -32,7 +32,7 @@ public class VerifyFalseOptionalElementAction extends AbstractEditorAction {
 		ProductLineGraph plGraph = (ProductLineGraph) graph;
 		pl = plGraph.getProductLine();*/
 		
-		pl = editor.getEditedProductLine();
+		pl = (ProductLine)editor.getEditedModel();
 
 		JTextArea messagesArea = editor.getMessagesArea();
 		StringBuilder outputMessage = new StringBuilder();

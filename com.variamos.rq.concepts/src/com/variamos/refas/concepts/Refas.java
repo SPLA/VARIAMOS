@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.AssetModel;
@@ -26,7 +27,7 @@ import com.mxgraph.util.mxResources;
  * @author jcmunoz
  * Initially Copied from ProductLine
  */
-public class Refas {
+public class Refas extends AbstractModel{
 	
 	/**
 	 * Adds required resources for i18n

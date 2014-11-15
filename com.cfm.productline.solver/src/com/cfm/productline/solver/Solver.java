@@ -3,11 +3,12 @@ package com.cfm.productline.solver;
 import java.util.List;
 import java.util.Map;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.Domain;
 import com.cfm.productline.ProductLine;
 
 public interface Solver {
-	public void setProductLine(ProductLine pl);
+	public void setProductLine(AbstractModel pl);
 	public void solve(Configuration config, ConfigurationOptions options);
 	public boolean hasNextSolution();
 	public Configuration getSolution();

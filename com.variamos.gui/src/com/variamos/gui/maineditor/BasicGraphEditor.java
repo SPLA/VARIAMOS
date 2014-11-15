@@ -65,7 +65,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
 import com.variamos.gui.refas.editor.ModelButtonAction;
-import com.variamos.gui.refas.editor.RequirementsMenuBar;
+import com.variamos.gui.refas.editor.RefasMenuBar;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -189,11 +189,13 @@ public class BasicGraphEditor extends JPanel {
 		case 3:
 			center.setDividerLocation(0);
 			upperPart.setDividerLocation(0);
-			graphAndRight.setDividerLocation(700);			
-			graphComponent.setBackgroundImage(new ImageIcon(BasicGraphEditor.class
-					.getResource("/com/variamos/gui/refas/editor/images/metamodelv4.png")));
+			graphAndRight.setDividerLocation(700);
+			graphComponent
+					.setBackgroundImage(new ImageIcon(
+							BasicGraphEditor.class
+									.getResource("/com/variamos/gui/refas/editor/images/metamodelv4.png")));
 			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new RequirementsMenuBar(this));
+			frame.setJMenuBar(new RefasMenuBar(this));
 			break;
 		}
 	}
@@ -240,31 +242,8 @@ public class BasicGraphEditor extends JPanel {
 
 		// Stores a reference to the graph and creates the command history
 		graphComponent = component;
-		final mxGraph graph = graphComponent.getGraph();
-		undoManager = createUndoManager();
 
-		// Do not change the scale and translation after files have been loaded
-		// graph.setResetViewOnRootChange(false);
-
-		// Updates the modified flag if the graph model changes
-		graph.getModel().addListener(mxEvent.CHANGE, changeTracker);
-
-		// Adds the command history to the model and view
-		graph.getModel().addListener(mxEvent.UNDO, undoHandler);
-		graph.getView().addListener(mxEvent.UNDO, undoHandler);
-
-		// Keeps the selection in sync with the command history
-		mxIEventListener undoHandler = new mxIEventListener() {
-			public void invoke(Object source, mxEventObject evt) {
-				List<mxUndoableChange> changes = ((mxUndoableEdit) evt
-						.getProperty("edit")).getChanges();
-				graph.setSelectionCells(graph
-						.getSelectionCellsForChanges(changes));
-			}
-		};
-
-		undoManager.addListener(mxEvent.UNDO, undoHandler);
-		undoManager.addListener(mxEvent.REDO, undoHandler);
+		undoManager();
 
 		// Buttons for model views
 		buttonsPane = new JPanel();
@@ -349,6 +328,42 @@ public class BasicGraphEditor extends JPanel {
 		installListeners();
 		updateTitle();
 	}
+	
+	protected void reinstallComponent()
+	{
+		undoManager();
+		installHandlers();
+		installGraphComponentListeners();
+	}
+
+	protected void undoManager() {
+		final mxGraph graph = graphComponent.getGraph();
+
+		undoManager = createUndoManager();
+
+		// Do not change the scale and translation after files have been loaded
+		// graph.setResetViewOnRootChange(false);
+
+		// Updates the modified flag if the graph model changes
+		graph.getModel().addListener(mxEvent.CHANGE, changeTracker);
+
+		// Adds the command history to the model and view
+		graph.getModel().addListener(mxEvent.UNDO, undoHandler);
+		graph.getView().addListener(mxEvent.UNDO, undoHandler);
+
+		// Keeps the selection in sync with the command history
+		mxIEventListener undoHandler = new mxIEventListener() {
+			public void invoke(Object source, mxEventObject evt) {
+				List<mxUndoableChange> changes = ((mxUndoableEdit) evt
+						.getProperty("edit")).getChanges();
+				graph.setSelectionCells(graph
+						.getSelectionCellsForChanges(changes));
+			}
+		};
+
+		undoManager.addListener(mxEvent.UNDO, undoHandler);
+		undoManager.addListener(mxEvent.REDO, undoHandler);
+	}
 
 	protected Component getLeftComponent() {
 		return new JPanel();
@@ -368,7 +383,7 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected void installHandlers() {
+	public void installHandlers() {
 		rubberband = new mxRubberband(graphComponent);
 		keyboardHandler = new EditorKeyboardHandler(graphComponent);
 	}
@@ -550,6 +565,7 @@ public class BasicGraphEditor extends JPanel {
 	 * 
 	 */
 	protected void installListeners() {
+		installGraphComponentListeners();
 		// Installs mouse wheel listener for zooming
 		MouseWheelListener wheelTracker = new MouseWheelListener() {
 			/**
@@ -566,7 +582,7 @@ public class BasicGraphEditor extends JPanel {
 
 		// Handles mouse wheel events in the outline and graph component
 		graphOutline.addMouseWheelListener(wheelTracker);
-		graphComponent.addMouseWheelListener(wheelTracker);
+		// graphComponent.addMouseWheelListener(wheelTracker);
 
 		// Installs the popup menu in the outline
 		graphOutline.addMouseListener(new MouseAdapter() {
@@ -590,6 +606,24 @@ public class BasicGraphEditor extends JPanel {
 			}
 
 		});
+
+	}
+
+	protected void installGraphComponentListeners() {
+		MouseWheelListener wheelTracker = new MouseWheelListener() {
+			/**
+		 * 
+		 */
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				if (e.getSource() instanceof mxGraphOutline
+						|| e.isControlDown()) {
+					BasicGraphEditor.this.mouseWheelMoved(e);
+				}
+			}
+
+		};
+		// Handles mouse wheel events in the graph component
+		graphComponent.addMouseWheelListener(wheelTracker);
 
 		// Installs the popup menu in the graph component
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
@@ -641,6 +675,7 @@ public class BasicGraphEditor extends JPanel {
 					}
 
 				});
+
 	}
 
 	/**

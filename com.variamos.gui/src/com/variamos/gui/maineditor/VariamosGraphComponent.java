@@ -42,6 +42,21 @@ public class VariamosGraphComponent extends mxGraphComponent {
 	    });
 	}
 	
+	public void updateGraph(mxGraph graph)
+	{
+		setGraph(graph);
+		configureConnectionHandler();
+		configureSelectionHandler();
+		// Installs automatic validation
+	    graph.getModel().addListener( mxEvent.CHANGE, new mxIEventListener() {
+	      public void invoke(Object sender, mxEventObject evt) {
+	        clearCellOverlays();
+	        validateGraph();
+	      }
+	    });
+		
+	}
+	
 	private void configureSelectionHandler() {
 		graph.getSelectionModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
 			

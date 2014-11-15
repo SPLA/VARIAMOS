@@ -21,7 +21,7 @@ public class Main {
 			e1.printStackTrace();
 		}
 
-		int options = 2; // 0 old way to load product lines
+		int options = 3; // 0 old way to load product lines
 
 		switch (options) {
 		case 0:
@@ -36,12 +36,12 @@ public class Main {
 			ProductLineGraph plGraph = new ProductLineGraph();
 			VariamosGraphEditor config = new VariamosGraphEditor(
 					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph),0);
-			config.editProductLine(pl);
+							plGraph),0, pl);
 			config.createFrame().setVisible(true);
 			break;
 
 		case 1: // load ProductLine perspective directly
+			
 
 			// String file = "fm.splx"
 			String file=null;

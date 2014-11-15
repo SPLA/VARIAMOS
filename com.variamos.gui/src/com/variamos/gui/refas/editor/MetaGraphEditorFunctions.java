@@ -45,8 +45,8 @@ public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public void updateEditor(ArrayList<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
-		editor.editProductLineReset();
 		editor.setPerspective(3);
+		editor.editModelReset();
 		System.out.println("metamodeling");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
