@@ -12,14 +12,13 @@
 	<classpathentry kind="lib" path="lib/gnuProlog/gluegen-rt-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="lib/gnuProlog/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="lib/gnuProlog/gluegen.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="lib/sxfm.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.hlcl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.compiler"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.solver"/>
 	<classpathentry kind="lib" path="lib/SWIProlog/jpl.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
