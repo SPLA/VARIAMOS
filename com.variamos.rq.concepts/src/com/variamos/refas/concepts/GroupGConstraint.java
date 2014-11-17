@@ -53,6 +53,7 @@ public class GroupGConstraint extends Constraint implements Editable {
 		
 		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
 		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
+		setVariableValue(VAR_SHOWLIMIT, Boolean.TRUE);
 
 		children = new ArrayList<>();
 	}
@@ -205,12 +206,8 @@ public class GroupGConstraint extends Constraint implements Editable {
 		return new Variable[]{ 		vars.get(VAR_DESCRIPTION),
 		vars.get(VAR_VISIBILITY), 
 		vars.get(VAR_VALIDITY),
-		vars.get(VAR_ALLOCATION), 
-		vars.get(VAR_TEXT), 
 		vars.get(VAR_LOWERLIMIT),
 		vars.get(VAR_UPPERLIMIT),
-		vars.get(VAR_SHOWLIMIT), 
-		vars.get(VAR_CARDINALITY), 
 		vars.get(VAR_TYPE)  };
 	}
 
