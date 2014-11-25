@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cfm.productline.Constraint;
+import com.cfm.productline.Editable;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.StringType;
 
-public class GenericConstraint extends Constraint {
+public class GenericConstraint extends Constraint implements Editable{
 	
 	/**
 	 * 

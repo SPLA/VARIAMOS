@@ -17,9 +17,11 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
 import com.cfm.productline.Variable;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.pl.editor.widgets.Widget;
+import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 /**
  * @author unknown
@@ -27,14 +29,14 @@ import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
  */
 @SuppressWarnings("serial")
 public class GoalsParameterDialog extends JDialog{
-	private HashMap<String, Widget> widgets;
+	private HashMap<String, WidgetR> widgets;
 	private DialogButtonAction onAccept, onCancel;
 	
 	static interface DialogButtonAction{
 		public boolean onAction();
 	}
 	
-	public GoalsParameterDialog(RefasGraphEditor editor, Variable... arguments){
+	public GoalsParameterDialog(VariamosGraphEditor editor, InstAttribute... arguments){
 		super(editor.getFrame(), "Parameters");
 		
 		setLayout(new BorderLayout());
@@ -42,12 +44,12 @@ public class GoalsParameterDialog extends JDialog{
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 		
-		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
+		RefasWidgetFactory factory = new RefasWidgetFactory();
 		
-		widgets = new HashMap<String, Widget>();
+		widgets = new HashMap<String, WidgetR>();
 		
-		for(Variable p : arguments){
-			Widget w = factory.getWidgetFor(p);
+		for(InstAttribute p : arguments){
+			WidgetR w = factory.getWidgetFor(p);
 			w.editVariable(p);
 			
 			w.addPropertyChangeListener("value", new PropertyChangeListener() {
@@ -59,9 +61,9 @@ public class GoalsParameterDialog extends JDialog{
 				}
 			});
 			
-			widgets.put(p.getName(), w);
+		//	widgets.put(p.getName(), w);
 
-			panel.add(new JLabel(p.getName() + ": "));
+		//	panel.add(new JLabel(p.getName() + ": "));
 			panel.add(w);
 		}
 		
@@ -128,12 +130,12 @@ public class GoalsParameterDialog extends JDialog{
 	/**
 	 * @return
 	 */
-	public Map<String, Variable> getParameters(){
-		Map<String, Variable> map = new HashMap<>();
+	public Map<String, InstAttribute> getParameters(){
+		Map<String, InstAttribute> map = new HashMap<>();
 		
 		for(String s : widgets.keySet()){
-			Variable v = widgets.get(s).getVariable();
-			map.put(v.getName(), v);
+			InstAttribute v = widgets.get(s).getInstAttribute();
+	//		map.put(v.getName(), v);
 		}
 		
 		return map;

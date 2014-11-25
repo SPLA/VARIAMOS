@@ -27,7 +27,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.concepts.*;
+import com.variamos.refas.core.staticconcepts.*;
 
 public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -37,7 +37,7 @@ public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		super(editor);
 		paletteElements.add(new PaletteElement("Assumption", "metaconceptTitle",
 				"/com/variamos/gui/refas/editor/images/assump.png", "rqassump",
-				100, 40, "com.variamos.refas.concepts.Assumption"));
+				100, 40, "com.variamos.refas.core.staticconcepts.Assumption"));
 		paletteElements.add(new PaletteElement("GroupConstraint",	"metarelationTitle",
 				"/com/variamos/gui/pl/editor/images/plgroup.png", "plgroup",
 				20, 20, "com.cfm.productline.constraints.GroupConstraint"));

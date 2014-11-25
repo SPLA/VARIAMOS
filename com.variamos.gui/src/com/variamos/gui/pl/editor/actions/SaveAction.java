@@ -277,7 +277,7 @@ public class SaveAction extends AbstractEditorAction {
 				else if (ext.equalsIgnoreCase("pl"))
 				{
 					pl = editor2.getEditedModel();
-					pl.printDebug(System.out);
+					//pl.printDebug(System.out);
 					//ProductLineGraph plGraph = (ProductLineGraph)graph;
 					//generatePrologFile(plGraph.getProductLine(), filename);
 					generatePrologFile(pl, filename);

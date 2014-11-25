@@ -13,7 +13,7 @@ import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
-import com.variamos.refas.concepts.Refas;
+import com.variamos.refas.core.staticconcepts.Refas;
 
 import constraints.CNFClause;
 import constraints.CNFLiteral;
@@ -43,7 +43,7 @@ public class SXFMReader {
 		
 		for(FeatureTreeNode node : featureModel.getNodes()){
 			if( !(node instanceof FeatureGroup) )//This node has no information
-				pl.addVariabilityPoint(new VariabilityElement(null,node.getID()));
+				//pl.addVariabilityPoint(new VariabilityElement(null,node.getID()));
 			
 			addConstraintFromRefas(pl, node);
 		}
@@ -107,7 +107,7 @@ public class SXFMReader {
 		}
 		
 		c.setIdentifier(formula.getName());
-		pl.addConstraint(c);
+		//pl.addConstraint(c);
 	}
 	
 	private void addFormula(ProductLine pl, PropositionalFormula formula) {
@@ -168,7 +168,7 @@ public class SXFMReader {
 				((GroupConstraint)c).addChildId(child.getID());
 			}
 		}
-		pl.addConstraint(c);
+		//pl.addConstraint(c);
 	}
 
 	private void addConstraintFrom(ProductLine pl, FeatureTreeNode node){

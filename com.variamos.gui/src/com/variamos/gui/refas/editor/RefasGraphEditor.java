@@ -25,20 +25,14 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
 import com.cfm.productline.AbstractElement;
-import com.cfm.productline.Asset;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
-import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
-import com.cfm.productline.type.DomainRegister;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
-import com.mxgraph.examples.swing.GraphEditor;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
-import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
@@ -51,15 +45,16 @@ import com.variamos.gui.maineditor.PerspectiveToolBar;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.pl.editor.widgets.Widget;
+import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
-import com.variamos.pl.editor.logic.ConstraintMode;
 //import com.variamos.pl.editor.logic.PaletteDatabase;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-import com.variamos.refas.concepts.Refas;
-//import com.cfm.productline.type.IntegerType;
+import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.type.DomainRegister;
 
 @SuppressWarnings("serial")
 public class RefasGraphEditor extends BasicGraphEditor{
@@ -89,9 +84,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 	
 	public RefasGraphEditor(String appTitle, VariamosGraphComponent component) {
 		super(appTitle, component,2);
-		
-		loadScriptedPalettes();
-		//loadPalettes();
+
 		registerEvents();
 	}
 	
@@ -122,7 +115,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 					return;
 				
 				if( cell.getValue() instanceof Editable ){
-					Editable elm = (Editable) cell.getValue();
+					EditableElement elm = (EditableElement) cell.getValue();
 					editProperties(elm);
 					getGraphComponent().scrollCellToVisible(cell, true);
 				}
@@ -130,24 +123,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		});
 	}
 	
-	private void loadScriptedPalettes() {
-		//Load palette from file
-//		try {
-//			FileReader reader;
-//			reader = new FileReader(new File("palettes.pal"));
-//			Gson gson = new GsonBuilder().setPrettyPrinting()
-//					.serializeNulls()
-//					.registerTypeAdapter(Object.class, new NaturalDeserializer())
-//					.create();
-//			PaletteDatabase db = gson.fromJson(reader, PaletteDatabase.class);
-//			loadPaletteDatabase(db);
-//			reader.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-	}
-	
+
 	public static String loadShape(EditorPalette palette, File f) throws IOException{
 		String nodeXml = mxUtils.readFile(f.getAbsolutePath());
 		addStencilShape(palette, nodeXml, f.getParent() + File.separator);
@@ -284,7 +260,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		return ((RefasGraph)getGraphComponent().getGraph()).getProductLine();
 	}
 	
-	public void editProperties(final Editable elm){
+	public void editProperties(final EditableElement elm){
 		propertiesPanel.removeAll();
 		
 		if( elm == null ){
@@ -295,11 +271,11 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		
 		JPanel variablesPanel = new JPanel(new SpringLayout());
 		
-		Variable[] editables = elm.getEditableVariables();
+		InstAttribute[] editables = elm.getEditableVariables();
 		
-		RefasWidgetFactory factory = new RefasWidgetFactory(this);
-		for(Variable v : editables){
-			final Widget w = factory.getWidgetFor(v);
+		RefasWidgetFactory factory = new RefasWidgetFactory();
+		for(InstAttribute v : editables){
+			final WidgetR w = factory.getWidgetFor(v);
 			if( w == null )
 				//Check the problem and/or raise an exception
 				return;
@@ -309,8 +285,8 @@ public class RefasGraphEditor extends BasicGraphEditor{
 				@Override
 				public void focusLost(FocusEvent arg0) {
 					//Makes it pull the values.
-					Variable v = w.getVariable();
-					if (v.getType().equals("String"))
+					InstAttribute v = w.getInstAttribute();
+					if (v.getMetaAttributeType().equals("String"))
 						v.setValue(AbstractElement.multiLine(v.toString(), 15));
 					System.out.println("Focus Lost: " + v.hashCode() + " val: " + v.getValue());
 					//v.setVariableValue("hola");
@@ -327,8 +303,8 @@ public class RefasGraphEditor extends BasicGraphEditor{
 				
 				@Override
 				public void propertyChange(PropertyChangeEvent evt) {
-					if( Widget.PROPERTY_VALUE.equals( evt.getPropertyName() ) ){
-						w.getVariable();						
+					if( WidgetR.PROPERTY_VALUE.equals( evt.getPropertyName() ) ){
+						w.getInstAttribute();						
 						onVariableEdited(elm);
 					}
 				}
@@ -340,7 +316,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 			
 			//GARA
 			//variablesPanel.add(new JLabel(v.getName() + ":: "));
-			variablesPanel.add(new JLabel(v.getName() + ": "));
+			variablesPanel.add(new JLabel(v.getIdentifier() + ": "));
 			variablesPanel.add(w);
 		}
 		//variablesPanel.setPreferredSize(new Dimension(250, 25 * editables.length));
@@ -358,7 +334,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 			attPanel.setPreferredSize(new Dimension(150, 150));
 			attPanel.add( new JLabel(mxResources.get("attributesPanel")) );
 			
-			GoalsAttributeList attList = new GoalsAttributeList(this, (VariabilityElement)elm);
+		/*	GoalsAttributeList attList = new GoalsAttributeList(this, (VariabilityElement)elm);
 			attPanel.add( new JScrollPane(attList) );
 			
 			SpringUtilities.makeCompactGrid(attPanel,
@@ -374,40 +350,16 @@ public class RefasGraphEditor extends BasicGraphEditor{
 					4, 4,
 					4, 4
 					);
+					*/
 		}
 		
 		propertiesPanel.revalidate();
 	}
 	
-	protected void onVariableEdited(Editable e){
+	protected void onVariableEdited(EditableElement e){
 		((RefasGraph)getGraphComponent().getGraph()).refreshVariable(e);
 	}
 	
-
-	/*
-	private void loadPaletteDatabase(PaletteDatabase db) {
-		for(PaletteDefinition pal : db.palettes){
-			EditorPalette palette = insertPalette(pal.name);
-			for(PaletteNode node : pal.nodes ){
-				palette.addTemplate(
-						node.name,
-						new ImageIcon(
-								GraphEditor.class
-										.getResource(node.icon)),
-						node.styleName, node.width, node.height, node.prototype);
-			}
-			
-			for(PaletteEdge edge : pal.edges){
-				palette.addEdgeTemplate(
-						edge.name,
-						new ImageIcon(
-								GraphEditor.class
-										.getResource(edge.icon)),
-						edge.styleName, edge.width, edge.height, edge.value);
-			}
-		}
-	}
-	*/
 
 	protected void showGraphPopupMenu(MouseEvent e)
 	{
@@ -424,7 +376,7 @@ public class RefasGraphEditor extends BasicGraphEditor{
 		
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
-	    jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),BorderLayout.WEST);
+	   // jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),BorderLayout.WEST);
 	    jp.add(new JLabel(),BorderLayout.CENTER);
 		jp.add(new PerspectiveToolBar(this, JToolBar.HORIZONTAL,perspective),BorderLayout.EAST);
 

@@ -9,7 +9,6 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 
 public abstract class AbstractModel {
-	public abstract void printDebug (PrintStream s);
 	public abstract Collection<VariabilityElement> getVariabilityElements();
 	public abstract Map<String, Asset> getAssets();
 	public abstract Constraint getConstraint(String consId);

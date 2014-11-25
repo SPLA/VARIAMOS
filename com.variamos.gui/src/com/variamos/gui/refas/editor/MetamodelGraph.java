@@ -40,7 +40,7 @@ import com.mxgraph.util.mxXmlUtils;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.concepts.Refas;
+import com.variamos.refas.core.staticconcepts.Refas;
 
 public class MetamodelGraph extends AbstractGraph {
 
@@ -385,12 +385,12 @@ public class MetamodelGraph extends AbstractGraph {
 
 			if (value instanceof VariabilityElement) {
 				VariabilityElement vp = (VariabilityElement) value;
-				pl.addVariabilityPoint(vp);
+				//pl.addVariabilityPoint(vp);
 
 				for (Object edgObj : getEdges(cell, null, false, true, true)) {
 					mxCell edge = (mxCell) edgObj;
 					if (edge.getValue() instanceof Constraint) {
-						pl.addConstraint((Constraint) edge.getValue());
+						//pl.addConstraint((Constraint) edge.getValue());
 					}
 				}
 

@@ -17,7 +17,7 @@ import com.variamos.pl.editor.logic.ConstraintMode;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
 //import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-import com.variamos.refas.concepts.Goal;
+import com.variamos.refas.core.staticconcepts.Goal;
 
 /**
  * @author jcmunoz

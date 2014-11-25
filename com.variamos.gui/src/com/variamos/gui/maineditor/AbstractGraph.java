@@ -21,7 +21,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.concepts.Refas;
+import com.variamos.refas.core.staticconcepts.Refas;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -87,6 +87,7 @@ public abstract class AbstractGraph extends mxGraph {
 					if( !cell.isEdge() ){
 						addingVertex(cell, parentCell, indexCell);
 					}
+					else
 						addingEdge(cell, parentCell, indexCell);
 				}
 			}
@@ -247,7 +248,7 @@ public abstract class AbstractGraph extends mxGraph {
 			return getProductLine();
 	}
 	
-	//todo: change to refas
+	//TODO: change to refas - add to refas models
 	public Refas getRefas(){
 		Refas pl = new Refas();
 		
@@ -260,12 +261,12 @@ public abstract class AbstractGraph extends mxGraph {
 			
 			if( value instanceof VariabilityElement ){
 				VariabilityElement vp = (VariabilityElement) value;
-				pl.addVariabilityPoint(vp);
+				//pl.addVariabilityPoint(vp);
 				
 				for(Object edgObj : getEdges(cell, null, false, true, true) ){
 					mxCell edge = (mxCell)edgObj;
 					if( edge.getValue() instanceof Constraint ){
-						pl.addConstraint( (Constraint) edge.getValue());
+						//pl.addConstraint( (Constraint) edge.getValue());
 					}
 				}
 				
@@ -273,7 +274,7 @@ public abstract class AbstractGraph extends mxGraph {
 			
 			if( value instanceof Constraint ){
 				Constraint c = (Constraint) value;
-				pl.addConstraint(c);
+				//pl.addConstraint(c);
 			}
 		}
 		
@@ -284,7 +285,7 @@ public abstract class AbstractGraph extends mxGraph {
 			
 			if( value instanceof Asset ){
 				Asset a = (Asset) value;
-				pl.addAsset(a);
+				//pl.addAsset(a);
 				//Get its connections.
 				Object[] edges = getEdges(cell);
 				for(Object o : edges){

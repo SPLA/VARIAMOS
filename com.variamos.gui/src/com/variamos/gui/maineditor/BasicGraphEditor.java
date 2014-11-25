@@ -182,8 +182,8 @@ public class BasicGraphEditor extends JPanel {
 			center.setDividerLocation(25);
 			upperPart.setDividerLocation(0);
 			graphAndRight.setDividerLocation(700);
-			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new ProductLineMenuBar(this));
+			frame.setJMenuBar(new RefasMenuBar(this));
+			//frame.setJMenuBar(new ProductLineMenuBar(this));
 			graphComponent.setBackgroundImage(null);
 			break;
 		case 3:

@@ -2,8 +2,6 @@ package com.variamos.gui.refas.editor;
 
 import java.awt.Image;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -24,13 +22,11 @@ import com.cfm.productline.Editable;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.ExcludesConstraint;
 import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.canvas.mxGraphicsCanvas2D;
-import com.mxgraph.examples.swing.Stencils;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
@@ -43,10 +39,11 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.concepts.GroupGConstraint;
-import com.variamos.refas.concepts.Refas;
+import com.variamos.refas.core.staticconcepts.GroupGConstraint;
+import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstConcept;
 
 public class RefasGraph extends AbstractGraph {
 
@@ -68,167 +65,192 @@ public class RefasGraph extends AbstractGraph {
 		init();
 	}
 
-	public ArrayList<String> getValidElements (int modelView)
-	{
+	public ArrayList<String> getValidElements(int modelView) {
 		if (refas == null)
 			refas = getRefas();
 		return refas.getValidElements(modelView);
 	}
-	
-	  String getResource(String rsc) {
-			StringBuilder result = new StringBuilder("");
-			 
-			//Get file from resources folder
-			InputStream in = getClass().getResourceAsStream(rsc);
-			BufferedReader input = new BufferedReader(new InputStreamReader(in));
-			
-			Scanner scanner = new Scanner(input);
-		 
-				while (scanner.hasNextLine()) {
-					String line = scanner.nextLine();
-					result.append(line).append("\n");
-				}
-		 
-				scanner.close();
-		 
 
-		 
-			return result.toString();
-		 
-		   }
-		    
-	
+	String getResource(String rsc) {
+		StringBuilder result = new StringBuilder("");
+
+		// Get file from resources folder
+		InputStream in = getClass().getResourceAsStream(rsc);
+		BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+		Scanner scanner = new Scanner(input);
+
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			result.append(line).append("\n");
+		}
+
+		scanner.close();
+
+		return result.toString();
+
+	}
+
 	protected void init() {
 		super.init();
 		// Loads the defalt stylesheet from an external file
 		mxCodec codec = new mxCodec();
-		Document doc = mxUtils.loadDocument(RefasGraph.class
-				.getResource("/com/variamos/gui/pl/editor/style/styles.xml")
-				.toString());
+		Document doc = mxUtils.loadDocument(RefasGraph.class.getResource(
+				"/com/variamos/gui/pl/editor/style/styles.xml").toString());
 		codec.decode(doc.getDocumentElement(), stylesheet);
 		loadStencil();
 	}
 
 	public void loadStencil() {
-	//	try {
-			String filename = RefasGraph.class.getResource(
-					"/com/variamos/gui/refas/editor/style/shapes.xml")
-					.getPath();
-			Document doc;
-			System.out.println(filename);
-			
-		//	String s = getResource("com/variamos/gui/refas/editor/style/shapes.xml");
-			doc = mxXmlUtils.parseXml(getResource("/com/variamos/gui/refas/editor/style/shapes.xml"));
-			
-		//	doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
+		// try {
+		String filename = RefasGraph.class.getResource(
+				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
+		Document doc;
+		System.out.println(filename);
 
-			Element shapes = (Element) doc.getDocumentElement();
-			NodeList list = shapes.getElementsByTagName("shape");
+		// String s =
+		// getResource("com/variamos/gui/refas/editor/style/shapes.xml");
+		doc = mxXmlUtils
+				.parseXml(getResource("/com/variamos/gui/refas/editor/style/shapes.xml"));
 
-			for (int i = 0; i < list.getLength(); i++) {
-				Element shape = (Element) list.item(i);
-				mxStencilRegistry.addStencil(shape.getAttribute("name"),
-						new mxStencil(shape) {
-							protected mxGraphicsCanvas2D createCanvas(
-									final mxGraphics2DCanvas gc) {
-								// Redirects image loading to graphics canvas
-								return new mxGraphicsCanvas2D(gc.getGraphics()) {
-									protected Image loadImage(String src) {
-										// Adds image base path to relative
-										// image URLs
-										if (!src.startsWith("/")
-												&& !src.startsWith("http://")
-												&& !src.startsWith("https://")
-												&& !src.startsWith("file:")) {
-											src = gc.getImageBasePath() + src;
-										}
+		// doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
 
-										// Call is cached
-										return gc.loadImage(src);
+		Element shapes = (Element) doc.getDocumentElement();
+		NodeList list = shapes.getElementsByTagName("shape");
+
+		for (int i = 0; i < list.getLength(); i++) {
+			Element shape = (Element) list.item(i);
+			mxStencilRegistry.addStencil(shape.getAttribute("name"),
+					new mxStencil(shape) {
+						protected mxGraphicsCanvas2D createCanvas(
+								final mxGraphics2DCanvas gc) {
+							// Redirects image loading to graphics canvas
+							return new mxGraphicsCanvas2D(gc.getGraphics()) {
+								protected Image loadImage(String src) {
+									// Adds image base path to relative
+									// image URLs
+									if (!src.startsWith("/")
+											&& !src.startsWith("http://")
+											&& !src.startsWith("https://")
+											&& !src.startsWith("file:")) {
+										src = gc.getImageBasePath() + src;
 									}
-								};
-							}
-						});
-			}
-	/*	} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
+									// Call is cached
+									return gc.loadImage(src);
+								}
+							};
+						}
+					});
+		}
+		/*
+		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 	}
-	
-	protected void addingEdge(mxCell cell, mxCell parent, int index)
-	{
+
+	protected void addingEdge(mxCell cell, mxCell parent, int index) {
 		cell.getValue();
-		GenericConstraint cg=new GenericConstraint();
+		GenericConstraint cg = new GenericConstraint();
 		Refas pl = getRefas();
 		String id = pl.addConstraint(modelViewIndex, cg);
+		if (id != null) {
+
+			mxGraphModel refasGraph = (mxGraphModel) getModel();
+			/*
+			 * Object o = refasGraph.getRoot(); // Main Root Object o1 =
+			 * refasGraph.getChildAt(o, 0); // Null Root Object mv0 =
+			 * refasGraph.getChildAt(o1, modelViewIndex);
+			 */
+			mxGraphModel model = refasGraph;
+			model.getCells().remove(cell.getId());
+			model.getCells().put(modelViewIndex + id, cell);
+			cell.setId(modelViewIndex + id);
+		}
 	}
 
 	// TODO review from here for requirements
 
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 
-		if (cell.getValue() instanceof AbstractElement || cell.getValue() instanceof Constraint) {
+		if (cell.getValue() instanceof AbstractElement
+				|| cell.getValue() instanceof Constraint
+				|| cell.getValue() instanceof InstConcept) {
 			String id = null;
 			String elementIdentifier = null;
 			Refas pl = getRefas();
 			Object a = cell.getValue();
-			
-			if (cell.getValue() instanceof AbstractElement)
-			{
-				AbstractElement element = (AbstractElement)a;
+
+			if (cell.getValue() instanceof AbstractElement) {
+				AbstractElement element = (AbstractElement) a;
+				elementIdentifier = element.getIdentifier();
+				if (elementIdentifier != null && !"".equals(elementIdentifier))
+					return false;
+				id = pl.addElement(modelViewIndex, element);
+			} else if (cell.getValue() instanceof InstConcept) {
+				InstConcept element = (InstConcept) a;
 				elementIdentifier = element.getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
 				id = pl.addElement(modelViewIndex, element);
 			}
-			else
-			{
-				Constraint constraint = (Constraint)a;
-				elementIdentifier = ((Constraint)a).getIdentifier();
+
+			else {
+				Constraint constraint = (Constraint) a;
+				elementIdentifier = ((Constraint) a).getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
 				id = pl.addConstraint(modelViewIndex, constraint);
 			}
 
 			if (id != null) {
-				
-				//Move the element to the appropiate View - clone if necessary in multiple views
+
+				// Move the element to the appropiate View - clone if necessary
+				// in multiple views
 				mxGraphModel refasGraph = (mxGraphModel) getModel();
 				Object o = refasGraph.getRoot(); // Main Root
 				Object o1 = refasGraph.getChildAt(o, 0); // Null Root
 				Object mv0 = refasGraph.getChildAt(o1, modelViewIndex);
-	
+
 				mxGraphModel model = refasGraph;
 				model.getCells().remove(cell.getId());
-				model.getCells().put(modelViewIndex+id, cell);
-				cell.setId(modelViewIndex+id);
+				model.getCells().put(modelViewIndex + id, cell);
+				cell.setId(modelViewIndex + id);
 				parent.remove(index); // Remove from original position
 				model.add(mv0, cell, 0); // Add to the parent according to the
 											// model
-				boolean valid [] = getRefas().elementsValidation(a.getClass().getSimpleName());
-				if (a instanceof AbstractElement)
-				for (int i = 0; i < 5; i++) {
-					if (valid[i] && i!=modelViewIndex)
-					{
-					mxCell c2 = null;
-					try {
-						c2 = (mxCell) cell.clone();
-					} catch (CloneNotSupportedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if (a instanceof AbstractElement || a instanceof InstConcept) {
+					boolean valid[] = null;
+					if (a instanceof AbstractElement)
+						valid = getRefas().elementsValidation(
+								a.getClass().getSimpleName());
+					else {
+						InstConcept c = (InstConcept) a;
+						valid = getRefas()
+								.elementsValidation(c.getMetaConcept().getIdentified());
 					}
-					c2.setId(i+id);
-					c2.setValue(cell.getValue());
-					Object mv1 = refasGraph.getChildAt(o1, i);
-					getModel().setVisible(c2, false);
-					model.add(mv1, c2, 0); // Add a clone to other models
+					for (int i = 0; i < 5; i++) {
+						if (valid[i] && i != modelViewIndex) {
+							mxCell c2 = null;
+							try {
+								c2 = (mxCell) cell.clone();
+							} catch (CloneNotSupportedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							c2.setId(i + id);
+							c2.setValue(cell.getValue());
+							Object mv1 = refasGraph.getChildAt(o1, i);
+							getModel().setVisible(c2, false);
+							model.add(mv1, c2, 0); // Add a clone to other
+													// models
+						}
 					}
 				}
 				this.refresh();
 				return true;
 			} else {
-				//If the element is not allowed in the View, is removed
+				// If the element is not allowed in the View, is removed
 				mxGraphModel model = (mxGraphModel) getModel();
 				model.getCells().remove(cell.getId());
 				if (parent.getIndex(cell) == index)
@@ -237,56 +259,47 @@ public class RefasGraph extends AbstractGraph {
 			}
 		}
 
-/*		if (cell.getValue() instanceof GroupConstraint) {
-			GroupConstraint gc = (GroupConstraint) cell.getValue();
-
-			if (gc.getIdentifier() != null && !"".equals(gc.getIdentifier()))
-				return false;
-
-			Refas pl = getRefas();
-			String id = pl.getNextConstraintId();
-
-			gc.setIdentifier(id);
-
-			// Change the cell id in the model
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(id, cell);
-			cell.setId(id);
-		}
-		if (cell.getValue() instanceof GenericConstraint) {
-			GenericConstraint gc = (GenericConstraint) cell.getValue();
-
-			if (gc.getIdentifier() != null && !"".equals(gc.getIdentifier()))
-				return false;
-
-			Refas pl = getRefas();
-			String id = pl.getNextConstraintId();
-
-			gc.setIdentifier(id);
-
-			// Change the cell id in the model
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(id, cell);
-			cell.setId(id);
-		}
-
-		if (cell.getValue() instanceof Asset) {
-			Asset a = (Asset) cell.getValue();
-
-			if (a.getIdentifier() != null && !"".equals(a.getIdentifier()))
-				return false;
-
-			Refas pl = getRefas();
-			pl.addAsset(a);
-
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(a.getIdentifier(), cell);
-			cell.setId(a.getIdentifier());
-		}
-		*/
+		/*
+		 * if (cell.getValue() instanceof GroupConstraint) { GroupConstraint gc
+		 * = (GroupConstraint) cell.getValue();
+		 * 
+		 * if (gc.getIdentifier() != null && !"".equals(gc.getIdentifier()))
+		 * return false;
+		 * 
+		 * Refas pl = getRefas(); String id = pl.getNextConstraintId();
+		 * 
+		 * gc.setIdentifier(id);
+		 * 
+		 * // Change the cell id in the model mxGraphModel model =
+		 * (mxGraphModel) getModel(); model.getCells().remove(cell.getId());
+		 * model.getCells().put(id, cell); cell.setId(id); } if (cell.getValue()
+		 * instanceof GenericConstraint) { GenericConstraint gc =
+		 * (GenericConstraint) cell.getValue();
+		 * 
+		 * if (gc.getIdentifier() != null && !"".equals(gc.getIdentifier()))
+		 * return false;
+		 * 
+		 * Refas pl = getRefas(); String id = pl.getNextConstraintId();
+		 * 
+		 * gc.setIdentifier(id);
+		 * 
+		 * // Change the cell id in the model mxGraphModel model =
+		 * (mxGraphModel) getModel(); model.getCells().remove(cell.getId());
+		 * model.getCells().put(id, cell); cell.setId(id); }
+		 * 
+		 * if (cell.getValue() instanceof Asset) { Asset a = (Asset)
+		 * cell.getValue();
+		 * 
+		 * if (a.getIdentifier() != null && !"".equals(a.getIdentifier()))
+		 * return false;
+		 * 
+		 * Refas pl = getRefas(); pl.addAsset(a);
+		 * 
+		 * mxGraphModel model = (mxGraphModel) getModel();
+		 * model.getCells().remove(cell.getId());
+		 * model.getCells().put(a.getIdentifier(), cell);
+		 * cell.setId(a.getIdentifier()); }
+		 */
 		return true;
 	}
 
@@ -311,7 +324,7 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refas = (Refas)pl;
+		refas = (Refas) pl;
 		buildFromProductLine(pl);
 		mxGraphLayout layout = new mxFastOrganicLayout(this);
 		layout.execute(getDefaultParent()); // todo change root?
@@ -437,59 +450,46 @@ public class RefasGraph extends AbstractGraph {
 
 			if (value instanceof VariabilityElement) {
 				VariabilityElement vp = (VariabilityElement) value;
-				pl.addVariabilityPoint(vp);
+				// pl.addVariabilityPoint(vp);
 
 				for (Object edgObj : getEdges(cell, null, false, true, true)) {
 					mxCell edge = (mxCell) edgObj;
 					if (edge.getValue() instanceof Constraint) {
-						pl.addConstraint((Constraint) edge.getValue());
+						// pl.addConstraint((Constraint) edge.getValue());
 					}
 				}
 
 			}
-/*
-			if (value instanceof Constraint) {
-				Constraint c = (Constraint) value;
-				pl.addConstraint(c);
-			}
-			*/
+			/*
+			 * if (value instanceof Constraint) { Constraint c = (Constraint)
+			 * value; pl.addConstraint(c); }
+			 */
 		}
 
 		// Add the assets to the PLModel only after the VPs are in it
-/*		for (Object obj : vertices) {
-			mxCell cell = (mxCell) obj;
-			Object value = cell.getValue();
-
-			if (value instanceof Asset) {
-				Asset a = (Asset) value;
-				pl.addAsset(a);
-				// Get its connections.
-				Object[] edges = getEdges(cell);
-				for (Object o : edges) {
-					mxCell edge = (mxCell) o;
-
-					mxCell target = (mxCell) edge.getTarget();
-					if (target.getValue() instanceof VariabilityElement) {
-						VariabilityElement ve = (VariabilityElement) target
-								.getValue();
-						String assetIdentifier = a.getIdentifier();
-						ve.getAssets().add(assetIdentifier);
-
-						System.out.println("Added asset");
-					}
-
-					mxCell source = (mxCell) edge.getSource();
-					if (source.getValue() instanceof VariabilityElement) {
-						VariabilityElement ve = (VariabilityElement) source
-								.getValue();
-						ve.getAssets().add(a.getIdentifier());
-						System.out.println("Added asset");
-					}
-				}
-
-			}
-		}
-*/
+		/*
+		 * for (Object obj : vertices) { mxCell cell = (mxCell) obj; Object
+		 * value = cell.getValue();
+		 * 
+		 * if (value instanceof Asset) { Asset a = (Asset) value;
+		 * pl.addAsset(a); // Get its connections. Object[] edges =
+		 * getEdges(cell); for (Object o : edges) { mxCell edge = (mxCell) o;
+		 * 
+		 * mxCell target = (mxCell) edge.getTarget(); if (target.getValue()
+		 * instanceof VariabilityElement) { VariabilityElement ve =
+		 * (VariabilityElement) target .getValue(); String assetIdentifier =
+		 * a.getIdentifier(); ve.getAssets().add(assetIdentifier);
+		 * 
+		 * System.out.println("Added asset"); }
+		 * 
+		 * mxCell source = (mxCell) edge.getSource(); if (source.getValue()
+		 * instanceof VariabilityElement) { VariabilityElement ve =
+		 * (VariabilityElement) source .getValue();
+		 * ve.getAssets().add(a.getIdentifier());
+		 * System.out.println("Added asset"); } }
+		 * 
+		 * } }
+		 */
 		return pl;
 	}
 
@@ -508,8 +508,8 @@ public class RefasGraph extends AbstractGraph {
 		for (VariabilityElement vp : pl.getVariabilityElements())
 			insertVertex(null, vp.getIdentifier(), vp, 0, 0, 80, 40, "plnode");
 
-		for (Constraint c : pl.getConstraints())
-			buildConstraint(pl, c);
+		// for (Constraint c : pl.getConstraints())
+		// buildConstraint(pl, c);
 
 		// pl.printDebug(System.out);
 	}
@@ -754,13 +754,13 @@ public class RefasGraph extends AbstractGraph {
 		super.cellLabelChanged(cell, value, autoSize);
 	}
 
-	public void refreshVariable(Editable e) {
-		mxCell cell = getCellById(modelViewIndex+e.getIdentifier());
+	public void refreshVariable(EditableElement e) {
+		mxCell cell = getCellById(modelViewIndex + e.getIdentifier());
 		// Update visibility
 		if (e instanceof VariabilityElement) {
 			VariabilityElement v = (VariabilityElement) e;
 			// v.printDebug(System.out);
-		//	getModel().setVisible(cell, v.isVisible());
+			// getModel().setVisible(cell, v.isVisible());
 			// v.getName();
 			Object[] edges = getEdges(cell);
 			for (Object o : edges)

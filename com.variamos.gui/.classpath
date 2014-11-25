@@ -9,7 +9,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.pl.configurator"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.rq.concepts"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntaxsupport"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

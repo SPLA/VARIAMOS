@@ -4,23 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cfm.productline.Variable;
-import com.cfm.productline.type.BooleanType;
-import com.cfm.productline.type.IntegerType;
-import com.cfm.productline.type.RealType;
-import com.cfm.productline.type.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.syntaxsupport.type.BooleanType;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.RealType;
+import com.variamos.syntaxsupport.type.StringType;
 
 
 @SuppressWarnings("deprecation")
 public class WidgetFactory {
 	//private DomainRegister register;
 	
-	private Map<String, Class<? extends Widget>> widgetReg;
+	private Map<String, Class<? extends WidgetPL>> widgetReg;
 	
 	public WidgetFactory(VariamosGraphEditor editor){
 		//this.register = editor.getDomainRegister();
 		
-		widgetReg = new HashMap<String, Class<? extends Widget>>();
+		widgetReg = new HashMap<String, Class<? extends WidgetPL>>();
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
 		widgetReg.put(StringType.IDENTIFIER, StringWidget.class);
 		widgetReg.put(BooleanType.IDENTIFIER, BooleanWidget.class);
@@ -29,12 +29,12 @@ public class WidgetFactory {
 	}
 	
 	
-	public Widget getWidgetFor(Variable v){
+	public WidgetPL getWidgetFor(Variable v){
 		//Type d = register.getDomain(v.getType());
 		
 		String type = v.getType();
 		
-		Class<? extends Widget> c = null; 
+		Class<? extends WidgetPL> c = null; 
 		
 		if( widgetReg.containsKey(type) ){
 			c = widgetReg.get(type);
@@ -50,7 +50,7 @@ public class WidgetFactory {
 		if( c == null )
 			return null;
 		
-		Widget w = null;
+		WidgetPL w = null;
 		try {
 			w = c.newInstance();
 			w.configure(v);

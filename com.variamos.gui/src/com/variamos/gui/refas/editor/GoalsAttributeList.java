@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -15,34 +16,37 @@ import com.cfm.hlcl.BinaryDomain;
 import com.cfm.hlcl.DomainParser;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
-import com.cfm.productline.type.IntegerType;
-import com.cfm.productline.type.StringType;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.GoalsParameterDialog.DialogButtonAction;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.StringType;
 
 @SuppressWarnings("serial")
 public class GoalsAttributeList extends JList<Variable> {
-	private RefasGraphEditor editor;
+	private VariamosGraphEditor editor;
 	private VariabilityElement element;
 	
 	private Variable spoof = new Variable("Add ...", "Add ...", StringType.IDENTIFIER);
 	
-	public GoalsAttributeList(RefasGraphEditor editor){
+	public GoalsAttributeList(VariamosGraphEditor editor){
 		this.editor = editor;
-		init(null);
+	//	init(null);
 	}
 
-	public GoalsAttributeList(RefasGraphEditor editor, VariabilityElement elm) {
+	public GoalsAttributeList(VariamosGraphEditor editor, EditableElement elm) {
 		this.editor = editor;
-		this.element = elm;
-		init(elm.getVarAttributes());
+	//	this.element = elm;
+	//	init(elm.getInstAttributes());
 	}
 	
-	private void init(List<Variable> varAttributes){
+	/*private void init(Map<String,InstAttribute> varAttributes){
 		setModel(new DefaultListModel<Variable>());
 		final DefaultListModel<Variable> model = (DefaultListModel<Variable>) getModel();
 		
 		if( varAttributes != null )
-			for(Variable v : varAttributes)
+			for(InstAttribute v : varAttributes.values())
 				model.addElement(v);
 		
 		model.addElement(spoof);
@@ -60,7 +64,7 @@ public class GoalsAttributeList extends JList<Variable> {
 		            if( index != model.getSize() - 1 )
 		            	v = getModel().getElementAt(index);
 		            
-		            editItem(v);
+		            //editItem(v);
 		        } 
 		    }
 		});
@@ -75,20 +79,21 @@ public class GoalsAttributeList extends JList<Variable> {
 			}
 		});
 	}
+	*/
 	
-	protected void editItem(Variable var){
+/*	protected void editItem(InstAttribute var){
 		final boolean insert = (var == null);
 		
 		if( insert ){
-			var = new Variable();
+			var = new InstAttribute();
 			var.setType(IntegerType.IDENTIFIER);
 			var.setDomain(BinaryDomain.INSTANCE);
 		}
 		//HACK for accesing a non-final variable inside of an inner class
-		final Variable[] buffer = { var };
+		final InstAttribute[] buffer = { var };
 		
 		//Name
-		final Variable name = new Variable("Name", var.getName(), StringType.IDENTIFIER);
+		final InstAttribute name = new InstAttribute("Name", var.getName(), StringType.IDENTIFIER);
 
 		
 		//SetDomain metaDomain = new SetDomain();
@@ -104,7 +109,7 @@ public class GoalsAttributeList extends JList<Variable> {
 			domainRepresentation = var.getDomain().getStringRepresentation();
 			
 		//Domain
-		final Variable domain = new Variable("Domain", domainRepresentation, StringType.IDENTIFIER);
+		final InstAttribute domain = new InstAttribute("Domain", domainRepresentation, StringType.IDENTIFIER);
 		
 		final GoalsParameterDialog dialog = new GoalsParameterDialog(editor, name, domain);
 		dialog.setOnAccept(new DialogButtonAction() {
@@ -113,7 +118,7 @@ public class GoalsAttributeList extends JList<Variable> {
 				//This calls Pull on each parameter
 				dialog.getParameters();
 				
-				Variable v = buffer[0];
+				InstAttribute v = buffer[0];
 				//Set name and domain
 				v.setName( (String)name.getValue());
 				//v.setType( (String)domain.getType() );
@@ -141,6 +146,7 @@ public class GoalsAttributeList extends JList<Variable> {
 		});
 		dialog.center();
 	}
+	*/
 
 	protected void afterAction() {
 //		DomainRegister reg = editor.getDomainRegister();
