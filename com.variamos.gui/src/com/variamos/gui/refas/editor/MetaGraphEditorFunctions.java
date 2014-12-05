@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
@@ -35,22 +36,16 @@ public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public MetaGraphEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
-		paletteElements.add(new PaletteElement("Assumption", "metaconceptTitle",
-				"/com/variamos/gui/refas/editor/images/assump.png", "rqassump",
-				100, 40, "com.variamos.refas.core.staticconcepts.Assumption"));
-		paletteElements.add(new PaletteElement("GroupConstraint",	"metarelationTitle",
-				"/com/variamos/gui/pl/editor/images/plgroup.png", "plgroup",
-				20, 20, "com.cfm.productline.constraints.GroupConstraint"));
 	}
 
-	public void updateEditor(ArrayList<String> validElements,
+	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.setPerspective(3);
 		editor.editModelReset();
 		System.out.println("metamodeling");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
-	public void updateView (ArrayList<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)
+	public void updateView (List<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)
 	{ 		
 		editor.clearPalettes();		
 		EditorPalette palette = editor.insertPalette(mxResources
@@ -64,7 +59,7 @@ public class MetaGraphEditorFunctions extends AbstractGraphEditorFunctions {
 	
 	
 	public void loadPalette(EditorPalette palette,
-			ArrayList<String> validElements, AbstractGraph plgraph) {
+			List<String> validElements, AbstractGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
 			for (int i = 0; i < paletteElements.size(); i++)

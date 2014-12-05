@@ -5,7 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
-import com.cfm.productline.Variable;
+import com.mxgraph.view.mxGraph;
+import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 @SuppressWarnings("serial")
@@ -40,7 +41,7 @@ public class SetWidget extends WidgetR{
 	}
 
 	@Override
-	public void configure(InstAttribute v) {
+	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 //		SetDomain set = (SetDomain)d;
 //		
 //		for( String elm : set.getElements() )

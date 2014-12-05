@@ -1,17 +1,14 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.productline.Prototype;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -20,8 +17,31 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
  *         Definition of syntax for VariaMos
  */
 public class MetaElement implements Serializable {
-	public void setIdentified(String identified) {
-		this.identified = identified;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3348811616807875183L;
+	private String identifier;
+	private String name;
+	private String style;
+	private int width;
+	private int height;
+	private String image;
+	private boolean topConcept;
+	private String backgroundColor;
+	private int borderStroke;
+	private boolean resizable;
+	private List<String> disPropVisibleAttributes;
+	private List<String> disPropEditableAttributes;
+	private List<String> disPanelVisibleAttributes;
+	private List<String> disPanelSpacersAttributes;
+	private Map<String, AbstractAttribute> metaAttributes;
+	private List<MetaAssociation> asOriginRelations;
+	private List<MetaAssociation> asDestinationRelations;
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 	public void setName(String name) {
@@ -60,96 +80,76 @@ public class MetaElement implements Serializable {
 		this.resizable = resizable;
 	}
 
-	public void setPropVisibleAttributes(List<String> propVisibleAttributes) {
-		this.propVisibleAttributes = propVisibleAttributes;
+	public void setDisPropVisibleAttributes(List<String> disPropVisibleAttributes) {
+		this.disPropVisibleAttributes = disPropVisibleAttributes;
 	}
 
-	public void setPropEditableAttributes(List<String> propEditableAttributes) {
-		this.propEditableAttributes = propEditableAttributes;
+	public void setDisPropEditableAttributes(List<String> disPropEditableAttributes) {
+		this.disPropEditableAttributes = disPropEditableAttributes;
 	}
 
-	public void setPanelVisibleAttributes(List<String> panelVisibleAttributes) {
-		this.panelVisibleAttributes = panelVisibleAttributes;
+	public void setDisPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
+		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
-	public void setPanelSpacersAttributes(List<String> panelSpacersAttributes) {
-		this.panelSpacersAttributes = panelSpacersAttributes;
+	public void setDisPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
+		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
-	public void setMetaAttributes(Map<String, MetaAttribute> metaAttributes) {
+	public void setMetaAttributes(Map<String, AbstractAttribute> metaAttributes) {
 		this.metaAttributes = metaAttributes;
 	}
 
-	public void setMetaDirectRelations(List<MetaDirectRelation> metaDirectRelations) {
-		this.metaDirectRelations = metaDirectRelations;
+	public void setAsOriginRelations(	List<MetaAssociation> asOriginRelations) {
+		this.asOriginRelations = asOriginRelations;
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3348811616807875183L;
-	private String identified;
-	private String name;
-	private String style;
-	private int width;
-	private int height;
-	private String image;
-	private boolean topConcept;
-	private String backgroundColor;
-	private int borderStroke;
+	public MetaElement() {
 
-	private boolean resizable;
-	private List<String> propVisibleAttributes;
-	private List<String> propEditableAttributes;
-	private List<String> panelVisibleAttributes;
-	private List<String> panelSpacersAttributes;
-	private Map<String, MetaAttribute> metaAttributes;
-	private List<MetaDirectRelation> metaDirectRelations;
-
-	public MetaElement()
-	{
-		
 	}
-	
-	public MetaElement(String identified, String name, String style, int width,
+
+	public MetaElement(String identifier, String name, String style, int width,
 			int height, String image, boolean topConcept,
 			String backgroundColor, int borderStroke, boolean resizable) {
-		this(identified, name, style, width, height, image, topConcept,
+		this(identifier, name, style, width, height, image, topConcept,
 				backgroundColor, borderStroke, resizable,
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
-				new HashMap<String, MetaAttribute>(),
-				new ArrayList<MetaDirectRelation>());
+				new HashMap<String, AbstractAttribute>(),
+				new ArrayList<MetaAssociation>(),
+				new ArrayList<MetaAssociation>());
 
 	}
 
-	public MetaElement(String identified, String name, String style, int width,
+	public MetaElement(String identifier, String name, String style, int width,
 			int height, String image, boolean topConcept,
 			String backgroundColor, int borderStroke, boolean resizable,
-			List<String> propVisibleAttributes,
-			List<String> propEditableAttributes,
-			List<String> panelVisibleAttributes,
-			List<String> panelSpacersAttributes,
-			Map<String, MetaAttribute> metaAttributes) {
-		this(identified, name, style, width, height, image, topConcept,
+			List<String> disPropVisibleAttributes,
+			List<String> disPropEditableAttributes,
+			List<String> disPanelVisibleAttributes,
+			List<String> disPanelSpacersAttributes,
+			Map<String, AbstractAttribute> metaAttributes) {
+		this(identifier, name, style, width, height, image, topConcept,
 				backgroundColor, borderStroke, resizable,
-				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSpacersAttributes, metaAttributes,
-				new ArrayList<MetaDirectRelation>());
+				disPropVisibleAttributes, disPropEditableAttributes,
+				disPanelVisibleAttributes, disPanelSpacersAttributes, metaAttributes,
+				new ArrayList<MetaAssociation>(),
+				new ArrayList<MetaAssociation>());
 
 	}
 
-	public MetaElement(String identified, String name, String style, int width,
+	public MetaElement(String identifier, String name, String style, int width,
 			int height, String image, boolean topConcept,
 			String backgroundColor, int borderStroke, boolean resizable,
-			List<String> propVisibleAttributes,
-			List<String> propEditableAttributes,
-			List<String> panelVisibleAttributes,
-			List<String> panelSpacersAttributes,
-			Map<String, MetaAttribute> metaAttributes,
-			List<MetaDirectRelation> metaRelations) {
+			List<String> disPropVisibleAttributes,
+			List<String> disPropEditableAttributes,
+			List<String> disPanelVisibleAttributes,
+			List<String> disPanelSpacersAttributes,
+			Map<String, AbstractAttribute> metaAttributes,
+			List<MetaAssociation> asOriginRelations,
+			List<MetaAssociation> asDestinationRelations) {
 		super();
-		this.identified = identified;
+		this.identifier = identifier;
 		this.name = name;
 		this.style = style;
 		this.width = width;
@@ -159,26 +159,27 @@ public class MetaElement implements Serializable {
 		this.backgroundColor = backgroundColor;
 		this.borderStroke = borderStroke;
 		this.resizable = resizable;
-		this.propVisibleAttributes = propVisibleAttributes;
-		this.propEditableAttributes = propEditableAttributes;
-		this.panelVisibleAttributes = panelVisibleAttributes;
-		this.panelSpacersAttributes = panelSpacersAttributes;
+		this.disPropVisibleAttributes = disPropVisibleAttributes;
+		this.disPropEditableAttributes = disPropEditableAttributes;
+		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
+		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
 		this.metaAttributes = metaAttributes;
 		this.metaAttributes.put("identifier", new MetaAttribute("identifier",
 				"String", null));
-		this.metaDirectRelations = metaRelations;
+		this.asOriginRelations = asOriginRelations;
+		this.asDestinationRelations = asDestinationRelations;
 	}
 
-	public List<MetaDirectRelation> getMetaDirectRelations() {
-		return metaDirectRelations;
+	public List<MetaAssociation> getAsOriginRelations() {
+		return asOriginRelations;
 	}
 
 	public int getBorderStroke() {
 		return borderStroke;
 	}
 
-	public String getIdentified() {
-		return identified;
+	public String getIdentifier() {
+		return identifier;
 	}
 
 	public String getName() {
@@ -213,73 +214,44 @@ public class MetaElement implements Serializable {
 		return resizable;
 	}
 
-	public List<String> getPropVisibleAttributes() {
-		List<String> metaAttributesNames = new ArrayList<String>();
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				metaAttributesNames.addAll(metaDirectRelation.getDestination().getPropVisibleAttributes());
-			}
-		}
-		metaAttributesNames.addAll(propVisibleAttributes);
+	public Set<String> getDisPropVisibleAttributes() {
+		Set<String> metaAttributesNames = new HashSet<String>();
+		metaAttributesNames.addAll(disPropVisibleAttributes);
 		return metaAttributesNames;
 	}
 
-	public void addPropVisibleAttributes(String visibleAttribute) {
-		propVisibleAttributes.add(visibleAttribute);
+	public void addDisPropVisibleAttribute(String visibleAttribute) {
+		disPropVisibleAttributes.add(visibleAttribute);
 	}
 
-	public List<String> getPropEditableAttributes() {
-		List<String> metaAttributesNames = new ArrayList<String>();
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				metaAttributesNames.addAll(metaDirectRelation.getDestination().getPropEditableAttributes());
-			}
-		}
-		metaAttributesNames.addAll(propEditableAttributes);
+	public Set<String> getDisPropEditableAttributes() {
+		Set<String> metaAttributesNames = new HashSet<String>();
+		metaAttributesNames.addAll(disPropEditableAttributes);
 		return metaAttributesNames;
 	}
 
-	public void addPropEditableAttributes(String editableAttribute) {
-		propEditableAttributes.add(editableAttribute);
+	public void addDisPropEditableAttribute(String editableAttribute) {
+		disPropEditableAttributes.add(editableAttribute);
 	}
 
-	public List<String> getPanelVisibleAttributes() {
-		List<String> metaAttributesNames = new ArrayList<String>();
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				metaAttributesNames.addAll(metaDirectRelation.getDestination().getPanelVisibleAttributes());
-			}
-		}
-		metaAttributesNames.addAll(panelVisibleAttributes);
+	public Set<String> getDisPanelVisibleAttributes() {
+		Set<String> metaAttributesNames = new HashSet<String>();
+		metaAttributesNames.addAll(disPanelVisibleAttributes);
 		return metaAttributesNames;
 	}
 
-	public void addPanelVisibleAttributes(String visibleAttribute) {
-		panelVisibleAttributes.add(visibleAttribute);
+	public void addDisPanelVisibleAttribute(String visibleAttribute) {
+		disPanelVisibleAttributes.add(visibleAttribute);
 	}
 
-	public List<String> getPanelSpacersAttributes() {
-		List<String> metaAttributesNames = new ArrayList<String>();
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				metaAttributesNames.addAll(metaDirectRelation.getDestination().getPanelSpacersAttributes());
-			}
-		}
-
-		metaAttributesNames.addAll(panelSpacersAttributes);
+	public Set<String> getDisPanelSpacersAttributes() {
+		Set<String> metaAttributesNames = new HashSet<String>();
+		metaAttributesNames.addAll(disPanelSpacersAttributes);
 		return metaAttributesNames;
 	}
-
-	public void addPanelSpacersAttributes(String spacerAttribute) {
-		panelSpacersAttributes.add(spacerAttribute);
+	
+	public void addDisPanelSpacersAttribute(String spacerAttribute) {
+		disPanelSpacersAttributes.add(spacerAttribute);
 	}
 
 	public Set<String> getDeclaredMetaAttributes() {
@@ -289,74 +261,54 @@ public class MetaElement implements Serializable {
 	public Set<String> getMetaAttributes() {
 		Set<String> metaAttributesNames = new HashSet<String>();
 		metaAttributesNames.addAll(metaAttributes.keySet());
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				metaAttributesNames.addAll(metaDirectRelation.getDestination().getMetaAttributes());
-			}
-		}
 		return metaAttributesNames;
 	}
 
-	public MetaAttribute getDeclaredMetaAttribute(String name) {
+	public AbstractAttribute getDeclaredMetaAttribute(String name) {
 		return metaAttributes.get(name);
-	}
-	
-	public MetaAttribute getMetaAttribute(String name) {
-	if (metaAttributes.get(name)!=null)
-		return metaAttributes.get(name);
-	else
-	{
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				if(metaDirectRelation.getDestination().getMetaAttribute(name)!=null)
-					return metaDirectRelation.getDestination().getMetaAttribute(name);
-			}
-		}
-	}
-	return null;
-	}
-	public String getMetaAttributeName(String name) {
-	if (metaAttributes.get(name)!=null)
-		return metaAttributes.get(name).getName();
-	else
-	{
-		for (int i = 0; i < metaDirectRelations.size(); i++) {
-			MetaDirectRelation metaDirectRelation = metaDirectRelations.get(i);
-			if (metaDirectRelation instanceof MetaExtends)
-			{
-				if(metaDirectRelation.getDestination().getMetaAttribute(name)!=null)
-					return metaDirectRelation.getDestination().getMetaAttribute(name).getName();
-			}
-		}
-	}
-	return null;
 	}
 
+	public AbstractAttribute getMetaAttribute(String name) {
+		return metaAttributes.get(name);
+	}
+
+	
+	public String getMetaAttributeName(String name) {
+		if (metaAttributes.get(name) != null)
+			return metaAttributes.get(name).getName();
+		return null;
+	}
+
+	public boolean equals (MetaElement obj)
+	{
+		return identifier.equals(obj.getIdentifier());
+	}
+	
 	public void addMetaAttribute(String name, String type, Object defaultValue) {
 		if (!name.equals("identifier") && metaAttributes.get(name) == null)
 			metaAttributes.put(name,
 					new MetaAttribute(name, type, defaultValue));
 	}
 
-	public void addExtendMetaDirectRelation(
-			IntSemanticDirectRelation directRelationType, MetaConcept origin,
-			MetaConcept destination, boolean completeDisjoint) {
-		// TODO validate
-		metaDirectRelations.add(new MetaExtends(directRelationType, origin,
-				destination, completeDisjoint));
+	public void addMetaAttribute(String name, AbstractAttribute abstractAttribute) {
+		if (!name.equals("identifier") && metaAttributes.get(name) == null)
+			metaAttributes.put(name,abstractAttribute);
+	}
+	
+	public void addMetaAttribute(String name, String type, String enumType, Object defaultValue) {
+		if (!name.equals("identifier") && metaAttributes.get(name) == null)
+			metaAttributes.put(name,
+					new MetaAttribute(name, type, enumType, defaultValue));
+	}
+	
+	public MetaAssociation addAssociationAsOriginRelations(
+			IntDirectSemanticRelation directRelation, MetaConcept destination) {
+		MetaAssociation metaAssociation = new MetaAssociation(this, destination);
+		asOriginRelations.add(metaAssociation);
+		return metaAssociation;
 	}
 
-	public MetaAssociation addAssociationMetaDirectRelation(
-			IntSemanticDirectRelation directRelationType, MetaConcept origin,
-			MetaConcept destination) {
-		// TODO add the parameters for the association
-		MetaAssociation metaAssociation = new MetaAssociation(
-				directRelationType, origin, destination);
-		metaDirectRelations.add(metaAssociation);
-		return metaAssociation;
+	public AbstractAttribute getAbstractAttribute(String attributeName) {
+		return this.getMetaAttribute(attributeName);
 	}
 }

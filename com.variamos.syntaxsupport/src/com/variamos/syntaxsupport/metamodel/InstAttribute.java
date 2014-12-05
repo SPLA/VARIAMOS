@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 /**
  * @author Juan Carlos Muñoz 2014
@@ -19,14 +20,16 @@ public class InstAttribute implements Serializable {
 	 */
 	private static final long serialVersionUID = -6097914483168975659L;
 	public static final String 	VAR_IDENTIFIER = "Identifier",
-								VAR_METAATTRIBUTE = "MetaAttributeName",
-								VAR_VALUE = "Value";
+								VAR_ATTRIBUTE = "attributeName",
+								VAR_VALUE = "Value",
+								VAR_DISPLAYVALUE = "DispValue";
 	protected Map<String, Object> vars = new HashMap<>();
+	private Object object;
 	
 	/*private String identifier;
 	private Object value;
 	*/
-	private MetaAttribute metaAttribute;
+	private AbstractAttribute attribute;
 	
 	public InstAttribute()
 	{
@@ -34,14 +37,32 @@ public class InstAttribute implements Serializable {
 	}
 	
 	
-	public InstAttribute(String identifier, MetaAttribute metaAttribute,
+	public InstAttribute(String identifier, AbstractAttribute metaAttribute,
 			Object value) {
 		super();
+		this.attribute = metaAttribute;
 		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_METAATTRIBUTE, metaAttribute.getName());
+		vars.put(VAR_ATTRIBUTE, metaAttribute.getName());
 		vars.put(VAR_VALUE, value);
+		vars.put(VAR_DISPLAYVALUE, null);
+		//vars.put(VAR_DISOBJECT, null);
 //		this.identifier = identifier;
-		this.metaAttribute = metaAttribute;
+		
+//		this.value = value;
+	}
+	
+	public InstAttribute(String identifier, AbstractAttribute metaAttribute,
+			Object value, Object object) {
+		super();
+		this.attribute = metaAttribute;
+		vars.put(VAR_IDENTIFIER, identifier);
+		vars.put(VAR_ATTRIBUTE, metaAttribute.getName());
+		vars.put(VAR_VALUE, value);
+		vars.put(VAR_DISPLAYVALUE, null);
+		//vars.put(VAR_DISOBJECT, object);
+		this.object=object;
+//		this.identifier = identifier;
+		
 //		this.value = value;
 	}
 	
@@ -58,27 +79,35 @@ public class InstAttribute implements Serializable {
 		setVariable(VAR_IDENTIFIER, identifier);
 	}
 
-	public void setMetaAttribute(MetaAttribute metaAttribute) {
-		this.metaAttribute = metaAttribute;
-		setVariable(VAR_METAATTRIBUTE, metaAttribute.getName());
+	public void setAttribute(AbstractAttribute metaAttribute) {
+		this.attribute = metaAttribute;
+		setVariable(VAR_ATTRIBUTE, metaAttribute.getName());
 	}
 
 	public String getIdentifier() {
 		return (String)getVariable(VAR_IDENTIFIER);
 		//return identifier;
 	}
-	public MetaAttribute getMetaAttribute() {
+	public AbstractAttribute getAttribute() {
 		//return (MetaAttribute)getVariable(VAR_METAATTRIBUTE);
-		return metaAttribute;
+		return attribute;
 	}
 	
-	public String getMetaAttributeName() {
-		return (String)getVariable(VAR_METAATTRIBUTE);
+	public String getAttributeName() {
+		return (String)getVariable(VAR_ATTRIBUTE);
 		//return metaAttribute;
 	}
 	
 	public Object getValue() {
 		return getVariable(VAR_VALUE);
+		//return value;
+	}
+	
+	public Object getDisplayValue() {
+		if (getVariable(VAR_DISPLAYVALUE) == null)
+		return getVariable(VAR_VALUE);
+		else
+			return getVariable(VAR_DISPLAYVALUE);
 		//return value;
 	}
 	public void setValue(Object value) {
@@ -88,7 +117,7 @@ public class InstAttribute implements Serializable {
 	
 	public String getMetaAttributeType(){
 		//return ((MetaAttribute)getVariable(VAR_METAATTRIBUTE)).getType();
-		return metaAttribute.getType();
+		return attribute.getType();
 	}
 	public void setType(String selectedItem) {
 		// TODO Auto-generated method stub
@@ -146,7 +175,7 @@ public class InstAttribute implements Serializable {
 	
 	public String toString()
 	{
-		Object val = getValue();
+		Object val = getDisplayValue();
 		if( val == null )
 			return "";
 		return val.toString();
@@ -162,6 +191,22 @@ public class InstAttribute implements Serializable {
 
 
 	public void clearMetaAttribute() {
-		metaAttribute = null;		
+		attribute = null;		
+		object = null;
+	}
+
+
+	public void displayValue(String out) {
+		setVariable(VAR_DISPLAYVALUE, out);
+		
+	}
+	public void setObject(Object object) {
+		//setVariable(VAR_DISOBJECT, object);
+		this.object = object;
+	}
+
+	public Object getObject() {
+		//return getVariable(VAR_DISOBJECT);
+		return object;
 	}
 }

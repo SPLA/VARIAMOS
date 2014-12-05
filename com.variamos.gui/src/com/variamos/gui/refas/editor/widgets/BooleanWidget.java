@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import com.cfm.productline.Variable;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 @SuppressWarnings("serial")

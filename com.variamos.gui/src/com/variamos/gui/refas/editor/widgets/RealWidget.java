@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.cfm.productline.Variable;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 @SuppressWarnings("serial")

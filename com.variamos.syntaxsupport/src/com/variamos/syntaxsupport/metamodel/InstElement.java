@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.cfm.productline.Prototype;
 import com.cfm.productline.Variable;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 
 /**
@@ -26,11 +26,17 @@ public abstract class InstElement implements Serializable, Prototype,
 	private Map<String, InstRelation> instRelations;
 */
 	public static final String  VAR_IDENTIFIER = "Identifier",
-								VAR_INSTATTRIBUTES = "InstAttributes",
+								VAR_INSTATTRIBUTES = "InstAttribute",
 								VAR_INSTRELATIONS = "InstRelations";
 	
 	protected Map<String, Object> vars = new HashMap<>();
 
+	public InstElement()
+	{
+		this(null, new HashMap<String, InstAttribute>(),
+				new HashMap<String, InstRelation>());
+	}
+	
 	public InstElement(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>(),
 				new HashMap<String, InstRelation>());
@@ -102,7 +108,7 @@ public abstract class InstElement implements Serializable, Prototype,
 			getInstAttribute(name).setValue(value);
 	}
 
-	public void addInstAttribute(String name, MetaAttribute metaAttribute,
+	public void addInstAttribute(String name, AbstractAttribute metaAttribute,
 			Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
@@ -128,5 +134,15 @@ public abstract class InstElement implements Serializable, Prototype,
 	
 	public void setVars(Map<String, Object> vars) {
 		this.vars = vars;
+	}
+	public void clearInstAttributesClassObjects()
+	{
+		for (InstAttribute attribute : this.getInstAttributes().values())
+		{
+			attribute.setObject(null);
+			//String type = attribute.getAttribute().getType();
+			 //if (type.equals("MCLass") || type.equals("MClass"));
+				// attribute.getValue()
+		}
 	}
 }

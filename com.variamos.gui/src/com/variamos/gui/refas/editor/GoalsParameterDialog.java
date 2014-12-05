@@ -44,7 +44,7 @@ public class GoalsParameterDialog extends JDialog{
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 		
-		RefasWidgetFactory factory = new RefasWidgetFactory();
+		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 		
 		widgets = new HashMap<String, WidgetR>();
 		

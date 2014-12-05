@@ -15,6 +15,9 @@ public class MetaEnumeration implements Serializable {
 	 */
 	private static final long serialVersionUID = 4695459882699621321L;
 	private String name;
+	private String type;
+	private List<MetaValue> values;
+
 	public String getName() {
 		return name;
 	}
@@ -24,7 +27,5 @@ public class MetaEnumeration implements Serializable {
 	public List<MetaValue> getValues() {
 		return values;
 	}
-	private String type;
-	private List<MetaValue> values;
-
+	
 }

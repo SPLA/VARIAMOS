@@ -3,357 +3,579 @@ package com.variamos.refas.core.staticconcepts;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.refas.core.sematicassociation.*;
 import com.variamos.refas.core.sematicsmetamodel.*;
+import com.variamos.refas.core.types.DirectRelationType;
+import com.variamos.refas.core.types.GroupRelationType;
 import com.variamos.syntaxsupport.metametamodel.*;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstView;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 public class SemanticPlusSyntax {
-	private List<AbstractSemanticConcept> semanticConcepts = new ArrayList<AbstractSemanticConcept>();
-	private List<InstView> instViews = new ArrayList<InstView>();
+	private Map<String, AbstractSemanticConcept> semanticConcepts = new HashMap<String, AbstractSemanticConcept>();
 	private List<MetaView> metaViews = new ArrayList<MetaView>();
-	private Map<String,MetaConcept> metaConcepts = new HashMap<String,MetaConcept>();
+	private Map<String, MetaElement> syntaxConcepts = new HashMap<String, MetaElement>();
 
-
-	public List<AbstractSemanticConcept> getSemanticConcepts() {
+	public Map<String,AbstractSemanticConcept> getSemanticConcepts() {
 		return semanticConcepts;
 	}
-
-	public List<InstView> getInstViews() {
-		return instViews;
+	public Map<String, MetaElement> getsyntaxConcepts() {
+		return syntaxConcepts;
 	}
+
+	public MetaElement getMetaConcept(String name) {
+		return syntaxConcepts.get(name);
+	}
+
+	public void setSyntaxConcepts(Map<String, MetaElement> syntaxConcepts) {
+		this.syntaxConcepts = syntaxConcepts;
+	}
+
+	public AbstractSemanticConcept getSemanticConcept(
+			String abstractSemanticConceptIdentifier) {
+		return semanticConcepts.get(abstractSemanticConceptIdentifier);
+	}
+
+	public boolean elementsValidation(String element, int modelViewInd,
+			int modelViewSubInd) {
+		if (modelViewInd < metaViews.size() && modelViewSubInd == -1) {
+			Iterator<MetaElement> metaConcept = metaViews.get(modelViewInd)
+					.getConcepts().iterator();
+			for (int i = 0; i < metaViews.get(modelViewInd).getConcepts()
+					.size(); i++) {
+
+				if (metaConcept.next().getIdentifier().equals(element))
+					return true;
+			}
+		}
+		if (modelViewInd < metaViews.size()
+				&& modelViewSubInd != -1
+				&& modelViewSubInd < metaViews.get(modelViewInd)
+						.getChildViews().size()) {
+			Iterator<MetaElement> metaConcepts = metaViews.get(modelViewInd)
+					.getChildViews().get(modelViewSubInd).getConcepts()
+					.iterator();
+			while (metaConcepts.hasNext())
+				if (metaConcepts.next().getIdentifier().equals(element))
+					return true;
+		}
+		return false;
+	}
+
+	public List<String> modelElements(int modelViewInd, int modelViewSubInd) {
+		List<String> elements = new ArrayList<String>();
+		if (modelViewInd < metaViews.size() && modelViewSubInd == -1) {
+			Iterator<MetaElement> metaConcepts = metaViews.get(modelViewInd)
+					.getConcepts().iterator();
+			while (metaConcepts.hasNext()) {
+				MetaElement tmp = metaConcepts.next();
+				if (tmp.getStyle() != null)
+					elements.add(tmp.getIdentifier());
+			}
+		}
+		if (modelViewInd < metaViews.size()
+				&& modelViewSubInd != -1
+				&& modelViewSubInd < metaViews.get(modelViewInd)
+						.getChildViews().size()) {
+			Iterator<MetaElement> metaConcepts = metaViews.get(modelViewInd)
+					.getChildViews().get(modelViewSubInd).getConcepts()
+					.iterator();
+			while (metaConcepts.hasNext()) {
+				MetaElement tmp = metaConcepts.next();
+				if (tmp.getStyle() != null)
+					elements.add(tmp.getIdentifier());
+			}
+		}
+		return elements;
+	}
+
 	public List<MetaView> getMetaViews() {
 		return metaViews;
 	}
 
 	public SemanticPlusSyntax() {
 
-		// Dependencies
+		// Definition of variability concept and relations
 
-		SemanticAttribute sentence1 = null;
-		SemanticAttribute sentence2 = null;
-		SemanticAttribute logicalOperator = null;
+		DirectSemanticRelation dirRelation = null;
+		IncomingSemanticRelation groupRelation = null;
 
-		sentence1 = new SemanticAttribute("sentence1", "String", true); // todo:
-																		// Sentence
-																		// concept
-		sentence2 = new SemanticAttribute("sentence2", "String", true);// todo:
-																		// Sentence
-																		// concept
-		logicalOperator = new SemanticAttribute("operator", "String", true);// todo:
-																			// LogicalOperator
-																			// concept
+		AbstractSemanticConcept semGeneralElement = new AbstractSemanticConcept();
+		semanticConcepts.put("GE",semGeneralElement);
 
-		ConditionalExpression condition = new ConditionalExpression(sentence1,
-				sentence2, logicalOperator);
+		semGeneralElement.putSemanticAttribute("Description",
+				new SemanticAttribute("Description", "String", ""));
+		semGeneralElement.addDisPropEditableAttribute("04#" + "Description");
 
-		// Dependencies
-		Dependency means_endsDependency = new Dependency(GroupRelationType.means_ends);
-		Dependency requiredDependency = new Dependency(GroupRelationType.required);
-		Dependency conflictDependency = new Dependency(GroupRelationType.conflict);
-		Dependency alternativeDependency = new Dependency(GroupRelationType.alternative);
-		Dependency mutexDependency = new Dependency(GroupRelationType.mutex);
-		Dependency implicationDependency = new Dependency(GroupRelationType.implication);
-	
-
-		ImplementationDependency implementationDependency = new ImplementationDependency(condition);
+		semGeneralElement.putSemanticAttribute("Active",
+				new SimulationAttribute("Active", "Boolean", true));
+		semGeneralElement.putSemanticAttribute("Visibility",
+				new SimulationAttribute("Visibility", "Boolean", true));
+		semGeneralElement.putSemanticAttribute("InitiallySelected",
+				new SimulationAttribute("InitiallySelected", "Boolean", false));
+		semGeneralElement.putSemanticAttribute("Required",
+				new SimulationAttribute("Required", "Boolean", false));
+		semGeneralElement.putSemanticAttribute("CurrentlySelected",
+				new SimulationAttribute("CurrentlySelected", "Boolean", false));
+		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
+		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility");
+		semGeneralElement.addDisPropEditableAttribute("03#"
+				+ "InitiallySelected");
+		semGeneralElement.addDisPropEditableAttribute("04#" + "Required");
+		semGeneralElement.addDisPropEditableAttribute("05#"
+				+ "CurrentlySelected");
 
 		// Definition of variability concept and relations
-		HardSemanticConcept variabilityElement = new HardSemanticConcept(
-				"VariabilityElement", false, true);
-		semanticConcepts.add(variabilityElement);
+		HardSemanticConcept semHardConcept = new HardSemanticConcept(
+				semGeneralElement, "semHardConcept");
+		semanticConcepts.put("HC",semHardConcept);
 
-		DirectRelation dirRelation = null;
-		// Direct Relations of the assumption
-	/*	dirRelation = new DirectRelation(variabilityElement,
-				DirectRelationType.preferred);
-		variabilityElement.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(variabilityElement,
-				DirectRelationType.required);
-		variabilityElement.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(variabilityElement,
-				DirectRelationType.conflict);
-		variabilityElement.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(variabilityElement,
-				DirectRelationType.alternative);
-		variabilityElement.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(variabilityElement,
-				DirectRelationType.mutex);
-		variabilityElement.addDirectRelation(dirRelation);
-	*/	
-		GroupRelation groupRelation = null;
-		// Group Relations of the assumption
-		groupRelation = new GroupRelation(false, variabilityElement, requiredDependency);
-		variabilityElement.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(false, variabilityElement, conflictDependency);
-		variabilityElement.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(false, variabilityElement, alternativeDependency);
-		variabilityElement.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(false, variabilityElement, mutexDependency);
-		variabilityElement.addGroupRelation(groupRelation);
-		
-		
+		// Direct Relations of the semanticAssumption
+		/*
+		 * dirRelation = new DirectRelation(semVariabilityElement,
+		 * DirectRelationType.preferred);
+		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
+		 * new DirectRelation(semVariabilityElement,
+		 * DirectRelationType.required);
+		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
+		 * new DirectRelation(semVariabilityElement,
+		 * DirectRelationType.conflict);
+		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
+		 * new DirectRelation(semVariabilityElement,
+		 * DirectRelationType.alternative);
+		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
+		 * new DirectRelation(semVariabilityElement, DirectRelationType.mutex);
+		 * semVariabilityElement.addDirectRelation(dirRelation);
+		 */
+
+		List<OutgoingSemanticRelation> semHardOutgoingRelation = new ArrayList<OutgoingSemanticRelation>();
+		semHardOutgoingRelation
+				.add(new OutgoingSemanticRelation(semHardConcept));
+
+		// required and conflict group relations of the HardSemanticConcept
+		List<GroupRelationType> requires_conflictsGroupRelation = new ArrayList<GroupRelationType>();
+		requires_conflictsGroupRelation.add(GroupRelationType.required);
+		requires_conflictsGroupRelation.add(GroupRelationType.conflict);
+
+		SemanticGroupDependency semanticGroupRelation = new SemanticGroupDependency(
+				"HardGroupRel", false, requires_conflictsGroupRelation,
+				semHardOutgoingRelation);
+		groupRelation = new IncomingSemanticRelation(semanticGroupRelation);
+		semHardConcept.addGroupRelation(groupRelation);
+
+		// required and conflict direct relations of the HardSemanticConcept
+		List<IntDirectRelationType> requires_conflictsDirectRelation = new ArrayList<IntDirectRelationType>();
+		requires_conflictsDirectRelation.add(DirectRelationType.required);
+		requires_conflictsDirectRelation.add(DirectRelationType.conflict);
+		DirectSemanticRelation directRelation = new DirectSemanticRelation(
+				"HardDirectRel", false, requires_conflictsDirectRelation);
+		semHardConcept.addDirectRelation(directRelation);
+
 		// definition of other concepts
-		HardSemanticConcept assumption = new HardSemanticConcept(
-				variabilityElement, "Assumption", false, true);
-		semanticConcepts.add(assumption);
+		HardSemanticConcept semAssumption = new HardSemanticConcept(
+				semHardConcept, "Assumption");
+		semanticConcepts.put("AS",semAssumption);
 
-		HardSemanticConcept topGoal = new HardSemanticConcept(
-				variabilityElement, "TopGoal", true, false);
-		semanticConcepts.add(topGoal);
+		HardSemanticConcept semGoal = new HardSemanticConcept(semHardConcept,
+				"Goal");
 
-		HardSemanticConcept generalGoal = new HardSemanticConcept(
-				variabilityElement, "GeneralGoal", false, false);
-		semanticConcepts.add(generalGoal);
+		semGoal.addDisPanelVisibleAttribute("01#" + "satisfactionType");
+		semGoal.addDisPanelSpacersAttribute("<#" + "satisfactionType" + "#>\n");
+		semanticConcepts.put("G",semGoal);
 
-		HardSemanticConcept operationalization = new HardSemanticConcept(
-				variabilityElement, "Operationalization", false, false);
-		semanticConcepts.add(operationalization);
+		HardSemanticConcept semOperationalization = new HardSemanticConcept(
+				semHardConcept, "Operationalization");
+		semanticConcepts.put("OPER",semOperationalization);
 
-		SoftSemanticConcept topSoftGoal = new SoftSemanticConcept(
-				"TopSoftGoal", true, true);
-		semanticConcepts.add(topSoftGoal);
+		SoftSemanticConcept semSoftGoal = new SoftSemanticConcept(
+				semGeneralElement, "SoftGoal");
+		semanticConcepts.put("SG",semSoftGoal);
 
-		SoftSemanticConcept generalSoftGoal = new SoftSemanticConcept(
-				"GeneralSoftGoal", false, true);
-		semanticConcepts.add(generalSoftGoal);
-		
-		HardSemanticConcept asset = new HardSemanticConcept(
-				"Asset", false, false);
-		semanticConcepts.add(asset);
-		
-		SoftSemanticConceptSatisficing claim = new SoftSemanticConceptSatisficing(
-				"Claim", condition);
-		semanticConcepts.add(claim);
-		
-		SoftSemanticConceptSatisficing softDependency = new SoftSemanticConceptSatisficing(
-				"SoftDependency", condition);
-		semanticConcepts.add(softDependency);
+		HardSemanticConcept semAsset = new HardSemanticConcept(
+				semGeneralElement, "Asset");
+		semanticConcepts.put("ASSE",semAsset);
 
-		// Always allows Assumptions
-		List<AbstractSemanticConcept> assumptionList = new ArrayList<AbstractSemanticConcept>();
-		assumptionList.add(assumption);
+		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
+				semGeneralElement, "Claim", true);
+		semanticConcepts.put("CL",semClaim);
+		semClaim.putSemanticAttribute("Operationalizations",
+				new SemanticAttribute("Operationalizations", "MClass",
+						"com.variamos.syntaxsupport.metamodel.InstConcept",
+						"OPER", "", ""));
+		semClaim.putSemanticAttribute("ConditionalExpression",
+				new SemanticAttribute("ConditionalExpression", "String", ""));
 
-		// Relations of the assumption
-		dirRelation = new DirectRelation(topGoal, DirectRelationType.means_ends);
-		assumption.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(generalGoal,
-				DirectRelationType.means_ends);
-		assumption.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(operationalization,
-				DirectRelationType.means_ends);
-		assumption.addDirectRelation(dirRelation);
+		semClaim.addDisPanelVisibleAttribute("01#" + "Operationalizations");
+		semClaim.addDisPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
+																				// move
+																				// to
+																				// semantic
+																				// attributes
 
-		// means_endsDependency of the GeneralGoal
-		groupRelation = new GroupRelation(true, topGoal, means_endsDependency,
-				null, assumptionList);
-		generalGoal.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(true, generalGoal,
-				means_endsDependency, null, assumptionList);
-		generalGoal.addGroupRelation(groupRelation);
+		semClaim.addDisPropEditableAttribute("01#" + "Operationalizations");
+		semClaim.addDisPropEditableAttribute("03#" + "ConditionalExpression");
 
-		// means_endsDependency of the Operationalization
-		groupRelation = new GroupRelation(true, topGoal, means_endsDependency,
-				null, assumptionList);
-		operationalization.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(true, generalGoal,
-				means_endsDependency, null, assumptionList);
-		operationalization.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(false, operationalization,
-				means_endsDependency, null, assumptionList);
-		operationalization.addGroupRelation(groupRelation);
+		semClaim.addDisPanelSpacersAttribute("#" + "Operationalizations"
+				+ "#\n#");
 
-		// implicationDependency of the Operationalizations
-		groupRelation = new GroupRelation(true, claim,
-				implicationDependency);
-		operationalization.addGroupRelation(groupRelation);
-		
-		// means_endsDependency of the GeneralSoftGoal
-		groupRelation = new GroupRelation(true, topSoftGoal,
-				means_endsDependency, null, assumptionList);
-		operationalization.addGroupRelation(groupRelation);
-		groupRelation = new GroupRelation(true, generalSoftGoal,
-				means_endsDependency, null, assumptionList);
-		operationalization.addGroupRelation(groupRelation);
+		SoftSemanticConceptSatisficing semSoftDependency = new SoftSemanticConceptSatisficing(
+				semGeneralElement, "SoftDependency", false);
+		semanticConcepts.put("SD",semSoftDependency);
 
-		// implementationRelation of the Asset
-		groupRelation = new GroupRelation(true, operationalization,
-				implementationDependency, null, assumptionList);
-		asset.addGroupRelation(groupRelation);
-		
-		//TODO: structural and functional dependency relations
-		
-		// normal relation of the Claim
-		dirRelation = new DirectRelation(topSoftGoal, DirectRelationType.normal);
-		claim.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(generalSoftGoal, DirectRelationType.normal);
-		claim.addDirectRelation(dirRelation);
-		
-		// normal relation of the SoftDependencies
-		dirRelation = new DirectRelation(topSoftGoal, DirectRelationType.normal);
-		softDependency.addDirectRelation(dirRelation);
-		dirRelation = new DirectRelation(generalSoftGoal, DirectRelationType.normal);
-		softDependency.addDirectRelation(dirRelation);
-		
+		// Elements Lists
+		List<AbstractSemanticConcept> semAssumptionElements = new ArrayList<AbstractSemanticConcept>();
+		semAssumptionElements.add(semAssumption);
 
-		
-		
-		
-		//Our MetaModel objects definition
-		InstSemanticConcept semConcept  = null;
-		InstConcept syntaxConcept = null;
-		MetaView sMetaView = null;
-		InstView instView = null;
-		
-		sMetaView = new MetaView("GoalsAndVaribilityModel", "Goals And Varibility Model", "Goals and Variability Palette", 0);
+		List<AbstractSemanticConcept> SemGoalOperElements = new ArrayList<AbstractSemanticConcept>();
+		SemGoalOperElements.add(semGoal);
+		SemGoalOperElements.add(semOperationalization);
 
-		
-		semConcept = new InstSemanticConcept("AC",null);
-		MetaConcept sAbstractConcept = new MetaConcept("AC", "AbstractConcept", null, 0, 0, null, true, null, 3, true, semConcept);
-				sAbstractConcept.addMetaAttribute("active","Boolean", false);
-		sAbstractConcept.addMetaAttribute("description","String","");
-		sAbstractConcept.addMetaAttribute("visibility","Boolean",true);
-		sAbstractConcept.addPropEditableAttributes("active");
-		sAbstractConcept.addPropEditableAttributes("description");
-		sAbstractConcept.addPropVisibleAttributes("identifier");
-		sMetaView.addConcept(sAbstractConcept);
-		metaConcepts.put("AC", sAbstractConcept);
-		
-		semConcept = new InstSemanticConcept("VA",null);
-		MetaConcept sVariabilityArtifact = new MetaConcept("VE", "VariabilityArtifact", null, 0, 0, null, true, null, 3, true, semConcept);
-		sVariabilityArtifact.addMetaAttribute("name","String","");
-		sVariabilityArtifact.addPanelVisibleAttributes("name");
-		sVariabilityArtifact.addPropEditableAttributes("name");
-		sMetaView.addConcept(sVariabilityArtifact);
-		metaConcepts.put("VA", sVariabilityArtifact);
-		
-		System.out.println("VA: "+sVariabilityArtifact.getMetaAttributes().toString());
-		sVariabilityArtifact.addExtendMetaDirectRelation(DirectRelationType.means_ends, sVariabilityArtifact, sAbstractConcept, false);
-		System.out.println("VAe: "+sVariabilityArtifact.getMetaAttributes().toString());
-		
-		instView = new InstView("Goals", sMetaView);
-		instViews.add(instView);
-		metaViews.add(sMetaView);
-				
-			semConcept = new InstSemanticConcept("TG",topGoal);
-			MetaConcept sTopGoal = new MetaConcept("TG", "Top Goal", "rqgoal", 100, 40, "/com/variamos/gui/refas/editor/images/goal.png", true, Color.BLUE.toString(), 3, true, semConcept);
-			System.out.println("TG: "+sTopGoal.getMetaAttributes().toString());
-			sTopGoal.addExtendMetaDirectRelation(DirectRelationType.means_ends, sTopGoal, sVariabilityArtifact, false);
-			System.out.println("TGe: "+sTopGoal.getMetaAttributes().toString());
-			sMetaView.addConcept(sTopGoal);
-			metaConcepts.put("TG", sTopGoal);
-	
-			semConcept = new InstSemanticConcept("GG", generalGoal);
-			MetaConcept sGeneralGoal = new MetaConcept("GG", "General Goal", "rqgoal", 100, 40, "/com/variamos/gui/refas/editor/images/goal.png", true, Color.BLUE.toString(), 2, true, semConcept);
-			sGeneralGoal.addExtendMetaDirectRelation(DirectRelationType.means_ends, sGeneralGoal, sVariabilityArtifact, false);
-			sMetaView.addConcept(sGeneralGoal);
-			metaConcepts.put("GG", sGeneralGoal);
-			
-			semConcept = new InstSemanticConcept("Operationalization", operationalization);
-			MetaConcept sOperationalization = new MetaConcept("OPER", "Operationalization", "rqoper", 100, 40, "/com/variamos/gui/refas/editor/images/operational.png", true, Color.BLUE.toString(), 2, true, semConcept);
-			sOperationalization.addExtendMetaDirectRelation(DirectRelationType.means_ends, sOperationalization, sVariabilityArtifact, false);
-			sMetaView.addConcept(sOperationalization);
-			metaConcepts.put("GG", sGeneralGoal);
-	
-			semConcept = new InstSemanticConcept("Assumption", operationalization);
-			MetaConcept sAssumption = new MetaConcept("ASSUM", "Assumption", "rqsassump", 100, 40, "/com/variamos/gui/refas/editor/images/assump.png", true, Color.WHITE.toString(), 1, true, semConcept);
-			sAssumption.addExtendMetaDirectRelation(DirectRelationType.means_ends, sAssumption, sVariabilityArtifact, false);
-			
-			sMetaView.addConcept(sAssumption);
+		List<AbstractSemanticConcept> semGoalElements = new ArrayList<AbstractSemanticConcept>();
+		semGoalElements.add(semGoal);
 
-		sMetaView = new MetaView("SoftGoals", "Soft Goals Model", "Soft Goals Palette", 1);
-		instView = new InstView("SoftGoals", sMetaView);
-		instViews.add(instView);
-		metaViews.add(sMetaView);
-				
-			semConcept = new InstSemanticConcept("TopSoftsoal",topSoftGoal);
-			MetaConcept sTopSoftGoal = new MetaConcept("TSG", "Top Softgoal", "rqsoftgoal", 100, 40, "/com/variamos/gui/refas/editor/images/softgoal.png", true, Color.WHITE.toString(), 3, true, semConcept);
-			sTopSoftGoal.addExtendMetaDirectRelation(DirectRelationType.means_ends, sTopSoftGoal, sAbstractConcept, false);
-			sTopSoftGoal.addMetaAttribute("name","String","");
-			sTopSoftGoal.addPanelVisibleAttributes("name");
-			sTopSoftGoal.addPropEditableAttributes("name");
-			sMetaView.addConcept(sTopSoftGoal);
-			metaConcepts.put("TSG", sTopSoftGoal);
-		
-			semConcept = new InstSemanticConcept("GeneralSoftGoal", generalSoftGoal);
-			MetaConcept sGeneralSoftGoal = new MetaConcept("GSG", "General Softgoal", "rqsoftgoal", 100, 40, "/com/variamos/gui/refas/editor/images/softgoal.png", true, Color.WHITE.toString(), 1, true, semConcept);
-			sGeneralSoftGoal.addExtendMetaDirectRelation(DirectRelationType.means_ends, sGeneralSoftGoal, sAbstractConcept, false);
-			sGeneralSoftGoal.addMetaAttribute("name","String","");
-			sGeneralSoftGoal.addPanelVisibleAttributes("name");
-			sGeneralSoftGoal.addPropEditableAttributes("name");
-			sMetaView.addConcept(sGeneralSoftGoal);
-			metaConcepts.put("TGG", sGeneralSoftGoal);
+		List<AbstractSemanticConcept> semOperationalizationElements = new ArrayList<AbstractSemanticConcept>();
+		semOperationalizationElements.add(semOperationalization);
 
-		sMetaView = new MetaView("Context", "Context Model", "Context Palette", 2);
-		instView = new InstView("Context", sMetaView);
-		instViews.add(instView);
-		metaViews.add(sMetaView);
-			
-			//TODO define context model
+		List<AbstractSemanticConcept> semSoftgoalElements = new ArrayList<AbstractSemanticConcept>();
+		semSoftgoalElements.add(semSoftGoal);
 
-		sMetaView = new MetaView("SoftGoalsSatisficing", "Soft Goals Satisficing Model", "Soft Goals Satisficing Palette", 3);
-		instView = new InstView("SGSatis", sMetaView);
-		instViews.add(instView);
-		metaViews.add(sMetaView);
+		List<AbstractSemanticConcept> semClaimsElements = new ArrayList<AbstractSemanticConcept>();
+		semClaimsElements.add(semClaim);
 
-			semConcept = new InstSemanticConcept("Claim", claim);
-			MetaConcept sClaim = new MetaConcept("CL", "Claim", "rqclaim", 100, 40, "/com/variamos/gui/refas/editor/images/claim.png", true, Color.BLUE.toString(), 1, true, semConcept);
-			sClaim.addExtendMetaDirectRelation(DirectRelationType.means_ends, sClaim, sAbstractConcept, false);
-			sClaim.addMetaAttribute("operationalizations","String","");
-			sClaim.addPanelVisibleAttributes("operationalizations");
-			sClaim.addPropEditableAttributes("operationalizations");
-			sClaim.addPanelSpacersAttributes("\n");
-			sClaim.addMetaAttribute("ConditionalExpression","String","");
-			sClaim.addPanelVisibleAttributes("ConditionalExpression");
-			sClaim.addPropEditableAttributes("ConditionalExpression");
-			sMetaView.addConcept(sClaim);
-			metaConcepts.put("CL", sClaim);			
-			
-			semConcept = new InstSemanticConcept("SoftDependency", softDependency);
-			MetaConcept sSoftDependency = new MetaConcept("SD", "Soft Dependency", "rqsoftdep", 100, 40, "/com/variamos/gui/refas/editor/images/softdep.png", true, Color.BLUE.toString(), 1, true, semConcept);
-			sSoftDependency.addExtendMetaDirectRelation(DirectRelationType.means_ends, sSoftDependency, sAbstractConcept, false);
-			sSoftDependency.addMetaAttribute("ConditionalExpression","String","");
-			sSoftDependency.addPanelVisibleAttributes("ConditionalExpression");
-			sSoftDependency.addPropEditableAttributes("ConditionalExpression");
-			sMetaView.addConcept(sSoftDependency);
-			metaConcepts.put("SD", sSoftDependency);
-			
-		sMetaView = new MetaView("Assets", "Assets Model", "Assets Palette", 4);
-		instView = new InstView("Assets", sMetaView);
-		instViews.add(instView);
-		metaViews.add(sMetaView);
+		List<AbstractSemanticConcept> semSDElements = new ArrayList<AbstractSemanticConcept>();
+		semSDElements.add(semSoftDependency);
 
-			semConcept = new InstSemanticConcept("Asset", asset);
-			MetaConcept sAsset = new MetaConcept("AS", "Asset", "rqcompon", 100, 40, "/com/variamos/gui/refas/editor/images/component.png", true, Color.WHITE.toString(), 1, true, semConcept);
-			sAsset.addExtendMetaDirectRelation(DirectRelationType.means_ends, sAsset, sAbstractConcept, false);
-			sAsset.addMetaAttribute("name","String","");
-			sAsset.addPanelVisibleAttributes("name");
-			sAsset.addPropEditableAttributes("name");
-			sMetaView.addConcept(sAsset);
-			metaConcepts.put("AS", sAsset);
+		// Relations
+		List<GroupRelationType> alternativeGroupRelation = new ArrayList<GroupRelationType>();
+		alternativeGroupRelation.add(GroupRelationType.alternative);
 
-	}
-	
-	public Map<String, MetaConcept> getMetaConcepts() {
-		return metaConcepts;
-	}
-	
-	public MetaConcept getMetaConcept(String name) {
-		return metaConcepts.get(name);
-	}
+		List<GroupRelationType> alternative_implicates_means_endsDirectRelation = new ArrayList<GroupRelationType>();
+		alternative_implicates_means_endsDirectRelation
+				.add(GroupRelationType.alternative);
+		alternative_implicates_means_endsDirectRelation
+				.add(GroupRelationType.means_ends);
+		alternative_implicates_means_endsDirectRelation
+				.add(GroupRelationType.implication);
 
-	public void setMetaConcepts(Map<String, MetaConcept> metaConcepts) {
-		this.metaConcepts = metaConcepts;
+		List<IntDirectRelationType> alternative_prefferedDirectRelation = new ArrayList<IntDirectRelationType>();
+		alternative_prefferedDirectRelation.add(DirectRelationType.alternative);
+		alternative_prefferedDirectRelation.add(DirectRelationType.preferred);
+
+		List<IntDirectRelationType> alternative_preffered_implication_means_endsDirectRelation = new ArrayList<IntDirectRelationType>();
+		alternative_preffered_implication_means_endsDirectRelation
+				.add(DirectRelationType.alternative);
+		alternative_preffered_implication_means_endsDirectRelation
+				.add(DirectRelationType.preferred);
+		alternative_preffered_implication_means_endsDirectRelation
+				.add(DirectRelationType.implication);
+		alternative_preffered_implication_means_endsDirectRelation
+				.add(DirectRelationType.means_ends);
+
+		List<IntDirectRelationType> allSGDirectRelation = new ArrayList<IntDirectRelationType>();
+		allSGDirectRelation.add(DirectRelationType.alternative);
+		allSGDirectRelation.add(DirectRelationType.preferred);
+		allSGDirectRelation.add(DirectRelationType.implication);
+		allSGDirectRelation.add(DirectRelationType.means_ends);
+		allSGDirectRelation.add(DirectRelationType.conflict);
+		allSGDirectRelation.add(DirectRelationType.required);
+
+		List<GroupRelationType> allSGGroupRelation = new ArrayList<GroupRelationType>();
+		allSGGroupRelation.add(GroupRelationType.means_ends);
+		allSGGroupRelation.add(GroupRelationType.implication);
+		allSGGroupRelation.add(GroupRelationType.alternative);
+		allSGGroupRelation.add(GroupRelationType.conflict);
+		allSGGroupRelation.add(GroupRelationType.required);
+
+		List<GroupRelationType> means_endsImplicationGroupRelation = new ArrayList<GroupRelationType>();
+		means_endsImplicationGroupRelation.add(GroupRelationType.means_ends);
+		means_endsImplicationGroupRelation.add(GroupRelationType.implication);
+
+		List<GroupRelationType> implicationGroupRelation = new ArrayList<GroupRelationType>();
+		implicationGroupRelation.add(GroupRelationType.implication);
+
+		List<IntDirectRelationType> implicationDirectRelation = new ArrayList<IntDirectRelationType>();
+		implicationDirectRelation.add(DirectRelationType.implication);
+
+		List<IntDirectRelationType> means_endsImplicationDirectRelation = new ArrayList<IntDirectRelationType>();
+		means_endsImplicationDirectRelation.add(DirectRelationType.means_ends);
+		means_endsImplicationDirectRelation.add(DirectRelationType.implication);
+
+		List<IntDirectRelationType> normalDirectRelation = new ArrayList<IntDirectRelationType>();
+		normalDirectRelation.add(DirectRelationType.normal);
+
+		List<GroupRelationType> implementationGroupRelation = new ArrayList<GroupRelationType>();
+		implementationGroupRelation.add(GroupRelationType.implementation);
+
+		List<IntDirectRelationType> implementationDirectRelation = new ArrayList<IntDirectRelationType>();
+		implementationDirectRelation.add(DirectRelationType.implementation);
+
+		// Goal to Goal
+
+		List<OutgoingSemanticRelation> outgoingGoalRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingGoalRelation.add(new OutgoingSemanticRelation(semGoal));
+		SemanticGroupDependency semanticGoalGoalGroupRelation = new SemanticGroupDependency(
+				"GroupDep Goal to Goal", false,
+				alternative_implicates_means_endsDirectRelation,
+				outgoingGoalRelation);
+		groupRelation = new IncomingSemanticRelation(
+				semanticGoalGoalGroupRelation);
+		semGoal.addGroupRelation(groupRelation);
+		semanticConcepts.put("GroupDep Goal to Goal",semanticGoalGoalGroupRelation);
+
+		directRelation = new DirectSemanticRelation("GoalDirectRel", false,
+				alternative_preffered_implication_means_endsDirectRelation);
+		semGoal.addDirectRelation(directRelation);
+
+		// Oper to Goal and Oper
+		List<OutgoingSemanticRelation> outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingOperationalizationRelation.add(new OutgoingSemanticRelation(
+				semGoal));
+		outgoingOperationalizationRelation.add(new OutgoingSemanticRelation(
+				semOperationalization));
+		SemanticGroupDependency semanticOperGoalGroupRelation = new SemanticGroupDependency(
+				"GroupDep Oper to Goal and Oper", false,
+				means_endsImplicationGroupRelation,
+				outgoingOperationalizationRelation);
+		directRelation = new DirectSemanticRelation("OperDirectRel1", false,
+				means_endsImplicationDirectRelation);
+		groupRelation = new IncomingSemanticRelation(
+				semanticOperGoalGroupRelation);
+		semOperationalization.addGroupRelation(groupRelation);
+		semOperationalization.addDirectRelation(directRelation);
+		semanticConcepts.put("GroupDep Oper to Goal and Oper",semanticOperGoalGroupRelation);
+
+		// Oper to Oper
+		outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingOperationalizationRelation.add(new OutgoingSemanticRelation(
+				semOperationalization));
+		SemanticGroupDependency semanticOperOperGroupRelation = new SemanticGroupDependency(
+				"GroupDep Oper to Oper", false, alternativeGroupRelation,
+				outgoingOperationalizationRelation);
+		groupRelation = new IncomingSemanticRelation(
+				semanticOperOperGroupRelation);
+		semOperationalization.addGroupRelation(groupRelation);
+		directRelation = new DirectSemanticRelation("OperDirectRel2", false,
+				alternative_prefferedDirectRelation);
+		semOperationalization.addDirectRelation(directRelation);
+		semanticConcepts.put("GroupDep Oper to Oper",semanticOperOperGroupRelation);
+
+		// SG to SG
+		List<OutgoingSemanticRelation> outgoingSoftgoalRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingSoftgoalRelation.add(new OutgoingSemanticRelation(true,
+				semSoftGoal));
+		semanticGroupRelation = new SemanticGroupDependency("SoftgoalGroupRel",
+				false, allSGGroupRelation, outgoingSoftgoalRelation);
+		semSoftGoal.addGroupRelation(groupRelation);
+		directRelation = new DirectSemanticRelation("OperDirectRel1", false,
+				allSGDirectRelation);
+		semSoftGoal.addDirectRelation(directRelation);
+
+		// Oper to Claim
+		outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingSoftgoalRelation.add(new OutgoingSemanticRelation(semClaim));
+		semanticGroupRelation = new SemanticGroupDependency("OperGroupRel3",
+				true, implicationGroupRelation, outgoingSoftgoalRelation);
+		semOperationalization.addGroupRelation(groupRelation);
+		directRelation = new DirectSemanticRelation("OperDirectRel3", true,
+				implicationDirectRelation);
+		semOperationalization.addDirectRelation(directRelation);
+
+		// Claim to SG
+		directRelation = new DirectSemanticRelation(true, "ClaimDirectRel",
+				true, normalDirectRelation);
+		semClaim.addDirectRelation(directRelation);
+
+		// SD to SG
+		directRelation = new DirectSemanticRelation(true,
+				"SoftDependencyDirectRel", true, normalDirectRelation);
+		semSoftDependency.addDirectRelation(directRelation);
+
+		// Asset to Oper
+		List<OutgoingSemanticRelation> outgoingAssetRelation = new ArrayList<OutgoingSemanticRelation>();
+		outgoingAssetRelation.add(new OutgoingSemanticRelation(
+				semOperationalization));
+		semanticGroupRelation = new SemanticGroupDependency("AssetGroupRel",
+				false, implementationGroupRelation, outgoingAssetRelation);
+		semSoftGoal.addGroupRelation(groupRelation);
+		directRelation = new DirectSemanticRelation("AssetDirectRel", true,
+				implementationDirectRelation);
+		semAsset.addDirectRelation(directRelation);
+
+		// TODO: structural and functional dependency relations
+
+		// Our MetaModel objects definition
+
+		MetaView syntaxMetaView = null;
+
+		syntaxMetaView = new MetaView("GoalsAndVaribilityModel",
+				"Goals and Variability Model", "Goals and Variability Palette",
+				0);
+
+		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VE",
+				"VariabilityArtifact", null, 0, 0, null, true, null, 3, true,
+				semHardConcept);
+		syntaxVariabilityArtifact.addMetaAttribute("name", "String", "");
+
+		syntaxVariabilityArtifact.addDisPanelVisibleAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addDisPropEditableAttribute("03#" + "name");
+
+		syntaxMetaView.addConcept(syntaxVariabilityArtifact);
+		syntaxConcepts.put("VA", syntaxVariabilityArtifact);
+		System.out.println("VA: "
+				+ syntaxVariabilityArtifact.getMetaAttributes().toString());
+
+		metaViews.add(syntaxMetaView);
+
+		MetaConcept syntaxTopGoal = new MetaConcept("TG", "Top Goal", "rqgoal",
+				100, 40, "/com/variamos/gui/refas/editor/images/goal.png",
+				true, Color.BLUE.toString(), 3, true, semGoal);
+		System.out.println("TG: "
+				+ syntaxTopGoal.getMetaAttributes().toString());
+		syntaxTopGoal.addMetaExtendRelation(syntaxVariabilityArtifact, false);
+		System.out.println("TGe: "
+				+ syntaxTopGoal.getMetaAttributes().toString());
+		syntaxMetaView.addConcept(syntaxTopGoal);
+		syntaxConcepts.put("TG", syntaxTopGoal);
+
+		MetaConcept syntaxGeneralGoal = new MetaConcept("GG", "General Goal",
+				"rqgoal", 100, 40,
+				"/com/variamos/gui/refas/editor/images/goal.png", true,
+				Color.BLUE.toString(), 2, true, semGoal);
+		syntaxGeneralGoal.addMetaExtendRelation(syntaxVariabilityArtifact,
+				false);
+		syntaxMetaView.addConcept(syntaxGeneralGoal);
+		syntaxConcepts.put("GG", syntaxGeneralGoal);
+
+		MetaConcept sOperationalization = new MetaConcept("OPER",
+				"Operationalization", "rqoper", 100, 40,
+				"/com/variamos/gui/refas/editor/images/operational.png", true,
+				Color.BLUE.toString(), 2, true, semOperationalization);
+		sOperationalization.addMetaExtendRelation(syntaxVariabilityArtifact,
+				false);
+		syntaxMetaView.addConcept(sOperationalization);
+		syntaxConcepts.put("OPER", sOperationalization);
+
+		MetaConcept syntaxAssumption = new MetaConcept("ASSUM",
+				"semanticAssumption", "rqsassump", 100, 40,
+				"/com/variamos/gui/refas/editor/images/assump.png", true,
+				Color.WHITE.toString(), 1, true, semAssumption);
+		syntaxAssumption
+				.addMetaExtendRelation(syntaxVariabilityArtifact, false);
+
+		syntaxMetaView.addConcept(syntaxAssumption);
+
+		List<IntSemanticGroupDependency> semanticRelations = new ArrayList<IntSemanticGroupDependency>();
+		semanticRelations.add(semanticGoalGoalGroupRelation);
+		semanticRelations.add(semanticOperGoalGroupRelation);
+		semanticRelations.add(semanticOperOperGroupRelation);
+
+		MetaGroupDependency syntaxGroupDependency = new MetaGroupDependency(
+				"HardGD", "Group Dependency", "plgroup", 20, 20,
+				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"white", 1, false, semanticRelations);
+		syntaxMetaView.addConcept(syntaxGroupDependency);
+		syntaxConcepts.put("HardGD", syntaxGroupDependency);
+
+		syntaxMetaView = new MetaView("SoftGoals", "Soft Goals Model",
+				"Soft Goals Palette", 1);
+		metaViews.add(syntaxMetaView);
+
+		MetaConcept syntaxTopSoftGoal = new MetaConcept("TSG", "Top Softgoal",
+				"rqsoftgoal", 100, 40,
+				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
+				Color.WHITE.toString(), 3, true, semSoftGoal);
+		syntaxTopSoftGoal.addMetaAttribute("name", "String", "");
+		syntaxTopSoftGoal.addDisPanelVisibleAttribute("03#" + "name");
+
+		syntaxTopSoftGoal.addDisPropEditableAttribute("03#" + "name");
+
+		syntaxMetaView.addConcept(syntaxTopSoftGoal);
+		syntaxConcepts.put("TSG", syntaxTopSoftGoal);
+
+		MetaConcept syntaxGeneralSoftGoal = new MetaConcept("GSG",
+				"General Softgoal", "rqsoftgoal", 100, 40,
+				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
+				Color.WHITE.toString(), 1, true, semSoftGoal);
+		syntaxGeneralSoftGoal.addMetaAttribute("name", "String", "");
+
+		syntaxGeneralSoftGoal.addDisPanelVisibleAttribute("03#" + "name");
+
+		syntaxGeneralSoftGoal.addDisPropEditableAttribute("03#" + "name");
+
+		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
+		syntaxConcepts.put("GSG", syntaxGeneralSoftGoal);
+
+		syntaxMetaView = new MetaView("Context", "Context Model",
+				"Context Palette", 2);
+		metaViews.add(syntaxMetaView);
+
+		// TODO define context model
+
+		syntaxMetaView = new MetaView("SoftGoalsSatisficing",
+				"SG Satisficing Model", "Soft Goals Satisficing Palette", 3);
+		metaViews.add(syntaxMetaView);
+		syntaxMetaView.addConcept(syntaxTopSoftGoal);
+		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
+		syntaxMetaView.addConcept(sOperationalization);
+
+		MetaConcept syntaxClaim = new MetaConcept("CL", "semClaim", "rqclaim",
+				100, 40, "/com/variamos/gui/refas/editor/images/claim.png",
+				true, Color.BLUE.toString(), 1, true, semClaim);
+		syntaxMetaView.addConcept(syntaxClaim);
+		syntaxConcepts.put("CL", syntaxClaim);
+
+		MetaConcept syntaxSoftDependency = new MetaConcept("SD",
+				"Soft Dependency", "rqsoftdep", 100, 40,
+				"/com/variamos/gui/refas/editor/images/softdep.png", true,
+				Color.BLUE.toString(), 1, true, semSoftDependency);
+		syntaxSoftDependency.addMetaAttribute("03#" + "ConditionalExpression",
+				"String", "");
+		syntaxSoftDependency.addDisPanelVisibleAttribute("03#"
+				+ "ConditionalExpression"); // TODO move to semantic attributes
+		syntaxSoftDependency.addDisPropEditableAttribute("03#"
+				+ "ConditionalExpression");
+		syntaxMetaView.addConcept(syntaxSoftDependency);
+		syntaxConcepts.put("SD", syntaxSoftDependency);
+
+		syntaxMetaView = new MetaView("Assets", "Assets General Model",
+				"Assets Palette", 4);
+		metaViews.add(syntaxMetaView);
+		syntaxMetaView.addConcept(sOperationalization);
+
+		MetaConcept syntaxAsset = new MetaConcept("AS", "Asset", "rqcompon",
+				100, 40, "/com/variamos/gui/refas/editor/images/component.png",
+				true, Color.WHITE.toString(), 1, true, semAsset);
+		syntaxAsset.addMetaAttribute("name", "String", ""); // TODO move to
+															// semantic
+															// attributes
+		syntaxAsset.addDisPanelVisibleAttribute("03#" + "name");
+		syntaxAsset.addDisPropEditableAttribute("03#" + "name");
+		syntaxMetaView.addConcept(syntaxAsset);
+		syntaxMetaView.addConcept(sOperationalization);
+		syntaxConcepts.put("AS", syntaxAsset);
+
+		MetaView syntaxMetaChildView = new MetaView("FunctionalAssets",
+				"Functionl Assets Relations", "Assets Palette", 1);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		syntaxMetaChildView.addConcept(sOperationalization);
+		syntaxMetaChildView.addConcept(syntaxAsset);
+
+		syntaxMetaChildView = new MetaView("StructuralAssets",
+				"Structural Assets Relations", "Assets Palette", 2);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		syntaxMetaChildView.addConcept(sOperationalization);
+		syntaxMetaChildView.addConcept(syntaxAsset);
+
 	}
 
 	public static void main(String[] args) {
-		SemanticPlusSyntax  mst= new SemanticPlusSyntax();
-		List<AbstractSemanticConcept> ascs = mst.getSemanticConcepts();
-		for (int i = 0; i< ascs.size(); i++ )
+		SemanticPlusSyntax mst = new SemanticPlusSyntax();
+		List<AbstractSemanticConcept> ascs = (List<AbstractSemanticConcept>) mst.getSemanticConcepts().values();
+		for (int i = 0; i < ascs.size(); i++)
 			System.out.println(ascs.get(i));
 	}
 

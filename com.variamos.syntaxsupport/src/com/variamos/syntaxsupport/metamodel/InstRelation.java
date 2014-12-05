@@ -12,6 +12,12 @@ public class InstRelation implements Serializable{
 	private static final long serialVersionUID = -6134025886276124795L;
 	private int identifier;
 	private MetaDirectRelation metaRelation;
+	private InstElement fromRelation;
+	private InstElement toRelation;
+	private List<InstAttribute> attributes;
+	
+	public InstRelation()
+	{}
 	public int getIdentifier() {
 		return identifier;
 	}
@@ -27,7 +33,5 @@ public class InstRelation implements Serializable{
 	public InstElement getToRelation() {
 		return toRelation;
 	}
-	private List<InstAttribute> attributes;
-	private InstElement fromRelation;
-	private InstElement toRelation;
+
 }

@@ -12,10 +12,16 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.util.mxResources;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
- * @author jcmunoz Initially based on ProductLine class
+ * @author Juan Carlos Muñoz 2014
+ *  part of the PhD work at CRI - Universite Paris 1
+ *
+ * Definition of syntax for VariaMos
+ * Initially based on ProductLine class
  */
+
 public class Refas extends AbstractModel {
 
 	/**
@@ -49,23 +55,6 @@ public class Refas extends AbstractModel {
 	 * Goals, SG, Context, SG Satisficing, Assets
 	 */
 
-	public boolean[] elementsValidation(String element) {
-		boolean[] valid = new boolean[5];
-		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
-			if (modelViews[i].getValidElements().contains(element))
-				valid[i] = true;
-		}
-
-		return valid;
-	}
-
-	public ArrayList<String> getValidElements(int modelView) {
-		if (modelView >= modelViews.length)
-			return null;
-		else
-			return modelViews[modelView].getValidElements();
-	}
-
 	public void defaultModelViews() {
 		@SuppressWarnings("unchecked")
 		ArrayList<String> validElements[] = new ArrayList[Integer
@@ -76,64 +65,6 @@ public class Refas extends AbstractModel {
 		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
 			validElements[i] = new ArrayList<String>();
 		}
-
-		// todo: load from metamodel concepts and relations associated to each
-		// model view
-		validElements[0].add("TG");
-		validElements[0].add("GG");
-		validElements[0].add("OPER");
-		validElements[0].add("ASSUM");
-		validElements[0].add("GC");
-
-		// OLD
-		validElements[0].add("Goal");
-		validElements[0].add("Operationalization");
-		validElements[0].add("Assumption");
-		validElements[0].add("GroupGConstraint");
-		validElements[0].add("GenericConstraint");
-
-		validElements[1].add("TSG");
-		validElements[1].add("GSG");
-		validElements[0].add("GC");
-
-		validElements[1].add("SoftGoal");
-		validElements[1].add("GenericConstraint");
-
-		validElements[2].add("CG");
-		validElements[2].add("GCV");
-		validElements[2].add("LCV");
-		validElements[2].add("GC");
-
-		validElements[2].add("ContextGroup");
-		validElements[2].add("GlobalContextVariable");
-		validElements[2].add("LocalContextVariable");
-		validElements[2].add("GenericConstraint");
-
-		validElements[3].add("CL");
-		validElements[3].add("SD");
-		validElements[3].add("TSG");
-		validElements[3].add("GSG");
-		validElements[3].add("OPER");
-		validElements[3].add("LCV");
-		validElements[3].add("GCV");
-		validElements[3].add("GC");
-
-		validElements[3].add("Claim");
-		validElements[3].add("SoftGoal");
-		validElements[3].add("SoftDependency");
-		validElements[3].add("Operationalization");
-		validElements[3].add("ContextVariable");
-		validElements[3].add("GroupGConstraint");
-		validElements[3].add("GenericConstraint");
-
-		validElements[4].add("AS");
-		validElements[4].add("OPER");
-		validElements[4].add("GC");
-
-		validElements[4].add("Asset");
-		validElements[4].add("Operationalization");
-		validElements[4].add("GroupGConstraint");
-		validElements[4].add("GenericConstraint");
 
 		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
 			modelViews[i] = new ModelView(validElements[i]);
@@ -169,11 +100,11 @@ public class Refas extends AbstractModel {
 		return modelViews[modelView].addElement(a);
 	}
 
-	public String addElement(int modelViewIndex, InstConcept element) {
+	public String addElement(int modelViewIndex, InstElement element) {
 		return modelViews[modelViewIndex].addInstConceptElement(element);
 	}
 
-	public Map<String, InstConcept> getElements(int modelView) {
+	public Map<String, InstElement> getElements(int modelView) {
 		return modelViews[modelView].getElements();
 
 	}

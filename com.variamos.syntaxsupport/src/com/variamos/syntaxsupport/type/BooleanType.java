@@ -1,6 +1,6 @@
 package com.variamos.syntaxsupport.type;
 
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 
 
 @SuppressWarnings("serial")
@@ -16,12 +16,12 @@ public class BooleanType extends Type{
 //	}
 
 	@Override
-	public MetaAttribute makeVariable(String name) {
-		return new MetaAttribute(name, getIdentifier(), false);
+	public AbstractAttribute makeAttribute(String name) {
+		return new AbstractAttribute(name, getIdentifier(), false);
 	}
 
-	public static MetaAttribute newVariable(String name) {
-		return new MetaAttribute(name, IDENTIFIER, false);
+	public static AbstractAttribute newVariable(String name) {
+		return new AbstractAttribute(name, IDENTIFIER, false);
 	}
 
 }

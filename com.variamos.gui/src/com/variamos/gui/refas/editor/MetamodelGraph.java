@@ -66,7 +66,7 @@ public class MetamodelGraph extends AbstractGraph {
 	{
 		if (refas == null)
 			refas = getRefas();
-		return refas.getValidElements(modelView);
+		return null;//refas.getValidElements(modelView);
 	}
 	
 	protected void init() {
@@ -163,10 +163,10 @@ public class MetamodelGraph extends AbstractGraph {
 				parent.remove(index); // Remove from original position
 				model.add(mv0, cell, 0); // Add to the parent according to the
 											// model
-				boolean valid [] = getRefas().elementsValidation(a.getClass().getSimpleName());
+			//	boolean valid [] = getRefas().elementsValidation(a.getClass().getSimpleName());
 				if (a instanceof AbstractElement)
 				for (int i = 0; i < 5; i++) {
-					if (valid[i] && i!=modelViewIndex)
+					if (/*valid[i] && */i!=modelViewIndex)
 					{
 					mxCell c2 = null;
 					try {

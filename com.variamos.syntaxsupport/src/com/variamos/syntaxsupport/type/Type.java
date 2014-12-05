@@ -3,7 +3,7 @@ package com.variamos.syntaxsupport.type;
 import java.io.Serializable;
 
 import com.cfm.productline.Variable;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 
 @SuppressWarnings("serial")
 public abstract class Type implements Serializable{
@@ -26,5 +26,5 @@ public abstract class Type implements Serializable{
 	}
 	
 	//public abstract boolean contains(Object obj);
-	public abstract MetaAttribute makeVariable(String name);
+	public abstract AbstractAttribute makeAttribute(String name);
 }

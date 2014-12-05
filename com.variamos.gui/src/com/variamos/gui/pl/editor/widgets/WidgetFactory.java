@@ -7,7 +7,6 @@ import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.syntaxsupport.type.BooleanType;
 import com.variamos.syntaxsupport.type.IntegerType;
-import com.variamos.syntaxsupport.type.RealType;
 import com.variamos.syntaxsupport.type.StringType;
 
 
@@ -24,7 +23,6 @@ public class WidgetFactory {
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
 		widgetReg.put(StringType.IDENTIFIER, StringWidget.class);
 		widgetReg.put(BooleanType.IDENTIFIER, BooleanWidget.class);
-		widgetReg.put(RealType.IDENTIFIER, RealWidget.class);
 		
 	}
 	

@@ -3,8 +3,7 @@ package com.variamos.syntaxsupport.type;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.cfm.productline.Variable;
-import com.cfm.productline.type.Type;
+import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 
 
 @SuppressWarnings("serial")
@@ -33,7 +32,7 @@ public class SetType extends Type{
 //	}
 
 	@Override
-	public Variable makeVariable(String name) {
-		return new Variable(name, elements.iterator().next(), getIdentifier());
+	public AbstractAttribute makeAttribute(String name) {
+		return new AbstractAttribute(name, elements.iterator().next(), getIdentifier());
 	}
 }

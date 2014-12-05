@@ -13,11 +13,13 @@ public class IntervalDomain extends Domain {
 	 */
 	private static final long serialVersionUID = -1645145411048599254L;
 	private int lowerValue;
+	private int upperValue;
+	
 	public int getLowerValue() {
 		return lowerValue;
 	}
 	public int getUpperValue() {
 		return upperValue;
 	}
-	private int upperValue;
+
 }

@@ -73,6 +73,8 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.gui.refas.editor.actions.SharedActions;
+import com.variamos.pl.configurator.io.PLGReader;
 
 /**
  *
@@ -755,10 +757,13 @@ public class EditorActions
 							||ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml"))
 					{
+
+						SharedActions.beforeSaveGraph(graph);
 						mxCodec codec = new mxCodec();
 						String xml = mxXmlUtils.getXml(codec.encode(graph
 								.getModel()));
-
+						if (editor instanceof VariamosGraphEditor)
+							SharedActions.afterSaveGraph(graph, (VariamosGraphEditor)editor);
 						mxUtils.writeFile(xml, filename);
 
 						editor.setModified(false);
@@ -1591,7 +1596,8 @@ public class EditorActions
 		 */
 		protected void resetEditor(VariamosGraphEditor editor)
 		{
-			editor.setVisibleModel(0);
+			editor.setVisibleModel(0,-1);
+			editor.setDefaultButton();
 			editor.updateView();
 			editor.setModified(false);
 			editor.getUndoManager().clear();
@@ -1735,6 +1741,20 @@ public class EditorActions
 													.getSelectedFile()
 													.getAbsolutePath()));
 								}
+								if (fc.getSelectedFile().getAbsolutePath()
+										.toLowerCase().endsWith(".plg"))
+								{
+									VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+									//variamosEditor.editModelReset();
+									
+									PLGReader.loadPLG(fc.getSelectedFile(), graph);
+									editor.setCurrentFile(fc
+											.getSelectedFile());
+									SharedActions.afterSaveGraph(graph, variamosEditor);
+										variamosEditor.populateIndex(((AbstractGraph)graph).getProductLine());
+									resetEditor(variamosEditor);
+								
+								}
 								else
 								{
 									Document document = mxXmlUtils
@@ -1748,7 +1768,6 @@ public class EditorActions
 											graph.getModel());
 									editor.setCurrentFile(fc
 											.getSelectedFile());
-
 									resetEditor((VariamosGraphEditor)editor);
 								}
 							}

@@ -1,6 +1,7 @@
 package com.variamos.gui.refas.editor;
 
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
+import com.variamos.syntaxsupport.metametamodel.MetaElement;
 
 public class PaletteElement {
 
@@ -12,10 +13,10 @@ public class PaletteElement {
 	private int width;
 	private String className;
 	//jcmunoz
-	private MetaConcept metaConcept;
+	private MetaElement metaElement;
 
-	public MetaConcept getMetaConcept() {
-		return metaConcept;
+	public MetaElement getMetaElement() {
+		return metaElement;
 	}
 
 	public PaletteElement(String id, String elementTitle, String icon,
@@ -24,7 +25,7 @@ public class PaletteElement {
 	}
 	
 	public PaletteElement(String id, String elementTitle, String icon,
-			String style, int width, int height, String className, MetaConcept metaConcept) {		
+			String style, int width, int height, String className, MetaElement metaElement) {		
 		this.id = id;
 		this.elementTitle = elementTitle;
 		this.icon = icon;
@@ -32,7 +33,7 @@ public class PaletteElement {
 		this.height = height;
 		this.width = width;
 		this.className = className;
-		this.metaConcept = metaConcept;
+		this.metaElement = metaElement;
 	}
 
 	public String getId() {

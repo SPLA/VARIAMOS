@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-import com.variamos.gui.maineditor.EditorActions.NewAction;
-import com.variamos.gui.maineditor.EditorActions.OpenAction;
-import com.variamos.gui.maineditor.EditorActions.SaveAction;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.refas.editor.actions.EditorActions.NewAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.OpenAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.SaveAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.HistoryAction;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxEvent;

@@ -12,16 +12,26 @@ public class SoftSemanticConceptSatisficing extends AbstractSemanticConcept {
 	 * 
 	 */
 	private static final long serialVersionUID = 134266317319543125L;
-	private ConditionalExpression condition;
-	public SoftSemanticConceptSatisficing(String name, ConditionalExpression condition)
+	private ConditionalExpression conditionalExpression;
+	
+	
+	public SoftSemanticConceptSatisficing(AbstractSemanticConcept semanticConcept, String name, boolean condExpression)
 	{
-		super (name, false, "SemanticEnumeration", false);
-		this.condition = condition;
+		super (semanticConcept, name, false);
+		if (condExpression)
+			conditionalExpression = new ConditionalExpression();
+	}
+	
+	public SoftSemanticConceptSatisficing(String name,  boolean condExpression)
+	{
+		super (name, false);
+		if (condExpression)
+			conditionalExpression = new ConditionalExpression();
 	}
 	
 	public String toString()
 	{
 
-		return "SSCS: " + super.toString() + "condit: " + condition.getExpression();
+		return "SSCS: " + super.toString() + "condit: " + conditionalExpression.getExpression();
 	}
 }

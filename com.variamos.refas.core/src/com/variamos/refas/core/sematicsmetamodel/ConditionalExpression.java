@@ -2,6 +2,8 @@ package com.variamos.refas.core.sematicsmetamodel;
 
 import java.io.Serializable;
 
+import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+
 /**
  * @author Juan Carlos Muñoz 2014
  *  part of the PhD work at CRI - Universite Paris 1
@@ -16,12 +18,11 @@ public class ConditionalExpression implements Serializable {
 	private SemanticAttribute[] sentences= new SemanticAttribute[2];
 	private SemanticAttribute logicalOperator;
 	
-	public ConditionalExpression (SemanticAttribute semanticAttribute1, 
-			SemanticAttribute semanticAttribute2, SemanticAttribute logicalOperator)
+	public ConditionalExpression ()
 	{
-		this.sentences[0] = semanticAttribute1;
-		this.sentences[1] = semanticAttribute2;
-		this.logicalOperator = logicalOperator;
+		this.sentences[0] = new SemanticAttribute("sentence1","Class","com.variamos.refas.core.expressions.Sentence","","Left Sentence");
+		this.sentences[1] = new SemanticAttribute("sentence2","Class","com.variamos.refas.core.expressions.Sentence","","Right Sentence");
+		this.logicalOperator = new SemanticAttribute("operator","Enumeration","com.variamos.refas.core.expressions.LogicalOperator","","Operator");
 	}
 
 	public String getExpression() {

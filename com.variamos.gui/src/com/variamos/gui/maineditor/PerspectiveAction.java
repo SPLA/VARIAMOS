@@ -10,6 +10,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
 import com.variamos.gui.refas.editor.MetaGraphEditorFunctions;
+import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 
 @SuppressWarnings("serial")
@@ -61,7 +62,8 @@ public class PerspectiveAction extends AbstractEditorAction {
 					editor.updateEditor();					
 					
 					System.out.println("modelingButton");
-					mxCell root = new mxCell();
+					((RefasGraph)graph).defineInitialGraph();
+					/*mxCell root = new mxCell();
 					root.insert(new mxCell());
 					graph.getModel().setRoot(root);
 					
@@ -70,6 +72,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 					graph.addCell(new mxCell("mv2"));
 					graph.addCell(new mxCell("mv3"));
 					graph.addCell(new mxCell("mv4"));
+					*/
 				}
 				if (perspectiveInd != 3
 						&& jb.getText().equals(mxResources.get("metamodelingPerspButton"))) {

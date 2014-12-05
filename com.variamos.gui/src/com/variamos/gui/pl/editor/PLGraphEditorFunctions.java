@@ -4,6 +4,7 @@ package com.variamos.gui.pl.editor;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
@@ -33,7 +34,7 @@ public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		super(editor);
 	}
 	
-	public void updateEditor (ArrayList<String> validEelements, mxGraphComponent graphComponent, int modelViewIndex){
+	public void updateEditor (List<String> validEelements, mxGraphComponent graphComponent, int modelViewIndex){
 		editor.setPerspective(0);	
 		editor.editModelReset();
 		editor.clearPalettes();

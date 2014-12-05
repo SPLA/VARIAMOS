@@ -43,9 +43,6 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;

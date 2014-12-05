@@ -104,7 +104,7 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected JPanel buttonsPane;
+	protected JTabbedPane modelsTabPane;
 
 	/**
 	 * 
@@ -246,7 +246,7 @@ public class BasicGraphEditor extends JPanel {
 		undoManager();
 
 		// Buttons for model views
-		buttonsPane = new JPanel();
+	/*	buttonsPane = new JPanel();
 		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
 			JButton a = new JButton(mxResources.get("modelViewButton" + i));
 			buttonsPane.add(a);
@@ -255,6 +255,8 @@ public class BasicGraphEditor extends JPanel {
 				a.setSelected(true);
 
 		}
+		*/
+		modelsTabPane = new JTabbedPane();
 
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
@@ -267,8 +269,8 @@ public class BasicGraphEditor extends JPanel {
 		JPanel center2 = new JPanel();
 		center2.setLayout(new BorderLayout());
 		center2.add(graphComponent, BorderLayout.CENTER);
-		add(buttonsPane, BorderLayout.NORTH);
-		center = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonsPane,
+		add(modelsTabPane, BorderLayout.NORTH);
+		center = new JSplitPane(JSplitPane.VERTICAL_SPLIT, modelsTabPane,
 				graphComponent);
 		center.setDividerLocation(70);
 		center.setResizeWeight(0);
@@ -1034,14 +1036,7 @@ public class BasicGraphEditor extends JPanel {
 	}
 
 	public void setDefaultButton() {
-		Component[] buttons = buttonsPane.getComponents();
-		for (int i = 0; i < buttons.length; i++) {
-			JButton button = (JButton) buttons[i];
-			if (i == 0)
-				button.setSelected(true);
-			else
-				button.setSelected(false);
-		}
+		modelsTabPane.setSelectedIndex(0);
 	}
 
 }

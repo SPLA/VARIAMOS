@@ -2,6 +2,9 @@ package com.variamos.gui.refas.editor.widgets;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import com.mxgraph.view.mxGraph;
+import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 @SuppressWarnings("serial")
@@ -22,7 +25,7 @@ public abstract class WidgetR extends JPanel{
 	public abstract JComponent getEditor();
 
 
-	public void configure(InstAttribute v) {
+	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		
 	}
 

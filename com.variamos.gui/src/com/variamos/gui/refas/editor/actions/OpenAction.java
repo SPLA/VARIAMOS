@@ -33,7 +33,8 @@ public class OpenAction extends AbstractEditorAction{
 	 */
 	protected void resetEditor(VariamosGraphEditor editor)
 	{
-		editor.setVisibleModel(0);
+		editor.setVisibleModel(0,-1);
+		editor.setDefaultButton();
 		editor.updateView();
 		editor.setModified(false);
 		editor.getUndoManager().clear();

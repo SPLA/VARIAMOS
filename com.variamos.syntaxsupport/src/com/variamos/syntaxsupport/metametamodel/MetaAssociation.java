@@ -1,6 +1,8 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import java.io.Serializable;
+
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
 
 
 /**
@@ -9,26 +11,53 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
  *
  * Definition of syntax for VariaMos
  */
-public class MetaAssociation extends MetaDirectRelation{
+public class MetaAssociation implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6241085598671687248L;
+	private String identifier;
 	private int iniLowCardinality;
 	private int iniHighCardinality;
 	private int endLowCardinality;
-	public MetaAssociation(IntSemanticDirectRelation semanticRelation,
-			MetaElement origin, MetaElement destination) {
-		super(semanticRelation, origin, destination);
-		// TODO Auto-generated constructor stub
+	private int endHighCardinality;
+	private String iniDescription;
+	private String endDescription;
+	private boolean arrowDirection;
+	private TypeOfLine typeOfLine;
+	private MetaElement origin;
+	private MetaElement destination;
+	
+		
+	public MetaAssociation() {
+		this.iniLowCardinality = 1;
+		this.iniHighCardinality = 1;
+		this.endLowCardinality = 1;
+		this.endHighCardinality = 1;
+		this.iniDescription = "";
+		this.endDescription = "";
+		this.arrowDirection = false;
+		this.typeOfLine = TypeOfLine.solid;
+	}
+	
+	public MetaAssociation(MetaElement origin, MetaElement destination) {
+		this.iniLowCardinality = 1;
+		this.iniHighCardinality = 1;
+		this.endLowCardinality = 1;
+		this.endHighCardinality = 1;
+		this.iniDescription = "";
+		this.endDescription = "";
+		this.arrowDirection = false;
+		this.typeOfLine = TypeOfLine.solid;
+		this.origin = origin;
+		this.destination = destination;
 	}
 
-	public MetaAssociation(IntSemanticDirectRelation semanticRelation,
-			MetaElement origin, MetaElement destination, int iniLowCardinality,
+	public MetaAssociation (int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
-			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
-		super(semanticRelation, origin, destination);
+			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine,
+			MetaElement origin, MetaElement destination) {
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
 		this.endLowCardinality = endLowCardinality;
@@ -37,12 +66,64 @@ public class MetaAssociation extends MetaDirectRelation{
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
+		this.origin = origin;
+		this.destination = destination;
 	}
-	private int endHighCardinality;
-	private String iniDescription;
-	private String endDescription;
-	private boolean arrowDirection;
-	private TypeOfLine typeOfLine;
+	
+	public void setOrigin(MetaElement origin) {
+		this.origin = origin;
+	}
+	public void setDestination(MetaElement destination) {
+		this.destination = destination;
+	}
+	
+	public MetaElement getOrigin() {
+		return origin;
+	}
+	public MetaElement getDestination() {
+		return destination;
+	}
+	
+
+	public String getIdentifier() {
+		return identifier;
+	}	
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public void setIniLowCardinality(int iniLowCardinality) {
+		this.iniLowCardinality = iniLowCardinality;
+	}
+
+	public void setIniHighCardinality(int iniHighCardinality) {
+		this.iniHighCardinality = iniHighCardinality;
+	}
+
+	public void setEndLowCardinality(int endLowCardinality) {
+		this.endLowCardinality = endLowCardinality;
+	}
+
+	public void setEndHighCardinality(int endHighCardinality) {
+		this.endHighCardinality = endHighCardinality;
+	}
+
+	public void setIniDescription(String iniDescription) {
+		this.iniDescription = iniDescription;
+	}
+
+	public void setEndDescription(String endDescription) {
+		this.endDescription = endDescription;
+	}
+
+	public void setArrowDirection(boolean arrowDirection) {
+		this.arrowDirection = arrowDirection;
+	}
+
+	public void setTypeOfLine(TypeOfLine typeOfLine) {
+		this.typeOfLine = typeOfLine;
+	}
+
 	public int getIniLowCardinality() {
 		return iniLowCardinality;
 	}
@@ -67,4 +148,8 @@ public class MetaAssociation extends MetaDirectRelation{
 	public TypeOfLine getTypeOfLine() {
 		return typeOfLine;
 	}
+	public String toString() {
+		return "MetaGroupRelation [metaConcept=" + origin + ", dependency=" + destination + "]";
+	}
+
 }
