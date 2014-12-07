@@ -12,6 +12,7 @@ import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
 import com.variamos.gui.refas.editor.MetaGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
+import com.variamos.gui.refas.editor.SimulationGraphEditorFunctions;
 
 @SuppressWarnings("serial")
 public class PerspectiveAction extends AbstractEditorAction {
@@ -81,6 +82,15 @@ public class PerspectiveAction extends AbstractEditorAction {
 					editor.clearPalettes();
 					editor.updateEditor();		
 					System.out.println("metamodelingButton");
+				}
+				
+				if (perspectiveInd != 4
+						&& jb.getText().equals(mxResources.get("simulationPerspButton"))) {
+					editor.setGraphEditorFunctions (new SimulationGraphEditorFunctions(editor));
+					editor.setPerspective(4);
+					editor.clearPalettes();
+					editor.updateEditor();		
+					System.out.println("simulationButton");
 				}
 				// Check modified flag and display save dialog
 

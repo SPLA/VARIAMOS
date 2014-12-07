@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 
 /**

@@ -139,7 +139,7 @@ public class MetamodelGraph extends AbstractGraph {
 				elementIdentifier = element.getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-				id = pl.addElement(modelViewIndex, element);
+				//id = pl.addElement(modelViewIndex, element);
 			}
 			else
 			{
@@ -147,7 +147,7 @@ public class MetamodelGraph extends AbstractGraph {
 				elementIdentifier = ((Constraint)a).getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-				id = pl.addConstraint(modelViewIndex, constraint);
+			//	id = pl.addConstraint(constraint);
 			}
 
 			if (id != null) {
@@ -456,9 +456,9 @@ public class MetamodelGraph extends AbstractGraph {
 		for (VariabilityElement vp : pl.getVariabilityElements())
 			insertVertex(null, vp.getIdentifier(), vp, 0, 0, 80, 40, "plnode");
 
-		for (Constraint c : pl.getConstraints())
+		/*for (Constraint c : pl.getConstraints())
 			buildConstraint(pl, c);
-
+*/
 		// pl.printDebug(System.out);
 	}
 

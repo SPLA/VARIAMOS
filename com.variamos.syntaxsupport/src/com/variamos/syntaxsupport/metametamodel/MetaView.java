@@ -22,7 +22,7 @@ public class MetaView implements Serializable {
 	private String paletteName;
 	private int index;
 	private List<MetaView> childViews;
-	private Set<MetaElement> concepts;
+	private Set<MetaElement> elements;
 
 	public MetaView(String shortName, String name, String paletteName, int index) {
 		this.childViews = new ArrayList<MetaView>();
@@ -30,11 +30,11 @@ public class MetaView implements Serializable {
 		this.name = name;
 		this.paletteName = paletteName;
 		this.index = index;
-		this.concepts = new HashSet<MetaElement>();
+		this.elements = new HashSet<MetaElement>();
 	}
 
-	public void addConcept(MetaElement sTopGoal) {
-		concepts.add(sTopGoal);
+	public void addConcept(MetaVertex sTopGoal) {
+		elements.add(sTopGoal);
 
 	}
 
@@ -62,8 +62,8 @@ public class MetaView implements Serializable {
 		return index;
 	}
 
-	public Set<MetaElement> getConcepts() {
-		return concepts;
+	public Set<MetaElement> getElements() {
+		return elements;
 	}
 
 	public void addChildView(MetaView metaChildView) {

@@ -5,29 +5,29 @@ import java.util.List;
 
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 
-public class IncomingSemanticRelation extends AbstractSemanticRelation {
+public class IncomingSemanticEdge extends AbstractSemanticEdge {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2106426302856470039L;
 	private SemanticGroupDependency groupDependency;
 
-	public IncomingSemanticRelation(SemanticGroupDependency groupDependency) {
-		super(false, new ArrayList<AbstractSemanticConcept>(),
-				new ArrayList<AbstractSemanticConcept>());
+	public IncomingSemanticEdge(SemanticGroupDependency groupDependency) {
+		super(false, new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>());
 		this.groupDependency = groupDependency;
 	}
 
-	public IncomingSemanticRelation(boolean toSoftSemanticConcept,
+	public IncomingSemanticEdge(boolean toSoftSemanticConcept,
 			SemanticGroupDependency groupDependency	) {
-		super(toSoftSemanticConcept, new ArrayList<AbstractSemanticConcept>(),
-				new ArrayList<AbstractSemanticConcept>());
+		super(toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>());
 		this.groupDependency = groupDependency;
 	}
-	public IncomingSemanticRelation(boolean toSoftSemanticConcept,
+	public IncomingSemanticEdge(boolean toSoftSemanticConcept,
 			SemanticGroupDependency groupDependency,
-			List<AbstractSemanticConcept> conflicts,
-			List<AbstractSemanticConcept> alwaysAllows) {
+			List<AbstractSemanticVertex> conflicts,
+			List<AbstractSemanticVertex> alwaysAllows) {
 		super(toSoftSemanticConcept, conflicts, alwaysAllows);
 		this.groupDependency = groupDependency;
 	}

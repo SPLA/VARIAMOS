@@ -45,7 +45,9 @@ import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 
 public class RefasGraph extends AbstractGraph {
 
@@ -184,31 +186,35 @@ public class RefasGraph extends AbstractGraph {
 		 */
 	}
 
-	protected void addingEdge(mxCell cell, mxCell parent, int index) {
-		cell.getValue();
-		GenericConstraint cg = new GenericConstraint();
+	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
+
+		Object cellValue = cell.getValue();
+		String id = null;
+		String elementIdentifier = null;
+		InstEdge directRelation = new InstEdge();
 		Refas refas = getRefas();
-		String id = refas.addConstraint(modelViewIndex, cg);
-		if (id != null) {
 
-			mxGraphModel refasGraph = (mxGraphModel) getModel();
-			/*
-			 * Object o = refasGraph.getRoot(); // Main Root Object o1 =
-			 * refasGraph.getChildAt(o, 0); // Null Root Object mv0 =
-			 * refasGraph.getChildAt(o1, modelViewIndex);
-			 */
-			mxGraphModel model = refasGraph;
-			model.getCells().remove(cell.getId());
-			if (modelViewSubIndex != -1) {
-				model.getCells().put(
-						modelViewIndex + "-" + modelViewSubIndex + id, cell);
-				cell.setId(modelViewIndex + "-" + modelViewSubIndex + id);
-			} else {
-				model.getCells().put(modelViewIndex + id, cell);
-				cell.setId(modelViewIndex + id);
-			}
+		id = refas.addDirectRelation(directRelation);
+		cell.setValue(directRelation);
 
+		mxGraphModel refasGraph = (mxGraphModel) getModel();
+		/*
+		 * Object o = refasGraph.getRoot(); // Main Root Object o1 =
+		 * refasGraph.getChildAt(o, 0); // Null Root Object mv0 =
+		 * refasGraph.getChildAt(o1, modelViewIndex);
+		 */
+		mxGraphModel model = refasGraph;
+		model.getCells().remove(cell.getId());
+		if (modelViewSubIndex != -1) {
+			model.getCells().put(modelViewIndex + "-" + modelViewSubIndex + id,
+					cell);
+			cell.setId(modelViewIndex + "-" + modelViewSubIndex + id);
+		} else {
+			model.getCells().put(modelViewIndex + id, cell);
+			cell.setId(modelViewIndex + id);
 		}
+
+		return true;
 	}
 
 	// TODO review from here for requirements
@@ -221,28 +227,22 @@ public class RefasGraph extends AbstractGraph {
 			String id = null;
 			String elementIdentifier = null;
 			Refas pl = getRefas();
-			Object a = cell.getValue();
+			Object cellValue = cell.getValue();
 
-			if (cell.getValue() instanceof AbstractElement) {
-				AbstractElement element = (AbstractElement) a;
+			if (cellValue instanceof InstElement) {
+				InstElement element = (InstElement) cellValue;
 				elementIdentifier = element.getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-				id = pl.addElement(modelViewIndex, element);
-			} else if (cell.getValue() instanceof InstElement) {
-				InstElement element = (InstElement) a;
-				elementIdentifier = element.getIdentifier();
-				if (elementIdentifier != null && !"".equals(elementIdentifier))
-					return false;
-				id = pl.addElement(modelViewIndex, element);
+				id = pl.addElement(element);
 			}
 
 			else {
-				Constraint constraint = (Constraint) a;
-				elementIdentifier = ((Constraint) a).getIdentifier();
+				Constraint constraint = (Constraint) cellValue;
+				elementIdentifier = ((Constraint) cellValue).getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-				id = pl.addConstraint(modelViewIndex, constraint);
+			//	id = pl.addConstraint(constraint);
 			}
 
 			if (id != null) {
@@ -273,13 +273,20 @@ public class RefasGraph extends AbstractGraph {
 				parent.remove(index); // Remove from original position
 				model.add(mv0, cell, 0); // Add to the parent according to the
 											// model
-				if (a instanceof AbstractElement || a instanceof InstElement) {
+				if (cellValue instanceof AbstractElement
+						|| cellValue instanceof InstElement) {
 					String name = null;
-					if (a instanceof AbstractElement)
-						name = a.getClass().getSimpleName();
+					if (cellValue instanceof AbstractElement)
+						name = cellValue.getClass().getSimpleName();
 					else {
-						InstConcept c = (InstConcept) a;
-						name = c.getMetaConcept().getIdentifier();
+						if (cellValue instanceof InstConcept) {
+							InstConcept c = (InstConcept) cellValue;
+							name = c.getMetaConcept().getIdentifier();
+						}
+						if (cellValue instanceof InstGroupDependency) {
+							InstGroupDependency c = (InstGroupDependency) cellValue;
+							name = c.getMetaGroupDependency().getIdentifier();
+						}
 					}
 					o1 = refasGraph.getChildAt(o, 0); // Null Root
 					for (int i = 0; i < refasGraph.getChildCount(o1); i++) {
@@ -417,7 +424,7 @@ public class RefasGraph extends AbstractGraph {
 							mv1.remove(j);
 					}
 				}
-			} else 
+			} else
 				for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					if (cell.getValue().equals(mv1.getValue()))

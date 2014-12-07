@@ -34,17 +34,17 @@ public abstract class InstElement implements Serializable, Prototype,
 	public InstElement()
 	{
 		this(null, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstRelation>());
+				new HashMap<String, InstEdge>());
 	}
 	
 	public InstElement(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstRelation>());
+				new HashMap<String, InstEdge>());
 	}
 
 	public InstElement(String identifier,
 			Map<String, InstAttribute> instAttributes,
-			Map<String, InstRelation> instRelations) {
+			Map<String, InstEdge> instRelations) {
 		super();
 		vars.put(VAR_IDENTIFIER, identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
@@ -84,8 +84,8 @@ public abstract class InstElement implements Serializable, Prototype,
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, InstRelation> getInstRelations() {
-		return (Map<String, InstRelation> )getVariable(VAR_INSTRELATIONS);
+	public Map<String, InstEdge> getInstRelations() {
+		return (Map<String, InstEdge> )getVariable(VAR_INSTRELATIONS);
 	//	return instRelations;
 	}
 	
@@ -108,12 +108,12 @@ public abstract class InstElement implements Serializable, Prototype,
 			getInstAttribute(name).setValue(value);
 	}
 
-	public void addInstAttribute(String name, AbstractAttribute metaAttribute,
+	public void addInstAttribute(String name, AbstractAttribute modelingAttribute,
 			Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
-					metaAttribute,
-					value == null ? metaAttribute.getDefaultValue() : value);
+					modelingAttribute,
+					value == null ? modelingAttribute.getDefaultValue() : value);
 			getInstAttributes().put(name, instAttribute);
 			//instAttributes.put(name, instAttribute);
 		}

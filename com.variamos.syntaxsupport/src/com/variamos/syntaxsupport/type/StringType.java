@@ -1,7 +1,7 @@
 package com.variamos.syntaxsupport.type;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 
@@ -23,8 +23,8 @@ public class StringType extends Type{
 		return new AbstractAttribute(name, getIdentifier(),"");
 	}
 
-	public static AbstractAttribute newMetaAttribute(String name) {
-		return new MetaAttribute(name, IDENTIFIER, "");
+	public static AbstractAttribute newModelingAttribute(String name) {
+		return new ModelingAttribute(name, IDENTIFIER, "");
 	}
 	public static AbstractAttribute newSemanticAttribute(String name) {
 		return new SemanticAttribute(name, IDENTIFIER, "");

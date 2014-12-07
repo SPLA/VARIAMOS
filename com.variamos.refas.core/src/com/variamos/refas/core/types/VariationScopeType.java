@@ -7,6 +7,6 @@ package com.variamos.refas.core.types;
  *         Definition of syntax for VariaMos
  */
 public enum VariationScopeType {
-profiled,
-sensed
+user,
+system
 }

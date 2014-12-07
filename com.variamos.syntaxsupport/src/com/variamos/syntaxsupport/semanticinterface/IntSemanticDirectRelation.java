@@ -9,7 +9,8 @@ import java.util.List;
  *
  * Definition of syntax for VariaMos
  */
-public interface IntDirectSemanticRelation  extends Serializable {
+public interface IntSemanticDirectRelation  extends Serializable {
 	public List<IntDirectRelationType> getSemanticRelationTypes();
+	public String getIdentifier();
 	
 }

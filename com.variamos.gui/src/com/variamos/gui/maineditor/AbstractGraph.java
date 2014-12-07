@@ -98,8 +98,8 @@ public abstract class AbstractGraph extends mxGraph {
 
 	protected void removingClones(mxCell cell)
 	{}
-	protected void addingEdge(mxCell cell, mxCell parent, int index)
-	{}
+	protected boolean addingEdge(mxCell cell, mxCell parent, int index)
+	{ return false;}
 	
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		

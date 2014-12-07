@@ -16,9 +16,9 @@ import javax.swing.ScrollPaneConstants;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticConcept;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.type.MClassType;
@@ -27,7 +27,7 @@ import com.variamos.syntaxsupport.type.MClassType;
 public class MClassWidget extends WidgetR {
 
 	private JList<String> txtValue;
-	private Map<String,AbstractSemanticConcept> semanticConcepts;
+	private Map<String,AbstractSemanticVertex> semanticConcepts;
 	private Map<String,InstConcept> concepts;
 	public MClassWidget() {
 		super();
@@ -49,20 +49,20 @@ public class MClassWidget extends WidgetR {
 			e.printStackTrace();
 		}
 		String[] out = null;
-		if (aClass.getSuperclass().equals(AbstractSemanticConcept.class)) {
-			semanticConcepts = new HashMap<String,AbstractSemanticConcept>();
-			Collection<AbstractSemanticConcept> list = semanticSyntaxObject
+		if (aClass.getSuperclass().equals(AbstractSemanticVertex.class)) {
+			semanticConcepts = new HashMap<String,AbstractSemanticVertex>();
+			Collection<AbstractSemanticVertex> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
 
-			List<AbstractSemanticConcept> list2 = new ArrayList<AbstractSemanticConcept>();
+			List<AbstractSemanticVertex> list2 = new ArrayList<AbstractSemanticVertex>();
 
-			for (AbstractSemanticConcept concept : list) {
+			for (AbstractSemanticVertex concept : list) {
 				if (aClass.isInstance(concept))
 					list2.add(concept);
 			}
 			out = new String[list2.size()];
 			int i = 0;
-			for (AbstractSemanticConcept concept : list2) {
+			for (AbstractSemanticVertex concept : list2) {
 				semanticConcepts.put(concept.getIdentifier(),concept);
 				String str = concept.getIdentifier();
 				out[i++] = str.toString();
@@ -105,7 +105,7 @@ public class MClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					MetaElement mc = ic.getMetaConcept();
+					MetaVertex mc = ic.getMetaConcept();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

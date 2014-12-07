@@ -1,11 +1,14 @@
 package com.variamos.syntaxsupport.metamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 /**
@@ -22,7 +25,9 @@ public class InstAttribute implements Serializable {
 	public static final String 	VAR_IDENTIFIER = "Identifier",
 								VAR_ATTRIBUTE = "attributeName",
 								VAR_VALUE = "Value",
-								VAR_DISPLAYVALUE = "DispValue";
+								VAR_DISPLAYVALUE = "DispValue", //For JList with indexes for VAR_VALUE (MClass and MEnumeration)
+								VAR_VALIDATIONGROUPDEPLIST = "ValidGDList", //Initially for List IntSemanticGroupDependency
+								VAR_VALIDATIONDIRECTRELLIST = "ValidDRList"; //Initially for List IntSemanticDirectRelation
 	protected Map<String, Object> vars = new HashMap<>();
 	private Object object;
 	
@@ -37,12 +42,12 @@ public class InstAttribute implements Serializable {
 	}
 	
 	
-	public InstAttribute(String identifier, AbstractAttribute metaAttribute,
+	public InstAttribute(String identifier, AbstractAttribute modelingAttribute,
 			Object value) {
 		super();
-		this.attribute = metaAttribute;
+		this.attribute = modelingAttribute;
 		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE, metaAttribute.getName());
+		vars.put(VAR_ATTRIBUTE, modelingAttribute.getName());
 		vars.put(VAR_VALUE, value);
 		vars.put(VAR_DISPLAYVALUE, null);
 		//vars.put(VAR_DISOBJECT, null);
@@ -51,12 +56,12 @@ public class InstAttribute implements Serializable {
 //		this.value = value;
 	}
 	
-	public InstAttribute(String identifier, AbstractAttribute metaAttribute,
+	public InstAttribute(String identifier, AbstractAttribute modelingAttribute,
 			Object value, Object object) {
 		super();
-		this.attribute = metaAttribute;
+		this.attribute = modelingAttribute;
 		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE, metaAttribute.getName());
+		vars.put(VAR_ATTRIBUTE, modelingAttribute.getName());
 		vars.put(VAR_VALUE, value);
 		vars.put(VAR_DISPLAYVALUE, null);
 		//vars.put(VAR_DISOBJECT, object);
@@ -78,10 +83,34 @@ public class InstAttribute implements Serializable {
 		//this.identifier = identifier;
 		setVariable(VAR_IDENTIFIER, identifier);
 	}
+	
+	
+	public void setValidationGDList(List<IntSemanticGroupDependency> semGD) {
+		//this.identifier = identifier;
+		setVariable(VAR_VALIDATIONGROUPDEPLIST, semGD);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IntSemanticGroupDependency>  getValidationGDList() {
+		return (List<IntSemanticGroupDependency> )getVariable(VAR_VALIDATIONGROUPDEPLIST);
+		//return identifier;
+	}
+	
+	public void setValidationDRList(List<IntSemanticDirectRelation> semGD) {
+		//this.identifier = identifier;
+		setVariable(VAR_VALIDATIONDIRECTRELLIST, semGD);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IntSemanticDirectRelation>  getValidationDRList() {
+		return (List<IntSemanticDirectRelation> )getVariable(VAR_VALIDATIONDIRECTRELLIST);
+		//return identifier;
+	}
 
-	public void setAttribute(AbstractAttribute metaAttribute) {
-		this.attribute = metaAttribute;
-		setVariable(VAR_ATTRIBUTE, metaAttribute.getName());
+	public void setAttribute(AbstractAttribute modelingAttribute) {
+		this.attribute = modelingAttribute;
+		if (modelingAttribute !=null )
+		setVariable(VAR_ATTRIBUTE, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
@@ -89,13 +118,11 @@ public class InstAttribute implements Serializable {
 		//return identifier;
 	}
 	public AbstractAttribute getAttribute() {
-		//return (MetaAttribute)getVariable(VAR_METAATTRIBUTE);
 		return attribute;
 	}
 	
 	public String getAttributeName() {
 		return (String)getVariable(VAR_ATTRIBUTE);
-		//return metaAttribute;
 	}
 	
 	public Object getValue() {
@@ -115,10 +142,16 @@ public class InstAttribute implements Serializable {
 		//this.value = value;
 	}
 	
-	public String getMetaAttributeType(){
-		//return ((MetaAttribute)getVariable(VAR_METAATTRIBUTE)).getType();
+	public String getModelingAttributeType(){
 		return attribute.getType();
 	}
+	
+
+	public Object getEnumType() {
+		// TODO Auto-generated method stub
+		return attribute.getEnumType();
+	}
+	
 	public void setType(String selectedItem) {
 		// TODO Auto-generated method stub
 		
@@ -190,9 +223,11 @@ public class InstAttribute implements Serializable {
 	}
 
 
-	public void clearMetaAttribute() {
+	public void clearModelingAttribute() {
 		attribute = null;		
 		object = null;
+		setVariable(VAR_VALIDATIONGROUPDEPLIST, null);
+		setVariable(VAR_VALIDATIONDIRECTRELLIST, null);
 	}
 
 
@@ -209,4 +244,6 @@ public class InstAttribute implements Serializable {
 		//return getVariable(VAR_DISOBJECT);
 		return object;
 	}
+
+
 }

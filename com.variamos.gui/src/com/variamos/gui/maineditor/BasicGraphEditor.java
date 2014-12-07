@@ -197,7 +197,15 @@ public class BasicGraphEditor extends JPanel {
 			// frame.setJMenuBar(new RequirementsMenuBar(this));
 			frame.setJMenuBar(new RefasMenuBar(this));
 			break;
+		case 4:
+			center.setDividerLocation(0);
+			upperPart.setDividerLocation(0);
+			graphAndRight.setDividerLocation(700);
+			// frame.setJMenuBar(new RequirementsMenuBar(this));
+			frame.setJMenuBar(new RefasMenuBar(this));
+			break;
 		}
+		
 	}
 
 	public int getPerspective() {

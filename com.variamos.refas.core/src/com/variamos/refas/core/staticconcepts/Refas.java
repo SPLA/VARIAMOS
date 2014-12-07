@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.util.mxResources;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 
 /**
  * @author Juan Carlos Muñoz 2014
@@ -37,40 +38,22 @@ public class Refas extends AbstractModel {
 
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String, Constraint> constraints;
+	
+	private Map<String, InstElement> instElements;
+	private Map<String, InstEdge> instDirectRelations; // Methods missing to handle
+	
 	protected String name;
-	protected ModelView[] modelViews;
-
-	public ModelView[] getModelViews() {
-		return modelViews;
-	}
 
 	public Refas() {
 		vElements = new HashMap<String, VariabilityElement>();
-		defaultModelViews();
+		
+		instElements = new HashMap<>();
+		instDirectRelations= new HashMap<>();
+		
 		name = "";
 	}
 
-	/**
-	 * jcmunoz: temporal method to fill valid element by models model order:
-	 * Goals, SG, Context, SG Satisficing, Assets
-	 */
 
-	public void defaultModelViews() {
-		@SuppressWarnings("unchecked")
-		ArrayList<String> validElements[] = new ArrayList[Integer
-				.parseInt(mxResources.get("modelViews"))];
-		modelViews = new ModelView[Integer.parseInt(mxResources
-				.get("modelViews"))];
-
-		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
-			validElements[i] = new ArrayList<String>();
-		}
-
-		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
-			modelViews[i] = new ModelView(validElements[i]);
-		}
-
-	}
 
 	public Collection<Constraint> getConstraints() {
 		return constraints.values();
@@ -84,9 +67,23 @@ public class Refas extends AbstractModel {
 		return vElements.values();
 	}
 
-	public String addConstraint(int modelView, Constraint a) {
-		return modelViews[modelView].addConstraint(a);
+	public String addElement(InstElement element) {
+		String id = getNextElementId(element);
+		element.setIdentifier(id);
+		instElements.put(id, element);
+		return id;
+
 	}
+	
+
+	public String addDirectRelation(InstEdge directRelation) {
+		String id = getNextDirectRelationId(directRelation);
+		directRelation.setIdentifier(id);		
+		instDirectRelations.put(id, directRelation);
+		return id;
+
+	}
+	
 
 	public String getName() {
 		return name;
@@ -96,17 +93,49 @@ public class Refas extends AbstractModel {
 		this.name = name;
 	}
 
-	public String addElement(int modelView, AbstractElement a) {
-		return modelViews[modelView].addElement(a);
+	public String addInstConceptElement(InstElement element) {
+		String id = getNextElementId(element);
+		InstElement varElement = (InstElement) element;
+		varElement.setIdentifier(id);
+		varElement.setInstAttribute("name", "<<new>>");
+		instElements.put(id, element);
+		return id;
 	}
 
-	public String addElement(int modelViewIndex, InstElement element) {
-		return modelViews[modelViewIndex].addInstConceptElement(element);
+	private String getNextElementId(InstElement element) {
+
+		int id = 1;
+		String classId = null;
+		if (element instanceof InstConcept)
+			classId = ((InstConcept) element).getMetaConceptIdentifier();
+		else
+			classId = ((InstGroupDependency) element)
+					.getMetaGroupDependencyIdentifier();
+
+		while (instElements.containsKey(classId + id)) {
+			id++;
+		}
+		return classId + id;
+	}
+	
+	private String getNextDirectRelationId(InstEdge element) {
+
+		int id = 1;
+		String classId = null;
+		classId = element.getMetaEdgeIdentifier();
+		
+		while (instDirectRelations.containsKey(classId + id)) {
+			id++;
+		}
+		return classId + id;
+	}
+	
+	public Map<String, InstElement> getElements() {
+		return instElements;
 	}
 
-	public Map<String, InstElement> getElements(int modelView) {
-		return modelViews[modelView].getElements();
-
+	public void setElements(Map<String, InstElement> elements) {
+		this.instElements = elements;
 	}
 
 	public VariabilityElement getVariabilityElement(String string) {
@@ -129,5 +158,6 @@ public class Refas extends AbstractModel {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

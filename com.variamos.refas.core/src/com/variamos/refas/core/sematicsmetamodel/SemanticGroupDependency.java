@@ -9,7 +9,7 @@ import com.variamos.refas.core.types.GroupRelationType;
 import com.variamos.syntaxsupport.type.EnumerationType;
 import com.variamos.syntaxsupport.type.IntegerType;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
@@ -19,7 +19,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
  *
  *         Definition of semantics for REFAS
  */
-public class SemanticGroupDependency extends AbstractSemanticConcept implements
+public class SemanticGroupDependency extends AbstractSemanticVertex implements
 		IntSemanticGroupDependency {
 	/**
 	 * 
@@ -28,53 +28,57 @@ public class SemanticGroupDependency extends AbstractSemanticConcept implements
 	private boolean exclusive;
 	public static final String 	VAR_CARDINALITYTYPE = "cardinalityType",
 								VAR_LOWCARDINALITY = "lowCardinality",
-								VAR_HIGHCARDINALITY = "highCardinality";
+								VAR_HIGHCARDINALITY = "highCardinality",
+								VAR_CARDINALITYTYPECLASS ="com.variamos.refas.core.types.CardinalityType";
 
 	private ConditionalExpression conditionalExpression;
-	private List<AbstractSemanticConcept> conflicts;
+	private List<AbstractSemanticVertex> conflicts;
 	private List<GroupRelationType> relationTypes;
-	private List<OutgoingSemanticRelation> outgoingRelations;
+	private List<OutgoingSemanticEdge> outgoingRelations;
+	
+	public SemanticGroupDependency()
+	{}
 
 	public SemanticGroupDependency(String identifier, boolean exclusive,
 			List<GroupRelationType> relationTypes) {
 		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticConcept>(), relationTypes,
-				new ArrayList<OutgoingSemanticRelation>());
+				new ArrayList<AbstractSemanticVertex>(), relationTypes,
+				new ArrayList<OutgoingSemanticEdge>());
 	}
 
 	public SemanticGroupDependency(String identifier, boolean exclusive,
 			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticRelation> outgoingRelations) {
+			List<OutgoingSemanticEdge> outgoingRelations) {
 		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticConcept>(), relationTypes,
+				new ArrayList<AbstractSemanticVertex>(), relationTypes,
 				outgoingRelations);
 	}
 
 	public SemanticGroupDependency(String identifier, boolean exclusive,
 			ConditionalExpression conditionalExpression,
 			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticRelation> outgoingRelations) {
+			List<OutgoingSemanticEdge> outgoingRelations) {
 		this(identifier, exclusive, conditionalExpression,
-				new ArrayList<AbstractSemanticConcept>(), relationTypes,
+				new ArrayList<AbstractSemanticVertex>(), relationTypes,
 				outgoingRelations);
 
 	}
 
 	public SemanticGroupDependency(String identifier, boolean exclusive,
 			ConditionalExpression conditionalExpression,
-			List<AbstractSemanticConcept> conflicts,
+			List<AbstractSemanticVertex> conflicts,
 			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticRelation> outgoingRelations) {
+			List<OutgoingSemanticEdge> outgoingRelations) {
 		super(identifier, true);
 		this.exclusive = exclusive;
 
 		putSemanticAttribute(VAR_CARDINALITYTYPE, new SemanticAttribute(
-				"cardinalityType", "Enumeration",
-				"com.variamos.refas.core.types.CardinalityType", "mandatory","")); 
+				VAR_CARDINALITYTYPE, "Enumeration",VAR_CARDINALITYTYPECLASS 
+				, "mandatory","")); 
 		putSemanticAttribute(VAR_LOWCARDINALITY, new SemanticAttribute(
-				"lowCardinality", "Integer", 1,""));
+				"Low Cardinality", "Integer", 1,""));
 		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(
-				"highCardinality", "Integer", 1,""));
+				"High Cardinality", "Integer", 1,""));
 
 		addDisPropEditableAttribute("06#"+VAR_CARDINALITYTYPE);
 		addDisPropEditableAttribute("09#"+VAR_LOWCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");
@@ -112,11 +116,11 @@ public class SemanticGroupDependency extends AbstractSemanticConcept implements
 		this.conditionalExpression = conditionalExpression;
 	}
 
-	public List<AbstractSemanticConcept> getConflicts() {
+	public List<AbstractSemanticVertex> getConflicts() {
 		return conflicts;
 	}
 
-	public void setConflicts(List<AbstractSemanticConcept> conflicts) {
+	public void setConflicts(List<AbstractSemanticVertex> conflicts) {
 		this.conflicts = conflicts;
 	}
 
@@ -128,12 +132,12 @@ public class SemanticGroupDependency extends AbstractSemanticConcept implements
 		this.relationTypes = relationTypes;
 	}
 
-	public List<OutgoingSemanticRelation> getOutgoingRelations() {
+	public List<OutgoingSemanticEdge> getOutgoingRelations() {
 		return outgoingRelations;
 	}
 
 	public void setOutgoingRelations(
-			List<OutgoingSemanticRelation> outgoingRelations) {
+			List<OutgoingSemanticEdge> outgoingRelations) {
 		this.outgoingRelations = outgoingRelations;
 	}
 

@@ -22,7 +22,7 @@ public class PerspectiveToolBar extends JToolBar
 	 * 
 	 */
 	private static final long serialVersionUID = -8015443128436394471L;
-	private JButton buttons[] = new JButton[4];
+	private JButton buttons[] = new JButton[5];
 	private BasicGraphEditor editor;
 
 	/**
@@ -46,17 +46,26 @@ public class PerspectiveToolBar extends JToolBar
 		//buttons[2].setEnabled(false);
 		add (buttons[3]);
 		buttons[3].addActionListener(new PerspectiveAction(this));
+		
 		buttons[2] = new JButton(mxResources.get("modelingPerspButton"));
 		//buttons[2].setEnabled(false);
 		add (buttons[2]);
 		buttons[2].addActionListener(new PerspectiveAction(this));
+		
+		buttons[4] = new JButton(mxResources.get("simulationPerspButton"));
+		//buttons[2].setEnabled(false);
+		add (buttons[4]);
+		buttons[4].addActionListener(new PerspectiveAction(this));
+		
 		buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		add (buttons[0]);
 		buttons[0].addActionListener(new PerspectiveAction(this));
+		
 		buttons[1] = new JButton(mxResources.get("defectAnalyzerPerspButton"));
 		//buttons[1].setEnabled(false);		
 		add (buttons[1]);
 		buttons[1].addActionListener(new PerspectiveAction(this));
+		
 		buttons[perspective].setSelected(true);
 		
 	}

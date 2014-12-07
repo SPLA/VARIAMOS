@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -16,7 +16,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
  *
  *         Definition of syntax for VariaMos
  */
-public class MetaConcept extends MetaElement {
+public class MetaConcept extends MetaVertex {
 	/**
 	 * 
 	 */
@@ -30,9 +30,9 @@ public class MetaConcept extends MetaElement {
 		
 	}
 	
-	public MetaConcept(String identified, String name, String style, int width,
-			int height, String image, boolean topConcept,
-			String backgroundColor, int borderStroke, boolean resizable, 
+	public MetaConcept(String identifier,boolean visible,  String name, String style, int width,
+			int height, String image, int borderStroke, boolean topConcept,
+			String backgroundColor, boolean resizable, 
 			IntSemanticConcept semanticConcept,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
@@ -40,37 +40,37 @@ public class MetaConcept extends MetaElement {
 			List<String> panelSparerAttributes,
 			Map<String,	AbstractAttribute> attributes,
 			List<MetaExtends> metaExtendsRelations) {
-		super(identified, name, style, width, height, image, topConcept,
-				backgroundColor, borderStroke, resizable,
+		super(identifier, visible, name, style, width, height, image,
+				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
 		this.semanticConcept = semanticConcept;
 		this.metaExtendsRelations = metaExtendsRelations;
 	}
 	
-	public MetaConcept(String identified, String name, String style, int width,
-			int height, String image, boolean topConcept,
-			String backgroundColor, int borderStroke, boolean resizable, 
+	public MetaConcept(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke, boolean topConcept,
+			String backgroundColor, boolean resizable, 
 			IntSemanticConcept semanticConcept,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String,	AbstractAttribute> attributes) {
-		super(identified, name, style, width, height, image, topConcept,
-				backgroundColor, borderStroke, resizable,
+		super(identifier, visible, name, style, width, height, image,
+				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
 		this.semanticConcept = semanticConcept;
 		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
 
-	public MetaConcept(String identified, String name, String style, int width,
+	public MetaConcept(String identifier,boolean visible,  String name, String style, int width,
 			int height, String image, boolean topConcept,
 			String backgroundColor, int borderStroke, boolean resizable,
 			IntSemanticConcept semanticConcept) {
-		super(identified, name, style, width, height, image, topConcept,
-				backgroundColor, borderStroke, resizable);
+		super(identifier, visible, name, style, width, height, image,
+				borderStroke, topConcept, backgroundColor, resizable);
 		this.semanticConcept = semanticConcept;
 		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
@@ -84,103 +84,103 @@ public class MetaConcept extends MetaElement {
 	}
 
 	public Set<String> getDisPropVisibleAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
+		Set<String> modelingAttributesNames = new HashSet<String>();
 		
 		if (semanticConcept != null)
-			metaAttributesNames.addAll(semanticConcept.getDisPropVisibleAttributes());
+			modelingAttributesNames.addAll(semanticConcept.getDisPropVisibleAttributes());
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaExtends = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaExtends.getDestination()
+			modelingAttributesNames.addAll(metaExtends.getDestination()
 						.getDisPropVisibleAttributes());
 			
 		}
-		metaAttributesNames.addAll(super.getDisPropVisibleAttributes());
-		return metaAttributesNames;
+		modelingAttributesNames.addAll(super.getDisPropVisibleAttributes());
+		return modelingAttributesNames;
 	}
 	
 	public Set<String> getDisPropEditableAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
+		Set<String> modelingAttributesNames = new HashSet<String>();
 		
 		if (semanticConcept != null)
-			metaAttributesNames.addAll(semanticConcept.getDisPropEditableAttributes());
+			modelingAttributesNames.addAll(semanticConcept.getDisPropEditableAttributes());
 		
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaExtends = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaExtends.getDestination()
+			modelingAttributesNames.addAll(metaExtends.getDestination()
 						.getDisPropEditableAttributes());
 			
 		}
-		metaAttributesNames.addAll(super.getDisPropEditableAttributes());
-		return metaAttributesNames;
+		modelingAttributesNames.addAll(super.getDisPropEditableAttributes());
+		return modelingAttributesNames;
 	}
 	
 	public Set<String> getDisPanelVisibleAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
+		Set<String> modelingAttributesNames = new HashSet<String>();
 		
 		if (semanticConcept != null)
-			metaAttributesNames.addAll(semanticConcept.getDisPanelVisibleAttributes());
+			modelingAttributesNames.addAll(semanticConcept.getDisPanelVisibleAttributes());
 		
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaExtends = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaExtends.getDestination()
+			modelingAttributesNames.addAll(metaExtends.getDestination()
 						.getDisPanelVisibleAttributes());
 			
 		}
-		metaAttributesNames.addAll(super.getDisPanelVisibleAttributes());
-		return metaAttributesNames;
+		modelingAttributesNames.addAll(super.getDisPanelVisibleAttributes());
+		return modelingAttributesNames;
 	}
 	
 	public Set<String> getDisPanelSpacersAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
+		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (semanticConcept != null)
-			metaAttributesNames.addAll(semanticConcept.getDisPanelSpacersAttributes());
+			modelingAttributesNames.addAll(semanticConcept.getDisPanelSpacersAttributes());
 
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaExtends = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaExtends.getDestination()
+			modelingAttributesNames.addAll(metaExtends.getDestination()
 						.getDisPanelSpacersAttributes());			
 		}
 
-		metaAttributesNames.addAll(super.getDisPanelSpacersAttributes());
-		return metaAttributesNames;
+		modelingAttributesNames.addAll(super.getDisPanelSpacersAttributes());
+		return modelingAttributesNames;
 	}
 	
-	public Set<String> getMetaAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
-		metaAttributesNames.addAll(super.getMetaAttributes());
+	public Set<String> getModelingAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		modelingAttributesNames.addAll(super.getModelingAttributes());
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaDirectRelation = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaDirectRelation.getDestination()
-						.getMetaAttributes());
+			modelingAttributesNames.addAll(metaDirectRelation.getDestination()
+						.getModelingAttributes());
 			
 		}
-		return metaAttributesNames;
+		return modelingAttributesNames;
 	}
 
 	public Set<String> getSemanticAttributes() {
-		Set<String> metaAttributesNames = new HashSet<String>();
-		metaAttributesNames.addAll(semanticConcept.getSemanticAttributes());
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		modelingAttributesNames.addAll(semanticConcept.getSemanticAttributes());
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaDirectRelation = metaExtendsRelations.get(i);
-			metaAttributesNames.addAll(metaDirectRelation.getDestination()
+			modelingAttributesNames.addAll(metaDirectRelation.getDestination()
 						.getSemanticAttributes());
 			
 		}
-		return metaAttributesNames;
+		return modelingAttributesNames;
 	}
 	
-	public AbstractAttribute getMetaAttribute(String name) {
-		if (super.getMetaAttribute(name)!= null)
-			return super.getMetaAttribute(name);
+	public AbstractAttribute getModelingAttribute(String name) {
+		if (super.getModelingAttribute(name)!= null)
+			return super.getModelingAttribute(name);
 		else {
 			for (int i = 0; i < metaExtendsRelations.size(); i++) {
 				MetaExtends metaDirectRelation = metaExtendsRelations
 						.get(i);
-					if (metaDirectRelation.getDestination().getMetaAttribute(
+					if (metaDirectRelation.getDestination().getModelingAttribute(
 							name) != null)
 						return metaDirectRelation.getDestination()
-								.getMetaAttribute(name);
+								.getModelingAttribute(name);
 				
 			}
 		}
@@ -198,7 +198,7 @@ public class MetaConcept extends MetaElement {
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
 		AbstractAttribute out =	getSemanticAttribute(attributeName);
 		if (out == null)
-			return getMetaAttribute(attributeName);
+			return getModelingAttribute(attributeName);
 		else 
 			return out;
 	}

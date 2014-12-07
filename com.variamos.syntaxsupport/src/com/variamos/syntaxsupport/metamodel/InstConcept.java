@@ -11,7 +11,7 @@ import java.util.Set;
 import com.cfm.productline.Variable;
 import com.cfm.productline.type.StringType;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -23,8 +23,12 @@ public class InstConcept extends InstElement {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6231317731982400120L;
-	public static final String VAR_METACONCEPT = "MetaConceptIdentifier";
+	private static final long serialVersionUID = -351673247632968251L;
+	/**
+	 * 
+	 */
+
+	public static final String VAR_METACONCEPT = "MetaConceptIde";
 	// protected Map<String, MetaConcept> vars = new HashMap<>();
 	private MetaConcept metaConcept;
 
@@ -41,7 +45,7 @@ public class InstConcept extends InstElement {
 
 	public InstConcept(String identifier, MetaConcept metaConcept,
 			Map<String, InstAttribute> attributes,
-			Map<String, InstRelation> relations) {
+			Map<String, InstEdge> relations) {
 		super(identifier, attributes, relations);
 		vars.put(VAR_METACONCEPT, metaConcept.getIdentifier());
 		this.metaConcept = metaConcept;
@@ -69,15 +73,15 @@ public class InstConcept extends InstElement {
 	}
 
 	private void createInstAttributes() {
-		Iterator<String> metaAttributes = getMetaConcept().getMetaAttributes()
+		Iterator<String> modelingAttributes = getMetaConcept().getModelingAttributes()
 				.iterator();
-		while (metaAttributes.hasNext()) {
-			String name = metaAttributes.next();
+		while (modelingAttributes.hasNext()) {
+			String name = modelingAttributes.next();
 			if (name.equals("identifier"))
-				addInstAttribute(name, getMetaConcept().getMetaAttribute(name),
+				addInstAttribute(name, getMetaConcept().getModelingAttribute(name),
 						getIdentifier());
 			else
-				addInstAttribute(name, getMetaConcept().getMetaAttribute(name),
+				addInstAttribute(name, getMetaConcept().getModelingAttribute(name),
 						null);
 		}
 
@@ -163,7 +167,7 @@ public class InstConcept extends InstElement {
 				String value = null;				
 				variable = visibleAttribute.substring(nameEnd+1, varEnd);
 				condition = visibleAttribute.substring(varEnd+1, condEnd);
-				value = visibleAttribute.substring(condEnd);
+				value = visibleAttribute.substring(condEnd+1);
 				Object varValue = getInstAttributes().get(variable);
 				if(!varValue.equals(value))
 					validCondition=false;
@@ -180,7 +184,7 @@ public class InstConcept extends InstElement {
 						int sp2 = spacer.indexOf("#", sp1+1);
 						
 						out += spacer.substring(0,sp1);
-						out += getInstAttributes().get(name);
+						out += getInstAttributes().get(name).toString().trim();
 						while (sp2 != spacer.length()) {
 							int sp3 = spacer.indexOf("#", sp2+1);
 							if (sp3==-1)
@@ -206,7 +210,7 @@ public class InstConcept extends InstElement {
 	return out;
 }
 
-	public void setMetaConcept(MetaElement metaConcept) {
+	public void setMetaConcept(MetaVertex metaConcept) {
 		this.metaConcept = (MetaConcept) metaConcept;
 		setVariable(VAR_METACONCEPT, metaConcept.getIdentifier());
 		// createInstAttributes();

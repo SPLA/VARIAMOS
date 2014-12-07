@@ -30,7 +30,9 @@ import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
+import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -46,31 +48,17 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		Set<MetaElement> instConcepts = new HashSet<MetaElement>(); 
 		for (int i = 0 ; i< modelMetaViews.size();i++)
 		{
-			instConcepts.addAll(modelMetaViews.get(i).getConcepts());
+			instConcepts.addAll(modelMetaViews.get(i).getElements());
 		}
-			Iterator<MetaElement> concepts = instConcepts.iterator();
-			while (concepts.hasNext())
+			Iterator<MetaElement> elements = instConcepts.iterator();
+			while (elements.hasNext())
 			{
-				MetaElement metaConcept = concepts.next();
-				paletteElements.add(new PaletteElement(metaConcept.getIdentifier(), metaConcept.getName(),
-						metaConcept.getImage(), metaConcept.getStyle(), metaConcept.getWidth(), metaConcept.getHeight(),
-						null, metaConcept));
-			}
-			
-			paletteElements.add(new PaletteElement("GlobalContextVariable",
-				"globalContextTitle",
-				"/com/variamos/gui/refas/editor/images/globCnxtVar.png",
-				"rqglobcnxt", 40, 100, "com.variamos.refas.core.staticconcepts.ContextVariable"));
-		paletteElements.add(new PaletteElement("LocalContextVariable",
-				"localContextTitle",
-				"/com/variamos/gui/refas/editor/images/localCnxtVar.png",
-				"rqlocalcnxt",  40, 100, "com.variamos.refas.core.staticconcepts.ContextVariable"));
-
-		paletteElements.add(new PaletteElement("GroupGConstraint",
-				"groupIconTitle",
-				"/com/variamos/gui/pl/editor/images/plgroup.png", "plgroup",
-				20, 20, "com.variamos.refas.core.staticconcepts.GroupGConstraint"));
+				MetaElement metaElement = elements.next();
+				paletteElements.add(new PaletteElement(metaElement.getIdentifier(), metaElement.getName(),
+						metaElement.getImage(), metaElement.getStyle(), metaElement.getWidth(), metaElement.getHeight(),
+						null, metaElement));
 				
+			}				
 	}
 
 	public void updateEditor(List<String> validElements,
@@ -109,18 +97,18 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 						Object obj = null;
 						if (paletteElement.getMetaElement()!= null)
 						{
-							MetaElement metaElement = paletteElement.getMetaElement();
-							if (metaElement instanceof MetaConcept)
+							MetaElement metaVertex = paletteElement.getMetaElement();
+							if (metaVertex instanceof MetaConcept)
 							{
 							Object o = new InstConcept();
 							Constructor<?> c = o.getClass().getConstructor(MetaConcept.class);
-							obj =c.newInstance((MetaConcept)metaElement);
+							obj =c.newInstance((MetaConcept)metaVertex);
 							}
-							else if (metaElement instanceof MetaGroupDependency)
+							else if (metaVertex instanceof MetaGroupDependency)
 							{
 							Object o = new InstGroupDependency();
 							Constructor<?> c = o.getClass().getConstructor(MetaGroupDependency.class);
-							obj =c.newInstance((MetaGroupDependency)metaElement);
+							obj =c.newInstance((MetaGroupDependency)metaVertex);
 							}
 								
 						}

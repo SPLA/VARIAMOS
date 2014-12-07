@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 
 /**
@@ -13,7 +13,7 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  *
  *         Definition of semantics for REFAS
  */
-public abstract class AbstractSemanticRelation implements Serializable {
+public abstract class AbstractSemanticEdge implements Serializable {
 
 	/**
 	 * 
@@ -22,25 +22,25 @@ public abstract class AbstractSemanticRelation implements Serializable {
 	private boolean toSoftSemanticConcept;
 	private SemanticAttribute satisficingType;
 	private SemanticAttribute level;
-	private List<AbstractSemanticConcept> conflicts;
-	private List<AbstractSemanticConcept> alwaysAllows;
+	private List<AbstractSemanticVertex> conflicts;
+	private List<AbstractSemanticVertex> alwaysAllows;
 	
-	public AbstractSemanticRelation() {
-		this(false, new ArrayList<AbstractSemanticConcept>(),
-				new ArrayList<AbstractSemanticConcept>());
+	public AbstractSemanticEdge() {
+		this(false, new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>());
 	}	
 
-	public AbstractSemanticRelation(boolean toSoftSemanticConcept, List<AbstractSemanticConcept> conflicts) {
-		this(toSoftSemanticConcept, conflicts, new ArrayList<AbstractSemanticConcept>());
+	public AbstractSemanticEdge(boolean toSoftSemanticConcept, List<AbstractSemanticVertex> conflicts) {
+		this(toSoftSemanticConcept, conflicts, new ArrayList<AbstractSemanticVertex>());
 	}
 	
-	public AbstractSemanticRelation( boolean toSoftSemanticConcept) {
-		this(toSoftSemanticConcept, new ArrayList<AbstractSemanticConcept>(),
-				new ArrayList<AbstractSemanticConcept>());
+	public AbstractSemanticEdge( boolean toSoftSemanticConcept) {
+		this(toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>());
 			}
 
-	public AbstractSemanticRelation(boolean toSoftSemanticConcept ,List<AbstractSemanticConcept> conflicts,
-			List<AbstractSemanticConcept> alwaysAllows) {
+	public AbstractSemanticEdge(boolean toSoftSemanticConcept ,List<AbstractSemanticVertex> conflicts,
+			List<AbstractSemanticVertex> alwaysAllows) {
 		if 	(toSoftSemanticConcept)
 		{
 			this.satisficingType = new SemanticAttribute("satisficingType","Enumeration", "com.variamos.refas.core.sematicsmetamodel.SatisficingType","","Type of satisficing");
@@ -62,23 +62,23 @@ public abstract class AbstractSemanticRelation implements Serializable {
 		return level.getType();
 	}
 
-	public List<AbstractSemanticConcept> getConflicts() {
+	public List<AbstractSemanticVertex> getConflicts() {
 		return conflicts;
 	}
 
-	public void setConflicts(List<AbstractSemanticConcept> conflicts) {
+	public void setConflicts(List<AbstractSemanticVertex> conflicts) {
 		this.conflicts = conflicts;
 	}
 
-	public List<AbstractSemanticConcept> getAlwaysAllows() {
+	public List<AbstractSemanticVertex> getAlwaysAllows() {
 		return alwaysAllows;
 	}
 
-	public void setAlwaysAllows(List<AbstractSemanticConcept> alwaysAllows) {
+	public void setAlwaysAllows(List<AbstractSemanticVertex> alwaysAllows) {
 		this.alwaysAllows = alwaysAllows;
 	}
 
-	public void addConflicts(AbstractSemanticConcept conflict) {
+	public void addConflicts(AbstractSemanticVertex conflict) {
 		conflicts.add(conflict);
 	}
 

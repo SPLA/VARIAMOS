@@ -6,7 +6,7 @@ import java.util.List;
 import com.variamos.refas.core.types.DirectRelationType;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -14,8 +14,8 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
  *
  *         Definition of semantics for REFAS
  */
-public class DirectSemanticRelation extends AbstractSemanticRelation implements
-		IntDirectSemanticRelation {
+public class DirectSemanticEdge extends AbstractSemanticEdge implements
+		IntSemanticDirectRelation {
 	/**
 	 * 
 	 */
@@ -24,11 +24,11 @@ public class DirectSemanticRelation extends AbstractSemanticRelation implements
 	private boolean exclusive;
 	private List<IntDirectRelationType> semanticRelationTypes;
 
-	public DirectSemanticRelation() {
+	public DirectSemanticEdge() {
 		super();
 	}
 
-	public DirectSemanticRelation(Boolean toSoftSemanticRelation,
+	public DirectSemanticEdge(Boolean toSoftSemanticRelation,
 			String identifier, boolean exclusive,
 			List<IntDirectRelationType> semanticRelationTypes) {
 		super(toSoftSemanticRelation);
@@ -37,7 +37,7 @@ public class DirectSemanticRelation extends AbstractSemanticRelation implements
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	public DirectSemanticRelation(String identifier, boolean exclusive,
+	public DirectSemanticEdge(String identifier, boolean exclusive,
 			List<IntDirectRelationType> semanticRelationTypes) {
 		super(false);
 		this.identifier = identifier;
@@ -45,18 +45,18 @@ public class DirectSemanticRelation extends AbstractSemanticRelation implements
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 	
-	public DirectSemanticRelation(String identifier, boolean exclusive,
+	public DirectSemanticEdge(String identifier, boolean exclusive,
 			List<IntDirectRelationType> semanticRelationTypes,
 			boolean toSoftSemanticConcept,
-			List<AbstractSemanticConcept> conflicts,
-			List<AbstractSemanticConcept> alwaysAllows) {
+			List<AbstractSemanticVertex> conflicts,
+			List<AbstractSemanticVertex> alwaysAllows) {
 		super(toSoftSemanticConcept, conflicts, alwaysAllows);
 		this.identifier = identifier;
 		this.exclusive = exclusive;
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	public DirectSemanticRelation(String identifier, boolean exclusive,
+	public DirectSemanticEdge(String identifier, boolean exclusive,
 			List<IntDirectRelationType> semanticRelationTypes,
 			boolean toSoftSemanticConcept) {
 		super(toSoftSemanticConcept);

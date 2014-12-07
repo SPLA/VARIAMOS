@@ -62,12 +62,19 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.MetaEdge;
+import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 import com.variamos.syntaxsupport.type.DomainRegister;
 
 import fm.FeatureModelException;
@@ -342,7 +349,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// todo: review other perspectives
 		if (perspective == 0 || perspective == 1)
 			abstractGraph = new ProductLineGraph();
-		if (perspective == 2 || perspective == 3)
+		if (perspective == 2 || perspective == 3|| perspective == 4)
 			abstractGraph = new RefasGraph(sematicSyntaxObject);
 		// abstractGraph = (AbstractGraph) getGraphComponent()
 		// .getGraph();
@@ -667,6 +674,24 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		int des = 0, sim = 0;
 		for (InstAttribute v : editables) {
+			if (elm instanceof InstGroupDependency)
+			{
+				if(v.getEnumType()!= null && v.getEnumType().equals(MetaGroupDependency.VAR_SEMANTICGROUPDEPENDENCYCLASS))
+				{
+				InstGroupDependency groupdep = (InstGroupDependency) elm;
+				List<IntSemanticGroupDependency> metaGD = groupdep.getMetaGroupDependency().getSemanticRelations();
+				v.setValidationGDList(metaGD);
+				}
+			}
+			if (elm instanceof InstEdge)
+			{
+				if(v.getEnumType()!= null && v.getEnumType().equals(MetaEdge.VAR_SEMANTICDIRECTRELATIONCLASS))
+				{
+					InstEdge groupdep = (InstEdge) elm;
+				List<IntSemanticDirectRelation> metaGD = groupdep.getMetaEdge().getSemanticRelations();
+				v.setValidationDRList(metaGD);
+				}
+			}
 			final WidgetR w = factory.getWidgetFor(v);
 			if (w == null)
 				// Check the problem and/or raise an exception
@@ -678,7 +703,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				public void focusLost(FocusEvent arg0) {
 					// Makes it pull the values.
 					InstAttribute v = w.getInstAttribute();
-					if (v.getMetaAttributeType().equals("String"))
+					if (v.getModelingAttributeType().equals("String"))
 						v.setValue(AbstractElement.multiLine(v.toString(), 15));
 					System.out.println("Focus Lost: " + v.hashCode() + " val: "
 							+ v.getDisplayValue());
@@ -716,11 +741,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// GARA
 			// variablesPanel.add(new JLabel(v.getName() + ":: "));
 			if (v.getAttribute() instanceof SimulationAttribute) {
-				variablesSimPanel.add(new JLabel(v.getIdentifier() + ": "));
+				variablesSimPanel.add(new JLabel(v.getAttributeName() + ": "));
 				variablesSimPanel.add(w);
 				sim++;
 			} else {
-				variablesPanel.add(new JLabel(v.getIdentifier() + ": "));
+				variablesPanel.add(new JLabel(v.getAttributeName() + ": "));
 				variablesPanel.add(w);
 				des++;
 			}

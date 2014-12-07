@@ -2,7 +2,7 @@ package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
 
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 
 /**

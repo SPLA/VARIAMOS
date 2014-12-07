@@ -1,21 +1,23 @@
 package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticRelation;
-
+import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 /**
- * @author Juan Carlos Muñoz 2014
- *  part of the PhD work at CRI - Universite Paris 1
+ * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
+ *         1
  *
- * Definition of syntax for VariaMos
+ *         Definition of syntax for VariaMos
  */
-public class MetaAssociation implements Serializable{
+public class MetaEdge extends MetaElement {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6241085598671687248L;
+	private static final long serialVersionUID = -2665541567934067387L;
 	private String identifier;
 	private int iniLowCardinality;
 	private int iniHighCardinality;
@@ -25,11 +27,20 @@ public class MetaAssociation implements Serializable{
 	private String endDescription;
 	private boolean arrowDirection;
 	private TypeOfLine typeOfLine;
-	private MetaElement origin;
-	private MetaElement destination;
-	
-		
-	public MetaAssociation() {
+	private MetaVertex origin;
+	private MetaVertex destination;
+	private List<IntSemanticDirectRelation> semanticRelations;
+	private List<IntDirectRelationType> semanticTypes;
+	private SemanticAttribute semanticRelation;
+	public static final String VAR_SEMANTICDIRECTRELATIONCLASS = "com.variamos.refas.core.sematicsmetamodel.SemanticDirectRelation",
+			VAR_SEMANTICDIRECTRELATION = "semanticRelation";
+
+	public void setSemanticRelation(
+			List<IntSemanticDirectRelation> semanticRelations) {
+		this.semanticRelations = semanticRelations;
+	}
+
+	public MetaEdge() {
 		this.iniLowCardinality = 1;
 		this.iniHighCardinality = 1;
 		this.endLowCardinality = 1;
@@ -38,9 +49,22 @@ public class MetaAssociation implements Serializable{
 		this.endDescription = "";
 		this.arrowDirection = false;
 		this.typeOfLine = TypeOfLine.solid;
+		semanticTypes = new ArrayList<IntDirectRelationType>();
+		semanticRelation = new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
+				"Class", VAR_SEMANTICDIRECTRELATIONCLASS, null, "");
 	}
-	
-	public MetaAssociation(MetaElement origin, MetaElement destination) {
+
+	public MetaEdge(
+			List<IntSemanticDirectRelation> semanticRelations,
+			MetaVertex origin, MetaVertex destination) {
+		this(origin, destination);
+		this.semanticRelations = semanticRelations;
+		semanticTypes = new ArrayList<IntDirectRelationType>();
+		semanticRelation = new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
+				"Class", VAR_SEMANTICDIRECTRELATIONCLASS, null, "");
+	}
+
+	public MetaEdge(MetaVertex origin, MetaVertex destination) {
 		this.iniLowCardinality = 1;
 		this.iniHighCardinality = 1;
 		this.endLowCardinality = 1;
@@ -53,11 +77,11 @@ public class MetaAssociation implements Serializable{
 		this.destination = destination;
 	}
 
-	public MetaAssociation (int iniLowCardinality,
-			int iniHighCardinality, int endLowCardinality,
-			int endHighCardinality, String iniDescription,
-			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine,
-			MetaElement origin, MetaElement destination) {
+	public MetaEdge(int iniLowCardinality, int iniHighCardinality,
+			int endLowCardinality, int endHighCardinality,
+			String iniDescription, String endDescription,
+			boolean arrowDirection, TypeOfLine typeOfLine, MetaVertex origin,
+			MetaVertex destination) {
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
 		this.endLowCardinality = endLowCardinality;
@@ -69,25 +93,27 @@ public class MetaAssociation implements Serializable{
 		this.origin = origin;
 		this.destination = destination;
 	}
-	
-	public void setOrigin(MetaElement origin) {
+
+	public void setOrigin(MetaVertex origin) {
 		this.origin = origin;
 	}
-	public void setDestination(MetaElement destination) {
+
+	public void setDestination(MetaVertex destination) {
 		this.destination = destination;
 	}
-	
-	public MetaElement getOrigin() {
+
+	public MetaVertex getOrigin() {
 		return origin;
 	}
-	public MetaElement getDestination() {
+
+	public MetaVertex getDestination() {
 		return destination;
 	}
-	
 
 	public String getIdentifier() {
 		return identifier;
-	}	
+	}
+
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
@@ -127,29 +153,59 @@ public class MetaAssociation implements Serializable{
 	public int getIniLowCardinality() {
 		return iniLowCardinality;
 	}
+
 	public int getIniHighCardinality() {
 		return iniHighCardinality;
 	}
+
 	public int getEndLowCardinality() {
 		return endLowCardinality;
 	}
+
 	public int getEndHighCardinality() {
 		return endHighCardinality;
 	}
+
 	public String getIniDescription() {
 		return iniDescription;
 	}
+
 	public String getEndDescription() {
 		return endDescription;
 	}
+
 	public boolean isArrowDirection() {
 		return arrowDirection;
 	}
+
 	public TypeOfLine getTypeOfLine() {
 		return typeOfLine;
 	}
+
 	public String toString() {
-		return "MetaGroupRelation [metaConcept=" + origin + ", dependency=" + destination + "]";
+		return "MetaGroupRelation [metaConcept=" + origin + ", dependency="
+				+ destination + "]";
+	}
+
+	public SemanticAttribute getSemanticRelation() {
+		return semanticRelation;
+	}
+
+	public List<IntDirectRelationType> getSemanticTypes() {
+		return semanticTypes;
+	}
+
+	public void setSemanticTypes(List<IntDirectRelationType> semanticTypes) {
+		this.semanticTypes = semanticTypes;
+	}
+
+	public boolean addSemanticType(IntDirectRelationType semanticType) {
+		this.semanticTypes.add(semanticType);
+		return true;
+	}
+
+	public List<IntSemanticDirectRelation> getSemanticRelations() {
+		return semanticRelations;
 	}
 
 }

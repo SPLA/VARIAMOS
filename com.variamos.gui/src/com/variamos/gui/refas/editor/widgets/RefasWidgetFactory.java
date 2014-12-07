@@ -44,7 +44,7 @@ public class RefasWidgetFactory {
 	public WidgetR getWidgetFor(InstAttribute v){
 		//Type d = register.getDomain(v.getType());
 		
-		String type = v.getMetaAttributeType();
+		String type = v.getModelingAttributeType();
 		
 		Class<? extends WidgetR> c = null; 
 		

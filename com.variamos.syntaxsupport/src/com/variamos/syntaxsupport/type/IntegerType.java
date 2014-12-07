@@ -1,7 +1,7 @@
 package com.variamos.syntaxsupport.type;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaAttribute;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 
@@ -23,8 +23,8 @@ public class IntegerType extends Type{
 		return new AbstractAttribute(name, getIdentifier(),0);
 	}
 	
-	public static MetaAttribute newVariableMetaAttribute(String name) {
-		return new MetaAttribute (name, IDENTIFIER, 0);
+	public static ModelingAttribute newVariableModelingAttribute(String name) {
+		return new ModelingAttribute (name, IDENTIFIER, 0);
 	}
 	public static SemanticAttribute newSemanticAttribute(String name) {
 		return new SemanticAttribute (name, IDENTIFIER, 0);

@@ -6,7 +6,7 @@ package com.variamos.refas.core.sematicsmetamodel;
  *
  * Definition of semantics for REFAS
  */
-public class SoftSemanticConceptSatisficing extends AbstractSemanticConcept {
+public class SoftSemanticConceptSatisficing extends AbstractSemanticVertex {
 	
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class SoftSemanticConceptSatisficing extends AbstractSemanticConcept {
 	private ConditionalExpression conditionalExpression;
 	
 	
-	public SoftSemanticConceptSatisficing(AbstractSemanticConcept semanticConcept, String name, boolean condExpression)
+	public SoftSemanticConceptSatisficing(AbstractSemanticVertex semanticConcept, String name, boolean condExpression)
 	{
 		super (semanticConcept, name, false);
 		if (condExpression)

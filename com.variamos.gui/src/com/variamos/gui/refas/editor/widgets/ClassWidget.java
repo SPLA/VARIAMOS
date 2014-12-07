@@ -14,20 +14,22 @@ import javax.swing.JComponent;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticConcept;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 import com.variamos.syntaxsupport.type.ClassType;
 
 @SuppressWarnings("serial")
 public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
-	private Map<String,AbstractSemanticConcept> semanticConcepts;
-	private Map<String,InstConcept> concepts;
+	private Map<String, AbstractSemanticVertex> semanticConcepts;
+	private Map<String, InstConcept> concepts;
 
 	public ClassWidget() {
 		super();
@@ -51,44 +53,70 @@ public class ClassWidget extends WidgetR {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		if (aClass.getSuperclass().equals(AbstractSemanticConcept.class)) {
-			semanticConcepts = new HashMap<String,AbstractSemanticConcept>();
-			Collection<AbstractSemanticConcept> list = semanticSyntaxObject
-					.getSemanticConcepts().values();
+		if (v.getValidationDRList() != null) {
+			semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
+			List<IntSemanticDirectRelation> list = v.getValidationDRList();
 
-			List<AbstractSemanticConcept> list2 = new ArrayList<AbstractSemanticConcept>();
-
-			for (AbstractSemanticConcept concept : list) {
-				if (aClass.isInstance(concept))
-					list2.add(concept);
-			}
-
-			for (AbstractSemanticConcept concept : list2) {
-				semanticConcepts.put(concept.getIdentifier(),concept);
-				String patternString = "([_])";
-				Pattern p = Pattern.compile(patternString);
-
-				String[] split = p.split(concept.getIdentifier());
-				String out = split[0] + " ";
-				for (int j = 1; j < split.length; j++)
-					out += split[j].toLowerCase() + " ";
+			for (IntSemanticDirectRelation groupDependency : list) {
+				semanticConcepts.put(groupDependency.getIdentifier(),
+						(AbstractSemanticVertex) groupDependency);
+				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 			}
-		}
-		if (aClass.equals(InstConcept.class)) {
-			concepts = new HashMap<String,InstConcept>();
-			List<InstConcept> list = getInstConcepts(v.getAttribute().getObject(), graph);
+		} else 
+		if (v.getValidationGDList() != null) {
+			semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
+			List<IntSemanticGroupDependency> list = v.getValidationGDList();
 
-			for (InstConcept concept : list) {
-				concepts.put(concept.getIdentifier(),concept);
-				String patternString = "([_])";
-				Pattern p = Pattern.compile(patternString);
-
-				String[] split = p.split(concept.getInstAttribute("name").toString());
-				String out = split[0] + " ";
-				for (int j = 1; j < split.length; j++)
-					out += split[j].toLowerCase() + " ";
+			for (IntSemanticGroupDependency groupDependency : list) {
+				semanticConcepts.put(groupDependency.getIdentifier(),
+						(AbstractSemanticVertex) groupDependency);
+				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
+			}
+		} else {
+			if (aClass.getSuperclass().equals(AbstractSemanticVertex.class)) {
+				semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
+				Collection<AbstractSemanticVertex> list = semanticSyntaxObject
+						.getSemanticConcepts().values();
+
+				List<AbstractSemanticVertex> list2 = new ArrayList<AbstractSemanticVertex>();
+
+				for (AbstractSemanticVertex concept : list) {
+					if (aClass.isInstance(concept))
+						list2.add(concept);
+				}
+
+				for (AbstractSemanticVertex concept : list2) {
+					semanticConcepts.put(concept.getIdentifier(), concept);
+					String patternString = "([_])";
+					Pattern p = Pattern.compile(patternString);
+
+					String[] split = p.split(concept.getIdentifier());
+					String out = split[0] + " ";
+					for (int j = 1; j < split.length; j++)
+						out += split[j].toLowerCase() + " ";
+					txtValue.addItem(out);
+				}
+			}
+
+			if (aClass.equals(InstConcept.class)) {
+				concepts = new HashMap<String, InstConcept>();
+				List<InstConcept> list = getInstConcepts(v.getAttribute()
+						.getObject(), graph);
+
+				for (InstConcept concept : list) {
+					concepts.put(concept.getIdentifier(), concept);
+					String patternString = "([_])";
+					Pattern p = Pattern.compile(patternString);
+
+					String[] split = p.split(concept.getInstAttribute("name")
+							.toString());
+					String out = split[0] + " ";
+					for (int j = 1; j < split.length; j++)
+						out += split[j].toLowerCase() + " ";
+					txtValue.addItem(out);
+				}
 			}
 		}
 	}
@@ -105,7 +133,7 @@ public class ClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					MetaElement mc = ic.getMetaConcept();
+					MetaVertex mc = ic.getMetaConcept();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}
@@ -118,18 +146,17 @@ public class ClassWidget extends WidgetR {
 	@Override
 	protected void pushValue(InstAttribute v) {
 		if (v.getObject() != null)
-		txtValue.setSelectedItem((String) ((SemanticGroupDependency)v.getObject()).getIdentifier());
+			txtValue.setSelectedItem((String) ((SemanticGroupDependency) v
+					.getObject()).getIdentifier());
 		if (concepts != null)
 			v.setObject(concepts.get((String) txtValue.getSelectedItem()));
-		if (semanticConcepts != null)
-		{
-			if (txtValue.getSelectedItem() != null)
-			{
-			String s =((String) txtValue.getSelectedItem()).trim();
-			v.setObject(semanticConcepts.get(s));
+		if (semanticConcepts != null) {
+			if (txtValue.getSelectedItem() != null) {
+				String s = ((String) txtValue.getSelectedItem()).trim();
+				v.setObject(semanticConcepts.get(s));
 			}
 		}
-	
+
 		revalidate();
 		repaint();
 	}
@@ -139,12 +166,10 @@ public class ClassWidget extends WidgetR {
 		v.setValue((String) txtValue.getSelectedItem());
 		if (concepts != null)
 			v.setObject(concepts.get((String) txtValue.getSelectedItem()));
-		if (semanticConcepts != null)
-		{
-			if (txtValue.getSelectedItem() != null)
-			{
-			String s  = ((String) txtValue.getSelectedItem()).trim();
-			v.setObject(semanticConcepts.get(s));
+		if (semanticConcepts != null) {
+			if (txtValue.getSelectedItem() != null) {
+				String s = ((String) txtValue.getSelectedItem()).trim();
+				v.setObject(semanticConcepts.get(s));
 			}
 		}
 	}

@@ -9,39 +9,43 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  *
  *         Definition of semantics for REFAS
  */
-public class HardSemanticConcept extends AbstractSemanticConcept {
+public class HardSemanticConcept extends AbstractSemanticVertex {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9024843014882087367L;
+	
+	public static final String VAR_SATISFACTIONTYPE= "satisfactionType",
+			VAR_SATISFACTIONTYPECLASS= "com.variamos.refas.core.types.SatisfactionType";
 
 	public HardSemanticConcept()
 	{
-		putSemanticAttribute("satisfactionType", new SemanticAttribute("satisfactionType","Enumeration","com.variamos.refas.core.types.SatisfactionType","achieve",""));
-		this.addDisPropEditableAttribute("01#"+"satisfactionType");
-	}
+		this (null, null);
+		}
 	
 	public HardSemanticConcept(String name) {
-		super(name, true);
-		putSemanticAttribute("satisfactionType", new SemanticAttribute("satisfactionType","Enumeration","com.variamos.refas.core.types.SatisfactionType","achieve",""));
-		this.addDisPropEditableAttribute("01#"+"satisfactionType");
-	}
+		this(null, name);
+		}
 
-	public HardSemanticConcept(AbstractSemanticConcept parentConcept,
+	public HardSemanticConcept(AbstractSemanticVertex parentConcept,
 			String name) {
 		super(parentConcept, name,  true);
-		putSemanticAttribute("satisfactionType", new SemanticAttribute("satisfactionType","Enumeration","com.variamos.refas.core.types.SatisfactionType","achieve",""));
-		this.addDisPropEditableAttribute("01#"+"satisfactionType");
-		
+		defineSemanticAttributes();
+	}
+	
+	private void defineSemanticAttributes()
+	{
+		putSemanticAttribute(VAR_SATISFACTIONTYPE, new SemanticAttribute(VAR_SATISFACTIONTYPE,"Enumeration",VAR_SATISFACTIONTYPECLASS,"achieve",""));
+		this.addDisPropEditableAttribute("01#"+VAR_SATISFACTIONTYPE);
 	}
 	
 	public AbstractAttribute getSatisfactionType() {
-		return getSemanticAttribute("satisfactionType");
+		return getSemanticAttribute(VAR_SATISFACTIONTYPE);
 	}
 
 	public void setSatisfactionType(SemanticAttribute satisfactionType) {
-		setSemanticAttribute("satisfactionType",satisfactionType);
+		setSemanticAttribute(VAR_SATISFACTIONTYPE,satisfactionType);
 	}
 	
 	public String toString()

@@ -1,6 +1,7 @@
 package com.variamos.gui.refas.editor.actions;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.model.mxCell;
@@ -8,14 +9,18 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticConcept;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
+import com.variamos.syntaxsupport.metametamodel.MetaConcept;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 public class SharedActions {
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
@@ -36,7 +41,7 @@ public class SharedActions {
 								.values().iterator();
 						while (ias.hasNext()) {
 							InstAttribute ia = (InstAttribute) ias.next();
-							ia.clearMetaAttribute();
+							ia.clearModelingAttribute();
 						}
 					}
 					if (value instanceof InstGroupDependency) {
@@ -50,7 +55,7 @@ public class SharedActions {
 								.values().iterator();
 						while (ias.hasNext()) {
 							InstAttribute ia = (InstAttribute) ias.next();
-							ia.clearMetaAttribute();
+							ia.clearModelingAttribute();
 						}
 					}
 
@@ -94,7 +99,7 @@ public class SharedActions {
 			Object value) {
 		if (value instanceof InstConcept) {
 			InstConcept ic = (InstConcept) value;
-			MetaElement mc = editor.getSematicSintaxObject().getMetaConcept(
+			MetaConcept mc = (MetaConcept) editor.getSematicSintaxObject().getMetaElement(
 					ic.getMetaConceptIdentifier());
 			ic.setMetaConcept(mc);
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
@@ -106,15 +111,13 @@ public class SharedActions {
 		}
 		if (value instanceof InstGroupDependency) {
 			InstGroupDependency ic = (InstGroupDependency) value;
-			MetaElement mc = editor.getSematicSintaxObject().getMetaConcept(
+			MetaGroupDependency mgd = (MetaGroupDependency) editor.getSematicSintaxObject().getMetaElement(
 					ic.getMetaGroupDependencyIdentifier());
-			AbstractSemanticConcept sgd = editor.getSematicSintaxObject()
-					.getSemanticConcept(
-							(String) ic.getSemanticGroupDependencyIdentifier());
-			ic.setMetaGroupDependency(mc);
+			AbstractSemanticVertex sgd = editor.getSematicSintaxObject()
+					.getSemanticElement(ic.getSemanticGroupDependencyIdentifier());
+			ic.setMetaGroupDependency(mgd);
 			if (sgd != null)
 				ic.setSemanticGroupDependency((SemanticGroupDependency) sgd);
-			Map<String, InstAttribute> tmp = ic.getInstAttributes();
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
 					.iterator();
 			while (ias.hasNext()) {
@@ -122,8 +125,20 @@ public class SharedActions {
 				AbstractAttribute toSet = sgd.getSemanticAttribute(ia
 						.getAttributeName());
 				if (toSet == null)
-					ia.setAttribute(mc.getAbstractAttribute(ia
-							.getAttributeName()));
+					if (ia.getAttributeName().equals(MetaGroupDependency.VAR_SEMANTICGROUPDEPENDENCY))
+					{
+						MetaElement n  = editor.getSematicSintaxObject().getSyntaxElements().get(mgd.getName());
+						AbstractAttribute m = n.getModelingAttribute(InstGroupDependency.VAR_SEMANTICGROUPDEPENDENCY);
+						ia.setAttribute(m);
+						List<IntSemanticGroupDependency> semGD =((MetaGroupDependency)n).getSemanticRelations();
+						ia.setValidationGDList(semGD);
+					}
+					else
+					{
+						AbstractAttribute a = ((InstGroupDependency) value).getAbstractAttribute(ia
+								.getAttributeName());
+					ia.setAttribute(a);
+					}
 				else
 					ia.setAttribute(toSet);
 			}
