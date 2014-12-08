@@ -9,8 +9,10 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
+import com.variamos.refas.core.sematicsmetamodel.SemanticVariable;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
@@ -20,6 +22,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 public class SharedActions {
@@ -106,14 +109,26 @@ public class SharedActions {
 					.iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
+				
+				if (ia.getAttributeName().equals(SemanticVariable.VAR_SCOPECLASS))
+				{
+					MetaElement n  = editor.getSematicSintaxObject().getSyntaxElements().get(ia.getAttributeName());
+					AbstractAttribute m = n.getModelingAttribute(SemanticVariable.VAR_SCOPE);
+					ia.setAttribute(m);
+					List<IntSemanticGroupDependency> semGD =((MetaGroupDependency)n).getSemanticRelations();
+					ia.setValidationGDList(semGD);
+				}
+				else
+				{
 				ia.setAttribute(mc.getAbstractAttribute(ia.getAttributeName()));
+				}
 			}
 		}
 		if (value instanceof InstGroupDependency) {
 			InstGroupDependency ic = (InstGroupDependency) value;
 			MetaGroupDependency mgd = (MetaGroupDependency) editor.getSematicSintaxObject().getMetaElement(
 					ic.getMetaGroupDependencyIdentifier());
-			AbstractSemanticVertex sgd = editor.getSematicSintaxObject()
+			IntSemanticElement sgd = editor.getSematicSintaxObject()
 					.getSemanticElement(ic.getSemanticGroupDependencyIdentifier());
 			ic.setMetaGroupDependency(mgd);
 			if (sgd != null)

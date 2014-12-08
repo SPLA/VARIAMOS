@@ -28,7 +28,7 @@ public class InstConcept extends InstElement {
 	 * 
 	 */
 
-	public static final String VAR_METACONCEPT = "MetaConceptIde";
+	public static final String VAR_METACONCEPTIDE= "MetaConceptIde";
 	// protected Map<String, MetaConcept> vars = new HashMap<>();
 	private MetaConcept metaConcept;
 
@@ -38,7 +38,7 @@ public class InstConcept extends InstElement {
 
 	public InstConcept(MetaConcept metaConcept) {
 		super("");
-		vars.put(VAR_METACONCEPT, metaConcept.getIdentifier());
+		vars.put(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
 		this.metaConcept = metaConcept;
 		createInstAttributes();
 	}
@@ -47,14 +47,14 @@ public class InstConcept extends InstElement {
 			Map<String, InstAttribute> attributes,
 			Map<String, InstEdge> relations) {
 		super(identifier, attributes, relations);
-		vars.put(VAR_METACONCEPT, metaConcept.getIdentifier());
+		vars.put(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
 		this.metaConcept = metaConcept;
 		createInstAttributes();
 	}
 
 	public InstConcept(String identifier, MetaConcept metaConcept) {
 		super(identifier);
-		vars.put(VAR_METACONCEPT, metaConcept.getIdentifier());
+		vars.put(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
 		this.metaConcept = metaConcept;
 		createInstAttributes();
 	}
@@ -132,7 +132,7 @@ public class InstConcept extends InstElement {
 
 	public String getMetaConceptIdentifier() {
 		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METACONCEPT);
+		return (String) vars.get(VAR_METACONCEPTIDE);
 	}
 
 	public String toString() { //TODO move to superclass
@@ -180,11 +180,13 @@ public class InstConcept extends InstElement {
 					if (spacer.indexOf("#" + name + "#") != -1) {
 						nvar= true;
 						int sp1 = spacer.indexOf("#");
-						int var = spacer.indexOf(name);
 						int sp2 = spacer.indexOf("#", sp1+1);
 						
 						out += spacer.substring(0,sp1);
-						out += getInstAttributes().get(name).toString().trim();
+						if (name.equals("name") && getInstAttributes().get(name).toString().trim().equals(""))
+							out+="<<NoName>>";
+						else
+							out += getInstAttributes().get(name).toString().trim();
 						while (sp2 != spacer.length()) {
 							int sp3 = spacer.indexOf("#", sp2+1);
 							if (sp3==-1)
@@ -201,7 +203,10 @@ public class InstConcept extends InstElement {
 
 				}
 				if (!nvar)
-					out += getInstAttributes().get(name);
+					if (name.equals("name") && getInstAttributes().get(name).toString().trim().equals(""))
+						out+="<<NoName>>";
+					else
+						out += getInstAttributes().get(name);
 			}
 		}
 		if (out.equals(""))
@@ -212,12 +217,12 @@ public class InstConcept extends InstElement {
 
 	public void setMetaConcept(MetaVertex metaConcept) {
 		this.metaConcept = (MetaConcept) metaConcept;
-		setVariable(VAR_METACONCEPT, metaConcept.getIdentifier());
+		setVariable(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
 		// createInstAttributes();
 	}
 
 	public void setMetaConceptIdentifier(String metaConceptIdentifier) {
-		setVariable(VAR_METACONCEPT, metaConceptIdentifier);
+		setVariable(VAR_METACONCEPTIDE, metaConceptIdentifier);
 		// createInstAttributes();
 	}
 

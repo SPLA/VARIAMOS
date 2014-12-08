@@ -1,6 +1,5 @@
 package com.variamos.refas.core.staticconcepts;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +9,7 @@ import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.util.mxResources;
+import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
@@ -122,7 +122,7 @@ public class Refas extends AbstractModel {
 
 		int id = 1;
 		String classId = null;
-		classId = element.getMetaEdgeIdentifier();
+		classId = MetaEdge.getClassId();
 		
 		while (instDirectRelations.containsKey(classId + id)) {
 			id++;

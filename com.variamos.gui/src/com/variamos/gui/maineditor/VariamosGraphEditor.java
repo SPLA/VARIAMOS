@@ -3,9 +3,6 @@ package com.variamos.gui.maineditor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
@@ -14,7 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -53,8 +52,8 @@ import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.VariabilityAttributeList;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
+import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
@@ -62,10 +61,10 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
+import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
@@ -73,7 +72,7 @@ import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 import com.variamos.syntaxsupport.type.DomainRegister;
 
@@ -176,9 +175,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								
 						        if (metaViews.get(i).getChildViews().size() > 0)
 						        {
-						        	if (false) //TODO validate the name of the button with the tab, if true, identify the subview 
-						        		editor.setVisibleModel(i ,0);
-						        	else
+						        	//if (false) //TODO validate the name of the button with the tab, if true, identify the subview 
+						        		//editor.setVisibleModel(i ,0);
+						        	//else
 						        		editor.setVisibleModel(i ,0);
 						        	editor.updateView();
 						        	center.setDividerLocation(60);
@@ -416,7 +415,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				}
 
 				if (cell.getValue() instanceof EditableElement) {
-					EditableElement elm = (EditableElement) cell.getValue();
+				EditableElement elm = (EditableElement) cell.getValue();
 					editPropertiesE(elm);
 					getGraphComponent().scrollCellToVisible(cell, true);
 				}
@@ -685,26 +684,41 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			if (elm instanceof InstEdge)
 			{
-				if(v.getEnumType()!= null && v.getEnumType().equals(MetaEdge.VAR_SEMANTICDIRECTRELATIONCLASS))
+				if(v.getEnumType()!= null && v.getEnumType().equals(MetaEdge.VAR_DIRECTSEMANTICEDGECLASS))
 				{
 					InstEdge groupdep = (InstEdge) elm;
-				List<IntSemanticDirectRelation> metaGD = groupdep.getMetaEdge().getSemanticRelations();
+				List<IntDirectSemanticEdge> metaGD = groupdep.getMetaEdge().getSemanticRelations();
 				v.setValidationDRList(metaGD);
 				}
+				if(v.getEnumType()!= null && v.getEnumType().equals(InstEdge.VAR_METAEDGECLASS))
+				{
+				Map<String, MetaElement> mapElements= VariamosGraphEditor.sematicSyntaxObject.getSyntaxElements();
+				Iterator<String> elementNames = mapElements.keySet().iterator();
+				List<MetaEdge> metaGD = new ArrayList<MetaEdge>();
+				while (elementNames.hasNext())
+				{
+					String elementName = elementNames.next();
+					if (mapElements.get(elementName) instanceof MetaEdge) //TODO also validate origin and destination relation
+						metaGD.add((MetaEdge)mapElements.get(elementName));
+				}
+				v.setValidationMEList(metaGD);
+				}
 			}
+			
 			final WidgetR w = factory.getWidgetFor(v);
 			if (w == null)
 				// Check the problem and/or raise an exception
 				return;
 
 			// TODO: Add listeners to w.
+			
 			w.getEditor().addFocusListener(new FocusListener() {
 				@Override
 				public void focusLost(FocusEvent arg0) {
 					// Makes it pull the values.
 					InstAttribute v = w.getInstAttribute();
 					if (v.getModelingAttributeType().equals("String"))
-						v.setValue(AbstractElement.multiLine(v.toString(), 15));
+						v.setValue(AbstractElement.multiLine(v.toString(), 15)); //Divide lines every 15 characters (aprox.)
 					System.out.println("Focus Lost: " + v.hashCode() + " val: "
 							+ v.getDisplayValue());
 					onVariableEdited(elm);
@@ -712,7 +726,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 				@Override
 				public void focusGained(FocusEvent arg0) {
-
 				}
 			});
 

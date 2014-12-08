@@ -16,18 +16,20 @@ import javax.swing.ScrollPaneConstants;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.type.MClassType;
 
 @SuppressWarnings("serial")
 public class MClassWidget extends WidgetR {
 
 	private JList<String> txtValue;
-	private Map<String,AbstractSemanticVertex> semanticConcepts;
+	private Map<String,IntSemanticElement> semanticConcepts;
 	private Map<String,InstConcept> concepts;
 	public MClassWidget() {
 		super();
@@ -49,20 +51,20 @@ public class MClassWidget extends WidgetR {
 			e.printStackTrace();
 		}
 		String[] out = null;
-		if (aClass.getSuperclass().equals(AbstractSemanticVertex.class)) {
-			semanticConcepts = new HashMap<String,AbstractSemanticVertex>();
-			Collection<AbstractSemanticVertex> list = semanticSyntaxObject
+		if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+			semanticConcepts = new HashMap<String,IntSemanticElement>();
+			Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
 
-			List<AbstractSemanticVertex> list2 = new ArrayList<AbstractSemanticVertex>();
+			List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
 
-			for (AbstractSemanticVertex concept : list) {
+			for (IntSemanticElement concept : list) {
 				if (aClass.isInstance(concept))
 					list2.add(concept);
 			}
 			out = new String[list2.size()];
 			int i = 0;
-			for (AbstractSemanticVertex concept : list2) {
+			for (IntSemanticElement concept : list2) {
 				semanticConcepts.put(concept.getIdentifier(),concept);
 				String str = concept.getIdentifier();
 				out[i++] = str.toString();

@@ -76,9 +76,9 @@ public class SemanticGroupDependency extends AbstractSemanticVertex implements
 				VAR_CARDINALITYTYPE, "Enumeration",VAR_CARDINALITYTYPECLASS 
 				, "mandatory","")); 
 		putSemanticAttribute(VAR_LOWCARDINALITY, new SemanticAttribute(
-				"Low Cardinality", "Integer", 1,""));
+				VAR_LOWCARDINALITY, "Integer", 1,""));
 		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(
-				"High Cardinality", "Integer", 1,""));
+				VAR_HIGHCARDINALITY, "Integer", 1,""));
 
 		addDisPropEditableAttribute("06#"+VAR_CARDINALITYTYPE);
 		addDisPropEditableAttribute("09#"+VAR_LOWCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");

@@ -13,12 +13,14 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  *
  *         Definition of semantics for REFAS
  */
-public abstract class AbstractSemanticEdge implements Serializable {
+public abstract class AbstractSemanticEdge extends AbstractSemanticElement {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8651835673666769706L;
+	public static final String VAR_LEVEL = "Level",
+								VAR_LEVELCLASS = "com.variamos.refas.core.types.LevelType";
 	private boolean toSoftSemanticConcept;
 	private SemanticAttribute satisficingType;
 	private SemanticAttribute level;
@@ -26,21 +28,22 @@ public abstract class AbstractSemanticEdge implements Serializable {
 	private List<AbstractSemanticVertex> alwaysAllows;
 	
 	public AbstractSemanticEdge() {
-		this(false, new ArrayList<AbstractSemanticVertex>(),
+		this("",false, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 	}	
 
-	public AbstractSemanticEdge(boolean toSoftSemanticConcept, List<AbstractSemanticVertex> conflicts) {
-		this(toSoftSemanticConcept, conflicts, new ArrayList<AbstractSemanticVertex>());
+	public AbstractSemanticEdge(String identifier, boolean toSoftSemanticConcept, List<AbstractSemanticVertex> conflicts) {
+		this(identifier, toSoftSemanticConcept, conflicts, new ArrayList<AbstractSemanticVertex>());
 	}
 	
-	public AbstractSemanticEdge( boolean toSoftSemanticConcept) {
-		this(toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
+	public AbstractSemanticEdge(String identifier, boolean toSoftSemanticConcept) {
+		this(identifier, toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 			}
 
-	public AbstractSemanticEdge(boolean toSoftSemanticConcept ,List<AbstractSemanticVertex> conflicts,
+	public AbstractSemanticEdge(String identifier, boolean toSoftSemanticConcept ,List<AbstractSemanticVertex> conflicts,
 			List<AbstractSemanticVertex> alwaysAllows) {
+		super(identifier);
 		if 	(toSoftSemanticConcept)
 		{
 			this.satisficingType = new SemanticAttribute("satisficingType","Enumeration", "com.variamos.refas.core.sematicsmetamodel.SatisficingType","","Type of satisficing");

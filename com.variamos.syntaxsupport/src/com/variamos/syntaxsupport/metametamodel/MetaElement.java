@@ -1,6 +1,8 @@
 	package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,20 @@ public class MetaElement implements Serializable{
 	private Map<String, AbstractAttribute> modelingAttributes;
 	
 	public MetaElement()
-	{}
+	{
+		this.modelingAttributes.put("identifier", new ModelingAttribute("identifier",
+				"String", null));
+	}
+	
+	public MetaElement(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke)
+	
+	{
+		this(identifier, visible, name, style, width, height, image, borderStroke,
+				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
+				new HashMap<String, AbstractAttribute>());
+	}
 	
 	public MetaElement(String identifier, boolean visible, String name, String style, int width,
 			int height, String image, int borderStroke,

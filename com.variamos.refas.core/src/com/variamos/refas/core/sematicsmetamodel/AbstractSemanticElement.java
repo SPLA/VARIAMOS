@@ -33,6 +33,12 @@ public class AbstractSemanticElement implements Serializable{
 	private Map<String, SimulationAttribute> simulationAttributes = new HashMap<String, SimulationAttribute>();
 
 	
+	public AbstractSemanticElement(	String identifier)
+	{
+		this(null, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
+
+	}
+	
 	public AbstractSemanticElement(AbstractSemanticVertex parentConcept,
 			String identifier,
 			List<String> disPropVisibleAttributes,

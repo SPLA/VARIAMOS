@@ -95,7 +95,6 @@ public class RefasGraph extends AbstractGraph {
 														// first child
 				for (int j = 0; j < metaView.getChildViews().size(); j++) {
 					addCell(new mxCell("mv" + i + "-" + j), parent);
-					MetaView metaChildView = metaView.getChildViews().get(j);
 				}
 			}
 		}
@@ -188,14 +187,14 @@ public class RefasGraph extends AbstractGraph {
 
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 
-		Object cellValue = cell.getValue();
 		String id = null;
-		String elementIdentifier = null;
 		InstEdge directRelation = new InstEdge();
 		Refas refas = getRefas();
 
 		id = refas.addDirectRelation(directRelation);
 		cell.setValue(directRelation);
+		directRelation.setFromRelation((InstElement)cell.getSource().getValue());
+		directRelation.setToRelation((InstElement)cell.getTarget().getValue());
 
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		/*
@@ -238,7 +237,6 @@ public class RefasGraph extends AbstractGraph {
 			}
 
 			else {
-				Constraint constraint = (Constraint) cellValue;
 				elementIdentifier = ((Constraint) cellValue).getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
@@ -605,7 +603,7 @@ public class RefasGraph extends AbstractGraph {
 		else
 			pl = refas;
 		// Object[] vertices = getChildVertices(getDefaultParent());
-		Object[] vertices = mxGraphModel.getChildCells(getModel(),
+	/*	Object[] vertices = mxGraphModel.getChildCells(getModel(),
 				getDefaultParent(), true, false);
 
 		for (Object obj : vertices) {
@@ -623,12 +621,12 @@ public class RefasGraph extends AbstractGraph {
 					}
 				}
 
-			}
+			}*/
 			/*
 			 * if (value instanceof Constraint) { Constraint c = (Constraint)
 			 * value; pl.addConstraint(c); }
 			 */
-		}
+		
 
 		// Add the assets to the PLModel only after the VPs are in it
 		/*
@@ -678,7 +676,7 @@ public class RefasGraph extends AbstractGraph {
 		// pl.printDebug(System.out);
 	}
 
-	private void buildConstraint(AbstractModel pl, Constraint c) {
+//	private void buildConstraint(AbstractModel pl, Constraint c) {
 		/*
 		 * TODO constraints of the new language if( c instanceof
 		 * OptionalConstraint ){ OptionalConstraint oc = (OptionalConstraint)c;
@@ -714,7 +712,7 @@ public class RefasGraph extends AbstractGraph {
 		 * if( c instanceof GenericConstraint ){ insertVertex(null,
 		 * c.getIdentifier(), c, 0, 0, 80, 40, "plcons"); }
 		 */
-	}
+//	}
 
 	public mxCell getCellById(String id) {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);

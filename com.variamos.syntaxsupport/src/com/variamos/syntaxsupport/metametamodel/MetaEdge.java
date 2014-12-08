@@ -2,10 +2,13 @@ package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -18,7 +21,10 @@ public class MetaEdge extends MetaElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -2665541567934067387L;
-	private String identifier;
+	private MetaVertex origin;
+	private MetaVertex destination;
+	private List<IntDirectSemanticEdge> semanticRelations;
+	private List<IntDirectEdgeType> semanticTypes;
 	private int iniLowCardinality;
 	private int iniHighCardinality;
 	private int endLowCardinality;
@@ -27,61 +33,72 @@ public class MetaEdge extends MetaElement {
 	private String endDescription;
 	private boolean arrowDirection;
 	private TypeOfLine typeOfLine;
-	private MetaVertex origin;
-	private MetaVertex destination;
-	private List<IntSemanticDirectRelation> semanticRelations;
-	private List<IntDirectRelationType> semanticTypes;
-	private SemanticAttribute semanticRelation;
-	public static final String VAR_SEMANTICDIRECTRELATIONCLASS = "com.variamos.refas.core.sematicsmetamodel.SemanticDirectRelation",
+	public static final String VAR_DIRECTSEMANTICEDGECLASS = "com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge",
 			VAR_SEMANTICDIRECTRELATION = "semanticRelation";
 
-	public void setSemanticRelation(
-			List<IntSemanticDirectRelation> semanticRelations) {
+	public void setSemanticRelation(String identifier,
+			List<IntDirectSemanticEdge> semanticRelations) {
 		this.semanticRelations = semanticRelations;
+		
 	}
 
 	public MetaEdge() {
-		this.iniLowCardinality = 1;
-		this.iniHighCardinality = 1;
-		this.endLowCardinality = 1;
-		this.endHighCardinality = 1;
-		this.iniDescription = "";
-		this.endDescription = "";
-		this.arrowDirection = false;
-		this.typeOfLine = TypeOfLine.solid;
-		semanticTypes = new ArrayList<IntDirectRelationType>();
-		semanticRelation = new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
-				"Class", VAR_SEMANTICDIRECTRELATIONCLASS, null, "");
+		addModelingAttribute(VAR_SEMANTICDIRECTRELATION,new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
+				"Class", VAR_DIRECTSEMANTICEDGECLASS, null, ""));
+		this.addDisPropEditableAttribute("03#"+VAR_SEMANTICDIRECTRELATION);
+
 	}
 
-	public MetaEdge(
-			List<IntSemanticDirectRelation> semanticRelations,
+	public MetaEdge(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke,
 			MetaVertex origin, MetaVertex destination) {
-		this(origin, destination);
-		this.semanticRelations = semanticRelations;
-		semanticTypes = new ArrayList<IntDirectRelationType>();
-		semanticRelation = new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
-				"Class", VAR_SEMANTICDIRECTRELATIONCLASS, null, "");
+		this(identifier, visible, name, style, width,
+				height, image, borderStroke,
+				origin, destination,
+				new ArrayList<IntDirectSemanticEdge>(),
+				new ArrayList<IntDirectEdgeType>(), 1, 1, 1, 1, "", "", false,
+				TypeOfLine.solid);
 	}
 
-	public MetaEdge(MetaVertex origin, MetaVertex destination) {
-		this.iniLowCardinality = 1;
-		this.iniHighCardinality = 1;
-		this.endLowCardinality = 1;
-		this.endHighCardinality = 1;
-		this.iniDescription = "";
-		this.endDescription = "";
-		this.arrowDirection = false;
-		this.typeOfLine = TypeOfLine.solid;
+	public MetaEdge(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke,
+			MetaVertex origin,
+			MetaVertex destination,
+			List<IntDirectSemanticEdge> directSemanticEdges) {
+		this(identifier, visible, name, style, width,
+				height, image, borderStroke,
+				 origin, destination, directSemanticEdges,
+				new ArrayList<IntDirectEdgeType>(), 1, 1, 1, 1, "", "", false,
+				TypeOfLine.solid);
+	}
+
+	public MetaEdge(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke,
+			MetaVertex origin,
+			MetaVertex destination,
+			List<IntDirectSemanticEdge> directSemanticEdges,
+			List<IntDirectEdgeType> directEdgeTypes) {
+		this(identifier, visible, name, style, width,
+				height, image, borderStroke,
+				  origin, destination, directSemanticEdges,
+				directEdgeTypes, 1, 1, 1, 1, "", "", false, TypeOfLine.solid);
+	}
+
+	public MetaEdge(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke,			
+			MetaVertex origin,
+			MetaVertex destination,
+			List<IntDirectSemanticEdge> semanticRelations,
+			List<IntDirectEdgeType> semanticTypes, int iniLowCardinality,
+			int iniHighCardinality, int endLowCardinality,
+			int endHighCardinality, String iniDescription,
+			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
+		super( identifier, visible, name, style, width,
+				height, image, borderStroke);
 		this.origin = origin;
 		this.destination = destination;
-	}
-
-	public MetaEdge(int iniLowCardinality, int iniHighCardinality,
-			int endLowCardinality, int endHighCardinality,
-			String iniDescription, String endDescription,
-			boolean arrowDirection, TypeOfLine typeOfLine, MetaVertex origin,
-			MetaVertex destination) {
+		this.semanticRelations = semanticRelations;
+		this.semanticTypes = semanticTypes;
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
 		this.endLowCardinality = endLowCardinality;
@@ -90,8 +107,47 @@ public class MetaEdge extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
+		addModelingAttribute(VAR_SEMANTICDIRECTRELATION, new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
+				"Class", VAR_DIRECTSEMANTICEDGECLASS, null, ""));
+		this.addDisPropEditableAttribute("03#"+VAR_SEMANTICDIRECTRELATION);
+	}
+	
+	public MetaEdge(String identifier, boolean visible, String name, String style, int width,
+			int height, String image, int borderStroke,
+			List<String> disPropVisibleAttributes,
+			List<String> disPropEditableAttributes,
+			List<String> disPanelVisibleAttributes,
+			List<String> disPanelSpacersAttributes,
+			Map<String, AbstractAttribute> modelingAttributes,
+			MetaVertex origin,
+			MetaVertex destination,
+			List<IntDirectSemanticEdge> semanticRelations,
+			List<IntDirectEdgeType> semanticTypes, int iniLowCardinality,
+			int iniHighCardinality, int endLowCardinality,
+			int endHighCardinality, String iniDescription,
+			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
+		super( identifier, visible, name, style, width,
+				height, image, borderStroke,
+				disPropVisibleAttributes,
+				 disPropEditableAttributes,
+			disPanelVisibleAttributes,
+				 disPanelSpacersAttributes,
+				  modelingAttributes);
 		this.origin = origin;
 		this.destination = destination;
+		this.semanticRelations = semanticRelations;
+		this.semanticTypes = semanticTypes;
+		this.iniLowCardinality = iniLowCardinality;
+		this.iniHighCardinality = iniHighCardinality;
+		this.endLowCardinality = endLowCardinality;
+		this.endHighCardinality = endHighCardinality;
+		this.iniDescription = iniDescription;
+		this.endDescription = endDescription;
+		this.arrowDirection = arrowDirection;
+		this.typeOfLine = typeOfLine;
+		addModelingAttribute(VAR_SEMANTICDIRECTRELATION, new SemanticAttribute(VAR_SEMANTICDIRECTRELATION,
+				"Class", VAR_DIRECTSEMANTICEDGECLASS, null, ""));
+		this.addDisPropEditableAttribute("03#"+VAR_SEMANTICDIRECTRELATION);
 	}
 
 	public void setOrigin(MetaVertex origin) {
@@ -108,14 +164,6 @@ public class MetaEdge extends MetaElement {
 
 	public MetaVertex getDestination() {
 		return destination;
-	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
 	}
 
 	public void setIniLowCardinality(int iniLowCardinality) {
@@ -188,24 +236,28 @@ public class MetaEdge extends MetaElement {
 	}
 
 	public SemanticAttribute getSemanticRelation() {
-		return semanticRelation;
+		return (SemanticAttribute)getModelingAttribute(VAR_SEMANTICDIRECTRELATION);
 	}
 
-	public List<IntDirectRelationType> getSemanticTypes() {
+	public List<IntDirectEdgeType> getSemanticTypes() {
 		return semanticTypes;
 	}
 
-	public void setSemanticTypes(List<IntDirectRelationType> semanticTypes) {
+	public void setSemanticTypes(List<IntDirectEdgeType> semanticTypes) {
 		this.semanticTypes = semanticTypes;
 	}
 
-	public boolean addSemanticType(IntDirectRelationType semanticType) {
+	public boolean addSemanticType(IntDirectEdgeType semanticType) {
 		this.semanticTypes.add(semanticType);
 		return true;
 	}
 
-	public List<IntSemanticDirectRelation> getSemanticRelations() {
+	public List<IntDirectSemanticEdge> getSemanticRelations() {
 		return semanticRelations;
+	}
+
+	public static String getClassId() {
+		return "E";
 	}
 
 }

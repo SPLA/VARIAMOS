@@ -14,13 +14,17 @@ import javax.swing.JComponent;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.MetaEdge;
+import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 import com.variamos.syntaxsupport.type.ClassType;
 
@@ -28,7 +32,8 @@ import com.variamos.syntaxsupport.type.ClassType;
 public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
-	private Map<String, AbstractSemanticVertex> semanticConcepts;
+	private Map<String, IntSemanticElement> semanticConcepts;
+	private Map<String, MetaElement> syntaxElements;
 	private Map<String, InstConcept> concepts;
 
 	public ClassWidget() {
@@ -54,18 +59,28 @@ public class ClassWidget extends WidgetR {
 			e.printStackTrace();
 		}
 		if (v.getValidationDRList() != null) {
-			semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
-			List<IntSemanticDirectRelation> list = v.getValidationDRList();
+			semanticConcepts = new HashMap<String, IntSemanticElement>();
+			List<IntDirectSemanticEdge> list = v.getValidationDRList();
 
-			for (IntSemanticDirectRelation groupDependency : list) {
-				semanticConcepts.put(groupDependency.getIdentifier(),
-						(AbstractSemanticVertex) groupDependency);
+			for (IntDirectSemanticEdge groupDependency : list) {
+				semanticConcepts.put(groupDependency.getIdentifier(), groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 			}
 		} else 
+			if (v.getValidationMEList() != null) {
+				syntaxElements = new HashMap<String, MetaElement>();
+				List<MetaEdge> list = v.getValidationMEList();
+
+				for (MetaEdge groupDependency : list) {
+					syntaxElements.put(groupDependency.getIdentifier(),
+							(MetaEdge) groupDependency);
+					String out = groupDependency.getIdentifier();
+					txtValue.addItem(out);
+				}
+			} else
 		if (v.getValidationGDList() != null) {
-			semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
+			semanticConcepts = new HashMap<String, IntSemanticElement>();
 			List<IntSemanticGroupDependency> list = v.getValidationGDList();
 
 			for (IntSemanticGroupDependency groupDependency : list) {
@@ -75,19 +90,19 @@ public class ClassWidget extends WidgetR {
 				txtValue.addItem(out);
 			}
 		} else {
-			if (aClass.getSuperclass().equals(AbstractSemanticVertex.class)) {
-				semanticConcepts = new HashMap<String, AbstractSemanticVertex>();
-				Collection<AbstractSemanticVertex> list = semanticSyntaxObject
+			if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+				semanticConcepts = new HashMap<String, IntSemanticElement>();
+				Collection<IntSemanticElement> list = semanticSyntaxObject
 						.getSemanticConcepts().values();
 
-				List<AbstractSemanticVertex> list2 = new ArrayList<AbstractSemanticVertex>();
+				List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
 
-				for (AbstractSemanticVertex concept : list) {
+				for (IntSemanticElement concept : list) {
 					if (aClass.isInstance(concept))
 						list2.add(concept);
 				}
 
-				for (AbstractSemanticVertex concept : list2) {
+				for (IntSemanticElement concept : list2) {
 					semanticConcepts.put(concept.getIdentifier(), concept);
 					String patternString = "([_])";
 					Pattern p = Pattern.compile(patternString);
@@ -146,8 +161,15 @@ public class ClassWidget extends WidgetR {
 	@Override
 	protected void pushValue(InstAttribute v) {
 		if (v.getObject() != null)
+		{
+			if (v.getObject() instanceof SemanticGroupDependency)
 			txtValue.setSelectedItem((String) ((SemanticGroupDependency) v
 					.getObject()).getIdentifier());
+			else
+				if (v.getObject() instanceof MetaEdge)
+					txtValue.setSelectedItem((String) ((MetaEdge) v
+							.getObject()).getIdentifier());
+		}
 		if (concepts != null)
 			v.setObject(concepts.get((String) txtValue.getSelectedItem()));
 		if (semanticConcepts != null) {
@@ -156,7 +178,13 @@ public class ClassWidget extends WidgetR {
 				v.setObject(semanticConcepts.get(s));
 			}
 		}
-
+		if (syntaxElements != null) {
+			if (txtValue.getSelectedItem() != null) {
+				String s = ((String) txtValue.getSelectedItem()).trim();
+				v.setObject(syntaxElements.get(s));
+			}
+		}
+		
 		revalidate();
 		repaint();
 	}
@@ -170,6 +198,12 @@ public class ClassWidget extends WidgetR {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				v.setObject(semanticConcepts.get(s));
+			}
+		}
+		if (syntaxElements != null) {
+			if (txtValue.getSelectedItem() != null) {
+				String s = ((String) txtValue.getSelectedItem()).trim();
+				v.setObject(syntaxElements.get(s));
 			}
 		}
 	}

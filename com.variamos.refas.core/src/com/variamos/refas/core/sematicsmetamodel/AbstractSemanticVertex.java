@@ -43,9 +43,13 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 		this(parentConcept, name, satisfactionType, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>());
-		groupRelations.addAll(parentConcept.getgroupRelations());
-		directRelations.addAll(parentConcept.getDirectRelations());
-	}
+		if (getParent() != null) {
+			groupRelations.addAll(parentConcept.getgroupRelations());
+			directRelations.addAll(parentConcept.getDirectRelations());
+		} else {
+			groupRelations = new ArrayList<IncomingSemanticEdge>();
+			directRelations = new ArrayList<DirectSemanticEdge>();
+		}	}
 
 	public AbstractSemanticVertex(String name, boolean satisfactionType) {
 		this(null, name, satisfactionType, new ArrayList<String>(),

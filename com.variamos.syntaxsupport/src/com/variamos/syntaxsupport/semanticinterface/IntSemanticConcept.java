@@ -14,7 +14,7 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  *
  * Definition of syntax for VariaMos
  */
-public interface IntSemanticConcept extends Serializable {
+public interface IntSemanticConcept extends IntSemanticElement{
 	public Set<String> getSemanticAttributes();
 	public Set<String> getSimulationAttributes();
 	public List<String> getDisPropVisibleAttributes();

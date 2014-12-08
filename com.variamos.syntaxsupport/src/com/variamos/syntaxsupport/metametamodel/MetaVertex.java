@@ -1,14 +1,9 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -25,8 +20,8 @@ public class MetaVertex extends MetaElement {
 	private boolean topConcept;
 	private String backgroundColor;
 	private boolean resizable;
-	private List<MetaEdge> asOriginRelations;
-	private List<MetaEdge> asDestinationRelations;
+	private List<MetaEdge> asOriginEdges;
+	private List<MetaEdge> asDestinationEdges;
 
 
 	public void setTopConcept(boolean topConcept) {
@@ -42,8 +37,13 @@ public class MetaVertex extends MetaElement {
 		this.resizable = resizable;
 	}
 
-	public void setAsOriginRelations(List<MetaEdge> asOriginRelations) {
-		this.asOriginRelations = asOriginRelations;
+	public void setAsOriginEdge(List<MetaEdge> asOriginEdge) {
+		this.asOriginEdges = asOriginEdge;
+	}
+	
+
+	public void setAsDestinationEdge(List<MetaEdge> asDestinationEdge) {
+		this.asDestinationEdges = asDestinationEdge;
 	}
 
 	public MetaVertex() {
@@ -98,12 +98,12 @@ public class MetaVertex extends MetaElement {
 		this.backgroundColor = backgroundColor;
 		this.topConcept = topConcept;
 		this.resizable = resizable;
-		this.asOriginRelations = asOriginRelations;
-		this.asDestinationRelations = asDestinationRelations;
+		this.asOriginEdges = asOriginRelations;
+		this.asDestinationEdges = asDestinationRelations;
 	}
 
 	public List<MetaEdge> getAsOriginRelations() {
-		return asOriginRelations;
+		return asOriginEdges;
 	}
 
 	public boolean isTopConcept() {
@@ -124,11 +124,16 @@ public class MetaVertex extends MetaElement {
 	}
 
 
-	public MetaEdge addAssociationAsOriginRelations(
-			IntSemanticDirectRelation directRelation, MetaConcept destination) {
-		MetaEdge metaAssociation = new MetaEdge(this, destination);
-		asOriginRelations.add(metaAssociation);
-		return metaAssociation;
+
+	public void addMetaEdgeAsOrigin(MetaConcept metaConcept,MetaEdge metaEdge) {
+		metaConcept.addMetaEdgeAsDestination(metaEdge);
+		asOriginEdges.add(metaEdge);
+		
+	}
+	
+	public void addMetaEdgeAsDestination(MetaEdge metaEdge) {
+		asDestinationEdges.add(metaEdge);
+		
 	}
 
 	public AbstractAttribute getAbstractAttribute(String attributeName) {

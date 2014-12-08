@@ -1,6 +1,5 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris

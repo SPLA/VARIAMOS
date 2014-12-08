@@ -1,14 +1,13 @@
 package com.variamos.syntaxsupport.metamodel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaEdge;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 /**
@@ -27,7 +26,8 @@ public class InstAttribute implements Serializable {
 								VAR_VALUE = "Value",
 								VAR_DISPLAYVALUE = "DispValue", //For JList with indexes for VAR_VALUE (MClass and MEnumeration)
 								VAR_VALIDATIONGROUPDEPLIST = "ValidGDList", //Initially for List IntSemanticGroupDependency
-								VAR_VALIDATIONDIRECTRELLIST = "ValidDRList"; //Initially for List IntSemanticDirectRelation
+								VAR_VALIDATIONDIRECTRELLIST = "ValidDRList", //Initially for List IntSemanticDirectRelation
+								VAR_VALIDATIONMETAEDGELIST = "ValidMEList";
 	protected Map<String, Object> vars = new HashMap<>();
 	private Object object;
 	
@@ -89,6 +89,16 @@ public class InstAttribute implements Serializable {
 		//this.identifier = identifier;
 		setVariable(VAR_VALIDATIONGROUPDEPLIST, semGD);
 	}
+	public void setValidationMEList(List<MetaEdge> metaEdge) {
+		//this.identifier = identifier;
+		setVariable(VAR_VALIDATIONMETAEDGELIST, metaEdge);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<MetaEdge>  getValidationMEList() {
+		return (List<MetaEdge> )getVariable(VAR_VALIDATIONMETAEDGELIST);
+		//return identifier;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticGroupDependency>  getValidationGDList() {
@@ -96,14 +106,14 @@ public class InstAttribute implements Serializable {
 		//return identifier;
 	}
 	
-	public void setValidationDRList(List<IntSemanticDirectRelation> semGD) {
+	public void setValidationDRList(List<IntDirectSemanticEdge> semGD) {
 		//this.identifier = identifier;
 		setVariable(VAR_VALIDATIONDIRECTRELLIST, semGD);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<IntSemanticDirectRelation>  getValidationDRList() {
-		return (List<IntSemanticDirectRelation> )getVariable(VAR_VALIDATIONDIRECTRELLIST);
+	public List<IntDirectSemanticEdge>  getValidationDRList() {
+		return (List<IntDirectSemanticEdge> )getVariable(VAR_VALIDATIONDIRECTRELLIST);
 		//return identifier;
 	}
 
@@ -228,6 +238,7 @@ public class InstAttribute implements Serializable {
 		object = null;
 		setVariable(VAR_VALIDATIONGROUPDEPLIST, null);
 		setVariable(VAR_VALIDATIONDIRECTRELLIST, null);
+		setVariable(VAR_VALIDATIONMETAEDGELIST, null);
 	}
 
 

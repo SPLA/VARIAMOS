@@ -3,10 +3,8 @@ package com.variamos.refas.core.sematicsmetamodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.refas.core.types.DirectRelationType;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -15,62 +13,68 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticDirectRelation;
  *         Definition of semantics for REFAS
  */
 public class DirectSemanticEdge extends AbstractSemanticEdge implements
-		IntSemanticDirectRelation {
+		IntDirectSemanticEdge { 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7976788205587295216L;
-	private String identifier;
 	private boolean exclusive;
-	private List<IntDirectRelationType> semanticRelationTypes;
+	private List<IntDirectEdgeType> semanticRelationTypes;
+	private List<AbstractSemanticVertex> directSemanticEdges;
 
-	public DirectSemanticEdge() {
+	public DirectSemanticEdge() { 
 		super();
 	}
 
-	public DirectSemanticEdge(Boolean toSoftSemanticRelation,
-			String identifier, boolean exclusive,
-			List<IntDirectRelationType> semanticRelationTypes) {
-		super(toSoftSemanticRelation);
-		this.identifier = identifier;
-		this.exclusive = exclusive;
-		this.semanticRelationTypes = semanticRelationTypes;
+	public DirectSemanticEdge(String identifier, Boolean toSoftSemanticConcept,
+			boolean exclusive, List<IntDirectEdgeType> semanticRelationTypes) {
+		this(identifier, toSoftSemanticConcept,
+				new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>(), exclusive,
+				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
 	}
 
-	public DirectSemanticEdge(String identifier, boolean exclusive,
-			List<IntDirectRelationType> semanticRelationTypes) {
-		super(false);
-		this.identifier = identifier;
-		this.exclusive = exclusive;
-		this.semanticRelationTypes = semanticRelationTypes;
+	public DirectSemanticEdge(String identifier, boolean toSoftSemanticConcept,
+			boolean exclusive, List<IntDirectEdgeType> semanticRelationTypes) {
+		this(identifier, toSoftSemanticConcept,
+				new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>(), exclusive,
+				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
 	}
-	
-	public DirectSemanticEdge(String identifier, boolean exclusive,
-			List<IntDirectRelationType> semanticRelationTypes,
-			boolean toSoftSemanticConcept,
+
+	public DirectSemanticEdge(String identifier, boolean toSoftSemanticConcept,
+			List<AbstractSemanticVertex> conflicts, boolean exclusive,
+			List<IntDirectEdgeType> semanticRelationTypes) {
+		this(identifier, toSoftSemanticConcept, conflicts,
+				new ArrayList<AbstractSemanticVertex>(), exclusive,
+				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
+	}
+
+	public DirectSemanticEdge(String identifier, boolean toSoftSemanticConcept,
+			boolean exclusive,
+			List<AbstractSemanticVertex> semanticRelationEdges,
+			List<IntDirectEdgeType> semanticRelationTypes) {
+		this(identifier, toSoftSemanticConcept,
+				new ArrayList<AbstractSemanticVertex>(),
+				new ArrayList<AbstractSemanticVertex>(), exclusive,
+				semanticRelationEdges, semanticRelationTypes);
+	}
+
+	public DirectSemanticEdge(String identifier, boolean toSoftSemanticConcept,
 			List<AbstractSemanticVertex> conflicts,
-			List<AbstractSemanticVertex> alwaysAllows) {
-		super(toSoftSemanticConcept, conflicts, alwaysAllows);
-		this.identifier = identifier;
+			List<AbstractSemanticVertex> alwaysAllows, boolean exclusive,
+			List<AbstractSemanticVertex> directSemanticEdges,
+			List<IntDirectEdgeType> semanticRelationTypes) {
+		super(identifier, toSoftSemanticConcept, conflicts, alwaysAllows);
 		this.exclusive = exclusive;
 		this.semanticRelationTypes = semanticRelationTypes;
+		this.directSemanticEdges = directSemanticEdges;
 	}
 
-	public DirectSemanticEdge(String identifier, boolean exclusive,
-			List<IntDirectRelationType> semanticRelationTypes,
-			boolean toSoftSemanticConcept) {
-		super(toSoftSemanticConcept);
-		this.identifier = identifier;
-		this.exclusive = exclusive;
-		this.semanticRelationTypes = semanticRelationTypes;
-	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+	public DirectSemanticEdge(String string, boolean b,
+			List<IntDirectEdgeType> requires_conflictsDirectRelation,
+			List<AbstractSemanticVertex> semanticVertexs, boolean c) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isExclusive() {
@@ -81,14 +85,22 @@ public class DirectSemanticEdge extends AbstractSemanticEdge implements
 		this.exclusive = exclusive;
 	}
 
-	public List<IntDirectRelationType> getSemanticRelationTypes() {
+	public List<IntDirectEdgeType> getSemanticRelationTypes() {
 		return semanticRelationTypes;
 	}
 
 	public void setSemanticRelationTypes(
-			List<IntDirectRelationType> semanticRelationTypes) {
+			List<IntDirectEdgeType> semanticRelationTypes) {
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
+	public List<AbstractSemanticVertex> getDirectSemanticEdges() {
+		return directSemanticEdges;
+	}
+
+	public void setDirectSemanticEdges(
+			List<AbstractSemanticVertex> directSemanticEdges) {
+		this.directSemanticEdges = directSemanticEdges;
+	}
 
 }

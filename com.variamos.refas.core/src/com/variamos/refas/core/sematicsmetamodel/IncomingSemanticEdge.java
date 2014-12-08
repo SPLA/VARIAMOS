@@ -12,23 +12,23 @@ public class IncomingSemanticEdge extends AbstractSemanticEdge {
 	private static final long serialVersionUID = 2106426302856470039L;
 	private SemanticGroupDependency groupDependency;
 
-	public IncomingSemanticEdge(SemanticGroupDependency groupDependency) {
-		super(false, new ArrayList<AbstractSemanticVertex>(),
+	public IncomingSemanticEdge(String identifier, SemanticGroupDependency groupDependency) {
+		super(identifier, false, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 		this.groupDependency = groupDependency;
 	}
 
-	public IncomingSemanticEdge(boolean toSoftSemanticConcept,
+	public IncomingSemanticEdge(String identifier, boolean toSoftSemanticConcept,
 			SemanticGroupDependency groupDependency	) {
-		super(toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
+		super(identifier, toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 		this.groupDependency = groupDependency;
 	}
-	public IncomingSemanticEdge(boolean toSoftSemanticConcept,
+	public IncomingSemanticEdge(String identifier, boolean toSoftSemanticConcept,
 			SemanticGroupDependency groupDependency,
 			List<AbstractSemanticVertex> conflicts,
 			List<AbstractSemanticVertex> alwaysAllows) {
-		super(toSoftSemanticConcept, conflicts, alwaysAllows);
+		super(identifier, toSoftSemanticConcept, conflicts, alwaysAllows);
 		this.groupDependency = groupDependency;
 	}
 

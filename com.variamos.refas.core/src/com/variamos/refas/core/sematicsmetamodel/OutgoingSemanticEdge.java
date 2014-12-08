@@ -15,23 +15,23 @@ public class OutgoingSemanticEdge extends AbstractSemanticEdge {
 	 */
 	private AbstractSemanticVertex semanticConcept;
 
-	public OutgoingSemanticEdge(AbstractSemanticVertex semanticConcept) {
-		super(false, new ArrayList<AbstractSemanticVertex>(),
+	public OutgoingSemanticEdge(String identifier, AbstractSemanticVertex semanticConcept) {
+		super(identifier, false, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 		this.semanticConcept = semanticConcept;
 	}
 
-	public OutgoingSemanticEdge(boolean toSoftSemanticConcept,
+	public OutgoingSemanticEdge(String identifier, boolean toSoftSemanticConcept,
 			AbstractSemanticVertex semanticConcept	) {
-		super(toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
+		super(identifier, toSoftSemanticConcept, new ArrayList<AbstractSemanticVertex>(),
 				new ArrayList<AbstractSemanticVertex>());
 		this.semanticConcept = semanticConcept;
 	}
-	public OutgoingSemanticEdge(boolean toSoftSemanticConcept,
+	public OutgoingSemanticEdge(String identifier, boolean toSoftSemanticConcept,
 			AbstractSemanticVertex semanticConcept,			
 			List<AbstractSemanticVertex> conflicts,
 			List<AbstractSemanticVertex> alwaysAllows) {
-		super(toSoftSemanticConcept, conflicts, alwaysAllows);
+		super(identifier, toSoftSemanticConcept, conflicts, alwaysAllows);
 		this.semanticConcept = semanticConcept;
 	}
 

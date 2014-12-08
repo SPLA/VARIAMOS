@@ -145,4 +145,6 @@ public abstract class InstElement implements Serializable, Prototype,
 				// attribute.getValue()
 		}
 	}
+	
+	
 }

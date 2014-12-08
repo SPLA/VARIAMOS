@@ -33,7 +33,7 @@ public class MetaView implements Serializable {
 		this.elements = new HashSet<MetaElement>();
 	}
 
-	public void addConcept(MetaVertex sTopGoal) {
+	public void addConcept(MetaElement sTopGoal) {
 		elements.add(sTopGoal);
 
 	}

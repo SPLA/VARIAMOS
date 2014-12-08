@@ -8,23 +8,20 @@ public class SemanticVariable extends AbstractSemanticVertex {
 	 */
 	private static final long serialVersionUID = 5538738414024566452L;
 
-	private static final String VAR_SCOPE = "scope",
+	public static final String VAR_SCOPE = "scope",
 			VAR_SCOPECLASS = "com.variamos.refas.core.types.VariationScopeType",
 			VAR_CONTEXTTYPE = "contextType",
 			VAR_CONTEXTTYPECLASS = "com.variamos.refas.core.types.ContextType",
-			VAR_VARIABLENAME = "variableName",
+			VAR_CATEGORY = "category",
 			VAR_VARIABLETYPE = "variableType",
-			VAR_VARIABLETYPECLASS = "com.variamos.refas.core.types.VariableType",
-			VAR_DOMAIN = "domain";
+			VAR_VARIABLETYPECLASS = "com.variamos.refas.core.types.VariableType";
 
 	public SemanticVariable() {
-		super();
-		defineSemanticAttributes();
+		this(null, null);
 	}
 
 	public SemanticVariable(String name) {
-		super(name, true);
-		defineSemanticAttributes();
+		this(null,name);
 	}
 
 	public SemanticVariable(AbstractSemanticVertex parentConcept, String name) {
@@ -34,30 +31,29 @@ public class SemanticVariable extends AbstractSemanticVertex {
 
 	private void defineSemanticAttributes() {
 
-		putSemanticAttribute(VAR_SCOPE, new SemanticAttribute("Scope",
+		putSemanticAttribute(VAR_SCOPE, new SemanticAttribute(VAR_SCOPE,
 				"Enumeration", VAR_SCOPECLASS, "user", ""));
-		putSemanticAttribute(VAR_CONTEXTTYPE,
-				new SemanticAttribute("Context Type", "Enumeration",
-						VAR_CONTEXTTYPECLASS, "profiled", ""));
-		putSemanticAttribute(VAR_VARIABLENAME, new SemanticAttribute("Name",
+		putSemanticAttribute(VAR_CONTEXTTYPE, new SemanticAttribute(
+				VAR_CONTEXTTYPE, "Enumeration", VAR_CONTEXTTYPECLASS,
+				"profiled", ""));
+		putSemanticAttribute(VAR_CATEGORY, new SemanticAttribute(VAR_CATEGORY,
 				"String", "<<new>>"));
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
-				"Variable Type", "Enumeration",VAR_VARIABLETYPECLASS,"String", ""));
-		putSemanticAttribute(VAR_DOMAIN, new SemanticAttribute("Domain ",
+				VAR_VARIABLETYPE, "Enumeration", VAR_VARIABLETYPECLASS,
 				"String", ""));
 
-		this.addDisPropEditableAttribute("01#" + VAR_VARIABLENAME);
+		this.addDisPropEditableAttribute("01#" + VAR_CATEGORY);
 		this.addDisPropEditableAttribute("02#" + VAR_VARIABLETYPE);
 		this.addDisPropEditableAttribute("03#" + VAR_CONTEXTTYPE);
 		this.addDisPropEditableAttribute("04#" + VAR_SCOPE);
-		this.addDisPropEditableAttribute("05#" + VAR_DOMAIN);
 
-		this.addDisPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
+		this.addDisPanelVisibleAttribute("01#" + VAR_CATEGORY);
 		this.addDisPanelVisibleAttribute("02#" + VAR_VARIABLETYPE);
 		this.addDisPanelVisibleAttribute("03#" + VAR_CONTEXTTYPE);
 		this.addDisPanelVisibleAttribute("04#" + VAR_SCOPE);
 
-		this.addDisPanelSpacersAttribute("\n{#" + VAR_VARIABLETYPE + "#} ");
+		this.addDisPanelSpacersAttribute("#" + VAR_CATEGORY + "#\n");
+		this.addDisPanelSpacersAttribute("{#" + VAR_VARIABLETYPE + "#} ");
 		this.addDisPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
 		this.addDisPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
 

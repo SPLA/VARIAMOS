@@ -1,6 +1,6 @@
 package com.variamos.refas.core.types;
 
-import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
+import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
 
 /**
  * @author Juan Carlos Muñoz 2014
@@ -8,7 +8,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectRelationType;
  *
  * Definition of semantics for REFAS
  */
-public enum DirectRelationType implements IntDirectRelationType {
+public enum DirectEdgeType implements IntDirectEdgeType {
 	means_ends,
 	preferred,
 	required,
