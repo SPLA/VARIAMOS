@@ -32,12 +32,12 @@ import com.variamos.defectAnalyzer.util.ExportUtil;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
 
 public class DefectAnalyzerController {
-	
+
 	SolverOperationsUtil solver;
 
 	public DefectAnalyzerController() {
 		super();
-		
+
 	}
 
 	public DefectAnalyzerControllerOutDTO analyzeModel(
@@ -68,7 +68,7 @@ public class DefectAnalyzerController {
 				verifierOutDTO);
 
 		// Se clasifican las causa entre comunes y no comunes
-	/*	VariabilityModelCausesCorrectionsSorter sorter = new VariabilityModelCausesCorrectionsSorter();
+		VariabilityModelCausesCorrectionsSorter sorter = new VariabilityModelCausesCorrectionsSorter();
 		ClassifiedDiagnosis classifiedCauses = sorter.classifyDiagnosis(
 				causeAnalizerOutDTO.getAllDiagnostics(),
 				ClassificationType.CAUSES);
@@ -76,7 +76,7 @@ public class DefectAnalyzerController {
 		// Se clasifican las correciones entre comunes y no comunes
 		ClassifiedDiagnosis classifiedCorrections = sorter.classifyDiagnosis(
 				causeAnalizerOutDTO.getAllDiagnostics(),
-				ClassificationType.CORRECTIONS);*/
+				ClassificationType.CORRECTIONS);
 
 		// Se calcula el tiempo final
 		endCorrectionSetTestTime = System.currentTimeMillis();
@@ -84,30 +84,26 @@ public class DefectAnalyzerController {
 				- startCorrectionSetTestTime;
 		System.out.println("Termino");
 		System.out.println("Tiempo: " + totalCorrectionSetTestTime + " mls");
-		ClassifiedDiagnosis classifiedCauses= new ClassifiedDiagnosis();
-		ClassifiedDiagnosis classifiedCorrections= new ClassifiedDiagnosis();
-		
+
 		// Se exportan los resultados
 		exportCorrectionCausesSubsets(verifierOutDTO, causeAnalizerOutDTO,
 				defectAnalyzerInDTO, totalCorrectionSetTestTime,
 				classifiedCauses, classifiedCorrections, fileName,
 				outputDirectoryPath);
 
-		// Se imprimen todos los resultados en pantalla
-		// System.out.println();
-		// System.out.println();
-		// System.out.println();
-		// System.out.println();
-		// System.out.println();
-		// System.out
-		// .println("............................RESULTADOS............");
-		// System.out.println("Cantidad de defectos analizados"
-		// + causeAnalizerOutDTO.getAllDiagnostics().size());
-		// printDiagnosis(causeAnalizerOutDTO.getAllDiagnostics());
-		// printAllClassifiedDiagnosis(classifiedCorrections,
-		// ClassificationType.CORRECTIONS);
-		// printAllClassifiedDiagnosis(classifiedCauses,
-		// ClassificationType.CAUSES);
+		// Print output result
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("............................RESULTS............");
+		System.out.println("Cantidad de defectos analizados"
+				+ causeAnalizerOutDTO.getAllDiagnostics().size());
+		printDiagnosis(causeAnalizerOutDTO.getAllDiagnostics());
+		printAllClassifiedDiagnosis(classifiedCorrections,
+				ClassificationType.CORRECTIONS);
+		printAllClassifiedDiagnosis(classifiedCauses, ClassificationType.CAUSES);
 
 		// Información DTO de salida que sirve para analizar xls resumidos
 		defectAnalyzerControllerOut.setAllDiagnostics(causeAnalizerOutDTO
@@ -190,365 +186,6 @@ public class DefectAnalyzerController {
 			}
 			System.out.println();
 		}
-	}
-
-	public List<List<String>> validarCausas(List<Diagnostic> allDiagnosis,
-			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, String folderPath)
-			throws FunctionalException {
-
-		List<List<String>> resultadosValidacion = new ArrayList<List<String>>();
-		List<String> tiempo = new ArrayList<String>();
-		long starTime, endTime, totalTiem = 0;
-		starTime = System.currentTimeMillis();
-		for (Diagnostic diagnostic : allDiagnosis) {
-			resultadosValidacion.addAll(validarCausa(diagnostic,
-					defectAnalyzerInDTO, folderPath));
-		}
-		endTime = System.currentTimeMillis();
-		totalTiem = endTime - starTime;
-
-		float seconds = (float) (((float) totalTiem / 1000) % 60);
-		float minutes = (float) (((float) totalTiem / 1000) / 60);
-		tiempo.add(" Total mls");
-		tiempo.add(Long.toString(totalTiem));
-		tiempo.add("Minutos ");
-		tiempo.add(Float.toString(minutes));
-		tiempo.add("Segundos ");
-		tiempo.add(Float.toString(seconds));
-
-		// Se adiciona la lista con la información del tiempo en el primer
-		// elemento de la lista
-		resultadosValidacion.add(0, tiempo);
-		return resultadosValidacion;
-
-	}
-
-	/**
-	 * Crea con el conjunto de causas identificadas un programa de restricciones
-	 * y guarda los resultados que verifican si el programa de restricciones es
-	 * o no resoluble
-	 * 
-	 * @param diagnostic
-	 * @param defectAnalyzerInDTO
-	 * @param folderPath
-	 * @return
-	 * @throws FunctionalException
-	 */
-	private List<List<String>> validarCausa(Diagnostic diagnostic,
-			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, String folderPath)
-			throws FunctionalException {
-		List<List<String>> resultadosValidacion = new ArrayList<List<String>>();
-		File folder = new File(folderPath);
-		// Crea la carpeta
-		folder.mkdirs();
-		int causesCount = 1;
-		for (List<Dependency> causesDependencyList : diagnostic.getCauses()) {
-			// Crear la representación en restricciones de las dependencia de
-			// las causas, mas la restriccion fija y la restricción de
-			// verificación
-			Collection<Expression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-					.dependencyToExpressionList(causesDependencyList,
-							defectAnalyzerInDTO.getVariabilityModel()
-									.getFixedDependencies());
-
-			// Se adiciona a la lista la expression que permite verificar el
-			// defecto
-			if (diagnostic.getDefect().getVerificationExpression() != null) {
-				variabilityModelConstraintRepresentation.add(diagnostic
-						.getDefect().getVerificationExpression());
-			}
-			if (folder.exists()) {
-				String filePath = folder.getAbsoluteFile()
-						+ "//"
-						+ defectAnalyzerInDTO.getVariabilityModel()
-								.getModelName() + "_"
-						+ diagnostic.getDefect().getDefectType().name() + "_"
-						+ diagnostic.getDefect().getId().replace(":", "_")
-						+ "_Causa" + causesCount + ".pl";
-
-				File MUSFile = new File(filePath);
-				try {
-					MUSFile.createNewFile();
-					String musFilePath = MUSFile.getAbsolutePath().replace(
-							"\\", "/");
-					List<String> MUSResultados = new ArrayList<String>();
-					// Save the variability model in a prolog program
-					ConstraintRepresentationUtil
-							.savePrologRepresentationProgram(
-									MUSFile.getAbsolutePath(),
-									variabilityModelConstraintRepresentation,
-									SolverEditorType.SWI_PROLOG);
-
-					// Se verifica si el conjunto de restricciones es
-					// satisfacible
-					// Se verifica si el problema guardado es satisfacible
-					solver= new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
-					boolean isSatisfiable = solver.isSatisfiable(
-							musFilePath);
-					MUSResultados.add(defectAnalyzerInDTO.getVariabilityModel()
-							.getModelName()
-							+ " "
-							+ diagnostic.getDefect().getDefectType().name()
-							+ " "
-							+ diagnostic.getDefect().getId()
-							+ "Causa"
-							+ causesCount);
-					MUSResultados.add("Irresoluble");
-					MUSResultados.add(Boolean.toString(!isSatisfiable));
-
-					// Se le quita algún pedazo a la causa para ver si al quedar
-					// incompleta es resoluble. No se pone en el programa de
-					// restricciones la primera restricción
-
-					String filePathNoMUS = folder.getAbsoluteFile()
-							+ "//"
-							+ defectAnalyzerInDTO.getVariabilityModel()
-									.getModelName() + "_"
-							+ diagnostic.getDefect().getDefectType().name()
-							+ "_"
-							+ diagnostic.getDefect().getId().replace(":", "_")
-							+ "_NOCausa" + causesCount + ".pl";
-
-					File noMUSFile = new File(filePathNoMUS);
-					String noMUSFilePath = noMUSFile.getAbsolutePath().replace(
-							"\\", "/");
-
-					// Quitar una dependencia de la lista del MUS
-					List<Dependency> dependenciesList = new ArrayList<Dependency>();
-					dependenciesList.addAll(causesDependencyList);
-					// Se le quita un elemento
-					dependenciesList.remove(0);
-
-					// Se crea una representación en restricciones con ese nuevo
-					// conjunto
-					variabilityModelConstraintRepresentation.clear();
-					variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-							.dependencyToExpressionList(dependenciesList,
-									defectAnalyzerInDTO.getVariabilityModel()
-											.getFixedDependencies());
-
-					// Se adiciona a la lista la expression que permite
-					// verificar el
-					// defecto
-					if (diagnostic.getDefect().getVerificationExpression() != null) {
-						variabilityModelConstraintRepresentation.add(diagnostic
-								.getDefect().getVerificationExpression());
-					}
-
-					// Se guarda el programa de restricciones debe ser
-					// irresoluble
-					ConstraintRepresentationUtil
-							.savePrologRepresentationProgram(
-									noMUSFile.getAbsolutePath(),
-									variabilityModelConstraintRepresentation,
-									SolverEditorType.SWI_PROLOG);
-
-					// Se verifica si el problema guardado es satisfacible
-					solver= new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
-					isSatisfiable = solver.isSatisfiable(
-							noMUSFilePath);
-					MUSResultados.add("Incompleto");
-					MUSResultados.add("Irresoluble");
-					MUSResultados.add(Boolean.toString(!isSatisfiable));
-
-					causesCount++;
-					resultadosValidacion.add(MUSResultados);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		}
-
-		return resultadosValidacion;
-	}
-
-	private List<List<String>> validarCorrecciones(
-			List<Diagnostic> allDiagnosis,
-			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, String folderPath)
-			throws FunctionalException {
-
-		List<List<String>> resultadosValidacion = new ArrayList<List<String>>();
-		List<String> tiempo = new ArrayList<String>();
-		long starTime, endTime, totalTiem = 0;
-		starTime = System.currentTimeMillis();
-		for (Diagnostic diagnostic : allDiagnosis) {
-			resultadosValidacion.addAll(validarCorreccion(diagnostic,
-					defectAnalyzerInDTO, folderPath));
-		}
-		endTime = System.currentTimeMillis();
-		totalTiem = endTime - starTime;
-
-		float seconds = (float) (((float) totalTiem / 1000) % 60);
-		float minutes = (float) (((float) totalTiem / 1000) / 60);
-		tiempo.add(" Total mls");
-		tiempo.add(Long.toString(totalTiem));
-		tiempo.add("Minutos ");
-		tiempo.add(Float.toString(minutes));
-		tiempo.add("Segundos ");
-		tiempo.add(Float.toString(seconds));
-
-		// Se adiciona la lista con la información del tiempo en el primer
-		// elemento de la lista
-		resultadosValidacion.add(0, tiempo);
-		return resultadosValidacion;
-
-	}
-
-	private List<List<String>> validarCorreccion(Diagnostic diagnostic,
-			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, String folderPath)
-			throws FunctionalException {
-		List<List<String>> resultadosValidacion = new ArrayList<List<String>>();
-		List<Dependency> collectionOfDependencies = new ArrayList<Dependency>();
-		File folder = new File(folderPath + "Correc");
-		// Crea la carpeta
-		folder.mkdirs();
-		int correcc = 1;
-		for (List<Dependency> correcDependenciesList : diagnostic
-				.getCorrectionSubsets()) {
-			// Crear la representación en restricciones de las dependencia de
-			// las causas, mas la restriccion fija y la restricción de
-			// verificación
-
-			collectionOfDependencies
-					.addAll((Collection<? extends Dependency>) defectAnalyzerInDTO
-							.getVariabilityModel().getDependencies().values());
-			collectionOfDependencies.removeAll(correcDependenciesList);
-
-			// Si el defecto es una redundancia se borra antes de construir el
-			// programa de restricciones irresoluble
-			// para no poner información contradictoria
-			if (diagnostic.getDefect() instanceof Redundancy) {
-				collectionOfDependencies.remove(((Redundancy) diagnostic
-						.getDefect()).getRedundantDependency());
-			}
-
-			Collection<Expression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-					.dependencyToExpressionList(collectionOfDependencies,
-							defectAnalyzerInDTO.getVariabilityModel()
-									.getFixedDependencies());
-
-			// Se adiciona a la lista la expression que permite verificar el
-			// defecto
-			if (diagnostic.getDefect().getVerificationExpression() != null) {
-				variabilityModelConstraintRepresentation.add(diagnostic
-						.getDefect().getVerificationExpression());
-			}
-			if (folder.exists()) {
-				String filePath = folder.getAbsoluteFile()
-						+ "//"
-						+ defectAnalyzerInDTO.getVariabilityModel()
-								.getModelName() + "_"
-						+ diagnostic.getDefect().getDefectType().name() + "_"
-						+ diagnostic.getDefect().getId().replace(":", "_")
-						+ "_Correc" + correcc + ".pl";
-
-				File MCSFile = new File(filePath);
-				try {
-					MCSFile.createNewFile();
-					String mcsFilePath = MCSFile.getAbsolutePath().replace(
-							"\\", "/");
-					List<String> MCSResultados = new ArrayList<String>();
-					// Save the variability model in a prolog program
-					ConstraintRepresentationUtil
-							.savePrologRepresentationProgram(
-									MCSFile.getAbsolutePath(),
-									variabilityModelConstraintRepresentation,
-									SolverEditorType.SWI_PROLOG);
-
-					// Se verifica si el conjunto de restricciones es
-					// satisfacible
-					solver= new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
-					boolean isSatisfiable = solver.isSatisfiable(
-							mcsFilePath);
-					MCSResultados.add(defectAnalyzerInDTO.getVariabilityModel()
-							.getModelName()
-							+ " "
-							+ diagnostic.getDefect().getDefectType().name()
-							+ " "
-							+ diagnostic.getDefect().getId()
-							+ "Correc"
-							+ correcc);
-					MCSResultados.add("Irresoluble :");
-					MCSResultados.add(Boolean.toString(!isSatisfiable));
-
-					// Se crea nuevamente un programa de restricciones dejando
-					// alguna parte del MCS ( siempre se deja la primera
-					// correccion de la lista)
-					collectionOfDependencies.clear();
-					collectionOfDependencies
-							.addAll((Collection<? extends Dependency>) defectAnalyzerInDTO
-									.getVariabilityModel().getDependencies()
-									.values());
-					collectionOfDependencies.removeAll(correcDependenciesList);
-
-					// Si el defecto es una redundancia se borra antes de
-					// construir el programa de restricciones irresoluble
-					// para no poner información contradictoria
-					if (diagnostic.getDefect() instanceof Redundancy) {
-						collectionOfDependencies
-								.remove(((Redundancy) diagnostic.getDefect())
-										.getRedundantDependency());
-					}
-
-					// Vuelvo y agrego una correccion así la corrección no se
-					// aplica completa, o no se aplica, y el resultado debe ser
-					// un programa de restricciones irresoluble
-					collectionOfDependencies.add(correcDependenciesList.get(0));
-
-					variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-							.dependencyToExpressionList(
-									collectionOfDependencies,
-									defectAnalyzerInDTO.getVariabilityModel()
-											.getFixedDependencies());
-					// Se adiciona a la lista la expression que permite
-					// verificar el
-					// defecto
-					if (diagnostic.getDefect().getVerificationExpression() != null) {
-						variabilityModelConstraintRepresentation.add(diagnostic
-								.getDefect().getVerificationExpression());
-					}
-					String filePathNoMCS = folder.getAbsoluteFile()
-							+ "//"
-							+ defectAnalyzerInDTO.getVariabilityModel()
-									.getModelName() + "_"
-							+ diagnostic.getDefect().getDefectType().name()
-							+ "_"
-							+ diagnostic.getDefect().getId().replace(":", "_")
-							+ "_NOCorrec" + correcc + ".pl";
-
-					File noMCSFile = new File(filePathNoMCS);
-					String noMCSFilePath = noMCSFile.getAbsolutePath().replace(
-							"\\", "/");
-					// Save the variability model in a prolog program. NO DEBE
-					// SER RESOLUBLE
-					ConstraintRepresentationUtil
-							.savePrologRepresentationProgram(
-									noMCSFile.getAbsolutePath(),
-									variabilityModelConstraintRepresentation,
-									SolverEditorType.SWI_PROLOG);
-
-					// Se verifica si el conjunto de restricciones es
-					// satisfacible
-					isSatisfiable = solver.isSatisfiable(
-							noMCSFilePath);
-
-					correcc++;
-					MCSResultados.add("MCS modif es irresoluble ");
-					MCSResultados.add(Boolean.toString(!isSatisfiable));
-					resultadosValidacion.add(MCSResultados);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		}
-
-		return resultadosValidacion;
 	}
 
 	public void printDiagnosis(List<Diagnostic> allDiagnosis) {
@@ -707,20 +344,24 @@ public class DefectAnalyzerController {
 				resultadosFila.add("Ocurrio un error");
 			}
 			// Se adicionan las causas
-			/*
-			 * List<String> causas = new ArrayList<String>(); causas = new
-			 * ArrayList<String>(); causas.add("Causas: "); if
-			 * (diagnosticMapElement.getCauses() != null) { cont = 1; for
-			 * (List<Dependency> cause : diagnosticMapElement.getCauses()) {
-			 * resultadosFila = new ArrayList<String>();
-			 * resultadosFila.add("Causa");
-			 * resultadosFila.add(Integer.toString(cont));
-			 * resultadosFila.add(cause.toString());
-			 * resultadosFila.add(Integer.toString(cause.size()));
-			 * resultadosAnalisis.add(resultadosFila); } } else { resultadosFila
-			 * = new ArrayList<String>();
-			 * resultadosFila.add("Ocurrio un error"); }
-			 */
+
+			List<String> causas = new ArrayList<String>();
+			causas = new ArrayList<String>();
+			causas.add("Causas: ");
+			if (diagnosticMapElement.getCauses() != null) {
+				cont = 1;
+				for (List<Dependency> cause : diagnosticMapElement.getCauses()) {
+					resultadosFila = new ArrayList<String>();
+					resultadosFila.add("Causa");
+					resultadosFila.add(Integer.toString(cont));
+					resultadosFila.add(cause.toString());
+					resultadosFila.add(Integer.toString(cause.size()));
+					resultadosAnalisis.add(resultadosFila);
+				}
+			} else {
+				resultadosFila = new ArrayList<String>();
+				resultadosFila.add("Ocurrio un error");
+			}
 
 			resultadosAnalisis.add(new ArrayList<String>());
 		}
@@ -734,48 +375,24 @@ public class DefectAnalyzerController {
 		HSSFSheet hojaClasificacion = resultadosLibro.createSheet();
 
 		// CLASIFICACION
-		/*
-		 * String titulosClasificacion[] = { "Clasificacion" };
-		 * List<List<String>> clasificacion = new ArrayList<List<String>>();
-		 * clasificacion.addAll(guardarClasificacion("Causas Comunes",
-		 * classifiedCauses.getCommonDiagnosis()));
-		 * 
-		 * clasificacion.addAll(guardarClasificacion("Causas no Comunes",
-		 * classifiedCauses.getNoCommonDiagnosis()));
-		 * 
-		 * clasificacion.addAll(guardarClasificacion("Correcciones Comunes",
-		 * classifiedCorrections.getCommonDiagnosis()));
-		 * 
-		 * clasificacion.addAll(guardarClasificacion("correcciones no Comunes",
-		 * classifiedCorrections.getNoCommonDiagnosis()));
-		 * 
-		 * // Se pone información en la hoja
-		 * ExportUtil.adicionarInfoHoja(Arrays.asList(titulosClasificacion), 0,
-		 * hojaClasificacion, clasificacion, tiempoTest, cont);
-		 * 
-		 * // VALIDACION HSSFSheet hojaValidacionCausas =
-		 * resultadosLibro.createSheet(); List<List<String>> validacion = new
-		 * ArrayList<List<String>>(); validacion =
-		 * validarCausas(causeAnalyzerOutDTO.getAllDiagnostics(),
-		 * defectAnalyzerInDTO, "pl/" + nombreFile); // Se pone información en
-		 * la hoja. La primer lista tiene el tiempo
-		 * ExportUtil.adicionarInfoHoja(Arrays.asList(titulosValidacion), 0,
-		 * hojaValidacionCausas, validacion,
-		 * Long.valueOf(validacion.get(0).get(1)), cont);
-		 */
-		String titulosValidacion[] = { "Modelo", "ResultadoEsperado",
-				"ResultadoEncontrado", "ResultadoEsperado",
-				"ResultadoEncontrado" };
-		// Se validan las causas
-		HSSFSheet hojaValidacionCorrecc = resultadosLibro.createSheet();
-		// Se validan las causas
-		List<List<String>> validacionCorrect = new ArrayList<List<String>>();
-		validacionCorrect = validarCorrecciones(
-				causeAnalyzerOutDTO.getAllDiagnostics(), defectAnalyzerInDTO,
-				outputDirectoryPath + fileName);
-		// Se pone información en la hoja. La primer lista tiene el tiempo
-		ExportUtil.adicionarInfoHoja(Arrays.asList(titulosValidacion), 0,
-				hojaValidacionCorrecc, validacionCorrect, 0, cont);
+
+		String titulosClasificacion[] = { "Clasificacion" };
+		List<List<String>> clasificacion = new ArrayList<List<String>>();
+		clasificacion.addAll(guardarClasificacion("Causas Comunes",
+				classifiedCauses.getCommonDiagnosis()));
+
+		clasificacion.addAll(guardarClasificacion("Causas no Comunes",
+				classifiedCauses.getNoCommonDiagnosis()));
+
+		clasificacion.addAll(guardarClasificacion("Correcciones Comunes",
+				classifiedCorrections.getCommonDiagnosis()));
+
+		clasificacion.addAll(guardarClasificacion("correcciones no Comunes",
+				classifiedCorrections.getNoCommonDiagnosis()));
+
+		// Se pone información en la hoja
+		ExportUtil.adicionarInfoHoja(Arrays.asList(titulosClasificacion), 0,
+				hojaClasificacion, clasificacion, tiempoTest, cont);
 
 		// Se guarda la hoja xls creada
 		String resuladosPath = outputDirectoryPath + fileName + ".xls";
