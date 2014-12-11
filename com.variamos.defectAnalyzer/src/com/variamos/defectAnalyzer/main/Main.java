@@ -24,7 +24,7 @@ public class Main {
 			outputPath="D:/";
 			// Analizar modelo: identificar defectos, causas y correcciones,
 			// clasificar causas correcciones,exportar resultados
-			MainDefectAnalyzer defectAnalyzer = new MainDefectAnalyzer();
+			DefectAnalyzerMain defectAnalyzer = new DefectAnalyzerMain();
 			defectAnalyzer.analyzeSplotFM(modelName, modelPath, outputPath);
 
 		} catch (Exception e) {
