@@ -17,7 +17,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 
 	public VariabilityModelCausesCorrectionsSorter() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public ClassifiedDiagnosis classifyDiagnosis(

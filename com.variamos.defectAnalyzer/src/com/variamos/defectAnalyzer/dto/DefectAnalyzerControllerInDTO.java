@@ -53,7 +53,9 @@ public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 
 	/**
 	 * @return the verifydomainNotAttainables
+	 * Funcionalidad no implementada para features models
 	 */
+	@Deprecated()
 	public boolean isVerifyNonAttainableDomain() {
 		return verifyNonAttainableDomains;
 	}
@@ -62,6 +64,7 @@ public class DefectAnalyzerControllerInDTO extends VMAnalyzerInDTO {
 	 * @param verifyNonAttainableDomain
 	 *            the verifydomainNotAttainables to set
 	 */
+	@Deprecated()
 	public void setVerifyNonAttainableDomains(boolean verifyNonAttainableDomain) {
 		this.verifyNonAttainableDomains = verifyNonAttainableDomain;
 	}

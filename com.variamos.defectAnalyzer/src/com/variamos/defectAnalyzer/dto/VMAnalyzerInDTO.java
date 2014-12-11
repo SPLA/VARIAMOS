@@ -6,20 +6,20 @@ import com.variamos.defectAnalyzer.model.VariabilityModel;
 
 public class VMAnalyzerInDTO {
  
-	protected SolverEditorType prologEditorType;
+	protected SolverEditorType solverEditorType;
 	protected VariabilityModel variabilityModel;
 
 	/**
 	 * @return the prologEditorType
 	 */
-	public SolverEditorType getPrologEditorType() {
-		return prologEditorType;
+	public SolverEditorType getSolverEditorType() {
+		return solverEditorType;
 	}
 	/**
-	 * @param prologEditorType the prologEditorType to set
+	 * @param solverEditorType the prologEditorType to set
 	 */
-	public void setPrologEditorType(SolverEditorType prologEditorType) {
-		this.prologEditorType = prologEditorType;
+	public void setSolverEditorType(SolverEditorType solverEditorType) {
+		this.solverEditorType = solverEditorType;
 	}
 	/**
 	 * @return the variabilityModel

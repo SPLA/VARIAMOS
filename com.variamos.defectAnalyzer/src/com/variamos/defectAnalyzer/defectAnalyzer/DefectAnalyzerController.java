@@ -1,17 +1,13 @@
 package com.variamos.defectAnalyzer.defectAnalyzer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.cfm.hlcl.Expression;
-import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.FileUtils;
 import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
@@ -25,15 +21,13 @@ import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.defects.Defect;
-import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
-import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.defectAnalyzer.util.ExportUtil;
-import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
+
 
 public class DefectAnalyzerController {
 
-	SolverOperationsUtil solver;
+
 
 	public DefectAnalyzerController() {
 		super();
@@ -55,12 +49,12 @@ public class DefectAnalyzerController {
 		File file = new File(outputDirectoryPath);
 		if (!file.exists()) {
 			// Si no existe el directorio se lanza una excepción
-			throw new FunctionalException("El directorio de salida "
-					+ outputDirectoryPath + " no existe");
+			throw new FunctionalException("output directory "
+					+ outputDirectoryPath + " does not exist");
 		}
 
 		// Se verifican los defectos del modelo
-		verifierOutDTO = verifierOfDefects(defectAnalyzerInDTO);
+		verifierOutDTO = verifyDefects(defectAnalyzerInDTO);
 
 		// Se analizan los MCS
 		startCorrectionSetTestTime = System.currentTimeMillis();
@@ -82,8 +76,7 @@ public class DefectAnalyzerController {
 		endCorrectionSetTestTime = System.currentTimeMillis();
 		totalCorrectionSetTestTime = endCorrectionSetTestTime
 				- startCorrectionSetTestTime;
-		System.out.println("Termino");
-		System.out.println("Tiempo: " + totalCorrectionSetTestTime + " mls");
+		System.out.println("Time: " + totalCorrectionSetTestTime + " mls");
 
 		// Se exportan los resultados
 		exportCorrectionCausesSubsets(verifierOutDTO, causeAnalizerOutDTO,
@@ -295,11 +288,11 @@ public class DefectAnalyzerController {
 				.isFalseProductLineModel()));
 		defectos.add(defectoFalseProductLine);
 
-		defectos.addAll(guardarDefectos("DeadFeatures",
+		defectos.addAll(saveDefects("DeadFeatures",
 				vmVerifierOutDTO.getDeadFeaturesList()));
-		defectos.addAll(guardarDefectos("False optional features",
+		defectos.addAll(saveDefects("False optional features",
 				vmVerifierOutDTO.getFalseOptionalFeaturesList()));
-		defectos.addAll(guardarDefectos("Redundancies",
+		defectos.addAll(saveDefects("Redundancies",
 				vmVerifierOutDTO.getRedundanciesList()));
 
 		// Se pone información en la hoja
@@ -378,16 +371,16 @@ public class DefectAnalyzerController {
 
 		String titulosClasificacion[] = { "Clasificacion" };
 		List<List<String>> clasificacion = new ArrayList<List<String>>();
-		clasificacion.addAll(guardarClasificacion("Causas Comunes",
+		clasificacion.addAll(saveClassification("Causas Comunes",
 				classifiedCauses.getCommonDiagnosis()));
 
-		clasificacion.addAll(guardarClasificacion("Causas no Comunes",
+		clasificacion.addAll(saveClassification("Causas no Comunes",
 				classifiedCauses.getNoCommonDiagnosis()));
 
-		clasificacion.addAll(guardarClasificacion("Correcciones Comunes",
+		clasificacion.addAll(saveClassification("Correcciones Comunes",
 				classifiedCorrections.getCommonDiagnosis()));
 
-		clasificacion.addAll(guardarClasificacion("correcciones no Comunes",
+		clasificacion.addAll(saveClassification("correcciones no Comunes",
 				classifiedCorrections.getNoCommonDiagnosis()));
 
 		// Se pone información en la hoja
@@ -399,7 +392,7 @@ public class DefectAnalyzerController {
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
 	}
 
-	private List<List<String>> guardarDefectos(String encabezado,
+	private List<List<String>> saveDefects(String encabezado,
 			List<Defect> defectosLista) {
 
 		List<List<String>> defectosFilas = new ArrayList<List<String>>();
@@ -433,7 +426,7 @@ public class DefectAnalyzerController {
 	 * @param classifiedCausesCorrectionsList
 	 * @return
 	 */
-	private List<List<String>> guardarClasificacion(String encabezado,
+	private List<List<String>> saveClassification(String encabezado,
 			List<DefectsByMCSMUSes> classifiedCausesCorrectionsList) {
 
 		List<List<String>> clasificacion = new ArrayList<List<String>>();
@@ -476,7 +469,7 @@ public class DefectAnalyzerController {
 	 * @throws FunctionalException
 	 * 
 	 */
-	private VMVerifierOutDTO verifierOfDefects(
+	private VMVerifierOutDTO verifyDefects(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO)
 			throws FunctionalException {
 
@@ -489,8 +482,8 @@ public class DefectAnalyzerController {
 		verifierInDTO.setVariabilityModel(defectAnalyzerInDTO
 				.getVariabilityModel());
 		// Set Prolog editor type
-		verifierInDTO.setPrologEditorType(defectAnalyzerInDTO
-				.getPrologEditorType());
+		verifierInDTO.setSolverEditorType(defectAnalyzerInDTO
+				.getSolverEditorType());
 
 		// Create class
 		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
@@ -524,8 +517,8 @@ public class DefectAnalyzerController {
 		VMAnalyzerInDTO vmAnalyzerInDTO = new VMAnalyzerInDTO();
 		vmAnalyzerInDTO.setVariabilityModel(defectAnalyzerInDTO
 				.getVariabilityModel());
-		vmAnalyzerInDTO.setPrologEditorType(defectAnalyzerInDTO
-				.getPrologEditorType());
+		vmAnalyzerInDTO.setSolverEditorType(defectAnalyzerInDTO
+				.getSolverEditorType());
 
 		// Se invoca el analizador de causas
 		VariabilityModelCausesAndCorrectionsAnalyzer causesAnalyzer = new VariabilityModelCausesAndCorrectionsAnalyzer(
@@ -534,7 +527,7 @@ public class DefectAnalyzerController {
 		VMCauseAnalyzerInDTO vmCauseAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 
 		vmCauseAnalyzerInDTO
-				.setCorrectionSetIdentifcationType(defectAnalyzerInDTO
+				.setDefectAnalyzerMode(defectAnalyzerInDTO
 						.getDefectAnalyzerMode());
 
 		vmCauseAnalyzerInDTO.setFalseProductLine(verifierOutDTO
