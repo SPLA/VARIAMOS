@@ -1,14 +1,14 @@
 package com.variamos.defectAnalyzer.model.defects;
 
 import com.cfm.hlcl.Expression;
-import com.variamos.defectAnalyzer.model.VariabilityElement;
+import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class DeadElement extends Defect {
 
-	private VariabilityElement deadElement;
+	private VariabilityElementDefAna deadElement;
 
-	public DeadElement(VariabilityElement deadElement) {
+	public DeadElement(VariabilityElementDefAna deadElement) {
 		super();
 		this.deadElement = deadElement;
 		this.id = deadElement.getName();
@@ -16,7 +16,7 @@ public class DeadElement extends Defect {
 
 	}
 
-	public DeadElement(VariabilityElement deadElement,
+	public DeadElement(VariabilityElementDefAna deadElement,
 			Expression verificationExpression) {
 		this(deadElement);
 		this.verificationExpression=verificationExpression;
@@ -25,7 +25,7 @@ public class DeadElement extends Defect {
 	/**
 	 * @return the deadElement
 	 */
-	public VariabilityElement getDeadElement() {
+	public VariabilityElementDefAna getDeadElement() {
 		return deadElement;
 	}
 
@@ -33,7 +33,7 @@ public class DeadElement extends Defect {
 	 * @param deadElement
 	 *            the deadElement to set
 	 */
-	public void setDeadElement(VariabilityElement deadElement) {
+	public void setDeadElement(VariabilityElementDefAna deadElement) {
 		this.deadElement = deadElement;
 	}
 

@@ -1,22 +1,22 @@
 package com.variamos.defectAnalyzer.model;
 
-public class VariabilityElement implements Comparable<VariabilityElement>,
-		Cloneable {
+import com.cfm.productline.VariabilityElement;
 
+public class VariabilityElementDefAna extends VariabilityElement implements
+		Comparable<VariabilityElementDefAna>, Cloneable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private DefectAnalyzerDomain domain;
 
-	public VariabilityElement(String name) {
+	public VariabilityElementDefAna(String name) {
 		super();
 		this.name = transformName(name);
 		// Por defecto se crea booleano
 		domain = new RangeDomainDefectAnalyzer();
-		// domain= new DefectAnalyzerIntervalDomain();
-		// List<Integer> lista= new ArrayList<>();
-		// lista.add(1);
-		// lista.add(0);
-		// lista.add(2);
-		// ((IntervalDomain)domain).setRangeValues(lista);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class VariabilityElement implements Comparable<VariabilityElement>,
 		// Se pasa a mayúsculas la primera letra para garantizar
 		// que sea interpretada como variable en los solvers por ejemplo en
 		// Prolog
-		String changedName = evaluarPrimerCaracter(name.charAt(0))
+		String changedName = evaluateFirstCharacter(name.charAt(0))
 				.toUpperCase()
 				+ name.trim().substring(1).replaceAll(" ", "_")
 						.replaceAll("\\-", "Minus").replaceAll("\\+", "Plus")
@@ -70,7 +70,7 @@ public class VariabilityElement implements Comparable<VariabilityElement>,
 		return changedName;
 	}
 
-	private String evaluarPrimerCaracter(char caracterInicial) {
+	private String evaluateFirstCharacter(char caracterInicial) {
 		if ((caracterInicial >= 65 && caracterInicial <= 90)
 				|| (caracterInicial >= 97 && caracterInicial <= 122))
 			return String.valueOf(caracterInicial).toUpperCase();
@@ -114,7 +114,7 @@ public class VariabilityElement implements Comparable<VariabilityElement>,
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VariabilityElement other = (VariabilityElement) obj;
+		VariabilityElementDefAna other = (VariabilityElementDefAna) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -124,7 +124,7 @@ public class VariabilityElement implements Comparable<VariabilityElement>,
 	}
 
 	@Override
-	public int compareTo(VariabilityElement other) {
+	public int compareTo(VariabilityElementDefAna other) {
 		return name.compareTo(other.getName());
 	}
 

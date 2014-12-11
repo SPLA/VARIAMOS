@@ -11,13 +11,12 @@ import java.util.Set;
 
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.NumericExpression;
-import com.variamos.constants.ConstraintSymbolsConstant;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.RangeDomainDefectAnalyzer;
-import com.variamos.defectAnalyzer.model.VariabilityElement;
+import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 
 import constraints.BooleanVariable;
@@ -43,10 +42,10 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 
 	// Para el caso de las caracteristicas relacionadas con elementos mandatory
 	// el dominio posible es solo 1, no cero.
-	private Map<String, VariabilityElement> optionalVariabilityElements;
+	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
 	private Long constraintCounter;
 	private VariabilityModel variabilityModel;
-	private Map<String, VariabilityElement> variabilityElementMap;
+	private Map<String, VariabilityElementDefAna> variabilityElementMap;
 	private Map<Long, Dependency> variabilityDependenciesMap;
 	private Map<Long, Dependency> permanentDependenciesMap;
 	private Map<Long, Dependency> inclusionExclusionDependenciesMap;
@@ -55,10 +54,10 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 
 	private void init(VMTransformerInDTO inDTO) {
 
-		optionalVariabilityElements = new HashMap<String, VariabilityElement>();
+		optionalVariabilityElements = new HashMap<String, VariabilityElementDefAna>();
 		constraintCounter = 0L;
 		transformerRules = new FeatureModelTransformerRules();
-		variabilityElementMap = new HashMap<String, VariabilityElement>();
+		variabilityElementMap = new HashMap<String, VariabilityElementDefAna>();
 		variabilityDependenciesMap = new HashMap<Long, Dependency>();
 		permanentDependenciesMap = new HashMap<Long, Dependency>();
 		inclusionExclusionDependenciesMap = new HashMap<Long, Dependency>();
@@ -82,7 +81,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 		if (node instanceof RootNode) {
 			// Se crea el variabilityElement su valores de dominio posible es
 			// solo el valor de 1 pq es mandatory
-			VariabilityElement element = new VariabilityElement(featureName);
+			VariabilityElementDefAna element = new VariabilityElementDefAna(featureName);
 			RangeDomainDefectAnalyzer onlySelectedDomain = new RangeDomainDefectAnalyzer();
 			element.setDomain(onlySelectedDomain);
 			variabilityElementMap.put(element.getName(), element);
@@ -91,7 +90,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			Dependency variabilityDependency = new Dependency(dependencyName,
 					constraintCounter);
 			variabilityDependency.setConstraintExpression(transformerRules
-					.getAssignRule(ConstraintSymbolsConstant.ONE, element));
+					.getAssignRule(TransformerConstants.ONE, element));
 			permanentDependenciesMap.put(constraintCounter, variabilityDependency);
 			constraintCounter++;
 
@@ -104,12 +103,12 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			String parentFeatureName = transformName(parent.getName());
 
 			if (node instanceof SolitaireFeature) {
-				VariabilityElement variabilityElement = new VariabilityElement(
+				VariabilityElementDefAna variabilityElementDefAna = new VariabilityElementDefAna(
 						featureName);
-				VariabilityElement parentVariabilityElement = variabilityElementMap
+				VariabilityElementDefAna parentVariabilityElement = variabilityElementMap
 						.get(parentFeatureName);
-				variabilityElementMap.put(variabilityElement.getName(),
-						variabilityElement);
+				variabilityElementMap.put(variabilityElementDefAna.getName(),
+						variabilityElementDefAna);
 
 				// Característica opcional
 				if (((SolitaireFeature) node).isOptional()) {
@@ -119,25 +118,25 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 					dependencyName = transformerRules
 							.getOptionalDependencyName(
 									parentVariabilityElement,
-									variabilityElement);
+									variabilityElementDefAna);
 					Dependency variabilityDependency = new Dependency(
 							dependencyName, constraintCounter);
 					variabilityDependency
 							.setConstraintExpression(transformerRules
 									.getOptionalRule(parentVariabilityElement,
-											variabilityElement));
+											variabilityElementDefAna));
 
 					// Negación de la dependencia opcional
 					variabilityDependency
 							.setNegationExpression(transformerRules
 									.getNegationOptionalRule(
 											parentVariabilityElement,
-											variabilityElement));
+											variabilityElementDefAna));
 
 					variabilityDependenciesMap.put(constraintCounter,
 							variabilityDependency);
 					optionalVariabilityElements.put(
-							variabilityElement.getName(), variabilityElement);
+							variabilityElementDefAna.getName(), variabilityElementDefAna);
 					constraintCounter++;
 				}
 				// Característica obligatoria
@@ -147,20 +146,20 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 					dependencyName = transformerRules
 							.getMandatoryDependencyName(
 									parentVariabilityElement,
-									variabilityElement);
+									variabilityElementDefAna);
 					Dependency variabilityDependency = new Dependency(
 							dependencyName, constraintCounter);
 					variabilityDependency
 							.setConstraintExpression(transformerRules
 									.getMandatoryRule(parentVariabilityElement,
-											variabilityElement));
+											variabilityElementDefAna));
 
 					// Negación de la dependencia obligatoria
 					variabilityDependency
 							.setNegationExpression(transformerRules
 									.getNegationMandatoryRule(
 											parentVariabilityElement,
-											variabilityElement));
+											variabilityElementDefAna));
 
 					variabilityDependenciesMap.put(constraintCounter,
 							variabilityDependency);
@@ -182,7 +181,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 						String.valueOf(((FeatureGroup) node).getMin()));
 				Long maxCardinality = new Long(
 						String.valueOf(((FeatureGroup) node).getMax()));
-				List<VariabilityElement> constraintElements = new ArrayList<VariabilityElement>();
+				List<VariabilityElementDefAna> constraintElements = new ArrayList<VariabilityElementDefAna>();
 
 				// El -1 significa el * en la notación de splot,por lo que se
 				// cuenta la cantidad máxima posible según la cantidad de hijos
@@ -198,11 +197,11 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 				while (childrenNodes.hasMoreElements()) {
 					FeatureTreeNode childNode = childrenNodes.nextElement();
 					String childFeatureName = transformName(childNode.getName());
-					VariabilityElement variabilityElement = new VariabilityElement(
+					VariabilityElementDefAna variabilityElementDefAna = new VariabilityElementDefAna(
 							childFeatureName);
 					// Se crea la característica en el modelo con dominio 0, 1
-					variabilityElementMap.put(variabilityElement.getName(),
-							new VariabilityElement(childFeatureName));
+					variabilityElementMap.put(variabilityElementDefAna.getName(),
+							new VariabilityElementDefAna(childFeatureName));
 
 					optionalVariabilityElements.put(
 							variabilityElementMap.get(childFeatureName)
@@ -323,7 +322,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			nameConstraintFeaturesSet = new StringBuilder();
 			Iterator<BooleanVariable> iter = formula.getVariables().iterator();
 			BooleanVariable element;
-			Set<VariabilityElement> relatedVariabilityElements = new HashSet<VariabilityElement>();
+			Set<VariabilityElementDefAna> relatedVariabilityElements = new HashSet<VariabilityElementDefAna>();
 			numericExpressionsList.clear();
 			while (iter.hasNext()) {
 				element = (BooleanVariable) iter.next();
@@ -387,7 +386,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			featureModel.loadModel();
 
 			variabilityModel = new VariabilityModel(inDTO.getNotationType());
-			variabilityModel.setModelName(featureModel.getName());
+			variabilityModel.setName(featureModel.getName());
 
 			// Restricciones Mandatory, optionales, grupales
 			traverseDFSGPL(featureModel.getRoot());

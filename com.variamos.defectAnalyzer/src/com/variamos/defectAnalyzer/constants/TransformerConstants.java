@@ -19,4 +19,10 @@ public interface TransformerConstants {
 	// Valor que indica que una variable no fue asignada. Feature no fue seleccionda.
 	public static final Integer NON_SELECTED_VALUE=0;
 
+	public static final int ONE = 1;
+	public static final int ZERO = 0;
+	public static final String SPACE=" ";
+	
+	public static final String OPEN_BRACKET=" [";
+	public static final String CLOSE_BRACKET="] ";
 }

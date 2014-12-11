@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
 
-public class VariabilityModel {
+public class VariabilityModel extends ProductLine{
 	private String modelName;
 	private NotationType notationType;
-	private Map<String, VariabilityElement> elements;
+	private Map<String, VariabilityElementDefAna> elements;
 	private Map<Long, Dependency> dependencies;
 	// Dependencias propias de la notación que se está utilizando y que no
 	// pueden ser modificables pq hacen parte de la semántica del modelo de
@@ -18,7 +19,7 @@ public class VariabilityModel {
 
 	// Subconjunto de los elementos del modelo. Contiene solo los elementos
 	// opcionales
-	private Map<String, VariabilityElement> optionalVariabilityElements;
+	private Map<String, VariabilityElementDefAna> optionalVariabilityElements;
 
 	// Dependencias de inclusión o exclusion. Son la dependencias para las que
 	// se buscan redundancias si el modelo es un feature model
@@ -38,7 +39,7 @@ public class VariabilityModel {
 	public VariabilityModel() {
 		super();
 		fixedDependencies = new HashMap<Long, Dependency>();
-		optionalVariabilityElements = new HashMap<String, VariabilityElement>();
+		optionalVariabilityElements = new HashMap<String, VariabilityElementDefAna>();
 		numbeOfFeatures = numberOfNonTrasversalDependencies = numberOfTraversalDependencies = percentageNonTraversalDependencies = percentageTraversalDependencies =numberOfDependencies= 0;
 	}
 
@@ -47,21 +48,7 @@ public class VariabilityModel {
 		this.notationType = notationType;
 	}
 
-	/**
-	 * @return the modelName
-	 */
-	public String getModelName() {
-		return modelName;
-	}
-
-	/**
-	 * @param modelName
-	 *            the modelName to set
-	 */
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
-	}
-
+	
 	/**
 	 * @return the notationType
 	 */
@@ -127,7 +114,7 @@ public class VariabilityModel {
 	/**
 	 * @return the elements
 	 */
-	public Map<String, VariabilityElement> getElements() {
+	public Map<String, VariabilityElementDefAna> getElements() {
 		return elements;
 	}
 
@@ -135,7 +122,7 @@ public class VariabilityModel {
 	 * @param elements
 	 *            the elements to set
 	 */
-	public void setElements(Map<String, VariabilityElement> elements) {
+	public void setElements(Map<String, VariabilityElementDefAna> elements) {
 		this.elements = elements;
 	}
 
@@ -173,7 +160,7 @@ public class VariabilityModel {
 	/**
 	 * @return the optionalVariabilityElements
 	 */
-	public Map<String, VariabilityElement> getOptionalVariabilityElements() {
+	public Map<String, VariabilityElementDefAna> getOptionalVariabilityElements() {
 		return optionalVariabilityElements;
 	}
 
@@ -182,7 +169,7 @@ public class VariabilityModel {
 	 *            the optionalVariabilityElements to set
 	 */
 	public void setOptionalVariabilityElements(
-			Map<String, VariabilityElement> optionalVariabilityElements) {
+			Map<String, VariabilityElementDefAna> optionalVariabilityElements) {
 		this.optionalVariabilityElements = optionalVariabilityElements;
 	}
 

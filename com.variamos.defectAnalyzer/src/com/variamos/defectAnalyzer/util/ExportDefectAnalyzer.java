@@ -18,7 +18,7 @@ import com.variamos.defectAnalyzer.model.defects.FalseProductLine;
 import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 
-public class ExportDefectAnalyser {
+public class ExportDefectAnalyzer {
 
 	public static void exportListaModelosDetalleAnalisis(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
@@ -51,7 +51,7 @@ public class ExportDefectAnalyser {
 					List<Dependency> correction = diagnostic
 							.getCorrectionSubsets().get(j);
 					resultadosFila.add(defectAnalyzerControllerOutDTO
-							.getVariabilityModel().getModelName());
+							.getVariabilityModel().getName());
 					resultadosFila
 							.add(Integer
 									.toString(defectAnalyzerControllerOutDTO
@@ -96,7 +96,7 @@ public class ExportDefectAnalyser {
 					List<String> resultadosFila = new ArrayList<String>();
 					List<Dependency> cause = diagnostic.getCauses().get(j);
 					resultadosFila.add(defectAnalyzerControllerOutDTO
-							.getVariabilityModel().getModelName());
+							.getVariabilityModel().getName());
 					resultadosFila
 							.add(Integer
 									.toString(defectAnalyzerControllerOutDTO
@@ -187,7 +187,7 @@ public class ExportDefectAnalyser {
 
 				List<String> resultadosFila = new ArrayList<String>();
 				resultadosFila.add(defectAnalyzerControllerOutDTO
-						.getVariabilityModel().getModelName());
+						.getVariabilityModel().getName());
 				resultadosFila.add(Integer
 						.toString(defectAnalyzerControllerOutDTO
 								.getVariabilityModel().getNumbeOfFeatures()));
@@ -309,7 +309,7 @@ public class ExportDefectAnalyser {
 			}
 			List<String> resultadosFila = new ArrayList<String>();
 			resultadosFila.add(defectAnalyzerControllerOutDTO
-					.getVariabilityModel().getModelName());
+					.getVariabilityModel().getName());
 
 			resultadosFila.add(Integer.toString(defectAnalyzerControllerOutDTO
 					.getVariabilityModel().getNumbeOfFeatures()));
@@ -403,7 +403,7 @@ public class ExportDefectAnalyser {
 			}
 			List<String> resultadosFila = new ArrayList<String>();
 			resultadosFila.add(defectAnalyzerControllerOutDTO
-					.getVariabilityModel().getModelName());
+					.getVariabilityModel().getName());
 
 			resultadosFila.add(Integer.toString(defectAnalyzerControllerOutDTO
 					.getVariabilityModel().getNumbeOfFeatures()));
