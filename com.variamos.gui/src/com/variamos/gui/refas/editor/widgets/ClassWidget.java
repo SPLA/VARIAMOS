@@ -170,6 +170,16 @@ public class ClassWidget extends WidgetR {
 			mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
 			for (int j = 0; j < mv.getChildCount(); j++) {
 				mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
+				for (int k = 0; k < concept.getChildCount(); k++) {
+					mxCell concept2 = (mxCell) refasGraph.getChildAt(concept, k);
+					Object value = concept2.getValue();
+					if (value instanceof InstVertex) {
+						InstVertex ic = (InstVertex) value;
+						MetaVertex mc = ic.getMetaVertex();
+						if (mc.getIdentifier().equals(object))
+							out.add(ic);
+					}
+				}
 				Object value = concept.getValue();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
