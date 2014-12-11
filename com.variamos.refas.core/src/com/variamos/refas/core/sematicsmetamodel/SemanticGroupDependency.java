@@ -1,15 +1,10 @@
 package com.variamos.refas.core.sematicsmetamodel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.variamos.refas.core.types.GroupRelationType;
-import com.variamos.syntaxsupport.type.EnumerationType;
-import com.variamos.syntaxsupport.type.IntegerType;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
@@ -27,8 +22,11 @@ public class SemanticGroupDependency extends AbstractSemanticVertex implements
 	private static final long serialVersionUID = -6309224856276191013L;
 	private boolean exclusive;
 	public static final String 	VAR_CARDINALITYTYPE = "cardinalityType",
+								VAR_CARDINALITYTYPENAME = "Cardinality Type",
 								VAR_LOWCARDINALITY = "lowCardinality",
+								VAR_LOWCARDINALITYNAME = "Low Cardinality",
 								VAR_HIGHCARDINALITY = "highCardinality",
+								VAR_HIGHCARDINALITYNAME = "High Cardinality",
 								VAR_CARDINALITYTYPECLASS ="com.variamos.refas.core.types.CardinalityType";
 
 	private ConditionalExpression conditionalExpression;
@@ -73,16 +71,21 @@ public class SemanticGroupDependency extends AbstractSemanticVertex implements
 		this.exclusive = exclusive;
 
 		putSemanticAttribute(VAR_CARDINALITYTYPE, new SemanticAttribute(
-				VAR_CARDINALITYTYPE, "Enumeration",VAR_CARDINALITYTYPECLASS 
-				, "mandatory","")); 
+				VAR_CARDINALITYTYPE, "Enumeration", true, VAR_CARDINALITYTYPENAME, VAR_CARDINALITYTYPECLASS 
+				, "mandatory", "")); 
 		putSemanticAttribute(VAR_LOWCARDINALITY, new SemanticAttribute(
-				VAR_LOWCARDINALITY, "Integer", 1,""));
+				VAR_LOWCARDINALITY, "Integer", false, VAR_LOWCARDINALITY, 1, ""));
 		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(
-				VAR_HIGHCARDINALITY, "Integer", 1,""));
+				VAR_HIGHCARDINALITY, "Integer",false, VAR_HIGHCARDINALITY, 1, ""));
 
 		addDisPropEditableAttribute("06#"+VAR_CARDINALITYTYPE);
 		addDisPropEditableAttribute("09#"+VAR_LOWCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");
 		addDisPropEditableAttribute("10#"+VAR_HIGHCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");
+
+		addDisPropVisibleAttribute("06#"+VAR_CARDINALITYTYPE);
+		addDisPropVisibleAttribute("09#"+VAR_LOWCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");
+		addDisPropVisibleAttribute("10#"+VAR_HIGHCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");
+
 		
 		addDisPanelVisibleAttribute("06#"+VAR_CARDINALITYTYPE+"#"+VAR_CARDINALITYTYPE+"#!=#"+"range");
 		addDisPanelVisibleAttribute("09#"+VAR_LOWCARDINALITY+"#"+VAR_CARDINALITYTYPE+"#==#"+"range");

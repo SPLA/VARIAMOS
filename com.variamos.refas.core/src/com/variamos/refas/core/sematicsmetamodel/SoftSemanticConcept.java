@@ -1,5 +1,7 @@
 package com.variamos.refas.core.sematicsmetamodel;
 
+import com.variamos.refas.core.types.LevelType;
+import com.variamos.refas.core.types.SatisficingType;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 
 /**
@@ -15,9 +17,10 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 	 */
 	private static final long serialVersionUID = 2755844763829079610L;
 	public static final String VAR_SATISFICINGTYPE = "satisficingType",
-			VAR_SATISFICINGTYPECLASS = "com.variamos.refas.core.types.SatisficingType",
+			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
 			VAR_LEVELTYPE = "level",
-			VAR_LEVELTYPECLASS = "com.variamos.refas.core.types.LevelType";
+			VAR_LEVELTYPENAME = "Satisficing Level",
+			VAR_LEVELTYPECLASS = LevelType.class.getCanonicalName();
 
 	public SoftSemanticConcept() {
 		super();
@@ -38,13 +41,16 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 	private void defineSemanticAttributes()
 	{
 		putSemanticAttribute(VAR_SATISFICINGTYPE, new SemanticAttribute(
-				VAR_SATISFICINGTYPE, "Enumeration", VAR_SATISFICINGTYPECLASS,
+				VAR_SATISFICINGTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
 				"achieve", ""));
-		putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
-				VAR_LEVELTYPE, "Enumeration", VAR_LEVELTYPECLASS, "", ""));
+	//	putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
+	//			VAR_LEVELTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_LEVELTYPECLASS, "", ""));
 
-		this.addDisPropEditableAttribute("15#" + VAR_SATISFICINGTYPE);
-		this.addDisPropEditableAttribute("15#" + VAR_LEVELTYPE);
+		this.addDisPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
+	//	this.addDisPropEditableAttribute("15#" + VAR_LEVELTYPE);
+		
+		this.addDisPropVisibleAttribute("10#" + VAR_SATISFICINGTYPE);
+	//	this.addDisPropVisibleAttribute("15#" + VAR_LEVELTYPE);
 
 	}
 

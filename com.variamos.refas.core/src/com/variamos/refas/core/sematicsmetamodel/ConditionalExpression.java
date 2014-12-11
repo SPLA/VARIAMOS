@@ -20,9 +20,9 @@ public class ConditionalExpression implements Serializable {
 	
 	public ConditionalExpression ()
 	{
-		this.sentences[0] = new SemanticAttribute("sentence1","Class","com.variamos.refas.core.expressions.Sentence","","Left Sentence");
-		this.sentences[1] = new SemanticAttribute("sentence2","Class","com.variamos.refas.core.expressions.Sentence","","Right Sentence");
-		this.logicalOperator = new SemanticAttribute("operator","Enumeration","com.variamos.refas.core.expressions.LogicalOperator","","Operator");
+		this.sentences[0] = new SemanticAttribute("sentence1","Class",true, "Sentence", "com.variamos.refas.core.expressions.Sentence","","Left Sentence");
+		this.sentences[1] = new SemanticAttribute("sentence2","Class",true, "Sentence", "com.variamos.refas.core.expressions.Sentence","","Right Sentence");
+		this.logicalOperator = new SemanticAttribute("operator","Enumeration",true, "Operator", "com.variamos.refas.core.expressions.LogicalOperator","","Operator");
 	}
 
 	public String getExpression() {

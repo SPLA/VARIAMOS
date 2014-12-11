@@ -16,6 +16,15 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
+/**
+ * A class to create semantic and syntax instances for vertex and edges of the
+ * models. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-20
+ */
 public class SemanticPlusSyntax {
 	private Map<String, IntSemanticElement> semanticConcepts = new HashMap<String, IntSemanticElement>();
 	private List<MetaView> metaViews = new ArrayList<MetaView>();
@@ -29,7 +38,7 @@ public class SemanticPlusSyntax {
 		return syntaxElements;
 	}
 
-	public MetaElement getMetaElement(String name) {
+	public MetaElement getSyntaxElement(String name) {
 		return syntaxElements.get(name);
 	}
 
@@ -108,25 +117,40 @@ public class SemanticPlusSyntax {
 		semanticConcepts.put("GE", semGeneralElement);
 
 		semGeneralElement.putSemanticAttribute("Description",
-				new SemanticAttribute("Description", "String", ""));
+				new SemanticAttribute("Description", "String", false,
+						"Description", ""));
 		semGeneralElement.addDisPropEditableAttribute("04#" + "Description");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "Description");
 
 		semGeneralElement.putSemanticAttribute("Active",
-				new SimulationAttribute("Active", "Boolean", true));
+				new SimulationAttribute("Active", "Boolean", true, "Is Active",
+						""));
 		semGeneralElement.putSemanticAttribute("Visibility",
-				new SimulationAttribute("Visibility", "Boolean", true));
+				new SimulationAttribute("Visibility", "Boolean", true,
+						"Is Visible", ""));
 		semGeneralElement.putSemanticAttribute("InitiallySelected",
-				new SimulationAttribute("InitiallySelected", "Boolean", false));
+				new SimulationAttribute("InitiallySelected", "Boolean", false,
+						"Is Initially Selected", ""));
 		semGeneralElement.putSemanticAttribute("Required",
-				new SimulationAttribute("Required", "Boolean", false));
+				new SimulationAttribute("Required", "Boolean", false,
+						"Is Required", ""));
 		semGeneralElement.putSemanticAttribute("CurrentlySelected",
-				new SimulationAttribute("CurrentlySelected", "Boolean", false));
+				new SimulationAttribute("CurrentlySelected", "Boolean", false,
+						"Is Currently Selected", ""));
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
 		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility");
 		semGeneralElement.addDisPropEditableAttribute("03#"
 				+ "InitiallySelected");
 		semGeneralElement.addDisPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addDisPropEditableAttribute("05#"
+				+ "CurrentlySelected");
+
+		semGeneralElement.addDisPropVisibleAttribute("01#" + "Active");
+		semGeneralElement.addDisPropVisibleAttribute("02#" + "Visibility");
+		semGeneralElement.addDisPropVisibleAttribute("03#"
+				+ "InitiallySelected");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "Required");
+		semGeneralElement.addDisPropVisibleAttribute("05#"
 				+ "CurrentlySelected");
 
 		// Definition of variability concept and relations
@@ -190,11 +214,13 @@ public class SemanticPlusSyntax {
 				semGeneralElement, "Claim", true);
 		semanticConcepts.put("CL", semClaim);
 		semClaim.putSemanticAttribute("Operationalizations",
-				new SemanticAttribute("Operationalizations", "MClass",
+				new SemanticAttribute("Operationalizations", "MClass", false,
+						"Operationalizations",
 						"com.variamos.syntaxsupport.metamodel.InstConcept",
 						"OPER", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "String", ""));
+				new SemanticAttribute("ConditionalExpression", "String", false,
+						"Conditional Expression", ""));
 
 		semClaim.addDisPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addDisPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
@@ -206,6 +232,9 @@ public class SemanticPlusSyntax {
 		semClaim.addDisPropEditableAttribute("01#" + "Operationalizations");
 		semClaim.addDisPropEditableAttribute("03#" + "ConditionalExpression");
 
+		semClaim.addDisPropVisibleAttribute("01#" + "Operationalizations");
+		semClaim.addDisPropVisibleAttribute("03#" + "ConditionalExpression");
+
 		semClaim.addDisPanelSpacersAttribute("#" + "Operationalizations"
 				+ "#\n#");
 
@@ -213,10 +242,14 @@ public class SemanticPlusSyntax {
 				semGeneralElement, "SoftDependency", false);
 		semanticConcepts.put("SD", semSoftDependency);
 
-		semSoftDependency.putSemanticAttribute("ConditionalExpression", new SemanticAttribute ("ConditionalExpression", "String", ""));
+		semSoftDependency.putSemanticAttribute("ConditionalExpression",
+				new SemanticAttribute("ConditionalExpression", "String", false,
+						"Conditional Expression", ""));
 		semSoftDependency.addDisPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
 		semSoftDependency.addDisPropEditableAttribute("03#"
+				+ "ConditionalExpression");
+		semSoftDependency.addDisPropVisibleAttribute("03#"
 				+ "ConditionalExpression");
 
 		// Elements Lists
@@ -246,27 +279,20 @@ public class SemanticPlusSyntax {
 		List<GroupRelationType> alternativeGroupRelation = new ArrayList<GroupRelationType>();
 		alternativeGroupRelation.add(GroupRelationType.alternative);
 
-		List<GroupRelationType> alternative_implicates_means_endsGroupRelation = new ArrayList<GroupRelationType>();
-		alternative_implicates_means_endsGroupRelation
-				.add(GroupRelationType.alternative);
-		alternative_implicates_means_endsGroupRelation
-				.add(GroupRelationType.means_ends);
-		alternative_implicates_means_endsGroupRelation
-				.add(GroupRelationType.implication);
+		List<GroupRelationType> altern_impl_meansGroupRelation = new ArrayList<GroupRelationType>();
+		altern_impl_meansGroupRelation.add(GroupRelationType.alternative);
+		altern_impl_meansGroupRelation.add(GroupRelationType.means_ends);
+		altern_impl_meansGroupRelation.add(GroupRelationType.implication);
 
 		List<IntDirectEdgeType> alternative_prefferedDirectRelation = new ArrayList<IntDirectEdgeType>();
 		alternative_prefferedDirectRelation.add(DirectEdgeType.alternative);
 		alternative_prefferedDirectRelation.add(DirectEdgeType.preferred);
 
-		List<IntDirectEdgeType> alternative_preffered_implication_means_endsDirectRelation = new ArrayList<IntDirectEdgeType>();
-		alternative_preffered_implication_means_endsDirectRelation
-				.add(DirectEdgeType.alternative);
-		alternative_preffered_implication_means_endsDirectRelation
-				.add(DirectEdgeType.preferred);
-		alternative_preffered_implication_means_endsDirectRelation
-				.add(DirectEdgeType.implication);
-		alternative_preffered_implication_means_endsDirectRelation
-				.add(DirectEdgeType.means_ends);
+		List<IntDirectEdgeType> alter_preff_impl_meansDirectRelation = new ArrayList<IntDirectEdgeType>();
+		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.alternative);
+		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.preferred);
+		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.implication);
+		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.means_ends);
 
 		List<IntDirectEdgeType> allSGDirectRelation = new ArrayList<IntDirectEdgeType>();
 		allSGDirectRelation.add(DirectEdgeType.alternative);
@@ -338,8 +364,7 @@ public class SemanticPlusSyntax {
 		List<OutgoingSemanticEdge> outgoingGoalRelation = new ArrayList<OutgoingSemanticEdge>();
 		outgoingGoalRelation.add(new OutgoingSemanticEdge("", semGoal));
 		SemanticGroupDependency semanticGoalGoalGroupRelation = new SemanticGroupDependency(
-				"GoalGoalGroupRel", false,
-				alternative_implicates_means_endsGroupRelation,
+				"GoalGoalGroupRel", false, altern_impl_meansGroupRelation,
 				outgoingGoalRelation);
 		groupRelation = new IncomingSemanticEdge("",
 				semanticGoalGoalGroupRelation);
@@ -350,7 +375,7 @@ public class SemanticPlusSyntax {
 
 		DirectSemanticEdge directGoalGoalSemanticEdge = new DirectSemanticEdge(
 				"GoalGoalDirectEdge", false, false, semanticVertexs,
-				alternative_preffered_implication_means_endsDirectRelation);
+				alter_preff_impl_meansDirectRelation);
 		semGoal.addDirectRelation(directGoalGoalSemanticEdge);
 		semanticConcepts.put("GoalGoalGroupRel", semanticGoalGoalGroupRelation);
 		semanticConcepts.put("GoalGoalDirectEdge", directGoalGoalSemanticEdge);
@@ -413,20 +438,23 @@ public class SemanticPlusSyntax {
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semSoftgoal);
 
-		DirectSemanticEdge directSGSGSemanticEdge = new DirectSemanticEdge(
+		DirectSemanticEdge directSGSGSemEdge = new DirectSemanticEdge(
 				"SGSGDirectEdge", true, false, semanticVertexs,
 				allSGDirectRelation);
-		directSGSGSemanticEdge.putSemanticAttribute(
-				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration",
+		directSGSGSemEdge.putSemanticAttribute(AbstractSemanticEdge.VAR_LEVEL,
+				new SemanticAttribute(AbstractSemanticEdge.VAR_LEVEL,
+						"Enumeration", false,
+						AbstractSemanticEdge.VAR_LEVELNAME,
 						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
-		directSGSGSemanticEdge.addDisPropEditableAttribute("04#"
+		directSGSGSemEdge.addDisPropEditableAttribute("08#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSGSGSemanticEdge.addDisPanelVisibleAttribute("04#"
+		directSGSGSemEdge.addDisPropVisibleAttribute("08#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
-		semSoftgoal.addDirectRelation(directSGSGSemanticEdge);
+		directSGSGSemEdge.addDisPanelVisibleAttribute("08#"
+				+ AbstractSemanticEdge.VAR_LEVEL);
+		semSoftgoal.addDirectRelation(directSGSGSemEdge);
 		semanticConcepts.put("SGSGGroupRel", semanticSGSGGroupRelation);
-		semanticConcepts.put("SGSGDirectEdge", directSGSGSemanticEdge);
+		semanticConcepts.put("SGSGDirectEdge", directSGSGSemEdge);
 
 		// CV to CG
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
@@ -470,11 +498,14 @@ public class SemanticPlusSyntax {
 				normalDirectRelation);
 		directClaimSGSemanticEdge.putSemanticAttribute(
 				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration",
+						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
+						AbstractSemanticEdge.VAR_LEVEL,
 						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
 		directClaimSGSemanticEdge.addDisPropEditableAttribute("04#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSGSGSemanticEdge.addDisPanelVisibleAttribute("04#"
+		directClaimSGSemanticEdge.addDisPropVisibleAttribute("04#"
+				+ AbstractSemanticEdge.VAR_LEVEL);
+		directClaimSGSemanticEdge.addDisPanelVisibleAttribute("04#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
 		semClaim.addDirectRelation(directClaimSGSemanticEdge);
 		semanticConcepts.put("ClaimSGDirectEdge", directClaimSGSemanticEdge);
@@ -510,11 +541,14 @@ public class SemanticPlusSyntax {
 		semAsset.addDirectRelation(directAssetOperSemanticEdge);
 		directAssetOperSemanticEdge.putSemanticAttribute(
 				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration",
+						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
+						AbstractSemanticEdge.VAR_LEVELNAME,
 						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
 		directAssetOperSemanticEdge.addDisPropEditableAttribute("04#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSGSGSemanticEdge.addDisPanelVisibleAttribute("04#"
+		directAssetOperSemanticEdge.addDisPropVisibleAttribute("04#"
+				+ AbstractSemanticEdge.VAR_LEVEL);
+		directAssetOperSemanticEdge.addDisPanelVisibleAttribute("04#"
 				+ AbstractSemanticEdge.VAR_LEVEL);
 		semanticConcepts.put("AssetOperGroupRel",
 				semanticAssetOperGroupRelation);
@@ -522,8 +556,6 @@ public class SemanticPlusSyntax {
 				.put("AssetOperDirectEdge", directAssetOperSemanticEdge);
 
 		// TODO: structural and functional dependency relations
-		
-		
 
 		// *************************---------------****************************
 		// Our MetaModel objects definition
@@ -539,40 +571,43 @@ public class SemanticPlusSyntax {
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VE", false,
 				"VariabilityArtifact", null, 0, 0, null, true, null, 3, true,
 				semHardConcept);
-		syntaxVariabilityArtifact.addModelingAttribute("name", "String", "");
+		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
+				"Name", "");
 
 		syntaxVariabilityArtifact.addDisPanelVisibleAttribute("03#" + "name");
 
 		syntaxVariabilityArtifact.addDisPropEditableAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addDisPropVisibleAttribute("03#" + "name");
 
 		syntaxMetaView.addConcept(syntaxVariabilityArtifact);
 		syntaxElements.put("VA", syntaxVariabilityArtifact);
 
 		metaViews.add(syntaxMetaView);
 
-		MetaConcept syntaxTopGoal = new MetaConcept("TG", true, "Top Goal",
-				"rqgoal", 100, 40,
+		MetaConcept syntaxTopGoal = new MetaConcept("TopGoal", true,
+				"Top Goal", "refasgoal", 100, 40,
 				"/com/variamos/gui/refas/editor/images/goal.png", true,
 				Color.BLUE.toString(), 3, true, semGoal);
-		System.out.println("TG: "
+		System.out.println("TopGoal: "
 				+ syntaxTopGoal.getModelingAttributes().toString());
 		syntaxTopGoal.addMetaExtendRelation(syntaxVariabilityArtifact, false);
 
 		syntaxMetaView.addConcept(syntaxTopGoal);
-		syntaxElements.put("TG", syntaxTopGoal);
+		syntaxElements.put("TopGoal", syntaxTopGoal);
 
-		MetaConcept syntaxGeneralGoal = new MetaConcept("GG", true,
-				"General Goal", "rqgoal", 100, 40,
+		MetaConcept syntaxGeneralGoal = new MetaConcept("GeneralGoal", true,
+				"General Goal", "refasgoal", 100, 40,
 				"/com/variamos/gui/refas/editor/images/goal.png", true,
 				Color.BLUE.toString(), 2, true, semGoal);
 		syntaxGeneralGoal.addMetaExtendRelation(syntaxVariabilityArtifact,
 				false);
 
 		syntaxMetaView.addConcept(syntaxGeneralGoal);
-		syntaxElements.put("GG", syntaxGeneralGoal);
+		syntaxElements.put("GeneralGoal", syntaxGeneralGoal);
 
 		MetaConcept sOperationalization = new MetaConcept("OPER", true,
-				"Operationalization", "rqoper", 100, 40,
+				"Operationalization", "refasoper", 100, 40,
 				"/com/variamos/gui/refas/editor/images/operational.png", true,
 				Color.BLUE.toString(), 2, true, semOperationalization);
 		sOperationalization.addMetaExtendRelation(syntaxVariabilityArtifact,
@@ -581,15 +616,17 @@ public class SemanticPlusSyntax {
 		syntaxMetaView.addConcept(sOperationalization);
 		syntaxElements.put("OPER", sOperationalization);
 
-		MetaConcept syntaxAssumption = new MetaConcept("ASSUM", true,
-				"semanticAssumption", "rqsassump", 100, 40,
+		MetaConcept syntaxAssumption = new MetaConcept("Assumption", true,
+				"semanticAssumption", "refassassump", 100, 40,
 				"/com/variamos/gui/refas/editor/images/assump.png", true,
 				Color.WHITE.toString(), 1, true, semAssumption);
 		syntaxAssumption
 				.addMetaExtendRelation(syntaxVariabilityArtifact, false);
 
 		syntaxMetaView.addConcept(syntaxAssumption);
-		syntaxElements.put("ASSUM", syntaxAssumption);
+		syntaxElements.put("Assumption", syntaxAssumption);
+
+		// Direct Hard Relations
 
 		List<IntDirectSemanticEdge> directHardSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directHardSemanticEdges.add(directHardHardSemanticEdge);
@@ -597,14 +634,16 @@ public class SemanticPlusSyntax {
 		directHardSemanticEdges.add(directOperGoalSemanticEdge);
 		directHardSemanticEdges.add(directOperOperSemanticEdge);
 
-		MetaEdge metaHardEdge = new MetaEdge("HR", true, "Hard Relation",
-				"ploptional", 50, 50,
+		MetaDirectRelation metaHardEdge = new MetaDirectRelation("HR", true,
+				"Hard Relation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardSemanticEdges, allSGDirectRelation);
 		syntaxVariabilityArtifact.addMetaEdgeAsOrigin(
 				syntaxVariabilityArtifact, metaHardEdge);
 		syntaxElements.put("HR", metaHardEdge);
+
+		// Group Hard Relations
 
 		List<IntSemanticGroupDependency> semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticGoalGoalGroupRelation);
@@ -613,12 +652,12 @@ public class SemanticPlusSyntax {
 		semanticRelations.add(semanticHardHardGroupRelation);
 
 		MetaGroupDependency syntaxGroupDependency = new MetaGroupDependency(
-				"Other GD", true, "Other GD", "plgroup", 20, 20,
+				"Hard GD", true, "Hard GD", "plgroup", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
-		syntaxElements.put("Other GD", syntaxGroupDependency);
+		syntaxElements.put("Hard GD", syntaxGroupDependency);
 
 		// *************************---------------****************************
 		// Softgoals model
@@ -627,50 +666,56 @@ public class SemanticPlusSyntax {
 				"Soft Goals Palette", 1);
 		metaViews.add(syntaxMetaView);
 
-		MetaConcept syntaxAbsSoftGoal = new MetaConcept("SG", false,
+		MetaConcept syntaxAbsSoftGoal = new MetaConcept("Softgoal", false,
 				"Softgoal", null, 0, 0, null, true, null, 3, true, semSoftgoal);
 
-		syntaxAbsSoftGoal.addModelingAttribute("name", "String", "");
+		syntaxAbsSoftGoal.addModelingAttribute("name", "String", false, "Name",
+				"");
 		syntaxAbsSoftGoal.addDisPanelVisibleAttribute("03#" + "name");
 
 		syntaxAbsSoftGoal.addDisPropEditableAttribute("03#" + "name");
+		syntaxAbsSoftGoal.addDisPropVisibleAttribute("03#" + "name");
 
 		syntaxMetaView.addConcept(syntaxAbsSoftGoal);
-		syntaxElements.put("SG", syntaxAbsSoftGoal);
+		syntaxElements.put("Softgoal", syntaxAbsSoftGoal);
 
-		MetaConcept syntaxTopSoftGoal = new MetaConcept("TSG", true,
-				"Top Softgoal", "rqsoftgoal", 100, 40,
+		MetaConcept syntaxTopSoftGoal = new MetaConcept("TopSoftgoal", true,
+				"Top Softgoal", "refassoftgoal", 100, 40,
 				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, true, semSoftgoal);
 
 		syntaxTopSoftGoal.addMetaExtendRelation(syntaxAbsSoftGoal, false);
 
 		syntaxMetaView.addConcept(syntaxTopSoftGoal);
-		syntaxElements.put("TSG", syntaxTopSoftGoal);
+		syntaxElements.put("TopSoftgoal", syntaxTopSoftGoal);
 
-		MetaConcept syntaxGeneralSoftGoal = new MetaConcept("GSG", true,
-				"General Softgoal", "rqsoftgoal", 100, 40,
+		MetaConcept syntaxGeneralSoftGoal = new MetaConcept("GeneralSSoftgoal",
+				true, "General Softgoal", "refassoftgoal", 100, 40,
 				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
 				Color.WHITE.toString(), 1, true, semSoftgoal);
 
 		syntaxGeneralSoftGoal.addMetaExtendRelation(syntaxAbsSoftGoal, false);
 		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
-		syntaxElements.put("GSG", syntaxGeneralSoftGoal);
+		syntaxElements.put("GeneralSSoftgoal", syntaxGeneralSoftGoal);
+
+		// Direct Soft relation
 
 		List<IntDirectSemanticEdge> directSoftSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
-		directSoftSemanticEdges.add(directSGSGSemanticEdge);
+		directSoftSemanticEdges.add(directSGSGSemEdge);
 
-		MetaEdge metaSoftEdge = new MetaEdge("SR", true, "SoftRelation",
-				"ploptional", 50, 50,
+		MetaDirectRelation metaSoftEdge = new MetaDirectRelation(
+				"SoftRelation", true, "SoftRelation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSoftSemanticEdges,
 				allSGDirectRelation);
 		syntaxAbsSoftGoal.addMetaEdgeAsOrigin(syntaxAbsSoftGoal, metaSoftEdge);
-		syntaxElements.put("SR", metaSoftEdge);
+		syntaxElements.put("SoftRelation", metaSoftEdge);
 
 		semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticSGSGGroupRelation);
-		
+
+		// Group soft relation
+
 		syntaxGroupDependency = new MetaGroupDependency("Softgoal GD", true,
 				"Softgoal GD", "plgroup", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
@@ -688,49 +733,67 @@ public class SemanticPlusSyntax {
 		// syntaxMetaView.addConcept(syntaxVariable);
 
 		MetaConcept syntaxContextGroup = new MetaConcept("CG", true,
-				"Context Group", "rqcontextgrp", 150, 40,
+				"Context Group", "refascontextgrp", 150, 40,
 				"/com/variamos/gui/refas/editor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, true, semContextGroup);
 
 		syntaxMetaView.addConcept(syntaxContextGroup);
 		syntaxElements.put("CG", syntaxContextGroup);
 
-		MetaConcept syntaxAbsVariable = new MetaConcept("V", false, "Variable",
-				null, 0, 0, null, true, null, 1, true, semVariable);
+		MetaConcept syntaxAbsVariable = new MetaConcept("Variable", false,
+				"Variable", null, 0, 0, null, true, null, 1, true, semVariable);
 
-		syntaxElements.put("V", syntaxAbsVariable);
+		syntaxElements.put("Variable", syntaxAbsVariable);
 
-		MetaConcept syntaxGlobalVariable = new MetaConcept("GV", true,
-				"Global Variable", "rqglobcnxt", 150, 40,
+		MetaConcept syntaxGlobalVariable = new MetaConcept("GlobalVariable",
+				true, "Global Variable", "refasglobcnxt", 150, 40,
 				"/com/variamos/gui/refas/editor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, true, semVariable);
 
 		syntaxGlobalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
 		syntaxMetaView.addConcept(syntaxGlobalVariable);
-		syntaxElements.put("GV", syntaxGlobalVariable);
+		syntaxElements.put("GlobalVariable", syntaxGlobalVariable);
 
-		MetaConcept syntaxLocalVariable = new MetaConcept("LV", true,
-				"Local Variable", "rqlocalcnxt", 100, 40,
+		MetaConcept syntaxLocalVariable = new MetaConcept("LocalVariable",
+				true, "Local Variable", "refaslocalcnxt", 100, 40,
 				"/com/variamos/gui/refas/editor/images/localCnxtVar.png", true,
 				Color.BLUE.toString(), 1, true, semVariable);
 
 		syntaxLocalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
 		syntaxMetaView.addConcept(syntaxLocalVariable);
-		syntaxElements.put("LV", syntaxLocalVariable);
+		syntaxElements.put("LocalVariable", syntaxLocalVariable);
+
+		// Direct variable relations
 
 		List<IntDirectSemanticEdge> directCVCGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directCVCGSemanticEdges.add(directCVCGSemanticEdge);
 
-		MetaEdge metaVariableEdge = new MetaEdge("CR", true, "ContextRelation",
-				"ploptional", 50, 50,
+		MetaDirectRelation metaVariableEdge = new MetaDirectRelation("VCR",
+				true, "ContextRelation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdges,
 				normalDirectRelation);
 		syntaxAbsVariable.addMetaEdgeAsOrigin(syntaxContextGroup,
 				metaVariableEdge);
-		syntaxElements.put("CR", metaVariableEdge);
+		syntaxElements.put("VCR", metaVariableEdge);
+
+		MetaDirectRelation metaContextEdge = new MetaDirectRelation("CCR",
+				true, "ContextRelation", "ploptional", 50, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				syntaxContextGroup, syntaxContextGroup,
+				directCVCGSemanticEdges, normalDirectRelation);
+		syntaxContextGroup.addMetaEdgeAsOrigin(syntaxContextGroup,
+				metaContextEdge);
+		syntaxElements.put("CCR", metaVariableEdge);
+
+		MetaEnumeration metaEnumeration = new MetaEnumeration("Enumeration",
+				true, "MetaEnumeration", "refasenumeration", 100, 150,
+				"/com/variamos/gui/refas/editor/images/assump.png", true, "",
+				1, true);
+		syntaxMetaView.addConcept(metaEnumeration);
+		syntaxElements.put("Enumeration", metaEnumeration);
 
 		// *************************---------------****************************
 		// SG Satisficing Model
@@ -743,14 +806,14 @@ public class SemanticPlusSyntax {
 		syntaxMetaView.addConcept(sOperationalization);
 
 		MetaConcept syntaxClaim = new MetaConcept("CL", true, "Claim",
-				"rqclaim", 100, 40,
+				"refasclaim", 100, 40,
 				"/com/variamos/gui/refas/editor/images/claim.png", true,
 				Color.BLUE.toString(), 1, true, semClaim);
 		syntaxMetaView.addConcept(syntaxClaim);
 		syntaxElements.put("CL", syntaxClaim);
 
 		MetaConcept syntaxSoftDependency = new MetaConcept("SD", true,
-				"Soft Dependency", "rqsoftdep", 100, 40,
+				"Soft Dependency", "refassoftdep", 100, 40,
 				"/com/variamos/gui/refas/editor/images/softdep.png", true,
 				Color.BLUE.toString(), 1, true, semSoftDependency);
 
@@ -770,8 +833,8 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directSDSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directSDSGSemanticEdges.add(directSDSGSemanticEdge);
 
-		MetaEdge metaSDSGEdge = new MetaEdge("SDSGR", true, "SDSGRelation",
-				"ploptional", 50, 50,
+		MetaDirectRelation metaSDSGEdge = new MetaDirectRelation("SDSGR", true,
+				"SDSGRelation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxSoftDependency, syntaxAbsSoftGoal,
 				directSDSGSemanticEdges, normalDirectRelation);
@@ -783,8 +846,8 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directClaimSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directClaimSGSemanticEdges.add(directSDSGSemanticEdge);
 
-		MetaEdge metaClaimSGEdge = new MetaEdge("ClaimSGR", true,
-				"ClaimSGRelation", "ploptional", 50, 50,
+		MetaDirectRelation metaClaimSGEdge = new MetaDirectRelation("ClaimSGR",
+				true, "ClaimSGRelation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxClaim, syntaxAbsSoftGoal, directClaimSGSemanticEdges,
 				normalDirectRelation);
@@ -801,14 +864,17 @@ public class SemanticPlusSyntax {
 		syntaxMetaView.addConcept(sOperationalization);
 
 		MetaConcept syntaxAsset = new MetaConcept("AS", true, "Asset",
-				"rqcompon", 100, 40,
+				"refasasset", 100, 40,
 				"/com/variamos/gui/refas/editor/images/component.png", true,
 				Color.WHITE.toString(), 1, true, semAsset);
-		syntaxAsset.addModelingAttribute("name", "String", ""); // TODO move to
+		syntaxAsset.addModelingAttribute("name", "String", false, "Name", ""); // TODO
+																				// move
+																				// to
 		// semantic
 		// attributes
 		syntaxAsset.addDisPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addDisPropEditableAttribute("03#" + "name");
+		syntaxAsset.addDisPropVisibleAttribute("03#" + "name");
 		syntaxMetaView.addConcept(syntaxAsset);
 
 		syntaxMetaView.addConcept(sOperationalization);
@@ -840,16 +906,16 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directAssetOperSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directAssetOperSemanticEdges.add(directAssetOperSemanticEdge);
 
-		MetaEdge metaOperEdge = new MetaEdge("OperImpR", true,
-				"OperImpRelation", "ploptional", 50, 50,
+		MetaDirectRelation metaOperEdge = new MetaDirectRelation("OperImpR",
+				true, "OperImpRelation", "ploptional", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAsset, sOperationalization, directAssetOperSemanticEdges,
 				implementationDirectRelation);
 
-		//syntaxMetaView.addConcept(metaOperEdge);
+		// syntaxMetaView.addConcept(metaOperEdge);
 		syntaxAsset.addMetaEdgeAsOrigin(sOperationalization, metaOperEdge);
 		syntaxElements.put("OperImpR", metaOperEdge);
-		
+
 	}
 
 	public static void main(String[] args) {

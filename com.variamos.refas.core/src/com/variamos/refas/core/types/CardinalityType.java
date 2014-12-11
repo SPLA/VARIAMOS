@@ -1,14 +1,14 @@
 package com.variamos.refas.core.types;
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * An enumeration to represent possible relations cardinalities. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-23
  */
 public enum CardinalityType {
-	mandatory,
-	optional,
-	range,
-	mutex
+	mandatory, optional, range, mutex
 }

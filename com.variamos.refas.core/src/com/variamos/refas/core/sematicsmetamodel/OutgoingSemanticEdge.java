@@ -3,8 +3,6 @@ package com.variamos.refas.core.sematicsmetamodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-
 public class OutgoingSemanticEdge extends AbstractSemanticEdge {
 	/**
 	 * 

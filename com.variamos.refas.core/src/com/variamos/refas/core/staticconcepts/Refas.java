@@ -12,17 +12,21 @@ import com.mxgraph.util.mxResources;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
-import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 
 /**
- * @author Juan Carlos Muñoz 2014
- *  part of the PhD work at CRI - Universite Paris 1
- *
- * Definition of syntax for VariaMos
- * Initially based on ProductLine class
+ * A class to represent the model with vertex and edges. Maintains the
+ * collections from ProductLine but are not used. Methods should be standardized
+ * to use the HLCL. Initially based on ProductLine class. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-10
  */
-
 public class Refas extends AbstractModel {
 
 	/**
@@ -38,22 +42,20 @@ public class Refas extends AbstractModel {
 
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String, Constraint> constraints;
-	
-	private Map<String, InstElement> instElements;
-	private Map<String, InstEdge> instDirectRelations; // Methods missing to handle
-	
-	protected String name;
+
+	private Map<String, InstVertex> instElements;
+	private Map<String, InstEdge> instEdges; // Methods missing to handle
+
+	protected String fileName;
 
 	public Refas() {
 		vElements = new HashMap<String, VariabilityElement>();
-		
+
 		instElements = new HashMap<>();
-		instDirectRelations= new HashMap<>();
-		
-		name = "";
+		instEdges = new HashMap<>();
+
+		fileName = "";
 	}
-
-
 
 	public Collection<Constraint> getConstraints() {
 		return constraints.values();
@@ -67,74 +69,68 @@ public class Refas extends AbstractModel {
 		return vElements.values();
 	}
 
-	public String addElement(InstElement element) {
-		String id = getNextElementId(element);
-		element.setIdentifier(id);
-		instElements.put(id, element);
-		return id;
-
-	}
-	
-
-	public String addDirectRelation(InstEdge directRelation) {
-		String id = getNextDirectRelationId(directRelation);
-		directRelation.setIdentifier(id);		
-		instDirectRelations.put(id, directRelation);
-		return id;
-
-	}
-	
-
-	public String getName() {
-		return name;
+	public void putInstElement(InstVertex element) {
+		instElements.put(element.getIdentifier(), element);
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void putInstEdge(InstEdge element) {
+		instEdges.put(element.getIdentifier(), element);
 	}
 
-	public String addInstConceptElement(InstElement element) {
-		String id = getNextElementId(element);
-		InstElement varElement = (InstElement) element;
+	public String addNewInstElement(InstVertex element) {
+		String id = getNextInstElementId(element);
+		InstVertex varElement = (InstVertex) element;
 		varElement.setIdentifier(id);
-		varElement.setInstAttribute("name", "<<new>>");
+		varElement.setInstAttribute("name", id);
 		instElements.put(id, element);
 		return id;
 	}
 
-	private String getNextElementId(InstElement element) {
+	public String addNewInstEdge(InstEdge directRelation) {
+		String id = getNextInstEdgeId(directRelation);
+		directRelation.setIdentifier(id);
+		instEdges.put(id, directRelation);
+		return id;
+	}
+
+	private String getNextInstElementId(InstVertex element) {
 
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
 			classId = ((InstConcept) element).getMetaConceptIdentifier();
-		else
-			classId = ((InstGroupDependency) element)
-					.getMetaGroupDependencyIdentifier();
+		else {
+			if (element instanceof InstEnumeration)
+				classId = ((InstEnumeration) element)
+						.getMetaEnumerationIdentifier();
+			else
+				classId = ((InstGroupDependency) element)
+						.getMetaGroupDependencyIdentifier();
+		}
 
 		while (instElements.containsKey(classId + id)) {
 			id++;
 		}
 		return classId + id;
 	}
-	
-	private String getNextDirectRelationId(InstEdge element) {
+
+	private String getNextInstEdgeId(InstEdge element) {
 
 		int id = 1;
 		String classId = null;
 		classId = MetaEdge.getClassId();
-		
-		while (instDirectRelations.containsKey(classId + id)) {
+
+		while (instEdges.containsKey(classId + id)) {
 			id++;
 		}
 		return classId + id;
 	}
-	
-	public Map<String, InstElement> getElements() {
+
+	public Map<String, InstVertex> getElements() {
 		return instElements;
 	}
 
-	public void setElements(Map<String, InstElement> elements) {
+	public void setElements(Map<String, InstVertex> elements) {
 		this.instElements = elements;
 	}
 
@@ -144,20 +140,27 @@ public class Refas extends AbstractModel {
 
 	@Override
 	public String toString() {
-		return getName();
+		return getFileName();
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String name) {
+		this.fileName = name;
 	}
 
 	@Override
 	public Map<String, Asset> getAssets() {
-		// TODO Auto-generated method stub
+		// TODO support HLCL
 		return null;
 	}
 
 	@Override
 	public Constraint getConstraint(String consId) {
-		// TODO Auto-generated method stub
+		// TODO support HLCL
 		return null;
 	}
-
 
 }
