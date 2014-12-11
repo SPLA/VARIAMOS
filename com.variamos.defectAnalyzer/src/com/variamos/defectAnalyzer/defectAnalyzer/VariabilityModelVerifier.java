@@ -46,7 +46,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 		super(analyzerInDTO);
 		this.analyzerInDTO = analyzerInDTO;
 		attainableDomainsByVariabilityElementMap = new HashMap<VariabilityElement, Set<Integer>>();
-		solver= new SolverOperationsUtil(analyzerInDTO.getPrologEditorType());
+		solver= new SolverOperationsUtil(analyzerInDTO.getSolverEditorType());
 		
 	}
 

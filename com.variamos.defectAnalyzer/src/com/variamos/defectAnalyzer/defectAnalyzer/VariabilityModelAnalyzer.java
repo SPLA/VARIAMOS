@@ -24,7 +24,7 @@ public class VariabilityModelAnalyzer {
 			// ajusta la ruta
 			prologTempPath = prologTempPath.replace("\\", "/");
 			
-			prologEditorType = inDTO.getPrologEditorType();
+			prologEditorType = inDTO.getSolverEditorType();
 
 
 		} catch (IOException e) {

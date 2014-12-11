@@ -70,7 +70,7 @@ public class MainDefectAnalyzer {
 			// Modelo transformado, editor de prolog y tipo de identificación:
 			// completa o parcial
 			defectAnalyzerInDTO.setVariabilityModel(variabilityModel);
-			defectAnalyzerInDTO.setPrologEditorType(prologEditorType);
+			defectAnalyzerInDTO.setSolverEditorType(prologEditorType);
 			defectAnalyzerInDTO
 					.setDefectAnalyzerMode(DefectAnalyzerMode.PARTIAL);
 

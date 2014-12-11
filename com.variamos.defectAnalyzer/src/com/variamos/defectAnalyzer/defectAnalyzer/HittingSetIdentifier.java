@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.model.HittingSetVisitedNode;
 import com.variamos.defectAnalyzer.util.CollectionsSizeComparator;
 import com.variamos.defectAnalyzer.util.SetUtil;
@@ -18,101 +17,10 @@ import com.variamos.defectAnalyzer.util.SetUtil;
  * @author LuFe
  *
  */
-/**
- * @author LuFe
- * 
- */
-/**
- * @author LuFe
- * 
- */
+
 public class HittingSetIdentifier {
 
-	/**
-	 * Implementa la lógica propuesta por lifton para generar un MUS, se
-	 * invierte el orden de los ciclos, pq el propuesto en el artículo enera
-	 * elementos repetidos en los subconjuntos por lo que el hitting set no es
-	 * el mínimo
-	 * 
-	 * @param collectionOfSets
-	 * @param startClause
-	 * @return
-	 * @throws FunctionalException
-	 */
-	public static <E> List<E> generateOneMinimalHittingSet(
-			List<List<E>> collectionOfSets, E startClause) {
-
-		List<E> MUSList = new ArrayList<E>();
-		List<E> MCSwithClauseToAdd = new ArrayList<E>();
-		List<List<E>> MCSes = cloneSet(collectionOfSets);
-		boolean continueGeneration = Boolean.TRUE;
-		E clauseToAdd = startClause;
-		while (continueGeneration) {
-
-			MCSwithClauseToAdd = identifySetWithClause(clauseToAdd, MCSes);
-			if (MCSwithClauseToAdd != null) {
-				// Se adiciona la cláusula al MUS
-				MUSList.add(clauseToAdd);
-
-				// Se elimina el MCS q contiene la cláusula de la lista
-				// Para corregir concurrent modification sino se eliminaría el
-				// mismo de la lista que se itera cuando se propaga la selección
-				MCSes.remove(MCSwithClauseToAdd);
-
-				// Se propaga la elección para reducir el tamaño del MCS
-				propagateChoiceOriginal(MCSes, clauseToAdd, MCSwithClauseToAdd);
-			}
-			if (MCSes.isEmpty()) {
-				continueGeneration = Boolean.FALSE;
-			} else {
-				clauseToAdd = selectRemainingClause(MCSes);
-			}
-		}
-
-		if (MUSList.isEmpty()) {
-			throw new RuntimeException(
-					" Error with the MUS generation. Generated MUS is empty. Verify");
-		}
-		return MUSList;
-
-	}
-
-	public static <E> List<List<E>> generateAllMinimalHittingSets(
-			List<List<E>> collectionOfSets) throws FunctionalException {
-
-		// En caso de que la lista de entrada tenga supersets se eliminan ( Para
-		// la formación de un hitting set esto no debería pasar, pero se hace
-		// por seguridad)
-		List<List<E>> collectionOfSetCopy = cloneSet(collectionOfSets);
-		collectionOfSetCopy = SetUtil.maintainNoSupersets(collectionOfSetCopy);
-
-		Collection<E> allClausesMCSes = SetUtil
-				.getUnionCollectionOfSets(collectionOfSetCopy);
-		List<List<E>> hittingSubsets = new ArrayList<List<E>>();
-		boolean existMUS = Boolean.TRUE;
-		for (E clause : allClausesMCSes) {
-			List<E> MUS = new ArrayList<E>();
-			// Se invoca la generación del MUS
-			// MUS = MUSluisa(minimalCorrectionSubsets, clause);
-			MUS = generateOneMinimalHittingSet(collectionOfSetCopy, clause);
-			if (!MUS.isEmpty()) {
-				// Se verifica que ese MUS no exista ya en la lista de MUSes.
-				existMUS = SetUtil.<E> verifyExistSetInSetofSets(MUS,
-						hittingSubsets);
-
-				if (!existMUS) {
-					// Adicionar MUS a la lista
-					hittingSubsets.add(MUS);
-				}
-			} else {
-				System.out.println("NO MUS");
-			}
-
-		}
-		return hittingSubsets;
-
-	}
-
+	
 	/*
 	 * Implementa la lógica propuesta en Lifton(2009) pero se modifica pq el
 	 * algoritmo original omitía algunos subconjuntos
@@ -184,152 +92,8 @@ public class HittingSetIdentifier {
 
 	}
 
-	public static <E> void allMUSesWithTime(
-			List<List<E>> minimalCorrectionSubsets, List<E> actualHittingSet,
-			List<List<E>> hittingSets, Long startTime, Long maxTime) {
-
-		// Adiciona al MUS actual los conjutos de la lista que tengan tamaño
-		// 1.
-		// Estos siempre tienen que ir y permite ganar en velocidad. Elimina
-		// luego estos conjuntos de la lista, y si hay mas conjuntos que
-		// tienene
-		// los elementos de los conjuntos singleton se quitan
-		propagateSingletons(minimalCorrectionSubsets, actualHittingSet);
-
-		if (minimalCorrectionSubsets.isEmpty()) {
-			// Adicionar MUS a la list
-			hittingSets.add(actualHittingSet);
-			// Elimina los supersets que existan hata ahora en la lista de
-			// hitting sets
-			SetUtil.maintainNoSupersets(hittingSets);
-			return;
-		} else {
-
-			long time = System.currentTimeMillis();
-			long usedTime = time - startTime;
-			if (usedTime > maxTime) {
-				return;
-			} else {
-
-				// Unión de elementos que formarán los hitting sets
-				Collection<E> allClausesMCSes = SetUtil
-						.getUnionCollectionOfSets(minimalCorrectionSubsets);
-				boolean stop = Boolean.FALSE;
-				while (!stop) {
-
-					E clause = searchMoreRelatedElement(allClausesMCSes,
-							minimalCorrectionSubsets);
-
-					if (clause == null) {
-						stop = Boolean.TRUE;
-					} else {
-						// Almacena el historial de nodos visitados para
-						// evitar
-						// visitar
-						// nodos repetidos
-						List<E> newMUS = new ArrayList<E>();
-						newMUS.addAll(actualHittingSet);
-						newMUS.add(clause);
-
-						// Se verifica que ese MUS no sea superset de los
-						// MUSes
-						// existentes
-						boolean existMUS = SetUtil
-								.<E> verifySetIsSuperSetOfCollectionSets(
-										newMUS, hittingSets);
-
-						if (!existMUS) {
-							List<List<E>> newMCSes = new ArrayList<List<E>>();
-							newMCSes = cloneSet(minimalCorrectionSubsets);
-							// Se quita el MCS seleccionado de la lista de
-							// MCSes,
-							// los otros conjuntos que tengan las clausulas
-							// del
-							// MC
-							// seleccionad
-							propagateChoiceSinEliminarClausulas(newMCSes,
-									clause);
-							// LLamado recursivo con los elementos
-							// modificado
-							allMUSesWithTime(newMCSes, newMUS, hittingSets,
-									startTime, maxTime);
-						}
-					}
-
-				}
-			}
-		}
-		return;
-
-	}
-
-	/**
-	 * Implementa la lógica propuesta en Lifton(2009).
-	 * 
-	 * @param minimalCorrectionSubsets
-	 * @param actualMUS
-	 * @param hittingSubsets
-	 * @return
-	 */
-	public static <E> List<List<E>> allMUSesLiffiton(
-			List<List<E>> minimalCorrectionSubsets, List<E> actualMUS,
-			List<List<E>> hittingSubsets) {
-		if (minimalCorrectionSubsets.isEmpty()) {
-
-			// Se verifica que ese MUS no exista ya en la lista de MUSes.
-			boolean existMUS = SetUtil.<E> verifyExistSetInSetofSets(actualMUS,
-					hittingSubsets);
-
-			if (!existMUS) {
-				// Adicionar MUS a la lista
-				hittingSubsets.add(actualMUS);
-			}
-			return hittingSubsets;
-		} else {
-			// En caso de que la lista de entrada tenga supersets se eliminan (
-			// Para
-			// la formación de un hitting set esto no debería pasar, pero se
-			// hace
-			// por seguridad)
-			List<List<E>> collectionOfSetCopy = cloneSet(minimalCorrectionSubsets);
-			collectionOfSetCopy = SetUtil
-					.maintainNoSupersets(collectionOfSetCopy);
-
-			Collection<E> allClausesMCSes = SetUtil
-					.getUnionCollectionOfSets(collectionOfSetCopy);
-			for (E clause : allClausesMCSes) {
-				List<E> newMUS = new ArrayList<E>();
-				newMUS.addAll(actualMUS);
-				newMUS.add(clause);
-
-				for (List<E> mcs : minimalCorrectionSubsets) {
-					if (mcs.contains(clause)) { // Busca un MCS que contenga la
-												// clausula seleccionada
-						List<List<E>> newMCSes = new ArrayList<List<E>>();
-						newMCSes = cloneSet(minimalCorrectionSubsets);
-
-						// Se elimina el MCS q contiene la cláusula de la lista
-						// Para corregir concurrent modification sino se
-						// eliminaría el
-						// mismo de la lista que se itera cuando se propaga la
-						// selección
-						newMCSes.remove(mcs);
-						// Se quita el MCS seleccionado de la lista de MCSes, y
-						// los otros conjuntos que tengan las clausulas del MCS
-						// seleccionado
-						propagateChoiceOriginal(newMCSes, clause, mcs);
-						// LLamado recursivo con los elementos modificados
-						allMUSesLiffiton(newMCSes, newMUS, hittingSubsets);
-					}
-				}
-
-			}
-		}
-
-		return hittingSubsets;
-
-	}
-
+	
+	
 	@SuppressWarnings("unchecked")
 	private static <T> void propagateSingletons(
 			List<List<T>> minimalCorrectionSubsets, List<T> actualMUS) {
@@ -380,43 +144,7 @@ public class HittingSetIdentifier {
 
 	}
 
-	/**
-	 * Verifica que no existan superconjuntos en los hitting sets generados para
-	 * garantizar que cada hitting set es mínimo
-	 * 
-	 * @param minimalCorrectionSubsets
-	 * @param actualMUS
-	 * @param hittingSubsets
-	 * @return true: Se termino el tiempo, false en caso contrario
-	 */
-	public static <E> boolean filterMUSesTime(
-			List<List<E>> minimalCorrectionSubsets, List<E> actualMUS,
-			List<List<E>> hittingSubsets, Long maxTime) {
-
-		// En caso de que la lista de entrada tenga supersets se eliminan (
-		// Para la formación de un hitting set esto no debería pasar, pero se
-		// hace por seguridad)
-		List<List<E>> collectionOfSetCopy = cloneSet(minimalCorrectionSubsets);
-		collectionOfSetCopy = SetUtil.maintainNoSupersets(collectionOfSetCopy);
-		long startTime = System.currentTimeMillis();
-		allMUSesWithTime(collectionOfSetCopy, actualMUS, hittingSubsets,
-				startTime, maxTime);
-		long endTime = System.currentTimeMillis();
-		long usedTime = endTime - startTime;
-		// Se eliminan los supersets de los hitting sets. Esto para garantizar
-		// que los hittings sets identificados sean mínimo
-		// Un hitting set es mínimo si sus subconjuntos propios no son hitting
-		// sets, por lo tanto, no pueden haber supersets entre los conjuntos
-		// para cumplir con esta propiedad
-		SetUtil.maintainNoSupersets(hittingSubsets);
-		// Fue pq se termino el ciclo por que se acabó el tiempo
-		if (usedTime > (maxTime + 200)) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
+	
 
 	/**
 	 * Verifica que no existan superconjuntos en los hitting sets generados para
@@ -462,45 +190,9 @@ public class HittingSetIdentifier {
 	}
 
 
-	/**
-	 * Identifica de la collección de conjuntos, un subconjunto que contenga la
-	 * cláusula enviada como parámetro
-	 * 
-	 * @param clause
-	 * @param collectionOfSets
-	 * @return
-	 */
-	private static <E> List<E> identifySetWithClause(E clause,
-			List<List<E>> collectionOfSets) {
+	
 
-		// Se recorre los MCS hasta encontrar uno que tenga la clause
-		// Se recorre el mapa y se busca una que no se hubiera seleccionado
-		for (List<E> set : collectionOfSets) {
-			if (set.contains(clause)) {
-				return set;
-			}
-		}
-		return null;
-	}
 
-	/**
-	 * Selecciona la siguiente cláusula con la cuál probar la generación del MUS
-	 * 
-	 * @param collectionOfSets
-	 * @param blockedClauses
-	 * @return
-	 */
-	private static <E> E selectRemainingClause(List<List<E>> collectionOfSets) {
-
-		Collection<E> collectionOfSetElements = SetUtil
-				.getUnionCollectionOfSets(collectionOfSets);
-		// Se retorna el primer elemento si la lista no es vacía
-		if (!collectionOfSetElements.isEmpty()) {
-			return collectionOfSetElements.iterator().next();
-		}
-		return null;
-
-	}
 
 	/**
 	 * Selecciona la siguiente cláusula con la cuál probar la generación del MUS
@@ -531,108 +223,7 @@ public class HittingSetIdentifier {
 
 	}
 
-	/**
-	 * Propaga la elección de una cláusula en los subconjuntos que contengan esa
-	 * cláusula para descartarlos de la generación del MUS
-	 * 
-	 * @param collectionOfSets
-	 * @param thisClause
-	 * @param chosenSet
-	 * @return
-	 */
-	@SuppressWarnings("unused")
-	private static <E> Collection<E> propagateChoice(
-			List<List<E>> collectionOfSets, E thisClause,
-			Collection<E> chosenSet) {
-
-		Collection<List<E>> setsToRemove = new HashSet<List<E>>();
-		Collection<E> blockedClauses = new HashSet<E>();
-		// Se eliminan las restricciones que tiene el MCS seleccionado de todos
-		// los otros MCS
-
-		Iterator<List<E>> iteratorMCSes = collectionOfSets.iterator();
-		while (iteratorMCSes.hasNext()) {
-			List<E> miminimalCorrectionSubset = (List<E>) iteratorMCSes.next();
-			// Remove any other MCSes hit by choosing thisClause, because they
-			// have now been “satisfied” by the partial solution(Lifton,2009)
-			if (miminimalCorrectionSubset.contains(thisClause)) {
-				setsToRemove.add(miminimalCorrectionSubset);
-
-			}
-		}
-
-		// ADICIONADO: Se buscan las cláusulas que tienen los elementos a
-		// eliminar y las del MCS seleccionado y se bloquean para futuras
-		// búsquedas
-		blockedClauses = SetUtil.getUnionCollectionOfSets(setsToRemove);
-
-		// Se eliminan los elementos
-		SetUtil.removeSets(collectionOfSets, setsToRemove);
-
-		// maintainNoSupersets(minimalCorrectionSubsets);
-		return blockedClauses;
-	}
-
-	/**
-	 * Implementa la lógica propuesta en Lifton(2009). Se descarta por generar
-	 * hitting sets que no son mínimos
-	 * 
-	 * @param mCSes
-	 * @param clauseToAdd
-	 * @param MCSwithClauseToAdd
-	 * @return
-	 */
-	private static <E> void propagateChoiceOriginal(List<List<E>> mCSes,
-			E clauseToAdd, Collection<E> MCSwithClauseToAdd) {
-
-		Collection<List<E>> minimalCorrectionSubsetsToRemove = new ArrayList<List<E>>();
-		Set<E> clausesToRemove = new HashSet<E>();
-		if (!mCSes.isEmpty()) {
-			// Se eliminan los subconjuntos que tienen la cláusula que se
-			// seleccionó
-			for (List<E> testMCS : mCSes) {
-				// Remove any other MCSes hit by choosing thisClause, because
-				// they have now been “satisfied” by the partial
-				// solution(Lifton,2009)
-				if (testMCS.contains(clauseToAdd)) {
-					minimalCorrectionSubsetsToRemove.add(testMCS);
-					// Se deben eliminar las cláusulas de este MCS de los otros
-					// MCS pq no son cláusulas válidas
-					clausesToRemove.addAll(testMCS);
-				}
-			}
-
-			// Se eliminan de los otros conjuntos las cláusulas que contiene el
-			// MCS
-
-			clausesToRemove.addAll(MCSwithClauseToAdd);
-			for (E clause : clausesToRemove) {
-				for (List<E> testMCS : mCSes) {
-					if (testMCS.contains(clause)) {
-						// preventing any of the other clauses in thisMCS from
-						// being added in later iterations (Lifton,2009)
-						testMCS.remove(clause);
-					}
-					if (testMCS.isEmpty()) {
-						// Si la lista es vacía se elimina del la lista de MCSes
-						minimalCorrectionSubsetsToRemove.add(testMCS);
-					}
-				}
-
-			}
-
-			// Se eliminan los elementos
-			if (!minimalCorrectionSubsetsToRemove.isEmpty()) {
-				SetUtil.removeSets(mCSes, minimalCorrectionSubsetsToRemove);
-			}
-
-			// Removes any set in MCSes that is now a superset of some other.
-			// The algorithm requires that no MCS is a superset of any other
-			// Lifton(2009)
-			SetUtil.maintainNoSupersets(mCSes);
-		}
-	}
-
+	
 	/**
 	 * Implementa la lógica propuesta en Lifton(2009). Pero modifica la parte en
 	 * la que elimina las clausulas del MCS seleccionado de otros conjuntos pq

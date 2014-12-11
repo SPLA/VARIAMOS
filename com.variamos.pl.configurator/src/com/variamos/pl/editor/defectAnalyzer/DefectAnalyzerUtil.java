@@ -41,7 +41,7 @@ public class DefectAnalyzerUtil {
 		// Transfomed variability model
 		verifierInDTO.setVariabilityModel(variabilityModel);
 		// Prolog editor type
-		verifierInDTO.setPrologEditorType(prologEditorType);
+		verifierInDTO.setSolverEditorType(prologEditorType);
 
 		// CREATE VERIFIER MAIN CLASS
 		VariabilityModelVerifier verifier = new VariabilityModelVerifier(

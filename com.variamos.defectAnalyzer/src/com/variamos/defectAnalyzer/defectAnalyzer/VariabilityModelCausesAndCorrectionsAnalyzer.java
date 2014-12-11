@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.cfm.hlcl.Expression;
 import com.cfm.jgprolog.core.PrologException;
-import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
@@ -26,6 +25,7 @@ import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.defectAnalyzer.util.PowerSetUtil;
 import com.variamos.defectAnalyzer.util.SetUtil;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
+import com.variamos.defectAnalyzer.defectAnalyzer.HittingSetIdentifier;
 
 /**
  * @author LuFe
@@ -44,8 +44,8 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			VMAnalyzerInDTO vmAnalyzerInDTO) {
 		super(vmAnalyzerInDTO);
 		this.vmAnalyzerInDTO = vmAnalyzerInDTO;
-		solver= new SolverOperationsUtil(vmAnalyzerInDTO.getPrologEditorType());
-		
+		solver = new SolverOperationsUtil(vmAnalyzerInDTO.getSolverEditorType());
+
 	}
 
 	/**
@@ -94,9 +94,8 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		}
 		// Se verifica si el conjunto de restricciones es satisfacible
 		// Se verifica si el problema guardado es satisfacible
-		boolean isSatisfiable = solver.isSatisfiable(
-				prologTempPath);
-		
+		boolean isSatisfiable = solver.isSatisfiable(prologTempPath);
+
 		// Se retorna el resultado
 		return isSatisfiable;
 
@@ -207,23 +206,22 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 
 			// Se identifican las causas de acuerdo a si se tiene o no la
 			// colección completa de MCSes
-			/*if (correctionSetIdentifcationType
-					.equals(CorrectionSetIdentificationType.PARTIAL)) {
+			if (correctionSetIdentifcationType
+					.equals(DefectAnalyzerMode.PARTIAL)) {
 				allMUSes = unsatisfiableCollectionOfSets;
 
 			} else if (correctionSetIdentifcationType
-					.equals(CorrectionSetIdentificationType.COMPLETE)) {
-				boolean timeOverCauses = HittingSetIdentifier.filterMUSesTime(
-						allMCSes, new ArrayList<Dependency>(), allMUSes,
-						new Long(60000));
-				diagnostic.setTimeOverCauses(timeOverCauses);
-			}*/
+					.equals(DefectAnalyzerMode.COMPLETE)) {
+				allMUSes = HittingSetIdentifier.filterMUSes(
+						allMCSes, new ArrayList<Dependency>(), allMUSes);
+				
+			}
 			// Es solo una regla de control para garantizar que el hitting set
 			// este obteniendo los conjuntos correctos
-			// if (unsatisfiableCollectionOfSets.size() < allMUSes.size()) {
-			// throw new FunctionalException(
-			// "Other MUSes should be identified with the hitting set algorithm");
-			// }
+			if (unsatisfiableCollectionOfSets.size() < allMUSes.size()) {
+				throw new FunctionalException(
+						"Other MUSes should be identified with the hitting set algorithm");
+			}
 			diagnostic.setCauses(allMUSes);
 
 			return diagnostic;
@@ -613,7 +611,8 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			Defect defectToAnalyze,
 			Map<Long, Dependency> modelDependenciesList,
 			Map<Long, Dependency> fixedDependenciesList,
-			DefectAnalyzerMode correctionSetIdentifcationType) throws FunctionalException {
+			DefectAnalyzerMode correctionSetIdentifcationType)
+			throws FunctionalException {
 		// Se quita de la lista de dependencias la relación que se considera
 		// redundante para que pueda ponerse su instrucción de verificación.
 		// Si ambas se dejan juntas se estaría generando una contradicción en el
@@ -633,16 +632,17 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 	public Diagnostic analyzeCausesOneDefect(Defect defectToAnalyze,
 			Map<Long, Dependency> modelDependenciesList,
 			Map<Long, Dependency> fixedDependenciesList,
-			DefectAnalyzerMode correctionSetIdentifcationType) throws FunctionalException {
+			DefectAnalyzerMode defectAnalyzerMode)
+			throws FunctionalException {
 		System.out.println("Analyzed defect: "
 				+ defectToAnalyze.getDefectType().name() + " "
 				+ defectToAnalyze.getId());
 		long startTime = System.currentTimeMillis();
 
 		// Se identifican los MCSes y los MUSes
-		if (correctionSetIdentifcationType != null) {
+		if (defectAnalyzerMode != null) {
 			Diagnostic diagnostic = identifyMCSandMUSes(
-					correctionSetIdentifcationType, modelDependenciesList,
+					defectAnalyzerMode, modelDependenciesList,
 					fixedDependenciesList, prologTempPath, defectToAnalyze);
 			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;
@@ -674,9 +674,6 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			VMCauseAnalyzerInDTO vmCauseAnalizerInDTO)
 			throws FunctionalException {
 
-		// Map<Defect, Diagnostic> defectDiagnosticMap = new HashMap<Defect,
-		// Diagnostic>();
-
 		Map<Long, Dependency> modelDependencies = new HashMap<Long, Dependency>();
 		modelDependencies.putAll(vmAnalyzerInDTO.getVariabilityModel()
 				.getDependencies());
@@ -700,7 +697,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 					.getVariabilityModel().getModelName());
 			Diagnostic diagnosticVoid = invokeCausesIdentiferOneDefect(
 					voidModelDefect,
-					vmCauseAnalizerInDTO.getCorrectionSetIdentifcationType());
+					vmCauseAnalizerInDTO.getDefectAnalyzerMode());
 			allDiagnostics.add(diagnosticVoid);
 		}
 
@@ -719,16 +716,12 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 				// identificar
 				// los conjuntos de correción se crea el diagnóstico en el
 				// mapa
-				// if
-				// (deadFeature.getId().equals("Minutos")||deadFeature.getId().equals("Segundos")
-				// ) {
 				Diagnostic diagnosticDeadFeatures = invokeCausesIdentiferOneDefect(
 						deadFeature,
 						vmCauseAnalizerInDTO
-								.getCorrectionSetIdentifcationType());
+								.getDefectAnalyzerMode());
 				allDiagnostics.add(diagnosticDeadFeatures);
 
-				// }
 			}
 
 		}
@@ -745,14 +738,11 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// sus causas
 			for (Defect falseOptionalFeature : vmCauseAnalizerInDTO
 					.getFalseOptionalFeaturesList()) {
-				// if (falseOptionalFeature.getId().equals("Registro")) {
-
 				Diagnostic diagnosticFalseOptional = invokeCausesIdentiferOneDefect(
 						falseOptionalFeature,
 						vmCauseAnalizerInDTO
-								.getCorrectionSetIdentifcationType());
+								.getDefectAnalyzerMode());
 				allDiagnostics.add(diagnosticFalseOptional);
-				// }
 
 			}
 
@@ -771,7 +761,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 								.getDependencies(), vmAnalyzerInDTO
 								.getVariabilityModel().getFixedDependencies(),
 						vmCauseAnalizerInDTO
-								.getCorrectionSetIdentifcationType());
+								.getDefectAnalyzerMode());
 				allDiagnostics.add(diagnosticRedundancy);
 
 			}
@@ -864,7 +854,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		// Transfomed variability model
 		analyzerInDTO.setVariabilityModel(newVariabilityModel);
 		// Prolog editor type
-		analyzerInDTO.setPrologEditorType(prologEditorType);
+		analyzerInDTO.setSolverEditorType(prologEditorType);
 
 		// CREATE VERIFIER MAIN CLASS
 		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
@@ -893,7 +883,8 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 	}
 
 	private Diagnostic invokeCausesIdentiferOneDefect(Defect defect,
-			DefectAnalyzerMode correctionSetIdentifcationType) throws FunctionalException {
+			DefectAnalyzerMode defectAnalyzerMode)
+			throws FunctionalException {
 		long startCorrectionSetTestTime = System.currentTimeMillis();
 
 		Diagnostic diagnostic = null;
@@ -902,13 +893,13 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 					vmAnalyzerInDTO.getVariabilityModel().getDependencies(),
 					vmAnalyzerInDTO.getVariabilityModel()
 							.getFixedDependencies(),
-					correctionSetIdentifcationType);
+					defectAnalyzerMode);
 
 		} else {
 			diagnostic = analyzeCausesOneDefect(defect, vmAnalyzerInDTO
 					.getVariabilityModel().getDependencies(), vmAnalyzerInDTO
 					.getVariabilityModel().getFixedDependencies(),
-					correctionSetIdentifcationType);
+					defectAnalyzerMode);
 		}
 
 		// 3. PRINT RESULTS
