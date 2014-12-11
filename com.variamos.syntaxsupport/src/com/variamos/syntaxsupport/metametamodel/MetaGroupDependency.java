@@ -1,6 +1,5 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import java.awt.Color;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +22,23 @@ public class MetaGroupDependency extends MetaVertex {
 	private List<IntSemanticGroupDependency> semanticRelations;
 	private List<IntSemanticGroupRelationType> semanticTypes;
 	public static final String VAR_SEMANTICGROUPDEPENDENCY = "semGroupDep",
+			VAR_SEMANTICGROUPDEPENDENCYNAME = "Semantic Group Dependency",
 			VAR_SEMANTICGROUPDEPENDENCYIDE = "semGroupDepIde",
 			VAR_SEMANTICGROUPDEPENDENCYCLASS = "com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency";
 
-
 	public MetaGroupDependency() {
 		super();
-		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY, new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY,
-				"Class",VAR_SEMANTICGROUPDEPENDENCYCLASS,null,""));
-		this.addDisPropEditableAttribute("01#"+VAR_SEMANTICGROUPDEPENDENCY);
+		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY,
+				new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY, "Class",
+						true, VAR_SEMANTICGROUPDEPENDENCYNAME,
+						VAR_SEMANTICGROUPDEPENDENCYCLASS, null, ""));
+		this.addDisPropEditableAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
 	}
 
-	public MetaGroupDependency(String identifier,boolean visible,  String name, String style,
-			int width, int height, String image, int borderStroke, 
-			boolean topConcept,	String backgroundColor, boolean resizable,
+	public MetaGroupDependency(String identifier, boolean visible, String name,
+			String style, String description, int width, int height, String image,
+			int borderStroke, boolean topConcept, String backgroundColor,
+			boolean resizable,
 			List<IntSemanticGroupDependency> semanticRelations,
 			List<IntSemanticGroupRelationType> semanticTypes,
 			List<String> propVisibleAttributes,
@@ -44,20 +46,26 @@ public class MetaGroupDependency extends MetaVertex {
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> modelingAttributes) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes, modelingAttributes);
+				panelVisibleAttributes, panelSparerAttributes,
+				modelingAttributes);
 		this.semanticRelations = semanticRelations;
 		this.semanticTypes = semanticTypes;
-		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY, new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY,
-				"Class",VAR_SEMANTICGROUPDEPENDENCYCLASS,null,""));
-		this.addDisPropEditableAttribute("01#"+VAR_SEMANTICGROUPDEPENDENCY);
+		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY,
+				new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY, "Class",
+						true, VAR_SEMANTICGROUPDEPENDENCYNAME,
+						VAR_SEMANTICGROUPDEPENDENCYCLASS, null, ""));
+		this.addDisPropEditableAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
+		
+		this.addDisPropVisibleAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
 	}
 
-	public MetaGroupDependency(String identifier, boolean visible, String name, String style,
-			int width, int height, String image, int borderStroke, 
-			boolean topConcept, String backgroundColor, boolean resizable,
+	public MetaGroupDependency(String identifier, boolean visible, String name,
+			String style, String description, int width, int height, String image,
+			int borderStroke, boolean topConcept, String backgroundColor,
+			boolean resizable,
 			List<IntSemanticGroupDependency> semanticRelations,
 			List<IntSemanticGroupRelationType> semanticTypes,
 			List<String> propVisibleAttributes,
@@ -67,28 +75,35 @@ public class MetaGroupDependency extends MetaVertex {
 			Map<String, AbstractAttribute> modelingAttributes,
 			List<MetaEdge> asOriginRelations,
 			List<MetaEdge> asDestinationRelations) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes, modelingAttributes,
-				asOriginRelations, asOriginRelations);
+				panelVisibleAttributes, panelSparerAttributes,
+				modelingAttributes, asOriginRelations, asOriginRelations);
 		this.semanticRelations = semanticRelations;
 		this.semanticTypes = semanticTypes;
-		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY, new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY,
-				"Class",VAR_SEMANTICGROUPDEPENDENCYCLASS,null,""));
-		this.addDisPropEditableAttribute("01#"+VAR_SEMANTICGROUPDEPENDENCY);
+		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY,
+				new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY, "Class",
+						true, VAR_SEMANTICGROUPDEPENDENCYNAME,
+						VAR_SEMANTICGROUPDEPENDENCYCLASS, null, ""));
+		this.addDisPropEditableAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
+		this.addDisPropVisibleAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
 	}
 
-	public MetaGroupDependency(String identifier, boolean visible, String name, String style,
-			int width, int height, String image, boolean topConcept,
-			String backgroundColor, int borderStroke, boolean resizable,
+	public MetaGroupDependency(String identifier, boolean visible, String name,
+			String style, String description, int width, int height, String image,
+			boolean topConcept, String backgroundColor, int borderStroke,
+			boolean resizable,
 			List<IntSemanticGroupDependency> semanticRelations) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable);
 		this.semanticRelations = semanticRelations;
-		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY, new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY,
-				"Class",VAR_SEMANTICGROUPDEPENDENCYCLASS,null,""));
-		this.addDisPropEditableAttribute("01#"+VAR_SEMANTICGROUPDEPENDENCY);
+		addModelingAttribute(VAR_SEMANTICGROUPDEPENDENCY,
+				new SemanticAttribute(VAR_SEMANTICGROUPDEPENDENCY, "Class",
+						true, VAR_SEMANTICGROUPDEPENDENCYNAME,
+						VAR_SEMANTICGROUPDEPENDENCYCLASS, null, ""));
+		this.addDisPropEditableAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
+		this.addDisPropVisibleAttribute("01#" + VAR_SEMANTICGROUPDEPENDENCY);
 	}
 
 	public List<IntSemanticGroupDependency> getSemanticRelations() {
@@ -98,10 +113,10 @@ public class MetaGroupDependency extends MetaVertex {
 	public Set<String> getDisPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-//		if (semanticRelations != null)
-//			for (IntSemanticGroupDependency semanticRelation : semanticRelations)
-//				modelingAttributesNames.addAll(semanticRelation
-//						.getDisPropVisibleAttributes());
+		// if (semanticRelations != null)
+		// for (IntSemanticGroupDependency semanticRelation : semanticRelations)
+		// modelingAttributesNames.addAll(semanticRelation
+		// .getDisPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getDisPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -110,10 +125,10 @@ public class MetaGroupDependency extends MetaVertex {
 	public Set<String> getDisPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-//		if (semanticRelations != null)
-//			for (IntSemanticGroupDependency semanticRelation : semanticRelations)
-//				modelingAttributesNames.addAll(semanticRelation
-//						.getDisPropEditableAttributes());
+		// if (semanticRelations != null)
+		// for (IntSemanticGroupDependency semanticRelation : semanticRelations)
+		// modelingAttributesNames.addAll(semanticRelation
+		// .getDisPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getDisPropEditableAttributes());
 		return modelingAttributesNames;
@@ -122,10 +137,10 @@ public class MetaGroupDependency extends MetaVertex {
 	public Set<String> getDisPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-//		if (semanticRelations != null)
-//			for (IntSemanticGroupDependency semanticRelation : semanticRelations)
-//				modelingAttributesNames.addAll(semanticRelation
-//						.getDisPanelVisibleAttributes());
+		// if (semanticRelations != null)
+		// for (IntSemanticGroupDependency semanticRelation : semanticRelations)
+		// modelingAttributesNames.addAll(semanticRelation
+		// .getDisPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getDisPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -134,10 +149,10 @@ public class MetaGroupDependency extends MetaVertex {
 	public Set<String> getDisPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-//		if (semanticRelations != null)
-//			for (IntSemanticGroupDependency semanticRelation : semanticRelations)
-//				modelingAttributesNames.addAll(semanticRelation
-//						.getDisPanelSpacersAttributes());
+		// if (semanticRelations != null)
+		// for (IntSemanticGroupDependency semanticRelation : semanticRelations)
+		// modelingAttributesNames.addAll(semanticRelation
+		// .getDisPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getDisPanelSpacersAttributes());
 		return modelingAttributesNames;

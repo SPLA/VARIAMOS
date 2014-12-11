@@ -7,6 +7,16 @@ import javax.swing.JTextField;
 
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
+/**
+ * A class to support integer widgets on the interface. Copied on BooleanWidget
+ * from ProductLine. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-10
+ * @see com.variamos.gui.pl.editor.widgets.IntegerWidget
+ */
 @SuppressWarnings("serial")
 public class IntegerWidget extends WidgetR {
 	

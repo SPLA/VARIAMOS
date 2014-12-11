@@ -32,10 +32,12 @@ import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
@@ -65,7 +67,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.setPerspective(2);
 		editor.editModelReset();
-		System.out.println("requirements");
+		System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
 	public void updateView (List<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)
@@ -109,6 +111,12 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 							Object o = new InstGroupDependency();
 							Constructor<?> c = o.getClass().getConstructor(MetaGroupDependency.class);
 							obj =c.newInstance((MetaGroupDependency)metaVertex);
+							}
+							else if (metaVertex instanceof MetaEnumeration)
+							{
+							Object o = new InstEnumeration();
+							Constructor<?> c = o.getClass().getConstructor(MetaEnumeration.class);
+							obj =c.newInstance((MetaEnumeration)metaVertex);
 							}
 								
 						}

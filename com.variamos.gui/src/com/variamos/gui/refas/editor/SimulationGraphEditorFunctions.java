@@ -118,97 +118,14 @@ public class SimulationGraphEditorFunctions extends AbstractGraphEditorFunctions
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/goal.png")),
-					"rqgoal", 100, 40, new Goal());
+					"rqgoal", 100, 40, null);
 			palette.addTemplate(
 					mxResources.get("assumptionTitle"),
 					new ImageIcon(
 							GraphEditor.class
 									.getResource("/com/variamos/gui/refas/editor/images/assump.png")),
-					"rqassump", 100, 40, new Assumption());
-			palette.addTemplate(
-					mxResources.get("operationalizationTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/operational.png")),
-					"rqoper", 100, 40, new Operationalization());
-
-			palette.addTemplate(
-					mxResources.get("softGoalTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/softgoal.png")),
-					"rqsoftgoal", 100, 40, new SoftGoal());
-
-			palette.addTemplate(
-					mxResources.get("contextGroupTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/contextgrp.png")),
-					"rqcontextgrp", 100, 40, new ContextGroup());
-			palette.addTemplate(
-					mxResources.get("globalContextTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/globCnxtVar.png")),
-					"rqglobcnxt", 100, 40, new ContextVariable());
-
-			palette.addTemplate(
-					mxResources.get("localContextTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/localCnxtVar.png")),
-					"rqlocalcnxt", 100, 40, new ContextVariable());
-
-			palette.addTemplate(
-					mxResources.get("softDependencyTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/softdep.png")),
-					"rqsoftdep", 100, 40, new SoftDependency());
-			palette.addTemplate(
-					mxResources.get("claimTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/claim.png")),
-					"rqclaim", 110, 50, new Claim());
-			palette.addTemplate(
-					mxResources.get("assetTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/component.png")),
-					"rqcompon", 110, 50, new Asset());
-			palette.addTemplate(
-					mxResources.get("groupIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/plgroup.png")),
-					"plgroup", 20, 20, new GroupConstraint());
-
-			palette.addEdgeTemplate(
-					mxResources.get("optionalIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/ploptional.png")),
-					"ploptional", 80, 40, ConstraintMode.Optional);
-
-			palette.addEdgeTemplate(
-					mxResources.get("mandatoryIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/plmandatory.png")),
-					"plmandatory", 80, 40, ConstraintMode.Mandatory);
-			palette.addEdgeTemplate(
-					mxResources.get("requiresIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/plrequires.png")),
-					"plrequires", 80, 40, ConstraintMode.Requires);
-			palette.addEdgeTemplate(
-					mxResources.get("excludesIconTitle"),
-					new ImageIcon(
-							GraphEditor.class
-									.getResource("/com/variamos/gui/pl/editor/images/plexcludes.png")),
-					"plexcludes", 80, 40, ConstraintMode.Excludes);
+					"rqassump", 100, 40, null);
+			
 		}
 		final AbstractGraph graph = plgraph;
 
@@ -239,64 +156,14 @@ public class SimulationGraphEditorFunctions extends AbstractGraphEditorFunctions
 				new ImageIcon(
 						GraphEditor.class
 								.getResource("/com/variamos/gui/refas/editor/images/goal.png")),
-				"rqgoal", 100, 40, new Goal());
+				"rqgoal", 100, 40, null);
 		palette.addTemplate(
 				mxResources.get("assumptionTitle"),
 				new ImageIcon(
 						GraphEditor.class
 								.getResource("/com/variamos/gui/refas/editor/images/assump.png")),
-				"rqassump", 100, 40, new Assumption());
-		palette.addTemplate(
-				mxResources.get("operationalizationTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/operational.png")),
-				"rqoper", 100, 40, new Operationalization());
-
-		palette.addTemplate(
-				mxResources.get("softGoalTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/softgoal.png")),
-				"rqsoftgoal", 100, 40, new SoftGoal());
-
-		palette.addTemplate(
-				mxResources.get("contextGroupTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/contextgrp.png")),
-				"rqcontextgrp", 100, 40, new ContextGroup());
-		palette.addTemplate(
-				mxResources.get("globalContextTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/globCnxtVar.png")),
-				"rqglobcnxt", 100, 40, new ContextVariable());
-		palette.addTemplate(
-				mxResources.get("localContextTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/localCnxtVar.png")),
-				"rqlocalcnxt", 100, 40, new ContextVariable());
-
-		palette.addTemplate(
-				mxResources.get("softDependencyTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/softdep.png")),
-				"rqsoftdep", 100, 40, new SoftDependency());
-		palette.addTemplate(
-				mxResources.get("claimTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/claim.png")),
-				"rqclaim", 110, 50, new Claim());
-		palette.addTemplate(
-				mxResources.get("assetTitle"),
-				new ImageIcon(
-						GraphEditor.class
-								.getResource("/com/variamos/gui/refas/editor/images/component.png")),
-				"rqcompon", 110, 50, new Asset());
+				"rqassump", 100, 40, null);
+		
 
 		final AbstractGraph graph = plgraph;
 

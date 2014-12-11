@@ -11,7 +11,15 @@ import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.pl.configurator.io.ConfigurationIO;
 
-
+/**
+ * To document. Copied from configurator actions. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-17
+ * @see com.variamos.gui.maineditor.pl.configurator.guiactions.LoadConfigurationAction
+ */
 @SuppressWarnings("serial")
 public class LoadConfigurationAction extends AbstractEditorAction {
 	protected String lastDir;

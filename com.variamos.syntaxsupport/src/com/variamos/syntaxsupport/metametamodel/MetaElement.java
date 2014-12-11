@@ -1,4 +1,4 @@
-	package com.variamos.syntaxsupport.metametamodel;
+package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,56 +14,125 @@ import java.util.Set;
  *
  *         Definition of syntax for VariaMos
  */
-public class MetaElement implements Serializable{
+public class MetaElement implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5336725046708613241L;
+	public static final String
+	/**
+	 * 
+	 */
+	VAR_IDENTIFIER = "identifier",
+			/**
+			 * 
+			 */
+	VAR_DESCRIPTION = "description";
+	/**
+	 * 
+	 */
 	private String identifier;
+	/**
+	 * 
+	 */
 	private boolean visible;
+	/**
+	 * 
+	 */
 	private String name;
+	/**
+	 * 
+	 */
 	private String style;
+	/**
+	 * 
+	 */
+	private String description;
+	/**
+	 * 
+	 */
 	private int width;
+	/**
+	 * 
+	 */
 	private int height;
+	/**
+	 * 
+	 */
 	private String image;
+	/**
+	 * 
+	 */
 	private int borderStroke;
-	private List<String> disPropVisibleAttributes;
-	private List<String> disPropEditableAttributes;
-	private List<String> disPanelVisibleAttributes;
-	private List<String> disPanelSpacersAttributes;
-	
+	/**
+	 * 
+	 */
 	private Map<String, AbstractAttribute> modelingAttributes;
-	
-	public MetaElement()
-	{
-		this.modelingAttributes.put("identifier", new ModelingAttribute("identifier",
-				"String", null));
+	/**
+	 * 
+	 */
+	private List<String> disPropVisibleAttributes;
+	/**
+	 * 
+	 */
+	private List<String> disPropEditableAttributes;
+	/**
+	 * 
+	 */
+	private List<String> disPanelVisibleAttributes;
+	/**
+	 * 
+	 */
+	private List<String> disPanelSpacersAttributes;
+	/**
+	 * 
+	 */
+	private List<String> simPropVisibleAttributes;
+	/**
+	 * 
+	 */
+	private List<String> simPropEditableAttributes;
+	/**
+	 * 
+	 */
+	private List<String> simPanelVisibleAttributes;
+	/**
+	 * 
+	 */
+	private List<String> simPanelSpacersAttributes;
+
+	public MetaElement() {
+		createModelingAttributes();
 	}
-	
-	public MetaElement(String identifier, boolean visible, String name, String style, int width,
-			int height, String image, int borderStroke)
-	
+
+	public MetaElement(String identifier, boolean visible, String name,
+			String style, String description, int width, int height,
+			String image, int borderStroke)
+
 	{
-		this(identifier, visible, name, style, width, height, image, borderStroke,
+		this(identifier, visible, name, style, description, width, height,
+				image, borderStroke, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
 	}
-	
-	public MetaElement(String identifier, boolean visible, String name, String style, int width,
-			int height, String image, int borderStroke,
+
+	public MetaElement(String identifier, boolean visible, String name,
+			String style, String description, int width, int height,
+			String image, int borderStroke,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes,
 			Map<String, AbstractAttribute> modelingAttributes)
-	
+
 	{
 		this.identifier = identifier;
 		this.visible = visible;
 		this.name = name;
 		this.style = style;
+		this.description = description; // TODO include in parameters
 		this.width = width;
 		this.height = height;
 		this.image = image;
@@ -73,10 +142,20 @@ public class MetaElement implements Serializable{
 		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
 		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
 		this.modelingAttributes = modelingAttributes;
-		this.modelingAttributes.put("identifier", new ModelingAttribute("identifier",
-				"String", null));
+		createModelingAttributes();
+	}
+
+	public void createModelingAttributes() {
+		this.modelingAttributes.put(VAR_IDENTIFIER, new ModelingAttribute(
+				VAR_IDENTIFIER, "String", false, "identifier", null));
+		this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
+				VAR_DESCRIPTION, "String", false, "description", null));
+
+		this.disPropVisibleAttributes.add("01#" + VAR_IDENTIFIER);
+		this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 
 	}
+
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
@@ -84,7 +163,7 @@ public class MetaElement implements Serializable{
 	public String getIdentifier() {
 		return identifier;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -113,7 +192,6 @@ public class MetaElement implements Serializable{
 		return borderStroke;
 	}
 
-
 	public String getName() {
 		return name;
 	}
@@ -134,24 +212,28 @@ public class MetaElement implements Serializable{
 		return image;
 	}
 
-	
-	public void setDisPropVisibleAttributes(List<String> disPropVisibleAttributes) {
+	public void setDisPropVisibleAttributes(
+			List<String> disPropVisibleAttributes) {
 		this.disPropVisibleAttributes = disPropVisibleAttributes;
 	}
 
-	public void setDisPropEditableAttributes(List<String> disPropEditableAttributes) {
+	public void setDisPropEditableAttributes(
+			List<String> disPropEditableAttributes) {
 		this.disPropEditableAttributes = disPropEditableAttributes;
 	}
 
-	public void setDisPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
+	public void setDisPanelVisibleAttributes(
+			List<String> disPanelVisibleAttributes) {
 		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
-	public void setDisPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
+	public void setDisPanelSpacersAttributes(
+			List<String> disPanelSpacersAttributes) {
 		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
-	public void setModelingAttributes(Map<String, AbstractAttribute> modelingAttributes) {
+	public void setModelingAttributes(
+			Map<String, AbstractAttribute> modelingAttributes) {
 		this.modelingAttributes = modelingAttributes;
 	}
 
@@ -219,10 +301,11 @@ public class MetaElement implements Serializable{
 		return null;
 	}
 
-	public void addModelingAttribute(String name, String type, Object defaultValue) {
+	public void addModelingAttribute(String name, String type,
+			boolean affectProperties, String displayName, Object defaultValue) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
-			modelingAttributes.put(name,
-					new ModelingAttribute(name, type, defaultValue));
+			modelingAttributes.put(name, new ModelingAttribute(name, type,
+					affectProperties, displayName, defaultValue));
 	}
 
 	public void addModelingAttribute(String name,
@@ -231,16 +314,23 @@ public class MetaElement implements Serializable{
 			modelingAttributes.put(name, abstractAttribute);
 	}
 
-	public void addModelingAttribute(String name, String type, String enumType,
+	public void addModelingAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new ModelingAttribute(name, type, enumType,
-					defaultValue));
+			modelingAttributes.put(name, new ModelingAttribute(name, type,
+					affectProperties, displayName, enumType, defaultValue));
 	}
 
 	public boolean getVisible() {
 		return visible;
 	}
 
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

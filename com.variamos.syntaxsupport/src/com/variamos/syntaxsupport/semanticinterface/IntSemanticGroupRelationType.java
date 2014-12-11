@@ -3,10 +3,13 @@ package com.variamos.syntaxsupport.semanticinterface;
 import java.io.Serializable;
 
 /**
- * @author Juan Carlos Muñoz 2014
- *  part of the PhD work at CRI - Universite Paris 1
- *
- * Definition of syntax for VariaMos
+ * An interface for GroupRelationType enumeration, required to avoid cyclic
+ * references in projects. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.1
+ * @since 2014-11-24
+ * @see com.variamos.refas.core.types.GroupRelationType
  */
 public interface IntSemanticGroupRelationType   extends Serializable{
 

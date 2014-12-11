@@ -64,16 +64,6 @@ public class PerspectiveAction extends AbstractEditorAction {
 					
 					System.out.println("modelingButton");
 					((RefasGraph)graph).defineInitialGraph();
-					/*mxCell root = new mxCell();
-					root.insert(new mxCell());
-					graph.getModel().setRoot(root);
-					
-					graph.addCell(new mxCell("mv0"));
-					graph.addCell(new mxCell("mv1"));
-					graph.addCell(new mxCell("mv2"));
-					graph.addCell(new mxCell("mv3"));
-					graph.addCell(new mxCell("mv4"));
-					*/
 				}
 				if (perspectiveInd != 3
 						&& jb.getText().equals(mxResources.get("metamodelingPerspButton"))) {

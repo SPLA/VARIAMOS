@@ -8,6 +8,16 @@ import javax.swing.JTextField;
 
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
+/**
+ * A class to support string widgets on the interface. Copied from StringWidget
+ * from ProductLine. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-10
+ * @see com.variamos.gui.pl.editor.widgets.StringWidget
+ */
 @SuppressWarnings("serial")
 public class StringWidget extends WidgetR {
 
@@ -38,5 +48,4 @@ public class StringWidget extends WidgetR {
 	public JComponent getEditor() {
 		return txtValue;
 	}
-	
 }

@@ -13,21 +13,14 @@ import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.pl.configurator.io.ConfigurationIO;
 
-//jcmunoz: Commented unused method and imports of the method
-/*import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMWriter;
-import com.mxgraph.util.mxUtils;
-import java.io.File;
-import java.io.IOException;
-import edu.unal.model.enums.PrologEditorType;
-import edu.unal.tranformer.FeatureModelSPLOTransformer;
-import fm.FeatureModel;
-import fm.FeatureModelException;
-import fm.XMLFeatureModel;
-*/
 /**
- * @author jose
- *
+ * To document. Copied from configurator actions. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-17
+ * @see com.variamos.gui.maineditor.pl.configurator.guiactions.SaveConfigurationAction
  */
 @SuppressWarnings("serial")
 public class SaveConfigurationAction extends AbstractEditorAction {

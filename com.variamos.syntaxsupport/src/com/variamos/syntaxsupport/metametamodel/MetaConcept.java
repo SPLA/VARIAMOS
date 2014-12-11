@@ -9,10 +9,16 @@ import java.util.Set;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * A class to represented concepts of the meta model.
+ * Extends from MetaVertex adding the SemanticConcept
+ * and extend relations.
+ * Part of PhD work at University of Paris 1
+ * @author  Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 		    
+ * @version 1.1
+ * @since	2014-11-24
+ * @see 	com.variamos.syntaxsupport.metametamodel.MetaElement
+ * @see 	com.variamos.syntaxsupport.metametamodel.MetaVertex
  */
 public class MetaConcept extends MetaVertex {
 	/**
@@ -28,7 +34,7 @@ public class MetaConcept extends MetaVertex {
 		
 	}
 	
-	public MetaConcept(String identifier,boolean visible,  String name, String style, int width,
+	public MetaConcept(String identifier,boolean visible,  String name, String style, String description, int width,
 			int height, String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable, 
 			IntSemanticConcept semanticConcept,
@@ -38,7 +44,7 @@ public class MetaConcept extends MetaVertex {
 			List<String> panelSparerAttributes,
 			Map<String,	AbstractAttribute> attributes,
 			List<MetaExtends> metaExtendsRelations) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
@@ -46,7 +52,7 @@ public class MetaConcept extends MetaVertex {
 		this.metaExtendsRelations = metaExtendsRelations;
 	}
 	
-	public MetaConcept(String identifier, boolean visible, String name, String style, int width,
+	public MetaConcept(String identifier, boolean visible, String name, String style, String description, int width,
 			int height, String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable, 
 			IntSemanticConcept semanticConcept,
@@ -55,7 +61,7 @@ public class MetaConcept extends MetaVertex {
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String,	AbstractAttribute> attributes) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
@@ -63,16 +69,16 @@ public class MetaConcept extends MetaVertex {
 		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
 
-	public MetaConcept(String identifier,boolean visible,  String name, String style, int width,
+	public MetaConcept(String identifier,boolean visible,  String name, String style, String description, int width,
 			int height, String image, boolean topConcept,
 			String backgroundColor, int borderStroke, boolean resizable,
 			IntSemanticConcept semanticConcept) {
-		super(identifier, visible, name, style, width, height, image,
+		super(identifier, visible, name, style, description, width, height, image,
 				borderStroke, topConcept, backgroundColor, resizable);
 		this.semanticConcept = semanticConcept;
 		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
-
+	
 	public IntSemanticConcept getSemanticConcept() {
 		return semanticConcept;
 	}

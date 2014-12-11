@@ -7,12 +7,15 @@ import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * A class to represent a class dynamically loaded attribute for
+ * multiselection. Inspired on other ProductLine types. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.1
+ * @since 2014-12-04
+ * @see com.cfm.productline.type
  */
-
 @SuppressWarnings("serial")
 public class MClassType extends Type{
 	public static final String IDENTIFIER = "MClass";	
@@ -26,19 +29,22 @@ public class MClassType extends Type{
 //	}
 
 	@Override
-	public AbstractAttribute makeAttribute(String name) {
-		return new AbstractAttribute(name, getIdentifier(),0);
+	public AbstractAttribute makeAttribute(String name, boolean affectProperties, String displayName) {
+		return new AbstractAttribute(name, getIdentifier(), affectProperties, displayName, 0);
 	}
 	
 
 	
-	public static SemanticAttribute newSemanticAttribute(String name) {
-		return new SemanticAttribute (name, IDENTIFIER, 0);
+	public static SemanticAttribute newSemanticAttribute(String name,
+			boolean affectProperties, String displayName) {
+		return new SemanticAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}	
-	public static SimulationAttribute newSimulationAttribute(String name) {
-		return new SimulationAttribute (name, IDENTIFIER, 0);
+	public static SimulationAttribute newSimulationAttribute(String name,
+			boolean affectProperties, String displayName) {
+		return new SimulationAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}	
-	public static ModelingAttribute newModelingAttribute(String name) {
-		return new ModelingAttribute (name, IDENTIFIER, 0);
+	public static ModelingAttribute newModelingAttribute(String name,
+			boolean affectProperties, String displayName) {
+		return new ModelingAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}
 }

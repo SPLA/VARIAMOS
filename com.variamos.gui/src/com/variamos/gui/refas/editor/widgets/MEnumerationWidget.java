@@ -14,6 +14,16 @@ import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.type.MEnumerationType;
 
+/**
+ * A class to support enumeration widgets on the interface with multi-selection.
+ * Inspired on other widgets from ProductLine. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-04
+ * @see com.variamos.gui.pl.editor.widgets
+ */
 @SuppressWarnings("serial")
 public class MEnumerationWidget extends WidgetR {
 	
@@ -29,12 +39,12 @@ public class MEnumerationWidget extends WidgetR {
 	
 	@Override
 	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-		
+		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = MEnumerationType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 	    try {
-	    	aClass = classLoader.loadClass(v.getAttribute().getEnumType());
+	    	aClass = classLoader.loadClass(v.getAttribute().getClassCanonicalName());
 	        System.out.println("aClass.getName() = " + aClass.getName());
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();

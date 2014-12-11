@@ -53,7 +53,7 @@ public class SXFMReader {
 			addFormulaRefas(pl, cons);
 		}
 		
-		pl.setName(filename);
+		pl.setFileName(filename);
 		
 		return pl;
 	}

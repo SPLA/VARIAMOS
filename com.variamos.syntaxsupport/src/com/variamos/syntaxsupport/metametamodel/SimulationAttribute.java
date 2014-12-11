@@ -1,7 +1,5 @@
 package com.variamos.syntaxsupport.metametamodel;
 
-import java.io.Serializable;
-
 /**
  * @author Juan Carlos Muñoz 2014
  *  part of the PhD work at CRI - Universite Paris 1
@@ -18,14 +16,14 @@ public class SimulationAttribute extends AbstractAttribute {
 	 * 
 	 */
 	 
-	 public SimulationAttribute(String name, String type, Object defaultValue)
+	 public SimulationAttribute(String name, String type, boolean affectProperties, String displayName, Object defaultValue)
 	 {
-		 super(name, type, defaultValue);
+		 super(name, type, affectProperties, displayName, defaultValue);
 	 }
 	 
-	 public SimulationAttribute(String name, String type, String enumType, Object defaultValue)
+	 public SimulationAttribute(String name, String type,  boolean affectProperties, String displayName, String enumType, Object defaultValue)
 	 {
-		 super(name, type, enumType, defaultValue);
+		 super(name, type, affectProperties, displayName, enumType, defaultValue);
 	 }
 		
 }

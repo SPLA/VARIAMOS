@@ -50,10 +50,10 @@ public class MetaVertex extends MetaElement {
 
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name, String style, int width,
+	public MetaVertex(String identifier, boolean visible, String name, String style, String description, int width,
 			int height, String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable) {
-		this(identifier, visible, name, style, width, height, image, borderStroke,
+		this(identifier, visible, name, style, description, width, height, image, borderStroke,
 				topConcept,	backgroundColor,  resizable,
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
@@ -62,7 +62,7 @@ public class MetaVertex extends MetaElement {
 
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name, String style, int width,
+	public MetaVertex(String identifier, boolean visible, String name, String style, String description, int width,
 			int height, String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
 			List<String> disPropVisibleAttributes,
@@ -70,7 +70,7 @@ public class MetaVertex extends MetaElement {
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes,
 			Map<String, AbstractAttribute> modelingAttributes) {
-		this(identifier, visible, name, style, width, height, image, 
+		this(identifier, visible, name, style, description, width, height, image, 
 				borderStroke, topConcept, backgroundColor, resizable,
 				disPropVisibleAttributes, disPropEditableAttributes,
 				disPanelVisibleAttributes, disPanelSpacersAttributes,
@@ -79,7 +79,7 @@ public class MetaVertex extends MetaElement {
 
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name, String style, int width,
+	public MetaVertex(String identifier, boolean visible, String name, String style, String description, int width,
 			int height, String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
 			List<String> disPropVisibleAttributes,
@@ -89,7 +89,7 @@ public class MetaVertex extends MetaElement {
 			Map<String, AbstractAttribute> modelingAttributes,
 			List<MetaEdge> asOriginRelations,
 			List<MetaEdge> asDestinationRelations) {
-		super(identifier, visible, name, style, width, height, image, 
+		super(identifier, visible, name, style, description, width, height, image, 
 				borderStroke, disPropVisibleAttributes, disPropEditableAttributes,
 				disPanelVisibleAttributes, disPanelSpacersAttributes,
 				modelingAttributes);

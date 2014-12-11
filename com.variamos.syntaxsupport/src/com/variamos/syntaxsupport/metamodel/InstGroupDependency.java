@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
+import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
-public class InstGroupDependency extends InstElement {
+public class InstGroupDependency extends InstVertex {
 	/**
 	 * 
 	 */
@@ -27,27 +28,35 @@ public class InstGroupDependency extends InstElement {
 
 	public InstGroupDependency() {
 		super();
-//		vars.put(VAR_METAGROUPDEPIDENTIFIER,null);
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
+		// vars.put(VAR_METAGROUPDEPIDENTIFIER,null);
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 	}
 
 	public InstGroupDependency(MetaGroupDependency metaGroupDependency) {
 		super("");
-		vars.put(VAR_METAGROUPDEPIDENTIFIER, metaGroupDependency.getIdentifier());
+		vars.put(VAR_METAGROUPDEPIDENTIFIER,
+				metaGroupDependency.getIdentifier());
 		this.metaGroupDependency = metaGroupDependency;
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
+
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 		createInstAttributes();
 	}
 
 	public InstGroupDependency(String identifier,
 			MetaGroupDependency metaGroupDependency) {
 		super(identifier);
-		vars.put(VAR_METAGROUPDEPIDENTIFIER, metaGroupDependency.getIdentifier());
+		vars.put(VAR_METAGROUPDEPIDENTIFIER,
+				metaGroupDependency.getIdentifier());
 		this.metaGroupDependency = metaGroupDependency;
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
-//		vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
+
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
+		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 		createInstAttributes();
 	}
 
@@ -55,39 +64,49 @@ public class InstGroupDependency extends InstElement {
 		return metaGroupDependency;
 	}
 
-	public String getMetaGroupDependencyIdentifier() {
+	public String getMetaVertexIdentifier() {
 		return (String) vars.get(VAR_METAGROUPDEPIDENTIFIER);
 	}
 
 	public String getSemanticGroupDependencyIdentifier() {
 		if ((String) vars.get(VAR_SEMANTICGROUPDEPENDENCYID) == null)
-			if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-				return ((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject()).getIdentifier();
+			if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getValueObject() != null)
+				return ((IntSemanticGroupDependency) getInstAttribute(
+						VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+						.getIdentifier();
 			else
 				return null;
 		return (String) vars.get(VAR_SEMANTICGROUPDEPENDENCYID);
 	}
-	
+
 	public IntSemanticGroupDependency getSemanticGroupDependency() {
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-			return ((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getValueObject() != null)
+			return ((IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject());
 		else
-			return null;		
+			return null;
 	}
 
-	public void setMetaGroupDependency(MetaVertex metaGroupDependency) {
+	public void setIdentifier(String identifier) {
+		super.setIdentifier(identifier);
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
+
+	}
+
+	public void setMetaVertex(MetaVertex metaGroupDependency) {
 		this.metaGroupDependency = (MetaGroupDependency) metaGroupDependency;
 		setVariable(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
 
 	}
-	
+
 	public void setSemanticGroupDependency(IntSemanticGroupDependency sgd) {
-		setVariable(VAR_SEMANTICGROUPDEPENDENCYID,
-				sgd.getIdentifier());
-		setInstAttribute(VAR_SEMANTICGROUPDEPENDENCY,
-			sgd);
-		
+		setVariable(VAR_SEMANTICGROUPDEPENDENCYID, sgd.getIdentifier());
+		setInstAttribute(VAR_SEMANTICGROUPDEPENDENCY, sgd);
+
 	}
 
 	public void setSemanticGroupDependencyIdentifier(
@@ -101,7 +120,7 @@ public class InstGroupDependency extends InstElement {
 		setVariable(VAR_METAGROUPDEPIDENTIFIER, metaGroupDependencyIdentifier);
 		// createInstAttributes();
 	}
-	
+
 	public String getOutCardinality() {
 		return (String) (getVariable(VAR_OUTCARDINALITY));
 	}
@@ -125,9 +144,12 @@ public class InstGroupDependency extends InstElement {
 				.getModelingAttributes().iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
-			if (name.equals("identifier"))
+			if (name.equals(MetaElement.VAR_IDENTIFIER))
 				addInstAttribute(name, getMetaGroupDependency()
 						.getModelingAttribute(name), getIdentifier());
+			else if (name.equals(MetaElement.VAR_DESCRIPTION))
+				addInstAttribute(name, getMetaGroupDependency()
+						.getModelingAttribute(name), getMetaGroupDependency().getDescription());
 			else
 				addInstAttribute(name, getMetaGroupDependency()
 						.getModelingAttribute(name), null);
@@ -150,112 +172,145 @@ public class InstGroupDependency extends InstElement {
 	public Set<String> getDisPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-				modelingAttributesNames.addAll(((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject())
-						.getDisPropVisibleAttributes());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getValueObject() != null)
+			modelingAttributesNames
+					.addAll(((IntSemanticGroupDependency) getInstAttribute(
+							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+							.getDisPropVisibleAttributes());
 
-		modelingAttributesNames.addAll(getMetaGroupDependency().getDisPropVisibleAttributes());
+		modelingAttributesNames.addAll(getMetaGroupDependency()
+				.getDisPropVisibleAttributes());
 		return modelingAttributesNames;
 	}
-	
+
 	public Set<String> getDisPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)!= null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-				modelingAttributesNames.addAll(((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject())
-						.getDisPropEditableAttributes());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null)
+			modelingAttributesNames
+					.addAll(((IntSemanticGroupDependency) getInstAttribute(
+							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+							.getDisPropEditableAttributes());
 
-		modelingAttributesNames.addAll(getMetaGroupDependency().getDisPropEditableAttributes());
+		modelingAttributesNames.addAll(getMetaGroupDependency()
+				.getDisPropEditableAttributes());
 		return modelingAttributesNames;
 	}
-	
+
 	public Set<String> getDisPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)!= null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-				modelingAttributesNames.addAll(((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject())
-						.getDisPanelVisibleAttributes());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null)
+			modelingAttributesNames
+					.addAll(((IntSemanticGroupDependency) getInstAttribute(
+							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+							.getDisPanelVisibleAttributes());
 
-		modelingAttributesNames.addAll(getMetaGroupDependency().getDisPanelVisibleAttributes());
+		modelingAttributesNames.addAll(getMetaGroupDependency()
+				.getDisPanelVisibleAttributes());
 		return modelingAttributesNames;
 	}
 
 	public Set<String> getDisPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)!= null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-			modelingAttributesNames.addAll(((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject())
-						.getDisPanelSpacersAttributes());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null)
+			modelingAttributesNames
+					.addAll(((IntSemanticGroupDependency) getInstAttribute(
+							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+							.getDisPanelSpacersAttributes());
 
-		modelingAttributesNames.addAll(getMetaGroupDependency().getDisPanelSpacersAttributes());
+		modelingAttributesNames.addAll(getMetaGroupDependency()
+				.getDisPanelSpacersAttributes());
 		return modelingAttributesNames;
 	}
-	
+
 	public Set<String> getSemanticAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)!= null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null) //TODO simulation attributes too?
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null) // TODO simulation attributes
+													// too?
 		{
-			IntSemanticGroupDependency tmp = (IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject();
-			modelingAttributesNames.addAll(
-					((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject()).getSemanticAttributes());
+			IntSemanticGroupDependency tmp = (IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject();
+			modelingAttributesNames
+					.addAll(((IntSemanticGroupDependency) getInstAttribute(
+							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+							.getSemanticAttributes());
 		}
 		return modelingAttributesNames;
 	}
-	
+
 	private IntSemanticGroupDependency getSemanticRelation() {
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-			return ((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject());
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null)
+			return ((IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject());
 		return null;
 	}
 
 	private AbstractAttribute getSemanticAttribute(String name) {
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null)
-			return ((IntSemanticGroupDependency) getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject())
-				.getSemanticAttribute(name);
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null)
+			return ((IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+					.getSemanticAttribute(name);
 		return null;
 	}
 
 	@Override
-	public InstAttribute[] getEditableVariables() {
+	public List<InstAttribute> getEditableVariables() {
 
-		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)!= null &&
-				getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject() != null) {
-			Object o = getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject();
-			String semGroupDep =(String)((IntSemanticGroupDependency)getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY).getObject()).getIdentifier();
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null) {
+			Object o = getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+					.getValueObject();
+			String semGroupDep = (String) ((IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+					.getIdentifier();
 
 			if (!semGroupDepOld.equals(semGroupDep)) {
 				semGroupDepOld = semGroupDep;
-				setInstAttribute(VAR_SEMANTICGROUPDEPENDENCYID,semGroupDep);
+				setInstAttribute(VAR_SEMANTICGROUPDEPENDENCYID, semGroupDep);
 				createInstAttributes();
 			}
 		}
 		Set<String> attributesNames = getDisPropEditableAttributes();
-		List<String> listEditableAttributes = new ArrayList<String>();
-		listEditableAttributes.addAll(attributesNames);
-		Collections.sort(listEditableAttributes);
+		return getFilteredInstAttributes(attributesNames, null);
 
-		List<String> listEditableAttribNames = new ArrayList<String>();
-		for (String attribute : listEditableAttributes) {
-			int endName = attribute.indexOf("#", 3);
-			if (endName != -1)
-				listEditableAttribNames.add(attribute.substring(3, endName));
-			else
-				listEditableAttribNames.add(attribute.substring(3));
-		}
+	}
 
-		InstAttribute[] editableInstAttributes = new InstAttribute[attributesNames
-				.size()];
-		int i = 0;
-		for (String attributeName : listEditableAttribNames) {
-			editableInstAttributes[i++] = getInstAttribute(attributeName);
+	@Override
+	public List<InstAttribute> getVisibleVariables() {
+
+		if (getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY) != null
+				&& getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+						.getValueObject() != null) {
+			Object o = getInstAttribute(VAR_SEMANTICGROUPDEPENDENCY)
+					.getValueObject();
+			String semGroupDep = (String) ((IntSemanticGroupDependency) getInstAttribute(
+					VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
+					.getIdentifier();
+
+			if (!semGroupDepOld.equals(semGroupDep)) {
+				semGroupDepOld = semGroupDep;
+				setInstAttribute(VAR_SEMANTICGROUPDEPENDENCYID, semGroupDep);
+				createInstAttributes();
+			}
 		}
-		return editableInstAttributes;
+		Set<String> attributesNames = getDisPropVisibleAttributes();
+
+		return getFilteredInstAttributes(attributesNames, null);
 
 	}
 
@@ -336,9 +391,9 @@ public class InstGroupDependency extends InstElement {
 		return out;
 	}
 
-	public void clearMetaGroupDependency() {
+	public void clearMetaVertex() {
 		metaGroupDependency = null;
-		setInstAttribute(VAR_SEMANTICGROUPDEPENDENCY,null);
+		setInstAttribute(VAR_SEMANTICGROUPDEPENDENCY, null);
 		// TODO Auto-generated method stub
 	}
 
@@ -348,6 +403,11 @@ public class InstGroupDependency extends InstElement {
 			return getMetaGroupDependency().getModelingAttribute(attributeName);
 		else
 			return out;
+	}
+
+	@Override
+	public MetaVertex getMetaVertex() {
+		return metaGroupDependency;
 	}
 
 }

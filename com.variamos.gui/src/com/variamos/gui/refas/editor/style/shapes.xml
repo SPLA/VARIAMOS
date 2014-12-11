@@ -17,8 +17,8 @@
 	</foreground>
 </shape>
 <shape name="rect-goal" aspect="variable">
-	<background>
-		<strokewidth width="10"/>
+	<background aspect="fixed">
+		<strokewidth width="7"/>
 		<path>
 			<move x="20" y="0"/>
 			<line x="100" y="0"/>
@@ -29,7 +29,14 @@
 		</path>
 		<stroke/>
 	</background>
+		<connections>
+		<constraint x="50" y="0" perimeter="1"/>
+		<constraint x="0" y="50" perimeter="1"/>
+		<constraint x="100" y="50" perimeter="1"/>
+		<constraint x="50" y="100" perimeter="1"/>
+	</connections>
 	<foreground>
+	
 
 	</foreground>
 </shape>
@@ -217,6 +224,29 @@
 			<close/>
 		</path>
 		<stroke/>
+	</foreground>
+</shape>
+<shape name="enum" aspect="variable">
+	<background>
+		<strokewidth width="1"/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="100" y="0"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="0"/>
+			<close/>
+			<move x="0" y="20"/>
+			<line x="100" y="20"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="20"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+
 	</foreground>
 </shape>
 <shape name="claim" aspect="variable">

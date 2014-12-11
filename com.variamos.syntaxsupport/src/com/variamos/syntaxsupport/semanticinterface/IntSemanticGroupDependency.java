@@ -6,11 +6,15 @@ import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 
+
 /**
- * @author Juan Carlos Muñoz 2014
- *  part of the PhD work at CRI - Universite Paris 1
- *
- * Definition of syntax for VariaMos
+ * An interface for SemanticGroupDependency class, required to avoid cyclic
+ * references in projects. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.1
+ * @since 2014-11-24
+ * @see com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency
  */
 public interface IntSemanticGroupDependency   extends Serializable{
 	public Set<String> getSemanticAttributes();

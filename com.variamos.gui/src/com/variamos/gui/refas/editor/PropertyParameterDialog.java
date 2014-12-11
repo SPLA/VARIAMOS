@@ -1,6 +1,7 @@
 package com.variamos.gui.refas.editor;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -19,8 +20,10 @@ import javax.swing.SpringLayout;
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.gui.pl.editor.widgets.WidgetPL;
+import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
+import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 /**
@@ -28,7 +31,7 @@ import com.variamos.syntaxsupport.metamodel.InstAttribute;
  *
  */
 @SuppressWarnings("serial")
-public class GoalsParameterDialog extends JDialog{
+public class PropertyParameterDialog extends JDialog{
 	private HashMap<String, WidgetR> widgets;
 	private DialogButtonAction onAccept, onCancel;
 	
@@ -36,13 +39,15 @@ public class GoalsParameterDialog extends JDialog{
 		public boolean onAction();
 	}
 	
-	public GoalsParameterDialog(VariamosGraphEditor editor, InstAttribute... arguments){
+	public PropertyParameterDialog(VariamosGraphEditor editor, InstAttribute... arguments){
 		super(editor.getFrame(), "Parameters");
 		
 		setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
+
+		setPreferredSize(new Dimension(250, 100));
 		
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 		
@@ -61,9 +66,9 @@ public class GoalsParameterDialog extends JDialog{
 				}
 			});
 			
-		//	widgets.put(p.getName(), w);
+			widgets.put((String)p.getValue(), w);
 
-		//	panel.add(new JLabel(p.getName() + ": "));
+			panel.add(new JLabel(p.getDisplayName() + ": "));
 			panel.add(w);
 		}
 		
@@ -135,7 +140,7 @@ public class GoalsParameterDialog extends JDialog{
 		
 		for(String s : widgets.keySet()){
 			InstAttribute v = widgets.get(s).getInstAttribute();
-	//		map.put(v.getName(), v);
+			map.put(v.getIdentifier(), v);
 		}
 		
 		return map;

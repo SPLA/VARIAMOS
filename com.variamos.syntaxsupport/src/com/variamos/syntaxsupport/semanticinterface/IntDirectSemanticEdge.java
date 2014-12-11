@@ -1,17 +1,16 @@
 package com.variamos.syntaxsupport.semanticinterface;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-
 /**
- * @author Juan Carlos Muñoz 2014
- *  part of the PhD work at CRI - Universite Paris 1
- *
- * Definition of syntax for VariaMos
+ * An interface for DirectSemanticEdge class, required to avoid cyclic
+ * references in projects. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.1
+ * @since 2014-11-24
+ * @see com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge
  */
 public interface IntDirectSemanticEdge  extends IntSemanticElement {
 	public List<IntDirectEdgeType> getSemanticRelationTypes();

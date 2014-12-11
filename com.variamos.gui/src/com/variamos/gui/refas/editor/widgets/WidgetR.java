@@ -11,6 +11,7 @@ import com.variamos.syntaxsupport.metamodel.InstAttribute;
 public abstract class WidgetR extends JPanel{
 	
 	public static final String PROPERTY_VALUE = "WidgetR.Value";
+	private boolean affectProperties = false;
 	
 	protected InstAttribute edited;
 	
@@ -24,8 +25,13 @@ public abstract class WidgetR extends JPanel{
 	
 	public abstract JComponent getEditor();
 
+	public boolean isAffectedProperties()
+	{
+		return affectProperties;
+	}
 
 	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
+		affectProperties = v.isAffectProperties();
 		
 	}
 
@@ -33,5 +39,15 @@ public abstract class WidgetR extends JPanel{
 	public InstAttribute getInstAttribute() {
 		pullValue(edited);
 		return edited;
+	}
+	
+	public boolean isAffectProperties()
+	{
+		return affectProperties;
+	}
+	
+	public void setAffectProperties(boolean affectProperties)
+	{
+		this.affectProperties = affectProperties;
 	}
 }

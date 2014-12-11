@@ -98,14 +98,14 @@ public class Refas extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
-			classId = ((InstConcept) element).getMetaConceptIdentifier();
+			classId = ((InstConcept) element).getMetaVertexIdentifier();
 		else {
 			if (element instanceof InstEnumeration)
 				classId = ((InstEnumeration) element)
-						.getMetaEnumerationIdentifier();
+						.getMetaVertexIdentifier();
 			else
 				classId = ((InstGroupDependency) element)
-						.getMetaGroupDependencyIdentifier();
+						.getMetaVertexIdentifier();
 		}
 
 		while (instElements.containsKey(classId + id)) {

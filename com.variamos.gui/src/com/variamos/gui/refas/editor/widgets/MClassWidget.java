@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -25,12 +27,23 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.type.MClassType;
 
+/**
+ * A class to support class widgets on the interface with multi-selection.
+ * Inspired on other widgets from ProductLine. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-04
+ * @see com.variamos.gui.pl.editor.widgets
+ */
 @SuppressWarnings("serial")
 public class MClassWidget extends WidgetR {
 
 	private JList<String> txtValue;
-	private Map<String,IntSemanticElement> semanticConcepts;
-	private Map<String,InstConcept> concepts;
+	private Map<String, IntSemanticElement> semanticConcepts;
+	private Map<String, InstConcept> concepts;
+
 	public MClassWidget() {
 		super();
 		setLayout(new BorderLayout());
@@ -40,19 +53,20 @@ public class MClassWidget extends WidgetR {
 	@Override
 	public void configure(InstAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-
+		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = MClassType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 		try {
-			aClass = classLoader.loadClass(v.getAttribute().getEnumType());
+			aClass = classLoader.loadClass(v.getAttribute()
+					.getClassCanonicalName());
 			System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		String[] out = null;
 		if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
-			semanticConcepts = new HashMap<String,IntSemanticElement>();
+			semanticConcepts = new HashMap<String, IntSemanticElement>();
 			Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
 
@@ -65,28 +79,30 @@ public class MClassWidget extends WidgetR {
 			out = new String[list2.size()];
 			int i = 0;
 			for (IntSemanticElement concept : list2) {
-				semanticConcepts.put(concept.getIdentifier(),concept);
-				String str = concept.getIdentifier();
-				out[i++] = str.toString();
+				if (semanticConcepts.put(concept.getIdentifier(), concept) == null) {
+					String str = concept.getIdentifier();
+					out[i++] = str.toString();
+				}
 			}
 		}
 		if (aClass.equals(InstConcept.class)) {
-			 concepts = new HashMap<String,InstConcept>();
+			concepts = new HashMap<String, InstConcept>();
 			List<InstConcept> list = getInstConcepts(v.getAttribute()
-					.getObject(), graph);
+					.getMetaConceptInstanceType(), graph);
 
-			out = new String[list.size()];
+			Set<InstConcept> set = new HashSet<InstConcept>();
+			set.addAll(list);
+			out = new String[set.size()];
 			int i = 0;
-			for (InstConcept concept : list) {
-				concepts.put(concept.getIdentifier(),concept);
-				String str = concept.getInstAttribute("name")
-						.toString();
+			for (InstConcept concept : set) {
+				concepts.put(concept.getIdentifier(), concept);
+				String str = concept.getInstAttribute("name").toString();
 				out[i++] = str.toString();
 			}
 
 		}
 
-		txtValue = new JList<String>(out);		
+		txtValue = new JList<String>(out);
 		JScrollPane panel = new JScrollPane(txtValue);
 		panel.setPreferredSize(new Dimension(200, 50));
 		panel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -119,13 +135,12 @@ public class MClassWidget extends WidgetR {
 
 	@Override
 	protected void pushValue(InstAttribute v) {
-		if (v.getValue() instanceof int[])
-		{
+		if (v.getValue() instanceof int[]) {
 			@SuppressWarnings("unchecked")
 			List<Integer> values = (List<Integer>) v.getValue();
 			int[] valuesArray = new int[values.size()];
-			int i=0;
-			for (Integer value: values)
+			int i = 0;
+			for (Integer value : values)
 				valuesArray[i++] = value;
 			txtValue.setSelectedIndices(valuesArray);
 		}
@@ -137,7 +152,7 @@ public class MClassWidget extends WidgetR {
 	protected void pullValue(InstAttribute v) {
 		List<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = txtValue.getSelectedIndices();
-		for (int i=0; i< valuesArray.length;i++)
+		for (int i = 0; i < valuesArray.length; i++)
 			values.add(valuesArray[i]);
 		v.setValue(values);
 		String out = "";

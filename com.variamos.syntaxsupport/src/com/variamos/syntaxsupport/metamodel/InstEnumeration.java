@@ -1,6 +1,7 @@
 package com.variamos.syntaxsupport.metamodel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,6 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.cfm.productline.Variable;
-import com.cfm.productline.type.StringType;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
@@ -21,40 +19,36 @@ import com.variamos.syntaxsupport.metametamodel.MetaVertex;
  *
  *         Definition of syntax for VariaMos
  */
-public class InstConcept extends InstVertex {
+public class InstEnumeration extends InstVertex {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -351673247632968251L;
-	/**
-	 * 
-	 */
+	private static final long serialVersionUID = 188655707058755882L;
+	public static final String VAR_METAENUMIDE = "MetaEnumIde";
+	private MetaEnumeration metaEnumeration;
 
-	public static final String VAR_METACONCEPTIDE = "MetaConceptIde";
-	// protected Map<String, MetaConcept> vars = new HashMap<>();
-	private MetaConcept metaConcept;
-
-	public InstConcept() {
+	public InstEnumeration() {
 		super("");
 	}
 
-	public InstConcept(MetaConcept metaConcept) {
+	public InstEnumeration(MetaEnumeration metaEnumeration) {
 		super("");
-		setMetaVertex(metaConcept);
+		setMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept,
+	public InstEnumeration(String identifier, MetaEnumeration metaEnumeration,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstEdge> relations) {
 		super(identifier, attributes, relations);
-		setMetaVertex(metaConcept);
+		setMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept) {
+	public InstEnumeration(String identifier, MetaEnumeration metaEnumeration) {
 		super(identifier);
-		setMetaVertex(metaConcept);
+		setMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -62,89 +56,59 @@ public class InstConcept extends InstVertex {
 		return vars.get(name);
 	}
 
-	public void setVariable(String name, MetaConcept value) {
+	public void setVariable(String name, MetaEnumeration value) {
 		vars.put(name, value);
 	}
 
-	public MetaConcept getMetaConcept() {
-		// return (MetaConcept)getVariable(VAR_METACONCEPT);
-		return metaConcept;
+	public MetaEnumeration getMetaEnumeration() {
+		return metaEnumeration;
 	}
 
 	private void createInstAttributes() {
-		Iterator<String> modelingAttributes = getMetaConcept()
+		Iterator<String> modelingAttributes = getMetaEnumeration()
 				.getModelingAttributes().iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name),
-						getIdentifier());
+				addInstAttribute(name, getMetaEnumeration()
+						.getModelingAttribute(name), getIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name),
-						getMetaConcept().getDescription());
+				addInstAttribute(name, getMetaEnumeration()
+						.getModelingAttribute(name), getMetaEnumeration().getDescription());
 			else
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name), null);
+				addInstAttribute(name, getMetaEnumeration()
+						.getModelingAttribute(name), null);
 		}
-
-		Iterator<String> semanticAttributes = getMetaConcept()
-				.getSemanticAttributes().iterator();
-		while (semanticAttributes.hasNext()) {
-			String name = semanticAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name),
-						getIdentifier());
-			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name),
-						getMetaConcept().getDescription());
-			else
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name), null);
-		}
-
 	}
-
-	/*
-	 * public MetaConcept getMetaConcept() { return metaConcept; }
-	 */
 
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getMetaConcept()
+		Set<String> attributesNames = getMetaEnumeration()
 				.getDisPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getMetaConcept()
+		Set<String> attributesNames = getMetaEnumeration()
 				.getDisPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public String getMetaVertexIdentifier() {
 		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METACONCEPTIDE);
+		return (String) vars.get(VAR_METAENUMIDE);
 	}
 
-	public String toString() { // TODO move to superclass
+	public String toString() { // TODO move partially to superclass
 		String out = "";
-		// List<String> visibleAttributesNames = metaConcept
-		// .getPanelVisibleAttributes();
-		if (getMetaConcept() != null) {
-			Set<String> visibleAttributesNames = getMetaConcept()
+		if (getMetaEnumeration() != null) {
+			Set<String> visibleAttributesNames = getMetaEnumeration()
 					.getDisPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-
-			// List<String> spacersAttributes = metaConcept
-			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getMetaConcept()
+			Set<String> spacersAttributes = getMetaEnumeration()
 					.getDisPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
@@ -189,23 +153,21 @@ public class InstConcept extends InstVertex {
 									&& getInstAttributes().get(name).toString()
 											.trim().equals(""))
 								out += "<<NoName>>";
-							{
+							else {
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
-								if (instAttribute.getEnumType() != null
-										&& instAttribute.getEnumType().equals(
-												InstEnumeration.class
-														.getCanonicalName()))
-									out += (String) instAttribute.getValue(); // TODO
-																				// retrieve
-																				// the
-																				// values
+								if (instAttribute.getModelingAttributeType()
+										.equals("Set"))
+									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+											.getValue())
+										out += e.toString().trim() + "\n";
 								else
 									out += instAttribute.toString().trim();
 							}
 							while (sp2 != spacer.length()) {
 								int sp3 = spacer.indexOf("#", sp2 + 1);
 								if (sp3 == -1) {
+
 									out += spacer.substring(sp2 + 1);
 									break;
 								}
@@ -221,22 +183,8 @@ public class InstConcept extends InstVertex {
 								&& getInstAttributes().get(name).toString()
 										.trim().equals(""))
 							out += "<<NoName>>";
-						else {
-							InstAttribute instAttribute = getInstAttributes()
-									.get(name);
-							if (instAttribute.getEnumType() != null
-									&& instAttribute.getEnumType().equals(
-											InstEnumeration.class
-													.getCanonicalName()))
-								out += (String) instAttribute.getValue(); // TODO
-																			// retrieve
-																			// the
-																			// list
-																			// of
-																			// values
-							else
-								out += instAttribute.toString().trim();
-						}
+						else
+							out += getInstAttributes().get(name);
 				}
 			}
 			if (out.equals(""))
@@ -247,29 +195,31 @@ public class InstConcept extends InstVertex {
 
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaEnumeration.getDescription());
 	}
 
-	public void setMetaVertex(MetaVertex metaConcept) {
-		this.metaConcept = (MetaConcept) metaConcept;
-		setVariable(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+	public void setMetaVertex(MetaVertex metaEnumeration) {
+		this.metaEnumeration = (MetaEnumeration) metaEnumeration;
+		setVariable(VAR_METAENUMIDE, metaEnumeration.getIdentifier());
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaEnumeration.getDescription());
+
 		// createInstAttributes();
 	}
 
-	public void setMetaConceptIdentifier(String metaConceptIdentifier) {
-		setVariable(VAR_METACONCEPTIDE, metaConceptIdentifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
+		setVariable(VAR_METAENUMIDE, metaEnumerationIdentifier);
 		// createInstAttributes();
 	}
 
 	public void clearMetaVertex() {
-		metaConcept = null;
+		metaEnumeration = null;
 	}
 
 	@Override
 	public MetaVertex getMetaVertex() {
-		return metaConcept;
+		return metaEnumeration;
 	}
 
 }

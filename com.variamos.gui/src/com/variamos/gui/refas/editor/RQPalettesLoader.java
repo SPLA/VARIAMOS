@@ -13,11 +13,6 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-//import com.variamos.pl.editor.logic.PaletteDatabase;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
-import com.variamos.refas.core.staticconcepts.Goal;
 
 /**
  * @author jcmunoz
@@ -35,7 +30,7 @@ public class RQPalettesLoader {
 				new ImageIcon(
 						GraphEditor.class
 								.getResource("/com/variamos/gui/refas/editor/images/goal.png")),
-				"rqgoal", 100, 40, new Goal());
+				"rqgoal", 100, 40, null);
 /*		palette.addTemplate(
 				mxResources.get("functionalRequirementTitle"),
 				new ImageIcon(
