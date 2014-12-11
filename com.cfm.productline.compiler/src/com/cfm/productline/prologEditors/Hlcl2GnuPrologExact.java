@@ -10,10 +10,10 @@ import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.IntervalDomain;
 import com.cfm.hlcl.RangeDomain;
 import com.cfm.hlcl.SymbolicExpression;
-import com.cfm.productline.compiler.solverSymbols.GNUPrologSymbolsConstant;
+import com.cfm.productline.compiler.solverSymbols.GNUPrologSymbols;
 
 public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
-										GNUPrologSymbolsConstant{
+										GNUPrologSymbols{
 	
 	@Override
 	protected void writeFooter(StringBuilder out) {
