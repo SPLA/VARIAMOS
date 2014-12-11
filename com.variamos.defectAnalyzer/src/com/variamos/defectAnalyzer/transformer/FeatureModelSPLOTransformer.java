@@ -11,8 +11,8 @@ import java.util.Set;
 
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.NumericExpression;
+import com.variamos.constants.ConstraintSymbolsConstant;
 import com.variamos.core.exceptions.TransformerException;
-import com.variamos.defectAnalyzer.constants.ConstraintSymbolsConstant;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.Dependency;

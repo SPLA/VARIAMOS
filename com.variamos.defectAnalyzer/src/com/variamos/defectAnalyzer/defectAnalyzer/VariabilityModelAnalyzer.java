@@ -6,7 +6,6 @@ import java.io.IOException;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
-import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
 
 public class VariabilityModelAnalyzer {
 

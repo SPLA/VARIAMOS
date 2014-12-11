@@ -11,7 +11,7 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
-import com.variamos.defectAnalyzer.constants.ConstraintSymbolsConstant;
+import com.variamos.constants.ConstraintSymbolsConstant;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.model.VariabilityElement;
 

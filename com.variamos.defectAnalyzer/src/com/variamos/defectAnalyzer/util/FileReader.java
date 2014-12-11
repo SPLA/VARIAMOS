@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.variamos.constants.ConstraintSymbolsConstant;
 import com.variamos.core.exceptions.TechnicalException;
-import com.variamos.defectAnalyzer.constants.ConstraintSymbolsConstant;
 
 
 /**
