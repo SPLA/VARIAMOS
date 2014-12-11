@@ -25,7 +25,6 @@ import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.defectAnalyzer.util.PowerSetUtil;
 import com.variamos.defectAnalyzer.util.SetUtil;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
-import com.variamos.defectAnalyzer.defectAnalyzer.HittingSetIdentifier;
 
 /**
  * @author LuFe
@@ -150,7 +149,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 				System.out.println("Construyendo combinationes tamaño " + r
 						+ " ... ");
 				List<List<Dependency>> combinatorialPowerSetByLevel = PowerSetUtil
-						.externalDoCombinations(new ArrayList<Dependency>(),
+						.calculateSets(new ArrayList<Dependency>(),
 								variabilityDependencyModelList,
 								new ArrayList<List<Dependency>>(), r, allMCSes,
 								lockedClausesSets);
@@ -611,7 +610,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			Defect defectToAnalyze,
 			Map<Long, Dependency> modelDependenciesList,
 			Map<Long, Dependency> fixedDependenciesList,
-			DefectAnalyzerMode correctionSetIdentifcationType)
+			DefectAnalyzerMode defectAnalyzerMode)
 			throws FunctionalException {
 		// Se quita de la lista de dependencias la relación que se considera
 		// redundante para que pueda ponerse su instrucción de verificación.
@@ -626,7 +625,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		// Se invoca al método que analiza las causas y correcciones de todos
 		// los defectos y se retorna el diagnóstico
 		return analyzeCausesOneDefect(defectToAnalyze, modelDependenciesCopy,
-				fixedDependenciesList, correctionSetIdentifcationType);
+				fixedDependenciesList, defectAnalyzerMode);
 	}
 
 	public Diagnostic analyzeCausesOneDefect(Defect defectToAnalyze,
