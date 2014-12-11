@@ -694,7 +694,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// defecto
 
 			VoidModel voidModelDefect = new VoidModel(vmAnalyzerInDTO
-					.getVariabilityModel().getModelName());
+					.getVariabilityModel().getName());
 			Diagnostic diagnosticVoid = invokeCausesIdentiferOneDefect(
 					voidModelDefect,
 					vmCauseAnalizerInDTO.getDefectAnalyzerMode());

@@ -44,10 +44,7 @@ public class VariabilityModelTransformer {
 			outDTO = plConfiguratorTransformer.transform(inDTO);
 		}
 
-		if (inDTO.getNotationType().equals(NotationType.PROLOG)) {
-			BooleanPrologTransformer prologTransformer = new BooleanPrologTransformer();
-			outDTO = prologTransformer.transform(inDTO);
-		}
+		
 
 		return outDTO;
 	}

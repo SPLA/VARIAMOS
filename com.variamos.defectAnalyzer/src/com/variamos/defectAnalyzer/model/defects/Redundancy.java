@@ -2,9 +2,11 @@ package com.variamos.defectAnalyzer.model.defects;
 
 import com.cfm.hlcl.Expression;
 import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class Redundancy extends Defect {
+
 
 	private Dependency redundantDependency;
 

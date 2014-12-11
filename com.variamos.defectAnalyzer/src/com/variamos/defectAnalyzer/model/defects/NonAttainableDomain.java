@@ -1,26 +1,26 @@
 package com.variamos.defectAnalyzer.model.defects;
 
 import com.cfm.hlcl.Expression;
-import com.variamos.defectAnalyzer.model.VariabilityElement;
+import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class NonAttainableDomain extends Defect {
-	private VariabilityElement variabilityElement;
+	private VariabilityElementDefAna variabilityElementDefAna;
 	private Integer notAttainableDomain;
 
-	public NonAttainableDomain(VariabilityElement variabilityElement,
+	public NonAttainableDomain(VariabilityElementDefAna variabilityElementDefAna,
 			Integer notAttainableDomain) {
 		super();
-		this.variabilityElement = variabilityElement;
-		this.id = variabilityElement.getName();
+		this.variabilityElementDefAna = variabilityElementDefAna;
+		this.id = variabilityElementDefAna.getName();
 		this.notAttainableDomain = notAttainableDomain;
 		defectType = DefectType.NON_ATTAINABLE_DOMAIN;
 	}
 	
-	public NonAttainableDomain(VariabilityElement variabilityElement,
+	public NonAttainableDomain(VariabilityElementDefAna variabilityElementDefAna,
 			Integer notAttainableDomain,
 			Expression verificationExpression) {
-		this(variabilityElement,notAttainableDomain);
+		this(variabilityElementDefAna,notAttainableDomain);
 		this.verificationExpression=verificationExpression;
 	}
 
@@ -28,16 +28,16 @@ public class NonAttainableDomain extends Defect {
 	/**
 	 * @return the variabilityElement
 	 */
-	public VariabilityElement getVariabilityElement() {
-		return variabilityElement;
+	public VariabilityElementDefAna getVariabilityElement() {
+		return variabilityElementDefAna;
 	}
 
 	/**
-	 * @param variabilityElement
+	 * @param variabilityElementDefAna
 	 *            the variabilityElement to set
 	 */
-	public void setVariabilityElement(VariabilityElement variabilityElement) {
-		this.variabilityElement = variabilityElement;
+	public void setVariabilityElement(VariabilityElementDefAna variabilityElementDefAna) {
+		this.variabilityElementDefAna = variabilityElementDefAna;
 	}
 
 	/**

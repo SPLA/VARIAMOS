@@ -21,7 +21,7 @@ import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
 import com.variamos.defectAnalyzer.model.DefectAnalyzerDomain;
 import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.VariabilityElement;
+import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.defects.DeadElement;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.defects.FalseOptionalElement;
@@ -39,13 +39,13 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 	// Variables usadas para almacenar información que es útil cuando se hacen
 	// otras operaciones de verificación
-	private Map<VariabilityElement, Set<Integer>> attainableDomainsByVariabilityElementMap;
+	private Map<VariabilityElementDefAna, Set<Integer>> attainableDomainsByVariabilityElementMap;
 	private SolverOperationsUtil solver;
 
 	public VariabilityModelVerifier(VMAnalyzerInDTO analyzerInDTO) {
 		super(analyzerInDTO);
 		this.analyzerInDTO = analyzerInDTO;
-		attainableDomainsByVariabilityElementMap = new HashMap<VariabilityElement, Set<Integer>>();
+		attainableDomainsByVariabilityElementMap = new HashMap<VariabilityElementDefAna, Set<Integer>>();
 		solver= new SolverOperationsUtil(analyzerInDTO.getSolverEditorType());
 		
 	}
@@ -82,8 +82,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 		boolean isVoid = !solver.isSatisfiable(prologTempPath);
 
 		if (isVoid) {
-			return new VoidModel(analyzerInDTO.getVariabilityModel()
-					.getModelName());
+			return new VoidModel(analyzerInDTO.getVariabilityModel().getName());
 		}else{
 			return null;
 		}
@@ -128,7 +127,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * 
 	 */
 	public List<Defect> identifyDeadFeatures(
-			Map<String, VariabilityElement> elementsListToVerify)
+			Map<String, VariabilityElementDefAna> elementsListToVerify)
 			throws FunctionalException {
 
 		List<Integer> definedDomainValues = null;
@@ -137,7 +136,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 		Expression constraintToAdd = null;
 		Expression constraintToIdentifyDeadFeature = null;
 		boolean isDead = Boolean.TRUE;
-		for (VariabilityElement element : elementsListToVerify.values()) {
+		for (VariabilityElementDefAna element : elementsListToVerify.values()) {
 
 			DefectAnalyzerDomain domain = element.getDomain();
 			// Se obtienen los valores parametrizados para esta variable
@@ -237,7 +236,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * 
 	 */
 	public List<Defect> identifyFalseOptionalFeatures(
-			Map<String, VariabilityElement> optionalElementsMap)
+			Map<String, VariabilityElementDefAna> optionalElementsMap)
 			throws FunctionalException {
 
 		List<Defect> falseOptionalElementsList = new ArrayList<Defect>();
@@ -247,7 +246,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 		boolean isSatisfiable = Boolean.TRUE;
 		if (optionalElementsMap != null) {
-			for (VariabilityElement element : optionalElementsMap.values()) {
+			for (VariabilityElementDefAna element : optionalElementsMap.values()) {
 
 				variabilityModelConstraintRepresentation.clear();
 				// Ejm F1 #= 0.
@@ -447,7 +446,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * @throws FunctionalException
 	 */
 	public List<Defect> identifyNonAttainableDomains(
-			Map<String, VariabilityElement> elementsMapToVerify)
+			Map<String, VariabilityElementDefAna> elementsMapToVerify)
 			throws FunctionalException {
 
 		List<Defect> notAttainableDomains = new ArrayList<Defect>();
@@ -457,7 +456,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 		Expression constraintToIdentifyNonAttainableDomain = null;
 
-		for (VariabilityElement element : elementsMapToVerify.values()) {
+		for (VariabilityElementDefAna element : elementsMapToVerify.values()) {
 			DefectAnalyzerDomain domain = element.getDomain();
 			// Se obtienen los valores parametrizados para esta variable
 			definedDomainValues = domain.getDomainValues();
@@ -545,19 +544,19 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	}
 
 	private void updateEvaluatedDomainsMap(List<Integer> configuredValues,
-			Map<String, VariabilityElement> variabilityElements,
+			Map<String, VariabilityElementDefAna> variabilityElementDefAnas,
 			Set<Identifier> constraintProgramIdentifiersCollection) {
 
-		VariabilityElement element = null;
+		VariabilityElementDefAna element = null;
 		int i = 0;
 		for (Identifier identifier : constraintProgramIdentifiersCollection) {
 
 			Integer value = configuredValues.get(i);
 
 			// Se busca en la lista de variabilityElements
-			if (variabilityElements.containsKey(identifier.getId())) {
+			if (variabilityElementDefAnas.containsKey(identifier.getId())) {
 				// Se obtiene el variabilityElement
-				element = variabilityElements.get(identifier.getId());
+				element = variabilityElementDefAnas.get(identifier.getId());
 				// Se verifica si el mapa tiene el variability element
 				if (attainableDomainsByVariabilityElementMap
 						.containsKey(element)) {
@@ -621,7 +620,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 			}
 			if (verifyFalseOptionalElement) {
 				// False optional elements
-				Map<String, VariabilityElement> optionalElements = analyzerInDTO
+				Map<String, VariabilityElementDefAna> optionalElements = analyzerInDTO
 						.getVariabilityModel().getOptionalVariabilityElements();
 				if (optionalElements != null && !optionalElements.isEmpty()) {
 					// Si esta vacío entonces no se verifica ninguno

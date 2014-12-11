@@ -16,6 +16,11 @@ public interface Solver {
 	public Object getProductLine();
 	
 	
+	//Proposed operations
+	
+	
+	
+	
 	/**
 	 * @param programPath
 	 * @return true, constraint program saved in @programPath is satisfiable, false otherwise
