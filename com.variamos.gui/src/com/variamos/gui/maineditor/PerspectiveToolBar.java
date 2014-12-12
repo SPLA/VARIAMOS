@@ -1,67 +1,18 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-/*
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.awt.GraphicsEnvironment;
-*/
-
-
-
-
-
-
-
-
-
-
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
-import javax.swing.TransferHandler;
 
-
-
-
-
-
-
-import javax.swing.border.Border;
-
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.EditorToolBar;
-/*import com.mxgraph.examples.swing.editor.EditorActions.ColorAction;
-import com.mxgraph.examples.swing.editor.EditorActions.FontStyleAction;
-
-import com.mxgraph.examples.swing.editor.EditorActions.KeyValueAction;
-import com.mxgraph.examples.swing.editor.EditorActions.PrintAction;
-*/
-import com.mxgraph.examples.swing.editor.EditorActions.NewAction;
-import com.mxgraph.examples.swing.editor.EditorActions.OpenAction;
-import com.mxgraph.examples.swing.editor.EditorActions.SaveAction;
-import com.mxgraph.examples.swing.editor.EditorActions.HistoryAction;
-
+import com.mxgraph.util.mxResources;
 /*
  * import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxConstants;
 */
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.util.mxGraphActions;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
-import com.mxgraph.view.mxGraphView;
 
 public class PerspectiveToolBar extends JToolBar
 {
@@ -71,13 +22,16 @@ public class PerspectiveToolBar extends JToolBar
 	 * 
 	 */
 	private static final long serialVersionUID = -8015443128436394471L;
+	private JButton buttons[] = new JButton[5];
+	private BasicGraphEditor editor;
 
 	/**
 	 * 
 	 */
-	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation)
+	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation, int perspective)
 	{
 		super(orientation);
+		this.editor = editor;
 		setBackground(new Color(220,220,220));
 		setBorder(BorderFactory.createCompoundBorder(BorderFactory
 				.createEmptyBorder(3, 3, 3, 3), getBorder()));
@@ -88,19 +42,44 @@ public class PerspectiveToolBar extends JToolBar
 		JLabel lb ;
 		lb = new JLabel("Perspectives:  ");
 		add (lb);
-		JButton bt = new JButton(mxResources.get("productLineButton"));
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
-		bt.setBackground(new Color(200,200,200));
-		bt = new JButton(mxResources.get("defectAnalyzerButton"));
-		bt.setEnabled(false);
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
-		bt = new JButton(mxResources.get("requirementsButton"));
-		bt.setEnabled(false);
-		add (bt);
-		bt.addActionListener(new PerspectiveAction());
-		// Sets the zoom in the zoom combo the current value
+		buttons[3] = new JButton(mxResources.get("metamodelingPerspButton"));
+		//buttons[2].setEnabled(false);
+		add (buttons[3]);
+		buttons[3].addActionListener(new PerspectiveAction(this));
 		
+		buttons[2] = new JButton(mxResources.get("modelingPerspButton"));
+		//buttons[2].setEnabled(false);
+		add (buttons[2]);
+		buttons[2].addActionListener(new PerspectiveAction(this));
+		
+		buttons[4] = new JButton(mxResources.get("simulationPerspButton"));
+		//buttons[2].setEnabled(false);
+		add (buttons[4]);
+		buttons[4].addActionListener(new PerspectiveAction(this));
+		
+		buttons[0] = new JButton(mxResources.get("plPerspButton"));
+		add (buttons[0]);
+		buttons[0].addActionListener(new PerspectiveAction(this));
+		
+		buttons[1] = new JButton(mxResources.get("defectAnalyzerPerspButton"));
+		//buttons[1].setEnabled(false);		
+		add (buttons[1]);
+		buttons[1].addActionListener(new PerspectiveAction(this));
+		
+		buttons[perspective].setSelected(true);
+		
+	}
+	public void updateButtons()
+	{
+		for (int i = 0; i<4; i++)
+		{
+			if (i == editor.getPerspective())
+				buttons[i].setSelected(true);
+			else
+				buttons[i].setSelected(false);
+			editor.setLayout(editor.getPerspective());
+
+		}
+
 	}
 }

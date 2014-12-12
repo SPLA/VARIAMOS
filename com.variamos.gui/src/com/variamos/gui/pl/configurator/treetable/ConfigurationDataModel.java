@@ -6,6 +6,7 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import com.cfm.productline.Variable;
+import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.treetable.actions.SetValueAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
@@ -18,7 +19,7 @@ public class ConfigurationDataModel extends AbstractTreeTableModel{
 	static protected Class<?>[] types = { TreeTableModel.class, Variable.class, Integer.class, String.class };
 	
 	private int steps;
-	private ConfiguratorPanel configurator;
+	private AbstractConfigurationPanel configurator;
 	
 	public static final int COLUMN_NAME = 0,
 							COLUMN_VALUE = 1, 
@@ -26,7 +27,7 @@ public class ConfigurationDataModel extends AbstractTreeTableModel{
 	
 	private LinkedList<ConfigurationAction> actions = new LinkedList<>();
 	
-	public ConfigurationDataModel(Object root, ConfiguratorPanel configurator) {
+	public ConfigurationDataModel(Object root, AbstractConfigurationPanel configurator) {
 		super(root);
 		steps = 0;
 		this.configurator = configurator;

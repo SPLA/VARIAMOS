@@ -12,8 +12,13 @@ import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
 
 @SuppressWarnings("serial")
-public class VariabilityElement implements Serializable, Prototype, Editable{
+public class VariabilityElement extends AbstractElement implements Serializable, Prototype, Editable{
 	
+	public String getClassId()
+	{
+		return "VP_";
+		
+	}
 //	protected Variable varName = StringType.newVariable("Name");
 //	protected Variable varIdentifier = StringType.newVariable("Identifier");
 //	protected Variable varDescription = StringType.newVariable("Description");
@@ -48,9 +53,6 @@ public class VariabilityElement implements Serializable, Prototype, Editable{
 		
 		setVariableValue(VAR_VISIBILITY, Boolean.TRUE);
 		setVariableValue(VAR_VALIDITY, Boolean.TRUE);
-		//getVariable(VAR_VISIBILITY).setValue(Boolean.TRUE);
-//		varValidity.setValue(Boolean.TRUE);
-//		varAllocation.setValue("");
 		assets = new ArrayList<>();
 	}
 	
@@ -66,8 +68,13 @@ public class VariabilityElement implements Serializable, Prototype, Editable{
 	public Object getVariableValue(String name){
 		return getVariable(name).getValue();
 	}
-	public VariabilityElement(String id) {
+	public VariabilityElement(String alias) {
 		this();
+		if (alias != null)
+			this.alias = alias;
+	}
+	public VariabilityElement(String alias, String id) {
+		this(alias);
 		setVariableValue(VAR_IDENTIFIER, String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1));
 		setVariableValue(VAR_NAME, (String.valueOf(id.charAt(0)).toUpperCase() + id.trim().substring(1)));
 		
@@ -187,11 +194,8 @@ public class VariabilityElement implements Serializable, Prototype, Editable{
 	}
 
 	public void setName(String name) {
-		//this.name = name;
-		//System.out.println("jeje"+name);
 		setVariableValue(VAR_NAME, name);
-		//setVariableValue(VAR_IDENTIFIER, name);
-		//setVariableValue(VAR_IDENTIFIER, name);
+
 	}
 
 	@Override

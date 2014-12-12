@@ -6,15 +6,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-
-
-
-
-
-
-
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.DefaultFileFilter;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;

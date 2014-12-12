@@ -17,7 +17,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.pl.editor.widgets.Widget;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 
 /**
@@ -26,14 +27,14 @@ import com.variamos.gui.pl.editor.widgets.WidgetFactory;
  */
 @SuppressWarnings("serial")
 public class VariabilityParameterDialog extends JDialog{
-	private HashMap<String, Widget> widgets;
+	private HashMap<String, WidgetPL> widgets;
 	private DialogButtonAction onAccept, onCancel;
 	
 	static interface DialogButtonAction{
 		public boolean onAction();
 	}
 	
-	public VariabilityParameterDialog(ProductLineGraphEditor editor, Variable... arguments){
+	public VariabilityParameterDialog(VariamosGraphEditor editor, Variable... arguments){
 		super(editor.getFrame(), "Parameters");
 		
 		setLayout(new BorderLayout());
@@ -43,10 +44,10 @@ public class VariabilityParameterDialog extends JDialog{
 		
 		WidgetFactory factory = new WidgetFactory(editor);
 		
-		widgets = new HashMap<String, Widget>();
+		widgets = new HashMap<String, WidgetPL>();
 		
 		for(Variable p : arguments){
-			Widget w = factory.getWidgetFor(p);
+			WidgetPL w = factory.getWidgetFor(p);
 			w.editVariable(p);
 			
 			w.addPropertyChangeListener("value", new PropertyChangeListener() {

@@ -1,0 +1,87 @@
+<mxStylesheet>
+	<add as="defaultVertex">
+		<add as="shape" value="label" />
+		<add as="perimeter" value="rectanglePerimeter" />
+		<add as="fontSize" value="11" />
+		<add as="align" value="center" />
+		<add as="verticalAlign" value="middle" />
+		<add as="strokeColor" value="black" />
+		<add as="fillColor" value="none" />
+	</add>
+	<add as="defaultEdge">
+		<add as="shape" value="connector"/>
+		<add as="labelBackgroundColor" value="white"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+ 	<add as="rqgoal">
+		<add as="shape" value="doubleEllipse"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<add as="plcons">
+		<add as="shape" value="hexagon"/>
+		<add as="labelBackgroundColor" value="white"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="blue"/>
+	</add>
+	<add as="plgroup">
+		<add as="shape" value="ellipse"/>
+		<add as="labelBackgroundColor" value="white"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+		<add as="verticalLabelPosition" value="top"/>
+		<add as="editable" value="false"/>
+	</add>
+	
+	<add as="plasset">
+		<add as="shape" value="hexagon"/>
+		<add as="labelBackgroundColor" value="white"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+		<add as="fillColor" value="blue"/>
+		<add as="verticalLabelPosition" value="top"/>
+		<add as="editable" value="false"/>
+	</add>
+	
+	<add as="ploptional">
+		<!-- <add as="shape" value="connector"/> -->
+		<add as="endArrow" value="oval"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="white" />
+		<add as="targetPerimeterSpacing" value="4" />
+		<add as="editable" value="false"/>
+	</add>
+	<add as="plmandatory">
+		<add as="endArrow" value="oval"/>
+		<add as="endFill" value="true"/>
+		<add as="fillColor" value="black" />
+		<add as="editable" value="false"/>
+	</add>
+	<add as="plexcludes">
+		<add as="startArrow" value="classic"/>
+		<add as="endArrow" value="classic"/>
+		<add as="editable" value="false"/>
+	</add>
+	<add as="plrequires">
+		<add as="endArrow" value="classic"/>
+		<add as="editable" value="false"/>
+	</add>
+	
+	
+</mxStylesheet>

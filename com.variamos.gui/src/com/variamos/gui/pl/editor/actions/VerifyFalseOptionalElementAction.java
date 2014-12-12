@@ -12,7 +12,7 @@ import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
@@ -25,14 +25,14 @@ public class VerifyFalseOptionalElementAction extends AbstractEditorAction {
 		ProductLine pl = null;
 		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
-		ProductLineGraphEditor editor = getEditor(e);
+		VariamosGraphEditor editor = getEditor(e);
 		editor.bringUpTab("Messages");
 		/*mxGraphComponent graphComponent = editor.getGraphComponent();
 		mxGraph graph = graphComponent.getGraph();
 		ProductLineGraph plGraph = (ProductLineGraph) graph;
 		pl = plGraph.getProductLine();*/
 		
-		pl = editor.getEditedProductLine();
+		pl = (ProductLine)editor.getEditedModel();
 
 		JTextArea messagesArea = editor.getMessagesArea();
 		StringBuilder outputMessage = new StringBuilder();

@@ -15,23 +15,24 @@ import com.cfm.hlcl.BinaryDomain;
 import com.cfm.hlcl.DomainParser;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
-import com.cfm.productline.type.IntegerType;
-import com.cfm.productline.type.StringType;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.VariabilityParameterDialog.DialogButtonAction;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.StringType;
 
 @SuppressWarnings("serial")
 public class VariabilityAttributeList extends JList<Variable> {
-	private ProductLineGraphEditor editor;
+	private VariamosGraphEditor editor;
 	private VariabilityElement element;
 	
 	private Variable spoof = new Variable("Add ...", "Add ...", StringType.IDENTIFIER);
 	
-	public VariabilityAttributeList(ProductLineGraphEditor editor){
+	public VariabilityAttributeList(VariamosGraphEditor editor){
 		this.editor = editor;
 		init(null);
 	}
 
-	public VariabilityAttributeList(ProductLineGraphEditor editor, VariabilityElement elm) {
+	public VariabilityAttributeList(VariamosGraphEditor editor, VariabilityElement elm) {
 		this.editor = editor;
 		this.element = elm;
 		init(elm.getVarAttributes());

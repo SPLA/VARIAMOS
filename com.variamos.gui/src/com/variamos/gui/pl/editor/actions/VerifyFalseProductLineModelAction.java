@@ -10,7 +10,7 @@ import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
@@ -24,7 +24,7 @@ public class VerifyFalseProductLineModelAction extends
 		ProductLine pl = null;
 		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
-		ProductLineGraphEditor editor = getEditor(e);
+		VariamosGraphEditor editor = getEditor(e);
 		
 		JTextArea messagesArea = editor.getMessagesArea();
 		StringBuilder outputMessage = new StringBuilder();
@@ -37,7 +37,7 @@ public class VerifyFalseProductLineModelAction extends
 		pl = plGraph.getProductLine();*/
 		
 		
-		pl = editor.getEditedProductLine();
+		pl = (ProductLine)editor.getEditedModel();
 		
 		pl.printDebug(System.out);
 

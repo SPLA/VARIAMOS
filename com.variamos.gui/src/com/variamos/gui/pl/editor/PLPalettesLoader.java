@@ -1,31 +1,24 @@
 package com.variamos.gui.pl.editor;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 
 import com.cfm.productline.Asset;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mxgraph.examples.swing.GraphEditor;
-import com.mxgraph.examples.swing.editor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.util.mxResources;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.pl.editor.logic.PaletteDatabase;
-import com.variamos.pl.editor.logic.PaletteDatabase.NaturalDeserializer;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
-import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
+//import com.variamos.pl.editor.logic.PaletteDatabase;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteDefinition;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteEdge;
+//import com.variamos.pl.editor.logic.PaletteDatabase.PaletteNode;
 
 public class PLPalettesLoader {
 	public static void loadRegularPalette(EditorPalette palette, ProductLineGraph plgraph) {
@@ -133,7 +126,7 @@ public class PLPalettesLoader {
 		}
 	*/	
 	}
-	private static void loadPaletteDatabase(PaletteDatabase db, EditorPalette palette) {
+	/*private static void loadPaletteDatabase(PaletteDatabase db, EditorPalette palette) {
 		for(PaletteDefinition pal : db.palettes){
 			palette.setName(pal.name);
 			for(PaletteNode node : pal.nodes ){
@@ -154,5 +147,5 @@ public class PLPalettesLoader {
 						edge.styleName, edge.width, edge.height, edge.value);
 			}
 		}
-	}
+	}*/
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
+import com.cfm.common.AbstractModel;
 import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
 //import com.cfm.productline.configurator.DomainAnnotation;
 //import com.cfm.productline.configurator.treetable.ConfigurationNode;
@@ -35,7 +36,7 @@ public class Configurator  {
 	/**
 	 * @param pl
 	 */
-	public void setSolverProductLine(ProductLine pl)
+	public void setSolverProductLine(AbstractModel pl)
 	{
 		solver.setProductLine(pl);
 	}
@@ -92,7 +93,7 @@ public class Configurator  {
 
 
 
-	public void performConfiguration(Configuration configuration, ConfigurationOptions configOptions, ConfigurationTaskListener listener, ProductLine pl) {
+	public void performConfiguration(Configuration configuration, ConfigurationOptions configOptions, ConfigurationTaskListener listener, AbstractModel pl) {
 			
 		GNUPrologContext ctx = new GNUPrologContext();
 		GNUPrologSolver solver = new GNUPrologSolver(ctx);

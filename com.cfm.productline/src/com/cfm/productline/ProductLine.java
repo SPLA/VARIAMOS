@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.cfm.productline.constraints.TwoOperandConstraint;
 
-public class ProductLine {
+public class ProductLine extends AbstractModel{
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
 	protected String name;

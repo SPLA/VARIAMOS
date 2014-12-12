@@ -1,11 +1,10 @@
 package com.variamos.gui.maineditor;
 
-import java.util.Hashtable;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.w3c.dom.Document;
-
+import com.cfm.common.AbstractModel;
+import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Editable;
@@ -13,16 +12,16 @@ import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
-import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
+import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
+import com.variamos.refas.core.staticconcepts.Refas;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -55,7 +54,7 @@ public abstract class AbstractGraph extends mxGraph {
 		setRestrictions();
 		addListeners();
 	}
-	
+	public abstract void setModel(AbstractModel abstractModel);
 	private void addListeners() {
 		addListener(mxEvent.CELLS_REMOVED, new mxIEventListener(){
 
@@ -64,47 +63,58 @@ public abstract class AbstractGraph extends mxGraph {
 				Object[] removedCells = (Object[]) evt.getProperty("cells");
 				for( Object remObj : removedCells ){
 					mxCell cell = (mxCell)remObj;
-					if( cell.isEdge() ){
+					if( cell.isEdge() ){						
 						removingEdge(cell);
 					}
+					else
+						removingClones(cell);
 				}
 			}
 		});
 		
 		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 			
-			@Override
+	
 			public void invoke(Object sender, mxEventObject evt) {
 				Object[] addedCells = (Object[]) evt.getProperty("cells");
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				int indexCell = (int) evt.getProperty("index");
 				for( Object obj : addedCells ){
 					mxCell cell = (mxCell)obj;
 					if( cell == null )
 						return;
 					
 					if( !cell.isEdge() ){
-						addingVertex(cell);
+						addingVertex(cell, parentCell, indexCell);
 					}
+					else
+						addingEdge(cell, parentCell, indexCell);
 				}
 			}
 
 			
 		});
 	}
+
+	protected void removingClones(mxCell cell)
+	{}
+	protected boolean addingEdge(mxCell cell, mxCell parent, int index)
+	{ return false;}
 	
-	private void addingVertex(mxCell cell) {
+	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		
 		if( cell.getValue() instanceof VariabilityElement ){
 			VariabilityElement elm = (VariabilityElement) cell.getValue();
 			
 			if( elm.getIdentifier() != null && !"".equals(elm.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextVPId();
 			
 			//Aqui se setea el name y id por primera vez.
 			elm.setIdentifier(id);
-			elm.setName(id);
+			elm.setName("<<new>>");
 			
 			//Change the cell id in the model.
 			mxGraphModel model = (mxGraphModel) getModel();
@@ -117,7 +127,7 @@ public abstract class AbstractGraph extends mxGraph {
 			GroupConstraint gc = (GroupConstraint) cell.getValue();
 		
 			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextConstraintId();
@@ -134,7 +144,7 @@ public abstract class AbstractGraph extends mxGraph {
 			GenericConstraint gc = (GenericConstraint) cell.getValue();
 			
 			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			String id = pl.getNextConstraintId();
@@ -152,7 +162,7 @@ public abstract class AbstractGraph extends mxGraph {
 			Asset a = (Asset) cell.getValue();
 			
 			if( a.getIdentifier() != null && !"".equals(a.getIdentifier()))
-				return;
+				return false;
 			
 			ProductLine pl = getProductLine();
 			pl.addAsset(a);
@@ -162,6 +172,7 @@ public abstract class AbstractGraph extends mxGraph {
 			model.getCells().put(a.getIdentifier(), cell);
 			cell.setId(a.getIdentifier());
 		}
+		return true;
 	}
 	
 	private void removingEdge(mxCell cell){
@@ -189,7 +200,7 @@ public abstract class AbstractGraph extends mxGraph {
 			mxCell cell = (mxCell)obj;
 			Object value = cell.getValue();
 						
-			if( value instanceof VariabilityElement ){
+			if( value instanceof AbstractElement ){
 				VariabilityElement vp = (VariabilityElement)value;
 				//cell.setVisible(visibility && vp.isVisible());
 				boolean vis = visibility && vp.isVisible();
@@ -228,6 +239,82 @@ public abstract class AbstractGraph extends mxGraph {
 			}
 		}
 	}
+	
+	public AbstractModel getlModel()
+	{
+		if (this instanceof RefasGraph)
+			return getRefas();
+		else
+			return getProductLine();
+	}
+	
+	//TODO: change to refas - add to refas models
+	public Refas getRefas(){
+		Refas pl = new Refas();
+		
+		//Object[] vertices = getChildVertices(getDefaultParent());
+		Object[] vertices = mxGraphModel.getChildCells(getModel(), getDefaultParent(), true, false);
+		
+		for(Object obj : vertices){
+			mxCell cell = (mxCell)obj;
+			Object value = cell.getValue();
+			
+			if( value instanceof VariabilityElement ){
+				VariabilityElement vp = (VariabilityElement) value;
+				//pl.addVariabilityPoint(vp);
+				
+				for(Object edgObj : getEdges(cell, null, false, true, true) ){
+					mxCell edge = (mxCell)edgObj;
+					if( edge.getValue() instanceof Constraint ){
+						//pl.addConstraint( (Constraint) edge.getValue());
+					}
+				}
+				
+			}
+			
+			if( value instanceof Constraint ){
+				Constraint c = (Constraint) value;
+				//pl.addConstraint(c);
+			}
+		}
+		
+		//Add the assets to the PLModel only after the VPs are in it
+		for(Object obj : vertices){
+			mxCell cell = (mxCell)obj;
+			Object value = cell.getValue();
+			
+			if( value instanceof Asset ){
+				Asset a = (Asset) value;
+				//pl.addAsset(a);
+				//Get its connections.
+				Object[] edges = getEdges(cell);
+				for(Object o : edges){
+					mxCell edge = (mxCell)o;
+					
+					mxCell target = (mxCell)edge.getTarget();
+					if( target.getValue() instanceof VariabilityElement ){
+						VariabilityElement ve = (VariabilityElement) target.getValue();
+						String assetIdentifier=a.getIdentifier();
+						ve.getAssets().add(assetIdentifier);
+						
+						
+						System.out.println("Added asset");
+					}
+					
+					mxCell source = (mxCell)edge.getSource();
+					if( source.getValue() instanceof VariabilityElement ){
+						VariabilityElement ve = (VariabilityElement) source.getValue();
+						ve.getAssets().add(a.getIdentifier());
+						System.out.println("Added asset");
+					}
+				}
+					
+			}
+		}
+		
+		return pl;
+	}
+	
 	
 	public ProductLine getProductLine(){
 		ProductLine pl = new ProductLine();

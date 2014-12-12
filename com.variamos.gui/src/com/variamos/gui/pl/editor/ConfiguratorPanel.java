@@ -23,16 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
-//import javax.swing.tree.DefaultMutableTreeNode;
 
-
-
-
-
-
-
-
-
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.BinaryDomain;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
@@ -41,7 +33,7 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
-import com.cfm.productline.type.IntegerType;
+import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
@@ -52,6 +44,7 @@ import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
+import com.variamos.syntaxsupport.type.IntegerType;
 
 /**
  * @author unknown
@@ -59,7 +52,7 @@ import com.variamos.pl.configurator.io.ConfigurationDTO;
  *
  */
 @SuppressWarnings("serial")
-public class ConfiguratorPanel extends JPanel {
+public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	private ProductLine productLine;
 	
 	//Configurator table settings
@@ -340,7 +333,8 @@ public class ConfiguratorPanel extends JPanel {
 		lblStatus.setText(string);
 	}
 
-	public void configure(ProductLine pl) {
+	public void configure(AbstractModel am) {
+		ProductLine pl = (ProductLine) am;
 		this.removeAll();
 		initComponents();
 		this.productLine = pl;

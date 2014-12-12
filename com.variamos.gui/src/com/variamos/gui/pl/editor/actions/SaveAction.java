@@ -14,12 +14,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.DefaultFileFilter;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
@@ -32,8 +33,8 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.ProductLineGraphEditor;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;
@@ -126,8 +127,8 @@ public class SaveAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e)
 	{
 		BasicGraphEditor editor = getEditor(e);
-		ProductLineGraphEditor editor2 = getEditor(e);
-		ProductLine pl = null;
+		VariamosGraphEditor editor2 = getEditor(e);
+		AbstractModel pl = null;
 
 		if (editor != null)
 		{
@@ -275,8 +276,8 @@ public class SaveAction extends AbstractEditorAction {
 				}
 				else if (ext.equalsIgnoreCase("pl"))
 				{
-					pl = editor2.getEditedProductLine();
-					pl.printDebug(System.out);
+					pl = editor2.getEditedModel();
+					//pl.printDebug(System.out);
 					//ProductLineGraph plGraph = (ProductLineGraph)graph;
 					//generatePrologFile(plGraph.getProductLine(), filename);
 					generatePrologFile(pl, filename);
@@ -340,7 +341,7 @@ public class SaveAction extends AbstractEditorAction {
 		}
 	}
 
-	private void generatePrologFile(ProductLine pl, String filename) throws IOException, FeatureModelException {
+	private void generatePrologFile(AbstractModel pl, String filename) throws IOException, FeatureModelException {
 		SXFMWriter writer = new SXFMWriter();
 		System.out.println(writer.getSXFMContent(pl));
 		

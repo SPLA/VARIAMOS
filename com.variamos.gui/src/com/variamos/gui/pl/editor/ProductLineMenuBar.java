@@ -3,8 +3,10 @@ package com.variamos.gui.pl.editor;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+import com.variamos.gui.common.actions.ConfigureAction;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.pl.configurator.guiactions.ConfigureAction;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveProductsAction;
@@ -22,13 +24,13 @@ import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 @SuppressWarnings("serial")
 public class ProductLineMenuBar extends JMenuBar{
 	
-	ProductLineGraphEditor editor;
+	VariamosGraphEditor editor;
 	
-	public ProductLineMenuBar(ProductLineGraphEditor editor){
-		init(editor);
+	public ProductLineMenuBar(BasicGraphEditor basicGraphEditor){
+		init(basicGraphEditor);
 	}
 	
-	private void init(ProductLineGraphEditor editor){
+	private void init(BasicGraphEditor editor){
 		JMenu menu = new JMenu("File");
 		menu.add(editor.bind(mxResources.get("new"), new NewAction()));
 		menu.add(editor.bind(mxResources.get("load"), new OpenAction()));

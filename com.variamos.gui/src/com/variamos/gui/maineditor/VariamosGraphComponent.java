@@ -14,7 +14,6 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 
 @SuppressWarnings("serial")
@@ -43,6 +42,21 @@ public class VariamosGraphComponent extends mxGraphComponent {
 	    });
 	}
 	
+	public void updateGraph(mxGraph graph)
+	{
+		setGraph(graph);
+		configureConnectionHandler();
+		configureSelectionHandler();
+		// Installs automatic validation
+	    graph.getModel().addListener( mxEvent.CHANGE, new mxIEventListener() {
+	      public void invoke(Object sender, mxEventObject evt) {
+	        clearCellOverlays();
+	        validateGraph();
+	      }
+	    });
+		
+	}
+	
 	private void configureSelectionHandler() {
 		graph.getSelectionModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
 			
@@ -59,12 +73,17 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		getConnectionHandler().addListener(mxEvent.CONNECT, onConnect);
 	}
 	
-	private mxIEventListener onConnect = new mxIEventListener(){
+	private mxIEventListener onConnect = /**
+	 * @author 
+	 * jcmunoz: Creates relations between nodes, works for group constraints now.
+	 *
+	 */
+	new mxIEventListener(){
 
 		@Override
 		public void invoke(Object sender, mxEventObject evt) {
 			mxCell insertedCell = (mxCell) evt.getProperty("cell");
-			ProductLineGraph graph = (ProductLineGraph) getGraph();
+			AbstractGraph graph = (AbstractGraph) getGraph();
 			
 			mxCell source = (mxCell) insertedCell.getSource();
 			mxCell target = (mxCell) insertedCell.getTarget();
