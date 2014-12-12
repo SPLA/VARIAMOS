@@ -822,15 +822,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// variablesPanel.setPreferredSize(new Dimension(250, 25 *
 		// editables.length));
 		JPanel dummy = new JPanel();
-		dummy.setPreferredSize(new Dimension(100, 80));
+		dummy.setMinimumSize(new Dimension(100, 0));
+		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
 		variablesPanel.add(dummy);
 		dummy = new JPanel();
-		dummy.setPreferredSize(new Dimension(100, 80));
+		dummy.setMinimumSize(new Dimension(100, 0));
+		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
 		variablesPanel.add(dummy);
 		dummy = new JPanel();
-		dummy.setPreferredSize(new Dimension(100, 80));
+		dummy.setMinimumSize(new Dimension(100, 0));
+		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
 		variablesPanel.add(dummy);
 		SpringUtilities.makeCompactGrid(variablesPanel, des + 1, 3, 4, 4, 4, 4);

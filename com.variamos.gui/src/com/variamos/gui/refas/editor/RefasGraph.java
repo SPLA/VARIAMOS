@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
@@ -43,6 +44,7 @@ import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
@@ -187,7 +189,8 @@ public class RefasGraph extends AbstractGraph {
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 
 		String id = null;
-		InstEdge directRelation = new InstEdge();
+		HashMap<String, InstAttribute> map= new HashMap<String, InstAttribute>();
+		InstEdge directRelation = new InstEdge(map);
 		Refas refas = getRefas();
 
 		id = refas.addNewInstEdge(directRelation);

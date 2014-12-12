@@ -432,7 +432,7 @@ public class SemanticPlusSyntax {
 		SemanticGroupDependency semanticSGSGGroupRelation = new SemanticGroupDependency(
 				"SGSGGroupRel", false, allSGGroupRelation,
 				outgoingSoftgoalRelation);
-		groupRelation = new IncomingSemanticEdge("", semanticSGSGGroupRelation);
+		groupRelation = new IncomingSemanticEdge("SGSGGroupRel", semanticSGSGGroupRelation);
 		semSoftgoal.addGroupRelation(groupRelation);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
@@ -468,7 +468,7 @@ public class SemanticPlusSyntax {
 
 		// Oper to Claim
 		outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingSoftgoalRelation.add(new OutgoingSemanticEdge("", semClaim));
+		outgoingSoftgoalRelation.add(new OutgoingSemanticEdge("outclaim", semClaim));
 		SemanticGroupDependency semanticOperClaimGroupRelation = new SemanticGroupDependency(
 				"OperClaimGroupRel", true, implicationGroupRelation,
 				outgoingSoftgoalRelation);
@@ -546,12 +546,12 @@ public class SemanticPlusSyntax {
 
 		// Asset to Oper
 		List<OutgoingSemanticEdge> outgoingAssetRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingAssetRelation.add(new OutgoingSemanticEdge("",
+		outgoingAssetRelation.add(new OutgoingSemanticEdge("outoper",
 				semOperationalization));
 		SemanticGroupDependency semanticAssetOperGroupRelation = new SemanticGroupDependency(
 				"AssetOperGroupRel", false, implementationGroupRelation,
 				outgoingAssetRelation);
-		groupRelation = new IncomingSemanticEdge("",
+		groupRelation = new IncomingSemanticEdge("AssetOperGroupRel",
 				semanticAssetOperGroupRelation);
 		semSoftgoal.addGroupRelation(groupRelation);
 

@@ -11,6 +11,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
+import com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.sematicsmetamodel.SemanticVariable;
 import com.variamos.refas.core.staticconcepts.Refas;
@@ -40,32 +41,41 @@ public class SharedActions {
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
 					Object value = concept.getValue();
-					if (value instanceof InstGroupDependency) {
-						InstGroupDependency ic = (InstGroupDependency) value;
-						String str = (String) ic
-								.getSemanticGroupDependencyIdentifier();
-						ic.setSemanticGroupDependencyIdentifier(str);
-						ic.clearMetaVertex();
-						ic.clearInstAttributesObjects();
-					} else if (value instanceof InstVertex) {
-						InstVertex instVertex = (InstVertex) value;
-						instVertex.clearMetaVertex();
-						instVertex.clearInstAttributesObjects();
-					}
+					for (int k = 0; k < concept.getChildCount(); k++) {
+						mxCell concept2 = (mxCell) refasGraph.getChildAt(value,
+								k);
+						Object value2 = concept2.getValue();
+						deleteSupportObjects(value2);
 
-					if (value instanceof InstEdge) {
-						InstEdge ic = (InstEdge) value;
-						String str = (String) ic.getMetaEdgeIdentifier();
-						ic.setMetaEdgeIdentifier(str);
-						ic.clearMetaEdge();
-						ic.clearRelations();
-						ic.clearInstAttributesClassObjects();
 					}
-
+					deleteSupportObjects(value);
 				}
 			}
 		}
 		return graph;
+	}
+
+	private static void deleteSupportObjects(Object value) {
+		if (value instanceof InstGroupDependency) {
+			InstGroupDependency ic = (InstGroupDependency) value;
+			String str = (String) ic.getSemanticGroupDependencyIdentifier();
+			ic.setSemanticGroupDependencyIdentifier(str);
+			ic.clearMetaVertex();
+			ic.clearInstAttributesObjects();
+		} else if (value instanceof InstVertex) {
+			InstVertex instVertex = (InstVertex) value;
+			instVertex.clearMetaVertex();
+			instVertex.clearInstAttributesObjects();
+		}
+
+		if (value instanceof InstEdge) {
+			InstEdge ic = (InstEdge) value;
+			ic.updateIdentifiers();
+			ic.clearMetaEdge();
+			ic.clearRelations();
+			ic.clearInstAttributesClassObjects();
+		}
+
 	}
 
 	/**
@@ -90,13 +100,14 @@ public class SharedActions {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
-							loadSupportObjects(editor, mv2.getValue());
+							loadSupportObjects(editor, mv2.getValue(), mv1,
+									graph);
 						}
 					}
 				} else
 					for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
-						loadSupportObjects(editor, mv1.getValue());
+						loadSupportObjects(editor, mv1.getValue(), mv1, graph);
 					}
 			}
 		}
@@ -104,7 +115,7 @@ public class SharedActions {
 	}
 
 	private static void loadSupportObjects(VariamosGraphEditor editor,
-			Object value) {
+			Object value, mxCell source, mxGraph graph) {
 		Refas refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
 		if (value instanceof InstGroupDependency) {
@@ -144,9 +155,7 @@ public class SharedActions {
 				else
 					ia.setAttribute(toSet);
 			}
-		}
-		else
-		if (value instanceof InstVertex) {
+		} else if (value instanceof InstVertex) {
 			InstVertex ic = (InstVertex) value;
 			MetaVertex mc = (MetaVertex) editor.getSematicSintaxObject()
 					.getSyntaxElement(ic.getMetaVertexIdentifier());
@@ -168,13 +177,23 @@ public class SharedActions {
 			InstEdge ic = (InstEdge) value;
 			MetaEdge me = (MetaEdge) editor.getSematicSintaxObject()
 					.getSyntaxElement(ic.getMetaEdgeIdentifier());
+			DirectSemanticEdge semanticEdgeIde = (DirectSemanticEdge) editor.getSematicSintaxObject()
+					.getSemanticElement(ic.getSemanticEdgeIde());
+			InstConcept from = (InstConcept) source.getSource().getValue();
+			InstConcept to = (InstConcept) source.getTarget().getValue();
+			ic.setFromRelation(from);
+			ic.setToRelation(to);
 			if (me != null) {
 				ic.setMetaEdge(me);
-				ic.loadSemantic();
-				refas.putInstEdge(ic);
-
+				if (semanticEdgeIde != null) {
+					ic.setSemanticEdge(semanticEdgeIde);
+					ic.loadSemantic();
+				}
 			}
+			
+			refas.putInstEdge(ic);
 		}
 
 	}
+
 }

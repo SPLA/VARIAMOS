@@ -17,7 +17,6 @@ import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 /**
  * A class to represented modeling instances of edges from meta model MetaEdge
@@ -47,6 +46,26 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 	 * IntVertex destination of the direct relation
 	 */
 	private InstVertex toRelation;
+
+	private String metaEdgeIde;
+
+	private String semanticEdgeIde;
+
+	public String getMetaEdgeIde() {
+		return metaEdgeIde;
+	}
+
+	public void setMetaEdgeIde(String metaEdgeIde) {
+		this.metaEdgeIde = metaEdgeIde;
+	}
+
+	public String getSemanticEdgeIde() {
+		return semanticEdgeIde;
+	}
+
+	public void setSemanticEdgeIde(String semanticEdgeIde) {
+		this.semanticEdgeIde = semanticEdgeIde;
+	}
 
 	public static final String
 	/**
@@ -93,7 +112,7 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 
 	public void setMetaEdge(MetaEdge metaEdge) {
 		getInstAttribute(VAR_METAEDGE).setValueObject(metaEdge);
-		setVariable(VAR_METAEDGEIDE, metaEdge.getIdentifier());
+		metaEdgeIde = metaEdge.getIdentifier();
 		setVariable(MetaElement.VAR_DESCRIPTION, metaEdge.getDescription());
 		createInstAttributes();
 	}
@@ -154,7 +173,7 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 	}
 
 	public String getMetaEdgeIdentifier() {
-		return (String) vars.get(VAR_METAEDGEIDE);
+		return metaEdgeIde;
 	}
 
 	public void setMetaEdgeIdentifier(String str) {
@@ -418,9 +437,8 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 	}
 
 	public void clearRelations() {
-		fromRelation.clearMetaVertex();
-		toRelation.clearMetaVertex();
-		// TODO Auto-generated method stub
+		fromRelation = null;
+		toRelation = null;
 
 	}
 
@@ -449,4 +467,20 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 		createInstAttributes();
 	}
 
+	public void updateIdentifiers() {
+		Object metaEdge = getInstAttribute(VAR_METAEDGE).getValueObject();
+		if (metaEdge != null) {
+			metaEdgeIde = ((MetaDirectRelation) metaEdge).getIdentifier();
+		}
+
+		Object semanticEdge = getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION).getValueObject();
+		if (semanticEdge != null) {
+			semanticEdgeIde = ((IntDirectSemanticEdge) semanticEdge).getIdentifier();
+		}
+	}
+
+	public void setSemanticEdge(IntDirectSemanticEdge semanticEdgeIde2) {
+		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION);
+		
+	}
 }
