@@ -2,6 +2,7 @@ package com.variamos.syntaxsupport.metamodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +30,17 @@ public abstract class InstVertex implements Serializable, Prototype,
 	 * instAttributes; private Map<String, InstRelation> instRelations;
 	 */
 	public static final String VAR_IDENTIFIER = "identifier",
-			VAR_INSTATTRIBUTES = "InstAttribute",
-			VAR_INSTRELATIONS = "InstRelations";
+			VAR_INSTATTRIBUTES = "InstAttribute";
 
 	protected Map<String, Object> vars = new HashMap<>();
+	/**
+	 * The edges incoming to the vertex
+	 */
+	private Map<String, InstEdge> sourceRelations;
+	/**
+	 * THe edge outgoing from the vertex
+	 */
+	private Map<String, InstEdge> targetRelations;
 
 	public InstVertex() {
 		this(null, new HashMap<String, InstAttribute>(),
@@ -42,6 +50,7 @@ public abstract class InstVertex implements Serializable, Prototype,
 	public InstVertex(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>(),
 				new HashMap<String, InstEdge>());
+		
 	}
 
 	public InstVertex(String identifier,
@@ -50,7 +59,10 @@ public abstract class InstVertex implements Serializable, Prototype,
 		super();
 		vars.put(VAR_IDENTIFIER, identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-		vars.put(VAR_INSTRELATIONS, instRelations);
+
+		sourceRelations = new HashMap<String, InstEdge>();
+
+		targetRelations = new HashMap<String, InstEdge>();
 
 	}
 
@@ -78,19 +90,30 @@ public abstract class InstVertex implements Serializable, Prototype,
 		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
 		// return instAttributes;
 	}
+	
+	public Collection<InstAttribute> getInstAttributesCollection() {
+		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES)).values();
+		// return instAttributes;
+	}
 
 	public void setInstAttributes(Map<String, InstAttribute> instAttributes) {
 		setVariable(VAR_INSTATTRIBUTES, instAttributes);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, InstEdge> getInstRelations() {
-		return (Map<String, InstEdge>) getVariable(VAR_INSTRELATIONS);
-		// return instRelations;
+	public Map<String, InstEdge> getTargetRelations() {
+		return targetRelations;
 	}
 
-	public void setInstRelations(Map<String, InstAttribute> instRelations) {
-		setVariable(VAR_INSTRELATIONS, instRelations);
+	public void setTargetRelations(Map<String, InstEdge> targetRelations) {
+		this.targetRelations = targetRelations;
+	}
+	
+	public Map<String, InstEdge> getSourceRelations() {
+		return sourceRelations;
+	}
+
+	public void setSourceRelations(Map<String, InstEdge> targetRelations) {
+		this.sourceRelations = targetRelations;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -187,5 +210,9 @@ public abstract class InstVertex implements Serializable, Prototype,
 	public abstract String getMetaVertexIdentifier();
 
 	public abstract void setMetaVertex(MetaVertex mc) ;
+
+	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
+		return this.getIdentifier()+"_"+this.getInstAttribute(insAttributeLocalId).getIdentifier();
+	}
 
 }

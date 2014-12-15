@@ -13,7 +13,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
  *         Definition of semantics for REFAS
  */
 public class DirectSemanticEdge extends AbstractSemanticEdge implements
-		IntDirectSemanticEdge { 
+		IntDirectSemanticEdge {
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class DirectSemanticEdge extends AbstractSemanticEdge implements
 	private List<IntDirectEdgeType> semanticRelationTypes;
 	private List<AbstractSemanticVertex> directSemanticEdges;
 
-	public DirectSemanticEdge() { 
+	public DirectSemanticEdge() {
 		super();
 	}
 

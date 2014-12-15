@@ -2,9 +2,11 @@ package com.variamos.syntaxsupport.metamodel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
@@ -18,12 +20,40 @@ public class InstGroupDependency extends InstVertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 7122291624405069534L;
+	public static final String
+	/**
+	 * 
+	 */
+	VAR_OUTCARDINALITY = "outCardinalitiy",
+	/**
+			 * 
+			 */
+	VAR_INCARDINALITY = "inCardinalitiy",
+	/**
+					 * 
+					 */
+	VAR_METAGROUPDEPIDENTIFIER = "metaGroupDepIde",
+	/**
+					 * 
+					 */
+	VAR_SEMANTICGROUPDEPENDENCYID = "semGroupDepIde",
+	/**
+					 * 
+					 */
+	VAR_SEMANTICGROUPDEPENDENCY = "semGroupDep";
+	/**
+	 * 
+	 */
 	private MetaGroupDependency metaGroupDependency;
-	public static final String VAR_OUTCARDINALITY = "outCardinalitiy",
-			VAR_INCARDINALITY = "inCardinalitiy",
-			VAR_METAGROUPDEPIDENTIFIER = "metaGroupDepIde",
-			VAR_SEMANTICGROUPDEPENDENCYID = "semGroupDepIde",
-			VAR_SEMANTICGROUPDEPENDENCY = "semGroupDep";
+
+	
+
+	/**
+	 * Assigned during the generation of expressions from edges Used during the
+	 * the generation of expressions grom groupdep
+	 */
+	private Set<String> sourceAttributeNames;
+
 	private String semGroupDepOld = "";
 
 	public InstGroupDependency() {
@@ -58,6 +88,49 @@ public class InstGroupDependency extends InstVertex {
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 		createInstAttributes();
+	}
+
+	private void createInstAttributes() {
+		Iterator<String> modelingAttributes = getMetaGroupDependency()
+				.getModelingAttributes().iterator();
+		while (modelingAttributes.hasNext()) {
+			String name = modelingAttributes.next();
+			if (name.equals(MetaElement.VAR_IDENTIFIER))
+				addInstAttribute(name, getMetaGroupDependency()
+						.getModelingAttribute(name), getIdentifier());
+			else if (name.equals(MetaElement.VAR_DESCRIPTION))
+				addInstAttribute(name, getMetaGroupDependency()
+						.getModelingAttribute(name), getMetaGroupDependency()
+						.getDescription());
+			else
+				addInstAttribute(name, getMetaGroupDependency()
+						.getModelingAttribute(name), null);
+		}
+
+		Iterator<String> semanticAttributes = getSemanticAttributes()
+				.iterator();
+		if (getSemanticRelation() != null)
+			while (semanticAttributes.hasNext()) {
+				String name = semanticAttributes.next();
+				if (name.equals("identifier"))
+					addInstAttribute(name, getSemanticAttribute(name),
+							getIdentifier());
+				else
+					addInstAttribute(name, getSemanticAttribute(name), null);
+			}
+
+	}
+
+	public Set<String> getSourceAttributeNames() {
+		return sourceAttributeNames;
+	}
+
+	public void addSourceAttributeNames(Set<String> sourceAttributeNames) {
+		this.sourceAttributeNames.addAll(sourceAttributeNames);
+	}
+
+	public void clearSourceAttributeNames() {
+		this.sourceAttributeNames.clear();
 	}
 
 	public MetaGroupDependency getMetaGroupDependency() {
@@ -137,36 +210,6 @@ public class InstGroupDependency extends InstVertex {
 	public void setInCardinality(String identifier) {
 		vars.put(VAR_INCARDINALITY, identifier);
 		;
-	}
-
-	private void createInstAttributes() {
-		Iterator<String> modelingAttributes = getMetaGroupDependency()
-				.getModelingAttributes().iterator();
-		while (modelingAttributes.hasNext()) {
-			String name = modelingAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name, getMetaGroupDependency()
-						.getModelingAttribute(name), getIdentifier());
-			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name, getMetaGroupDependency()
-						.getModelingAttribute(name), getMetaGroupDependency().getDescription());
-			else
-				addInstAttribute(name, getMetaGroupDependency()
-						.getModelingAttribute(name), null);
-		}
-
-		Iterator<String> semanticAttributes = getSemanticAttributes()
-				.iterator();
-		if (getSemanticRelation() != null)
-			while (semanticAttributes.hasNext()) {
-				String name = semanticAttributes.next();
-				if (name.equals("identifier"))
-					addInstAttribute(name, getSemanticAttribute(name),
-							getIdentifier());
-				else
-					addInstAttribute(name, getSemanticAttribute(name), null);
-			}
-
 	}
 
 	public Set<String> getDisPropVisibleAttributes() {

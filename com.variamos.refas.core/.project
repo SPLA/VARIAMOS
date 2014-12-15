@@ -3,6 +3,7 @@
 	<name>com.variamos.refas.core</name>
 	<comment></comment>
 	<projects>
+		<project>com.cfm.hlcl</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

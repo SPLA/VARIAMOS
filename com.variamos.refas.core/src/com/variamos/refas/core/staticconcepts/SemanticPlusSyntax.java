@@ -116,42 +116,69 @@ public class SemanticPlusSyntax {
 		AbstractSemanticVertex semGeneralElement = new AbstractSemanticVertex();
 		semanticConcepts.put("GE", semGeneralElement);
 
+		
+		//Design attributes
+		
 		semGeneralElement.putSemanticAttribute("Description",
 				new SemanticAttribute("Description", "String", false,
 						"Description", ""));
 		semGeneralElement.addDisPropEditableAttribute("04#" + "Description");
 		semGeneralElement.addDisPropVisibleAttribute("04#" + "Description");
 
+		
+		//Configuration attributes
+				
 		semGeneralElement.putSemanticAttribute("Active",
-				new SimulationAttribute("Active", "Boolean", true, "Is Active",
+				new ConfigurationAttribute("Active", "Boolean", true, "Is Active",
 						""));
 		semGeneralElement.putSemanticAttribute("Visibility",
-				new SimulationAttribute("Visibility", "Boolean", true,
+				new ConfigurationAttribute("Visibility", "Boolean", true,
 						"Is Visible", ""));
-		semGeneralElement.putSemanticAttribute("InitiallySelected",
-				new SimulationAttribute("InitiallySelected", "Boolean", false,
-						"Is Initially Selected", ""));
-		semGeneralElement.putSemanticAttribute("Required",
-				new SimulationAttribute("Required", "Boolean", false,
-						"Is Required", ""));
-		semGeneralElement.putSemanticAttribute("CurrentlySelected",
-				new SimulationAttribute("CurrentlySelected", "Boolean", false,
-						"Is Currently Selected", ""));
+		
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
 		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility");
-		semGeneralElement.addDisPropEditableAttribute("03#"
-				+ "InitiallySelected");
-		semGeneralElement.addDisPropEditableAttribute("04#" + "Required");
-		semGeneralElement.addDisPropEditableAttribute("05#"
-				+ "CurrentlySelected");
-
+		
 		semGeneralElement.addDisPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addDisPropVisibleAttribute("02#" + "Visibility");
-		semGeneralElement.addDisPropVisibleAttribute("03#"
-				+ "InitiallySelected");
-		semGeneralElement.addDisPropVisibleAttribute("04#" + "Required");
-		semGeneralElement.addDisPropVisibleAttribute("05#"
-				+ "CurrentlySelected");
+		
+		
+		//Simulation attributes
+		
+		semGeneralElement.putSemanticAttribute("SatisfactionSelected", //TODO move to semantic
+				new SimulationAttribute("SatisfactionSelected", "Boolean", false,
+						"Is Selected as Satisfied", false));
+		semGeneralElement.putSemanticAttribute("ValidationSatisfied",
+				new SimulationAttribute("ValidationSatisfied", "Boolean", false,
+						"Is Satisfied by Validation", false));
+		semGeneralElement.putSemanticAttribute("Satisfied",
+				new SimulationAttribute("Satisfied", "Boolean", false,
+						"Is Satisfied", false));
+		
+		semGeneralElement.putSemanticAttribute("OriginallyRequired",
+				new SimulationAttribute("OriginallyRequired", "Boolean", false,
+						"Is Originally Required", false));
+		semGeneralElement.putSemanticAttribute("Required",
+				new SimulationAttribute("Required", "Boolean", false,
+						"Is Required", false));
+		
+		semGeneralElement.putSemanticAttribute("OriginallyAllowed",
+				new SimulationAttribute("OriginallyAllowed", "Boolean", false,
+						"Is Originally Allowed", true));
+		semGeneralElement.putSemanticAttribute("Allowed",
+				new SimulationAttribute("Allowed", "Boolean", false,
+						"Is Allowed", true));
+				
+		semGeneralElement.addDisPropEditableAttribute("02#"	+ "SatisfactionSelected");				
+		semGeneralElement.addDisPropEditableAttribute("05#" + "OriginallyRequired");
+		semGeneralElement.addDisPropEditableAttribute("07#" + "OriginallyAllowed");
+		
+		semGeneralElement.addDisPropVisibleAttribute("02#" + "SatisfactionSelected");
+		semGeneralElement.addDisPropVisibleAttribute("03#" + "ValidationSatisfied");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "Satisfied");
+		semGeneralElement.addDisPropVisibleAttribute("05#" + "OriginallyRequired");		
+		semGeneralElement.addDisPropVisibleAttribute("06#" + "Required");
+		semGeneralElement.addDisPropVisibleAttribute("07#" + "OriginallyAllowed");
+		semGeneralElement.addDisPropVisibleAttribute("08#" + "Allowed");
 
 		// Definition of variability concept and relations
 		HardSemanticConcept semHardConcept = new HardSemanticConcept(
@@ -323,8 +350,14 @@ public class SemanticPlusSyntax {
 		means_endsImplicationDirectRelation.add(DirectEdgeType.means_ends);
 		means_endsImplicationDirectRelation.add(DirectEdgeType.implication);
 
-		List<IntDirectEdgeType> normalDirectRelation = new ArrayList<IntDirectEdgeType>();
-		normalDirectRelation.add(DirectEdgeType.normal);
+		List<IntDirectEdgeType> softdepDirectRelation = new ArrayList<IntDirectEdgeType>();
+		softdepDirectRelation.add(DirectEdgeType.softdependency);
+		
+		List<IntDirectEdgeType> noneDirectRelation = new ArrayList<IntDirectEdgeType>();
+		noneDirectRelation.add(DirectEdgeType.none);
+		
+		List<IntDirectEdgeType> claimDirectRelation = new ArrayList<IntDirectEdgeType>();
+		claimDirectRelation.add(DirectEdgeType.claim);
 
 		List<GroupRelationType> implementationGroupRelation = new ArrayList<GroupRelationType>();
 		implementationGroupRelation.add(GroupRelationType.implementation);
@@ -462,7 +495,7 @@ public class SemanticPlusSyntax {
 
 		DirectSemanticEdge directCVCGSemanticEdge = new DirectSemanticEdge(
 				"CVCGDirectRel", false, false, semanticVertexs,
-				normalDirectRelation);
+				noneDirectRelation);
 		semVariable.addDirectRelation(directCVCGSemanticEdge);
 		semanticConcepts.put("CVCGDirectRel", directCVCGSemanticEdge);
 
@@ -507,7 +540,7 @@ public class SemanticPlusSyntax {
 
 		DirectSemanticEdge directClaimSGSemanticEdge = new DirectSemanticEdge(
 				"ClaimSGDirectEdge", true, true, semanticVertexs,
-				normalDirectRelation);
+				claimDirectRelation);
 		directClaimSGSemanticEdge.putSemanticAttribute(
 				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
 						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
@@ -529,7 +562,7 @@ public class SemanticPlusSyntax {
 
 		DirectSemanticEdge directSDSGSemanticEdge = new DirectSemanticEdge(
 				"SDSGDirectEdge", true, true, semanticVertexs,
-				normalDirectRelation);
+				softdepDirectRelation);
 		directSDSGSemanticEdge.putSemanticAttribute(
 				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
 						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
@@ -860,7 +893,7 @@ public class SemanticPlusSyntax {
 						+ " with the Context Group", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdges,
-				normalDirectRelation);
+				noneDirectRelation);
 		syntaxAbsVariable.addMetaEdgeAsOrigin(syntaxContextGroup,
 				metaVariableEdge);
 		syntaxElements.put("Variable To Context Relation", metaVariableEdge);
@@ -870,7 +903,7 @@ public class SemanticPlusSyntax {
 						+ " Context Group with other Context Group", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxContextGroup, syntaxContextGroup,
-				directCVCGSemanticEdges, normalDirectRelation);
+				directCVCGSemanticEdges, noneDirectRelation);
 		syntaxContextGroup.addMetaEdgeAsOrigin(syntaxContextGroup,
 				metaContextEdge);
 		syntaxElements.put("Context To Context Relation", metaVariableEdge);
@@ -933,7 +966,7 @@ public class SemanticPlusSyntax {
 						+ " required on the softgoal in case the SD is satisfied", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxSoftDependency, syntaxAbsSoftGoal,
-				directSDSGSemanticEdges, normalDirectRelation);
+				directSDSGSemanticEdges, softdepDirectRelation);
 		syntaxSoftDependency.addMetaEdgeAsOrigin(syntaxAbsSoftGoal,
 				metaSDSGEdge);
 
@@ -948,7 +981,7 @@ public class SemanticPlusSyntax {
 						+ " required on the softgoal in case the SD is satisfied",50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxClaim, syntaxAbsSoftGoal, directClaimSGSemanticEdges,
-				normalDirectRelation);
+				claimDirectRelation);
 		syntaxClaim.addMetaEdgeAsOrigin(syntaxAbsSoftGoal, metaClaimSGEdge);
 
 		syntaxElements.put("Claim-Softgoal Relation", metaClaimSGEdge);

@@ -42,7 +42,7 @@ public class SharedActions {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
 					Object value = concept.getValue();
 					for (int k = 0; k < concept.getChildCount(); k++) {
-						mxCell concept2 = (mxCell) refasGraph.getChildAt(value,
+						mxCell concept2 = (mxCell) refasGraph.getChildAt(concept,
 								k);
 						Object value2 = concept2.getValue();
 						deleteSupportObjects(value2);
@@ -127,7 +127,7 @@ public class SharedActions {
 					.getSemanticElement(
 							ic.getSemanticGroupDependencyIdentifier());
 			ic.setMetaVertex(mgd);
-			refas.putInstElement(ic);
+			refas.putVariabilityInstVertex(ic);
 			if (sgd != null)
 				ic.setSemanticGroupDependency((SemanticGroupDependency) sgd);
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
@@ -164,7 +164,7 @@ public class SharedActions {
 						+ ic.getMetaVertexIdentifier());
 			else
 				ic.setMetaVertex(mc);
-			refas.putInstElement(ic);
+			refas.putVariabilityInstVertex(ic);
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
 					.iterator();
 			while (ias.hasNext()) {
@@ -179,10 +179,10 @@ public class SharedActions {
 					.getSyntaxElement(ic.getMetaEdgeIdentifier());
 			DirectSemanticEdge semanticEdgeIde = (DirectSemanticEdge) editor.getSematicSintaxObject()
 					.getSemanticElement(ic.getSemanticEdgeIde());
-			InstConcept from = (InstConcept) source.getSource().getValue();
-			InstConcept to = (InstConcept) source.getTarget().getValue();
-			ic.setFromRelation(from);
-			ic.setToRelation(to);
+			//InstVertex from = (InstVertex) source.getSource().getValue();
+			//InstVertex to = (InstVertex) source.getTarget().getValue();
+			//ic.setFromRelation(from);
+			//ic.setToRelation(to);
 			if (me != null) {
 				ic.setMetaEdge(me);
 				if (semanticEdgeIde != null) {
@@ -190,8 +190,8 @@ public class SharedActions {
 					ic.loadSemantic();
 				}
 			}
-			
-			refas.putInstEdge(ic);
+			//TODO add edges to groupDependecies and claims to otherInstEdges
+			refas.putConstraintInstEdge(ic);
 		}
 
 	}

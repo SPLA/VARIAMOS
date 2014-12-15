@@ -10,5 +10,5 @@ package com.variamos.refas.core.types;
  * @since 2014-11-23
  */
 public enum CardinalityType {
-	mandatory, optional, range, mutex
+	and, or, range, mutex
 }
