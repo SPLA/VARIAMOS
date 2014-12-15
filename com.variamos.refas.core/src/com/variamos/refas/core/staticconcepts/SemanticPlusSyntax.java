@@ -130,55 +130,98 @@ public class SemanticPlusSyntax {
 				
 		semGeneralElement.putSemanticAttribute("Active",
 				new ConfigurationAttribute("Active", "Boolean", true, "Is Active",
-						""));
+						true));
 		semGeneralElement.putSemanticAttribute("Visibility",
-				new ConfigurationAttribute("Visibility", "Boolean", true,
-						"Is Visible", ""));
+				new ConfigurationAttribute("Visibility", "Boolean", false,
+						"Is Visible", true));
+		semGeneralElement.putSemanticAttribute("Required",
+				new ConfigurationAttribute("Required", "Boolean", true,
+						"Is Required", false));
+		semGeneralElement.putSemanticAttribute("Allowed",
+				new ConfigurationAttribute("Allowed", "Boolean", false,
+						"Is Allowed", true));
+		semGeneralElement.putSemanticAttribute("RequiredLevel",
+				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+						"Required Level", true)); //TODO define domain or Enum Level
 		
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
-		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility");
+		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");
+		semGeneralElement.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true");
+		semGeneralElement.addDisPropEditableAttribute("04#" + "Required"+"#"+"Active"+"#==#"+"true");
+		semGeneralElement.addDisPropEditableAttribute("04#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
 		
 		semGeneralElement.addDisPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addDisPropVisibleAttribute("02#" + "Visibility");
-		
+		semGeneralElement.addDisPropVisibleAttribute("03#" + "Allowed");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "Required");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
 		
 		//Simulation attributes
 		
-		semGeneralElement.putSemanticAttribute("SatisfactionSelected", //TODO move to semantic
-				new SimulationAttribute("SatisfactionSelected", "Boolean", false,
-						"Is Selected as Satisfied", false));
-		semGeneralElement.putSemanticAttribute("ValidationSatisfied",
-				new SimulationAttribute("ValidationSatisfied", "Boolean", false,
-						"Is Satisfied by Validation", false));
+		semGeneralElement.putSemanticAttribute("ForcedSatisfied",
+				new SimulationAttribute("ForcedSatisfied", "Boolean", false,	"Force Satisfaction", false));
+		semGeneralElement.putSemanticAttribute("ForcedSelected",
+				new SimulationAttribute("ForcedSelected", "Boolean", false,	"Force Selection", false));
+		
+		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
+				new SimulationAttribute("InitialRequiredLevel", "Integer", false, "Initial Required Level", false));
+		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
+				new SimulationAttribute("SimRequiredLevel", "Integer", false, "Required Level", false));
+		semGeneralElement.putSemanticAttribute("ValidationRequiredLevel",
+				new SimulationAttribute("ValidationRequiredLevel", "Integer", false, "Required Level by Validation", false));
+		semGeneralElement.putSemanticAttribute("SimRequired",
+				new SimulationAttribute("SimRequired", "Boolean", false, "Required", false));
+		
 		semGeneralElement.putSemanticAttribute("Satisfied",
-				new SimulationAttribute("Satisfied", "Boolean", false,
-						"Is Satisfied", false));
+				new SimulationAttribute("Satisfied", "Boolean", false, "Satisfied", false));
+		semGeneralElement.putSemanticAttribute("AlternativeSatisfied",
+				new SimulationAttribute("AlternativeSatisfied", "Boolean", false, "Satisfied by Alternatives", false));
+		semGeneralElement.putSemanticAttribute("ValidationSatisfied",
+				new SimulationAttribute("ValidationSatisfied", "Boolean", false, "Satisfied by Validation", false));
+		semGeneralElement.putSemanticAttribute("SatisfiedLevel",
+				new SimulationAttribute("SatisfiedLevel", "Integer", false, "Satisficing Level", false));
+
+		semGeneralElement.putSemanticAttribute("Selected",
+				new SimulationAttribute("Selected", "Boolean", false, "Selected", false));
+		semGeneralElement.putSemanticAttribute("PreferredSelected",
+				new SimulationAttribute("PreferredSelected", "Boolean", false, "Select by Preferred", false));
+		semGeneralElement.putSemanticAttribute("ValidationSelected",
+				new SimulationAttribute("ValidationSelected", "Boolean", false, "Selected by Validation", false));
+		semGeneralElement.putSemanticAttribute("SolverSelected",
+				new SimulationAttribute("SolverSelected", "Boolean", false, "Selected by Solver", false));
 		
-		semGeneralElement.putSemanticAttribute("OriginallyRequired",
-				new SimulationAttribute("OriginallyRequired", "Boolean", false,
-						"Is Originally Required", false));
-		semGeneralElement.putSemanticAttribute("Required",
-				new SimulationAttribute("Required", "Boolean", false,
-						"Is Required", false));
-		
-		semGeneralElement.putSemanticAttribute("OriginallyAllowed",
-				new SimulationAttribute("OriginallyAllowed", "Boolean", false,
-						"Is Originally Allowed", true));
-		semGeneralElement.putSemanticAttribute("Allowed",
-				new SimulationAttribute("Allowed", "Boolean", false,
-						"Is Allowed", true));
+		semGeneralElement.putSemanticAttribute("Optional",
+				new SimulationAttribute("Optional", "Boolean", false, "Is Optional", false));
+
+		semGeneralElement.putSemanticAttribute("SimAllowed",
+				new SimulationAttribute("SimAllowed", "Boolean", false, "Is Allowed", true));
 				
-		semGeneralElement.addDisPropEditableAttribute("02#"	+ "SatisfactionSelected");				
-		semGeneralElement.addDisPropEditableAttribute("05#" + "OriginallyRequired");
-		semGeneralElement.addDisPropEditableAttribute("07#" + "OriginallyAllowed");
+		semGeneralElement.addDisPropEditableAttribute("10#"	+ "ForcedSatisfied"+"#"+"Active"+"#==#"+"true");	
 		
-		semGeneralElement.addDisPropVisibleAttribute("02#" + "SatisfactionSelected");
-		semGeneralElement.addDisPropVisibleAttribute("03#" + "ValidationSatisfied");
-		semGeneralElement.addDisPropVisibleAttribute("04#" + "Satisfied");
-		semGeneralElement.addDisPropVisibleAttribute("05#" + "OriginallyRequired");		
-		semGeneralElement.addDisPropVisibleAttribute("06#" + "Required");
-		semGeneralElement.addDisPropVisibleAttribute("07#" + "OriginallyAllowed");
-		semGeneralElement.addDisPropVisibleAttribute("08#" + "Allowed");
+		semGeneralElement.addDisPropEditableAttribute("15#" + "ForcedSelected"+"#"+"Active"+"#==#"+"true");
+		
+		semGeneralElement.addDisPropVisibleAttribute("02#" + "SimRequired");
+		semGeneralElement.addDisPropVisibleAttribute("03#" + "SimRequiredLevel");
+		semGeneralElement.addDisPropVisibleAttribute("04#" + "InitialRequiredLevel");
+		semGeneralElement.addDisPropVisibleAttribute("05#" + "ValidationRequiredLevel");
+		
+		semGeneralElement.addDisPropVisibleAttribute("06#" + "Satisfied");
+		semGeneralElement.addDisPropVisibleAttribute("07#" + "AlternativeSatisfied");
+		semGeneralElement.addDisPropVisibleAttribute("08#" + "ValidationSatisfied");
+		semGeneralElement.addDisPropVisibleAttribute("09#" + "SatisfiedLevel");
+		semGeneralElement.addDisPropVisibleAttribute("10#"	+ "ForcedSatisfied");	
+		
+		
+		semGeneralElement.addDisPropVisibleAttribute("11#" + "Selected");
+		semGeneralElement.addDisPropVisibleAttribute("12#" + "PreferredSelected");
+		semGeneralElement.addDisPropVisibleAttribute("13#" + "ValidationSelected");
+		semGeneralElement.addDisPropVisibleAttribute("14#" + "SolverSelected");
+		semGeneralElement.addDisPropVisibleAttribute("15#" + "ForcedSelected");
+		
+		semGeneralElement.addDisPropVisibleAttribute("16#" + "Optional");
+		semGeneralElement.addDisPropVisibleAttribute("16#" + "SimAllowed");
+		
+		
 
 		// Definition of variability concept and relations
 		HardSemanticConcept semHardConcept = new HardSemanticConcept(
