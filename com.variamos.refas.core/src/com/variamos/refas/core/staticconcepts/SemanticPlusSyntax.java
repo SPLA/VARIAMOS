@@ -142,7 +142,7 @@ public class SemanticPlusSyntax {
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new ConfigurationAttribute("RequiredLevel", "Integer", false,
-						"Required Level", true)); //TODO define domain or Enum Level
+						"Required Level", 0)); //TODO define domain or Enum Level
 		
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
 		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");

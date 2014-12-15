@@ -15,12 +15,14 @@ import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
-import com.variamos.refas.core.transformations.EqualsBooleanTransformation;
+import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
+import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.ProdNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
@@ -61,7 +63,7 @@ public class Refas2Hlcl {
 
 				MetaConcept metaConcept = instConcept.getMetaConcept();
 				if (metaConcept != null) {
-					List<AbstractBooleanTransformation> transformations = new ArrayList<AbstractBooleanTransformation>();
+					List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
 					for (InstAttribute instAttribute : instConcept
 							.getInstAttributesCollection()) {
 						//A_SimAllowed  #= A_Allowed
@@ -151,14 +153,27 @@ public class Refas2Hlcl {
 							transformation3 = new ProdNumericTransformation(transformation3, transformation4);
 							
 							transformations
-							.add(new EqualsBooleanTransformation(
+							.add(new EqualsComparisonTransformation(
 									transformation3, new NumberNumericTransformation(0)));
+
+						// A_Satisfied #<=> ( ( A_ForcedSatisfied #\/ A_AlternativeSatisfied ) #\/ ( A_ValidationSatisfied) #/\ A_SimAllowed ) )
+							AbstractBooleanTransformation transformation5 = new OrBooleanTransformation(elm, elm,
+									"ForcedSatisfied", "AlternativeSatisfied");
+							AbstractBooleanTransformation transformation6 = new AndBooleanTransformation(elm, elm,
+									"ValidationSatisfied", "SimAllowed");
+							AbstractBooleanTransformation transformation7 = new OrBooleanTransformation(transformation5, transformation6);
+							transformations
+							.add(new EqualsComparisonTransformation(elm, instAttribute.getIdentifier(), true, transformation7));
+							
 						}
 
 					}
-					for (AbstractBooleanTransformation transformation : transformations) {
+					for (AbstractTransformation transformation : transformations) {
 						idMap.putAll(transformation.getIndentifiers(f));
-						prog.add(transformation.transform(f, idMap));
+						if (transformation instanceof AbstractBooleanTransformation)
+							prog.add(((AbstractBooleanTransformation)transformation).transform(f, idMap));
+						else
+							prog.add(((AbstractComparisonTransformation)transformation).transform(f, idMap));
 					}
 
 				}
