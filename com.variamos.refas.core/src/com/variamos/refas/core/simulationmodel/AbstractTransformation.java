@@ -123,6 +123,8 @@ public abstract class AbstractTransformation {
 	}
 
 	public AbstractTransformation() {
+		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+		expressionConnectors = new ArrayList<String>();
 	}
 
 	public InstVertex getLeft() {
@@ -230,10 +232,16 @@ public abstract class AbstractTransformation {
 
 				break;
 			case leftSubexpression:
-				out.addAll(leftSubExpression.expressionTerms(f, idMap));
+				if (leftSubExpression instanceof AbstractBooleanTransformation)
+				out.add(((AbstractBooleanTransformation)leftSubExpression).transform(f, idMap));
+				else
+					out.add(((AbstractNumericTransformation)leftSubExpression).transform(f, idMap));	
 				break;
 			case rightSubexpression:
-				out.addAll(rightSubExpression.expressionTerms(f, idMap));
+				if (rightSubExpression instanceof AbstractBooleanTransformation)
+					out.add(((AbstractBooleanTransformation)rightSubExpression).transform(f, idMap));
+					else
+						out.add(((AbstractNumericTransformation)rightSubExpression).transform(f, idMap));	
 				break;
 			default:
 				break;

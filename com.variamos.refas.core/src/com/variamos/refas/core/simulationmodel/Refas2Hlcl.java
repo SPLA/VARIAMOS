@@ -16,7 +16,12 @@ import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
+import com.variamos.refas.core.transformations.DiffNumericTransformation;
+import com.variamos.refas.core.transformations.EqualsBooleanTransformation;
+import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
+import com.variamos.refas.core.transformations.NumberNumericTransformation;
+import com.variamos.refas.core.transformations.ProdNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.refas.core.types.DirectEdgeType;
@@ -57,48 +62,102 @@ public class Refas2Hlcl {
 				MetaConcept metaConcept = instConcept.getMetaConcept();
 				if (metaConcept != null) {
 					List<AbstractBooleanTransformation> transformations = new ArrayList<AbstractBooleanTransformation>();
-					List<String> sourceAttributesList = new ArrayList<String>(), targetAttributesList = new ArrayList<String>(), constraintAttributesList = new ArrayList<String>();
-
-					List<InstVertex> targetList = new ArrayList<InstVertex>();
-
-					targetList.add(elm);
-
 					for (InstAttribute instAttribute : instConcept
 							.getInstAttributesCollection()) {
-						if (instAttribute.getIdentifier().equals(
-								"OriginallyAllowed")) {
-							
-							  int originallyAllowed =  ((boolean)instAttribute.getValue())?1:0; 
-							  transformations .add(new
-							  AssignBooleanTransformation(elm,"OriginallyAllowed",f.number(originallyAllowed)));					
-							
-							transformations.add(new ImplicationBooleanTransformation(elm,elm,"OriginallyAllowed","Allowed"));
-									
-							sourceAttributesList.add("OriginallyAllowed;");
-							targetAttributesList.add("Allowed;");
-						}
-						if (instAttribute.getIdentifier().equals(
-								"OriginallyRequired")) {
-							Boolean originallyAllowed = (Boolean) instAttribute
-									.getValue();
-							transformations.add(new ImplicationBooleanTransformation(
-									elm, elm,"OriginallyRequired","Required"));
-						}
+						//A_SimAllowed  #= A_Allowed
 						if (instAttribute.getIdentifier().equals("Allowed")) {
-							Boolean originallyAllowed = (Boolean) instAttribute
-									.getValue();
-							transformations.add(new ImplicationBooleanTransformation(
-									elm,elm,"Allowed","Allowed"));
-							// TODO fix transformation
-							sourceAttributesList
-									.add("Allowed;Required;Satisfied");
-							targetAttributesList.add("Allowed;");
+							int attributeVale = ((boolean) instAttribute
+									.getValue()) ? 1 : 0;
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											instAttribute.getIdentifier(), f
+													.number(attributeVale)));
+
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											elm, "SimAllowed", instAttribute
+													.getIdentifier()));
 						}
-						
+						//A_SimRequired #= A_Required
+						if (instAttribute.getIdentifier().equals("Required")) {
+							int attributeVale = (Boolean) ((boolean) instAttribute
+									.getValue()) ? 1 : 0;
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											instAttribute.getIdentifier(), f
+													.number(attributeVale)));
+							transformations
+									.add(new AssignBooleanTransformation(
+											elm, elm, "SimRequired",
+											instAttribute.getIdentifier()));
+						}
+						//A_PreferredSelected #= 1
+						if (instAttribute.getIdentifier().equals(
+								"PreferredSelected")) {
+							int attributeVale = ((boolean) instAttribute
+									.getValue()) ? 1 : 0;
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											instAttribute.getIdentifier(), f
+													.number(attributeVale)));
+						}
+						//A_Optional #= 0
+						if (instAttribute.getIdentifier().equals("Optional")) {
+							int attributeVale = ((boolean) instAttribute
+									.getValue()) ? 1 : 0;
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											instAttribute.getIdentifier(), f
+													.number(attributeVale)));
+						}
+						//A_SimInitialRequiredLevel #= A_RequiredLevel
+						if (instAttribute.getIdentifier().equals("RequiredLevel")) {
+							int attributeVale = ((Integer)instAttribute.getValue()).intValue();
+							transformations
+									.add(new AssignBooleanTransformation(elm,
+											instAttribute.getIdentifier(), f
+													.number(attributeVale)));
+							transformations
+							.add(new AssignBooleanTransformation(
+									elm, elm, "InitialRequiredLevel",
+									instAttribute.getIdentifier()));
+						}
+						if (instAttribute.getIdentifier().equals("Satisfied")) {
+							//(( 1 - A_SimRequired) + A_Satisfied) #>= 1
+							AbstractNumericTransformation transformation1 = new DiffNumericTransformation(elm,
+									"SimRequired", false, f.number(1));
+							transformation1 = new SumNumericTransformation(elm,
+									instAttribute.getIdentifier(), false, transformation1);
+							
+							transformations
+							.add(new GreaterOrEqualsBooleanTransformation(
+									transformation1, new NumberNumericTransformation(1)));
+							
+							//(( 1 - A_Selected) + A_Satisfied) #>= 1
+							AbstractNumericTransformation transformation2 = new DiffNumericTransformation(elm,
+									"Selected", false, f.number(1));
+							transformation2 = new SumNumericTransformation(elm,
+									instAttribute.getIdentifier(), false, transformation2);
+							
+							transformations
+							.add(new GreaterOrEqualsBooleanTransformation(
+									transformation2, new NumberNumericTransformation(1)));
+							
+							//(1 - A_SimAllowed) * (A_SimRequired + A_Satisfied)  #= 0
+							AbstractNumericTransformation transformation3 = new DiffNumericTransformation(elm,
+									"Selected", false, f.number(1));
+							AbstractNumericTransformation transformation4 = new SumNumericTransformation(elm,elm,
+									"SimRequired",instAttribute.getIdentifier() );
+							transformation3 = new ProdNumericTransformation(transformation3, transformation4);
+							
+							transformations
+							.add(new EqualsBooleanTransformation(
+									transformation3, new NumberNumericTransformation(0)));
+						}
+
 					}
 					for (AbstractBooleanTransformation transformation : transformations) {
 						idMap.putAll(transformation.getIndentifiers(f));
-					
 						prog.add(transformation.transform(f, idMap));
 					}
 
@@ -123,13 +182,6 @@ public class Refas2Hlcl {
 								.getValue()).trim().replace(" ", "_"));
 
 				List<AbstractBooleanTransformation> transformations = new ArrayList<AbstractBooleanTransformation>();
-				List<String> sourceAttributesList = new ArrayList<String>(), targetAttributesList = new ArrayList<String>(), constraintAttributesList = new ArrayList<String>();
-
-				List<InstVertex> sourcesList = new ArrayList<InstVertex>();
-				List<InstVertex> targetList = new ArrayList<InstVertex>();
-
-				sourcesList.add(elm.getFromRelation());
-				targetList.add(elm.getToRelation());
 
 				switch (relationType) {
 
@@ -137,119 +189,94 @@ public class Refas2Hlcl {
 					// TODO
 					break;
 				case required:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Satisfied"));
 					// TODO fix transformation
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Allowed"));
 					// TODO fix transformation
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "Satisfied"));
 					// TODO fix transformation
 					break;
 				case conflict:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "Satisfied"));
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Allowed"));
 					// TODO fix transformation
 
 					break;
 				case alternative:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Satisfied"));
 					// TODO fix transformation
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Satisfied"));
 					// TODO fix transformation
-
-					sourceAttributesList.add("Satisfied;Required;");
-					sourceAttributesList.add("Satisfied;Required;Required;");
-
-					targetAttributesList.add("Satisfied;Required;");
-					targetAttributesList.add("Satisfied;");
 					break;
 				case means_ends:
 				case implication:
 				case implementation:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
 					break;
 				case optional:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Required"));
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Required", "Required"));
 					// TODO fix transformation
 					break;
 				case mandatory:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "Satisfied"));
 					// TODO fix transformation
 
 					break;
 				case claim:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
 					// TODO fix transformation
 
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
 					// TODO fix transformation
-
-					sourceAttributesList
-							.add("Operationalizations;ComparativeExpression;");
-					sourceAttributesList
-							.add("Claim;Operationalizations;ComparativeExpression;");
-
-					targetAttributesList.add("ValidationSatisfied;");
-					targetAttributesList.add("");
-
-					constraintAttributesList.add("Level");
-
 					break;
 				case softdependency:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"ComparativeExpression", "Required"));
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
 					// TODO fix transformation
-
-					sourceAttributesList.add("ComparativeExpression;");
-					sourceAttributesList.add("ComparativeExpression;");
-
-					targetAttributesList.add("Required;");
-					targetAttributesList.add("");
-
-					constraintAttributesList.add("Level");
 
 					break;
 				case generalConstraint:
 					break;
 				case group:
-					transformations.add(new ImplicationBooleanTransformation(elm
-							.getFromRelation(), elm.getToRelation(),
+					transformations.add(new ImplicationBooleanTransformation(
+							elm.getFromRelation(), elm.getToRelation(),
 							"Satisfied", "ValidationSatisfied"));
 					// TODO fix transformation
 
@@ -266,51 +293,6 @@ public class Refas2Hlcl {
 							.clearSourceAttributeNames();
 				for (AbstractBooleanTransformation transformation : transformations) {
 					idMap.putAll(transformation.getIndentifiers(f));
-					//TODO attributes for GroupDependencies if needed
-					/*
-					transformation.get
-					String sourceNames = sourceAttributesList.get(i);
-					String targetNames = targetAttributesList.get(i);
-					String constraintNames = null;
-					if (constraintAttributesList.size() > i)
-						constraintNames = constraintAttributesList.get(i);
-					String[] sourceNamesArray = sourceNames.split(";");
-					String[] targetNamesArray = targetNames.split(";");
-					String[] constraintNamesArray = null;
-					if (instVertex instanceof InstGroupDependency)
-						((InstGroupDependency) instVertex)
-								.addSourceAttributeNames(new HashSet<String>(
-										Arrays.asList(sourceNamesArray)));
-
-					if (constraintAttributesList.size() > i)
-						constraintNamesArray = constraintNames.split(";");
-
-					for (String name : sourceNamesArray) {
-						if (name != null) {
-							InstAttribute sourceInstAttribute = elm
-									.getFromRelation().getInstAttribute(name);
-							idMap.put(
-									elm.getSourceInstAttributeIdentifier(name),
-									f.newIdentifier(
-											elm.getSourceInstAttributeIdentifier(name),
-											sourceInstAttribute
-													.getAttributeName()));
-						}
-					}
-					for (String name : targetNamesArray) {
-						InstAttribute tatgetInstAttribute = elm.getToRelation()
-								.getInstAttribute(name);
-						idMap.put(
-								elm.getTargetInstAttributeIdentifier(name),
-								f.newIdentifier(
-										elm.getTargetInstAttributeIdentifier(name),
-										tatgetInstAttribute.getAttributeName()));
-					}
-*/
-					// TODO include constraint attributes
-
-					// idMap.put(elm.getIdentifier(),
-					// f.newIdentifier(elm.getName(), elm.getName()));
 					prog.add(transformation.transform(f, idMap));
 				}
 
@@ -334,7 +316,6 @@ public class Refas2Hlcl {
 								.getValue()).trim());
 
 				List<AbstractBooleanTransformation> transformations = new ArrayList<AbstractBooleanTransformation>();
-			//	List<String> sourceAttributesList = new ArrayList<String>(), targetAttributesList = new ArrayList<String>(), constraintAttributesList = new ArrayList<String>();
 
 				for (String sourceName : elm.getSourceAttributeNames()) {
 					AbstractBooleanTransformation abstractTransformation = null;
@@ -359,47 +340,13 @@ public class Refas2Hlcl {
 					Iterator<InstEdge> instEdges = elm.getSourceRelations()
 							.values().iterator();
 					InstEdge left = instEdges.next();
-					transformations.add(booleanTransformation(abstractTransformation,
-							instEdges, left, sourceName));
+					transformations
+							.add(booleanTransformation(abstractTransformation,
+									instEdges, left, sourceName));
 				}
-				//int i = 0;
 				for (AbstractBooleanTransformation transformation : transformations) {
-					idMap.putAll(transformation.getIndentifiers(f));
-					/*	String sourceNames = sourceAttributesList.get(i);
-					String targetNames = targetAttributesList.get(i);
-					String constraintNames = null;
-					if (constraintAttributesList.size() > i)
-						constraintNames = constraintAttributesList.get(i);
-					String[] sourceNamesArray = sourceNames.split(";");
-					String[] targetNamesArray = targetNames.split(";");
-					String[] constraintNamesArray = null;
-
-					if (constraintAttributesList.size() > i)
-						constraintNamesArray = constraintNames.split(";");
-
-					// TODO for all sources
-					/*
-					 * for (String name : sourceNamesArray) { if (name != null)
-					 * { InstAttribute sourceInstAttribute = elm
-					 * .getFromRelation().getInstAttribute(name); idMap.put(
-					 * elm.getSourceInstAttributeIdentifier(name),
-					 * f.newIdentifier(
-					 * elm.getSourceInstAttributeIdentifier(name),
-					 * sourceInstAttribute .getAttributeName())); } } for
-					 * (String name : targetNamesArray) { InstAttribute
-					 * tatgetInstAttribute = elm.getToRelation()
-					 * .getInstAttribute(name); idMap.put(
-					 * elm.getTargetInstAttributeIdentifier(name),
-					 * f.newIdentifier(
-					 * elm.getTargetInstAttributeIdentifier(name),
-					 * tatgetInstAttribute.getAttributeName())); }
-					 */
-					// TODO include constraint attributes
-
-					// idMap.put(elm.getIdentifier(),
-					// f.newIdentifier(elm.getName(), elm.getName()));
+					idMap.putAll(transformation.getIndentifiers(f));			
 					prog.add(transformation.transform(f, idMap));
-				//	i++;
 				}
 
 			}
@@ -414,22 +361,24 @@ public class Refas2Hlcl {
 		InstEdge instEdge = instEdges.next();
 		if (instEdges.hasNext())
 			return new ImplicationBooleanTransformation(left.getFromRelation(),
-					sourceName, true, booleanTransformation(abstractTransformation,
-							instEdges, instEdge, sourceName));
+					sourceName, true, booleanTransformation(
+							abstractTransformation, instEdges, instEdge,
+							sourceName));
 		else
 			return new ImplicationBooleanTransformation(left.getFromRelation(),
 					instEdge.getFromRelation(), sourceName, sourceName);
 
 	}
-	
+
 	private AbstractNumericTransformation numericTransformation(
 			AbstractNumericTransformation abstractTransformation,
 			Iterator<InstEdge> instEdges, InstEdge left, String sourceName) {
 		InstEdge instEdge = instEdges.next();
 		if (instEdges.hasNext())
 			return new SumNumericTransformation(left.getFromRelation(),
-					sourceName, true, numericTransformation(abstractTransformation,
-							instEdges, instEdge, sourceName));
+					sourceName, true, numericTransformation(
+							abstractTransformation, instEdges, instEdge,
+							sourceName));
 		else
 			return new SumNumericTransformation(left.getFromRelation(),
 					instEdge.getFromRelation(), sourceName, sourceName);

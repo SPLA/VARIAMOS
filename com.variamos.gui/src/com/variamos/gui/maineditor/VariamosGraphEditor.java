@@ -691,6 +691,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// jcmunoz: new method for REFAS
 	public void editPropertiesE(final EditableElement elm) {
 		designPropertiesPanel.removeAll();
+		configPropertiesPanel.removeAll();
 		simPropertiesPanel.removeAll();
 
 		if (elm == null) {
@@ -882,7 +883,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		designPanel.add(dummy);
 		SpringUtilities.makeCompactGrid(designPanel, designPanelElements + 1, 3, 4, 4, 4, 4);
 
-		SpringUtilities.makeCompactGrid(simulationPanel, simulationPanelElements, 3, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(simulationPanel, simulationPanelElements/2, 6, 4, 4, 4, 4);
 		
 		SpringUtilities.makeCompactGrid(configurationPanel, configurationPanelElements, 3, 4, 4, 4, 4);
 
@@ -944,6 +945,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 
 		designPropertiesPanel.revalidate();
+		configPropertiesPanel.revalidate();
 		simPropertiesPanel.revalidate();
 
 	}

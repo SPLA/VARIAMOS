@@ -148,13 +148,13 @@ public class SemanticPlusSyntax {
 		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");
 		semGeneralElement.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true");
 		semGeneralElement.addDisPropEditableAttribute("04#" + "Required"+"#"+"Active"+"#==#"+"true");
-		semGeneralElement.addDisPropEditableAttribute("04#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		semGeneralElement.addDisPropEditableAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
 		
 		semGeneralElement.addDisPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addDisPropVisibleAttribute("02#" + "Visibility");
 		semGeneralElement.addDisPropVisibleAttribute("03#" + "Allowed");
 		semGeneralElement.addDisPropVisibleAttribute("04#" + "Required");
-		semGeneralElement.addDisPropVisibleAttribute("04#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		semGeneralElement.addDisPropVisibleAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
 		
 		//Simulation attributes
 		
@@ -184,7 +184,7 @@ public class SemanticPlusSyntax {
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationAttribute("Selected", "Boolean", false, "Selected", false));
 		semGeneralElement.putSemanticAttribute("PreferredSelected",
-				new SimulationAttribute("PreferredSelected", "Boolean", false, "Select by Preferred", false));
+				new SimulationAttribute("PreferredSelected", "Boolean", false, "Select by Preferred", true));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
 				new SimulationAttribute("ValidationSelected", "Boolean", false, "Selected by Validation", false));
 		semGeneralElement.putSemanticAttribute("SolverSelected",

@@ -12,7 +12,6 @@ public abstract class AbstractBooleanTransformation extends AbstractTransformati
 
 	public AbstractBooleanTransformation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AbstractBooleanTransformation(
