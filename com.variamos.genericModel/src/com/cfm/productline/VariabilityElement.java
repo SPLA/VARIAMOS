@@ -12,6 +12,7 @@ import com.cfm.productline.type.BooleanType;
 import com.cfm.productline.type.StringType;
 
 @SuppressWarnings("serial")
+
 public class VariabilityElement extends AbstractElement implements Serializable, Prototype, Editable{
 	
 	public String getClassId()

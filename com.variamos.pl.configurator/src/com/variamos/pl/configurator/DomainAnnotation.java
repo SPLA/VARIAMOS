@@ -3,7 +3,7 @@ package com.variamos.pl.configurator;
 
 public class DomainAnnotation {
 	private int value;
-	private Choice choice;
+	private Choice choice; 
 	private int step;
 	
 	public DomainAnnotation(int value, Choice choice, int step) {

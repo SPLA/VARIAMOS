@@ -2,7 +2,7 @@ package com.variamos.pl.configurator;
 
 import java.util.Map;
 
-import com.cfm.hlcl.HlclProgram;
+import com.cfm.hlcl.HlclProgram; 
 import com.cfm.jgprolog.core.PrologContext;
 import com.cfm.jgprolog.core.PrologEngine;
 import com.cfm.jgprolog.core.PrologException;

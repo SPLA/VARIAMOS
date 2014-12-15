@@ -10,7 +10,7 @@ import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
-public class DefectAnalyzerUtil {
+public class DefectAnalyzerUtil { 
 
 	public static VariabilityModel transformProductLine(ProductLine productLine)
 			throws TransformerException {

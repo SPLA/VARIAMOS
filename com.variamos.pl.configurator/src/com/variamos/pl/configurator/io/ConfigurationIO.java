@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.List; 
 
 import com.cfm.productline.solver.Configuration;
 import com.google.gson.Gson;

@@ -1,7 +1,14 @@
 package com.cfm.productline.constraints;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
+import java.util.LinkedList;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 import com.cfm.productline.Constraint;
 import com.cfm.productline.Variable;

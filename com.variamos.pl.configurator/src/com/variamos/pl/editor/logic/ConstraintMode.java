@@ -4,7 +4,7 @@ public enum ConstraintMode {
 	None,
 	Default,
 	Mandatory,
-	Optional,
+	Optional, 
 	Requires,
 	Excludes, 
 }

@@ -4,7 +4,7 @@ public interface GNUPrologSymbols  {
 
 
 	public static final String GNU_CONSTRAINTS_SYMBOLS[] = { "#<=>", "#<=>",
-		"##", "#\\==>", "#\\/\\", "#\\/"};
+		"##", "#\\==>", "#\\/\\", "#\\/"}; 
 	
 	//OPERATION CONSTANTS FOR GNU PROLOG
 	public static final String EQUIVALENT="#<=>";

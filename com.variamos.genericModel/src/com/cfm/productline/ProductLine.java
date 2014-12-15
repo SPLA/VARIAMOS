@@ -17,6 +17,8 @@ import com.cfm.productline.constraints.RequiresConstraint;
 import com.cfm.productline.constraints.TwoOperandConstraint;
 
 public class ProductLine extends AbstractModel{
+
+
 	protected Map<String, VariabilityElement> vElements;
 	protected Map<String,Constraint> constraints;
 	protected String name;

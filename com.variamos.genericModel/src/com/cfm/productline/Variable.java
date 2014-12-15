@@ -2,6 +2,7 @@ package com.cfm.productline;
 
 import java.io.Serializable;
 
+
 import com.cfm.hlcl.Domain;
 import com.cfm.productline.type.StringType;
 

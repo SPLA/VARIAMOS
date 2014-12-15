@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AssetModel  implements Serializable{
+public class AssetModel implements Serializable{
+
 	private static final long serialVersionUID = 5153432059224220508L;
 	
 	private Map<String, Asset> assets;

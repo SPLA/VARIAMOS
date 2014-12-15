@@ -3,7 +3,7 @@ package com.variamos.pl.configurator.io;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 
-public class ConfigurationDTO {
+public class ConfigurationDTO { 
 	private ConfigurationOptions options;
 	private Configuration values;
 	
