@@ -3,7 +3,7 @@ package com.cfm.productline.solver;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.Domain; 
+import com.cfm.hlcl.Domain;
 import com.cfm.productline.ProductLine;
 
 public interface Solver {

@@ -9,7 +9,7 @@ import jpl.Compound;
 import jpl.Query;
 import jpl.Variable;
 
-import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.variamos.core.exceptions.TechnicalException;
 
 public class SWIPrologSolver implements Solver {
@@ -36,7 +36,7 @@ public class SWIPrologSolver implements Solver {
 	}
 
 	@Override
-	public void setProductLine(AbstractModel pl) {
+	public void setProductLine(ProductLine pl) {
 		// TODO Auto-generated method stub
 
 	}

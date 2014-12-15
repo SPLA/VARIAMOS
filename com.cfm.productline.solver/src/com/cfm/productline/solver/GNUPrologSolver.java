@@ -11,9 +11,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-
-import com.cfm.common.AbstractModel;
-import com.cfm.hlcl.Domain;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.jgprolog.core.CompoundTerm;
@@ -28,20 +25,20 @@ import com.cfm.jgprolog.core.Term;
 import com.cfm.jgprolog.core.VariableSet;
 import com.cfm.jgprolog.core.VariableTerm;
 import com.cfm.productline.Asset;
+import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.productLine.Pl2Hlcl;
 import com.cfm.productline.prologEditors.Hlcl2GnuPrologExact;
 import com.cfm.productline.prologEditors.PrologTransformParameters;
-//import com.variamos.core.exceptions.TechnicalException;
+import com.variamos.core.exceptions.TechnicalException;
 
 public class GNUPrologSolver implements Solver {
 
 	public static final int DOMAIN_SIZE_TOP = 50;
 
-	private PrologEngine prolog ;
-	private PrologTermFactory ptf ;
-	private AbstractModel pl;
-
+	private PrologEngine prolog;
+	private PrologTermFactory ptf;
+	private ProductLine pl;
 	private QueryResult qr;
 
 	public GNUPrologSolver(PrologContext ctx) {
@@ -103,7 +100,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public void setProductLine(AbstractModel pl) {
+	public void setProductLine(ProductLine pl) {
 		this.pl = pl;
 	}
 
@@ -209,9 +206,7 @@ public class GNUPrologSolver implements Solver {
 			vars.put(elm.getName(), ptf.newVariable(elm.getName()));
 		}
 
-		//todo: jcmunoz should be threated in the same way
-		for(Asset a : pl.getAssets().values()){
-
+		for (Asset a : pl.getAssets().values()) {
 			ids.add(a.getIdentifier());
 			vars.put(a.getIdentifier(), ptf.newVariable(a.getIdentifier()));
 		}
@@ -263,7 +258,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public AbstractModel getProductLine() {
+	public ProductLine getProductLine() {
 		return pl;
 	}
 
@@ -358,7 +353,7 @@ public class GNUPrologSolver implements Solver {
 				prolog.consult(absolutePath);
 			} catch (PrologException e1) {
 				endSolving();
-	//			throw new TechnicalException(e1);
+				throw new TechnicalException(e1);
 			}
 			
 			// Create a Variable L
@@ -379,11 +374,11 @@ public class GNUPrologSolver implements Solver {
 
 			} catch (Exception e) {
 				endSolving();
-	//			throw new TechnicalException("Technical Exception", e);
+				throw new TechnicalException("Technical Exception", e);
 			}
 
 		} else {
-	//		throw new TechnicalException("GNU Prolog is not started");
+			throw new TechnicalException("GNU Prolog is not started");
 
 		}
 		return false;
