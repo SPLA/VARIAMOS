@@ -251,9 +251,30 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 
 		List<String> listEditableAttribNames = new ArrayList<String>();
 		for (String attribute : listEditableAttributes) {
-			int endName = attribute.indexOf("#", 3);
-			if (endName != -1)
-				listEditableAttribNames.add(attribute.substring(3, endName));
+			int nameEnd = attribute.indexOf("#", 3);
+			int varEnd = attribute.indexOf("#", nameEnd + 1);
+			int condEnd = attribute.indexOf("#", varEnd + 1);
+			if (nameEnd != -1)
+			{
+				String variable = null;
+				String condition = null;
+				String value = null;
+				variable = attribute.substring(nameEnd + 1, varEnd);
+				condition = attribute.substring(varEnd + 1, condEnd);
+				value = attribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null)
+					continue;
+				else if (varValue.getValue().toString().trim().equals(value)) {
+					if (condition.equals("!="))
+						continue;
+				} else {
+					if (condition.equals("=="))
+						continue;
+				}
+			
+				listEditableAttribNames.add(attribute.substring(3, nameEnd));
+			}
 			else
 				listEditableAttribNames.add(attribute.substring(3));
 		}
@@ -394,12 +415,22 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 				if (nameEnd != -1) {
 					name = visibleAttribute.substring(3, nameEnd);
 					String variable = null;
+					String condition = null;
 					String value = null;
 					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
+					condition = visibleAttribute.substring(varEnd + 1, condEnd);
 					value = visibleAttribute.substring(condEnd + 1);
-					Object varValue = getInstAttributes().get(variable);
-					if (!varValue.equals(value))
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null)
 						validCondition = false;
+					else if (varValue.getValue().toString().trim()
+							.equals(value)) {
+						if (condition.equals("!="))
+							validCondition = false;
+					} else {
+						if (condition.equals("=="))
+							validCondition = false;
+					}
 				}
 				boolean nvar = false;
 				if (name != null && validCondition) {
@@ -472,15 +503,29 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 		if (metaEdge != null) {
 			metaEdgeIde = ((MetaDirectRelation) metaEdge).getIdentifier();
 		}
-
-		Object semanticEdge = getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION).getValueObject();
-		if (semanticEdge != null) {
-			semanticEdgeIde = ((IntDirectSemanticEdge) semanticEdge).getIdentifier();
+		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null) {
+			Object semanticEdge = getInstAttribute(
+					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					.getValueObject();
+			if (semanticEdge != null) {
+				semanticEdgeIde = ((IntDirectSemanticEdge) semanticEdge)
+						.getIdentifier();
+			}
 		}
 	}
 
 	public void setSemanticEdge(IntDirectSemanticEdge semanticEdgeIde2) {
-		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION);
-		
+		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION).setValueObject(semanticEdgeIde2);
+
+	}
+
+	public String getSourceInstAttributeIdentifier(String insAttributeId) {
+	
+		return getFromRelation().getIdentifier()+"_"+getFromRelation().getInstAttribute(insAttributeId).getIdentifier();
+	}
+
+	public String getTargetInstAttributeIdentifier(String insAttributeId) {
+		return getToRelation().getIdentifier()+"_"+getToRelation().getInstAttribute(insAttributeId).getIdentifier();
+
 	}
 }

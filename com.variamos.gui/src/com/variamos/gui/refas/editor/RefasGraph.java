@@ -193,7 +193,7 @@ public class RefasGraph extends AbstractGraph {
 		InstEdge directRelation = new InstEdge(map);
 		Refas refas = getRefas();
 
-		id = refas.addNewInstEdge(directRelation);
+		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
 		directRelation.setFromRelation((InstVertex)cell.getSource().getValue());
 		directRelation.setToRelation((InstVertex)cell.getTarget().getValue());
@@ -230,7 +230,7 @@ public class RefasGraph extends AbstractGraph {
 				elementIdentifier = element.getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-				id = pl.addNewInstElement(element);
+				id = pl.addNewVariabilityInstElement(element);
 			}
 
 			else {

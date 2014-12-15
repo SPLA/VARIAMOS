@@ -1,0 +1,52 @@
+package com.variamos.refas.core.transformations;
+
+import java.util.List;
+import java.util.Map;
+
+import com.cfm.hlcl.BooleanExpression;
+import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.HlclFactory;
+import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericIdentifier;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
+
+public class AssignBooleanTransformation extends AbstractBooleanTransformation {
+	private static final String TRANSFORMATION = "#>=#";
+	
+	public AssignBooleanTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName)
+	{
+		super(left, right, leftAttributeName, rightAttributeName);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	
+	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, AbstractTransformation subExpression)
+	{
+		super(left, attributeName, true, subExpression);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	
+	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, BooleanExpression comparativeExpression)
+	{
+		super(left, attributeName, true, comparativeExpression);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	
+	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, Identifier comparativeExpression)
+	{
+		super(left, attributeName, true, comparativeExpression);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	public AssignBooleanTransformation(InstVertex left, String attributeName,	NumericIdentifier numericIdentifier) {
+		super(left, attributeName, true, numericIdentifier);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+
+	@Override
+	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
+		List<Expression> expressionTerms = expressionTerms(f, idMap);
+		return f.assign((Identifier) expressionTerms.get(0), (Expression)expressionTerms.get(1));
+	}
+
+}

@@ -22,5 +22,10 @@ public class AssignExpression implements BooleanExpression{
 	public void setRightExpression(Expression rightExpression) {
 		this.rightExpression = rightExpression;
 	}
+	@Override
+	public String toString() {
+		return "AssignExpression [left=" + identifier + ", right=" + rightExpression
+				+ ", operator=" + "assign" + "]";
+	}
 	
 }

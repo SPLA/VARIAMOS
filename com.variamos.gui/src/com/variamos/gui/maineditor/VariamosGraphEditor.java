@@ -64,8 +64,10 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.ConfigurationAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
@@ -111,7 +113,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected JTextArea messagesArea;
-	protected JPanel propertiesPanel;
+	protected JPanel designPropertiesPanel;
+	protected JPanel configPropertiesPanel;
 	protected JPanel simPropertiesPanel;
 	protected PerspectiveToolBar perspectiveToolBar;
 	// Bottom tabs
@@ -247,7 +250,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		mode.setModelViewSubIndex(modelSubIndex);
 		mode.showElements();
 
-		propertiesPanel.repaint();
+		designPropertiesPanel.repaint();
+		configPropertiesPanel.repaint();
 		simPropertiesPanel.repaint();
 	}
 
@@ -500,19 +504,33 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		messagesArea = new JTextArea("Output");
 		messagesArea.setEditable(false);
 
-		propertiesPanel = new JPanel();
-		propertiesPanel.setLayout(new SpringLayout());
+		designPropertiesPanel = new JPanel();
+		designPropertiesPanel.setLayout(new SpringLayout());
+
+		configPropertiesPanel = new JPanel();
+		configPropertiesPanel.setLayout(new SpringLayout());
 
 		simPropertiesPanel = new JPanel();
 		simPropertiesPanel.setLayout(new SpringLayout());
 
 		configurator = new ConfiguratorPanel();
-
+		if (getPerspective() >1)
+		{
+		JButton test = new JButton();
+		configurator.add(test);
+		test.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Refas2Hlcl((Refas)getEditedModel());
+			}
+		});
+		}
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
 				JTabbedPane.SCROLL_TAB_LAYOUT);
 		extensionTabs.addTab(mxResources.get("disPropertiesTab"),
-				new JScrollPane(propertiesPanel));
+				new JScrollPane(designPropertiesPanel));
+		extensionTabs.addTab(mxResources.get("confPropertiesTab"),
+				new JScrollPane(configPropertiesPanel));
 		extensionTabs.addTab(mxResources.get("simPropertiesTab"),
 				new JScrollPane(simPropertiesPanel));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
@@ -569,16 +587,24 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public AbstractModel getEditedModel() {
+		if (perspective ==0)
 		return ((AbstractGraph) getGraphComponent().getGraph())
 				.getProductLine();
+		else
+			return ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
+				
 	}
 
 	public void editProperties(final Editable elm) {
-		propertiesPanel.removeAll();
+		designPropertiesPanel.removeAll();
+		configPropertiesPanel.removeAll();
+		simPropertiesPanel.removeAll();
 
 		if (elm == null) {
 			bringUpTab("Properties");
-			propertiesPanel.repaint();
+			designPropertiesPanel.repaint();
+			configPropertiesPanel.repaint();
+			simPropertiesPanel.repaint();
 			return;
 		}
 
@@ -639,7 +665,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		SpringUtilities.makeCompactGrid(variablesPanel, editables.length, 2, 4,
 				4, 4, 4);
 
-		propertiesPanel.add(variablesPanel);
+		designPropertiesPanel.add(variablesPanel);
 
 		JPanel attPanel = new JPanel(new SpringLayout());
 		// Fill Attributes Panel (Only for VariabilityElements ) in Properties
@@ -654,27 +680,28 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
 
-			propertiesPanel.add(attPanel);
+			designPropertiesPanel.add(attPanel);
 
-			SpringUtilities.makeCompactGrid(propertiesPanel, 1, 2, 4, 4, 4, 4);
+			SpringUtilities.makeCompactGrid(designPropertiesPanel, 1, 2, 4, 4, 4, 4);
 		}
 
-		propertiesPanel.revalidate();
+		designPropertiesPanel.revalidate();
 	}
 
 	// jcmunoz: new method for REFAS
 	public void editPropertiesE(final EditableElement elm) {
-		propertiesPanel.removeAll();
+		designPropertiesPanel.removeAll();
 		simPropertiesPanel.removeAll();
 
 		if (elm == null) {
 			bringUpTab("Properties");
-			propertiesPanel.repaint();
+			designPropertiesPanel.repaint();
 			return;
 		}
 
-		JPanel variablesPanel = new JPanel(new SpringLayout());
-		JPanel variablesSimPanel = new JPanel(new SpringLayout());
+		JPanel designPanel = new JPanel(new SpringLayout());
+		JPanel configurationPanel = new JPanel(new SpringLayout());
+		JPanel simulationPanel = new JPanel(new SpringLayout());
 		elm.getInstAttributes();
 
 		List<InstAttribute> editables = elm.getEditableVariables();
@@ -682,7 +709,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		List<InstAttribute> visible = elm.getVisibleVariables();
 
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
-		int des = 0, sim = 0;
+		int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 0;
 		String description = null;
 		for (InstAttribute v : visible) {
 			if (elm instanceof InstGroupDependency) {
@@ -782,8 +809,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// GARA
 			// variablesPanel.add(new JLabel(v.getName() + ":: "));
 			if (v.getAttribute() instanceof SimulationAttribute) {
-				variablesSimPanel.add(new JLabel(v.getDisplayName() + ": "));
-				variablesSimPanel.add(w);
+				simulationPanel.add(new JLabel(v.getDisplayName() + ": "));
+				simulationPanel.add(w);
 
 				if (v.isAffectProperties()) {
 					JButton button = new JButton("Validate");
@@ -792,18 +819,35 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							editPropertiesE(elm);
 						}
 					});
-					variablesSimPanel.add(button);
+					simulationPanel.add(button);
 				} else
-					variablesSimPanel.add(new JPanel());
+					simulationPanel.add(new JPanel());
 
-				sim++;
-			} else {
+				simulationPanelElements++;
+			} else if (v.getAttribute() instanceof ConfigurationAttribute) {
+				configurationPanel.add(new JLabel(v.getDisplayName() + ": "));
+				configurationPanel.add(w);
+
+				if (v.isAffectProperties()) {
+					JButton button = new JButton("Validate");
+					button.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							editPropertiesE(elm);
+						}
+					});
+					configurationPanel.add(button);
+				} else
+					configurationPanel.add(new JPanel());
+
+				configurationPanelElements++;
+			} else
+			{
 
 				if (v.getDisplayName().equals(MetaElement.VAR_DESCRIPTION))
 					description = (String) v.getValue();
 				else {
-					variablesPanel.add(new JLabel(v.getDisplayName() + ": "));
-					variablesPanel.add(w);
+					designPanel.add(new JLabel(v.getDisplayName() + ": "));
+					designPanel.add(w);
 					if (v.isAffectProperties()) {
 						JButton button = new JButton("Validate");
 						button.addActionListener(new ActionListener() {
@@ -811,11 +855,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								editPropertiesE(elm);
 							}
 						});
-						variablesPanel.add(button);
+						designPanel.add(button);
 					} else
-						variablesPanel.add(new JPanel());
+						designPanel.add(new JPanel());
 
-					des++;
+					designPanelElements++;
 				}
 			}
 		}
@@ -825,23 +869,27 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		dummy.setMinimumSize(new Dimension(100, 0));
 		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
-		variablesPanel.add(dummy);
+		designPanel.add(dummy);
 		dummy = new JPanel();
 		dummy.setMinimumSize(new Dimension(100, 0));
 		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
-		variablesPanel.add(dummy);
+		designPanel.add(dummy);
 		dummy = new JPanel();
 		dummy.setMinimumSize(new Dimension(100, 0));
 		dummy.setPreferredSize(new Dimension(100, 120));
 		dummy.setMaximumSize(new Dimension(100, 200));
-		variablesPanel.add(dummy);
-		SpringUtilities.makeCompactGrid(variablesPanel, des + 1, 3, 4, 4, 4, 4);
+		designPanel.add(dummy);
+		SpringUtilities.makeCompactGrid(designPanel, designPanelElements + 1, 3, 4, 4, 4, 4);
 
-		SpringUtilities.makeCompactGrid(variablesSimPanel, sim, 3, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(simulationPanel, simulationPanelElements, 3, 4, 4, 4, 4);
+		
+		SpringUtilities.makeCompactGrid(configurationPanel, configurationPanelElements, 3, 4, 4, 4, 4);
 
-		propertiesPanel.add(variablesPanel);
-		simPropertiesPanel.add(variablesSimPanel);
+		designPropertiesPanel.add(designPanel);
+		configPropertiesPanel.add(configurationPanel);
+		simPropertiesPanel.add(simulationPanel);
+		
 
 		JPanel attPanel = new JPanel(new SpringLayout());
 		// Fill Attributes Panel (Only for VariabilityElements ) in Properties
@@ -883,19 +931,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
 
-			propertiesPanel.add(attPanel);
-			propertiesPanel.add(dummy2);
+			designPropertiesPanel.add(attPanel);
+			designPropertiesPanel.add(dummy2);
 
-			SpringUtilities.makeCompactGrid(propertiesPanel, 1, 3, 4, 4, 4, 4);
+			SpringUtilities.makeCompactGrid(designPropertiesPanel, 1, 3, 4, 4, 4, 4);
 		}
 		else
 		{
-			propertiesPanel.add(dummy2);
+			designPropertiesPanel.add(dummy2);
 
-			SpringUtilities.makeCompactGrid(propertiesPanel, 1, 2, 4, 4, 4, 4);
+			SpringUtilities.makeCompactGrid(designPropertiesPanel, 1, 2, 4, 4, 4, 4);
 		}
 
-		propertiesPanel.revalidate();
+		designPropertiesPanel.revalidate();
 		simPropertiesPanel.revalidate();
 
 	}

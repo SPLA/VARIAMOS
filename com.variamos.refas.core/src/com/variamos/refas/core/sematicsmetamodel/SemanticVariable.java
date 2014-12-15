@@ -1,6 +1,9 @@
 package com.variamos.refas.core.sematicsmetamodel;
 
+import com.variamos.refas.core.types.VariableType;
+import com.variamos.refas.core.types.VariationScopeType;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 
 public class SemanticVariable extends AbstractSemanticVertex {
 	/**
@@ -10,7 +13,7 @@ public class SemanticVariable extends AbstractSemanticVertex {
 
 	public static final String VAR_SCOPE = "scope",
 			VAR_SCOPENAME = "Scope",
-			VAR_SCOPECLASS = "com.variamos.refas.core.types.VariationScopeType",
+			VAR_SCOPECLASS = VariationScopeType.class.getCanonicalName(),
 			
 			VAR_CONTEXTTYPE = "contextType",
 			VAR_CONTEXTTYPENAME = "Context Type",
@@ -21,11 +24,11 @@ public class SemanticVariable extends AbstractSemanticVertex {
 			
 			VAR_VARIABLETYPE = "variableType",
 			VAR_VARIABLETYPENAME = "Variable Type",
-			VAR_VARIABLETYPECLASS = "com.variamos.refas.core.types.VariableType",
+			VAR_VARIABLETYPECLASS = VariableType.class.getCanonicalName(),
 			
 			VAR_ENUMERATIONTYPE = "enumerationType",
 			VAR_ENUMERATIONTYPENAME = "Enumeration",
-			VAR_ENUMERATIONTYPECLASS = "com.variamos.syntaxsupport.metamodel.InstEnumeration";
+			VAR_ENUMERATIONTYPECLASS = InstEnumeration.class.getCanonicalName();
 
 	public SemanticVariable() {
 		this(null, null);

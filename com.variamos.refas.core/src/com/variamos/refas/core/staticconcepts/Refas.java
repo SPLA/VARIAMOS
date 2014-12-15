@@ -39,24 +39,67 @@ public class Refas extends AbstractModel {
 			// ignore
 		}
 	}
-
+	/**
+	 * 
+	 */
 	protected Map<String, VariabilityElement> vElements;
+	/**
+	 * 
+	 */
 	protected Map<String, Constraint> constraints;
 
-	private Map<String, InstVertex> instElements;
-	private Map<String, InstEdge> instEdges; // Methods missing to handle
-
+	/**
+	 * 
+	 */
+	private Map<String, InstVertex> variabilityInstVertex; //TODO Move variables and enums to otherElements
+	/**
+	 * 
+	 */
+	private Map<String, InstVertex> otherInstVertex;
+	/**
+	 * 
+	 */
+	private Map<String, InstGroupDependency> instGroupDependencies;
+	/**
+	 * 
+	 */
+	private Map<String, InstEdge> constraintInstEdges; //TODO move relations to groupdep and claims to otherEDges
+	/**
+	 * 
+	 */
+	private Map<String, InstEdge> otherInstEdges; //
+	/**
+	 * 
+	 */
 	protected String fileName;
-
+	
 	public Refas() {
 		vElements = new HashMap<String, VariabilityElement>();
-
-		instElements = new HashMap<>();
-		instEdges = new HashMap<>();
-
+		variabilityInstVertex = new HashMap<String, InstVertex>();
+		instGroupDependencies = new HashMap<String, InstGroupDependency>();
+		otherInstVertex = new HashMap<String, InstVertex>();
+		
+		constraintInstEdges = new HashMap<String, InstEdge>();		
+		otherInstEdges = new HashMap<String, InstEdge>();
+		
 		fileName = "";
 	}
+	
+	public Map<String, InstGroupDependency> getInstGroupDependencies() {
+		return instGroupDependencies;
+	}
 
+	public Collection<InstGroupDependency> getInstGroupDependenciesCollection() {
+		return instGroupDependencies.values();
+	}
+
+	public Map<String, InstEdge> getConstraintInstEdges() {
+		return constraintInstEdges;
+	}
+	
+	public Collection<InstEdge> getConstraintInstEdgesCollection() {
+		return constraintInstEdges.values();
+	}
 	public Collection<Constraint> getConstraints() {
 		return constraints.values();
 	}
@@ -69,31 +112,67 @@ public class Refas extends AbstractModel {
 		return vElements.values();
 	}
 
-	public void putInstElement(InstVertex element) {
-		instElements.put(element.getIdentifier(), element);
+	public void putVariabilityInstVertex(InstVertex element) {
+		variabilityInstVertex.put(element.getIdentifier(), element);
+	}
+	
+	public void putOtherInstVertex(InstVertex element) {
+		otherInstVertex.put(element.getIdentifier(), element);
 	}
 
-	public void putInstEdge(InstEdge element) {
-		instEdges.put(element.getIdentifier(), element);
+	public void putInstGroupDependency(InstGroupDependency groupDep) {
+		instGroupDependencies.put(groupDep.getIdentifier(), groupDep);
+	}
+	
+	public void putConstraintInstEdge(InstEdge element) {
+		constraintInstEdges.put(element.getIdentifier(), element);
 	}
 
-	public String addNewInstElement(InstVertex element) {
-		String id = getNextInstElementId(element);
+	public void putOtheInstEdge(InstEdge element) {
+		otherInstEdges.put(element.getIdentifier(), element);
+	}
+	
+	public String addNewVariabilityInstElement(InstVertex element) {
+		String id = getNextVariabilityInstVertextId(element);
 		InstVertex varElement = (InstVertex) element;
 		varElement.setIdentifier(id);
 		varElement.setInstAttribute("name", id);
-		instElements.put(id, element);
+		variabilityInstVertex.put(id, element);
 		return id;
 	}
 
-	public String addNewInstEdge(InstEdge directRelation) {
-		String id = getNextInstEdgeId(directRelation);
+	public String addNewOtherInstElement(InstVertex element) {
+		String id = getNextOtherInstVertexId(element);
+		InstVertex varElement = (InstVertex) element;
+		varElement.setIdentifier(id);
+		varElement.setInstAttribute("name", id);
+		otherInstVertex.put(id, element);
+		return id;
+	}
+	
+	public String addNewInstGroupDependency(InstGroupDependency groupDep) {
+		String id = getNextInstGroupDependencyId(groupDep);
+		groupDep.setIdentifier(id);
+		groupDep.setInstAttribute("name", id);
+		instGroupDependencies.put(id, groupDep);
+		return id;
+	}
+	
+	public String addNewConstraintInstEdge(InstEdge directRelation) {
+		String id = getNextConstraintInstEdgeId(directRelation);
 		directRelation.setIdentifier(id);
-		instEdges.put(id, directRelation);
+		constraintInstEdges.put(id, directRelation);
 		return id;
 	}
-
-	private String getNextInstElementId(InstVertex element) {
+	
+	public String addNewOtherInstEdge(InstEdge directRelation) {
+		String id = getNextOtherInstEdgeId(directRelation);
+		directRelation.setIdentifier(id);
+		otherInstEdges.put(id, directRelation);
+		return id;
+	}
+	
+	private String getNextVariabilityInstVertextId(InstVertex element) {
 
 		int id = 1;
 		String classId = null;
@@ -108,32 +187,91 @@ public class Refas extends AbstractModel {
 						.getMetaVertexIdentifier();
 		}
 
-		while (instElements.containsKey(classId + id)) {
+		while (variabilityInstVertex.containsKey(classId + id)) {
+			id++;
+		}
+		return classId + id;
+	}
+	
+	private String getNextOtherInstVertexId(InstVertex element) {
+
+		int id = 1;
+		String classId = null;
+		if (element instanceof InstConcept)
+			classId = ((InstConcept) element).getMetaVertexIdentifier();
+		else {
+			if (element instanceof InstEnumeration)
+				classId = ((InstEnumeration) element)
+						.getMetaVertexIdentifier();
+			else
+				classId = ((InstGroupDependency) element)
+						.getMetaVertexIdentifier();
+		}
+
+		while (otherInstVertex.containsKey(classId + id)) {
 			id++;
 		}
 		return classId + id;
 	}
 
-	private String getNextInstEdgeId(InstEdge element) {
+	private String getNextInstGroupDependencyId(InstGroupDependency grouDep) {
+
+		int id = 1;
+		String classId = grouDep.getMetaVertexIdentifier();
+
+		while (instGroupDependencies.containsKey(classId + id)) {
+			id++;
+		}
+		return classId + id;
+	}
+
+	
+	private String getNextConstraintInstEdgeId(InstEdge element) {
 
 		int id = 1;
 		String classId = null;
 		classId = MetaEdge.getClassId();
 
-		while (instEdges.containsKey(classId + id)) {
+		while (constraintInstEdges.containsKey(classId + id)) {
 			id++;
 		}
 		return classId + id;
 	}
+	
+	private String getNextOtherInstEdgeId(InstEdge element) {
 
-	public Map<String, InstVertex> getElements() {
-		return instElements;
+		int id = 1;
+		String classId = null;
+		classId = MetaEdge.getClassId();
+
+		while (constraintInstEdges.containsKey(classId + id)) {
+			id++;
+		}
+		return classId+"O" + id;
 	}
 
-	public void setElements(Map<String, InstVertex> elements) {
-		this.instElements = elements;
+	public Map<String, InstVertex> getVariabilityVertex() {
+		return variabilityInstVertex;
 	}
 
+	public Collection<InstVertex> getVariabilityVertexCollection() {
+		return variabilityInstVertex.values();
+	}
+
+	
+	public void setVariabilityVertex(Map<String, InstVertex> elements) {
+		this.variabilityInstVertex = elements;
+	}
+
+	public Map<String, InstVertex> getOtherVertex() {
+		return otherInstVertex;
+	}
+
+	public void setOtherVertex(Map<String, InstVertex> elements) {
+		this.otherInstVertex = elements;
+	}
+
+	
 	public VariabilityElement getVariabilityElement(String string) {
 		return vElements.get(string);
 	}

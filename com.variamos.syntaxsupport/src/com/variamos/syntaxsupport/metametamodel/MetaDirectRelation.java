@@ -33,11 +33,12 @@ public class MetaDirectRelation extends MetaEdge {
 	 */
 	private List<IntDirectEdgeType> semanticTypes;
 
+
 	public static final
 	/**
 	 * CanonicalName of DirectSemanticEdge - no direct reference allowed
 	 */
-	String VAR_DIRECTSEMANTICEDGECLASS = "com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge",
+	String VAR_DIRECTSEMANTICEDGECLASS = IntDirectSemanticEdge.class.getCanonicalName(),
 	/**
 	 * Name of the semantic relation attribute
 	 */
@@ -45,7 +46,27 @@ public class MetaDirectRelation extends MetaEdge {
 	/**
 	 * Display name of the semantic relation attribute
 	 */
-	VAR_SEMANTICDIRECTRELATIONNAME = "Semantic Relation";
+	VAR_SEMANTICDIRECTRELATIONNAME = "Semantic Relation",
+	/**
+	 * 
+	 */
+	VAR_METADIRECTEDGETYPE="directEdgeType",
+	/**
+	 * 
+	 */
+	VAR_METADIRECTEDGETYPENAME = "Relation Type",
+	/**
+	 * 
+	 */
+	VAR_METADIRECTEDGETYPECLASS = "com.variamos.refas.core.types.DirectEdgeType",
+			/**
+			 * 
+			 */
+			VAR_METAGENERALCONSTRAINT="generalConstraint",
+			/**
+			 * 
+			 */
+			VAR_METAGENERALCONSTRAINTNAME = "Constraint Expression";
 
 	public MetaDirectRelation() {
 		createModelingAttributes();
@@ -87,12 +108,26 @@ public class MetaDirectRelation extends MetaEdge {
 	}
 
 	public void createModelingAttributes() {
+		addModelingAttribute(VAR_METADIRECTEDGETYPE, new SemanticAttribute(
+				VAR_METADIRECTEDGETYPE, "Enumeration", true,
+				VAR_METADIRECTEDGETYPENAME, VAR_METADIRECTEDGETYPECLASS,
+				null, ""));
 		addModelingAttribute(VAR_SEMANTICDIRECTRELATION, new SemanticAttribute(
 				VAR_SEMANTICDIRECTRELATION, "Class", true,
 				VAR_SEMANTICDIRECTRELATIONNAME, VAR_DIRECTSEMANTICEDGECLASS,
-				null, ""));
+				null, "means ends"));
+		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
+				VAR_METAGENERALCONSTRAINT, "String", false,
+				VAR_METAGENERALCONSTRAINTNAME, ""));
+		
 		this.addDisPropEditableAttribute("03#" + VAR_SEMANTICDIRECTRELATION);
 		this.addDisPropVisibleAttribute("03#" + VAR_SEMANTICDIRECTRELATION);
+		
+		this.addDisPropEditableAttribute("04#" + VAR_METADIRECTEDGETYPE);
+		this.addDisPropVisibleAttribute("04#" + VAR_METADIRECTEDGETYPE);
+		
+		this.addDisPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METADIRECTEDGETYPE+"#==#"+"generalConstraint");
+		this.addDisPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METADIRECTEDGETYPE+"#==#"+"generalConstraint");
 	}
 
 	public void setSemanticRelation(String identifier,
