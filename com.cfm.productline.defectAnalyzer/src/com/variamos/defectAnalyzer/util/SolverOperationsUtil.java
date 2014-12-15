@@ -26,8 +26,7 @@ public class SolverOperationsUtil {
 	}
 
 	public boolean isSatisfiable(String programPath) {
-		solver.isSatisfiable(programPath);
-		throw new TechnicalException("Undefined Prolog Editor");
+		return solver.isSatisfiable(programPath);
 
 	}
 
