@@ -7,6 +7,7 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
@@ -51,7 +52,7 @@ public class GreaterOrEqualsBooleanTransformation extends AbstractBooleanTransfo
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		
-		return f.greaterOrEqualsThan( (Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.greaterOrEqualsThan( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
 
 }

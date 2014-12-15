@@ -50,7 +50,7 @@ public class OrBooleanTransformation extends AbstractBooleanTransformation {
 	@Override
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.and((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.and((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

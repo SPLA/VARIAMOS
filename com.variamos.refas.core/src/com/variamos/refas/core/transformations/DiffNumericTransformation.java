@@ -51,7 +51,7 @@ public class DiffNumericTransformation extends AbstractNumericTransformation {
 	@Override
 	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.diff( (Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.diff( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
 
 }

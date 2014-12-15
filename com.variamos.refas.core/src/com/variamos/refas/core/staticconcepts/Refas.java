@@ -47,7 +47,6 @@ public class Refas extends AbstractModel {
 	 * 
 	 */
 	protected Map<String, Constraint> constraints;
-
 	/**
 	 * 
 	 */
