@@ -166,6 +166,17 @@ public class Refas2Hlcl {
 							.add(new EqualsComparisonTransformation(elm, instAttribute.getIdentifier(), true, transformation7));
 							
 						}
+						if (instAttribute.getIdentifier().equals("Selected")) {
+						// A_Selected  #<=> ( ( ( A_SolverSelected #/\ A_PreferredSelected) #\/ A_ValidationSelected ) #\/ A_SimRequired )
+							AbstractBooleanTransformation transformation8 = new AndBooleanTransformation(elm, elm,
+									"SolverSelected ", "PreferredSelected");
+							AbstractBooleanTransformation transformation9 = new OrBooleanTransformation(elm, elm,
+									"ValidationSelected", "SimRequired");
+							AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(transformation8, transformation9);
+							transformations
+							.add(new EqualsComparisonTransformation(elm, instAttribute.getIdentifier(), true, transformation10));
+							
+						}
 
 					}
 					for (AbstractTransformation transformation : transformations) {
@@ -201,7 +212,15 @@ public class Refas2Hlcl {
 				switch (relationType) {
 
 				case preferred:
-					// TODO
+					//( ( A_Satisfied #/\ B_Satisfied ) #/\ A_PreferredSelected ) #==> ( B_PreferredSelected #=1 #/\ A_PreferredSelected #= 0 ) 
+					AbstractBooleanTransformation transformation8 = new AndBooleanTransformation(elm.getFromRelation(), elm.getToRelation(),
+							"SolverSelected ", "PreferredSelected");
+					AbstractBooleanTransformation transformation9 = new OrBooleanTransformation(elm.getFromRelation(), elm.getToRelation(),
+							"ValidationSelected", "SimRequired");
+			/*		AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(transformation8, transformation9);
+					transformations
+					.add(new EqualsComparisonTransformation(elm, "", true, transformation10));
+			*/		// TODO
 					break;
 				case required:
 					transformations.add(new ImplicationBooleanTransformation(
