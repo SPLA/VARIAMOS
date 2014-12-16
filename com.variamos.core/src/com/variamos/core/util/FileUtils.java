@@ -1,16 +1,19 @@
 package com.variamos.core.util;
 
-
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.core.exceptions.TechnicalException;
+
 /**
  * Clase utilitaria para manejo de archivos y directorios
+ * 
  * @author Luisa Rincon <lufe089@gmail.com>
  *
  */
@@ -34,11 +37,10 @@ public class FileUtils {
 		return fileList;
 
 	}
-	
-	
-	
+
 	/**
 	 * Lee los directorios de una lista de directorios
+	 * 
 	 * @param directoryPath
 	 * @return
 	 */
@@ -63,14 +65,30 @@ public class FileUtils {
 	 */
 	public static void writeFile(String path, String constraintProgram) {
 		try {
+
 			FileWriter fw = new FileWriter(path);
 			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter salida = new PrintWriter(bw);
-			salida.println(constraintProgram);
-			salida.close();
+			PrintWriter out = new PrintWriter(bw);
+			out.println(constraintProgram);
+			out.close();
 		} catch (java.io.IOException ioex) {
-			System.out.println("se presento el error: " + ioex.toString());
+			throw new TechnicalException(ioex);
 		}
 	}
 
+	/**
+	 * Write to disk an input File
+	 * 
+	 * @param constraintProgram
+	 * @throws IOException
+	 */
+	public static String writePrologFile(File file, String constraintProgram)
+			throws TechnicalException {
+
+		// Se guarda la representación en el archivo temporal de prolog
+		FileUtils.writeFile(file.getAbsolutePath(), constraintProgram);
+		return file.getAbsolutePath();
+		
+
+	}
 }
