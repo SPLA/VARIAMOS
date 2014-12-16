@@ -279,4 +279,9 @@ public abstract class AbstractTransformation {
 
 		return out;
 	}
+
+	public AbstractTransformation transformationNegation() {
+		// TODO define as abstract and implement in all classes
+		return null;
+	}
 }

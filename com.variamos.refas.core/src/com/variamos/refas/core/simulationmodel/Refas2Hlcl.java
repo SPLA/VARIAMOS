@@ -100,6 +100,7 @@ public class Refas2Hlcl {
 	private HlclProgram vertexExpressions(Refas refas,
 			Map<String, Identifier> idMap) {
 		HlclProgram prog = new HlclProgram();
+		List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
 		for (InstVertex elm : refas.getVariabilityVertexCollection()) {
 			if (elm instanceof InstConcept) { // TODO not required if the method
 												// returns InstConcepts
@@ -107,7 +108,7 @@ public class Refas2Hlcl {
 
 				MetaConcept metaConcept = instConcept.getMetaConcept();
 				if (metaConcept != null) {
-					List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
+					
 					for (InstAttribute instAttribute : instConcept
 							.getInstAttributesCollection()) {
 						// A_SimAllowed #= A_Allowed
@@ -249,21 +250,22 @@ public class Refas2Hlcl {
 						}
 
 					}
-					for (AbstractTransformation transformation : transformations) {
-						idMap.putAll(transformation.getIndentifiers(f));
-						if (transformation instanceof AbstractBooleanTransformation)
-							prog.add(((AbstractBooleanTransformation) transformation)
-									.transform(f, idMap));
-						else
-							prog.add(((AbstractComparisonTransformation) transformation)
-									.transform(f, idMap));
-					}
 
 				}
 
 			}
 
 		}
+		for (AbstractTransformation transformation : transformations) {
+			idMap.putAll(transformation.getIndentifiers(f));
+			if (transformation instanceof AbstractBooleanTransformation)
+				prog.add(((AbstractBooleanTransformation) transformation)
+						.transform(f, idMap));
+			else
+				prog.add(((AbstractComparisonTransformation) transformation)
+						.transform(f, idMap));
+		}
+
 		return prog;
 	}
 
