@@ -9,7 +9,7 @@ import com.cfm.hlcl.BooleanExpression;
 public class ConfigurationOptions {
 	private ConfigurationMode mode;
 	private List<String> additionalConstraints;
-	 
+
 	private List<BooleanExpression> additionalConstraintExpressions;
 	
 

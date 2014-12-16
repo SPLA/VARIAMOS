@@ -11,13 +11,10 @@ import jpl.Compound;
 import jpl.Query;
 import jpl.Variable;
 
-import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.productLine.Pl2Hlcl;
 import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
-import com.cfm.productline.prologEditors.PrologTransformParameters;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.core.util.FileUtils;
 

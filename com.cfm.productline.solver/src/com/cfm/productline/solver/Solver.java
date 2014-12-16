@@ -21,7 +21,7 @@ public interface Solver {
 	
 
 	public Configuration getSolution();
-	@Deprecated
+	
 	public void nextSolution();
 	
 	@Deprecated
