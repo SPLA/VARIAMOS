@@ -11,7 +11,15 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+/**
+ * Class to create the Or expression. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 public class OrBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#\\/";
 	
@@ -47,10 +55,12 @@ public class OrBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
+	public OrBooleanTransformation() {
+	}
 	@Override
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.and((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+		return f.or((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

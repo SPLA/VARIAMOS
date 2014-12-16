@@ -6,7 +6,15 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
-
+/**
+ * Class to create the Literal expression. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 public class LiteralBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "";
 	private String expression;

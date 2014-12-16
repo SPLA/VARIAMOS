@@ -13,7 +13,15 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractComparisonTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+/**
+ * Class to create the Equals expression. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-14
+ */
 public class EqualsComparisonTransformation extends AbstractComparisonTransformation {
 	private static final String TRANSFORMATION = "#=";
 	
@@ -52,8 +60,8 @@ public class EqualsComparisonTransformation extends AbstractComparisonTransforma
 	@Override
 	public ComparisonExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-	//	return f.equals( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
-		return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+		return f.equals( (Expression)expressionTerms.get(0), (Expression)expressionTerms.get(1));
+	//	return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

@@ -8,6 +8,15 @@ import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+/**
+ * Abstract  Class to group the NUmericTranformation. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 public abstract class AbstractNumericTransformation extends AbstractTransformation {
 
 	public AbstractNumericTransformation() {

@@ -72,7 +72,7 @@ public class SemanticGroupDependency extends AbstractSemanticVertex implements
 
 		putSemanticAttribute(VAR_CARDINALITYTYPE, new SemanticAttribute(
 				VAR_CARDINALITYTYPE, "Enumeration", true, VAR_CARDINALITYTYPENAME, VAR_CARDINALITYTYPECLASS 
-				, "mandatory", "")); 
+				, "and", "")); 
 		putSemanticAttribute(VAR_LOWCARDINALITY, new SemanticAttribute(
 				VAR_LOWCARDINALITY, "Integer", false, VAR_LOWCARDINALITY, 1, ""));
 		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(

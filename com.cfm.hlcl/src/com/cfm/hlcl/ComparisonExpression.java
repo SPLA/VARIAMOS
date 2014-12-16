@@ -2,14 +2,14 @@ package com.cfm.hlcl;
 
 public class ComparisonExpression implements BooleanExpression{
 	
-	protected NumericExpression left, right;
+	protected Expression left, right;
 	protected ComparisonType type;
 	
 	protected ComparisonExpression() {
 		super();
 	}
 	
-	protected ComparisonExpression(NumericExpression left, NumericExpression right,
+	protected ComparisonExpression(Expression left, Expression right,
 			ComparisonType type) {
 		super();
 		this.left = left;
@@ -17,13 +17,13 @@ public class ComparisonExpression implements BooleanExpression{
 		this.type = type;
 	}
 	
-	public NumericExpression getLeft() {
+	public Expression getLeft() {
 		return left;
 	}
-	public void setLeft(NumericExpression left) {
+	public void setLeft(Expression left) {
 		this.left = left;
 	}
-	public NumericExpression getRight() {
+	public Expression getRight() {
 		return right;
 	}
 	public void setRight(NumericOperation right) {
