@@ -62,5 +62,12 @@ public class GreaterOrEqualsBooleanTransformation extends AbstractBooleanTransfo
 		
 		return f.greaterOrEqualsThan( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
+	
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
+		
+		return f.lessThan( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
+	}
 
 }

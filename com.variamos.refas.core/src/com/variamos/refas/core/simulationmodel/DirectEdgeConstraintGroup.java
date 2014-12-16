@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
@@ -48,10 +49,11 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 	 * @param source
 	 * @param target
 	 */
-	public DirectEdgeConstraintGroup(String identifier, String description, Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			DirectEdgeType directEdgeType, InstEdge instEdge) {
-		super(identifier, description, idMap, hlclFactory);
-		this.directEdgeType = directEdgeType;
+	public DirectEdgeConstraintGroup(String identifier, Map<String, Identifier> idMap, HlclFactory hlclFactory,
+			InstEdge instEdge) {
+		super(identifier,  mxResources.get("defect-pairrelations1") + " "
+				+ instEdge.getFromRelation().getIdentifier() + mxResources.get("defect-pairrelations1") + " "
+				+ instEdge.getToRelation().getIdentifier() + mxResources.get("defect-pairrelations1") + " ", idMap, hlclFactory);		
 		this.instEdge = instEdge;
 		defineTransformations();
 	}
@@ -72,13 +74,13 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 		if (metaEdge != null
 				&& instEdge.getInstAttribute(MetaDirectRelation.VAR_METADIRECTEDGETYPE) != null
 				&& !(instEdge.getToRelation() instanceof InstGroupDependency)) {
-			DirectEdgeType relationType = DirectEdgeType
+			directEdgeType = DirectEdgeType
 					.valueOf(((String) instEdge.getInstAttribute(
 							MetaDirectRelation.VAR_METADIRECTEDGETYPE)
 							.getValue()).trim().replace(" ", "_"));
-			
+			setDescription( getDescription() + directEdgeType);
 			Set<String> sourceAttributeNames = new HashSet<String>();
-			switch (relationType) {
+			switch (directEdgeType) {
 
 			case preferred:
 				sourceAttributeNames.add("Satisfied"); // TODO fix, only

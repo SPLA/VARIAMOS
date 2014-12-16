@@ -1,25 +1,34 @@
 package com.variamos.refas.core.simulationmodel;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.mxgraph.util.mxResources;
+import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
+import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
+import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
+import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.refas.core.types.GroupRelationType;
 import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
+import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
@@ -37,11 +46,11 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */
-	private GroupRelationType groupRelationType;
+	private CardinalityType relationType;
 	/**
 	 * The source edge for the constraint
 	 */
-	private InstEdge instEdge;
+	private InstGroupDependency instGroupDependency;
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -51,204 +60,188 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	 * @param source
 	 * @param target
 	 */
-	public GroupDependencyConstraintGroup(String identifier, String description, Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			GroupRelationType groupRelationType, InstEdge instEdge) {
-		super(identifier, description, idMap, hlclFactory);
-		this.groupRelationType = groupRelationType;
-		this.instEdge = instEdge;
+	public GroupDependencyConstraintGroup(String identifier, Map<String, Identifier> idMap, HlclFactory hlclFactory,
+			InstGroupDependency instGroupDependency) {
+		super(identifier, mxResources.get("defect-concept")+" "+identifier, idMap, hlclFactory);		
+		this.instGroupDependency = instGroupDependency;
 		defineTransformations();
 	}
 
-	public GroupRelationType getGroupRelationType() {
-		return groupRelationType;
+	public CardinalityType getCardinalityType() {
+		return relationType;
 	}
 
-	public InstEdge getInstEdge() {
-		return instEdge;
+	public InstGroupDependency getInstEdge() {
+		return instGroupDependency;
 	}
 
 	
 	private void defineTransformations()
 	{
 
+		MetaGroupDependency metaGroupDep = instGroupDependency.getMetaGroupDependency();
+		if (metaGroupDep != null
+				&& instGroupDependency.getInstAttribute(SemanticGroupDependency.VAR_CARDINALITYTYPE) != null) {
+			relationType = CardinalityType.valueOf(((String) instGroupDependency.getInstAttribute(
+							SemanticGroupDependency.VAR_CARDINALITYTYPE)
+							.getValue()).trim());
+			//System.out.println(relationType);
+			List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
 
-		MetaEdge metaEdge = instEdge.getMetaEdge();
-		if (metaEdge != null
-				&& instEdge.getInstAttribute(MetaDirectRelation.VAR_METADIRECTEDGETYPE) != null
-				&& !(instEdge.getToRelation() instanceof InstGroupDependency)) {
-			DirectEdgeType relationType = DirectEdgeType
-					.valueOf(((String) instEdge.getInstAttribute(
-							MetaDirectRelation.VAR_METADIRECTEDGETYPE)
-							.getValue()).trim().replace(" ", "_"));
+			for (String sourceName : instGroupDependency.getSourceAttributeNames()) {
+			AbstractTransformation abstractTransformation = null;
 
-			List<AbstractBooleanTransformation> transformations = new ArrayList<AbstractBooleanTransformation>();
-			Set<String> sourceAttributeNames = new HashSet<String>();
-			switch (relationType) {
+			List<InstEdge> md = instGroupDependency.getSourceRelations();
+			Iterator<InstEdge> instEdges1 = instGroupDependency.getSourceRelations()
+						.iterator();
+				AbstractTransformation recursiveExpression1 = null;
+				AbstractTransformation recursiveExpression2 = null;
+				instEdges1.next(); // TODO eliminate duplicated edges from
+									// collection and remove this line
+				InstEdge left1 = instEdges1.next();
+				switch (relationType) {
 
-			case preferred:
-				sourceAttributeNames.add("Satisfied"); // TODO fix, only
-														// shows the second
-														// attribute
-				sourceAttributeNames.add("PreferredSelected");
-				// ( ( A_Satisfied #/\ B_Satisfied ) #/\ A_PreferredSelected
-				// ) #==> ( (B_PreferredSelected #=1) #/\
-				// (A_PreferredSelected #= 0) )
-				AbstractBooleanTransformation transformation1 = new AndBooleanTransformation(
-						instEdge.getFromRelation(), instEdge.getToRelation(),
-						"Satisfied", "Satisfied");
-				AbstractBooleanTransformation transformation2 = new AndBooleanTransformation(
-						instEdge.getFromRelation(), "PreferredSelected", false,
-						transformation1);
+				case and:
+					abstractTransformation = new AndBooleanTransformation();
+					break;
+				case or:
+					abstractTransformation = new OrBooleanTransformation();
+					break;
+				case mutex:
+					abstractTransformation = new SumNumericTransformation();
 
-				AbstractBooleanTransformation transformation3 = new AssignBooleanTransformation(
-						instEdge.getToRelation(), "PreferredSelected",
-						getHlclFactory().number(1));
-				AbstractBooleanTransformation transformation4 = new AssignBooleanTransformation(
-						instEdge.getFromRelation(), "PreferredSelected",
-						getHlclFactory().number(0));
+					break;
+				case range:
+					abstractTransformation = new SumNumericTransformation();
+					Iterator<InstEdge> instEdges2 = instGroupDependency
+							.getSourceRelations().iterator();
+					instEdges2.next(); // TODO eliminate duplicated edges
+										// from collection and remove this
+										// line
+					InstEdge left2 = instEdges2.next();
+					Constructor<?> constructor3 = null,
+					constructor4 = null;
+					try {
+						constructor3 = abstractTransformation.getClass()
+								.getConstructor(InstVertex.class,
+										String.class, Boolean.TYPE,
+										AbstractTransformation.class);
+						constructor4 = abstractTransformation.getClass()
+								.getConstructor(InstVertex.class,
+										InstVertex.class, String.class,
+										String.class);
+					} catch (NoSuchMethodException | SecurityException e) {
+						e.printStackTrace();
+					}
 
-				AbstractBooleanTransformation transformation5 = new AndBooleanTransformation(
-						transformation3, transformation4);
+					recursiveExpression2 = transformation(constructor3,
+							constructor4, instEdges2, left2, sourceName);
+					break;
 
-				transformations.add(new ImplicationBooleanTransformation(
-						transformation2, transformation5));
+				default:
+					break;
+				}
 
-				break;
-			case required:
-				sourceAttributeNames.add("Selected");
-				// (( 1 - A_Selected) + B_Selected) #>= 1
-				AbstractNumericTransformation transformation6 = new DiffNumericTransformation(
-						instEdge.getFromRelation(), "Selected", false,
-						getHlclFactory().number(1));
-				AbstractNumericTransformation transformation7 = new SumNumericTransformation(
-						instEdge.getToRelation(), "Selected", false,
-						transformation6);
-				transformations
-						.add(new GreaterOrEqualsBooleanTransformation(
-								transformation7,
-								new NumberNumericTransformation(1)));
-				break;
-			case conflict:
-				sourceAttributeNames.add("Selected");
-				// A_Selected #==> B_ValidationSelected #= 0
-				AbstractBooleanTransformation transformation8 = new AssignBooleanTransformation(
-						instEdge.getToRelation(), "ValidationSelected",
-						getHlclFactory().number(0));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Selected", true,
-						transformation8));
+				Constructor<?> constructor1 = null, constructor2 = null;
+				try {
+					constructor1 = abstractTransformation.getClass()
+						.getConstructor(InstVertex.class, String.class,
+									Boolean.TYPE,
+									AbstractTransformation.class);
+					constructor2 = abstractTransformation.getClass()
+							.getConstructor(InstVertex.class,
+									InstVertex.class, String.class,
+									String.class);
+				} catch (NoSuchMethodException | SecurityException e) {
+					e.printStackTrace();
+				}
 
-				// B_Selected #==> A_ValidationSelected #= 0
-				AbstractBooleanTransformation transformation9 = new AssignBooleanTransformation(
-						instEdge.getFromRelation(), "ValidationSelected",
-						getHlclFactory().number(0));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation9));
-				// TODO to validation expressions missing
-				break;
-			case alternative:
-				sourceAttributeNames.add("Satisfied");
-				sourceAttributeNames.add("Selected");
-				// ( ( ( 1 - A_Satisfied ) #/\ B_Satisfied ) #/\ A_Selected
-				// ) ) #==> ( A_AlternativeSatisfied #= 1 #/\
-				// B_ValidationSelected #= 1 )
-				AbstractBooleanTransformation transformation10 = new NotBooleanTransformation(
-						instEdge.getFromRelation(), "Satisfied");
-				AbstractBooleanTransformation transformation11 = new AndBooleanTransformation(
-						instEdge.getToRelation(), "Satisfied", false,
-						transformation10);
-				AbstractBooleanTransformation transformation12 = new AndBooleanTransformation(
-						instEdge.getFromRelation(), "Selected", false,
-						transformation11);
-				AbstractBooleanTransformation transformation13 = new AssignBooleanTransformation(
-						instEdge.getFromRelation(), "AlternativeSatisfied",
-						getHlclFactory().number(1));
-				AbstractBooleanTransformation transformation14 = new AssignBooleanTransformation(
-						instEdge.getToRelation(), "ValidationSelected",
-						getHlclFactory().number(1));
-				AbstractBooleanTransformation transformation15 = new AndBooleanTransformation(
-						transformation13, transformation14);
-				transformations.add(new ImplicationBooleanTransformation(
-						transformation12, transformation15));
-				break;
-			case means_ends:
-			case implication:
-				sourceAttributeNames.add("Satisfied");
-				// A_Satisfied #==> B_ValidationSatisfied #= 1
-				AbstractBooleanTransformation transformation16 = new AssignBooleanTransformation(
-						instEdge.getToRelation(), "ValidationSatisfied",
-						getHlclFactory().number(1));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Satisfied", true,
-						transformation16));
-				// No break to include the following transformation
-			case implementation:
-				// B_Selected #==> A_ValidationSelected #= 1
-				AbstractBooleanTransformation transformation18 = new AssignBooleanTransformation(
-						instEdge.getFromRelation(), "ValidationSelected",
-						getHlclFactory().number(1));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation18));
-				break;
-			case mandatory:
-				sourceAttributeNames.add("Selected");
-				// A_Selected #==> B_ValidationSelected #=1
-				AbstractBooleanTransformation transformation19 = new AssignBooleanTransformation(
-						instEdge.getToRelation(), "ValidationSelected",
-						getHlclFactory().number(1));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Selected", true,
-						transformation19));
-				// B_Selected #==> A_ValidationSelected #=1
-				AbstractBooleanTransformation transformation20 = new AssignBooleanTransformation(
-						instEdge.getFromRelation(), "ValidationSelected",
-						getHlclFactory().number(1));
-				transformations.add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation20));
-				break;
-			case optional:
-				sourceAttributeNames.add("Selected");
-				// A_Selected #>= B_Selected
-				transformations
-						.add(new GreaterOrEqualsBooleanTransformation(instEdge
-								.getFromRelation(), instEdge.getToRelation(),
-								"Selected", "Selected"));
+				switch (relationType) {
 
-				// B_Optional #= 1
-				transformations.add(new AssignBooleanTransformation(instEdge
-						.getToRelation(), "Optional", getHlclFactory().number(1)));
+				case and:
+					//B_Satisfied #<=>  ( ( A1_"attribute" #/\ A2_"attribute" ) #/\ ... )
+				case or:
+					//B_Satisfied #<=>  ( ( A1_"attribute" #\/ A2_"attribute" ) #\/ ... )
+					recursiveExpression1 = transformation(constructor1,
+							constructor2, instEdges1, left1, sourceName);
+					transformations
+							.add(new EqualsComparisonTransformation(instGroupDependency
+									.getTargetRelations().get(0)
+									.getToRelation(), sourceName, true,
+									recursiveExpression1));
+					break;
+				case mutex:
+					//B_Satisfied #<=>  (( ( A1_"attribute" + A2_"attribute" ) + ... ) #<=> 1)
+					recursiveExpression1 = transformation(constructor1,
+							constructor2, instEdges1, left1, sourceName);
+					AbstractTransformation transformation1 = new EqualsComparisonTransformation(
+							recursiveExpression1,
+							new NumberNumericTransformation(1));
+					transformations
+					.add(new EqualsComparisonTransformation(
+							instGroupDependency.getTargetRelations().get(0).getToRelation(),
+							sourceName, true, transformation1));
 
-				break;
-			case claim:
-				// A_Claim #<=> A_Opers #/\ A_CompExp #==> B_SatisfiedLevel
-				// #= R_level
-				// TODO implement
+					break;
+				case range:
+					
+					//B_Satisfied #<=>  ( ( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
+					//( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #<= GD_HighCardinality ) )
+					recursiveExpression1 = transformation(constructor1,
+							constructor2, instEdges1, left1, sourceName);
+					AbstractTransformation transformation3 = new GreaterOrEqualsBooleanTransformation(
+							instGroupDependency,
+							"lowCardinality", false, recursiveExpression1);
 
-				break;
-			case softdependency:
-				// A_SD #<=> A_CompExp #==> B_ValidationRequiredLevel #=
-				// R_level
+					AbstractTransformation transformation4 = new GreaterOrEqualsBooleanTransformation(
+							instGroupDependency,
+							"highCardinality", false, recursiveExpression2);
 
-				// TODO implement
+					AbstractTransformation transformation5  = new AndBooleanTransformation(
+							transformation3, transformation4);
 
-				break;
-			case generalConstraint:
-				break;
-			case group:
-				break;
-			case none:
-				break;
-			}
-			InstVertex instVertex = instEdge.getFromRelation();
-			if (instVertex instanceof InstGroupDependency) {
-				((InstGroupDependency) instVertex)
-						.clearSourceAttributeNames();
-				((InstGroupDependency) instVertex)
-						.addSourceAttributeNames(sourceAttributeNames);
+					transformations
+					.add( new EqualsComparisonTransformation(
+							instGroupDependency.getTargetRelations().get(0).getToRelation(),
+							sourceName, true, transformation5));
+
+					break;
+
+				default:
+					break;
+				}
+
 			}
 		}
+	}
+	private AbstractTransformation transformation(Constructor<?> constructor1,
+			Constructor<?> constructor2, Iterator<InstEdge> instEdges,
+			InstEdge left, String sourceName) {
+		instEdges.next(); // TODO eliminate duplicated edges from collection and
+							// remove this line
+		InstEdge instEdge = instEdges.next();
+
+		if (instEdges.hasNext()) {
+			try {
+				return (AbstractTransformation) constructor1.newInstance(
+						left.getFromRelation(),
+						sourceName,
+						true,
+						transformation(constructor1, constructor2, instEdges,
+								instEdge, sourceName));
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		} else
+			try {
+				return (AbstractTransformation) constructor2.newInstance(
+						left.getFromRelation(), instEdge.getFromRelation(),
+						sourceName, sourceName);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		return null;
 	}
 }

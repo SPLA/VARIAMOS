@@ -2,6 +2,7 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.util.Map;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
@@ -43,8 +44,14 @@ public abstract class AbstractNumericTransformation extends AbstractTransformati
 
 	public AbstractNumericTransformation(InstVertex vertex,
 			String attributeName, boolean replaceTarget,
-			Expression comparativeExpression) {
-		super(vertex, attributeName, replaceTarget, comparativeExpression);
+			BooleanExpression booleanExpression) {
+		super(vertex, attributeName, replaceTarget, booleanExpression);
+	}
+	
+	public AbstractNumericTransformation(InstVertex vertex,
+			String attributeName, boolean replaceTarget,
+			NumericExpression numericExpression) {
+		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
 	public abstract NumericExpression transform(HlclFactory f,

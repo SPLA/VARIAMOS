@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cfm.hlcl.BooleanExpression;
+import com.cfm.hlcl.ComparisonExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
@@ -34,7 +35,7 @@ public class AndBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public AndBooleanTransformation(InstVertex vertex,
+/*	public AndBooleanTransformation(InstVertex vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
@@ -47,7 +48,7 @@ public class AndBooleanTransformation extends AbstractBooleanTransformation {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-
+*/
 	public AndBooleanTransformation(
 			AbstractTransformation leftSubExpression,
 			AbstractTransformation rightSubExpression) {
@@ -61,6 +62,11 @@ public class AndBooleanTransformation extends AbstractBooleanTransformation {
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.and((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+	}
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, true, true);
+		return f.or( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

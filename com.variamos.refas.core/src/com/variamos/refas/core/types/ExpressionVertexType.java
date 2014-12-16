@@ -10,5 +10,5 @@ package com.variamos.refas.core.types;
  * @since 2014-12-14
  */
 public enum ExpressionVertexType {
-	left, right, leftComparativeExpressionValue,rightComparativeExpressionValue, leftSubexpression, rightSubexpression
+	LEFT, RIGHT, LEFTBOOLEANEXPRESSIONVALUE,RIGHTBOOLEANEXPRESSIONVALUE,LEFTNUMERICEXPRESSIONVALUE,RIGHTNUMERICEXPRESSIONVALUE, LEFTSUBEXPRESSION, RIGHTSUBEXPRESSION
 }

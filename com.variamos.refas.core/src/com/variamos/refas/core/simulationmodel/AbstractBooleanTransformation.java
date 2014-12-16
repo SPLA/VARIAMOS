@@ -6,6 +6,7 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -43,8 +44,14 @@ public abstract class AbstractBooleanTransformation extends
 
 	public AbstractBooleanTransformation(InstVertex vertex,
 			String attributeName, boolean replaceTarget,
-			Expression comparativeExpression) {
-		super(vertex, attributeName, replaceTarget, comparativeExpression);
+			BooleanExpression booleanExpression) {
+		super(vertex, attributeName, replaceTarget, booleanExpression);
+	}
+	
+	public AbstractBooleanTransformation(InstVertex vertex,
+			String attributeName, boolean replaceTarget,
+			NumericExpression numericExpression) {
+		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
 	public AbstractBooleanTransformation(InstVertex left,
@@ -54,5 +61,8 @@ public abstract class AbstractBooleanTransformation extends
 
 	public abstract BooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
+	
+	public abstract Expression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight);
 
 }

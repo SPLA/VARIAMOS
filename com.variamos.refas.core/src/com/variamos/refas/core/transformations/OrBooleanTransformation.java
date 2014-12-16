@@ -62,5 +62,12 @@ public class OrBooleanTransformation extends AbstractBooleanTransformation {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.or((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
+	
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, true, true);
+		return f.and((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+	}
+
 
 }

@@ -429,7 +429,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 				if (cell.getValue() instanceof EditableElement) {
 					EditableElement elm = (EditableElement) cell.getValue();
-					editPropertiesE(elm);
+					editPropertiesRefas(elm);
 					getGraphComponent().scrollCellToVisible(cell, true);
 				}
 			}
@@ -516,11 +516,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		configurator = new ConfiguratorPanel();
 		if (getPerspective() >1)
 		{
-		JButton test = new JButton();
+		JButton test = new JButton("Execute Simulation");
 		configurator.add(test);
 		test.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Refas2Hlcl((Refas)getEditedModel());
+				Refas2Hlcl refas2hlcl = new Refas2Hlcl((Refas)getEditedModel());
+				messagesArea.setText(refas2hlcl.getText());
+				bringUpTab(mxResources.get("messagesTab"));
 			}
 		});
 		}
@@ -689,13 +691,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	// jcmunoz: new method for REFAS
-	public void editPropertiesE(final EditableElement elm) {
+	public void editPropertiesRefas(final EditableElement elm) {
 		designPropertiesPanel.removeAll();
 		configPropertiesPanel.removeAll();
 		simPropertiesPanel.removeAll();
 
 		if (elm == null) {
-			bringUpTab("Properties");
+			bringUpTab(mxResources.get("disPropertiesTab"));
 			designPropertiesPanel.repaint();
 			return;
 		}
@@ -817,7 +819,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					JButton button = new JButton("Validate");
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							editPropertiesE(elm);
+							editPropertiesRefas(elm);
 						}
 					});
 					simulationPanel.add(button);
@@ -833,7 +835,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					JButton button = new JButton("Validate");
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							editPropertiesE(elm);
+							editPropertiesRefas(elm);
 						}
 					});
 					configurationPanel.add(button);
@@ -853,7 +855,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						JButton button = new JButton("Validate");
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								editPropertiesE(elm);
+								editPropertiesRefas(elm);
 							}
 						});
 						designPanel.add(button);
@@ -914,12 +916,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			attPanel.addFocusListener(new FocusListener() {
 				@Override
 				public void focusLost(FocusEvent arg0) {
-					editPropertiesE(elm);
+					editPropertiesRefas(elm);
 				}
 
 				@Override
 				public void focusGained(FocusEvent arg0) {
-					editPropertiesE(elm);
+					editPropertiesRefas(elm);
 				}
 			});
 			attPanel.setPreferredSize(new Dimension(150, 80));

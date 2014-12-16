@@ -39,5 +39,11 @@ public class NotBooleanTransformation extends AbstractBooleanTransformation {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.not((Identifier) expressionTerms.get(0));
 	}
+	
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTerms(f, idMap);
+		return (Identifier) expressionTerms.get(0);
+	}
 
 }

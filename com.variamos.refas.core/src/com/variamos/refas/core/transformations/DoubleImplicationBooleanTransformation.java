@@ -7,6 +7,7 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
@@ -37,7 +38,14 @@ public class DoubleImplicationBooleanTransformation extends AbstractBooleanTrans
 
 	public DoubleImplicationBooleanTransformation(InstVertex vertex,
 			String attributeName, boolean replaceTarget,
-			Expression comparativeExpression) {
+			BooleanExpression comparativeExpression) {
+		super(vertex, attributeName, replaceTarget, comparativeExpression);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	
+	public DoubleImplicationBooleanTransformation(InstVertex vertex,
+			String attributeName, boolean replaceTarget,
+			NumericExpression comparativeExpression) {
 		super(vertex, attributeName, replaceTarget, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
@@ -58,6 +66,14 @@ public class DoubleImplicationBooleanTransformation extends AbstractBooleanTrans
 			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.doubleImplies((BooleanExpression) expressionTerms.get(0),
+				(BooleanExpression) expressionTerms.get(1));
+	}
+	
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
+		return f.notEquals((BooleanExpression) expressionTerms.get(0),
 				(BooleanExpression) expressionTerms.get(1));
 	}
 }
