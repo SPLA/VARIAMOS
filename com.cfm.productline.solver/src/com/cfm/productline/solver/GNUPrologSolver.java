@@ -384,4 +384,11 @@ public class GNUPrologSolver implements Solver {
 		return false;
 	}
 
+	@Override
+	public void setHLCLProgram(HlclProgram hlclProgram) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
