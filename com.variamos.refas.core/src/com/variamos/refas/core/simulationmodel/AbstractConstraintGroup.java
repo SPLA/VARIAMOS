@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
@@ -18,6 +19,10 @@ import com.cfm.hlcl.Identifier;
  * @since 2014-12-13
  */
 public abstract class AbstractConstraintGroup {
+
+	protected void setDescription(String description) {
+		this.description = description;
+	}
 
 	/**
 	 * Identifier of the contraint: InstEdge Identifier
@@ -89,16 +94,26 @@ public abstract class AbstractConstraintGroup {
 	}
 
 
-	public List<AbstractTransformation> getTransformations() {
+	protected List<AbstractTransformation> getTransformations() {
 		return transformations;
 	}
 
-	public List<AbstractTransformation> getTransformationNegations()
-	{
-		List<AbstractTransformation> out = new ArrayList<AbstractTransformation>();
+	public List<Expression> getExpressions() {
+		List<Expression> out = new ArrayList<Expression>();
 		for (AbstractTransformation transformation : transformations) {
 			idMap.putAll(transformation.getIndentifiers(hlclFactory));
-				out.add(transformation.transformationNegation());
+				out.add(transformation.transform(hlclFactory, idMap));
+		}
+		return out;
+	}
+
+	public List<Expression> getExpressionsNegations()
+	{
+		List<Expression> out = new ArrayList<Expression>();
+		for (AbstractTransformation transformation : transformations) {
+			idMap.putAll(transformation.getIndentifiers(hlclFactory));
+			if (transformation instanceof AbstractBooleanTransformation)
+				out.add(((AbstractBooleanTransformation)transformation).transformNegation(hlclFactory, idMap, false, true));
 		}
 		return out;
 	}

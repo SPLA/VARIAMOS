@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
@@ -37,6 +38,14 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  * @since 2014-12-16
  */
 public class RestrictionConstraint extends AbstractConstraintGroup {
+
+	static {
+		try {
+			mxResources.add("com/variamos/gui/maineditor/resources/editor");
+		} catch (Exception e) {
+			// ignore
+		}
+	}
 	/**
 	 * The source vertex for the constraint
 	 */
@@ -51,10 +60,10 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 	 * @param source
 	 * @param target
 	 */
-	public RestrictionConstraint(String identifier, String description,
+	public RestrictionConstraint(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstVertex instVertex) {
-		super(identifier, description, idMap, hlclFactory);
+		super(identifier, mxResources.get("defect-concept")+" "+identifier, idMap, hlclFactory);
 		this.instVertex = instVertex;
 		defineTransformations();
 	}

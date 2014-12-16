@@ -7,6 +7,7 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
@@ -37,8 +38,15 @@ public class ImplicationBooleanTransformation extends AbstractBooleanTransformat
 
 	public ImplicationBooleanTransformation(InstVertex vertex,
 			String attributeName, boolean replaceTarget,
-			Expression comparativeExpression) {
-		super(vertex, attributeName, replaceTarget, comparativeExpression);
+			BooleanExpression booleanExpression) {
+		super(vertex, attributeName, replaceTarget, booleanExpression);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+	
+	public ImplicationBooleanTransformation(InstVertex vertex,
+			String attributeName, boolean replaceTarget,
+			NumericExpression numericExpression) {
+		super(vertex, attributeName, replaceTarget, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
@@ -60,4 +68,12 @@ public class ImplicationBooleanTransformation extends AbstractBooleanTransformat
 		return f.implies((BooleanExpression) expressionTerms.get(0),
 				(BooleanExpression) expressionTerms.get(1));
 	}
+
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, true, false);
+		
+		return f.or((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+	}
+
 }

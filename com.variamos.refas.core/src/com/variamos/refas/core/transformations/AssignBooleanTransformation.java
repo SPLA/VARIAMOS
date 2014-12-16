@@ -7,6 +7,7 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
@@ -29,31 +30,39 @@ public class AssignBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, AbstractTransformation subExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName,  AbstractTransformation subExpression)
 	{
 		super(left, attributeName, true, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, BooleanExpression comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName, BooleanExpression comparativeExpression)
 	{
 		super(left, attributeName, true, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName, String leftAttributeName, Identifier comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName,  NumericExpression comparativeExpression)
 	{
 		super(left, attributeName, true, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public AssignBooleanTransformation(InstVertex left, String attributeName,	NumericIdentifier numericIdentifier) {
-		super(left, attributeName, true, numericIdentifier);
+
+	public AssignBooleanTransformation(InstVertex toRelation, String string,
+			NumericIdentifier number) {
+		super(toRelation, string, true, number);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
 	@Override
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
+		return f.assign((Identifier) expressionTerms.get(0), (Expression)expressionTerms.get(1));
+	}
+	
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap,boolean noAssign, boolean valueNegation) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,noAssign,valueNegation);
 		return f.assign((Identifier) expressionTerms.get(0), (Expression)expressionTerms.get(1));
 	}
 

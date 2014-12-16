@@ -33,4 +33,9 @@ public class LiteralBooleanTransformation extends AbstractBooleanTransformation 
 		return f.literalBooleanExpression(expression);
 	}
 
+	@Override
+	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+		return f.not(f.literalBooleanExpression(expression));
+	}
+
 }

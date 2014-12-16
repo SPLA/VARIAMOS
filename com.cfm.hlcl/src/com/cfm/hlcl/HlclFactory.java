@@ -87,9 +87,9 @@ public class HlclFactory {
 		return new ComparisonExpression(left, right, ComparisonType.Equals);
 	}
 	
-	public ComparisonExpression notEquals(NumericExpression left,
-			NumericExpression right) {
-		return new ComparisonExpression(left, right, ComparisonType.NotEquals);
+	public ComparisonExpression notEquals(Expression expression,
+			Expression expression2) {
+		return new ComparisonExpression(expression, expression2, ComparisonType.NotEquals);
 	}
 
 	public BooleanExpression and(BooleanExpression left, BooleanExpression right) {
