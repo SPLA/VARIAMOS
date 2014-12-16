@@ -242,7 +242,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	}
 
 	protected void transformComparison(ComparisonExpression e, StringBuilder out) {
-		transformNumericExpression(e.getLeft(), out);
+		if (e.getLeft() instanceof NumericExpression)
+			transformNumericExpression((NumericExpression)e.getLeft(), out);
+		else
+			transformBooleanExpression((BooleanExpression)e.getLeft(), out);
 		out.append(SPACE);
 		switch (e.getType()) {
 		case Equals:
@@ -265,7 +268,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 			break;
 		}
 		out.append(SPACE);
-		transformNumericExpression(e.getRight(), out);
+		if (e.getLeft() instanceof NumericExpression)
+			transformNumericExpression((NumericExpression)e.getRight(), out);
+		else
+			transformBooleanExpression((BooleanExpression)e.getRight(), out);
 	}
 
 	protected void transformNot(BooleanNegation e, StringBuilder out) {
