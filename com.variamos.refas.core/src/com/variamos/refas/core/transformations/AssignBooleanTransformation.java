@@ -36,15 +36,15 @@ public class AssignBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName, BooleanExpression comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName, BooleanExpression booleanExpression)
 	{
-		super(left, attributeName, true, comparativeExpression);
+		super(left, attributeName, true, booleanExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName,  NumericExpression comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName,  NumericExpression numericExpression)
 	{
-		super(left, attributeName, true, comparativeExpression);
+		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 

@@ -63,7 +63,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 	public RestrictionConstraint(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstVertex instVertex) {
-		super(identifier, mxResources.get("defect-concept")+" "+identifier, idMap, hlclFactory);
+		super(identifier, mxResources.get("defect-concepts")+" "+identifier, idMap, hlclFactory);
 		this.instVertex = instVertex;
 		defineTransformations();
 	}
