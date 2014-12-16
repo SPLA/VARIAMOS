@@ -11,6 +11,15 @@ import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.types.ExpressionVertexType;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+/**
+ * Abstract root Class to group at the Transformation functionality. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-13
+ */
 public abstract class AbstractTransformation {
 	private InstVertex leftVertex;
 	private InstVertex rightVertex;
@@ -97,6 +106,19 @@ public abstract class AbstractTransformation {
 		this.expressionVertexTypes.add(ExpressionVertexType.rightSubexpression);
 	}
 
+	public AbstractTransformation() {
+		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+		expressionConnectors = new ArrayList<String>();
+	}
+
+	public AbstractTransformation(InstVertex vertex, String attributeName) {
+		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+		expressionConnectors = new ArrayList<String>();
+		this.leftVertex = vertex;
+		this.leftAttributeName = attributeName;
+		this.expressionVertexTypes.add(ExpressionVertexType.left);
+	}
+
 	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
@@ -108,9 +130,10 @@ public abstract class AbstractTransformation {
 		}
 		if (rightVertex != null) {
 			out.put(rightVertex
-					.getInstAttributeFullIdentifier(rightAttributeName), f
-					.newIdentifier(rightVertex
-							.getInstAttributeFullIdentifier(rightAttributeName),
+					.getInstAttributeFullIdentifier(rightAttributeName),
+					f.newIdentifier(
+							rightVertex
+									.getInstAttributeFullIdentifier(rightAttributeName),
 							rightAttributeName));
 		}
 		if (leftSubExpression != null) {
@@ -120,11 +143,6 @@ public abstract class AbstractTransformation {
 			out.putAll(rightSubExpression.getIndentifiers(f));
 		}
 		return out;
-	}
-
-	public AbstractTransformation() {
-		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
-		expressionConnectors = new ArrayList<String>();
 	}
 
 	public InstVertex getLeft() {
@@ -233,15 +251,25 @@ public abstract class AbstractTransformation {
 				break;
 			case leftSubexpression:
 				if (leftSubExpression instanceof AbstractBooleanTransformation)
-				out.add(((AbstractBooleanTransformation)leftSubExpression).transform(f, idMap));
+					out.add(((AbstractBooleanTransformation) leftSubExpression)
+							.transform(f, idMap));
+				else if (rightSubExpression instanceof AbstractNumericTransformation)
+					out.add(((AbstractNumericTransformation) leftSubExpression)
+							.transform(f, idMap));
 				else
-					out.add(((AbstractNumericTransformation)leftSubExpression).transform(f, idMap));	
+					out.add(((AbstractNumericTransformation) leftSubExpression)
+							.transform(f, idMap));
 				break;
 			case rightSubexpression:
 				if (rightSubExpression instanceof AbstractBooleanTransformation)
-					out.add(((AbstractBooleanTransformation)rightSubExpression).transform(f, idMap));
-					else
-						out.add(((AbstractNumericTransformation)rightSubExpression).transform(f, idMap));	
+					out.add(((AbstractBooleanTransformation) rightSubExpression)
+							.transform(f, idMap));
+				else if (rightSubExpression instanceof AbstractNumericTransformation)
+					out.add(((AbstractNumericTransformation) rightSubExpression)
+							.transform(f, idMap));
+				else
+					out.add(((AbstractComparisonTransformation) rightSubExpression)
+							.transform(f, idMap));
 				break;
 			default:
 				break;

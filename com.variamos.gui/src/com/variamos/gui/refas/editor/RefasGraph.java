@@ -42,11 +42,13 @@ import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 
@@ -187,16 +189,20 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
-
+		InstVertex source = (InstVertex) cell.getSource().getValue();
+		InstVertex target = (InstVertex) cell.getTarget().getValue();
 		String id = null;
-		HashMap<String, InstAttribute> map= new HashMap<String, InstAttribute>();
+		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 		InstEdge directRelation = new InstEdge(map);
 		Refas refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
-		directRelation.setFromRelation((InstVertex)cell.getSource().getValue());
-		directRelation.setToRelation((InstVertex)cell.getTarget().getValue());
+		source.addTargetRelation(directRelation);
+		target.addSourceRelation(directRelation);
+
+		directRelation.setSourceRelation(source);
+		directRelation.setTargetRelation(target);
 
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		mxGraphModel model = refasGraph;
@@ -230,6 +236,11 @@ public class RefasGraph extends AbstractGraph {
 				elementIdentifier = element.getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
+				if (cellValue instanceof InstGroupDependency)
+					id = pl.addNewInstGroupDependency((InstGroupDependency)element);
+				else if (cellValue instanceof InstEnumeration)
+					id = pl.addNewOtherInstElement(element);
+				else
 				id = pl.addNewVariabilityInstElement(element);
 			}
 
@@ -237,7 +248,7 @@ public class RefasGraph extends AbstractGraph {
 				elementIdentifier = ((Constraint) cellValue).getIdentifier();
 				if (elementIdentifier != null && !"".equals(elementIdentifier))
 					return false;
-			//	id = pl.addConstraint(constraint);
+				// id = pl.addConstraint(constraint);
 			}
 
 			if (id != null) {
@@ -480,14 +491,11 @@ public class RefasGraph extends AbstractGraph {
 
 	public Refas getRefas() {
 		if (refas == null) {
-			 refas = new Refas();
-			 return refas;
+			refas = new Refas();
+			return refas;
 		}
 		return refas;
 	}
-
-
-
 
 	public mxCell getCellById(String id) {
 		return (mxCell) ((mxGraphModel) getModel()).getCell(id);
@@ -587,25 +595,26 @@ public class RefasGraph extends AbstractGraph {
 		if (objCell instanceof mxCell) {
 			mxCell cell = (mxCell) objCell;
 
-			/*if (cell.getValue() instanceof GroupGConstraint) {
-				GroupGConstraint gc = (GroupGConstraint) cell.getValue();
-				if (gc.getParent() == null)
-					return "Needs Parent";
-			}*/
+			/*
+			 * if (cell.getValue() instanceof GroupGConstraint) {
+			 * GroupGConstraint gc = (GroupGConstraint) cell.getValue(); if
+			 * (gc.getParent() == null) return "Needs Parent"; }
+			 */
 
-			/*if ( // TODO evaluate new constraints
-			cell.getValue() instanceof GroupGConstraint
-					|| cell.getValue() instanceof MandatoryConstraint
-					|| cell.getValue() instanceof OptionalConstraint
-					|| cell.getValue() instanceof RequiresConstraint
-					|| cell.getValue() instanceof ExcludesConstraint
-					|| cell.getValue() instanceof GenericConstraint) {
-
-			} else {
-
-				if (cell.getValue() instanceof Constraint)
-					return "Not Implemented Yet";
-			}*/
+			/*
+			 * if ( // TODO evaluate new constraints cell.getValue() instanceof
+			 * GroupGConstraint || cell.getValue() instanceof
+			 * MandatoryConstraint || cell.getValue() instanceof
+			 * OptionalConstraint || cell.getValue() instanceof
+			 * RequiresConstraint || cell.getValue() instanceof
+			 * ExcludesConstraint || cell.getValue() instanceof
+			 * GenericConstraint) {
+			 * 
+			 * } else {
+			 * 
+			 * if (cell.getValue() instanceof Constraint) return
+			 * "Not Implemented Yet"; }
+			 */
 		}
 		return super.validateCell(objCell, context);
 	}
@@ -663,11 +672,11 @@ public class RefasGraph extends AbstractGraph {
 
 		// GroupConstraint
 		// TODO evaluate new group constraints
-	/*	if (cell.getValue() instanceof GroupGConstraint) {
-			GroupGConstraint gc = (GroupGConstraint) cell.getValue();
-			return gc.getCardinalityString();
-		}
-*/
+		/*
+		 * if (cell.getValue() instanceof GroupGConstraint) { GroupGConstraint
+		 * gc = (GroupGConstraint) cell.getValue(); return
+		 * gc.getCardinalityString(); }
+		 */
 		// Optional and mandatory
 		// TODO evaluate new constraints
 		if (cell.getValue() instanceof OptionalConstraint

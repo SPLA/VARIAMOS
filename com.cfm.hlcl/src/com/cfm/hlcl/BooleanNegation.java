@@ -19,4 +19,8 @@ public class BooleanNegation implements BooleanExpression{
 	public void setExpression(BooleanExpression expression) {
 		this.expression = expression;
 	}
+	@Override
+	public String toString() {
+		return "BooleanOperation [expression=" + expression	+ ", operator=" + "negation" + "]";
+	}
 }

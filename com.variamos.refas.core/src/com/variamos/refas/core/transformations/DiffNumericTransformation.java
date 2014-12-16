@@ -12,7 +12,15 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+/**
+ * Class to create the Diff expression. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 public class DiffNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "-";
 	

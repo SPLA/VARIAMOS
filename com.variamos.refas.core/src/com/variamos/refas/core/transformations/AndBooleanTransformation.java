@@ -12,6 +12,14 @@ import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+/**
+ * Class to create the And expression. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 public class AndBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#/\\";
 	
@@ -47,10 +55,12 @@ public class AndBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
+	public AndBooleanTransformation() {
+	}
 	@Override
 	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.and((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.and((BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

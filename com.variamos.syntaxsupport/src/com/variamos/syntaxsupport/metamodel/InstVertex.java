@@ -36,11 +36,11 @@ public abstract class InstVertex implements Serializable, Prototype,
 	/**
 	 * The edges incoming to the vertex
 	 */
-	private Map<String, InstEdge> sourceRelations;
+	private List<InstEdge> sourceRelations;
 	/**
 	 * THe edge outgoing from the vertex
 	 */
-	private Map<String, InstEdge> targetRelations;
+	private List<InstEdge> targetRelations;
 
 	public InstVertex() {
 		this(null, new HashMap<String, InstAttribute>(),
@@ -60,9 +60,9 @@ public abstract class InstVertex implements Serializable, Prototype,
 		vars.put(VAR_IDENTIFIER, identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
 
-		sourceRelations = new HashMap<String, InstEdge>();
+		sourceRelations = new ArrayList<InstEdge>();
 
-		targetRelations = new HashMap<String, InstEdge>();
+		targetRelations = new ArrayList<InstEdge>();
 
 	}
 
@@ -100,20 +100,20 @@ public abstract class InstVertex implements Serializable, Prototype,
 		setVariable(VAR_INSTATTRIBUTES, instAttributes);
 	}
 
-	public Map<String, InstEdge> getTargetRelations() {
+	public List<InstEdge> getTargetRelations() {
 		return targetRelations;
 	}
 
-	public void setTargetRelations(Map<String, InstEdge> targetRelations) {
-		this.targetRelations = targetRelations;
+	public void addTargetRelation(InstEdge target) {
+		this.targetRelations.add(target);
 	}
 	
-	public Map<String, InstEdge> getSourceRelations() {
+	public List<InstEdge> getSourceRelations() {
 		return sourceRelations;
 	}
 
-	public void setSourceRelations(Map<String, InstEdge> targetRelations) {
-		this.sourceRelations = targetRelations;
+	public void addSourceRelation(InstEdge source) {
+		this.sourceRelations.add(source);
 	}
 
 	@SuppressWarnings("unchecked")

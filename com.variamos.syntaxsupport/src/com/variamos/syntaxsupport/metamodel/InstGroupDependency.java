@@ -71,8 +71,7 @@ public class InstGroupDependency extends InstVertex {
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
 
-		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
-		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
+		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
@@ -85,8 +84,7 @@ public class InstGroupDependency extends InstVertex {
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
 
-		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
-		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
+		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 

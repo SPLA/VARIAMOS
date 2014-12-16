@@ -420,7 +420,8 @@ public class SemanticPlusSyntax {
 				semanticHardHardGroupRelation);
 		semHardConcept.addGroupRelation(groupRelation);
 		semanticConcepts.put("HardHardGroupRel", semanticHardHardGroupRelation);
-
+		
+		
 		// required and conflict direct relations of the HardSemanticConcept
 		List<IntDirectEdgeType> requires_conflictsDirectRelation = new ArrayList<IntDirectEdgeType>();
 		requires_conflictsDirectRelation.add(DirectEdgeType.required);
@@ -761,6 +762,102 @@ public class SemanticPlusSyntax {
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
 		syntaxElements.put("Hard GroupDep", syntaxGroupDependency);
+		
+		
+		syntaxGroupDependency.addModelingAttribute("Active",
+				new ConfigurationAttribute("Active", "Boolean", true, "Is Active",
+						true));
+		syntaxGroupDependency.addModelingAttribute("Visibility",
+				new ConfigurationAttribute("Visibility", "Boolean", false,
+						"Is Visible", true));
+		syntaxGroupDependency.addModelingAttribute("Required",
+				new ConfigurationAttribute("Required", "Boolean", true,
+						"Is Required", false));
+		syntaxGroupDependency.addModelingAttribute("Allowed",
+				new ConfigurationAttribute("Allowed", "Boolean", false,
+						"Is Allowed", true));
+		syntaxGroupDependency.addModelingAttribute("RequiredLevel",
+				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+						"Required Level", 0)); //TODO define domain or Enum Level
+		
+		syntaxGroupDependency.addDisPropEditableAttribute("01#" + "Active");
+		syntaxGroupDependency.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");
+		syntaxGroupDependency.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true");
+		syntaxGroupDependency.addDisPropEditableAttribute("04#" + "Required"+"#"+"Active"+"#==#"+"true");
+		syntaxGroupDependency.addDisPropEditableAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		
+		syntaxGroupDependency.addDisPropVisibleAttribute("01#" + "Active");
+		syntaxGroupDependency.addDisPropVisibleAttribute("02#" + "Visibility");
+		syntaxGroupDependency.addDisPropVisibleAttribute("03#" + "Allowed");
+		syntaxGroupDependency.addDisPropVisibleAttribute("04#" + "Required");
+		syntaxGroupDependency.addDisPropVisibleAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		
+		//Simulation attributes
+		
+		syntaxGroupDependency.addModelingAttribute("ForcedSatisfied",
+				new SimulationAttribute("ForcedSatisfied", "Boolean", false,	"Force Satisfaction", false));
+		syntaxGroupDependency.addModelingAttribute("ForcedSelected",
+				new SimulationAttribute("ForcedSelected", "Boolean", false,	"Force Selection", false));
+		
+		syntaxGroupDependency.addModelingAttribute("InitialRequiredLevel",
+				new SimulationAttribute("InitialRequiredLevel", "Integer", false, "Initial Required Level", false));
+		syntaxGroupDependency.addModelingAttribute("SimRequiredLevel",
+				new SimulationAttribute("SimRequiredLevel", "Integer", false, "Required Level", false));
+		syntaxGroupDependency.addModelingAttribute("ValidationRequiredLevel",
+				new SimulationAttribute("ValidationRequiredLevel", "Integer", false, "Required Level by Validation", false));
+		syntaxGroupDependency.addModelingAttribute("SimRequired",
+				new SimulationAttribute("SimRequired", "Boolean", false, "Required", false));
+		
+		syntaxGroupDependency.addModelingAttribute("Satisfied",
+				new SimulationAttribute("Satisfied", "Boolean", false, "Satisfied", false));
+		syntaxGroupDependency.addModelingAttribute("AlternativeSatisfied",
+				new SimulationAttribute("AlternativeSatisfied", "Boolean", false, "Satisfied by Alternatives", false));
+		syntaxGroupDependency.addModelingAttribute("ValidationSatisfied",
+				new SimulationAttribute("ValidationSatisfied", "Boolean", false, "Satisfied by Validation", false));
+		syntaxGroupDependency.addModelingAttribute("SatisfiedLevel",
+				new SimulationAttribute("SatisfiedLevel", "Integer", false, "Satisficing Level", false));
+
+		syntaxGroupDependency.addModelingAttribute("Selected",
+				new SimulationAttribute("Selected", "Boolean", false, "Selected", false));
+		syntaxGroupDependency.addModelingAttribute("PreferredSelected",
+				new SimulationAttribute("PreferredSelected", "Boolean", false, "Select by Preferred", true));
+		syntaxGroupDependency.addModelingAttribute("ValidationSelected",
+				new SimulationAttribute("ValidationSelected", "Boolean", false, "Selected by Validation", false));
+		syntaxGroupDependency.addModelingAttribute("SolverSelected",
+				new SimulationAttribute("SolverSelected", "Boolean", false, "Selected by Solver", false));
+		
+		syntaxGroupDependency.addModelingAttribute("Optional",
+				new SimulationAttribute("Optional", "Boolean", false, "Is Optional", false));
+
+		syntaxGroupDependency.addModelingAttribute("SimAllowed",
+				new SimulationAttribute("SimAllowed", "Boolean", false, "Is Allowed", true));
+				
+		syntaxGroupDependency.addDisPropEditableAttribute("10#"	+ "ForcedSatisfied"+"#"+"Active"+"#==#"+"true");	
+		
+		syntaxGroupDependency.addDisPropEditableAttribute("15#" + "ForcedSelected"+"#"+"Active"+"#==#"+"true");
+		
+		syntaxGroupDependency.addDisPropVisibleAttribute("02#" + "SimRequired");
+		syntaxGroupDependency.addDisPropVisibleAttribute("03#" + "SimRequiredLevel");
+		syntaxGroupDependency.addDisPropVisibleAttribute("04#" + "InitialRequiredLevel");
+		syntaxGroupDependency.addDisPropVisibleAttribute("05#" + "ValidationRequiredLevel");
+		
+		syntaxGroupDependency.addDisPropVisibleAttribute("06#" + "Satisfied");
+		syntaxGroupDependency.addDisPropVisibleAttribute("07#" + "AlternativeSatisfied");
+		syntaxGroupDependency.addDisPropVisibleAttribute("08#" + "ValidationSatisfied");
+		syntaxGroupDependency.addDisPropVisibleAttribute("09#" + "SatisfiedLevel");
+		syntaxGroupDependency.addDisPropVisibleAttribute("10#"	+ "ForcedSatisfied");	
+		
+		
+		syntaxGroupDependency.addDisPropVisibleAttribute("11#" + "Selected");
+		syntaxGroupDependency.addDisPropVisibleAttribute("12#" + "PreferredSelected");
+		syntaxGroupDependency.addDisPropVisibleAttribute("13#" + "ValidationSelected");
+		syntaxGroupDependency.addDisPropVisibleAttribute("14#" + "SolverSelected");
+		syntaxGroupDependency.addDisPropVisibleAttribute("15#" + "ForcedSelected");
+		
+		syntaxGroupDependency.addDisPropVisibleAttribute("16#" + "Optional");
+		syntaxGroupDependency.addDisPropVisibleAttribute("16#" + "SimAllowed");
+		
+		
 
 		// *************************---------------****************************
 		// Softgoals model

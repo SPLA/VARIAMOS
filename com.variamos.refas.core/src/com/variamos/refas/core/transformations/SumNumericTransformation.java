@@ -12,7 +12,15 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+/**
+ * Class to create the Sum expression. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-14
+ */
 public class SumNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "+";
 	
@@ -48,6 +56,9 @@ public class SumNumericTransformation extends AbstractNumericTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
+	public SumNumericTransformation() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);		

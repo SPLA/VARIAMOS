@@ -82,11 +82,11 @@ public class HlclFactory {
 		return new ComparisonExpression(left, right, ComparisonType.Equals);
 	}
 
-	public ComparisonExpression equals(NumericExpression left,
-			NumericExpression right) {
+	public ComparisonExpression equals(Expression left,
+			Expression right) {
 		return new ComparisonExpression(left, right, ComparisonType.Equals);
 	}
-
+	
 	public ComparisonExpression notEquals(NumericExpression left,
 			NumericExpression right) {
 		return new ComparisonExpression(left, right, ComparisonType.NotEquals);
