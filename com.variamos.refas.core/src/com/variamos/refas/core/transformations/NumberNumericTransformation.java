@@ -22,6 +22,7 @@ public class NumberNumericTransformation extends AbstractNumericTransformation {
 	public NumberNumericTransformation(int number) {
 		super();
 		this.expressionConnectors.add(TRANSFORMATION);
+		this.number = number;
 	}	
 	@Override
 	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {		

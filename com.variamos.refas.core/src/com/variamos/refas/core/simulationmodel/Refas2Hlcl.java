@@ -57,9 +57,10 @@ public class Refas2Hlcl {
 		HlclProgram prog = new HlclProgram();
 
 		Map<String, Identifier> idMap = new HashMap<>();
-		prog.addAll(vertexExpression(refas, idMap));
-		prog.addAll(edgeExpression(refas, idMap));
-		prog.addAll(groupExpression(refas, idMap));
+		prog.addAll(vertexExpressions(refas, idMap));
+		prog.addAll(edgeExpressions(refas, idMap));
+		//Previous edgeExpressions is required to fill the attribute names for groupExpressions
+		prog.addAll(groupExpressions(refas, idMap));
 
 		Set<Identifier> identifiers = new TreeSet<Identifier>();
 		for (Expression exp : prog) {
@@ -96,7 +97,7 @@ public class Refas2Hlcl {
 
 	}
 
-	private HlclProgram vertexExpression(Refas refas,
+	private HlclProgram vertexExpressions(Refas refas,
 			Map<String, Identifier> idMap) {
 		HlclProgram prog = new HlclProgram();
 		for (InstVertex elm : refas.getVariabilityVertexCollection()) {
@@ -266,7 +267,7 @@ public class Refas2Hlcl {
 		return prog;
 	}
 
-	private HlclProgram edgeExpression(Refas refas,
+	private HlclProgram edgeExpressions(Refas refas,
 			Map<String, Identifier> idMap) {
 		HlclProgram prog = new HlclProgram();
 		for (InstEdge elm : refas.getConstraintInstEdgesCollection()) {
@@ -458,7 +459,7 @@ public class Refas2Hlcl {
 		return prog;
 	}
 
-	private HlclProgram groupExpression(Refas refas,
+	private HlclProgram groupExpressions(Refas refas,
 			Map<String, Identifier> idMap) {
 		HlclProgram prog = new HlclProgram();
 		for (InstGroupDependency elm : refas
@@ -470,7 +471,7 @@ public class Refas2Hlcl {
 						.valueOf(((String) elm.getInstAttribute(
 								SemanticGroupDependency.VAR_CARDINALITYTYPE)
 								.getValue()).trim());
-
+				//System.out.println(relationType);
 				List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
 
 				for (String sourceName : elm.getSourceAttributeNames()) {
@@ -546,43 +547,51 @@ public class Refas2Hlcl {
 					switch (relationType) {
 
 					case and:
+						//B_Satisfied #<=>  ( ( A1_"attribute" #/\ A2_"attribute" ) #/\ ... )
 					case or:
+						//B_Satisfied #<=>  ( ( A1_"attribute" #\/ A2_"attribute" ) #\/ ... )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
 						transformations
 								.add(new EqualsComparisonTransformation(elm
 										.getTargetRelations().get(0)
-										.getToRelation(), "Satisfied", true,
+										.getToRelation(), sourceName, true,
 										recursiveExpression1));
 						break;
 					case mutex:
+						//B_Satisfied #<=>  (( ( A1_"attribute" + A2_"attribute" ) + ... ) #<=> 1)
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						abstractTransformation = new EqualsComparisonTransformation(
+						AbstractTransformation transformation1 = new EqualsComparisonTransformation(
 								recursiveExpression1,
 								new NumberNumericTransformation(1));
-						abstractTransformation = new ImplicationBooleanTransformation(
+						transformations
+						.add(new EqualsComparisonTransformation(
 								elm.getTargetRelations().get(0).getToRelation(),
-								"Satisfied", true, abstractTransformation);
+								sourceName, true, transformation1));
 
 						break;
 					case range:
+						
+						//B_Satisfied #<=>  ( ( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
+						//( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #<= GD_HighCardinality ) )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						AbstractTransformation transformation1 = new GreaterOrEqualsBooleanTransformation(
-								elm.getTargetRelations().get(0).getToRelation(),
-								"LowCardinality", false, recursiveExpression1);
+						AbstractTransformation transformation3 = new GreaterOrEqualsBooleanTransformation(
+								elm,
+								"lowCardinality", false, recursiveExpression1);
 
-						AbstractTransformation transformation2 = new GreaterOrEqualsBooleanTransformation(
-								elm.getTargetRelations().get(0).getToRelation(),
-								"HighCardinality", false, recursiveExpression2);
+						AbstractTransformation transformation4 = new GreaterOrEqualsBooleanTransformation(
+								elm,
+								"highCardinality", false, recursiveExpression2);
 
-						abstractTransformation = new AndBooleanTransformation(
-								transformation1, transformation2);
+						AbstractTransformation transformation5  = new AndBooleanTransformation(
+								transformation3, transformation4);
 
-						abstractTransformation = new ImplicationBooleanTransformation(
+						transformations
+						.add( new EqualsComparisonTransformation(
 								elm.getTargetRelations().get(0).getToRelation(),
-								"Satisfied", true, abstractTransformation);
+								sourceName, true, transformation5));
 
 						break;
 
@@ -633,7 +642,6 @@ public class Refas2Hlcl {
 						sourceName, sourceName);
 			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		return null;
