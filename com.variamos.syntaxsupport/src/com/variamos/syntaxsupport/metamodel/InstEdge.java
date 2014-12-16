@@ -160,11 +160,11 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 
 	}
 
-	public void setFromRelation(InstVertex fromRelation) {
+	public void setSourceRelation(InstVertex fromRelation) {
 		this.fromRelation = fromRelation;
 	}
 
-	public void setToRelation(InstVertex toRelation) {
+	public void setTargetRelation(InstVertex toRelation) {
 		this.toRelation = toRelation;
 	}
 

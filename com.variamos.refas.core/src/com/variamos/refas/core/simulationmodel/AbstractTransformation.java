@@ -11,6 +11,15 @@ import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.types.ExpressionVertexType;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+/**
+ * Abstract root Class to group at the Transformation functionality. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-13
+ */
 public abstract class AbstractTransformation {
 	private InstVertex leftVertex;
 	private InstVertex rightVertex;
@@ -125,6 +134,14 @@ public abstract class AbstractTransformation {
 	public AbstractTransformation() {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
+	}
+
+	public AbstractTransformation(InstVertex vertex, String attributeName) {
+		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+		expressionConnectors = new ArrayList<String>();
+		this.leftVertex = vertex;
+		this.leftAttributeName = attributeName;
+		this.expressionVertexTypes.add(ExpressionVertexType.left);
 	}
 
 	public InstVertex getLeft() {

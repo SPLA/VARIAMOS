@@ -2,6 +2,15 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.util.Map;
 
+/**
+ * Abstract  Class to group the ComparisonTranformation. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-15
+ */
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
