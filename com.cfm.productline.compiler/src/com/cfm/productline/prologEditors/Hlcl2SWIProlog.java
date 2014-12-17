@@ -104,6 +104,8 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		dommainAndVariables.append(LF);
 		// add domain string
 		dommainAndVariables.append(domainString);
+		
+		//TODO implements composed domain transformation
 
 		return dommainAndVariables;
 	}

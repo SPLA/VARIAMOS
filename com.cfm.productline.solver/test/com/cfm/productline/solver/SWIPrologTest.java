@@ -30,7 +30,7 @@ public class SWIPrologTest {
 	/**
 	 * Little example to test the program load in SWI Prolog. 
 	 */
-	@Test
+	
 	public void isSatisfiableTest() {
 				
 		Identifier A= f.newIdentifier("A", "A");
@@ -38,7 +38,7 @@ public class SWIPrologTest {
 		Identifier B= f.newIdentifier("B", "B");
 		B.setDomain(new BinaryDomain());
 		// A <=> B
-		BooleanExpression numericExpression = f.doubleImplies(A, B);
+		BooleanExpression numericExpression = f.doubleImplies( B,A);
 		HlclProgram hlclProgram= new HlclProgram();
 		hlclProgram.add(numericExpression);
 		Solver swiSolver= new SWIPrologSolver(hlclProgram);
@@ -49,8 +49,8 @@ public class SWIPrologTest {
 	}
 	
 	
-	@Test
-	public void configurationTest() {
+	
+	public void oneConfigurationTest() {
 				
 		Identifier A= f.newIdentifier("A", "A");
 		A.setDomain(new BinaryDomain());
@@ -63,10 +63,39 @@ public class SWIPrologTest {
 		Solver swiSolver= new SWIPrologSolver(hlclProgram);
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
 		Configuration configuration= swiSolver.getSolution();
+		assertTrue(configuration!=null);
 		
 	}
 	
+	
 	@Test
+	public void allConfigurationsTest() {
+				
+		Identifier A= f.newIdentifier("A", "A");
+		A.setDomain(new BinaryDomain());
+		Identifier B= f.newIdentifier("B", "B");
+		B.setDomain(new BinaryDomain());
+		// A <=> B
+		BooleanExpression numericExpression = f.doubleImplies(A, B);
+		HlclProgram hlclProgram= new HlclProgram();
+		hlclProgram.add(numericExpression);
+		Solver swiSolver= new SWIPrologSolver(hlclProgram);
+		swiSolver.solve(new Configuration(), new ConfigurationOptions());
+		int solFound=0;
+		while(swiSolver.hasNextSolution()){
+			solFound++;
+			System.out.println("Configuration: " + solFound);
+			final Configuration configuration = swiSolver.getSolution();
+			System.out.println("----"+ configuration.toString());
+		
+			
+		}
+		
+		assertTrue(solFound==2);
+		
+	}
+	
+	
 	public void isSatisfiableWithParametersTest() {
 				
 		Identifier A= f.newIdentifier("A", "A");
