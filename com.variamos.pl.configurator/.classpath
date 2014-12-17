@@ -13,5 +13,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.compiler"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.gnuprolog"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
