@@ -10,9 +10,11 @@ import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
+import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
+import com.variamos.refas.core.transformations.LiteralBooleanTransformation;
 import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
@@ -84,6 +86,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 				for (InstAttribute instAttribute : instConcept
 						.getInstAttributesCollection()) {
+					
 					// A_SimAllowed #= A_Allowed
 					if (instAttribute.getIdentifier().equals("Allowed")) {
 						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
@@ -204,7 +207,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						AbstractBooleanTransformation transformation7 = new OrBooleanTransformation(
 								transformation5, transformation6);
 						getTransformations().add(
-								new EqualsComparisonTransformation(instVertex,
+								new DoubleImplicationBooleanTransformation(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation7));
 
@@ -223,7 +226,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(
 								transformation8, transformation9);
 						getTransformations().add(
-								new EqualsComparisonTransformation(instVertex,
+								new DoubleImplicationBooleanTransformation(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation10));
 

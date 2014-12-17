@@ -12,6 +12,7 @@ import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
+import com.variamos.refas.core.transformations.LiteralBooleanTransformation;
 import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
@@ -233,6 +234,11 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 
 				break;
 			case generalConstraint:
+					String attributeValue = (String) instEdge.getInstAttribute("generalConstraint").getValue();
+					if (attributeValue != null && !attributeValue.equals(""))
+					getTransformations()
+							.add(new LiteralBooleanTransformation(attributeValue));	
+				
 				break;
 			case group:
 				break;

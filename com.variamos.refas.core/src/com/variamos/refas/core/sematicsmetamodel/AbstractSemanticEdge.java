@@ -15,7 +15,6 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  * 
  * @version 1.1
  * @since 2014-11-23
- * @see com.cfm.productline.
  */
 public abstract class AbstractSemanticEdge extends AbstractSemanticElement {
 

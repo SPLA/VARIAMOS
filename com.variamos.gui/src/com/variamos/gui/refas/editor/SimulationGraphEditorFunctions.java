@@ -42,7 +42,7 @@ public class SimulationGraphEditorFunctions extends AbstractGraphEditorFunctions
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.setPerspective(4);
 		editor.editModelReset();
-		System.out.println("simulation");
+		//System.out.println("simulation");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
 	public void updateView (List<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)

@@ -2,6 +2,16 @@ package com.variamos.refas.core.sematicsmetamodel;
 
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 
+/**
+ * A class to represent the edges at semantic level. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-08
+ * @see com.cfm.productline.
+ */
 public class SemanticContextGroup extends AbstractSemanticVertex {
 	/**
 	 * 

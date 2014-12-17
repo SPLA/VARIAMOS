@@ -86,7 +86,7 @@ public class MetamodelGraph extends AbstractGraph {
 					"/com/variamos/gui/refas/editor/style/shapes.xml")
 					.getPath();
 			Document doc;
-			System.out.println(filename);
+			//System.out.println(filename);
 			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
 
 			Element shapes = (Element) doc.getDocumentElement();
@@ -276,7 +276,7 @@ public class MetamodelGraph extends AbstractGraph {
 	public void setPLElementsVisibility(boolean visibility) {
 		Object[] vertices = mxGraphModel.getChildCells(getModel(),
 				getDefaultParent(), true, false);
-		System.out.println("Setting PL Visibility: " + visibility);
+		//System.out.println("Setting PL Visibility: " + visibility);
 		for (Object obj : vertices) {
 			mxCell cell = (mxCell) obj;
 			Object value = cell.getValue();

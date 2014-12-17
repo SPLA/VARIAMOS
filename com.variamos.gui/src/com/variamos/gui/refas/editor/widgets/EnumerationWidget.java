@@ -46,7 +46,7 @@ public class EnumerationWidget extends WidgetR {
 		try {
 			aClass = classLoader.loadClass(v.getAttribute()
 					.getClassCanonicalName());
-			System.out.println("aClass.getName() = " + aClass.getName());
+			//System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

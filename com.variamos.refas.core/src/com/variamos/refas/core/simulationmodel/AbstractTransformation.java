@@ -150,6 +150,7 @@ public abstract class AbstractTransformation {
 	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
+			System.out.println(leftVertex.getIdentifier() + " " +leftAttributeName);
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName), f
 					.newIdentifier(leftVertex

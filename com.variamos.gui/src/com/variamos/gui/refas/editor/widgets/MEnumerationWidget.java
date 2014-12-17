@@ -45,7 +45,7 @@ public class MEnumerationWidget extends WidgetR {
 		Class aClass = null;
 	    try {
 	    	aClass = classLoader.loadClass(v.getAttribute().getClassCanonicalName());
-	        System.out.println("aClass.getName() = " + aClass.getName());
+	        //System.out.println("aClass.getName() = " + aClass.getName());
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();
 	    }

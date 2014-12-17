@@ -59,30 +59,42 @@ public class Refas2Hlcl {
 		constraintGroups = new ArrayList<AbstractConstraintGroup>();
 		Map<String, Identifier> idMap = new HashMap<>();
 		createVertexExpressions(refas, idMap);
-		//createEdgeExpressions(refas, idMap);
-		// Previous call to createEdgeExpressions is required to fill the attribute names for
+		createEdgeExpressions(refas, idMap);
+		// Previous call to createEdgeExpressions is required to fill the
+		// attribute names for
 		// createGroupExpressions
-		//createGroupExpressions(refas, idMap);
+		createGroupExpressions(refas, idMap);
 
 		List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
 		for (AbstractConstraintGroup constraintGroup : constraintGroups)
 			transformations.addAll(constraintGroup.getTransformations());
 
 		HlclProgram prog = new HlclProgram();
-		for (AbstractTransformation transformation : transformations) {			
-			idMap.putAll(transformation.getIndentifiers(f));				
-			if (transformation instanceof AbstractBooleanTransformation)
+		for (AbstractTransformation transformation : transformations) {
+			idMap.putAll(transformation.getIndentifiers(f));
+			if (transformation instanceof AbstractBooleanTransformation) {
 				prog.add(((AbstractBooleanTransformation) transformation)
 						.transform(f, idMap));
-			else
+				// For negation testing
+				// prog.add(((AbstractBooleanTransformation) transformation)
+				// .transformNegation(f, idMap, true, false));
+			} else if (transformation instanceof AbstractComparisonTransformation) {
 				prog.add(((AbstractComparisonTransformation) transformation)
 						.transform(f, idMap));
+				// For negation testing
+				// prog.add(((AbstractComparisonTransformation) transformation)
+				// .transformNegation(f, idMap));
+			} else {
+				prog.add(((AbstractComparisonTransformation) transformation)
+						.transform(f, idMap));
+			}
+
 		}
 
 		Set<Identifier> identifiers = new TreeSet<Identifier>();
 		for (Expression exp : prog) {
 			identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-			text +=exp +"\n";
+			text += exp + "\n";
 		}
 		// Call the SWIProlog and obtain the result
 		List<String> prologOut = null;
@@ -111,26 +123,25 @@ public class Refas2Hlcl {
 						+ vertex.getInstAttribute(attribute)
 								.getModelingAttributeType() + "; ");
 		}
-		System.out.println();
-
 	}
 
 	public String getText() {
 		return text;
 	}
 
-	private void createVertexExpressions(Refas refas, Map<String, Identifier> idMap) {
+	private void createVertexExpressions(Refas refas,
+			Map<String, Identifier> idMap) {
 		for (InstVertex elm : refas.getVariabilityVertexCollection()) {
-			constraintGroups.add( new RestrictionConstraint(
-					elm.getIdentifier(), idMap, f, elm));
+			constraintGroups.add(new RestrictionConstraint(elm.getIdentifier(),
+					idMap, f, elm));
 		}
 	}
 
 	private void createEdgeExpressions(Refas refas,
 			Map<String, Identifier> idMap) {
 		for (InstEdge elm : refas.getConstraintInstEdgesCollection()) {
-			constraintGroups.add( new DirectEdgeConstraintGroup(
-					elm.getIdentifier(), idMap, f, elm));
+			constraintGroups.add(new DirectEdgeConstraintGroup(elm
+					.getIdentifier(), idMap, f, elm));
 		}
 	}
 
@@ -138,8 +149,8 @@ public class Refas2Hlcl {
 			Map<String, Identifier> idMap) {
 		for (InstGroupDependency elm : refas
 				.getInstGroupDependenciesCollection()) {
-			constraintGroups.add(new GroupDependencyConstraintGroup(
-					elm.getIdentifier(), idMap, f, elm));
+			constraintGroups.add(new GroupDependencyConstraintGroup(elm
+					.getIdentifier(), idMap, f, elm));
 		}
 	}
 
