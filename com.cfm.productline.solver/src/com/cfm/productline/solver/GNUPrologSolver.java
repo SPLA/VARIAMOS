@@ -235,6 +235,7 @@ public class GNUPrologSolver implements Solver {
 		CompoundTerm query = addSubQueries(parts, ptf);
 		System.out.println(query.toString());
 		qr = prolog.runQuery(query);
+		
 	}
 
 	public void endSolving() {
@@ -389,6 +390,12 @@ public class GNUPrologSolver implements Solver {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean hasSolution() {
+		return false; //FIXME
+	}
+
 
 
 }
