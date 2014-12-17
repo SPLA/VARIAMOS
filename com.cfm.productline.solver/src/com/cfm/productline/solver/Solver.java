@@ -24,6 +24,9 @@ public interface Solver {
 	
 	public void nextSolution();
 	
+	public boolean hasSolution();
+	
+	
 	@Deprecated
 	public int getSolutionsCount();
 	@Deprecated

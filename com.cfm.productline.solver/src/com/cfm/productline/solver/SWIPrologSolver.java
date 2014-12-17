@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jpl.Compound;
 import jpl.Query;
+import jpl.Term;
 import jpl.Variable;
 
 import com.cfm.hlcl.HlclProgram;
+import com.cfm.hlcl.HlclUtil;
+import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
@@ -26,20 +30,22 @@ public class SWIPrologSolver implements Solver {
 	private String programPath = null;
 	private Query qr;
 	boolean sucessfullLoad;
+	private Variable invocationVariable;
 
 	public final static String PROGRAM_INVOCATION = "productline(L)";
 
+	@Deprecated
 	public SWIPrologSolver() {
-		
+
 	}
-	
+
 	public SWIPrologSolver(HlclProgram hlclProgram) {
 		super();
 		this.hlclProgram = hlclProgram;
+		this.invocationVariable = new Variable("L");
 	}
 
 	public int getSolutionsCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -54,8 +60,6 @@ public class SWIPrologSolver implements Solver {
 			if (table.length >= 1) {
 				return true;
 			}
-		} else {
-
 		}
 		return false;
 	}
@@ -69,7 +73,24 @@ public class SWIPrologSolver implements Solver {
 	@Override
 	public void solve(Configuration config, ConfigurationOptions options) {
 
-		// FIXME arreglar para incluir config en caso de que llegue
+		// Reinicia el solver
+		if (options.isStartFromZero()) {
+			if (qr != null && qr.isOpen()) {
+				qr.rewind();// Cierra las consultas que no se hayan explorado
+				qr.close();
+
+			}
+			qr = null;
+		}
+		if (qr == null) {
+			doQuery(config, options);
+
+		}
+
+	}
+
+	private void doQuery(Configuration config, ConfigurationOptions options) {
+
 		hlclProgram = addParametersToProgram(hlclProgram, options);
 		programPath = createPrologFile(hlclProgram);
 		loadSWIProgram(programPath);
@@ -77,7 +98,7 @@ public class SWIPrologSolver implements Solver {
 		sucessfullLoad = qr.hasSolution();
 		if (!sucessfullLoad) {
 			throw new TechnicalException(
-					"SWI prolog is not initialized correctly");
+					"SWI prolog is not correctly initialized ");
 		}
 
 	}
@@ -87,41 +108,63 @@ public class SWIPrologSolver implements Solver {
 		if (qr == null) {
 			throw new TechnicalException("Solve method was not invoked");
 		}
-
-		return qr.hasSolution();
+		boolean result = qr.hasMoreElements();
+		return result;
 	}
 
 	@Override
 	public Configuration getSolution() {
-		List<Hashtable> configurationList = new ArrayList<Hashtable>();
-		List<List<Integer>> allConfigurationValues = new ArrayList<List<Integer>>();
-		if (sucessfullLoad) {
-			Variable L = new Variable();
-			Hashtable[] configurations = qr.nSolutions(1);
-			// TODO ver si esta lista retorna la lista de variables,
-			Hashtable variablesName=qr.getSubstWithNameVars();
-			for (Hashtable configuration : configurations) {
-				configurationList.add(configuration);
-			}
-		}
 
-		if (!configurationList.isEmpty()) {
-			for (Hashtable configuration : configurationList) {
-				if (configuration != null) {
-					List<Integer> values = new ArrayList<Integer>();
-					Compound configurationCompound = (Compound) configuration
-							.get("L");
-					values = getSolutionValues(configurationCompound, values);
-					allConfigurationValues.add(values);
-
+		if (qr != null) {
+			if (hasNextSolution()) {
+				Hashtable<Variable, Term> configurationHashSet = qr
+						.nextSolution();
+				if (configurationHashSet != null) {
+					Configuration configuration = makeConfiguration(configurationHashSet);
+					return configuration;
 				}
 			}
+
+		}
+		return null;
+	}
+
+	private Configuration makeConfiguration(
+			Hashtable<Variable, Term> configurationHashSet) {
+
+		// FIXME: puede ser mejorado para quitar esta L quemada
+		Term invocationTerm = (Term) configurationHashSet.get("L");
+
+		List<Integer> configurationValues = new ArrayList<Integer>();
+		// Obtiene del resultado de L los valores asignados a cada variable
+		// descomponiendo el resultado
+		configurationValues = getSolutionValues(invocationTerm.args(),
+				configurationValues);
+
+		// Obtiene la lista ordenada de identificadores del hlcl program
+		// para asignarlos a la configuracion. En este mismo orden se crean
+		// cuando se define el programa de prolog
+		Set<Identifier> idsSet = HlclUtil.getUsedIdentifiers(hlclProgram);
+		Configuration configuration = new Configuration();
+
+		int i = 0;
+		if (idsSet.size() == idsSet.size()) {
+			for (Identifier identifier : idsSet) {
+				int value = configurationValues.get(i);
+				if (value == 0) {
+					configuration.ban(identifier.getId());
+				}
+				if (value == 1) {
+					configuration.enforce(identifier.getId());
+				}
+				i++;
+			}
+			return configuration;
+		} else {
+			throw new TechnicalException(
+					"Configurated values and number of variables defined in expressions must be equals");
 		}
 
-		// TODO asociar cada configuracion de la lista con los valores de las
-		// variables
-
-		return null;
 	}
 
 	private boolean loadSWIProgram(String temporalPath) {
@@ -134,27 +177,28 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public void nextSolution() {
-		if (hasNextSolution())
-			qr.nextSolution();
+		// disabled method in SWI prolog
+
 	}
+
+	
 
 	@Override
 	public Object getProductLine() {
 		// TODO Auto-generated method stub
-		throw new TechnicalException(
-				"Now, we don't use product line");
+		throw new TechnicalException("Now, we don't use product line anymore");
 	}
 
 	@Override
 	public Map<String, List<Integer>> reduceDomain(Configuration config,
 			ConfigurationOptions params) {
 		// TODO Auto-generated method stub
+		// FIXME
 		return null;
 	}
 
-	private static List<Integer> getSolutionValues(Compound compound,
+	private static List<Integer> getSolutionValues(Term[] terms,
 			List<Integer> values) {
-		jpl.Term[] terms = compound.args();
 
 		if (terms[1].isAtom()) {
 			Integer valueInteger = terms[0].intValue();
@@ -162,9 +206,8 @@ public class SWIPrologSolver implements Solver {
 			return values;
 		} else {
 			Integer valueInteger = terms[0].intValue();
-			Compound compoundValues = (Compound) terms[1];
 			values.add(valueInteger);
-			getSolutionValues(compoundValues, values);
+			getSolutionValues(((Compound) terms[1]).args(), values);
 
 		}
 
@@ -208,6 +251,16 @@ public class SWIPrologSolver implements Solver {
 	@Override
 	public void setHLCLProgram(HlclProgram hlclProgram) {
 		this.hlclProgram = hlclProgram;
+
+	}
+
+	@Override
+	public boolean hasSolution() {
+		if (qr != null) {
+			return qr.hasSolution();
+		} else {
+			throw new TechnicalException("Solve method was not invoked");
+		}
 
 	}
 
