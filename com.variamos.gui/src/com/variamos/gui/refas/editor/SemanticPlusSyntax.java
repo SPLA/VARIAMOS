@@ -1,4 +1,4 @@
-package com.variamos.refas.core.staticconcepts;
+package com.variamos.gui.refas.editor;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -700,10 +700,11 @@ public class SemanticPlusSyntax {
 
 		// *************************---------------****************************
 		// Goals and avariability model
+
 		
-		syntaxMetaView = new MetaView("FeatureModel",
-				"Features Model", "Features Palette",
-				0);
+		syntaxMetaView = new MetaView("GoalsAndVaribilityModel",
+				"Goals and Variability Model", "Goals and Variability Palette",
+				1);
 		
 		MetaConcept syntaxFeature = new MetaConcept("F", true,
 				"Feature", "plnode", "Defines a feature", 100, 40,
@@ -712,7 +713,7 @@ public class SemanticPlusSyntax {
 		syntaxFeature.addModelingAttribute("name", "String", false,
 				"Name", "");
 		
-		syntaxElements.put("VA", syntaxFeature);	
+		syntaxElements.put("F", syntaxFeature);	
 		syntaxMetaView.addConcept(syntaxFeature);
 
 		syntaxFeature.addDisPanelVisibleAttribute("03#" + "name");
@@ -849,12 +850,7 @@ public class SemanticPlusSyntax {
 		syntaxFeatureGroupDep.addDisPropVisibleAttribute("16#" + "Optional");
 		syntaxFeatureGroupDep.addDisPropVisibleAttribute("16#" + "SimAllowed");
 		
-		
-		
-		
-		syntaxMetaView = new MetaView("GoalsAndVaribilityModel",
-				"Goals and Variability Model", "Goals and Variability Palette",
-				1);
+
 
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VA", false,
 				"VariabilityArtifact", null, "", 0, 0, null, true, null, 3, true,

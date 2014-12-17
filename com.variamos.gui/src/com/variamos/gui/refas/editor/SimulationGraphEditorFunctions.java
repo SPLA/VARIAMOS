@@ -28,7 +28,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.staticconcepts.*;
+import com.variamos.syntaxsupport.refas.*;
 
 public class SimulationGraphEditorFunctions extends AbstractGraphEditorFunctions {
 

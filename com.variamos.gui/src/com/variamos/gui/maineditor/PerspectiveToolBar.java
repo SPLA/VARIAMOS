@@ -57,9 +57,9 @@ public class PerspectiveToolBar extends JToolBar
 		add (buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
 		
-		buttons[0] = new JButton(mxResources.get("plPerspButton"));
-		add (buttons[0]);
-		buttons[0].addActionListener(new PerspectiveAction(this));
+	//	buttons[0] = new JButton(mxResources.get("plPerspButton"));
+	//	add (buttons[0]);
+	//	buttons[0].addActionListener(new PerspectiveAction(this));
 		
 		buttons[1] = new JButton(mxResources.get("defectAnalyzerPerspButton"));
 		//buttons[1].setEnabled(false);		
@@ -71,7 +71,7 @@ public class PerspectiveToolBar extends JToolBar
 	}
 	public void updateButtons()
 	{
-		for (int i = 0; i<4; i++)
+		for (int i = 1; i<4; i++) //From 1: Hide PL perspecive 
 		{
 			if (i == editor.getPerspective())
 				buttons[i].setSelected(true);

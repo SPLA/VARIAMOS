@@ -40,7 +40,7 @@ import com.mxgraph.util.mxXmlUtils;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.refas.Refas;
 
 public class MetamodelGraph extends AbstractGraph {
 

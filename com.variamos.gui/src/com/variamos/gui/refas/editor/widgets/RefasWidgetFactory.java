@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.type.BooleanType;
 import com.variamos.syntaxsupport.type.ClassType;

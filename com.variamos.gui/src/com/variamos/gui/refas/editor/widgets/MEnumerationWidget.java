@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.type.MEnumerationType;
 

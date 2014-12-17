@@ -1,22 +1,19 @@
-package com.variamos.refas.core.staticconcepts;
+package com.variamos.syntaxsupport.refas;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
-import com.mxgraph.util.mxResources;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
  * A class to represent the model with vertex and edges. Maintains the
@@ -31,16 +28,6 @@ import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
  */
 public class Refas extends AbstractModel {
 
-	/**
-	 * Adds required resources for i18n
-	 */
-	static {
-		try {
-			mxResources.add("com/mxgraph/examples/swing/resources/editor");
-		} catch (Exception e) {
-			// ignore
-		}
-	}
 	/**
 	 * 
 	 */

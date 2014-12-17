@@ -14,7 +14,6 @@ import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.sematicsmetamodel.SemanticVariable;
-import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
@@ -27,6 +26,7 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.refas.Refas;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
