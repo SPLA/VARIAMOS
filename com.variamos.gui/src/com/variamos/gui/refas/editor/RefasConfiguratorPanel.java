@@ -55,7 +55,7 @@ import com.variamos.syntaxsupport.type.IntegerType;
  */
 @SuppressWarnings("serial")
 public class RefasConfiguratorPanel extends AbstractConfigurationPanel {
-	private Refas refas;
+	private ProductLine refas;
 	
 	//Configurator table settings
 	private ConfigurationTreeTable table;
