@@ -13,6 +13,7 @@ import jpl.Query;
 import jpl.Term;
 import jpl.Variable;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
@@ -65,7 +66,7 @@ public class SWIPrologSolver implements Solver {
 	}
 
 	@Override
-	public void setProductLine(ProductLine pl) {
+	public void setProductLine(AbstractModel pl) {
 		// TODO Auto-generated method stub
 
 	}
