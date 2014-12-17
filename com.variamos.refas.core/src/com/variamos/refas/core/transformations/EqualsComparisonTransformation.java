@@ -63,5 +63,12 @@ public class EqualsComparisonTransformation extends AbstractComparisonTransforma
 		return f.equals( (Expression)expressionTerms.get(0), (Expression)expressionTerms.get(1));
 	//	return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
 	}
+	
+	@Override
+	public ComparisonExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
+		return f.notEquals( (Expression)expressionTerms.get(0), (Expression)expressionTerms.get(1));
+	//	return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+	}
 
 }

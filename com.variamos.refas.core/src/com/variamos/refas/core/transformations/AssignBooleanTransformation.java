@@ -36,15 +36,15 @@ public class AssignBooleanTransformation extends AbstractBooleanTransformation {
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName, BooleanExpression comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName, BooleanExpression booleanExpression)
 	{
-		super(left, attributeName, true, comparativeExpression);
+		super(left, attributeName, true, booleanExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public AssignBooleanTransformation(InstVertex left, String attributeName,  NumericExpression comparativeExpression)
+	public AssignBooleanTransformation(InstVertex left, String attributeName,  NumericExpression numericExpression)
 	{
-		super(left, attributeName, true, comparativeExpression);
+		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
@@ -62,8 +62,8 @@ public class AssignBooleanTransformation extends AbstractBooleanTransformation {
 	
 	@Override
 	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap,boolean noAssign, boolean valueNegation) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,noAssign,valueNegation);
-		return f.assign((Identifier) expressionTerms.get(0), (Expression)expressionTerms.get(1));
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,false,false);
+		return f.notEquals((Identifier) expressionTerms.get(0), (Expression)expressionTerms.get(1));
 	}
 
 }

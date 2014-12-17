@@ -145,7 +145,7 @@ public class RefasGraph extends AbstractGraph {
 		String filename = RefasGraph.class.getResource(
 				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 		Document doc;
-		System.out.println(filename);
+		//System.out.println(filename);
 
 		// String s =
 		// getResource("com/variamos/gui/refas/editor/style/shapes.xml");

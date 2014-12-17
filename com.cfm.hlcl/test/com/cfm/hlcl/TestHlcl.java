@@ -70,7 +70,7 @@ public class TestHlcl {
 		BooleanExpression e = f.and(greatOrEqual, lessThan);
 
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
-		System.out.println(ids);
+		//System.out.println(ids);
 		Assert.assertEquals(4, ids.size());
 
 		Assert.assertTrue(ids.contains(a));

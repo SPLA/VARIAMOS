@@ -39,7 +39,7 @@ public class ModelButtonAction extends AbstractEditorAction {
 				{
 					if (/*(modelInd != i || modelSubInd != j) &&*/ jb.getText().equals(childViews.get(j).getName())) //TODO test
 					{
-						System.out.println(childViews.get(j).getName());
+						//System.out.println(childViews.get(j).getName());
 						editor.setVisibleModel(i,j);
 						editor.updateView();
 					}

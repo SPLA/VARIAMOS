@@ -174,9 +174,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			modelsTabPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
-					System.out.println("Tab: "
-							+ modelsTabPane.getTitleAt(modelsTabPane
-									.getSelectedIndex()));
+					//System.out.println("Tab: "
+						//	+ modelsTabPane.getTitleAt(modelsTabPane
+							//		.getSelectedIndex()));
 					List<MetaView> metaViews = sematicSyntaxObject
 							.getMetaViews();
 					VariamosGraphEditor editor = getEditor();

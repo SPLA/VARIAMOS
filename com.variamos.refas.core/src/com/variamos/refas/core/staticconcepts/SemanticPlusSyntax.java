@@ -250,7 +250,20 @@ public class SemanticPlusSyntax {
 		semHardOutgoingRelation
 				.add(new OutgoingSemanticEdge("", semHardConcept));
 
+		
+		// Feature concepts
+		
+		HardSemanticConcept semFeature = new HardSemanticConcept(semGeneralElement,
+				"Feature");
+		semanticConcepts.put("F", semFeature);
+		
+		SemanticContextGroup semFeatureGroup = new SemanticContextGroup(
+				"ContextGroup");
+		semanticConcepts.put("FCG", semFeatureGroup);
+		
 		// definition of other concepts
+		
+			
 		HardSemanticConcept semAssumption = new HardSemanticConcept(
 				semHardConcept, "Assumption");
 		semanticConcepts.put("AS", semAssumption);
@@ -346,6 +359,18 @@ public class SemanticPlusSyntax {
 		semSDElements.add(semSoftDependency);
 
 		// Relations
+		
+		//features relations
+		List<GroupRelationType> featureMeansGroupRelation = new ArrayList<GroupRelationType>();
+		featureMeansGroupRelation.add(GroupRelationType.means_ends);
+		
+		List<IntDirectEdgeType> FeatureDirectRelation = new ArrayList<IntDirectEdgeType>();
+		FeatureDirectRelation.add(DirectEdgeType.mandatory);
+		FeatureDirectRelation.add(DirectEdgeType.optional);
+		FeatureDirectRelation.add(DirectEdgeType.conflict);
+		FeatureDirectRelation.add(DirectEdgeType.required);
+		
+		// goal relations
 		List<GroupRelationType> alternativeGroupRelation = new ArrayList<GroupRelationType>();
 		alternativeGroupRelation.add(GroupRelationType.alternative);
 
@@ -436,6 +461,28 @@ public class SemanticPlusSyntax {
 		semHardConcept.addDirectRelation(directHardHardSemanticEdge);
 		semanticConcepts.put("HardHardDirectEdge", directHardHardSemanticEdge);
 
+		//Feature to Feature
+		
+		List<OutgoingSemanticEdge> outgoingFeatureRelation = new ArrayList<OutgoingSemanticEdge>();
+		outgoingFeatureRelation.add(new OutgoingSemanticEdge("", semFeature));
+		SemanticGroupDependency semanticFeatureFeatureGroupRelation = new SemanticGroupDependency(
+				"FeatureFeatureGroupRel", false, featureMeansGroupRelation,
+				outgoingFeatureRelation);
+		groupRelation = new IncomingSemanticEdge("",
+				semanticFeatureFeatureGroupRelation);
+		semFeature.addGroupRelation(groupRelation);
+
+		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
+		semanticVertexs.add(semFeature);
+		
+		DirectSemanticEdge directFeatureFeatureSemanticEdge = new DirectSemanticEdge(
+				"FeatureFeatureDirectEdge", false, false, semanticVertexs,
+				alter_preff_impl_meansDirectRelation);
+		semGoal.addDirectRelation(directFeatureFeatureSemanticEdge);
+		semanticConcepts.put("FeauteFeateuGroupRel", semanticFeatureFeatureGroupRelation);
+		semanticConcepts.put("FeauteFeatureDirectEdge", directFeatureFeatureSemanticEdge);
+
+		
 		// Goal to Goal
 
 		List<OutgoingSemanticEdge> outgoingGoalRelation = new ArrayList<OutgoingSemanticEdge>();
@@ -447,7 +494,7 @@ public class SemanticPlusSyntax {
 				semanticGoalGoalGroupRelation);
 		semGoal.addGroupRelation(groupRelation);
 
-		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
+		
 		semanticVertexs.add(semGoal);
 
 		DirectSemanticEdge directGoalGoalSemanticEdge = new DirectSemanticEdge(
@@ -653,9 +700,161 @@ public class SemanticPlusSyntax {
 
 		// *************************---------------****************************
 		// Goals and avariability model
+		
+		syntaxMetaView = new MetaView("FeatureModel",
+				"Features Model", "Features Palette",
+				0);
+		
+		MetaConcept syntaxFeature = new MetaConcept("F", true,
+				"Feature", "plnode", "Defines a feature", 100, 40,
+				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+				Color.BLUE.toString(), 3, true, semFeature);
+		syntaxFeature.addModelingAttribute("name", "String", false,
+				"Name", "");
+		
+		syntaxElements.put("VA", syntaxFeature);	
+		syntaxMetaView.addConcept(syntaxFeature);
+
+		syntaxFeature.addDisPanelVisibleAttribute("03#" + "name");
+
+		syntaxFeature.addDisPropEditableAttribute("03#" + "name");
+
+		syntaxFeature.addDisPropVisibleAttribute("03#" + "name");
+		
+		//Feature direct relations
+		
+		List<IntDirectSemanticEdge> directFeatureSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
+		directFeatureSemanticEdges.add(directFeatureFeatureSemanticEdge);
+		
+		MetaDirectRelation metaFeatureEdge = new MetaDirectRelation("Feature Relation", false,
+				"Feature Relation", "plnode", "Direct relation between two"
+						+ " feature concepts. Defines different types of"
+						+ " relations", 50, 50,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
+				syntaxFeature, syntaxFeature,
+				directFeatureSemanticEdges, allSGDirectRelation);
+		syntaxFeature.addMetaEdgeAsOrigin(
+				syntaxFeature, metaFeatureEdge);
+		syntaxElements.put("Feature Relation", metaFeatureEdge);		
+		syntaxMetaView.addConcept(metaFeatureEdge);
+		
+		// Group Feature Relations
+
+		List<IntSemanticGroupDependency> semanticFeatRelations = new ArrayList<IntSemanticGroupDependency>();
+		semanticFeatRelations.add(semanticFeatureFeatureGroupRelation);
+
+		MetaGroupDependency syntaxFeatureGroupDep = new MetaGroupDependency(
+				"Feat. GroupDep", true, "Feat. GroupDep", "plgroup","Group relation between"
+						+ " Feature concepts. Defines different types of"
+						+ " cartinalities", 20, 20,
+				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"white", 1, false, semanticFeatRelations);
+
+		syntaxMetaView.addConcept(syntaxFeatureGroupDep);
+		syntaxElements.put("Feat. GroupDep", syntaxFeatureGroupDep);
+		
+		
+		metaViews.add(syntaxMetaView);
+		
+		syntaxFeatureGroupDep.addModelingAttribute("Active",
+				new ConfigurationAttribute("Active", "Boolean", true, "Is Active",
+						true));
+		syntaxFeatureGroupDep.addModelingAttribute("Visibility",
+				new ConfigurationAttribute("Visibility", "Boolean", false,
+						"Is Visible", true));
+		syntaxFeatureGroupDep.addModelingAttribute("Required",
+				new ConfigurationAttribute("Required", "Boolean", true,
+						"Is Required", false));
+		syntaxFeatureGroupDep.addModelingAttribute("Allowed",
+				new ConfigurationAttribute("Allowed", "Boolean", false,
+						"Is Allowed", true));
+		syntaxFeatureGroupDep.addModelingAttribute("RequiredLevel",
+				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+						"Required Level", 0)); //TODO define domain or Enum Level
+		
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("01#" + "Active");
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true");
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("04#" + "Required"+"#"+"Active"+"#==#"+"true");
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("01#" + "Active");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("02#" + "Visibility");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("03#" + "Allowed");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("04#" + "Required");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		
+		//Simulation attributes
+		
+		syntaxFeatureGroupDep.addModelingAttribute("ForcedSatisfied",
+				new SimulationAttribute("ForcedSatisfied", "Boolean", false,	"Force Satisfaction", false));
+		syntaxFeatureGroupDep.addModelingAttribute("ForcedSelected",
+				new SimulationAttribute("ForcedSelected", "Boolean", false,	"Force Selection", false));
+		
+		syntaxFeatureGroupDep.addModelingAttribute("InitialRequiredLevel",
+				new SimulationAttribute("InitialRequiredLevel", "Integer", false, "Initial Required Level", false));
+		syntaxFeatureGroupDep.addModelingAttribute("SimRequiredLevel",
+				new SimulationAttribute("SimRequiredLevel", "Integer", false, "Required Level", false));
+		syntaxFeatureGroupDep.addModelingAttribute("ValidationRequiredLevel",
+				new SimulationAttribute("ValidationRequiredLevel", "Integer", false, "Required Level by Validation", false));
+		syntaxFeatureGroupDep.addModelingAttribute("SimRequired",
+				new SimulationAttribute("SimRequired", "Boolean", false, "Required", false));
+		
+		syntaxFeatureGroupDep.addModelingAttribute("Satisfied",
+				new SimulationAttribute("Satisfied", "Boolean", false, "Satisfied", false));
+		syntaxFeatureGroupDep.addModelingAttribute("AlternativeSatisfied",
+				new SimulationAttribute("AlternativeSatisfied", "Boolean", false, "Satisfied by Alternatives", false));
+		syntaxFeatureGroupDep.addModelingAttribute("ValidationSatisfied",
+				new SimulationAttribute("ValidationSatisfied", "Boolean", false, "Satisfied by Validation", false));
+		syntaxFeatureGroupDep.addModelingAttribute("SatisfiedLevel",
+				new SimulationAttribute("SatisfiedLevel", "Integer", false, "Satisficing Level", false));
+
+		syntaxFeatureGroupDep.addModelingAttribute("Selected",
+				new SimulationAttribute("Selected", "Boolean", false, "Selected", false));
+		syntaxFeatureGroupDep.addModelingAttribute("PreferredSelected",
+				new SimulationAttribute("PreferredSelected", "Boolean", false, "Select by Preferred", true));
+		syntaxFeatureGroupDep.addModelingAttribute("ValidationSelected",
+				new SimulationAttribute("ValidationSelected", "Boolean", false, "Selected by Validation", false));
+		syntaxFeatureGroupDep.addModelingAttribute("SolverSelected",
+				new SimulationAttribute("SolverSelected", "Boolean", false, "Selected by Solver", false));
+		
+		syntaxFeatureGroupDep.addModelingAttribute("Optional",
+				new SimulationAttribute("Optional", "Boolean", false, "Is Optional", false));
+
+		syntaxFeatureGroupDep.addModelingAttribute("SimAllowed",
+				new SimulationAttribute("SimAllowed", "Boolean", false, "Is Allowed", true));
+				
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("10#"	+ "ForcedSatisfied"+"#"+"Active"+"#==#"+"true");	
+		
+		syntaxFeatureGroupDep.addDisPropEditableAttribute("15#" + "ForcedSelected"+"#"+"Active"+"#==#"+"true");
+		
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("02#" + "SimRequired");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("03#" + "SimRequiredLevel");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("04#" + "InitialRequiredLevel");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("05#" + "ValidationRequiredLevel");
+		
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("06#" + "Satisfied");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("07#" + "AlternativeSatisfied");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("08#" + "ValidationSatisfied");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("09#" + "SatisfiedLevel");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("10#"	+ "ForcedSatisfied");	
+		
+		
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("11#" + "Selected");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("12#" + "PreferredSelected");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("13#" + "ValidationSelected");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("14#" + "SolverSelected");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("15#" + "ForcedSelected");
+		
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("16#" + "Optional");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("16#" + "SimAllowed");
+		
+		
+		
+		
 		syntaxMetaView = new MetaView("GoalsAndVaribilityModel",
 				"Goals and Variability Model", "Goals and Variability Palette",
-				0);
+				1);
 
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VA", false,
 				"VariabilityArtifact", null, "", 0, 0, null, true, null, 3, true,
@@ -863,7 +1062,7 @@ public class SemanticPlusSyntax {
 		// Softgoals model
 
 		syntaxMetaView = new MetaView("SoftGoals", "Soft Goals Model",
-				"Soft Goals Palette", 1);
+				"Soft Goals Palette", 2);
 		metaViews.add(syntaxMetaView);
 
 		MetaConcept syntaxAbsSoftGoal = new MetaConcept("Softgoal", false,
@@ -946,7 +1145,7 @@ public class SemanticPlusSyntax {
 		// Context model
 
 		syntaxMetaView = new MetaView("Context", "Context Model",
-				"Context Palette", 2);
+				"Context Palette", 3);
 		metaViews.add(syntaxMetaView);
 		// syntaxMetaView.addConcept(syntaxVariable);
 
@@ -1053,7 +1252,7 @@ public class SemanticPlusSyntax {
 		// SG Satisficing Model
 
 		syntaxMetaView = new MetaView("SoftGoalsSatisficing",
-				"SG Satisficing Model", "Soft Goals Satisficing Palette", 3);
+				"SG Satisficing Model", "Soft Goals Satisficing Palette", 4);
 		metaViews.add(syntaxMetaView);
 		syntaxMetaView.addConcept(syntaxTopSoftGoal);
 		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
@@ -1130,7 +1329,7 @@ public class SemanticPlusSyntax {
 		// Assets model
 
 		syntaxMetaView = new MetaView("Assets", "Assets General Model",
-				"Assets Palette", 4);
+				"Assets Palette", 5);
 		metaViews.add(syntaxMetaView);
 		syntaxMetaView.addConcept(sOperationalization);
 

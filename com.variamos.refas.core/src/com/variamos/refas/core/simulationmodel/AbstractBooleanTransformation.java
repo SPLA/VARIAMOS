@@ -62,7 +62,7 @@ public abstract class AbstractBooleanTransformation extends
 	public abstract BooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
 	
-	public abstract Expression transformNegation(HlclFactory f,
+	public abstract BooleanExpression transformNegation(HlclFactory f,
 			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight);
 
 }

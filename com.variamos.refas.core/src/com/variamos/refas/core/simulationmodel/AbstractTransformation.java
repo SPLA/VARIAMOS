@@ -111,13 +111,13 @@ public abstract class AbstractTransformation {
 			this.leftAttributeName = attributeName;
 			this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.RIGHTBOOLEANEXPRESSIONVALUE);
+					.add(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
 			this.rightNumericExpression = numericExpression;
 		} else {
 			this.rightVertex = vertex;
 			this.rightAttributeName = attributeName;
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.LEFTBOOLEANEXPRESSIONVALUE);
+					.add(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
 			this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
 			this.leftNumericExpression = numericExpression;
 		}
@@ -150,6 +150,7 @@ public abstract class AbstractTransformation {
 	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
+			System.out.println(leftVertex.getIdentifier() + " " +leftAttributeName);
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName), f
 					.newIdentifier(leftVertex
@@ -268,6 +269,12 @@ public abstract class AbstractTransformation {
 			case RIGHTBOOLEANEXPRESSIONVALUE:
 				out.add(rightBooleanExpression);
 				break;
+			case LEFTNUMERICEXPRESSIONVALUE:
+				out.add(leftNumericExpression);
+				break;
+			case RIGHTNUMERICEXPRESSIONVALUE:
+				out.add(rightNumericExpression);
+				break;
 			case LEFT:
 				out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
 						leftAttributeName)));
@@ -323,6 +330,12 @@ public abstract class AbstractTransformation {
 				break;
 			case RIGHTBOOLEANEXPRESSIONVALUE:
 				out.add(rightBooleanExpression);
+				break; 
+			case LEFTNUMERICEXPRESSIONVALUE:			
+				out.add(leftNumericExpression);
+				break;
+			case RIGHTNUMERICEXPRESSIONVALUE:
+				out.add(rightNumericExpression);
 				break;
 			case LEFT:
 				if (negateLeft)

@@ -3,31 +3,22 @@ package com.variamos.refas.core.simulationmodel;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
-import com.variamos.refas.core.transformations.AssignBooleanTransformation;
-import com.variamos.refas.core.transformations.DiffNumericTransformation;
+import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
-import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
-import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
-import com.variamos.refas.core.types.DirectEdgeType;
-import com.variamos.refas.core.types.GroupRelationType;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
@@ -165,7 +156,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					recursiveExpression1 = transformation(constructor1,
 							constructor2, instEdges1, left1, sourceName);
 					transformations
-							.add(new EqualsComparisonTransformation(instGroupDependency
+							.add(new DoubleImplicationBooleanTransformation(instGroupDependency
 									.getTargetRelations().get(0)
 									.getToRelation(), sourceName, true,
 									recursiveExpression1));
@@ -178,7 +169,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 							recursiveExpression1,
 							new NumberNumericTransformation(1));
 					transformations
-					.add(new EqualsComparisonTransformation(
+					.add(new DoubleImplicationBooleanTransformation(
 							instGroupDependency.getTargetRelations().get(0).getToRelation(),
 							sourceName, true, transformation1));
 
@@ -201,7 +192,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 							transformation3, transformation4);
 
 					transformations
-					.add( new EqualsComparisonTransformation(
+					.add( new DoubleImplicationBooleanTransformation(
 							instGroupDependency.getTargetRelations().get(0).getToRelation(),
 							sourceName, true, transformation5));
 

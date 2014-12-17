@@ -11,6 +11,15 @@ import java.util.Set;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 
+/**
+ * A class to represent all elements at semantic level. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-07
+ */
 public class AbstractSemanticElement implements Serializable{
 	/**
 	 * 
