@@ -6,6 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public abstract class Constraint implements Serializable, Editable{
+
 	protected String alias;
 
 	public String getClassId()
@@ -29,8 +30,7 @@ public abstract class Constraint implements Serializable, Editable{
 	
 	public Constraint(String alias, String text){
 		this (alias);
-		this.text = text;
-	}
+	}	
 	
 	public String getText() {
 		return text;

@@ -171,6 +171,7 @@ public abstract class AbstractGraph extends mxGraph {
 			model.getCells().remove(cell.getId());
 			model.getCells().put(a.getIdentifier(), cell);
 			cell.setId(a.getIdentifier());
+
 		}
 		return true;
 	}

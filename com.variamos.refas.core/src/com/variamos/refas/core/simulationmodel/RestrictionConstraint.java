@@ -138,7 +138,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 										getHlclFactory().number(attributeVale)));
 					}
 					// A_SimInitialRequiredLevel #= A_RequiredLevel
-				/*	if (instAttribute.getIdentifier().equals("RequiredLevel")) {
+					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
 						int attributeVale = ((Integer) instAttribute.getValue())
 								.intValue();
 						getTransformations()
@@ -151,7 +151,6 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 										instVertex, "InitialRequiredLevel",
 										instAttribute.getIdentifier()));
 					}
-					*/
 					if (instAttribute.getIdentifier().equals("Satisfied")) {
 						// (( 1 - A_SimRequired) + A_Satisfied) #>= 1
 						AbstractNumericTransformation transformation1 = new DiffNumericTransformation(

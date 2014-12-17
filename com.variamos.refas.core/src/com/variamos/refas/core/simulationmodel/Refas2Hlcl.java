@@ -16,7 +16,6 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
-import com.cfm.productline.solver.Configuration;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
@@ -55,9 +54,6 @@ public class Refas2Hlcl {
 	private List<AbstractConstraintGroup> constraintGroups;
 	private String text;
 
-	/**
-	 * @param refas
-	 */
 	public Refas2Hlcl(Refas refas) {
 		text = "";
 		constraintGroups = new ArrayList<AbstractConstraintGroup>();
@@ -101,36 +97,7 @@ public class Refas2Hlcl {
 			text += exp + "\n";
 		}
 		// Call the SWIProlog and obtain the result
-		
-		Configuration config =new Configuration();
-		Map<String,Integer> prologOut = config.getConfiguration();
-		int i = 0;
-		for (String identifier : prologOut.keySet()) {
-			String[] split = identifier.split("_");
-			String conceptId = split[0];
-			String attribute = split[1];
-			InstVertex vertex = refas.getVertex(conceptId);
-			if (vertex.getInstAttribute(attribute).getModelingAttributeType()
-					.equals("Boolean"))
-				
-				 if (prologOut.get(i).equals(1))
-				 vertex.getInstAttribute(attribute).setValue(true); 
-				 else if (prologOut.get(i).equals(1))
-				 vertex.getInstAttribute(attribute).setValue(false);				 
-				
-			else
-				vertex.getInstAttribute(attribute).setValue(prologOut.get(i));
-				System.out.print(conceptId
-						+ " "
-						+ attribute
-						+ " "
-						+ vertex.getInstAttribute(attribute)
-								.getModelingAttributeType() + "; ");
-		}
-		
-		/*
-		  List<String> prologOut = null;
-		 
+		List<String> prologOut = null;
 		int i = 0;
 		for (Identifier identifier : identifiers) {
 			String id = identifier.getId();
@@ -145,7 +112,7 @@ public class Refas2Hlcl {
 				 * vertex.getInstAttribute(attribute).setValue(true); else
 				 * vertex.getInstAttribute(attribute).setValue(false);
 				 */
-		/*		vertex.getInstAttribute(attribute).setValue(true); // TODO
+				vertex.getInstAttribute(attribute).setValue(true); // TODO
 																	// delete
 			else
 				// vertex.getInstAttribute(attribute).setValue(prologOut.get(i));
@@ -155,7 +122,7 @@ public class Refas2Hlcl {
 						+ " "
 						+ vertex.getInstAttribute(attribute)
 								.getModelingAttributeType() + "; ");
-		}*/
+		}
 	}
 
 	public String getText() {
