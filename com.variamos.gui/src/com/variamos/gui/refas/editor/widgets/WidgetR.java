@@ -4,7 +4,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
+import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 
 @SuppressWarnings("serial")

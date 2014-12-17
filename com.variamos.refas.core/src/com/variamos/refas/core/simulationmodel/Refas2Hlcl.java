@@ -17,7 +17,6 @@ import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
-import com.variamos.refas.core.staticconcepts.Refas;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
@@ -40,6 +39,7 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.refas.Refas;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1

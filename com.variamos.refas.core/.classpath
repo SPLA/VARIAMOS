@@ -5,5 +5,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="/com.variamos.gui/lib/mxgraph.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntaxsupport"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.solver"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

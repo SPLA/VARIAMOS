@@ -66,6 +66,7 @@ import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
 import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasMenuBar;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -313,7 +314,7 @@ public class BasicGraphEditor extends JPanel {
 		upperPart.setBorder(null);
 
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				upperPart, getExtensionsTab());
+				upperPart, getExtensionsTab(null));
 		everything.setOneTouchExpandable(false);
 		everything.setDividerLocation(450);
 		everything.setResizeWeight(1);
@@ -379,7 +380,7 @@ public class BasicGraphEditor extends JPanel {
 		return new JPanel();
 	}
 
-	protected Component getExtensionsTab() {
+	protected Component getExtensionsTab(final EditableElement elm) {
 		return new JPanel();
 	}
 

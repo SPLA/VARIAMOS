@@ -40,8 +40,6 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.staticconcepts.Refas;
-import com.variamos.refas.core.staticconcepts.SemanticPlusSyntax;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
@@ -51,6 +49,7 @@ import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.refas.Refas;
 
 public class RefasGraph extends AbstractGraph {
 

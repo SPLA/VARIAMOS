@@ -21,7 +21,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.refas.Refas;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -171,6 +171,7 @@ public abstract class AbstractGraph extends mxGraph {
 			model.getCells().remove(cell.getId());
 			model.getCells().put(a.getIdentifier(), cell);
 			cell.setId(a.getIdentifier());
+
 		}
 		return true;
 	}

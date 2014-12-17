@@ -45,7 +45,7 @@ import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
-import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.refas.Refas;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**
