@@ -13,7 +13,7 @@ import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
-import com.variamos.refas.core.staticconcepts.Refas;
+import com.variamos.syntaxsupport.refas.Refas;
 
 import constraints.CNFClause;
 import constraints.CNFLiteral;
