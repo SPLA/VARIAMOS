@@ -745,18 +745,15 @@ public class SemanticPlusSyntax {
 		semanticFeatRelations.add(semanticFeatureFeatureGroupRelation);
 
 		MetaGroupDependency syntaxFeatureGroupDep = new MetaGroupDependency(
-				"Feat. GroupDep", true, "Feat. GroupDep", "plgroup","Group relation between"
+				"FeatGroupDep", true, "FeatGroupDep", "plgroup","Group relation between"
 						+ " Feature concepts. Defines different types of"
 						+ " cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticFeatRelations);
 
 		syntaxMetaView.addConcept(syntaxFeatureGroupDep);
-		syntaxElements.put("Feat. GroupDep", syntaxFeatureGroupDep);
-		
-		
-		metaViews.add(syntaxMetaView);
-		
+		syntaxElements.put("FeatGroupDep", syntaxFeatureGroupDep);
+				
 		syntaxFeatureGroupDep.addModelingAttribute("Active",
 				new ConfigurationAttribute("Active", "Boolean", true, "Is Active",
 						true));
@@ -929,8 +926,8 @@ public class SemanticPlusSyntax {
 		directHardSemanticEdges.add(directOperGoalSemanticEdge);
 		directHardSemanticEdges.add(directOperOperSemanticEdge);
 
-		MetaDirectRelation metaHardEdge = new MetaDirectRelation("Hard Relation", true,
-				"Hard Relation", "ploptional", "Direct relation between two"
+		MetaDirectRelation metaHardEdge = new MetaDirectRelation("HardRelation", true,
+				"HardRelation", "ploptional", "Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cartinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -938,7 +935,7 @@ public class SemanticPlusSyntax {
 				directHardSemanticEdges, allSGDirectRelation);
 		syntaxVariabilityArtifact.addMetaEdgeAsOrigin(
 				syntaxVariabilityArtifact, metaHardEdge);
-		syntaxElements.put("Hard Relation", metaHardEdge);
+		syntaxElements.put("HardRelation", metaHardEdge);
 
 		// Group Hard Relations
 
@@ -949,14 +946,14 @@ public class SemanticPlusSyntax {
 		semanticRelations.add(semanticHardHardGroupRelation);
 
 		MetaGroupDependency syntaxGroupDependency = new MetaGroupDependency(
-				"Hard GroupDep", true, "Hard GroupDep", "plgroup","Group relation between"
+				"HardGroupDep", true, "HardGroupDep", "plgroup","Group relation between"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
-		syntaxElements.put("Hard GroupDep", syntaxGroupDependency);
+		syntaxElements.put("HardGroupDep", syntaxGroupDependency);
 		
 		
 		syntaxGroupDependency.addModelingAttribute("Active",
@@ -1127,15 +1124,15 @@ public class SemanticPlusSyntax {
 
 		// Group soft relation
 
-		syntaxGroupDependency = new MetaGroupDependency("Softgoal GroupDep", true,
-				"Softgoal GroupDep", "plgroup", "Direct relation between soft"
+		syntaxGroupDependency = new MetaGroupDependency("SoftgoalGroupDep", true,
+				"SoftgoalGroupDep", "plgroup", "Direct relation between soft"
 						+ " concepts. Defines different types of relations"
 						+ " and cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
-		syntaxElements.put("Softgoal GroupDep", syntaxGroupDependency);
+		syntaxElements.put("SoftgoalGroupDep", syntaxGroupDependency);
 
 		// *************************---------------****************************
 		// Context model
@@ -1283,20 +1280,20 @@ public class SemanticPlusSyntax {
 		semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticOperClaimGroupRelation);
 
-		syntaxGroupDependency = new MetaGroupDependency("Oper-Claim GD", true,
-				"Oper-Claim GD", "plgroup", "Express the relation between"
+		syntaxGroupDependency = new MetaGroupDependency("OperClaimGD", true,
+				"OperClaimGD", "plgroup", "Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " expected on the softgoal in case the Claim is satisfied", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);
 		syntaxMetaView.addConcept(syntaxGroupDependency);
-		syntaxElements.put("Oper-Claim GD", syntaxGroupDependency);
+		syntaxElements.put("OperClaimGD", syntaxGroupDependency);
 
 		List<IntDirectSemanticEdge> directSDSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directSDSGSemanticEdges.add(directSDSGSemanticEdge);
 
-		MetaDirectRelation metaSDSGEdge = new MetaDirectRelation("SD-SG Relation", true,
-				"SD-SG Relation", "ploptional","Express the relation between"
+		MetaDirectRelation metaSDSGEdge = new MetaDirectRelation("SDSGRelation", true,
+				"SDSGRelation", "ploptional","Express the relation between"
 						+ " the SD and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -1305,7 +1302,7 @@ public class SemanticPlusSyntax {
 		syntaxSoftDependency.addMetaEdgeAsOrigin(syntaxAbsSoftGoal,
 				metaSDSGEdge);
 
-		syntaxElements.put("SD-SG Relation", metaSDSGEdge);
+		syntaxElements.put("SDSGRelation", metaSDSGEdge);
 
 		List<IntDirectSemanticEdge> directClaimSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directClaimSGSemanticEdges.add(directClaimSGSemanticEdge);
@@ -1363,8 +1360,8 @@ public class SemanticPlusSyntax {
 		semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticAssetOperGroupRelation);
 
-		syntaxGroupDependency = new MetaGroupDependency("Asset-Oper GroupDep", true,
-				"Asset-Oper GroupDep", "plgroup","Represents the implementation "
+		syntaxGroupDependency = new MetaGroupDependency("AssetOperGroupDep", true,
+				"AssetOperGroupDep", "plgroup","Represents the implementation "
 						+ "of an operationalization by a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);

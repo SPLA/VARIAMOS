@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,7 +38,6 @@ import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.cfm.productline.io.SXFMReader;
-//import com.cfm.productline.type.IntegerType;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -75,6 +75,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
@@ -124,6 +125,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected static SemanticPlusSyntax sematicSyntaxObject;
 
 	protected int mode = 0;
+	private int tabIndex = 0, lastTabIndex = 0;
+	private Refas2Hlcl refas2hlcl;
 
 	public VariamosGraphEditor getEditor() {
 		return this;
@@ -133,6 +136,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
 		super(appTitle, component, perspective);
+		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
 		if (perspective == 0) {
@@ -510,66 +514,79 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		messagesArea.setEditable(false);
 
 		elementDesPropPanel = new JPanel();
-			elementDesPropPanel.setLayout(new SpringLayout());
+		elementDesPropPanel.setLayout(new SpringLayout());
 
-			elementConfigPropPanel = new JPanel();
-			elementConfigPropPanel.setLayout(new SpringLayout());
+		elementConfigPropPanel = new JPanel();
+		elementConfigPropPanel.setLayout(new SpringLayout());
 
-			elementExpressionPanel = new JPanel();
-			elementExpressionPanel.setLayout(new SpringLayout());
+		elementExpressionPanel = new JPanel();
+		// elementExpressionPanel.setLayout(new SpringLayout());
 
-			expressionsArea = new JTextArea("Element Expressions");
-			expressionsArea.setEditable(false);
-			elementExpressionPanel.add(expressionsArea);
+		expressionsArea = new JTextArea("Element Expressions");
+		expressionsArea.setEditable(false);
+		// elementExpressionPanel.add(expressionsArea);
 
-			elementSimPropPanel = new JPanel();
-			elementSimPropPanel.setLayout(new SpringLayout());
+		elementSimPropPanel = new JPanel();
+		elementSimPropPanel.setLayout(new SpringLayout());
 
-			configurator = new ConfiguratorPanel();
+		configurator = new ConfiguratorPanel();
 
-			if (getPerspective() == 2) {
-				JButton test = new JButton("Execute Simulation");
-				configurator.add(test);
-				test.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Refas2Hlcl refas2hlcl = new Refas2Hlcl(
-								(Refas) getEditedModel());
-						messagesArea.setText(refas2hlcl.getText());
-						bringUpTab(mxResources.get("messagesTab"));
-					}
-				});
-			}
+		// if (getPerspective() == 2) {
 		
-		// Bottom panel : Properties, Messages and Configuration
-			extensionTabs = new JTabbedPane(JTabbedPane.TOP,
-					JTabbedPane.SCROLL_TAB_LAYOUT);
-			extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
-					messagesArea));
-			extensionTabs.addTab(mxResources.get("configurationTab"),
-					new JScrollPane(configurator));
+		// }
 
+		// Bottom panel : Properties, Messages and Configuration
+		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
+				JTabbedPane.SCROLL_TAB_LAYOUT);
+		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+				new JScrollPane(expressionsArea));
+		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
+				messagesArea));
+		extensionTabs.addTab(mxResources.get("configurationTab"),
+				new JScrollPane(configurator));
+		extensionTabs.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (((JTabbedPane) e.getSource()).getTabCount() > 3
+						&& ((JTabbedPane) e.getSource()).getSelectedIndex() >= 0) {
+					tabIndex = ((JTabbedPane) e.getSource()).getSelectedIndex();
+					lastTabIndex = tabIndex;
+					Component c = ((JTabbedPane) e.getSource())
+							.getComponent(tabIndex);
+					if (c != null) {
+						c.revalidate();
+						c.repaint();
+					}
+				}
+				System.out.println(tabIndex);
+
+			}
+
+		});
 		return extensionTabs;
 	}
 
-	private void updateVisibleProperties(final EditableElement elm)
-	{
+	private void updateVisibleProperties(final EditableElement elm) {
 		extensionTabs.removeAll();
 		if (elm != null) {
 			extensionTabs.addTab(mxResources.get("elementDisPropTab"),
 					new JScrollPane(elementDesPropPanel));
 			extensionTabs.addTab(mxResources.get("elementConfPropTab"),
 					new JScrollPane(elementConfigPropPanel));
-			extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-					new JScrollPane(elementExpressionPanel));
+			// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+			// new JScrollPane(elementExpressionPanel));
 			extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 					new JScrollPane(elementSimPropPanel));
 		}
+		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+				new JScrollPane(expressionsArea));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 	}
-	
+
 	public void bringUpExtension(String name) {
 		for (int i = 0; i < extensionTabs.getTabCount(); i++) {
 			if (extensionTabs.getTitleAt(i).equals(name)) {
@@ -579,11 +596,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 	}
 
-	public void bringUpTab(String name) {
+	public void bringUpTab(String name) {	
 		for (int i = 0; i < extensionTabs.getTabCount(); i++) {
 			if (extensionTabs.getTitleAt(i).equals(name)) {
 				extensionTabs.setSelectedIndex(i);
-				return;
+				Component c = extensionTabs.getComponent(i);
+				if (c != null) {
+					c.revalidate();
+					c.repaint();
+					return;
+				}
 			}
 		}
 	}
@@ -600,9 +622,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		productLineIndex.reset();
 		if (perspective == 0)
 			editModel(new ProductLine());
-		else
+		else {
+			Refas refas = new Refas();
+			refas2hlcl = new Refas2Hlcl(refas);
+			editModel(refas);
+		}
 
-			editModel(new Refas());
 	}
 
 	public void populateIndex(ProductLine pl) {
@@ -731,10 +756,30 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		elementSimPropPanel.removeAll();
 
 		if (elm == null) {
-			bringUpTab(mxResources.get("configurationTab"));
-			elementDesPropPanel.repaint();
+			if (lastTabIndex != 0)
+				lastTabIndex = 0;
+			else {
+				tabIndex = 0;
+				extensionTabs.setSelectedIndex(0);
+
+			}
 			return;
 		} else {
+			JButton test = new JButton("Execute Simulation");
+			configurator.removeAll();
+			configurator.add(test);
+			test.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					refas2hlcl.execute();
+					messagesArea.setText(refas2hlcl.getText());
+					bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(elm);
+				}
+			});
+			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
+				extensionTabs.setSelectedIndex(tabIndex);
+				extensionTabs.getSelectedComponent().repaint();
+			}
 			JPanel elementDesPropSubPanel = new JPanel(new SpringLayout());
 			JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 			JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
@@ -747,8 +792,22 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			RefasWidgetFactory factory = new RefasWidgetFactory(this);
 			int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 0;
 			String description = null;
+
+			if (elm instanceof InstConcept) {
+				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
+						elm.getIdentifier(), "vertex"));
+			}
+			if (elm instanceof InstEdge) {
+				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
+						elm.getIdentifier(), "edge"));
+			}
+			if (elm instanceof InstGroupDependency) {
+				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
+						elm.getIdentifier(), "groupdep"));
+			}
 			for (InstAttribute v : visible) {
 				if (elm instanceof InstGroupDependency) {
+
 					if (v.getEnumType() != null
 							&& v.getEnumType()
 									.equals(MetaGroupDependency.VAR_SEMANTICGROUPDEPENDENCYCLASS)) {
@@ -760,6 +819,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 				}
 				if (elm instanceof InstEdge) {
+
 					if (v.getEnumType() != null
 							&& v.getEnumType()
 									.equals(MetaDirectRelation.VAR_DIRECTSEMANTICEDGECLASS)) {
@@ -850,7 +910,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// GARA
 				// variablesPanel.add(new JLabel(v.getName() + ":: "));
 				if (v.getAttribute() instanceof SimulationAttribute) {
-					elementSimPropSubPanel.add(new JLabel(v.getDisplayName() + ": "));
+					elementSimPropSubPanel.add(new JLabel(v.getDisplayName()
+							+ ": "));
 					elementSimPropSubPanel.add(w);
 
 					if (v.isAffectProperties()) {
@@ -866,8 +927,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 					simulationPanelElements++;
 				} else if (v.getAttribute() instanceof ConfigurationAttribute) {
-					elementConfPropSubPanel
-							.add(new JLabel(v.getDisplayName() + ": "));
+					elementConfPropSubPanel.add(new JLabel(v.getDisplayName()
+							+ ": "));
 					elementConfPropSubPanel.add(w);
 
 					if (v.isAffectProperties()) {
@@ -887,7 +948,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					if (v.getDisplayName().equals(MetaElement.VAR_DESCRIPTION))
 						description = (String) v.getValue();
 					else {
-						elementDesPropSubPanel.add(new JLabel(v.getDisplayName() + ": "));
+						elementDesPropSubPanel.add(new JLabel(v
+								.getDisplayName() + ": "));
 						elementDesPropSubPanel.add(w);
 						if (v.isAffectProperties()) {
 							JButton button = new JButton("Validate");
@@ -989,11 +1051,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						4, 4, 4);
 			}
 
+			extensionTabs.getSelectedComponent().repaint();
 			elementDesPropPanel.revalidate();
 			elementConfigPropPanel.revalidate();
 			elementExpressionPanel.revalidate();
 			elementSimPropPanel.revalidate();
 		}
+
 	}
 
 	protected void onVariableEdited(Editable e) {

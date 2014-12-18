@@ -8,14 +8,10 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
-import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
 import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
-import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
-import com.variamos.refas.core.transformations.LiteralBooleanTransformation;
-import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.ProdNumericTransformation;
@@ -92,13 +88,13 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
 								: 0;
 						getTransformations()
-								.add(new AssignBooleanTransformation(
+								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeVale)));
 
 						getTransformations().add(
-								new AssignBooleanTransformation(instVertex,
+								new EqualsComparisonTransformation(instVertex,
 										instVertex, "SimAllowed", instAttribute
 												.getIdentifier()));
 					}
@@ -107,12 +103,12 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						int attributeVale = (Boolean) ((boolean) instAttribute
 								.getValue()) ? 1 : 0;
 						getTransformations()
-								.add(new AssignBooleanTransformation(
+								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeVale)));
 						getTransformations().add(
-								new AssignBooleanTransformation(instVertex,
+								new EqualsComparisonTransformation(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
 					}
@@ -122,7 +118,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
 								: 0;
 						getTransformations()
-								.add(new AssignBooleanTransformation(
+								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeVale)));
@@ -132,7 +128,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
 								: 0;
 						getTransformations()
-								.add(new AssignBooleanTransformation(
+								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeVale)));
@@ -142,12 +138,12 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						int attributeVale = ((Integer) instAttribute.getValue())
 								.intValue();
 						getTransformations()
-								.add(new AssignBooleanTransformation(
+								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeVale)));
 						getTransformations().add(
-								new AssignBooleanTransformation(instVertex,
+								new EqualsComparisonTransformation(instVertex,
 										instVertex, "InitialRequiredLevel",
 										instAttribute.getIdentifier()));
 					}

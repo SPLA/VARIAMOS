@@ -10,6 +10,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
 import com.variamos.refas.core.transformations.DiffNumericTransformation;
+import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.LiteralBooleanTransformation;
@@ -44,17 +45,22 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 
 	/**
 	 * Create the Constraint with all required parameters
+	 * 
 	 * @param identifier
 	 * @param description
 	 * @param directEdgeType
 	 * @param source
 	 * @param target
 	 */
-	public DirectEdgeConstraintGroup(String identifier, Map<String, Identifier> idMap, HlclFactory hlclFactory,
+	public DirectEdgeConstraintGroup(String identifier,
+			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstEdge instEdge) {
-		super(identifier,  mxResources.get("defect-pairrelations1") + " "
-				+ instEdge.getFromRelation().getIdentifier() + mxResources.get("defect-pairrelations1") + " "
-				+ instEdge.getToRelation().getIdentifier() + mxResources.get("defect-pairrelations1") + " ", idMap, hlclFactory);		
+		super(identifier, mxResources.get("defect-pairrelations1") + " "
+				+ instEdge.getFromRelation().getIdentifier()
+				+ mxResources.get("defect-pairrelations1") + " "
+				+ instEdge.getToRelation().getIdentifier()
+				+ mxResources.get("defect-pairrelations1") + " ", idMap,
+				hlclFactory);
 		this.instEdge = instEdge;
 		defineTransformations();
 	}
@@ -67,19 +73,24 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 		return instEdge;
 	}
 
-	
-	private void defineTransformations()
-	{
+	private void defineTransformations() {
 
 		MetaEdge metaEdge = instEdge.getMetaEdge();
 		if (metaEdge != null
-				&& instEdge.getInstAttribute(MetaDirectRelation.VAR_METADIRECTEDGETYPE) != null
-				&& !(instEdge.getToRelation() instanceof InstGroupDependency)) {
+				&& instEdge
+						.getInstAttribute(MetaDirectRelation.VAR_METADIRECTEDGETYPE) != null
+				&& !(instEdge.getToRelation() instanceof InstGroupDependency) && instEdge
+						.getInstAttribute(
+								MetaDirectRelation.VAR_METADIRECTEDGETYPE)
+						.getValue() != null) {
+			String value = (String) instEdge.getInstAttribute(
+					MetaDirectRelation.VAR_METADIRECTEDGETYPE)
+					.getValue();
 			directEdgeType = DirectEdgeType
 					.valueOf(((String) instEdge.getInstAttribute(
 							MetaDirectRelation.VAR_METADIRECTEDGETYPE)
 							.getValue()).trim().replace(" ", "_"));
-			setDescription( getDescription() + directEdgeType);
+			setDescription(getDescription() + directEdgeType);
 			Set<String> sourceAttributeNames = new HashSet<String>();
 			switch (directEdgeType) {
 
@@ -98,18 +109,19 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 						instEdge.getFromRelation(), "PreferredSelected", false,
 						transformation1);
 
-				AbstractBooleanTransformation transformation3 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation3 = new EqualsComparisonTransformation(
 						instEdge.getToRelation(), "PreferredSelected",
 						getHlclFactory().number(1));
-				AbstractBooleanTransformation transformation4 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation4 = new EqualsComparisonTransformation(
 						instEdge.getFromRelation(), "PreferredSelected",
 						getHlclFactory().number(0));
 
 				AbstractBooleanTransformation transformation5 = new AndBooleanTransformation(
 						transformation3, transformation4);
 
-				getTransformations().add(new ImplicationBooleanTransformation(
-						transformation2, transformation5));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(transformation2,
+								transformation5));
 
 				break;
 			case required:
@@ -121,33 +133,38 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 				AbstractNumericTransformation transformation7 = new SumNumericTransformation(
 						instEdge.getToRelation(), "Selected", false,
 						transformation6);
-				getTransformations()
-						.add(new GreaterOrEqualsBooleanTransformation(
+				getTransformations().add(
+						new GreaterOrEqualsBooleanTransformation(
 								transformation7,
 								new NumberNumericTransformation(1)));
 				break;
 			case conflict:
 				sourceAttributeNames.add("Selected");
+
+				sourceAttributeNames.add("ValidationSelected");
 				// A_Selected #==> B_ValidationSelected #= 0
-				AbstractBooleanTransformation transformation8 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation8 = new EqualsComparisonTransformation(
 						instEdge.getToRelation(), "ValidationSelected",
 						getHlclFactory().number(0));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Selected", true,
-						transformation8));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getFromRelation(), "Selected", true,
+								transformation8));
 
 				// B_Selected #==> A_ValidationSelected #= 0
-				AbstractBooleanTransformation transformation9 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation9 = new EqualsComparisonTransformation(
 						instEdge.getFromRelation(), "ValidationSelected",
 						getHlclFactory().number(0));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation9));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getToRelation(), "Selected", true,
+								transformation9));
 				// TODO to validation expressions missing
 				break;
 			case alternative:
 				sourceAttributeNames.add("Satisfied");
 				sourceAttributeNames.add("Selected");
+				sourceAttributeNames.add("AlternativeSelected");
 				// ( ( ( 1 - A_Satisfied ) #/\ B_Satisfied ) #/\ A_Selected
 				// ) ) #==> ( A_AlternativeSatisfied #= 1 #/\
 				// B_ValidationSelected #= 1 )
@@ -159,65 +176,75 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 				AbstractBooleanTransformation transformation12 = new AndBooleanTransformation(
 						instEdge.getFromRelation(), "Selected", false,
 						transformation11);
-				AbstractBooleanTransformation transformation13 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation13 = new EqualsComparisonTransformation(
 						instEdge.getFromRelation(), "AlternativeSatisfied",
 						getHlclFactory().number(1));
-				AbstractBooleanTransformation transformation14 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation14 = new EqualsComparisonTransformation(
 						instEdge.getToRelation(), "ValidationSelected",
 						getHlclFactory().number(1));
 				AbstractBooleanTransformation transformation15 = new AndBooleanTransformation(
 						transformation13, transformation14);
-				getTransformations().add(new ImplicationBooleanTransformation(
-						transformation12, transformation15));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(transformation12,
+								transformation15));
 				break;
 			case means_ends:
 			case implication:
 				sourceAttributeNames.add("Satisfied");
 				// A_Satisfied #==> B_ValidationSatisfied #= 1
-				AbstractBooleanTransformation transformation16 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation16 = new EqualsComparisonTransformation(
 						instEdge.getToRelation(), "ValidationSatisfied",
 						getHlclFactory().number(1));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Satisfied", true,
-						transformation16));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getFromRelation(), "Satisfied", true,
+								transformation16));
 				// No break to include the following transformation
 			case implementation:
+
+				sourceAttributeNames.add("ValidationSatisfied");
 				// B_Selected #==> A_ValidationSelected #= 1
-				AbstractBooleanTransformation transformation18 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation18 = new EqualsComparisonTransformation(
 						instEdge.getFromRelation(), "ValidationSelected",
 						getHlclFactory().number(1));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation18));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getToRelation(), "Selected", true,
+								transformation18));
 				break;
 			case mandatory:
 				sourceAttributeNames.add("Selected");
+				sourceAttributeNames.add("ValidationSelected");
 				// A_Selected #==> B_ValidationSelected #=1
-				AbstractBooleanTransformation transformation19 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation19 = new EqualsComparisonTransformation(
 						instEdge.getToRelation(), "ValidationSelected",
 						getHlclFactory().number(1));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getFromRelation(), "Selected", true,
-						transformation19));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getFromRelation(), "Selected", true,
+								transformation19));
 				// B_Selected #==> A_ValidationSelected #=1
-				AbstractBooleanTransformation transformation20 = new AssignBooleanTransformation(
+				AbstractComparisonTransformation transformation20 = new EqualsComparisonTransformation(
 						instEdge.getFromRelation(), "ValidationSelected",
 						getHlclFactory().number(1));
-				getTransformations().add(new ImplicationBooleanTransformation(
-						instEdge.getToRelation(), "Selected", true,
-						transformation20));
+				getTransformations().add(
+						new ImplicationBooleanTransformation(instEdge
+								.getToRelation(), "Selected", true,
+								transformation20));
 				break;
 			case optional:
 				sourceAttributeNames.add("Selected");
 				// A_Selected #>= B_Selected
-				getTransformations()
-						.add(new GreaterOrEqualsBooleanTransformation(instEdge
+				getTransformations().add(
+						new GreaterOrEqualsBooleanTransformation(instEdge
 								.getFromRelation(), instEdge.getToRelation(),
 								"Selected", "Selected"));
 
 				// B_Optional #= 1
-				getTransformations().add(new AssignBooleanTransformation(instEdge
-						.getToRelation(), "Optional", getHlclFactory().number(1)));
+				getTransformations().add(
+						new AssignBooleanTransformation(instEdge
+								.getToRelation(), "Optional", getHlclFactory()
+								.number(1)));
 				setOptional(true);
 				break;
 			case claim:
@@ -234,11 +261,12 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 
 				break;
 			case generalConstraint:
-					String attributeValue = (String) instEdge.getInstAttribute("generalConstraint").getValue();
-					if (attributeValue != null && !attributeValue.equals(""))
-					getTransformations()
-							.add(new LiteralBooleanTransformation(attributeValue));	
-				
+				String attributeValue = (String) instEdge.getInstAttribute(
+						"generalConstraint").getValue();
+				if (attributeValue != null && !attributeValue.equals(""))
+					getTransformations().add(
+							new LiteralBooleanTransformation(attributeValue));
+
 				break;
 			case group:
 				break;
@@ -247,14 +275,12 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 			}
 			InstVertex instVertex = instEdge.getFromRelation();
 			if (instVertex instanceof InstGroupDependency) {
-				((InstGroupDependency) instVertex)
-						.clearSourceAttributeNames();
+				((InstGroupDependency) instVertex).clearSourceAttributeNames();
 				((InstGroupDependency) instVertex)
 						.addSourceAttributeNames(sourceAttributeNames);
 			}
 
 		}
 
-	
 	}
 }
