@@ -192,6 +192,13 @@ public class RefasGraph extends AbstractGraph {
 		InstVertex target = (InstVertex) cell.getTarget().getValue();
 		String id = null;
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
+		if (cell.getValue() instanceof InstEdge)
+		{
+		InstEdge element = (InstEdge) cell.getValue();
+		String elementIdentifier = element.getIdentifier();
+		if (elementIdentifier != null && !"".equals(elementIdentifier))
+			return false;
+		}
 		InstEdge directRelation = new InstEdge(map);
 		Refas refas = getRefas();
 

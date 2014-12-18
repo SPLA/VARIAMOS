@@ -288,11 +288,11 @@ public abstract class AbstractTransformation {
 				if (leftSubExpression instanceof AbstractBooleanTransformation)
 					out.add(((AbstractBooleanTransformation) leftSubExpression)
 							.transform(f, idMap));
-				else if (rightSubExpression instanceof AbstractNumericTransformation)
+				else if (leftSubExpression instanceof AbstractNumericTransformation)
 					out.add(((AbstractNumericTransformation) leftSubExpression)
 							.transform(f, idMap));
 				else
-					out.add(((AbstractNumericTransformation) leftSubExpression)
+					out.add(((AbstractComparisonTransformation) leftSubExpression)
 							.transform(f, idMap));
 				break;
 			case RIGHTSUBEXPRESSION:

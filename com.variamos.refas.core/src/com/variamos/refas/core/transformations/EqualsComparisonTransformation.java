@@ -13,22 +13,26 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractComparisonTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+
 /**
- * Class to create the Equals expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Equals expression. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-14
  */
-public class EqualsComparisonTransformation extends AbstractComparisonTransformation {
+public class EqualsComparisonTransformation extends
+		AbstractComparisonTransformation {
 	private static final String TRANSFORMATION = "#=";
-	
-	public EqualsComparisonTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+
+	public EqualsComparisonTransformation(InstVertex left, InstVertex right,
+			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
+
 	public EqualsComparisonTransformation(InstVertex vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
@@ -42,11 +46,17 @@ public class EqualsComparisonTransformation extends AbstractComparisonTransforma
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	
+
 	public EqualsComparisonTransformation(InstVertex vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
+		this.expressionConnectors.add(TRANSFORMATION);
+	}
+
+	public EqualsComparisonTransformation(InstVertex left,
+			String attributeName, NumericExpression numericExpression) {
+		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
@@ -58,17 +68,24 @@ public class EqualsComparisonTransformation extends AbstractComparisonTransforma
 	}
 
 	@Override
-	public ComparisonExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
+	public ComparisonExpression transform(HlclFactory f,
+			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.equals( (Expression)expressionTerms.get(0), (Expression)expressionTerms.get(1));
-	//	return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+		return f.equals((Expression) expressionTerms.get(0),
+				(Expression) expressionTerms.get(1));
+		// return f.equals( (BooleanExpression)expressionTerms.get(0),
+		// (BooleanExpression)expressionTerms.get(1));
 	}
-	
+
 	@Override
-	public ComparisonExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
-		return f.notEquals( (Expression)expressionTerms.get(0), (Expression)expressionTerms.get(1));
-	//	return f.equals( (BooleanExpression)expressionTerms.get(0), (BooleanExpression)expressionTerms.get(1));
+	public ComparisonExpression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+				false, false);
+		return f.notEquals((Expression) expressionTerms.get(0),
+				(Expression) expressionTerms.get(1));
+		// return f.equals( (BooleanExpression)expressionTerms.get(0),
+		// (BooleanExpression)expressionTerms.get(1));
 	}
 
 }

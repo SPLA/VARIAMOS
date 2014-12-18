@@ -186,7 +186,9 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		out.append(SPACE);
 		out.append(ASSIGN_VARIABLE);
 		out.append(SPACE);
-		transformListExpression( (ListDefinitionExpression)e.getRightExpression(), out );
+		//transformListExpression( (ListDefinitionExpression)e.getRightExpression(), out );
+		out.append(transformExpressionToProlog(e.getRightExpression()));
+		
 	}
 
 	protected void transformNumericOperation(NumericOperation e,

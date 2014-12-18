@@ -13,5 +13,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntaxsupport"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.io"/>
+	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
