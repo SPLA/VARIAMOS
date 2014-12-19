@@ -50,7 +50,7 @@ public abstract class InstVertex implements Serializable, Prototype,
 	public InstVertex(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>(),
 				new HashMap<String, InstEdge>());
-		
+
 	}
 
 	public InstVertex(String identifier,
@@ -90,9 +90,10 @@ public abstract class InstVertex implements Serializable, Prototype,
 		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
 		// return instAttributes;
 	}
-	
+
 	public Collection<InstAttribute> getInstAttributesCollection() {
-		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES)).values();
+		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+				.values();
 		// return instAttributes;
 	}
 
@@ -107,7 +108,7 @@ public abstract class InstVertex implements Serializable, Prototype,
 	public void addTargetRelation(InstEdge target) {
 		this.targetRelations.add(target);
 	}
-	
+
 	public List<InstEdge> getSourceRelations() {
 		return sourceRelations;
 	}
@@ -150,22 +151,42 @@ public abstract class InstVertex implements Serializable, Prototype,
 			int nameEnd = attribute.indexOf("#", 3);
 			int varEnd = attribute.indexOf("#", nameEnd + 1);
 			int condEnd = attribute.indexOf("#", varEnd + 1);
+			int valueEnd = attribute.indexOf("#", condEnd + 1);
 			if (nameEnd != -1) {
+				String name = null;
+				String type = null;
 				String variable = null;
 				String condition = null;
 				String value = null;
+				String defvalue = null;
+				name = attribute.substring(3,nameEnd);
 				variable = attribute.substring(nameEnd + 1, varEnd);
 				condition = attribute.substring(varEnd + 1, condEnd);
-				value = attribute.substring(condEnd + 1);
+				if (valueEnd != -1) {
+					value = attribute.substring(condEnd + 1, valueEnd);
+					type = getInstAttributes().get(name).getModelingAttributeType();
+					defvalue = attribute.substring(valueEnd + 1);
+				} else
+					value = attribute.substring(condEnd + 1);
 				InstAttribute varValue = getInstAttributes().get(variable);
-				if (varValue == null)
+				if (varValue == null) {
+					if (valueEnd != -1)
+						getInstAttributes().get(name).setValue(createValue(type, defvalue));
 					continue;
-				else if (varValue.getValue().toString().trim().equals(value)) {
-					if (condition.equals("!="))
+				} else if (varValue.getValue().toString().trim().equals(value)) {
+					if (condition.equals("!=")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
 						continue;
+					}
 				} else {
-					if (condition.equals("=="))
+					if (condition.equals("==")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
 						continue;
+					}
 				}
 				listEditableAttribNames.add(attribute.substring(3, nameEnd));
 
@@ -180,6 +201,16 @@ public abstract class InstVertex implements Serializable, Prototype,
 		return editableInstAttributes;
 	}
 
+	
+	private Object createValue(String type, String value)
+	{
+		if (type.equals("Boolean"))
+			return new Boolean(value);
+		if (type.equals("Integer"))
+			return new Integer(value);
+	return value;
+		
+	}
 	public String toString() {
 		/*
 		 * if (getInstAttributes().get("name") == null) return
@@ -204,15 +235,17 @@ public abstract class InstVertex implements Serializable, Prototype,
 		}
 	}
 
-	public abstract MetaVertex getMetaVertex() ;
-	public abstract void clearMetaVertex() ;
+	public abstract MetaVertex getMetaVertex();
+
+	public abstract void clearMetaVertex();
 
 	public abstract String getMetaVertexIdentifier();
 
-	public abstract void setMetaVertex(MetaVertex mc) ;
+	public abstract void setMetaVertex(MetaVertex mc);
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		return this.getIdentifier()+"_"+this.getInstAttribute(insAttributeLocalId).getIdentifier();
+		return this.getIdentifier() + "_"
+				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 
 }

@@ -111,6 +111,8 @@ public class SemanticPlusSyntax {
 	public SemanticPlusSyntax() {
 
 		// Definition of variability concept and relations
+		
+		System.out.println("Loading semantic model...");
 		IncomingSemanticEdge groupRelation = null;
 
 		AbstractSemanticVertex semGeneralElement = new AbstractSemanticVertex();
@@ -138,30 +140,33 @@ public class SemanticPlusSyntax {
 				new ConfigurationAttribute("Required", "Boolean", true,
 						"Is Required", false));
 		semGeneralElement.putSemanticAttribute("Allowed",
-				new ConfigurationAttribute("Allowed", "Boolean", false,
+				new ConfigurationAttribute("Allowed", "Boolean", true,
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new ConfigurationAttribute("RequiredLevel", "Integer", false,
 						"Required Level", 0)); //TODO define domain or Enum Level
 		
+		semGeneralElement.putSemanticAttribute("ForcedSatisfied",
+				new ConfigurationAttribute("ForcedSatisfied", "Boolean", false,	"Force Satisfaction", false));
+		semGeneralElement.putSemanticAttribute("ForcedSelected",
+				new ConfigurationAttribute("ForcedSelected", "Boolean", false,	"Force Selection", false));
+
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
-		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true");
-		semGeneralElement.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true");
-		semGeneralElement.addDisPropEditableAttribute("04#" + "Required"+"#"+"Active"+"#==#"+"true");
-		semGeneralElement.addDisPropEditableAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
+		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"+"#"+"Active"+"#==#"+"true"+"#"+"false");
+		semGeneralElement.addDisPropEditableAttribute("03#" + "Allowed"+"#"+"Active"+"#==#"+"true"+"#"+"false");
+		semGeneralElement.addDisPropEditableAttribute("04#" + "Required"+"#"+"Allowed"+"#==#"+"true"+"#"+"false");
+		semGeneralElement.addDisPropEditableAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true"+"#"+"0");
+		semGeneralElement.addDisPropEditableAttribute("10#"	+ "ForcedSatisfied"+"#"+"Allowed"+"#==#"+"true"+"#"+"false");			
+		semGeneralElement.addDisPropEditableAttribute("15#" + "ForcedSelected"+"#"+"Allowed"+"#==#"+"true"+"#"+"false");
 		
 		semGeneralElement.addDisPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addDisPropVisibleAttribute("02#" + "Visibility");
 		semGeneralElement.addDisPropVisibleAttribute("03#" + "Allowed");
 		semGeneralElement.addDisPropVisibleAttribute("04#" + "Required");
 		semGeneralElement.addDisPropVisibleAttribute("05#" + "RequiredLevel"+"#"+"Required"+"#==#"+"true");
-		
+
 		//Simulation attributes
 		
-		semGeneralElement.putSemanticAttribute("ForcedSatisfied",
-				new SimulationAttribute("ForcedSatisfied", "Boolean", false,	"Force Satisfaction", false));
-		semGeneralElement.putSemanticAttribute("ForcedSelected",
-				new SimulationAttribute("ForcedSelected", "Boolean", false,	"Force Selection", false));
 		
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
 				new SimulationAttribute("InitialRequiredLevel", "Integer", false, "Initial Required Level", false));
@@ -196,9 +201,6 @@ public class SemanticPlusSyntax {
 		semGeneralElement.putSemanticAttribute("SimAllowed",
 				new SimulationAttribute("SimAllowed", "Boolean", false, "Is Allowed", true));
 				
-		semGeneralElement.addDisPropEditableAttribute("10#"	+ "ForcedSatisfied"+"#"+"Active"+"#==#"+"true");	
-		
-		semGeneralElement.addDisPropEditableAttribute("15#" + "ForcedSelected"+"#"+"Active"+"#==#"+"true");
 		
 		semGeneralElement.addDisPropVisibleAttribute("02#" + "SimRequired");
 		semGeneralElement.addDisPropVisibleAttribute("03#" + "SimRequiredLevel");
@@ -693,8 +695,14 @@ public class SemanticPlusSyntax {
 
 		// TODO: structural and functional dependency relations
 
+		
+
+		System.out.println("Semantic model loaded.");
 		// *************************---------------****************************
 		// Our MetaModel objects definition
+		
+
+		System.out.println("Loading syntax meta model...");
 
 		MetaView syntaxMetaView = null;
 
@@ -872,8 +880,6 @@ public class SemanticPlusSyntax {
 						+ " satisfied with a clear cut condition", 100, 40,
 				"/com/variamos/gui/refas/editor/images/goal.png", true,
 				Color.BLUE.toString(), 3, true, semGoal);
-		System.out.println("TopGoal: "
-				+ syntaxTopGoal.getModelingAttributes().toString());
 		syntaxTopGoal.addMetaExtendRelation(syntaxVariabilityArtifact, false);
 
 		syntaxMetaView.addConcept(syntaxTopGoal);
@@ -1383,15 +1389,11 @@ public class SemanticPlusSyntax {
 		// syntaxMetaView.addConcept(metaOperEdge);
 		syntaxAsset.addMetaEdgeAsOrigin(sOperationalization, metaOperEdge);
 		syntaxElements.put("Asset To Oper Relation", metaOperEdge);
+		
+
+		System.out.println("Syntax meta model loaded.");
+
+		System.out.println("Loading gui elements...");
 
 	}
-
-	public static void main(String[] args) {
-		SemanticPlusSyntax mst = new SemanticPlusSyntax();
-		List<IntSemanticElement> ascs = (List<IntSemanticElement>) mst
-				.getSemanticConcepts().values();
-		for (int i = 0; i < ascs.size(); i++)
-			System.out.println(ascs.get(i));
-	}
-
 }

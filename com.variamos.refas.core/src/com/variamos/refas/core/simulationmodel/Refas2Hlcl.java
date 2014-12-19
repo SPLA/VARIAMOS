@@ -62,16 +62,30 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private HlclProgram hlclProgram = new HlclProgram();
 	private Refas refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
+	private Configuration configuration;
+
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	public static final int ONE_SOLUTION = 0, ALL_SOLUTIONS = 1;
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
 		text = "";
 		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
-			
+
 	}
-	public void execute()
+
+	/**
+	 * Create a new HlclProgram with the expression of all concepts and
+	 * relations and calls SWIProlog to return a solution or all solutions (only
+	 * ONE_SOLUTION currently supported)
+	 */
+	public void execute(int solutions)
 	{
 		hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
 		createVertexExpressions(null);
 		createEdgeExpressions(null);
 		// Previous call to createEdgeExpressions is required to fill the
@@ -114,9 +128,19 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 		Solver swiSolver = new SWIPrologSolver(hlclProgram);
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
-		Configuration configuration = swiSolver.getSolution();
-		System.out.println("configuration: " + configuration.toString());
 
+		if (solutions==0)
+		 configuration = swiSolver.getSolution();
+		else
+			throw new RuntimeException ("Solution parameter not supported");
+		System.out.println("configuration: " + configuration.toString());
+	}
+	
+	/**
+	 * Updates the GUI with the configuration
+	 */
+	public void updateGUIElements()
+	{
 		// Call the SWIProlog and obtain the result
 		Map<String, Integer> prologOut = configuration.getConfiguration();
 
@@ -144,28 +168,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					+ vertex.getInstAttribute(attribute)
 							.getModelingAttributeType() + "; ");
 		}
-		/*
-		 * int i = 0; for (Identifier identifier : identifiers) { String id =
-		 * identifier.getId(); String[] split = id.split("_"); String conceptId
-		 * = split[0]; String attribute = split[1]; InstVertex vertex =
-		 * refas.getVertex(conceptId); if
-		 * (vertex.getInstAttribute(attribute).getModelingAttributeType()
-		 * .equals("Boolean")) /* if (prologOut.get(i).equals(1))
-		 * vertex.getInstAttribute(attribute).setValue(true); else
-		 * vertex.getInstAttribute(attribute).setValue(false);
-		 * 
-		 * vertex.getInstAttribute(attribute).setValue(true); // TODO // delete
-		 * else //
-		 * vertex.getInstAttribute(attribute).setValue(prologOut.get(i));
-		 * System.out.print(conceptId + " " + attribute + " " +
-		 * vertex.getInstAttribute(attribute) .getModelingAttributeType() +
-		 * "; "); }
-		 */
 	}
 
-	public AbstractConstraintGroup getElementConstraintGroup (String identifier, String type)
-	{
-		
+	public AbstractConstraintGroup getElementConstraintGroup(String identifier,
+			String type) {
+
 		if (type.equals("vertex"))
 			createVertexExpressions(identifier);
 		else if (type.equals("edge"))
@@ -175,7 +182,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return constraintGroups.get(identifier);
 	}
 
-	
 	public String getText() {
 		return text;
 	}
@@ -193,15 +199,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							.getVariabilityVertex().get(identifier)));
 	}
 
-	private void createEdgeExpressions( String identifier) {
+	private void createEdgeExpressions(String identifier) {
 		if (identifier == null)
 			for (InstEdge elm : refas.getConstraintInstEdgesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new DirectEdgeConstraintGroup(elm.getIdentifier(),
 								idMap, f, elm));
 			}
-		else
-			if (refas.getConstraintInstEdges().get(identifier)!= null)
+		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
 					new DirectEdgeConstraintGroup(identifier, idMap, f, refas
 							.getConstraintInstEdges().get(identifier)));
@@ -209,7 +214,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	private void createGroupExpressions(String identifier) {
- 		createEdgeExpressions(null); //TODO define a better solution
+		createEdgeExpressions(null); // TODO define a better solution
 		if (identifier == null)
 			for (InstGroupDependency elm : refas
 					.getInstGroupDependenciesCollection()) {
@@ -223,10 +228,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							refas.getInstGroupDependencies().get(identifier)));
 
 	}
+
 	public String getElementTextConstraints(String identifier, String string) {
-		String out ="";
-		for (Expression expression : getElementConstraintGroup(identifier, string).getExpressions())
-			out += expression.toString()+"\n";
+		String out = "";
+		for (Expression expression : getElementConstraintGroup(identifier,
+				string).getExpressions())
+			out += expression.toString() + "\n";
 		return out;
 	}
 }

@@ -100,7 +100,7 @@ public class SharedActions {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
-							loadSupportObjects(editor, mv2.getValue(), mv1,
+							loadSupportObjects(editor, mv2.getValue(), mv2,
 									graph);
 						}
 					}
@@ -127,7 +127,7 @@ public class SharedActions {
 					.getSemanticElement(
 							ic.getSemanticGroupDependencyIdentifier());
 			ic.setMetaVertex(mgd);
-			refas.putVariabilityInstVertex(ic);
+			refas.putInstGroupDependency(ic);
 			if (sgd != null)
 				ic.setSemanticGroupDependency((SemanticGroupDependency) sgd);
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
@@ -179,10 +179,13 @@ public class SharedActions {
 					.getSyntaxElement(ic.getMetaEdgeIdentifier());
 			DirectSemanticEdge semanticEdgeIde = (DirectSemanticEdge) editor.getSematicSintaxObject()
 					.getSemanticElement(ic.getSemanticEdgeIde());
-			//InstVertex from = (InstVertex) source.getSource().getValue();
-			//InstVertex to = (InstVertex) source.getTarget().getValue();
-			//ic.setFromRelation(from);
-			//ic.setToRelation(to);
+			InstVertex from = (InstVertex) source.getSource().getValue();
+			InstVertex to = (InstVertex) source.getTarget().getValue();
+			ic.setSourceRelation(from);
+			ic.setTargetRelation(to);
+
+			from.addTargetRelation(ic);
+			to.addSourceRelation(ic);
 			if (me != null) {
 				ic.setMetaEdge(me);
 				if (semanticEdgeIde != null) {

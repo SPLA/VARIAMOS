@@ -61,7 +61,9 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 	public RestrictionConstraint(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstVertex instVertex) {
-		super(identifier, mxResources.get("defect-concepts")+" "+identifier, idMap, hlclFactory);
+		super(identifier,
+				mxResources.get("defect-concepts") + " " + identifier, idMap,
+				hlclFactory);
 		this.instVertex = instVertex;
 		defineTransformations();
 	}
@@ -82,16 +84,28 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 				for (InstAttribute instAttribute : instConcept
 						.getInstAttributesCollection()) {
-					
+
+					int attributeValue = 0;
+					String type = (String) instAttribute
+							.getModelingAttributeType();
+					if (type.equals("Integer") || type.equals("Boolean")) {
+						if (instAttribute.getValue() instanceof Boolean)
+							attributeValue = ((boolean) instAttribute
+									.getValue()) ? 1 : 0;
+						else if (instAttribute.getValue() instanceof String)
+							attributeValue = Integer
+									.valueOf((String) instAttribute.getValue());
+						else
+							attributeValue = (Integer) instAttribute.getValue();
+					}
 					// A_SimAllowed #= A_Allowed
 					if (instAttribute.getIdentifier().equals("Allowed")) {
-						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
-								: 0;
+
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
-										getHlclFactory().number(attributeVale)));
+										getHlclFactory().number(attributeValue)));
 
 						getTransformations().add(
 								new EqualsComparisonTransformation(instVertex,
@@ -100,13 +114,11 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 					}
 					// A_SimRequired #= A_Required
 					if (instAttribute.getIdentifier().equals("Required")) {
-						int attributeVale = (Boolean) ((boolean) instAttribute
-								.getValue()) ? 1 : 0;
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
-										getHlclFactory().number(attributeVale)));
+										getHlclFactory().number(attributeValue)));
 						getTransformations().add(
 								new EqualsComparisonTransformation(instVertex,
 										instVertex, "SimRequired",
@@ -115,33 +127,28 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 					// A_PreferredSelected #= 1
 					if (instAttribute.getIdentifier().equals(
 							"PreferredSelected")) {
-						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
-								: 0;
+
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
-										getHlclFactory().number(attributeVale)));
+										getHlclFactory().number(attributeValue)));
 					}
 					// A_Optional #= 0
 					if (instAttribute.getIdentifier().equals("Optional")) {
-						int attributeVale = ((boolean) instAttribute.getValue()) ? 1
-								: 0;
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
-										getHlclFactory().number(attributeVale)));
+										getHlclFactory().number(attributeValue)));
 					}
 					// A_SimInitialRequiredLevel #= A_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
-						int attributeVale = ((Integer) instAttribute.getValue())
-								.intValue();
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
-										getHlclFactory().number(attributeVale)));
+										getHlclFactory().number(attributeValue)));
 						getTransformations().add(
 								new EqualsComparisonTransformation(instVertex,
 										instVertex, "InitialRequiredLevel",
@@ -203,8 +210,9 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						AbstractBooleanTransformation transformation7 = new OrBooleanTransformation(
 								transformation5, transformation6);
 						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(instVertex,
-										instAttribute.getIdentifier(), true,
+								new DoubleImplicationBooleanTransformation(
+										instVertex, instAttribute
+												.getIdentifier(), true,
 										transformation7));
 
 					}
@@ -222,8 +230,9 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(
 								transformation8, transformation9);
 						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(instVertex,
-										instAttribute.getIdentifier(), true,
+								new DoubleImplicationBooleanTransformation(
+										instVertex, instAttribute
+												.getIdentifier(), true,
 										transformation10));
 
 					}

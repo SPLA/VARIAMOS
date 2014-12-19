@@ -47,7 +47,7 @@ public class MetaVertex extends MetaElement {
 	}
 
 	public MetaVertex() {
-
+		super();
 	}
 
 	public MetaVertex(String identifier, boolean visible, String name, String style, String description, int width,
