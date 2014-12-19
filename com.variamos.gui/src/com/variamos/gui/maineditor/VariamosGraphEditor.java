@@ -302,6 +302,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							plGraph), persp, abstractModel);
 			return vge;
 		} else if (perspective.equals("modeling")) {
+
+			System.out.println("Initializing modeling perspective...");
 			persp = 2;
 			RefasGraph refasGraph = null;
 			if (file != null) {
@@ -326,9 +328,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
 				vge2.updateEditor();
 
+				System.out.println("Modeling perspective initialized.");
 				return vge2;
 			}
 		} else if (perspective.equals("metamodeling")) {
+
+			System.out.println("Initializing meta-modeling perspective...");
 			// todo: change for metamodeling
 			persp = 3;
 			RefasGraph refasGraph = null;
@@ -355,6 +360,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				mxCell root = new mxCell();
 				root.insert(new mxCell());
 				refasGraph.getModel().setRoot(root);
+				System.out.println("Meta-Modeling perspective initialized.");
 				return vge2;
 			}
 		}
@@ -770,7 +776,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			configurator.add(test);
 			test.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					refas2hlcl.execute();
+					refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+					refas2hlcl.updateGUIElements();
 					messagesArea.setText(refas2hlcl.getText());
 					bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(elm);
@@ -1073,7 +1080,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// }
 
 	// Not used method
-	/*
+	/* mxGraph
 	 * public void loadPalettes(){ //Load first palette PaletteDefinition pl =
 	 * new PaletteDefinition(); pl.name = "Product Lines";
 	 * 

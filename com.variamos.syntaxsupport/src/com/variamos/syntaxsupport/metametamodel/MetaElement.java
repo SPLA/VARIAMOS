@@ -103,6 +103,9 @@ public class MetaElement implements Serializable {
 	private List<String> simPanelSpacersAttributes;
 
 	public MetaElement() {
+
+		modelingAttributes = new HashMap<String, AbstractAttribute>();
+
 		createModelingAttributes();
 	}
 

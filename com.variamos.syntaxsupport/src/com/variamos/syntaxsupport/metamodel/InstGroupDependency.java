@@ -58,6 +58,8 @@ public class InstGroupDependency extends InstVertex {
 
 	public InstGroupDependency() {
 		super();
+
+		sourceAttributeNames = new HashSet<String>();
 		// vars.put(VAR_METAGROUPDEPIDENTIFIER,null);
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
