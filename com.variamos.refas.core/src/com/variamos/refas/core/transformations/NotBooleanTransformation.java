@@ -10,10 +10,9 @@ import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+
 /**
- * Class to create the Not expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Not expression. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -22,27 +21,30 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  */
 public class NotBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "-";
-	
-	public NotBooleanTransformation(InstElement left,String leftAttributeName)
-	{
+
+	public NotBooleanTransformation(InstElement left, String leftAttributeName) {
 		super(left, leftAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
-	public NotBooleanTransformation(AbstractTransformation subExpression)
-	{
+
+	public NotBooleanTransformation(AbstractTransformation subExpression) {
 		super(null, null, false, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
+
 	@Override
-	public BooleanExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
+	public BooleanExpression transform(HlclFactory f,
+			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.not((Identifier) expressionTerms.get(0));
 	}
-	
+
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
+	public BooleanExpression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap, boolean negateLeft,
+			boolean negateRight) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return (Identifier) expressionTerms.get(0);
 	}

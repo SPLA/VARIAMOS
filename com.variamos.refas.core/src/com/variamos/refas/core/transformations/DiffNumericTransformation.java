@@ -12,10 +12,10 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+
 /**
- * Class to create the Diff expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Diff expression. Part of PhD work at University of Paris
+ * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -24,43 +24,48 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  */
 public class DiffNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "-";
-	
-	public DiffNumericTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
+
+	public DiffNumericTransformation(InstElement left, InstElement right,
+			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	public DiffNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			AbstractTransformation subExpression) {
+
+	public DiffNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
-	public DiffNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			BooleanExpression simpleExpression) {
+	public DiffNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
-	}
-	
-	public DiffNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			NumericIdentifier numericIdentifier) {
-		super(vertex, attributeName, replaceRight, numericIdentifier);
-		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
-	public DiffNumericTransformation(
-			AbstractTransformation leftSubExpression,
+	public DiffNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, NumericIdentifier numericIdentifier) {
+		super(vertex, attributeName, replaceRight, numericIdentifier);
+		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
+	}
+
+	public DiffNumericTransformation(AbstractTransformation leftSubExpression,
 			AbstractTransformation rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	@Override
-	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
+	public NumericExpression transform(HlclFactory f,
+			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.diff( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
+		return f.diff((NumericExpression) expressionTerms.get(0),
+				(NumericExpression) expressionTerms.get(1));
 	}
 
 }

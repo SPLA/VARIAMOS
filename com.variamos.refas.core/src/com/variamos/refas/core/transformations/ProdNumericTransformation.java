@@ -14,8 +14,8 @@ import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
- * Class to create the Prod expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Prod expression. Part of PhD work at University of Paris
+ * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -24,43 +24,48 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  */
 public class ProdNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "*";
-	
-	public ProdNumericTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
+
+	public ProdNumericTransformation(InstElement left, InstElement right,
+			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	public ProdNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			AbstractTransformation subExpression) {
+
+	public ProdNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
-	public ProdNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			BooleanExpression simpleExpression) {
+	public ProdNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
-	}
-	
-	public ProdNumericTransformation(InstElement vertex,
-			String attributeName, boolean replaceRight,
-			NumericIdentifier numericIdentifier) {
-		super(vertex, attributeName, replaceRight, numericIdentifier);
-		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
-	public ProdNumericTransformation(
-			AbstractTransformation leftSubExpression,
+	public ProdNumericTransformation(InstElement vertex, String attributeName,
+			boolean replaceRight, NumericIdentifier numericIdentifier) {
+		super(vertex, attributeName, replaceRight, numericIdentifier);
+		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
+	}
+
+	public ProdNumericTransformation(AbstractTransformation leftSubExpression,
 			AbstractTransformation rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	@Override
-	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {
+	public NumericExpression transform(HlclFactory f,
+			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.prod( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
+		return f.prod((NumericExpression) expressionTerms.get(0),
+				(NumericExpression) expressionTerms.get(1));
 	}
 
 }

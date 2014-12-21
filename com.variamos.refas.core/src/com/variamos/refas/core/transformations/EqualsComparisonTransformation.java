@@ -13,7 +13,6 @@ import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractComparisonTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
  * Class to create the Equals expression. Part of PhD work at University of
@@ -32,6 +31,7 @@ public class EqualsComparisonTransformation extends
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public EqualsComparisonTransformation(InstElement vertex,
@@ -39,6 +39,7 @@ public class EqualsComparisonTransformation extends
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public EqualsComparisonTransformation(InstElement vertex,
@@ -46,6 +47,7 @@ public class EqualsComparisonTransformation extends
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public EqualsComparisonTransformation(InstElement vertex,
@@ -53,12 +55,14 @@ public class EqualsComparisonTransformation extends
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public EqualsComparisonTransformation(InstElement left,
 			String attributeName, NumericExpression numericExpression) {
 		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public EqualsComparisonTransformation(
@@ -66,6 +70,7 @@ public class EqualsComparisonTransformation extends
 			AbstractTransformation rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	@Override

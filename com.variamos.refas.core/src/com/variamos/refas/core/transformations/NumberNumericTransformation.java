@@ -17,6 +17,9 @@ import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
  */
 
 public class NumberNumericTransformation extends AbstractNumericTransformation {
+	public int getNumber() {
+		return number;
+	}
 	private static final String TRANSFORMATION = "";
 	private int number;
 	public NumberNumericTransformation(int number) {

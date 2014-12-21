@@ -11,30 +11,34 @@ import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+
 /**
- * Class to create the DoubleImplication expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the DoubleImplication expression. Part of PhD work at
+ * University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-15
  */
-public class DoubleImplicationBooleanTransformation extends AbstractBooleanTransformation {
+public class DoubleImplicationBooleanTransformation extends
+		AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#<==>";
-	
+
 	public DoubleImplicationBooleanTransformation(InstElement left,
-			InstElement right, String leftAttributeName, String rightAttributeName) {
+			InstElement right, String leftAttributeName,
+			String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
+
 	public DoubleImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public DoubleImplicationBooleanTransformation(InstElement vertex,
@@ -42,13 +46,15 @@ public class DoubleImplicationBooleanTransformation extends AbstractBooleanTrans
 			BooleanExpression comparativeExpression) {
 		super(vertex, attributeName, replaceTarget, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
+
 	public DoubleImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression comparativeExpression) {
 		super(vertex, attributeName, replaceTarget, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public DoubleImplicationBooleanTransformation(
@@ -56,6 +62,7 @@ public class DoubleImplicationBooleanTransformation extends AbstractBooleanTrans
 			AbstractTransformation rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public DoubleImplicationBooleanTransformation() {
@@ -69,11 +76,13 @@ public class DoubleImplicationBooleanTransformation extends AbstractBooleanTrans
 		return f.doubleImplies((BooleanExpression) expressionTerms.get(0),
 				(BooleanExpression) expressionTerms.get(1));
 	}
-	
+
 	@Override
 	public BooleanExpression transformNegation(HlclFactory f,
-			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
+			Map<String, Identifier> idMap, boolean negateLeft,
+			boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+				false, false);
 		return f.notEquals((BooleanExpression) expressionTerms.get(0),
 				(BooleanExpression) expressionTerms.get(1));
 	}
