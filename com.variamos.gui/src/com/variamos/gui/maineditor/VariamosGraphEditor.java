@@ -79,6 +79,7 @@ import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.refas.Refas;
@@ -815,7 +816,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				expressions.configure(
 						getEditedModel(),
 						refas2hlcl.getElementConstraintGroup(
-								elm.getIdentifier(), type));
+								elm.getIdentifier(), type),(InstElement)elm);
 			}
 			JButton test = new JButton("Execute Simulation");
 			elementSimPropSubPanel.add(test);

@@ -22,6 +22,7 @@ import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
@@ -134,11 +135,11 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						constructor4 = null;
 						try {
 							constructor3 = abstractTransformation.getClass()
-									.getConstructor(InstVertex.class,
+									.getConstructor(InstElement.class,
 											String.class, Boolean.TYPE,
 											AbstractTransformation.class);
 							constructor4 = abstractTransformation.getClass()
-									.getConstructor(InstVertex.class,
+									.getConstructor(InstElement.class,
 											InstVertex.class, String.class,
 											String.class);
 						} catch (NoSuchMethodException | SecurityException e) {
@@ -156,12 +157,12 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					Constructor<?> constructor1 = null, constructor2 = null;
 					try {
 						constructor1 = abstractTransformation.getClass()
-								.getConstructor(InstVertex.class, String.class,
+								.getConstructor(InstElement.class, String.class,
 										Boolean.TYPE,
 										AbstractTransformation.class);
 						constructor2 = abstractTransformation.getClass()
-								.getConstructor(InstVertex.class,
-										InstVertex.class, String.class,
+								.getConstructor(InstElement.class,
+										InstElement.class, String.class,
 										String.class);
 					} catch (NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
