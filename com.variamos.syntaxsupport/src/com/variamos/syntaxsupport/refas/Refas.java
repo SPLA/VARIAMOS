@@ -10,6 +10,7 @@ import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
@@ -289,6 +290,14 @@ public class Refas extends AbstractModel {
 			out = instGroupDependencies.get(vertexId);
 		return out;
 	}
+	
+	public com.variamos.syntaxsupport.metamodel.InstElement getElement(String vertexId) {
+		InstElement out = getVertex(vertexId);
+		if (out == null)
+			out = constraintInstEdges.get(vertexId);
+		return out;
+	}
+
 
 	public void removeElement(Object obj) {
 		if (obj instanceof InstConcept) {
@@ -322,5 +331,6 @@ public class Refas extends AbstractModel {
 		out.putAll(instGroupDependencies);
 		return out;
 	}
+
 
 }

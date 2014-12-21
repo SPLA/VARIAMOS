@@ -153,8 +153,8 @@ public class SemanticPlusSyntax {
 						"Force Selection", false));
 
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
-		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+//		semGeneralElement.addDisPropEditableAttribute("02#" + "Visibility"
+//				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addDisPropEditableAttribute("03#" + "Allowed" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addDisPropEditableAttribute("04#" + "Required" + "#"
@@ -173,6 +173,7 @@ public class SemanticPlusSyntax {
 		semGeneralElement.addDisPropVisibleAttribute("05#" + "RequiredLevel"
 				+ "#" + "Required" + "#==#" + "true");
 		semGeneralElement.addDisPropVisibleAttribute("10#" + "ForcedSatisfied");
+		semGeneralElement.addDisPropVisibleAttribute("15#" + "ForcedSelected");
 		
 		// Simulation attributes
 
@@ -336,7 +337,14 @@ public class SemanticPlusSyntax {
 		semClaim.putSemanticAttribute("ConditionalExpression",
 				new SemanticAttribute("ConditionalExpression", "String", false,
 						"Conditional Expression", ""));
+		semClaim.putSemanticAttribute("CompExp",
+				new ConfigurationAttribute("CompExp", "Boolean", false,
+						"Boolean Comp. Expression", true));
+		semClaim.putSemanticAttribute("ClaimSelected",
+				new ConfigurationAttribute("ClaimSelected", "Boolean", false,
+						"Claim Selected", false));
 
+		
 		semClaim.addDisPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addDisPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
 																				// move
@@ -349,6 +357,12 @@ public class SemanticPlusSyntax {
 
 		semClaim.addDisPropVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addDisPropVisibleAttribute("03#" + "ConditionalExpression");
+		
+
+		semClaim.addDisPropEditableAttribute("01#" + "CompExp");
+		semClaim.addDisPropVisibleAttribute("01#" + "CompExp");
+
+		semClaim.addDisPropVisibleAttribute("02#" + "ClaimSelected");
 
 		semClaim.addDisPanelSpacersAttribute("#" + "Operationalizations"
 				+ "#\n#");
@@ -356,6 +370,13 @@ public class SemanticPlusSyntax {
 		SoftSemanticConceptSatisficing semSoftDependency = new SoftSemanticConceptSatisficing(
 				semGeneralElement, "SoftDependency", false);
 		semanticConcepts.put("SD", semSoftDependency);
+		
+		semSoftDependency.putSemanticAttribute("CompExp",
+				new ConfigurationAttribute("CompExp", "Boolean", false,
+						"Boolean Comp. Expression", true));
+		semSoftDependency.putSemanticAttribute("SDSelected",
+				new ConfigurationAttribute("SDSelected", "Boolean", false,
+						"SD Selected", false));
 
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				new SemanticAttribute("ConditionalExpression", "String", false,
@@ -366,7 +387,14 @@ public class SemanticPlusSyntax {
 				+ "ConditionalExpression");
 		semSoftDependency.addDisPropVisibleAttribute("03#"
 				+ "ConditionalExpression");
+		
+		
 
+		semSoftDependency.addDisPropEditableAttribute("01#" + "CompExp");
+		semSoftDependency.addDisPropVisibleAttribute("01#" + "CompExp");
+
+		semSoftDependency.addDisPropVisibleAttribute("02#" + "SDSelected");
+		
 		// Elements Lists
 		List<AbstractSemanticVertex> semAssumptionElements = new ArrayList<AbstractSemanticVertex>();
 		semAssumptionElements.add(semAssumption);
@@ -814,8 +842,8 @@ public class SemanticPlusSyntax {
 						"Force Selection", false));
 
 		syntaxFeatureGroupDep.addDisPropEditableAttribute("01#" + "Active");
-		syntaxFeatureGroupDep.addDisPropEditableAttribute("02#" + "Visibility"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+//		syntaxFeatureGroupDep.addDisPropEditableAttribute("02#" + "Visibility"
+//				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		syntaxFeatureGroupDep.addDisPropEditableAttribute("03#" + "Allowed" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
 		syntaxFeatureGroupDep.addDisPropEditableAttribute("04#" + "Required" + "#"
@@ -833,7 +861,9 @@ public class SemanticPlusSyntax {
 		syntaxFeatureGroupDep.addDisPropVisibleAttribute("04#" + "Required");
 		syntaxFeatureGroupDep.addDisPropVisibleAttribute("05#"
 				+ "RequiredLevel" + "#" + "Required" + "#==#" + "true");
-
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("10#" + "ForcedSatisfied");
+		syntaxFeatureGroupDep.addDisPropVisibleAttribute("15#" + "ForcedSelected");
+		
 		// Simulation attributes
 
 		syntaxFeatureGroupDep.addModelingAttribute("InitialRequiredLevel",
@@ -1044,8 +1074,8 @@ public class SemanticPlusSyntax {
 						"Force Selection", false));
 
 		syntaxGroupDependency.addDisPropEditableAttribute("01#" + "Active");
-		syntaxGroupDependency.addDisPropEditableAttribute("02#" + "Visibility"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+//		syntaxGroupDependency.addDisPropEditableAttribute("02#" + "Visibility"
+//				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		syntaxGroupDependency.addDisPropEditableAttribute("03#" + "Allowed" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
 		syntaxGroupDependency.addDisPropEditableAttribute("04#" + "Required" + "#"
@@ -1063,6 +1093,8 @@ public class SemanticPlusSyntax {
 		syntaxGroupDependency.addDisPropVisibleAttribute("04#" + "Required");
 		syntaxGroupDependency.addDisPropVisibleAttribute("05#"
 				+ "RequiredLevel" + "#" + "Required" + "#==#" + "true");
+		syntaxGroupDependency.addDisPropVisibleAttribute("10#" + "ForcedSatisfied");
+		syntaxGroupDependency.addDisPropVisibleAttribute("15#" + "ForcedSelected");
 
 		// Simulation attributes
 

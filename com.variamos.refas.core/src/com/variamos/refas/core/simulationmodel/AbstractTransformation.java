@@ -11,6 +11,7 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.types.ExpressionVertexType;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -23,8 +24,8 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  * @since 2014-12-13
  */
 public abstract class AbstractTransformation {
-	private InstVertex leftVertex;
-	private InstVertex rightVertex;
+	private InstElement leftVertex;
+	private InstElement rightVertex;
 	private String leftAttributeName;
 	private String rightAttributeName;
 	private AbstractTransformation leftSubExpression;
@@ -37,7 +38,7 @@ public abstract class AbstractTransformation {
 	protected List<ExpressionVertexType> expressionVertexTypes;
 	protected List<String> expressionConnectors;
 
-	public AbstractTransformation(InstVertex left, InstVertex right,
+	public AbstractTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
@@ -52,7 +53,7 @@ public abstract class AbstractTransformation {
 		this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName,
+	public AbstractTransformation(InstElement vertex, String attributeName,
 			boolean replaceTarget, AbstractTransformation subExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
@@ -75,7 +76,7 @@ public abstract class AbstractTransformation {
 
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName,
+	public AbstractTransformation(InstElement vertex, String attributeName,
 			boolean replaceTarget, BooleanExpression booleanExpression) {
 
 		this.leftBooleanExpression = booleanExpression;
@@ -99,7 +100,7 @@ public abstract class AbstractTransformation {
 		}
 	}
 	
-	public AbstractTransformation(InstVertex vertex, String attributeName,
+	public AbstractTransformation(InstElement vertex, String attributeName,
 			boolean replaceTarget, NumericExpression numericExpression) {
 
 		this.leftNumericExpression = numericExpression;
@@ -139,7 +140,7 @@ public abstract class AbstractTransformation {
 		expressionConnectors = new ArrayList<String>();
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName) {
+	public AbstractTransformation(InstElement vertex, String attributeName) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 		this.leftVertex = vertex;
@@ -158,7 +159,7 @@ public abstract class AbstractTransformation {
 							leftAttributeName));
 		}
 		if (rightVertex != null) {
-			System.out.println(rightAttributeName);
+			System.out.println(rightVertex.getIdentifier()	+rightAttributeName);
 			out.put(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					f.newIdentifier(
@@ -175,19 +176,19 @@ public abstract class AbstractTransformation {
 		return out;
 	}
 
-	public InstVertex getLeft() {
+	public InstElement getLeft() {
 		return leftVertex;
 	}
 
-	public InstVertex getRight() {
+	public InstElement getRight() {
 		return rightVertex;
 	}
 
-	public InstVertex getLeftVertex() {
+	public InstElement getLeftVertex() {
 		return leftVertex;
 	}
 
-	public InstVertex getRightVertex() {
+	public InstElement getRightVertex() {
 		return rightVertex;
 	}
 

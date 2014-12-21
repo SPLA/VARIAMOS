@@ -28,7 +28,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metametamodel.MetaEdge
  */
-public class InstEdge implements Serializable, Prototype, EditableElement {
+public class InstEdge extends InstElement {
 
 	/**
 	 * 
@@ -88,17 +88,13 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 	 * Canonical class name of MetaEdge
 	 */
 	VAR_METAEDGECLASS = MetaEdge.class.getCanonicalName();
-	/**
-	 * Dynamic storage of modeling, semantic and simulation instance attribute
-	 * instances
-	 */
-	protected Map<String, Object> vars = new HashMap<>();
 
 	public InstEdge() {
 		this(new HashMap<String, InstAttribute>());
 	}
 
 	public InstEdge(Map<String, InstAttribute> instAttributes) {
+		super(null); // TODO use the same indentifier, not a local attribute
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
 		SemanticAttribute semAttribute = new SemanticAttribute(VAR_METAEDGE,
 				"Class", true, VAR_METAEDGENAME, VAR_METAEDGECLASS, "", "");
@@ -202,11 +198,11 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 		return null;
 	}
 
-	public InstVertex getFromRelation() {
+	public InstVertex getSourceRelation() {
 		return fromRelation;
 	}
 
-	public InstVertex getToRelation() {
+	public InstVertex getTargetRelation() {
 		return toRelation;
 	}
 
@@ -254,8 +250,7 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 			int nameEnd = attribute.indexOf("#", 3);
 			int varEnd = attribute.indexOf("#", nameEnd + 1);
 			int condEnd = attribute.indexOf("#", varEnd + 1);
-			if (nameEnd != -1)
-			{
+			if (nameEnd != -1) {
 				String variable = null;
 				String condition = null;
 				String value = null;
@@ -272,13 +267,12 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 					if (condition.equals("=="))
 						continue;
 				}
-			
+
 				listEditableAttribNames.add(attribute.substring(3, nameEnd));
-			}
-			else
+			} else
 				listEditableAttribNames.add(attribute.substring(3));
 		}
-
+		
 		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
 		for (String attributeName : listEditableAttribNames) {
 			editableInstAttributes.add(getInstAttribute(attributeName));
@@ -515,17 +509,24 @@ public class InstEdge implements Serializable, Prototype, EditableElement {
 	}
 
 	public void setSemanticEdge(IntDirectSemanticEdge semanticEdgeIde2) {
-		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION).setValueObject(semanticEdgeIde2);
+		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+				.setValueObject(semanticEdgeIde2);
 
 	}
 
 	public String getSourceInstAttributeIdentifier(String insAttributeId) {
-	
-		return getFromRelation().getIdentifier()+"_"+getFromRelation().getInstAttribute(insAttributeId).getIdentifier();
+
+		return getSourceRelation().getIdentifier()
+				+ "_"
+				+ getSourceRelation().getInstAttribute(insAttributeId)
+						.getIdentifier();
 	}
 
 	public String getTargetInstAttributeIdentifier(String insAttributeId) {
-		return getToRelation().getIdentifier()+"_"+getToRelation().getInstAttribute(insAttributeId).getIdentifier();
+		return getTargetRelation().getIdentifier()
+				+ "_"
+				+ getTargetRelation().getInstAttribute(insAttributeId)
+						.getIdentifier();
 
 	}
 }

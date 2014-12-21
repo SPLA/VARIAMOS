@@ -11,6 +11,7 @@ import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 /**
  * Class to create the Less expression. Part of PhD
@@ -24,25 +25,25 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class LessOrEqualsBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#<";
 	
-	public LessOrEqualsBooleanTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public LessOrEqualsBooleanTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public LessOrEqualsBooleanTransformation(InstVertex vertex,
+	public LessOrEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public LessOrEqualsBooleanTransformation(InstVertex vertex,
+	public LessOrEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public LessOrEqualsBooleanTransformation(InstVertex vertex,
+	public LessOrEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
@@ -68,7 +69,7 @@ public class LessOrEqualsBooleanTransformation extends AbstractBooleanTransforma
 	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
 		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
 		
-		return f.greaterThan((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.greaterThan((NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
 
 }

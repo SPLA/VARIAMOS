@@ -9,6 +9,7 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 /**
  * Class to create the Not expression. Part of PhD
@@ -22,7 +23,7 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class NotBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "-";
 	
-	public NotBooleanTransformation(InstVertex left,String leftAttributeName)
+	public NotBooleanTransformation(InstElement left,String leftAttributeName)
 	{
 		super(left, leftAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);

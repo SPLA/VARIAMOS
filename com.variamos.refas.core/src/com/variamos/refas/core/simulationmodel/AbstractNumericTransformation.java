@@ -7,6 +7,7 @@ import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -31,24 +32,24 @@ public abstract class AbstractNumericTransformation extends AbstractTransformati
 		super(leftSubExpression, rightSubExpression);
 	}
 
-	public AbstractNumericTransformation(InstVertex left, InstVertex right,
+	public AbstractNumericTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 	}
 
-	public AbstractNumericTransformation(InstVertex vertex,
+	public AbstractNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 	}
 
-	public AbstractNumericTransformation(InstVertex vertex,
+	public AbstractNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
 	
-	public AbstractNumericTransformation(InstVertex vertex,
+	public AbstractNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);

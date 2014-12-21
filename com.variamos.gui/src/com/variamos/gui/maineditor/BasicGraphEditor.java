@@ -316,7 +316,7 @@ public class BasicGraphEditor extends JPanel {
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				upperPart, getExtensionsTab(null));
 		everything.setOneTouchExpandable(false);
-		everything.setDividerLocation(450);
+		everything.setDividerLocation(400);
 		everything.setResizeWeight(1);
 		everything.setDividerSize(6);
 		everything.setBorder(null);

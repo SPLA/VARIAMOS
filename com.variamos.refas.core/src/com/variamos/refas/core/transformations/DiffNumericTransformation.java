@@ -11,6 +11,7 @@ import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 /**
  * Class to create the Diff expression. Part of PhD
@@ -24,25 +25,25 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class DiffNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "-";
 	
-	public DiffNumericTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public DiffNumericTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public DiffNumericTransformation(InstVertex vertex,
+	public DiffNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public DiffNumericTransformation(InstVertex vertex,
+	public DiffNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public DiffNumericTransformation(InstVertex vertex,
+	public DiffNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);

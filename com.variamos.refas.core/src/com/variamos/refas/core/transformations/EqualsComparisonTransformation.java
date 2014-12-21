@@ -12,6 +12,7 @@ import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractComparisonTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -27,34 +28,34 @@ public class EqualsComparisonTransformation extends
 		AbstractComparisonTransformation {
 	private static final String TRANSFORMATION = "#=";
 
-	public EqualsComparisonTransformation(InstVertex left, InstVertex right,
+	public EqualsComparisonTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public EqualsComparisonTransformation(InstVertex vertex,
+	public EqualsComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public EqualsComparisonTransformation(InstVertex vertex,
+	public EqualsComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public EqualsComparisonTransformation(InstVertex vertex,
+	public EqualsComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public EqualsComparisonTransformation(InstVertex left,
+	public EqualsComparisonTransformation(InstElement left,
 			String attributeName, NumericExpression numericExpression) {
 		super(left, attributeName, true, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);

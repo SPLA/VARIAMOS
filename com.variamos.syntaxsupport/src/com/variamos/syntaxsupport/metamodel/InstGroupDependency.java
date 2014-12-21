@@ -15,6 +15,15 @@ import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
+/**
+ * Class to store the back end information of MultiElement relations from the
+ * graph. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-26
+ */
 public class InstGroupDependency extends InstVertex {
 	/**
 	 * 
@@ -46,11 +55,10 @@ public class InstGroupDependency extends InstVertex {
 	 */
 	private MetaGroupDependency metaGroupDependency;
 
-	
-
 	/**
-	 * Assigned during the generation of expressions from edges Used during the
-	 * the generation of expressions grom groupdep
+	 * Assigned during the generation of expressions for
+	 * SingleElementExpressionSet required during the generation of expressions
+	 * for MultiElementExpressionSet
 	 */
 	private Set<String> sourceAttributeNames;
 
@@ -125,6 +133,12 @@ public class InstGroupDependency extends InstVertex {
 		return sourceAttributeNames;
 	}
 
+	/**
+	 * Add the name of the attributes for MultiElementExpressionSet
+	 * 
+	 * @param sourceAttributeNames
+	 *            Name of attributes for double implication
+	 */
 	public void addSourceAttributeNames(Set<String> sourceAttributeNames) {
 		this.sourceAttributeNames.addAll(sourceAttributeNames);
 	}

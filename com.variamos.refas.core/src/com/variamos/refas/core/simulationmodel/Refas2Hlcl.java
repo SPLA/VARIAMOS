@@ -42,6 +42,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.refas.Refas;
@@ -164,7 +165,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String[] split = identifier.split("_");
 			String vertexId = split[0];
 			String attribute = split[1];
-			InstVertex vertex = refas.getVertex(vertexId);
+			InstElement vertex = refas.getElement(vertexId);
+			System.out.println(vertexId+" "+attribute	);
 			if (vertex.getInstAttribute(attribute).getModelingAttributeType()
 					.equals("Boolean"))
 

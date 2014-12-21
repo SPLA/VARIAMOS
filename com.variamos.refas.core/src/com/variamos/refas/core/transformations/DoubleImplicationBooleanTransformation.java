@@ -10,6 +10,7 @@ import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 /**
  * Class to create the DoubleImplication expression. Part of PhD
@@ -23,27 +24,27 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class DoubleImplicationBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#<==>";
 	
-	public DoubleImplicationBooleanTransformation(InstVertex left,
-			InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public DoubleImplicationBooleanTransformation(InstElement left,
+			InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public DoubleImplicationBooleanTransformation(InstVertex vertex,
+	public DoubleImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public DoubleImplicationBooleanTransformation(InstVertex vertex,
+	public DoubleImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression comparativeExpression) {
 		super(vertex, attributeName, replaceTarget, comparativeExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public DoubleImplicationBooleanTransformation(InstVertex vertex,
+	public DoubleImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression comparativeExpression) {
 		super(vertex, attributeName, replaceTarget, comparativeExpression);

@@ -2,6 +2,7 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.util.Map;
 
+
 /**
  * Abstract  Class to group the ComparisonTranformation. Part of PhD
  * work at University of Paris 1
@@ -17,6 +18,7 @@ import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -41,24 +43,24 @@ public abstract class AbstractComparisonTransformation extends
 		super(leftSubExpression, rightSubExpression);
 	}
 
-	public AbstractComparisonTransformation(InstVertex left, InstVertex right,
+	public AbstractComparisonTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 	}
 
-	public AbstractComparisonTransformation(InstVertex vertex,
+	public AbstractComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 	}
 
-	public AbstractComparisonTransformation(InstVertex vertex,
+	public AbstractComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
 
-	public AbstractComparisonTransformation(InstVertex vertex,
+	public AbstractComparisonTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);

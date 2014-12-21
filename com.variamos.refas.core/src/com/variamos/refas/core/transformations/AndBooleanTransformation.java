@@ -11,6 +11,7 @@ import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
@@ -24,11 +25,11 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class AndBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#/\\";
 	
-	public AndBooleanTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public AndBooleanTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public AndBooleanTransformation(InstVertex vertex,
+	public AndBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);

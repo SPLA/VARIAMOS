@@ -7,10 +7,12 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
+
 /**
  * Class to create the Not Equals expression. Part of PhD
  * work at University of Paris 1
@@ -23,25 +25,25 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class NotEqualsBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "\\==";
 	
-	public NotEqualsBooleanTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public NotEqualsBooleanTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public NotEqualsBooleanTransformation(InstVertex vertex,
+	public NotEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public NotEqualsBooleanTransformation(InstVertex vertex,
+	public NotEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public NotEqualsBooleanTransformation(InstVertex vertex,
+	public NotEqualsBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
@@ -64,7 +66,7 @@ public class NotEqualsBooleanTransformation extends AbstractBooleanTransformatio
 	@Override
 	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
 		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
-		return f.notEquals( (Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.notEquals( (NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
 
 }

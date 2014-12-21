@@ -11,7 +11,7 @@ import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 /**
  * Class to create the Sum expression. Part of PhD
  * work at University of Paris 1
@@ -24,25 +24,25 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class SumNumericTransformation extends AbstractNumericTransformation {
 	private static final String TRANSFORMATION = "+";
 	
-	public SumNumericTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public SumNumericTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public SumNumericTransformation(InstVertex vertex,
+	public SumNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public SumNumericTransformation(InstVertex vertex,
+	public SumNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public SumNumericTransformation(InstVertex vertex,
+	public SumNumericTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);

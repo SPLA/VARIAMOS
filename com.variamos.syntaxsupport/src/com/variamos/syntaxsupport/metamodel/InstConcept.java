@@ -16,10 +16,15 @@ import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * A class to represented modeling instances of concepts from meta model and
+ * semantic model on VariaMos. Part of PhD work at University
+ * of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-24 * 
+ * @see com.variamos.syntaxsupport.metametamodel.MetaConcept
  */
 public class InstConcept extends InstVertex {
 	/**

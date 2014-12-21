@@ -7,9 +7,11 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 /**
  * Class to create the Less expression. Part of PhD
@@ -23,25 +25,25 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
 public class LessBooleanTransformation extends AbstractBooleanTransformation {
 	private static final String TRANSFORMATION = "#<";
 	
-	public LessBooleanTransformation(InstVertex left, InstVertex right, String leftAttributeName, String rightAttributeName) {
+	public LessBooleanTransformation(InstElement left, InstElement right, String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
-	public LessBooleanTransformation(InstVertex vertex,
+	public LessBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 
-	public LessBooleanTransformation(InstVertex vertex,
+	public LessBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			BooleanExpression simpleExpression) {
 		super(vertex, attributeName, replaceRight, simpleExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 	}
 	
-	public LessBooleanTransformation(InstVertex vertex,
+	public LessBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceRight,
 			NumericIdentifier numericIdentifier) {
 		super(vertex, attributeName, replaceRight, numericIdentifier);
@@ -66,7 +68,7 @@ public class LessBooleanTransformation extends AbstractBooleanTransformation {
 	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
 		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, false, false);
 		
-		return f.greaterOrEqualsThan((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+		return f.greaterOrEqualsThan((NumericExpression)expressionTerms.get(0), (NumericExpression)expressionTerms.get(1));
 	}
 
 

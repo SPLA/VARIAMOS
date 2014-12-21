@@ -12,5 +12,5 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
  * @since 2014-11-23
  */
 public enum DirectEdgeType implements IntDirectEdgeType {
-	means_ends, preferred, required, conflict, alternative, implication, implementation, mandatory, optional, group, claim, softdependency, generalConstraint,none
+	means_ends, preferred, required, conflict, alternative, implication, implementation, mandatory, optional, claim, softdependency, generalConstraint,none
 }

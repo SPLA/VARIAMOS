@@ -545,8 +545,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
 				JTabbedPane.SCROLL_TAB_LAYOUT);
-		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-				new JScrollPane(expressionsArea));
+		
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
@@ -585,9 +584,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// new JScrollPane(elementExpressionPanel));
 			extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 					new JScrollPane(elementSimPropPanel));
+			extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+					new JScrollPane(expressionsArea));
 		}
-		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-				new JScrollPane(expressionsArea));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
@@ -827,6 +826,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					
 				}
 			});
+			//TODO split in two new classes, one for each panel
 			for (InstAttribute v : visible) {
 				if (elm instanceof InstGroupDependency) {
 
@@ -891,12 +891,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						InstAttribute v = w.getInstAttribute();
 						if (v.getModelingAttributeType().equals("String"))
 							v.setValue(AbstractElement.multiLine(v.toString(),
-									15)); // Divide
-											// lines
-											// every
-											// 15
-											// characters
-											// (aprox.)
+									15)); 
+						// Divide lines every 15 characters (aprox.)
 						System.out.println("Focus Lost: " + v.hashCode()
 								+ " val: " + v.getDisplayValue());
 						onVariableEdited(elm);
