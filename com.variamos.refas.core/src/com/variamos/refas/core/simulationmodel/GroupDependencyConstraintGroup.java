@@ -15,6 +15,7 @@ import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
+import com.variamos.refas.core.transformations.LessOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
@@ -23,7 +24,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+//TODO refactor: MultiElementExpressionSet
 /**
  * A class to represent the constraints for group relations. Part of PhD work at
  * University of Paris 1
@@ -58,6 +59,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instGroupDependency = instGroupDependency;
+		RestrictionConstraint restConst = new RestrictionConstraint(identifier, idMap, hlclFactory, instGroupDependency);
+		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
 	}
 
@@ -164,9 +167,9 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 								constructor2, instEdges1, left1, sourceName);
 						getTransformations()
 								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
+										instGroupDependency/*
 												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+												.getToRelation()*/, sourceName,
 										true, recursiveExpression1));
 						break;
 					case mutex:
@@ -179,15 +182,15 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 								new NumberNumericTransformation(1));
 						getTransformations()
 								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
+										instGroupDependency/*
 												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+												.getToRelation()*/, sourceName,
 										true, transformation1));
 
 						break;
 					case range:
 
-						// B_Satisfied #<=> ( ( ( ( A1_"attribute" +
+						// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
 						// A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
 						// ( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #<=
 						// GD_HighCardinality ) )
@@ -197,7 +200,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 								instGroupDependency, "lowCardinality", false,
 								recursiveExpression1);
 
-						AbstractTransformation transformation4 = new GreaterOrEqualsBooleanTransformation(
+						AbstractTransformation transformation4 = new LessOrEqualsBooleanTransformation(
 								instGroupDependency, "highCardinality", false,
 								recursiveExpression2);
 
@@ -206,9 +209,9 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 
 						getTransformations()
 								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
+										instGroupDependency/*
 												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+												.getToRelation()*/, sourceName,
 										true, transformation5));
 
 						break;

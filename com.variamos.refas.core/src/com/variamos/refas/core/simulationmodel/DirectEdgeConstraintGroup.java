@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-
+//TODO refactor: PairwiseElementExpressionSet
 /**
  * A class to represent the constraints for direct relations. Part of PhD work
  * at University of Paris 1
@@ -139,25 +139,25 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 								new NumberNumericTransformation(1)));
 				break;
 			case conflict:
-				sourceAttributeNames.add("Selected");
 
-				sourceAttributeNames.add("ValidationSelected");
-				// A_Selected #==> B_ValidationSelected #= 0
+				sourceAttributeNames.add("Satisfied");
+				sourceAttributeNames.add("ValidationSatisfied");
+				// A_Satisfied #==> B_ValidationSatisfied #= 0
 				AbstractComparisonTransformation transformation8 = new EqualsComparisonTransformation(
-						instEdge.getToRelation(), "ValidationSelected",
+						instEdge.getToRelation(), "NoSatisfactionConflict",
 						getHlclFactory().number(0));
 				getTransformations().add(
 						new ImplicationBooleanTransformation(instEdge
-								.getFromRelation(), "Selected", true,
+								.getFromRelation(), "Satisfied", true,
 								transformation8));
 
-				// B_Selected #==> A_ValidationSelected #= 0
+				// B_Satisfied #==> A_ValidationSatisfied #= 0
 				AbstractComparisonTransformation transformation9 = new EqualsComparisonTransformation(
-						instEdge.getFromRelation(), "ValidationSelected",
+						instEdge.getFromRelation(), "NoSatisfactionConflict",
 						getHlclFactory().number(0));
 				getTransformations().add(
 						new ImplicationBooleanTransformation(instEdge
-								.getToRelation(), "Selected", true,
+								.getToRelation(), "Satisfied", true,
 								transformation9));
 				// TODO to validation expressions missing
 				break;
@@ -189,6 +189,7 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 								transformation15));
 				break;
 			case means_ends:
+				sourceAttributeNames.add("Selected");
 			case implication:
 				sourceAttributeNames.add("Satisfied");
 				// A_Satisfied #==> B_ValidationSatisfied #= 1

@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -771,18 +772,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			return;
 		} else {
-			JButton test = new JButton("Execute Simulation");
-			configurator.removeAll();
-			configurator.add(test);
-			test.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
-					refas2hlcl.updateGUIElements();
-					messagesArea.setText(refas2hlcl.getText());
-					bringUpTab(mxResources.get("elementSimPropTab"));
-					editPropertiesRefas(elm);
-				}
-			});
+
 			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
 				extensionTabs.setSelectedIndex(tabIndex);
 				extensionTabs.getSelectedComponent().repaint();
@@ -797,7 +787,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			List<InstAttribute> visible = elm.getVisibleVariables();
 
 			RefasWidgetFactory factory = new RefasWidgetFactory(this);
-			int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 0;
+			int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 1;
 			String description = null;
 
 			if (elm instanceof InstConcept) {
@@ -812,6 +802,31 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
 						elm.getIdentifier(), "groupdep"));
 			}
+			JButton test = new JButton("Execute Simulation");
+			elementSimPropSubPanel.add(test);
+			elementSimPropSubPanel.add(new JPanel());
+			elementSimPropSubPanel.add(new JPanel());
+			test.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION))
+					{
+						refas2hlcl.updateGUIElements();
+						messagesArea.setText(refas2hlcl.getText());
+						bringUpTab(mxResources.get("elementSimPropTab"));
+						editPropertiesRefas(elm);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(frame,
+								"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
+								"Simulation Execution Error",							    
+							    JOptionPane.INFORMATION_MESSAGE,
+							    null);
+					}
+						
+					
+				}
+			});
 			for (InstAttribute v : visible) {
 				if (elm instanceof InstGroupDependency) {
 

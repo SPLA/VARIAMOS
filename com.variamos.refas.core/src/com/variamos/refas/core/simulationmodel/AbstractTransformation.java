@@ -158,6 +158,7 @@ public abstract class AbstractTransformation {
 							leftAttributeName));
 		}
 		if (rightVertex != null) {
+			System.out.println(rightAttributeName);
 			out.put(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					f.newIdentifier(

@@ -1,5 +1,6 @@
 package com.variamos.refas.core.simulationmodel;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+//TODO refactor: SingleElementExpressionSet
 /**
  * A class to represent the constraints for restrictions of a concept. Part of
  * PhD work at University of Paris 1
@@ -74,172 +76,176 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 	private void defineTransformations() {
 
-		if (instVertex instanceof InstConcept) { // TODO not required if the
-													// method
-			// returns InstConcepts
-			InstConcept instConcept = (InstConcept) instVertex;
+		if (instVertex instanceof InstConcept
+				|| instVertex instanceof InstGroupDependency) {
 
-			MetaConcept metaConcept = instConcept.getMetaConcept();
-			if (metaConcept != null) {
+			// if (metaConcept != null) {
+			Collection<InstAttribute> instat = instVertex
+					.getInstAttributesCollection();
+			for (InstAttribute instAttribute : instVertex
+					.getInstAttributesCollection()) {
 
-				for (InstAttribute instAttribute : instConcept
-						.getInstAttributesCollection()) {
+				int attributeValue = 0;
+				String type = (String) instAttribute.getModelingAttributeType();
+				if (type.equals("Integer") || type.equals("Boolean")) {
+					if (instAttribute.getValue() instanceof Boolean)
+						attributeValue = ((boolean) instAttribute.getValue()) ? 1
+								: 0;
+					else if (instAttribute.getValue() instanceof String)
+						attributeValue = Integer.valueOf((String) instAttribute
+								.getValue());
+					else
+						attributeValue = (Integer) instAttribute.getValue();
+				}
+				// A_SimAllowed #= A_Allowed
+				if (instAttribute.getIdentifier().equals("Allowed")) {
 
-					int attributeValue = 0;
-					String type = (String) instAttribute
-							.getModelingAttributeType();
-					if (type.equals("Integer") || type.equals("Boolean")) {
-						if (instAttribute.getValue() instanceof Boolean)
-							attributeValue = ((boolean) instAttribute
-									.getValue()) ? 1 : 0;
-						else if (instAttribute.getValue() instanceof String)
-							attributeValue = Integer
-									.valueOf((String) instAttribute.getValue());
-						else
-							attributeValue = (Integer) instAttribute.getValue();
-					}
-					// A_SimAllowed #= A_Allowed
-					if (instAttribute.getIdentifier().equals("Allowed")) {
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
 
-						getTransformations()
-								.add(new EqualsComparisonTransformation(
-										instVertex, instAttribute
-												.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instVertex, "SimAllowed", instAttribute
+											.getIdentifier()));
+				}
+				// A_SimRequired #= A_Required
+				if (instAttribute.getIdentifier().equals("Required")) {
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
-								new EqualsComparisonTransformation(instVertex,
-										instVertex, "SimAllowed", instAttribute
-												.getIdentifier()));
-					}
-					// A_SimRequired #= A_Required
-					if (instAttribute.getIdentifier().equals("Required")) {
-						getTransformations()
-								.add(new EqualsComparisonTransformation(
-										instVertex, instAttribute
-												.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-						getTransformations().add(
-								new EqualsComparisonTransformation(instVertex,
-										instVertex, "SimRequired",
-										instAttribute.getIdentifier()));
-					}
-					// A_PreferredSelected #= 1
-					if (instAttribute.getIdentifier().equals(
-							"PreferredSelected")) {
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instVertex, "SimRequired", instAttribute
+											.getIdentifier()));
+				}
+				// A_PreferredSelected #= 1
+				if (instAttribute.getIdentifier().equals("PreferredSelected")) {
 
-						getTransformations()
-								.add(new EqualsComparisonTransformation(
-										instVertex, instAttribute
-												.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-					}
-					// A_Optional #= 0
-					if (instAttribute.getIdentifier().equals("Optional")) {
-						getTransformations()
-								.add(new EqualsComparisonTransformation(
-										instVertex, instAttribute
-												.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-					}
-					// A_SimInitialRequiredLevel #= A_RequiredLevel
-					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
-						getTransformations()
-								.add(new EqualsComparisonTransformation(
-										instVertex, instAttribute
-												.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-						getTransformations().add(
-								new EqualsComparisonTransformation(instVertex,
-										instVertex, "InitialRequiredLevel",
-										instAttribute.getIdentifier()));
-					}
-					if (instAttribute.getIdentifier().equals("Satisfied")) {
-						// (( 1 - A_SimRequired) + A_Satisfied) #>= 1
-						AbstractNumericTransformation transformation1 = new DiffNumericTransformation(
-								instVertex, "SimRequired", false,
-								getHlclFactory().number(1));
-						transformation1 = new SumNumericTransformation(
-								instVertex, instAttribute.getIdentifier(),
-								false, transformation1);
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
+				}
+				// A_Optional #= 0
+				if (instAttribute.getIdentifier().equals("Optional")) {
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
+				}
+				// A_SimInitialRequiredLevel #= A_RequiredLevel
+				if (instAttribute.getIdentifier().equals("RequiredLevel")) {
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
-								new GreaterOrEqualsBooleanTransformation(
-										transformation1,
-										new NumberNumericTransformation(1)));
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instVertex, "InitialRequiredLevel",
+									instAttribute.getIdentifier()));
+				}
+				if (instAttribute.getIdentifier().equals("Satisfied")) {
+					// ( ( 1 - A_SimRequired ) + A_Satisfied ) #>= 1
+					AbstractNumericTransformation transformation1 = new DiffNumericTransformation(
+							instVertex, "SimRequired", false, getHlclFactory()
+									.number(1));
+					transformation1 = new SumNumericTransformation(instVertex,
+							instAttribute.getIdentifier(), false,
+							transformation1);
 
-						// (( 1 - A_Selected) + A_Satisfied) #>= 1
-						AbstractNumericTransformation transformation2 = new DiffNumericTransformation(
-								instVertex, "Selected", false, getHlclFactory()
-										.number(1));
-						transformation2 = new SumNumericTransformation(
-								instVertex, instAttribute.getIdentifier(),
-								false, transformation2);
+					getTransformations().add(
+							new GreaterOrEqualsBooleanTransformation(
+									transformation1,
+									new NumberNumericTransformation(1)));
 
-						getTransformations().add(
-								new GreaterOrEqualsBooleanTransformation(
-										transformation2,
-										new NumberNumericTransformation(1)));
+					// ( ( 1 - A_Selected ) + A_Satisfied ) #>= 1
+					AbstractNumericTransformation transformation2 = new DiffNumericTransformation(
+							instVertex, "Selected", false, getHlclFactory()
+									.number(1));
+					transformation2 = new SumNumericTransformation(instVertex,
+							instAttribute.getIdentifier(), false,
+							transformation2);
 
-						// (1 - A_SimAllowed) * (A_SimRequired +
-						// A_Satisfied) #= 0
-						AbstractNumericTransformation transformation3 = new DiffNumericTransformation(
-								instVertex, "Selected", false, getHlclFactory()
-										.number(1));
-						AbstractNumericTransformation transformation4 = new SumNumericTransformation(
-								instVertex, instVertex, "SimRequired",
-								instAttribute.getIdentifier());
-						transformation3 = new ProdNumericTransformation(
-								transformation3, transformation4);
+					getTransformations().add(
+							new GreaterOrEqualsBooleanTransformation(
+									transformation2,
+									new NumberNumericTransformation(1)));
 
-						getTransformations().add(
-								new EqualsComparisonTransformation(
-										transformation3,
-										new NumberNumericTransformation(0)));
+					// ( 1 - A_SimAllowed ) * ( A_SimRequired + A_Satisfied ) #=
+					// 0
+					AbstractNumericTransformation transformation3 = new DiffNumericTransformation(
+							instVertex, "SimAllowed", false, getHlclFactory()
+									.number(1));
+					AbstractNumericTransformation transformation4 = new SumNumericTransformation(
+							instVertex, instVertex, "SimRequired",
+							instAttribute.getIdentifier());
+					transformation3 = new ProdNumericTransformation(
+							transformation3, transformation4);
 
-						// A_Satisfied #<=> ( ( A_ForcedSatisfied #\/
-						// A_AlternativeSatisfied ) #\/ (
-						// A_ValidationSatisfied) #/\ A_SimAllowed ) )
-
-						AbstractBooleanTransformation transformation5 = new OrBooleanTransformation(
-								instVertex, instVertex, "ForcedSatisfied",
-								"AlternativeSatisfied");
-						AbstractBooleanTransformation transformation6 = new AndBooleanTransformation(
-								instVertex, instVertex, "ValidationSatisfied",
-								"SimAllowed");
-						AbstractBooleanTransformation transformation7 = new OrBooleanTransformation(
-								transformation5, transformation6);
-						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(
-										instVertex, instAttribute
-												.getIdentifier(), true,
-										transformation7));
-
-					}
-					if (instAttribute.getIdentifier().equals("Selected")) {
-						// A_Selected #<=> ( ( ( A_SolverSelected #/\
-						// A_PreferredSelected) #\/ A_ValidationSelected )
-						// #\/ A_SimRequired )
-
-						AbstractBooleanTransformation transformation8 = new AndBooleanTransformation(
-								instVertex, instVertex, "SolverSelected",
-								"PreferredSelected");
-						AbstractBooleanTransformation transformation9 = new OrBooleanTransformation(
-								instVertex, instVertex, "ValidationSelected",
-								"SimRequired");
-						AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(
-								transformation8, transformation9);
-						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(
-										instVertex, instAttribute
-												.getIdentifier(), true,
-										transformation10));
-
-					}
-
+					getTransformations().add(
+							new EqualsComparisonTransformation(transformation3,
+									new NumberNumericTransformation(0)));
 				}
 
+				if (instAttribute.getIdentifier().equals("ForcedSatisfied")) {
+					// Identifier_Satisfied #<=>
+					// ( ( Identifier_ForcedSatisfied #\/
+					// Identifier_AlternativeSatisfied ) #\/
+					// ( Identifier_ValidationSatisfied #/\ A_SimAllowed )
+					// #/\ A_NoSatisfactionConflict )
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									"NoSatisfactionConflict", getHlclFactory()
+											.number(1)));
+					getTransformations().add(
+							new EqualsComparisonTransformation(instVertex,
+									instAttribute.getIdentifier(),
+									getHlclFactory().number(attributeValue)));
+					AbstractBooleanTransformation transformation6 = new OrBooleanTransformation(
+							instVertex, instVertex, "ForcedSatisfied",
+							"AlternativeSatisfied");
+					AbstractBooleanTransformation transformation7 = new AndBooleanTransformation(
+							instVertex, instVertex, "ValidationSatisfied",
+							"SimAllowed");
+					AbstractBooleanTransformation transformation8 = new OrBooleanTransformation(
+							transformation6, transformation7);
+					AbstractBooleanTransformation transformation9 = new AndBooleanTransformation(
+							instVertex, "NoSatisfactionConflict", false,
+							transformation8);
+					getTransformations().add(
+							new DoubleImplicationBooleanTransformation(
+									instVertex, "Satisfied", true,
+									transformation9));
+
+				}
+				if (instAttribute.getIdentifier().equals("Selected")) {
+					// Identifier_Selected #<=>
+					// ( ( Identifier_SolverSelected #/\
+					// Identifier_PreferredSelected )
+					// #\/ ( Identifier_ValidationSelected #\/
+					// Identifier_SimRequired ) )
+
+					AbstractBooleanTransformation transformation10 = new AndBooleanTransformation(
+							instVertex, instVertex, "SolverSelected",
+							"PreferredSelected");
+					AbstractBooleanTransformation transformation11 = new OrBooleanTransformation(
+							instVertex, instVertex, "ValidationSelected",
+							"SimRequired");
+					AbstractBooleanTransformation transformation12 = new OrBooleanTransformation(
+							transformation10, transformation11);
+					getTransformations().add(
+							new DoubleImplicationBooleanTransformation(
+									instVertex, instAttribute.getIdentifier(),
+									true, transformation12));
+				}
 			}
+
+			// }
 
 		}
 
