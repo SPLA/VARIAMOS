@@ -14,10 +14,14 @@ import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * A class to represented modeling instances of enumerations from meta model on
+ * VariaMos. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-10 *
+ * @see com.variamos.syntaxsupport.metametamodel.MetaEnumeration
  */
 public class InstEnumeration extends InstVertex {
 
@@ -74,7 +78,8 @@ public class InstEnumeration extends InstVertex {
 						.getModelingAttribute(name), getIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
 				addInstAttribute(name, getMetaEnumeration()
-						.getModelingAttribute(name), getMetaEnumeration().getDescription());
+						.getModelingAttribute(name), getMetaEnumeration()
+						.getDescription());
 			else
 				addInstAttribute(name, getMetaEnumeration()
 						.getModelingAttribute(name), null);

@@ -16,7 +16,7 @@ import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
  * @since 2014-12-15
  */
 public class LiteralBooleanTransformation extends AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "";
+	public static final String TRANSFORMATION = "";
 	private String expression;
 	
 	public LiteralBooleanTransformation(String expression)

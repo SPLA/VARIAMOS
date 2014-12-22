@@ -10,44 +10,51 @@ import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
+
 /**
- * Class to create the Implication expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Implication expression. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
  */
-public class ImplicationBooleanTransformation extends AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "#==>";
-	
-	public ImplicationBooleanTransformation(InstVertex left,
-			InstVertex right, String leftAttributeName, String rightAttributeName) {
+public class ImplicationBooleanTransformation extends
+		AbstractBooleanTransformation {
+	public static final String TRANSFORMATION = "#==>";
+
+	public ImplicationBooleanTransformation(InstElement left,
+			InstElement right, String leftAttributeName,
+			String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
-	public ImplicationBooleanTransformation(InstVertex vertex,
+
+	public ImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			AbstractTransformation subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
-	public ImplicationBooleanTransformation(InstVertex vertex,
+	public ImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
-	
-	public ImplicationBooleanTransformation(InstVertex vertex,
+
+	public ImplicationBooleanTransformation(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public ImplicationBooleanTransformation(
@@ -55,6 +62,7 @@ public class ImplicationBooleanTransformation extends AbstractBooleanTransformat
 			AbstractTransformation rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
+		operation = TRANSFORMATION;
 	}
 
 	public ImplicationBooleanTransformation() {
@@ -70,10 +78,14 @@ public class ImplicationBooleanTransformation extends AbstractBooleanTransformat
 	}
 
 	@Override
-	public BooleanExpression transformNegation(HlclFactory f, Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight) {
-		List<Expression> expressionTerms = expressionTermsNegation(f, idMap, true, false);
-		
-		return f.or((Identifier)expressionTerms.get(0), (Identifier)expressionTerms.get(1));
+	public BooleanExpression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap, boolean negateLeft,
+			boolean negateRight) {
+		List<Expression> expressionTerms = expressionTermsNegation(f, idMap,
+				true, false);
+
+		return f.or((Identifier) expressionTerms.get(0),
+				(Identifier) expressionTerms.get(1));
 	}
 
 }

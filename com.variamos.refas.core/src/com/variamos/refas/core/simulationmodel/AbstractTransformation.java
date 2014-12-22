@@ -11,7 +11,7 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.types.ExpressionVertexType;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
  * Abstract root Class to group at the Transformation functionality. Part of PhD
@@ -23,8 +23,8 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  * @since 2014-12-13
  */
 public abstract class AbstractTransformation {
-	private InstVertex leftVertex;
-	private InstVertex rightVertex;
+	private InstElement leftVertex;
+	private InstElement rightVertex;
 	private String leftAttributeName;
 	private String rightAttributeName;
 	private AbstractTransformation leftSubExpression;
@@ -33,13 +33,13 @@ public abstract class AbstractTransformation {
 	private BooleanExpression rightBooleanExpression;
 	private NumericExpression leftNumericExpression;
 	private NumericExpression rightNumericExpression;
+	protected String operation;
 
 	protected List<ExpressionVertexType> expressionVertexTypes;
 	protected List<String> expressionConnectors;
 
-	public AbstractTransformation(InstVertex left, InstVertex right,
+	public AbstractTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
-
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -52,7 +52,7 @@ public abstract class AbstractTransformation {
 		this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName,
+	public AbstractTransformation(InstElement vertex, String attributeName,
 			boolean replaceTarget, AbstractTransformation subExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
@@ -75,10 +75,8 @@ public abstract class AbstractTransformation {
 
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName,
+	public AbstractTransformation(InstElement vertex, String attributeName,
 			boolean replaceTarget, BooleanExpression booleanExpression) {
-
-		this.leftBooleanExpression = booleanExpression;
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -98,11 +96,9 @@ public abstract class AbstractTransformation {
 			this.leftBooleanExpression = booleanExpression;
 		}
 	}
-	
-	public AbstractTransformation(InstVertex vertex, String attributeName,
-			boolean replaceTarget, NumericExpression numericExpression) {
 
-		this.leftNumericExpression = numericExpression;
+	public AbstractTransformation(InstElement vertex, String attributeName,
+			boolean replaceTarget, NumericExpression numericExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
 
@@ -139,9 +135,10 @@ public abstract class AbstractTransformation {
 		expressionConnectors = new ArrayList<String>();
 	}
 
-	public AbstractTransformation(InstVertex vertex, String attributeName) {
+	public AbstractTransformation(InstElement vertex, String attributeName) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
+		
 		this.leftVertex = vertex;
 		this.leftAttributeName = attributeName;
 		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
@@ -150,7 +147,8 @@ public abstract class AbstractTransformation {
 	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
-			System.out.println(leftVertex.getIdentifier() + " " +leftAttributeName);
+			System.out.println(leftVertex.getIdentifier() + " "
+					+ leftAttributeName);
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName), f
 					.newIdentifier(leftVertex
@@ -158,6 +156,8 @@ public abstract class AbstractTransformation {
 							leftAttributeName));
 		}
 		if (rightVertex != null) {
+			System.out
+					.println(rightVertex.getIdentifier() + rightAttributeName);
 			out.put(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					f.newIdentifier(
@@ -174,19 +174,19 @@ public abstract class AbstractTransformation {
 		return out;
 	}
 
-	public InstVertex getLeft() {
+	public InstElement getLeft() {
 		return leftVertex;
 	}
 
-	public InstVertex getRight() {
+	public InstElement getRight() {
 		return rightVertex;
 	}
 
-	public InstVertex getLeftVertex() {
+	public InstElement getLeftVertex() {
 		return leftVertex;
 	}
 
-	public InstVertex getRightVertex() {
+	public InstElement getRightVertex() {
 		return rightVertex;
 	}
 
@@ -220,6 +220,26 @@ public abstract class AbstractTransformation {
 
 	public List<String> getExpressionConnectors() {
 		return expressionConnectors;
+	}
+
+	public BooleanExpression getLeftBooleanExpression() {
+		return leftBooleanExpression;
+	}
+
+	public BooleanExpression getRightBooleanExpression() {
+		return rightBooleanExpression;
+	}
+
+	public NumericExpression getLeftNumericExpression() {
+		return leftNumericExpression;
+	}
+
+	public NumericExpression getRightNumericExpression() {
+		return rightNumericExpression;
+	}
+
+	public String getOperation() {
+		return operation;
 	}
 
 	public String expressionStructure() {
@@ -325,13 +345,13 @@ public abstract class AbstractTransformation {
 			case LEFTBOOLEANEXPRESSIONVALUE:
 				if (negateLeft)
 					out.add(f.not(leftBooleanExpression));
-				else					
-				out.add(leftBooleanExpression);
+				else
+					out.add(leftBooleanExpression);
 				break;
 			case RIGHTBOOLEANEXPRESSIONVALUE:
 				out.add(rightBooleanExpression);
-				break; 
-			case LEFTNUMERICEXPRESSIONVALUE:			
+				break;
+			case LEFTNUMERICEXPRESSIONVALUE:
 				out.add(leftNumericExpression);
 				break;
 			case RIGHTNUMERICEXPRESSIONVALUE:
@@ -339,29 +359,43 @@ public abstract class AbstractTransformation {
 				break;
 			case LEFT:
 				if (negateLeft)
-					out.add(f.not(idMap.get(getLeft().getInstAttributeFullIdentifier(
-							leftAttributeName))));
+					out.add(f.not(idMap.get(getLeft()
+							.getInstAttributeFullIdentifier(leftAttributeName))));
 				else
-				out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
-						leftAttributeName)));
+					out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
+							leftAttributeName)));
 				break;
 			case RIGHT:
 				if (negateRight)
-					out.add(f.not(idMap.get(getRight().getInstAttributeFullIdentifier(
-							rightAttributeName))));
+					out.add(f.not(idMap
+							.get(getRight().getInstAttributeFullIdentifier(
+									rightAttributeName))));
 				else
-				out.add(idMap.get(getRight().getInstAttributeFullIdentifier(
-						rightAttributeName)));
+					out.add(idMap
+							.get(getRight().getInstAttributeFullIdentifier(
+									rightAttributeName)));
 				break;
 			case LEFTSUBEXPRESSION:
-				if (negateLeft && leftSubExpression instanceof AbstractBooleanTransformation) //TODO special case for assign
-					out.add(((AbstractBooleanTransformation)leftSubExpression).transformNegation(f, idMap, false, false));
+				if (negateLeft
+						&& leftSubExpression instanceof AbstractBooleanTransformation) // TODO
+																						// special
+																						// case
+																						// for
+																						// assign
+					out.add(((AbstractBooleanTransformation) leftSubExpression)
+							.transformNegation(f, idMap, false, false));
 				else
 					out.add(leftSubExpression.transform(f, idMap));
 				break;
 			case RIGHTSUBEXPRESSION:
-				if (negateRight && rightSubExpression instanceof AbstractBooleanTransformation)//TODO special case for assign
-					out.add(((AbstractBooleanTransformation)rightSubExpression).transformNegation(f, idMap, false, false));
+				if (negateRight
+						&& rightSubExpression instanceof AbstractBooleanTransformation)// TODO
+																						// special
+																						// case
+																						// for
+																						// assign
+					out.add(((AbstractBooleanTransformation) rightSubExpression)
+							.transformNegation(f, idMap, false, false));
 				else
 
 					out.add(rightSubExpression.transform(f, idMap));

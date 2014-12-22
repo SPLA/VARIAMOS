@@ -14,13 +14,17 @@ import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 
 /**
- * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
- *         1
- *
- *         Definition of syntax for VariaMos
+ * A class to represented the common aspects of modeling vertex of concepts from
+ * meta model and semantic model on VariaMos. Part of PhD work at University of
+ * Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-11-24 *
+ * @see com.variamos.syntaxsupport.metametamodel.MetaConcept
  */
-public abstract class InstVertex implements Serializable, Prototype,
-		EditableElement {
+public abstract class InstVertex extends InstElement {
 	/**
 	 * 
 	 */
@@ -29,10 +33,7 @@ public abstract class InstVertex implements Serializable, Prototype,
 	 * private String identifier; private Map<String, InstAttribute>
 	 * instAttributes; private Map<String, InstRelation> instRelations;
 	 */
-	public static final String VAR_IDENTIFIER = "identifier",
-			VAR_INSTATTRIBUTES = "InstAttribute";
 
-	protected Map<String, Object> vars = new HashMap<>();
 	/**
 	 * The edges incoming to the vertex
 	 */
@@ -56,8 +57,7 @@ public abstract class InstVertex implements Serializable, Prototype,
 	public InstVertex(String identifier,
 			Map<String, InstAttribute> instAttributes,
 			Map<String, InstEdge> instRelations) {
-		super();
-		vars.put(VAR_IDENTIFIER, identifier);
+		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
 
 		sourceRelations = new ArrayList<InstEdge>();
@@ -159,19 +159,21 @@ public abstract class InstVertex implements Serializable, Prototype,
 				String condition = null;
 				String value = null;
 				String defvalue = null;
-				name = attribute.substring(3,nameEnd);
+				name = attribute.substring(3, nameEnd);
 				variable = attribute.substring(nameEnd + 1, varEnd);
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name).getModelingAttributeType();
+					type = getInstAttributes().get(name)
+							.getModelingAttributeType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);
 				InstAttribute varValue = getInstAttributes().get(variable);
 				if (varValue == null) {
 					if (valueEnd != -1)
-						getInstAttributes().get(name).setValue(createValue(type, defvalue));
+						getInstAttributes().get(name).setValue(
+								createValue(type, defvalue));
 					continue;
 				} else if (varValue.getValue().toString().trim().equals(value)) {
 					if (condition.equals("!=")) {
@@ -201,16 +203,15 @@ public abstract class InstVertex implements Serializable, Prototype,
 		return editableInstAttributes;
 	}
 
-	
-	private Object createValue(String type, String value)
-	{
+	private Object createValue(String type, String value) {
 		if (type.equals("Boolean"))
 			return new Boolean(value);
 		if (type.equals("Integer"))
 			return new Integer(value);
-	return value;
-		
+		return value;
+
 	}
+
 	public String toString() {
 		/*
 		 * if (getInstAttributes().get("name") == null) return

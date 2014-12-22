@@ -63,6 +63,7 @@ public abstract class AbstractGraph extends mxGraph {
 				Object[] removedCells = (Object[]) evt.getProperty("cells");
 				for( Object remObj : removedCells ){
 					mxCell cell = (mxCell)remObj;
+					removingRefaElements(cell);
 					if( cell.isEdge() ){						
 						removingEdge(cell);
 					}
@@ -70,6 +71,8 @@ public abstract class AbstractGraph extends mxGraph {
 						removingClones(cell);
 				}
 			}
+
+
 		});
 		
 		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
@@ -96,6 +99,10 @@ public abstract class AbstractGraph extends mxGraph {
 		});
 	}
 
+	protected void removingRefaElements(mxCell cell) {
+		// TODO Auto-generated method stub
+		
+	}
 	protected void removingClones(mxCell cell)
 	{}
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index)

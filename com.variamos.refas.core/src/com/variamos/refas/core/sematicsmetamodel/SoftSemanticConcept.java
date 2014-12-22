@@ -47,8 +47,8 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_SATISFICINGTYPE, new SemanticAttribute(
 				VAR_SATISFICINGTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
 				"achieve", ""));
-	//	putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
-	//			VAR_LEVELTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_LEVELTYPECLASS, "", ""));
+		putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
+				VAR_LEVELTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_LEVELTYPECLASS, "", ""));
 
 		this.addDisPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
 	//	this.addDisPropEditableAttribute("15#" + VAR_LEVELTYPE);

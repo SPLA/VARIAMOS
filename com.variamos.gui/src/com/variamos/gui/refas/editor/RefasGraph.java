@@ -373,6 +373,12 @@ public class RefasGraph extends AbstractGraph {
 		return true;
 	}
 
+	protected void removingRefaElements (mxCell cell)
+	{
+		Object obj = cell.getValue();
+		refas.removeElement(obj);
+	}
+	
 	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 

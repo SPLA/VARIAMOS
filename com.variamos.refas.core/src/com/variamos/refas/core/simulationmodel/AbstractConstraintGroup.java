@@ -94,7 +94,7 @@ public abstract class AbstractConstraintGroup {
 	}
 
 
-	protected List<AbstractTransformation> getTransformations() {
+	public List<AbstractTransformation> getTransformations() {
 		return transformations;
 	}
 

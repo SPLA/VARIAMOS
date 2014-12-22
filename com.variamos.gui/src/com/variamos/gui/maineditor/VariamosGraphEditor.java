@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -58,6 +59,7 @@ import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.PropertyAttributeList;
+import com.variamos.gui.refas.editor.RefasExpressionPanel;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
@@ -77,6 +79,7 @@ import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.refas.Refas;
@@ -113,6 +116,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected DomainRegister domainRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
+
+	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
 	protected JPanel elementDesPropPanel;
@@ -537,17 +542,21 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		configurator = new ConfiguratorPanel();
 
+		expressions = new RefasExpressionPanel(this, elm);
+
 		// if (getPerspective() == 2) {
-		
+
 		// }
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
 				JTabbedPane.SCROLL_TAB_LAYOUT);
-		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-				new JScrollPane(expressionsArea));
+
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
+
+		extensionTabs.addTab(mxResources.get("configurationTab"),
+				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 		extensionTabs.addChangeListener(new ChangeListener() {
@@ -584,11 +593,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// new JScrollPane(elementExpressionPanel));
 			extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 					new JScrollPane(elementSimPropPanel));
+			extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+					new JScrollPane(expressionsArea));
 		}
-		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-				new JScrollPane(expressionsArea));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
+		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 	}
@@ -602,7 +613,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 	}
 
-	public void bringUpTab(String name) {	
+	public void bringUpTab(String name) {
 		for (int i = 0; i < extensionTabs.getTabCount(); i++) {
 			if (extensionTabs.getTitleAt(i).equals(name)) {
 				extensionTabs.setSelectedIndex(i);
@@ -771,18 +782,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			return;
 		} else {
-			JButton test = new JButton("Execute Simulation");
-			configurator.removeAll();
-			configurator.add(test);
-			test.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
-					refas2hlcl.updateGUIElements();
-					messagesArea.setText(refas2hlcl.getText());
-					bringUpTab(mxResources.get("elementSimPropTab"));
-					editPropertiesRefas(elm);
-				}
-			});
+
 			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
 				extensionTabs.setSelectedIndex(tabIndex);
 				extensionTabs.getSelectedComponent().repaint();
@@ -797,21 +797,50 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			List<InstAttribute> visible = elm.getVisibleVariables();
 
 			RefasWidgetFactory factory = new RefasWidgetFactory(this);
-			int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 0;
+			int designPanelElements = 0, configurationPanelElements = 0, simulationPanelElements = 1;
 			String description = null;
 
+			String type = null;
 			if (elm instanceof InstConcept) {
-				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
-						elm.getIdentifier(), "vertex"));
+				type = "vertex";
 			}
 			if (elm instanceof InstEdge) {
-				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
-						elm.getIdentifier(), "edge"));
+				type = "edge";
 			}
 			if (elm instanceof InstGroupDependency) {
-				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
-						elm.getIdentifier(), "groupdep"));
+				type = "groupdep";
 			}
+			if (type != null) {
+				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
+						elm.getIdentifier(), type));
+				expressions.configure(
+						getEditedModel(),
+						refas2hlcl.getElementConstraintGroup(
+								elm.getIdentifier(), type),(InstElement)elm);
+			}
+			JButton test = new JButton("Execute Simulation");
+			elementSimPropSubPanel.add(test);
+			elementSimPropSubPanel.add(new JPanel());
+			elementSimPropSubPanel.add(new JPanel());
+			test.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION)) {
+						refas2hlcl.updateGUIElements();
+						messagesArea.setText(refas2hlcl.getText());
+						bringUpTab(mxResources.get("elementSimPropTab"));
+						editPropertiesRefas(elm);
+					} else {
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
+										"Simulation Execution Error",
+										JOptionPane.INFORMATION_MESSAGE, null);
+					}
+
+				}
+			});
+			// TODO split in two new classes, one for each panel
 			for (InstAttribute v : visible) {
 				if (elm instanceof InstGroupDependency) {
 
@@ -876,12 +905,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						InstAttribute v = w.getInstAttribute();
 						if (v.getModelingAttributeType().equals("String"))
 							v.setValue(AbstractElement.multiLine(v.toString(),
-									15)); // Divide
-											// lines
-											// every
-											// 15
-											// characters
-											// (aprox.)
+									15));
+						// Divide lines every 15 characters (aprox.)
 						System.out.println("Focus Lost: " + v.hashCode()
 								+ " val: " + v.getDisplayValue());
 						onVariableEdited(elm);
@@ -1080,9 +1105,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// }
 
 	// Not used method
-	/* mxGraph
-	 * public void loadPalettes(){ //Load first palette PaletteDefinition pl =
-	 * new PaletteDefinition(); pl.name = "Product Lines";
+	/*
+	 * mxGraph public void loadPalettes(){ //Load first palette
+	 * PaletteDefinition pl = new PaletteDefinition(); pl.name =
+	 * "Product Lines";
 	 * 
 	 * PaletteNode node = new PaletteNode(); ScriptedVariabilityElement elm =
 	 * new ScriptedVariabilityElement(); List<Variable> atts = new

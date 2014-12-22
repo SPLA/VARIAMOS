@@ -15,15 +15,18 @@ import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
 import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
 import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
+import com.variamos.refas.core.transformations.LessOrEqualsBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+//TODO refactor: OverTwoElementExpressionSet
 /**
  * A class to represent the constraints for group relations. Part of PhD work at
  * University of Paris 1
@@ -58,6 +61,9 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instGroupDependency = instGroupDependency;
+		RestrictionConstraint restConst = new RestrictionConstraint(identifier,
+				idMap, hlclFactory, instGroupDependency);
+		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
 	}
 
@@ -73,7 +79,14 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 
 		MetaGroupDependency metaGroupDep = instGroupDependency
 				.getMetaGroupDependency();
-		if (metaGroupDep != null
+		boolean targetActiveAttribute =false;
+		if (instGroupDependency
+				.getTargetRelations().size() > 0)
+			targetActiveAttribute = (boolean) instGroupDependency
+				.getTargetRelations().get(0).getTargetRelation().getInstAttribute("Active")
+				.getValue(); 
+		if (targetActiveAttribute
+				&& metaGroupDep != null
 				&& instGroupDependency
 						.getInstAttribute(SemanticGroupDependency.VAR_CARDINALITYTYPE) != null) {
 			relationType = CardinalityType
@@ -91,12 +104,16 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						.getSourceRelations().iterator();
 				AbstractTransformation recursiveExpression1 = null;
 				AbstractTransformation recursiveExpression2 = null;
-				// instEdges1.next(); // TODO eliminate duplicated edges from
-				// collection and remove this line
 				if (instEdges1.hasNext()) {
 					InstEdge left1 = instEdges1.next();
+					while ((boolean) left1.getSourceRelation()
+							.getInstAttribute("Active").getValue() == false) {
+						if (instEdges1.hasNext())
+							left1 = instEdges1.next();
+						else
+							return;
+					}
 					switch (relationType) {
-
 					case and:
 						abstractTransformation = new AndBooleanTransformation();
 						break;
@@ -105,7 +122,6 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						break;
 					case mutex:
 						abstractTransformation = new SumNumericTransformation();
-
 						break;
 					case range:
 						abstractTransformation = new SumNumericTransformation();
@@ -119,11 +135,11 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						constructor4 = null;
 						try {
 							constructor3 = abstractTransformation.getClass()
-									.getConstructor(InstVertex.class,
+									.getConstructor(InstElement.class,
 											String.class, Boolean.TYPE,
 											AbstractTransformation.class);
 							constructor4 = abstractTransformation.getClass()
-									.getConstructor(InstVertex.class,
+									.getConstructor(InstElement.class,
 											InstVertex.class, String.class,
 											String.class);
 						} catch (NoSuchMethodException | SecurityException e) {
@@ -141,12 +157,12 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					Constructor<?> constructor1 = null, constructor2 = null;
 					try {
 						constructor1 = abstractTransformation.getClass()
-								.getConstructor(InstVertex.class, String.class,
+								.getConstructor(InstElement.class, String.class,
 										Boolean.TYPE,
 										AbstractTransformation.class);
 						constructor2 = abstractTransformation.getClass()
-								.getConstructor(InstVertex.class,
-										InstVertex.class, String.class,
+								.getConstructor(InstElement.class,
+										InstElement.class, String.class,
 										String.class);
 					} catch (NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
@@ -162,11 +178,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						// A2_"attribute" ) #\/ ... )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						getTransformations()
-								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
-												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+						getTransformations().add(
+								new DoubleImplicationBooleanTransformation(
+										instGroupDependency/*
+															 * .getTargetRelations
+															 * ().get(0)
+															 * .getToRelation()
+															 */, sourceName,
 										true, recursiveExpression1));
 						break;
 					case mutex:
@@ -177,17 +195,15 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						AbstractTransformation transformation1 = new EqualsComparisonTransformation(
 								recursiveExpression1,
 								new NumberNumericTransformation(1));
-						getTransformations()
-								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
-												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+						getTransformations().add(
+								new DoubleImplicationBooleanTransformation(
+										instGroupDependency, sourceName,
 										true, transformation1));
 
 						break;
 					case range:
 
-						// B_Satisfied #<=> ( ( ( ( A1_"attribute" +
+						// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
 						// A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
 						// ( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #<=
 						// GD_HighCardinality ) )
@@ -197,18 +213,20 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 								instGroupDependency, "lowCardinality", false,
 								recursiveExpression1);
 
-						AbstractTransformation transformation4 = new GreaterOrEqualsBooleanTransformation(
+						AbstractTransformation transformation4 = new LessOrEqualsBooleanTransformation(
 								instGroupDependency, "highCardinality", false,
 								recursiveExpression2);
 
 						AbstractTransformation transformation5 = new AndBooleanTransformation(
 								transformation3, transformation4);
 
-						getTransformations()
-								.add(new DoubleImplicationBooleanTransformation(
-										instGroupDependency
-												.getTargetRelations().get(0)
-												.getToRelation(), sourceName,
+						getTransformations().add(
+								new DoubleImplicationBooleanTransformation(
+										instGroupDependency/*
+															 * .getTargetRelations
+															 * ().get(0)
+															 * .getToRelation()
+															 */, sourceName,
 										true, transformation5));
 
 						break;
@@ -227,35 +245,47 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		// instEdges.next(); // TODO eliminate duplicated edges from collection
 		// and
 		// remove this line
-		if (instEdges.hasNext()){
-		InstEdge instEdge = instEdges.next();
-
 		if (instEdges.hasNext()) {
-			try {
-				return (AbstractTransformation) constructor1.newInstance(
-						left.getFromRelation(),
-						sourceName,
-						true,
-						transformation(constructor1, constructor2, instEdges,
-								instEdge, sourceName));
-			} catch (InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+			InstEdge instEdge = instEdges.next();
+			while ((boolean) instEdge.getSourceRelation()
+					.getInstAttribute("Active").getValue() == false) {
+				if (instEdges.hasNext())
+					instEdge = instEdges.next();
+				else
+					// TODO define a cleaner way to deal with group relations
+					// with one
+					// element
+					return new AndBooleanTransformation(
+							left.getSourceRelation(), left.getSourceRelation(),
+							sourceName, sourceName);
 			}
+			if (instEdges.hasNext()) {
+				try {
+					return (AbstractTransformation) constructor1.newInstance(
+							left.getSourceRelation(),
+							sourceName,
+							true,
+							transformation(constructor1, constructor2,
+									instEdges, instEdge, sourceName));
+				} catch (InstantiationException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			} else
+				try {
+					return (AbstractTransformation) constructor2.newInstance(
+							left.getSourceRelation(),
+							instEdge.getSourceRelation(), sourceName,
+							sourceName);
+				} catch (InstantiationException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
 		} else
-			try {
-				return (AbstractTransformation) constructor2.newInstance(
-						left.getFromRelation(), instEdge.getFromRelation(),
-						sourceName, sourceName);
-			} catch (InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
-			}}
-		else
-			//TODO define a cleaner way to deal with group relations with one element
-			return new AndBooleanTransformation(
-					left.getFromRelation(), left.getFromRelation(),
-					sourceName, sourceName);
+			// TODO define a cleaner way to deal with group relations with one
+			// element
+			return new AndBooleanTransformation(left.getSourceRelation(),
+					left.getSourceRelation(), sourceName, sourceName);
 		return null;
 	}
 }

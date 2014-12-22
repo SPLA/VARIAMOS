@@ -1,13 +1,16 @@
 package com.variamos.syntaxsupport.refas;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
@@ -26,16 +29,11 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  * @version 1.1
  * @since 2014-11-10
  */
+/**
+ * @author jcmunoz
+ *
+ */
 public class Refas extends AbstractModel {
-
-	/**
-	 * 
-	 */
-	protected Map<String, VariabilityElement> vElements;
-	/**
-	 * 
-	 */
-	protected Map<String, Constraint> constraints;
 
 	/**
 	 * 
@@ -68,7 +66,6 @@ public class Refas extends AbstractModel {
 	protected String fileName;
 
 	public Refas() {
-		vElements = new HashMap<String, VariabilityElement>();
 		variabilityInstVertex = new HashMap<String, InstVertex>();
 		instGroupDependencies = new HashMap<String, InstGroupDependency>();
 		otherInstVertex = new HashMap<String, InstVertex>();
@@ -96,15 +93,15 @@ public class Refas extends AbstractModel {
 	}
 
 	public Collection<Constraint> getConstraints() {
-		return constraints.values();
+		return null;
 	}
 
 	public void setConstraints(Map<String, Constraint> constraints) {
-		this.constraints = constraints;
+
 	}
 
 	public Collection<VariabilityElement> getVariabilityElements() {
-		return vElements.values();
+		return null;
 	}
 
 	public void putVariabilityInstVertex(InstVertex element) {
@@ -168,7 +165,6 @@ public class Refas extends AbstractModel {
 	}
 
 	private String getNextVariabilityInstVertextId(InstVertex element) {
-
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
@@ -180,7 +176,6 @@ public class Refas extends AbstractModel {
 				classId = ((InstGroupDependency) element)
 						.getMetaVertexIdentifier();
 		}
-
 		while (variabilityInstVertex.containsKey(classId + id)) {
 			id++;
 		}
@@ -188,7 +183,6 @@ public class Refas extends AbstractModel {
 	}
 
 	private String getNextOtherInstVertexId(InstVertex element) {
-
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
@@ -200,7 +194,6 @@ public class Refas extends AbstractModel {
 				classId = ((InstGroupDependency) element)
 						.getMetaVertexIdentifier();
 		}
-
 		while (otherInstVertex.containsKey(classId + id)) {
 			id++;
 		}
@@ -263,7 +256,7 @@ public class Refas extends AbstractModel {
 	}
 
 	public VariabilityElement getVariabilityElement(String string) {
-		return vElements.get(string);
+		return null;
 	}
 
 	@Override
@@ -291,11 +284,53 @@ public class Refas extends AbstractModel {
 		return null;
 	}
 
-	public InstVertex getVertex(String conceptId) {
-		InstVertex out = variabilityInstVertex.get(conceptId);
+	public InstVertex getVertex(String vertexId) {
+		InstVertex out = variabilityInstVertex.get(vertexId);
 		if (out == null)
-			out = instGroupDependencies.get(conceptId);
+			out = instGroupDependencies.get(vertexId);
 		return out;
 	}
+	
+	public com.variamos.syntaxsupport.metamodel.InstElement getElement(String vertexId) {
+		InstElement out = getVertex(vertexId);
+		if (out == null)
+			out = constraintInstEdges.get(vertexId);
+		return out;
+	}
+
+
+	public void removeElement(Object obj) {
+		if (obj instanceof InstConcept) {
+			InstConcept concept = (InstConcept) obj;
+			variabilityInstVertex.remove(concept.getIdentifier());
+		}
+		if (obj instanceof InstEnumeration) {
+			InstEnumeration concept = (InstEnumeration) obj;
+			variabilityInstVertex.remove(concept.getIdentifier());
+		}
+		if (obj instanceof InstGroupDependency)
+			instGroupDependencies.remove(((InstGroupDependency) obj)
+					.getIdentifier());
+		else if (obj instanceof InstEdge)
+			constraintInstEdges.remove(((InstEdge) obj).getIdentifier());
+	}
+
+	/**
+	 * @return all InstVertex with constraints (excludes MetaEnumation)
+	 */
+	public List<InstVertex> getConstraintVertexCollection() {
+		ArrayList<InstVertex> out = new ArrayList<InstVertex>();
+		out.addAll(variabilityInstVertex.values());
+		out.addAll(instGroupDependencies.values());
+		return out;
+	}
+
+	public Map<String,InstVertex> getConstraintVertex() {
+		Map<String,InstVertex> out = new HashMap<String,InstVertex>();
+		out.putAll(variabilityInstVertex);
+		out.putAll(instGroupDependencies);
+		return out;
+	}
+
 
 }

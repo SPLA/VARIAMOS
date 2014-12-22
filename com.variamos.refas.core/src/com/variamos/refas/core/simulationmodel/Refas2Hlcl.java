@@ -42,6 +42,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.refas.Refas;
@@ -63,6 +64,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private Refas refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration;
+	private boolean hasSolution;
 
 	public Configuration getConfiguration() {
 		return configuration;
@@ -72,7 +74,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
-		text = "";
 		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
 
 	}
@@ -82,8 +83,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * relations and calls SWIProlog to return a solution or all solutions (only
 	 * ONE_SOLUTION currently supported)
 	 */
-	public void execute(int solutions)
+	public boolean execute(int solutions)
 	{
+		text = "";
 		hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
 		createVertexExpressions(null);
@@ -123,17 +125,31 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		Set<Identifier> identifiers = new TreeSet<Identifier>();
 		for (Expression exp : hlclProgram) {
+			System.out.println(HlclUtil.getUsedIdentifiers(exp));
 			identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
 			text += exp + "\n";
 		}
 		Solver swiSolver = new SWIPrologSolver(hlclProgram);
-		swiSolver.solve(new Configuration(), new ConfigurationOptions());
+		
+		try{
+			swiSolver.solve(new Configuration(), new ConfigurationOptions());
+		}
+		catch (Exception e)
+		{
+			System.out.println("No solution");
+			return false;
+		}
 
 		if (solutions==0)
-		 configuration = swiSolver.getSolution();
+		{
+			configuration = swiSolver.getSolution();			
+		}
+		 
 		else
 			throw new RuntimeException ("Solution parameter not supported");
 		System.out.println("configuration: " + configuration.toString());
+
+		return true;
 	}
 	
 	/**
@@ -147,9 +163,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		int i = 0;
 		for (String identifier : prologOut.keySet()) {
 			String[] split = identifier.split("_");
-			String conceptId = split[0];
+			String vertexId = split[0];
 			String attribute = split[1];
-			InstVertex vertex = refas.getVertex(conceptId);
+			InstElement vertex = refas.getElement(vertexId);
+			System.out.println(vertexId+" "+attribute	);
 			if (vertex.getInstAttribute(attribute).getModelingAttributeType()
 					.equals("Boolean"))
 
@@ -161,7 +178,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				else
 					vertex.getInstAttribute(attribute).setValue(
 							prologOut.get(i));
-			System.out.print(conceptId
+			System.out.print(vertexId
 					+ " "
 					+ attribute
 					+ " "
@@ -188,7 +205,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createVertexExpressions(String identifier) {
 		if (identifier == null)
-			for (InstVertex elm : refas.getVariabilityVertexCollection()) {
+			for (InstVertex elm : refas.getConstraintVertexCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new RestrictionConstraint(elm.getIdentifier(), idMap,
 								f, elm));
@@ -196,7 +213,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		else
 			constraintGroups.put(identifier,
 					new RestrictionConstraint(identifier, idMap, f, refas
-							.getVariabilityVertex().get(identifier)));
+							.getConstraintVertex().get(identifier)));
 	}
 
 	private void createEdgeExpressions(String identifier) {

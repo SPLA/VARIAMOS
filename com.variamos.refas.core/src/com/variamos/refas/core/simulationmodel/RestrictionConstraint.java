@@ -1,5 +1,6 @@
 package com.variamos.refas.core.simulationmodel;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
+//TODO refactor: SingleElementExpressionSet
 /**
  * A class to represent the constraints for restrictions of a concept. Part of
  * PhD work at University of Paris 1
@@ -74,15 +76,12 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 	private void defineTransformations() {
 
-		if (instVertex instanceof InstConcept) { // TODO not required if the
-													// method
-			// returns InstConcepts
-			InstConcept instConcept = (InstConcept) instVertex;
+		if (instVertex instanceof InstConcept
+				|| instVertex instanceof InstGroupDependency) {
 
-			MetaConcept metaConcept = instConcept.getMetaConcept();
-			if (metaConcept != null) {
-
-				for (InstAttribute instAttribute : instConcept
+			InstAttribute validAttribute = instVertex.getInstAttribute("Active");
+			if (((boolean) validAttribute.getValue()) == true) {
+				for (InstAttribute instAttribute : instVertex
 						.getInstAttributesCollection()) {
 
 					int attributeValue = 0;
@@ -98,7 +97,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 						else
 							attributeValue = (Integer) instAttribute.getValue();
 					}
-					// A_SimAllowed #= A_Allowed
+					// identifierId_SimAllowed #= identifierId_Allowed
 					if (instAttribute.getIdentifier().equals("Allowed")) {
 
 						getTransformations()
@@ -112,19 +111,20 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 										instVertex, "SimAllowed", instAttribute
 												.getIdentifier()));
 					}
-					// A_SimRequired #= A_Required
+					// identifierId_SimRequired #= identifierId_Required
 					if (instAttribute.getIdentifier().equals("Required")) {
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
+
 						getTransformations().add(
 								new EqualsComparisonTransformation(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
 					}
-					// A_PreferredSelected #= 1
+					// identifierId_PreferredSelected #= 1
 					if (instAttribute.getIdentifier().equals(
 							"PreferredSelected")) {
 
@@ -134,7 +134,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 												.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 					}
-					// A_Optional #= 0
+					// identifierId_Optional #= 0
 					if (instAttribute.getIdentifier().equals("Optional")) {
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
@@ -142,20 +142,23 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 												.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 					}
-					// A_SimInitialRequiredLevel #= A_RequiredLevel
+					// identifierId_SimInitialRequiredLevel #=
+					// identifierId_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
 						getTransformations()
 								.add(new EqualsComparisonTransformation(
 										instVertex, instAttribute
 												.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
+
 						getTransformations().add(
 								new EqualsComparisonTransformation(instVertex,
 										instVertex, "InitialRequiredLevel",
 										instAttribute.getIdentifier()));
 					}
 					if (instAttribute.getIdentifier().equals("Satisfied")) {
-						// (( 1 - A_SimRequired) + A_Satisfied) #>= 1
+						// ( ( 1 - identifierId_SimRequired ) +
+						// identifierId_Satisfied ) #>= 1
 						AbstractNumericTransformation transformation1 = new DiffNumericTransformation(
 								instVertex, "SimRequired", false,
 								getHlclFactory().number(1));
@@ -168,7 +171,9 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 										transformation1,
 										new NumberNumericTransformation(1)));
 
-						// (( 1 - A_Selected) + A_Satisfied) #>= 1
+						// ( ( 1 - identifierId_Selected ) +
+						// identifierId_Satisfied
+						// ) #>= 1
 						AbstractNumericTransformation transformation2 = new DiffNumericTransformation(
 								instVertex, "Selected", false, getHlclFactory()
 										.number(1));
@@ -181,11 +186,13 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 										transformation2,
 										new NumberNumericTransformation(1)));
 
-						// (1 - A_SimAllowed) * (A_SimRequired +
-						// A_Satisfied) #= 0
+						// ( 1 - identifierId_SimAllowed ) * (
+						// identifierId_SimRequired + identifierId_Satisfied )
+						// #=
+						// 0
 						AbstractNumericTransformation transformation3 = new DiffNumericTransformation(
-								instVertex, "Selected", false, getHlclFactory()
-										.number(1));
+								instVertex, "SimAllowed", false,
+								getHlclFactory().number(1));
 						AbstractNumericTransformation transformation4 = new SumNumericTransformation(
 								instVertex, instVertex, "SimRequired",
 								instAttribute.getIdentifier());
@@ -196,47 +203,75 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 								new EqualsComparisonTransformation(
 										transformation3,
 										new NumberNumericTransformation(0)));
+					}
 
-						// A_Satisfied #<=> ( ( A_ForcedSatisfied #\/
-						// A_AlternativeSatisfied ) #\/ (
-						// A_ValidationSatisfied) #/\ A_SimAllowed ) )
-
-						AbstractBooleanTransformation transformation5 = new OrBooleanTransformation(
+					if (instAttribute.getIdentifier().equals("ForcedSatisfied")) {
+						// Identifier_Satisfied #<=>
+						// ( ( Identifier_ForcedSatisfied #\/
+						// Identifier_AlternativeSatisfied ) #\/
+						// ( Identifier_ValidationSatisfied #/\
+						// identifierId_SimAllowed )
+						// #/\ identifierId_NoSatisfactionConflict )
+						getTransformations().add(
+								new EqualsComparisonTransformation(instVertex,
+										"NoSatisfactionConflict",
+										getHlclFactory().number(1)));
+						getTransformations()
+								.add(new EqualsComparisonTransformation(
+										instVertex, instAttribute
+												.getIdentifier(),
+										getHlclFactory().number(attributeValue)));
+						AbstractBooleanTransformation transformation6 = new OrBooleanTransformation(
 								instVertex, instVertex, "ForcedSatisfied",
 								"AlternativeSatisfied");
-						AbstractBooleanTransformation transformation6 = new AndBooleanTransformation(
+						AbstractBooleanTransformation transformation7 = new AndBooleanTransformation(
 								instVertex, instVertex, "ValidationSatisfied",
 								"SimAllowed");
-						AbstractBooleanTransformation transformation7 = new OrBooleanTransformation(
-								transformation5, transformation6);
+						AbstractBooleanTransformation transformation8 = new OrBooleanTransformation(
+								transformation6, transformation7);
+						AbstractBooleanTransformation transformation9 = new AndBooleanTransformation(
+								instVertex, "NoSatisfactionConflict", false,
+								transformation8);
 						getTransformations().add(
 								new DoubleImplicationBooleanTransformation(
-										instVertex, instAttribute
-												.getIdentifier(), true,
-										transformation7));
+										instVertex, "Satisfied", true,
+										transformation9));
 
+					}
+					// Set ForceSelected from GUI properties
+					if (instAttribute.getIdentifier().equals("ForcedSelected")) {
+
+						getTransformations()
+								.add(new EqualsComparisonTransformation(
+										instVertex, instAttribute
+												.getIdentifier(),
+										getHlclFactory().number(attributeValue)));
 					}
 					if (instAttribute.getIdentifier().equals("Selected")) {
-						// A_Selected #<=> ( ( ( A_SolverSelected #/\
-						// A_PreferredSelected) #\/ A_ValidationSelected )
-						// #\/ A_SimRequired )
+						// identifierId_Selected #<=>
+						// ( ( ( identifierId_SolverSelected #/\
+						// identifierId_PreferredSelected )
+						// #\/ ( identifierId_ValidationSelected #\/
+						// identifierId_SimRequired ) ) #\/
+						// identifierId_ForceSelected )
 
-						AbstractBooleanTransformation transformation8 = new AndBooleanTransformation(
+						AbstractBooleanTransformation transformation10 = new AndBooleanTransformation(
 								instVertex, instVertex, "SolverSelected",
 								"PreferredSelected");
-						AbstractBooleanTransformation transformation9 = new OrBooleanTransformation(
+						AbstractBooleanTransformation transformation11 = new OrBooleanTransformation(
 								instVertex, instVertex, "ValidationSelected",
 								"SimRequired");
-						AbstractBooleanTransformation transformation10 = new OrBooleanTransformation(
-								transformation8, transformation9);
+						AbstractBooleanTransformation transformation12 = new OrBooleanTransformation(
+								transformation10, transformation11);
+						AbstractBooleanTransformation transformation13 = new OrBooleanTransformation(
+								instVertex, "ForcedSelected", false,
+								transformation12);
 						getTransformations().add(
 								new DoubleImplicationBooleanTransformation(
 										instVertex, instAttribute
 												.getIdentifier(), true,
-										transformation10));
-
+										transformation13));
 					}
-
 				}
 
 			}
