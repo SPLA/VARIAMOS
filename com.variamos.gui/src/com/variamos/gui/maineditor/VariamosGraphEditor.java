@@ -542,7 +542,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		configurator = new ConfiguratorPanel();
 
-		expressions = new RefasExpressionPanel();
+		expressions = new RefasExpressionPanel(this, elm);
 
 		// if (getPerspective() == 2) {
 
