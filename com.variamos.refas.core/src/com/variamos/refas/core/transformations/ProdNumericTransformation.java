@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-15
  */
 public class ProdNumericTransformation extends AbstractNumericTransformation {
-	private static final String TRANSFORMATION = "*";
+	public static final String TRANSFORMATION = "*";
 
 	public ProdNumericTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

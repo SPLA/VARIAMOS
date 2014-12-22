@@ -20,7 +20,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-15
  */
 public class NotBooleanTransformation extends AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "-";
+	public static final String TRANSFORMATION = "-";
 
 	public NotBooleanTransformation(InstElement left, String leftAttributeName) {
 		super(left, leftAttributeName);

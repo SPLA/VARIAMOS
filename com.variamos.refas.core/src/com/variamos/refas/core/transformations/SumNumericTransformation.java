@@ -22,7 +22,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-14
  */
 public class SumNumericTransformation extends AbstractNumericTransformation {
-	private static final String TRANSFORMATION = "+";
+	public static final String TRANSFORMATION = "+";
 
 	public SumNumericTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

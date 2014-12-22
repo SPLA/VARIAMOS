@@ -21,7 +21,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-15
  */
 public class OrBooleanTransformation extends AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "#\\/";
+	public static final String TRANSFORMATION = "#\\/";
 
 	public OrBooleanTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

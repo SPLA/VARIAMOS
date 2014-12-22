@@ -24,7 +24,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  */
 public class NotEqualsBooleanTransformation extends
 		AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "\\==";
+	public static final String TRANSFORMATION = "\\==";
 
 	public NotEqualsBooleanTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

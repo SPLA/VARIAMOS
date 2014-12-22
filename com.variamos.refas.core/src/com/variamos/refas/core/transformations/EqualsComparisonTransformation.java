@@ -25,7 +25,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  */
 public class EqualsComparisonTransformation extends
 		AbstractComparisonTransformation {
-	private static final String TRANSFORMATION = "#=";
+	public static final String TRANSFORMATION = "#=";
 
 	public EqualsComparisonTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

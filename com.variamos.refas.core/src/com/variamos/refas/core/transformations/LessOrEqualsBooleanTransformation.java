@@ -24,7 +24,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  */
 public class LessOrEqualsBooleanTransformation extends
 		AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "#<";
+	public static final String TRANSFORMATION = "#<";
 
 	public LessOrEqualsBooleanTransformation(InstElement left,
 			InstElement right, String leftAttributeName,

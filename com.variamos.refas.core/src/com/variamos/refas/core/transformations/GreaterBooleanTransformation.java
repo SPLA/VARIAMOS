@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-14
  */
 public class GreaterBooleanTransformation extends AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "#>";
+	public static final String TRANSFORMATION = "#>";
 
 	public GreaterBooleanTransformation(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {

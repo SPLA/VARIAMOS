@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  */
 public class DoubleImplicationBooleanTransformation extends
 		AbstractBooleanTransformation {
-	private static final String TRANSFORMATION = "#<==>";
+	public static final String TRANSFORMATION = "#<==>";
 
 	public DoubleImplicationBooleanTransformation(InstElement left,
 			InstElement right, String leftAttributeName,

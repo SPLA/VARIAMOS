@@ -6,9 +6,10 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
+
 /**
- * Class to create the Number expression. Part of PhD
- * work at University of Paris 1
+ * Class to create the Number expression. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -20,15 +21,19 @@ public class NumberNumericTransformation extends AbstractNumericTransformation {
 	public int getNumber() {
 		return number;
 	}
-	private static final String TRANSFORMATION = "";
+
+	public static final String TRANSFORMATION = "";
 	private int number;
+
 	public NumberNumericTransformation(int number) {
 		super();
 		this.expressionConnectors.add(TRANSFORMATION);
 		this.number = number;
-	}	
+	}
+
 	@Override
-	public NumericExpression transform(HlclFactory f, Map<String, Identifier> idMap) {		
+	public NumericExpression transform(HlclFactory f,
+			Map<String, Identifier> idMap) {
 		return f.number(number);
 	}
 

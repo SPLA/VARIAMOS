@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,6 +58,7 @@ import com.variamos.pl.configurator.io.ConfigurationDTO;
 import com.variamos.refas.core.simulationmodel.AbstractConstraintGroup;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
+import com.variamos.refas.core.types.ExpressionClassType;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
@@ -153,7 +155,7 @@ public class RefasExpressionPanel extends JPanel {
 								+ expression.getLeftAttributeName()));
 			}
 		}
-		childPanel.add(new JTextField(expression.getOperation()));
+		childPanel.add(createOperators(expression.getOperation()));
 
 		if (expression.getRightSubExpression() != null)
 			showExpression(expression.getRightSubExpression(), element,
@@ -224,6 +226,36 @@ public class RefasExpressionPanel extends JPanel {
 		}
 
 		combo.setSelectedItem(selectedElement);
+		return combo;
+	}
+	
+	private JComboBox createOperators (String selectedOperator) 
+	{
+		JComboBox<String> combo = new JComboBox<String>();
+		for (ExpressionClassType operatorType :  ExpressionClassType.values())
+		{
+			Class<AbstractTransformation> expressionClass = null;
+			try {
+				expressionClass = (Class<AbstractTransformation>) Class.forName("com.variamos.refas.core.transformations."+operatorType.name());
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Field f = null;
+			try {
+				f = expressionClass.getDeclaredField("TRANSFORMATION");
+			} catch (NoSuchFieldException | SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				combo.addItem((String)f.get(null));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		combo.setSelectedItem(selectedOperator);
 		return combo;
 	}
 }
