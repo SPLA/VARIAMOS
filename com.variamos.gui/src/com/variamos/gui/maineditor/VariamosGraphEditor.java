@@ -2,6 +2,7 @@ package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -111,7 +113,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int modelSubViewIndex = 0;
 	private List<String> validElements = null;
 
-	private static List<MetaView> metaViews = null;
+	private List<MetaView> metaViews = null;
 
 	protected DomainRegister domainRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
@@ -141,6 +143,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
 		super(appTitle, component, perspective);
+
+		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
@@ -225,6 +229,97 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				}
 			});
 		}
+		setModified(false);
+	}
+
+	public VariamosGraphEditor(MainFrame frame, VariamosGraphComponent component,
+			int perspective, AbstractModel abstractModel) {
+		super(frame, "", component);
+
+		metaViews = sematicSyntaxObject.getMetaViews();
+		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		registerEvents();
+		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
+		graphEditorFunctions = new RefasGraphEditorFunctions(this);
+		// graphEditorFunctions.updateEditor(validElements,
+		// getGraphComponent(), modelViewIndex);
+
+		mxCell root = new mxCell();
+		root.insert(new mxCell());
+		RefasGraph refasGraph = (RefasGraph) component.getGraph();
+		refasGraph.getModel().setRoot(root);
+		for (int i = 0; i < metaViews.size(); i++) {
+			mxCell parent = new mxCell("mv" + i);
+			refasGraph.addCell(parent);
+			MetaView metaView = metaViews.get(i);
+			JPanel tabPane = new JPanel();
+			if (metaView.getChildViews().size() > 0) {
+				modelsTabPane.add(metaView.getName(), tabPane);
+				refasGraph.addCell(new mxCell("mv" + i), parent); // Add the
+																	// parent as
+																	// first
+																	// child
+				for (int j = 0; j < metaView.getChildViews().size(); j++) {
+					refasGraph.addCell(new mxCell("mv" + i + "-" + j), parent);
+					MetaView metaChildView = metaView.getChildViews().get(j);
+					JButton a = new JButton(metaChildView.getName());
+					tabPane.add(a);
+					a.addActionListener(new ModelButtonAction());
+				}
+				// TODO include recursive calls if more view levels are required
+			} else {
+				modelsTabPane.add(metaView.getName(), tabPane);
+			}
+			final EditorPalette palette = new EditorPalette();
+			palette.setName("ee");
+			final JScrollPane scrollPane = new JScrollPane(palette);
+			scrollPane
+					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollPane
+					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			modelsTabPane.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					// System.out.println("Tab: "
+					// + modelsTabPane.getTitleAt(modelsTabPane
+					// .getSelectedIndex()));
+					List<MetaView> metaViews = sematicSyntaxObject
+							.getMetaViews();
+					VariamosGraphEditor editor = getEditor();
+					int modelInd = getModelViewIndex();
+					for (int i = 0; i < metaViews.size(); i++) {
+						if (modelInd != i
+								&& modelsTabPane.getTitleAt(
+										modelsTabPane.getSelectedIndex())
+										.equals(metaViews.get(i).getName())) {
+
+							if (metaViews.get(i).getChildViews().size() > 0) {
+								// if (false) //TODO validate the name of the
+								// button with the tab, if true, identify the
+								// subview
+								// editor.setVisibleModel(i ,0);
+								// else
+								editor.setVisibleModel(i, 0);
+								editor.updateView();
+								center.setDividerLocation(60);
+								center.setMaximumSize(center.getSize());
+								center.setMinimumSize(center.getSize());
+								center.setResizeWeight(0);
+							} else {
+								editor.setVisibleModel(i, -1);
+								editor.updateView();
+								center.setDividerLocation(25);
+								center.setMaximumSize(center.getSize());
+								center.setMinimumSize(center.getSize());
+								center.setPreferredSize(center.getSize());
+							}
+						}
+					}
+
+					// Prints the string 3 times if there are 3 tabs etc
+				}
+			});
+		}
+		setModified(false);
 	}
 
 	public SemanticPlusSyntax getSematicSintaxObject() {
@@ -289,7 +384,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			String perspective) throws FeatureModelException {
 		AbstractModel abstractModel = null;
 		sematicSyntaxObject = new SemanticPlusSyntax();
-		metaViews = sematicSyntaxObject.getMetaViews();
 
 		int persp = 0;
 		if (perspective.equals("ProductLine")) {
@@ -372,6 +466,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return null;
 	}
 
+	public static SemanticPlusSyntax getSematicSyntaxObject() {
+		return sematicSyntaxObject;
+	}
+
+	public static void setSematicSyntaxObject(
+			SemanticPlusSyntax sematicSyntaxObject) {
+		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
+	}
+
 	public void editModel(AbstractModel pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
@@ -404,10 +507,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			((RefasGraph) graph).defineInitialGraph();
 		}
-
-		setModified(false);
 		setCurrentFile(null);
 		getGraphComponent().zoomAndCenter();
+
+		setModified(false);
 	}
 
 	private void registerEvents() {
@@ -816,7 +919,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				expressions.configure(
 						getEditedModel(),
 						refas2hlcl.getElementConstraintGroup(
-								elm.getIdentifier(), type),(InstElement)elm);
+								elm.getIdentifier(), type), (InstElement) elm);
 			}
 			JButton test = new JButton("Execute Simulation");
 			elementSimPropSubPanel.add(test);
@@ -1160,17 +1263,36 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// e.consume();
 	// }
 
-	protected void installToolBar() {
+	protected void installToolBar(MainFrame mainFrame) {
 
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
 		jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 				BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
-		perspectiveToolBar = new PerspectiveToolBar(this, JToolBar.HORIZONTAL,
-				perspective);
+		if (mainFrame != null)
+			perspectiveToolBar = new PerspectiveToolBar(mainFrame,
+					JToolBar.HORIZONTAL);
+		else
+			perspectiveToolBar = new PerspectiveToolBar(this,
+					JToolBar.HORIZONTAL, perspective);
 		jp.add(perspectiveToolBar, BorderLayout.EAST);
 		add(jp, BorderLayout.NORTH);
 	}
+
+	public final MainFrame getMainFrame()
+	{
+		Container contairner1 = this.getParent();
+		
+		Container contairner2 = contairner1.getParent();
+		
+		Container contairner3 = contairner2.getParent();
+
+		Container contairner4 = contairner3.getParent();
+
+		return (MainFrame) contairner4;
+
+	}
+
 
 }

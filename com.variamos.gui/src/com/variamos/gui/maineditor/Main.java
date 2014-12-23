@@ -23,6 +23,7 @@ public class Main {
 
 		int options = 3; // 0 old way to load product lines
 
+		//MainFrame mainPanel= new MainFrame();
 		switch (options) {
 		case 0:
 			// ProductLine pl = getProductLine("");
