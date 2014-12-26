@@ -52,6 +52,7 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
@@ -75,7 +76,6 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
-import com.variamos.syntaxsupport.refas.Refas;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**

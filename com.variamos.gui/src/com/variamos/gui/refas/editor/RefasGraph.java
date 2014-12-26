@@ -38,8 +38,10 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
+import com.variamos.refas.core.types.PerspectiveType;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
@@ -49,9 +51,9 @@ import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
-import com.variamos.syntaxsupport.refas.Refas;
 
 public class RefasGraph extends AbstractGraph {
+	
 
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
@@ -103,10 +105,10 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
-		if (refas == null)
-			refas = getRefas();
-		// return refas.getValidElements(modelView);
-		return semanticPlusSyntax.modelElements(modelView, modelSubView);
+		if (refas.getSyntaxRefas() == null)
+			return semanticPlusSyntax.modelElements(modelView, modelSubView);
+		else
+			return refas.getSyntaxRefas().modelElements(modelView,modelSubView);
 	}
 
 	String getResource(String rsc) {
@@ -276,10 +278,16 @@ public class RefasGraph extends AbstractGraph {
 							.put(modelViewIndex + id + "-" + modelViewSubIndex,
 									cell);
 					cell.setId(modelViewIndex + id + "-" + modelViewSubIndex);
-				} else {
+				} else if (modelViewIndex != -1) {
 					mv0 = refasGraph.getChildAt(o1, modelViewIndex);
 					model.getCells().put(modelViewIndex + id, cell);
 					cell.setId(modelViewIndex + id);
+				}
+				else
+				{
+					mv0 = o1;
+					model.getCells().put( id, cell);
+					cell.setId(id);
 				}
 
 				parent.remove(index); // Remove from original position
@@ -503,7 +511,7 @@ public class RefasGraph extends AbstractGraph {
 
 	public Refas getRefas() {
 		if (refas == null) {
-			refas = new Refas();
+			refas = new Refas(PerspectiveType.modeling);
 			return refas;
 		}
 		return refas;

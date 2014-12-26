@@ -1,5 +1,6 @@
 package com.variamos.gui.maineditor;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.swing.UIManager;
@@ -23,7 +24,7 @@ public class Main {
 
 		int options = 3; // 0 old way to load product lines
 
-		//MainFrame mainPanel= new MainFrame();
+		//new MainFrame();
 		switch (options) {
 		case 0:
 			// ProductLine pl = getProductLine("");
@@ -37,7 +38,7 @@ public class Main {
 			ProductLineGraph plGraph = new ProductLineGraph();
 			VariamosGraphEditor config = new VariamosGraphEditor(
 					"Configurator - VariaMos", new VariamosGraphComponent(
-							plGraph),0, pl);
+							plGraph, Color.WHITE),0, pl);
 			config.createFrame().setVisible(true);
 			break;
 

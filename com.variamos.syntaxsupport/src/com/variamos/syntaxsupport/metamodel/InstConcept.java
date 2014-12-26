@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.cfm.productline.Variable;
-import com.cfm.productline.type.StringType;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represented modeling instances of concepts from meta model and
@@ -48,6 +48,22 @@ public class InstConcept extends InstVertex {
 		setMetaVertex(metaConcept);
 		createInstAttributes();
 	}
+	
+	public InstConcept(MetaConcept metaConcept, MetaElement editableMetaElement) {
+		super("");
+		setMetaVertex(metaConcept);
+		setEditableMetaElement(editableMetaElement);
+		createInstAttributes();
+	}
+	
+	
+	public InstConcept(MetaConcept metaConcept, IntSemanticElement semanticElement) {
+		super("");
+		setMetaVertex(metaConcept);
+		setEditableSemanticElement(semanticElement);
+		createInstAttributes();
+	}
+
 
 	public InstConcept(String identifier, MetaConcept metaConcept,
 			Map<String, InstAttribute> attributes,
@@ -274,6 +290,11 @@ public class InstConcept extends InstVertex {
 
 	@Override
 	public MetaVertex getMetaVertex() {
+		return metaConcept;
+	}
+
+	@Override
+	public MetaElement getSupportMetaElement() {
 		return metaConcept;
 	}
 

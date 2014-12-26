@@ -326,7 +326,7 @@ public class BasicGraphEditor extends JPanel {
 		setLayout(new BorderLayout());
 		add(everything, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar(null);
+		installToolBar(null,0);
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -341,7 +341,7 @@ public class BasicGraphEditor extends JPanel {
 	 * @param component
 	 * @param perspective
 	 */
-	public BasicGraphEditor(MainFrame mainFrame, String appTitle, mxGraphComponent component) {
+	public BasicGraphEditor(MainFrame mainFrame, String appTitle, mxGraphComponent component, int perspective) {
 
 		this.frame = mainFrame;
 		// Stores and updates the frame title
@@ -417,7 +417,7 @@ public class BasicGraphEditor extends JPanel {
 		setLayout(new BorderLayout());
 		add(everything, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar(mainFrame);
+		installToolBar(mainFrame, perspective);
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -488,7 +488,7 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected void installToolBar(MainFrame mainFrame) {
+	protected void installToolBar(MainFrame mainFrame, int perspective) {
 		add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
 	}
 

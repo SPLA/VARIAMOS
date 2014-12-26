@@ -42,6 +42,13 @@ public class InstEnumeration extends InstVertex {
 		createInstAttributes();
 	}
 
+	public InstEnumeration(MetaEnumeration metaEnumeration, MetaElement metaElement) {
+		super("");
+		setEditableMetaElement(metaElement);
+		setMetaVertex(metaEnumeration);
+		createInstAttributes();
+	}
+	
 	public InstEnumeration(String identifier, MetaEnumeration metaEnumeration,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstEdge> relations) {
@@ -224,6 +231,11 @@ public class InstEnumeration extends InstVertex {
 
 	@Override
 	public MetaVertex getMetaVertex() {
+		return metaEnumeration;
+	}
+
+	@Override
+	public MetaElement getSupportMetaElement() {
 		return metaEnumeration;
 	}
 

@@ -13,6 +13,7 @@ import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
 /**
@@ -54,7 +55,6 @@ public class InstGroupDependency extends InstVertex {
 	 * 
 	 */
 	private MetaGroupDependency metaGroupDependency;
-
 	/**
 	 * Assigned during the generation of expressions for
 	 * SingleElementExpressionSet required during the generation of expressions
@@ -85,6 +85,34 @@ public class InstGroupDependency extends InstVertex {
 		createInstAttributes();
 	}
 
+	public InstGroupDependency(MetaGroupDependency metaGroupDependency,
+			MetaElement editableMetaElement) {
+		super("");
+		setEditableMetaElement(editableMetaElement);
+		vars.put(VAR_METAGROUPDEPIDENTIFIER,
+				metaGroupDependency.getIdentifier());
+		this.metaGroupDependency = metaGroupDependency;
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
+
+		sourceAttributeNames = new HashSet<String>();
+		createInstAttributes();
+	}
+
+	public InstGroupDependency(MetaGroupDependency metaGroupDependency,
+			IntSemanticElement semanticElement) {
+		super("");
+		setEditableSemanticElement(semanticElement);
+		vars.put(VAR_METAGROUPDEPIDENTIFIER,
+				metaGroupDependency.getIdentifier());
+		this.metaGroupDependency = metaGroupDependency;
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaGroupDependency.getDescription());
+
+		sourceAttributeNames = new HashSet<String>();
+		createInstAttributes();
+	}
+
 	public InstGroupDependency(String identifier,
 			MetaGroupDependency metaGroupDependency) {
 		super(identifier);
@@ -99,10 +127,8 @@ public class InstGroupDependency extends InstVertex {
 	}
 
 	private void createInstAttributes() {
-		Iterator<String> modelingAttributes = getMetaGroupDependency()
-				.getModelingAttributes().iterator();
-		while (modelingAttributes.hasNext()) {
-			String name = modelingAttributes.next();
+
+		for (String name : getMetaGroupDependency().getModelingAttributes()) {
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
 				addInstAttribute(name, getMetaGroupDependency()
 						.getModelingAttribute(name), getIdentifier());
@@ -464,6 +490,11 @@ public class InstGroupDependency extends InstVertex {
 
 	@Override
 	public MetaVertex getMetaVertex() {
+		return metaGroupDependency;
+	}
+
+	@Override
+	public MetaElement getSupportMetaElement() {
 		return metaGroupDependency;
 	}
 

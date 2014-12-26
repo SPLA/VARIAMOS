@@ -12,7 +12,7 @@ import java.util.Set;
  *
  *         Definition of syntax for VariaMos
  */
-public class MetaView implements Serializable {
+public class MetaView extends MetaElement implements Serializable {
 	/**
 	 * 
 	 */

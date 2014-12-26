@@ -68,14 +68,14 @@ public class PerspectiveToolBar extends JToolBar
 		add (buttons[1]);
 		buttons[1].addActionListener(new PerspectiveAction(this,false));
 		
-		buttons[perspective].setSelected(true);
+	//	buttons[perspective].setSelected(true);
 		
 	}
 	
 	/**
 	 * Constructor for a all perspectives
 	 */
-	public PerspectiveToolBar(final MainFrame mainFrame, int orientation)
+	public PerspectiveToolBar(final MainFrame mainFrame, int orientation, int perspective)
 	{
 		super(orientation);
 		this.mainFrame = mainFrame;
@@ -114,6 +114,8 @@ public class PerspectiveToolBar extends JToolBar
 	//	add (buttons[0]);
 	//	buttons[0].addActionListener(new PerspectiveAction(this));
 	
+		buttons[perspective].setSelected(true);
+		
 	}
 	
 	public void updateButtons()
@@ -124,7 +126,7 @@ public class PerspectiveToolBar extends JToolBar
 				buttons[i].setSelected(true);
 			else
 				buttons[i].setSelected(false);
-			editor.setLayout(editor.getPerspective());
+		//	editor.setLayout(editor.getPerspective());
 
 		}
 
@@ -132,6 +134,7 @@ public class PerspectiveToolBar extends JToolBar
 	
 	public void updatePerspective()
 	{
+		mainFrame.setLayout();
 		for (int i = 1; i<5; i++) //From 1: Hide PL perspective 
 		{
 			if (i == mainFrame.getPerspective())
@@ -141,7 +144,10 @@ public class PerspectiveToolBar extends JToolBar
 			
 
 		}
-		mainFrame.setLayout();
 
+	}
+	public void updatePerspective(int ind)
+	{
+		mainFrame.setLayout();
 	}
 }

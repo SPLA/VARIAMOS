@@ -68,7 +68,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 					System.out.println("simulationPerspButton");
 				}		
 			
-		perspective.updatePerspective();
+		perspective.updatePerspective(mainFrame.getPerspective());
 	}
 	
 	private void oldActionPerformed(ActionEvent e) {

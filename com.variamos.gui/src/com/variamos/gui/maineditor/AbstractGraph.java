@@ -18,10 +18,11 @@ import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.syntaxsupport.refas.Refas;
+import com.variamos.refas.core.types.PerspectiveType;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -258,7 +259,7 @@ public abstract class AbstractGraph extends mxGraph {
 	
 	//TODO: change to refas - add to refas models
 	public Refas getRefas(){
-		Refas pl = new Refas();
+		Refas pl = new Refas(PerspectiveType.modeling);
 		
 		//Object[] vertices = getChildVertices(getDefaultParent());
 		Object[] vertices = mxGraphModel.getChildCells(getModel(), getDefaultParent(), true, false);

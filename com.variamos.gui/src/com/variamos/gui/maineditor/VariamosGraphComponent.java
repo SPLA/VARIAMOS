@@ -19,7 +19,7 @@ import com.variamos.pl.editor.logic.ConstraintMode;
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
 
-	public VariamosGraphComponent(mxGraph graph) {
+	public VariamosGraphComponent(mxGraph graph, Color bgColor) {
 		super(graph);
 
 		setToolTips(true);
@@ -31,7 +31,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		configureSelectionHandler();
 
 		getViewport().setOpaque(true);
-		getViewport().setBackground(Color.WHITE);
+		getViewport().setBackground(bgColor);
 
 		// Installs automatic validation
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
