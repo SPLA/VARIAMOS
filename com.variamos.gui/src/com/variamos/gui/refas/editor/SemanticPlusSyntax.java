@@ -1291,6 +1291,10 @@ public class SemanticPlusSyntax {
 				"/com/variamos/gui/refas/editor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, true, semContextGroup);
 
+		MetaView syntaxMetaChildView = new MetaView("Context",
+				"Context with Enumerations", "Context Palette", 0);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		syntaxMetaChildView.addConcept(syntaxContextGroup);
 		syntaxMetaView.addConcept(syntaxContextGroup);
 		syntaxElements.put("CG", syntaxContextGroup);
 
@@ -1317,6 +1321,7 @@ public class SemanticPlusSyntax {
 
 		syntaxGlobalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
+		syntaxMetaChildView.addConcept(syntaxGlobalVariable);
 		syntaxMetaView.addConcept(syntaxGlobalVariable);
 		syntaxElements.put("GlobalVariable", syntaxGlobalVariable);
 
@@ -1336,6 +1341,7 @@ public class SemanticPlusSyntax {
 
 		syntaxLocalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
+		syntaxMetaChildView.addConcept(syntaxLocalVariable);
 		syntaxMetaView.addConcept(syntaxLocalVariable);
 		syntaxElements.put("LocalVariable", syntaxLocalVariable);
 
@@ -1345,10 +1351,11 @@ public class SemanticPlusSyntax {
 						+ " variables", 100, 150,
 				"/com/variamos/gui/refas/editor/images/assump.png", true, "",
 				1, true);
-		syntaxMetaView.addConcept(metaEnumeration);
+		syntaxMetaChildView.addConcept(metaEnumeration);
 		syntaxElements.put("ME", metaEnumeration);
+		syntaxMetaView.addConcept(metaEnumeration);
 
-		MetaView syntaxMetaChildView = new MetaView("ContandModelEnum",
+		syntaxMetaChildView = new MetaView("ContandModelEnum",
 				"Context without Enumerations", "Context Palette", 1);
 		syntaxMetaView.addChildView(syntaxMetaChildView);
 		// syntaxMetaChildView.addConcept(metaEnumeration);
@@ -1495,11 +1502,17 @@ public class SemanticPlusSyntax {
 																				// to
 		// semantic
 		// attributes
+		syntaxMetaChildView = new MetaView("Assets",
+				"Assets General Model", "Assets Palette", 0);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
 		syntaxAsset.addDisPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addDisPropEditableAttribute("03#" + "name");
 		syntaxAsset.addDisPropVisibleAttribute("03#" + "name");
+		syntaxMetaChildView.addConcept(syntaxAsset);
 		syntaxMetaView.addConcept(syntaxAsset);
 
+
+		syntaxMetaChildView.addConcept(sOperationalization);
 		syntaxMetaView.addConcept(sOperationalization);
 		syntaxElements.put("AS", syntaxAsset);
 
@@ -1509,6 +1522,8 @@ public class SemanticPlusSyntax {
 		syntaxMetaChildView.addConcept(sOperationalization);
 		syntaxMetaChildView.addConcept(syntaxAsset);
 
+		syntaxMetaChildView.addConcept(syntaxAsset);
+		
 		syntaxMetaChildView = new MetaView("StructuralAssets",
 				"Structural Assets Relations", "Assets Palette", 2);
 		syntaxMetaView.addChildView(syntaxMetaChildView);
@@ -1526,6 +1541,7 @@ public class SemanticPlusSyntax {
 				"white", 1, false, semanticRelations);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
+		syntaxMetaChildView.addConcept(syntaxAsset);
 		syntaxElements.put("Asset-Oper GroupDep", syntaxGroupDependency);
 
 		List<IntDirectSemanticEdge> directAssetOperSemanticEdges = new ArrayList<IntDirectSemanticEdge>();

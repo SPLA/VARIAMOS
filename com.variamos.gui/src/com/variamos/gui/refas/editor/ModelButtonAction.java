@@ -26,8 +26,6 @@ public class ModelButtonAction extends AbstractEditorAction {
 
 		VariamosGraphEditor editor = getEditor(e);
 		List<MetaView> metaViews = editor.getMetaViews();
-		int modelInd = editor.getModelViewIndex();
-		int modelSubInd = editor.getModelSubViewIndex();
 		if (editor != null) {
 			JButton jb = (JButton) e.getSource();
 			for (int i = 0; i< metaViews.size(); i++)
@@ -37,20 +35,13 @@ public class ModelButtonAction extends AbstractEditorAction {
 				{
 				for (int j = 0; j< childViews.size(); j++)
 				{
-					if (/*(modelInd != i || modelSubInd != j) &&*/ jb.getText().equals(childViews.get(j).getName())) //TODO test
+					if (jb.getText().equals(childViews.get(j).getName())) //TODO test
 					{
-						//System.out.println(childViews.get(j).getName());
 						editor.setVisibleModel(i,j);
 						editor.updateView();
 					}
 				}
 				}
-			/*	if (modelInd != i && jb.getText().equals(metaViews.get(i).getName())) //TODO validate including tabs and buttons
-				{
-					System.out.println(metaViews.get(i).getName());
-					editor.setVisibleModel(i,-1);
-					editor.updateView();
-				}*/
 			}
 			updateButtons((JPanel) jb.getParent(), jb);
 

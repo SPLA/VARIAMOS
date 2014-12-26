@@ -1439,7 +1439,8 @@ public class Refas extends AbstractModel {
 				false);
 
 		syntaxMetaView.addConcept(sOperationalization);
-		InstVertex instVertexOper = new InstConcept(sOperationalization, metaElementConcept);
+		InstVertex instVertexOper = new InstConcept(sOperationalization,
+				metaElementConcept);
 		variabilityInstVertex.put("OPER", instVertexOper);
 		instView.addInstVertex(instVertexOper);
 
@@ -1804,7 +1805,8 @@ public class Refas extends AbstractModel {
 				Color.BLUE.toString(), 1, true, semContextGroup);
 
 		syntaxMetaView.addConcept(syntaxContextGroup);
-		InstVertex instVertexCG = new InstConcept(syntaxContextGroup, metaElementOverTwo);
+		InstVertex instVertexCG = new InstConcept(syntaxContextGroup,
+				metaElementOverTwo);
 		variabilityInstVertex.put("CG", instVertexCG);
 		instView.addInstVertex(instVertexCG);
 
@@ -1837,7 +1839,8 @@ public class Refas extends AbstractModel {
 		syntaxGlobalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
 		syntaxMetaView.addConcept(syntaxGlobalVariable);
-		InstVertex instVertexGV = new InstConcept(syntaxGlobalVariable, metaElementConcept);
+		InstVertex instVertexGV = new InstConcept(syntaxGlobalVariable,
+				metaElementConcept);
 		variabilityInstVertex.put("GlobalVariable", instVertexGV);
 		instView.addInstVertex(instVertexGV);
 
@@ -1858,7 +1861,8 @@ public class Refas extends AbstractModel {
 		syntaxLocalVariable.addMetaExtendRelation(syntaxAbsVariable, false);
 
 		syntaxMetaView.addConcept(syntaxLocalVariable);
-		InstVertex instVertexLV = new InstConcept(syntaxLocalVariable, metaElementConcept);
+		InstVertex instVertexLV = new InstConcept(syntaxLocalVariable,
+				metaElementConcept);
 		variabilityInstVertex.put("LocalVariable", instVertexLV);
 		instView.addInstVertex(instVertexLV);
 
@@ -1868,14 +1872,20 @@ public class Refas extends AbstractModel {
 						+ " variables", 100, 150,
 				"/com/variamos/gui/refas/editor/images/assump.png", true, "",
 				1, true);
+		MetaView syntaxMetaChildView = new MetaView("Context",
+				"Context with Enumerations", "Context Palette", 0);
+		InstView childView = new InstView(syntaxMetaChildView);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		instView.addChildView(childView);
 		syntaxMetaView.addConcept(metaEnumeration);
+		syntaxMetaChildView.addConcept(metaEnumeration);
 		instVertex = new InstEnumeration(metaEnumeration, metaElementConcept);
 		variabilityInstVertex.put("ME", instVertex);
 		instView.addInstVertex(instVertex);
 
-		MetaView syntaxMetaChildView = new MetaView("ContandModelEnum",
+		syntaxMetaChildView = new MetaView("ContandModelEnum",
 				"Context without Enumerations", "Context Palette", 1);
-		InstView childView = new InstView(syntaxMetaChildView); 
+		childView = new InstView(syntaxMetaChildView);
 		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 		// syntaxMetaChildView.addConcept(metaEnumeration);
@@ -2046,7 +2056,7 @@ public class Refas extends AbstractModel {
 
 		syntaxMetaView = new MetaView("Assets", "Assets General Model",
 				"Assets Palette", 5);
-		 instView = new InstView(syntaxMetaView);
+		instView = new InstView(syntaxMetaView);
 		instViews.add(instView);
 		syntaxMetaView.addConcept(sOperationalization);
 		instView.addInstVertex(instVertexOper);
@@ -2067,10 +2077,17 @@ public class Refas extends AbstractModel {
 		syntaxAsset.addDisPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addDisPropEditableAttribute("03#" + "name");
 		syntaxAsset.addDisPropVisibleAttribute("03#" + "name");
+		syntaxMetaChildView = new MetaView("Assets", "Assets General Model",
+				"Assets Palette", 0);
+		childView = new InstView(syntaxMetaChildView);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		instView.addChildView(childView);
 		syntaxMetaView.addConcept(syntaxAsset);
-
+		syntaxMetaChildView.addConcept(syntaxAsset);
 		syntaxMetaView.addConcept(sOperationalization);
-		InstVertex instVertexAsset = new InstConcept(syntaxAsset, metaElementConcept);
+		syntaxMetaChildView.addConcept(sOperationalization);
+		InstVertex instVertexAsset = new InstConcept(syntaxAsset,
+				metaElementConcept);
 		variabilityInstVertex.put("AS", instVertexAsset);
 		instView.addInstVertex(instVertexAsset);
 
@@ -2079,21 +2096,11 @@ public class Refas extends AbstractModel {
 		childView = new InstView(syntaxMetaChildView);
 		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
-		syntaxMetaChildView.addConcept(sOperationalization);
-		childView.addInstVertex(instVertexOper);
+	//	syntaxMetaChildView.addConcept(sOperationalization);
+	//	childView.addInstVertex(instVertexOper);
 		syntaxMetaChildView.addConcept(syntaxAsset);
 		childView.addInstVertex(instVertexAsset);
 
-		syntaxMetaChildView = new MetaView("StructuralAssets",
-				"Structural Assets Relations", "Assets Palette", 2);
-		childView = new InstView(syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
-		instView.addChildView(childView);
-		syntaxMetaChildView.addConcept(sOperationalization);
-		childView.addInstVertex(instVertexOper);
-		syntaxMetaChildView.addConcept(syntaxAsset);
-		childView.addInstVertex(instVertexAsset);
-		
 		IntSemanticGroupDependency semanticAssetOperGroupRelation = (IntSemanticGroupDependency) ((InstGroupDependency) this
 				.getSemanticRefas().getVertex("AssetOperGroupRel"))
 				.getEditableSemanticElement();
@@ -2108,10 +2115,21 @@ public class Refas extends AbstractModel {
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticRelations);
 
-		syntaxMetaView.addConcept(syntaxGroupDependency);
+		syntaxMetaChildView = new MetaView("StructuralAssets",
+				"Structural Assets Relations", "Assets Palette", 2);
+		childView = new InstView(syntaxMetaChildView);
+		syntaxMetaView.addChildView(syntaxMetaChildView);
+		instView.addChildView(childView);
+	//	syntaxMetaChildView.addConcept(sOperationalization);
+	//	childView.addInstVertex(instVertexOper);
+		syntaxMetaChildView.addConcept(syntaxAsset);
+		childView.addInstVertex(instVertexAsset);
+
+	//	syntaxMetaView.addConcept(syntaxGroupDependency);
+	//	syntaxMetaChildView.addConcept(syntaxGroupDependency);
 		instVertex = new InstGroupDependency(syntaxGroupDependency,
 				metaElementOverTwo);
-		variabilityInstVertex.put("Asset-Oper GroupDep",instVertex);
+		variabilityInstVertex.put("Asset-Oper GroupDep", instVertex);
 		instView.addInstVertex(instVertex);
 		IntDirectSemanticEdge directAssetOperSemanticEdge = (IntDirectSemanticEdge) getSemanticRefas()
 				.getConstraintInstEdge("AssetOperDirectEdge")

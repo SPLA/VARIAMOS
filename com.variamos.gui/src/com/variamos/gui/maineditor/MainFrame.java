@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
 			editor.updateView();
 		}
 		this.setJMenuBar(new RefasMenuBar(graphEditors.get(2)));
-		this.add(graphEditors.get(2));
+		this.add(graphEditors.get(1));
 		this.setVisible(true);
 	}
 	

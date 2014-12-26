@@ -110,7 +110,7 @@ public class RefasExpressionPanel extends JPanel {
 
 
 	private void initSolutionPanel(int expressionCount) {
-		solutionPanel.setPreferredSize(new Dimension(600, 200));
+		solutionPanel.setMaximumSize(new Dimension(600,  50 * expressionCount));
 
 		solutionPanel
 				.setPreferredSize(new Dimension(600, 50 * expressionCount));
@@ -142,7 +142,6 @@ public class RefasExpressionPanel extends JPanel {
 				.getTransformations();
 		for (AbstractTransformation expression : expressions) {
 			showExpression(expression, element, solutionPanel, 255);
-
 		}
 
 		initSolutionPanel(expressions.size());
@@ -154,7 +153,7 @@ public class RefasExpressionPanel extends JPanel {
 	private void showExpression(AbstractTransformation expression,
 			InstElement element, JPanel parentPanel, int color) {
 		final InstElement ele = element;
-		final AbstractTransformation exp = expression;
+		final AbstractTransformation exp = expression;		
 		if (expression instanceof NumberNumericTransformation) {
 			parentPanel.add(new JTextField(""
 					+ ((NumberNumericTransformation) expression).getNumber()));
@@ -254,7 +253,13 @@ public class RefasExpressionPanel extends JPanel {
 					expression.getRight().getIdentifier() + "_"
 							+ expression.getRightAttributeName()));
 		}
-
+		if (color == 255)
+		{
+			JLabel lab = new JLabel("");
+			lab.setPreferredSize(new Dimension(500,10));
+			lab.setMaximumSize(new Dimension(500,10));
+			childPanel.add(lab);
+		}
 		parentPanel.add(childPanel);
 	}
 

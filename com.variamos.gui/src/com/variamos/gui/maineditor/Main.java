@@ -22,9 +22,9 @@ public class Main {
 			e1.printStackTrace();
 		}
 
-		int options = 3; // 0 old way to load product lines
+		int options = 4; // 0 old way to load product lines
 
-		//new MainFrame();
+		new MainFrame();
 		switch (options) {
 		case 0:
 			// ProductLine pl = getProductLine("");

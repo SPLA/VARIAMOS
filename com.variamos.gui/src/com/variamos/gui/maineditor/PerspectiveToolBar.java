@@ -59,9 +59,9 @@ public class PerspectiveToolBar extends JToolBar
 		add (buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this,false));
 		
-	//	buttons[0] = new JButton(mxResources.get("plPerspButton"));
-	//	add (buttons[0]);
-	//	buttons[0].addActionListener(new PerspectiveAction(this));
+//		buttons[0] = new JButton(mxResources.get("plPerspButton"));
+//		add (buttons[0]);
+//		buttons[0].addActionListener(new PerspectiveAction(this,false));
 		
 		buttons[1] = new JButton(mxResources.get("defectAnalyzerPerspButton"));
 		//buttons[1].setEnabled(false);		

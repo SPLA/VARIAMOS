@@ -67,8 +67,8 @@ public class MetaView extends MetaElement implements Serializable {
 	}
 
 	public void addChildView(MetaView metaChildView) {
-		if (childViews.size()==0)
-			childViews.add(this);	
+	//	if (childViews.size()==0)
+	//		childViews.add(this);	
 		childViews.add(metaChildView);
 	}
 
