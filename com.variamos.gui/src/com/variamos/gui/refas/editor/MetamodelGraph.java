@@ -37,10 +37,11 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.syntaxsupport.refas.Refas;
+import com.variamos.refas.core.types.PerspectiveType;
 
 public class MetamodelGraph extends AbstractGraph {
 
@@ -369,7 +370,7 @@ public class MetamodelGraph extends AbstractGraph {
 	public Refas getRefas() {
 		Refas pl = null;
 		if (refas == null) {
-			pl = new Refas();
+			pl = new Refas(PerspectiveType.modeling);
 			refas = pl;
 		}
 

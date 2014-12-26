@@ -19,7 +19,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -229,26 +228,7 @@ public class BasicGraphEditor extends JPanel
 
 		undoManager.addListener(mxEvent.UNDO, undoHandler);
 		undoManager.addListener(mxEvent.REDO, undoHandler);
-		
-		//Buttons for model views
-		buttonsPane = new JPanel();
-		JButton a = new JButton(mxResources.get("goalModelButton"));
-		JButton b = new JButton(mxResources.get("softgoalModelButton"));
-		JButton c = new JButton(mxResources.get("contextModelButton"));
-		JButton d = new JButton(mxResources.get("sgsatisModelButton"));
-		JButton e = new JButton(mxResources.get("assetModelButton"));
-		buttonsPane.add(a);
-		a.addActionListener(new ModelButtonAction());
-		a.setSelected(true);
-		buttonsPane.add(b);
-		b.addActionListener(new ModelButtonAction());
-		buttonsPane.add(c);
-		c.addActionListener(new ModelButtonAction());
-		buttonsPane.add(d);
-		d.addActionListener(new ModelButtonAction());
-		buttonsPane.add(e);
-		e.addActionListener(new ModelButtonAction());
-		
+
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
 

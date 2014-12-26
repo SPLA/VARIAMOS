@@ -98,8 +98,6 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			for (String sourceName : instGroupDependency
 					.getSourceAttributeNames()) {
 				AbstractTransformation abstractTransformation = null;
-
-				List<InstEdge> md = instGroupDependency.getSourceRelations();
 				Iterator<InstEdge> instEdges1 = instGroupDependency
 						.getSourceRelations().iterator();
 				AbstractTransformation recursiveExpression1 = null;
@@ -180,11 +178,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 								constructor2, instEdges1, left1, sourceName);
 						getTransformations().add(
 								new DoubleImplicationBooleanTransformation(
-										instGroupDependency/*
-															 * .getTargetRelations
-															 * ().get(0)
-															 * .getToRelation()
-															 */, sourceName,
+										instGroupDependency, sourceName,
 										true, recursiveExpression1));
 						break;
 					case mutex:
@@ -239,6 +233,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		}
 	}
 
+	//TODO refactor createExpression
 	private AbstractTransformation transformation(Constructor<?> constructor1,
 			Constructor<?> constructor2, Iterator<InstEdge> instEdges,
 			InstEdge left, String sourceName) {

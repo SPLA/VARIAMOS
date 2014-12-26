@@ -33,6 +33,7 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
@@ -45,7 +46,6 @@ import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
-import com.variamos.syntaxsupport.refas.Refas;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**

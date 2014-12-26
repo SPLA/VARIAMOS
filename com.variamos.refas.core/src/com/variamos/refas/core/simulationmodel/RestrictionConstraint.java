@@ -80,7 +80,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 				|| instVertex instanceof InstGroupDependency) {
 
 			InstAttribute validAttribute = instVertex.getInstAttribute("Active");
-			if (((boolean) validAttribute.getValue()) == true) {
+			if (validAttribute == null || ((boolean) validAttribute.getValue()) == true) {
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributesCollection()) {
 

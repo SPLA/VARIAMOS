@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
+import com.variamos.core.refas.Refas;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.BasicGraphEditor;
@@ -30,15 +32,14 @@ import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -46,50 +47,57 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public RefasGraphEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
-		List<MetaView> modelMetaViews = editor.getMetaViews();
-		Set<MetaElement> instConcepts = new HashSet<MetaElement>(); 
-		for (int i = 0 ; i< modelMetaViews.size();i++)
-		{
-			instConcepts.addAll(modelMetaViews.get(i).getElements());
+		Collection<MetaElement> metaElements = new HashSet<MetaElement>();
+		if (((Refas) editor.getEditedModel()).getSyntaxRefas() == null) {
+			for (MetaView metaView : editor.getMetaViews()) {
+				metaElements.addAll(metaView.getElements());
+			}
+		} else {
+			for (InstVertex instVertex : ((Refas) editor.getEditedModel())
+					.getSyntaxRefas().getVertices()) {
+			//	if (instVertex instanceof InstConcept)
+			//	if (instVertex.getSupportMetaElement() != null)
+					metaElements.add(instVertex.getSupportMetaElement());
+			}
+
 		}
-			Iterator<MetaElement> elements = instConcepts.iterator();
-			while (elements.hasNext())
-			{
-				MetaElement metaElement = elements.next();
-				paletteElements.add(new PaletteElement(metaElement.getIdentifier(), metaElement.getName(),
-						metaElement.getImage(), metaElement.getStyle(), metaElement.getWidth(), metaElement.getHeight(),
-						null, metaElement));
-				
-			}				
+
+		for (MetaElement metaElement : metaElements) {
+
+			paletteElements.add(new PaletteElement(metaElement.getIdentifier(),
+					metaElement.getName(), metaElement.getImage(), metaElement
+							.getStyle(), metaElement.getWidth(), metaElement
+							.getHeight(), null, metaElement));
+
+		}
+
 	}
 
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.setPerspective(2);
 		editor.editModelReset();
-		//System.out.println("requirements perspective");
+		// System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
 	}
-	public void updateView (List<String> validElements, mxGraphComponent graphComponent, int modelViewIndex)
-	{ 		
-		editor.clearPalettes();		
+
+	public void updateView(List<String> validElements,
+			mxGraphComponent graphComponent, int modelViewIndex) {
+		editor.clearPalettes();
 		EditorPalette palette = editor.insertPalette(mxResources
 				.get("modelViewPalette" + modelViewIndex));
 		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
 		loadPalette(palette, validElements, refasGraph);
-		//palette = editor.insertPalette(mxResources.get("conceptsPalette"));
-		//loadPalette(palette, null, refasGraph);
-		
+		editor.refreshPalette();
 	}
-	
-	
+
 	/**
 	 * @param palette
 	 * @param validElements
 	 * @param plgraph
 	 */
-	public void loadPalette(EditorPalette palette,
-			List<String> validElements, AbstractGraph plgraph) {
+	public void loadPalette(EditorPalette palette, List<String> validElements,
+			AbstractGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
 			for (int i = 0; i < paletteElements.size(); i++)
@@ -97,46 +105,44 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 					PaletteElement paletteElement = paletteElements.get(i);
 					if (validElements.contains(paletteElement.getId())) {
 						Object obj = null;
-						if (paletteElement.getMetaElement()!= null)
-						{
-							MetaElement metaVertex = paletteElement.getMetaElement();
-							if (metaVertex instanceof MetaConcept)
-							{
-							Object o = new InstConcept();
-							Constructor<?> c = o.getClass().getConstructor(MetaConcept.class);
-							obj =c.newInstance((MetaConcept)metaVertex);
+						if (paletteElement.getMetaElement() != null) {
+							MetaElement metaVertex = paletteElement
+									.getMetaElement();
+							if (metaVertex instanceof MetaConcept) {
+								Object o = new InstConcept();
+								Constructor<?> c = o.getClass().getConstructor(
+										MetaConcept.class);
+								obj = c.newInstance((MetaConcept) metaVertex);
+							} else if (metaVertex instanceof MetaGroupDependency) {
+								Object o = new InstGroupDependency();
+								Constructor<?> c = o.getClass().getConstructor(
+										MetaGroupDependency.class);
+								obj = c.newInstance((MetaGroupDependency) metaVertex);
+							} else if (metaVertex instanceof MetaEnumeration) {
+								Object o = new InstEnumeration();
+								Constructor<?> c = o.getClass().getConstructor(
+										MetaEnumeration.class);
+								obj = c.newInstance((MetaEnumeration) metaVertex);
 							}
-							else if (metaVertex instanceof MetaGroupDependency)
-							{
-							Object o = new InstGroupDependency();
-							Constructor<?> c = o.getClass().getConstructor(MetaGroupDependency.class);
-							obj =c.newInstance((MetaGroupDependency)metaVertex);
+
+						} else {
+							String classSingleName = paletteElement
+									.getClassName().substring(
+											paletteElement.getClassName()
+													.lastIndexOf(".") + 1);
+							Class<?> ref = Class.forName(paletteElement
+									.getClassName());
+
+							if (paletteElement.getId().equals(classSingleName)) {
+								obj = ref.newInstance();
+							} else {
+								Constructor<?> c = ref
+										.getConstructor(String.class);
+								obj = c.newInstance(paletteElement.getId());
 							}
-							else if (metaVertex instanceof MetaEnumeration)
-							{
-							Object o = new InstEnumeration();
-							Constructor<?> c = o.getClass().getConstructor(MetaEnumeration.class);
-							obj =c.newInstance((MetaEnumeration)metaVertex);
-							}
-								
-						}
-						else
-						{
-						String classSingleName = paletteElement.getClassName().substring(paletteElement.getClassName().lastIndexOf(".")+1);
-						Class<?> ref = Class.forName( paletteElement.getClassName());
-						
-						if (paletteElement.getId().equals(classSingleName))
-						{
-							obj = ref.newInstance();
-						}
-						else
-						{
-							Constructor<?> c = ref.getConstructor(String.class);
-							obj = c.newInstance(paletteElement.getId());
-						}
 						}
 						palette.addTemplate(
-								//mxResources.get(
+								// mxResources.get(
 								paletteElement.getElementTitle(),
 								new ImageIcon(GraphEditor.class
 										.getResource(paletteElement.getIcon())),
@@ -163,7 +169,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		} 
+		}
 
 		final AbstractGraph graph = plgraph;
 
@@ -186,6 +192,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		});
 
 	}
+
 	public void showGraphPopupMenu(MouseEvent e,
 			mxGraphComponent graphComponent, BasicGraphEditor editor) {
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -14,7 +15,6 @@ import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
-import com.variamos.syntaxsupport.refas.Refas;
 
 import constraints.CNFClause;
 import constraints.CNFLiteral;
@@ -33,14 +33,14 @@ public class SXFMReader {
 		
 	}
 	
-	public Refas readRefasFile(String filename) throws FeatureModelException{
+	public AbstractModel readRefasFile(String filename, AbstractModel refas) throws FeatureModelException{
 		
 		FeatureModel featureModel = new XMLFeatureModel(
 				filename,
 				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
 		featureModel.loadModel();
 		
-		Refas pl = new Refas();
+		AbstractModel pl = refas;
 		
 		for(FeatureTreeNode node : featureModel.getNodes()){
 			if( !(node instanceof FeatureGroup) )//This node has no information
@@ -54,7 +54,7 @@ public class SXFMReader {
 			addFormulaRefas(pl, cons);
 		}
 		
-		pl.setFileName(filename);
+		pl.setName(filename);
 		
 		return pl;
 	}
@@ -85,7 +85,7 @@ public class SXFMReader {
 		return pl;
 	}
 	
-	private void addFormulaRefas(Refas pl, PropositionalFormula formula) {
+	private void addFormulaRefas(AbstractModel pl, PropositionalFormula formula) {
 		
 		Constraint c = null;
 		if( formula.countVars() == 2 ){
@@ -137,7 +137,7 @@ public class SXFMReader {
 		pl.addConstraint(c);
 	}
 	
-	private void addConstraintFromRefas(Refas pl, FeatureTreeNode node){
+	private void addConstraintFromRefas(AbstractModel pl, FeatureTreeNode node){
 		FeatureTreeNode parent = (FeatureTreeNode) node.getParent();
 		if( parent == null ) // this is the root node, there are not rules
 			return;

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.productline.Prototype;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
@@ -17,6 +16,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represented modeling instances of edges from meta model MetaEdge
@@ -27,6 +27,10 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
  * @version 1.1
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metametamodel.MetaEdge
+ */
+/**
+ * @author jcmunoz
+ *
  */
 public class InstEdge extends InstElement {
 
@@ -50,6 +54,7 @@ public class InstEdge extends InstElement {
 	private String metaEdgeIde;
 
 	private String semanticEdgeIde;
+
 
 	public String getMetaEdgeIde() {
 		return metaEdgeIde;
@@ -93,8 +98,31 @@ public class InstEdge extends InstElement {
 		this(new HashMap<String, InstAttribute>());
 	}
 
+	public InstEdge(IntSemanticElement semanticElement) {
+		super(null);
+		setEditableSemanticElement (semanticElement);
+		createAttributes(new HashMap<String, InstAttribute>());
+	}
+	
+	/**
+	 * Constructor for syntax element relations, not for modeling
+	 * @param metaElement: Only for syntax refas, not for modeling
+	 */
+	public InstEdge(MetaElement metaElement) {
+		super(null);
+		setEditableMetaElement(metaElement);
+		createAttributes(new HashMap<String, InstAttribute>());
+
+	}
+
+
 	public InstEdge(Map<String, InstAttribute> instAttributes) {
-		super(null); // TODO use the same indentifier, not a local attribute
+		super(null); // TODO use the same identifier, not a local attribute
+		createAttributes(instAttributes);
+	}
+
+	private void createAttributes(Map<String, InstAttribute> instAttributes) {
+
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
 		SemanticAttribute semAttribute = new SemanticAttribute(VAR_METAEDGE,
 				"Class", true, VAR_METAEDGENAME, VAR_METAEDGECLASS, "", "");
@@ -272,7 +300,7 @@ public class InstEdge extends InstElement {
 			} else
 				listEditableAttribNames.add(attribute.substring(3));
 		}
-		
+
 		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
 		for (String attributeName : listEditableAttribNames) {
 			editableInstAttributes.add(getInstAttribute(attributeName));
@@ -329,6 +357,18 @@ public class InstEdge extends InstElement {
 		editableAttributes.add("02#" + VAR_METAEDGE);
 
 		return editableAttributes;
+	}
+	
+	public IntDirectSemanticEdge getSemanticEdge(){
+		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+				&& getInstAttribute(
+						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						.getValueObject() != null) {
+			return (IntDirectSemanticEdge) getInstAttribute(
+					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					.getValueObject();
+		}
+		return null;
 	}
 
 	public Set<String> getDisPropVisibleAttributes() {
@@ -528,5 +568,10 @@ public class InstEdge extends InstElement {
 				+ getTargetRelation().getInstAttribute(insAttributeId)
 						.getIdentifier();
 
+	}
+
+	@Override
+	public MetaElement getSupportMetaElement() {
+		return getMetaEdge();
 	}
 }

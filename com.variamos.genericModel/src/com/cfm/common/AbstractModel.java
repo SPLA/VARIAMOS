@@ -13,4 +13,5 @@ public abstract class AbstractModel {
 	public abstract Map<String, Asset> getAssets();
 	public abstract Constraint getConstraint(String consId);
 	public abstract Collection<Constraint> getConstraints();
+	public abstract void setName(String filename) ;
 }

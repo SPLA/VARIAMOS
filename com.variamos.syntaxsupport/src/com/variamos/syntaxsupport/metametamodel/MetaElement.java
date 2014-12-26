@@ -154,8 +154,8 @@ public class MetaElement implements Serializable {
 		this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
 				VAR_DESCRIPTION, "String", false, "description", null));
 
-		this.disPropVisibleAttributes.add("01#" + VAR_IDENTIFIER);
-		this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
+	//	this.disPropVisibleAttributes.add("01#" + VAR_IDENTIFIER);
+	//	this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 
 	}
 

@@ -21,6 +21,7 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
+import com.variamos.core.refas.Refas;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
 import com.variamos.refas.core.transformations.AndBooleanTransformation;
 import com.variamos.refas.core.transformations.AssignBooleanTransformation;
@@ -45,7 +46,6 @@ import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
-import com.variamos.syntaxsupport.refas.Refas;
 import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
 
 /**

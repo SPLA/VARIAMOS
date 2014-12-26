@@ -1,6 +1,5 @@
 package com.variamos.syntaxsupport.metamodel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.productline.Prototype;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 

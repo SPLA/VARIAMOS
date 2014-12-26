@@ -92,6 +92,8 @@ public class BasicGraphEditor extends JPanel {
 		}
 	}
 
+	protected JFrame frame;
+
 	/**
 	 * 
 	 */
@@ -233,7 +235,6 @@ public class BasicGraphEditor extends JPanel {
 		}
 	};
 
-	protected JFrame frame;
 
 	/**
 	 * 
@@ -243,6 +244,12 @@ public class BasicGraphEditor extends JPanel {
 
 	}
 
+	/**
+	 * Old constructor only for modeling
+	 * @param appTitle
+	 * @param component
+	 * @param perspective
+	 */
 	public BasicGraphEditor(String appTitle, mxGraphComponent component,
 			int perspective) {
 		// Stores and updates the frame title
@@ -253,18 +260,6 @@ public class BasicGraphEditor extends JPanel {
 		graphComponent = component;
 
 		undoManager();
-
-		// Buttons for model views
-	/*	buttonsPane = new JPanel();
-		for (int i = 0; i < Integer.parseInt(mxResources.get("modelViews")); i++) {
-			JButton a = new JButton(mxResources.get("modelViewButton" + i));
-			buttonsPane.add(a);
-			a.addActionListener(new ModelButtonAction());
-			if (i == 0)
-				a.setSelected(true);
-
-		}
-		*/
 		modelsTabPane = new JTabbedPane();
 
 		// Creates the graph outline component
@@ -331,7 +326,98 @@ public class BasicGraphEditor extends JPanel {
 		setLayout(new BorderLayout());
 		add(everything, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar();
+		installToolBar(null,0);
+
+		// Installs rubberband selection and handling for some special
+		// keystrokes such as F2, Control-C, -V, X, A etc.
+		installHandlers();
+		installListeners();
+		updateTitle();
+	}
+	
+	/**
+	 * new constructor only for all perspectives
+	 * @param appTitle
+	 * @param component
+	 * @param perspective
+	 */
+	public BasicGraphEditor(MainFrame mainFrame, String appTitle, mxGraphComponent component, int perspective) {
+
+		this.frame = mainFrame;
+		// Stores and updates the frame title
+		this.appTitle = appTitle;
+
+		// Stores a reference to the graph and creates the command history
+		graphComponent = component;
+
+		undoManager();
+		modelsTabPane = new JTabbedPane();
+
+		// Creates the graph outline component
+		graphOutline = new mxGraphOutline(graphComponent);
+
+		// Creates the library pane that contains the tabs with the palettes
+		libraryPane = new JTabbedPane();
+
+		// Creates the inner split 1 pane that contains the library with the
+		// palettes and the graph outline on the left side of the window
+		JPanel center2 = new JPanel();
+		center2.setLayout(new BorderLayout());
+		center2.add(graphComponent, BorderLayout.CENTER);
+		add(modelsTabPane, BorderLayout.NORTH);
+		center = new JSplitPane(JSplitPane.VERTICAL_SPLIT, modelsTabPane,
+				graphComponent);
+		center.setDividerLocation(70);
+		center.setResizeWeight(0);
+		center.setDividerSize(6);
+		center.setBorder(null);
+
+		// Creates the inner split 2 pane that contains the library with the
+		// palettes and the graph outline on the left side of the window
+		right = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane,
+				graphOutline);
+		right.setDividerLocation(230);
+		right.setResizeWeight(1);
+		right.setDividerSize(6);
+		right.setBorder(null);
+
+		// Creates the outer split pane that contains the inner split 2 pane and
+		// the inner split 1 on the right side of the window
+		graphAndRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, center,
+				right);
+		graphAndRight.setOneTouchExpandable(true);
+		graphAndRight.setDividerLocation(500);
+		graphAndRight.setResizeWeight(1);
+		graphAndRight.setDividerSize(6);
+		graphAndRight.setBorder(null);
+
+		// Creates another split for the west component
+		upperPart = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				getLeftComponent(), graphAndRight);
+		upperPart.setOneTouchExpandable(false);
+		upperPart.setDividerLocation(150);
+		upperPart.setDividerSize(6);
+		upperPart.setBorder(null);
+
+		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+				upperPart, getExtensionsTab(null));
+		everything.setOneTouchExpandable(false);
+		everything.setDividerLocation(400);
+		everything.setResizeWeight(1);
+		everything.setDividerSize(6);
+		everything.setBorder(null);
+
+		// Creates the status bar
+		statusBar = createStatusBar();
+
+		// Display some useful information about repaint events
+		installRepaintListener();
+
+		// Puts everything together
+		setLayout(new BorderLayout());
+		add(everything, BorderLayout.CENTER);
+		add(statusBar, BorderLayout.SOUTH);
+		installToolBar(mainFrame, perspective);
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -402,7 +488,7 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected void installToolBar() {
+	protected void installToolBar(MainFrame mainFrame, int perspective) {
 		add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
 	}
 
