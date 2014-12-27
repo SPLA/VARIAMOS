@@ -32,14 +32,6 @@ public abstract class InstVertex extends InstElement {
 	 * instAttributes; private Map<String, InstRelation> instRelations;
 	 */
 
-	/**
-	 * The edges incoming to the vertex
-	 */
-	private List<InstEdge> sourceRelations;
-	/**
-	 * THe edge outgoing from the vertex
-	 */
-	private List<InstEdge> targetRelations;
 
 	public InstVertex() {
 		this(null, new HashMap<String, InstAttribute>(),
@@ -57,12 +49,7 @@ public abstract class InstVertex extends InstElement {
 			Map<String, InstEdge> instRelations) {
 		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-
-		sourceRelations = new ArrayList<InstEdge>();
-
-		targetRelations = new ArrayList<InstEdge>();
-
-	}
+}
 
 	public Object getVariable(String name) {
 		return vars.get(name);
@@ -72,10 +59,7 @@ public abstract class InstVertex extends InstElement {
 		vars.put(name, value);
 	}
 
-	public String getIdentifier() {
-		return (String) getVariable(VAR_IDENTIFIER);
-		// return identifier;
-	}
+
 
 	public void setIdentifier(String identifier) {
 		setVariable(VAR_IDENTIFIER, identifier);
@@ -97,22 +81,6 @@ public abstract class InstVertex extends InstElement {
 
 	public void setInstAttributes(Map<String, InstAttribute> instAttributes) {
 		setVariable(VAR_INSTATTRIBUTES, instAttributes);
-	}
-
-	public List<InstEdge> getTargetRelations() {
-		return targetRelations;
-	}
-
-	public void addTargetRelation(InstEdge target) {
-		this.targetRelations.add(target);
-	}
-
-	public List<InstEdge> getSourceRelations() {
-		return sourceRelations;
-	}
-
-	public void addSourceRelation(InstEdge source) {
-		this.sourceRelations.add(source);
 	}
 
 	@SuppressWarnings("unchecked")

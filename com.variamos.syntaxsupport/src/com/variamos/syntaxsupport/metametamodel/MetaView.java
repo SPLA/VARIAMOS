@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
+
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
  *         1
@@ -24,7 +26,21 @@ public class MetaView extends MetaElement implements Serializable {
 	private List<MetaView> childViews;
 	private Set<MetaElement> elements;
 
+	public MetaView(String identifier, boolean visible, String name,
+			String style, String description, int width, int height,
+			String image, int borderStroke, String paletteName, int index) {
+		super(identifier, visible, name, style, description, width, height,
+				image, borderStroke);
+		this.childViews = new ArrayList<MetaView>();
+		this.shortName = identifier;
+		this.name = name;
+		this.paletteName = paletteName;
+		this.index = index;
+		this.elements = new HashSet<MetaElement>();
+	}
+
 	public MetaView(String shortName, String name, String paletteName, int index) {
+		super();
 		this.childViews = new ArrayList<MetaView>();
 		this.shortName = shortName;
 		this.name = name;
@@ -67,8 +83,8 @@ public class MetaView extends MetaElement implements Serializable {
 	}
 
 	public void addChildView(MetaView metaChildView) {
-	//	if (childViews.size()==0)
-	//		childViews.add(this);	
+		// if (childViews.size()==0)
+		// childViews.add(this);
 		childViews.add(metaChildView);
 	}
 

@@ -295,18 +295,18 @@ public class RefasExpressionPanel extends JPanel {
 
 		if (element instanceof InstGroupDependency) {
 			if (((InstGroupDependency) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstGroupDependency) element)
-						.getTargetRelations().get(0).getTargetRelation()
+				for (String attributeName : ((InstEdge)((InstGroupDependency) element)
+						.getTargetRelations().get(0)).getTargetRelation()
 						.getInstAttributes().keySet())
-					combo.addItem(((InstGroupDependency) element)
-							.getTargetRelations().get(0).getTargetRelation()
+					combo.addItem(((InstEdge)((InstGroupDependency) element)
+							.getTargetRelations().get(0)).getTargetRelation()
 							.getIdentifier()
 							+ "_" + attributeName);
-			for (InstEdge sourceRelation : ((InstGroupDependency) element)
+			for (InstElement sourceRelation : ((InstGroupDependency) element)
 					.getSourceRelations())
-				for (String attributeName : sourceRelation.getSourceRelation()
+				for (String attributeName : ((InstEdge)sourceRelation).getSourceRelation()
 						.getInstAttributes().keySet())
-					combo.addItem(sourceRelation.getSourceRelation()
+					combo.addItem(((InstEdge)sourceRelation).getSourceRelation()
 							.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);

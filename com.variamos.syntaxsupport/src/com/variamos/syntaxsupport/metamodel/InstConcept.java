@@ -17,13 +17,12 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represented modeling instances of concepts from meta model and
- * semantic model on VariaMos. Part of PhD work at University
- * of Paris 1
+ * semantic model on VariaMos. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
- * @since 2014-11-24 * 
+ * @since 2014-11-24 *
  * @see com.variamos.syntaxsupport.metametamodel.MetaConcept
  */
 public class InstConcept extends InstVertex {
@@ -48,22 +47,24 @@ public class InstConcept extends InstVertex {
 		setMetaVertex(metaConcept);
 		createInstAttributes();
 	}
-	
-	public InstConcept(MetaConcept metaConcept, MetaElement editableMetaElement) {
-		super("");
-		setMetaVertex(metaConcept);
+
+	public InstConcept(String identifier, MetaConcept metaConcept,
+			MetaElement editableMetaElement) {
+		super(identifier);
+		if (metaConcept != null)
+			setMetaVertex(metaConcept);
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
+		copyValuesToInstAttributes();
 	}
-	
-	
-	public InstConcept(MetaConcept metaConcept, IntSemanticElement semanticElement) {
-		super("");
+
+	public InstConcept(String identifier, MetaConcept metaConcept,
+			IntSemanticElement semanticElement) {
+		super(identifier);
 		setMetaVertex(metaConcept);
 		setEditableSemanticElement(semanticElement);
 		createInstAttributes();
 	}
-
 
 	public InstConcept(String identifier, MetaConcept metaConcept,
 			Map<String, InstAttribute> attributes,
@@ -92,41 +93,40 @@ public class InstConcept extends InstVertex {
 		return metaConcept;
 	}
 
-	private void createInstAttributes() {
-		Iterator<String> modelingAttributes = getMetaConcept()
-				.getModelingAttributes().iterator();
-		while (modelingAttributes.hasNext()) {
-			String name = modelingAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name),
-						getIdentifier());
-			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name),
-						getMetaConcept().getDescription());
-			else
-				addInstAttribute(name,
-						getMetaConcept().getModelingAttribute(name), null);
-		}
+	protected void createInstAttributes() {
+		if (getMetaConcept() != null) {
+			Iterator<String> modelingAttributes = getMetaConcept()
+					.getModelingAttributes().iterator();
+			while (modelingAttributes.hasNext()) {
+				String name = modelingAttributes.next();
+				if (name.equals(MetaElement.VAR_IDENTIFIER))
+					addInstAttribute(name, getMetaConcept()
+							.getModelingAttribute(name), getIdentifier());
+				else if (name.equals(MetaElement.VAR_DESCRIPTION))
+					addInstAttribute(name, getMetaConcept()
+							.getModelingAttribute(name), getMetaConcept()
+							.getDescription());
+				else
+					addInstAttribute(name, getMetaConcept()
+							.getModelingAttribute(name), null);
+			}
 
-		Iterator<String> semanticAttributes = getMetaConcept()
-				.getSemanticAttributes().iterator();
-		while (semanticAttributes.hasNext()) {
-			String name = semanticAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name),
-						getIdentifier());
-			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name),
-						getMetaConcept().getDescription());
-			else
-				addInstAttribute(name,
-						getMetaConcept().getSemanticAttribute(name), null);
+			Iterator<String> semanticAttributes = getMetaConcept()
+					.getSemanticAttributes().iterator();
+			while (semanticAttributes.hasNext()) {
+				String name = semanticAttributes.next();
+				if (name.equals(MetaElement.VAR_IDENTIFIER))
+					addInstAttribute(name, getMetaConcept()
+							.getSemanticAttribute(name), getIdentifier());
+				else if (name.equals(MetaElement.VAR_DESCRIPTION))
+					addInstAttribute(name, getMetaConcept()
+							.getSemanticAttribute(name), getMetaConcept()
+							.getDescription());
+				else
+					addInstAttribute(name, getMetaConcept()
+							.getSemanticAttribute(name), null);
+			}
 		}
-
 	}
 
 	/*

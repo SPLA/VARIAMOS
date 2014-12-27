@@ -18,9 +18,10 @@ import com.variamos.refas.core.transformations.NotBooleanTransformation;
 import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.DirectEdgeType;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
@@ -87,13 +88,13 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 		if (activeVertex
 				&& metaEdge != null
 				&& instEdge
-						.getInstAttribute(MetaDirectRelation.VAR_METADIRECTEDGETYPE) != null
+						.getInstAttribute(MetaPairwiseRelation.VAR_METADIRECTEDGETYPE) != null
 				&& !(instEdge.getTargetRelation() instanceof InstGroupDependency)
 				&& instEdge.getInstAttribute(
-						MetaDirectRelation.VAR_METADIRECTEDGETYPE).getValue() != null) {
+						MetaPairwiseRelation.VAR_METADIRECTEDGETYPE).getValue() != null) {
 			directEdgeType = DirectEdgeType
 					.valueOf(((String) instEdge.getInstAttribute(
-							MetaDirectRelation.VAR_METADIRECTEDGETYPE)
+							MetaPairwiseRelation.VAR_METADIRECTEDGETYPE)
 							.getValue()).trim().replace(" ", "_"));
 			setDescription(getDescription() + directEdgeType);
 			Set<String> sourceAttributeNames = new HashSet<String>();
@@ -310,7 +311,7 @@ public class DirectEdgeConstraintGroup extends AbstractConstraintGroup {
 			case none:
 				break;
 			}
-			InstVertex instVertex = instEdge.getSourceRelation();
+			InstElement instVertex = instEdge.getSourceRelation();
 			if (instVertex instanceof InstGroupDependency) {
 				((InstGroupDependency) instVertex).clearSourceAttributeNames();
 				((InstGroupDependency) instVertex)

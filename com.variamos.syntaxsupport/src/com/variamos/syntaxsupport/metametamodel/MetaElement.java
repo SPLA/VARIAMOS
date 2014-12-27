@@ -104,8 +104,11 @@ public class MetaElement implements Serializable {
 
 	public MetaElement() {
 
-		modelingAttributes = new HashMap<String, AbstractAttribute>();
-
+		this("", true, "", "", "", 100, 40,
+				"", 1, new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>(),
+				new HashMap<String, AbstractAttribute>());
 		createModelingAttributes();
 	}
 
@@ -335,5 +338,10 @@ public class MetaElement implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+		
 	}
 }

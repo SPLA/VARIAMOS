@@ -21,7 +21,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
@@ -120,7 +120,7 @@ public class SharedActions {
 				.getRefas();
 		if (value instanceof InstGroupDependency) {
 			InstGroupDependency ic = (InstGroupDependency) value;
-			MetaGroupDependency mgd = (MetaGroupDependency) editor
+			MetaOverTwoRelation mgd = (MetaOverTwoRelation) editor
 					.getSematicSintaxObject().getSyntaxElement(
 							ic.getMetaVertexIdentifier());
 			IntSemanticElement sgd = editor.getSematicSintaxObject()
@@ -138,13 +138,13 @@ public class SharedActions {
 						.getAttributeName());
 				if (toSet == null)
 					if (ia.getAttributeName().equals(
-							MetaGroupDependency.VAR_SEMANTICGROUPDEPENDENCY)) {
+							MetaOverTwoRelation.VAR_SEMANTICGROUPDEPENDENCY)) {
 						MetaElement n = editor.getSematicSintaxObject()
 								.getSyntaxElements().get(mgd.getName());
 						AbstractAttribute m = n
 								.getModelingAttribute(InstGroupDependency.VAR_SEMANTICGROUPDEPENDENCY);
 						ia.setAttribute(m);
-						List<IntSemanticGroupDependency> semGD = ((MetaGroupDependency) n)
+						List<IntSemanticGroupDependency> semGD = ((MetaOverTwoRelation) n)
 								.getSemanticRelations();
 						ia.setValidationGDList(semGD);
 					} else {

@@ -19,7 +19,7 @@ import com.variamos.refas.core.transformations.ProdNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;

@@ -75,7 +75,7 @@ public class InstEnumeration extends InstVertex {
 		return metaEnumeration;
 	}
 
-	private void createInstAttributes() {
+	protected void createInstAttributes() {
 		Iterator<String> modelingAttributes = getMetaEnumeration()
 				.getModelingAttributes().iterator();
 		while (modelingAttributes.hasNext()) {

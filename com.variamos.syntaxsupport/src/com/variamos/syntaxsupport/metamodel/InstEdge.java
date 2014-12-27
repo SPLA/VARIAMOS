@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
@@ -45,32 +45,15 @@ public class InstEdge extends InstElement {
 	/**
 	 * IntVertex origin of the direct relation
 	 */
-	private InstVertex fromRelation;
+	private InstElement fromRelation;
 	/**
 	 * IntVertex destination of the direct relation
 	 */
-	private InstVertex toRelation;
+	private InstElement toRelation;
 
 	private String metaEdgeIde;
 
 	private String semanticEdgeIde;
-
-
-	public String getMetaEdgeIde() {
-		return metaEdgeIde;
-	}
-
-	public void setMetaEdgeIde(String metaEdgeIde) {
-		this.metaEdgeIde = metaEdgeIde;
-	}
-
-	public String getSemanticEdgeIde() {
-		return semanticEdgeIde;
-	}
-
-	public void setSemanticEdgeIde(String semanticEdgeIde) {
-		this.semanticEdgeIde = semanticEdgeIde;
-	}
 
 	public static final String
 	/**
@@ -98,27 +81,64 @@ public class InstEdge extends InstElement {
 		this(new HashMap<String, InstAttribute>());
 	}
 
-	public InstEdge(IntSemanticElement semanticElement) {
+	public InstEdge(IntSemanticElement editableSemanticElement) {
 		super(null);
-		setEditableSemanticElement (semanticElement);
+		setEditableSemanticElement(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
-	
+
+	public InstEdge(MetaEdge metaEdge,
+			IntSemanticElement editableSemanticElement) {
+		super(null);
+		setMetaEdge(metaEdge);
+		setEditableSemanticElement(editableSemanticElement);
+		createAttributes(new HashMap<String, InstAttribute>());
+	}
+
 	/**
 	 * Constructor for syntax element relations, not for modeling
-	 * @param metaElement: Only for syntax refas, not for modeling
+	 * 
+	 * @param editableMetaElement
+	 *            : Only for syntax refas, not for modeling
 	 */
-	public InstEdge(MetaElement metaElement) {
+	public InstEdge(MetaElement editableMetaElement) {
 		super(null);
-		setEditableMetaElement(metaElement);
+		setEditableMetaElement(editableMetaElement);
 		createAttributes(new HashMap<String, InstAttribute>());
-
 	}
 
+	/**
+	 * Constructor for syntax element relations, not for modeling
+	 * 
+	 * @param editableMetaElement
+	 *            : Only for syntax refas, not for modeling
+	 */
+	public InstEdge(MetaEdge metaEdge, MetaElement editableMetaElement) {
+		super(null);
+		setEditableMetaElement(editableMetaElement);
+		createAttributes(new HashMap<String, InstAttribute>());
+		setMetaEdge(metaEdge);
+	}
 
 	public InstEdge(Map<String, InstAttribute> instAttributes) {
 		super(null); // TODO use the same identifier, not a local attribute
 		createAttributes(instAttributes);
+	}
+
+	public String getMetaEdgeIde() {
+		return metaEdgeIde;
+	}
+
+	public void setMetaEdgeIde(String metaEdgeIde) {
+		this.metaEdgeIde = metaEdgeIde;
+	}
+
+	public String getSemanticEdgeIde() {
+		return semanticEdgeIde;
+	}
+
+	public void setSemanticEdgeIde(String semanticEdgeIde) {
+		this.semanticEdgeIde = semanticEdgeIde;
 	}
 
 	private void createAttributes(Map<String, InstAttribute> instAttributes) {
@@ -161,10 +181,12 @@ public class InstEdge extends InstElement {
 							getMetaEdge().getModelingAttribute(name), null);
 			}
 
-			if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
-					.getValueObject() != null) {
+			if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
+					&& getInstAttribute(
+							MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
+							.getValueObject() != null) {
 				IntDirectSemanticEdge sementicRelation = (IntDirectSemanticEdge) getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject();
 				Iterator<String> semanticAttributes = sementicRelation
 						.getSemanticAttributes().iterator();
@@ -184,11 +206,11 @@ public class InstEdge extends InstElement {
 
 	}
 
-	public void setSourceRelation(InstVertex fromRelation) {
+	public void setSourceRelation(InstElement fromRelation) {
 		this.fromRelation = fromRelation;
 	}
 
-	public void setTargetRelation(InstVertex toRelation) {
+	public void setTargetRelation(InstElement toRelation) {
 		this.toRelation = toRelation;
 	}
 
@@ -226,11 +248,11 @@ public class InstEdge extends InstElement {
 		return null;
 	}
 
-	public InstVertex getSourceRelation() {
+	public InstElement getSourceRelation() {
 		return fromRelation;
 	}
 
-	public InstVertex getTargetRelation() {
+	public InstElement getTargetRelation() {
 		return toRelation;
 	}
 
@@ -343,12 +365,12 @@ public class InstEdge extends InstElement {
 		Set<String> editableAttributes = getMetaEdge()
 				.getDisPropEditableAttributes();
 
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
 				&& getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject() != null) {
 			IntDirectSemanticEdge semanticRelation = (IntDirectSemanticEdge) getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getDisPropEditableAttributes());
@@ -358,14 +380,14 @@ public class InstEdge extends InstElement {
 
 		return editableAttributes;
 	}
-	
-	public IntDirectSemanticEdge getSemanticEdge(){
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+
+	public IntDirectSemanticEdge getSemanticEdge() {
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
 				&& getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject() != null) {
 			return (IntDirectSemanticEdge) getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 		}
 		return null;
@@ -375,12 +397,12 @@ public class InstEdge extends InstElement {
 		Set<String> editableAttributes = getMetaEdge()
 				.getDisPropVisibleAttributes();
 
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
 				&& getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject() != null) {
 			IntDirectSemanticEdge semanticRelation = (IntDirectSemanticEdge) getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getDisPropVisibleAttributes());
@@ -395,12 +417,12 @@ public class InstEdge extends InstElement {
 		Set<String> editableAttributes = getMetaEdge()
 				.getDisPanelVisibleAttributes();
 
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
 				&& getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject() != null) {
 			IntDirectSemanticEdge semanticRelation = (IntDirectSemanticEdge) getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getDisPanelVisibleAttributes());
@@ -412,12 +434,12 @@ public class InstEdge extends InstElement {
 		Set<String> editableAttributes = getMetaEdge()
 				.getDisPanelSpacersAttributes();
 
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null
 				&& getInstAttribute(
-						MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject() != null) {
 			IntDirectSemanticEdge semanticRelation = (IntDirectSemanticEdge) getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getDisPanelSpacersAttributes());
@@ -512,7 +534,7 @@ public class InstEdge extends InstElement {
 		while (ias.hasNext()) {
 			InstAttribute ia = (InstAttribute) ias.next();
 			if (ia.getAttributeName().equals(
-					MetaGroupDependency.VAR_SEMANTICGROUPDEPENDENCY)) {
+					MetaOverTwoRelation.VAR_SEMANTICGROUPDEPENDENCY)) {
 
 				AbstractAttribute m = getMetaEdge().getModelingAttribute(
 						InstGroupDependency.VAR_SEMANTICGROUPDEPENDENCY);
@@ -535,11 +557,11 @@ public class InstEdge extends InstElement {
 	public void updateIdentifiers() {
 		Object metaEdge = getInstAttribute(VAR_METAEDGE).getValueObject();
 		if (metaEdge != null) {
-			metaEdgeIde = ((MetaDirectRelation) metaEdge).getIdentifier();
+			metaEdgeIde = ((MetaPairwiseRelation) metaEdge).getIdentifier();
 		}
-		if (getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION) != null) {
+		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION) != null) {
 			Object semanticEdge = getInstAttribute(
-					MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+					MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 					.getValueObject();
 			if (semanticEdge != null) {
 				semanticEdgeIde = ((IntDirectSemanticEdge) semanticEdge)
@@ -549,7 +571,7 @@ public class InstEdge extends InstElement {
 	}
 
 	public void setSemanticEdge(IntDirectSemanticEdge semanticEdgeIde2) {
-		getInstAttribute(MetaDirectRelation.VAR_SEMANTICDIRECTRELATION)
+		getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 				.setValueObject(semanticEdgeIde2);
 
 	}

@@ -3,7 +3,7 @@ package com.variamos.syntaxsupport.type;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
+import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 
 
 /**
@@ -39,9 +39,9 @@ public class MClassType extends Type{
 			boolean affectProperties, String displayName) {
 		return new SemanticAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}	
-	public static SimulationAttribute newSimulationAttribute(String name,
+	public static SimulationStateAttribute newSimulationAttribute(String name,
 			boolean affectProperties, String displayName) {
-		return new SimulationAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
+		return new SimulationStateAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}	
 	public static ModelingAttribute newModelingAttribute(String name,
 			boolean affectProperties, String displayName) {

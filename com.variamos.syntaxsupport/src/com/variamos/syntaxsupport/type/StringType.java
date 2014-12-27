@@ -3,7 +3,7 @@ package com.variamos.syntaxsupport.type;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
+import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 
 /**
  * A class to represent an string dynamically loaded attribute. Based on
@@ -37,6 +37,6 @@ public class StringType extends Type{
 	}
 	public static AbstractAttribute newSimulationAttribute(String name,
 			boolean affectProperties, String displayName) {
-		return new SimulationAttribute(name, IDENTIFIER, affectProperties, displayName, "");
+		return new SimulationStateAttribute(name, IDENTIFIER, affectProperties, displayName, "");
 	}
 }

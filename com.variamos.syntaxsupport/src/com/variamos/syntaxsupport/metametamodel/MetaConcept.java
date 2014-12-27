@@ -30,7 +30,7 @@ public class MetaConcept extends MetaVertex {
 
 	public MetaConcept() {
 		super();
-
+		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
 
 	public MetaConcept(String identifier, boolean visible, String name,

@@ -7,10 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
@@ -34,7 +31,7 @@ import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
@@ -55,9 +52,9 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		} else {
 			for (InstVertex instVertex : ((Refas) editor.getEditedModel())
 					.getSyntaxRefas().getVertices()) {
-			//	if (instVertex instanceof InstConcept)
-			//	if (instVertex.getSupportMetaElement() != null)
-					metaElements.add(instVertex.getSupportMetaElement());
+				// if (instVertex instanceof InstConcept)
+				// if (instVertex.getSupportMetaElement() != null)
+				metaElements.add(instVertex.getEditableMetaElement());
 			}
 
 		}
@@ -108,16 +105,19 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 						if (paletteElement.getMetaElement() != null) {
 							MetaElement metaVertex = paletteElement
 									.getMetaElement();
+							
 							if (metaVertex instanceof MetaConcept) {
+								MetaElement metaElement = new MetaConcept();
 								Object o = new InstConcept();
-								Constructor<?> c = o.getClass().getConstructor(
-										MetaConcept.class);
-								obj = c.newInstance((MetaConcept) metaVertex);
-							} else if (metaVertex instanceof MetaGroupDependency) {
+								Constructor<?> c = o.getClass().getConstructor(String.class,
+										MetaConcept.class,MetaElement.class);
+								obj = c.newInstance("",(MetaConcept) metaVertex, metaElement);
+							} else if (metaVertex instanceof MetaOverTwoRelation) {
+								MetaElement metaElement = new MetaOverTwoRelation();
 								Object o = new InstGroupDependency();
-								Constructor<?> c = o.getClass().getConstructor(
-										MetaGroupDependency.class);
-								obj = c.newInstance((MetaGroupDependency) metaVertex);
+								Constructor<?> c = o.getClass().getConstructor(String.class,
+										MetaOverTwoRelation.class,MetaElement.class);
+								obj = c.newInstance("",(MetaOverTwoRelation) metaVertex, metaElement);
 							} else if (metaVertex instanceof MetaEnumeration) {
 								Object o = new InstEnumeration();
 								Constructor<?> c = o.getClass().getConstructor(

@@ -3,7 +3,7 @@ package com.variamos.syntaxsupport.type;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
+import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 
 /**
  * A class to represent an enumeration dynamically loaded attribute for
@@ -41,9 +41,9 @@ public class MEnumerationType extends Type {
 				displayName, 0);
 	}
 
-	public static SimulationAttribute newSimulationAttribute(String name,
+	public static SimulationStateAttribute newSimulationAttribute(String name,
 			boolean affectProperties, String displayName) {
-		return new SimulationAttribute(name, IDENTIFIER, affectProperties,
+		return new SimulationStateAttribute(name, IDENTIFIER, affectProperties,
 				displayName, 0);
 	}
 

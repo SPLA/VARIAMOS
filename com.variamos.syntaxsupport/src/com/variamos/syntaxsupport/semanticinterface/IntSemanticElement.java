@@ -19,4 +19,6 @@ public interface IntSemanticElement extends Serializable {
 
 	AbstractAttribute getSemanticAttribute(String attributeName);
 
+	void setIdentifier(String value);
+
 }
