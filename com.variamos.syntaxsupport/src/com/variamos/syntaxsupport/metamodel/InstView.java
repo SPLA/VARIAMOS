@@ -48,6 +48,7 @@ public class InstView extends InstElement {
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		createInstAttributes();
+		copyValuesToInstAttributes();
 	}
 
 	public InstView(String identifier, MetaConcept metaConcept,
@@ -59,6 +60,7 @@ public class InstView extends InstElement {
 		childViews = new ArrayList<InstView>();
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
+		copyValuesToInstAttributes();
 	}
 
 	public InstView(MetaConcept metaConcept) {
@@ -119,7 +121,7 @@ public class InstView extends InstElement {
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
 					type = getInstAttributes().get(name)
-							.getModelingAttributeType();
+							.getAttributeType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);

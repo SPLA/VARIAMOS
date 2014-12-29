@@ -86,7 +86,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 					int attributeValue = 0;
 					String type = (String) instAttribute
-							.getModelingAttributeType();
+							.getAttributeType();
 					if (type.equals("Integer") || type.equals("Boolean")) {
 						if (instAttribute.getValue() instanceof Boolean)
 							attributeValue = ((boolean) instAttribute

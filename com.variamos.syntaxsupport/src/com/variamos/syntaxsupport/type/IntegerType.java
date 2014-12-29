@@ -1,10 +1,5 @@
 package com.variamos.syntaxsupport.type;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
-
 /**
  * A class to represent an int dynamically loaded attribute. Based on
  * IntegerType of ProductLine. Part of PhD work at University of Paris 1
@@ -21,12 +16,13 @@ public class IntegerType extends Type{
 		super(IDENTIFIER);
 	}
 
-	@Override
-	public AbstractAttribute makeAttribute(String name,
+	//@Override
+/*	public AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new AbstractAttribute(name, getIdentifier(), affectProperties, displayName, 0);
 	}
 	
+	/*
 	public static ModelingAttribute newVariableModelingAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new ModelingAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
@@ -39,4 +35,5 @@ public class IntegerType extends Type{
 			boolean affectProperties, String displayName) {
 		return new SimulationStateAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}
+	*/
 }

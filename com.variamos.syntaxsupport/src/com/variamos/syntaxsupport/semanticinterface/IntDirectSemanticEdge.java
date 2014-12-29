@@ -15,7 +15,7 @@ import java.util.Set;
 public interface IntDirectSemanticEdge  extends IntSemanticElement {
 	public List<IntDirectEdgeType> getSemanticRelationTypes();
 	public String getIdentifier();
-	public Set<String> getSemanticAttributes();
+	public Set<String> getSemanticAttributesNames();
 	public List<String> getDisPropEditableAttributes();
 	public List<String> getDisPanelVisibleAttributes();
 	public List<String> getDisPropVisibleAttributes();

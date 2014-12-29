@@ -131,7 +131,7 @@ public class InstGroupDependency extends InstVertex {
 	protected void createInstAttributes() {
 		if (getMetaGroupDependency()!= null)
 		{
-		for (String name : getMetaGroupDependency().getModelingAttributes()) {
+		for (String name : getMetaGroupDependency().getModelingAttributesNames()) {
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
 				addInstAttribute(name, getMetaGroupDependency()
 						.getModelingAttribute(name), getIdentifier());
@@ -329,7 +329,7 @@ public class InstGroupDependency extends InstVertex {
 			modelingAttributesNames
 					.addAll(((IntSemanticGroupDependency) getInstAttribute(
 							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
-							.getSemanticAttributes());
+							.getSemanticAttributesNames());
 		}
 		return modelingAttributesNames;
 	}

@@ -131,7 +131,7 @@ public abstract class InstVertex extends InstElement {
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
 					type = getInstAttributes().get(name)
-							.getModelingAttributeType();
+							.getAttributeType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);
@@ -160,7 +160,7 @@ public abstract class InstVertex extends InstElement {
 
 			} else
 				listEditableAttribNames.add(attribute.substring(3));
-		}
+		}	
 
 		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
 		for (String attributeName : listEditableAttribNames) {
@@ -176,15 +176,6 @@ public abstract class InstVertex extends InstElement {
 			return new Integer(value);
 		return value;
 
-	}
-
-	public String toString() {
-		/*
-		 * if (getInstAttributes().get("name") == null) return
-		 * "Error: no name attribure!"; else return
-		 * getInstAttributes().get("name").toString(); }
-		 */
-		return "";
 	}
 
 	public Map<String, Object> getVars() {

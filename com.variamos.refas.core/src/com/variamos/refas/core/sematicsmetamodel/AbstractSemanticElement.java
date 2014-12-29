@@ -176,12 +176,16 @@ public class AbstractSemanticElement implements Serializable{
 		disPanelSpacersAttributes.add(spacerAttribute);
 	}
 	
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getSemanticAttributesNames() {
 		Set<String> properties = new HashSet<String>();
 		properties.addAll(getDeclaredSemanticAttributes());
 		if (parent != null)
-			properties.addAll(parent.getSemanticAttributes());
+			properties.addAll(parent.getSemanticAttributesNames());
 		return properties;
+	}
+	
+	public Map<String,AbstractAttribute> getSemanticAttributes() {
+		return semanticAttributes;
 	}
 	public Set<String> getDeclaredSemanticAttributes() {
 		Set<String> abstractAttributesNames = new HashSet<String>();

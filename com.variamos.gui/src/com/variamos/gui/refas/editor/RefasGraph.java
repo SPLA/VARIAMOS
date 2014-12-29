@@ -31,6 +31,7 @@ import com.mxgraph.canvas.mxGraphicsCanvas2D;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
+import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
@@ -97,36 +98,58 @@ public class RefasGraph extends AbstractGraph {
 			views = semanticPlusSyntax.getMetaViews();
 		else {
 			views = refas.getSyntaxRefas().getInstViews();
+			int pos = 0;
 			if (views.size() == 0) {
 				for (InstVertex instVertex : refas.getVertices()) {
 					mxCell child = new mxCell(instVertex.getIdentifier());
 					addCell(child);
-					String id =instVertex.getIdentifier();
+					String id = instVertex.getIdentifier();
 					child.setValue(instVertex);
 					child.setVisible(true);
 					child.setStyle(instVertex.getMetaVertex().getStyle());
-					child.setGeometry(new mxGeometry(50, 50, 100, 40));
+					child.setGeometry(new mxGeometry(50 +pos*3, 50 +pos*3, 120, 100));
 					child.setVertex(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
 					model.getCells().put(id, child);
 					child.setId(id);
+					pos++;
 
 				}
 				for (InstView instView : refas.getInstViews()) {
+					if (instView.getChildViews().size() == 0)
+					{
 					mxCell child = new mxCell(instView.getIdentifier());
 					addCell(child);
-					String id =instView.getIdentifier();
+					String id = instView.getIdentifier();
 					child.setValue(instView);
 					child.setVisible(true);
 					child.setStyle(instView.getMetaView().getStyle());
-					child.setGeometry(new mxGeometry(50, 50, 100, 40));
+					child.setGeometry(new mxGeometry(50+pos*3, 50+pos*3, 120, 40));
 					child.setVertex(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
 					model.getCells().put(id, child);
 					child.setId(id);
+					pos++;
+					}
+					for (InstView instChildView : instView.getChildViews()) {
+						mxCell child2 = new mxCell(
+								instChildView.getIdentifier());
+						addCell(child2);
+						String id2 = instChildView.getIdentifier();
+						child2.setValue(instChildView);
+						child2.setVisible(true);
+						child2.setStyle(instChildView.getMetaView().getStyle());
+						child2.setGeometry(new mxGeometry(50+pos*3, 50+pos*3, 120, 40));
+						child2.setVertex(true);
+						mxGraphModel model2 = (mxGraphModel) getModel();
+						model2.getCells().remove(child2.getId());
+						model2.getCells().put(id2, child2);
+						child2.setId(id2);
+						pos++;
 
+					}
 				}
 
 				for (InstEdge instEdge : refas
@@ -136,8 +159,7 @@ public class RefasGraph extends AbstractGraph {
 							&& !instEdge.getIdentifier().equals("")) {
 						mxCell child = new mxCell(instEdge.getIdentifier());
 						addCell(child);
-						String i  = instEdge
-								.getSourceRelation().getIdentifier();
+						String i = instEdge.getSourceRelation().getIdentifier();
 						mxCell source = this.getCellById(instEdge
 								.getSourceRelation().getIdentifier());
 						mxCell target = this.getCellById(instEdge
@@ -146,9 +168,9 @@ public class RefasGraph extends AbstractGraph {
 						child.setTarget(target);
 						child.setValue(instEdge);
 						mxGeometry geo = new mxGeometry();
-						String id =instEdge.getIdentifier();
-						geo.setSourcePoint(new mxPoint(0,0));
-						geo.setTargetPoint(new mxPoint(50,50));
+						String id = instEdge.getIdentifier();
+						source.insertEdge(child, true);
+						target.insertEdge(child, false);
 						child.setGeometry(geo);
 						child.setVisible(true);
 						child.setVertex(false);
@@ -301,11 +323,8 @@ public class RefasGraph extends AbstractGraph {
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
-		source.addTargetRelation(directRelation);
-		target.addSourceRelation(directRelation);
-
-		directRelation.setSourceRelation(source);
-		directRelation.setTargetRelation(target);
+		source.addTargetRelation(directRelation, true);
+		target.addSourceRelation(directRelation, true);
 
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		mxGraphModel model = refasGraph;
@@ -518,13 +537,15 @@ public class RefasGraph extends AbstractGraph {
 				}
 		}
 	}
-
 	public void setModel(AbstractModel pl) {
 		refas = (Refas) pl;
-		mxGraphLayout layout = new mxFastOrganicLayout(this);
-		layout.execute(getDefaultParent()); // todo change root?
 		defineInitialGraph();
-
+		try{
+		mxGraphLayout layout = new mxOrganicLayout(this);
+		layout.execute(getDefaultParent()); // todo change root?
+		}catch (Exception e)
+		{}
+		
 	}
 
 	public void showElements() {

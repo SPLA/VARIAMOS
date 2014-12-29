@@ -164,7 +164,7 @@ public class InstEdge extends InstElement {
 	public void createInstAttributes() {
 		if (getMetaEdge() != null) {
 			Iterator<String> modelingAttributes = getMetaEdge()
-					.getModelingAttributes().iterator();
+					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
@@ -189,7 +189,7 @@ public class InstEdge extends InstElement {
 						MetaPairwiseRelation.VAR_SEMANTICDIRECTRELATION)
 						.getValueObject();
 				Iterator<String> semanticAttributes = sementicRelation
-						.getSemanticAttributes().iterator();
+						.getSemanticAttributesNames().iterator();
 				while (semanticAttributes.hasNext()) {
 					String name = semanticAttributes.next();
 					if (name.equals("identifier"))
@@ -206,12 +206,16 @@ public class InstEdge extends InstElement {
 
 	}
 
-	public void setSourceRelation(InstElement fromRelation) {
+	public void setSourceRelation(InstElement fromRelation, boolean firstCall) {
 		this.fromRelation = fromRelation;
+		if (firstCall)
+			fromRelation.addTargetRelation(this, false);
 	}
 
-	public void setTargetRelation(InstElement toRelation) {
+	public void setTargetRelation(InstElement toRelation, boolean firstCall) {
 		this.toRelation = toRelation;
+		if (firstCall)
+			toRelation.addSourceRelation(this, false);
 	}
 
 	public String getIdentifier() {

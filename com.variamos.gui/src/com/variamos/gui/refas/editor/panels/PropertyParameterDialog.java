@@ -1,4 +1,4 @@
-package com.variamos.gui.refas.editor;
+package com.variamos.gui.refas.editor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,14 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
-import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * @author unknown
@@ -39,7 +36,7 @@ public class PropertyParameterDialog extends JDialog{
 		public boolean onAction();
 	}
 	
-	public PropertyParameterDialog(VariamosGraphEditor editor, InstAttribute... arguments){
+	public PropertyParameterDialog(VariamosGraphEditor editor, EditableElementAttribute... arguments){
 		super(editor.getFrame(), "Parameters");
 		
 		setLayout(new BorderLayout());
@@ -53,7 +50,7 @@ public class PropertyParameterDialog extends JDialog{
 		
 		widgets = new HashMap<String, WidgetR>();
 		
-		for(InstAttribute p : arguments){
+		for(EditableElementAttribute p : arguments){
 			WidgetR w = factory.getWidgetFor(p);
 			w.editVariable(p);
 			
@@ -135,11 +132,11 @@ public class PropertyParameterDialog extends JDialog{
 	/**
 	 * @return
 	 */
-	public Map<String, InstAttribute> getParameters(){
-		Map<String, InstAttribute> map = new HashMap<>();
+	public Map<String, EditableElementAttribute> getParameters(){
+		Map<String, EditableElementAttribute> map = new HashMap<>();
 		
 		for(String s : widgets.keySet()){
-			InstAttribute v = widgets.get(s).getInstAttribute();
+			EditableElementAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 		

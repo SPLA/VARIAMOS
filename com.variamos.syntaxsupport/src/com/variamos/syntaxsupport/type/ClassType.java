@@ -1,10 +1,5 @@
 package com.variamos.syntaxsupport.type;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
-
 /**
  * A class to represent a class dynamically loaded attribute. Inspired on
  * other ProductLine types. Part of PhD work at University of Paris 1
@@ -26,13 +21,13 @@ public class ClassType extends Type{
 //		return obj instanceof Integer;
 //	}
 
-	@Override
-	public AbstractAttribute makeAttribute(String name,
+	//@Override
+/*	public AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new AbstractAttribute(name, getIdentifier(), affectProperties, displayName, 0);
 	}
 	
-
+/*
 	
 	public static SemanticAttribute newSemanticAttribute(String name,
 			boolean affectProperties, String displayName) {
@@ -46,4 +41,5 @@ public class ClassType extends Type{
 			boolean affectProperties, String displayName) {
 		return new ModelingAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
 	}
+	*/
 }

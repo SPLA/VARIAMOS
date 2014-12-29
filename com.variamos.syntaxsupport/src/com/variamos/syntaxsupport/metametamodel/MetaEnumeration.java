@@ -72,12 +72,17 @@ public class MetaEnumeration extends MetaVertex {
 		createEnumModelingAttributes();
 	}
 
+	public MetaEnumeration() {
+		super();
+		createEnumModelingAttributes();
+	}
+
 	private void createEnumModelingAttributes() {
 		addModelingAttribute(VAR_METAENUMNAME, "String", false,
 				VAR_METAENUMNAMENAME, "");
 		addModelingAttribute(VAR_METAENUMVALUE, "Set", false,
 				VAR_METAENUMVALUENAME, VAR_METAENUMVALUECLASS,
-				new HashSet<InstAttribute>());
+				new HashSet<InstAttribute>());	
 
 		this.addDisPropEditableAttribute("01#" + VAR_METAENUMNAME);
 		this.addDisPropEditableAttribute("02#" + VAR_METAENUMVALUE);

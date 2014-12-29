@@ -181,11 +181,8 @@ public class SharedActions {
 					.getSemanticElement(ic.getSemanticEdgeIde());
 			InstVertex from = (InstVertex) source.getSource().getValue();
 			InstVertex to = (InstVertex) source.getTarget().getValue();
-			ic.setSourceRelation(from);
-			ic.setTargetRelation(to);
-
-			from.addTargetRelation(ic);
-			to.addSourceRelation(ic);
+			ic.setSourceRelation(from, true);
+			ic.setTargetRelation(to, true);
 			if (me != null) {
 				ic.setMetaEdge(me);
 				if (semanticEdgeIde != null) {

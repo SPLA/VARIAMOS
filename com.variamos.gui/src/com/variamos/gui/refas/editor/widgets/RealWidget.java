@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * Not a real need founded jet. Copied from RealWidget
@@ -32,14 +32,14 @@ public class RealWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsFloat() ));
 		revalidate();
 		repaint();
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		float val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

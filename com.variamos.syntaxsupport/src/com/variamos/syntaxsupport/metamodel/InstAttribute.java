@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
@@ -21,7 +22,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metametamodel.AbtractAttribute
  */
-public class InstAttribute implements Serializable {
+public class InstAttribute implements Serializable,EditableElementAttribute {
 	/**
 	 * 
 	 */
@@ -201,7 +202,7 @@ public class InstAttribute implements Serializable {
 		// this.value = value;
 	}
 
-	public String getModelingAttributeType() {
+	public String getAttributeType() {
 		return attributeObject.getType();
 	}
 
@@ -313,5 +314,10 @@ public class InstAttribute implements Serializable {
 	@Override
 	public int hashCode() {
 		return getIdentifier().hashCode();
+	}
+
+	@Override
+	public String getName() {
+		return (String) getVariable(VAR_ATTRIBUTEIDEN);
 	}
 }

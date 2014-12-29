@@ -24,11 +24,11 @@ public class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	VAR_IDENTIFIER = "identifier",
+	VAR_IDENTIFIER = "Identifier",
 			/**
 			 * 
 			 */
-	VAR_DESCRIPTION = "description";
+	VAR_DESCRIPTION = "Description";
 	/**
 	 * 
 	 */
@@ -283,16 +283,20 @@ public class MetaElement implements Serializable {
 		disPanelSpacersAttributes.add(spacerAttribute);
 	}
 
-	public Set<String> getDeclaredModelingAttributes() {
+	public Set<String> getDeclaredModelingAttributesNames() {
 		return modelingAttributes.keySet();
 	}
 
-	public Set<String> getModelingAttributes() {
+	public Set<String> getModelingAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(modelingAttributes.keySet());
 		return modelingAttributesNames;
 	}
 
+	public Map<String,AbstractAttribute> getModelingAttributes() {
+		return modelingAttributes;
+	}
+	
 	public AbstractAttribute getDeclaredModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}

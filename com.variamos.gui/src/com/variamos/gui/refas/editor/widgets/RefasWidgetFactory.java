@@ -6,7 +6,7 @@ import java.util.Map;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.type.BooleanType;
 import com.variamos.syntaxsupport.type.ClassType;
 import com.variamos.syntaxsupport.type.EnumerationType;
@@ -51,10 +51,10 @@ public class RefasWidgetFactory {
 
 	}
 
-	public WidgetR getWidgetFor(InstAttribute v) {
+	public WidgetR getWidgetFor(EditableElementAttribute v) {
 		// Type d = register.getDomain(v.getType());
 
-		String type = v.getModelingAttributeType();
+		String type = v.getAttributeType();
 
 		Class<? extends WidgetR> c = null;
 

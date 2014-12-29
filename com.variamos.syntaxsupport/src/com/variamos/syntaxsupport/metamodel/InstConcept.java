@@ -96,7 +96,7 @@ public class InstConcept extends InstVertex {
 	protected void createInstAttributes() {
 		if (getMetaConcept() != null) {
 			Iterator<String> modelingAttributes = getMetaConcept()
-					.getModelingAttributes().iterator();
+					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
@@ -152,19 +152,14 @@ public class InstConcept extends InstVertex {
 		return (String) vars.get(VAR_METACONCEPTIDE);
 	}
 
-	public String toString() { // TODO move to superclass
+	public String toStringOld() { // TODO move to superclass
 		String out = "";
-		// List<String> visibleAttributesNames = metaConcept
-		// .getPanelVisibleAttributes();
 		if (getMetaConcept() != null) {
 			Set<String> visibleAttributesNames = getMetaConcept()
 					.getDisPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-
-			// List<String> spacersAttributes = metaConcept
-			// .getPanelSpacersAttributes();
 			Set<String> spacersAttributes = getMetaConcept()
 					.getDisPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {

@@ -2,8 +2,6 @@ package com.variamos.syntaxsupport.type;
 
 import java.io.Serializable;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-
 /**
  * Abstract class for dynamic types. Copied from ProductLine. Part of PhD work
  * at University of Paris 1
@@ -35,6 +33,7 @@ public abstract class Type implements Serializable {
 	}
 
 	// public abstract boolean contains(Object obj);
-	public abstract AbstractAttribute makeAttribute(String name,
+/*	public abstract AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName);
+			*/
 }

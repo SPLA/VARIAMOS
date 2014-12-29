@@ -3,8 +3,6 @@ package com.variamos.syntaxsupport.type;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-
 /**
  * A class to represent a set dynamically loaded attribute. Based on SetType
  * of ProductLine. Part of PhD work at University of Paris 1
@@ -45,10 +43,11 @@ public class SetType extends Type {
 	// return elements.contains(obj);
 	// }
 
-	@Override
-	public AbstractAttribute makeAttribute(String name,
+	//@Override
+/*	public AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new AbstractAttribute(name, elements.iterator().next(),
 				affectProperties, displayName, getIdentifier());
 	}
+	*/
 }

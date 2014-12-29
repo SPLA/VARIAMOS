@@ -1,14 +1,13 @@
 package com.variamos.gui.refas.editor.widgets;
 
 import java.awt.BorderLayout;
-import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * A class to support set widgets on the interface. Copied from SetWidget
@@ -24,8 +23,7 @@ import com.variamos.syntaxsupport.metamodel.InstAttribute;
 public class SetWidget extends WidgetR{
 	
 	private JComboBox<String> comboBox;
-	private Map<String, InstAttribute> instAttributes;
-	
+		
 	public SetWidget(){
 		
 		comboBox = new JComboBox<>();
@@ -38,12 +36,12 @@ public class SetWidget extends WidgetR{
 	}
 	
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		comboBox.setSelectedItem( v.getValue() );
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		v.setType( (String)comboBox.getSelectedItem() );
 	}
 
@@ -53,5 +51,5 @@ public class SetWidget extends WidgetR{
 	}
 
 	@Override
-	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {}
+	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {}
 }

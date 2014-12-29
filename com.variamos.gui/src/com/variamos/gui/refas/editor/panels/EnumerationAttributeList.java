@@ -1,10 +1,11 @@
-package com.variamos.gui.refas.editor;
+package com.variamos.gui.refas.editor.panels;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultListCellRenderer;
@@ -13,10 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.refas.editor.PropertyParameterDialog.DialogButtonAction;
+import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.type.IntegerType;
 import com.variamos.syntaxsupport.type.StringType;
@@ -33,7 +35,7 @@ import com.variamos.syntaxsupport.type.StringType;
  * @see com.variamos.gui.pl.editor.VariabilityAttributeList
  */
 @SuppressWarnings("serial")
-public class PropertyAttributeList extends JList<InstAttribute> {
+public class EnumerationAttributeList extends JList<InstAttribute> {
 	
 	/**
 	 * Reference to the editor required for Dialog
@@ -42,7 +44,7 @@ public class PropertyAttributeList extends JList<InstAttribute> {
 	/**
 	 * Reference to the InstEnumeration required to validate Id
 	 */
-	private InstEnumeration element;
+	private InstElement element;
 	/**
 	 * 
 	 */
@@ -50,19 +52,18 @@ public class PropertyAttributeList extends JList<InstAttribute> {
 			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
 					"Add ...", ""), "Add ...");
 
-	public PropertyAttributeList(VariamosGraphEditor editor) {
+	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
 		init(null);
 	}
 
-	public PropertyAttributeList(VariamosGraphEditor editor, InstEnumeration elm) {
+	public EnumerationAttributeList(VariamosGraphEditor editor, InstElement elm) {
 		this.editor = editor;
 		this.element = elm;
 		InstAttribute o = elm.getInstAttributes().get(
 				MetaEnumeration.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
-
 	}
 
 	private void init(Collection<InstAttribute> varAttributes) {

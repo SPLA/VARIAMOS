@@ -1,4 +1,4 @@
-package com.variamos.gui.refas.editor;
+package com.variamos.gui.refas.editor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

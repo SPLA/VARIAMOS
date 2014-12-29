@@ -1,11 +1,13 @@
 package com.variamos.syntaxsupport.metametamodel;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * A class to represent semantic and syntax concepts attributes. The
- * attributes are dynamically loaded on modeling perspective. Part of PhD work
- * at University of Paris 1
+ * A class to represent semantic and syntax concepts attributes. The attributes
+ * are dynamically loaded on modeling perspective. Part of PhD work at
+ * University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -13,6 +15,30 @@ import java.io.Serializable;
  * @since 2014-11-24
  */
 public class AbstractAttribute implements Serializable {
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setClassCanonicalName(String classCanonicalName) {
+		this.classCanonicalName = classCanonicalName;
+	}
+
+	public void setMetaConceptInstanceType(String metaConceptInstanceType) {
+		this.metaConceptInstanceType = metaConceptInstanceType;
+	}
+
+	public void setDefaultValue(Object defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
+	public void setHint(String hint) {
+		this.hint = hint;
+	}
+
 	/**
 	 * 
 	 */
@@ -58,6 +84,72 @@ public class AbstractAttribute implements Serializable {
 	// TODO use on properties
 	private String hint;
 
+	public static final String
+	/**
+	 * Name of element name
+	 */
+	VAR_NAME = "Name",
+	/**
+	 * Name of element type
+	 */
+	VAR_TYPE = "Type",
+	/**
+	 * Name of the element affect properties
+	 */
+	VAR_AFFECTPROPS = "AffectProps",
+	/**
+	 * DyplaynName of the element affect properties
+	 */
+	VAR_AFFECTPROPSNAME = "Affects other elements",
+	/**
+	 * Name of element display name
+	 */
+	VAR_DISPLAYNAME = "DispName",
+	/**
+	 * Display Name of element display name
+	 */
+	VAR_DISPLAYNAMENAME = "Display Name",
+	/**
+	 * Name of the element associated class
+	 */
+	VAR_CLASSCANONICALNAME = "ClassCanName",
+	/**
+	 * Display name of the element associated class
+	 */
+	VAR_CLASSCANONICALNAMENAME = "Enumeration Type",
+	/**
+	 * Name of element associated meta instance type
+	 */
+	VAR_METACONCEPTINSTTYPE = "MetaCInstType",
+	/**
+	 * Display name of element associated meta instance type
+	 */
+	VAR_METACONCEPTINSTTYPENAME = "Instance Type",
+	/**
+	 * Name of the element default value
+	 */
+	VAR_DEFAULTVALUE = "DefaultValue",
+	/**
+	 * Display Name of the element default value
+	 */
+	VAR_DEFAULTVALUENAME = "Default Value",
+	/**
+	 * Name of element domain
+	 */
+	VAR_DOMAIN = "Domain",
+	/**
+	 * Name of element hint
+	 */
+	VAR_HINT = "Hint";
+	public Map<String, EditableElementAttribute> getEditableElementAttributes() {
+		return vars;
+	}
+
+	/**
+	 * Dynamic storage of attributes
+	 */
+	protected Map<String, EditableElementAttribute> vars = new HashMap<>();
+
 	/**
 	 * 
 	 */
@@ -66,7 +158,7 @@ public class AbstractAttribute implements Serializable {
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes none received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -89,7 +181,7 @@ public class AbstractAttribute implements Serializable {
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -114,7 +206,7 @@ public class AbstractAttribute implements Serializable {
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -139,7 +231,7 @@ public class AbstractAttribute implements Serializable {
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -161,12 +253,12 @@ public class AbstractAttribute implements Serializable {
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue) {
-		this(name, type, affectProperties, displayName, enumType, metaConceptInstanceType,
-				defaultValue, null, null);
+		this(name, type, affectProperties, displayName, enumType,
+				metaConceptInstanceType, defaultValue, null, null);
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -194,8 +286,9 @@ public class AbstractAttribute implements Serializable {
 		this(name, type, affectProperties, displayName, enumType, null,
 				defaultValue, null, hint);
 	}
+
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -220,12 +313,12 @@ public class AbstractAttribute implements Serializable {
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, String hint) {
-		this(name, type, affectProperties, displayName, enumType, metaConceptInstanceType,
-				defaultValue, null, hint);
+		this(name, type, affectProperties, displayName, enumType,
+				metaConceptInstanceType, defaultValue, null, hint);
 	}
-	
+
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -250,7 +343,7 @@ public class AbstractAttribute implements Serializable {
 	}
 
 	/**
-	 * set not received local attributes with null
+	 * set local attributes not received with null
 	 * 
 	 * @param name
 	 *            local identifier of the attribute
@@ -304,7 +397,8 @@ public class AbstractAttribute implements Serializable {
 
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, Domain domain, String hint) {
+			String metaConceptInstanceType, Object defaultValue, Domain domain,
+			String hint) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -316,6 +410,26 @@ public class AbstractAttribute implements Serializable {
 		this.domain = domain;
 		this.hint = hint;
 
+		vars.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
+				name));
+		vars.put(VAR_TYPE, new AttributeElement(VAR_TYPE, "String", VAR_TYPE,
+				type));
+		vars.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
+				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
+		vars.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
+				"String", VAR_DISPLAYNAMENAME, displayName));
+		vars.put(VAR_CLASSCANONICALNAME, new AttributeElement(
+				VAR_CLASSCANONICALNAME, "String", VAR_CLASSCANONICALNAMENAME,
+				enumType));
+		vars.put(VAR_METACONCEPTINSTTYPE, new AttributeElement(
+				VAR_METACONCEPTINSTTYPE, "String", VAR_METACONCEPTINSTTYPENAME,
+				metaConceptInstanceType));
+		vars.put(VAR_DEFAULTVALUE, new AttributeElement(VAR_DEFAULTVALUE,
+				type, VAR_DEFAULTVALUENAME, defaultValue));
+		vars.put(VAR_DOMAIN, new AttributeElement(VAR_DOMAIN, "String",
+				VAR_DOMAIN, domain)); //TODO Change to Domain
+		vars.put(VAR_HINT, new AttributeElement(VAR_HINT, "String", VAR_HINT,
+				hint));
 	}
 
 	public String getDisplayName() {
@@ -324,6 +438,9 @@ public class AbstractAttribute implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+		vars.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
+				"String", VAR_DISPLAYNAMENAME, displayName));
+
 	}
 
 	public Object getDefaultValue() {
@@ -360,5 +477,15 @@ public class AbstractAttribute implements Serializable {
 
 	public void setAffectProperties(boolean affectProperties) {
 		this.affectProperties = affectProperties;
+		vars.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
+				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
+
+	}
+
+	public void setName(String name) {
+	this.name = name;	
+	vars.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
+			name));
+
 	}
 }

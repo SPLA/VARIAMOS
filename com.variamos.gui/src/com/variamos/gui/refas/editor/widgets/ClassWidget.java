@@ -18,6 +18,7 @@ import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
@@ -57,22 +58,24 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(InstAttribute v,
+	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = ClassType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
+		InstAttribute instAttribute = (InstAttribute)v;
+		
 		try {
-			aClass = classLoader.loadClass(v.getAttribute()
+			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
 			//System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		if (v.getValidationDRList() != null) {
+		if (instAttribute.getValidationDRList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntDirectSemanticEdge> list = v.getValidationDRList();
+			List<IntDirectSemanticEdge> list = instAttribute.getValidationDRList();
 
 			for (IntDirectSemanticEdge groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
@@ -80,9 +83,9 @@ public class ClassWidget extends WidgetR {
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 			}
-		} else if (v.getValidationMEList() != null) {
+		} else if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, MetaElement>();
-			List<MetaEdge> list = v.getValidationMEList();
+			List<MetaEdge> list = instAttribute.getValidationMEList();
 
 			for (MetaEdge groupDependency : list) {
 				syntaxElements.put(groupDependency.getIdentifier(),
@@ -90,9 +93,9 @@ public class ClassWidget extends WidgetR {
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 			}
-		} else if (v.getValidationGDList() != null) {
+		} else if (instAttribute.getValidationGDList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticGroupDependency> list = v.getValidationGDList();
+			List<IntSemanticGroupDependency> list = instAttribute.getValidationGDList();
 
 			for (IntSemanticGroupDependency groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
@@ -128,7 +131,7 @@ public class ClassWidget extends WidgetR {
 
 			if (aClass.equals(InstVertex.class)) {
 				instVertex = new HashMap<String, InstVertex>();
-				List<InstVertex> list = getInstElements(v.getAttribute()
+				List<InstVertex> list = getInstElements(instAttribute.getAttribute()
 						.getMetaConceptInstanceType(), graph);
 
 				for (InstVertex concept : list) {
@@ -145,9 +148,9 @@ public class ClassWidget extends WidgetR {
 				}
 			}
 			if (aClass.equals(InstEnumeration.class)) {
-				if (v.getAttribute().getType().equals("Class")) {
+				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstVertex>();
-					List<InstVertex> list = getInstElements(v.getAttribute()
+					List<InstVertex> list = getInstElements(instAttribute.getAttribute()
 							.getMetaConceptInstanceType(), graph);
 
 					for (InstVertex concept : list) {
@@ -194,28 +197,30 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
-		if (v.getValueObject() != null) {
-			if (v.getValueObject() instanceof SemanticGroupDependency)
-				txtValue.setSelectedItem((String) ((SemanticGroupDependency) v
+	protected void pushValue(EditableElementAttribute v) {
+
+		InstAttribute instAttribute = (InstAttribute)v;
+		if (instAttribute.getValueObject() != null) {
+			if (instAttribute.getValueObject() instanceof SemanticGroupDependency)
+				txtValue.setSelectedItem((String) ((SemanticGroupDependency) instAttribute
 						.getValueObject()).getIdentifier());
-			else if (v.getValueObject() instanceof MetaEdge)
-				txtValue.setSelectedItem((String) ((MetaEdge) v
+			else if (instAttribute.getValueObject() instanceof MetaEdge)
+				txtValue.setSelectedItem((String) ((MetaEdge) instAttribute
 						.getValueObject()).getIdentifier());
 		}
 		if (instVertex != null)
-			v.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
+			instAttribute.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
 
 		if (semanticElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				v.setValueObject(semanticElements.get(s));
+				instAttribute.setValueObject(semanticElements.get(s));
 			}
 		}
 		if (syntaxElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				v.setValueObject(syntaxElements.get(s));
+				instAttribute.setValueObject(syntaxElements.get(s));
 			}
 		}
 
@@ -224,20 +229,22 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
+
+		InstAttribute instAttribute = (InstAttribute)v;
 		v.setValue((String) txtValue.getSelectedItem());
 		if (instVertex != null)
-			v.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
+			instAttribute.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
 		if (semanticElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				v.setValueObject(semanticElements.get(s));
+				instAttribute.setValueObject(semanticElements.get(s));
 			}
 		}
 		if (syntaxElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				v.setValueObject(syntaxElements.get(s));
+				instAttribute.setValueObject(syntaxElements.get(s));
 			}
 		}
 	}

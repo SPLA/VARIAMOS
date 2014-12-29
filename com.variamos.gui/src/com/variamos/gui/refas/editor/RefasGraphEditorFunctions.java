@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
@@ -32,6 +33,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaConcept;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
 import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
@@ -119,10 +121,12 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 										MetaOverTwoRelation.class,MetaElement.class);
 								obj = c.newInstance("",(MetaOverTwoRelation) metaVertex, metaElement);
 							} else if (metaVertex instanceof MetaEnumeration) {
+
+								MetaElement metaElement = new MetaEnumeration();
 								Object o = new InstEnumeration();
-								Constructor<?> c = o.getClass().getConstructor(
-										MetaEnumeration.class);
-								obj = c.newInstance((MetaEnumeration) metaVertex);
+								Constructor<?> c = o.getClass().getConstructor(String.class,MetaVertex.class,
+										MetaElement.class);
+								obj = c.newInstance("",(MetaVertex) metaVertex, metaElement);
 							}
 
 						} else {

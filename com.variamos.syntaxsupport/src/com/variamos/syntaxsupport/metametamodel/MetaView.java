@@ -19,8 +19,6 @@ public class MetaView extends MetaElement implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3876870066100742969L;
-	private String shortName;
-	private String name;
 	private String paletteName;
 	private int index;
 	private List<MetaView> childViews;
@@ -32,20 +30,15 @@ public class MetaView extends MetaElement implements Serializable {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke);
 		this.childViews = new ArrayList<MetaView>();
-		this.shortName = identifier;
-		this.name = name;
-		this.paletteName = paletteName;
 		this.index = index;
 		this.elements = new HashSet<MetaElement>();
 	}
 
 	public MetaView(String shortName, String name, String paletteName, int index) {
-		super();
+		super(shortName, true, name, "","",100,30,"",1);
 		this.childViews = new ArrayList<MetaView>();
-		this.shortName = shortName;
-		this.name = name;
-		this.paletteName = paletteName;
 		this.index = index;
+		this.paletteName = paletteName;
 		this.elements = new HashSet<MetaElement>();
 	}
 
@@ -62,15 +55,7 @@ public class MetaView extends MetaElement implements Serializable {
 		this.childViews = childViews;
 	}
 
-	public String getShortName() {
-		return shortName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getPaletteName() {
+	public String getDescription() {
 		return paletteName;
 	}
 

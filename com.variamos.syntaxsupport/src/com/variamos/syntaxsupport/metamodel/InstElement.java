@@ -2,6 +2,7 @@ package com.variamos.syntaxsupport.metamodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,7 +28,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 	protected IntSemanticElement editableSemanticElement;
 
 	protected MetaElement editableMetaElement;
-	
 
 	/**
 	 * The elements incoming to the element
@@ -48,19 +48,22 @@ public abstract class InstElement implements Serializable, EditableElement {
 		return targetRelations;
 	}
 
-	public void addTargetRelation(InstElement target) {
+	public void addTargetRelation(InstElement target, boolean firstCall) {
 		this.targetRelations.add(target);
+		if (firstCall)
+			target.addSourceRelation(this, false);
 	}
 
 	public List<InstElement> getSourceRelations() {
 		return sourceRelations;
 	}
 
-	public void addSourceRelation(InstElement source) {
+	public void addSourceRelation(InstElement source, boolean firstCall) {
 		this.sourceRelations.add(source);
+		if (firstCall)
+			source.addTargetRelation(this, false);
 	}
 
-	
 	public void copyValuesToInstAttributes() {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (editableMetaElement != null) {
@@ -82,24 +85,32 @@ public abstract class InstElement implements Serializable, EditableElement {
 				if (instAttribute.getIdentifier().equals("Image"))
 					instAttribute.setValue(editableMetaElement.getImage());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					instAttribute.setValue(((MetaConcept) editableMetaElement)
-							.isTopConcept());
-				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					instAttribute.setValue(((MetaConcept) editableMetaElement)
-							.getBackgroundColor());
+					if (editableMetaElement instanceof MetaConcept) {
+						instAttribute
+								.setValue(((MetaConcept) editableMetaElement)
+										.isTopConcept());
+						if (instAttribute.getIdentifier().equals(
+								"BackgroundColor"))
+							instAttribute
+									.setValue(((MetaConcept) editableMetaElement)
+											.getBackgroundColor());
+						if (instAttribute.getIdentifier().equals("Resizable"))
+							instAttribute
+									.setValue(((MetaConcept) editableMetaElement)
+											.isResizable());
+					}
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					instAttribute.setValue(editableMetaElement
 							.getBorderStroke());
-				if (instAttribute.getIdentifier().equals("Resizable"))
-					instAttribute.setValue(((MetaConcept) editableMetaElement)
-							.isResizable());
+
 				if (instAttribute.getIdentifier().equals("value"))
 					instAttribute.setValue(editableMetaElement
-							.getModelingAttributes());
+							.getModelingAttributesNames());
 			}
 			if (editableSemanticElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					instAttribute.setValue(editableSemanticElement.getIdentifier());
+					instAttribute.setValue(editableSemanticElement
+							.getIdentifier());
 			}
 		}
 	}
@@ -137,24 +148,43 @@ public abstract class InstElement implements Serializable, EditableElement {
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
+
 	public String getIdentifier() {
 		return (String) getVariable(VAR_IDENTIFIER);
 		// return identifier;
-	}		
-	
-	public String toString() { // TODO move to superclass
+	}
+
+	public String toString() {
 		String out = "";
-		// List<String> visibleAttributesNames = metaConcept
-		// .getPanelVisibleAttributes();
+		String out2 = "";
+		if (getEditableMetaElement() != null
+				&& getEditableMetaElement() != null) {
+			out2 = "\n";
+			Set<String> modelingAttributes = getEditableMetaElement()
+					.getDeclaredModelingAttributesNames();
+			for (String attributeName : modelingAttributes) {
+				if (!attributeName.equals("Identifier")
+						&& !attributeName.equals("Description"))
+					out2 += attributeName + "\n";
+			}
+		}
+		if (getEditableSemanticElement() != null) {
+			out2 = "\n";
+			Set<String> modelingAttributes = getEditableSemanticElement()
+					.getSemanticAttributes().keySet();
+			for (String attributeName : modelingAttributes) {
+				if (!attributeName.equals("Identifier")
+						&& !attributeName.equals("Description"))
+					out2 += attributeName + "\n";
+			}
+		}
+
 		if (getSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getSupportMetaElement()
 					.getDisPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-
-			// List<String> spacersAttributes = metaConcept
-			// .getPanelSpacersAttributes();
 			Set<String> spacersAttributes = getSupportMetaElement()
 					.getDisPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
@@ -200,17 +230,14 @@ public abstract class InstElement implements Serializable, EditableElement {
 									&& getInstAttributes().get(name).toString()
 											.trim().equals(""))
 								out += "<<NoName>>";
-							{
+							else {
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
-								if (instAttribute.getEnumType() != null
-										&& instAttribute.getEnumType().equals(
-												InstEnumeration.class
-														.getCanonicalName()))
-									out += (String) instAttribute.getValue(); // TODO
-																				// retrieve
-																				// the
-																				// values
+								if (instAttribute.getAttributeType().equals(
+										"Set"))
+									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+											.getValue())
+										out += e.toString().trim() + "\n";
 								else
 									out += instAttribute.toString().trim();
 							}
@@ -253,9 +280,9 @@ public abstract class InstElement implements Serializable, EditableElement {
 			if (out.equals(""))
 				out = "No display attributes defined";
 		}
-		return out;
+		return out + out2;
 	}
-	
+
 	public void addInstAttribute(String name,
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {
@@ -266,12 +293,11 @@ public abstract class InstElement implements Serializable, EditableElement {
 			// instAttributes.put(name, instAttribute);
 		}
 	}
-	
-	
+
 	protected void createInstAttributes() {
 		if (getSupportMetaElement() != null) {
 			Iterator<String> modelingAttributes = getSupportMetaElement()
-					.getModelingAttributes().iterator();
+					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
@@ -279,31 +305,31 @@ public abstract class InstElement implements Serializable, EditableElement {
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getSupportMetaElement()
-							.getModelingAttribute(name), getSupportMetaElement()
-							.getDescription());
+							.getModelingAttribute(name),
+							getSupportMetaElement().getDescription());
 				else
 					addInstAttribute(name, getSupportMetaElement()
 							.getModelingAttribute(name), null);
 			}
 
-			if (getSupportMetaElement() instanceof MetaConcept)
-			{
+			if (getSupportMetaElement() instanceof MetaConcept) {
 				MetaConcept metaConcept = (MetaConcept) getSupportMetaElement();
-			Iterator<String> semanticAttributes = metaConcept
-					.getSemanticAttributes().iterator();
-			while (semanticAttributes.hasNext()) {
-				String name = semanticAttributes.next();
-				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, metaConcept
-							.getSemanticAttribute(name), getIdentifier());
-				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, metaConcept
-							.getSemanticAttribute(name), getSupportMetaElement()
-							.getDescription());
-				else
-					addInstAttribute(name, metaConcept
-							.getSemanticAttribute(name), null);
-			}
+				Iterator<String> semanticAttributes = metaConcept
+						.getSemanticAttributes().iterator();
+				while (semanticAttributes.hasNext()) {
+					String name = semanticAttributes.next();
+					if (name.equals(MetaElement.VAR_IDENTIFIER))
+						addInstAttribute(name,
+								metaConcept.getSemanticAttribute(name),
+								getIdentifier());
+					else if (name.equals(MetaElement.VAR_DESCRIPTION))
+						addInstAttribute(name,
+								metaConcept.getSemanticAttribute(name),
+								getSupportMetaElement().getDescription());
+					else
+						addInstAttribute(name,
+								metaConcept.getSemanticAttribute(name), null);
+				}
 			}
 		}
 	}

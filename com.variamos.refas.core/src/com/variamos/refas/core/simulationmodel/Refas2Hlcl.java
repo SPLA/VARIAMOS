@@ -167,7 +167,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String attribute = split[1];
 			InstElement vertex = refas.getElement(vertexId);
 			System.out.println(vertexId+" "+attribute	);
-			if (vertex.getInstAttribute(attribute).getModelingAttributeType()
+			if (vertex.getInstAttribute(attribute).getAttributeType()
 					.equals("Boolean"))
 
 				if (prologOut.get(identifier).intValue() == 1)
@@ -183,7 +183,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					+ attribute
 					+ " "
 					+ vertex.getInstAttribute(attribute)
-							.getModelingAttributeType() + "; ");
+							.getAttributeType() + "; ");
 		}
 	}
 
