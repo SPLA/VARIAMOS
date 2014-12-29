@@ -11,7 +11,7 @@ import java.util.Set;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaExtends;
 import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
+import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
 
 /**

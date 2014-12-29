@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
+import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -39,7 +39,7 @@ public class AbstractSemanticElement implements Serializable{
 	private List<String> simPanelVisibleAttributes;
 	private List<String> simPanelSpacersAttributes;
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private Map<String, SimulationAttribute> simulationAttributes = new HashMap<String, SimulationAttribute>();
+	private Map<String, SimulationStateAttribute> simulationAttributes = new HashMap<String, SimulationStateAttribute>();
 
 	
 	public AbstractSemanticElement(	String identifier)
@@ -176,12 +176,16 @@ public class AbstractSemanticElement implements Serializable{
 		disPanelSpacersAttributes.add(spacerAttribute);
 	}
 	
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getSemanticAttributesNames() {
 		Set<String> properties = new HashSet<String>();
 		properties.addAll(getDeclaredSemanticAttributes());
 		if (parent != null)
-			properties.addAll(parent.getSemanticAttributes());
+			properties.addAll(parent.getSemanticAttributesNames());
 		return properties;
+	}
+	
+	public Map<String,AbstractAttribute> getSemanticAttributes() {
+		return semanticAttributes;
 	}
 	public Set<String> getDeclaredSemanticAttributes() {
 		Set<String> abstractAttributesNames = new HashSet<String>();

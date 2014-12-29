@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 @SuppressWarnings("serial")
 public abstract class WidgetR extends JPanel{
@@ -13,15 +13,15 @@ public abstract class WidgetR extends JPanel{
 	public static final String PROPERTY_VALUE = "WidgetR.Value";
 	private boolean affectProperties = false;
 	
-	protected InstAttribute edited;
+	protected EditableElementAttribute edited;
 	
-	public void editVariable(InstAttribute v){
+	public void editVariable(EditableElementAttribute v){
 		edited = v;
 		pushValue(v);
 	}
 	
-	protected abstract void pushValue(InstAttribute v);
-	protected abstract void pullValue(InstAttribute v);
+	protected abstract void pushValue(EditableElementAttribute v);
+	protected abstract void pullValue(EditableElementAttribute v);
 	
 	public abstract JComponent getEditor();
 
@@ -30,13 +30,13 @@ public abstract class WidgetR extends JPanel{
 		return affectProperties;
 	}
 
-	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
+	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		affectProperties = v.isAffectProperties();
 		
 	}
 
 
-	public InstAttribute getInstAttribute() {
+	public EditableElementAttribute getInstAttribute() {
 		pullValue(edited);
 		return edited;
 	}

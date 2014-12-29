@@ -12,7 +12,7 @@ import java.util.Set;
 import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaElement;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
 
@@ -54,7 +54,7 @@ public class InstGroupDependency extends InstVertex {
 	/**
 	 * 
 	 */
-	private MetaGroupDependency metaGroupDependency;
+	private MetaOverTwoRelation metaGroupDependency;
 	/**
 	 * Assigned during the generation of expressions for
 	 * SingleElementExpressionSet required during the generation of expressions
@@ -73,7 +73,7 @@ public class InstGroupDependency extends InstVertex {
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 	}
 
-	public InstGroupDependency(MetaGroupDependency metaGroupDependency) {
+	public InstGroupDependency(MetaOverTwoRelation metaGroupDependency) {
 		super("");
 		vars.put(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
@@ -85,23 +85,25 @@ public class InstGroupDependency extends InstVertex {
 		createInstAttributes();
 	}
 
-	public InstGroupDependency(MetaGroupDependency metaGroupDependency,
+	public InstGroupDependency(String identifier, MetaOverTwoRelation metaGroupDependency,
 			MetaElement editableMetaElement) {
-		super("");
+		super(identifier);
 		setEditableMetaElement(editableMetaElement);
+		if (metaGroupDependency != null)
+		{
 		vars.put(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
 		this.metaGroupDependency = metaGroupDependency;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
-
+		}
 		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
-	public InstGroupDependency(MetaGroupDependency metaGroupDependency,
+	public InstGroupDependency(String identifier, MetaOverTwoRelation metaGroupDependency,
 			IntSemanticElement semanticElement) {
-		super("");
+		super(identifier);
 		setEditableSemanticElement(semanticElement);
 		vars.put(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
@@ -114,7 +116,7 @@ public class InstGroupDependency extends InstVertex {
 	}
 
 	public InstGroupDependency(String identifier,
-			MetaGroupDependency metaGroupDependency) {
+			MetaOverTwoRelation metaGroupDependency) {
 		super(identifier);
 		vars.put(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
@@ -126,9 +128,10 @@ public class InstGroupDependency extends InstVertex {
 		createInstAttributes();
 	}
 
-	private void createInstAttributes() {
-
-		for (String name : getMetaGroupDependency().getModelingAttributes()) {
+	protected void createInstAttributes() {
+		if (getMetaGroupDependency()!= null)
+		{
+		for (String name : getMetaGroupDependency().getModelingAttributesNames()) {
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
 				addInstAttribute(name, getMetaGroupDependency()
 						.getModelingAttribute(name), getIdentifier());
@@ -152,7 +155,7 @@ public class InstGroupDependency extends InstVertex {
 				else
 					addInstAttribute(name, getSemanticAttribute(name), null);
 			}
-
+		}
 	}
 
 	public Set<String> getSourceAttributeNames() {
@@ -173,7 +176,7 @@ public class InstGroupDependency extends InstVertex {
 		this.sourceAttributeNames.clear();
 	}
 
-	public MetaGroupDependency getMetaGroupDependency() {
+	public MetaOverTwoRelation getMetaGroupDependency() {
 		return metaGroupDependency;
 	}
 
@@ -208,7 +211,7 @@ public class InstGroupDependency extends InstVertex {
 	}
 
 	public void setMetaVertex(MetaVertex metaGroupDependency) {
-		this.metaGroupDependency = (MetaGroupDependency) metaGroupDependency;
+		this.metaGroupDependency = (MetaOverTwoRelation) metaGroupDependency;
 		setVariable(VAR_METAGROUPDEPIDENTIFIER,
 				metaGroupDependency.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
@@ -326,7 +329,7 @@ public class InstGroupDependency extends InstVertex {
 			modelingAttributesNames
 					.addAll(((IntSemanticGroupDependency) getInstAttribute(
 							VAR_SEMANTICGROUPDEPENDENCY).getValueObject())
-							.getSemanticAttributes());
+							.getSemanticAttributesNames());
 		}
 		return modelingAttributesNames;
 	}

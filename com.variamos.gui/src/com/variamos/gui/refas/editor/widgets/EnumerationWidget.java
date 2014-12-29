@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.type.EnumerationType;
 
@@ -37,14 +38,15 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(InstAttribute v,
+	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = EnumerationType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
+		InstAttribute instAttribute = (InstAttribute)v;
 		try {
-			aClass = classLoader.loadClass(v.getAttribute()
+			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
 			//System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
@@ -64,14 +66,14 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		txtValue.setSelectedItem((String) v.getValue());
 		revalidate();
 		repaint();
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		v.setValue((String) txtValue.getSelectedItem());
 	}
 

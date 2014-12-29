@@ -19,7 +19,7 @@ import com.variamos.refas.core.transformations.ProdNumericTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -86,7 +86,7 @@ public class RestrictionConstraint extends AbstractConstraintGroup {
 
 					int attributeValue = 0;
 					String type = (String) instAttribute
-							.getModelingAttributeType();
+							.getAttributeType();
 					if (type.equals("Integer") || type.equals("Boolean")) {
 						if (instAttribute.getValue() instanceof Boolean)
 							attributeValue = ((boolean) instAttribute

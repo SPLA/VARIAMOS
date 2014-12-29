@@ -6,7 +6,7 @@ package com.variamos.syntaxsupport.metametamodel;
  *
  * Definition of semantics for REFAS
  */
-public class ConfigurationAttribute extends AbstractAttribute {
+public class SimulationConfigAttribute extends SimulationAttribute {
 	 /**
 	 * 
 	 */
@@ -16,12 +16,12 @@ public class ConfigurationAttribute extends AbstractAttribute {
 	 * 
 	 */
 	 
-	 public ConfigurationAttribute(String name, String type, boolean affectProperties, String displayName, Object defaultValue)
+	 public SimulationConfigAttribute(String name, String type, boolean affectProperties, String displayName, Object defaultValue)
 	 {
 		 super(name, type, affectProperties, displayName, defaultValue);
 	 }
 	 
-	 public ConfigurationAttribute(String name, String type,  boolean affectProperties, String displayName, String enumType, Object defaultValue)
+	 public SimulationConfigAttribute(String name, String type,  boolean affectProperties, String displayName, String enumType, Object defaultValue)
 	 {
 		 super(name, type, affectProperties, displayName, enumType, defaultValue);
 	 }

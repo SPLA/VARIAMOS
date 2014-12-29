@@ -129,27 +129,27 @@ public class SemanticPlusSyntax {
 		// Configuration attributes
 
 		semGeneralElement.putSemanticAttribute("Active",
-				new ConfigurationAttribute("Active", "Boolean", true,
+				new SimulationConfigAttribute("Active", "Boolean", true,
 						"Is Active", true));
 		semGeneralElement.putSemanticAttribute("Visibility",
-				new ConfigurationAttribute("Visibility", "Boolean", false,
+				new SimulationConfigAttribute("Visibility", "Boolean", false,
 						"Is Visible", true));
 		semGeneralElement.putSemanticAttribute("Required",
-				new ConfigurationAttribute("Required", "Boolean", true,
+				new SimulationConfigAttribute("Required", "Boolean", true,
 						"Is Required", false));
 		semGeneralElement.putSemanticAttribute("Allowed",
-				new ConfigurationAttribute("Allowed", "Boolean", true,
+				new SimulationConfigAttribute("Allowed", "Boolean", true,
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
-				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+				new SimulationConfigAttribute("RequiredLevel", "Integer", false,
 						"Required Level", 0)); // TODO define domain or Enum
 												// Level
 
 		semGeneralElement.putSemanticAttribute("ForcedSatisfied",
-				new ConfigurationAttribute("ForcedSatisfied", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSatisfied", "Boolean", false,
 						"Force Satisfaction", false));
 		semGeneralElement.putSemanticAttribute("ForcedSelected",
-				new ConfigurationAttribute("ForcedSelected", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSelected", "Boolean", false,
 						"Force Selection", false));
 
 		semGeneralElement.addDisPropEditableAttribute("01#" + "Active");
@@ -178,53 +178,53 @@ public class SemanticPlusSyntax {
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-				new SimulationAttribute("InitialRequiredLevel", "Integer",
+				new SimulationStateAttribute("InitialRequiredLevel", "Integer",
 						false, "Initial Required Level", false));
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
-				new SimulationAttribute("SimRequiredLevel", "Integer", false,
+				new SimulationStateAttribute("SimRequiredLevel", "Integer", false,
 						"Required Level", false));
 		semGeneralElement.putSemanticAttribute("ValidationRequiredLevel",
-				new SimulationAttribute("ValidationRequiredLevel", "Integer",
+				new SimulationStateAttribute("ValidationRequiredLevel", "Integer",
 						false, "Required Level by Validation", false));
 		semGeneralElement.putSemanticAttribute("SimRequired",
-				new SimulationAttribute("SimRequired", "Boolean", false,
+				new SimulationStateAttribute("SimRequired", "Boolean", false,
 						"***Required***", false));
 
 		semGeneralElement.putSemanticAttribute("Satisfied",
-				new SimulationAttribute("Satisfied", "Boolean", false,
+				new SimulationStateAttribute("Satisfied", "Boolean", false,
 						"***Satisfied***", false));
 		semGeneralElement.putSemanticAttribute("AlternativeSatisfied",
-				new SimulationAttribute("AlternativeSatisfied", "Boolean",
+				new SimulationStateAttribute("AlternativeSatisfied", "Boolean",
 						false, "Satisfied by Alternatives", false));
 		semGeneralElement.putSemanticAttribute("ValidationSatisfied",
-				new SimulationAttribute("ValidationSatisfied", "Boolean",
+				new SimulationStateAttribute("ValidationSatisfied", "Boolean",
 						false, "Satisfied by Validation", false));
 		semGeneralElement.putSemanticAttribute("SatisfiedLevel",
-				new SimulationAttribute("SatisfiedLevel", "Integer", false,
+				new SimulationStateAttribute("SatisfiedLevel", "Integer", false,
 						"Satisficing Level", false));
 		semGeneralElement.putSemanticAttribute("NoSatisfactionConflict",
-				new SimulationAttribute("NoSatisfactionConflict", "Boolean",
+				new SimulationStateAttribute("NoSatisfactionConflict", "Boolean",
 						false, "No Satisfaction Conflict", true));
 
 		semGeneralElement.putSemanticAttribute("Selected",
-				new SimulationAttribute("Selected", "Boolean", false,
+				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
 		semGeneralElement.putSemanticAttribute("PreferredSelected",
-				new SimulationAttribute("PreferredSelected", "Boolean", false,
+				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
 						"Select by Preferred", true));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
-				new SimulationAttribute("ValidationSelected", "Boolean", false,
+				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
 						"Selected by Validation", false));
 		semGeneralElement.putSemanticAttribute("SolverSelected",
-				new SimulationAttribute("SolverSelected", "Boolean", false,
+				new SimulationStateAttribute("SolverSelected", "Boolean", false,
 						"Selected by Solver", false));
 
 		semGeneralElement.putSemanticAttribute("Optional",
-				new SimulationAttribute("Optional", "Boolean", false,
+				new SimulationStateAttribute("Optional", "Boolean", false,
 						"*Is Optional*", false));
 
 		semGeneralElement.putSemanticAttribute("SimAllowed",
-				new SimulationAttribute("SimAllowed", "Boolean", false,
+				new SimulationStateAttribute("SimAllowed", "Boolean", false,
 						"Is Allowed", true));
 
 		semGeneralElement.addDisPropVisibleAttribute("01#" + "SimRequired");
@@ -338,10 +338,10 @@ public class SemanticPlusSyntax {
 				new SemanticAttribute("ConditionalExpression", "String", false,
 						"Conditional Expression", ""));
 		semClaim.putSemanticAttribute("CompExp",
-				new ConfigurationAttribute("CompExp", "Boolean", false,
+				new SimulationConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
 		semClaim.putSemanticAttribute("ClaimSelected",
-				new ConfigurationAttribute("ClaimSelected", "Boolean", false,
+				new SimulationConfigAttribute("ClaimSelected", "Boolean", false,
 						"Claim Selected", false));
 
 		
@@ -372,10 +372,10 @@ public class SemanticPlusSyntax {
 		semanticConcepts.put("SD", semSoftDependency);
 		
 		semSoftDependency.putSemanticAttribute("CompExp",
-				new ConfigurationAttribute("CompExp", "Boolean", false,
+				new SimulationConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
 		semSoftDependency.putSemanticAttribute("SDSelected",
-				new ConfigurationAttribute("SDSelected", "Boolean", false,
+				new SimulationConfigAttribute("SDSelected", "Boolean", false,
 						"SD Selected", false));
 
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
@@ -789,7 +789,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directFeatureSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directFeatureSemanticEdges.add(directFeatureFeatureSemanticEdge);
 
-		MetaDirectRelation metaFeatureEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaFeatureEdge = new MetaPairwiseRelation(
 				"Feature Relation", false, "Feature Relation", "plnode",
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
@@ -806,7 +806,7 @@ public class SemanticPlusSyntax {
 		List<IntSemanticGroupDependency> semanticFeatRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticFeatRelations.add(semanticFeatureFeatureGroupRelation);
 
-		MetaGroupDependency syntaxFeatureGroupDep = new MetaGroupDependency(
+		MetaOverTwoRelation syntaxFeatureGroupDep = new MetaOverTwoRelation(
 				"FeatGroupDep", true, "FeatGroupDep", "plgroup",
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
@@ -818,27 +818,27 @@ public class SemanticPlusSyntax {
 		syntaxElements.put("FeatGroupDep", syntaxFeatureGroupDep);
 
 		syntaxFeatureGroupDep.addModelingAttribute("Active",
-				new ConfigurationAttribute("Active", "Boolean", true,
+				new SimulationConfigAttribute("Active", "Boolean", true,
 						"Is Active", true));
 		syntaxFeatureGroupDep.addModelingAttribute("Visibility",
-				new ConfigurationAttribute("Visibility", "Boolean", false,
+				new SimulationConfigAttribute("Visibility", "Boolean", false,
 						"Is Visible", true));
 		syntaxFeatureGroupDep.addModelingAttribute("Required",
-				new ConfigurationAttribute("Required", "Boolean", true,
+				new SimulationConfigAttribute("Required", "Boolean", true,
 						"Is Required", false));
 		syntaxFeatureGroupDep.addModelingAttribute("Allowed",
-				new ConfigurationAttribute("Allowed", "Boolean", false,
+				new SimulationConfigAttribute("Allowed", "Boolean", false,
 						"Is Allowed", true));
 		syntaxFeatureGroupDep.addModelingAttribute("RequiredLevel",
-				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+				new SimulationConfigAttribute("RequiredLevel", "Integer", false,
 						"Required Level", 0)); // TODO define domain or Enum
 												// Level
 
 		syntaxFeatureGroupDep.addModelingAttribute("ForcedSatisfied",
-				new ConfigurationAttribute("ForcedSatisfied", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSatisfied", "Boolean", false,
 						"Force Satisfaction", false));
 		syntaxFeatureGroupDep.addModelingAttribute("ForcedSelected",
-				new ConfigurationAttribute("ForcedSelected", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSelected", "Boolean", false,
 						"Force Selection", false));
 
 		syntaxFeatureGroupDep.addDisPropEditableAttribute("01#" + "Active");
@@ -867,53 +867,53 @@ public class SemanticPlusSyntax {
 		// Simulation attributes
 
 		syntaxFeatureGroupDep.addModelingAttribute("InitialRequiredLevel",
-				new SimulationAttribute("InitialRequiredLevel", "Integer",
+				new SimulationStateAttribute("InitialRequiredLevel", "Integer",
 						false, "Initial Required Level", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SimRequiredLevel",
-				new SimulationAttribute("SimRequiredLevel", "Integer", false,
+				new SimulationStateAttribute("SimRequiredLevel", "Integer", false,
 						"Required Level", false));
 		syntaxFeatureGroupDep.addModelingAttribute("ValidationRequiredLevel",
-				new SimulationAttribute("ValidationRequiredLevel", "Integer",
+				new SimulationStateAttribute("ValidationRequiredLevel", "Integer",
 						false, "Required Level by Validation", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SimRequired",
-				new SimulationAttribute("SimRequired", "Boolean", false,
+				new SimulationStateAttribute("SimRequired", "Boolean", false,
 						"Required", false));
 
 		syntaxFeatureGroupDep.addModelingAttribute("Satisfied",
-				new SimulationAttribute("Satisfied", "Boolean", false,
+				new SimulationStateAttribute("Satisfied", "Boolean", false,
 						"Satisfied", false));
 		syntaxFeatureGroupDep.addModelingAttribute("AlternativeSatisfied",
-				new SimulationAttribute("AlternativeSatisfied", "Boolean",
+				new SimulationStateAttribute("AlternativeSatisfied", "Boolean",
 						false, "Satisfied by Alternatives", false));
 		syntaxFeatureGroupDep.addModelingAttribute("ValidationSatisfied",
-				new SimulationAttribute("ValidationSatisfied", "Boolean",
+				new SimulationStateAttribute("ValidationSatisfied", "Boolean",
 						false, "Satisfied by Validation", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SatisfiedLevel",
-				new SimulationAttribute("SatisfiedLevel", "Integer", false,
+				new SimulationStateAttribute("SatisfiedLevel", "Integer", false,
 						"Satisficing Level", false));
 		syntaxFeatureGroupDep.addModelingAttribute("NoSatisfactionConflict",
-				new SimulationAttribute("NoSatisfactionConflict", "Boolean",
+				new SimulationStateAttribute("NoSatisfactionConflict", "Boolean",
 						false, "No Satisfaction Conflict", true));
 
 		syntaxFeatureGroupDep.addModelingAttribute("Selected",
-				new SimulationAttribute("Selected", "Boolean", false,
+				new SimulationStateAttribute("Selected", "Boolean", false,
 						"Selected", false));
 		syntaxFeatureGroupDep.addModelingAttribute("PreferredSelected",
-				new SimulationAttribute("PreferredSelected", "Boolean", false,
+				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
 						"Select by Preferred", true));
 		syntaxFeatureGroupDep.addModelingAttribute("ValidationSelected",
-				new SimulationAttribute("ValidationSelected", "Boolean", false,
+				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
 						"Selected by Validation", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SolverSelected",
-				new SimulationAttribute("SolverSelected", "Boolean", false,
+				new SimulationStateAttribute("SolverSelected", "Boolean", false,
 						"Selected by Solver", false));
 
 		syntaxFeatureGroupDep.addModelingAttribute("Optional",
-				new SimulationAttribute("Optional", "Boolean", false,
+				new SimulationStateAttribute("Optional", "Boolean", false,
 						"Is Optional", false));
 
 		syntaxFeatureGroupDep.addModelingAttribute("SimAllowed",
-				new SimulationAttribute("SimAllowed", "Boolean", false,
+				new SimulationStateAttribute("SimAllowed", "Boolean", false,
 						"Is Allowed", true));
 
 		syntaxFeatureGroupDep.addDisPropVisibleAttribute("01#" + "SimRequired");
@@ -1019,7 +1019,7 @@ public class SemanticPlusSyntax {
 		directHardSemanticEdges.add(directOperGoalSemanticEdge);
 		directHardSemanticEdges.add(directOperOperSemanticEdge);
 
-		MetaDirectRelation metaHardEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaHardEdge = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "ploptional",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
@@ -1039,7 +1039,7 @@ public class SemanticPlusSyntax {
 		semanticRelations.add(semanticOperOperGroupRelation);
 		semanticRelations.add(semanticHardHardGroupRelation);
 
-		MetaGroupDependency syntaxGroupDependency = new MetaGroupDependency(
+		MetaOverTwoRelation syntaxGroupDependency = new MetaOverTwoRelation(
 				"HardGroupDep", true, "HardGroupDep", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
@@ -1051,26 +1051,26 @@ public class SemanticPlusSyntax {
 		syntaxElements.put("HardGroupDep", syntaxGroupDependency);
 
 		syntaxGroupDependency.addModelingAttribute("Active",
-				new ConfigurationAttribute("Active", "Boolean", true,
+				new SimulationConfigAttribute("Active", "Boolean", true,
 						"Is Active", true));
 		syntaxGroupDependency.addModelingAttribute("Visibility",
-				new ConfigurationAttribute("Visibility", "Boolean", false,
+				new SimulationConfigAttribute("Visibility", "Boolean", false,
 						"Is Visible", true));
 		syntaxGroupDependency.addModelingAttribute("Required",
-				new ConfigurationAttribute("Required", "Boolean", true,
+				new SimulationConfigAttribute("Required", "Boolean", true,
 						"Is Required", false));
 		syntaxGroupDependency.addModelingAttribute("Allowed",
-				new ConfigurationAttribute("Allowed", "Boolean", false,
+				new SimulationConfigAttribute("Allowed", "Boolean", false,
 						"Is Allowed", true));
 		syntaxGroupDependency.addModelingAttribute("RequiredLevel",
-				new ConfigurationAttribute("RequiredLevel", "Integer", false,
+				new SimulationConfigAttribute("RequiredLevel", "Integer", false,
 						"Required Level", 0)); // TODO define domain or Enum
 												// Level
 		syntaxGroupDependency.addModelingAttribute("ForcedSatisfied",
-				new ConfigurationAttribute("ForcedSatisfied", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSatisfied", "Boolean", false,
 						"Force Satisfaction", false));
 		syntaxGroupDependency.addModelingAttribute("ForcedSelected",
-				new ConfigurationAttribute("ForcedSelected", "Boolean", false,
+				new SimulationConfigAttribute("ForcedSelected", "Boolean", false,
 						"Force Selection", false));
 
 		syntaxGroupDependency.addDisPropEditableAttribute("01#" + "Active");
@@ -1099,53 +1099,53 @@ public class SemanticPlusSyntax {
 		// Simulation attributes
 
 		syntaxGroupDependency.addModelingAttribute("InitialRequiredLevel",
-				new SimulationAttribute("InitialRequiredLevel", "Integer",
+				new SimulationStateAttribute("InitialRequiredLevel", "Integer",
 						false, "Initial Required Level", false));
 		syntaxGroupDependency.addModelingAttribute("SimRequiredLevel",
-				new SimulationAttribute("SimRequiredLevel", "Integer", false,
+				new SimulationStateAttribute("SimRequiredLevel", "Integer", false,
 						"Required Level", false));
 		syntaxGroupDependency.addModelingAttribute("ValidationRequiredLevel",
-				new SimulationAttribute("ValidationRequiredLevel", "Integer",
+				new SimulationStateAttribute("ValidationRequiredLevel", "Integer",
 						false, "Required Level by Validation", false));
 		syntaxGroupDependency.addModelingAttribute("SimRequired",
-				new SimulationAttribute("SimRequired", "Boolean", false,
+				new SimulationStateAttribute("SimRequired", "Boolean", false,
 						"***Required***", false));
 
 		syntaxGroupDependency.addModelingAttribute("Satisfied",
-				new SimulationAttribute("Satisfied", "Boolean", false,
+				new SimulationStateAttribute("Satisfied", "Boolean", false,
 						"***Satisfied***", false));
 		syntaxGroupDependency.addModelingAttribute("AlternativeSatisfied",
-				new SimulationAttribute("AlternativeSatisfied", "Boolean",
+				new SimulationStateAttribute("AlternativeSatisfied", "Boolean",
 						false, "Satisfied by Alternatives", false));
 		syntaxGroupDependency.addModelingAttribute("ValidationSatisfied",
-				new SimulationAttribute("ValidationSatisfied", "Boolean",
+				new SimulationStateAttribute("ValidationSatisfied", "Boolean",
 						false, "Satisfied by Validation", false));
 		syntaxGroupDependency.addModelingAttribute("SatisfiedLevel",
-				new SimulationAttribute("SatisfiedLevel", "Integer", false,
+				new SimulationStateAttribute("SatisfiedLevel", "Integer", false,
 						"Satisficing Level", false));
 		syntaxGroupDependency.addModelingAttribute("NoSatisfactionConflict",
-				new SimulationAttribute("NoSatisfactionConflict", "Boolean", false,
+				new SimulationStateAttribute("NoSatisfactionConflict", "Boolean", false,
 						"No Satisfaction Conflict", true));
 
 		syntaxGroupDependency.addModelingAttribute("Selected",
-				new SimulationAttribute("Selected", "Boolean", false,
+				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
 		syntaxGroupDependency.addModelingAttribute("PreferredSelected",
-				new SimulationAttribute("PreferredSelected", "Boolean", false,
+				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
 						"Select by Preferred", true));
 		syntaxGroupDependency.addModelingAttribute("ValidationSelected",
-				new SimulationAttribute("ValidationSelected", "Boolean", false,
+				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
 						"Selected by Validation", false));
 		syntaxGroupDependency.addModelingAttribute("SolverSelected",
-				new SimulationAttribute("SolverSelected", "Boolean", false,
+				new SimulationStateAttribute("SolverSelected", "Boolean", false,
 						"Selected by Solver", false));
 
 		syntaxGroupDependency.addModelingAttribute("Optional",
-				new SimulationAttribute("Optional", "Boolean", false,
+				new SimulationStateAttribute("Optional", "Boolean", false,
 						"*Is Optional*", false));
 
 		syntaxGroupDependency.addModelingAttribute("SimAllowed",
-				new SimulationAttribute("SimAllowed", "Boolean", false,
+				new SimulationStateAttribute("SimAllowed", "Boolean", false,
 						"Is Allowed", true));
 
 		syntaxGroupDependency.addDisPropVisibleAttribute("01#" + "SimRequired");
@@ -1243,7 +1243,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directSoftSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directSoftSemanticEdges.add(directSGSGSemEdge);
 
-		MetaDirectRelation metaSoftEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaSoftEdge = new MetaPairwiseRelation(
 				"Soft Relation", true, "Soft Relation", "ploptional",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cartinalities",
@@ -1258,7 +1258,7 @@ public class SemanticPlusSyntax {
 
 		// Group soft relation
 
-		syntaxGroupDependency = new MetaGroupDependency("SoftgoalGroupDep",
+		syntaxGroupDependency = new MetaOverTwoRelation("SoftgoalGroupDep",
 				true, "SoftgoalGroupDep", "plgroup",
 				"Direct relation between soft"
 						+ " concepts. Defines different types of relations"
@@ -1368,7 +1368,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directCVCGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directCVCGSemanticEdges.add(directCVCGSemanticEdge);
 
-		MetaDirectRelation metaVariableEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaVariableEdge = new MetaPairwiseRelation(
 				"Variable To Context Relation", true,
 				"Variable To Context Relation", "ploptional",
 				"Associates a Variable" + " with the Context Group", 50, 50,
@@ -1379,7 +1379,7 @@ public class SemanticPlusSyntax {
 				metaVariableEdge);
 		syntaxElements.put("Variable To Context Relation", metaVariableEdge);
 
-		MetaDirectRelation metaContextEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
 				"Context To Context Relation", true,
 				"Context To Context Relation", "ploptional", "Associates a"
 						+ " Context Group with other Context Group", 50, 50,
@@ -1433,7 +1433,7 @@ public class SemanticPlusSyntax {
 		semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticOperClaimGroupRelation);
 
-		syntaxGroupDependency = new MetaGroupDependency(
+		syntaxGroupDependency = new MetaOverTwoRelation(
 				"OperClaimGD",
 				true,
 				"OperClaimGD",
@@ -1449,7 +1449,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directSDSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directSDSGSemanticEdges.add(directSDSGSemanticEdge);
 
-		MetaDirectRelation metaSDSGEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaSDSGEdge = new MetaPairwiseRelation(
 				"SDSGRelation",
 				true,
 				"SDSGRelation",
@@ -1468,7 +1468,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directClaimSGSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directClaimSGSemanticEdges.add(directClaimSGSemanticEdge);
 
-		MetaDirectRelation metaClaimSGEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaClaimSGEdge = new MetaPairwiseRelation(
 				"Claim-Softgoal Relation",
 				true,
 				"Claim-Softgoal Relation",
@@ -1533,7 +1533,7 @@ public class SemanticPlusSyntax {
 		semanticRelations = new ArrayList<IntSemanticGroupDependency>();
 		semanticRelations.add(semanticAssetOperGroupRelation);
 
-		syntaxGroupDependency = new MetaGroupDependency("AssetOperGroupDep",
+		syntaxGroupDependency = new MetaOverTwoRelation("AssetOperGroupDep",
 				true, "AssetOperGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of an operationalization by a group of assets", 20,
@@ -1547,7 +1547,7 @@ public class SemanticPlusSyntax {
 		List<IntDirectSemanticEdge> directAssetOperSemanticEdges = new ArrayList<IntDirectSemanticEdge>();
 		directAssetOperSemanticEdges.add(directAssetOperSemanticEdge);
 
-		MetaDirectRelation metaOperEdge = new MetaDirectRelation(
+		MetaPairwiseRelation metaOperEdge = new MetaPairwiseRelation(
 				"Asset To Oper Relation", true, "Asset To Oper Relation",
 				"ploptional", "Represents the "
 						+ "implementation of an operationzalization by an"

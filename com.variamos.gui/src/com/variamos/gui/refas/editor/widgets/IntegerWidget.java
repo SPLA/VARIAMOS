@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * A class to support integer widgets on the interface. Copied on BooleanWidget
@@ -32,14 +32,14 @@ public class IntegerWidget extends WidgetR {
 	}
 	
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsInteger() ));
 		revalidate();
 		repaint();
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		int val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

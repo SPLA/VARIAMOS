@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * A class to support boolean widgets on the interface. Copied on BooleanWidget
@@ -44,7 +44,7 @@ public class BooleanWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		chkValue.setText(String.valueOf(v.getIdentifier()));
 		chkValue.setSelected(v.getAsBoolean());
 
@@ -53,7 +53,7 @@ public class BooleanWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		v.setValue(chkValue.isSelected());
 	}
 

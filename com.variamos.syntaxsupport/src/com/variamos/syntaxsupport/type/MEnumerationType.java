@@ -1,10 +1,5 @@
 package com.variamos.syntaxsupport.type;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationAttribute;
-
 /**
  * A class to represent an enumeration dynamically loaded attribute for
  * multiselection. Inspired on other ProductLine types. Part of PhD work at
@@ -28,22 +23,22 @@ public class MEnumerationType extends Type {
 	// return obj instanceof Integer;
 	// }
 
-	@Override
-	public AbstractAttribute makeAttribute(String name,
+	//@Override
+/*	public AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new AbstractAttribute(name, getIdentifier(), affectProperties,
 				displayName, 0);
 	}
-
+/*
 	public static SemanticAttribute newSemanticAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new SemanticAttribute(name, IDENTIFIER, affectProperties,
 				displayName, 0);
 	}
 
-	public static SimulationAttribute newSimulationAttribute(String name,
+	public static SimulationStateAttribute newSimulationAttribute(String name,
 			boolean affectProperties, String displayName) {
-		return new SimulationAttribute(name, IDENTIFIER, affectProperties,
+		return new SimulationStateAttribute(name, IDENTIFIER, affectProperties,
 				displayName, 0);
 	}
 
@@ -52,4 +47,5 @@ public class MEnumerationType extends Type {
 		return new ModelingAttribute(name, IDENTIFIER, affectProperties,
 				displayName, 0);
 	}
+	*/
 }

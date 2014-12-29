@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 
 /**
  * A class to support string widgets on the interface. Copied from StringWidget
@@ -33,14 +33,14 @@ public class StringWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		txtValue.setText( (String) v.getValue() );
 		revalidate();
 		repaint();
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		v.setValue(txtValue.getText());
 	}
 

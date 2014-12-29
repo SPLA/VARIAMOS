@@ -20,7 +20,7 @@ import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.transformations.OrBooleanTransformation;
 import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
@@ -77,13 +77,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 
 	private void defineTransformations() {
 
-		MetaGroupDependency metaGroupDep = instGroupDependency
+		MetaOverTwoRelation metaGroupDep = instGroupDependency
 				.getMetaGroupDependency();
 		boolean targetActiveAttribute =false;
 		if (instGroupDependency
 				.getTargetRelations().size() > 0)
-			targetActiveAttribute = (boolean) instGroupDependency
-				.getTargetRelations().get(0).getTargetRelation().getInstAttribute("Active")
+			targetActiveAttribute = (boolean) ((InstEdge)instGroupDependency
+				.getTargetRelations().get(0)).getTargetRelation().getInstAttribute("Active")
 				.getValue(); 
 		if (targetActiveAttribute
 				&& metaGroupDep != null
@@ -98,13 +98,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			for (String sourceName : instGroupDependency
 					.getSourceAttributeNames()) {
 				AbstractTransformation abstractTransformation = null;
-				Iterator<InstEdge> instEdges1 = instGroupDependency
+				Iterator<InstElement> instEdges1 = instGroupDependency
 						.getSourceRelations().iterator();
 				AbstractTransformation recursiveExpression1 = null;
 				AbstractTransformation recursiveExpression2 = null;
 				if (instEdges1.hasNext()) {
-					InstEdge left1 = instEdges1.next();
-					while ((boolean) left1.getSourceRelation()
+					InstElement left1 = instEdges1.next();
+					while ((boolean) ((InstEdge)left1).getSourceRelation()
 							.getInstAttribute("Active").getValue() == false) {
 						if (instEdges1.hasNext())
 							left1 = instEdges1.next();
@@ -123,12 +123,12 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						break;
 					case range:
 						abstractTransformation = new SumNumericTransformation();
-						Iterator<InstEdge> instEdges2 = instGroupDependency
+						Iterator<InstElement> instEdges2 = instGroupDependency
 								.getSourceRelations().iterator();
 						// instEdges2.next(); // TODO eliminate duplicated edges
 						// from collection and remove this
 						// line
-						InstEdge left2 = instEdges2.next();
+						InstElement left2 = instEdges2.next();
 						Constructor<?> constructor3 = null,
 						constructor4 = null;
 						try {
@@ -235,14 +235,14 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 
 	//TODO refactor createExpression
 	private AbstractTransformation transformation(Constructor<?> constructor1,
-			Constructor<?> constructor2, Iterator<InstEdge> instEdges,
-			InstEdge left, String sourceName) {
+			Constructor<?> constructor2, Iterator<InstElement> instEdges,
+			InstElement left, String sourceName) {
 		// instEdges.next(); // TODO eliminate duplicated edges from collection
 		// and
 		// remove this line
 		if (instEdges.hasNext()) {
-			InstEdge instEdge = instEdges.next();
-			while ((boolean) instEdge.getSourceRelation()
+			InstElement instEdge = instEdges.next();
+			while ((boolean) ((InstEdge) instEdge).getSourceRelation()
 					.getInstAttribute("Active").getValue() == false) {
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
@@ -251,13 +251,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					// with one
 					// element
 					return new AndBooleanTransformation(
-							left.getSourceRelation(), left.getSourceRelation(),
+							((InstEdge)left).getSourceRelation(), ((InstEdge)left).getSourceRelation(),
 							sourceName, sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {
 					return (AbstractTransformation) constructor1.newInstance(
-							left.getSourceRelation(),
+							((InstEdge)left).getSourceRelation(),
 							sourceName,
 							true,
 							transformation(constructor1, constructor2,
@@ -269,8 +269,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			} else
 				try {
 					return (AbstractTransformation) constructor2.newInstance(
-							left.getSourceRelation(),
-							instEdge.getSourceRelation(), sourceName,
+							((InstEdge)left).getSourceRelation(),
+							((InstEdge)instEdge).getSourceRelation(), sourceName,
 							sourceName);
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
@@ -279,8 +279,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		} else
 			// TODO define a cleaner way to deal with group relations with one
 			// element
-			return new AndBooleanTransformation(left.getSourceRelation(),
-					left.getSourceRelation(), sourceName, sourceName);
+			return new AndBooleanTransformation(((InstEdge)left).getSourceRelation(),
+					((InstEdge)left).getSourceRelation(), sourceName, sourceName);
 		return null;
 	}
 }

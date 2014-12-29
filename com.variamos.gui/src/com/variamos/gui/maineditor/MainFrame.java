@@ -31,9 +31,11 @@ public class MainFrame extends JFrame {
 
 
 	private List<VariamosGraphEditor> graphEditors;
+	private List<RefasMenuBar>editorsMenu;
 
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
+		editorsMenu = new ArrayList<RefasMenuBar>();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
 		this.setTitle(perspectiveTitle + " - " + appTitle);
@@ -74,14 +76,17 @@ public class MainFrame extends JFrame {
 			
 			}
 			refasGraph = new RefasGraph(sematicSyntaxObject);
+			
 			VariamosGraphEditor editor  = new VariamosGraphEditor(this, 
 					new VariamosGraphComponent(refasGraph, bgColor),i+1,abstractModel);
 			editor.setGraphEditorFunctions (new RefasGraphEditorFunctions(editor));
 
 			graphEditors.add(editor);
+
+			editorsMenu.add(new RefasMenuBar(graphEditors.get(i)));
 			editor.updateView();
 		}
-		this.setJMenuBar(new RefasMenuBar(graphEditors.get(2)));
+		
 		this.add(graphEditors.get(1));
 		this.setVisible(true);
 	}
@@ -94,6 +99,7 @@ public class MainFrame extends JFrame {
 	{
 		this.getRootPane().getContentPane().removeAll();
 		this.add(graphEditors.get(perspective-1));
+		this.setJMenuBar(editorsMenu.get(perspective-1));
 		this.revalidate();
 		this.repaint();
 	}

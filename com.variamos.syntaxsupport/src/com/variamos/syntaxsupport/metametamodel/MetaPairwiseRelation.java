@@ -19,7 +19,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
  * @see com.variamos.syntaxsupport.metametamodel.MetaEdge
  * @see com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge
  */
-public class MetaDirectRelation extends MetaEdge {
+public class MetaPairwiseRelation extends MetaEdge {
 	/**
 	 * 
 	 */
@@ -68,11 +68,11 @@ public class MetaDirectRelation extends MetaEdge {
 			 */
 			VAR_METAGENERALCONSTRAINTNAME = "Constraint Expression";
 
-	public MetaDirectRelation() {
+	public MetaPairwiseRelation() {
 		createModelingAttributes();
 	}
 
-	public MetaDirectRelation(String identifier, boolean visible, String name,
+	public MetaPairwiseRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height, String image,
 			int borderStroke, MetaVertex origin, MetaVertex destination,
 			List<IntDirectSemanticEdge> semanticRelations,
@@ -86,7 +86,7 @@ public class MetaDirectRelation extends MetaEdge {
 		 createModelingAttributes();
 	}
 
-	public MetaDirectRelation(String identifier, boolean visible, String name,
+	public MetaPairwiseRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height, String image,
 			int borderStroke, List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,

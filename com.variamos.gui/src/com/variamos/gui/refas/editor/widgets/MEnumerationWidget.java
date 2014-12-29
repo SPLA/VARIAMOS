@@ -11,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.type.MEnumerationType;
 
@@ -38,13 +39,14 @@ public class MEnumerationWidget extends WidgetR {
 	}
 	
 	@Override
-	public void configure(InstAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
+	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = MEnumerationType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
+		InstAttribute instAttribute = (InstAttribute)v;
 	    try {
-	    	aClass = classLoader.loadClass(v.getAttribute().getClassCanonicalName());
+	    	aClass = classLoader.loadClass(instAttribute.getAttribute().getClassCanonicalName());
 	        //System.out.println("aClass.getName() = " + aClass.getName());
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();
@@ -65,7 +67,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 	
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		if (v.getValue() instanceof int[])
 			txtValue.setSelectedIndices((int[])v.getValue() );
 		revalidate();
@@ -73,13 +75,15 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		v.setValue(txtValue.getSelectedIndices());
 		String out = "";
 		List<String> tmp = txtValue.getSelectedValuesList();
 		for (String str : tmp)
 			out += str+";";
-		v.displayValue(out);
+
+		InstAttribute instAttribute = (InstAttribute)v;
+		instAttribute.displayValue(out);
 	}
 
 	@Override

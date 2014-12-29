@@ -3,7 +3,6 @@ package com.variamos.syntaxsupport.metamodel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
@@ -30,7 +29,7 @@ public class InstEnumeration extends InstVertex {
 	 */
 	private static final long serialVersionUID = 188655707058755882L;
 	public static final String VAR_METAENUMIDE = "MetaEnumIde";
-	private MetaEnumeration metaEnumeration;
+	private MetaVertex metaEnumeration;
 
 	public InstEnumeration() {
 		super("");
@@ -42,14 +41,15 @@ public class InstEnumeration extends InstVertex {
 		createInstAttributes();
 	}
 
-	public InstEnumeration(MetaEnumeration metaEnumeration, MetaElement metaElement) {
+	public InstEnumeration(MetaVertex metaEnumeration,
+			MetaElement editableMetaElement) {
 		super("");
-		setEditableMetaElement(metaElement);
+		setEditableMetaElement(editableMetaElement);
 		setMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
-	
-	public InstEnumeration(String identifier, MetaEnumeration metaEnumeration,
+
+	public InstEnumeration(String identifier, MetaVertex metaEnumeration,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstEdge> relations) {
 		super(identifier, attributes, relations);
@@ -57,27 +57,35 @@ public class InstEnumeration extends InstVertex {
 		createInstAttributes();
 	}
 
-	public InstEnumeration(String identifier, MetaEnumeration metaEnumeration) {
+	public InstEnumeration(String identifier, MetaVertex metaEnumeration) {
 		super(identifier);
 		setMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
+	public InstEnumeration(String identifier, MetaVertex metaEnumeration,
+			MetaElement editableMetaElement) {
+		super(identifier);
+		setEditableMetaElement(editableMetaElement);
+		setMetaVertex(metaEnumeration);
+		createInstAttributes();
+	}
+
 	public Object getVariable(String name) {
-		return vars.get(name);
+		return vars.get(name);	
 	}
 
 	public void setVariable(String name, MetaEnumeration value) {
 		vars.put(name, value);
 	}
 
-	public MetaEnumeration getMetaEnumeration() {
+	public MetaVertex getMetaEnumeration() {
 		return metaEnumeration;
 	}
 
-	private void createInstAttributes() {
+	protected void createInstAttributes() {
 		Iterator<String> modelingAttributes = getMetaEnumeration()
-				.getModelingAttributes().iterator();
+				.getModelingAttributesNames().iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
@@ -112,7 +120,7 @@ public class InstEnumeration extends InstVertex {
 		return (String) vars.get(VAR_METAENUMIDE);
 	}
 
-	public String toString() { // TODO move partially to superclass
+	public String toStringOld() { // TODO move partially to superclass
 		String out = "";
 		if (getMetaEnumeration() != null) {
 			Set<String> visibleAttributesNames = getMetaEnumeration()
@@ -168,8 +176,8 @@ public class InstEnumeration extends InstVertex {
 							else {
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
-								if (instAttribute.getModelingAttributeType()
-										.equals("Set"))
+								if (instAttribute.getAttributeType().equals(
+										"Set"))
 									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 											.getValue())
 										out += e.toString().trim() + "\n";
@@ -212,16 +220,18 @@ public class InstEnumeration extends InstVertex {
 	}
 
 	public void setMetaVertex(MetaVertex metaEnumeration) {
-		this.metaEnumeration = (MetaEnumeration) metaEnumeration;
+		this.metaEnumeration = metaEnumeration;
 		setVariable(VAR_METAENUMIDE, metaEnumeration.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
+		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
 
 		// createInstAttributes();
 	}
 
 	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
 		setVariable(VAR_METAENUMIDE, metaEnumerationIdentifier);
+		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
 		// createInstAttributes();
 	}
 

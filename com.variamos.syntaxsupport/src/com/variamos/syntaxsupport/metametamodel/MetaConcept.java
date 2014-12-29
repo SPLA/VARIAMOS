@@ -30,7 +30,7 @@ public class MetaConcept extends MetaVertex {
 
 	public MetaConcept() {
 		super();
-
+		this.metaExtendsRelations = new ArrayList<MetaExtends>();
 	}
 
 	public MetaConcept(String identifier, boolean visible, String name,
@@ -156,13 +156,13 @@ public class MetaConcept extends MetaVertex {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getModelingAttributes() {
+	public Set<String> getModelingAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(super.getModelingAttributes());
+		modelingAttributesNames.addAll(super.getModelingAttributesNames());
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaDirectRelation = metaExtendsRelations.get(i);
 			modelingAttributesNames.addAll(metaDirectRelation.getDestination()
-					.getModelingAttributes());
+					.getModelingAttributesNames());
 
 		}
 		return modelingAttributesNames;
@@ -170,7 +170,7 @@ public class MetaConcept extends MetaVertex {
 
 	public Set<String> getSemanticAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(semanticConcept.getSemanticAttributes());
+		modelingAttributesNames.addAll(semanticConcept.getSemanticAttributesNames());
 		for (int i = 0; i < metaExtendsRelations.size(); i++) {
 			MetaExtends metaDirectRelation = metaExtendsRelations.get(i);
 			modelingAttributesNames.addAll(metaDirectRelation.getDestination()

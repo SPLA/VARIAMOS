@@ -17,7 +17,7 @@ import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
  * @see com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency
  */
 public interface IntSemanticGroupDependency   extends Serializable{
-	public Set<String> getSemanticAttributes();
+	public Set<String> getSemanticAttributesNames();
 	public Set<String> getSimulationAttributes();
 	public List<String> getDisPropVisibleAttributes();
 	public List<String> getDisPropEditableAttributes();

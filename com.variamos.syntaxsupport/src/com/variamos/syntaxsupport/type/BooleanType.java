@@ -1,7 +1,5 @@
 package com.variamos.syntaxsupport.type;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-
 /**
  * A class to represent a boolean dynamically loaded attribute. Based on
  * BooleanType of ProductLine. Part of PhD work at University of Paris 1
@@ -19,8 +17,8 @@ public class BooleanType extends Type {
 		super(IDENTIFIER);
 	}
 
-	@Override
-	public AbstractAttribute makeAttribute(String name,
+	//@Override
+/*	public AbstractAttribute makeAttribute(String name,
 			boolean affectProperties, String displayName) {
 		return new AbstractAttribute(name, getIdentifier(), affectProperties,
 				displayName, false);
@@ -31,5 +29,5 @@ public class BooleanType extends Type {
 		return new AbstractAttribute(name, IDENTIFIER, affectProperties,
 				displayName, false);
 	}
-
+*/
 }

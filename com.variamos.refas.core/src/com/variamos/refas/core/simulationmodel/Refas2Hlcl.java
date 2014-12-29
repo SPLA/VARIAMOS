@@ -37,9 +37,9 @@ import com.variamos.refas.core.transformations.SumNumericTransformation;
 import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaDirectRelation;
+import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
@@ -167,7 +167,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String attribute = split[1];
 			InstElement vertex = refas.getElement(vertexId);
 			System.out.println(vertexId+" "+attribute	);
-			if (vertex.getInstAttribute(attribute).getModelingAttributeType()
+			if (vertex.getInstAttribute(attribute).getAttributeType()
 					.equals("Boolean"))
 
 				if (prologOut.get(identifier).intValue() == 1)
@@ -183,7 +183,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					+ attribute
 					+ " "
 					+ vertex.getInstAttribute(attribute)
-							.getModelingAttributeType() + "; ");
+							.getAttributeType() + "; ");
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -30,19 +31,22 @@ import com.mxgraph.canvas.mxGraphicsCanvas2D;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxGraphLayout;
+import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
+import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.variamos.core.refas.Refas;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metametamodel.MetaGroupDependency;
+import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
@@ -50,10 +54,11 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEdge;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstView;
 
 public class RefasGraph extends AbstractGraph {
-	
 
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
@@ -85,30 +90,143 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void defineInitialGraph() {
-		List<MetaView> metaViews = semanticPlusSyntax.getMetaViews();
-
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
-		for (int i = 0; i < metaViews.size(); i++) {
-			mxCell parent = new mxCell("mv" + i);
-			addCell(parent);
-			MetaView metaView = metaViews.get(i);
-			if (metaView.getChildViews().size() > 0) {
-				addCell(new mxCell("mv" + i), parent); // Add the parent as
-														// first child
-				for (int j = 0; j < metaView.getChildViews().size(); j++) {
-					addCell(new mxCell("mv" + i + "-" + j), parent);
+		Collection views;
+		if (refas.getSyntaxRefas() == null)
+			views = semanticPlusSyntax.getMetaViews();
+		else {
+			views = refas.getSyntaxRefas().getInstViews();
+			int pos = 0;
+			if (views.size() == 0) {
+				for (InstVertex instVertex : refas.getVertices()) {
+					mxCell child = new mxCell(instVertex.getIdentifier());
+					addCell(child);
+					String id = instVertex.getIdentifier();
+					child.setValue(instVertex);
+					child.setVisible(true);
+					child.setStyle(instVertex.getMetaVertex().getStyle());
+					child.setGeometry(new mxGeometry(50 +pos*3, 50 +pos*3, 120, 100));
+					child.setVertex(true);
+					mxGraphModel model = (mxGraphModel) getModel();
+					model.getCells().remove(child.getId());
+					model.getCells().put(id, child);
+					child.setId(id);
+					pos++;
+
+				}
+				for (InstView instView : refas.getInstViews()) {
+					if (instView.getChildViews().size() == 0)
+					{
+					mxCell child = new mxCell(instView.getIdentifier());
+					addCell(child);
+					String id = instView.getIdentifier();
+					child.setValue(instView);
+					child.setVisible(true);
+					child.setStyle(instView.getMetaView().getStyle());
+					child.setGeometry(new mxGeometry(50+pos*3, 50+pos*3, 120, 40));
+					child.setVertex(true);
+					mxGraphModel model = (mxGraphModel) getModel();
+					model.getCells().remove(child.getId());
+					model.getCells().put(id, child);
+					child.setId(id);
+					pos++;
+					}
+					for (InstView instChildView : instView.getChildViews()) {
+						mxCell child2 = new mxCell(
+								instChildView.getIdentifier());
+						addCell(child2);
+						String id2 = instChildView.getIdentifier();
+						child2.setValue(instChildView);
+						child2.setVisible(true);
+						child2.setStyle(instChildView.getMetaView().getStyle());
+						child2.setGeometry(new mxGeometry(50+pos*3, 50+pos*3, 120, 40));
+						child2.setVertex(true);
+						mxGraphModel model2 = (mxGraphModel) getModel();
+						model2.getCells().remove(child2.getId());
+						model2.getCells().put(id2, child2);
+						child2.setId(id2);
+						pos++;
+
+					}
+				}
+
+				for (InstEdge instEdge : refas
+						.getConstraintInstEdgesCollection()) {
+					if (instEdge.getSourceRelation() != null
+							&& instEdge.getIdentifier() != null
+							&& !instEdge.getIdentifier().equals("")) {
+						mxCell child = new mxCell(instEdge.getIdentifier());
+						addCell(child);
+						String i = instEdge.getSourceRelation().getIdentifier();
+						mxCell source = this.getCellById(instEdge
+								.getSourceRelation().getIdentifier());
+						mxCell target = this.getCellById(instEdge
+								.getTargetRelation().getIdentifier());
+						child.setSource(source);
+						child.setTarget(target);
+						child.setValue(instEdge);
+						mxGeometry geo = new mxGeometry();
+						String id = instEdge.getIdentifier();
+						source.insertEdge(child, true);
+						target.insertEdge(child, false);
+						child.setGeometry(geo);
+						child.setVisible(true);
+						child.setVertex(false);
+						child.setEdge(true);
+						child.setStyle("");
+						mxGraphModel model = (mxGraphModel) getModel();
+						model.getCells().remove(child.getId());
+						model.getCells().put(id, child);
+						child.setId(id);
+					}
 				}
 			}
 		}
+		int i = 0;
+		for (Object view : views) {
+			mxCell parent = new mxCell("mv" + i);
+			addCell(parent);
+			if (refas.getSyntaxRefas() == null) {
+				MetaView metaView = (MetaView) view;
+				if (metaView.getChildViews().size() > 0) {
+					addCell(new mxCell("mv" + i), parent); // Add the parent as
+															// first child
+					for (int j = 0; j < metaView.getChildViews().size(); j++) {
+						addCell(new mxCell("mv" + i + "-" + j), parent);
+					}
+				}
+			} else {
+				InstView instView = (InstView) view;
+				if (instView.getChildViews().size() > 0) {
+					mxCell childParent = new mxCell("mv" + i);
+					addCell(childParent, parent); // Add the parent as
+													// first child
+					for (int j = 0; j < instView.getChildViews().size(); j++) {
+						/*
+						 * InstView instchildView = instView.getChildViews()
+						 * .get(j); for (InstVertex instVertex : instchildView
+						 * .getInstVertices()) { mxCell child = new mxCell(
+						 * instVertex.getIdentifier());
+						 * child.setValue(instVertex); child.setVisible(true);
+						 * addCell(child, childParent); }
+						 */
+						addCell(new mxCell("mv" + i + "-" + j), parent);
+					}
+				}
+			}
+			i++;
+		}
+
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
 		if (refas.getSyntaxRefas() == null)
 			return semanticPlusSyntax.modelElements(modelView, modelSubView);
 		else
-			return refas.getSyntaxRefas().modelElements(modelView,modelSubView);
+			return refas.getSyntaxRefas()
+					.modelElements(modelView, modelSubView);
 	}
 
 	String getResource(String rsc) {
@@ -146,7 +264,7 @@ public class RefasGraph extends AbstractGraph {
 		String filename = RefasGraph.class.getResource(
 				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 		Document doc;
-		//System.out.println(filename);
+		// System.out.println(filename);
 
 		// String s =
 		// getResource("com/variamos/gui/refas/editor/style/shapes.xml");
@@ -190,27 +308,23 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
-		InstVertex source = (InstVertex) cell.getSource().getValue();
-		InstVertex target = (InstVertex) cell.getTarget().getValue();
+		InstElement source = (InstElement) cell.getSource().getValue();
+		InstElement target = (InstElement) cell.getTarget().getValue();
 		String id = null;
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-		if (cell.getValue() instanceof InstEdge)
-		{
-		InstEdge element = (InstEdge) cell.getValue();
-		String elementIdentifier = element.getIdentifier();
-		if (elementIdentifier != null && !"".equals(elementIdentifier))
-			return false;
+		if (cell.getValue() instanceof InstEdge) {
+			InstEdge element = (InstEdge) cell.getValue();
+			String elementIdentifier = element.getIdentifier();
+			if (elementIdentifier != null && !"".equals(elementIdentifier))
+				return false;
 		}
 		InstEdge directRelation = new InstEdge(map);
 		Refas refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
-		source.addTargetRelation(directRelation);
-		target.addSourceRelation(directRelation);
-
-		directRelation.setSourceRelation(source);
-		directRelation.setTargetRelation(target);
+		source.addTargetRelation(directRelation, true);
+		target.addSourceRelation(directRelation, true);
 
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		mxGraphModel model = refasGraph;
@@ -238,88 +352,120 @@ public class RefasGraph extends AbstractGraph {
 			String elementIdentifier = null;
 			Refas pl = getRefas();
 			Object cellValue = cell.getValue();
-
-			if (cellValue instanceof InstVertex) {
-				InstVertex element = (InstVertex) cellValue;
-				elementIdentifier = element.getIdentifier();
-				if (elementIdentifier != null && !"".equals(elementIdentifier))
-					return false;
-				if (cellValue instanceof InstGroupDependency)
-					id = pl.addNewInstGroupDependency((InstGroupDependency)element);
-				else if (cellValue instanceof InstEnumeration)
-					id = pl.addNewOtherInstElement(element);
-				else
-				id = pl.addNewVariabilityInstElement(element);
-			}
-
-			else {
-				elementIdentifier = ((Constraint) cellValue).getIdentifier();
-				if (elementIdentifier != null && !"".equals(elementIdentifier))
-					return false;
-				// id = pl.addConstraint(constraint);
-			}
-
-			if (id != null) {
-
-				// Move the element to the appropiate View - clone if necessary
-				// in multiple views
-				mxGraphModel refasGraph = (mxGraphModel) getModel();
-				Object o = refasGraph.getRoot(); // Main Root
-				Object o1 = refasGraph.getChildAt(o, 0); // Null Root
-				Object mv0 = null;
-				mxGraphModel model = refasGraph;
-				model.getCells().remove(cell.getId());
-				if (modelViewSubIndex != -1) {
-					o1 = refasGraph.getChildAt(o1, modelViewIndex); // Parent
-																	// View
-					mv0 = refasGraph.getChildAt(o1, modelViewSubIndex);
-
-					model.getCells()
-							.put(modelViewIndex + id + "-" + modelViewSubIndex,
-									cell);
-					cell.setId(modelViewIndex + id + "-" + modelViewSubIndex);
-				} else if (modelViewIndex != -1) {
-					mv0 = refasGraph.getChildAt(o1, modelViewIndex);
-					model.getCells().put(modelViewIndex + id, cell);
-					cell.setId(modelViewIndex + id);
-				}
-				else
-				{
-					mv0 = o1;
-					model.getCells().put( id, cell);
-					cell.setId(id);
+			if (cell.getGeometry() != null) {
+				if (cellValue instanceof InstVertex) {
+					InstVertex element = (InstVertex) cellValue;
+					elementIdentifier = element.getIdentifier();
+					if (elementIdentifier != null
+							&& !"".equals(elementIdentifier))
+						return false;
+					if (cellValue instanceof InstGroupDependency)
+						id = pl.addNewInstGroupDependency((InstGroupDependency) element);
+					else if (cellValue instanceof InstEnumeration)
+						id = pl.addNewOtherInstElement(element);
+					else
+						id = pl.addNewVariabilityInstElement(element);
 				}
 
-				parent.remove(index); // Remove from original position
-				model.add(mv0, cell, 0); // Add to the parent according to the
-											// model
-				if (cellValue instanceof AbstractElement
-						|| cellValue instanceof InstVertex) {
-					String name = null;
-					if (cellValue instanceof AbstractElement)
-						name = cellValue.getClass().getSimpleName();
-					else {
-						if (cellValue instanceof InstConcept) {
-							InstConcept c = (InstConcept) cellValue;
-							name = c.getMetaConcept().getIdentifier();
-						}
-						if (cellValue instanceof InstGroupDependency) {
-							InstGroupDependency c = (InstGroupDependency) cellValue;
-							name = c.getMetaGroupDependency().getIdentifier();
-						}
+				else {
+					elementIdentifier = ((Constraint) cellValue)
+							.getIdentifier();
+					if (elementIdentifier != null
+							&& !"".equals(elementIdentifier))
+						return false;
+					// id = pl.addConstraint(constraint);
+				}
+
+				if (id != null) {
+
+					// Move the element to the appropiate View - clone if
+					// necessary
+					// in multiple views
+					mxGraphModel refasGraph = (mxGraphModel) getModel();
+					Object o = refasGraph.getRoot(); // Main Root
+					Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+					Object mv0 = null;
+					mxGraphModel model = refasGraph;
+					model.getCells().remove(cell.getId());
+					if (modelViewSubIndex != -1) {
+						o1 = refasGraph.getChildAt(o1, modelViewIndex); // Parent
+																		// View
+						mv0 = refasGraph.getChildAt(o1, modelViewSubIndex);
+
+						model.getCells().put(
+								modelViewIndex + id + "-" + modelViewSubIndex,
+								cell);
+						cell.setId(modelViewIndex + id + "-"
+								+ modelViewSubIndex);
+					} else if (modelViewIndex != -1) {
+						mv0 = refasGraph.getChildAt(o1, modelViewIndex);
+						model.getCells().put(modelViewIndex + id, cell);
+						cell.setId(modelViewIndex + id);
+					} else {
+						mv0 = o1;
+						model.getCells().put(id, cell);
+						cell.setId(id);
 					}
-					o1 = refasGraph.getChildAt(o, 0); // Null Root
-					for (int i = 0; i < refasGraph.getChildCount(o1); i++) {
-						mxCell mv1 = (mxCell) refasGraph.getChildAt(o1, i);
-						if (refasGraph.getChildCount(mv1) > 0
-								&& mv1.getValue().equals(
-										mv1.getChildAt(0).getValue())) {
-							for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
-								mxCell mv2 = (mxCell) refasGraph.getChildAt(
-										mv1, j);
+
+					parent.remove(index); // Remove from original position
+					model.add(mv0, cell, 0); // Add to the parent according to
+												// the
+												// model
+					if (cellValue instanceof AbstractElement
+							|| cellValue instanceof InstVertex) {
+						String name = null;
+						if (cellValue instanceof AbstractElement)
+							name = cellValue.getClass().getSimpleName();
+						else {
+							if (cellValue instanceof InstConcept) {
+								InstConcept c = (InstConcept) cellValue;
+								name = c.getMetaConcept().getIdentifier();
+							}
+							if (cellValue instanceof InstGroupDependency) {
+								InstGroupDependency c = (InstGroupDependency) cellValue;
+								name = c.getMetaGroupDependency()
+										.getIdentifier();
+							}
+						}
+						o1 = refasGraph.getChildAt(o, 0); // Null Root
+						for (int i = 0; i < refasGraph.getChildCount(o1); i++) {
+							mxCell mv1 = (mxCell) refasGraph.getChildAt(o1, i);
+							if (refasGraph.getChildCount(mv1) > 0
+									&& mv1.getValue().equals(
+											mv1.getChildAt(0).getValue())) {
+								for (int j = 0; j < refasGraph
+										.getChildCount(mv1); j++) {
+									mxCell mv2 = (mxCell) refasGraph
+											.getChildAt(mv1, j);
+									if (semanticPlusSyntax.elementsValidation(
+											name, i, j)
+											&& (i != modelViewIndex || j != modelViewSubIndex)) {
+
+										mxCell c2 = null;
+										try {
+											c2 = (mxCell) cell.clone();
+										} catch (CloneNotSupportedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										c2.setId(i + id + "-" + j);
+										c2.setValue(cell.getValue());
+
+										getModel().setVisible(c2, false);
+										model.add(mv2, c2, mv2.getChildCount()); // Add
+																					// a
+																					// clone
+																					// to
+										// other
+										// models
+									}
+
+								}
+
+							} else {
+								// if (valid[i] && i != modelViewIndex) {
 								if (semanticPlusSyntax.elementsValidation(name,
-										i, j)
-										&& (i != modelViewIndex || j != modelViewSubIndex)) {
+										i, -1) && i != modelViewIndex) {
 
 									mxCell c2 = null;
 									try {
@@ -328,65 +474,41 @@ public class RefasGraph extends AbstractGraph {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									c2.setId(i + id + "-" + j);
+									c2.setId(i + id);
 									c2.setValue(cell.getValue());
 
 									getModel().setVisible(c2, false);
-									model.add(mv2, c2, mv2.getChildCount()); // Add
+									model.add(mv1, c2, mv1.getChildCount()); // Add
 																				// a
 																				// clone
 																				// to
-									// other
-									// models
+																				// other
 								}
 
-							}
-
-						} else {
-							// if (valid[i] && i != modelViewIndex) {
-							if (semanticPlusSyntax.elementsValidation(name, i,
-									-1) && i != modelViewIndex) {
-
-								mxCell c2 = null;
-								try {
-									c2 = (mxCell) cell.clone();
-								} catch (CloneNotSupportedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								c2.setId(i + id);
-								c2.setValue(cell.getValue());
-
-								getModel().setVisible(c2, false);
-								model.add(mv1, c2, mv1.getChildCount()); // Add
-																			// a
-																			// clone
-																			// to
-																			// other
 							}
 						}
 					}
+					this.refresh();
+					return true;
+				} else {
+					// If the element is not allowed in the View, is removed
+					mxGraphModel model = (mxGraphModel) getModel();
+					model.getCells().remove(cell.getId());
+					if (parent.getIndex(cell) == index)
+						parent.remove(index);
+					return false;
 				}
-				this.refresh();
-				return true;
-			} else {
-				// If the element is not allowed in the View, is removed
-				mxGraphModel model = (mxGraphModel) getModel();
-				model.getCells().remove(cell.getId());
-				if (parent.getIndex(cell) == index)
-					parent.remove(index);
-				return false;
-			}
+			} else
+				cell.setGeometry(new mxGeometry(50, 50, 100, 40));
 		}
 		return true;
 	}
 
-	protected void removingRefaElements (mxCell cell)
-	{
+	protected void removingRefaElements(mxCell cell) {
 		Object obj = cell.getValue();
 		refas.removeElement(obj);
 	}
-	
+
 	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
@@ -415,12 +537,15 @@ public class RefasGraph extends AbstractGraph {
 				}
 		}
 	}
-
 	public void setModel(AbstractModel pl) {
 		refas = (Refas) pl;
-		mxGraphLayout layout = new mxFastOrganicLayout(this);
-		layout.execute(getDefaultParent()); // todo change root?
 		defineInitialGraph();
+		try{
+		mxGraphLayout layout = new mxOrganicLayout(this);
+		layout.execute(getDefaultParent()); // todo change root?
+		}catch (Exception e)
+		{}
+		
 	}
 
 	public void showElements() {
@@ -723,7 +848,9 @@ public class RefasGraph extends AbstractGraph {
 	public void refreshVariable(EditableElement e) {
 
 		mxCell cell = null;
-		if (modelViewSubIndex == -1)
+		if (modelViewIndex == -1)
+			cell = getCellById(e.getIdentifier());
+		else if (modelViewSubIndex == -1)
 			cell = getCellById(modelViewIndex + e.getIdentifier());
 		else
 			cell = getCellById(modelViewIndex + e.getIdentifier() + "-"

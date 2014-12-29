@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -350,6 +352,7 @@ public class BasicGraphEditor extends JPanel {
 		// Stores a reference to the graph and creates the command history
 		graphComponent = component;
 
+		this.perspective = perspective;
 		undoManager();
 		modelsTabPane = new JTabbedPane();
 

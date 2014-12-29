@@ -24,11 +24,11 @@ public class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	VAR_IDENTIFIER = "identifier",
+	VAR_IDENTIFIER = "Identifier",
 			/**
 			 * 
 			 */
-	VAR_DESCRIPTION = "description";
+	VAR_DESCRIPTION = "Description";
 	/**
 	 * 
 	 */
@@ -104,8 +104,11 @@ public class MetaElement implements Serializable {
 
 	public MetaElement() {
 
-		modelingAttributes = new HashMap<String, AbstractAttribute>();
-
+		this("", true, "", "", "", 100, 40,
+				"", 1, new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>(),
+				new HashMap<String, AbstractAttribute>());
 		createModelingAttributes();
 	}
 
@@ -280,16 +283,20 @@ public class MetaElement implements Serializable {
 		disPanelSpacersAttributes.add(spacerAttribute);
 	}
 
-	public Set<String> getDeclaredModelingAttributes() {
+	public Set<String> getDeclaredModelingAttributesNames() {
 		return modelingAttributes.keySet();
 	}
 
-	public Set<String> getModelingAttributes() {
+	public Set<String> getModelingAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(modelingAttributes.keySet());
 		return modelingAttributesNames;
 	}
 
+	public Map<String,AbstractAttribute> getModelingAttributes() {
+		return modelingAttributes;
+	}
+	
 	public AbstractAttribute getDeclaredModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}
@@ -335,5 +342,10 @@ public class MetaElement implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+		
 	}
 }

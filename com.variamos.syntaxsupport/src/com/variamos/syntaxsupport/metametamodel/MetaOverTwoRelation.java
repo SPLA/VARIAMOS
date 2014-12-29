@@ -14,7 +14,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupRelationType
  *
  *         Definition of syntax for VariaMos
  */
-public class MetaGroupDependency extends MetaVertex {
+public class MetaOverTwoRelation extends MetaVertex {
 	/**
 	 * 
 	 */
@@ -40,12 +40,12 @@ public class MetaGroupDependency extends MetaVertex {
 					 */
 			VAR_SEMANTICGROUPDEPENDENCYCLASS = "com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency";
 
-	public MetaGroupDependency() {
+	public MetaOverTwoRelation() {
 		super();
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaGroupDependency(String identifier, boolean visible, String name,
+	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
@@ -66,7 +66,7 @@ public class MetaGroupDependency extends MetaVertex {
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaGroupDependency(String identifier, boolean visible, String name,
+	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
@@ -89,7 +89,7 @@ public class MetaGroupDependency extends MetaVertex {
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaGroupDependency(String identifier, boolean visible, String name,
+	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, boolean topConcept, String backgroundColor,
 			int borderStroke, boolean resizable,

@@ -18,7 +18,7 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  * @see com.variamos.refas.core.sematicsmetamodel.SemanticConcept
  */
 public interface IntSemanticConcept extends IntSemanticElement{
-	public Set<String> getSemanticAttributes();
+	public Set<String> getSemanticAttributesNames();
 	public Set<String> getSimulationAttributes();
 	public List<String> getDisPropVisibleAttributes();
 	public List<String> getDisPropEditableAttributes();

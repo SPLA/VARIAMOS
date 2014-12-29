@@ -20,7 +20,7 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
+import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -51,14 +51,15 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(InstAttribute v,
+	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
 		ClassLoader classLoader = MClassType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
+		InstAttribute instAttribute = (InstAttribute)v;
 		try {
-			aClass = classLoader.loadClass(v.getAttribute()
+			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
 			//System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
@@ -87,7 +88,7 @@ public class MClassWidget extends WidgetR {
 		}
 		if (aClass.equals(InstConcept.class)) {
 			concepts = new HashMap<String, InstConcept>();
-			List<InstConcept> list = getInstConcepts(v.getAttribute()
+			List<InstConcept> list = getInstConcepts(instAttribute.getAttribute()
 					.getMetaConceptInstanceType(), graph);
 
 			Set<InstConcept> set = new HashSet<InstConcept>();
@@ -134,7 +135,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(InstAttribute v) {
+	protected void pushValue(EditableElementAttribute v) {
 		if (v.getValue() instanceof int[]) {
 			@SuppressWarnings("unchecked")
 			List<Integer> values = (List<Integer>) v.getValue();
@@ -149,7 +150,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(InstAttribute v) {
+	protected void pullValue(EditableElementAttribute v) {
 		List<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = txtValue.getSelectedIndices();
 		for (int i = 0; i < valuesArray.length; i++)
@@ -159,7 +160,8 @@ public class MClassWidget extends WidgetR {
 		List<String> tmp = txtValue.getSelectedValuesList();
 		for (String str : tmp)
 			out += str + ";";
-		v.displayValue(out);
+		InstAttribute instAttribute = (InstAttribute)v;
+		instAttribute.displayValue(out);
 	}
 
 	@Override
