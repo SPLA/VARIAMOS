@@ -178,12 +178,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				else
 					vertex.getInstAttribute(attribute).setValue(
 							prologOut.get(i));
-			System.out.print(vertexId
+		/*	System.out.print(vertexId
 					+ " "
 					+ attribute
 					+ " "
 					+ vertex.getInstAttribute(attribute)
 							.getAttributeType() + "; ");
+							*/
 		}
 	}
 

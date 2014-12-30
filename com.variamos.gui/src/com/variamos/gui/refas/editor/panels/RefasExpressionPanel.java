@@ -282,12 +282,12 @@ public class RefasExpressionPanel extends JPanel {
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		if (element instanceof InstEdge) {
 			for (String attributeName : ((InstEdge) element)
-					.getSourceRelation().getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getSourceRelation()
+					.getSourceRelations().get(0).getInstAttributes().keySet())
+				combo.addItem(((InstEdge) element).getSourceRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
 			for (String attributeName : ((InstEdge) element)
-					.getTargetRelation().getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getTargetRelation()
+					.getTargetRelations().get(0).getInstAttributes().keySet())
+				combo.addItem(((InstEdge) element).getTargetRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
@@ -296,17 +296,17 @@ public class RefasExpressionPanel extends JPanel {
 		if (element instanceof InstGroupDependency) {
 			if (((InstGroupDependency) element).getTargetRelations().size() > 0)
 				for (String attributeName : ((InstEdge)((InstGroupDependency) element)
-						.getTargetRelations().get(0)).getTargetRelation()
+						.getTargetRelations().get(0)).getTargetRelations().get(0)
 						.getInstAttributes().keySet())
 					combo.addItem(((InstEdge)((InstGroupDependency) element)
-							.getTargetRelations().get(0)).getTargetRelation()
+							.getTargetRelations().get(0)).getTargetRelations().get(0)
 							.getIdentifier()
 							+ "_" + attributeName);
 			for (InstElement sourceRelation : ((InstGroupDependency) element)
 					.getSourceRelations())
-				for (String attributeName : ((InstEdge)sourceRelation).getSourceRelation()
+				for (String attributeName : ((InstEdge)sourceRelation).getSourceRelations().get(0)
 						.getInstAttributes().keySet())
-					combo.addItem(((InstEdge)sourceRelation).getSourceRelation()
+					combo.addItem(((InstEdge)sourceRelation).getSourceRelations().get(0)
 							.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);

@@ -83,13 +83,32 @@
 		<add as="editable" value="false"/>
 	</add>
 	
+		<add as="refasextends">
+		<!-- <add as="shape" value="connector"/> -->
+		<add as="endArrow" value="block"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="white" />
+		<add as="targetPerimeterSpacing" value="4" />
+		<add as="editable" value="false"/>
+	</add>
+	
+	<add as="refasview">
+		<!-- <add as="shape" value="connector"/> -->
+		<add as="endArrow" value="classic"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="black" />
+		<add as="strokeWidth" value="3" />
+		<add as="targetPerimeterSpacing" value="4" />
+		<add as="editable" value="false"/>
+	</add>
 	
 	<add as="refasgoal">
 		<add as="shape" value="rect-goal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
-		<add as="align" value="center"/>
+		<add as="align" value="center"/>		
+		<add as="fillColor" value="white" />
 		<add as="verticalAlign" value="middle"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
@@ -104,10 +123,11 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refasassump">
+		<add as="fillColor" value="white" />
 		<add as="shape" value="rect-str"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
-		<add as="fontSize" value="10"/>
+		<add as="fontSize" value="10"/>		
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
 		<add as="fillColor" value="#002060"/>

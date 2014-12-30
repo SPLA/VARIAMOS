@@ -18,13 +18,13 @@
 </shape>
 <shape name="rect-goal" aspect="variable">
 	<background aspect="fixed">
-		<strokewidth width="7"/>
+		<strokewidth width="6"/>
 		<path>
-			<move x="20" y="0"/>
-			<line x="100" y="0"/>
-			<line x="80" y="100"/>
-			<line x="0" y="100"/>
-			<line x="20" y="0"/>
+			<move x="20" y="15"/>
+			<line x="100" y="15"/>
+			<line x="80" y="85"/>
+			<line x="0" y="85"/>
+			<line x="20" y="15"/>
 			<close/>
 		</path>
 		<stroke/>

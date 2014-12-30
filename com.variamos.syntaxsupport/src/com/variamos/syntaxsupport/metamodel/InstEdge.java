@@ -206,16 +206,12 @@ public class InstEdge extends InstElement {
 
 	}
 
-	public void setSourceRelation(InstElement fromRelation, boolean firstCall) {
-		this.fromRelation = fromRelation;
-		if (firstCall)
-			fromRelation.addTargetRelation(this, false);
+	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
+		super.setSourceRelation(sourceRelation, firstCall);
 	}
 
-	public void setTargetRelation(InstElement toRelation, boolean firstCall) {
-		this.toRelation = toRelation;
-		if (firstCall)
-			toRelation.addSourceRelation(this, false);
+	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
+		super.setTargetRelation(targetRelation, firstCall);
 	}
 
 	public String getIdentifier() {
@@ -252,13 +248,13 @@ public class InstEdge extends InstElement {
 		return null;
 	}
 
-	public InstElement getSourceRelation() {
-		return fromRelation;
-	}
-
-	public InstElement getTargetRelation() {
-		return toRelation;
-	}
+//	public InstElement getSourceRelation() {
+//		return fromRelation;
+//	}
+//
+//	public InstElement getTargetRelation() {
+//		return toRelation;
+//	}
 
 	@Override
 	public List<InstAttribute> getEditableVariables() {
@@ -582,16 +578,16 @@ public class InstEdge extends InstElement {
 
 	public String getSourceInstAttributeIdentifier(String insAttributeId) {
 
-		return getSourceRelation().getIdentifier()
+		return getSourceRelations().get(0).getIdentifier()
 				+ "_"
-				+ getSourceRelation().getInstAttribute(insAttributeId)
+				+ getSourceRelations().get(0).getInstAttribute(insAttributeId)
 						.getIdentifier();
 	}
 
 	public String getTargetInstAttributeIdentifier(String insAttributeId) {
-		return getTargetRelation().getIdentifier()
+		return getTargetRelations().get(0).getIdentifier()
 				+ "_"
-				+ getTargetRelation().getInstAttribute(insAttributeId)
+				+ getTargetRelations().get(0).getInstAttribute(insAttributeId)
 						.getIdentifier();
 
 	}

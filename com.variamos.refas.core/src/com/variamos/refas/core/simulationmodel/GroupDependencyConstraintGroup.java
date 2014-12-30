@@ -83,7 +83,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		if (instGroupDependency
 				.getTargetRelations().size() > 0)
 			targetActiveAttribute = (boolean) ((InstEdge)instGroupDependency
-				.getTargetRelations().get(0)).getTargetRelation().getInstAttribute("Active")
+				.getTargetRelations().get(0)).getTargetRelations().get(0).getInstAttribute("Active")
 				.getValue(); 
 		if (targetActiveAttribute
 				&& metaGroupDep != null
@@ -104,7 +104,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 				AbstractTransformation recursiveExpression2 = null;
 				if (instEdges1.hasNext()) {
 					InstElement left1 = instEdges1.next();
-					while ((boolean) ((InstEdge)left1).getSourceRelation()
+					while ((boolean) ((InstEdge)left1).getSourceRelations().get(0)
 							.getInstAttribute("Active").getValue() == false) {
 						if (instEdges1.hasNext())
 							left1 = instEdges1.next();
@@ -242,7 +242,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstEdge) instEdge).getSourceRelation()
+			while ((boolean) ((InstEdge) instEdge).getSourceRelations().get(0)
 					.getInstAttribute("Active").getValue() == false) {
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
@@ -251,13 +251,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					// with one
 					// element
 					return new AndBooleanTransformation(
-							((InstEdge)left).getSourceRelation(), ((InstEdge)left).getSourceRelation(),
+							((InstEdge)left).getSourceRelations().get(0), ((InstEdge)left).getSourceRelations().get(0),
 							sourceName, sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {
 					return (AbstractTransformation) constructor1.newInstance(
-							((InstEdge)left).getSourceRelation(),
+							((InstEdge)left).getSourceRelations().get(0),
 							sourceName,
 							true,
 							transformation(constructor1, constructor2,
@@ -269,8 +269,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			} else
 				try {
 					return (AbstractTransformation) constructor2.newInstance(
-							((InstEdge)left).getSourceRelation(),
-							((InstEdge)instEdge).getSourceRelation(), sourceName,
+							((InstEdge)left).getSourceRelations().get(0),
+							((InstEdge)instEdge).getSourceRelations().get(0), sourceName,
 							sourceName);
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
@@ -279,8 +279,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		} else
 			// TODO define a cleaner way to deal with group relations with one
 			// element
-			return new AndBooleanTransformation(((InstEdge)left).getSourceRelation(),
-					((InstEdge)left).getSourceRelation(), sourceName, sourceName);
+			return new AndBooleanTransformation(((InstEdge)left).getSourceRelations().get(0),
+					((InstEdge)left).getSourceRelations().get(0), sourceName, sourceName);
 		return null;
 	}
 }

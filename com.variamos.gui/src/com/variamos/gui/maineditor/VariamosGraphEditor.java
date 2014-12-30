@@ -21,8 +21,6 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,6 +42,7 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -65,10 +64,8 @@ import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.gui.refas.editor.panels.AttributeEditionPanel;
 import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
 import com.variamos.gui.refas.editor.panels.EnumerationAttributeList;
-import com.variamos.gui.refas.editor.panels.PropertyAttributeList;
 import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
@@ -145,6 +142,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected int mode = 0;
 	private int tabIndex = 0, lastTabIndex = 0;
 	private Refas2Hlcl refas2hlcl;
+	private VariamosGraphEditor modelEditor;
 
 	public VariamosGraphEditor getEditor() {
 		return this;
@@ -390,7 +388,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void setVisibleModel(int modelIndex, int modelSubIndex) {
-		System.out.println(modelIndex + " " + modelSubIndex);
+		// System.out.println(modelIndex + " " + modelSubIndex);
 		modelViewIndex = modelIndex;
 		modelSubViewIndex = modelSubIndex;
 		RefasGraph mode = ((RefasGraph) getGraphComponent().getGraph());
@@ -1004,6 +1002,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 										"Simulation Execution Error",
 										JOptionPane.INFORMATION_MESSAGE, null);
 					}
+					((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(elm);
+					updateObjects();
 
 				}
 			});
@@ -1356,6 +1357,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void refreshPalette() {
 		int i = graphAndRight.getDividerLocation();
 		graphAndRight.setDividerLocation(i + 1);
+	}
+
+	public void setModelEditor(VariamosGraphEditor modelEditor) {
+		this.modelEditor = modelEditor;
+	}
+
+	public void updateObjects() {
+		if (perspective == 4) {
+			this.graphComponent.setGraph(modelEditor.getGraphComponent()
+					.getGraph());
+			
+		//	mxGraphModel.prototype.cloneCells
+			/*
+			 * Object parent =
+			 * modelEditor.getGraphComponent().getGraph().getDefaultParent();
+			 * modelEditor.getGraphComponent().getGraph().selectAll(); Object[]
+			 * all =
+			 * modelEditor.getGraphComponent().getGraph().getSelectionCells();
+			 * modelEditor.getGraphComponent().getGraph().addCell(all);
+			 * this.graphComponent.getGraph().selectAll();
+			 * this.graphComponent.getGraph().addCells(all);
+			 */}
+
 	}
 
 }

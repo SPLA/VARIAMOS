@@ -333,4 +333,15 @@ public abstract class InstElement implements Serializable, EditableElement {
 			}
 		}
 	}
+
+	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
+		targetRelations.clear();
+		addTargetRelation(targetRelation, firstCall);
+
+	}
+
+	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
+		sourceRelations.clear();
+		addSourceRelation(sourceRelation, firstCall);
+	}
 }
