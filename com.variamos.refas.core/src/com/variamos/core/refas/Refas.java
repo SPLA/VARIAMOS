@@ -454,7 +454,7 @@ public class Refas extends AbstractModel {
 		semVertex.putSemanticAttribute("Description", new ModelingAttribute(
 				"Description", "String", false, "Description", ""));
 		MetaConcept view = new MetaConcept("View", true, "View",
-				"refassassump", "View", 100, 30,
+				"refasview", "View", 100, 30,
 				"/com/variamos/gui/refas/editor/images/assump.png", true,
 				Color.BLUE.toString(), 3, true, semView);
 
@@ -1749,7 +1749,7 @@ public class Refas extends AbstractModel {
 		MetaConcept syntaxTopGoal = new MetaConcept("TopGoal", true,
 				"Top Goal", "refasgoal", "Defines a top goal of the system"
 						+ " from the stakeholder perspective that can be"
-						+ " satisfied with a clear cut condition", 100, 70,
+						+ " satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/refas/editor/images/goal.png", true,
 				Color.BLUE.toString(), 3, true, semGoal);
 
@@ -1778,7 +1778,7 @@ public class Refas extends AbstractModel {
 		MetaConcept syntaxGeneralGoal = new MetaConcept("GeneralGoal", true,
 				"General Goal", "refasgoal", "Defines a general goal of the"
 						+ " system from the stakeholder perspective that can"
-						+ " be satisfied with a clear cut condition", 100, 70,
+						+ " be satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/refas/editor/images/goal.png", true,
 				Color.BLUE.toString(), 2, true, semGoal);
 		syntaxGeneralGoal.addMetaExtendRelation(syntaxGoal, false);
@@ -1813,7 +1813,7 @@ public class Refas extends AbstractModel {
 						+ " another operationalization. If"
 						+ " the operationalizations defined is satisfied,"
 						+ " according to the defined relation, the goal"
-						+ " associated will be also satisfied", 100, 40,
+						+ " associated will be also satisfied", 100, 60,
 				"/com/variamos/gui/refas/editor/images/operational.png", true,
 				Color.BLUE.toString(), 2, true, semOperationalization);
 		sOperationalization.addMetaExtendRelation(syntaxVariabilityArtifact,
@@ -1844,9 +1844,9 @@ public class Refas extends AbstractModel {
 				.getEditableSemanticElement();
 
 		MetaConcept syntaxAssumption = new MetaConcept("Assu", true,
-				"Assumption", "refassassump", "An assumption is a"
+				"Assumption", "refasassump", "An assumption is a"
 						+ " condition that should me truth for the goal or"
-						+ " operationalization to be satisfied", 100, 40,
+						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/refas/editor/images/assump.png", true,
 				Color.WHITE.toString(), 1, true, semAssumption);
 		syntaxAssumption
@@ -2182,7 +2182,7 @@ public class Refas extends AbstractModel {
 						+ " it includes an scale of levels of satisfaction/denial."
 						+ " The SG satisficing level can be measured globally or"
 						+ " locally, for the system or for each user, depending"
-						+ " on the SG", 100, 40,
+						+ " on the SG", 100, 60,
 				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, true, semSoftgoal);
 
@@ -2220,7 +2220,7 @@ public class Refas extends AbstractModel {
 						+ " it includes an scale of levels of satisfaction/denial."
 						+ " The SG satisficing level can be measured globally or"
 						+ " locally, for the system or for each user, depending"
-						+ " on the SG", 100, 40,
+						+ " on the SG", 100, 60,
 				"/com/variamos/gui/refas/editor/images/softgoal.png", true,
 				Color.WHITE.toString(), 1, true, semSoftgoal);
 

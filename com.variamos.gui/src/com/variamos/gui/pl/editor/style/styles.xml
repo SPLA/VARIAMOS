@@ -122,9 +122,20 @@
 		<add as="fillColor" value="white"/>	
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="refasassump">
+	<add as="refasviews">
 		<add as="fillColor" value="white" />
 		<add as="shape" value="rect-str"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>		
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>		
+		<add as="fillColor" value="#002060"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<add as="refasassump">
+		<add as="fillColor" value="white" />
+		<add as="shape" value="rect-assu"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>		

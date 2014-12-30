@@ -16,24 +16,41 @@
 
 	</foreground>
 </shape>
+<shape name="rect-assu" aspect="variable">
+	<background>
+		<strokewidth width="4"/>
+		<path>
+			<move x="0" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="0" y="85"/>
+			<line x="0" y="13"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+
+	</foreground>
+</shape>
 <shape name="rect-goal" aspect="variable">
 	<background aspect="fixed">
 		<strokewidth width="6"/>
 		<path>
-			<move x="20" y="15"/>
-			<line x="100" y="15"/>
+			<move x="20" y="13"/>
+			<line x="100" y="13"/>
 			<line x="80" y="85"/>
 			<line x="0" y="85"/>
-			<line x="20" y="15"/>
+			<line x="20" y="13"/>
 			<close/>
 		</path>
 		<stroke/>
 	</background>
 		<connections>
-		<constraint x="50" y="0" perimeter="1"/>
-		<constraint x="0" y="50" perimeter="1"/>
-		<constraint x="100" y="50" perimeter="1"/>
-		<constraint x="50" y="100" perimeter="1"/>
+		<constraint x="50" y="15" perimeter="1"/>
+		<constraint x="15" y="50" perimeter="1"/>
+		<constraint x="85" y="50" perimeter="1"/>
+		<constraint x="50" y="85" perimeter="1"/>
 	</connections>
 	<foreground>
 	
@@ -44,11 +61,11 @@
 	<background>
 		<strokewidth width="2"/>
 		<path>
-			<move x="0" y="0"/>
-			<line x="100" y="0"/>
-			<line x="100" y="100"/>
-			<line x="0" y="100"/>
-			<line x="0" y="0"/>
+			<move x="0" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="0" y="85"/>
+			<line x="0" y="13"/>
 			<close/>
 		</path>
 		<stroke/>
@@ -58,6 +75,33 @@
 	</foreground>
 </shape>
 <shape name="rect-soft2" aspect="variable">
+	<connections>
+		<constraint x="50" y="0" perimeter="0"/>
+		<constraint x="0" y="75" perimeter="0"/>
+		<constraint x="100" y="75" perimeter="0"/>
+	</connections>
+	<foreground>
+		<strokecolor color="#000000"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<stroke/>
+		<path>
+			<move x="3" y="35"/>
+			<quad x1="7" y1="15" x2="20" y2="21"/>
+			<quad x1="30" y1="28" x2="45" y2="23"/>
+			<quad x1="65" y1="21" x2="80" y2="18"/>
+			<quad x1="100" y1="15" x2="100" y2="37"/>			
+			<quad x1="100" y1="50" x2="97" y2="65"/>			
+			<quad x1="93" y1="85" x2="80" y2="80"/>
+			<quad x1="70" y1="79" x2="55" y2="78"/>			
+			<quad x1="35" y1="80" x2="20" y2="83"/>
+			<quad x1="0" y1="85" x2="0" y2="62"/>			
+			<quad x1="0" y1="50" x2="3" y2="35"/>
+		</path>
+		<stroke/>
+	</foreground>
+</shape>
+<shape name="rect-soft2-old" aspect="variable">
 	<connections>
 		<constraint x="50" y="0" perimeter="0"/>
 		<constraint x="0" y="75" perimeter="0"/>
@@ -127,16 +171,16 @@
 		<linecap cap="round"/>
 		<linejoin join="round"/>
 		<path>
-			<move x="10" y="0"/>
+			<move x="10" y="15"/>
 			<line x="0" y="50"/>
-			<line x="10" y="100"/>
+			<line x="10" y="85"/>
 			<line x="3" y="50"/>
-			<line x="10" y="0"/>
-			<move x="90" y="0"/>
+			<line x="10" y="15"/>
+			<move x="90" y="15"/>
 			<line x="100" y="50"/>
-			<line x="90" y="100"/>
+			<line x="90" y="85"/>
 			<line x="97" y="50"/>
-			<line x="90" y="0"/>
+			<line x="90" y="15"/>
 			<close/>
 		</path>
 		<stroke/>		
@@ -145,13 +189,13 @@
 	<foreground>
 		<strokewidth width="2"/>
 		<path>
-			<move x="10" y="0"/>
+			<move x="10" y="15"/>
 			<line x="0" y="50"/>
-			<line x="10" y="100"/>
-			<line x="90" y="100"/>
+			<line x="10" y="85"/>
+			<line x="90" y="85"/>
 			<line x="100" y="50"/>
-			<line x="90" y="0"/>
-			<line x="10" y="0"/>
+			<line x="90" y="15"/>
+			<line x="10" y="15"/>
 			<close/>
 		</path>
 		<stroke/>
@@ -327,9 +371,6 @@
 		<stroke/>
 	</foreground>
 </shape>
-
-
-
 
 
 
