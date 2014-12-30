@@ -10,21 +10,21 @@ import java.util.Map;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
-import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
-import com.variamos.refas.core.transformations.AndBooleanTransformation;
-import com.variamos.refas.core.transformations.DoubleImplicationBooleanTransformation;
-import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
-import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
-import com.variamos.refas.core.transformations.LessOrEqualsBooleanTransformation;
-import com.variamos.refas.core.transformations.NumberNumericTransformation;
-import com.variamos.refas.core.transformations.OrBooleanTransformation;
-import com.variamos.refas.core.transformations.SumNumericTransformation;
+import com.variamos.refas.core.expressions.AndBooleanExpression;
+import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
+import com.variamos.refas.core.expressions.EqualsComparisonExpression;
+import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
+import com.variamos.refas.core.expressions.LessOrEqualsBooleanExpression;
+import com.variamos.refas.core.expressions.NumberNumericExpression;
+import com.variamos.refas.core.expressions.OrBooleanExpression;
+import com.variamos.refas.core.expressions.SumNumericExpression;
+import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
 import com.variamos.refas.core.types.CardinalityType;
-import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 
 //TODO refactor: OverTwoElementExpressionSet
 /**
@@ -44,7 +44,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	/**
 	 * The source edge for the constraint
 	 */
-	private InstGroupDependency instGroupDependency;
+	private InstOverTwoRelation instGroupDependency;
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -57,7 +57,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	 */
 	public GroupDependencyConstraintGroup(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstGroupDependency instGroupDependency) {
+			InstOverTwoRelation instGroupDependency) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instGroupDependency = instGroupDependency;
@@ -71,27 +71,27 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		return relationType;
 	}
 
-	public InstGroupDependency getInstEdge() {
+	public InstOverTwoRelation getInstEdge() {
 		return instGroupDependency;
 	}
 
 	private void defineTransformations() {
 
 		MetaOverTwoRelation metaGroupDep = instGroupDependency
-				.getMetaGroupDependency();
+				.getMetaOverTwoRelation();
 		boolean targetActiveAttribute =false;
 		if (instGroupDependency
 				.getTargetRelations().size() > 0)
-			targetActiveAttribute = (boolean) ((InstEdge)instGroupDependency
+			targetActiveAttribute = (boolean) ((InstPairwiseRelation)instGroupDependency
 				.getTargetRelations().get(0)).getTargetRelations().get(0).getInstAttribute("Active")
 				.getValue(); 
 		if (targetActiveAttribute
 				&& metaGroupDep != null
 				&& instGroupDependency
-						.getInstAttribute(SemanticGroupDependency.VAR_CARDINALITYTYPE) != null) {
+						.getInstAttribute(SemanticOverTwoRelation.VAR_CARDINALITYTYPE) != null) {
 			relationType = CardinalityType
 					.valueOf(((String) instGroupDependency.getInstAttribute(
-							SemanticGroupDependency.VAR_CARDINALITYTYPE)
+							SemanticOverTwoRelation.VAR_CARDINALITYTYPE)
 							.getValue()).trim());
 			// System.out.println(relationType);
 
@@ -104,7 +104,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 				AbstractTransformation recursiveExpression2 = null;
 				if (instEdges1.hasNext()) {
 					InstElement left1 = instEdges1.next();
-					while ((boolean) ((InstEdge)left1).getSourceRelations().get(0)
+					while ((boolean) ((InstPairwiseRelation)left1).getSourceRelations().get(0)
 							.getInstAttribute("Active").getValue() == false) {
 						if (instEdges1.hasNext())
 							left1 = instEdges1.next();
@@ -113,16 +113,16 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					}
 					switch (relationType) {
 					case and:
-						abstractTransformation = new AndBooleanTransformation();
+						abstractTransformation = new AndBooleanExpression();
 						break;
 					case or:
-						abstractTransformation = new OrBooleanTransformation();
+						abstractTransformation = new OrBooleanExpression();
 						break;
 					case mutex:
-						abstractTransformation = new SumNumericTransformation();
+						abstractTransformation = new SumNumericExpression();
 						break;
 					case range:
-						abstractTransformation = new SumNumericTransformation();
+						abstractTransformation = new SumNumericExpression();
 						Iterator<InstElement> instEdges2 = instGroupDependency
 								.getSourceRelations().iterator();
 						// instEdges2.next(); // TODO eliminate duplicated edges
@@ -177,7 +177,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
 						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(
+								new DoubleImplicationBooleanExpression(
 										instGroupDependency, sourceName,
 										true, recursiveExpression1));
 						break;
@@ -186,11 +186,11 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						// ) + ... ) #<=> 1)
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						AbstractTransformation transformation1 = new EqualsComparisonTransformation(
+						AbstractTransformation transformation1 = new EqualsComparisonExpression(
 								recursiveExpression1,
-								new NumberNumericTransformation(1));
+								new NumberNumericExpression(1));
 						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(
+								new DoubleImplicationBooleanExpression(
 										instGroupDependency, sourceName,
 										true, transformation1));
 
@@ -203,19 +203,19 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						// GD_HighCardinality ) )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						AbstractTransformation transformation3 = new GreaterOrEqualsBooleanTransformation(
+						AbstractTransformation transformation3 = new GreaterOrEqualsBooleanExpression(
 								instGroupDependency, "lowCardinality", false,
 								recursiveExpression1);
 
-						AbstractTransformation transformation4 = new LessOrEqualsBooleanTransformation(
+						AbstractTransformation transformation4 = new LessOrEqualsBooleanExpression(
 								instGroupDependency, "highCardinality", false,
 								recursiveExpression2);
 
-						AbstractTransformation transformation5 = new AndBooleanTransformation(
+						AbstractTransformation transformation5 = new AndBooleanExpression(
 								transformation3, transformation4);
 
 						getTransformations().add(
-								new DoubleImplicationBooleanTransformation(
+								new DoubleImplicationBooleanExpression(
 										instGroupDependency/*
 															 * .getTargetRelations
 															 * ().get(0)
@@ -242,7 +242,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstEdge) instEdge).getSourceRelations().get(0)
+			while ((boolean) ((InstPairwiseRelation) instEdge).getSourceRelations().get(0)
 					.getInstAttribute("Active").getValue() == false) {
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
@@ -250,14 +250,14 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 					// TODO define a cleaner way to deal with group relations
 					// with one
 					// element
-					return new AndBooleanTransformation(
-							((InstEdge)left).getSourceRelations().get(0), ((InstEdge)left).getSourceRelations().get(0),
+					return new AndBooleanExpression(
+							((InstPairwiseRelation)left).getSourceRelations().get(0), ((InstPairwiseRelation)left).getSourceRelations().get(0),
 							sourceName, sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {
 					return (AbstractTransformation) constructor1.newInstance(
-							((InstEdge)left).getSourceRelations().get(0),
+							((InstPairwiseRelation)left).getSourceRelations().get(0),
 							sourceName,
 							true,
 							transformation(constructor1, constructor2,
@@ -269,8 +269,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			} else
 				try {
 					return (AbstractTransformation) constructor2.newInstance(
-							((InstEdge)left).getSourceRelations().get(0),
-							((InstEdge)instEdge).getSourceRelations().get(0), sourceName,
+							((InstPairwiseRelation)left).getSourceRelations().get(0),
+							((InstPairwiseRelation)instEdge).getSourceRelations().get(0), sourceName,
 							sourceName);
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
@@ -279,8 +279,8 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 		} else
 			// TODO define a cleaner way to deal with group relations with one
 			// element
-			return new AndBooleanTransformation(((InstEdge)left).getSourceRelations().get(0),
-					((InstEdge)left).getSourceRelations().get(0), sourceName, sourceName);
+			return new AndBooleanExpression(((InstPairwiseRelation)left).getSourceRelations().get(0),
+					((InstPairwiseRelation)left).getSourceRelations().get(0), sourceName, sourceName);
 		return null;
 	}
 }

@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -20,7 +20,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
  * 
  * @version 1.1
  * @since 2014-11-24
- * @see com.variamos.syntaxsupport.metametamodel.AbtractAttribute
+ * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
 public class InstAttribute implements Serializable,EditableElementAttribute {
 	/**
@@ -45,7 +45,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	/**
 	 * Name of MetaModel attribute identifier, to recover object after load
 	 */
-	VAR_ATTRIBUTEIDEN = "attributeIden",
+	VAR_ATTRIBUTE_IDEN = "attributeIden",
 	/**
 	 * Name of the Value for the InstAttribute - indexes in case of JList 
 	 */
@@ -57,15 +57,15 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	/**
 	 * Initially for List IntSemanticGroupDependency
 	 */
-	VAR_VALIDATIONGROUPDEPLIST = "ValidGDList",
+	VAR_OVERTWOREL_VALIDATION_LIST = "ValidGDList",
 	/**
 	 * Initially for List IntSemanticDirectRelation
 	 */
-	VAR_VALIDATIONDIRECTRELLIST = "ValidDRList",
+	VAR_PAIRWISEREL_VALIDATION_LIST = "ValidDRList",
 	/**
 	 * Initially for List to support MetaEnumerations
 	 */
-	VAR_VALIDATIONMETAEDGELIST = "ValidMEList";
+	VAR_METAEDGE_LIST_VALIDATION = "ValidMEList";
 	/**
 	 * Dynamic storage of attributes
 	 */
@@ -84,7 +84,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 		super();
 		this.attributeObject = modelingAttribute;
 		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTEIDEN, modelingAttribute.getName());
+		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 		vars.put(VAR_VALUE, value);
 		vars.put(VAR_DISPLAYVALUE, null);
 	}
@@ -95,7 +95,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 		super();
 		this.attributeObject = modelingAttribute;
 		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTEIDEN, modelingAttribute.getName());
+		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 		vars.put(VAR_VALUE, value);
 		vars.put(VAR_DISPLAYVALUE, null);
 		this.valueObject = valueObject;
@@ -132,43 +132,43 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 		return attributeObject.getDisplayName();
 	}
 
-	public void setValidationMEList(List<MetaEdge> metaEdge) {
+	public void setValidationMEList(List<MetaPairwiseRelation> metaEdge) {
 		// this.identifier = identifier;
-		setVariable(VAR_VALIDATIONMETAEDGELIST, metaEdge);
+		setVariable(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<MetaEdge> getValidationMEList() {
-		return (List<MetaEdge>) getVariable(VAR_VALIDATIONMETAEDGELIST);
+	public List<MetaPairwiseRelation> getValidationMEList() {
+		return (List<MetaPairwiseRelation>) getVariable(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
-	public void setValidationGDList(List<IntSemanticGroupDependency> semGD) {
+	public void setValidationGDList(List<IntSemanticOverTwoRelation> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_VALIDATIONGROUPDEPLIST, semGD);
+		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntSemanticGroupDependency> getValidationGDList() {
-		return (List<IntSemanticGroupDependency>) getVariable(VAR_VALIDATIONGROUPDEPLIST);
+	public List<IntSemanticOverTwoRelation> getOverTwoRelValidationList() {
+		return (List<IntSemanticOverTwoRelation>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
-	public void setValidationDRList(List<IntDirectSemanticEdge> semGD) {
+	public void setValidationDRList(List<IntSemanticPairwiseRelation> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_VALIDATIONDIRECTRELLIST, semGD);
+		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntDirectSemanticEdge> getValidationDRList() {
-		return (List<IntDirectSemanticEdge>) getVariable(VAR_VALIDATIONDIRECTRELLIST);
+	public List<IntSemanticPairwiseRelation> getPairwiseRelValidationList() {
+		return (List<IntSemanticPairwiseRelation>) getVariable(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setAttribute(AbstractAttribute modelingAttribute) {
 		this.attributeObject = modelingAttribute;
 		if (modelingAttribute != null)
-			setVariable(VAR_ATTRIBUTEIDEN, modelingAttribute.getName());
+			setVariable(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
@@ -181,7 +181,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	}
 
 	public String getAttributeName() {
-		return (String) getVariable(VAR_ATTRIBUTEIDEN);
+		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public Object getValue() {
@@ -285,9 +285,9 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	public void clearModelingAttribute() {
 		attributeObject = null;
 		valueObject = null;
-		setVariable(VAR_VALIDATIONGROUPDEPLIST, null);
-		setVariable(VAR_VALIDATIONDIRECTRELLIST, null);
-		setVariable(VAR_VALIDATIONMETAEDGELIST, null);
+		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, null);
+		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, null);
+		setVariable(VAR_METAEDGE_LIST_VALIDATION, null);
 	}
 
 	public void displayValue(String out) {
@@ -318,6 +318,6 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 
 	@Override
 	public String getName() {
-		return (String) getVariable(VAR_ATTRIBUTEIDEN);
+		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
 	}
 }

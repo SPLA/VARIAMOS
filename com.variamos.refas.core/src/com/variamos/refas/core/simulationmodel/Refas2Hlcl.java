@@ -1,15 +1,10 @@
 package com.variamos.refas.core.simulationmodel;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.cfm.hlcl.Expression;
@@ -22,29 +17,9 @@ import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
 import com.variamos.core.refas.Refas;
-import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
-import com.variamos.refas.core.transformations.AndBooleanTransformation;
-import com.variamos.refas.core.transformations.AssignBooleanTransformation;
-import com.variamos.refas.core.transformations.DiffNumericTransformation;
-import com.variamos.refas.core.transformations.EqualsComparisonTransformation;
-import com.variamos.refas.core.transformations.GreaterOrEqualsBooleanTransformation;
-import com.variamos.refas.core.transformations.ImplicationBooleanTransformation;
-import com.variamos.refas.core.transformations.NotBooleanTransformation;
-import com.variamos.refas.core.transformations.NumberNumericTransformation;
-import com.variamos.refas.core.transformations.OrBooleanTransformation;
-import com.variamos.refas.core.transformations.ProdNumericTransformation;
-import com.variamos.refas.core.transformations.SumNumericTransformation;
-import com.variamos.refas.core.types.CardinalityType;
-import com.variamos.refas.core.types.DirectEdgeType;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
 
@@ -219,7 +194,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createEdgeExpressions(String identifier) {
 		if (identifier == null)
-			for (InstEdge elm : refas.getConstraintInstEdgesCollection()) {
+			for (InstPairwiseRelation elm : refas.getConstraintInstEdgesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new DirectEdgeConstraintGroup(elm.getIdentifier(),
 								idMap, f, elm));
@@ -234,7 +209,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private void createGroupExpressions(String identifier) {
 		createEdgeExpressions(null); // TODO define a better solution
 		if (identifier == null)
-			for (InstGroupDependency elm : refas
+			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new GroupDependencyConstraintGroup(elm.getIdentifier(),

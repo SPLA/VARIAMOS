@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaView;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 public class InstView extends InstElement {
@@ -80,7 +80,7 @@ public class InstView extends InstElement {
 	public List<InstAttribute> getEditableVariables() {
 		// superclass
 		Set<String> attributesNames = getMetaView()
-				.getDisPropEditableAttributes();
+				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -92,7 +92,7 @@ public class InstView extends InstElement {
 	@Override
 	public List<InstAttribute> getVisibleVariables() {
 		Set<String> attributesNames = this.getMetaView()
-				.getDisPropVisibleAttributes();
+				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 

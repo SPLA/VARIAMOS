@@ -25,7 +25,7 @@ import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 
 public class AttributeEditionPanel extends JPanel {
 	/**

@@ -11,9 +11,9 @@ import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.type.MEnumerationType;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.type.EnumerationMultiSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface with multi-selection.
@@ -41,7 +41,7 @@ public class MEnumerationWidget extends WidgetR {
 	@Override
 	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = MEnumerationType.class.getClassLoader();
+		ClassLoader classLoader = EnumerationMultiSelectionType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 		InstAttribute instAttribute = (InstAttribute)v;

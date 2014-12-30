@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -30,150 +30,123 @@ public class AbstractSemanticElement implements Serializable{
 	public AbstractSemanticElement getParent() {
 		return parent;
 	}
-	private List<String> disPropVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value 
-	private List<String> disPropEditableAttributes; //position(01-99)#variable#conditionalvariable#operator#value
-	private List<String> disPanelVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value
-	private List<String> disPanelSpacersAttributes; //preSpacer#variable#1Spacer#2Spacer#3Spacer#...
-	private List<String> simPropVisibleAttributes;
-	private List<String> simPropEditableAttributes;
-	private List<String> simPanelVisibleAttributes;
-	private List<String> simPanelSpacersAttributes;
+	private List<String> propVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value 
+	private List<String> propEditableAttributes; //position(01-99)#variable#conditionalvariable#operator#value
+	private List<String> panelVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value
+	private List<String> panelSpacersAttributes; //preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private Map<String, SimulationStateAttribute> simulationAttributes = new HashMap<String, SimulationStateAttribute>();
 
-	
 	public AbstractSemanticElement(	String identifier)
 	{
 		this(null, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
-
 	}
 	
 	public AbstractSemanticElement(AbstractSemanticVertex parentConcept,
 			String identifier,
-			List<String> disPropVisibleAttributes,
-			List<String> disPropEditableAttributes,
-			List<String> disPanelVisibleAttributes,
-			List<String> disPanelSpacersAttributes)
+			List<String> propVisibleAttributes,
+			List<String> propEditableAttributes,
+			List<String> panelVisibleAttributes,
+			List<String> panelSpacersAttributes)
 	{
 		this.parent = parentConcept;
 		this.identifier = identifier;
-		this.disPropVisibleAttributes = disPropVisibleAttributes;
-		this.disPropEditableAttributes = disPropEditableAttributes;
-		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
-		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
+		this.propVisibleAttributes = propVisibleAttributes;
+		this.propEditableAttributes = propEditableAttributes;
+		this.panelVisibleAttributes = panelVisibleAttributes;
+		this.panelSpacersAttributes = panelSpacersAttributes;
 
 	}
 	
-	public void setSimPropVisibleAttributes(
-			List<String> simPropVisibleAttributes) {
-		this.simPropVisibleAttributes = simPropVisibleAttributes;
-	}
-
-	public void setSimPropEditableAttributes(
-			List<String> simPropEditableAttributes) {
-		this.simPropEditableAttributes = simPropEditableAttributes;
-	}
-
-	public void setSimPanelVisibleAttributes(
-			List<String> simPanelVisibleAttributes) {
-		this.simPanelVisibleAttributes = simPanelVisibleAttributes;
-	}
-
-	public void setSimPanelSpacersAttributes(
-			List<String> simPanelSpacersAttributes) {
-		this.simPanelSpacersAttributes = simPanelSpacersAttributes;
-	}
-
-	public void setDisPropVisibleAttributes(
+	public void setPropVisibleAttributes(
 			List<String> disPropVisibleAttributes) {
-		this.disPropVisibleAttributes = disPropVisibleAttributes;
+		this.propVisibleAttributes = disPropVisibleAttributes;
 	}
 
-	public void setDisPropEditableAttributes(
+	public void setPropEditableAttributes(
 			List<String> disPropEditableAttributes) {
-		this.disPropEditableAttributes = disPropEditableAttributes;
+		this.propEditableAttributes = disPropEditableAttributes;
 	}
 
-	public void setDisPanelVisibleAttributes(
+	public void setPanelVisibleAttributes(
 			List<String> disPanelVisibleAttributes) {
-		this.disPanelVisibleAttributes = disPanelVisibleAttributes;
+		this.panelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
-	public void setDisPanelSpacersAttributes(
+	public void setPanelSpacersAttributes(
 			List<String> disPanelSpacersAttributes) {
-		this.disPanelSpacersAttributes = disPanelSpacersAttributes;
+		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
-	public List<String> getDeclaredDisPropVisibleAttributes() {
+	public List<String> getDeclaredPropVisibleAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
-		modelingAttributesNames.addAll(disPropVisibleAttributes);
+		modelingAttributesNames.addAll(propVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
-	public List<String> getDisPropVisibleAttributes() {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		if (parent != null)
-			modelingAttributesNames.addAll(parent.getDisPropVisibleAttributes());
-		modelingAttributesNames.addAll(getDeclaredDisPropVisibleAttributes());
-		return modelingAttributesNames;
-	}
-
-	public void addDisPropVisibleAttribute(String visibleAttribute) {
-		disPropVisibleAttributes.add(visibleAttribute);
-	}
-
-	public List<String> getDeclaredDisPropEditableAttributes() {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		modelingAttributesNames.addAll(disPropEditableAttributes);
-		return modelingAttributesNames;
-	}
-
-	public List<String> getDisPropEditableAttributes() {
+	public List<String> getPropVisibleAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (parent != null)
-			modelingAttributesNames.addAll(parent.getDisPropEditableAttributes());
-		modelingAttributesNames.addAll(getDeclaredDisPropEditableAttributes());
+			modelingAttributesNames.addAll(parent.getPropVisibleAttributes());
+		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
 		return modelingAttributesNames;
 	}
 
-	public void addDisPropEditableAttribute(String editableAttribute) {
-		disPropEditableAttributes.add(editableAttribute);
+	public void addPropVisibleAttribute(String visibleAttribute) {
+		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	public List<String> getDeclaredDisPanelVisibleAttributes() {
+	public List<String> getDeclaredPropEditableAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
-		modelingAttributesNames.addAll(disPanelVisibleAttributes);
+		modelingAttributesNames.addAll(propEditableAttributes);
 		return modelingAttributesNames;
 	}
 
-	public List<String> getDisPanelVisibleAttributes() {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		if (parent != null)
-			modelingAttributesNames.addAll(parent.getDisPanelVisibleAttributes());
-		modelingAttributesNames.addAll(getDeclaredDisPanelVisibleAttributes());
-		return modelingAttributesNames;
-	}
-
-	public void addDisPanelVisibleAttribute(String visibleAttribute) {
-		disPanelVisibleAttributes.add(visibleAttribute);
-	}
-
-	public List<String> getDeclaredDisPanelSpacersAttributes() {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		modelingAttributesNames.addAll(disPanelSpacersAttributes);
-		return modelingAttributesNames;
-	}
-
-	public List<String> getDisPanelSpacersAttributes() {
+	public List<String> getPropEditableAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (parent != null)
-			modelingAttributesNames.addAll(parent.getDisPanelSpacersAttributes());
-		modelingAttributesNames.addAll(getDeclaredDisPanelSpacersAttributes());
+			modelingAttributesNames.addAll(parent.getPropEditableAttributes());
+		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
 		return modelingAttributesNames;
 	}
 
-	public void addDisPanelSpacersAttribute(String spacerAttribute) {
-		disPanelSpacersAttributes.add(spacerAttribute);
+	public void addPropEditableAttribute(String editableAttribute) {
+		propEditableAttributes.add(editableAttribute);
+	}
+
+	public List<String> getDeclaredPanelVisibleAttributes() {
+		List<String> modelingAttributesNames = new ArrayList<String>();
+		modelingAttributesNames.addAll(panelVisibleAttributes);
+		return modelingAttributesNames;
+	}
+
+	public List<String> getPanelVisibleAttributes() {
+		List<String> modelingAttributesNames = new ArrayList<String>();
+		if (parent != null)
+			modelingAttributesNames.addAll(parent.getPanelVisibleAttributes());
+		modelingAttributesNames.addAll(getDeclaredPanelVisibleAttributes());
+		return modelingAttributesNames;
+	}
+
+	public void addPanelVisibleAttribute(String visibleAttribute) {
+		panelVisibleAttributes.add(visibleAttribute);
+	}
+
+	public List<String> getDeclaredPanelSpacersAttributes() {
+		List<String> modelingAttributesNames = new ArrayList<String>();
+		modelingAttributesNames.addAll(panelSpacersAttributes);
+		return modelingAttributesNames;
+	}
+
+	public List<String> getPanelSpacersAttributes() {
+		List<String> modelingAttributesNames = new ArrayList<String>();
+		if (parent != null)
+			modelingAttributesNames.addAll(parent.getPanelSpacersAttributes());
+		modelingAttributesNames.addAll(getDeclaredPanelSpacersAttributes());
+		return modelingAttributesNames;
+	}
+
+	public void addPanelSpacersAttribute(String spacerAttribute) {
+		panelSpacersAttributes.add(spacerAttribute);
 	}
 	
 	public Set<String> getSemanticAttributesNames() {
@@ -200,20 +173,6 @@ public class AbstractSemanticElement implements Serializable{
 		if (semAtt == null && parent != null)
 			return (parent.getSemanticAttribute(name));
 		return semAtt;
-	}
-
-	public Set<String> getDeclaredSimulationAttributes() {
-		Set<String> abstractAttributesNames = new HashSet<String>();
-		abstractAttributesNames.addAll(simulationAttributes.keySet());
-		return abstractAttributesNames;
-	}
-
-	public Set<String> getSimulationAttributes() {
-		Set<String> properties = new HashSet<String>();
-		properties.addAll(getDeclaredSimulationAttributes());
-		if (parent != null)
-			properties.addAll(parent.getSimulationAttributes());
-		return properties;
 	}
 
 	public void setSemanticAttributes(

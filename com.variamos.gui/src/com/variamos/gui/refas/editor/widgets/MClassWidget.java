@@ -20,12 +20,12 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.type.MClassType;
+import com.variamos.syntaxsupport.type.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.
@@ -54,7 +54,7 @@ public class MClassWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = MClassType.class.getClassLoader();
+		ClassLoader classLoader = ClassMultiSelectionType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 		InstAttribute instAttribute = (InstAttribute)v;

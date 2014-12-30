@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 /**
  * A class to represented the common aspects of modeling vertex of concepts from
@@ -20,7 +20,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaVertex;
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.syntaxsupport.metametamodel.MetaConcept
+ * @see com.variamos.syntaxsupport.metamodelsupport.MetaConcept
  */
 public abstract class InstVertex extends InstElement {
 	/**
@@ -35,18 +35,18 @@ public abstract class InstVertex extends InstElement {
 
 	public InstVertex() {
 		this(null, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstEdge>());
+				new HashMap<String, InstPairwiseRelation>());
 	}
 
 	public InstVertex(String identifier) {
 		this(identifier, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstEdge>());
+				new HashMap<String, InstPairwiseRelation>());
 
 	}
 
 	public InstVertex(String identifier,
 			Map<String, InstAttribute> instAttributes,
-			Map<String, InstEdge> instRelations) {
+			Map<String, InstPairwiseRelation> instRelations) {
 		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
 }

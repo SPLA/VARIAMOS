@@ -11,7 +11,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.syntaxsupport.metametamodel.MetaView;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 
 @SuppressWarnings("serial")
 public class ModelButtonAction extends AbstractEditorAction {

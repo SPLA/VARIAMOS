@@ -42,17 +42,17 @@ import com.variamos.core.refas.Refas;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
 import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstView;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 
 public class RefasGraph extends AbstractGraph {
 
@@ -150,7 +150,7 @@ public class RefasGraph extends AbstractGraph {
 					}
 				}
 
-				for (InstEdge instEdge : refas
+				for (InstPairwiseRelation instEdge : refas
 						.getConstraintInstEdgesCollection()) {
 					if (instEdge.getSourceRelations().size() != 0
 							&& instEdge.getIdentifier() != null
@@ -316,13 +316,13 @@ public class RefasGraph extends AbstractGraph {
 		InstElement target = (InstElement) cell.getTarget().getValue();
 		String id = null;
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-		if (cell.getValue() instanceof InstEdge) {
-			InstEdge element = (InstEdge) cell.getValue();
+		if (cell.getValue() instanceof InstPairwiseRelation) {
+			InstPairwiseRelation element = (InstPairwiseRelation) cell.getValue();
 			String elementIdentifier = element.getIdentifier();
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return false;
 		}
-		InstEdge directRelation = new InstEdge(map);
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map);
 		Refas refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
@@ -362,8 +362,8 @@ public class RefasGraph extends AbstractGraph {
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
 						return false;
-					if (cellValue instanceof InstGroupDependency)
-						id = pl.addNewInstGroupDependency((InstGroupDependency) element);
+					if (cellValue instanceof InstOverTwoRelation)
+						id = pl.addNewInstGroupDependency((InstOverTwoRelation) element);
 					else if (cellValue instanceof InstEnumeration)
 						id = pl.addNewOtherInstElement(element);
 					else
@@ -424,9 +424,9 @@ public class RefasGraph extends AbstractGraph {
 								InstConcept c = (InstConcept) cellValue;
 								name = c.getMetaConcept().getIdentifier();
 							}
-							if (cellValue instanceof InstGroupDependency) {
-								InstGroupDependency c = (InstGroupDependency) cellValue;
-								name = c.getMetaGroupDependency()
+							if (cellValue instanceof InstOverTwoRelation) {
+								InstOverTwoRelation c = (InstOverTwoRelation) cellValue;
+								name = c.getMetaOverTwoRelation()
 										.getIdentifier();
 							}
 						}

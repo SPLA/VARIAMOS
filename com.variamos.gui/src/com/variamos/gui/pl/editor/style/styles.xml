@@ -92,7 +92,7 @@
 		<add as="editable" value="false"/>
 	</add>
 	
-	<add as="refasview">
+	<add as="refasviewrel">
 		<!-- <add as="shape" value="connector"/> -->
 		<add as="endArrow" value="classic"/>
 		<add as="endFill" value="false"/>
@@ -122,7 +122,7 @@
 		<add as="fillColor" value="white"/>	
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="refasviews">
+	<add as="refasview">
 		<add as="fillColor" value="white" />
 		<add as="shape" value="rect-str"/>
 		<add as="labelBackgroundColor" value="none"/>

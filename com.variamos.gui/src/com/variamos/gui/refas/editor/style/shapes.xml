@@ -1,7 +1,7 @@
 <shapes>
 <shape name="rect-str" aspect="variable">
 	<background>
-		<strokewidth width="10"/>
+		<strokewidth width="4"/>
 		<path>
 			<move x="0" y="0"/>
 			<line x="100" y="0"/>

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 
 /**
  * An interface for SemanticElement class, required to avoid cyclic

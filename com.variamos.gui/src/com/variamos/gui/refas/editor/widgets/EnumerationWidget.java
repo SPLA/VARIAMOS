@@ -8,9 +8,9 @@ import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.type.EnumerationType;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.type.EnumerationSingleSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other
@@ -41,7 +41,7 @@ public class EnumerationWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = EnumerationType.class.getClassLoader();
+		ClassLoader classLoader = EnumerationSingleSelectionType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 		InstAttribute instAttribute = (InstAttribute)v;

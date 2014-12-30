@@ -2,7 +2,7 @@ package com.variamos.refas.core.sematicsmetamodel;
 
 import com.variamos.refas.core.types.LevelType;
 import com.variamos.refas.core.types.SatisficingType;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent soft semantic concepts. Part of PhD work at
@@ -50,10 +50,10 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
 				VAR_LEVELTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_LEVELTYPECLASS, "", ""));
 
-		this.addDisPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
+		this.addPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
 	//	this.addDisPropEditableAttribute("15#" + VAR_LEVELTYPE);
 		
-		this.addDisPropVisibleAttribute("10#" + VAR_SATISFICINGTYPE);
+		this.addPropVisibleAttribute("10#" + VAR_SATISFICINGTYPE);
 	//	this.addDisPropVisibleAttribute("15#" + VAR_LEVELTYPE);
 
 	}

@@ -15,9 +15,9 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.AttributeEditionPanel.DialogButtonAction;
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.AttributeElement;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AttributeElement;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 import com.variamos.syntaxsupport.type.StringType;
 
 /**

@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.syntaxsupport.metametamodel.MetaConcept
+ * @see com.variamos.syntaxsupport.metamodelsupport.MetaConcept
  */
 public class InstConcept extends InstVertex {
 	/**
@@ -34,7 +34,7 @@ public class InstConcept extends InstVertex {
 	 * 
 	 */
 
-	public static final String VAR_METACONCEPTIDE = "MetaConceptIde";
+	public static final String VAR_METACONCEPT_IDEN = "MetaConceptIde";
 	// protected Map<String, MetaConcept> vars = new HashMap<>();
 	private MetaConcept metaConcept;
 
@@ -68,7 +68,7 @@ public class InstConcept extends InstVertex {
 
 	public InstConcept(String identifier, MetaConcept metaConcept,
 			Map<String, InstAttribute> attributes,
-			Map<String, InstEdge> relations) {
+			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
 		setMetaVertex(metaConcept);
 		createInstAttributes();
@@ -136,32 +136,37 @@ public class InstConcept extends InstVertex {
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
 		Set<String> attributesNames = getMetaConcept()
-				.getDisPropEditableAttributes();
+				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 														// superclass
 		Set<String> attributesNames = getMetaConcept()
-				.getDisPropVisibleAttributes();
+				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public String getMetaVertexIdentifier() {
 		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METACONCEPTIDE);
+		return (String) vars.get(VAR_METACONCEPT_IDEN);
 	}
 
-	public String toStringOld() { // TODO move to superclass
+	/**
+	 * TODO Delete pending
+	 * @return
+	 */
+	@Deprecated
+	public String toStringOld() { 
 		String out = "";
 		if (getMetaConcept() != null) {
 			Set<String> visibleAttributesNames = getMetaConcept()
-					.getDisPanelVisibleAttributes();
+					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 			Set<String> spacersAttributes = getMetaConcept()
-					.getDisPanelSpacersAttributes();
+					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -268,13 +273,13 @@ public class InstConcept extends InstVertex {
 
 	public void setMetaVertex(MetaVertex metaConcept) {
 		this.metaConcept = (MetaConcept) metaConcept;
-		setVariable(VAR_METACONCEPTIDE, metaConcept.getIdentifier());
+		setVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
 		// createInstAttributes();
 	}
 
 	public void setMetaConceptIdentifier(String metaConceptIdentifier) {
-		setVariable(VAR_METACONCEPTIDE, metaConceptIdentifier);
+		setVariable(VAR_METACONCEPT_IDEN, metaConceptIdentifier);
 		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
 		// createInstAttributes();
 	}

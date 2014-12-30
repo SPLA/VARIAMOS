@@ -29,16 +29,16 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
-import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
-import com.variamos.syntaxsupport.metametamodel.MetaView;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -116,7 +116,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 								obj = c.newInstance("",(MetaConcept) metaVertex, metaElement);
 							} else if (metaVertex instanceof MetaOverTwoRelation) {
 								MetaElement metaElement = new MetaOverTwoRelation();
-								Object o = new InstGroupDependency();
+								Object o = new InstOverTwoRelation();
 								Constructor<?> c = o.getClass().getConstructor(String.class,
 										MetaOverTwoRelation.class,MetaElement.class);
 								obj = c.newInstance("",(MetaOverTwoRelation) metaVertex, metaElement);

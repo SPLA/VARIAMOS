@@ -66,16 +66,16 @@ import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
+import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.simulationmodel.AbstractConstraintGroup;
 import com.variamos.refas.core.simulationmodel.AbstractTransformation;
-import com.variamos.refas.core.transformations.NumberNumericTransformation;
 import com.variamos.refas.core.types.ExpressionClassType;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**
@@ -154,9 +154,9 @@ public class RefasExpressionPanel extends JPanel {
 			InstElement element, JPanel parentPanel, int color) {
 		final InstElement ele = element;
 		final AbstractTransformation exp = expression;		
-		if (expression instanceof NumberNumericTransformation) {
+		if (expression instanceof NumberNumericExpression) {
 			parentPanel.add(new JTextField(""
-					+ ((NumberNumericTransformation) expression).getNumber()));
+					+ ((NumberNumericExpression) expression).getNumber()));
 			return;
 		}
 		JPanel childPanel = new JPanel();
@@ -280,33 +280,33 @@ public class RefasExpressionPanel extends JPanel {
 		if (element instanceof InstConcept)
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		if (element instanceof InstEdge) {
-			for (String attributeName : ((InstEdge) element)
+		if (element instanceof InstPairwiseRelation) {
+			for (String attributeName : ((InstPairwiseRelation) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getSourceRelations().get(0)
+				combo.addItem(((InstPairwiseRelation) element).getSourceRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
-			for (String attributeName : ((InstEdge) element)
+			for (String attributeName : ((InstPairwiseRelation) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getTargetRelations().get(0)
+				combo.addItem(((InstPairwiseRelation) element).getTargetRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
-		if (element instanceof InstGroupDependency) {
-			if (((InstGroupDependency) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstEdge)((InstGroupDependency) element)
+		if (element instanceof InstOverTwoRelation) {
+			if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
+				for (String attributeName : ((InstPairwiseRelation)((InstOverTwoRelation) element)
 						.getTargetRelations().get(0)).getTargetRelations().get(0)
 						.getInstAttributes().keySet())
-					combo.addItem(((InstEdge)((InstGroupDependency) element)
+					combo.addItem(((InstPairwiseRelation)((InstOverTwoRelation) element)
 							.getTargetRelations().get(0)).getTargetRelations().get(0)
 							.getIdentifier()
 							+ "_" + attributeName);
-			for (InstElement sourceRelation : ((InstGroupDependency) element)
+			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
 					.getSourceRelations())
-				for (String attributeName : ((InstEdge)sourceRelation).getSourceRelations().get(0)
+				for (String attributeName : ((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
 						.getInstAttributes().keySet())
-					combo.addItem(((InstEdge)sourceRelation).getSourceRelations().get(0)
+					combo.addItem(((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
 							.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
@@ -330,7 +330,7 @@ public class RefasExpressionPanel extends JPanel {
 			Class<AbstractTransformation> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractTransformation>) Class
-						.forName("com.variamos.refas.core.transformations."
+						.forName("com.variamos.refas.core.expressions."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
