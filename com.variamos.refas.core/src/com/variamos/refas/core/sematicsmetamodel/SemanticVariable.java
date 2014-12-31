@@ -2,8 +2,8 @@ package com.variamos.refas.core.sematicsmetamodel;
 
 import com.variamos.refas.core.types.VariableType;
 import com.variamos.refas.core.types.VariationScopeType;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the Semantics of Variables. Part of PhD work at
@@ -69,28 +69,28 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				VAR_ENUMERATIONTYPE, "Class", false, VAR_ENUMERATIONTYPENAME, VAR_ENUMERATIONTYPECLASS,"ME",
 				"String", ""));
 
-		this.addDisPropEditableAttribute("01#" + VAR_NAME);
-		this.addDisPropEditableAttribute("02#" + VAR_VARIABLETYPE);
-		this.addDisPropEditableAttribute("03#" + VAR_ENUMERATIONTYPE);
-		this.addDisPropEditableAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addDisPropEditableAttribute("05#" + VAR_SCOPE);
+		this.addPropEditableAttribute("01#" + VAR_NAME);
+		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);
+		this.addPropEditableAttribute("03#" + VAR_ENUMERATIONTYPE);
+		this.addPropEditableAttribute("04#" + VAR_CONTEXTTYPE);
+		this.addPropEditableAttribute("05#" + VAR_SCOPE);
 
-		this.addDisPropVisibleAttribute("01#" + VAR_NAME);
-		this.addDisPropVisibleAttribute("02#" + VAR_VARIABLETYPE);
-		this.addDisPropVisibleAttribute("03#" + VAR_ENUMERATIONTYPE+"#"+VAR_VARIABLETYPE+"#==#"+"Enumeration");
-		this.addDisPropVisibleAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addDisPropVisibleAttribute("05#" + VAR_SCOPE);
+		this.addPropVisibleAttribute("01#" + VAR_NAME);
+		this.addPropVisibleAttribute("02#" + VAR_VARIABLETYPE);
+		this.addPropVisibleAttribute("03#" + VAR_ENUMERATIONTYPE+"#"+VAR_VARIABLETYPE+"#==#"+"Enumeration");
+		this.addPropVisibleAttribute("04#" + VAR_CONTEXTTYPE);
+		this.addPropVisibleAttribute("05#" + VAR_SCOPE);
 		
-		this.addDisPanelVisibleAttribute("01#" + VAR_NAME);
-		this.addDisPanelVisibleAttribute("02#" + VAR_VARIABLETYPE+"#"+VAR_VARIABLETYPE+"#!=#"+"Enumeration");
-		this.addDisPanelVisibleAttribute("03#" + VAR_ENUMERATIONTYPE+"#"+VAR_VARIABLETYPE+"#==#"+"Enumeration");
-		this.addDisPanelVisibleAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addDisPanelVisibleAttribute("05#" + VAR_SCOPE);
+		this.addPanelVisibleAttribute("01#" + VAR_NAME);
+		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE+"#"+VAR_VARIABLETYPE+"#!=#"+"Enumeration");
+		this.addPanelVisibleAttribute("03#" + VAR_ENUMERATIONTYPE+"#"+VAR_VARIABLETYPE+"#==#"+"Enumeration");
+		this.addPanelVisibleAttribute("04#" + VAR_CONTEXTTYPE);
+		this.addPanelVisibleAttribute("05#" + VAR_SCOPE);
 
-		this.addDisPanelSpacersAttribute("#" + VAR_NAME + "#\n");
-		this.addDisPanelSpacersAttribute("{#" + VAR_VARIABLETYPE + "#} ");
-		this.addDisPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
-		this.addDisPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
+		this.addPanelSpacersAttribute("#" + VAR_NAME + "#\n");
+		this.addPanelSpacersAttribute("{#" + VAR_VARIABLETYPE + "#} ");
+		this.addPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
+		this.addPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
 
 	}
 

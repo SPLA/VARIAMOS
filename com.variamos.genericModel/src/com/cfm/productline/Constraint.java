@@ -12,7 +12,7 @@ public abstract class Constraint implements Serializable, Editable{
 	public String getClassId()
 	{
 		return "Co_";
-		
+	
 	}
 	protected String identifier;
 	protected String text;

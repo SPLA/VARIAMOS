@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 /**
  * An interface for dynamically editable elements with required
- * methods. Used for properties tab.
+ * methods. Used for properties tab and future concepts.
  * Part of PhD work
  * at University of Paris 1
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>

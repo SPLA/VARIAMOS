@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * An interface for SemanticConcept class, required to avoid cyclic
@@ -18,12 +18,11 @@ import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
  * @see com.variamos.refas.core.sematicsmetamodel.SemanticConcept
  */
 public interface IntSemanticConcept extends IntSemanticElement{
-	public Set<String> getSemanticAttributesNames();
-	public Set<String> getSimulationAttributes();
-	public List<String> getDisPropVisibleAttributes();
-	public List<String> getDisPropEditableAttributes();
-	public List<String> getDisPanelSpacersAttributes() ;
-	public List<String> getDisPanelVisibleAttributes();
+	public Set<String> getSemanticAttributesNames();	
+	public List<String> getPropVisibleAttributes();
+	public List<String> getPropEditableAttributes();
+	public List<String> getPanelSpacersAttributes() ;
+	public List<String> getPanelVisibleAttributes();
 	public AbstractAttribute getSemanticAttribute(String name);
 	
 }

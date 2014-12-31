@@ -1,6 +1,6 @@
 package com.variamos.refas.core.sematicsmetamodel;
 
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the edges at semantic level. Part of PhD work at
@@ -58,22 +58,22 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_DOMAIN, new SemanticAttribute(VAR_DOMAIN,
 				"String", false, VAR_DOMAINNAME, ""));
 
-		this.addDisPropEditableAttribute("01#" + VAR_VARIABLENAME);
-		this.addDisPropEditableAttribute("03#" + VAR_CONTEXTTYPE);
-		this.addDisPropEditableAttribute("04#" + VAR_SCOPE);
-		this.addDisPropEditableAttribute("05#" + VAR_DOMAIN);
+		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
+		this.addPropEditableAttribute("03#" + VAR_CONTEXTTYPE);
+		this.addPropEditableAttribute("04#" + VAR_SCOPE);
+		this.addPropEditableAttribute("05#" + VAR_DOMAIN);
 		
-		this.addDisPropVisibleAttribute("01#" + VAR_VARIABLENAME);
-		this.addDisPropVisibleAttribute("03#" + VAR_CONTEXTTYPE);
-		this.addDisPropVisibleAttribute("04#" + VAR_SCOPE);
-		this.addDisPropVisibleAttribute("05#" + VAR_DOMAIN);
+		this.addPropVisibleAttribute("01#" + VAR_VARIABLENAME);
+		this.addPropVisibleAttribute("03#" + VAR_CONTEXTTYPE);
+		this.addPropVisibleAttribute("04#" + VAR_SCOPE);
+		this.addPropVisibleAttribute("05#" + VAR_DOMAIN);
 
-		this.addDisPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
-		this.addDisPanelVisibleAttribute("03#" + VAR_CONTEXTTYPE);
-		this.addDisPanelVisibleAttribute("04#" + VAR_SCOPE);
+		this.addPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
+		this.addPanelVisibleAttribute("03#" + VAR_CONTEXTTYPE);
+		this.addPanelVisibleAttribute("04#" + VAR_SCOPE);
 
-		this.addDisPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
-		this.addDisPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
+		this.addPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
+		this.addPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
 
 	}
 

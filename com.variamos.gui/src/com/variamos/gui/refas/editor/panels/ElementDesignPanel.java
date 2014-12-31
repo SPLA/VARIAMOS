@@ -30,25 +30,25 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metametamodel.ModelingAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -139,10 +139,10 @@ public class ElementDesignPanel extends JPanel {
 			if (elm instanceof InstConcept) {
 				type = "vertex";
 			}
-			if (elm instanceof InstEdge) {
+			if (elm instanceof InstPairwiseRelation) {
 				type = "edge";
 			}
-			if (elm instanceof InstGroupDependency) {
+			if (elm instanceof InstOverTwoRelation) {
 				type = "groupdep";
 			}
 			if (elm instanceof InstElement) {
@@ -155,50 +155,50 @@ public class ElementDesignPanel extends JPanel {
 				if (v != null
 						&& (v.getAttribute() instanceof ModelingAttribute || 
 								v.getAttribute() instanceof SemanticAttribute)) {
-					if (elm instanceof InstGroupDependency) {
+					if (elm instanceof InstOverTwoRelation) {
 
 						if (v.getEnumType() != null
 								&& v.getEnumType()
-										.equals(MetaOverTwoRelation.VAR_SEMANTICGROUPDEPENDENCYCLASS)) {
-							InstGroupDependency groupdep = (InstGroupDependency) elm;
-							List<IntSemanticGroupDependency> metaGD = groupdep
-									.getMetaGroupDependency()
+										.equals(MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+							InstOverTwoRelation groupdep = (InstOverTwoRelation) elm;
+							List<IntSemanticOverTwoRelation> metaGD = groupdep
+									.getMetaOverTwoRelation()
 									.getSemanticRelations();
 							v.setValidationGDList(metaGD);
 						}
 					}
-					if (elm instanceof InstEdge) {
+					if (elm instanceof InstPairwiseRelation) {
 
 						if (v.getEnumType() != null
 								&& v.getEnumType()
-										.equals(MetaPairwiseRelation.VAR_DIRECTSEMANTICEDGECLASS)) {
-							MetaEdge metaEdge = ((InstEdge) elm).getMetaEdge();
+										.equals(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+							MetaPairwiseRelation metaEdge = ((InstPairwiseRelation) elm).getMetaPairwiseRelation();
 							if (metaEdge instanceof MetaPairwiseRelation) {
-								List<IntDirectSemanticEdge> directRel = ((MetaPairwiseRelation) metaEdge)
+								List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) metaEdge)
 										.getSemanticRelations();
 								v.setValidationDRList(directRel);
 							}
 						}
 						if (v.getEnumType() != null
 								&& v.getEnumType().equals(
-										InstEdge.VAR_METAEDGECLASS)) {
+										InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 							Map<String, MetaElement> mapElements = editor
 									.getSematicSintaxObject()
 									.getSyntaxElements(); // TODO change to
 															// Refas
 							Iterator<String> elementNames = mapElements
 									.keySet().iterator();
-							List<MetaEdge> metaGD = new ArrayList<MetaEdge>();
+							List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();
 							while (elementNames.hasNext()) {
 								String elementName = elementNames.next();
-								if (mapElements.get(elementName) instanceof MetaEdge) // TODO
+								if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
 																						// also
 																						// validate
 																						// origin
 																						// and
 																						// destination
 																						// relation
-									metaGD.add((MetaEdge) mapElements
+									metaGD.add((MetaPairwiseRelation) mapElements
 											.get(elementName));
 							}
 							v.setValidationMEList(metaGD);

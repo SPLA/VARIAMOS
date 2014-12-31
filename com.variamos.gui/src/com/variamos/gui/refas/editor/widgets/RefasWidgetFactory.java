@@ -6,13 +6,13 @@ import java.util.Map;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 import com.variamos.syntaxsupport.type.BooleanType;
-import com.variamos.syntaxsupport.type.ClassType;
-import com.variamos.syntaxsupport.type.EnumerationType;
+import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
+import com.variamos.syntaxsupport.type.EnumerationSingleSelectionType;
 import com.variamos.syntaxsupport.type.IntegerType;
-import com.variamos.syntaxsupport.type.MClassType;
-import com.variamos.syntaxsupport.type.MEnumerationType;
+import com.variamos.syntaxsupport.type.ClassMultiSelectionType;
+import com.variamos.syntaxsupport.type.EnumerationMultiSelectionType;
 import com.variamos.syntaxsupport.type.SetType;
 import com.variamos.syntaxsupport.type.StringType;
 
@@ -43,11 +43,11 @@ public class RefasWidgetFactory {
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
 		widgetReg.put(StringType.IDENTIFIER, StringWidget.class);
 		widgetReg.put(BooleanType.IDENTIFIER, BooleanWidget.class);
-		widgetReg.put(EnumerationType.IDENTIFIER, EnumerationWidget.class);
-		widgetReg.put(MEnumerationType.IDENTIFIER, MEnumerationWidget.class);
-		widgetReg.put(ClassType.IDENTIFIER, ClassWidget.class);
+		widgetReg.put(EnumerationSingleSelectionType.IDENTIFIER, EnumerationWidget.class);
+		widgetReg.put(EnumerationMultiSelectionType.IDENTIFIER, MEnumerationWidget.class);
+		widgetReg.put(ClassSingleSelectionType.IDENTIFIER, ClassWidget.class);
 		widgetReg.put(SetType.IDENTIFIER, SetWidget.class);
-		widgetReg.put(MClassType.IDENTIFIER, MClassWidget.class);
+		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
 
 	}
 

@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
@@ -50,6 +50,7 @@ public class MainFrame extends JFrame {
 		VariamosGraphEditor.setSematicSyntaxObject(sematicSyntaxObject);
 		RefasGraph refasGraph = null;
 		Color bgColor = null;
+		VariamosGraphEditor modelEditor = null;
 		for (int i = 0; i < 4; i++) {
 			switch(i)
 			{ 
@@ -80,6 +81,11 @@ public class MainFrame extends JFrame {
 			VariamosGraphEditor editor  = new VariamosGraphEditor(this, 
 					new VariamosGraphComponent(refasGraph, bgColor),i+1,abstractModel);
 			editor.setGraphEditorFunctions (new RefasGraphEditorFunctions(editor));
+			if (i ==1)
+				modelEditor = editor;
+
+			if (i ==3)
+				editor.setModelEditor(modelEditor);
 
 			graphEditors.add(editor);
 
@@ -100,6 +106,7 @@ public class MainFrame extends JFrame {
 		this.getRootPane().getContentPane().removeAll();
 		this.add(graphEditors.get(perspective-1));
 		this.setJMenuBar(editorsMenu.get(perspective-1));
+		graphEditors.get(perspective-1).updateObjects();
 		this.revalidate();
 		this.repaint();
 	}

@@ -21,8 +21,6 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,6 +42,7 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxStencilShape;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -52,7 +51,6 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.PLEditorToolBar;
 import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
@@ -65,38 +63,37 @@ import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.gui.refas.editor.panels.AttributeEditionPanel;
 import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
 import com.variamos.gui.refas.editor.panels.EnumerationAttributeList;
-import com.variamos.gui.refas.editor.panels.PropertyAttributeList;
 import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationConfigAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metametamodel.MetaView;
-import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstView;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationConfigAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.syntaxsupport.type.DomainRegister;
 
 import fm.FeatureModelException;
@@ -145,6 +142,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected int mode = 0;
 	private int tabIndex = 0, lastTabIndex = 0;
 	private Refas2Hlcl refas2hlcl;
+	private VariamosGraphEditor modelEditor;
 
 	public VariamosGraphEditor getEditor() {
 		return this;
@@ -390,7 +388,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void setVisibleModel(int modelIndex, int modelSubIndex) {
-		System.out.println(modelIndex + " " + modelSubIndex);
+		// System.out.println(modelIndex + " " + modelSubIndex);
 		modelViewIndex = modelIndex;
 		modelSubViewIndex = modelSubIndex;
 		RefasGraph mode = ((RefasGraph) getGraphComponent().getGraph());
@@ -971,10 +969,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (elm instanceof InstConcept) {
 				type = "vertex";
 			}
-			if (elm instanceof InstEdge) {
+			if (elm instanceof InstPairwiseRelation) {
 				type = "edge";
 			}
-			if (elm instanceof InstGroupDependency) {
+			if (elm instanceof InstOverTwoRelation) {
 				type = "groupdep";
 			}
 			if (type != null && this.perspective == 2) {
@@ -1004,53 +1002,56 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 										"Simulation Execution Error",
 										JOptionPane.INFORMATION_MESSAGE, null);
 					}
+					((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(elm);
+					updateObjects();
 
 				}
 			});
 			// TODO split in two new classes, one for each panel
 			for (InstAttribute v : visible) {
-				if (elm instanceof InstGroupDependency) {
+				if (elm instanceof InstOverTwoRelation) {
 
 					if (v.getEnumType() != null
 							&& v.getEnumType()
-									.equals(MetaOverTwoRelation.VAR_SEMANTICGROUPDEPENDENCYCLASS)) {
-						InstGroupDependency groupdep = (InstGroupDependency) elm;
-						List<IntSemanticGroupDependency> metaGD = groupdep
-								.getMetaGroupDependency()
+									.equals(MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+						InstOverTwoRelation groupdep = (InstOverTwoRelation) elm;
+						List<IntSemanticOverTwoRelation> metaGD = groupdep
+								.getMetaOverTwoRelation()
 								.getSemanticRelations();
 						v.setValidationGDList(metaGD);
 					}
 				}
-				if (elm instanceof InstEdge) {
+				if (elm instanceof InstPairwiseRelation) {
 
 					if (v.getEnumType() != null
 							&& v.getEnumType()
-									.equals(MetaPairwiseRelation.VAR_DIRECTSEMANTICEDGECLASS)) {
-						MetaEdge metaEdge = ((InstEdge) elm).getMetaEdge();
+									.equals(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+						MetaPairwiseRelation metaEdge = ((InstPairwiseRelation) elm).getMetaPairwiseRelation();
 						if (metaEdge instanceof MetaPairwiseRelation) {
-							List<IntDirectSemanticEdge> directRel = ((MetaPairwiseRelation) metaEdge)
+							List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) metaEdge)
 									.getSemanticRelations();
 							v.setValidationDRList(directRel);
 						}
 					}
 					if (v.getEnumType() != null
 							&& v.getEnumType().equals(
-									InstEdge.VAR_METAEDGECLASS)) {
+									InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 						Map<String, MetaElement> mapElements = VariamosGraphEditor.sematicSyntaxObject
 								.getSyntaxElements();
 						Iterator<String> elementNames = mapElements.keySet()
 								.iterator();
-						List<MetaEdge> metaGD = new ArrayList<MetaEdge>();
+						List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();
 						while (elementNames.hasNext()) {
 							String elementName = elementNames.next();
-							if (mapElements.get(elementName) instanceof MetaEdge) // TODO
+							if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
 																					// also
 																					// validate
 																					// origin
 																					// and
 																					// destination
 																					// relation
-								metaGD.add((MetaEdge) mapElements
+								metaGD.add((MetaPairwiseRelation) mapElements
 										.get(elementName));
 						}
 						v.setValidationMEList(metaGD);
@@ -1356,6 +1357,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void refreshPalette() {
 		int i = graphAndRight.getDividerLocation();
 		graphAndRight.setDividerLocation(i + 1);
+	}
+
+	public void setModelEditor(VariamosGraphEditor modelEditor) {
+		this.modelEditor = modelEditor;
+	}
+
+	public void updateObjects() {
+		if (perspective == 4) {
+			this.graphComponent.setGraph(modelEditor.getGraphComponent()
+					.getGraph());
+			
+		//	mxGraphModel.prototype.cloneCells
+			/*
+			 * Object parent =
+			 * modelEditor.getGraphComponent().getGraph().getDefaultParent();
+			 * modelEditor.getGraphComponent().getGraph().selectAll(); Object[]
+			 * all =
+			 * modelEditor.getGraphComponent().getGraph().getSelectionCells();
+			 * modelEditor.getGraphComponent().getGraph().addCell(all);
+			 * this.graphComponent.getGraph().selectAll();
+			 * this.graphComponent.getGraph().addCells(all);
+			 */}
+
 	}
 
 }

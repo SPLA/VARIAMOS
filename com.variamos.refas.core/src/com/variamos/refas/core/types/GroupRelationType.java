@@ -1,6 +1,6 @@
 package com.variamos.refas.core.types;
 
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupRelationType;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelType;
 
 /**
  * An enumeration to represent possible group relations types. Part of PhD
@@ -11,7 +11,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupRelationType
  * @version 1.1
  * @since 2014-11-23
  */
-public enum GroupRelationType implements IntSemanticGroupRelationType {
+public enum GroupRelationType implements IntSemanticOverTwoRelType {
 	means_ends,
 	required,	
 	conflict,

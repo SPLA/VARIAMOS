@@ -52,7 +52,6 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
@@ -66,16 +65,17 @@ import com.variamos.pl.configurator.Choice;
 import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
-import com.variamos.refas.core.simulationmodel.AbstractConstraintGroup;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
-import com.variamos.refas.core.transformations.NumberNumericTransformation;
+import com.variamos.refas.core.expressions.NumberNumericExpression;
+import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.refas.core.types.ExpressionClassType;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEdge;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstGroupDependency;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**
@@ -94,9 +94,9 @@ public class RefasExpressionPanel extends JPanel {
 
 	private JPanel solutionPanel;
 
-	private AbstractConstraintGroup expressionSet;
+	private MetaExpressionSet expressionSet;
 
-	private AbstractTransformation selectedExpression;
+	private AbstractExpression selectedExpression;
 
 	private VariamosGraphEditor graphEditor;
 	
@@ -126,7 +126,7 @@ public class RefasExpressionPanel extends JPanel {
 	}
 
 	public void configure(AbstractModel am,
-			AbstractConstraintGroup expressionSet, InstElement element) {
+			MetaExpressionSet expressionSet, InstElement element) {
 		this.expressionSet = expressionSet;
 		Refas pl = (Refas) am;
 		this.refas = pl;
@@ -138,9 +138,9 @@ public class RefasExpressionPanel extends JPanel {
 		removeAll();
 		setLayout(new BorderLayout());
 		solutionPanel = new JPanel(new SpringLayout());
-		List<AbstractTransformation> expressions = expressionSet
+		List<AbstractExpression> expressions = expressionSet
 				.getTransformations();
-		for (AbstractTransformation expression : expressions) {
+		for (AbstractExpression expression : expressions) {
 			showExpression(expression, element, solutionPanel, 255);
 		}
 
@@ -150,13 +150,13 @@ public class RefasExpressionPanel extends JPanel {
 
 	}
 
-	private void showExpression(AbstractTransformation expression,
+	private void showExpression(AbstractExpression expression,
 			InstElement element, JPanel parentPanel, int color) {
 		final InstElement ele = element;
-		final AbstractTransformation exp = expression;		
-		if (expression instanceof NumberNumericTransformation) {
+		final AbstractExpression exp = expression;		
+		if (expression instanceof NumberNumericExpression) {
 			parentPanel.add(new JTextField(""
-					+ ((NumberNumericTransformation) expression).getNumber()));
+					+ ((NumberNumericExpression) expression).getNumber()));
 			return;
 		}
 		JPanel childPanel = new JPanel();
@@ -280,33 +280,33 @@ public class RefasExpressionPanel extends JPanel {
 		if (element instanceof InstConcept)
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		if (element instanceof InstEdge) {
-			for (String attributeName : ((InstEdge) element)
-					.getSourceRelation().getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getSourceRelation()
+		if (element instanceof InstPairwiseRelation) {
+			for (String attributeName : ((InstPairwiseRelation) element)
+					.getSourceRelations().get(0).getInstAttributes().keySet())
+				combo.addItem(((InstPairwiseRelation) element).getSourceRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
-			for (String attributeName : ((InstEdge) element)
-					.getTargetRelation().getInstAttributes().keySet())
-				combo.addItem(((InstEdge) element).getTargetRelation()
+			for (String attributeName : ((InstPairwiseRelation) element)
+					.getTargetRelations().get(0).getInstAttributes().keySet())
+				combo.addItem(((InstPairwiseRelation) element).getTargetRelations().get(0)
 						.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
-		if (element instanceof InstGroupDependency) {
-			if (((InstGroupDependency) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstEdge)((InstGroupDependency) element)
-						.getTargetRelations().get(0)).getTargetRelation()
+		if (element instanceof InstOverTwoRelation) {
+			if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
+				for (String attributeName : ((InstPairwiseRelation)((InstOverTwoRelation) element)
+						.getTargetRelations().get(0)).getTargetRelations().get(0)
 						.getInstAttributes().keySet())
-					combo.addItem(((InstEdge)((InstGroupDependency) element)
-							.getTargetRelations().get(0)).getTargetRelation()
+					combo.addItem(((InstPairwiseRelation)((InstOverTwoRelation) element)
+							.getTargetRelations().get(0)).getTargetRelations().get(0)
 							.getIdentifier()
 							+ "_" + attributeName);
-			for (InstElement sourceRelation : ((InstGroupDependency) element)
+			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
 					.getSourceRelations())
-				for (String attributeName : ((InstEdge)sourceRelation).getSourceRelation()
+				for (String attributeName : ((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
 						.getInstAttributes().keySet())
-					combo.addItem(((InstEdge)sourceRelation).getSourceRelation()
+					combo.addItem(((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
 							.getIdentifier() + "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
@@ -327,10 +327,10 @@ public class RefasExpressionPanel extends JPanel {
 	private JComboBox<String> createOperatorsCombo(String selectedOperator) {
 		JComboBox<String> combo = new JComboBox<String>();
 		for (ExpressionClassType operatorType : ExpressionClassType.values()) {
-			Class<AbstractTransformation> expressionClass = null;
+			Class<AbstractExpression> expressionClass = null;
 			try {
-				expressionClass = (Class<AbstractTransformation>) Class
-						.forName("com.variamos.refas.core.transformations."
+				expressionClass = (Class<AbstractExpression>) Class
+						.forName("com.variamos.refas.core.expressions."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

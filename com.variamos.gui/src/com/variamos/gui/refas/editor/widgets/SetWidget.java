@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 
 /**
  * A class to support set widgets on the interface. Copied from SetWidget

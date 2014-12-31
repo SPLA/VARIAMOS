@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaEnumeration;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 /**
  * A class to represented modeling instances of enumerations from meta model on
@@ -20,7 +20,7 @@ import com.variamos.syntaxsupport.metametamodel.MetaVertex;
  * 
  * @version 1.1
  * @since 2014-12-10 *
- * @see com.variamos.syntaxsupport.metametamodel.MetaEnumeration
+ * @see com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration
  */
 public class InstEnumeration extends InstVertex {
 
@@ -28,7 +28,7 @@ public class InstEnumeration extends InstVertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 188655707058755882L;
-	public static final String VAR_METAENUMIDE = "MetaEnumIde";
+	public static final String VAR_METAENUM_IDEN = "MetaEnumIde";
 	private MetaVertex metaEnumeration;
 
 	public InstEnumeration() {
@@ -51,7 +51,7 @@ public class InstEnumeration extends InstVertex {
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration,
 			Map<String, InstAttribute> attributes,
-			Map<String, InstEdge> relations) {
+			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
 		setMetaVertex(metaEnumeration);
 		createInstAttributes();
@@ -104,32 +104,32 @@ public class InstEnumeration extends InstVertex {
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
 		Set<String> attributesNames = getMetaEnumeration()
-				.getDisPropEditableAttributes();
+				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 														// superclass
 		Set<String> attributesNames = getMetaEnumeration()
-				.getDisPropVisibleAttributes();
+				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public String getMetaVertexIdentifier() {
 		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METAENUMIDE);
+		return (String) vars.get(VAR_METAENUM_IDEN);
 	}
 
 	public String toStringOld() { // TODO move partially to superclass
 		String out = "";
 		if (getMetaEnumeration() != null) {
 			Set<String> visibleAttributesNames = getMetaEnumeration()
-					.getDisPanelVisibleAttributes();
+					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 			Set<String> spacersAttributes = getMetaEnumeration()
-					.getDisPanelSpacersAttributes();
+					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -221,7 +221,7 @@ public class InstEnumeration extends InstVertex {
 
 	public void setMetaVertex(MetaVertex metaEnumeration) {
 		this.metaEnumeration = metaEnumeration;
-		setVariable(VAR_METAENUMIDE, metaEnumeration.getIdentifier());
+		setVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
 		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
@@ -230,7 +230,7 @@ public class InstEnumeration extends InstVertex {
 	}
 
 	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
-		setVariable(VAR_METAENUMIDE, metaEnumerationIdentifier);
+		setVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
 		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
 		// createInstAttributes();
 	}

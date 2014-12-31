@@ -10,12 +10,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
+/**
+ * A class to represented modeling elements from meta model and semantic model
+ * on VariaMos. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2014-12-21 *
+ * @see com.variamos.syntaxsupport.metamodel.InsVertex
+ * @see com.variamos.syntaxsupport.metamodel.InsEdge
+ */
 public abstract class InstElement implements Serializable, EditableElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1699725673312851979L;
+
 	/**
 	 * Dynamic storage of modeling, semantic and simulation instance attribute
 	 * instances
@@ -154,6 +170,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 		// return identifier;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String toString() {
 		String out = "";
 		String out2 = "";
@@ -181,12 +198,12 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 		if (getSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getSupportMetaElement()
-					.getDisPanelVisibleAttributes();
+					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 			Set<String> spacersAttributes = getSupportMetaElement()
-					.getDisPanelSpacersAttributes();
+					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -332,5 +349,40 @@ public abstract class InstElement implements Serializable, EditableElement {
 				}
 			}
 		}
+	}
+
+	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
+		clearTargetRelations(firstCall);
+		addTargetRelation(targetRelation, firstCall);
+
+	}
+
+	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
+		clearSourceRelations(firstCall);
+		addSourceRelation(sourceRelation, firstCall);
+	}
+
+	protected void clearSourceRelations(boolean b) {
+		for (InstElement instElement : sourceRelations)
+			instElement.removeTargetRelation(this);
+		sourceRelations.clear();
+
+	}
+
+	private void removeTargetRelation(InstElement instElement) {
+		targetRelations.remove(instElement);
+		
+	}
+
+	protected void clearTargetRelations(boolean b) {
+		for (InstElement instElement : targetRelations)
+			instElement.removeSourceRelation(this);
+		targetRelations.clear();
+
+	}
+
+	private void removeSourceRelation(InstElement instElement) {
+		sourceRelations.remove(instElement);
+		
 	}
 }

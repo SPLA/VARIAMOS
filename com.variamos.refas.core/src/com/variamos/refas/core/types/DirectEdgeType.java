@@ -1,6 +1,6 @@
 package com.variamos.refas.core.types;
 
-import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 
 /**
  * An enumeration to represent possible direct relations types. Part of PhD
@@ -11,6 +11,6 @@ import com.variamos.syntaxsupport.semanticinterface.IntDirectEdgeType;
  * @version 1.1
  * @since 2014-11-23
  */
-public enum DirectEdgeType implements IntDirectEdgeType {
+public enum DirectEdgeType implements IntSemanticPairwiseRelType {
 	means_ends, preferred, required, conflict, alternative, implication, implementation, mandatory, optional, claim, softdependency, generalConstraint,none
 }

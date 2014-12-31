@@ -1,7 +1,7 @@
 package com.variamos.refas.core.sematicsmetamodel;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the hard concepts at semantic level. Part of PhD work at
@@ -41,8 +41,8 @@ public class HardSemanticConcept extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_SATISFACTIONTYPE, new SemanticAttribute(
 				VAR_SATISFACTIONTYPE, "Enumeration",false, VAR_SATISFACTIONTYPENAME, VAR_SATISFACTIONTYPECLASS,
 				 "achieve", ""));
-		this.addDisPropEditableAttribute("01#" + VAR_SATISFACTIONTYPE);
-		this.addDisPropVisibleAttribute("01#" + VAR_SATISFACTIONTYPE);
+		this.addPropEditableAttribute("01#" + VAR_SATISFACTIONTYPE);
+		this.addPropVisibleAttribute("01#" + VAR_SATISFACTIONTYPE);
 	}
 
 	public AbstractAttribute getSatisfactionType() {

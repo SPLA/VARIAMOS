@@ -1,8 +1,8 @@
 package com.variamos.gui.refas.editor;
 
-import com.variamos.syntaxsupport.metametamodel.MetaConcept;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 public class PaletteElement {
 

@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metametamodel.AbstractAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaExtends;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
-import com.variamos.syntaxsupport.metametamodel.SimulationStateAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaExtends;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
 
 /**
@@ -34,7 +34,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 	private boolean booleanSatisfaction;
 
 	private List<IncomingSemanticEdge> groupRelations = new ArrayList<IncomingSemanticEdge>();
-	private List<DirectSemanticEdge> directRelations = new ArrayList<DirectSemanticEdge>();
+	private List<SemanticPairwiseRelation> directRelations = new ArrayList<SemanticPairwiseRelation>();
 
 	public AbstractSemanticVertex() {
 		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
@@ -51,7 +51,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
 			groupRelations = new ArrayList<IncomingSemanticEdge>();
-			directRelations = new ArrayList<DirectSemanticEdge>();
+			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}	}
 
 	public AbstractSemanticVertex(String name, boolean satisfactionType) {
@@ -75,7 +75,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
 			groupRelations = new ArrayList<IncomingSemanticEdge>();
-			directRelations = new ArrayList<DirectSemanticEdge>();
+			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}
 	}
 
@@ -95,7 +95,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 		this.groupRelations = groupRelations;
 	}
 
-	public void setDirectRelations(List<DirectSemanticEdge> directRelations) {
+	public void setDirectRelations(List<SemanticPairwiseRelation> directRelations) {
 		this.directRelations = directRelations;
 	}
 
@@ -103,7 +103,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 		return groupRelations;
 	}
 
-	public List<DirectSemanticEdge> getDirectRelations() {
+	public List<SemanticPairwiseRelation> getDirectRelations() {
 		return directRelations;
 	}
 
@@ -111,7 +111,7 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 		groupRelations.add(groupRelation);
 	}
 
-	public void addDirectRelation(DirectSemanticEdge directRelation) {
+	public void addDirectRelation(SemanticPairwiseRelation directRelation) {
 		directRelations.add(directRelation);
 	}
 
@@ -132,5 +132,4 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 													 * groupRelationsOut
 													 */;
 	}
-
 }

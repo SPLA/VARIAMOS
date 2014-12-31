@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.variamos.refas.core.types.LevelType;
 import com.variamos.refas.core.types.SatisficingType;
-import com.variamos.syntaxsupport.metametamodel.SemanticAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the edges at semantic level. Part of PhD work at

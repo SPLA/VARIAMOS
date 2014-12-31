@@ -17,18 +17,18 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
-import com.variamos.refas.core.sematicsmetamodel.SemanticGroupDependency;
-import com.variamos.syntaxsupport.metametamodel.EditableElementAttribute;
-import com.variamos.syntaxsupport.metametamodel.MetaEdge;
-import com.variamos.syntaxsupport.metametamodel.MetaElement;
-import com.variamos.syntaxsupport.metametamodel.MetaVertex;
+import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.semanticinterface.IntDirectSemanticEdge;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticGroupDependency;
-import com.variamos.syntaxsupport.type.ClassType;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
@@ -61,7 +61,7 @@ public class ClassWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = ClassType.class.getClassLoader();
+		ClassLoader classLoader = ClassSingleSelectionType.class.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
 		InstAttribute instAttribute = (InstAttribute)v;
@@ -73,11 +73,11 @@ public class ClassWidget extends WidgetR {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		if (instAttribute.getValidationDRList() != null) {
+		if (instAttribute.getPairwiseRelValidationList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntDirectSemanticEdge> list = instAttribute.getValidationDRList();
+			List<IntSemanticPairwiseRelation> list = instAttribute.getPairwiseRelValidationList();
 
-			for (IntDirectSemanticEdge groupDependency : list) {
+			for (IntSemanticPairwiseRelation groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						groupDependency);
 				String out = groupDependency.getIdentifier();
@@ -85,19 +85,19 @@ public class ClassWidget extends WidgetR {
 			}
 		} else if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, MetaElement>();
-			List<MetaEdge> list = instAttribute.getValidationMEList();
+			List<MetaPairwiseRelation> list = instAttribute.getValidationMEList();
 
-			for (MetaEdge groupDependency : list) {
+			for (MetaPairwiseRelation groupDependency : list) {
 				syntaxElements.put(groupDependency.getIdentifier(),
-						(MetaEdge) groupDependency);
+						(MetaPairwiseRelation) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 			}
-		} else if (instAttribute.getValidationGDList() != null) {
+		} else if (instAttribute.getOverTwoRelValidationList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticGroupDependency> list = instAttribute.getValidationGDList();
+			List<IntSemanticOverTwoRelation> list = instAttribute.getOverTwoRelValidationList();
 
-			for (IntSemanticGroupDependency groupDependency : list) {
+			for (IntSemanticOverTwoRelation groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						(AbstractSemanticVertex) groupDependency);
 				String out = groupDependency.getIdentifier();
@@ -201,11 +201,11 @@ public class ClassWidget extends WidgetR {
 
 		InstAttribute instAttribute = (InstAttribute)v;
 		if (instAttribute.getValueObject() != null) {
-			if (instAttribute.getValueObject() instanceof SemanticGroupDependency)
-				txtValue.setSelectedItem((String) ((SemanticGroupDependency) instAttribute
+			if (instAttribute.getValueObject() instanceof SemanticOverTwoRelation)
+				txtValue.setSelectedItem((String) ((SemanticOverTwoRelation) instAttribute
 						.getValueObject()).getIdentifier());
-			else if (instAttribute.getValueObject() instanceof MetaEdge)
-				txtValue.setSelectedItem((String) ((MetaEdge) instAttribute
+			else if (instAttribute.getValueObject() instanceof MetaPairwiseRelation)
+				txtValue.setSelectedItem((String) ((MetaPairwiseRelation) instAttribute
 						.getValueObject()).getIdentifier());
 		}
 		if (instVertex != null)
