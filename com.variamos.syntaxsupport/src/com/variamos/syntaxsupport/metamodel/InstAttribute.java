@@ -204,7 +204,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 
 	public String getAttributeType() {
 		return attributeObject.getType();
-	}
+	}	
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub

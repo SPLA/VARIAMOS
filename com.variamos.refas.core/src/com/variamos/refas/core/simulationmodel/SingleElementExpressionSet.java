@@ -11,6 +11,7 @@ import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
+import com.variamos.refas.core.expressions.NotBooleanExpression;
 import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.expressions.OrBooleanExpression;
 import com.variamos.refas.core.expressions.ProdNumericExpression;
@@ -72,14 +73,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 		if (instVertex instanceof InstConcept
 				|| instVertex instanceof InstOverTwoRelation) {
 
-			InstAttribute validAttribute = instVertex.getInstAttribute("Active");
-			if (validAttribute == null || ((boolean) validAttribute.getValue()) == true) {
+			InstAttribute validAttribute = instVertex
+					.getInstAttribute("Active");
+			if (validAttribute == null
+					|| ((boolean) validAttribute.getValue()) == true) {
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributesCollection()) {
 
 					int attributeValue = 0;
-					String type = (String) instAttribute
-							.getAttributeType();
+					String type = (String) instAttribute.getAttributeType();
 					if (type.equals("Integer") || type.equals("Boolean")) {
 						if (instAttribute.getValue() instanceof Boolean)
 							attributeValue = ((boolean) instAttribute
@@ -94,9 +96,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					if (instAttribute.getIdentifier().equals("Allowed")) {
 
 						getTransformations()
-								.add(new EqualsComparisonExpression(
-										instVertex, instAttribute
-												.getIdentifier(),
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
 						getTransformations().add(
@@ -107,9 +108,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// identifierId_SimRequired #= identifierId_Required
 					if (instAttribute.getIdentifier().equals("Required")) {
 						getTransformations()
-								.add(new EqualsComparisonExpression(
-										instVertex, instAttribute
-												.getIdentifier(),
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
 						getTransformations().add(
@@ -117,23 +117,24 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
 					}
-					// identifierId_SimRequired #==> identifierId_ValidationSelected #= 1
-					if (instAttribute.getIdentifier().equals("ValidationSelected")) {
+					// identifierId_SimRequired #==>
+					// identifierId_ValidationSelected #= 1
+					if (instAttribute.getIdentifier().equals(
+							"ValidationSelected")) {
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
 								instVertex, instAttribute.getIdentifier(),
 								getHlclFactory().number(1));
 						getTransformations().add(
-								new ImplicationBooleanExpression(instVertex, "SimRequired", true,
-										transformation9));
+								new ImplicationBooleanExpression(instVertex,
+										"SimRequired", true, transformation9));
 					}
 
 					// identifierId_SimInitialRequiredLevel #=
 					// identifierId_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
 						getTransformations()
-								.add(new EqualsComparisonExpression(
-										instVertex, instAttribute
-												.getIdentifier(),
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
 						getTransformations().add(
@@ -147,9 +148,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation1 = new DiffNumericExpression(
 								instVertex, "SimRequired", false,
 								getHlclFactory().number(1));
-						transformation1 = new SumNumericExpression(
-								instVertex, instAttribute.getIdentifier(),
-								false, transformation1);
+						transformation1 = new SumNumericExpression(instVertex,
+								instAttribute.getIdentifier(), false,
+								transformation1);
 
 						getTransformations().add(
 								new GreaterOrEqualsBooleanExpression(
@@ -162,9 +163,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation2 = new DiffNumericExpression(
 								instVertex, "Selected", false, getHlclFactory()
 										.number(1));
-						transformation2 = new SumNumericExpression(
-								instVertex, instAttribute.getIdentifier(),
-								false, transformation2);
+						transformation2 = new SumNumericExpression(instVertex,
+								instAttribute.getIdentifier(), false,
+								transformation2);
 
 						getTransformations().add(
 								new GreaterOrEqualsBooleanExpression(
@@ -185,8 +186,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								transformation3, transformation4);
 
 						getTransformations().add(
-								new EqualsComparisonExpression(
-										transformation3,
+								new EqualsComparisonExpression(transformation3,
 										new NumberNumericExpression(0)));
 					}
 
@@ -196,11 +196,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						// Identifier_AlternativeSatisfied ) #\/
 						// ( Identifier_ValidationSatisfied #/\
 						// identifierId_SimAllowed )
-						// #/\ identifierId_NoSatisfactionConflict )
+						// #/\ ( 1 - identifierId_SatisfactionConflict ) )
 						getTransformations()
-								.add(new EqualsComparisonExpression(
-										instVertex, instAttribute
-												.getIdentifier(),
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 								instVertex, instVertex, "ForcedSatisfied",
@@ -210,36 +209,37 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								"SimAllowed");
 						AbstractBooleanExpression transformation8 = new OrBooleanExpression(
 								transformation6, transformation7);
-						AbstractBooleanExpression transformation9 = new AndBooleanExpression(
-								instVertex, "NoSatisfactionConflict", false,
-								transformation8);
+						AbstractBooleanExpression transformation9 = new NotBooleanExpression(
+								instVertex, "SatisfactionConflict");
+						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
+								transformation8, transformation9);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Satisfied", true,
-										transformation9));
+										transformation10));
 
 					}
 					// Set ForceSelected from GUI properties
 					if (instAttribute.getIdentifier().equals("ForcedSelected")) {
 
 						getTransformations()
-								.add(new EqualsComparisonExpression(
-										instVertex, instAttribute
-												.getIdentifier(),
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 					}
 					if (instAttribute.getIdentifier().equals("Selected")) {
 						// identifierId_Selected #<=>
 						// ( ( ( identifierId_SolverSelected #/\
 						// identifierId_NotPrefSelected )
-						// #\/  identifierId_ValidationSelected ) #\/
+						// #\/ identifierId_ValidationSelected ) #\/
 						// identifierId_ForceSelected )
 
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								instVertex, instVertex, "SolverSelected",
 								"NotPrefSelected");
 						AbstractBooleanExpression transformation11 = new OrBooleanExpression(
-								instVertex, "ValidationSelected",false, transformation10);
+								instVertex, "ValidationSelected", false,
+								transformation10);
 						AbstractBooleanExpression transformation12 = new OrBooleanExpression(
 								instVertex, "ForcedSelected", false,
 								transformation11);

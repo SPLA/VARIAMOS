@@ -788,16 +788,16 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("SatisfiedLevel",
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
-		semGeneralElement.putSemanticAttribute("NoSatisfactionConflict",
-				new SimulationStateAttribute("NoSatisfactionConflict",
-						"Boolean", false, "No Satisfaction Conflict", true));
+		semGeneralElement.putSemanticAttribute("SatisfactionConflict",
+				new SimulationStateAttribute("SatisfactionConflict",
+						"Boolean", false, "Satisfaction Conflict", false));
 
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
 		semGeneralElement.putSemanticAttribute("NotPrefSelected",
 				new SimulationStateAttribute("NotPrefSelected", "Boolean",
-						false, "Not Preferred Selected", true));
+						false, "Not Preferred Selected", false));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -832,7 +832,7 @@ public class Refas extends AbstractModel {
 				.addPropVisibleAttribute("06#" + "ValidationSatisfied");
 		semGeneralElement.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		semGeneralElement.addPropVisibleAttribute("10#"
-				+ "NoSatisfactionConflict");
+				+ "SatisfactionConflict");
 
 		semGeneralElement.addPropVisibleAttribute("12#" + "SimAllowed");
 
@@ -1657,16 +1657,16 @@ public class Refas extends AbstractModel {
 		featureMetaOverTwoRel.addModelingAttribute("SatisfiedLevel",
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
-		featureMetaOverTwoRel.addModelingAttribute("NoSatisfactionConflict",
-				new SimulationStateAttribute("NoSatisfactionConflict",
-						"Boolean", false, "No Satisfaction Conflict", true));
+		featureMetaOverTwoRel.addModelingAttribute("SatisfactionConflict",
+				new SimulationStateAttribute("SatisfactionConflict",
+						"Boolean", false, "Satisfaction Conflict", false));
 
 		featureMetaOverTwoRel.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"Selected", false));
 		featureMetaOverTwoRel.addModelingAttribute("NotPrefSelected",
 				new SimulationStateAttribute("NotPrefSelected", "Boolean",
-						false, "Not Preferred Selected", true));
+						false, "Not Preferred Selected", false));
 		featureMetaOverTwoRel.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -1703,7 +1703,7 @@ public class Refas extends AbstractModel {
 				+ "ValidationSatisfied");
 		featureMetaOverTwoRel.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		featureMetaOverTwoRel.addPropVisibleAttribute("10#"
-				+ "NoSatisfactionConflict");
+				+ "SatisfactionConflict");
 
 		featureMetaOverTwoRel.addPropVisibleAttribute("12#" + "SimAllowed");
 
@@ -2098,16 +2098,16 @@ public class Refas extends AbstractModel {
 		hardMetaOverTwoRel.addModelingAttribute("SatisfiedLevel",
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
-		hardMetaOverTwoRel.addModelingAttribute("NoSatisfactionConflict",
-				new SimulationStateAttribute("NoSatisfactionConflict",
-						"Boolean", false, "No Satisfaction Conflict", true));
+		hardMetaOverTwoRel.addModelingAttribute("SatisfactionConflict",
+				new SimulationStateAttribute("SatisfactionConflict",
+						"Boolean", false, "Satisfaction Conflict", false));
 
 		hardMetaOverTwoRel.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
 		hardMetaOverTwoRel.addModelingAttribute("NotPrefSelected",
 				new SimulationStateAttribute("NotPrefSelected", "Boolean",
-						false, "Not Preferred Selected", true));
+						false, "Not Preferred Selected", false));
 		hardMetaOverTwoRel.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -2142,7 +2142,7 @@ public class Refas extends AbstractModel {
 				+ "ValidationSatisfied");
 		hardMetaOverTwoRel.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		hardMetaOverTwoRel.addPropVisibleAttribute("10#"
-				+ "NoSatisfactionConflict");
+				+ "SatisfactionConflict");
 
 		hardMetaOverTwoRel.addPropVisibleAttribute("12#" + "SimAllowed");
 

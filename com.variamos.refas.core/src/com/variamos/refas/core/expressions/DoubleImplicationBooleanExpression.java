@@ -71,7 +71,7 @@ public class DoubleImplicationBooleanExpression extends
 
 	@Override
 	public BooleanExpression transform(HlclFactory f,
-			Map<String, Identifier> idMap) {
+			Map<String, Identifier> idMap) { 
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.doubleImplies((BooleanExpression) expressionTerms.get(0),
 				(BooleanExpression) expressionTerms.get(1));

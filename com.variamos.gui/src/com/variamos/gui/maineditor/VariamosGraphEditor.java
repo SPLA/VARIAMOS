@@ -60,6 +60,7 @@ import com.variamos.gui.pl.editor.VariabilityAttributeList;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.gui.refas.editor.ModelButtonAction;
+import com.variamos.gui.refas.editor.RefasEditorToolBar;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
@@ -143,6 +144,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int tabIndex = 0, lastTabIndex = 0;
 	private Refas2Hlcl refas2hlcl;
 	private VariamosGraphEditor modelEditor;
+	private EditableElement lastEditableElement;
+
+	public Refas2Hlcl getRefas2hlcl() {
+		return refas2hlcl;
+	}
 
 	public VariamosGraphEditor getEditor() {
 		return this;
@@ -948,7 +954,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			return;
 		} else {
-
+			lastEditableElement = elm; //TODO workaround to update after simul
 			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
 				extensionTabs.setSelectedIndex(tabIndex);
 				extensionTabs.getSelectedComponent().repaint();
@@ -989,23 +995,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			elementSimPropSubPanel.add(new JPanel());
 			test.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION)) {
-						refas2hlcl.updateGUIElements();
-						messagesArea.setText(refas2hlcl.getText());
-						bringUpTab(mxResources.get("elementSimPropTab"));
-						editPropertiesRefas(elm);
-					} else {
-						JOptionPane
-								.showMessageDialog(
-										frame,
-										"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
-										"Simulation Execution Error",
-										JOptionPane.INFORMATION_MESSAGE, null);
-					}
-					((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(elm);
-					updateObjects();
-
+					executeSimulation(true);
 				}
 			});
 			// TODO split in two new classes, one for each panel
@@ -1027,7 +1017,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					if (v.getEnumType() != null
 							&& v.getEnumType()
 									.equals(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-						MetaPairwiseRelation metaEdge = ((InstPairwiseRelation) elm).getMetaPairwiseRelation();
+						MetaPairwiseRelation metaEdge = ((InstPairwiseRelation) elm)
+								.getMetaPairwiseRelation();
 						if (metaEdge instanceof MetaPairwiseRelation) {
 							List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) metaEdge)
 									.getSemanticRelations();
@@ -1035,8 +1026,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						}
 					}
 					if (v.getEnumType() != null
-							&& v.getEnumType().equals(
-									InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
+							&& v.getEnumType()
+									.equals(InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 						Map<String, MetaElement> mapElements = VariamosGraphEditor.sematicSyntaxObject
 								.getSyntaxElements();
 						Iterator<String> elementNames = mapElements.keySet()
@@ -1045,12 +1036,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						while (elementNames.hasNext()) {
 							String elementName = elementNames.next();
 							if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
-																					// also
-																					// validate
-																					// origin
-																					// and
-																					// destination
-																					// relation
+								// also
+								// validate
+								// origin
+								// and
+								// destination
+								// relation
 								metaGD.add((MetaPairwiseRelation) mapElements
 										.get(elementName));
 						}
@@ -1328,6 +1319,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
+		if (perspective ==3)			
+			jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
+					BorderLayout.WEST);
+				else
 		jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 				BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
@@ -1367,8 +1362,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		if (perspective == 4) {
 			this.graphComponent.setGraph(modelEditor.getGraphComponent()
 					.getGraph());
-			
-		//	mxGraphModel.prototype.cloneCells
+
+			// mxGraphModel.prototype.cloneCells
 			/*
 			 * Object parent =
 			 * modelEditor.getGraphComponent().getGraph().getDefaultParent();
@@ -1380,6 +1375,41 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			 * this.graphComponent.getGraph().addCells(all);
 			 */}
 
+	}
+	
+	public void executeSimulation(boolean first)
+	{	boolean result = false;
+		if (first)
+			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+		else
+			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
+		if (result) {
+			refas2hlcl.updateGUIElements();
+			messagesArea.setText(refas2hlcl.getText());
+			bringUpTab(mxResources.get("elementSimPropTab"));
+			editPropertiesRefas(lastEditableElement);
+		} else {
+			if (first)
+			{
+			JOptionPane
+					.showMessageDialog(
+							frame,
+							"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
+							"Simulation Execution Error",
+							JOptionPane.INFORMATION_MESSAGE, null);
+			}
+			else
+				JOptionPane
+				.showMessageDialog(
+						frame,
+						"No more solutions found",
+						"Simulation Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+				
+		}
+		((RefasGraph) getGraphComponent().getGraph())
+				.refreshVariable(lastEditableElement);
+		updateObjects();
 	}
 
 }
