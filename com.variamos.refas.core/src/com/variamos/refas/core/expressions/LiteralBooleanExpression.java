@@ -5,7 +5,7 @@ import java.util.Map;
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
-import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanExpression;
 /**
  * Class to create the Literal expression. Part of PhD
  * work at University of Paris 1
@@ -15,7 +15,7 @@ import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
  * @version 1.1
  * @since 2014-12-15
  */
-public class LiteralBooleanExpression extends AbstractBooleanTransformation {
+public class LiteralBooleanExpression extends AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "";
 	private String expression;
 	

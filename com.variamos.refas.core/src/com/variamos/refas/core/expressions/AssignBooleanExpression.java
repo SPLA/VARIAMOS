@@ -9,8 +9,8 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
-import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanExpression;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
@@ -22,7 +22,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @version 1.1
  * @since 2014-12-14
  */
-public class AssignBooleanExpression extends AbstractBooleanTransformation {
+public class AssignBooleanExpression extends AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "#>=#";
 
 	public AssignBooleanExpression(InstElement left, InstElement right,
@@ -33,7 +33,7 @@ public class AssignBooleanExpression extends AbstractBooleanTransformation {
 	}
 
 	public AssignBooleanExpression(InstElement left, String attributeName,
-			AbstractTransformation subExpression) {
+			AbstractExpression subExpression) {
 		super(left, attributeName, true, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;

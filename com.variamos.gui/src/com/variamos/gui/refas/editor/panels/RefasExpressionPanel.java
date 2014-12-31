@@ -52,7 +52,6 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
@@ -67,8 +66,9 @@ import com.variamos.pl.configurator.Configurator;
 import com.variamos.pl.configurator.DomainAnnotation;
 import com.variamos.pl.configurator.io.ConfigurationDTO;
 import com.variamos.refas.core.expressions.NumberNumericExpression;
-import com.variamos.refas.core.simulationmodel.AbstractConstraintGroup;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.refas.core.types.ExpressionClassType;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
@@ -94,9 +94,9 @@ public class RefasExpressionPanel extends JPanel {
 
 	private JPanel solutionPanel;
 
-	private AbstractConstraintGroup expressionSet;
+	private MetaExpressionSet expressionSet;
 
-	private AbstractTransformation selectedExpression;
+	private AbstractExpression selectedExpression;
 
 	private VariamosGraphEditor graphEditor;
 	
@@ -126,7 +126,7 @@ public class RefasExpressionPanel extends JPanel {
 	}
 
 	public void configure(AbstractModel am,
-			AbstractConstraintGroup expressionSet, InstElement element) {
+			MetaExpressionSet expressionSet, InstElement element) {
 		this.expressionSet = expressionSet;
 		Refas pl = (Refas) am;
 		this.refas = pl;
@@ -138,9 +138,9 @@ public class RefasExpressionPanel extends JPanel {
 		removeAll();
 		setLayout(new BorderLayout());
 		solutionPanel = new JPanel(new SpringLayout());
-		List<AbstractTransformation> expressions = expressionSet
+		List<AbstractExpression> expressions = expressionSet
 				.getTransformations();
-		for (AbstractTransformation expression : expressions) {
+		for (AbstractExpression expression : expressions) {
 			showExpression(expression, element, solutionPanel, 255);
 		}
 
@@ -150,10 +150,10 @@ public class RefasExpressionPanel extends JPanel {
 
 	}
 
-	private void showExpression(AbstractTransformation expression,
+	private void showExpression(AbstractExpression expression,
 			InstElement element, JPanel parentPanel, int color) {
 		final InstElement ele = element;
-		final AbstractTransformation exp = expression;		
+		final AbstractExpression exp = expression;		
 		if (expression instanceof NumberNumericExpression) {
 			parentPanel.add(new JTextField(""
 					+ ((NumberNumericExpression) expression).getNumber()));
@@ -327,9 +327,9 @@ public class RefasExpressionPanel extends JPanel {
 	private JComboBox<String> createOperatorsCombo(String selectedOperator) {
 		JComboBox<String> combo = new JComboBox<String>();
 		for (ExpressionClassType operatorType : ExpressionClassType.values()) {
-			Class<AbstractTransformation> expressionClass = null;
+			Class<AbstractExpression> expressionClass = null;
 			try {
-				expressionClass = (Class<AbstractTransformation>) Class
+				expressionClass = (Class<AbstractExpression>) Class
 						.forName("com.variamos.refas.core.expressions."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {

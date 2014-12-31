@@ -1,4 +1,4 @@
-package com.variamos.core.refas;
+package com.variamos.refas.core.refas;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -795,9 +795,9 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
-		semGeneralElement.putSemanticAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean",
-						false, "Select by Preferred", true));
+		semGeneralElement.putSemanticAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean",
+						false, "Not Preferred Selected", true));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -821,7 +821,7 @@ public class Refas extends AbstractModel {
 				+ "ValidationRequiredLevel");
 
 		semGeneralElement.addPropVisibleAttribute("09#" + "Selected");
-		semGeneralElement.addPropVisibleAttribute("11#" + "PreferredSelected");
+		semGeneralElement.addPropVisibleAttribute("11#" + "NotPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("13#" + "ValidationSelected");
 		semGeneralElement.addPropVisibleAttribute("15#" + "SolverSelected");
 
@@ -1664,9 +1664,9 @@ public class Refas extends AbstractModel {
 		featureMetaOverTwoRel.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"Selected", false));
-		featureMetaOverTwoRel.addModelingAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean",
-						false, "Select by Preferred", true));
+		featureMetaOverTwoRel.addModelingAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean",
+						false, "Not Preferred Selected", true));
 		featureMetaOverTwoRel.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -1691,7 +1691,7 @@ public class Refas extends AbstractModel {
 				+ "ValidationRequiredLevel");
 		featureMetaOverTwoRel.addPropVisibleAttribute("09#" + "Selected");
 		featureMetaOverTwoRel.addPropVisibleAttribute("11#"
-				+ "PreferredSelected");
+				+ "NotPrefSelected");
 		featureMetaOverTwoRel.addPropVisibleAttribute("13#"
 				+ "ValidationSelected");
 		featureMetaOverTwoRel.addPropVisibleAttribute("15#" + "SolverSelected");
@@ -2105,9 +2105,9 @@ public class Refas extends AbstractModel {
 		hardMetaOverTwoRel.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
-		hardMetaOverTwoRel.addModelingAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean",
-						false, "Select by Preferred", true));
+		hardMetaOverTwoRel.addModelingAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean",
+						false, "Not Preferred Selected", true));
 		hardMetaOverTwoRel.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
@@ -2130,7 +2130,7 @@ public class Refas extends AbstractModel {
 		hardMetaOverTwoRel.addPropVisibleAttribute("07#"
 				+ "ValidationRequiredLevel");
 		hardMetaOverTwoRel.addPropVisibleAttribute("09#" + "Selected");
-		hardMetaOverTwoRel.addPropVisibleAttribute("11#" + "PreferredSelected");
+		hardMetaOverTwoRel.addPropVisibleAttribute("11#" + "NotPrefSelected");
 		hardMetaOverTwoRel
 				.addPropVisibleAttribute("13#" + "ValidationSelected");
 		hardMetaOverTwoRel.addPropVisibleAttribute("15#" + "SolverSelected");

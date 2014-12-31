@@ -11,7 +11,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
- * Abstract  Class to group the NUmericTranformation. Part of PhD
+ * Abstract Class to group at the BooleanTransformation. Part of PhD
  * work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
@@ -19,43 +19,51 @@ import com.variamos.syntaxsupport.metamodel.InstVertex;
  * @version 1.1
  * @since 2014-12-15
  */
-public abstract class AbstractNumericTransformation extends AbstractTransformation {
+public abstract class AbstractBooleanExpression extends
+		AbstractExpression {
 
-	public AbstractNumericTransformation() {
+	public AbstractBooleanExpression() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public AbstractNumericTransformation(
-			AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+	public AbstractBooleanExpression(
+			AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 	}
 
-	public AbstractNumericTransformation(InstElement left, InstElement right,
+	public AbstractBooleanExpression(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 	}
 
-	public AbstractNumericTransformation(InstElement vertex,
+	public AbstractBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			AbstractTransformation subExpression) {
+			AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 	}
 
-	public AbstractNumericTransformation(InstElement vertex,
+	public AbstractBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
 	
-	public AbstractNumericTransformation(InstElement vertex,
+	public AbstractBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
-	public abstract NumericExpression transform(HlclFactory f,
+	public AbstractBooleanExpression(InstElement left,
+			String leftAttributeName) {
+		super(left, leftAttributeName);
+	}
+
+	public abstract BooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
+	
+	public abstract BooleanExpression transformNegation(HlclFactory f,
+			Map<String, Identifier> idMap, boolean negateLeft, boolean negateRight);
 
 }

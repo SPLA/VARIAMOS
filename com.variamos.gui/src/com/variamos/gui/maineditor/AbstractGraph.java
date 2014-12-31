@@ -18,10 +18,10 @@ import com.mxgraph.shape.mxMarkerRegistry;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.pl.editor.logic.ConstraintMode;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.types.PerspectiveType;
 
 public abstract class AbstractGraph extends mxGraph {

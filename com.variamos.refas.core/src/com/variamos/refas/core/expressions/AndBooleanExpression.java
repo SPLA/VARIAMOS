@@ -7,8 +7,8 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
-import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanExpression;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
@@ -19,7 +19,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @version 1.1
  * @since 2014-12-15
  */
-public class AndBooleanExpression extends AbstractBooleanTransformation {
+public class AndBooleanExpression extends AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "#/\\";
 
 	public AndBooleanExpression(InstElement left, InstElement right,
@@ -30,7 +30,7 @@ public class AndBooleanExpression extends AbstractBooleanTransformation {
 	}
 
 	public AndBooleanExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, AbstractTransformation subExpression) {
+			boolean replaceRight, AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -47,8 +47,8 @@ public class AndBooleanExpression extends AbstractBooleanTransformation {
 	 * super(vertex, attributeName, replaceRight, numericIdentifier);
 	 * this.expressionConnectors.add(TRANSFORMATION); }
 	 */
-	public AndBooleanExpression(AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+	public AndBooleanExpression(AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;

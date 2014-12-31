@@ -205,5 +205,4 @@ public abstract class InstVertex extends InstElement {
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
-
 }

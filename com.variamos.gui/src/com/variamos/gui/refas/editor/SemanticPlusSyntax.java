@@ -209,9 +209,9 @@ public class SemanticPlusSyntax {
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
-		semGeneralElement.putSemanticAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
-						"Select by Preferred", true));
+		semGeneralElement.putSemanticAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean", false,
+						"Not Preferred Selected", true));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
 						"Selected by Validation", false));
@@ -237,7 +237,7 @@ public class SemanticPlusSyntax {
 
 		semGeneralElement.addPropVisibleAttribute("09#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("11#"
-				+ "PreferredSelected");
+				+ "NotPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("13#"
 				+ "ValidationSelected");
 		semGeneralElement.addPropVisibleAttribute("15#" + "SolverSelected");
@@ -898,8 +898,8 @@ public class SemanticPlusSyntax {
 		syntaxFeatureGroupDep.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"Selected", false));
-		syntaxFeatureGroupDep.addModelingAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
+		syntaxFeatureGroupDep.addModelingAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean", false,
 						"Select by Preferred", true));
 		syntaxFeatureGroupDep.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
@@ -925,7 +925,7 @@ public class SemanticPlusSyntax {
 				+ "ValidationRequiredLevel");
 		syntaxFeatureGroupDep.addPropVisibleAttribute("09#" + "Selected");
 		syntaxFeatureGroupDep.addPropVisibleAttribute("11#"
-				+ "PreferredSelected");
+				+ "NotPrefSelected");
 		syntaxFeatureGroupDep.addPropVisibleAttribute("13#"
 				+ "ValidationSelected");
 		syntaxFeatureGroupDep.addPropVisibleAttribute("15#" + "SolverSelected");
@@ -1128,9 +1128,9 @@ public class SemanticPlusSyntax {
 		syntaxGroupDependency.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
-		syntaxGroupDependency.addModelingAttribute("PreferredSelected",
-				new SimulationStateAttribute("PreferredSelected", "Boolean", false,
-						"Select by Preferred", true));
+		syntaxGroupDependency.addModelingAttribute("NotPrefSelected",
+				new SimulationStateAttribute("NotPrefSelected", "Boolean", false,
+						"Not Preferred Selected", true));
 		syntaxGroupDependency.addModelingAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean", false,
 						"Selected by Validation", false));
@@ -1155,7 +1155,7 @@ public class SemanticPlusSyntax {
 				+ "ValidationRequiredLevel");
 		syntaxGroupDependency.addPropVisibleAttribute("09#" + "Selected");
 		syntaxGroupDependency.addPropVisibleAttribute("11#"
-				+ "PreferredSelected");
+				+ "NotPrefSelected");
 		syntaxGroupDependency.addPropVisibleAttribute("13#"
 				+ "ValidationSelected");
 		syntaxGroupDependency.addPropVisibleAttribute("15#" + "SolverSelected");

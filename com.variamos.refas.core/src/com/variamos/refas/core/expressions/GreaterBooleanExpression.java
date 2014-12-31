@@ -9,8 +9,8 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
-import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanExpression;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
@@ -22,7 +22,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @version 1.1
  * @since 2014-12-14
  */
-public class GreaterBooleanExpression extends AbstractBooleanTransformation {
+public class GreaterBooleanExpression extends AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "#>";
 
 	public GreaterBooleanExpression(InstElement left, InstElement right,
@@ -34,7 +34,7 @@ public class GreaterBooleanExpression extends AbstractBooleanTransformation {
 
 	public GreaterBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceRight,
-			AbstractTransformation subExpression) {
+			AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -57,8 +57,8 @@ public class GreaterBooleanExpression extends AbstractBooleanTransformation {
 	}
 
 	public GreaterBooleanExpression(
-			AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+			AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;

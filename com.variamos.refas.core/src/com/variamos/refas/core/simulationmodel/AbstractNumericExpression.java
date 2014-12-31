@@ -2,18 +2,7 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.util.Map;
 
-
-/**
- * Abstract  Class to group the ComparisonTranformation. Part of PhD
- * work at University of Paris 1
- * 
- * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
- * 
- * @version 1.1
- * @since 2014-12-15
- */
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.ComparisonExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
@@ -22,54 +11,51 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 /**
- * Abstract Class to group at the ComparisonTransformation, currently only for
- * Equals. Part of PhD work at University of Paris 1
+ * Abstract  Class to group the NUmericTranformation. Part of PhD
+ * work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-15
  */
-public abstract class AbstractComparisonTransformation extends
-		AbstractTransformation {
+public abstract class AbstractNumericExpression extends AbstractExpression {
 
-	public AbstractComparisonTransformation() {
+	public AbstractNumericExpression() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public AbstractComparisonTransformation(
-			AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+	public AbstractNumericExpression(
+			AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 	}
 
-	public AbstractComparisonTransformation(InstElement left, InstElement right,
+	public AbstractNumericExpression(InstElement left, InstElement right,
 			String leftAttributeName, String rightAttributeName) {
 		super(left, right, leftAttributeName, rightAttributeName);
 	}
 
-	public AbstractComparisonTransformation(InstElement vertex,
+	public AbstractNumericExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			AbstractTransformation subExpression) {
+			AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 	}
 
-	public AbstractComparisonTransformation(InstElement vertex,
+	public AbstractNumericExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			BooleanExpression booleanExpression) {
 		super(vertex, attributeName, replaceTarget, booleanExpression);
 	}
-
-	public AbstractComparisonTransformation(InstElement vertex,
+	
+	public AbstractNumericExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
 			NumericExpression numericExpression) {
 		super(vertex, attributeName, replaceTarget, numericExpression);
 	}
 
-	public abstract BooleanExpression transform(HlclFactory f,
-			Map<String, Identifier> idMap);
-
-	public abstract ComparisonExpression transformNegation(HlclFactory f,
+	public abstract NumericExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap);
 
 }

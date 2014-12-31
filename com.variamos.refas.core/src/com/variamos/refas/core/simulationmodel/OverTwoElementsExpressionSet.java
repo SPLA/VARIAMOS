@@ -36,7 +36,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
  * @version 1.1
  * @since 2014-12-16
  */
-public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
+public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */
@@ -55,13 +55,13 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	 * @param source
 	 * @param target
 	 */
-	public GroupDependencyConstraintGroup(String identifier,
+	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
 			InstOverTwoRelation instGroupDependency) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instGroupDependency = instGroupDependency;
-		RestrictionConstraint restConst = new RestrictionConstraint(identifier,
+		SingleElementExpressionSet restConst = new SingleElementExpressionSet(identifier,
 				idMap, hlclFactory, instGroupDependency);
 		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
@@ -97,11 +97,11 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 
 			for (String sourceName : instGroupDependency
 					.getSourceAttributeNames()) {
-				AbstractTransformation abstractTransformation = null;
+				AbstractExpression abstractTransformation = null;
 				Iterator<InstElement> instEdges1 = instGroupDependency
 						.getSourceRelations().iterator();
-				AbstractTransformation recursiveExpression1 = null;
-				AbstractTransformation recursiveExpression2 = null;
+				AbstractExpression recursiveExpression1 = null;
+				AbstractExpression recursiveExpression2 = null;
 				if (instEdges1.hasNext()) {
 					InstElement left1 = instEdges1.next();
 					while ((boolean) ((InstPairwiseRelation)left1).getSourceRelations().get(0)
@@ -135,7 +135,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 							constructor3 = abstractTransformation.getClass()
 									.getConstructor(InstElement.class,
 											String.class, Boolean.TYPE,
-											AbstractTransformation.class);
+											AbstractExpression.class);
 							constructor4 = abstractTransformation.getClass()
 									.getConstructor(InstElement.class,
 											InstVertex.class, String.class,
@@ -157,7 +157,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						constructor1 = abstractTransformation.getClass()
 								.getConstructor(InstElement.class, String.class,
 										Boolean.TYPE,
-										AbstractTransformation.class);
+										AbstractExpression.class);
 						constructor2 = abstractTransformation.getClass()
 								.getConstructor(InstElement.class,
 										InstElement.class, String.class,
@@ -186,7 +186,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						// ) + ... ) #<=> 1)
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						AbstractTransformation transformation1 = new EqualsComparisonExpression(
+						AbstractExpression transformation1 = new EqualsComparisonExpression(
 								recursiveExpression1,
 								new NumberNumericExpression(1));
 						getTransformations().add(
@@ -203,15 +203,15 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 						// GD_HighCardinality ) )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						AbstractTransformation transformation3 = new GreaterOrEqualsBooleanExpression(
+						AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
 								instGroupDependency, "lowCardinality", false,
 								recursiveExpression1);
 
-						AbstractTransformation transformation4 = new LessOrEqualsBooleanExpression(
+						AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
 								instGroupDependency, "highCardinality", false,
 								recursiveExpression2);
 
-						AbstractTransformation transformation5 = new AndBooleanExpression(
+						AbstractExpression transformation5 = new AndBooleanExpression(
 								transformation3, transformation4);
 
 						getTransformations().add(
@@ -234,7 +234,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 	}
 
 	//TODO refactor createExpression
-	private AbstractTransformation transformation(Constructor<?> constructor1,
+	private AbstractExpression transformation(Constructor<?> constructor1,
 			Constructor<?> constructor2, Iterator<InstElement> instEdges,
 			InstElement left, String sourceName) {
 		// instEdges.next(); // TODO eliminate duplicated edges from collection
@@ -256,7 +256,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 			}
 			if (instEdges.hasNext()) {
 				try {
-					return (AbstractTransformation) constructor1.newInstance(
+					return (AbstractExpression) constructor1.newInstance(
 							((InstPairwiseRelation)left).getSourceRelations().get(0),
 							sourceName,
 							true,
@@ -268,7 +268,7 @@ public class GroupDependencyConstraintGroup extends AbstractConstraintGroup {
 				}
 			} else
 				try {
-					return (AbstractTransformation) constructor2.newInstance(
+					return (AbstractExpression) constructor2.newInstance(
 							((InstPairwiseRelation)left).getSourceRelations().get(0),
 							((InstPairwiseRelation)instEdge).getSourceRelations().get(0), sourceName,
 							sourceName);

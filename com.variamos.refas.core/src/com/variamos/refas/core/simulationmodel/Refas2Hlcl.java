@@ -16,7 +16,7 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
-import com.variamos.core.refas.Refas;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
@@ -33,7 +33,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
  */
 public class Refas2Hlcl implements IntRefas2Hlcl {
 	private HlclFactory f = new HlclFactory();
-	private Map<String, AbstractConstraintGroup> constraintGroups;
+	private Map<String, MetaExpressionSet> constraintGroups;
 	private String text;
 	private HlclProgram hlclProgram = new HlclProgram();
 	private Refas refas;
@@ -49,7 +49,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
-		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
 
 	}
 
@@ -62,37 +62,37 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	{
 		text = "";
 		hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, AbstractConstraintGroup>();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createVertexExpressions(null);
 		createEdgeExpressions(null);
 		// Previous call to createEdgeExpressions is required to fill the
 		// attribute names for createGroupExpressions
 		createGroupExpressions(null);
 
-		List<AbstractTransformation> transformations = new ArrayList<AbstractTransformation>();
-		for (AbstractConstraintGroup constraintGroup : constraintGroups
+		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups
 				.values())
 			transformations.addAll(constraintGroup.getTransformations());
 
-		for (AbstractTransformation transformation : transformations) {
+		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIndentifiers(f));
-			if (transformation instanceof AbstractBooleanTransformation) {
+			if (transformation instanceof AbstractBooleanExpression) {
 				hlclProgram
-						.add(((AbstractBooleanTransformation) transformation)
+						.add(((AbstractBooleanExpression) transformation)
 								.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractBooleanTransformation) transformation)
 				// .transformNegation(f, idMap, true, false));
-			} else if (transformation instanceof AbstractComparisonTransformation) {
+			} else if (transformation instanceof AbstractComparisonExpression) {
 				hlclProgram
-						.add(((AbstractComparisonTransformation) transformation)
+						.add(((AbstractComparisonExpression) transformation)
 								.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractComparisonTransformation) transformation)
 				// .transformNegation(f, idMap));
 			} else {
 				hlclProgram
-						.add(((AbstractComparisonTransformation) transformation)
+						.add(((AbstractComparisonExpression) transformation)
 								.transform(f, idMap));
 			}
 
@@ -163,7 +163,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
-	public AbstractConstraintGroup getElementConstraintGroup(String identifier,
+	public MetaExpressionSet getElementConstraintGroup(String identifier,
 			String type) {
 
 		if (type.equals("vertex"))
@@ -183,12 +183,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstVertex elm : refas.getConstraintVertexCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
-						new RestrictionConstraint(elm.getIdentifier(), idMap,
+						new SingleElementExpressionSet(elm.getIdentifier(), idMap,
 								f, elm));
 			}
 		else
 			constraintGroups.put(identifier,
-					new RestrictionConstraint(identifier, idMap, f, refas
+					new SingleElementExpressionSet(identifier, idMap, f, refas
 							.getConstraintVertex().get(identifier)));
 	}
 
@@ -196,12 +196,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstPairwiseRelation elm : refas.getConstraintInstEdgesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
-						new DirectEdgeConstraintGroup(elm.getIdentifier(),
+						new PairwiseElementExpressionSet(elm.getIdentifier(),
 								idMap, f, elm));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
-					new DirectEdgeConstraintGroup(identifier, idMap, f, refas
+					new PairwiseElementExpressionSet(identifier, idMap, f, refas
 							.getConstraintInstEdges().get(identifier)));
 
 	}
@@ -212,12 +212,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
-						new GroupDependencyConstraintGroup(elm.getIdentifier(),
+						new OverTwoElementsExpressionSet(elm.getIdentifier(),
 								idMap, f, elm));
 			}
 		else
 			constraintGroups.put(identifier,
-					new GroupDependencyConstraintGroup(identifier, idMap, f,
+					new OverTwoElementsExpressionSet(identifier, idMap, f,
 							refas.getInstGroupDependencies().get(identifier)));
 
 	}

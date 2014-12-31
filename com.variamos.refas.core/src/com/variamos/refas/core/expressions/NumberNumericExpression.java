@@ -5,7 +5,7 @@ import java.util.Map;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
-import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractNumericExpression;
 
 /**
  * Class to create the Number expression. Part of PhD work at University of
@@ -17,7 +17,7 @@ import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
  * @since 2014-12-15
  */
 
-public class NumberNumericExpression extends AbstractNumericTransformation {
+public class NumberNumericExpression extends AbstractNumericExpression {
 	public int getNumber() {
 		return number;
 	}

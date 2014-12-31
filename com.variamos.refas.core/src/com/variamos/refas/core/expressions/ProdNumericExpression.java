@@ -9,8 +9,8 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
-import com.variamos.refas.core.simulationmodel.AbstractNumericTransformation;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractNumericExpression;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
@@ -22,7 +22,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @version 1.1
  * @since 2014-12-15
  */
-public class ProdNumericExpression extends AbstractNumericTransformation {
+public class ProdNumericExpression extends AbstractNumericExpression {
 	public static final String TRANSFORMATION = "*";
 
 	public ProdNumericExpression(InstElement left, InstElement right,
@@ -33,7 +33,7 @@ public class ProdNumericExpression extends AbstractNumericTransformation {
 	}
 
 	public ProdNumericExpression(InstElement vertex, String attributeName,
-			boolean replaceRight, AbstractTransformation subExpression) {
+			boolean replaceRight, AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceRight, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -53,8 +53,8 @@ public class ProdNumericExpression extends AbstractNumericTransformation {
 		operation = TRANSFORMATION;
 	}
 
-	public ProdNumericExpression(AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+	public ProdNumericExpression(AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;

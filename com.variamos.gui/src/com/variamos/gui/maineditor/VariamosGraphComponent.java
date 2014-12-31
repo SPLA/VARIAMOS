@@ -100,6 +100,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				String forced = "/com/variamos/gui/refas/editor/images/sim_forced.png";
 				String validation = "/com/variamos/gui/refas/editor/images/sim_validation.png";
 				String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
+				String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
 				if ((boolean) instConcept.getInstAttribute("Required")
 						.getValue()) {
 					backtop = "/com/variamos/gui/refas/editor/images/sim_required.png";
@@ -206,10 +207,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					over3.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(tmp, over3);
 				}
-				if (!(boolean) instConcept
-						.getInstAttribute("PreferredSelected").getValue()) {
+				if ((boolean) instConcept
+						.getInstAttribute("NotPrefSelected").getValue()) {
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
-							mxGraphComponent.class.getResource(altern)),
+							mxGraphComponent.class.getResource(notpref)),
 							backbottomhint + "; Another preferred selected (Third red circle)");
 					over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 					over3.setAlign(mxConstants.ALIGN_CENTER);

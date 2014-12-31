@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import com.variamos.core.refas.Refas;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.types.PerspectiveType;
 
 public class MainFrame extends JFrame {

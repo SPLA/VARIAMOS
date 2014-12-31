@@ -18,7 +18,7 @@ import com.cfm.hlcl.Identifier;
  * @version 1.1
  * @since 2014-12-13
  */
-public abstract class AbstractConstraintGroup {
+public abstract class MetaExpressionSet {
 
 	protected void setDescription(String description) {
 		this.description = description;
@@ -35,7 +35,7 @@ public abstract class AbstractConstraintGroup {
 	/**
 	 * 
 	 */
-	private List<AbstractTransformation> transformations;
+	private List<AbstractExpression> transformations;
 	/**
 	 * 
 	 */
@@ -55,10 +55,10 @@ public abstract class AbstractConstraintGroup {
 	 * @param identifier
 	 * @param description
 	 */
-	public AbstractConstraintGroup(String identifier, String description,
+	public MetaExpressionSet(String identifier, String description,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super();
-		transformations = new ArrayList<AbstractTransformation>();
+		transformations = new ArrayList<AbstractExpression>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
 		this.identifier = identifier;
@@ -94,13 +94,13 @@ public abstract class AbstractConstraintGroup {
 	}
 
 
-	public List<AbstractTransformation> getTransformations() {
+	public List<AbstractExpression> getTransformations() {
 		return transformations;
 	}
 
 	public List<Expression> getExpressions() {
 		List<Expression> out = new ArrayList<Expression>();
-		for (AbstractTransformation transformation : transformations) {
+		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIndentifiers(hlclFactory));
 				out.add(transformation.transform(hlclFactory, idMap));
 		}
@@ -110,23 +110,23 @@ public abstract class AbstractConstraintGroup {
 	public List<Expression> getExpressionsNegations()
 	{
 		List<Expression> out = new ArrayList<Expression>();
-		for (AbstractTransformation transformation : transformations) {
+		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIndentifiers(hlclFactory));
-			if (transformation instanceof AbstractBooleanTransformation)
-				out.add(((AbstractBooleanTransformation)transformation).transformNegation(hlclFactory, idMap, false, true));
+			if (transformation instanceof AbstractBooleanExpression)
+				out.add(((AbstractBooleanExpression)transformation).transformNegation(hlclFactory, idMap, false, true));
 		}
 		return out;
 	}
 
 	public HlclProgram getHlclExpressions() {
 		HlclProgram prog = new HlclProgram();
-		for (AbstractTransformation transformation : transformations) {
+		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIndentifiers(hlclFactory));
-			if (transformation instanceof AbstractBooleanTransformation)
-				prog.add(((AbstractBooleanTransformation) transformation)
+			if (transformation instanceof AbstractBooleanExpression)
+				prog.add(((AbstractBooleanExpression) transformation)
 						.transform(hlclFactory, idMap));
 			else
-				prog.add(((AbstractComparisonTransformation) transformation)
+				prog.add(((AbstractComparisonExpression) transformation)
 						.transform(hlclFactory, idMap));
 		}
 		return prog;

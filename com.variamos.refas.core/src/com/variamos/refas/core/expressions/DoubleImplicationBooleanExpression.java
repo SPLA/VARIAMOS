@@ -8,8 +8,8 @@ import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
-import com.variamos.refas.core.simulationmodel.AbstractBooleanTransformation;
-import com.variamos.refas.core.simulationmodel.AbstractTransformation;
+import com.variamos.refas.core.simulationmodel.AbstractBooleanExpression;
+import com.variamos.refas.core.simulationmodel.AbstractExpression;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 
 /**
@@ -22,7 +22,7 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
  * @since 2014-12-15
  */
 public class DoubleImplicationBooleanExpression extends
-		AbstractBooleanTransformation {
+		AbstractBooleanExpression {
 	public static final String TRANSFORMATION = "#<==>";
 
 	public DoubleImplicationBooleanExpression(InstElement left,
@@ -35,7 +35,7 @@ public class DoubleImplicationBooleanExpression extends
 
 	public DoubleImplicationBooleanExpression(InstElement vertex,
 			String attributeName, boolean replaceTarget,
-			AbstractTransformation subExpression) {
+			AbstractExpression subExpression) {
 		super(vertex, attributeName, replaceTarget, subExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
@@ -58,8 +58,8 @@ public class DoubleImplicationBooleanExpression extends
 	}
 
 	public DoubleImplicationBooleanExpression(
-			AbstractTransformation leftSubExpression,
-			AbstractTransformation rightSubExpression) {
+			AbstractExpression leftSubExpression,
+			AbstractExpression rightSubExpression) {
 		super(leftSubExpression, rightSubExpression);
 		this.expressionConnectors.add(TRANSFORMATION);
 		operation = TRANSFORMATION;
