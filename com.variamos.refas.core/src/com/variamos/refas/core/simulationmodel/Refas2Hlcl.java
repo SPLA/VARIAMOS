@@ -60,7 +60,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * ONE_SOLUTION currently supported)
 	 */
 	public boolean execute(int solutions) {
-		if (solutions == 0) {
+		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			hlclProgram = new HlclProgram();
 			constraintGroups = new HashMap<String, MetaExpressionSet>();

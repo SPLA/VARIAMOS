@@ -152,7 +152,8 @@ public class SharedActions {
 						AbstractAttribute a = ((InstOverTwoRelation) value)
 								.getAbstractAttribute(ia.getAttributeName());
 						ia.setAttribute(a);
-						if (ia.getAttributeType().equals("Boolean") && ia.getValue() instanceof String)
+						if (ia.getAttributeType().equals("Boolean")
+								&& ia.getValue() instanceof String)
 							if (((String) ia.getValue()).equals("0"))
 								ia.setValue(false);
 							else
@@ -176,7 +177,8 @@ public class SharedActions {
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				ia.setAttribute(mc.getAbstractAttribute(ia.getAttributeName()));
-				if (ia.getAttributeType().equals("Boolean")  && ia.getValue() instanceof String)
+				if (ia.getAttributeType().equals("Boolean")
+						&& ia.getValue() instanceof String)
 					if (((String) ia.getValue()).equals("0"))
 						ia.setValue(false);
 					else
@@ -215,15 +217,20 @@ public class SharedActions {
 				InstAttribute instAttribute = (InstAttribute) instAttributesIter
 						.next();
 				AbstractAttribute absAttribute = metaPairwiseRelation
-						.getModelingAttribute(instAttribute
-								.getAttributeName());
-				//instAttribute
-				//		.setAttribute(absAttribute);
-				if (instAttribute.getAttributeType().equals("Boolean") && instAttribute.getValue() instanceof String)
+						.getModelingAttribute(instAttribute.getAttributeName());
+				// instAttribute
+				// .setAttribute(absAttribute);
+				if (instAttribute.getAttributeType().equals("Boolean")
+						&& instAttribute.getValue() != null
+						&& instAttribute.getValue() instanceof String)
 					if (((String) instAttribute.getValue()).equals("0"))
 						instAttribute.setValue(false);
 					else
 						instAttribute.setValue(true);
+				if (instAttribute.getIdentifier().equals(
+						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
+					instAttribute
+							.setValue(instPairwiseRelation.getSemanticPairwiseRelationType());
 			}
 		}
 

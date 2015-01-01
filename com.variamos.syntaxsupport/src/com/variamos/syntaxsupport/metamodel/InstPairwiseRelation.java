@@ -19,15 +19,15 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
- * Class to store the back end information of relations between  two
- * elements from the graph. Part of PhD work at University of Paris 1 Refactor
- * from: InstEdge.
+ * Class to store the back end information of relations between two elements
+ * from the graph. Part of PhD work at University of Paris 1 Refactor from:
+ * InstEdge.
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
- * @since 2014-11-24
- *  * @see com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation
+ * @since 2014-11-24 * @see
+ *        com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation
  */
 public class InstPairwiseRelation extends InstElement {
 
@@ -39,8 +39,10 @@ public class InstPairwiseRelation extends InstElement {
 	 * Unique identifier of the InstEdge
 	 */
 	private String identifier;
-	
+
 	private String metaPairwiseRelationIden;
+
+	private String semanticPairwiseRelationType;
 
 	private String semanticPairwiseRelationIden;
 
@@ -54,7 +56,8 @@ public class InstPairwiseRelation extends InstElement {
 	 */
 	VAR_METAPAIRWISE_IDEN = "MetaPaiwiseIde",
 	/**
-	 * Name of the MetaPairwiseRelation object for both semantic and instance objects
+	 * Name of the MetaPairwiseRelation object for both semantic and instance
+	 * objects
 	 */
 	VAR_METAPAIRWISE_OBJ = "MetaPairwise",
 	/**
@@ -102,7 +105,8 @@ public class InstPairwiseRelation extends InstElement {
 	 * @param editableMetaElement
 	 *            : Only for syntax refas, not for modeling
 	 */
-	public InstPairwiseRelation(MetaPairwiseRelation metaPairwiseRelation, MetaElement editableMetaElement) {
+	public InstPairwiseRelation(MetaPairwiseRelation metaPairwiseRelation,
+			MetaElement editableMetaElement) {
 		super(null);
 		setEditableMetaElement(editableMetaElement);
 		createAttributes(new HashMap<String, InstAttribute>());
@@ -118,6 +122,14 @@ public class InstPairwiseRelation extends InstElement {
 		return metaPairwiseRelationIden;
 	}
 
+	public String getSemanticPairwiseRelationType() {
+		return semanticPairwiseRelationType;
+	}
+
+	public void setSemanticPairwiseRelationType(String semanticRelationType) {
+		this.semanticPairwiseRelationType = semanticRelationType;
+	}
+
 	public void setMetaPairwiseRelationIden(String metaPairwiseRelationIden) {
 		this.metaPairwiseRelationIden = metaPairwiseRelationIden;
 		vars.put(VAR_METAPAIRWISE_IDEN, metaPairwiseRelationIden);
@@ -127,15 +139,17 @@ public class InstPairwiseRelation extends InstElement {
 		return semanticPairwiseRelationIden;
 	}
 
-	public void setSemanticPairwiseRelationIde(String semanticPairwiseRelationIde) {
+	public void setSemanticPairwiseRelationIde(
+			String semanticPairwiseRelationIde) {
 		this.semanticPairwiseRelationIden = semanticPairwiseRelationIde;
 	}
 
 	private void createAttributes(Map<String, InstAttribute> instAttributes) {
 
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-		SemanticAttribute semAttribute = new SemanticAttribute(VAR_METAPAIRWISE_OBJ,
-				"Class", true, VAR_METAPAIRWISE_NAME, VAR_METAPAIRWISE_CLASS, "", "");
+		SemanticAttribute semAttribute = new SemanticAttribute(
+				VAR_METAPAIRWISE_OBJ, "Class", true, VAR_METAPAIRWISE_NAME,
+				VAR_METAPAIRWISE_CLASS, "", "");
 		// Add the semanticAttribute
 		vars.put(VAR_METAPAIRWISE_OBJ, semAttribute);
 
@@ -158,17 +172,16 @@ public class InstPairwiseRelation extends InstElement {
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name,
-							getMetaPairwiseRelation().getModelingAttribute(name),
-							getIdentifier());
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name,
-							getMetaPairwiseRelation().getModelingAttribute(name),
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getModelingAttribute(name),
 							getMetaPairwiseRelation().getDescription());
 				else if (getInstAttribute(name) == null
 						|| getInstAttribute(name).getValue() == null)
-					addInstAttribute(name,
-							getMetaPairwiseRelation().getModelingAttribute(name), null);
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getModelingAttribute(name), null);
 			}
 
 			if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
@@ -208,7 +221,6 @@ public class InstPairwiseRelation extends InstElement {
 		return identifier;
 	}
 
-
 	public void addInstAttribute(String name,
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {
@@ -226,17 +238,18 @@ public class InstPairwiseRelation extends InstElement {
 
 	public MetaPairwiseRelation getMetaPairwiseRelation() {
 		if (getInstAttribute(VAR_METAPAIRWISE_OBJ) != null)
-			return (MetaPairwiseRelation) (getInstAttribute(VAR_METAPAIRWISE_OBJ).getValueObject());
+			return (MetaPairwiseRelation) (getInstAttribute(VAR_METAPAIRWISE_OBJ)
+					.getValueObject());
 		return null;
 	}
 
-//	public InstElement getSourceRelation() {
-//		return fromRelation;
-//	}
-//
-//	public InstElement getTargetRelation() {
-//		return toRelation;
-//	}
+	// public InstElement getSourceRelation() {
+	// return fromRelation;
+	// }
+	//
+	// public InstElement getTargetRelation() {
+	// return toRelation;
+	// }
 
 	@Override
 	public List<InstAttribute> getEditableVariables() {
@@ -506,8 +519,8 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void clearRelations() {
-		clearTargetRelations(true); 
-		clearSourceRelations(true); 
+		clearTargetRelations(true);
+		clearSourceRelations(true);
 
 	}
 
@@ -518,8 +531,9 @@ public class InstPairwiseRelation extends InstElement {
 			if (ia.getAttributeName().equals(
 					MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL)) {
 
-				AbstractAttribute m = getMetaPairwiseRelation().getModelingAttribute(
-						InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ);
+				AbstractAttribute m = getMetaPairwiseRelation()
+						.getModelingAttribute(
+								InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ);
 				ia.setAttribute(m);
 				/*
 				 * List<IntSemanticGroupDependency> semGD =
@@ -529,17 +543,19 @@ public class InstPairwiseRelation extends InstElement {
 				 * ia.setValidationGDList(semGD);
 				 */
 			} else {
-				ia.setAttribute(this.getMetaPairwiseRelation().getModelingAttribute(
-						ia.getAttributeName()));
+				ia.setAttribute(this.getMetaPairwiseRelation()
+						.getModelingAttribute(ia.getAttributeName()));
 			}
 		}
 		createInstAttributes();
 	}
 
 	public void updateIdentifiers() {
-		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE_OBJ).getValueObject();
+		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE_OBJ)
+				.getValueObject();
 		if (metaEdge != null) {
-			metaPairwiseRelationIden = ((MetaPairwiseRelation) metaEdge).getIdentifier();
+			metaPairwiseRelationIden = ((MetaPairwiseRelation) metaEdge)
+					.getIdentifier();
 		}
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null) {
 			Object semanticEdge = getInstAttribute(
@@ -550,6 +566,12 @@ public class InstPairwiseRelation extends InstElement {
 						.getIdentifier();
 			}
 		}
+		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE)
+				.getValue() != null)
+			semanticPairwiseRelationType = ((String) getInstAttribute(
+					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
+					.trim();
+
 	}
 
 	public void setSemanticEdge(IntSemanticPairwiseRelation semanticEdgeIde2) {

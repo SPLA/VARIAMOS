@@ -195,7 +195,10 @@ public abstract class InstVertex extends InstElement {
 
 	public abstract MetaVertex getMetaVertex();
 
-	public abstract void clearMetaVertex();
+	public void clearMetaVertex()
+	{
+		editableMetaElement = null;
+	};
 
 	public abstract String getMetaVertexIdentifier();
 

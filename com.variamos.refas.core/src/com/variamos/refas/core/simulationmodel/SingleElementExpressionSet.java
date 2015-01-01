@@ -133,6 +133,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// identifierId_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
 						getTransformations()
+						.add(new EqualsComparisonExpression(instVertex,
+								"SatisfactionConflict",
+								getHlclFactory().number(0)));
+						getTransformations()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));

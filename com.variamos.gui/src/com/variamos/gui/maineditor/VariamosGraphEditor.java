@@ -1407,6 +1407,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						JOptionPane.INFORMATION_MESSAGE, null);
 				
 		}
+		if (lastEditableElement == null)
+			JOptionPane
+			.showMessageDialog(
+					frame,
+					"Select one element before executing the simulation. This is a view update temporal problem.",
+					"Simulation Message",
+					JOptionPane.INFORMATION_MESSAGE, null);
+		else
 		((RefasGraph) getGraphComponent().getGraph())
 				.refreshVariable(lastEditableElement);
 		updateObjects();

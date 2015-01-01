@@ -483,6 +483,7 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public void clearMetaVertex() {
+		super.clearMetaVertex();
 		supportMetaOverTwoRelation = null;
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, null);
 		// TODO Auto-generated method stub

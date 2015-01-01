@@ -120,7 +120,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					backtophint = "Element not allowed by user (gray background)";
 					backbottom = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
 					backbottomhint = backtophint;
-				}
+				} else
 				{
 					backtop = "/com/variamos/gui/refas/editor/images/sim_normal.png";
 					backtophint = "Element currently not satisfied (white background)";

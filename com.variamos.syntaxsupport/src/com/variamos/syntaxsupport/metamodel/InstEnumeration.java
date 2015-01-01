@@ -236,6 +236,7 @@ public class InstEnumeration extends InstVertex {
 	}
 
 	public void clearMetaVertex() {
+		super.clearMetaVertex();
 		metaEnumeration = null;
 	}
 
