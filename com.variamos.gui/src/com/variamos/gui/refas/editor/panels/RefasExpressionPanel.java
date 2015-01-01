@@ -167,7 +167,7 @@ public class RefasExpressionPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
-				System.out.println(exp.toString()+" selected");
+				//System.out.println(exp.toString()+" selected");
 				initialize(ele);
 			}
 

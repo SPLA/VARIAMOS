@@ -30,6 +30,7 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -43,7 +44,6 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
@@ -182,10 +182,14 @@ public class ElementDesignPanel extends JPanel {
 						if (v.getEnumType() != null
 								&& v.getEnumType().equals(
 										InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
-							Map<String, MetaElement> mapElements = editor
-									.getSematicSintaxObject()
-									.getSyntaxElements(); // TODO change to
-															// Refas
+							InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+							Map<String, MetaElement> mapElements = ((Refas) editor
+									.getEditedModel()).getSyntaxRefas()
+									.getValidPairwiseRelations(
+											instPairwise.getSourceRelations()
+													.get(0).getSupportMetaElement(),
+											instPairwise.getTargetRelations()
+													.get(0).getSupportMetaElement(), true);
 							Iterator<String> elementNames = mapElements
 									.keySet().iterator();
 							List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();

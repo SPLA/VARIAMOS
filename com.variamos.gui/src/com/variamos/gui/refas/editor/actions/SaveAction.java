@@ -26,6 +26,7 @@ import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.MainFrame;
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
@@ -124,10 +125,11 @@ public class SaveAction extends AbstractEditorAction {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
-		VariamosGraphEditor editor2 = getEditor(e);
 		AbstractModel pl = null;
 
 		if (editor != null) {
+			((MainFrame) editor.getFrame()).waitingCursor(true);
+
 			mxGraphComponent graphComponent = editor.getGraphComponent();
 			mxGraph graph = graphComponent.getGraph();
 			FileFilter selectedFilter = null;
@@ -250,7 +252,7 @@ public class SaveAction extends AbstractEditorAction {
 							writer.getSXFMContent(plGraph.getProductLine()),
 							filename);
 				} else if (ext.equalsIgnoreCase("pl")) {
-					pl = editor2.getEditedModel();
+					pl = editor.getEditedModel();
 					// pl.printDebug(System.out);
 					// ProductLineGraph plGraph = (ProductLineGraph)graph;
 					// generatePrologFile(plGraph.getProductLine(), filename);
@@ -298,6 +300,7 @@ public class SaveAction extends AbstractEditorAction {
 				JOptionPane.showMessageDialog(graphComponent, ex.toString(),
 						mxResources.get("error"), JOptionPane.ERROR_MESSAGE);
 			}
+			((MainFrame) editor.getFrame()).waitingCursor(false);
 		}
 	}
 
@@ -317,6 +320,5 @@ public class SaveAction extends AbstractEditorAction {
 		mxUtils.writeFile(transformer.getPrologString(featureModel,
 				PrologEditorType.GNU_PROLOG), filename);
 	}
-
 
 }

@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -21,6 +24,8 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,6 +35,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -145,6 +151,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private Refas2Hlcl refas2hlcl;
 	private VariamosGraphEditor modelEditor;
 	private EditableElement lastEditableElement;
+	private boolean recursiveCall = false;
 
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
@@ -210,6 +217,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					List<MetaView> metaViews = sematicSyntaxObject
 							.getMetaViews();
 					VariamosGraphEditor editor = getEditor();
+					((MainFrame) editor.getFrame()).waitingCursor(true);
 					int modelInd = getModelViewIndex();
 					for (int i = 0; i < metaViews.size(); i++) {
 						if (modelInd != i
@@ -239,8 +247,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							}
 						}
 					}
-
-					// Prints the string 3 times if there are 3 tabs etc
+					((MainFrame) editor.getFrame()).waitingCursor(false);
 				}
 			});
 		}
@@ -319,6 +326,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						List<MetaView> metaViews = sematicSyntaxObject
 								.getMetaViews();
 						VariamosGraphEditor editor = getEditor();
+						((MainFrame) editor.getFrame()).waitingCursor(true);
 						int modelInd = getModelViewIndex();
 						for (int i = 0; i < metaViews.size(); i++) {
 							if (modelInd != i
@@ -350,8 +358,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								}
 							}
 						}
-
-						// Prints the string 3 times if there are 3 tabs etc
+						((MainFrame) editor.getFrame()).waitingCursor(false);
 					}
 				});
 				i++;
@@ -936,7 +943,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void editPropertiesRefas(final EditableElement elm) {
+
 		updateVisibleProperties(elm);
+		if (recursiveCall)
+			return;
 		elementDesignPanel.editorProperties(this, elm);
 		this.extensionTabs.repaint();
 		elementDesPropPanel.removeAll();
@@ -954,7 +964,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			return;
 		} else {
-			lastEditableElement = elm; //TODO workaround to update after simul
+			recursiveCall = true;
+			((MainFrame) getFrame()).waitingCursor(true);
+			lastEditableElement = elm; // TODO workaround to update after simul
 			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
 				extensionTabs.setSelectedIndex(tabIndex);
 				extensionTabs.getSelectedComponent().repaint();
@@ -1028,20 +1040,22 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					if (v.getEnumType() != null
 							&& v.getEnumType()
 									.equals(InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
-						Map<String, MetaElement> mapElements = VariamosGraphEditor.sematicSyntaxObject
-								.getSyntaxElements();
+						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+						Map<String, MetaElement> mapElements = ((Refas) this
+								.getEditedModel()).getSyntaxRefas()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0).getSupportMetaElement(),
+										instPairwise.getTargetRelations()
+												.get(0).getSupportMetaElement(), true);
+					//	Map<String, MetaElement> mapElements = VariamosGraphEditor.sematicSyntaxObject
+					//			.getSyntaxElements();
 						Iterator<String> elementNames = mapElements.keySet()
 								.iterator();
 						List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();
 						while (elementNames.hasNext()) {
 							String elementName = elementNames.next();
-							if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
-								// also
-								// validate
-								// origin
-								// and
-								// destination
-								// relation
+							if (mapElements.get(elementName) instanceof MetaPairwiseRelation) 
 								metaGD.add((MetaPairwiseRelation) mapElements
 										.get(elementName));
 						}
@@ -1052,6 +1066,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				final WidgetR w = factory.getWidgetFor(v);
 
 				if (w == null) {
+					recursiveCall = false;
 					System.err.print("No Widget found for " + v);
 					return;
 				}
@@ -1104,10 +1119,21 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					elementSimPropSubPanel.add(w);
 
 					if (v.isAffectProperties()) {
+						JComponent wc = w.getEditor();
+						if (wc instanceof ItemSelectable)
+							((ItemSelectable) wc)
+									.addItemListener(new ItemListener() {
+										@Override
+										public void itemStateChanged(ItemEvent e) {
+											editPropertiesRefas(elm);
+										}
+									});
 						JButton button = new JButton("Validate");
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								editPropertiesRefas(elm);
+								if (!recursiveCall) {
+									editPropertiesRefas(elm);
+								}
 							}
 						});
 						elementSimPropSubPanel.add(button);
@@ -1121,6 +1147,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					elementConfPropSubPanel.add(w);
 
 					if (v.isAffectProperties()) {
+						JComponent wc = w.getEditor();
+						if (wc instanceof ItemSelectable)
+							((ItemSelectable) wc)
+									.addItemListener(new ItemListener() {
+										@Override
+										public void itemStateChanged(ItemEvent e) {
+											editPropertiesRefas(elm);
+										}
+									});
 						JButton button = new JButton("Validate");
 						button.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
@@ -1141,6 +1176,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								.getDisplayName() + ": "));
 						elementDesPropSubPanel.add(w);
 						if (v.isAffectProperties()) {
+							JComponent wc = w.getEditor();
+							if (wc instanceof ItemSelectable)
+								((ItemSelectable) wc)
+										.addItemListener(new ItemListener() {
+											@Override
+											public void itemStateChanged(
+													ItemEvent e) {
+												editPropertiesRefas(elm);
+
+											}
+										});
 							JButton button = new JButton("Validate");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
@@ -1248,7 +1294,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			elementExpressionPanel.revalidate();
 			elementSimPropPanel.revalidate();
 		}
-
+		((MainFrame) getFrame()).waitingCursor(false);
+		recursiveCall = false;
 	}
 
 	protected void onVariableEdited(Editable e) {
@@ -1319,12 +1366,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
-		if (perspective ==3)			
+		if (perspective == 3)
 			jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
 					BorderLayout.WEST);
-				else
-		jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
-				BorderLayout.WEST);
+		else
+			jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
+					BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
 		if (mainFrame != null)
 			perspectiveToolBar = new PerspectiveToolBar(mainFrame,
@@ -1376,9 +1423,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			 */}
 
 	}
-	
-	public void executeSimulation(boolean first)
-	{	boolean result = false;
+
+	public void executeSimulation(boolean first) {
+		((MainFrame) getFrame()).waitingCursor(true);
+		boolean result = false;
 		if (first)
 			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
 		else
@@ -1389,35 +1437,31 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			bringUpTab(mxResources.get("elementSimPropTab"));
 			editPropertiesRefas(lastEditableElement);
 		} else {
-			if (first)
-			{
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
-							"Simulation Execution Error",
-							JOptionPane.INFORMATION_MESSAGE, null);
-			}
-			else
+			if (first) {
 				JOptionPane
-				.showMessageDialog(
-						frame,
-						"No more solutions found",
-						"Simulation Message",
-						JOptionPane.INFORMATION_MESSAGE, null);
-				
+						.showMessageDialog(
+								frame,
+								"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
+								"Simulation Execution Error",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			} else
+				JOptionPane.showMessageDialog(frame, "No more solutions found",
+						"Simulation Message", JOptionPane.INFORMATION_MESSAGE,
+						null);
+
 		}
 		if (lastEditableElement == null)
 			JOptionPane
-			.showMessageDialog(
-					frame,
-					"Select one element before executing the simulation. This is a view update temporal problem.",
-					"Simulation Message",
-					JOptionPane.INFORMATION_MESSAGE, null);
+					.showMessageDialog(
+							frame,
+							"Select one element before executing the simulation. This is a view update temporal problem.",
+							"Simulation Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
 		else
-		((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(lastEditableElement);
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
 		updateObjects();
+		((MainFrame) getFrame()).waitingCursor(false);
 	}
 
 }

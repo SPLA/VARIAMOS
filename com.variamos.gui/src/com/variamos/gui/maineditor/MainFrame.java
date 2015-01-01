@@ -1,6 +1,7 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class MainFrame extends JFrame {
 	 */
 	protected String appTitle;
 	private int perspective=1;
+	private Cursor waitCursor, defaultCursor;
+
 	public int getPerspective() {
 		return perspective;
 	}
@@ -87,6 +90,9 @@ public class MainFrame extends JFrame {
 			if (i ==3)
 				editor.setModelEditor(modelEditor);
 
+			 waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+			 defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+
 			graphEditors.add(editor);
 
 			editorsMenu.add(new RefasMenuBar(graphEditors.get(i)));
@@ -97,6 +103,15 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
+	}
+	
+	public void waitingCursor(boolean waitingCursor)
+	{
+		if (waitingCursor)		
+			this.setCursor(waitCursor);
+		else
+        this.setCursor(defaultCursor);
+
 	}
 	
 	public void setPerspective(int perspective) {

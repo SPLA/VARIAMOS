@@ -101,7 +101,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
 			for (Expression exp : hlclProgram) {
-				System.out.println(HlclUtil.getUsedIdentifiers(exp));
+				//System.out.println(HlclUtil.getUsedIdentifiers(exp));
 				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
 				text += exp + "\n";
 			}
@@ -124,7 +124,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				return false;
 		} else
 			throw new RuntimeException("Solution parameter not supported");
-		System.out.println("configuration: " + configuration.toString());
+	//	System.out.println("configuration: " + configuration.toString());
 
 		return true;
 	}
@@ -142,7 +142,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String vertexId = split[0];
 			String attribute = split[1];
 			InstElement vertex = refas.getElement(vertexId);
-			System.out.println(vertexId + " " + attribute);
+		//	System.out.println(vertexId + " " + attribute);
 			if (vertex.getInstAttribute(attribute).getAttributeType()
 					.equals("Boolean"))
 
