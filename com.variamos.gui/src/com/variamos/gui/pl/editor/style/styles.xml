@@ -22,7 +22,8 @@
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
-		<add as="align" value="center"/>
+		<add as="align" value="center"/>	
+		<add as="fillColor" value="white"/>
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>
@@ -42,7 +43,8 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="strokeColor" value="black"/>
+		<add as="strokeColor" value="black"/>		
+		<add as="fillColor" value="white"/>
 		<add as="verticalLabelPosition" value="top"/>
 		<add as="editable" value="false"/>
 	</add>
@@ -103,7 +105,7 @@
 	</add>
 	
 	<add as="refasgoal">
-		<add as="shape" value="rect-goal"/>
+		<add as="shape" value="refas-goal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -113,7 +115,7 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refassoftgoal">
-		<add as="shape" value="rect-soft2"/>
+		<add as="shape" value="refas-softgoal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -124,13 +126,13 @@
 	</add>
 	<add as="refasview">
 		<add as="fillColor" value="white" />
-		<add as="shape" value="rect-str"/>
+		<add as="shape" value="refas-view"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>		
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
-		<add as="fillColor" value="#002060"/>
+		<add as="fillColor" value="white"/>
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refasassump">
@@ -141,37 +143,38 @@
 		<add as="fontSize" value="10"/>		
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
-		<add as="fillColor" value="#002060"/>
+		<add as="fillColor" value="white"/>
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refasoper">
-		<add as="shape" value="hexa-oper"/>
+		<add as="shape" value="refas-oper"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#002060"/>		
+		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 
 	<add as="refascontextgrp">
-		<add as="shape" value="context"/>
+		<add as="shape" value="refas-contextgrp"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#002060"/>		
+		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="refasglobcnxt">
-		<add as="shape" value="context"/>
+		<add as="shape" value="refas-globcnxt"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
-		<add as="verticalAlign" value="middle"/>		
+		<add as="verticalAlign" value="middle"/>	
+		<add as="fillColor" value="white"/>			
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="refasenumeration">
@@ -181,17 +184,17 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="top"/>
-		<add as="fillColor" value="#A6C3DD"/>		
+		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
 		<add as="refaslocalcnxt">
-		<add as="shape" value="context"/>
+		<add as="shape" value="refas-localcnxt"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#A6C3DD"/>		
+		<add as="fillColor" value="#white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refassoftdep">
@@ -206,7 +209,7 @@
 	</add>
 	
 	<add as="refasclaim">
-		<add as="shape" value="claim"/>
+		<add as="shape" value="refas-claim"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -216,11 +219,12 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 		<add as="refasasset">
-		<add as="shape" value="component"/>
+		<add as="shape" value="refas-component"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
-		<add as="align" value="center"/>
+		<add as="align" value="right"/>}
+		<add as="fillColor" value="white"/>	
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>

@@ -61,21 +61,23 @@ public class ClassWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = ClassSingleSelectionType.class.getClassLoader();
+		ClassLoader classLoader = ClassSingleSelectionType.class
+				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute)v;
-		
+		InstAttribute instAttribute = (InstAttribute) v;
+
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			//System.out.println("aClass.getName() = " + aClass.getName());
+			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		if (instAttribute.getPairwiseRelValidationList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticPairwiseRelation> list = instAttribute.getPairwiseRelValidationList();
+			List<IntSemanticPairwiseRelation> list = instAttribute
+					.getPairwiseRelValidationList();
 
 			for (IntSemanticPairwiseRelation groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
@@ -85,24 +87,41 @@ public class ClassWidget extends WidgetR {
 			}
 		} else if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, MetaElement>();
-			List<MetaPairwiseRelation> list = instAttribute.getValidationMEList();
+			List<MetaPairwiseRelation> list = instAttribute
+					.getValidationMEList();
 
 			for (MetaPairwiseRelation groupDependency : list) {
 				syntaxElements.put(groupDependency.getIdentifier(),
 						(MetaPairwiseRelation) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
+				// if (instAttribute.getValue()!= null &&
+				// out.equals(instAttribute.getValue()))
+				// txtValue.setSelectedItem(out);
 			}
 		} else if (instAttribute.getOverTwoRelValidationList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticOverTwoRelation> list = instAttribute.getOverTwoRelValidationList();
+			List<IntSemanticOverTwoRelation> list = instAttribute
+					.getOverTwoRelValidationList();
 
 			for (IntSemanticOverTwoRelation groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						(AbstractSemanticVertex) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
+				if (instAttribute.getValue() != null
+						&& out.equals(instAttribute.getValue()))
+					txtValue.setSelectedItem(out);
+				if (instAttribute.getValue() == null
+						&& instAttribute.getAttributeDefaultValue() != null
+						&& out.equals(instAttribute.getAttributeDefaultValue()))
+					txtValue.setSelectedItem(out);
 			}
+			// System.out.println("yr"+txtValue.getSelectedIndex());
+			if (txtValue.getSelectedIndex() == -1
+					&& txtValue.getItemCount() > 0)
+				txtValue.setSelectedItem(0);
+
 		} else {
 			if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
@@ -125,14 +144,14 @@ public class ClassWidget extends WidgetR {
 					String out = split[0] + " ";
 					for (int j = 1; j < split.length; j++)
 						out += split[j].toLowerCase() + " ";
-					txtValue.addItem(out);
+					txtValue.addItem(out.trim());
 				}
 			}
 
 			if (aClass.equals(InstVertex.class)) {
 				instVertex = new HashMap<String, InstVertex>();
-				List<InstVertex> list = getInstElements(instAttribute.getAttribute()
-						.getMetaConceptInstanceType(), graph);
+				List<InstVertex> list = getInstElements(instAttribute
+						.getAttribute().getMetaConceptInstanceType(), graph);
 
 				for (InstVertex concept : list) {
 					instVertex.put(concept.getIdentifier(), concept);
@@ -144,14 +163,14 @@ public class ClassWidget extends WidgetR {
 					String out = split[0] + " ";
 					for (int j = 1; j < split.length; j++)
 						out += split[j].toLowerCase() + " ";
-					txtValue.addItem(out);
+					txtValue.addItem(out.trim());
 				}
 			}
 			if (aClass.equals(InstEnumeration.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstVertex>();
-					List<InstVertex> list = getInstElements(instAttribute.getAttribute()
-							.getMetaConceptInstanceType(), graph);
+					List<InstVertex> list = getInstElements(instAttribute
+							.getAttribute().getMetaConceptInstanceType(), graph);
 
 					for (InstVertex concept : list) {
 						instVertex.put(concept.getIdentifier(), concept);
@@ -162,6 +181,7 @@ public class ClassWidget extends WidgetR {
 			}
 
 		}
+		pushValue(v);
 	}
 
 	public List<InstVertex> getInstElements(String object, mxGraph graph) {
@@ -174,7 +194,8 @@ public class ClassWidget extends WidgetR {
 			for (int j = 0; j < mv.getChildCount(); j++) {
 				mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
 				for (int k = 0; k < concept.getChildCount(); k++) {
-					mxCell concept2 = (mxCell) refasGraph.getChildAt(concept, k);
+					mxCell concept2 = (mxCell) refasGraph
+							.getChildAt(concept, k);
 					Object value = concept2.getValue();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
@@ -197,9 +218,10 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
+		boolean out = false;
 
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		if (instAttribute.getValueObject() != null) {
 			if (instAttribute.getValueObject() instanceof SemanticOverTwoRelation)
 				txtValue.setSelectedItem((String) ((SemanticOverTwoRelation) instAttribute
@@ -208,33 +230,51 @@ public class ClassWidget extends WidgetR {
 				txtValue.setSelectedItem((String) ((MetaPairwiseRelation) instAttribute
 						.getValueObject()).getIdentifier());
 		}
-		if (instVertex != null)
-			instAttribute.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
+		if (instVertex != null) {
+			Object set = instVertex.get((String) txtValue.getSelectedItem());
+			if (instAttribute.getValueObject() == null
+					|| !instAttribute.getValueObject().equals(set)) {
+				instAttribute.setValueObject(set);
+				out = true;
+			}
+		}
 
 		if (semanticElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				instAttribute.setValueObject(semanticElements.get(s));
+				if (instAttribute.getValueObject() == null
+						|| !instAttribute.getValueObject().equals(
+								semanticElements.get(s))) {
+					instAttribute.setValueObject(semanticElements.get(s));
+					out = true;
+				}
 			}
 		}
 		if (syntaxElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				instAttribute.setValueObject(syntaxElements.get(s));
+				if (instAttribute.getValueObject() == null
+						|| !instAttribute.getValueObject().equals(
+								syntaxElements.get(s))) {
+					instAttribute.setValueObject(syntaxElements.get(s));
+					out = true;
+				}
 			}
 		}
 
 		revalidate();
 		repaint();
+		return out;
 	}
 
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
 
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		v.setValue((String) txtValue.getSelectedItem());
 		if (instVertex != null)
-			instAttribute.setValueObject(instVertex.get((String) txtValue.getSelectedItem()));
+			instAttribute.setValueObject(instVertex.get((String) txtValue
+					.getSelectedItem()));
 		if (semanticElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();

@@ -76,6 +76,7 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.EditorRuler;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 
@@ -536,6 +537,8 @@ public class EditorActions {
 			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
+
+				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
@@ -720,6 +723,8 @@ public class EditorActions {
 							ex.toString(), mxResources.get("error"),
 							JOptionPane.ERROR_MESSAGE);
 				}
+
+				((MainFrame) editor.getFrame()).waitingCursor(true);
 			}
 		}
 	}
@@ -1451,6 +1456,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
+				((MainFrame)editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1540,6 +1546,7 @@ public class EditorActions {
 						}
 					}
 				}
+				((MainFrame)editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}

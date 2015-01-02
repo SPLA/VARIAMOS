@@ -176,6 +176,10 @@ public class MetaConcept extends MetaVertex {
 		return semanticConcept.getSemanticAttribute(name);
 	}
 
+	public MetaConcept getParent() {
+		return parent;
+	}
+	
 	public void setParent(MetaConcept parent) {
 		this.parent = parent;
 	}

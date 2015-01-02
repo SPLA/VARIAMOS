@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.syntaxsupport.metamodelsupport.MetaView;
@@ -25,8 +26,10 @@ public class ModelButtonAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 
 		VariamosGraphEditor editor = getEditor(e);
-		List<MetaView> metaViews = editor.getMetaViews();
 		if (editor != null) {
+			((MainFrame)editor.getFrame()).waitingCursor(true);
+
+			List<MetaView> metaViews = editor.getMetaViews();
 			JButton jb = (JButton) e.getSource();
 			for (int i = 0; i< metaViews.size(); i++)
 			{
@@ -44,7 +47,7 @@ public class ModelButtonAction extends AbstractEditorAction {
 				}
 			}
 			updateButtons((JPanel) jb.getParent(), jb);
-
+			((MainFrame)editor.getFrame()).waitingCursor(false);
 		}
 	}
 

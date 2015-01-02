@@ -120,16 +120,17 @@ public class PerspectiveToolBar extends JToolBar
 	
 	public void updateButtons()
 	{
-		for (int i = 1; i<5; i++) //From 1: Hide PL perspective 
+	/*	for (int i = 1; i<5; i++) //From 1: Hide PL perspective 
 		{
 			if (i == editor.getPerspective())
 				buttons[i].setSelected(true);
 			else
 				buttons[i].setSelected(false);
+				
 		//	editor.setLayout(editor.getPerspective());
 
 		}
-
+*/
 	}
 	
 	public void updatePerspective()

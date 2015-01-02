@@ -67,11 +67,12 @@ public class MEnumerationWidget extends WidgetR {
 	}
 	
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		if (v.getValue() instanceof int[])
 			txtValue.setSelectedIndices((int[])v.getValue() );
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override

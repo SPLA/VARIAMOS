@@ -55,7 +55,7 @@ public class InstOverTwoRelation extends InstVertex {
 	/**
 	 * Support concept (defines the available attributes and syntax)
 	 */
-	private MetaOverTwoRelation metaOverTwoRelation;
+	private MetaOverTwoRelation supportMetaOverTwoRelation;
 	/**
 	 * Assigned during the generation of expressions for
 	 * SingleElementExpressionSet required during the generation of expressions
@@ -77,29 +77,29 @@ public class InstOverTwoRelation extends InstVertex {
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
 	}
 
-	public InstOverTwoRelation(MetaOverTwoRelation metaGroupDependency) {
+	public InstOverTwoRelation(MetaOverTwoRelation metaOverTwoRelation) {
 		super("");
 		vars.put(VAR_METAOVERTWOREL_IDEN,
-				metaGroupDependency.getIdentifier());
-		this.metaOverTwoRelation = metaGroupDependency;
+				metaOverTwoRelation.getIdentifier());
+		this.supportMetaOverTwoRelation = metaOverTwoRelation;
 		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaGroupDependency.getDescription());
+				metaOverTwoRelation.getDescription());
 
 		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
 	public InstOverTwoRelation(String identifier,
-			MetaOverTwoRelation metaGroupDependency,
+			MetaOverTwoRelation supportMetaOvetTwoRelation,
 			MetaElement editableMetaElement) {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
-		if (metaGroupDependency != null) {
+		if (supportMetaOvetTwoRelation != null) {
 			vars.put(VAR_METAOVERTWOREL_IDEN,
-					metaGroupDependency.getIdentifier());
-			this.metaOverTwoRelation = metaGroupDependency;
+					supportMetaOvetTwoRelation.getIdentifier());
+			this.supportMetaOverTwoRelation = supportMetaOvetTwoRelation;
 			setVariable(MetaElement.VAR_DESCRIPTION,
-					metaGroupDependency.getDescription());
+					supportMetaOvetTwoRelation.getDescription());
 		}
 		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
@@ -112,7 +112,7 @@ public class InstOverTwoRelation extends InstVertex {
 		setEditableSemanticElement(semanticElement);
 		vars.put(VAR_METAOVERTWOREL_IDEN,
 				metaGroupDependency.getIdentifier());
-		this.metaOverTwoRelation = metaGroupDependency;
+		this.supportMetaOverTwoRelation = metaGroupDependency;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
 
@@ -125,7 +125,7 @@ public class InstOverTwoRelation extends InstVertex {
 		super(identifier);
 		vars.put(VAR_METAOVERTWOREL_IDEN,
 				metaGroupDependency.getIdentifier());
-		this.metaOverTwoRelation = metaGroupDependency;
+		this.supportMetaOverTwoRelation = metaGroupDependency;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
 
@@ -182,7 +182,7 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public MetaOverTwoRelation getMetaOverTwoRelation() {
-		return metaOverTwoRelation;
+		return supportMetaOverTwoRelation;
 	}
 
 	public String getMetaVertexIdentifier() {
@@ -211,12 +211,12 @@ public class InstOverTwoRelation extends InstVertex {
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
 		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaOverTwoRelation.getDescription());
+				supportMetaOverTwoRelation.getDescription());
 
 	}
 
 	public void setMetaVertex(MetaVertex metaOverTwoRelation) {
-		this.metaOverTwoRelation = (MetaOverTwoRelation) metaOverTwoRelation;
+		this.supportMetaOverTwoRelation = (MetaOverTwoRelation) metaOverTwoRelation;
 		setVariable(VAR_METAOVERTWOREL_IDEN,
 				metaOverTwoRelation.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
@@ -483,7 +483,8 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public void clearMetaVertex() {
-		metaOverTwoRelation = null;
+		super.clearMetaVertex();
+		supportMetaOverTwoRelation = null;
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, null);
 		// TODO Auto-generated method stub
 	}
@@ -498,12 +499,12 @@ public class InstOverTwoRelation extends InstVertex {
 
 	@Override
 	public MetaVertex getMetaVertex() {
-		return metaOverTwoRelation;
+		return supportMetaOverTwoRelation;
 	}
 
 	@Override
 	public MetaElement getSupportMetaElement() {
-		return metaOverTwoRelation;
+		return supportMetaOverTwoRelation;
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.variamos.syntaxsupport.type;
 
 /**
- * A class to represent a class dynamically loaded attribute for
- * multiselection. Inspired on other ProductLine types. Part of PhD work at
- * University of Paris 1
+ * A class to represent a class dynamically loaded attribute for multiselection.
+ * Inspired on other ProductLine types. Part of PhD work at University of Paris
+ * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.1
@@ -11,35 +11,35 @@ package com.variamos.syntaxsupport.type;
  * @see com.cfm.productline.type
  */
 @SuppressWarnings("serial")
-public class ClassMultiSelectionType extends Type{
-	public static final String IDENTIFIER = "MClass";	
-	protected ClassMultiSelectionType(){
+public class ClassMultiSelectionType extends Type {
+	public static final String IDENTIFIER = "MClass";
+
+	protected ClassMultiSelectionType() {
 		super(IDENTIFIER);
 	}
-	
-//	@Override
-//	public boolean contains(Object obj) {
-//		return obj instanceof Integer;
-//	}
 
-	//@Override
-/*	public AbstractAttribute makeAttribute(String name, boolean affectProperties, String displayName) {
-		return new AbstractAttribute(name, getIdentifier(), affectProperties, displayName, 0);
-	}
-	
+	// @Override
+	// public boolean contains(Object obj) {
+	// return obj instanceof Integer;
+	// }
 
+	// @Override
 	/*
-	public static SemanticAttribute newSemanticAttribute(String name,
-			boolean affectProperties, String displayName) {
-		return new SemanticAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
-	}	
-	public static SimulationStateAttribute newSimulationAttribute(String name,
-			boolean affectProperties, String displayName) {
-		return new SimulationStateAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
-	}	
-	public static ModelingAttribute newModelingAttribute(String name,
-			boolean affectProperties, String displayName) {
-		return new ModelingAttribute (name, IDENTIFIER, affectProperties, displayName, 0);
-	}
-	*/
+	 * public AbstractAttribute makeAttribute(String name, boolean
+	 * affectProperties, String displayName) { return new
+	 * AbstractAttribute(name, getIdentifier(), affectProperties, displayName,
+	 * 0); }
+	 * 
+	 * 
+	 * /* public static SemanticAttribute newSemanticAttribute(String name,
+	 * boolean affectProperties, String displayName) { return new
+	 * SemanticAttribute (name, IDENTIFIER, affectProperties, displayName, 0); }
+	 * public static SimulationStateAttribute newSimulationAttribute(String
+	 * name, boolean affectProperties, String displayName) { return new
+	 * SimulationStateAttribute (name, IDENTIFIER, affectProperties,
+	 * displayName, 0); } public static ModelingAttribute
+	 * newModelingAttribute(String name, boolean affectProperties, String
+	 * displayName) { return new ModelingAttribute (name, IDENTIFIER,
+	 * affectProperties, displayName, 0); }
+	 */
 }

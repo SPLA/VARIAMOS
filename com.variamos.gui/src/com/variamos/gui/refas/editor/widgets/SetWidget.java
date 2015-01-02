@@ -36,8 +36,9 @@ public class SetWidget extends WidgetR{
 	}
 	
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		comboBox.setSelectedItem( v.getValue() );
+		return false;
 	}
 
 	@Override

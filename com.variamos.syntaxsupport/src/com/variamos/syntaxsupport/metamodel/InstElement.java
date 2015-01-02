@@ -157,7 +157,13 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public InstAttribute getInstAttribute(String name) {
 		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
 				.get(name);
-		// return instAttributes.get(name);
+	}
+
+	public List<InstAttribute> getInstAttributesList() {
+		List<InstAttribute> out = new ArrayList<InstAttribute>();
+		out.addAll(((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+				.values());
+		return out;
 	}
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
@@ -371,7 +377,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private void removeTargetRelation(InstElement instElement) {
 		targetRelations.remove(instElement);
-		
+
 	}
 
 	protected void clearTargetRelations(boolean b) {
@@ -383,6 +389,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private void removeSourceRelation(InstElement instElement) {
 		sourceRelations.remove(instElement);
-		
+
 	}
 }

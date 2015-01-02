@@ -279,7 +279,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	protected void transformNot(BooleanNegation e, StringBuilder out) {
 		out.append(ONE).append(SPACE).append(SUBSTRACTION).append(SPACE)
 				.append(OPEN_PARENTHESIS);
-		transformBooleanExpression(e, out);
+		transformBooleanExpression(e.getExpression(), out);
 		out.append(CLOSE_PARENHESIS).append(SPACE).append(MORE).append(SPACE)
 				.append(ZERO);
 	}

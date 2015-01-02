@@ -147,8 +147,8 @@ public abstract class AbstractExpression {
 	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
-			System.out.println(leftVertex.getIdentifier() + " "
-					+ leftAttributeName);
+		//	System.out.println(leftVertex.getIdentifier() + " "
+		//			+ leftAttributeName);
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName), f
 					.newIdentifier(leftVertex
@@ -156,8 +156,8 @@ public abstract class AbstractExpression {
 							leftAttributeName));
 		}
 		if (rightVertex != null) {
-			System.out
-					.println(rightVertex.getIdentifier() + rightAttributeName);
+		//	System.out
+		//			.println(rightVertex.getIdentifier() + rightAttributeName);
 			out.put(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					f.newIdentifier(

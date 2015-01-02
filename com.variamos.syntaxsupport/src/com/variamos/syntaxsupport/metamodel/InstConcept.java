@@ -285,7 +285,9 @@ public class InstConcept extends InstVertex {
 	}
 
 	public void clearMetaVertex() {
+		super.clearMetaVertex();
 		metaConcept = null;
+
 	}
 
 	@Override

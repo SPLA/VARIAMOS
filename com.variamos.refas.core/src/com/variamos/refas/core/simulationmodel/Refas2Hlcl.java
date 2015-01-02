@@ -40,12 +40,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration;
 	private boolean hasSolution;
+	private Solver swiSolver;
 
 	public Configuration getConfiguration() {
 		return configuration;
 	}
 
-	public static final int ONE_SOLUTION = 0, ALL_SOLUTIONS = 1;
+	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1;
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
@@ -58,80 +59,80 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * relations and calls SWIProlog to return a solution or all solutions (only
 	 * ONE_SOLUTION currently supported)
 	 */
-	public boolean execute(int solutions)
-	{
-		text = "";
-		hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
-		createVertexExpressions(null);
-		createEdgeExpressions(null);
-		// Previous call to createEdgeExpressions is required to fill the
-		// attribute names for createGroupExpressions
-		createGroupExpressions(null);
+	public boolean execute(int solutions) {
+		if (solutions == 0 || swiSolver == null) {
+			text = "";
+			hlclProgram = new HlclProgram();
+			constraintGroups = new HashMap<String, MetaExpressionSet>();
+			createVertexExpressions(null);
+			createEdgeExpressions(null);
+			// Previous call to createEdgeExpressions is required to fill the
+			// attribute names for createGroupExpressions
+			createGroupExpressions(null);
 
-		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups
-				.values())
-			transformations.addAll(constraintGroup.getTransformations());
+			List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+			for (MetaExpressionSet constraintGroup : constraintGroups.values())
+				transformations.addAll(constraintGroup.getTransformations());
 
-		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIndentifiers(f));
-			if (transformation instanceof AbstractBooleanExpression) {
-				hlclProgram
-						.add(((AbstractBooleanExpression) transformation)
-								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractBooleanTransformation) transformation)
-				// .transformNegation(f, idMap, true, false));
-			} else if (transformation instanceof AbstractComparisonExpression) {
-				hlclProgram
-						.add(((AbstractComparisonExpression) transformation)
-								.transform(f, idMap));
-				// For negation testing
-				// prog.add(((AbstractComparisonTransformation) transformation)
-				// .transformNegation(f, idMap));
-			} else {
-				hlclProgram
-						.add(((AbstractComparisonExpression) transformation)
-								.transform(f, idMap));
+			for (AbstractExpression transformation : transformations) {
+				idMap.putAll(transformation.getIndentifiers(f));
+				if (transformation instanceof AbstractBooleanExpression) {
+					hlclProgram
+							.add(((AbstractBooleanExpression) transformation)
+									.transform(f, idMap));
+					// For negation testing
+					// prog.add(((AbstractBooleanTransformation) transformation)
+					// .transformNegation(f, idMap, true, false));
+				} else if (transformation instanceof AbstractComparisonExpression) {
+					hlclProgram
+							.add(((AbstractComparisonExpression) transformation)
+									.transform(f, idMap));
+					// For negation testing
+					// prog.add(((AbstractComparisonTransformation)
+					// transformation)
+					// .transformNegation(f, idMap));
+				} else {
+					hlclProgram
+							.add(((AbstractComparisonExpression) transformation)
+									.transform(f, idMap));
+				}
+
 			}
 
+			Set<Identifier> identifiers = new TreeSet<Identifier>();
+			for (Expression exp : hlclProgram) {
+				//System.out.println(HlclUtil.getUsedIdentifiers(exp));
+				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
+				text += exp + "\n";
+			}
+			swiSolver = new SWIPrologSolver(hlclProgram);
+
+			try {
+				swiSolver
+						.solve(new Configuration(), new ConfigurationOptions());
+			} catch (Exception e) {
+				System.out.println("No solution");
+				return false;
+			}
 		}
 
-		Set<Identifier> identifiers = new TreeSet<Identifier>();
-		for (Expression exp : hlclProgram) {
-			System.out.println(HlclUtil.getUsedIdentifiers(exp));
-			identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-			text += exp + "\n";
-		}
-		Solver swiSolver = new SWIPrologSolver(hlclProgram);
-		
-		try{
-			swiSolver.solve(new Configuration(), new ConfigurationOptions());
-		}
-		catch (Exception e)
-		{
-			System.out.println("No solution");
-			return false;
-		}
-
-		if (solutions==0)
-		{
-			configuration = swiSolver.getSolution();			
-		}
-		 
-		else
-			throw new RuntimeException ("Solution parameter not supported");
-		System.out.println("configuration: " + configuration.toString());
+		if (solutions == 0 || solutions == 1) {
+			Configuration newConf = swiSolver.getSolution();
+			if (newConf != null)
+				configuration = newConf;
+			else
+				return false;
+		} else
+			throw new RuntimeException("Solution parameter not supported");
+	//	System.out.println("configuration: " + configuration.toString());
 
 		return true;
 	}
-	
+
 	/**
 	 * Updates the GUI with the configuration
 	 */
-	public void updateGUIElements()
-	{
+	public void updateGUIElements() {
 		// Call the SWIProlog and obtain the result
 		Map<String, Integer> prologOut = configuration.getConfiguration();
 
@@ -141,7 +142,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String vertexId = split[0];
 			String attribute = split[1];
 			InstElement vertex = refas.getElement(vertexId);
-			System.out.println(vertexId+" "+attribute	);
+		//	System.out.println(vertexId + " " + attribute);
 			if (vertex.getInstAttribute(attribute).getAttributeType()
 					.equals("Boolean"))
 
@@ -153,13 +154,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				else
 					vertex.getInstAttribute(attribute).setValue(
 							prologOut.get(i));
-		/*	System.out.print(vertexId
-					+ " "
-					+ attribute
-					+ " "
-					+ vertex.getInstAttribute(attribute)
-							.getAttributeType() + "; ");
-							*/
+			/*
+			 * System.out.print(vertexId + " " + attribute + " " +
+			 * vertex.getInstAttribute(attribute) .getAttributeType() + "; ");
+			 */
 		}
 	}
 
@@ -183,8 +181,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstVertex elm : refas.getConstraintVertexCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
-						new SingleElementExpressionSet(elm.getIdentifier(), idMap,
-								f, elm));
+						new SingleElementExpressionSet(elm.getIdentifier(),
+								idMap, f, elm));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -194,15 +192,16 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createEdgeExpressions(String identifier) {
 		if (identifier == null)
-			for (InstPairwiseRelation elm : refas.getConstraintInstEdgesCollection()) {
+			for (InstPairwiseRelation elm : refas
+					.getConstraintInstEdgesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new PairwiseElementExpressionSet(elm.getIdentifier(),
 								idMap, f, elm));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
-					new PairwiseElementExpressionSet(identifier, idMap, f, refas
-							.getConstraintInstEdges().get(identifier)));
+					new PairwiseElementExpressionSet(identifier, idMap, f,
+							refas.getConstraintInstEdges().get(identifier)));
 
 	}
 

@@ -95,6 +95,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 			Object val = tmp.getValue();
 			if (tmp.getGeometry() != null && val != null
 					&& val instanceof InstConcept) {
+				try{
 				InstConcept instConcept = (InstConcept) val;
 				String backtop = null, backbottom = null, backtophint = null, backbottomhint = null;
 				String forced = "/com/variamos/gui/refas/editor/images/sim_forced.png";
@@ -119,7 +120,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					backtophint = "Element not allowed by user (gray background)";
 					backbottom = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
 					backbottomhint = backtophint;
-				}
+				} else
 				{
 					backtop = "/com/variamos/gui/refas/editor/images/sim_normal.png";
 					backtophint = "Element currently not satisfied (white background)";
@@ -216,6 +217,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					over3.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(tmp, over3);
 				}
+				}catch(Exception e)
+				{}
 
 				/*
 				 * mxCellState state = graph.getView().getState(tmp);
