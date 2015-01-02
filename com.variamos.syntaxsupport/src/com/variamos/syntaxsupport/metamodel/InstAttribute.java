@@ -1,12 +1,16 @@
 package com.variamos.syntaxsupport.metamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
@@ -22,7 +26,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
-public class InstAttribute implements Serializable,EditableElementAttribute {
+public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * 
 	 */
@@ -36,7 +40,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	 * MetaModel attribute object supporting the instance
 	 */
 	private AbstractAttribute attributeObject;
-	
+
 	public static final String
 	/**
 	 * Name of Instance identifier
@@ -47,11 +51,12 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	 */
 	VAR_ATTRIBUTE_IDEN = "attributeIden",
 	/**
-	 * Name of the Value for the InstAttribute - indexes in case of JList 
+	 * Name of the Value for the InstAttribute - indexes in case of JList
 	 */
 	VAR_VALUE = "Value",
 	/**
-	 * Name of display value for JList with indexes for VAR_VALUE (MClass and MEnumeration)
+	 * Name of display value for JList with indexes for VAR_VALUE (MClass and
+	 * MEnumeration)
 	 */
 	VAR_DISPLAYVALUE = "DispValue",
 	/**
@@ -204,7 +209,7 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 
 	public String getAttributeType() {
 		return attributeObject.getType();
-	}	
+	}
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub
@@ -319,5 +324,54 @@ public class InstAttribute implements Serializable,EditableElementAttribute {
 	@Override
 	public String getName() {
 		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
+	}
+
+	public String getAttributeDefaultValue() {
+		return (String) attributeObject.getDefaultValue();
+	}
+
+	public void updateValidationList(MetaElement metaElement,
+			Map<String, MetaElement> mapElements) {
+		if (metaElement instanceof MetaOverTwoRelation) {
+
+			if (getEnumType() != null
+					&& getEnumType().equals(
+							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+				List<IntSemanticOverTwoRelation> metaGD = ((MetaOverTwoRelation) metaElement)
+						.getSemanticRelations();
+				setValidationGDList(metaGD);
+			}
+		}
+		if (metaElement instanceof MetaPairwiseRelation) {
+
+			if (getEnumType() != null
+					&& getEnumType().equals(
+							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
+				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) metaElement)
+						.getSemanticRelations();
+				setValidationDRList(directRel);
+
+			}
+			if (getEnumType() != null
+					&& getEnumType().equals(
+							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
+
+				Iterator<String> elementNames = mapElements.keySet().iterator();
+				List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();
+				while (elementNames.hasNext()) {
+					String elementName = elementNames.next();
+					if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
+						// also
+						// validate
+						// origin
+						// and
+						// destination
+						// relation
+						metaGD.add((MetaPairwiseRelation) mapElements
+								.get(elementName));
+				}
+				setValidationMEList(metaGD);
+			}
+		}
 	}
 }

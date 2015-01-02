@@ -15,12 +15,12 @@ public abstract class WidgetR extends JPanel{
 	
 	protected EditableElementAttribute edited;
 	
-	public void editVariable(EditableElementAttribute v){
+	public boolean editVariable(EditableElementAttribute v){
 		edited = v;
-		pushValue(v);
+		return pushValue(v);
 	}
 	
-	protected abstract void pushValue(EditableElementAttribute v);
+	protected abstract boolean pushValue(EditableElementAttribute v);
 	protected abstract void pullValue(EditableElementAttribute v);
 	
 	public abstract JComponent getEditor();

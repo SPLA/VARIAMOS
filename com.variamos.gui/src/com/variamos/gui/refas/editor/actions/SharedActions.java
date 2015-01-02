@@ -162,6 +162,7 @@ public class SharedActions {
 				else
 					ia.setAttribute(toSet);
 			}
+			editor.editPropertiesRefas(ic);
 		} else if (value instanceof InstVertex) {
 			InstVertex ic = (InstVertex) value;
 			MetaVertex mc = (MetaVertex) editor.getSematicSintaxObject()
@@ -191,7 +192,7 @@ public class SharedActions {
 			MetaPairwiseRelation metaPairwiseRelation = (MetaPairwiseRelation) editor
 					.getSematicSintaxObject().getSyntaxElement(
 							instPairwiseRelation.getMetaPairwiseRelationIden());
-			SemanticPairwiseRelation semanticEdgeIde = (SemanticPairwiseRelation) editor
+			SemanticPairwiseRelation semanticRelation = (SemanticPairwiseRelation) editor
 					.getSematicSintaxObject().getSemanticElement(
 							instPairwiseRelation
 									.getSemanticPairwiseRelationIde());
@@ -204,8 +205,11 @@ public class SharedActions {
 			if (metaPairwiseRelation != null) {
 				instPairwiseRelation
 						.setMetaPairwiseRelation(metaPairwiseRelation);
-				if (semanticEdgeIde != null) {
-					instPairwiseRelation.setSemanticEdge(semanticEdgeIde);
+				instPairwiseRelation.setVariable(
+						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
+						instPairwiseRelation.getSemanticPairwiseRelationType());
+				if (semanticRelation != null) {
+					instPairwiseRelation.setSemanticEdge(semanticRelation);
 					instPairwiseRelation.loadSemantic();
 				}
 			}
@@ -229,8 +233,8 @@ public class SharedActions {
 						instAttribute.setValue(true);
 				if (instAttribute.getIdentifier().equals(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
-					instAttribute
-							.setValue(instPairwiseRelation.getSemanticPairwiseRelationType());
+					instAttribute.setValue(instPairwiseRelation
+							.getSemanticPairwiseRelationType());
 			}
 		}
 

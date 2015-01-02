@@ -105,7 +105,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 		addModelingAttribute(VAR_SEMANTICPAIRWISEREL,
 				new SemanticAttribute(VAR_SEMANTICPAIRWISEREL, "Class",
 						true, VAR_SEMANTICPAIRWISEREL_NAME,
-						VAR_SEMANTICPAIRWISEREL_CLASS, null, ""));
+						VAR_SEMANTICPAIRWISEREL_CLASS, "OperGoalOverTwoRel", ""));
 		//TODO include attribute based on other object values, cardinalityType from semanticTypes
 		this.addPropEditableAttribute("01#" + VAR_SEMANTICPAIRWISEREL);
 		this.addPropVisibleAttribute("01#" + VAR_SEMANTICPAIRWISEREL);

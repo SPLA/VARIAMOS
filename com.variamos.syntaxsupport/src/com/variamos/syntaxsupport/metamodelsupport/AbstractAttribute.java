@@ -410,6 +410,8 @@ public class AbstractAttribute implements Serializable {
 		this.domain = domain;
 		this.hint = hint;
 
+		if (type.equals("Class")||type.equals("MClass")||type.equals("Enum")||type.equals("MEnum"))
+			type = "String";
 		vars.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
 				name));
 		vars.put(VAR_TYPE, new AttributeElement(VAR_TYPE, "String", VAR_TYPE,
@@ -427,7 +429,7 @@ public class AbstractAttribute implements Serializable {
 		vars.put(VAR_DEFAULTVALUE, new AttributeElement(VAR_DEFAULTVALUE,
 				type, VAR_DEFAULTVALUENAME, defaultValue));
 		vars.put(VAR_DOMAIN, new AttributeElement(VAR_DOMAIN, "String",
-				VAR_DOMAIN, domain)); //TODO Change to Domain
+				VAR_DOMAIN, domain)); //TODO Change String to Domain
 		vars.put(VAR_HINT, new AttributeElement(VAR_HINT, "String", VAR_HINT,
 				hint));
 	}

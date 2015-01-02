@@ -179,7 +179,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new SemanticAttribute(
 				VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
 				VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
-				"means ends", ""));
+				"OperGoalOverTwoRel", ""));
 		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
 				VAR_METAPAIRWISERELTYPE, "Enumeration", true,
 				VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,

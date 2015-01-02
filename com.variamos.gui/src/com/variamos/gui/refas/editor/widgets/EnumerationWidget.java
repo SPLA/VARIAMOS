@@ -61,15 +61,20 @@ public class EnumerationWidget extends WidgetR {
 			String out = split[0] + " ";
 			for (int j = 1; j < split.length; j++)
 				out += split[j].toLowerCase() + " ";
-			txtValue.addItem(out);
+			txtValue.addItem(out.trim());
+			if (instAttribute.getValue()!= null && out.equals(instAttribute.getValue()))
+				txtValue.setSelectedItem(out);
 		}
+		revalidate();
+		repaint();
 	}
 
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		txtValue.setSelectedItem((String) v.getValue());
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override

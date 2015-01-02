@@ -40,8 +40,6 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
 import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;

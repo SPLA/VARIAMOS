@@ -135,7 +135,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		if (v.getValue() instanceof int[]) {
 			@SuppressWarnings("unchecked")
 			List<Integer> values = (List<Integer>) v.getValue();
@@ -147,6 +147,7 @@ public class MClassWidget extends WidgetR {
 		}
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override

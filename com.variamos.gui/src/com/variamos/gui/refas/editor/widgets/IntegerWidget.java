@@ -32,10 +32,11 @@ public class IntegerWidget extends WidgetR {
 	}
 	
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsInteger() ));
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override

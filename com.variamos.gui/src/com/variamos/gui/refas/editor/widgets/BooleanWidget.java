@@ -44,12 +44,13 @@ public class BooleanWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		chkValue.setText(String.valueOf(v.getIdentifier()));
 		chkValue.setSelected(v.getAsBoolean());
 
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override

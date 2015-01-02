@@ -1,41 +1,10 @@
 <shapes>
-<shape name="rect-str" aspect="variable">
-	<background>
-		<strokewidth width="4"/>
-		<path>
-			<move x="0" y="0"/>
-			<line x="100" y="0"/>
-			<line x="100" y="100"/>
-			<line x="0" y="100"/>
-			<line x="0" y="0"/>
-			<close/>
-		</path>
-		<stroke/>
-	</background>
-	<foreground>
-
-	</foreground>
-</shape>
-<shape name="rect-assu" aspect="variable">
-	<background>
-		<strokewidth width="4"/>
-		<path>
-			<move x="0" y="13"/>
-			<line x="100" y="13"/>
-			<line x="100" y="85"/>
-			<line x="0" y="85"/>
-			<line x="0" y="13"/>
-			<close/>
-		</path>
-		<stroke/>
-	</background>
-	<foreground>
-
-	</foreground>
-</shape>
-<shape name="rect-goal" aspect="variable">
-	<background aspect="fixed">
+<shape name="refas-goal" aspect="variable">
+	<background>		
+		<fillstroke color="#FFFFFF"/>
 		<strokewidth width="6"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
 		<path>
 			<move x="20" y="13"/>
 			<line x="100" y="13"/>
@@ -53,34 +22,77 @@
 		<constraint x="50" y="85" perimeter="1"/>
 	</connections>
 	<foreground>
-	
-
+		<fillstroke/>
 	</foreground>
 </shape>
-<shape name="rect-soft" aspect="variable">
+
+<shape name="refas-oper" aspect="variable">
 	<background>
+		<fillcolor color="#002060"/>
+		<fillstroke color="#002060"/>
 		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
 		<path>
-			<move x="0" y="13"/>
-			<line x="100" y="13"/>
-			<line x="100" y="85"/>
-			<line x="0" y="85"/>
-			<line x="0" y="13"/>
+			<move x="10" y="15"/>
+			<line x="0" y="50"/>
+			<line x="10" y="85"/>
+			<line x="3" y="50"/>
+			<line x="10" y="15"/>
+			<move x="90" y="15"/>
+			<line x="100" y="50"/>
+			<line x="90" y="85"/>
+			<line x="97" y="50"/>
+			<line x="90" y="15"/>
+			<close/>
+		</path>
+				<path>
+			<move x="10" y="15"/>
+			<line x="1" y="50"/>
+			<line x="10" y="85"/>
+			<line x="2" y="50"/>
+			<line x="10" y="15"/>
+			<move x="90" y="15"/>
+			<line x="99" y="50"/>
+			<line x="90" y="85"/>
+			<line x="98" y="50"/>
+			<line x="90" y="15"/>
 			<close/>
 		</path>
 		<stroke/>
+		<fillstroke/>
 	</background>
 	<foreground>
-
+		<fillstroke color="#002060"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<fillcolor color="#FFFFFF"/>
+		<path>
+			<move x="10" y="15"/>
+			<line x="3" y="50"/>
+			<line x="10" y="85"/>
+			<line x="90" y="85"/>
+			<line x="97" y="50"/>
+			<line x="90" y="15"/>
+			<line x="10" y="15"/>
+			<close/>
+		</path>			
+		<stroke/>
+		<fillstroke/>
+		
 	</foreground>
 </shape>
-<shape name="rect-soft2" aspect="variable">
+
+<shape name="refas-softgoal" aspect="variable">
 	<connections>
 		<constraint x="50" y="0" perimeter="0"/>
 		<constraint x="0" y="75" perimeter="0"/>
 		<constraint x="100" y="75" perimeter="0"/>
 	</connections>
-	<foreground>
+	<background>
+	<fillstroke color="#666666"/>
+		<linejoin join="round"/>
 		<strokecolor color="#000000"/>
 		<strokewidth width="2"/>
 		<linecap cap="round"/>
@@ -99,6 +111,114 @@
 			<quad x1="0" y1="50" x2="3" y2="35"/>
 		</path>
 		<stroke/>
+	</background>
+	<foreground>		
+		<fillstroke/>
+	</foreground>
+</shape>
+
+<shape name="refas-claim" aspect="variable">
+	<background>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="30" y="0"/>
+			<line x="70" y="0"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="30" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
+<shape name="refas-view" aspect="variable">
+	<background>	
+		<fillstroke color="#FFFFFF"/>
+		<strokewidth width="4"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="100" y="0"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
+<shape name="rect-str" aspect="variable">
+	<background>	
+		<fillstroke color="#FFFFFF"/>
+		<strokewidth width="4"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="100" y="0"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+<shape name="rect-assu" aspect="variable">
+	<background>	
+		<fillstroke color="#FFFFFF"/>
+		<strokewidth width="4"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="0" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="0" y="85"/>
+			<line x="0" y="13"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+
+
+<shape name="rect-soft" aspect="variable">
+	<background>
+			<fillstroke color="#666666"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="2"/>
+		<path>
+			<move x="0" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="0" y="85"/>
+			<line x="0" y="13"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
 	</foreground>
 </shape>
 <shape name="rect-soft2-old" aspect="variable">
@@ -164,43 +284,7 @@
 	</foreground>
 </shape>
 
-<shape name="hexa-oper" aspect="variable">
-	<background>
-		<fillstroke color="#666666"/>
-		<strokewidth width="0"/>
-		<linecap cap="round"/>
-		<linejoin join="round"/>
-		<path>
-			<move x="10" y="15"/>
-			<line x="0" y="50"/>
-			<line x="10" y="85"/>
-			<line x="3" y="50"/>
-			<line x="10" y="15"/>
-			<move x="90" y="15"/>
-			<line x="100" y="50"/>
-			<line x="90" y="85"/>
-			<line x="97" y="50"/>
-			<line x="90" y="15"/>
-			<close/>
-		</path>
-		<stroke/>		
-		<fillstroke/>
-	</background>
-	<foreground>
-		<strokewidth width="2"/>
-		<path>
-			<move x="10" y="15"/>
-			<line x="0" y="50"/>
-			<line x="10" y="85"/>
-			<line x="90" y="85"/>
-			<line x="100" y="50"/>
-			<line x="90" y="15"/>
-			<line x="10" y="15"/>
-			<close/>
-		</path>
-		<stroke/>
-	</foreground>
-</shape>
+
 <shape name="rect-side" aspect="variable">
 	<background>
 		<fillstroke color="#666666"/>
@@ -236,7 +320,98 @@
 		<stroke/>
 	</foreground>
 </shape>
-<shape name="context" aspect="variable">
+
+<shape name="refas-localcnxt" aspect="variable">
+	<background>
+	
+		<fillcolor color="#A6C3DD"/>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="90" y="0"/>
+			<quad x1="100" y1="20" x2="100" y2="50"/>
+			<quad x1="100" y1="80" x2="90" y2="100"/>
+			<line x="90" y="0"/>
+	
+			<move x="10" y="0"/>
+			<quad x1="0" y1="20" x2="0" y2="50"/>
+			<quad x1="0" y1="80" x2="10" y2="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>		
+		<fillstroke/>
+		<stroke/>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		
+		<fillcolor color="#FFFFFF"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="90" y="0"/>
+			<line x="90" y="100"/>
+			<line x="10" y="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+		<fillstroke/>	
+	</background>
+	<foreground>
+	</foreground>
+</shape>
+
+<shape name="refas-contextgrp" aspect="variable">
+	<background>
+	
+		<fillcolor color="#002060"/>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<path>
+			<move x="90" y="0"/>
+			<quad x1="100" y1="20" x2="100" y2="50"/>
+			<quad x1="100" y1="80" x2="90" y2="100"/>
+			<line x="90" y="0"/>
+	
+			<move x="10" y="0"/>
+			<quad x1="0" y1="20" x2="0" y2="50"/>
+			<quad x1="0" y1="80" x2="10" y2="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>		
+		<fillstroke/>
+		<stroke/>
+		<fillstroke color="#666666"/>
+		<strokewidth width="2"/>		
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		
+		<fillcolor color="#FFFFFF"/>
+		<path>
+			<move x="10" y="0"/>
+			<line x="90" y="0"/>
+			<line x="90" y="100"/>
+			<line x="10" y="100"/>
+			<line x="10" y="0"/>
+			<close/>
+		</path>
+		<stroke/>
+		
+		<fillstroke/>	
+		
+	</background>
+	<foreground>
+	
+	</foreground>
+</shape>
+
+
+<shape name="refas-globcnxt" aspect="variable">
 	<background>
 		<fillstroke color="#666666"/>
 		<strokewidth width="2"/>
@@ -267,11 +442,16 @@
 			<line x="10" y="0"/>
 			<close/>
 		</path>
-		<stroke/>
+		<stroke/>		
+		<fillstroke/>
 	</foreground>
 </shape>
 <shape name="enum" aspect="variable">
 	<background>
+			<fillstroke color="#FFFFFF"/>
+		<strokewidth width="6"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
 		<strokewidth width="1"/>
 		<path>
 			<move x="0" y="0"/>
@@ -290,38 +470,16 @@
 		<stroke/>
 	</background>
 	<foreground>
-
-	</foreground>
-</shape>
-<shape name="claim" aspect="variable">
-	<background>
-		<fillstroke color="#666666"/>
-		<strokewidth width="2"/>
-		<linecap cap="round"/>
-		<linejoin join="round"/>
-		<path>
-			<move x="30" y="0"/>
-			<line x="70" y="0"/>
-			<line x="100" y="100"/>
-			<line x="0" y="100"/>
-			<line x="30" y="0"/>
-			<close/>
-		</path>
-		<stroke/>
-	</background>
-	<foreground>
 		<fillstroke/>
 	</foreground>
 </shape>
-<shape name="component" aspect="variable">
+<shape name="refas-component" aspect="variable">
 	<background>
 		<fillstroke color="#666666"/>
 		<strokewidth width="2"/>
 		<linecap cap="round"/>
 		<linejoin join="round"/>
 		<stroke/>
-	</background>
-	<foreground>
 		<path>
 			<move x="15" y="0"/>
 			<line x="100" y="0"/>
@@ -342,6 +500,8 @@
 			<line x="0" y="60"/>
 			<close/>
 		</path>		
+	</background>
+	<foreground>
 		<fillstroke/>
 	</foreground>
 </shape>

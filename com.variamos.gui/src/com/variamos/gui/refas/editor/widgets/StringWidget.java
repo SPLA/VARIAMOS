@@ -33,10 +33,11 @@ public class StringWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(EditableElementAttribute v) {
 		txtValue.setText( (String) v.getValue() );
 		revalidate();
 		repaint();
+		return false;
 	}
 
 	@Override
