@@ -102,13 +102,29 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				String validation = "/com/variamos/gui/refas/editor/images/sim_validation.png";
 				String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
 				String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
-				if ((boolean) instConcept.getInstAttribute("Required")
-						.getValue()) {
-					backtop = "/com/variamos/gui/refas/editor/images/sim_required.png";
-					backtophint = "Element required by user (red background)";
-					backbottom = "/com/variamos/gui/refas/editor/images/sim_required.png";
-					backbottomhint = backtophint;
-				} else if (!(boolean) instConcept.getInstAttribute("Active")
+				if ((boolean) instConcept.getInstAttribute(
+						"Required").getValue()) {
+					mxCellOverlay over3 = new mxCellOverlay(
+							new ImageIcon(
+									mxGraphComponent.class
+											.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
+							"Element required by user (red on sides)");
+					over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+					over3.setAlign(mxConstants.ALIGN_CENTER);
+					addCellOverlay(tmp, over3);
+					over3 = new mxCellOverlay(
+							new ImageIcon(
+									mxGraphComponent.class
+											.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
+							backbottomhint
+									+ "Element required by user (red on sides)");
+
+					backbottomhint	+= "; Satisfied by validation (Second green circle)";
+					over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+					over3.setAlign(mxConstants.ALIGN_CENTER);
+					addCellOverlay(tmp, over3);
+				}
+				if (!(boolean) instConcept.getInstAttribute("Active")
 						.getValue()) {
 					backtop = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
 					backtophint = "Element inactivated by user (black background)";

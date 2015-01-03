@@ -330,24 +330,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		return (String) attributeObject.getDefaultValue();
 	}
 
-	public void updateValidationList(MetaElement metaElement,
+	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
-		if (metaElement instanceof MetaOverTwoRelation) {
+		if (instElement instanceof InstOverTwoRelation) {
 
 			if (getEnumType() != null
 					&& getEnumType().equals(
 							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticOverTwoRelation> metaGD = ((MetaOverTwoRelation) metaElement)
+				List<IntSemanticOverTwoRelation> metaGD = ((MetaOverTwoRelation) instElement.getSupportMetaElement())
 						.getSemanticRelations();
 				setValidationGDList(metaGD);
 			}
 		}
-		if (metaElement instanceof MetaPairwiseRelation) {
+		if (instElement instanceof InstPairwiseRelation) {
 
 			if (getEnumType() != null
 					&& getEnumType().equals(
 							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) metaElement)
+				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) instElement.getSupportMetaElement())
 						.getSemanticRelations();
 				setValidationDRList(directRel);
 

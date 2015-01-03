@@ -358,17 +358,24 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
-		clearTargetRelations(firstCall);
+		removeTargetRelations();
 		addTargetRelation(targetRelation, firstCall);
 
 	}
 
+
+	public void clearRelations() {
+		removeTargetRelations();
+		removeSourceRelations();
+
+	}
+	
 	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
-		clearSourceRelations(firstCall);
+		removeSourceRelations();
 		addSourceRelation(sourceRelation, firstCall);
 	}
 
-	protected void clearSourceRelations(boolean b) {
+	protected void removeSourceRelations() {
 		for (InstElement instElement : sourceRelations)
 			instElement.removeTargetRelation(this);
 		sourceRelations.clear();
@@ -380,7 +387,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	}
 
-	protected void clearTargetRelations(boolean b) {
+	protected void removeTargetRelations() {
 		for (InstElement instElement : targetRelations)
 			instElement.removeSourceRelation(this);
 		targetRelations.clear();

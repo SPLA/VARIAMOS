@@ -518,11 +518,6 @@ public class InstPairwiseRelation extends InstElement {
 		return out;
 	}
 
-	public void clearRelations() {
-		clearTargetRelations(true);
-		clearSourceRelations(true);
-
-	}
 
 	public void loadSemantic() {
 		Iterator<InstAttribute> ias = getInstAttributes().values().iterator();
