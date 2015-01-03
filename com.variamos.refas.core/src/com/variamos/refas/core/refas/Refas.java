@@ -375,7 +375,7 @@ public class Refas extends AbstractModel {
 	}
 
 	public void removeElement(Object obj) {
-		((InstElement)obj).clearRelations();
+		((InstElement) obj).clearRelations();
 		if (obj instanceof InstConcept) {
 			InstConcept concept = (InstConcept) obj;
 
@@ -1464,7 +1464,7 @@ public class Refas extends AbstractModel {
 
 		MetaPairwiseRelation metaPairwiseRelView = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "Extends Relation", "refasviewrel",
-				"Extends relation", 50, 50,
+				"View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null); // TODO
 																					// Move
 																					// to

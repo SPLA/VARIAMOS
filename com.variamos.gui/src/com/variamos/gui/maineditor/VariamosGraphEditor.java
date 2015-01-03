@@ -1063,6 +1063,30 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			recursiveCall = false;
 		}
 	}
+	
+	public void refreshElement (EditableElement elm)
+	{
+		List<InstAttribute> visible = elm.getVisibleVariables();
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+		for (InstAttribute v : visible) {
+			Map<String, MetaElement> mapElements = null;
+			if (elm instanceof InstPairwiseRelation) {
+				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+				mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
+						.getValidPairwiseRelations(
+								instPairwise.getSourceRelations().get(0)
+										.getSupportMetaElement(),
+								instPairwise.getTargetRelations().get(0)
+										.getSupportMetaElement(), true);
+			}
+			v.updateValidationList((InstElement) elm, mapElements);
+			final WidgetR w = factory.getWidgetFor(v);
+			if (w == null) {
+				return;
+			}
+			w.editVariable(v);
+		}
+	}
 
 	protected void onVariableEdited(Editable e) {
 		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
@@ -1222,8 +1246,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			JOptionPane
 					.showMessageDialog(
 							frame,
-							"Select one element before executing the simulation. "
-									+ "This is a view update temporal problem.",
+							"Select any element and after execute the simulation.",
 							"Simulation Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		else

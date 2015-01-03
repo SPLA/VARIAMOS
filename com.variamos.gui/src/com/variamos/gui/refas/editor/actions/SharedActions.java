@@ -162,7 +162,7 @@ public class SharedActions {
 				else
 					ia.setAttribute(toSet);
 			}
-			editor.editPropertiesRefas(ic);
+			editor.refreshElement(ic);
 		} else if (value instanceof InstVertex) {
 			InstVertex ic = (InstVertex) value;
 			MetaVertex mc = (MetaVertex) editor.getSematicSintaxObject()
