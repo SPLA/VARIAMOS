@@ -148,7 +148,7 @@ public class ElementDesignPanel extends JPanel {
 							.getDescription();
 			}
 			int count = 0;
-			while (count<2) {
+			while (count < 2) {
 				designPanelElements = 0;
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = elm.getVisibleVariables();
@@ -170,9 +170,7 @@ public class ElementDesignPanel extends JPanel {
 													.getSupportMetaElement(),
 											true);
 						}
-						v.updateValidationList(
-								((InstElement) elm).getSupportMetaElement(),
-								mapElements);
+						v.updateValidationList(((InstElement) elm), mapElements);
 
 						final WidgetR w = factory.getWidgetFor(v);
 
@@ -228,7 +226,7 @@ public class ElementDesignPanel extends JPanel {
 									.setMaximumSize(new Dimension(200, 20));
 						}
 						if (w.editVariable(v))
-							count= 0;
+							count = 0;
 
 						List<InstAttribute> editables = elm
 								.getEditableVariables();

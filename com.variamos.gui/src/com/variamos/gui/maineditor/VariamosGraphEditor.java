@@ -717,13 +717,25 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						c.revalidate();
 						c.repaint();
 					}
-					String name = ((JTabbedPane) e.getSource()).getTitleAt(tabIndex);
-					if (name.equals("Edit Expressions") && editableElementType != null && perspective == 2 && updateExpressions) {
-
-						expressions.configure(
-						 getEditedModel(),
-						 refas2hlcl.getElementConstraintGroup(
-						 lastEditableElement.getIdentifier(), editableElementType), (InstElement) lastEditableElement);
+					String name = ((JTabbedPane) e.getSource())
+							.getTitleAt(tabIndex);
+					if (name.equals("Edit Expressions")
+							&& editableElementType != null && perspective == 2
+							&& updateExpressions) {
+						if (elm instanceof InstConcept) {
+							editableElementType = "vertex";
+						}
+						if (elm instanceof InstPairwiseRelation) {
+							editableElementType = "edge";
+						}
+						if (elm instanceof InstOverTwoRelation) {
+							editableElementType = "groupdep";
+						}
+						expressions.configure(getEditedModel(), refas2hlcl
+								.getElementConstraintGroup(
+										lastEditableElement.getIdentifier(),
+										editableElementType),
+								(InstElement) lastEditableElement);
 						updateExpressions = false;
 					}
 				}
@@ -831,6 +843,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void editPropertiesRefas(final EditableElement elm) {
+		try{
 
 		updateVisibleProperties(elm);
 		if (recursiveCall)
@@ -912,9 +925,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									instPairwise.getTargetRelations().get(0)
 											.getSupportMetaElement(), true);
 				}
-				v.updateValidationList(
-						((InstElement) elm).getSupportMetaElement(),
-						mapElements);
+				v.updateValidationList((InstElement) elm, mapElements);
 
 				final WidgetR w = factory.getWidgetFor(v);
 
@@ -1041,10 +1052,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			elementExpressionPanel.revalidate();
 			elementSimPropPanel.revalidate();
 		}
-		((RefasGraph) getGraphComponent().getGraph())
-		.refreshVariable(elm);
+		((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
 		((MainFrame) getFrame()).waitingCursor(false);
-		recursiveCall = false;
+		
+		}
+		catch(Exception e)
+			{e.printStackTrace();}
+		finally
+		{
+			recursiveCall = false;
+		}
 	}
 
 	protected void onVariableEdited(Editable e) {
@@ -1190,7 +1207,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				JOptionPane
 						.showMessageDialog(
 								frame,
-								"No solution found for this model configuration. \n Please review the restrictions defined and try again. \nAttributes values were not updated.",
+								"No solution found for this model configuration."
+										+ " \n Please review the restrictions defined and "
+										+ "try again. \nAttributes values were not updated.",
 								"Simulation Execution Error",
 								JOptionPane.INFORMATION_MESSAGE, null);
 			} else
@@ -1203,7 +1222,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			JOptionPane
 					.showMessageDialog(
 							frame,
-							"Select one element before executing the simulation. This is a view update temporal problem.",
+							"Select one element before executing the simulation. "
+									+ "This is a view update temporal problem.",
 							"Simulation Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		else

@@ -375,18 +375,20 @@ public class Refas extends AbstractModel {
 	}
 
 	public void removeElement(Object obj) {
+		((InstElement)obj).clearRelations();
 		if (obj instanceof InstConcept) {
 			InstConcept concept = (InstConcept) obj;
+
 			variabilityInstVertex.remove(concept.getIdentifier());
 		}
 		if (obj instanceof InstEnumeration) {
 			InstEnumeration concept = (InstEnumeration) obj;
 			variabilityInstVertex.remove(concept.getIdentifier());
 		}
-		if (obj instanceof InstOverTwoRelation)
-			instGroupDependencies.remove(((InstOverTwoRelation) obj)
-					.getIdentifier());
-		else if (obj instanceof InstPairwiseRelation)
+		if (obj instanceof InstOverTwoRelation) {
+			InstOverTwoRelation overtwo = (InstOverTwoRelation) obj;
+			instGroupDependencies.remove(overtwo.getIdentifier());
+		} else if (obj instanceof InstPairwiseRelation)
 			constraintInstEdges.remove(((InstPairwiseRelation) obj)
 					.getIdentifier());
 	}
@@ -1450,14 +1452,15 @@ public class Refas extends AbstractModel {
 		MetaConcept metaView = (MetaConcept) getSyntaxRefas().getVertex("View")
 				.getEditableMetaElement();
 
-//		MetaPairwiseRelation metaEdgeExtends = new MetaPairwiseRelation(
-//				"ExtendsRelation", false, "Extends Relation", "refasextends",
-//				"Extends relation", 50, 50,
-//				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null); // TODO
-//																					// Move
-//																					// to
-//																					// upper
-//																					// perspective
+		// MetaPairwiseRelation metaEdgeExtends = new MetaPairwiseRelation(
+		// "ExtendsRelation", false, "Extends Relation", "refasextends",
+		// "Extends relation", 50, 50,
+		// "/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null); //
+		// TODO
+		// // Move
+		// // to
+		// // upper
+		// // perspective
 
 		MetaPairwiseRelation metaPairwiseRelView = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "Extends Relation", "refasviewrel",
@@ -1760,7 +1763,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvatg", instEdge);
 		instEdge.setIdentifier("variab-extvatg");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexG, true);
 
@@ -1790,7 +1793,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extgtg", instEdge);
 		instEdge.setIdentifier("variab-extgtg");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexG, true);
 		instEdge.setSourceRelation(instVertexTG, true);
 
@@ -1818,7 +1821,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvaggg", instEdge);
 		instEdge.setIdentifier("variab-extvaggg");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexG, true);
 		instEdge.setSourceRelation(instVertexGG, true);
 
@@ -1853,7 +1856,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvaoper", instEdge);
 		instEdge.setIdentifier("variab-extvaoper");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexOper, true);
 
@@ -1892,7 +1895,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvaassu", instEdge);
 		instEdge.setIdentifier("variab-extvaassu");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexAssum, true);
 
@@ -2212,7 +2215,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-tsgasgPR", instEdge);
 		instEdge.setIdentifier("variab-tsgasgPR");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexASG, true);
 		instEdge.setSourceRelation(instVertexTSG, true);
 
@@ -2249,7 +2252,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-gsgasgPR", instEdge);
 		instEdge.setIdentifier("variab-gsgasgPR");
-//		instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexASG, true);
 		instEdge.setSourceRelation(instVertexGSG, true);
 
@@ -2418,7 +2421,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-gvtoV", instEdge);
 		instEdge.setIdentifier("context-gvtoV");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexV, true);
 		instEdge.setSourceRelation(instVertexGV, true);
 
@@ -2454,7 +2457,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-lvtoV", instEdge);
 		instEdge.setIdentifier("context-lvtoV");
-		//instEdge.setMetaPairwiseRelation(metaEdgeExtends);
+		// instEdge.setMetaPairwiseRelation(metaEdgeExtends);
 		instEdge.setTargetRelation(instVertexV, true);
 		instEdge.setSourceRelation(instVertexLV, true);
 
@@ -2975,17 +2978,39 @@ public class Refas extends AbstractModel {
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
 			if (pwr.getSourceRelations().size() > 0
 					&& pwr.getTargetRelations().size() > 0) {
-				if (pwr.getSourceRelations().get(0).getEditableMetaElement().getIdentifier()
-						.equals(instElement.getIdentifier())
-						&& pwr.getTargetRelations().get(0)
-								.getEditableMetaElement().getIdentifier().equals(instElement2.getIdentifier()))
-					out.put(pwr.getIdentifier(), pwr.getMetaPairwiseRelation());
+				MetaElement sourceMetaElement = pwr.getSourceRelations().get(0)
+						.getEditableMetaElement();
+				MetaElement targetMetaElement = pwr.getTargetRelations().get(0)
+						.getEditableMetaElement();
+				if (!(sourceMetaElement instanceof MetaPairwiseRelation)
+						&& !(targetMetaElement instanceof MetaPairwiseRelation))
+					if (sourceMetaElement.getIdentifier().equals(
+							instElement.getIdentifier())
+							&& targetMetaElement.getIdentifier().equals(
+									instElement2.getIdentifier()))
+						out.put(pwr.getIdentifier(),
+								pwr.getMetaPairwiseRelation());
+				// TODO validate the other end when the OTR has connections
+				if (sourceMetaElement instanceof MetaPairwiseRelation)
+					if (targetMetaElement.getIdentifier().equals(
+							instElement2.getIdentifier()))
+						out.put(pwr.getIdentifier(),
+								pwr.getMetaPairwiseRelation());
+				if (targetMetaElement instanceof MetaPairwiseRelation)
+					if (sourceMetaElement.getIdentifier().equals(
+							instElement2.getIdentifier()))
+						out.put(pwr.getIdentifier(),
+								pwr.getMetaPairwiseRelation());
 			}
 		}
-		if(instElement2 instanceof MetaConcept && ((MetaConcept)instElement2).getParent()!= null)
-			out.putAll(getValidPairwiseRelations(instElement,((MetaConcept)instElement2).getParent(), false));
-		if(instElement instanceof MetaConcept &&((MetaConcept)instElement).getParent()!= null && first)
-			out.putAll(getValidPairwiseRelations(((MetaConcept)instElement).getParent(),instElement2, true));
+		if (instElement2 instanceof MetaConcept
+				&& ((MetaConcept) instElement2).getParent() != null)
+			out.putAll(getValidPairwiseRelations(instElement,
+					((MetaConcept) instElement2).getParent(), false));
+		if (instElement instanceof MetaConcept
+				&& ((MetaConcept) instElement).getParent() != null && first)
+			out.putAll(getValidPairwiseRelations(
+					((MetaConcept) instElement).getParent(), instElement2, true));
 
 		return out;
 	}
