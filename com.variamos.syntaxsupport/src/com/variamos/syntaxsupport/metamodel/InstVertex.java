@@ -27,11 +27,11 @@ public abstract class InstVertex extends InstElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -2214656166959965220L;
+
 	/*
 	 * private String identifier; private Map<String, InstAttribute>
 	 * instAttributes; private Map<String, InstRelation> instRelations;
 	 */
-
 
 	public InstVertex() {
 		this(null, new HashMap<String, InstAttribute>(),
@@ -49,7 +49,7 @@ public abstract class InstVertex extends InstElement {
 			Map<String, InstPairwiseRelation> instRelations) {
 		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-}
+	}
 
 	public Object getVariable(String name) {
 		return vars.get(name);
@@ -58,8 +58,6 @@ public abstract class InstVertex extends InstElement {
 	public void setVariable(String name, Object value) {
 		vars.put(name, value);
 	}
-
-
 
 	public void setIdentifier(String identifier) {
 		setVariable(VAR_IDENTIFIER, identifier);
@@ -106,6 +104,13 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
+	public List<InstAttribute> getVisibleVariables() { // TODO move to
+		// superclass
+		Set<String> attributesNames = getSupportMetaElement()
+				.getPropVisibleAttributes();
+		return getFilteredInstAttributes(attributesNames, null);
+	}
+
 	public List<InstAttribute> getFilteredInstAttributes(
 			Set<String> attributesNames, List<InstAttribute> instAttributes) {
 		List<String> listEditableAttributes = new ArrayList<String>();
@@ -130,8 +135,7 @@ public abstract class InstVertex extends InstElement {
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name)
-							.getAttributeType();
+					type = getInstAttributes().get(name).getAttributeType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);
@@ -160,7 +164,7 @@ public abstract class InstVertex extends InstElement {
 
 			} else
 				listEditableAttribNames.add(attribute.substring(3));
-		}	
+		}
 
 		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
 		for (String attributeName : listEditableAttribNames) {
@@ -195,8 +199,7 @@ public abstract class InstVertex extends InstElement {
 
 	public abstract MetaVertex getMetaVertex();
 
-	public void clearMetaVertex()
-	{
+	public void clearMetaVertex() {
 		editableMetaElement = null;
 	};
 

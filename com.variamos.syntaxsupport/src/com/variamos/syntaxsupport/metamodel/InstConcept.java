@@ -36,7 +36,7 @@ public class InstConcept extends InstVertex {
 
 	public static final String VAR_METACONCEPT_IDEN = "MetaConceptIde";
 	// protected Map<String, MetaConcept> vars = new HashMap<>();
-	private MetaConcept metaConcept;
+	private MetaConcept supportMetaConcept;
 
 	public InstConcept() {
 		super("");
@@ -90,7 +90,7 @@ public class InstConcept extends InstVertex {
 
 	public MetaConcept getMetaConcept() {
 		// return (MetaConcept)getVariable(VAR_METACONCEPT);
-		return metaConcept;
+		return supportMetaConcept;
 	}
 
 	protected void createInstAttributes() {
@@ -137,13 +137,6 @@ public class InstConcept extends InstVertex {
 														// superclass
 		Set<String> attributesNames = getMetaConcept()
 				.getPropEditableAttributes();
-		return getFilteredInstAttributes(attributesNames, null);
-	}
-
-	public List<InstAttribute> getVisibleVariables() { // TODO move to
-														// superclass
-		Set<String> attributesNames = getMetaConcept()
-				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -268,11 +261,11 @@ public class InstConcept extends InstVertex {
 
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaConcept.getDescription());
 	}
 
 	public void setMetaVertex(MetaVertex metaConcept) {
-		this.metaConcept = (MetaConcept) metaConcept;
+		this.supportMetaConcept = (MetaConcept) metaConcept;
 		setVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
 		// createInstAttributes();
@@ -280,24 +273,24 @@ public class InstConcept extends InstVertex {
 
 	public void setMetaConceptIdentifier(String metaConceptIdentifier) {
 		setVariable(VAR_METACONCEPT_IDEN, metaConceptIdentifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaConcept.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearMetaVertex() {
 		super.clearMetaVertex();
-		metaConcept = null;
+		supportMetaConcept = null;
 
 	}
 
 	@Override
 	public MetaVertex getMetaVertex() {
-		return metaConcept;
+		return supportMetaConcept;
 	}
 
 	@Override
 	public MetaElement getSupportMetaElement() {
-		return metaConcept;
+		return supportMetaConcept;
 	}
 
 }

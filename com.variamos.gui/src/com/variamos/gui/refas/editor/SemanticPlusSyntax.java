@@ -115,7 +115,7 @@ public class SemanticPlusSyntax {
 		System.out.println("Loading semantic model...");
 		IncomingSemanticEdge groupRelation = null;
 
-		AbstractSemanticVertex semGeneralElement = new AbstractSemanticVertex();
+		SemanticConcept semGeneralElement = new SemanticConcept();
 		semanticConcepts.put("GE", semGeneralElement);
 
 		// Design attributes
@@ -206,8 +206,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		semGeneralElement.putSemanticAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
@@ -256,7 +256,7 @@ public class SemanticPlusSyntax {
 		semGeneralElement.addPropVisibleAttribute("14#" + "Optional");
 
 		// Definition of variability concept and relations
-		HardSemanticConcept semHardConcept = new HardSemanticConcept(
+		SemanticConcept semHardConcept = new SemanticConcept(
 				semGeneralElement, "semHardConcept");
 		semanticConcepts.put("HC", semHardConcept);
 
@@ -284,7 +284,7 @@ public class SemanticPlusSyntax {
 
 		// Feature concepts
 
-		HardSemanticConcept semFeature = new HardSemanticConcept(
+		SemanticConcept semFeature = new SemanticConcept(
 				semGeneralElement, "Feature");
 		semanticConcepts.put("F", semFeature);
 
@@ -294,17 +294,17 @@ public class SemanticPlusSyntax {
 
 		// definition of other concepts
 
-		HardSemanticConcept semAssumption = new HardSemanticConcept(
+		SemanticConcept semAssumption = new SemanticConcept(
 				semHardConcept, "Assumption");
 		semanticConcepts.put("AS", semAssumption);
 
-		HardSemanticConcept semGoal = new HardSemanticConcept(semHardConcept,
+		SemanticConcept semGoal = new SemanticConcept(semHardConcept,
 				"Goal");
 		semGoal.addPanelVisibleAttribute("01#" + "satisfactionType");
 		semGoal.addPanelSpacersAttribute("<#" + "satisfactionType" + "#>\n");
 		semanticConcepts.put("G", semGoal);
 
-		HardSemanticConcept semOperationalization = new HardSemanticConcept(
+		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 		semanticConcepts.put("OPER", semOperationalization);
 
@@ -319,7 +319,7 @@ public class SemanticPlusSyntax {
 				"ContextGroup");
 		semanticConcepts.put("CG", semContextGroup);
 
-		HardSemanticConcept semAsset = new HardSemanticConcept(
+		SemanticConcept semAsset = new SemanticConcept(
 				semGeneralElement, "Asset");
 		semanticConcepts.put("ASSE", semAsset);
 
@@ -895,8 +895,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		syntaxFeatureGroupDep.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
@@ -1130,8 +1130,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		syntaxGroupDependency.addModelingAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		syntaxGroupDependency.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,

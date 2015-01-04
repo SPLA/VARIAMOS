@@ -24,7 +24,7 @@ public abstract class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	VAR_IDENTIFIER = "Identifier",
+	VAR_IDENTIFIER = "identifier",
 			/**
 			 * 
 			 */
@@ -139,11 +139,11 @@ public abstract class MetaElement implements Serializable {
 
 	public void createModelingAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new ModelingAttribute(
-				VAR_IDENTIFIER, "String", false, "identifier", null));
+				VAR_IDENTIFIER, "String", false, "Identifier", null));
 		this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
 				VAR_DESCRIPTION, "String", false, "description", null));
 
-	//	this.disPropVisibleAttributes.add("01#" + VAR_IDENTIFIER);
+		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
 	//	this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 
 	}
@@ -333,5 +333,9 @@ public abstract class MetaElement implements Serializable {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 		
+	}
+
+	public Object getParent() {
+		return null;
 	}
 }

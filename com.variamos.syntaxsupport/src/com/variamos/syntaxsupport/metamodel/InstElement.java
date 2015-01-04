@@ -83,6 +83,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public void copyValuesToInstAttributes() {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (editableMetaElement != null) {
+				if (instAttribute.getIdentifier().equals("Parent"))
+					instAttribute.setValue(editableMetaElement.getParent());
 				if (instAttribute.getIdentifier().equals("Identifier"))
 					instAttribute.setValue(editableMetaElement.getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
@@ -127,6 +129,9 @@ public abstract class InstElement implements Serializable, EditableElement {
 				if (instAttribute.getIdentifier().equals("Identifier"))
 					instAttribute.setValue(editableSemanticElement
 							.getIdentifier());
+				if (instAttribute.getIdentifier().equals("Parent"))
+					instAttribute.setValue(editableSemanticElement
+							.getParent());
 			}
 		}
 	}
@@ -196,7 +201,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 			Set<String> modelingAttributes = getEditableSemanticElement()
 					.getSemanticAttributes().keySet();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals("Identifier")
+				if (!attributeName.equals("identifier")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
 			}

@@ -29,6 +29,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
@@ -58,8 +59,8 @@ public class SharedActions {
 	private static void deleteSupportObjects(Object value) {
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			String str = (String) ic.getSemanticOverTwoRelationIden();
-			ic.setSemanticOverTwoRelationIden(str);
+			String str = null;// (String) ic.getSemanticOverTwoRelationIden();
+			// ic.setSemanticOverTwoRelationIden(str);
 			str = (String) ic.getMetaVertexIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
 			ic.clearMetaVertex();
@@ -122,45 +123,28 @@ public class SharedActions {
 				.getRefas();
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			MetaOverTwoRelation mgd = (MetaOverTwoRelation) editor
-					.getSematicSintaxObject().getSyntaxElement(
-							ic.getMetaVertexIdentifier());
-			IntSemanticElement sgd = editor.getSematicSintaxObject()
-					.getSemanticElement(ic.getSemanticOverTwoRelationIden());
+			MetaOverTwoRelation mgd = (MetaOverTwoRelation) refas.getSyntaxRefas().getVertex(
+							ic.getMetaVertexIdentifier()).getEditableMetaElement();
+			// IntSemanticElement sgd = editor.getSematicSintaxObject()
+			// .getSemanticElement(ic.getSemanticOverTwoRelationIden());
 			ic.setMetaVertex(mgd);
 			refas.putInstGroupDependency(ic);
-			if (sgd != null)
-				ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
+			// if (sgd != null)
+			// ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
 			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
 					.iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				AbstractAttribute toSet = sgd.getSemanticAttribute(ia
-						.getAttributeName());
-				if (toSet == null)
-					if (ia.getAttributeName().equals(
-							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL)) {
-						MetaElement n = editor.getSematicSintaxObject()
-								.getSyntaxElements().get(mgd.getName());
-						AbstractAttribute m = n
-								.getModelingAttribute(InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ);
-						ia.setAttribute(m);
-						List<IntSemanticOverTwoRelation> semGD = ((MetaOverTwoRelation) n)
-								.getSemanticRelations();
-						ia.setValidationGDList(semGD);
-					} else {
-						AbstractAttribute a = ((InstOverTwoRelation) value)
-								.getAbstractAttribute(ia.getAttributeName());
-						ia.setAttribute(a);
-						if (ia.getAttributeType().equals("Boolean")
-								&& ia.getValue() instanceof String)
-							if (((String) ia.getValue()).equals("0"))
-								ia.setValue(false);
-							else
-								ia.setValue(true);
-					}
-				else
-					ia.setAttribute(toSet);
+				ia.setAttribute(ic.getAbstractAttribute(ia.getAttributeName()));
+				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) ic.getSupportMetaElement())
+						.getSemanticRelationTypes();
+				ia.setValidationGDList(semGD);
+				if (ia.getAttributeType().equals("Boolean")
+						&& ia.getValue() instanceof String)
+					if (((String) ia.getValue()).equals("0"))
+						ia.setValue(false);
+					else
+						ia.setValue(true);
 			}
 			editor.refreshElement(ic);
 		} else if (value instanceof InstVertex) {
@@ -222,8 +206,8 @@ public class SharedActions {
 						.next();
 				AbstractAttribute absAttribute = metaPairwiseRelation
 						.getModelingAttribute(instAttribute.getAttributeName());
-				// instAttribute
-				// .setAttribute(absAttribute);
+				 instAttribute
+				 .setAttribute(absAttribute);
 				if (instAttribute.getAttributeType().equals("Boolean")
 						&& instAttribute.getValue() != null
 						&& instAttribute.getValue() instanceof String)

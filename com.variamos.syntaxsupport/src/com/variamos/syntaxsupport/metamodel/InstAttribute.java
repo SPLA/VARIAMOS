@@ -14,6 +14,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -148,14 +149,14 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		// return identifier;
 	}
 
-	public void setValidationGDList(List<IntSemanticOverTwoRelation> semGD) {
+	public void setValidationGDList(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
 		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntSemanticOverTwoRelation> getOverTwoRelValidationList() {
-		return (List<IntSemanticOverTwoRelation>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
+	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
+		return (List<IntSemanticRelationType>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
@@ -335,10 +336,10 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		if (instElement instanceof InstOverTwoRelation) {
 
 			if (getEnumType() != null
-					&& getEnumType().equals(
-							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticOverTwoRelation> metaGD = ((MetaOverTwoRelation) instElement.getSupportMetaElement())
-						.getSemanticRelations();
+					&& getEnumType()
+							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
+				List<IntSemanticRelationType> metaGD = ((MetaOverTwoRelation) instElement
+						.getSupportMetaElement()).getSemanticRelationTypes();
 				setValidationGDList(metaGD);
 			}
 		}
@@ -347,8 +348,8 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			if (getEnumType() != null
 					&& getEnumType().equals(
 							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) instElement.getSupportMetaElement())
-						.getSemanticRelations();
+				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) instElement
+						.getSupportMetaElement()).getSemanticRelations();
 				setValidationDRList(directRel);
 
 			}

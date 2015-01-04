@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
  * @version 1.1
  * @since 2014-11-23
  */
-public class AbstractSemanticVertex extends AbstractSemanticElement implements
+public abstract class AbstractSemanticVertex extends AbstractSemanticElement implements
 		IntSemanticConcept {
 
 	/**
@@ -39,6 +39,15 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 	public AbstractSemanticVertex() {
 		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
+	}
+	
+	public AbstractSemanticVertex(String identifier) {
+		super(identifier);
+	}
+	
+	
+	public AbstractSemanticVertex(AbstractSemanticElement parentConcept, String identifier) {
+		super(parentConcept, identifier);
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,

@@ -19,6 +19,7 @@ import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.expressions.OrBooleanExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
 import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
+import com.variamos.refas.core.sematicsmetamodel.SemanticRelationType;
 import com.variamos.refas.core.types.CardinalityType;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
@@ -40,11 +41,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */
-	private CardinalityType relationType;
+	private String relationType;
 	/**
 	 * The source edge for the constraint
 	 */
-	private InstOverTwoRelation instGroupDependency;
+	private InstOverTwoRelation instOverTwoRelation;
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -57,48 +58,45 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRelation instGroupDependency) {
+			InstOverTwoRelation instOverTwoRelation) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
-		this.instGroupDependency = instGroupDependency;
+		this.instOverTwoRelation = instOverTwoRelation;
 		SingleElementExpressionSet restConst = new SingleElementExpressionSet(identifier,
-				idMap, hlclFactory, instGroupDependency);
+				idMap, hlclFactory, instOverTwoRelation);
 		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
 	}
 
-	public CardinalityType getCardinalityType() {
+	public String getCardinalityType() {
 		return relationType;
 	}
 
 	public InstOverTwoRelation getInstEdge() {
-		return instGroupDependency;
+		return instOverTwoRelation;
 	}
 
 	private void defineTransformations() {
 
-		MetaOverTwoRelation metaGroupDep = instGroupDependency
+		MetaOverTwoRelation metaGroupDep = instOverTwoRelation
 				.getMetaOverTwoRelation();
 		boolean targetActiveAttribute =false;
-		if (instGroupDependency
+		if (instOverTwoRelation
 				.getTargetRelations().size() > 0)
-			targetActiveAttribute = (boolean) ((InstPairwiseRelation)instGroupDependency
+			//TODO support multiple targets
+			targetActiveAttribute = (boolean) ((InstPairwiseRelation)instOverTwoRelation
 				.getTargetRelations().get(0)).getTargetRelations().get(0).getInstAttribute("Active")
 				.getValue(); 
 		if (targetActiveAttribute
-				&& metaGroupDep != null
-				&& instGroupDependency
-						.getInstAttribute(SemanticOverTwoRelation.VAR_CARDINALITYTYPE) != null) {
-			relationType = CardinalityType
-					.valueOf(((String) instGroupDependency.getInstAttribute(
-							SemanticOverTwoRelation.VAR_CARDINALITYTYPE)
-							.getValue()).trim());
+				&& metaGroupDep != null) {
+			relationType = (String)instOverTwoRelation.getInstAttribute(
+							SemanticOverTwoRelation.VAR_RELATIONTYPE_IDEN).getValue();
 			// System.out.println(relationType);
 
-			for (String sourceName : instGroupDependency
+			for (String sourceName : instOverTwoRelation
 					.getSourceAttributeNames()) {
 				AbstractExpression abstractTransformation = null;
-				Iterator<InstElement> instEdges1 = instGroupDependency
+				Iterator<InstElement> instEdges1 = instOverTwoRelation
 						.getSourceRelations().iterator();
 				AbstractExpression recursiveExpression1 = null;
 				AbstractExpression recursiveExpression2 = null;
@@ -112,18 +110,18 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 							return;
 					}
 					switch (relationType) {
-					case and:
+					case "and":
 						abstractTransformation = new AndBooleanExpression();
 						break;
-					case or:
+					case "or":
 						abstractTransformation = new OrBooleanExpression();
 						break;
-					case mutex:
+					case "mutex":
 						abstractTransformation = new SumNumericExpression();
 						break;
-					case range:
+					case "range":
 						abstractTransformation = new SumNumericExpression();
-						Iterator<InstElement> instEdges2 = instGroupDependency
+						Iterator<InstElement> instEdges2 = instOverTwoRelation
 								.getSourceRelations().iterator();
 						// instEdges2.next(); // TODO eliminate duplicated edges
 						// from collection and remove this
@@ -138,7 +136,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 											AbstractExpression.class);
 							constructor4 = abstractTransformation.getClass()
 									.getConstructor(InstElement.class,
-											InstVertex.class, String.class,
+											InstElement.class, String.class,
 											String.class);
 						} catch (NoSuchMethodException | SecurityException e) {
 							e.printStackTrace();
@@ -147,9 +145,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						recursiveExpression2 = transformation(constructor3,
 								constructor4, instEdges2, left2, sourceName);
 						break;
+					case "":
+						return;
 
 					default:
-						break;
+						return;
 					}
 
 					Constructor<?> constructor1 = null, constructor2 = null;
@@ -168,20 +168,20 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 					switch (relationType) {
 
-					case and:
+					case "and":
 						// B_Satisfied #<=> ( ( A1_"attribute" #/\
 						// A2_"attribute" ) #/\ ... )
-					case or:
+					case "or":
 						// B_Satisfied #<=> ( ( A1_"attribute" #\/
 						// A2_"attribute" ) #\/ ... )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
-										instGroupDependency, sourceName,
+										instOverTwoRelation, sourceName,
 										true, recursiveExpression1));
 						break;
-					case mutex:
+					case "mutex":
 						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
 						// ) + ... ) #<=> 1)
 						recursiveExpression1 = transformation(constructor1,
@@ -191,11 +191,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 								new NumberNumericExpression(1));
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
-										instGroupDependency, sourceName,
+										instOverTwoRelation, sourceName,
 										true, transformation1));
 
 						break;
-					case range:
+					case "range":
 
 						// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
 						// A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
@@ -204,11 +204,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
 						AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
-								instGroupDependency, "lowCardinality", false,
+								instOverTwoRelation, "lowCardinality", false,
 								recursiveExpression1);
 
 						AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
-								instGroupDependency, "highCardinality", false,
+								instOverTwoRelation, "highCardinality", false,
 								recursiveExpression2);
 
 						AbstractExpression transformation5 = new AndBooleanExpression(
@@ -216,7 +216,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
-										instGroupDependency/*
+										instOverTwoRelation/*
 															 * .getTargetRelations
 															 * ().get(0)
 															 * .getToRelation()
@@ -226,7 +226,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						break;
 
 					default:
-						break;
+						return;
 					}
 				}
 			}
