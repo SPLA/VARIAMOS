@@ -22,32 +22,7 @@ public abstract class AbstractSemanticEdge extends AbstractSemanticElement {
 	 * 
 	 */
 	private static final long serialVersionUID = 8651835673666769706L;
-	public static final String
-	/**
-	* 
-	*/
-	VAR_LEVEL = "level",
-			/**
-	 * 
-	 */
-			VAR_LEVELNAME = "Level",
-			/**
-	* 
-	*/
-			VAR_LEVELCLASS = LevelType.class.getCanonicalName(),
-			/**
-	 * 
-	*/
-			VAR_SATISFICINGTYPE = "satisficingType",
-			/**
-	 * 
-	*/
-			VAR_SATISFICINGTYPENAME = "Satisficing Level",
-			/**
-	* 
-	*/
-			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName();
-	/**
+		/**
 	 * 
 	 */
 	private boolean toSoftSemanticConcept;

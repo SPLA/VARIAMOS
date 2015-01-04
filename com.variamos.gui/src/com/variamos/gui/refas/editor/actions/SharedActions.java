@@ -123,8 +123,9 @@ public class SharedActions {
 				.getRefas();
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			MetaOverTwoRelation mgd = (MetaOverTwoRelation) refas.getSyntaxRefas().getVertex(
-							ic.getMetaVertexIdentifier()).getEditableMetaElement();
+			MetaOverTwoRelation mgd = (MetaOverTwoRelation) refas
+					.getSyntaxRefas().getVertex(ic.getMetaVertexIdentifier())
+					.getEditableMetaElement();
 			// IntSemanticElement sgd = editor.getSematicSintaxObject()
 			// .getSemanticElement(ic.getSemanticOverTwoRelationIden());
 			ic.setMetaVertex(mgd);
@@ -136,9 +137,9 @@ public class SharedActions {
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				ia.setAttribute(ic.getAbstractAttribute(ia.getAttributeName()));
-				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) ic.getSupportMetaElement())
-						.getSemanticRelationTypes();
-				ia.setValidationGDList(semGD);
+				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) ic
+						.getSupportMetaElement()).getSemanticRelationTypes();
+				ia.setValidationRelationTypes(semGD);
 				if (ia.getAttributeType().equals("Boolean")
 						&& ia.getValue() instanceof String)
 					if (((String) ia.getValue()).equals("0"))
@@ -206,15 +207,15 @@ public class SharedActions {
 						.next();
 				AbstractAttribute absAttribute = metaPairwiseRelation
 						.getModelingAttribute(instAttribute.getAttributeName());
-				 instAttribute
-				 .setAttribute(absAttribute);
-				if (instAttribute.getAttributeType().equals("Boolean")
-						&& instAttribute.getValue() != null
-						&& instAttribute.getValue() instanceof String)
-					if (((String) instAttribute.getValue()).equals("0"))
-						instAttribute.setValue(false);
-					else
-						instAttribute.setValue(true);
+				instAttribute.setAttribute(absAttribute);
+				if (absAttribute != null)// TODO find a better fix
+					if (instAttribute.getAttributeType().equals("Boolean")
+							&& instAttribute.getValue() != null
+							&& instAttribute.getValue() instanceof String)
+						if (((String) instAttribute.getValue()).equals("0"))
+							instAttribute.setValue(false);
+						else
+							instAttribute.setValue(true);
 				if (instAttribute.getIdentifier().equals(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
 					instAttribute.setValue(instPairwiseRelation

@@ -149,7 +149,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		// return identifier;
 	}
 
-	public void setValidationGDList(List<IntSemanticRelationType> semGD) {
+	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
 		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
@@ -333,26 +333,18 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
-		if (instElement instanceof InstOverTwoRelation) {
+		if (instElement instanceof InstOverTwoRelation
+				|| instElement instanceof InstPairwiseRelation) {
 
 			if (getEnumType() != null
 					&& getEnumType()
 							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
-				List<IntSemanticRelationType> metaGD = ((MetaOverTwoRelation) instElement
+				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
 						.getSupportMetaElement()).getSemanticRelationTypes();
-				setValidationGDList(metaGD);
+				setValidationRelationTypes(semanticRelationTypes);
 			}
 		}
 		if (instElement instanceof InstPairwiseRelation) {
-
-			if (getEnumType() != null
-					&& getEnumType().equals(
-							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) instElement
-						.getSupportMetaElement()).getSemanticRelations();
-				setValidationDRList(directRel);
-
-			}
 			if (getEnumType() != null
 					&& getEnumType().equals(
 							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {

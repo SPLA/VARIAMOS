@@ -82,7 +82,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 
 	private void defineTransformations() {
 
-		MetaPairwiseRelation metaEdge = instPairwiseRelation
+		MetaPairwiseRelation metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
 		boolean sourceActiveAttribute = (boolean) instPairwiseRelation
 				.getSourceRelations().get(0).getInstAttribute("Active")
@@ -94,7 +94,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 		if (sourceActiveAttribute && targetActiveAttribute)
 			activeVertex = true;
 		if (activeVertex
-				&& metaEdge != null
+				&& metaPairwiseRelation != null
 				&& instPairwiseRelation
 						.getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
 				&& !(instPairwiseRelation.getTargetRelations().get(0) instanceof InstOverTwoRelation)

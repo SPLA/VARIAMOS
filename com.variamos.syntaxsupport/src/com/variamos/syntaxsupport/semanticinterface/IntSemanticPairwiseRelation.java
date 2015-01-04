@@ -13,7 +13,7 @@ import java.util.Set;
  * @see com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge
  */
 public interface IntSemanticPairwiseRelation  extends IntSemanticElement {
-	public List<IntSemanticPairwiseRelType> getSemanticRelationTypes();
+	public List<IntSemanticRelationType> getSemanticRelationTypes();
 	public String getIdentifier();
 	public Set<String> getSemanticAttributesNames();
 	public List<String> getPropEditableAttributes();

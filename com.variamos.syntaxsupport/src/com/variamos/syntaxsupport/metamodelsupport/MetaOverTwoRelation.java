@@ -20,9 +20,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 2544731646206260777L;
-	private List<IntSemanticOverTwoRelation> semanticRelations;
-	private List<IntSemanticOverTwoRelType> semanticCandinalityTypes;
-
 	// new
 	private IntSemanticOverTwoRelation intSemanticOverTwoRelation;
 
@@ -54,8 +51,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 			String style, String description, int width, int height,
 			String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
-			List<IntSemanticOverTwoRelation> semanticRelations,
-			List<IntSemanticOverTwoRelType> semanticTypes,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
@@ -66,8 +61,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes,
 				modelingAttributes);
-		this.semanticRelations = semanticRelations;
-		this.semanticCandinalityTypes = semanticTypes;
 		createGroupDepModelingAttributes();
 	}
 
@@ -75,8 +68,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 			String style, String description, int width, int height,
 			String image, int borderStroke, boolean topConcept,
 			String backgroundColor, boolean resizable,
-			List<IntSemanticOverTwoRelation> semanticRelations,
-			List<IntSemanticOverTwoRelType> semanticTypes,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
@@ -89,19 +80,15 @@ public class MetaOverTwoRelation extends MetaVertex {
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes,
 				modelingAttributes, asOriginRelations, asOriginRelations);
-		this.semanticRelations = semanticRelations;
-		this.semanticCandinalityTypes = semanticTypes;
 		createGroupDepModelingAttributes();
 	}
 
 	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, boolean resizable,
-			List<IntSemanticOverTwoRelation> semanticRelations) {
+			int borderStroke, boolean resizable) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, topConcept, backgroundColor, resizable);
-		this.semanticRelations = semanticRelations;
 		createGroupDepModelingAttributes();
 	}
 
@@ -128,10 +115,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 		// from semanticTypes
 		// this.addPropEditableAttribute("01#" + VAR_SEMANTICPAIRWISEREL);
 		// this.addPropVisibleAttribute("01#" + VAR_SEMANTICPAIRWISEREL);
-	}
-
-	public List<IntSemanticOverTwoRelation> getSemanticRelations() {
-		return semanticRelations;
 	}
 
 	public Set<String> getPropVisibleAttributes() {

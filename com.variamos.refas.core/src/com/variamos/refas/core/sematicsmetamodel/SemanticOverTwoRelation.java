@@ -32,10 +32,6 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 					.getCanonicalName();
 
 	private ConditionalExpression conditionalExpression;
-	private List<AbstractSemanticVertex> conflicts;
-	private List<GroupRelationType> relationTypes;
-	private List<OutgoingSemanticEdge> outgoingRelations;
-
 	private List<IntSemanticRelationType> semanticRelationTypes;
 
 	public SemanticOverTwoRelation() {
@@ -48,52 +44,33 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		defineSemanticAttributes();
 	}
 
-	public SemanticOverTwoRelation(AbstractSemanticElement parent, String identifier,
-			List<IntSemanticRelationType> list) {
+	public SemanticOverTwoRelation(AbstractSemanticElement parent,
+			String identifier,
+			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(parent, identifier);
-		this.semanticRelationTypes = list;
-		defineSemanticAttributes();
-	}
-	
-	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			List<GroupRelationType> relationTypes) {
-		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				new ArrayList<OutgoingSemanticEdge>());
+		this.semanticRelationTypes = semanticRelationTypes;
 		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				outgoingRelations);
+			List<IntSemanticRelationType> semanticRelationTypes) {
+		this(identifier, exclusive, semanticRelationTypes, null);
 		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			ConditionalExpression conditionalExpression,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this(identifier, exclusive, conditionalExpression,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				outgoingRelations);
+			ConditionalExpression conditionalExpression) {
+		this(identifier, exclusive, null, conditionalExpression);
 		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			ConditionalExpression conditionalExpression,
-			List<AbstractSemanticVertex> conflicts,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
+			List<IntSemanticRelationType> semanticRelationTypes,
+			ConditionalExpression conditionalExpression) {
 		super(identifier, true);
 		this.exclusive = exclusive;
-
+		this.semanticRelationTypes = semanticRelationTypes;
 		this.conditionalExpression = conditionalExpression;
-		this.conflicts = conflicts;
-		this.relationTypes = relationTypes;
-		this.outgoingRelations = outgoingRelations;
 		defineSemanticAttributes();
 	}
 
@@ -121,31 +98,6 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	public void setConditionalExpression(
 			ConditionalExpression conditionalExpression) {
 		this.conditionalExpression = conditionalExpression;
-	}
-
-	public List<AbstractSemanticVertex> getConflicts() {
-		return conflicts;
-	}
-
-	public void setConflicts(List<AbstractSemanticVertex> conflicts) {
-		this.conflicts = conflicts;
-	}
-
-	public List<GroupRelationType> getRelationTypes() {
-		return relationTypes;
-	}
-
-	public void setRelationTypes(List<GroupRelationType> relationTypes) {
-		this.relationTypes = relationTypes;
-	}
-
-	public List<OutgoingSemanticEdge> getOutgoingRelations() {
-		return outgoingRelations;
-	}
-
-	public void setOutgoingRelations(
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this.outgoingRelations = outgoingRelations;
 	}
 
 	public AbstractAttribute getVariable(String name) {

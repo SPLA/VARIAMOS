@@ -33,7 +33,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 
 	private boolean booleanSatisfaction;
 
-	private List<IncomingSemanticEdge> groupRelations = new ArrayList<IncomingSemanticEdge>();
 	private List<SemanticPairwiseRelation> directRelations = new ArrayList<SemanticPairwiseRelation>();
 
 	public AbstractSemanticVertex() {
@@ -56,10 +55,8 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>());
 		if (getParent() != null) {
-			groupRelations.addAll(parentConcept.getgroupRelations());
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
-			groupRelations = new ArrayList<IncomingSemanticEdge>();
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}	}
 
@@ -80,10 +77,8 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 				disPanelSpacersAttributes);
 		this.booleanSatisfaction = satisfactionType;
 		if (getParent() != null) {
-			groupRelations.addAll(parentConcept.getgroupRelations());
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
-			groupRelations = new ArrayList<IncomingSemanticEdge>();
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}
 	}
@@ -96,28 +91,12 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		this.booleanSatisfaction = booleanSatisfaction;
 	}
 
-	public List<IncomingSemanticEdge> getGroupRelations() {
-		return groupRelations;
-	}
-
-	public void setGroupRelations(List<IncomingSemanticEdge> groupRelations) {
-		this.groupRelations = groupRelations;
-	}
-
 	public void setDirectRelations(List<SemanticPairwiseRelation> directRelations) {
 		this.directRelations = directRelations;
 	}
 
-	public List<IncomingSemanticEdge> getgroupRelations() {
-		return groupRelations;
-	}
-
 	public List<SemanticPairwiseRelation> getDirectRelations() {
 		return directRelations;
-	}
-
-	public void addGroupRelation(IncomingSemanticEdge groupRelation) {
-		groupRelations.add(groupRelation);
 	}
 
 	public void addDirectRelation(SemanticPairwiseRelation directRelation) {
