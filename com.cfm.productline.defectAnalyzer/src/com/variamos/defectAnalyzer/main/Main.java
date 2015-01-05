@@ -17,11 +17,11 @@ public class Main {
 			modelName="tesis";
 			System.out.print("Introduzca la ruta completa del modelo ");
 			//modelPath = entrada.readLine();
-			modelPath="D://WebPortalTesis.sxfm";
+			modelPath="C:/Users/jcmunoz/git/temp/Feature10ModelAllFormatsFeatureModelFeatureModel0.splx";
 			System.out
 					.print("Introduzca la ruta completa del directorio de salida ");
 			//outputPath = entrada.readLine();
-			outputPath="D:/";
+			outputPath="C:/Users/jcmunoz/git/temp/";
 			// Analizar modelo: identificar defectos, causas y correcciones,
 			// clasificar causas correcciones,exportar resultados
 			MainDefectAnalyzer defectAnalyzer = new MainDefectAnalyzer();

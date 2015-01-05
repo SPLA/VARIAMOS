@@ -7,33 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 
-
-
-
-
-
-
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
-import com.mxgraph.examples.swing.editor.DefaultFileFilter;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.pl.configurator.io.ConfigurationIO;
 
-//jcmunoz: Commented unused method and imports of the method
-/*
-import java.io.File;
-import java.io.IOException;
+//jcmunoz: removed unused method and imports of the method
 
-import com.mxgraph.util.mxUtils;
-import com.cfm.productline.io.SXFMWriter;
-import com.cfm.productline.ProductLine;
-import edu.unal.model.enums.PrologEditorType;
-import edu.unal.tranformer.FeatureModelSPLOTransformer;
-import fm.FeatureModel;
-import fm.FeatureModelException;
-import fm.XMLFeatureModel;
-*/
 @SuppressWarnings("serial")
 public class SaveProductsAction extends AbstractEditorAction {
 

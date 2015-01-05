@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import com.cfm.productline.Variable;
 
 @SuppressWarnings("serial")
-public class StringWidget extends Widget {
+public class StringWidget extends WidgetPL {
 
 	private JTextField txtValue;
 	

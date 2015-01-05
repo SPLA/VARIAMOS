@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import com.cfm.productline.Variable;
 
 @SuppressWarnings("serial")
-public class RealWidget extends Widget {
+public class RealWidget extends WidgetPL {
 
 	private JTextField txtValue;
 	

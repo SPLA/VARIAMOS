@@ -11,20 +11,20 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.variamos.gui.pl.editor.ProductLineGraph;
 
 @SuppressWarnings("serial")
 public class GraphTree extends JTree{
 	
 	//private static final String SELECTED_NODE = "ProductLineIndex.SELECTED_NODE";
 	//private mxEventSource evtSource;
-	private ProductLineGraph graph;
+	private AbstractGraph graph;
 	
 	public void reset(){
 		
@@ -88,7 +88,7 @@ public class GraphTree extends JTree{
 		return node;
 	}
 	
-	public void populate(ProductLine pl){
+	public void populate(AbstractModel pl){
 		getRoot().setUserObject(pl);
 		getModel().nodeChanged(getRoot());
 	}
@@ -105,7 +105,7 @@ public class GraphTree extends JTree{
 		return (DefaultTreeModel) super.getModel();
 	}
 	
-	public void bind(ProductLineGraph graph){
+	public void bind(AbstractGraph graph){
 		graph.addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 			
 			@Override
@@ -137,7 +137,7 @@ public class GraphTree extends JTree{
 			}
 		});
 		
-		graph.addListener(ProductLineGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
+		graph.addListener(AbstractGraph.PL_EVT_NODE_CHANGE, new mxIEventListener() {
 			
 			@Override
 			public void invoke(Object sender, mxEventObject evt) {

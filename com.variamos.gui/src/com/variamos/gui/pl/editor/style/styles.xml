@@ -22,7 +22,8 @@
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
-		<add as="align" value="center"/>
+		<add as="align" value="center"/>	
+		<add as="fillColor" value="white"/>
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
 	</add>
@@ -42,7 +43,8 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="strokeColor" value="black"/>
+		<add as="strokeColor" value="black"/>		
+		<add as="fillColor" value="white"/>
 		<add as="verticalLabelPosition" value="top"/>
 		<add as="editable" value="false"/>
 	</add>
@@ -83,18 +85,37 @@
 		<add as="editable" value="false"/>
 	</add>
 	
+		<add as="refasextends">
+		<!-- <add as="shape" value="connector"/> -->
+		<add as="endArrow" value="block"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="white" />
+		<add as="targetPerimeterSpacing" value="4" />
+		<add as="editable" value="false"/>
+	</add>
 	
-	<add as="rqgoal">
-		<add as="shape" value="rect-str"/>
+	<add as="refasviewrel">
+		<!-- <add as="shape" value="connector"/> -->
+		<add as="endArrow" value="classic"/>
+		<add as="endFill" value="false"/>
+		<add as="fillColor" value="black" />
+		<add as="strokeWidth" value="3" />
+		<add as="targetPerimeterSpacing" value="4" />
+		<add as="editable" value="false"/>
+	</add>
+	
+	<add as="refasgoal">
+		<add as="shape" value="refas-goal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
-		<add as="align" value="center"/>
+		<add as="align" value="center"/>		
+		<add as="fillColor" value="white" />
 		<add as="verticalAlign" value="middle"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="rqsoftgoal">
-		<add as="shape" value="rect-sof"/>
+	<add as="refassoftgoal">
+		<add as="shape" value="refas-softgoal"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -103,57 +124,80 @@
 		<add as="fillColor" value="white"/>	
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="rqfunreq">
-		<add as="shape" value="rect-top"/>
+	<add as="refasview">
+		<add as="fillColor" value="white" />
+		<add as="shape" value="refas-view"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
-		<add as="fontSize" value="10"/>
+		<add as="fontSize" value="10"/>		
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
-		<add as="fillColor" value="#002060"/>
+		<add as="fillColor" value="white"/>
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="rqoper">
-		<add as="shape" value="rect-side"/>
+	<add as="refasassump">
+		<add as="fillColor" value="white" />
+		<add as="shape" value="rect-assu"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>		
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="middle"/>		
+		<add as="fillColor" value="white"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+	<add as="refasoper">
+		<add as="shape" value="refas-oper"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#002060"/>		
+		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
 
-	<add as="rqcontextgrp">
-		<add as="shape" value="context"/>
+	<add as="refascontextgrp">
+		<add as="shape" value="refas-contextgrp"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#002060"/>		
+		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
-		<add as="rqglobcnxt">
-		<add as="shape" value="context"/>
+		<add as="refasglobcnxt">
+		<add as="shape" value="refas-globcnxt"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
-		<add as="verticalAlign" value="middle"/>		
+		<add as="verticalAlign" value="middle"/>	
+		<add as="fillColor" value="white"/>			
 		<add as="strokeColor" value="black"/>
 	</add>
-		<add as="rqlocalcnxt">
-		<add as="shape" value="context"/>
+		<add as="refasenumeration">
+		<add as="shape" value="enum"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="top"/>
+		<add as="fillColor" value="white"/>		
+		<add as="strokeColor" value="black"/>
+	</add>	
+		<add as="refaslocalcnxt">
+		<add as="shape" value="refas-localcnxt"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
-		<add as="fillColor" value="#A6C3DD"/>		
+		<add as="fillColor" value="#white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
-	<add as="rqsoftdep">
+	<add as="refassoftdep">
 		<add as="shape" value="ellipse"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
@@ -164,8 +208,8 @@
 		<add as="strokeColor" value="black"/>
 	</add>
 	
-	<add as="rqclaim">
-		<add as="shape" value="claim"/>
+	<add as="refasclaim">
+		<add as="shape" value="refas-claim"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
@@ -174,14 +218,23 @@
 		<add as="fillColor" value="#E1EBF3"/>		
 		<add as="strokeColor" value="black"/>
 	</add>
-		<add as="rqasset">
-		<add as="shape" value="component"/>
+		<add as="refasasset">
+		<add as="shape" value="refas-component"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="right"/>}
+		<add as="fillColor" value="white"/>	
+		<add as="verticalAlign" value="middle"/>
+		<add as="strokeColor" value="black"/>
+	</add>
+		<add as="rqmeansend">
+		<add as="shape" value="meansend"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
-	</add>
-	
+	</add>	
 </mxStylesheet>

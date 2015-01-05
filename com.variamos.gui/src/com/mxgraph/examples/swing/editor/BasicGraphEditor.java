@@ -58,6 +58,8 @@ import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
+import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
+import com.variamos.gui.refas.editor.ModelButtonAction;
 
 /**
  * @author example mxgraph
@@ -92,6 +94,11 @@ public class BasicGraphEditor extends JPanel
 	 * 
 	 */
 	protected mxGraphOutline graphOutline;
+	
+	/**
+	 * 
+	 */
+	protected JPanel buttonsPane;
 
 	/**
 	 * 
@@ -137,8 +144,19 @@ public class BasicGraphEditor extends JPanel
 	 * 
 	 */
 	
+	protected AbstractGraphEditorFunctions graphEditorFunctions;
+	
+	protected JSplitPane upperPart;
+	
+	protected JSplitPane right;
+	
+	protected JSplitPane center;
+	
+	protected JSplitPane graphAndRight;
 	
 	protected int perspective = 0;
+	
+
 	
 	public int getPerspective() {
 		return perspective;
@@ -216,27 +234,35 @@ public class BasicGraphEditor extends JPanel
 
 		// Creates the library pane that contains the tabs with the palettes
 		libraryPane = new JTabbedPane();
-
-		// Creates the inner split pane that contains the library with the
+		
+		// Creates the inner split 1 pane that contains the library with the
 		// palettes and the graph outline on the left side of the window
-		JSplitPane right = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
-		right.setDividerLocation(320);
+		center = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonsPane, graphComponent);
+		center.setDividerLocation(50);
+		center.setResizeWeight(1);
+		center.setDividerSize(6);
+		center.setBorder(null);
+
+		// Creates the inner split 2 pane that contains the library with the
+		// palettes and the graph outline on the left side of the window
+		right = new JSplitPane(JSplitPane.VERTICAL_SPLIT, libraryPane, graphOutline);
+		right.setDividerLocation(220);
 		right.setResizeWeight(1);
 		right.setDividerSize(6);
 		right.setBorder(null);
 
 		
-		// Creates the outer split pane that contains the inner split pane and
-				// the graph component on the right side of the window
-		JSplitPane graphAndRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, graphComponent, right);
+		// Creates the outer split pane that contains the inner split 2 pane and
+				// the inner split 1 on the right side of the window
+		graphAndRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, center, right);
 		graphAndRight.setOneTouchExpandable(true);
-		graphAndRight.setDividerLocation(600);
+		graphAndRight.setDividerLocation(500);
 		graphAndRight.setDividerSize(6);
 		graphAndRight.setBorder(null);
 		
 		
 		//Creates another split for the west component
-		JSplitPane upperPart = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, getLeftComponent(), graphAndRight);
+		upperPart = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, getLeftComponent(), graphAndRight);
 		upperPart.setOneTouchExpandable(false);
 		upperPart.setDividerLocation(150);
 		upperPart.setDividerSize(6);
@@ -348,6 +374,7 @@ public class BasicGraphEditor extends JPanel
 	public EditorPalette insertPalette(String title)
 	{
 		final EditorPalette palette = new EditorPalette();
+		palette.setName(title);
 		final JScrollPane scrollPane = new JScrollPane(palette);
 		scrollPane
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -476,15 +503,18 @@ public class BasicGraphEditor extends JPanel
 	 * 
 	 */
 	protected void showGraphPopupMenu(MouseEvent e)
-	{
+	{		
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
 				graphComponent);
 		EditorPopupMenu menu = new EditorPopupMenu(BasicGraphEditor.this);
 		menu.show(graphComponent, pt.x, pt.y);
 
 		e.consume();
+		
 	}
 
+
+	
 	/**
 	 * 
 	 */
@@ -806,6 +836,10 @@ public class BasicGraphEditor extends JPanel
 	/**
 	 * 
 	 */
+	public JFrame createFrame()
+	{
+		return createFrame(null);
+	}
 	public JFrame createFrame(JMenuBar menuBar)
 	{
 		frame = new JFrame();

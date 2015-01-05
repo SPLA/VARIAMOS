@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.TreeSet; 
 
+import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.jgprolog.core.CompoundTerm;
@@ -38,7 +39,7 @@ public class GNUPrologSolver implements Solver {
 
 	private PrologEngine prolog;
 	private PrologTermFactory ptf;
-	private ProductLine pl;
+	private AbstractModel pl;
 	private QueryResult qr;
 
 	public GNUPrologSolver(PrologContext ctx) {
@@ -100,7 +101,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public void setProductLine(ProductLine pl) {
+	public void setProductLine(AbstractModel pl) {
 		this.pl = pl;
 	}
 
@@ -235,6 +236,7 @@ public class GNUPrologSolver implements Solver {
 		CompoundTerm query = addSubQueries(parts, ptf);
 		System.out.println(query.toString());
 		qr = prolog.runQuery(query);
+		
 	}
 
 	public void endSolving() {
@@ -258,7 +260,7 @@ public class GNUPrologSolver implements Solver {
 	}
 
 	@Override
-	public ProductLine getProductLine() {
+	public AbstractModel getProductLine() {
 		return pl;
 	}
 
@@ -383,5 +385,18 @@ public class GNUPrologSolver implements Solver {
 		}
 		return false;
 	}
+
+	@Override
+	public void setHLCLProgram(HlclProgram hlclProgram) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean hasSolution() {
+		return false; //FIXME
+	}
+
+
 
 }

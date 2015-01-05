@@ -3,12 +3,16 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/mxgraph.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.solver"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry kind="lib" path="lib/splot_prolog.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.pl.configurator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntaxsupport"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.io"/>
+	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

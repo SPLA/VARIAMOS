@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.cfm.common.AbstractModel;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
@@ -19,8 +20,11 @@ import com.cfm.productline.constraints.RequiresConstraint;
 
 
 public class SXFMWriter {
-	public void writeSXFM(ProductLine pl, File outFile) throws IOException{
-		
+	public void writeSXFM(AbstractModel am, File outFile) throws IOException{
+			
+			if (am instanceof ProductLine)
+			{
+				ProductLine pl = (ProductLine) am;
 		if( pl.getRoots().size() > 1 ){
 			//TODO: Is not a feature tree !! What should be done?
 		}
@@ -28,10 +32,15 @@ public class SXFMWriter {
 		FileWriter fos = new FileWriter(outFile);
 		fos.write(getSXFMContent(pl));
 		fos.close();
-		
+			}
+			System.err.print("writeSXFM Not implemented in SXFMWriter");
 	}
 	
-	public String getSXFMContent(ProductLine pl){
+	public String getSXFMContent(AbstractModel am){
+		
+		if (am instanceof ProductLine)
+		{
+			ProductLine pl = (ProductLine) am;
 		StringBuffer buf = new StringBuffer();
 		buf.append("<feature_model name=\"");
 		buf.append(pl.getName());
@@ -88,6 +97,9 @@ public class SXFMWriter {
 		buf.append("</feature_model>");
 		
 		return buf.toString();
+		}
+		System.err.print("getSXFMContent Not implemented in SXFMWriter");
+		return null;
 	}
 	
 	private void printConstraints(ProductLine pl, StringBuffer buf) {

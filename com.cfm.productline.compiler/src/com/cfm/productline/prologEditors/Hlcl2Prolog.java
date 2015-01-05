@@ -56,7 +56,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		StringBuilder out = new StringBuilder();
 		writeHeader(program, out);
 		transformProgram(program, out);
-		out.append(DOT).append(LF);
+		out.append(COMMA).append(LF);
 		writeFooter(out);
 		System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
 		return out.toString();
@@ -186,7 +186,9 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		out.append(SPACE);
 		out.append(ASSIGN_VARIABLE);
 		out.append(SPACE);
-		transformListExpression( (ListDefinitionExpression)e.getRightExpression(), out );
+		//transformListExpression( (ListDefinitionExpression)e.getRightExpression(), out );
+		out.append(transformExpressionToProlog(e.getRightExpression()));
+		
 	}
 
 	protected void transformNumericOperation(NumericOperation e,
@@ -242,7 +244,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	}
 
 	protected void transformComparison(ComparisonExpression e, StringBuilder out) {
-		transformNumericExpression(e.getLeft(), out);
+		if (e.getLeft() instanceof NumericExpression)
+			transformNumericExpression((NumericExpression)e.getLeft(), out);
+		else
+			transformBooleanExpression((BooleanExpression)e.getLeft(), out);
 		out.append(SPACE);
 		switch (e.getType()) {
 		case Equals:
@@ -265,13 +270,16 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 			break;
 		}
 		out.append(SPACE);
-		transformNumericExpression(e.getRight(), out);
+		if (e.getLeft() instanceof NumericExpression)
+			transformNumericExpression((NumericExpression)e.getRight(), out);
+		else
+			transformBooleanExpression((BooleanExpression)e.getRight(), out);
 	}
 
 	protected void transformNot(BooleanNegation e, StringBuilder out) {
 		out.append(ONE).append(SPACE).append(SUBSTRACTION).append(SPACE)
 				.append(OPEN_PARENTHESIS);
-		transformBooleanExpression(e, out);
+		transformBooleanExpression(e.getExpression(), out);
 		out.append(CLOSE_PARENHESIS).append(SPACE).append(MORE).append(SPACE)
 				.append(ZERO);
 	}

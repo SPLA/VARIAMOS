@@ -2,7 +2,7 @@ package com.variamos.gui.pl.editor.actions;
 
 import java.awt.event.ActionEvent;
 
-import com.mxgraph.examples.swing.editor.BasicGraphEditor;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 
 @SuppressWarnings("serial")

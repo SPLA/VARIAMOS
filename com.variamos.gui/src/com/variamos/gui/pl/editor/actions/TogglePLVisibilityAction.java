@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 
 @SuppressWarnings("serial")
@@ -20,7 +21,7 @@ public class TogglePLVisibilityAction extends AbstractEditorAction {
 		if (e.getSource() instanceof mxGraphComponent){
 			mxGraphComponent graphComponent = (mxGraphComponent) e
 					.getSource();
-			ProductLineGraph graph = (ProductLineGraph)graphComponent.getGraph();
+			AbstractGraph graph = (AbstractGraph)graphComponent.getGraph();
 			
 			visibility = !visibility;
 			graph.setPLElementsVisibility(visibility);

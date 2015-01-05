@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import com.cfm.productline.Variable;
 
 @SuppressWarnings("serial")
-public class SetWidget extends Widget{
+public class SetWidget extends WidgetPL{
 	
 	private JComboBox<String> comboBox;
 	

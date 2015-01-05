@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 import com.cfm.productline.Variable;
 
 @SuppressWarnings("serial")
-public class BooleanWidget extends Widget {
+public class BooleanWidget extends WidgetPL {
 	
 	private JCheckBox chkValue;
 	
@@ -24,7 +24,7 @@ public class BooleanWidget extends Widget {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				chkValue.firePropertyChange(Widget.PROPERTY_VALUE, !chkValue.isSelected(),chkValue.isSelected() );
+				chkValue.firePropertyChange(WidgetPL.PROPERTY_VALUE, !chkValue.isSelected(),chkValue.isSelected() );
 			}
 		});
 		
