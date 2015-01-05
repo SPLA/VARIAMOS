@@ -51,6 +51,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.PLEditorToolBar;
 import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
@@ -117,6 +118,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected DomainRegister domainRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
+	protected ConfigurationPropertiesTab configuratorProperties;
 
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
@@ -154,6 +156,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		
+		configurator.setRefas2hlcl(refas2hlcl);
+		
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
 		if (perspective == 0) {
@@ -242,6 +247,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		
+		configurator.setRefas2hlcl(refas2hlcl);
+		
+		
 		registerEvents();
 		Collection<InstView> instViews = ((Refas) abstractModel)
 				.getSyntaxRefas().getInstViews();
@@ -684,6 +693,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		elementSimPropPanel.setLayout(new SpringLayout());
 
 		configurator = new ConfiguratorPanel();
+		
+		configuratorProperties = new ConfigurationPropertiesTab();
 
 		expressions = new RefasExpressionPanel(this, elm);
 
@@ -693,13 +704,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
-				JTabbedPane.SCROLL_TAB_LAYOUT);
-
+				JTabbedPane.SCROLL_TAB_LAYOUT);		
+		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
+				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
-
-		extensionTabs.addTab(mxResources.get("configurationTab"),
-				new JScrollPane(expressions));
+		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
+				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 		extensionTabs.addChangeListener(new ChangeListener() {
@@ -769,8 +780,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 				new JScrollPane(expressions));
+		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
+				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
+		
 	}
 
 	public void bringUpExtension(String name) {
@@ -816,6 +830,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					((Refas) getEditedModel()).getSemanticRefas());
 			refas2hlcl = new Refas2Hlcl(refas);
 			editModel(refas);
+			configurator.setRefas2hlcl(refas2hlcl);
 		}
 
 	}
