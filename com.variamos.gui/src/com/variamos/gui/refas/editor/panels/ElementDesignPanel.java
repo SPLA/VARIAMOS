@@ -137,6 +137,9 @@ public class ElementDesignPanel extends JPanel {
 				type = "vertex";
 			}
 			if (elm instanceof InstPairwiseRelation) {
+				if (((InstPairwiseRelation)elm).getSourceRelations().size()==0)
+					//TODO workaround for non supported relations - delete after fix
+					return;
 				type = "edge";
 			}
 			if (elm instanceof InstOverTwoRelation) {

@@ -44,7 +44,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	private String semanticPairwiseRelationType;
 
-	private String semanticPairwiseRelationIden;
+	private String instPairwiseRelationIden;
 
 	public static final String
 	/**
@@ -109,10 +109,13 @@ public class InstPairwiseRelation extends InstElement {
 			MetaElement editableMetaElement) {
 		super(null);
 		setEditableMetaElement(editableMetaElement);
+		this.instPairwiseRelationIden = instPairwiseRelationIden;
+		
 		createAttributes(new HashMap<String, InstAttribute>());
 		setMetaPairwiseRelation(metaPairwiseRelation);
 	}
 
+	//TODO restrict available relation types according to syntax definition
 	public InstPairwiseRelation(Map<String, InstAttribute> instAttributes) {
 		super(null); // TODO use the same identifier, not a local attribute
 		createAttributes(instAttributes);
@@ -122,6 +125,10 @@ public class InstPairwiseRelation extends InstElement {
 		return metaPairwiseRelationIden;
 	}
 
+	public String getInstPairwiseRelationIden() {
+		return instPairwiseRelationIden;
+	}
+	
 	public String getSemanticPairwiseRelationType() {
 		return semanticPairwiseRelationType;
 	}
@@ -135,13 +142,8 @@ public class InstPairwiseRelation extends InstElement {
 		vars.put(VAR_METAPAIRWISE_IDEN, metaPairwiseRelationIden);
 	}
 
-	public String getSemanticPairwiseRelationIde() {
-		return semanticPairwiseRelationIden;
-	}
-
-	public void setSemanticPairwiseRelationIde(
-			String semanticPairwiseRelationIde) {
-		this.semanticPairwiseRelationIden = semanticPairwiseRelationIde;
+	public void setInstPairwiseRelationIden(String instPairwiseRelationIden) {
+		this.instPairwiseRelationIden = metaPairwiseRelationIden;		
 	}
 
 	private void createAttributes(Map<String, InstAttribute> instAttributes) {
@@ -556,10 +558,6 @@ public class InstPairwiseRelation extends InstElement {
 			Object semanticEdge = getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
-			if (semanticEdge != null) {
-				semanticPairwiseRelationIden = ((IntSemanticPairwiseRelation) semanticEdge)
-						.getIdentifier();
-			}
 		}
 		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE)
 				.getValue() != null)

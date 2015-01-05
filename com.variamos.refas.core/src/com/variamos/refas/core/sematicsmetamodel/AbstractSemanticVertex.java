@@ -34,6 +34,11 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 	private boolean booleanSatisfaction;
 
 	private List<SemanticPairwiseRelation> directRelations = new ArrayList<SemanticPairwiseRelation>();
+	public static final String
+	/**
+	* 
+	*/
+	VAR_SELECTED_IDEN = "Selected";
 
 	public AbstractSemanticVertex() {
 		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
@@ -42,11 +47,13 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 	
 	public AbstractSemanticVertex(String identifier) {
 		super(identifier);
+		createModelingAttributes();
 	}
 	
 	
 	public AbstractSemanticVertex(AbstractSemanticElement parentConcept, String identifier) {
 		super(parentConcept, identifier);
+		createModelingAttributes();
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
@@ -81,8 +88,17 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		} else {
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}
+		 createModelingAttributes();
 	}
 
+	private void createModelingAttributes()
+	{
+		putSemanticAttribute("Selected",
+				new SimulationStateAttribute("Selected", "Boolean", false,
+						"***Selected***", false));
+		addPropVisibleAttribute("09#" + "Selected");
+	}
+	
 	public boolean isBooleanSatisfaction() {
 		return booleanSatisfaction;
 	}

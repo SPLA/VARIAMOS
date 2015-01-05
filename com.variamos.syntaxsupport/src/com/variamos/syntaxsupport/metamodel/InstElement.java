@@ -191,7 +191,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 			Set<String> modelingAttributes = getEditableMetaElement()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals("Identifier")
+				if (!attributeName.equals("identifier")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
 			}
@@ -361,6 +361,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 			}
 		}
 	}
+	
 
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
 		removeTargetRelations();

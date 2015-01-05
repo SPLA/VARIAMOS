@@ -122,22 +122,22 @@ public class SharedActions {
 		Refas refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
 		if (value instanceof InstOverTwoRelation) {
-			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			MetaOverTwoRelation mgd = (MetaOverTwoRelation) refas
-					.getSyntaxRefas().getVertex(ic.getMetaVertexIdentifier())
+			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
+			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
+					.getSyntaxRefas().getVertex(instOverTwoRelation.getMetaVertexIdentifier())
 					.getEditableMetaElement();
 			// IntSemanticElement sgd = editor.getSematicSintaxObject()
 			// .getSemanticElement(ic.getSemanticOverTwoRelationIden());
-			ic.setMetaVertex(mgd);
-			refas.putInstGroupDependency(ic);
+			instOverTwoRelation.setMetaVertex(metaOverTwoRelation);
+			refas.putInstGroupDependency(instOverTwoRelation);
 			// if (sgd != null)
 			// ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
-			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
+			Iterator<InstAttribute> ias = instOverTwoRelation.getInstAttributes().values()
 					.iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				ia.setAttribute(ic.getAbstractAttribute(ia.getAttributeName()));
-				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) ic
+				ia.setAttribute(instOverTwoRelation.getAbstractAttribute(ia.getAttributeName()));
+				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
 						.getSupportMetaElement()).getSemanticRelationTypes();
 				ia.setValidationRelationTypes(semGD);
 				if (ia.getAttributeType().equals("Boolean")
@@ -147,22 +147,23 @@ public class SharedActions {
 					else
 						ia.setValue(true);
 			}
-			editor.refreshElement(ic);
+			editor.refreshElement(instOverTwoRelation);
 		} else if (value instanceof InstVertex) {
-			InstVertex ic = (InstVertex) value;
-			MetaVertex mc = (MetaVertex) editor.getSematicSintaxObject()
-					.getSyntaxElement(ic.getMetaVertexIdentifier());
-			if (mc == null)
+			InstVertex instVertex = (InstVertex) value;
+			MetaVertex metaVertex = (MetaVertex) refas
+					.getSyntaxRefas().getVertex(instVertex.getMetaVertexIdentifier())
+					.getEditableMetaElement();
+			if (metaVertex == null)
 				System.err.println("Concept Null"
-						+ ic.getMetaVertexIdentifier());
+						+ instVertex.getMetaVertexIdentifier());
 			else
-				ic.setMetaVertex(mc);
-			refas.putVariabilityInstVertex(ic);
-			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
+				instVertex.setMetaVertex(metaVertex);
+			refas.putVariabilityInstVertex(instVertex);
+			Iterator<InstAttribute> ias = instVertex.getInstAttributes().values()
 					.iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				ia.setAttribute(mc.getAbstractAttribute(ia.getAttributeName()));
+				ia.setAttribute(metaVertex.getAbstractAttribute(ia.getAttributeName()));
 				if (ia.getAttributeType().equals("Boolean")
 						&& ia.getValue() instanceof String)
 					if (((String) ia.getValue()).equals("0"))
@@ -174,13 +175,15 @@ public class SharedActions {
 		}
 		if (value instanceof InstPairwiseRelation) {
 			InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
-			MetaPairwiseRelation metaPairwiseRelation = (MetaPairwiseRelation) editor
-					.getSematicSintaxObject().getSyntaxElement(
-							instPairwiseRelation.getMetaPairwiseRelationIden());
-			SemanticPairwiseRelation semanticRelation = (SemanticPairwiseRelation) editor
+			System.out.println(instPairwiseRelation.getMetaPairwiseRelationIden());
+			MetaPairwiseRelation metaPairwiseRelation = (MetaPairwiseRelation) refas
+					.getSyntaxRefas().getConstraintInstEdge(instPairwiseRelation.getMetaPairwiseRelationIden())
+					.getEditableMetaElement();
+	/*		SemanticPairwiseRelation semanticRelation = (SemanticPairwiseRelation) editor
 					.getSematicSintaxObject().getSemanticElement(
 							instPairwiseRelation
 									.getSemanticPairwiseRelationIde());
+									*/
 			InstVertex sourceVertex = (InstVertex) source.getSource()
 					.getValue();
 			InstVertex targetVertex = (InstVertex) source.getTarget()
@@ -193,10 +196,11 @@ public class SharedActions {
 				instPairwiseRelation.setVariable(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
 						instPairwiseRelation.getSemanticPairwiseRelationType());
-				if (semanticRelation != null) {
+/*				if (semanticRelation != null) {
 					instPairwiseRelation.setSemanticEdge(semanticRelation);
 					instPairwiseRelation.loadSemantic();
 				}
+				*/
 			}
 			// TODO add edges to groupDependecies and claims to otherInstEdges
 			refas.putConstraintInstEdge(instPairwiseRelation);
