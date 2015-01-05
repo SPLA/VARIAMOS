@@ -1,15 +1,14 @@
-package com.variamos.defectAnalyzer.diagnostic;
+package com.variamos.defectAnalyzer.model;
 
 import java.util.List;
 
-import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
-public class DefectsByMCSMUSes {
+public class ClassifiableDiagnosis {
 	// Puede ser una causa o una corrección según como se use
 		private List<Dependency> diagnosticElements;
 		private Long id;
-		private List<Defect> defectsList;
+		private List<Defect> defects;
 		/**
 		 * @return the diagnosticElements
 		 */
@@ -25,31 +24,31 @@ public class DefectsByMCSMUSes {
 		/**
 		 * @return the defectsList
 		 */
-		public List<Defect> getDefectsList() {
-			return defectsList;
+		public List<Defect> getDefects() {
+			return defects;
 		}
 		/**
-		 * @param defectsList the defectsList to set
+		 * @param defects the defectsList to set
 		 */
-		public void setDefectsList(List<Defect> defectsList) {
-			this.defectsList = defectsList;
+		public void setDefects(List<Defect> defects) {
+			this.defects = defects;
 		}
-		public DefectsByMCSMUSes(List<Dependency> diagnosticElements,
+		public ClassifiableDiagnosis(List<Dependency> diagnosticElements,
 				List<Defect> defectsList) {
 			super();
 			this.diagnosticElements = diagnosticElements;
-			this.defectsList = defectsList;
+			this.defects = defectsList;
 		}
 		
 		
-		public DefectsByMCSMUSes(List<Dependency> diagnosticElements, Long id,
+		public ClassifiableDiagnosis(List<Dependency> diagnosticElements, Long id,
 				List<Defect> defectsList) {
 			super();
 			this.diagnosticElements = diagnosticElements;
 			this.id = id;
-			this.defectsList = defectsList;
+			this.defects = defectsList;
 		}
-		public DefectsByMCSMUSes() {
+		public ClassifiableDiagnosis() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
@@ -59,7 +58,7 @@ public class DefectsByMCSMUSes {
 		@Override
 		public String toString() {
 			return "DefectsByMCSMUSes [diagnosticElements="
-					+ diagnosticElements + ", defectsList=" + defectsList + "]";
+					+ diagnosticElements + ", defectsList=" + defects + "]";
 		}
 		/**
 		 * @return the id

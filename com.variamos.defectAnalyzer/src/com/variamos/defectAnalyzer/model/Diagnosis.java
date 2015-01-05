@@ -1,9 +1,8 @@
-package com.variamos.defectAnalyzer.diagnostic;
+package com.variamos.defectAnalyzer.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
 /**
@@ -13,7 +12,7 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
  * @author LuFe
  * 
  */
-public class Diagnostic {
+public class Diagnosis {
 	private Defect defect;
 	private List<List<Dependency>> correctionSubsets;
 	private List<List<Dependency>> causes;
@@ -21,7 +20,7 @@ public class Diagnostic {
 	private boolean timeOverCauses=Boolean.FALSE;
 	private boolean correcMayoresUno=Boolean.FALSE;
 	
-	public Diagnostic() {
+	public Diagnosis() {
 		super();
 		causes = new ArrayList<List<Dependency>>();
 		correctionSubsets=new ArrayList<List<Dependency>>();
@@ -126,7 +125,7 @@ public class Diagnostic {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Diagnostic other = (Diagnostic) obj;
+		Diagnosis other = (Diagnosis) obj;
 		if (defect == null) {
 			if (other.defect != null)
 				return false;

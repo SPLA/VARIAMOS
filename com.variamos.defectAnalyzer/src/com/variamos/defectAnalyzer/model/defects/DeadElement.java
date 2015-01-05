@@ -1,6 +1,6 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
@@ -17,7 +17,7 @@ public class DeadElement extends Defect {
 	}
 
 	public DeadElement(VariabilityElementDefAna deadElement,
-			Expression verificationExpression) {
+			BooleanExpression verificationExpression) {
 		this(deadElement);
 		this.verificationExpression=verificationExpression;
 	}

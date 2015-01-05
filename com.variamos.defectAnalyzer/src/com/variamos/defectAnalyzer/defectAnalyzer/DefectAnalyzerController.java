@@ -10,16 +10,16 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.FileUtils;
-import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
-import com.variamos.defectAnalyzer.diagnostic.DefectsByMCSMUSes;
-import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerInDTO;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
+import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
+import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
 import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.defectAnalyzer.util.ExportUtil;
@@ -160,9 +160,9 @@ public class DefectAnalyzerController {
 	}
 
 	public void printClassifiedDiagnosis(
-			List<DefectsByMCSMUSes> defectsByMCSMUSesList,
+			List<ClassifiableDiagnosis> defectsByMCSMUSesList,
 			ClassificationType classificationType) {
-		for (DefectsByMCSMUSes defectsByMCSMUSes : defectsByMCSMUSesList) {
+		for (ClassifiableDiagnosis defectsByMCSMUSes : defectsByMCSMUSesList) {
 			System.out.println(classificationType.name() + " " + "Id:"
 					+ defectsByMCSMUSes.getId());
 			System.out.println("Cantidad elementos:"
@@ -171,18 +171,18 @@ public class DefectAnalyzerController {
 					+ defectsByMCSMUSes.getDiagnosticElements());
 			System.out.println("Defectos asociados");
 			int i = 1;
-			for (int j = 0; j < defectsByMCSMUSes.getDefectsList().size(); j++) {
+			for (int j = 0; j < defectsByMCSMUSes.getDefects().size(); j++) {
 
 				System.out.println(i + ". "
-						+ defectsByMCSMUSes.getDefectsList().get(j));
+						+ defectsByMCSMUSes.getDefects().get(j));
 				i++;
 			}
 			System.out.println();
 		}
 	}
 
-	public void printDiagnosis(List<Diagnostic> allDiagnosis) {
-		for (Diagnostic diagnostic : allDiagnosis) {
+	public void printDiagnosis(List<Diagnosis> allDiagnosis) {
+		for (Diagnosis diagnostic : allDiagnosis) {
 			System.out.println("______________________________");
 			System.out.println("Defecto:" + diagnostic.getDefect());
 			System.out.println("Causas");
@@ -305,10 +305,10 @@ public class DefectAnalyzerController {
 				"Solución número", "correcionsets" };
 
 		HSSFSheet hoja = resultadosLibro.createSheet();
-		List<Diagnostic> allDiagnostics = causeAnalyzerOutDTO
+		List<Diagnosis> allDiagnostics = causeAnalyzerOutDTO
 				.getAllDiagnostics();
 
-		for (Diagnostic diagnosticMapElement : allDiagnostics) {
+		for (Diagnosis diagnosticMapElement : allDiagnostics) {
 			cont = 0;
 			if (diagnosticMapElement != null
 					&& diagnosticMapElement.getCorrectionSubsets() != null) {
@@ -427,7 +427,7 @@ public class DefectAnalyzerController {
 	 * @return
 	 */
 	private List<List<String>> saveClassification(String encabezado,
-			List<DefectsByMCSMUSes> classifiedCausesCorrectionsList) {
+			List<ClassifiableDiagnosis> classifiedCausesCorrectionsList) {
 
 		List<List<String>> clasificacion = new ArrayList<List<String>>();
 
@@ -446,16 +446,16 @@ public class DefectAnalyzerController {
 		encabezadoClasificacion1.add("CantDefe");
 		clasificacion.add(encabezadoClasificacion1);
 
-		for (DefectsByMCSMUSes defectsByMCSMUSes : classifiedCausesCorrectionsList) {
+		for (ClassifiableDiagnosis defectsByMCSMUSes : classifiedCausesCorrectionsList) {
 			List<String> resultadosFila = new ArrayList<String>();
 			resultadosFila.add(Long.toString(defectsByMCSMUSes.getId()));
 			resultadosFila.add(defectsByMCSMUSes.getDiagnosticElements()
 					.toString());
 			resultadosFila.add(Integer.toString(defectsByMCSMUSes
 					.getDiagnosticElements().size()));
-			resultadosFila.add(defectsByMCSMUSes.getDefectsList().toString());
+			resultadosFila.add(defectsByMCSMUSes.getDefects().toString());
 			resultadosFila.add(Integer.toString(defectsByMCSMUSes
-					.getDefectsList().size()));
+					.getDefects().size()));
 			clasificacion.add(resultadosFila);
 		}
 		return clasificacion;

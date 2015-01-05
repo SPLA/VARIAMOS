@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Domain;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
@@ -27,10 +28,10 @@ public class FeatureModelTransformerRules {
 		idMap = new HashMap<>();
 	}
 
-	public Expression getMandatoryRule(VariabilityElementDefAna element1,
+	public BooleanExpression getMandatoryRule(VariabilityElementDefAna element1,
 			VariabilityElementDefAna element2) {
 		// A <=> B
-		Expression numericExpression = f.doubleImplies(
+		BooleanExpression numericExpression = f.doubleImplies(
 				createIdentifier(element1), createIdentifier(element2));
 		return numericExpression;
 	}
@@ -42,7 +43,7 @@ public class FeatureModelTransformerRules {
 	 * @param element2
 	 * @return
 	 */
-	public Expression getNegationMandatoryRule(VariabilityElementDefAna element1,
+	public BooleanExpression getNegationMandatoryRule(VariabilityElementDefAna element1,
 			VariabilityElementDefAna element2) {
 		// A * (1-B) + B * (1- A) > 0
 		Identifier A = createIdentifier(element1);
@@ -61,43 +62,43 @@ public class FeatureModelTransformerRules {
 		// A * (1-B) + B * (1- A)
 		NumericExpression sum = f.sum(multiplicationA, multiplicationB);
 		// A * (1-B) + B * (1- A)> 0
-		Expression completeNegationExpression = f.greaterThan(sum, zero);
+		BooleanExpression completeNegationExpression = f.greaterThan(sum, zero);
 
 		return completeNegationExpression;
 
 	}
 
-	public Expression getOptionalRule(VariabilityElementDefAna element1,
+	public BooleanExpression getOptionalRule(VariabilityElementDefAna element1,
 			VariabilityElementDefAna element2) {
 
 		// A >= B
-		Expression numericExpression = f.greaterOrEqualsThan(
+		BooleanExpression numericExpression = f.greaterOrEqualsThan(
 				createIdentifier(element1), createIdentifier(element2));
 
 		return numericExpression;
 	}
 
-	public Expression getNegationOptionalRule(VariabilityElementDefAna element1,
+	public BooleanExpression getNegationOptionalRule(VariabilityElementDefAna element1,
 			VariabilityElementDefAna element2) {
 
 		// A < B
-		Expression numericExpression = f.lessThan(createIdentifier(element1),
+		BooleanExpression numericExpression = f.lessThan(createIdentifier(element1),
 				createIdentifier(element2));
 
 		return numericExpression;
 	}
 
-	public Expression getAssignRule(int valueToAssing,
+	public BooleanExpression getAssignRule(int valueToAssing,
 			VariabilityElementDefAna element1) {
 
 		// Root =1
 		NumericIdentifier numericIdentifier = f.number(valueToAssing);
-		Expression numericExpression = f.equals(createIdentifier(element1),
+		BooleanExpression numericExpression = f.equals(createIdentifier(element1),
 				numericIdentifier);
 		return numericExpression;
 	}
 
-	public Expression getGroupalDependencyRule1(VariabilityElementDefAna element1,
+	public BooleanExpression getGroupalDependencyRule1(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements, int lowerCardinality) {
 		// m * P <= SUM features
 		// element1=parent feature
@@ -111,14 +112,14 @@ public class FeatureModelTransformerRules {
 		NumericExpression sumNumericExpression = f.sum(identifiers);
 		NumericExpression multiplyExpression = f.prod(
 				lowerCardinalityIdentifier, parentIdentifier);
-		Expression ruleExpression = f.lessOrEqualsThan(multiplyExpression,
+		BooleanExpression ruleExpression = f.lessOrEqualsThan(multiplyExpression,
 				sumNumericExpression);
 
 		return ruleExpression;
 	}
 	
 	
-	public Expression getNegationGroupalDependencyRule1(VariabilityElementDefAna element1,
+	public BooleanExpression getNegationGroupalDependencyRule1(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements, int lowerCardinality) {
 		// m * P > SUM features
 		// element1=parent feature
@@ -132,14 +133,14 @@ public class FeatureModelTransformerRules {
 		NumericExpression sumNumericExpression = f.sum(identifiers);
 		NumericExpression multiplyExpression = f.prod(
 				lowerCardinalityIdentifier, parentIdentifier);
-		Expression ruleExpression = f.greaterThan(multiplyExpression,
+		BooleanExpression ruleExpression = f.greaterThan(multiplyExpression,
 				sumNumericExpression);
 
 		return ruleExpression;
 	}
 	
 
-	public Expression getGroupalDependencyRule2(VariabilityElementDefAna element1,
+	public BooleanExpression getGroupalDependencyRule2(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements, int upperCardinality) {
 		// // SUM features <= n * P
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
@@ -152,12 +153,12 @@ public class FeatureModelTransformerRules {
 		NumericExpression sumNumericExpression = f.sum(identifiers);
 		NumericExpression multiplyExpression = f.prod(
 				upperCardinalityIdentifier, parentIdentifier);
-		Expression ruleExpression = f.lessOrEqualsThan(sumNumericExpression,
+		BooleanExpression ruleExpression = f.lessOrEqualsThan(sumNumericExpression,
 				multiplyExpression);
 		return ruleExpression;
 	}
 	
-	public Expression getNegationGroupalDependencyRule2(VariabilityElementDefAna element1,
+	public BooleanExpression getNegationGroupalDependencyRule2(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements, int upperCardinality) {
 		// // SUM features > n * P
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
@@ -170,12 +171,12 @@ public class FeatureModelTransformerRules {
 		NumericExpression sumNumericExpression = f.sum(identifiers);
 		NumericExpression multiplyExpression = f.prod(
 				upperCardinalityIdentifier, parentIdentifier);
-		Expression ruleExpression = f.greaterThan(sumNumericExpression,
+		BooleanExpression ruleExpression = f.greaterThan(sumNumericExpression,
 				multiplyExpression);
 		return ruleExpression;
 	}
 
-	public Expression getGroupalDependencyRule3(VariabilityElementDefAna element1,
+	public BooleanExpression getGroupalDependencyRule3(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements) {
 		// P #= SUM features
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
@@ -184,12 +185,12 @@ public class FeatureModelTransformerRules {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
-		Expression assignExpresion = f.equals(parentIdentifier,
+		BooleanExpression assignExpresion = f.equals(parentIdentifier,
 				sumNumericExpression);
 		return assignExpresion;
 	}
 	
-	public Expression getNegationGroupalDependencyRule3(VariabilityElementDefAna element1,
+	public BooleanExpression getNegationGroupalDependencyRule3(VariabilityElementDefAna element1,
 			List<VariabilityElementDefAna> elements) {
 		// P != SUM features
 		List<NumericExpression> identifiers = new ArrayList<NumericExpression>();
@@ -198,7 +199,7 @@ public class FeatureModelTransformerRules {
 			identifiers.add(createIdentifier(element));
 		}
 		NumericExpression sumNumericExpression = f.sum(identifiers);
-		Expression assignExpresion = f.notEquals(parentIdentifier,
+		BooleanExpression assignExpresion = f.notEquals(parentIdentifier,
 				sumNumericExpression);
 		return assignExpresion;
 	}
@@ -219,21 +220,21 @@ public class FeatureModelTransformerRules {
 
 	}
 
-	public Expression getPropositionalConstraintsRule(
+	public BooleanExpression getPropositionalConstraintsRule(
 			List<NumericExpression> expressionList) {
 		// prop1 + prop2 +--- #>0" EJM (1 - F2) + (1 - F8) #> 0,
 		NumericIdentifier zero = f.number(TransformerConstants.ZERO);
 		NumericExpression sumNumericExpression = f.sum(expressionList);
-		Expression ruleExpression = f.greaterThan(sumNumericExpression, zero);
+		BooleanExpression ruleExpression = f.greaterThan(sumNumericExpression, zero);
 		return ruleExpression;
 	}
 	
-	public Expression getNegationPropositionalConstraintsRule(
+	public BooleanExpression getNegationPropositionalConstraintsRule(
 			List<NumericExpression> expressionList) {
 		// prop1 + prop2 +--- #>0" EJM (1 - F2) + (1 - F8) #<= 0,
 		NumericIdentifier zero = f.number(TransformerConstants.ZERO);
 		NumericExpression sumNumericExpression = f.sum(expressionList);
-		Expression ruleExpression = f.lessOrEqualsThan(sumNumericExpression, zero);
+		BooleanExpression ruleExpression = f.lessOrEqualsThan(sumNumericExpression, zero);
 		return ruleExpression;
 	}
 

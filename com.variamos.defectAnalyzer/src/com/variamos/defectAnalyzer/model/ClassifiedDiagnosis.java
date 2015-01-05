@@ -1,21 +1,21 @@
-package com.variamos.defectAnalyzer.diagnostic;
+package com.variamos.defectAnalyzer.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassifiedDiagnosis {
 
-	List<DefectsByMCSMUSes> commonDiagnosis;
-	List<DefectsByMCSMUSes> noCommonDiagnosis;
+	List<ClassifiableDiagnosis> commonDiagnosis;
+	List<ClassifiableDiagnosis> noCommonDiagnosis;
 
 	public ClassifiedDiagnosis() {
 		super();
-		commonDiagnosis = new ArrayList<DefectsByMCSMUSes>();
-		noCommonDiagnosis = new ArrayList<DefectsByMCSMUSes>();
+		commonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
+		noCommonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
 	}
 
-	public ClassifiedDiagnosis(List<DefectsByMCSMUSes> commonDiagnosis,
-			List<DefectsByMCSMUSes> noCommonDiagnosis) {
+	public ClassifiedDiagnosis(List<ClassifiableDiagnosis> commonDiagnosis,
+			List<ClassifiableDiagnosis> noCommonDiagnosis) {
 		super();
 		this.commonDiagnosis = commonDiagnosis;
 		this.noCommonDiagnosis = noCommonDiagnosis;
@@ -24,7 +24,7 @@ public class ClassifiedDiagnosis {
 	/**
 	 * @return the commonDiagnosis
 	 */
-	public List<DefectsByMCSMUSes> getCommonDiagnosis() {
+	public List<ClassifiableDiagnosis> getCommonDiagnosis() {
 		return commonDiagnosis;
 	}
 
@@ -32,14 +32,14 @@ public class ClassifiedDiagnosis {
 	 * @param commonDiagnosis
 	 *            the commonDiagnosis to set
 	 */
-	public void setCommonDiagnosis(List<DefectsByMCSMUSes> commonDiagnosis) {
+	public void setCommonDiagnosis(List<ClassifiableDiagnosis> commonDiagnosis) {
 		this.commonDiagnosis = commonDiagnosis;
 	}
 
 	/**
 	 * @return the noCommonDiagnosis
 	 */
-	public List<DefectsByMCSMUSes> getNoCommonDiagnosis() {
+	public List<ClassifiableDiagnosis> getNoCommonDiagnosis() {
 		return noCommonDiagnosis;
 	}
 
@@ -47,7 +47,7 @@ public class ClassifiedDiagnosis {
 	 * @param noCommonDiagnosis
 	 *            the noCommonDiagnosis to set
 	 */
-	public void setNoCommonDiagnosis(List<DefectsByMCSMUSes> noCommonDiagnosis) {
+	public void setNoCommonDiagnosis(List<ClassifiableDiagnosis> noCommonDiagnosis) {
 		this.noCommonDiagnosis = noCommonDiagnosis;
 	}
 

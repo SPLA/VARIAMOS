@@ -3,6 +3,7 @@ package com.variamos.defectAnalyzer.transformer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
@@ -110,7 +111,7 @@ public class ProductLineTransformer implements ITransformer {
 		if (productLine != null) {
 
 			for (Constraint constraint : productLine.getConstraints()) {
-				Expression constraintExpression = Pl2Hlcl.transformConstraint(
+				BooleanExpression constraintExpression = Pl2Hlcl.transformConstraint(
 						constraint, idMap);
 
 				// Si la constraint tiene más de una expression cada expression
@@ -118,8 +119,8 @@ public class ProductLineTransformer implements ITransformer {
 				// Si se crea más de una expressión cada una se utiliza como
 				// una dependency diferente
 				if (constraintExpression instanceof HlclProgram) {
-					for (Expression expression : (HlclProgram) constraintExpression) {
-						Expression groupalExpression = expression;
+					for (BooleanExpression expression : (HlclProgram) constraintExpression) {
+						BooleanExpression groupalExpression = expression;
 						Dependency groupalVariabilityDependency = new Dependency(
 								constraint.toString(), constraintCounter);
 						groupalVariabilityDependency

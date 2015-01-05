@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
@@ -58,7 +59,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 */
 	public Defect isVoid() throws FunctionalException {
 
-		Collection<Expression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(analyzerInDTO.getVariabilityModel()
 						.getDependencies(), analyzerInDTO.getVariabilityModel()
 						.getFixedDependencies());
@@ -99,7 +100,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * @throws FunctionalException
 	 */
 	public Defect isFalsePLM() throws FunctionalException {
-		Collection<Expression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(analyzerInDTO.getVariabilityModel()
 						.getDependencies(), analyzerInDTO.getVariabilityModel()
 						.getFixedDependencies());
@@ -132,9 +133,9 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 		List<Integer> definedDomainValues = null;
 		List<Defect> deadElementsList = new ArrayList<Defect>();
-		List<Expression> variabilityModelConstraintRepresentation = new ArrayList<Expression>();
-		Expression constraintToAdd = null;
-		Expression constraintToIdentifyDeadFeature = null;
+		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
+		BooleanExpression constraintToAdd = null;
+		BooleanExpression constraintToIdentifyDeadFeature = null;
 		boolean isDead = Boolean.TRUE;
 		for (VariabilityElementDefAna element : elementsListToVerify.values()) {
 
@@ -240,9 +241,9 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 			throws FunctionalException {
 
 		List<Defect> falseOptionalElementsList = new ArrayList<Defect>();
-		List<Expression> variabilityModelConstraintRepresentation = new ArrayList<Expression>();
+		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
 
-		Expression constraintToIdentifyFalseOptionalFeature = null;
+		BooleanExpression constraintToIdentifyFalseOptionalFeature = null;
 
 		boolean isSatisfiable = Boolean.TRUE;
 		if (optionalElementsMap != null) {
@@ -328,11 +329,11 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	}
 
 	public Defect identifyRedundancy(String instructionToCheckRedundacy,
-			Expression expressionInstructionToCheckRedundancy,
+			BooleanExpression expressionInstructionToCheckRedundancy,
 			Dependency redundantDependency) throws FunctionalException {
 
-		Collection<Expression> completeVariabilityModelConstraintRepresentation = new HashSet<Expression>();
-		Collection<Expression> variabilityModelConstraintRepresentationWithoutRedundacy = new HashSet<Expression>();
+		Collection<BooleanExpression> completeVariabilityModelConstraintRepresentation = new HashSet<BooleanExpression>();
+		Collection<BooleanExpression> variabilityModelConstraintRepresentationWithoutRedundacy = new HashSet<BooleanExpression>();
 		Map<Long, Dependency> dependenciesModel = new HashMap<Long, Dependency>();
 		// Copia del mapa con todas las dependencias
 		dependenciesModel.putAll(analyzerInDTO.getVariabilityModel()
@@ -393,7 +394,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 				// Si el nuevo modelo es resoluble entonces se adicionan las
 				// instrucciones que corresponen a la negación de la restricción
 				// que se cree redundante
-				Expression redundancyNegationExpression = null;
+				BooleanExpression redundancyNegationExpression = null;
 				if (instructionToCheckRedundacy != null
 						&& expressionInstructionToCheckRedundancy == null) {
 					redundancyNegationExpression = new LiteralBooleanExpression(
@@ -452,9 +453,9 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 		List<Defect> notAttainableDomains = new ArrayList<Defect>();
 		List<Integer> definedDomainValues = null;
 		Set<Integer> attainableDomains = null;
-		List<Expression> variabilityModelConstraintRepresentation = new ArrayList<Expression>();
+		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
 
-		Expression constraintToIdentifyNonAttainableDomain = null;
+		BooleanExpression constraintToIdentifyNonAttainableDomain = null;
 
 		for (VariabilityElementDefAna element : elementsMapToVerify.values()) {
 			DefectAnalyzerDomain domain = element.getDomain();

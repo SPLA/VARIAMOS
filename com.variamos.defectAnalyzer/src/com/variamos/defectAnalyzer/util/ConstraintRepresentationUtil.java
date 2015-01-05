@@ -33,7 +33,7 @@ public class ConstraintRepresentationUtil {
 	 * @throws FunctionalException
 	 */
 	public static void savePrologRepresentationProgram(String prologTempPath,
-			Collection<Expression> constraintRepresentation,
+			Collection<BooleanExpression> constraintRepresentation,
 			SolverEditorType solverEditorType) throws FunctionalException {
 
 		String constraintProgramString = constraintToPrologProgram(
@@ -45,7 +45,7 @@ public class ConstraintRepresentationUtil {
 	
 	
 	public static void savePrologRepresentationProgram(String prologTempPath,
-			Collection<Expression> constraintRepresentation,List<String>domainList,
+			Collection<BooleanExpression> constraintRepresentation,List<String>domainList,
 			SolverEditorType solverEditorType) throws FunctionalException {
 
 		String constraintProgramString = constraintToPrologProgram(
@@ -56,7 +56,7 @@ public class ConstraintRepresentationUtil {
 	}
 
 	public static String constraintToPrologProgram(
-			Collection<Expression> constraintRepresentation,
+			Collection<BooleanExpression> constraintRepresentation,
 			SolverEditorType solverEditorType) throws FunctionalException {
 
 		HlclProgram hlclProgram = new HlclProgram();
@@ -86,7 +86,7 @@ public class ConstraintRepresentationUtil {
 	
 	
 	public static String constraintToPrologProgram(
-			Collection<Expression> constraintRepresentation,List<String>domainList,
+			Collection<BooleanExpression> constraintRepresentation,List<String>domainList,
 			SolverEditorType solverEditorType) throws FunctionalException {
 
 		HlclProgram hlclProgram = new HlclProgram();
@@ -110,17 +110,17 @@ public class ConstraintRepresentationUtil {
 	}
 	
 	public static HlclProgram expressionToHlclProgram(
-			Collection<Expression> constraintRepresentation) {
+			Collection<BooleanExpression> constraintRepresentation) {
 		HlclProgram hlclProgram = new HlclProgram();
-		for (Expression expression : constraintRepresentation) {
+		for (BooleanExpression expression : constraintRepresentation) {
 			hlclProgram.add((BooleanExpression) expression);
 		}
 		return hlclProgram;
 	}
 
-	public static Collection<Expression> dependencyListToExpressionList(
+	public static Collection<BooleanExpression> dependencyListToExpressionList(
 			Collection<Dependency> dependencies) {
-		Collection<Expression> variabilityModelConstraintRepresentation = new HashSet<Expression>();
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = new HashSet<BooleanExpression>();
 
 		// Se recorre la lista de restricciones a incluir
 		for (Dependency dependency : dependencies) {
@@ -130,7 +130,7 @@ public class ConstraintRepresentationUtil {
 		return variabilityModelConstraintRepresentation;
 	}
 
-	public static Collection<Expression> dependencyToExpressionList(
+	public static Collection<BooleanExpression> dependencyToExpressionList(
 			Map<Long, Dependency> dependenciesSet,
 			Map<Long, Dependency> fixedDependencies) {
 
@@ -141,7 +141,7 @@ public class ConstraintRepresentationUtil {
 
 	}
 
-	public static Collection<Expression> dependencyToExpressionList(
+	public static Collection<BooleanExpression> dependencyToExpressionList(
 			List<Dependency> dependenciesSet, List<Dependency> fixedDependencies) {
 
 		List<Dependency> allDependenciesList = new ArrayList<Dependency>();
@@ -151,7 +151,7 @@ public class ConstraintRepresentationUtil {
 
 	}
 	
-	public static Collection<Expression> dependencyToExpressionList(
+	public static Collection<BooleanExpression> dependencyToExpressionList(
 			List<Dependency> dependenciesSet,Map<Long, Dependency> fixedDependencies) {
 
 		List<Dependency> allDependenciesList = new ArrayList<Dependency>();
@@ -169,7 +169,7 @@ public class ConstraintRepresentationUtil {
 	 * @return
 	 */
 	public static Collection<Identifier> getIdentifiersSet(
-			Collection<Expression> constraintRepresentation) {
+			Collection<BooleanExpression> constraintRepresentation) {
 		HlclProgram hlclProgram = new HlclProgram();
 		hlclProgram
 				.addAll((Collection<? extends BooleanExpression>) constraintRepresentation);

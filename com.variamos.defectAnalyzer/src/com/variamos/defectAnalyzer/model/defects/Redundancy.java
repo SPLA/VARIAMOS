@@ -1,6 +1,6 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
@@ -19,7 +19,7 @@ public class Redundancy extends Defect {
 	}
 
 	public Redundancy(Dependency redundantDependency,
-			Expression verificationExpression) {
+			BooleanExpression verificationExpression) {
 		this(redundantDependency);
 		this.verificationExpression = verificationExpression;
 

@@ -3,7 +3,7 @@ package com.variamos.defectAnalyzer.transformer;
 import java.io.File;
 import java.util.Collection;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -50,7 +50,7 @@ public class VariabilityModelTransformer {
 	}
 
 	public void printTransformedModelSWIProlog(VariabilityModel variabilityModel) {
-		Collection<Expression> expressions = ConstraintRepresentationUtil
+		Collection<BooleanExpression> expressions = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
@@ -67,7 +67,7 @@ public class VariabilityModelTransformer {
 	}
 
 	public void printTransformedModelGNUProlog(VariabilityModel variabilityModel) {
-		Collection<Expression> expressions = ConstraintRepresentationUtil
+		Collection<BooleanExpression> expressions = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
