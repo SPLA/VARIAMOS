@@ -156,6 +156,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		
+		configurator.setRefas2hlcl(refas2hlcl);
+		
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
 		if (perspective == 0) {
@@ -244,6 +247,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		
+		configurator.setRefas2hlcl(refas2hlcl);
+		
+		
 		registerEvents();
 		Collection<InstView> instViews = ((Refas) abstractModel)
 				.getSyntaxRefas().getInstViews();
@@ -823,6 +830,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					((Refas) getEditedModel()).getSemanticRefas());
 			refas2hlcl = new Refas2Hlcl(refas);
 			editModel(refas);
+			configurator.setRefas2hlcl(refas2hlcl);
 		}
 
 	}

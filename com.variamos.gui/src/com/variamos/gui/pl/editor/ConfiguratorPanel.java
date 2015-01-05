@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -29,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.table.DefaultTableModel;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.BinaryDomain;
@@ -73,11 +75,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 
 	private JLabel lblStatus;
 	private JPanel controlPanel;
+	private JTable tblSolutions;
 
 	private JList<String> additionalConstraints;
 
 	public ConfiguratorPanel() {
-		setLayout(new FlowLayout(FlowLayout.LEFT));
+		// setLayout(new FlowLayout(FlowLayout.LEFT));
 		configurator = new Configurator();
 		initComponents();
 	}
@@ -162,7 +165,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		JButton cmdEditConstraint = new javax.swing.JButton();
 		JButton cmdEditConfiguredVar = new javax.swing.JButton();
 		JScrollPane jScrollPane6 = new javax.swing.JScrollPane();
-		JTable tblSolutions = new javax.swing.JTable();
+		tblSolutions = new javax.swing.JTable();
 		JButton cmdGetNextSolution = new javax.swing.JButton();
 		JButton cmdGetSolutions = new javax.swing.JButton();
 		JComboBox cmbOperators = new javax.swing.JComboBox();
@@ -199,7 +202,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		lblValue.setText("Value:");
 		lblAffectedVariables.setText("Affected variables:");
 
-		tblAffectedVariables.setModel(new javax.swing.table.DefaultTableModel(
+		tblAffectedVariables.setModel(new DefaultTableModel(
 				new Object[][] { { null, null }, { null, null },
 						{ null, null }, { null, null } }, new String[] {
 						"Variable", "With value" }));
@@ -250,14 +253,28 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdEditConfiguredVar.setName("cmdEditConfiguredVariable"); // NOI18N
 
 		tblSolutions.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] { { null, null }, { null, null },
-						{ null, null }, { null, null } }, new String[] {
-						"Solution", "Variables" }));
+				new Object[][] {}, new String[] { "Solution", "Variables" }));
 		jScrollPane6.setViewportView(tblSolutions);
 
 		cmdGetNextSolution.setText("Get next solution");
+		cmdGetNextSolution.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
+				if (result)
+					processConfiguration(refas2hlcl.getConfiguration());
+			}
+
+		});
 
 		cmdGetSolutions.setText("Get solutions");
+		cmdGetSolutions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+				if (result)
+					processConfiguration(refas2hlcl.getConfiguration());
+			}
+
+		});
 
 		cmbOperators.setModel(new javax.swing.DefaultComboBoxModel(
 				new String[] { "=", ">", "<", ">=", "<=", "<>" }));
@@ -599,6 +616,39 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 																								.addComponent(
 																										cmdEditConfiguredVar)))))
 								.addGap(117, 117, 117)));
+	}
+
+	private void processConfiguration(Configuration configuration) {
+		TreeMap<String, Integer> configSet = configuration.getConfiguration();
+		StringBuilder sb = new StringBuilder();
+		for (String identifier : configSet.keySet()) {
+			String[] split = identifier.split("_");
+			String vertexId = split[0];
+			String attribute = split[1];
+			if ("Selected".equals(attribute)) {
+				if (configSet.get(identifier) == 1) {// variable seleccionada
+					sb.append(vertexId + " "); // create object Solution and
+												// save all the info of the
+												// solution
+				}
+			}
+		}
+
+		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();// must
+																				// configure
+																				// without
+																				// the
+																				// attributes
+		if (model.getRowCount() == 0) {
+			model.addRow(new Object[] { model.getRowCount() + 1, sb.toString() });
+		} else {
+			String lastConf = (String) model.getValueAt(
+					model.getRowCount() - 1, 1);
+			if (!lastConf.equals(sb.toString()))
+				model.addRow(new Object[] { model.getRowCount() + 1,
+						sb.toString() });
+		}
+
 	}
 
 	private void initConfigurationPane(JPanel panel) {
