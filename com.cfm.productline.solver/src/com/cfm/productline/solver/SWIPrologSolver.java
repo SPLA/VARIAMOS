@@ -31,7 +31,6 @@ public class SWIPrologSolver implements Solver {
 	private String programPath = null;
 	private Query qr;
 	boolean sucessfullLoad;
-	private Variable invocationVariable;
 
 	public final static String PROGRAM_INVOCATION = "productline(L)";
 
@@ -43,7 +42,6 @@ public class SWIPrologSolver implements Solver {
 	public SWIPrologSolver(HlclProgram hlclProgram) {
 		super();
 		this.hlclProgram = hlclProgram;
-		this.invocationVariable = new Variable("L");
 	}
 
 	public int getSolutionsCount() {
@@ -66,6 +64,7 @@ public class SWIPrologSolver implements Solver {
 	}
 
 	@Override
+	@Deprecated
 	public void setProductLine(AbstractModel pl) {
 		// TODO Auto-generated method stub
 
@@ -92,16 +91,20 @@ public class SWIPrologSolver implements Solver {
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		hlclProgram = addParametersToProgram(hlclProgram, options);
-		programPath = createPrologFile(hlclProgram);
-		loadSWIProgram(programPath);
-		qr = new Query(PROGRAM_INVOCATION);
-		sucessfullLoad = qr.hasSolution();
-		if (!sucessfullLoad) {
-			throw new TechnicalException(
-					"SWI prolog is not correctly initialized ");
-		}
+		if (hlclProgram == null) {
+			throw new TechnicalException("HlclProgram was not initialized");
+		} else {
 
+			hlclProgram = addParametersToProgram(hlclProgram, options);
+			programPath = createPrologFile(hlclProgram);
+			loadSWIProgram(programPath);
+			qr = new Query(PROGRAM_INVOCATION);
+			sucessfullLoad = qr.hasSolution();
+			if (!sucessfullLoad) {
+				throw new TechnicalException(
+						"SWI prolog is not correctly initialized ");
+			}
+		}
 	}
 
 	@Override
@@ -182,8 +185,6 @@ public class SWIPrologSolver implements Solver {
 
 	}
 
-	
-
 	@Override
 	public Object getProductLine() {
 		// TODO Auto-generated method stub
@@ -263,6 +264,14 @@ public class SWIPrologSolver implements Solver {
 			throw new TechnicalException("Solve method was not invoked");
 		}
 
+	}
+
+	public HlclProgram getHlclProgram() {
+		return hlclProgram;
+	}
+
+	public void setHlclProgram(HlclProgram hlclProgram) {
+		this.hlclProgram = hlclProgram;
 	}
 
 }
