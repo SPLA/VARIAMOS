@@ -166,7 +166,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		JButton cmdEditConfiguredVar = new javax.swing.JButton();
 		JScrollPane jScrollPane6 = new javax.swing.JScrollPane();
 		tblSolutions = new javax.swing.JTable();
-		JButton cmdGetNextSolution = new javax.swing.JButton();
+		final JButton cmdGetNextSolution = new javax.swing.JButton();
 		JButton cmdGetSolutions = new javax.swing.JButton();
 		JComboBox cmbOperators = new javax.swing.JComboBox();
 		JComboBox cmbVarDomain = new javax.swing.JComboBox();
@@ -259,19 +259,23 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdGetNextSolution.setText("Get next solution");
 		cmdGetNextSolution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
-				if (result)
-					processConfiguration(refas2hlcl.getConfiguration());
+				while (refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION))
+					if (processConfiguration(refas2hlcl.getConfiguration()))
+						break;
+				System.out.println("y ya no tiene más soluciones");
 			}
 
 		});
+		cmdGetNextSolution.setVisible(false);
 
 		cmdGetSolutions.setText("Get solutions");
 		cmdGetSolutions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
-				if (result)
+				if (result) {
 					processConfiguration(refas2hlcl.getConfiguration());
+					cmdGetNextSolution.setVisible(true);
+				}
 			}
 
 		});
@@ -618,7 +622,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 								.addGap(117, 117, 117)));
 	}
 
-	private void processConfiguration(Configuration configuration) {
+	private boolean processConfiguration(Configuration configuration) {
 		TreeMap<String, Integer> configSet = configuration.getConfiguration();
 		StringBuilder sb = new StringBuilder();
 		for (String identifier : configSet.keySet()) {
@@ -641,13 +645,26 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 																				// attributes
 		if (model.getRowCount() == 0) {
 			model.addRow(new Object[] { model.getRowCount() + 1, sb.toString() });
+			return true;
 		} else {
-			String lastConf = (String) model.getValueAt(
-					model.getRowCount() - 1, 1);
-			if (!lastConf.equals(sb.toString()))
-				model.addRow(new Object[] { model.getRowCount() + 1,
-						sb.toString() });
+			boolean existe=false;
+			for (int i = 0; i < model.getRowCount(); i++) {
+				String lastConf = (String) model.getValueAt(
+						i, 1);
+
+				
+				if (lastConf.equals(sb.toString())) {
+					existe=true;
+					break;
+				} 
+			}
+			if(!existe){
+				model.addRow(new Object[] { model.getRowCount() + 1,	sb.toString() });
+				return true;
+			}
+			return false;
 		}
+		
 
 	}
 
