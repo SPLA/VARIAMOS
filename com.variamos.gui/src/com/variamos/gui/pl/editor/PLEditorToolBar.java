@@ -93,9 +93,11 @@ public class PLEditorToolBar extends JToolBar {
 		addSeparator();
 
 		if (variamosGraphEditor.getPerspective() == 2) {
-			add(variamosGraphEditor.bind("first", new SimulationAction(true),
+			add(variamosGraphEditor.bind("clean", new SimulationAction(true, false),
+					"/com/mxgraph/examples/swing/images/pan.gif"));
+			add(variamosGraphEditor.bind("first", new SimulationAction(false, true),
 					"/com/mxgraph/examples/swing/images/diamond_start.gif"));
-			add(variamosGraphEditor.bind("next", new SimulationAction(false),
+			add(variamosGraphEditor.bind("next", new SimulationAction(false, false),
 					"/com/mxgraph/examples/swing/images/block_end.gif"));
 		}
 

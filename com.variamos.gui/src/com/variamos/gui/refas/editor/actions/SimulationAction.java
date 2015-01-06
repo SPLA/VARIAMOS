@@ -13,17 +13,23 @@ import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 
 @SuppressWarnings("serial")
 public class SimulationAction extends AbstractEditorAction {
-	
+
 	private boolean first;
-	public SimulationAction(boolean first)
-	{
+	private boolean clean;
+
+	public SimulationAction(boolean clean, boolean first) {
 		this.first = first;
+		this.clean = clean;
 	}
+
 	/**
 		 * 
 		 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
-		editor.executeSimulation(first);
+		if (clean)
+			editor.cleanSimulation();
+		else
+			editor.executeSimulation(first);
 	}
 }
