@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -20,7 +22,7 @@ import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
  * @version 1.1
  * @since 2014-12-07
  */
-public class AbstractSemanticElement implements Serializable{
+public class AbstractSemanticElement implements Serializable, IntSemanticElement{
 	/**
 	 * 
 	 */
@@ -35,20 +37,27 @@ public class AbstractSemanticElement implements Serializable{
 	private List<String> panelVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; //preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
+	
+	private List<MetaExpressionSet> metaExpressionSets;
 
 	public AbstractSemanticElement(	String identifier)
 	{
 		this(null, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
 	}
 	
-	public AbstractSemanticElement(AbstractSemanticVertex parentConcept,
+	public AbstractSemanticElement(AbstractSemanticElement parentElement,	String identifier)
+	{
+		this(parentElement, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
+	}
+	
+	public AbstractSemanticElement(AbstractSemanticElement parentElement,
 			String identifier,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSpacersAttributes)
 	{
-		this.parent = parentConcept;
+		this.parent = parentElement;
 		this.identifier = identifier;
 		this.propVisibleAttributes = propVisibleAttributes;
 		this.propEditableAttributes = propEditableAttributes;

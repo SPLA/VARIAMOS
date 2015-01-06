@@ -14,6 +14,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -148,14 +149,14 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		// return identifier;
 	}
 
-	public void setValidationGDList(List<IntSemanticOverTwoRelation> semGD) {
+	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
 		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntSemanticOverTwoRelation> getOverTwoRelValidationList() {
-		return (List<IntSemanticOverTwoRelation>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
+	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
+		return (List<IntSemanticRelationType>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
@@ -332,27 +333,19 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
-		if (instElement instanceof InstOverTwoRelation) {
+		if (instElement instanceof InstOverTwoRelation
+				|| instElement instanceof InstPairwiseRelation) {
 
-			if (getEnumType() != null
-					&& getEnumType().equals(
-							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticOverTwoRelation> metaGD = ((MetaOverTwoRelation) instElement.getSupportMetaElement())
-						.getSemanticRelations();
-				setValidationGDList(metaGD);
+			if (this.getAttribute() != null && getEnumType() != null
+					&& getEnumType()
+							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
+				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
+						.getSupportMetaElement()).getSemanticRelationTypes();
+				setValidationRelationTypes(semanticRelationTypes);
 			}
 		}
 		if (instElement instanceof InstPairwiseRelation) {
-
-			if (getEnumType() != null
-					&& getEnumType().equals(
-							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_CLASS)) {
-				List<IntSemanticPairwiseRelation> directRel = ((MetaPairwiseRelation) instElement.getSupportMetaElement())
-						.getSemanticRelations();
-				setValidationDRList(directRel);
-
-			}
-			if (getEnumType() != null
+			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType().equals(
 							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 

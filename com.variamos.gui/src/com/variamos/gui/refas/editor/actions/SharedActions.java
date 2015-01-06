@@ -1,5 +1,6 @@
 package com.variamos.gui.refas.editor.actions;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
@@ -58,15 +60,15 @@ public class SharedActions {
 	private static void deleteSupportObjects(Object value) {
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			String str = (String) ic.getSemanticOverTwoRelationIden();
-			ic.setSemanticOverTwoRelationIden(str);
-			str = (String) ic.getMetaVertexIdentifier();
+			String str = null;// (String) ic.getSemanticOverTwoRelationIden();
+			// ic.setSemanticOverTwoRelationIden(str);
+			str = (String) ic.getSupportMetaVertexIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
-			ic.clearMetaVertex();
+			ic.clearEditableMetaVertex();
 			ic.clearInstAttributesObjects();
 		} else if (value instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) value;
-			instVertex.clearMetaVertex();
+			instVertex.clearEditableMetaVertex();
 			instVertex.clearInstAttributesObjects();
 		}
 
@@ -121,63 +123,51 @@ public class SharedActions {
 		Refas refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
 		if (value instanceof InstOverTwoRelation) {
-			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			MetaOverTwoRelation mgd = (MetaOverTwoRelation) editor
-					.getSematicSintaxObject().getSyntaxElement(
-							ic.getMetaVertexIdentifier());
-			IntSemanticElement sgd = editor.getSematicSintaxObject()
-					.getSemanticElement(ic.getSemanticOverTwoRelationIden());
-			ic.setMetaVertex(mgd);
-			refas.putInstGroupDependency(ic);
-			if (sgd != null)
-				ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
-			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
-					.iterator();
+			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
+			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
+					.getSyntaxRefas()
+					.getVertex(instOverTwoRelation.getSupportMetaVertexIdentifier())
+					.getEditableMetaElement();
+			// IntSemanticElement sgd = editor.getSematicSintaxObject()
+			// .getSemanticElement(ic.getSemanticOverTwoRelationIden());
+			instOverTwoRelation.setSupportMetaVertex(metaOverTwoRelation);
+			refas.putInstGroupDependency(instOverTwoRelation);
+			// if (sgd != null)
+			// ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
+			Iterator<InstAttribute> ias = instOverTwoRelation
+					.getInstAttributes().values().iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				AbstractAttribute toSet = sgd.getSemanticAttribute(ia
-						.getAttributeName());
-				if (toSet == null)
-					if (ia.getAttributeName().equals(
-							MetaOverTwoRelation.VAR_SEMANTICPAIRWISEREL)) {
-						MetaElement n = editor.getSematicSintaxObject()
-								.getSyntaxElements().get(mgd.getName());
-						AbstractAttribute m = n
-								.getModelingAttribute(InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ);
-						ia.setAttribute(m);
-						List<IntSemanticOverTwoRelation> semGD = ((MetaOverTwoRelation) n)
-								.getSemanticRelations();
-						ia.setValidationGDList(semGD);
-					} else {
-						AbstractAttribute a = ((InstOverTwoRelation) value)
-								.getAbstractAttribute(ia.getAttributeName());
-						ia.setAttribute(a);
-						if (ia.getAttributeType().equals("Boolean")
-								&& ia.getValue() instanceof String)
-							if (((String) ia.getValue()).equals("0"))
-								ia.setValue(false);
-							else
-								ia.setValue(true);
-					}
-				else
-					ia.setAttribute(toSet);
+				ia.setAttribute(instOverTwoRelation.getAbstractAttribute(ia
+						.getAttributeName()));
+				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
+						.getSupportMetaElement()).getSemanticRelationTypes();
+				ia.setValidationRelationTypes(semGD);
+				if (ia.getAttributeType().equals("Boolean")
+						&& ia.getValue() instanceof String)
+					if (((String) ia.getValue()).equals("0"))
+						ia.setValue(false);
+					else
+						ia.setValue(true);
 			}
-			editor.editPropertiesRefas(ic);
+			editor.refreshElement(instOverTwoRelation);
 		} else if (value instanceof InstVertex) {
-			InstVertex ic = (InstVertex) value;
-			MetaVertex mc = (MetaVertex) editor.getSematicSintaxObject()
-					.getSyntaxElement(ic.getMetaVertexIdentifier());
-			if (mc == null)
+			InstVertex instVertex = (InstVertex) value;
+			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
+					.getVertex(instVertex.getSupportMetaVertexIdentifier())
+					.getEditableMetaElement();
+			if (metaVertex == null)
 				System.err.println("Concept Null"
-						+ ic.getMetaVertexIdentifier());
+						+ instVertex.getSupportMetaVertexIdentifier());
 			else
-				ic.setMetaVertex(mc);
-			refas.putVariabilityInstVertex(ic);
-			Iterator<InstAttribute> ias = ic.getInstAttributes().values()
-					.iterator();
+				instVertex.setSupportMetaVertex(metaVertex);
+			refas.putVariabilityInstVertex(instVertex);
+			Iterator<InstAttribute> ias = instVertex.getInstAttributes()
+					.values().iterator();
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				ia.setAttribute(mc.getAbstractAttribute(ia.getAttributeName()));
+				ia.setAttribute(metaVertex.getAbstractAttribute(ia
+						.getAttributeName()));
 				if (ia.getAttributeType().equals("Boolean")
 						&& ia.getValue() instanceof String)
 					if (((String) ia.getValue()).equals("0"))
@@ -189,55 +179,63 @@ public class SharedActions {
 		}
 		if (value instanceof InstPairwiseRelation) {
 			InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
-			MetaPairwiseRelation metaPairwiseRelation = (MetaPairwiseRelation) editor
-					.getSematicSintaxObject().getSyntaxElement(
-							instPairwiseRelation.getMetaPairwiseRelationIden());
-			SemanticPairwiseRelation semanticRelation = (SemanticPairwiseRelation) editor
-					.getSematicSintaxObject().getSemanticElement(
-							instPairwiseRelation
-									.getSemanticPairwiseRelationIde());
+			instPairwiseRelation.createAttributes(new HashMap<String, InstAttribute>());
 			InstVertex sourceVertex = (InstVertex) source.getSource()
 					.getValue();
 			InstVertex targetVertex = (InstVertex) source.getTarget()
 					.getValue();
+			MetaPairwiseRelation metaPairwiseRelation = refas.getSyntaxRefas()
+					.getValidMetaPairwiseRelation(sourceVertex.getSupportMetaVertex(),
+							targetVertex.getSupportMetaVertex(),
+							instPairwiseRelation.getMetaPairwiseRelationIden(),
+							true);
 			instPairwiseRelation.setSourceRelation(sourceVertex, true);
 			instPairwiseRelation.setTargetRelation(targetVertex, true);
 			if (metaPairwiseRelation != null) {
-				instPairwiseRelation
-						.setMetaPairwiseRelation(metaPairwiseRelation);
+				instPairwiseRelation.setSupportMetaPairwiseRelation(
+						metaPairwiseRelation);
 				instPairwiseRelation.setVariable(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
 						instPairwiseRelation.getSemanticPairwiseRelationType());
-				if (semanticRelation != null) {
-					instPairwiseRelation.setSemanticEdge(semanticRelation);
-					instPairwiseRelation.loadSemantic();
+
+				Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
+						.getInstAttributes().values().iterator();
+				while (instAttributesIter.hasNext()) {
+					try{
+						
+					InstAttribute instAttribute = (InstAttribute) instAttributesIter
+							.next();
+					AbstractAttribute absAttribute = metaPairwiseRelation
+							.getModelingAttribute(instAttribute
+									.getAttributeName());
+					//if (absAttribute == null)
+					//	absAttribute = instPairwiseRelation.getSemanticAttribute();
+					instAttribute.setAttribute(absAttribute);
+				//	if (absAttribute != null)// TODO find a better fix
+						if (instAttribute.getAttributeType().equals("Boolean")
+								&& instAttribute.getValue() != null
+								&& instAttribute.getValue() instanceof String)
+							if (((String) instAttribute.getValue()).equals("0"))
+								instAttribute.setValue(false);
+							else
+								instAttribute.setValue(true);
+					if (instAttribute.getIdentifier().equals(
+							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
+						instAttribute.setValue(instPairwiseRelation
+								.getSemanticPairwiseRelationType());
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
+
 			}
 			// TODO add edges to groupDependecies and claims to otherInstEdges
 			refas.putConstraintInstEdge(instPairwiseRelation);
-			Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
-					.getInstAttributes().values().iterator();
-			while (instAttributesIter.hasNext()) {
-				InstAttribute instAttribute = (InstAttribute) instAttributesIter
-						.next();
-				AbstractAttribute absAttribute = metaPairwiseRelation
-						.getModelingAttribute(instAttribute.getAttributeName());
-				// instAttribute
-				// .setAttribute(absAttribute);
-				if (instAttribute.getAttributeType().equals("Boolean")
-						&& instAttribute.getValue() != null
-						&& instAttribute.getValue() instanceof String)
-					if (((String) instAttribute.getValue()).equals("0"))
-						instAttribute.setValue(false);
-					else
-						instAttribute.setValue(true);
-				if (instAttribute.getIdentifier().equals(
-						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
-					instAttribute.setValue(instPairwiseRelation
-							.getSemanticPairwiseRelationType());
-			}
+
+		//	editor.refreshElement(instPairwiseRelation);
 		}
 
 	}
-
 }

@@ -1,6 +1,7 @@
 package com.variamos.gui.maineditor;
 
 
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.cfm.common.AbstractModel;
@@ -92,7 +93,11 @@ public abstract class AbstractGraph extends mxGraph {
 						addingVertex(cell, parentCell, indexCell);
 					}
 					else
-						addingEdge(cell, parentCell, indexCell);
+						if (!addingEdge(cell, parentCell, indexCell))
+						{
+							System.out.println("Relation not supported by the MetaModel");
+							
+						}
 				}
 			}
 
@@ -187,7 +192,7 @@ public abstract class AbstractGraph extends mxGraph {
 	private void removingEdge(mxCell cell){
 		mxCell source = (mxCell)cell.getSource();
 		mxCell target = (mxCell)cell.getTarget();
-		
+	/*	
 		if( source.getValue() instanceof GroupConstraint ){
 			//The target is a child, it should be removed
 			GroupConstraint gc = (GroupConstraint)source.getValue();
@@ -199,6 +204,7 @@ public abstract class AbstractGraph extends mxGraph {
 			GroupConstraint gc = (GroupConstraint)target.getValue();
 			gc.setParent(null);
 		}
+		*/
 	}
 	
 

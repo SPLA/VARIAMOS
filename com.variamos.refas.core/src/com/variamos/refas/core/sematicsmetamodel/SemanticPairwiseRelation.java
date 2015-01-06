@@ -3,8 +3,11 @@ package com.variamos.refas.core.sematicsmetamodel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.refas.core.types.LevelType;
+import com.variamos.refas.core.types.SatisficingType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represent the edges with semantic back object. Part of PhD work at
@@ -16,95 +19,63 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class SemanticPairwiseRelation extends AbstractSemanticEdge implements
+public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 		IntSemanticPairwiseRelation {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7976788205587295216L;
-	private boolean exclusive;
-	private List<IntSemanticPairwiseRelType> semanticRelationTypes;
+	private List<IntSemanticRelationType> semanticRelationTypes;
 	private List<AbstractSemanticVertex> directSemanticEdges;
+	private boolean toSoftSemanticConcept;
+	public static final String
+	/**
+	* 
+	*/
+	VAR_LEVEL = "level",
+			/**
+	 * 
+	 */
+			VAR_LEVELNAME = "Level",
+			/**
+	* 
+	*/
+			VAR_LEVELCLASS = LevelType.class.getCanonicalName(),
+			/**
+	 * 
+	*/
+			VAR_SATISFICINGTYPE = "satisficingType",
+			/**
+	 * 
+	*/
+			VAR_SATISFICINGTYPENAME = "Satisficing Level",
+			/**
+	* 
+	*/
+			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName();
+
 
 	public SemanticPairwiseRelation() {
-		super();
+		super(null);
 	}
 
-	public SemanticPairwiseRelation(String identifier, Boolean toSoftSemanticConcept,
-			boolean exclusive, List<IntSemanticPairwiseRelType> semanticRelationTypes) {
-		this(identifier, toSoftSemanticConcept,
-				new ArrayList<AbstractSemanticVertex>(),
-				new ArrayList<AbstractSemanticVertex>(), exclusive,
-				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
-	}
 
 	public SemanticPairwiseRelation(String identifier, boolean toSoftSemanticConcept,
-			boolean exclusive, List<IntSemanticPairwiseRelType> semanticRelationTypes) {
-		this(identifier, toSoftSemanticConcept,
-				new ArrayList<AbstractSemanticVertex>(),
-				new ArrayList<AbstractSemanticVertex>(), exclusive,
-				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
-	}
-
-	public SemanticPairwiseRelation(String identifier, boolean toSoftSemanticConcept,
-			List<AbstractSemanticVertex> conflicts, boolean exclusive,
-			List<IntSemanticPairwiseRelType> semanticRelationTypes) {
-		this(identifier, toSoftSemanticConcept, conflicts,
-				new ArrayList<AbstractSemanticVertex>(), exclusive,
-				new ArrayList<AbstractSemanticVertex>(), semanticRelationTypes);
-	}
-
-	public SemanticPairwiseRelation(String identifier, boolean toSoftSemanticConcept,
-			boolean exclusive,
-			List<AbstractSemanticVertex> semanticRelationEdges,
-			List<IntSemanticPairwiseRelType> semanticRelationTypes) {
-		this(identifier, toSoftSemanticConcept,
-				new ArrayList<AbstractSemanticVertex>(),
-				new ArrayList<AbstractSemanticVertex>(), exclusive,
-				semanticRelationEdges, semanticRelationTypes);
-	}
-
-	public SemanticPairwiseRelation(String identifier, boolean toSoftSemanticConcept,
-			List<AbstractSemanticVertex> conflicts,
-			List<AbstractSemanticVertex> alwaysAllows, boolean exclusive,
-			List<AbstractSemanticVertex> directSemanticEdges,
-			List<IntSemanticPairwiseRelType> semanticRelationTypes) {
-		super(identifier, toSoftSemanticConcept, conflicts, alwaysAllows);
-		this.exclusive = exclusive;
+			List<IntSemanticRelationType> semanticRelationTypes) {
+		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
-		this.directSemanticEdges = directSemanticEdges;
+		this.toSoftSemanticConcept = toSoftSemanticConcept;
 	}
 
-	public SemanticPairwiseRelation(String string, boolean b,
-			List<IntSemanticPairwiseRelType> requires_conflictsDirectRelation,
-			List<AbstractSemanticVertex> semanticVertexs, boolean c) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public boolean isExclusive() {
-		return exclusive;
-	}
-
-	public void setExclusive(boolean exclusive) {
-		this.exclusive = exclusive;
-	}
-
-	public List<IntSemanticPairwiseRelType> getSemanticRelationTypes() {
+	public List<IntSemanticRelationType> getSemanticRelationTypes() {
 		return semanticRelationTypes;
 	}
 
 	public void setSemanticRelationTypes(
-			List<IntSemanticPairwiseRelType> semanticRelationTypes) {
+			List<IntSemanticRelationType> semanticRelationTypes) {
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	public List<AbstractSemanticVertex> getDirectSemanticEdges() {
-		return directSemanticEdges;
-	}
 
-	public void setDirectSemanticEdges(
-			List<AbstractSemanticVertex> directSemanticEdges) {
-		this.directSemanticEdges = directSemanticEdges;
-	}
 
 }

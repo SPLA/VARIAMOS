@@ -15,6 +15,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to create semantic and syntax instances for vertex and edges of the
@@ -113,9 +114,8 @@ public class SemanticPlusSyntax {
 		// Definition of variability concept and relations
 
 		System.out.println("Loading semantic model...");
-		IncomingSemanticEdge groupRelation = null;
 
-		AbstractSemanticVertex semGeneralElement = new AbstractSemanticVertex();
+		SemanticConcept semGeneralElement = new SemanticConcept();
 		semanticConcepts.put("GE", semGeneralElement);
 
 		// Design attributes
@@ -206,8 +206,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		semGeneralElement.putSemanticAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		semGeneralElement.putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
@@ -256,8 +256,8 @@ public class SemanticPlusSyntax {
 		semGeneralElement.addPropVisibleAttribute("14#" + "Optional");
 
 		// Definition of variability concept and relations
-		HardSemanticConcept semHardConcept = new HardSemanticConcept(
-				semGeneralElement, "semHardConcept");
+		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
+				"semHardConcept");
 		semanticConcepts.put("HC", semHardConcept);
 
 		// Direct Relations of the semanticAssumption
@@ -278,14 +278,10 @@ public class SemanticPlusSyntax {
 		 * semVariabilityElement.addDirectRelation(dirRelation);
 		 */
 
-		List<OutgoingSemanticEdge> semHardOutgoingRelation = new ArrayList<OutgoingSemanticEdge>();
-		semHardOutgoingRelation
-				.add(new OutgoingSemanticEdge("", semHardConcept));
-
 		// Feature concepts
 
-		HardSemanticConcept semFeature = new HardSemanticConcept(
-				semGeneralElement, "Feature");
+		SemanticConcept semFeature = new SemanticConcept(semGeneralElement,
+				"Feature");
 		semanticConcepts.put("F", semFeature);
 
 		SemanticContextGroup semFeatureGroup = new SemanticContextGroup(
@@ -294,17 +290,16 @@ public class SemanticPlusSyntax {
 
 		// definition of other concepts
 
-		HardSemanticConcept semAssumption = new HardSemanticConcept(
-				semHardConcept, "Assumption");
+		SemanticConcept semAssumption = new SemanticConcept(semHardConcept,
+				"Assumption");
 		semanticConcepts.put("AS", semAssumption);
 
-		HardSemanticConcept semGoal = new HardSemanticConcept(semHardConcept,
-				"Goal");
+		SemanticConcept semGoal = new SemanticConcept(semHardConcept, "Goal");
 		semGoal.addPanelVisibleAttribute("01#" + "satisfactionType");
 		semGoal.addPanelSpacersAttribute("<#" + "satisfactionType" + "#>\n");
 		semanticConcepts.put("G", semGoal);
 
-		HardSemanticConcept semOperationalization = new HardSemanticConcept(
+		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 		semanticConcepts.put("OPER", semOperationalization);
 
@@ -319,8 +314,8 @@ public class SemanticPlusSyntax {
 				"ContextGroup");
 		semanticConcepts.put("CG", semContextGroup);
 
-		HardSemanticConcept semAsset = new HardSemanticConcept(
-				semGeneralElement, "Asset");
+		SemanticConcept semAsset = new SemanticConcept(semGeneralElement,
+				"Asset");
 		semanticConcepts.put("ASSE", semAsset);
 
 		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
@@ -490,11 +485,7 @@ public class SemanticPlusSyntax {
 		requires_conflictsGroupRelation.add(GroupRelationType.conflict);
 
 		SemanticOverTwoRelation semanticHardHardGroupRelation = new SemanticOverTwoRelation(
-				"HardHardOverTwoRel", false, requires_conflictsGroupRelation,
-				semHardOutgoingRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticHardHardGroupRelation);
-		semHardConcept.addGroupRelation(groupRelation);
+				"HardHardOverTwoRel", false, null, null);
 		semanticConcepts.put("HardHardOverTwoRel",
 				semanticHardHardGroupRelation);
 
@@ -506,29 +497,31 @@ public class SemanticPlusSyntax {
 		List<AbstractSemanticVertex> semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semHardConcept);
 
+		List<IntSemanticRelationType> hardSemPairwiseRelList = new ArrayList<IntSemanticRelationType>();
+		hardSemPairwiseRelList.add(new SemanticRelationType("MeansEnds",
+				"Means Ends", "means-ends", true, true, true, 1, -1, 1, 1));
+		hardSemPairwiseRelList.add(new SemanticRelationType("Conflict",
+				"Conflict", "conflict", false, true, true, 1, -1, 1, 1));
+		hardSemPairwiseRelList.add(new SemanticRelationType("Alternative",
+				"Alternative", "altern.", false, true, true, 1, -1, 1, 1));
+		hardSemPairwiseRelList.add(new SemanticRelationType("Excludes",
+				"Excludes", "excludes", false, true, true, 1, -1, 1, 1));
+
 		SemanticPairwiseRelation directHardHardSemanticEdge = new SemanticPairwiseRelation(
-				"HardHardDirectEdge", false, requires_conflictsDirectRelation,
-				semanticVertexs, false);
+				"HardHardDirectEdge", false, hardSemPairwiseRelList);
 		semHardConcept.addDirectRelation(directHardHardSemanticEdge);
 		semanticConcepts.put("HardHardDirectEdge", directHardHardSemanticEdge);
 
 		// Feature to Feature
 
-		List<OutgoingSemanticEdge> outgoingFeatureRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingFeatureRelation.add(new OutgoingSemanticEdge("", semFeature));
 		SemanticOverTwoRelation semanticFeatureFeatureGroupRelation = new SemanticOverTwoRelation(
-				"FeatureFeatureGroupRel", false, featureMeansGroupRelation,
-				outgoingFeatureRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticFeatureFeatureGroupRelation);
-		semFeature.addGroupRelation(groupRelation);
+				"FeatureFeatureGroupRel", false, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semFeature);
 
 		SemanticPairwiseRelation directFeatureFeatureSemanticEdge = new SemanticPairwiseRelation(
-				"FeatureFeatureDirectEdge", false, false, semanticVertexs,
-				alter_preff_impl_meansDirectRelation);
+				"FeatureFeatureDirectEdge", false, hardSemPairwiseRelList);
 		semGoal.addDirectRelation(directFeatureFeatureSemanticEdge);
 		semanticConcepts.put("FeauteFeateuGroupRel",
 				semanticFeatureFeatureGroupRelation);
@@ -537,101 +530,68 @@ public class SemanticPlusSyntax {
 
 		// Goal to Goal
 
-		List<OutgoingSemanticEdge> outgoingGoalRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingGoalRelation.add(new OutgoingSemanticEdge("", semGoal));
 		SemanticOverTwoRelation semanticGoalGoalGroupRelation = new SemanticOverTwoRelation(
-				"GoalGoalOverTwoRel", false, altern_impl_meansGroupRelation,
-				outgoingGoalRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticGoalGoalGroupRelation);
-		semGoal.addGroupRelation(groupRelation);
-
+				"GoalGoalOverTwoRel", false, null, null);
 		semanticVertexs.add(semGoal);
 
 		SemanticPairwiseRelation directGoalGoalSemanticEdge = new SemanticPairwiseRelation(
-				"GoalGoalDirectEdge", false, false, semanticVertexs,
-				alter_preff_impl_meansDirectRelation);
+				"GoalGoalDirectEdge", false, hardSemPairwiseRelList);
 		semGoal.addDirectRelation(directGoalGoalSemanticEdge);
 		semanticConcepts.put("GoalGoalOverTwoRel",
 				semanticGoalGoalGroupRelation);
 		semanticConcepts.put("GoalGoalDirectEdge", directGoalGoalSemanticEdge);
 
 		// Oper to Goal and Oper
-		List<OutgoingSemanticEdge> outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingOperationalizationRelation.add(new OutgoingSemanticEdge("",
-				semGoal));
-		outgoingOperationalizationRelation.add(new OutgoingSemanticEdge("",
-				semOperationalization));
 		SemanticOverTwoRelation semanticOperGoalGroupRelation = new SemanticOverTwoRelation(
-				"OperGoalOverTwoRel", false,
-				means_endsImplicationGroupRelation,
-				outgoingOperationalizationRelation);
+				"OperGoalOverTwoRel", false, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);
 		semanticVertexs.add(semGoal);
 
 		SemanticPairwiseRelation directOperGoalSemanticEdge = new SemanticPairwiseRelation(
-				"OperGoalDirectEdge", false, false, semanticVertexs,
-				means_endsImplicationDirectRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticOperGoalGroupRelation);
-		semOperationalization.addGroupRelation(groupRelation);
+				"OperGoalDirectEdge", false, hardSemPairwiseRelList);
+
 		semOperationalization.addDirectRelation(directOperGoalSemanticEdge);
 		semanticConcepts.put("OperGoalOverTwoRel",
 				semanticOperGoalGroupRelation);
 		semanticConcepts.put("OperGoalDirectEdge", directOperGoalSemanticEdge);
 
 		// Oper to Oper
-		outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingOperationalizationRelation.add(new OutgoingSemanticEdge("",
-				semOperationalization));
 		SemanticOverTwoRelation semanticOperOperGroupRelation = new SemanticOverTwoRelation(
-				"OperOperOverTwoRel", false, alternativeGroupRelation,
-				outgoingOperationalizationRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticOperOperGroupRelation);
-		semOperationalization.addGroupRelation(groupRelation);
+				"OperOperOverTwoRel", false, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);
 
 		SemanticPairwiseRelation directOperOperSemanticEdge = new SemanticPairwiseRelation(
-				"OperOperDirectEdge", false, false, semanticVertexs,
-				alternative_prefferedDirectRelation);
+				"OperOperDirectEdge", false, hardSemPairwiseRelList);
 		semOperationalization.addDirectRelation(directOperOperSemanticEdge);
 		semanticConcepts.put("OperOperOverTwoRel",
 				semanticOperOperGroupRelation);
 		semanticConcepts.put("OperOperDirectEdge", directOperOperSemanticEdge);
 
 		// SG to SG
-		List<OutgoingSemanticEdge> outgoingSoftgoalRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingSoftgoalRelation.add(new OutgoingSemanticEdge("", true,
-				semSoftgoal));
 		SemanticOverTwoRelation semanticSGSGGroupRelation = new SemanticOverTwoRelation(
-				"SGSGGroupRel", false, allSGGroupRelation,
-				outgoingSoftgoalRelation);
-		groupRelation = new IncomingSemanticEdge("SGSGGroupRel",
-				semanticSGSGGroupRelation);
-		semSoftgoal.addGroupRelation(groupRelation);
+				"SGSGGroupRel", false, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semSoftgoal);
 
 		SemanticPairwiseRelation directSGSGSemEdge = new SemanticPairwiseRelation(
-				"SGSGDirectEdge", true, false, semanticVertexs,
-				allSGDirectRelation);
-		directSGSGSemEdge.putSemanticAttribute(AbstractSemanticEdge.VAR_LEVEL,
-				new SemanticAttribute(AbstractSemanticEdge.VAR_LEVEL,
-						"Enumeration", false,
-						AbstractSemanticEdge.VAR_LEVELNAME,
-						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
-		directSGSGSemEdge.addPropEditableAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSGSGSemEdge.addPropVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSGSGSemEdge.addPanelVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
+				"SGSGDirectEdge", true, hardSemPairwiseRelList);
+		/*
+		 * directSGSGSemEdge.putSemanticAttribute(AbstractSemanticEdge.VAR_LEVEL,
+		 * new SemanticAttribute(AbstractSemanticEdge.VAR_LEVEL, "Enumeration",
+		 * false, AbstractSemanticEdge.VAR_LEVELNAME,
+		 * AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
+		 * directSGSGSemEdge.addPropEditableAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directSGSGSemEdge.addPropVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directSGSGSemEdge.addPanelVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 */
 		semSoftgoal.addDirectRelation(directSGSGSemEdge);
 		semanticConcepts.put("SGSGGroupRel", semanticSGSGGroupRelation);
 		semanticConcepts.put("SGSGDirectEdge", directSGSGSemEdge);
@@ -641,40 +601,33 @@ public class SemanticPlusSyntax {
 		semanticVertexs.add(semContextGroup);
 
 		SemanticPairwiseRelation directCVCGSemanticEdge = new SemanticPairwiseRelation(
-				"CVCGDirectRel", false, false, semanticVertexs,
-				noneDirectRelation);
+				"CVCGDirectRel", false, hardSemPairwiseRelList);
 		semVariable.addDirectRelation(directCVCGSemanticEdge);
 		semanticConcepts.put("CVCGDirectRel", directCVCGSemanticEdge);
 
 		// Oper to Claim
-		outgoingOperationalizationRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingSoftgoalRelation.add(new OutgoingSemanticEdge("outclaim",
-				semClaim));
 		SemanticOverTwoRelation semanticOperClaimGroupRelation = new SemanticOverTwoRelation(
-				"OperClaimGroupRel", true, implicationGroupRelation,
-				outgoingSoftgoalRelation);
-		groupRelation = new IncomingSemanticEdge("",
-				semanticOperClaimGroupRelation);
-		semOperationalization.addGroupRelation(groupRelation);
+				"OperClaimGroupRel", true, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semClaim);
 
 		SemanticPairwiseRelation directOperClaimSemanticEdge = new SemanticPairwiseRelation(
-				"OperClaimDirectEdge", true, true, semanticVertexs,
-				implicationDirectRelation);
+				"OperClaimDirectEdge", true, hardSemPairwiseRelList);
 		semOperationalization.addDirectRelation(directOperClaimSemanticEdge);
-		directOperClaimSemanticEdge.putSemanticAttribute(
-				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
-						AbstractSemanticEdge.VAR_LEVEL,
-						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
-		directOperClaimSemanticEdge.addPropEditableAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directOperClaimSemanticEdge.addPropVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directOperClaimSemanticEdge.addPanelVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
+		/*
+		 * directOperClaimSemanticEdge.putSemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
+		 * AbstractSemanticEdge.VAR_LEVEL, AbstractSemanticEdge.VAR_LEVELCLASS,
+		 * "plus plus", ""));
+		 * directOperClaimSemanticEdge.addPropEditableAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directOperClaimSemanticEdge.addPropVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directOperClaimSemanticEdge.addPanelVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 */
 		semClaim.addDirectRelation(directOperClaimSemanticEdge);
 		semanticConcepts.put("OperClaimGroupRel",
 				semanticOperClaimGroupRelation);
@@ -687,19 +640,20 @@ public class SemanticPlusSyntax {
 		semanticVertexs.add(semSoftgoal);
 
 		SemanticPairwiseRelation directClaimSGSemanticEdge = new SemanticPairwiseRelation(
-				"ClaimSGDirectEdge", true, true, semanticVertexs,
-				claimDirectRelation);
-		directClaimSGSemanticEdge.putSemanticAttribute(
-				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
-						AbstractSemanticEdge.VAR_LEVEL,
-						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
-		directClaimSGSemanticEdge.addPropEditableAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directClaimSGSemanticEdge.addPropVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
+				"ClaimSGDirectEdge", true, hardSemPairwiseRelList);
+		/*
+		 * directClaimSGSemanticEdge.putSemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
+		 * AbstractSemanticEdge.VAR_LEVEL, AbstractSemanticEdge.VAR_LEVELCLASS,
+		 * "plus plus", ""));
+		 * directClaimSGSemanticEdge.addPropEditableAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directClaimSGSemanticEdge.addPropVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directClaimSGSemanticEdge.addPanelVisibleAttribute("08#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 */
 		semClaim.addDirectRelation(directClaimSGSemanticEdge);
 		semanticConcepts.put("ClaimSGDirectEdge", directClaimSGSemanticEdge);
 
@@ -709,39 +663,32 @@ public class SemanticPlusSyntax {
 		semanticVertexs.add(semSoftgoal);
 
 		SemanticPairwiseRelation directSDSGSemanticEdge = new SemanticPairwiseRelation(
-				"SDSGDirectEdge", true, true, semanticVertexs,
-				softdepDirectRelation);
-		directSDSGSemanticEdge.putSemanticAttribute(
-				AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
-						AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
-						AbstractSemanticEdge.VAR_LEVELNAME,
-						AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
-		directSDSGSemanticEdge.addPropEditableAttribute("04#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSDSGSemanticEdge.addPropVisibleAttribute("04#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
-		directSDSGSemanticEdge.addPanelVisibleAttribute("04#"
-				+ AbstractSemanticEdge.VAR_LEVEL);
+				"SDSGDirectEdge", true, hardSemPairwiseRelList);
+		/*
+		 * directSDSGSemanticEdge.putSemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, new SemanticAttribute(
+		 * AbstractSemanticEdge.VAR_LEVEL, "Enumeration", false,
+		 * AbstractSemanticEdge.VAR_LEVELNAME,
+		 * AbstractSemanticEdge.VAR_LEVELCLASS, "plus plus", ""));
+		 * directSDSGSemanticEdge.addPropEditableAttribute("04#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directSDSGSemanticEdge.addPropVisibleAttribute("04#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 * directSDSGSemanticEdge.addPanelVisibleAttribute("04#" +
+		 * AbstractSemanticEdge.VAR_LEVEL);
+		 */
 		semSoftDependency.addDirectRelation(directSDSGSemanticEdge);
 		semanticConcepts.put("SDSGDirectEdge", directSDSGSemanticEdge);
 
 		// Asset to Oper
-		List<OutgoingSemanticEdge> outgoingAssetRelation = new ArrayList<OutgoingSemanticEdge>();
-		outgoingAssetRelation.add(new OutgoingSemanticEdge("outoper",
-				semOperationalization));
 		SemanticOverTwoRelation semanticAssetOperGroupRelation = new SemanticOverTwoRelation(
-				"AssetOperGroupRel", false, implementationGroupRelation,
-				outgoingAssetRelation);
-		groupRelation = new IncomingSemanticEdge("AssetOperGroupRel",
-				semanticAssetOperGroupRelation);
-		semSoftgoal.addGroupRelation(groupRelation);
+				"AssetOperGroupRel", false, null, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);
 
 		SemanticPairwiseRelation directAssetOperSemanticEdge = new SemanticPairwiseRelation(
-				"AssetOperDirectEdge", false, true, semanticVertexs,
-				implementationDirectRelation);
+				"AssetOperDirectEdge", false, hardSemPairwiseRelList);
 		semAsset.addDirectRelation(directAssetOperSemanticEdge);
 		semanticConcepts.put("AssetOperGroupRel",
 				semanticAssetOperGroupRelation);
@@ -791,8 +738,7 @@ public class SemanticPlusSyntax {
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				syntaxFeature, syntaxFeature, directFeatureSemanticEdges,
-				allSGDirectRelation);
+				syntaxFeature, syntaxFeature, directFeatureFeatureSemanticEdge);
 		syntaxFeature
 				.addMetaPairwiseRelAsOrigin(syntaxFeature, metaFeatureEdge);
 		syntaxElements.put("Feature Relation", metaFeatureEdge);
@@ -800,16 +746,13 @@ public class SemanticPlusSyntax {
 
 		// Group Feature Relations
 
-		List<IntSemanticOverTwoRelation> semanticFeatRelations = new ArrayList<IntSemanticOverTwoRelation>();
-		semanticFeatRelations.add(semanticFeatureFeatureGroupRelation);
-
 		MetaOverTwoRelation syntaxFeatureGroupDep = new MetaOverTwoRelation(
 				"FeatGroupDep", true, "FeatGroupDep", "plgroup",
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
 						+ " cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
-				"white", 1, false, semanticFeatRelations);
+				"white", 1, false, semanticFeatureFeatureGroupRelation);
 
 		syntaxMetaView.addConcept(syntaxFeatureGroupDep);
 		syntaxElements.put("FeatGroupDep", syntaxFeatureGroupDep);
@@ -895,8 +838,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		syntaxFeatureGroupDep.addModelingAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		syntaxFeatureGroupDep.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
@@ -1013,12 +956,6 @@ public class SemanticPlusSyntax {
 
 		// Direct Hard Relations
 
-		List<IntSemanticPairwiseRelation> directHardSemanticEdges = new ArrayList<IntSemanticPairwiseRelation>();
-		directHardSemanticEdges.add(directHardHardSemanticEdge);
-		directHardSemanticEdges.add(directGoalGoalSemanticEdge);
-		directHardSemanticEdges.add(directOperGoalSemanticEdge);
-		directHardSemanticEdges.add(directOperOperSemanticEdge);
-
 		MetaPairwiseRelation metaHardEdge = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "ploptional",
 				"Direct relation between two"
@@ -1026,18 +963,12 @@ public class SemanticPlusSyntax {
 						+ " relations and cartinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
-				directHardSemanticEdges, allSGDirectRelation);
+				directHardHardSemanticEdge);
 		syntaxVariabilityArtifact.addMetaPairwiseRelAsOrigin(
 				syntaxVariabilityArtifact, metaHardEdge);
 		syntaxElements.put("HardRelation", metaHardEdge);
 
 		// Group Hard Relations
-
-		List<IntSemanticOverTwoRelation> semanticRelations = new ArrayList<IntSemanticOverTwoRelation>();
-		semanticRelations.add(semanticGoalGoalGroupRelation);
-		semanticRelations.add(semanticOperGoalGroupRelation);
-		semanticRelations.add(semanticOperOperGroupRelation);
-		semanticRelations.add(semanticHardHardGroupRelation);
 
 		MetaOverTwoRelation syntaxGroupDependency = new MetaOverTwoRelation(
 				"HardOverTwoRel", true, "HardOverTwoRel", "plgroup",
@@ -1045,7 +976,7 @@ public class SemanticPlusSyntax {
 						+ " hard concepts. Defines different types of"
 						+ " relations and cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
-				"white", 1, false, semanticRelations);
+				"white", 1, false, semanticHardHardGroupRelation);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
 		syntaxElements.put("HardOverTwoRel", syntaxGroupDependency);
@@ -1130,8 +1061,8 @@ public class SemanticPlusSyntax {
 				new SimulationStateAttribute("SatisfiedLevel", "Integer",
 						false, "Satisficing Level", false));
 		syntaxGroupDependency.addModelingAttribute("SatisfactionConflict",
-				new SimulationStateAttribute("SatisfactionConflict",
-						"Boolean", false, "Satisfaction Conflict", false));
+				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
+						false, "Satisfaction Conflict", false));
 
 		syntaxGroupDependency.addModelingAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
@@ -1245,22 +1176,15 @@ public class SemanticPlusSyntax {
 
 		// Direct Soft relation
 
-		List<IntSemanticPairwiseRelation> directSoftSemanticEdges = new ArrayList<IntSemanticPairwiseRelation>();
-		directSoftSemanticEdges.add(directSGSGSemEdge);
-
 		MetaPairwiseRelation metaSoftEdge = new MetaPairwiseRelation(
 				"Soft Relation", true, "Soft Relation", "ploptional",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cartinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSoftSemanticEdges,
-				allSGDirectRelation);
+				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSGSGSemEdge);
 		syntaxAbsSoftGoal.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
 				metaSoftEdge);
 		syntaxElements.put("Soft Relation", metaSoftEdge);
-
-		semanticRelations = new ArrayList<IntSemanticOverTwoRelation>();
-		semanticRelations.add(semanticSGSGGroupRelation);
 
 		// Group soft relation
 
@@ -1270,7 +1194,7 @@ public class SemanticPlusSyntax {
 						+ " concepts. Defines different types of relations"
 						+ " and cartinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
-				"white", 1, false, semanticRelations);
+				"white", 1, false, semanticSGSGGroupRelation);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
 		syntaxElements.put("SoftgoalGroupDep", syntaxGroupDependency);
@@ -1371,16 +1295,12 @@ public class SemanticPlusSyntax {
 
 		// Direct variable relations
 
-		List<IntSemanticPairwiseRelation> directCVCGSemanticEdges = new ArrayList<IntSemanticPairwiseRelation>();
-		directCVCGSemanticEdges.add(directCVCGSemanticEdge);
-
 		MetaPairwiseRelation metaVariableEdge = new MetaPairwiseRelation(
 				"Variable To Context Relation", true,
 				"Variable To Context Relation", "ploptional",
 				"Associates a Variable" + " with the Context Group", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdges,
-				noneDirectRelation);
+				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdge);
 		syntaxAbsVariable.addMetaPairwiseRelAsOrigin(syntaxContextGroup,
 				metaVariableEdge);
 		syntaxElements.put("Variable To Context Relation", metaVariableEdge);
@@ -1390,8 +1310,7 @@ public class SemanticPlusSyntax {
 				"Context To Context Relation", "ploptional", "Associates a"
 						+ " Context Group with other Context Group", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxContextGroup, syntaxContextGroup,
-				directCVCGSemanticEdges, noneDirectRelation);
+				syntaxContextGroup, syntaxContextGroup, directCVCGSemanticEdge);
 		syntaxContextGroup.addMetaPairwiseRelAsOrigin(syntaxContextGroup,
 				metaContextEdge);
 		syntaxElements.put("Context To Context Relation", metaVariableEdge);
@@ -1436,9 +1355,6 @@ public class SemanticPlusSyntax {
 		syntaxMetaView.addConcept(syntaxSoftDependency);
 		syntaxElements.put("SD", syntaxSoftDependency);
 
-		semanticRelations = new ArrayList<IntSemanticOverTwoRelation>();
-		semanticRelations.add(semanticOperClaimGroupRelation);
-
 		syntaxGroupDependency = new MetaOverTwoRelation(
 				"OperClaimGD",
 				true,
@@ -1448,7 +1364,7 @@ public class SemanticPlusSyntax {
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " expected on the softgoal in case the Claim is satisfied",
 				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
-				false, "white", 1, false, semanticRelations);
+				false, "white", 1, false, semanticOperClaimGroupRelation);
 		syntaxMetaView.addConcept(syntaxGroupDependency);
 		syntaxElements.put("OperClaimGD", syntaxGroupDependency);
 
@@ -1464,8 +1380,7 @@ public class SemanticPlusSyntax {
 						+ " the SD and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxSoftDependency, syntaxAbsSoftGoal,
-				directSDSGSemanticEdges, softdepDirectRelation);
+				syntaxSoftDependency, syntaxAbsSoftGoal, directSDSGSemanticEdge);
 		syntaxSoftDependency.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
 				metaSDSGEdge);
 
@@ -1483,8 +1398,7 @@ public class SemanticPlusSyntax {
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxClaim, syntaxAbsSoftGoal, directClaimSGSemanticEdges,
-				claimDirectRelation);
+				syntaxClaim, syntaxAbsSoftGoal, directClaimSGSemanticEdge);
 		syntaxClaim.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
 				metaClaimSGEdge);
 
@@ -1536,15 +1450,12 @@ public class SemanticPlusSyntax {
 		syntaxMetaChildView.addConcept(sOperationalization);
 		syntaxMetaChildView.addConcept(syntaxAsset);
 
-		semanticRelations = new ArrayList<IntSemanticOverTwoRelation>();
-		semanticRelations.add(semanticAssetOperGroupRelation);
-
 		syntaxGroupDependency = new MetaOverTwoRelation("AssetOperGroupDep",
 				true, "AssetOperGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of an operationalization by a group of assets", 20,
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
-				"white", 1, false, semanticRelations);
+				"white", 1, false, semanticAssetOperGroupRelation);
 
 		syntaxMetaView.addConcept(syntaxGroupDependency);
 		syntaxMetaChildView.addConcept(syntaxAsset);
@@ -1559,8 +1470,7 @@ public class SemanticPlusSyntax {
 						+ "implementation of an operationzalization by an"
 						+ " asset", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAsset, sOperationalization, directAssetOperSemanticEdges,
-				implementationDirectRelation);
+				syntaxAsset, sOperationalization, directAssetOperSemanticEdge);
 
 		// syntaxMetaView.addConcept(metaOperEdge);
 		syntaxAsset.addMetaPairwiseRelAsOrigin(sOperationalization,

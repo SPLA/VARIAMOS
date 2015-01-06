@@ -24,7 +24,7 @@ public class InstView extends InstElement {
 
 	private List<InstVertex> instVertices;
 
-	private MetaConcept metaConcept;
+	private MetaConcept supportMetaConcept;
 
 	public List<InstVertex> getInstVertices() {
 		return instVertices;
@@ -55,7 +55,7 @@ public class InstView extends InstElement {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
-		this.metaConcept = metaConcept;
+		this.supportMetaConcept = metaConcept;
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		setEditableMetaElement(editableMetaElement);
@@ -65,7 +65,7 @@ public class InstView extends InstElement {
 
 	public InstView(MetaConcept metaConcept) {
 		super("");
-		this.metaConcept = metaConcept;
+		this.supportMetaConcept = metaConcept;
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 	}
@@ -79,7 +79,7 @@ public class InstView extends InstElement {
 	@Override
 	public List<InstAttribute> getEditableVariables() {
 		// superclass
-		Set<String> attributesNames = getMetaView()
+		Set<String> attributesNames = getSupportMetaView()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
@@ -91,7 +91,7 @@ public class InstView extends InstElement {
 
 	@Override
 	public List<InstAttribute> getVisibleVariables() {
-		Set<String> attributesNames = this.getMetaView()
+		Set<String> attributesNames = this.getSupportMetaView()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
@@ -168,13 +168,13 @@ public class InstView extends InstElement {
 
 	}
 
-	public MetaConcept getMetaView() {
-		return metaConcept;
+	public MetaConcept getSupportMetaView() {
+		return supportMetaConcept;
 	}
 
 	@Override
 	public MetaElement getSupportMetaElement() {
-		return metaConcept;
+		return supportMetaConcept;
 	}
 
 	public void addInstVertex(InstVertex instVertex) {

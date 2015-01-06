@@ -858,224 +858,260 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void editPropertiesRefas(final EditableElement elm) {
-		try{
+		try {
 
-		updateVisibleProperties(elm);
-		if (recursiveCall)
-			return;
-		elementDesignPanel.editorProperties(this, elm);
-		this.extensionTabs.repaint();
-		// elementDesPropPanel.removeAll();
-		elementConfigPropPanel.removeAll();
-		elementExpressionPanel.removeAll();
-		elementSimPropPanel.removeAll();
+			updateVisibleProperties(elm);
+			if (recursiveCall)
+				return;
+			elementDesignPanel.editorProperties(this, elm);
+			this.extensionTabs.repaint();
+			// elementDesPropPanel.removeAll();
+			elementConfigPropPanel.removeAll();
+			elementExpressionPanel.removeAll();
+			elementSimPropPanel.removeAll();
 
-		if (elm == null) {
-			if (lastTabIndex != 0)
-				lastTabIndex = 0;
-			else {
-				tabIndex = 0;
-				extensionTabs.setSelectedIndex(0);
+			if (elm == null) {
+				if (lastTabIndex != 0)
+					lastTabIndex = 0;
+				else {
+					tabIndex = 0;
+					extensionTabs.setSelectedIndex(0);
 
-			}
-			return;
-		} else {
-			recursiveCall = true;
-			((MainFrame) getFrame()).waitingCursor(true);
-			if (lastEditableElement != elm) {
-				lastEditableElement = elm;
-				// TODO workaround to update after simul
-				updateExpressions = true;
-			}
-			if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
-				extensionTabs.setSelectedIndex(tabIndex);
-				extensionTabs.getSelectedComponent().repaint();
-			}
-			JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
-			JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
-
-			List<InstAttribute> editables = elm.getEditableVariables();
-
-			List<InstAttribute> visible = elm.getVisibleVariables();
-
-			RefasWidgetFactory factory = new RefasWidgetFactory(this);
-
-			int configurationPanelElements = 0, simulationPanelElements = 1;
-
-			if (elm instanceof InstConcept) {
-				editableElementType = "vertex";
-			}
-			if (elm instanceof InstPairwiseRelation) {
-				editableElementType = "edge";
-			}
-			if (elm instanceof InstOverTwoRelation) {
-				editableElementType = "groupdep";
-			}
-			if (editableElementType != null && this.perspective == 2) {
-				expressionsArea.setText(refas2hlcl.getElementTextConstraints(
-						elm.getIdentifier(), editableElementType));
-				// expressions.configure(
-				// getEditedModel(),
-				// refas2hlcl.getElementConstraintGroup(
-				// elm.getIdentifier(), type), (InstElement) elm);
-			}
-			JButton test = new JButton("Execute Simulation");
-			elementSimPropSubPanel.add(test);
-			elementSimPropSubPanel.add(new JPanel());
-			elementSimPropSubPanel.add(new JPanel());
-			test.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					executeSimulation(true);
 				}
-			});
-			// TODO split in two new classes, one for each panel
-			for (InstAttribute v : visible) {
-				Map<String, MetaElement> mapElements = null;
+				return;
+			} else {
+				recursiveCall = true;
+				((MainFrame) getFrame()).waitingCursor(true);
+				if (lastEditableElement != elm) {
+					lastEditableElement = elm;
+					// TODO workaround to update after simul
+					updateExpressions = true;
+				}
+				if (extensionTabs.getTabCount() > tabIndex && tabIndex >= 0) {
+					extensionTabs.setSelectedIndex(tabIndex);
+					extensionTabs.getSelectedComponent().repaint();
+				}
+				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
+				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
+
+				List<InstAttribute> editables = elm.getEditableVariables();
+
+				List<InstAttribute> visible = elm.getVisibleVariables();
+
+				RefasWidgetFactory factory = new RefasWidgetFactory(this);
+
+				int configurationPanelElements = 0, simulationPanelElements = 1;
+
+				if (elm instanceof InstConcept) {
+					editableElementType = "vertex";
+				}
 				if (elm instanceof InstPairwiseRelation) {
-					InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-					mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
-							.getValidPairwiseRelations(
-									instPairwise.getSourceRelations().get(0)
-											.getSupportMetaElement(),
-									instPairwise.getTargetRelations().get(0)
-											.getSupportMetaElement(), true);
-				}
-				v.updateValidationList((InstElement) elm, mapElements);
-
-				final WidgetR w = factory.getWidgetFor(v);
-
-				if (w == null) {
-					recursiveCall = false;
-					System.err.print("No Widget found for " + v);
-					return;
-				}
-				// TODO: Add listeners to w.
-
-				w.getEditor().addFocusListener(new FocusListener() {
-					@Override
-					public void focusLost(FocusEvent arg0) {
-						// Makes it pull the values.
-						EditableElementAttribute v = w.getInstAttribute();
-						if (v.getAttributeType().equals("String"))
-							v.setValue(AbstractElement.multiLine(v.toString(),
-									15));
-						// Divide lines every 15 characters (aprox.)
-						onVariableEdited(elm, v);
+					if (((InstPairwiseRelation) elm).getSourceRelations()
+							.size() == 0) {
+						((MainFrame) getFrame()).waitingCursor(false);
+						// TODO workaround for non supported relations - delete
+						// after fix
+						return;
 					}
 
-					@Override
-					public void focusGained(FocusEvent arg0) {
+					editableElementType = "edge";
+				}
+				if (elm instanceof InstOverTwoRelation) {
+					editableElementType = "groupdep";
+				}
+				if (editableElementType != null && this.perspective == 2) {
+					expressionsArea.setText(refas2hlcl
+							.getElementTextConstraints(elm.getIdentifier(),
+									editableElementType));
+					// expressions.configure(
+					// getEditedModel(),
+					// refas2hlcl.getElementConstraintGroup(
+					// elm.getIdentifier(), type), (InstElement) elm);
+				}
+				JButton test = new JButton("Execute Simulation");
+				elementSimPropSubPanel.add(test);
+				elementSimPropSubPanel.add(new JPanel());
+				elementSimPropSubPanel.add(new JPanel());
+				test.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						executeSimulation(true);
 					}
 				});
+				// TODO split in two new classes, one for each panel
+				for (InstAttribute v : visible) {
+					Map<String, MetaElement> mapElements = null;
+					if (elm instanceof InstPairwiseRelation) {
+						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+						mapElements = ((Refas) getEditedModel())
+								.getSyntaxRefas()
+								.getValidPairwiseRelations(
+										instPairwise.getSourceRelations()
+												.get(0).getSupportMetaElement(),
+										instPairwise.getTargetRelations()
+												.get(0).getSupportMetaElement(),
+										true);
+					}
+					v.updateValidationList((InstElement) elm, mapElements);
 
-				w.getEditor().addPropertyChangeListener(
-						new PropertyChangeListener() {
+					final WidgetR w = factory.getWidgetFor(v);
 
-							@Override
-							public void propertyChange(PropertyChangeEvent evt) {
-								if (WidgetPL.PROPERTY_VALUE.equals(evt
-										.getPropertyName())) {
-									w.getInstAttribute();
-									updateExpressions = true;
-									onVariableEdited(elm, w.getInstAttribute());
+					if (w == null) {
+						recursiveCall = false;
+						System.err.print("No Widget found for " + v);
+						return;
+					}
+					// TODO: Add listeners to w.
+
+					w.getEditor().addFocusListener(new FocusListener() {
+						@Override
+						public void focusLost(FocusEvent arg0) {
+							// Makes it pull the values.
+							EditableElementAttribute v = w.getInstAttribute();
+							if (v.getAttributeType().equals("String"))
+								v.setValue(AbstractElement.multiLine(
+										v.toString(), 15));
+							// Divide lines every 15 characters (aprox.)
+							onVariableEdited(elm, v);
+						}
+
+						@Override
+						public void focusGained(FocusEvent arg0) {
+						}
+					});
+
+					w.getEditor().addPropertyChangeListener(
+							new PropertyChangeListener() {
+
+								@Override
+								public void propertyChange(
+										PropertyChangeEvent evt) {
+									if (WidgetPL.PROPERTY_VALUE.equals(evt
+											.getPropertyName())) {
+										w.getInstAttribute();
+										updateExpressions = true;
+										onVariableEdited(elm,
+												w.getInstAttribute());
+									}
 								}
-							}
-						});
-				if (w instanceof MClassWidget
-						|| w instanceof MEnumerationWidget) {
-					w.getEditor().setPreferredSize(new Dimension(200, 100));
-				} else {
-					w.getEditor().setPreferredSize(new Dimension(200, 20));
-					w.getEditor().setMaximumSize(new Dimension(200, 20));
-				}
-				w.editVariable(v);
-				if (!editables.contains(v))
-					w.getEditor().setEnabled(false);
-				// GARA
-				// variablesPanel.add(new JLabel(v.getName() + ":: "));
-				if (v.getAttribute() instanceof SimulationStateAttribute) {
-					elementSimPropSubPanel.add(new JLabel(v.getDisplayName()
-							+ ": "));
-					elementSimPropSubPanel.add(w);
+							});
+					if (w instanceof MClassWidget
+							|| w instanceof MEnumerationWidget) {
+						w.getEditor().setPreferredSize(new Dimension(200, 100));
+					} else {
+						w.getEditor().setPreferredSize(new Dimension(200, 20));
+						w.getEditor().setMaximumSize(new Dimension(200, 20));
+					}
+					w.editVariable(v);
+					if (!editables.contains(v))
+						w.getEditor().setEnabled(false);
+					// GARA
+					// variablesPanel.add(new JLabel(v.getName() + ":: "));
+					if (v.getAttribute() instanceof SimulationStateAttribute) {
+						elementSimPropSubPanel.add(new JLabel(v
+								.getDisplayName() + ": "));
+						elementSimPropSubPanel.add(w);
 
-					if (v.isAffectProperties()) {
-						JComponent wc = w.getEditor();
-						if (wc instanceof ItemSelectable)
-							((ItemSelectable) wc)
-									.addItemListener(new ItemListener() {
-										@Override
-										public void itemStateChanged(ItemEvent e) {
-											editPropertiesRefas(elm);
-											updateExpressions = true;
-										}
-									});
-						JButton button = new JButton("Validate");
-						button.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								if (!recursiveCall) {
+						if (v.isAffectProperties()) {
+							JComponent wc = w.getEditor();
+							if (wc instanceof ItemSelectable)
+								((ItemSelectable) wc)
+										.addItemListener(new ItemListener() {
+											@Override
+											public void itemStateChanged(
+													ItemEvent e) {
+												editPropertiesRefas(elm);
+												updateExpressions = true;
+											}
+										});
+							JButton button = new JButton("Validate");
+							button.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									if (!recursiveCall) {
+										editPropertiesRefas(elm);
+									}
+								}
+							});
+							elementSimPropSubPanel.add(button);
+						} else
+							elementSimPropSubPanel.add(new JPanel());
+
+						simulationPanelElements++;
+					} else if (v.getAttribute() instanceof SimulationConfigAttribute) {
+						elementConfPropSubPanel.add(new JLabel(v
+								.getDisplayName() + ": "));
+						elementConfPropSubPanel.add(w);
+
+						if (v.isAffectProperties()) {
+							JComponent wc = w.getEditor();
+							if (wc instanceof ItemSelectable)
+								((ItemSelectable) wc)
+										.addItemListener(new ItemListener() {
+											@Override
+											public void itemStateChanged(
+													ItemEvent e) {
+												editPropertiesRefas(elm);
+												updateExpressions = true;
+											}
+										});
+							JButton button = new JButton("Validate");
+							button.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
 									editPropertiesRefas(elm);
 								}
-							}
-						});
-						elementSimPropSubPanel.add(button);
-					} else
-						elementSimPropSubPanel.add(new JPanel());
+							});
+							elementConfPropSubPanel.add(button);
+						} else
+							elementConfPropSubPanel.add(new JPanel());
 
-					simulationPanelElements++;
-				} else if (v.getAttribute() instanceof SimulationConfigAttribute) {
-					elementConfPropSubPanel.add(new JLabel(v.getDisplayName()
-							+ ": "));
-					elementConfPropSubPanel.add(w);
+						configurationPanelElements++;
+					}
 
-					if (v.isAffectProperties()) {
-						JComponent wc = w.getEditor();
-						if (wc instanceof ItemSelectable)
-							((ItemSelectable) wc)
-									.addItemListener(new ItemListener() {
-										@Override
-										public void itemStateChanged(ItemEvent e) {
-											editPropertiesRefas(elm);
-											updateExpressions = true;
-										}
-									});
-						JButton button = new JButton("Validate");
-						button.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								editPropertiesRefas(elm);
-							}
-						});
-						elementConfPropSubPanel.add(button);
-					} else
-						elementConfPropSubPanel.add(new JPanel());
-
-					configurationPanelElements++;
 				}
 
+				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
+						simulationPanelElements / 2, 6, 4, 4, 4, 4);
+
+				SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
+						configurationPanelElements, 3, 4, 4, 4, 4);
+
+				elementConfigPropPanel.add(elementConfPropSubPanel);
+				elementSimPropPanel.add(elementSimPropSubPanel);
+				extensionTabs.getSelectedComponent().repaint();
+				elementDesignPanel.revalidate();
+				elementConfigPropPanel.revalidate();
+				elementExpressionPanel.revalidate();
+				elementSimPropPanel.revalidate();
 			}
+			((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
+			((MainFrame) getFrame()).waitingCursor(false);
 
-			SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
-					simulationPanelElements / 2, 6, 4, 4, 4, 4);
-
-			SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
-					configurationPanelElements, 3, 4, 4, 4, 4);
-
-			elementConfigPropPanel.add(elementConfPropSubPanel);
-			elementSimPropPanel.add(elementSimPropSubPanel);
-			extensionTabs.getSelectedComponent().repaint();
-			elementDesignPanel.revalidate();
-			elementConfigPropPanel.revalidate();
-			elementExpressionPanel.revalidate();
-			elementSimPropPanel.revalidate();
-		}
-		((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
-		((MainFrame) getFrame()).waitingCursor(false);
-		
-		}
-		catch(Exception e)
-			{e.printStackTrace();}
-		finally
-		{
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			recursiveCall = false;
+		}
+	}
+
+	public void refreshElement(EditableElement elm) {
+		List<InstAttribute> visible = elm.getVisibleVariables();
+		RefasWidgetFactory factory = new RefasWidgetFactory(this);
+		for (InstAttribute v : visible) {
+			Map<String, MetaElement> mapElements = null;
+			if (elm instanceof InstPairwiseRelation) {
+				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+				mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
+						.getValidPairwiseRelations(
+								instPairwise.getSourceRelations().get(0)
+										.getSupportMetaElement(),
+								instPairwise.getTargetRelations().get(0)
+										.getSupportMetaElement(), true);
+			}
+			v.updateValidationList((InstElement) elm, mapElements);
+			final WidgetR w = factory.getWidgetFor(v);
+			if (w == null) {
+				return;
+			}
+			w.editVariable(v);
 		}
 	}
 
@@ -1237,8 +1273,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			JOptionPane
 					.showMessageDialog(
 							frame,
-							"Select one element before executing the simulation. "
-									+ "This is a view update temporal problem.",
+							"Select any element and after execute the simulation.",
 							"Simulation Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		else

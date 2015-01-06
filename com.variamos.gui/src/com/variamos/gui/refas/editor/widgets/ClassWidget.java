@@ -28,6 +28,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
 
 /**
@@ -101,12 +102,12 @@ public class ClassWidget extends WidgetR {
 			}
 		} else if (instAttribute.getOverTwoRelValidationList() != null) {
 			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticOverTwoRelation> list = instAttribute
+			List<IntSemanticRelationType> list = instAttribute
 					.getOverTwoRelValidationList();
 
-			for (IntSemanticOverTwoRelation groupDependency : list) {
+			for (IntSemanticRelationType groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
-						(AbstractSemanticVertex) groupDependency);
+						(AbstractSemanticElement) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 				if (instAttribute.getValue() != null
@@ -123,7 +124,7 @@ public class ClassWidget extends WidgetR {
 				txtValue.setSelectedItem(0);
 
 		} else {
-			if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+			if (aClass.isInterface() ||	aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
 				Collection<IntSemanticElement> list = semanticSyntaxObject
 						.getSemanticConcepts().values();
@@ -199,7 +200,7 @@ public class ClassWidget extends WidgetR {
 					Object value = concept2.getValue();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
-						MetaVertex mc = ic.getMetaVertex();
+						MetaVertex mc = ic.getSupportMetaVertex();
 						if (mc.getIdentifier().equals(object))
 							out.add(ic);
 					}
@@ -207,7 +208,7 @@ public class ClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaVertex mc = ic.getMetaVertex();
+					MetaVertex mc = ic.getSupportMetaVertex();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

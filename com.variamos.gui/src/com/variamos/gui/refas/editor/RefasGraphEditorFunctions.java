@@ -54,8 +54,6 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 		} else {
 			for (InstVertex instVertex : ((Refas) editor.getEditedModel())
 					.getSyntaxRefas().getVertices()) {
-				// if (instVertex instanceof InstConcept)
-				// if (instVertex.getSupportMetaElement() != null)
 				metaElements.add(instVertex.getEditableMetaElement());
 			}
 
@@ -67,9 +65,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 					metaElement.getName(), metaElement.getImage(), metaElement
 							.getStyle(), metaElement.getWidth(), metaElement
 							.getHeight(), null, metaElement));
-
 		}
-
 	}
 
 	public void updateEditor(List<String> validElements,
