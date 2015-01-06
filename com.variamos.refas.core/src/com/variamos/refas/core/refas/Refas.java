@@ -815,13 +815,13 @@ public class Refas extends AbstractModel {
 		// new SimulationStateAttribute("Selected", "Boolean", false,
 		// "***Selected***", false));
 		semGeneralElement.putSemanticAttribute("NotPrefSelected",
-				new SimulationStateAttribute("NotPrefSelected", "Boolean",
+				new SimulationConfigAttribute("NotPrefSelected", "Boolean",
 						false, "Not Preferred Selected", false));
 		semGeneralElement.putSemanticAttribute("ValidationSelected",
 				new SimulationStateAttribute("ValidationSelected", "Boolean",
 						false, "Selected by Validation", false));
 		semGeneralElement.putSemanticAttribute("SolverSelected",
-				new SimulationStateAttribute("SolverSelected", "Boolean",
+				new SimulationConfigAttribute("SolverSelected", "Boolean",
 						false, "Selected by Solver", false));
 
 		semGeneralElement.putSemanticAttribute("Optional",
@@ -840,9 +840,9 @@ public class Refas extends AbstractModel {
 				+ "ValidationRequiredLevel");
 
 		// semGeneralElement.addPropVisibleAttribute("09#" + "Selected");
-		semGeneralElement.addPropVisibleAttribute("11#" + "NotPrefSelected");
+//		semGeneralElement.addPropVisibleAttribute("11#" + "NotPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("13#" + "ValidationSelected");
-		semGeneralElement.addPropVisibleAttribute("15#" + "SolverSelected");
+//		semGeneralElement.addPropVisibleAttribute("15#" + "SolverSelected");
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "Satisfied");
 		semGeneralElement.addPropVisibleAttribute("04#"
@@ -855,7 +855,7 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.addPropVisibleAttribute("12#" + "SimAllowed");
 
-		semGeneralElement.addPropVisibleAttribute("14#" + "Optional");
+		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
 
 		// Definition of variability concept and relations
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,

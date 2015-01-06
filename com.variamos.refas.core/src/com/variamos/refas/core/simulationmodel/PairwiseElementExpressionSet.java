@@ -124,14 +124,14 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"NotPrefSelected");
 				AbstractBooleanExpression transformation3 = new AndBooleanExpression(
 						transformation2, transformation1);
-				AbstractComparisonExpression transformation4 = new EqualsComparisonExpression(
+			/*	AbstractComparisonExpression transformation4 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NotPrefSelected", getHlclFactory().number(1));
 
 				getTransformations().add(
 						new ImplicationBooleanExpression(transformation3,
 								transformation4));
-
+*/
 				break;
 			case required:
 				sourceAttributeNames.add("Selected");
