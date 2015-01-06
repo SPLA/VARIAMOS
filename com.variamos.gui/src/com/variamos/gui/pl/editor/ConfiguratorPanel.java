@@ -30,6 +30,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.cfm.common.AbstractModel;
@@ -254,7 +256,20 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 
 		tblSolutions.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] {}, new String[] { "Solution", "Variables" }));
+		
+		tblSolutions.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				processSelectionOnTable();
+			
+			}
+		});
+		
 		jScrollPane6.setViewportView(tblSolutions);
+		tblSolutions.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblSolutions.getColumnModel().getColumn(1).setPreferredWidth(40);
 
 		cmdGetNextSolution.setText("Get next solution");
 		cmdGetNextSolution.addActionListener(new ActionListener() {
@@ -262,7 +277,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				while (refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION))
 					if (processConfiguration(refas2hlcl.getConfiguration()))
 						break;
-				System.out.println("y ya no tiene más soluciones");
+				
 			}
 
 		});
@@ -622,6 +637,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 								.addGap(117, 117, 117)));
 	}
 
+	protected void processSelectionOnTable() {
+		DefaultTableModel model=(DefaultTableModel)tblSolutions.getModel();
+		JOptionPane.showMessageDialog(null, model.getValueAt(tblSolutions.getSelectedRow(), 1),"Solution Number: "+model.getValueAt(tblSolutions.getSelectedRow(), 0),JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
 	private boolean processConfiguration(Configuration configuration) {
 		TreeMap<String, Integer> configSet = configuration.getConfiguration();
 		StringBuilder sb = new StringBuilder();
@@ -631,12 +652,15 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			String attribute = split[1];
 			if ("Selected".equals(attribute)) {
 				if (configSet.get(identifier) == 1) {// variable seleccionada
-					sb.append(vertexId + " "); // create object Solution and
+					sb.append(" "+refas2hlcl.getRefas().getVertex(vertexId) + " "); // create object Solution and
 												// save all the info of the
 												// solution
 				}
 			}
 		}
+		
+		//sb.deleteCharAt(sb.length()-1);
+		
 
 		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();// must
 																				// configure
@@ -651,7 +675,8 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			for (int i = 0; i < model.getRowCount(); i++) {
 				String lastConf = (String) model.getValueAt(
 						i, 1);
-
+				
+				
 				
 				if (lastConf.equals(sb.toString())) {
 					existe=true;
