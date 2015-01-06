@@ -44,39 +44,39 @@ public class InstConcept extends InstVertex {
 
 	public InstConcept(MetaConcept metaConcept) {
 		super("");
-		setMetaVertex(metaConcept);
+		setSupportMetaVertex(metaConcept);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept,
+	public InstConcept(String identifier, MetaConcept supportMetaConcept,
 			MetaElement editableMetaElement) {
 		super(identifier);
-		if (metaConcept != null)
-			setMetaVertex(metaConcept);
+		if (supportMetaConcept != null)
+			setSupportMetaVertex(supportMetaConcept);
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
 		copyValuesToInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept,
-			IntSemanticElement semanticElement) {
+	public InstConcept(String identifier, MetaConcept supportMetaConcept,
+			IntSemanticElement editableSemanticElement) {
 		super(identifier);
-		setMetaVertex(metaConcept);
-		setEditableSemanticElement(semanticElement);
+		setSupportMetaVertex(supportMetaConcept);
+		setEditableSemanticElement(editableSemanticElement);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept,
+	public InstConcept(String identifier, MetaConcept supportMetaConcept,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setMetaVertex(metaConcept);
+		setSupportMetaVertex(supportMetaConcept);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept metaConcept) {
+	public InstConcept(String identifier, MetaConcept supportMetaConcept) {
 		super(identifier);
-		setMetaVertex(metaConcept);
+		setSupportMetaVertex(supportMetaConcept);
 		createInstAttributes();
 	}
 
@@ -84,46 +84,46 @@ public class InstConcept extends InstVertex {
 		return vars.get(name);
 	}
 
-	public void setVariable(String name, MetaConcept value) {
-		vars.put(name, value);
+	public void setVariable(String name, MetaConcept metaConcept) {
+		vars.put(name, metaConcept);
 	}
 
-	public MetaConcept getMetaConcept() {
+	public MetaConcept getSupportMetaConcept() {
 		// return (MetaConcept)getVariable(VAR_METACONCEPT);
 		return supportMetaConcept;
 	}
 
 	protected void createInstAttributes() {
-		if (getMetaConcept() != null) {
-			Iterator<String> modelingAttributes = getMetaConcept()
+		if (getSupportMetaConcept() != null) {
+			Iterator<String> modelingAttributes = getSupportMetaConcept()
 					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getMetaConcept()
-							.getModelingAttribute(name), getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
+							.getModelingAttribute(name), getSupportMetaConcept()
 							.getDescription());
 				else
-					addInstAttribute(name, getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
 							.getModelingAttribute(name), null);
 			}
 
-			Iterator<String> semanticAttributes = getMetaConcept()
+			Iterator<String> semanticAttributes = getSupportMetaConcept()
 					.getSemanticAttributes().iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
 							.getSemanticAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getMetaConcept()
-							.getSemanticAttribute(name), getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
+							.getSemanticAttribute(name), getSupportMetaConcept()
 							.getDescription());
 				else
-					addInstAttribute(name, getMetaConcept()
+					addInstAttribute(name, getSupportMetaConcept()
 							.getSemanticAttribute(name), null);
 			}
 		}
@@ -135,12 +135,12 @@ public class InstConcept extends InstVertex {
 
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getMetaConcept()
+		Set<String> attributesNames = getSupportMetaConcept()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getMetaVertexIdentifier() {
+	public String getSupportMetaVertexIdentifier() {
 		// return metaConcept.getIdentified();
 		return (String) vars.get(VAR_METACONCEPT_IDEN);
 	}
@@ -152,13 +152,13 @@ public class InstConcept extends InstVertex {
 	@Deprecated
 	public String toStringOld() { 
 		String out = "";
-		if (getMetaConcept() != null) {
-			Set<String> visibleAttributesNames = getMetaConcept()
+		if (getSupportMetaConcept() != null) {
+			Set<String> visibleAttributesNames = getSupportMetaConcept()
 					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getMetaConcept()
+			Set<String> spacersAttributes = getSupportMetaConcept()
 					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
@@ -264,7 +264,7 @@ public class InstConcept extends InstVertex {
 		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaConcept.getDescription());
 	}
 
-	public void setMetaVertex(MetaVertex metaConcept) {
+	public void setSupportMetaVertex(MetaVertex metaConcept) {
 		this.supportMetaConcept = (MetaConcept) metaConcept;
 		setVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
@@ -277,14 +277,14 @@ public class InstConcept extends InstVertex {
 		// createInstAttributes();
 	}
 
-	public void clearMetaVertex() {
-		super.clearMetaVertex();
+	public void clearEditableMetaVertex() {
+		super.clearEditableMetaVertex();
 		supportMetaConcept = null;
 
 	}
 
 	@Override
-	public MetaVertex getMetaVertex() {
+	public MetaVertex getSupportMetaVertex() {
 		return supportMetaConcept;
 	}
 

@@ -197,15 +197,15 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
-	public abstract MetaVertex getMetaVertex();
+	public abstract MetaVertex getSupportMetaVertex();
 
-	public void clearMetaVertex() {
+	public void clearEditableMetaVertex() {
 		editableMetaElement = null;
 	};
 
-	public abstract String getMetaVertexIdentifier();
+	public abstract String getSupportMetaVertexIdentifier();
 
-	public abstract void setMetaVertex(MetaVertex mc);
+	public abstract void setSupportMetaVertex(MetaVertex mc);
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		return this.getIdentifier() + "_"
