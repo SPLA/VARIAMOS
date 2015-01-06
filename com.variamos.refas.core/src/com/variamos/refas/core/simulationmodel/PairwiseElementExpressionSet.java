@@ -257,7 +257,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				sourceAttributeNames.add("Selected");
 				// SourceId_Selected #>= targetId_Selected
 				getTransformations().add(
-						new GreaterOrEqualsBooleanExpression(
+						new LessOrEqualsBooleanExpression(
 								instPairwiseRelation.getSourceRelations()
 										.get(0), instPairwiseRelation
 										.getTargetRelations().get(0),

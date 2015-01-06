@@ -233,10 +233,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 					if (instAttribute.getIdentifier().equals("Selected")) {
 						// identifierId_Selected #<=>
-						// ( ( ( identifierId_SolverSelected #/\
+						// ( ( ( ( identifierId_SolverSelected #/\
 						// identifierId_NotPrefSelected )
 						// #\/ identifierId_ValidationSelected ) #\/
-						// identifierId_ForceSelected )
+						// identifierId_ForceSelected ) #/\ identifierId_SimAllowed ) 
 
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								instVertex, instVertex, "SolverSelected",
@@ -247,11 +247,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractBooleanExpression transformation12 = new OrBooleanExpression(
 								instVertex, "ForcedSelected", false,
 								transformation11);
+						AbstractBooleanExpression transformation13 = new AndBooleanExpression(
+								instVertex, "SimAllowed", false,
+								transformation12);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, instAttribute
 												.getIdentifier(), true,
-										transformation12));
+										transformation13));
 					}
 				}
 
