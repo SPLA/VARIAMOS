@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.CellEditor;
+
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
@@ -208,8 +210,8 @@ public class SharedActions {
 					AbstractAttribute absAttribute = metaPairwiseRelation
 							.getModelingAttribute(instAttribute
 									.getAttributeName());
-					//if (absAttribute == null)
-					//	absAttribute = instPairwiseRelation.getSemanticAttribute();
+					if (absAttribute == null)
+						absAttribute = instPairwiseRelation.getSemanticAttribute();
 					instAttribute.setAttribute(absAttribute);
 				//	if (absAttribute != null)// TODO find a better fix
 						if (instAttribute.getAttributeType().equals("Boolean")
@@ -223,7 +225,14 @@ public class SharedActions {
 							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
 						instAttribute.setValue(instPairwiseRelation
 								.getSemanticPairwiseRelationType());
-					}
+				/*	if (instAttribute.getIdentifier().equals(
+							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
+					{
+						String a = source.getValue().toString();
+						instAttribute.setValue(a);
+					}*/
+						
+					}					
 					catch (Exception e)
 					{
 						e.printStackTrace();
