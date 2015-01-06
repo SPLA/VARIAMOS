@@ -1241,6 +1241,21 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	}
 
+	public void cleanSimulation() {
+
+		refas2hlcl.cleanGUIElements();
+		if (lastEditableElement == null)
+			JOptionPane
+					.showMessageDialog(
+							frame,
+							"Select any element and after clean the simulation.",
+							"Simulation Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
+		else
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
+	}
+	
 	public void executeSimulation(boolean first) {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;

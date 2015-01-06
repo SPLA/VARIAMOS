@@ -243,7 +243,7 @@ public class SharedActions {
 			// TODO add edges to groupDependecies and claims to otherInstEdges
 			refas.putConstraintInstEdge(instPairwiseRelation);
 
-		//	editor.refreshElement(instPairwiseRelation);
+			editor.refreshElement(instPairwiseRelation);
 		}
 
 	}
