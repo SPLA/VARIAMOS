@@ -2,6 +2,7 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,7 @@ import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
 import com.variamos.syntaxsupport.metamodelsupport.SimulationControlAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
@@ -101,6 +103,22 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 		return hlclProgram;
 	}
+	
+	public NumericExpression getSumExpression(InstVertex last, Iterator<InstVertex> iterVertex)
+	{
+		if  (iterVertex.hasNext())
+		{
+			InstVertex instVertex = iterVertex.next();
+			if (last.getInstAttribute("Opt") != null && last.getInstAttribute("Active").getAsBoolean() == true)
+				return f.sum(f.newIdentifier(last.getIdentifier()+"_Opt"),getSumExpression(instVertex,iterVertex));
+			else
+				return getSumExpression(instVertex,iterVertex);
+		}
+		else
+			return 
+					f.newIdentifier(last.getIdentifier()+"_Opt");
+
+	}
 
 	public boolean execute(int solutions) {
 		if (solutions == 0 || swiSolver == null) {
@@ -122,9 +140,24 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
-				orderExpressionList.add(f.sum(f.newIdentifier("Feature1_Opt"),
-						f.sum(f.newIdentifier("Feature1_Opt"),
-								f.newIdentifier("Feature2_Opt"))));
+				Iterator<InstVertex> iterVertex = refas.getVariabilityVertexCollection().iterator();
+				InstVertex instVertex = iterVertex.next();
+				orderExpressionList.add(getSumExpression(instVertex, iterVertex));
+				/*orderExpressionList.add(f.sum(f.newIdentifier("Feature1_Opt"),
+								f.sum(f.newIdentifier("Feature2_Opt"),
+										f.sum(f.newIdentifier("Feature3_Opt"),
+												f.sum(f.newIdentifier("Feature4_Opt"),
+														f.sum(f.newIdentifier("Feature5_Opt"),
+																f.sum(f.newIdentifier("Feature7_Opt"),
+																				f.sum(f.newIdentifier("Feature8_Opt"),
+																						f.sum(f.newIdentifier("Feature9_Opt"),
+																								f.sum(f.newIdentifier("Feature10_Opt"),
+																										f.sum(f.newIdentifier("Feature11_Opt"),
+																												f.sum(f.newIdentifier("Feature12_Opt"),
+																														f.sum(f.newIdentifier("Feature13_Opt"),
+																																f.sum(f.newIdentifier("Feature14_Opt"),
+																																		f.newIdentifier("Feature15_Opt")))))))))))))));
+				*/
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
