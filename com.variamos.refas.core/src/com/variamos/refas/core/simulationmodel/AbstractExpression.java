@@ -10,8 +10,11 @@ import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
+import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.types.ExpressionVertexType;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 
 /**
  * Abstract root Class to group at the Transformation functionality. Part of PhD
@@ -149,21 +152,37 @@ public abstract class AbstractExpression {
 		if (leftVertex != null) {
 		//	System.out.println(leftVertex.getIdentifier() + " "
 		//			+ leftAttributeName);
-			out.put(leftVertex
-					.getInstAttributeFullIdentifier(leftAttributeName), f
+			Identifier identifier = f
 					.newIdentifier(leftVertex
 							.getInstAttributeFullIdentifier(leftAttributeName),
-							leftAttributeName));
+							leftAttributeName);
+			out.put(leftVertex
+					.getInstAttributeFullIdentifier(leftAttributeName), identifier);
+			AbstractAttribute attribute = leftVertex.getInstAttribute(leftAttributeName).getAttribute();
+			if(attribute.getType().equals("Integer"))
+			{
+				if (attribute.getDomain() != null)
+					identifier.setDomain(attribute.getDomain());
+			}
 		}
 		if (rightVertex != null) {
 		//	System.out
 		//			.println(rightVertex.getIdentifier() + rightAttributeName);
-			out.put(rightVertex
+			Identifier identifier= f.newIdentifier(
+					rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
-					f.newIdentifier(
-							rightVertex
-									.getInstAttributeFullIdentifier(rightAttributeName),
-							rightAttributeName));
+			rightAttributeName);
+		
+			out.put(rightVertex
+					.getInstAttributeFullIdentifier(rightAttributeName), identifier
+					);
+			AbstractAttribute attribute = rightVertex.getInstAttribute(rightAttributeName).getAttribute();
+			if(attribute.getType().equals("Integer"))
+			{
+				if (attribute.getDomain() != null)
+					identifier.setDomain(attribute.getDomain());
+			}
+				
 		}
 		if (leftSubExpression != null) {
 			out.putAll(leftSubExpression.getIndentifiers(f));

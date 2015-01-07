@@ -268,6 +268,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						new EqualsComparisonExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "Optional",
 								getHlclFactory().number(1)));
+				instPairwiseRelation.getSourceRelations()
+				.get(0).setOptional(true);
 				setOptional(true);
 				break;
 			case claim:

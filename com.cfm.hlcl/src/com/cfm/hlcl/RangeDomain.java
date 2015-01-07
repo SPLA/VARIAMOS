@@ -1,11 +1,16 @@
 package com.cfm.hlcl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RangeDomain implements Domain {
+public class RangeDomain implements Domain, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5038777141268738133L;
 	protected int lowerValue;
 	protected int upperValue;
 

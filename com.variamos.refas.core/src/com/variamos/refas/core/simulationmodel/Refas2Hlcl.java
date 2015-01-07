@@ -62,45 +62,53 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * relations and calls SWIProlog to return a solution or all solutions (only
 	 * ONE_SOLUTION currently supported)
 	 */
+
+	public HlclProgram getHlclProgram()
+	{
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createVertexExpressions(null);
+		createEdgeExpressions(null);
+		// Previous call to createEdgeExpressions is required to fill the
+		// attribute names for createGroupExpressions
+		createGroupExpressions(null);
+
+		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+			transformations.addAll(constraintGroup.getTransformations());
+
+		for (AbstractExpression transformation : transformations) {
+			idMap.putAll(transformation.getIndentifiers(f));
+			if (transformation instanceof AbstractBooleanExpression) {
+				hlclProgram
+						.add(((AbstractBooleanExpression) transformation)
+								.transform(f, idMap));
+				// For negation testing
+				// prog.add(((AbstractBooleanTransformation) transformation)
+				// .transformNegation(f, idMap, true, false));
+			} else if (transformation instanceof AbstractComparisonExpression) {
+				hlclProgram
+						.add(((AbstractComparisonExpression) transformation)
+								.transform(f, idMap));
+				// For negation testing
+				// prog.add(((AbstractComparisonTransformation)
+				// transformation)
+				// .transformNegation(f, idMap));
+			} else {
+				hlclProgram
+						.add(((AbstractComparisonExpression) transformation)
+								.transform(f, idMap));
+			}
+
+		}
+		return hlclProgram;
+	}
+	
 	public boolean execute(int solutions) {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			hlclProgram = new HlclProgram();
-			constraintGroups = new HashMap<String, MetaExpressionSet>();
-			createVertexExpressions(null);
-			createEdgeExpressions(null);
-			// Previous call to createEdgeExpressions is required to fill the
-			// attribute names for createGroupExpressions
-			createGroupExpressions(null);
-
-			List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-			for (MetaExpressionSet constraintGroup : constraintGroups.values())
-				transformations.addAll(constraintGroup.getTransformations());
-
-			for (AbstractExpression transformation : transformations) {
-				idMap.putAll(transformation.getIndentifiers(f));
-				if (transformation instanceof AbstractBooleanExpression) {
-					hlclProgram
-							.add(((AbstractBooleanExpression) transformation)
-									.transform(f, idMap));
-					// For negation testing
-					// prog.add(((AbstractBooleanTransformation) transformation)
-					// .transformNegation(f, idMap, true, false));
-				} else if (transformation instanceof AbstractComparisonExpression) {
-					hlclProgram
-							.add(((AbstractComparisonExpression) transformation)
-									.transform(f, idMap));
-					// For negation testing
-					// prog.add(((AbstractComparisonTransformation)
-					// transformation)
-					// .transformNegation(f, idMap));
-				} else {
-					hlclProgram
-							.add(((AbstractComparisonExpression) transformation)
-									.transform(f, idMap));
-				}
-
-			}
+			
+			hlclProgram = getHlclProgram();
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
 			for (Expression exp : hlclProgram) {

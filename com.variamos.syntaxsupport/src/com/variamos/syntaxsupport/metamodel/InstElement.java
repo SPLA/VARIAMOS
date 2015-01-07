@@ -54,10 +54,16 @@ public abstract class InstElement implements Serializable, EditableElement {
 	 */
 	protected List<InstElement> targetRelations;
 
+	private boolean optional = false;
+
 	public InstElement(String identifier) {
 		sourceRelations = new ArrayList<InstElement>();
 		targetRelations = new ArrayList<InstElement>();
 		vars.put(VAR_IDENTIFIER, identifier);
+	}
+
+	public boolean isOptional() {
+		return optional;
 	}
 
 	public List<InstElement> getTargetRelations() {
@@ -403,5 +409,10 @@ public abstract class InstElement implements Serializable, EditableElement {
 	private void removeSourceRelation(InstElement instElement) {
 		sourceRelations.remove(instElement);
 
+	}
+
+	public void setOptional(boolean optional) { 
+		this.optional  = optional;
+		
 	}
 }

@@ -70,6 +70,7 @@ import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.refas.core.types.PerspectiveType;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
@@ -1394,5 +1395,24 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	//
 	// elementDesPropPanel.revalidate();
 	// }
+
+	public void verifyErrors() {	
+		refas2hlcl.getHlclProgram();
+		Collection<InstPairwiseRelation> pairwiseRelations=((Refas) getEditedModel()).getConstraintInstEdges().values();
+		List<String> identifiers = new ArrayList<String>();
+		for (InstPairwiseRelation pairwiseRelation : pairwiseRelations)
+		{
+			if (pairwiseRelation.isOptional())
+				identifiers.add(pairwiseRelation.getIdentifier()+"_"+AbstractSemanticVertex.VAR_SELECTED_IDEN);
+				
+		}
+		if (lastEditableElement == null)
+			JOptionPane
+					.showMessageDialog(
+							frame,
+							"There are false optional elements on the model.",
+							"Verification Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
+	}
 
 }
