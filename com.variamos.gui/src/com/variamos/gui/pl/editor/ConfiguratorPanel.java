@@ -674,10 +674,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			boolean existe=false;
 			for (int i = 0; i < model.getRowCount(); i++) {
 				String lastConf = (String) model.getValueAt(
-						i, 1);
-				
-				
-				
+						i, 1);				
 				if (lastConf.equals(sb.toString())) {
 					existe=true;
 					break;
