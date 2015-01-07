@@ -14,6 +14,10 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
  */
 public class Diagnosis {
 	private Defect defect;
+	private List<Cause> causes1;
+	private List<Correction> corrections;
+
+	
 	private List<List<Dependency>> correctionSubsets;
 	private List<List<Dependency>> causes;
 	private boolean timeOverCorrections=Boolean.FALSE;

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Domain;
-import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;

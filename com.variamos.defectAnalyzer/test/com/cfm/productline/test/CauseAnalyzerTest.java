@@ -1,49 +1,6 @@
 package com.cfm.productline.test;
 
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //import com.cfm.productline.defectAnalyzer.VariabilityModelCauseAnalyzer;
-
-
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.exceptions.TransformerException;
-import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
-import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
-import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
-import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.defectAnalyzer.model.AnalyzedCorrectionSet;
-import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.Diagnosis;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
-import com.variamos.defectAnalyzer.model.defects.Defect;
-import com.variamos.defectAnalyzer.model.defects.VoidModel;
-import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
 public class CauseAnalyzerTest {
 
@@ -108,7 +65,7 @@ public class CauseAnalyzerTest {
 //			verifierInDTO.setPrologEditorType(prologEditorType);
 //
 //			// CREATE VERIFIER MAIN CLASS
-//			VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+//			DefectsVerifier verifier = new DefectsVerifier(
 //					verifierInDTO);
 //
 //			try {
@@ -231,7 +188,7 @@ public class CauseAnalyzerTest {
 //					// + analizedCorrectionSet.getCorrectionSubsets()
 //					// .toString());
 //					// System.out.println("Defect verification");
-//					// VariabilityModelVerifier
+//					// DefectsVerifier
 //					// .printFoundDefects(analizedCorrectionSet
 //					// .getVerifierOutDTO());
 //					//
@@ -288,7 +245,7 @@ public class CauseAnalyzerTest {
 //			verifierInDTO.setPrologEditorType(solverEditorType);
 //
 //			// CREATE VERIFIER MAIN CLASS
-//			VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+//			DefectsVerifier verifier = new DefectsVerifier(
 //					verifierInDTO);
 //
 //			try {
@@ -387,7 +344,7 @@ public class CauseAnalyzerTest {
 //							+ analizedCorrectionSet.getCorrectionSubsets()
 //									.toString());
 //					System.out.println("Defect verification");
-//					VariabilityModelVerifier
+//					DefectsVerifier
 //							.printFoundDefects(analizedCorrectionSet
 //									.getVerifierOutDTO());
 //
@@ -440,7 +397,7 @@ public class CauseAnalyzerTest {
 //			verifierInDTO.setPrologEditorType(solverEditorType);
 //
 //			// CREATE VERIFIER MAIN CLASS
-//			VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+//			DefectsVerifier verifier = new DefectsVerifier(
 //					verifierInDTO);
 //
 //			List<Defect> deadElements;
@@ -542,7 +499,7 @@ public class CauseAnalyzerTest {
 //					// + analizedCorrectionSet.getCorrectionSubsets()
 //					// .toString());
 //					// System.out.println("Defect verification");
-//					// VariabilityModelVerifier
+//					// DefectsVerifier
 //					// .printFoundDefects(analizedCorrectionSet
 //					// .getVerifierOutDTO());
 //					//

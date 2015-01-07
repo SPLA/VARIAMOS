@@ -856,7 +856,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		analyzerInDTO.setSolverEditorType(prologEditorType);
 
 		// CREATE VERIFIER MAIN CLASS
-		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+		DefectsVerifier verifier = new DefectsVerifier(
 				analyzerInDTO);
 		VMVerifierOutDTO outDTO = verifier.verifierOfDefects(Boolean.TRUE,
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE);

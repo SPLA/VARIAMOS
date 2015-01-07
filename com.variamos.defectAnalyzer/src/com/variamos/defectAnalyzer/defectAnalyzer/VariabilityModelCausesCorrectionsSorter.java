@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
 import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
+import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;

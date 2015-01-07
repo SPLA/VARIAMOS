@@ -8,14 +8,68 @@ import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.IntervalDomain;
+import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.RangeDomain;
+import com.cfm.productline.compiler.solverSymbols.LabelingOrder;
 import com.cfm.productline.compiler.solverSymbols.SWIPrologSymbols;
+import com.variamos.core.exceptions.TechnicalException;
 
 public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 	@Override
 	protected void writeFooter(StringBuilder out) {
-		out.append(END);
+
+		StringBuilder footerExpression = new StringBuilder();
+		StringBuilder insideLabeling = new StringBuilder();
+		StringBuilder orderExpression = new StringBuilder();
+		int idx = 0;
+		if (params.isFdLabeling()) {
+			footerExpression.append(LABELING);
+
+			if (params.isFf()) {
+				insideLabeling.append(FF);
+			}
+			if (params.isOrder()) {
+				if (params.getLabelingOrder() == null
+						|| params.getOrderExpressions() == null
+						|| (params.getLabelingOrder().size() != params
+								.getOrderExpressions().size())) {
+					throw new TechnicalException("order params are missed");
+				}
+
+				for (LabelingOrder labOrder : params.getLabelingOrder()) {
+					if (labOrder.equals(LabelingOrder.MIN)) {
+						insideLabeling.append(MIN);
+
+					} else {
+						insideLabeling.append(MAX);
+					}
+					insideLabeling.append(OPEN_PARENTHESIS);
+					transformNumericExpression(params.getOrderExpressions()
+							.get(idx), orderExpression);
+					insideLabeling.append(orderExpression);
+					insideLabeling.append(CLOSE_PARENHESIS);
+					idx++;
+					
+					if(idx< insideLabeling.length()-1){
+						insideLabeling.append(COMMA);
+					}
+				}
+			}
+
+			footerExpression.append(OPEN_PARENTHESIS);
+			if (insideLabeling.length() > 0) {
+				footerExpression.append(OPEN_BRACKET);
+				footerExpression.append(insideLabeling);
+				footerExpression.append(CLOSE_BRACKET);
+				footerExpression.append(COMMA);
+			}
+			footerExpression.append(INVOCATION);
+			footerExpression.append(CLOSE_PARENHESIS);
+			footerExpression.append(DOT);
+			out.append(footerExpression);
+		}
+		
 	}
 
 	@Override
@@ -99,13 +153,13 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		}
 		variablesList.append("],");
 		domainString.append(LF);
-		dommainAndVariables.append(variablesList.toString().replace(
-				",]", CLOSE_BRACKET));
+		dommainAndVariables.append(variablesList.toString().replace(",]",
+				CLOSE_BRACKET));
 		dommainAndVariables.append(LF);
 		// add domain string
 		dommainAndVariables.append(domainString);
-		
-		//TODO implements composed domain transformation
+
+		// TODO implements composed domain transformation
 
 		return dommainAndVariables;
 	}
@@ -114,7 +168,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	protected void writeHeaderWithDefinedDomains(HlclProgram program,
 			List<String> domainList, StringBuilder out) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

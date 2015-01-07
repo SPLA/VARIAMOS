@@ -1,7 +1,6 @@
 package com.variamos.defectAnalyzer.model;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
 
 public class Dependency implements Cloneable {
 
