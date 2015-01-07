@@ -1430,10 +1430,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				.getFalseOptionalElements(refas2hlcl.getHlclProgram(),
 						identifiers);
 		if (falseOptionalList.size() > 0)
+		{
+			String defects = "(";
+			for (Defect defect: falseOptionalList)
+			{	
+				String[] o = defect.getId().split("_");
+				defects +=  o[0]+ ", ";
+			}
+			defects = defects.substring(0, defects.length()-2)+")";
+				
 			JOptionPane.showMessageDialog(frame,
-					"There are false optional elements on the model.",
+					falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
 					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
 					null);
+		}
 		else
 			JOptionPane.showMessageDialog(frame,
 					"No false optional elements identifed on the model.",
