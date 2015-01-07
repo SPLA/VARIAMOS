@@ -208,19 +208,37 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 								instVertex, instVertex, "ForcedSatisfied",
 								"AlternativeSatisfied");
-						AbstractBooleanExpression transformation7 = new AndBooleanExpression(
-								instVertex, instVertex, "ValidationSatisfied",
-								"SimAllowed");
-						AbstractBooleanExpression transformation8 = new OrBooleanExpression(
-								transformation6, transformation7);
+						AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+								instVertex, "ValidationSatisfied", false, transformation6);						
 						AbstractBooleanExpression transformation9 = new NotBooleanExpression(
 								instVertex, "SatisfactionConflict");
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
-								transformation8, transformation9);
+								transformation7, transformation9);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Satisfied", true,
 										transformation10));
+						
+//						getTransformations()
+//						.add(new EqualsComparisonExpression(instVertex,
+//								instAttribute.getIdentifier(),
+//								getHlclFactory().number(attributeValue)));
+//				AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+//						instVertex, instVertex, "ForcedSatisfied",
+//						"AlternativeSatisfied");
+//				AbstractBooleanExpression transformation7 = new AndBooleanExpression(
+//						instVertex, instVertex, "ValidationSatisfied",
+//						"SimAllowed");
+//				AbstractBooleanExpression transformation8 = new OrBooleanExpression(
+//						transformation6, transformation7);
+//				AbstractBooleanExpression transformation9 = new NotBooleanExpression(
+//						instVertex, "SatisfactionConflict");
+//				AbstractBooleanExpression transformation10 = new AndBooleanExpression(
+//						transformation8, transformation9);
+//				getTransformations().add(
+//						new DoubleImplicationBooleanExpression(
+//								instVertex, "Satisfied", true,
+//								transformation10));
 
 					}
 					// Set ForceSelected from GUI properties
@@ -233,12 +251,23 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 					if (instAttribute.getIdentifier().equals("Selected")) {
 						// identifierId_Selected #<=>
-						// ( ( ( identifierId_SolverSelected #/\
+						// ( ( ( ( identifierId_SolverSelected #/\
 						// identifierId_NotPrefSelected )
 						// #\/ identifierId_ValidationSelected ) #\/
-						// identifierId_ForceSelected )
+						// identifierId_ForceSelected ) #/\ identifierId_SimAllowed ) 
 
-						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
+						AbstractBooleanExpression transformation12 = new OrBooleanExpression(
+								instVertex, instVertex, "ForcedSelected", "ValidationSelected");
+						AbstractBooleanExpression transformation13 = new AndBooleanExpression(
+								instVertex, "SimAllowed", false,
+								transformation12);
+						getTransformations().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, instAttribute
+												.getIdentifier(), true,
+										transformation13));
+						
+			/*			AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								instVertex, instVertex, "SolverSelected",
 								"NotPrefSelected");
 						AbstractBooleanExpression transformation11 = new OrBooleanExpression(
@@ -247,11 +276,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractBooleanExpression transformation12 = new OrBooleanExpression(
 								instVertex, "ForcedSelected", false,
 								transformation11);
+						AbstractBooleanExpression transformation13 = new AndBooleanExpression(
+								instVertex, "SimAllowed", false,
+								transformation12);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, instAttribute
 												.getIdentifier(), true,
-										transformation12));
+										transformation13));
+						*/
 					}
 				}
 

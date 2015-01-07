@@ -17,10 +17,13 @@ import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
 import com.variamos.refas.core.refas.Refas;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationControlAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
 
 /**
@@ -127,6 +130,26 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// System.out.println("configuration: " + configuration.toString());
 
 		return true;
+	}
+
+	/**
+	 * Resets the GUI with false
+	 */
+	public void cleanGUIElements() {
+		// Call the SWIProlog and obtain the result
+
+		int i = 0;
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			for (InstAttribute instAttribute : instVertex.getInstAttributes()
+					.values()) {
+				// System.out.println(vertexId + " " + attribute);
+				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
+						&& instAttribute.getAttributeType().equals("Boolean"))
+
+					if (instAttribute.getAttributeType().equals("Boolean"))
+						instAttribute.setValue(false);
+			}
+		}
 	}
 
 	/**

@@ -37,7 +37,7 @@ public class InstEnumeration extends InstVertex {
 
 	public InstEnumeration(MetaEnumeration metaEnumeration) {
 		super("");
-		setMetaVertex(metaEnumeration);
+		setSupportMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -45,7 +45,7 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super("");
 		setEditableMetaElement(editableMetaElement);
-		setMetaVertex(metaEnumeration);
+		setSupportMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -53,13 +53,13 @@ public class InstEnumeration extends InstVertex {
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setMetaVertex(metaEnumeration);
+		setSupportMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration) {
 		super(identifier);
-		setMetaVertex(metaEnumeration);
+		setSupportMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -67,7 +67,7 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
-		setMetaVertex(metaEnumeration);
+		setSupportMetaVertex(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -115,7 +115,7 @@ public class InstEnumeration extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getMetaVertexIdentifier() {
+	public String getSupportMetaVertexIdentifier() {
 		// return metaConcept.getIdentified();
 		return (String) vars.get(VAR_METAENUM_IDEN);
 	}
@@ -219,7 +219,7 @@ public class InstEnumeration extends InstVertex {
 				metaEnumeration.getDescription());
 	}
 
-	public void setMetaVertex(MetaVertex metaEnumeration) {
+	public void setSupportMetaVertex(MetaVertex metaEnumeration) {
 		this.metaEnumeration = metaEnumeration;
 		setVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
@@ -235,13 +235,13 @@ public class InstEnumeration extends InstVertex {
 		// createInstAttributes();
 	}
 
-	public void clearMetaVertex() {
-		super.clearMetaVertex();
+	public void clearEditableMetaVertex() {
+		super.clearEditableMetaVertex();
 		metaEnumeration = null;
 	}
 
 	@Override
-	public MetaVertex getMetaVertex() {
+	public MetaVertex getSupportMetaVertex() {
 		return metaEnumeration;
 	}
 

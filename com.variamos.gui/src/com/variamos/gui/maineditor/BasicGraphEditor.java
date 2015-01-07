@@ -1137,4 +1137,7 @@ public class BasicGraphEditor extends JPanel {
 		modelsTabPane.setSelectedIndex(0);
 	}
 
+	public void cleanSimulation() {		
+	}
+
 }

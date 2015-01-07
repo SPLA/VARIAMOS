@@ -200,7 +200,7 @@ public class ClassWidget extends WidgetR {
 					Object value = concept2.getValue();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
-						MetaVertex mc = ic.getMetaVertex();
+						MetaVertex mc = ic.getSupportMetaVertex();
 						if (mc.getIdentifier().equals(object))
 							out.add(ic);
 					}
@@ -208,7 +208,7 @@ public class ClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaVertex mc = ic.getMetaVertex();
+					MetaVertex mc = ic.getSupportMetaVertex();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

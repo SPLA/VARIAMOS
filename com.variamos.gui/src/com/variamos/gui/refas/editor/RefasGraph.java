@@ -103,7 +103,7 @@ public class RefasGraph extends AbstractGraph {
 					String id = instVertex.getIdentifier();
 					child.setValue(instVertex);
 					child.setVisible(true);
-					child.setStyle(instVertex.getMetaVertex().getStyle());
+					child.setStyle(instVertex.getSupportMetaVertex().getStyle());
 					child.setGeometry(new mxGeometry(50 + pos * 3,
 							50 + pos * 3, 120, 100));
 					child.setVertex(true);
@@ -121,7 +121,7 @@ public class RefasGraph extends AbstractGraph {
 						String id = instView.getIdentifier();
 						child.setValue(instView);
 						child.setVisible(true);
-						child.setStyle(instView.getMetaView().getStyle());
+						child.setStyle(instView.getSupportMetaView().getStyle());
 						child.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child.setVertex(true);
@@ -138,7 +138,7 @@ public class RefasGraph extends AbstractGraph {
 						String id2 = instChildView.getIdentifier();
 						child2.setValue(instChildView);
 						child2.setVisible(true);
-						child2.setStyle(instChildView.getMetaView().getStyle());
+						child2.setStyle(instChildView.getSupportMetaView().getStyle());
 						child2.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child2.setVertex(true);
@@ -436,11 +436,11 @@ public class RefasGraph extends AbstractGraph {
 						else {
 							if (cellValue instanceof InstConcept) {
 								InstConcept c = (InstConcept) cellValue;
-								name = c.getMetaConcept().getIdentifier();
+								name = c.getSupportMetaConcept().getIdentifier();
 							}
 							if (cellValue instanceof InstOverTwoRelation) {
 								InstOverTwoRelation c = (InstOverTwoRelation) cellValue;
-								name = c.getMetaOverTwoRelation()
+								name = c.getSupportMetaOverTwoRelation()
 										.getIdentifier();
 							}
 						}

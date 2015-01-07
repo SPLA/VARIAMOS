@@ -131,9 +131,9 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		 if (intSemanticOverTwoRelation != null)
-		  modelingAttributesNames.addAll(intSemanticOverTwoRelation
-		 .getPropEditableAttributes());
+		if (intSemanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+					.getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
 		return modelingAttributesNames;
@@ -142,9 +142,9 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		 if (intSemanticOverTwoRelation != null)
-		 modelingAttributesNames.addAll(intSemanticOverTwoRelation
-		 .getPanelVisibleAttributes());
+		if (intSemanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+					.getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -153,19 +153,19 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		 if (intSemanticOverTwoRelation != null)
-		 modelingAttributesNames.addAll(intSemanticOverTwoRelation
-		 .getPanelSpacersAttributes());
+		if (intSemanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+					.getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
 		return modelingAttributesNames;
 	}
-	
+
 	public Set<String> getSemanticAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (intSemanticOverTwoRelation!= null)
-		modelingAttributesNames.addAll(intSemanticOverTwoRelation
-				.getSemanticAttributesNames());
+		if (intSemanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+					.getSemanticAttributesNames());
 		return modelingAttributesNames;
 	}
 

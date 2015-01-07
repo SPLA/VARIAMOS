@@ -124,7 +124,7 @@ public class MClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					MetaVertex mc = ic.getMetaConcept();
+					MetaVertex mc = ic.getSupportMetaConcept();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

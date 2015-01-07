@@ -336,7 +336,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		if (instElement instanceof InstOverTwoRelation
 				|| instElement instanceof InstPairwiseRelation) {
 
-			if (getEnumType() != null
+			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType()
 							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
@@ -345,7 +345,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			}
 		}
 		if (instElement instanceof InstPairwiseRelation) {
-			if (getEnumType() != null
+			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType().equals(
 							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 
