@@ -79,8 +79,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public InstOverTwoRelation(MetaOverTwoRelation metaOverTwoRelation) {
 		super("");
-		vars.put(VAR_METAOVERTWOREL_IDEN,
-				metaOverTwoRelation.getIdentifier());
+		vars.put(VAR_METAOVERTWOREL_IDEN, metaOverTwoRelation.getIdentifier());
 		this.supportMetaOverTwoRelation = metaOverTwoRelation;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaOverTwoRelation.getDescription());
@@ -110,8 +109,7 @@ public class InstOverTwoRelation extends InstVertex {
 			IntSemanticElement semanticElement) {
 		super(identifier);
 		setEditableSemanticElement(semanticElement);
-		vars.put(VAR_METAOVERTWOREL_IDEN,
-				metaGroupDependency.getIdentifier());
+		vars.put(VAR_METAOVERTWOREL_IDEN, metaGroupDependency.getIdentifier());
 		this.supportMetaOverTwoRelation = metaGroupDependency;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
@@ -123,8 +121,7 @@ public class InstOverTwoRelation extends InstVertex {
 	public InstOverTwoRelation(String identifier,
 			MetaOverTwoRelation metaGroupDependency) {
 		super(identifier);
-		vars.put(VAR_METAOVERTWOREL_IDEN,
-				metaGroupDependency.getIdentifier());
+		vars.put(VAR_METAOVERTWOREL_IDEN, metaGroupDependency.getIdentifier());
 		this.supportMetaOverTwoRelation = metaGroupDependency;
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaGroupDependency.getDescription());
@@ -134,32 +131,31 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	protected void createInstAttributes() {
-		if (getMetaOverTwoRelation() != null) {
-			for (String name : getMetaOverTwoRelation()
+		if (getSupportMetaOverTwoRelation() != null) {
+			for (String name : getSupportMetaOverTwoRelation()
 					.getModelingAttributesNames()) {
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getMetaOverTwoRelation()
+					addInstAttribute(name, getSupportMetaOverTwoRelation()
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getMetaOverTwoRelation()
+					addInstAttribute(name, getSupportMetaOverTwoRelation()
 							.getModelingAttribute(name),
-							getMetaOverTwoRelation().getDescription());
+							getSupportMetaOverTwoRelation().getDescription());
 				else
-					addInstAttribute(name, getMetaOverTwoRelation()
+					addInstAttribute(name, getSupportMetaOverTwoRelation()
 							.getModelingAttribute(name), null);
 			}
 
-			Iterator<String> semanticAttributes = getSemanticAttributes()
-					.iterator();
-			if (getSemanticRelation() != null)
-				while (semanticAttributes.hasNext()) {
-					String name = semanticAttributes.next();
-					if (name.equals("identifier"))
-						addInstAttribute(name, getSemanticAttribute(name),
-								getIdentifier());
-					else
-						addInstAttribute(name, getSemanticAttribute(name), null);
-				}
+			Iterator<String> semanticAttributes = this.supportMetaOverTwoRelation
+					.getSemanticAttributes().iterator();
+			while (semanticAttributes.hasNext()) {
+				String name = semanticAttributes.next();
+				if (name.equals("identifier"))
+					addInstAttribute(name, supportMetaOverTwoRelation.getSemanticAttribute(name),
+							getIdentifier());
+				else
+					addInstAttribute(name, supportMetaOverTwoRelation.getSemanticAttribute(name), null);
+			}
 		}
 	}
 
@@ -181,11 +177,11 @@ public class InstOverTwoRelation extends InstVertex {
 		this.sourceAttributeNames.clear();
 	}
 
-	public MetaOverTwoRelation getMetaOverTwoRelation() {
+	public MetaOverTwoRelation getSupportMetaOverTwoRelation() {
 		return supportMetaOverTwoRelation;
 	}
 
-	public String getMetaVertexIdentifier() {
+	public String getSupportMetaVertexIdentifier() {
 		return (String) vars.get(VAR_METAOVERTWOREL_IDEN);
 	}
 
@@ -215,7 +211,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	}
 
-	public void setMetaVertex(MetaVertex metaOverTwoRelation) {
+	public void setSupportMetaVertex(MetaVertex metaOverTwoRelation) {
 		this.supportMetaOverTwoRelation = (MetaOverTwoRelation) metaOverTwoRelation;
 		setVariable(VAR_METAOVERTWOREL_IDEN,
 				metaOverTwoRelation.getIdentifier());
@@ -236,8 +232,7 @@ public class InstOverTwoRelation extends InstVertex {
 				semanticOverTwoRelationIdentifier);
 	}
 
-	public void setMetaOverTwoRelationIden(
-			String metaOverTwoRelationIdentifier) {
+	public void setMetaOverTwoRelationIden(String metaOverTwoRelationIdentifier) {
 		setVariable(VAR_METAOVERTWOREL_IDEN, metaOverTwoRelationIdentifier);
 		// createInstAttributes();
 	}
@@ -263,13 +258,13 @@ public class InstOverTwoRelation extends InstVertex {
 	public Set<String> getDisPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null)
+		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null)
 			modelingAttributesNames
 					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPropVisibleAttributes());
 
-		modelingAttributesNames.addAll(getMetaOverTwoRelation()
+		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
 				.getPropVisibleAttributes());
 		return modelingAttributesNames;
 	}
@@ -285,7 +280,7 @@ public class InstOverTwoRelation extends InstVertex {
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPropEditableAttributes());
 
-		modelingAttributesNames.addAll(getMetaOverTwoRelation()
+		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
 				.getPropEditableAttributes());
 		return modelingAttributesNames;
 	}
@@ -301,7 +296,7 @@ public class InstOverTwoRelation extends InstVertex {
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPanelVisibleAttributes());
 
-		modelingAttributesNames.addAll(getMetaOverTwoRelation()
+		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
 				.getPanelVisibleAttributes());
 		return modelingAttributesNames;
 	}
@@ -317,7 +312,7 @@ public class InstOverTwoRelation extends InstVertex {
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPanelSpacersAttributes());
 
-		modelingAttributesNames.addAll(getMetaOverTwoRelation()
+		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
 				.getPanelSpacersAttributes());
 		return modelingAttributesNames;
 	}
@@ -348,7 +343,7 @@ public class InstOverTwoRelation extends InstVertex {
 		return null;
 	}
 
-	private AbstractAttribute getSemanticAttribute(String name) {
+	private AbstractAttribute getSemanticAttributeOld(String name) {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
@@ -381,8 +376,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	}
 
-	@Override
-	public List<InstAttribute> getVisibleVariables() {
+	public List<InstAttribute> getVisibleVariablesOld() {
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
@@ -409,7 +403,7 @@ public class InstOverTwoRelation extends InstVertex {
 		String out = "";
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();
-		if (getMetaOverTwoRelation() != null) {
+		if (getSupportMetaOverTwoRelation() != null) {
 			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
@@ -482,23 +476,23 @@ public class InstOverTwoRelation extends InstVertex {
 		return out;
 	}
 
-	public void clearMetaVertex() {
-		super.clearMetaVertex();
+	public void clearEditableMetaVertex() {
+		super.clearEditableMetaVertex();
 		supportMetaOverTwoRelation = null;
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, null);
 		// TODO Auto-generated method stub
 	}
 
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
-		AbstractAttribute out = getSemanticAttribute(attributeName);
+		AbstractAttribute out = supportMetaOverTwoRelation.getSemanticAttribute(attributeName);
 		if (out == null)
-			return getMetaOverTwoRelation().getModelingAttribute(attributeName);
+			return getSupportMetaOverTwoRelation().getModelingAttribute(attributeName);
 		else
 			return out;
 	}
 
 	@Override
-	public MetaVertex getMetaVertex() {
+	public MetaVertex getSupportMetaVertex() {
 		return supportMetaOverTwoRelation;
 	}
 

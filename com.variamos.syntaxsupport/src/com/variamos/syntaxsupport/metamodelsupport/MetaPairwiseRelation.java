@@ -37,11 +37,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	/**
 	 * 
 	 */
-	private List<IntSemanticPairwiseRelation> semanticRelations;
-	/**
-	 * 
-	 */
-	private List<IntSemanticPairwiseRelType> semanticTypes;
+	private IntSemanticPairwiseRelation semanticRelation;
 	
 	public static final
 	/**
@@ -86,14 +82,11 @@ public class MetaPairwiseRelation extends MetaElement {
 	public MetaPairwiseRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height, String image,
 			int borderStroke, MetaVertex origin, MetaVertex destination,
-			List<IntSemanticPairwiseRelation> semanticRelations,
-			List<IntSemanticPairwiseRelType> semanticTypes) {
+			IntSemanticPairwiseRelation semanticRelation) {
 		this(identifier, visible, name, style, description, width, height, image,
 				borderStroke, origin, destination, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
-
-		this.semanticRelations = semanticRelations;
-		this.semanticTypes = semanticTypes;
+		this.semanticRelation = semanticRelation;
 		 createModelingAttributes();
 	}
 		
@@ -103,18 +96,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		this(identifier, visible, name, style, description, width,
 				height, image, borderStroke,
 				origin, destination, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
-		createModelingAttributes();
-	}
-
-	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
-			int height, String image, int borderStroke,
-			MetaVertex origin,
-			MetaVertex destination,
-			List<IntSemanticPairwiseRelation> directSemanticEdges) {
-		this(identifier, visible, name, style, description, width,
-				height, image, borderStroke,
-				 origin, destination, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
 		createModelingAttributes();
 	}
@@ -176,10 +157,10 @@ public class MetaPairwiseRelation extends MetaElement {
 	
 	public void createModelingAttributes() {
 		//TODO include attribute based on other object values, cardinalityType from semanticTypes
-		addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new SemanticAttribute(
-				VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
-				VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
-				"OperGoalOverTwoRel", ""));
+//		addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new SemanticAttribute(
+//				VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
+//				VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
+//				"OperGoalOverTwoRel", ""));
 		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
 				VAR_METAPAIRWISERELTYPE, "Enumeration", true,
 				VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
@@ -190,8 +171,8 @@ public class MetaPairwiseRelation extends MetaElement {
 				VAR_METAGENERALCONSTRAINTNAME, ""));
 
 		
-		this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
-		this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
+//		this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
+//		this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 		
 		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
@@ -288,31 +269,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public static String getClassId() {
 		return "E";
 	}
-	
-	public void setSemanticRelation(String identifier,
-			List<IntSemanticPairwiseRelation> semanticRelations) {
-		this.semanticRelations = semanticRelations;
-	}
 
 	public SemanticAttribute getSemanticRelation() {
 		return (SemanticAttribute) getModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN);
 	}
-
-	public List<IntSemanticPairwiseRelType> getSemanticTypes() {
-		return semanticTypes;
-	}
-
-	public void setSemanticTypes(List<IntSemanticPairwiseRelType> semanticTypes) {
-		this.semanticTypes = semanticTypes;
-	}
-
-	public boolean addSemanticType(IntSemanticPairwiseRelType semanticType) {
-		this.semanticTypes.add(semanticType);
-		return true;
-	}
-
-	public List<IntSemanticPairwiseRelation> getSemanticRelations() {
-		return semanticRelations;
-	}
-
 }

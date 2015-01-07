@@ -24,4 +24,5 @@ public interface IntSemanticOverTwoRelation   extends Serializable{
 	public List<String> getPanelVisibleAttributes();
 	public AbstractAttribute getSemanticAttribute(String name);
 	public String getIdentifier();
+	public List<IntSemanticRelationType> getSemanticRelationTypes();
 }

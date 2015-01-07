@@ -25,4 +25,6 @@ public interface IntSemanticElement extends Serializable {
 	
 	public Map<String,AbstractAttribute> getSemanticAttributes();
 
+	IntSemanticElement getParent();
+
 }

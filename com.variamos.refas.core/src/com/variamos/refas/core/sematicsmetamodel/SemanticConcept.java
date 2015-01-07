@@ -2,6 +2,7 @@ package com.variamos.refas.core.sematicsmetamodel;
 
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
 
 /**
  * A class to represent the hard concepts at semantic level. Part of PhD work at
@@ -13,38 +14,41 @@ import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class HardSemanticConcept extends AbstractSemanticVertex {
+public class SemanticConcept extends AbstractSemanticVertex implements
+		IntSemanticConcept {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9024843014882087367L;
 
-	public static final String VAR_SATISFACTIONTYPE = "satisfactionType",
-			VAR_SATISFACTIONTYPENAME = "Satisfaction Type",
+/*	private static final String VAR_SATISFACTIONTYPE = "satisfactionType",
+			VAR_SATISFACTIONTYPENAME = "satisfactionType",
 			VAR_SATISFACTIONTYPECLASS = "com.variamos.refas.core.types.SatisfactionType";
-
-	public HardSemanticConcept() {
+*/
+	public SemanticConcept() {
 		this(null, null);
 	}
 
-	public HardSemanticConcept(String name) {
+	public SemanticConcept(String name) {
 		this(null, name);
 	}
 
-	public HardSemanticConcept(AbstractSemanticVertex parentConcept, String name) {
+	public SemanticConcept(AbstractSemanticVertex parentConcept, String name) {
 		super(parentConcept, name, true);
 		defineSemanticAttributes();
 	}
 
 	private void defineSemanticAttributes() {
-		putSemanticAttribute(VAR_SATISFACTIONTYPE, new SemanticAttribute(
-				VAR_SATISFACTIONTYPE, "Enumeration",false, VAR_SATISFACTIONTYPENAME, VAR_SATISFACTIONTYPECLASS,
-				 "achieve", ""));
+	/*	putSemanticAttribute(VAR_SATISFACTIONTYPE, new SemanticAttribute(
+				VAR_SATISFACTIONTYPE, "Enumeration", false,
+				VAR_SATISFACTIONTYPENAME, VAR_SATISFACTIONTYPECLASS, "achieve",
+				""));
 		this.addPropEditableAttribute("01#" + VAR_SATISFACTIONTYPE);
 		this.addPropVisibleAttribute("01#" + VAR_SATISFACTIONTYPE);
+		*/
 	}
-
+/*
 	public AbstractAttribute getSatisfactionType() {
 		return getSemanticAttribute(VAR_SATISFACTIONTYPE);
 	}
@@ -52,7 +56,7 @@ public class HardSemanticConcept extends AbstractSemanticVertex {
 	public void setSatisfactionType(SemanticAttribute satisfactionType) {
 		setSemanticAttribute(VAR_SATISFACTIONTYPE, satisfactionType);
 	}
-
+*/
 	public String toString() {
 
 		return " HSC: " + super.toString();

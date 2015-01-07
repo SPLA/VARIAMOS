@@ -7,10 +7,11 @@ import com.variamos.refas.core.types.GroupRelationType;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 /**
- * A class to represent group dependencies at semantic level. Part of PhD work
- * at University of Paris 1
+ * A class to represent relations of more than two concepts at semantic level.
+ * Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -25,92 +26,62 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	 */
 	private static final long serialVersionUID = -6309224856276191013L;
 	private boolean exclusive;
-	public static final String VAR_CARDINALITYTYPE = "cardinalityType",
-			VAR_CARDINALITYTYPENAME = "Cardinality Type",
-			VAR_LOWCARDINALITY = "lowCardinality",
-			VAR_LOWCARDINALITYNAME = "Low Cardinality",
-			VAR_HIGHCARDINALITY = "highCardinality",
-			VAR_HIGHCARDINALITYNAME = "High Cardinality",
-			VAR_CARDINALITYTYPECLASS = "com.variamos.refas.core.types.CardinalityType";
+	public static final String VAR_RELATIONTYPE_IDEN = "relationType",
+			VAR_RELATIONTYPE_NAME = "Relation Type",
+			VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
+					.getCanonicalName();
 
 	private ConditionalExpression conditionalExpression;
-	private List<AbstractSemanticVertex> conflicts;
-	private List<GroupRelationType> relationTypes;
-	private List<OutgoingSemanticEdge> outgoingRelations;
+	private List<IntSemanticRelationType> semanticRelationTypes;
 
 	public SemanticOverTwoRelation() {
 	}
 
-	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			List<GroupRelationType> relationTypes) {
-		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				new ArrayList<OutgoingSemanticEdge>());
+	public SemanticOverTwoRelation(String identifier,
+			List<IntSemanticRelationType> list) {
+		super(identifier);
+		this.semanticRelationTypes = list;
+		defineSemanticAttributes();
+	}
+
+	public SemanticOverTwoRelation(AbstractSemanticElement parent,
+			String identifier,
+			List<IntSemanticRelationType> semanticRelationTypes) {
+		super(parent, identifier);
+		this.semanticRelationTypes = semanticRelationTypes;
+		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this(identifier, exclusive, null,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				outgoingRelations);
+			List<IntSemanticRelationType> semanticRelationTypes) {
+		this(identifier, exclusive, semanticRelationTypes, null);
+		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			ConditionalExpression conditionalExpression,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this(identifier, exclusive, conditionalExpression,
-				new ArrayList<AbstractSemanticVertex>(), relationTypes,
-				outgoingRelations);
-
+			ConditionalExpression conditionalExpression) {
+		this(identifier, exclusive, null, conditionalExpression);
+		defineSemanticAttributes();
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
-			ConditionalExpression conditionalExpression,
-			List<AbstractSemanticVertex> conflicts,
-			List<GroupRelationType> relationTypes,
-			List<OutgoingSemanticEdge> outgoingRelations) {
+			List<IntSemanticRelationType> semanticRelationTypes,
+			ConditionalExpression conditionalExpression) {
 		super(identifier, true);
 		this.exclusive = exclusive;
-
-		putSemanticAttribute(VAR_CARDINALITYTYPE, new SemanticAttribute(
-				VAR_CARDINALITYTYPE, "Enumeration", true,
-				VAR_CARDINALITYTYPENAME, VAR_CARDINALITYTYPECLASS, "and", ""));
-		putSemanticAttribute(VAR_LOWCARDINALITY,
-				new SemanticAttribute(VAR_LOWCARDINALITY, "Integer", false,
-						VAR_LOWCARDINALITY, 1, ""));
-		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(
-				VAR_HIGHCARDINALITY, "Integer", false, VAR_HIGHCARDINALITY, 1,
-				""));
-
-		addPropEditableAttribute("06#" + VAR_CARDINALITYTYPE);
-		addPropEditableAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPropEditableAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPropVisibleAttribute("06#" + VAR_CARDINALITYTYPE);
-		addPropVisibleAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPropVisibleAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPanelVisibleAttribute("06#" + VAR_CARDINALITYTYPE + "#"
-				+ VAR_CARDINALITYTYPE + "#!=#" + "range");
-		addPanelVisibleAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPanelVisibleAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPanelSpacersAttribute("#" + VAR_CARDINALITYTYPE + "#");
-		addPanelSpacersAttribute("[#" + VAR_LOWCARDINALITY + "#-");
-		addPanelSpacersAttribute("#" + VAR_HIGHCARDINALITY + "#]");
-
+		this.semanticRelationTypes = semanticRelationTypes;
 		this.conditionalExpression = conditionalExpression;
-		this.conflicts = conflicts;
-		this.relationTypes = relationTypes;
-		this.outgoingRelations = outgoingRelations;
+		defineSemanticAttributes();
+	}
+
+	private void defineSemanticAttributes() {
+		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
+				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
+				VAR_RELATIONTYPE_CLASS, "And", ""));
+		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
 	}
 
 	public boolean isExclusive() {
@@ -130,44 +101,16 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		this.conditionalExpression = conditionalExpression;
 	}
 
-	public List<AbstractSemanticVertex> getConflicts() {
-		return conflicts;
-	}
-
-	public void setConflicts(List<AbstractSemanticVertex> conflicts) {
-		this.conflicts = conflicts;
-	}
-
-	public List<GroupRelationType> getRelationTypes() {
-		return relationTypes;
-	}
-
-	public void setRelationTypes(List<GroupRelationType> relationTypes) {
-		this.relationTypes = relationTypes;
-	}
-
-	public List<OutgoingSemanticEdge> getOutgoingRelations() {
-		return outgoingRelations;
-	}
-
-	public void setOutgoingRelations(
-			List<OutgoingSemanticEdge> outgoingRelations) {
-		this.outgoingRelations = outgoingRelations;
-	}
-
 	public AbstractAttribute getVariable(String name) {
 		return getSemanticAttribute(name);
 	}
 
 	public String toString() {
-		return " Exc:"
-				+ exclusive
-				+ "throughDep: "/* + throughDep.getType() */
-				+ (getVariable(VAR_LOWCARDINALITY) == null ? ""
-						: ("cardin: "
-								+ getVariable(VAR_LOWCARDINALITY).getName()
-								+ " " + getVariable(VAR_HIGHCARDINALITY)
-								.getName())) + " cardType: "
-				+ getVariable(VAR_CARDINALITYTYPE).getName();
+		return " Exc:" + exclusive + "throughDep: "/* + throughDep.getType() */;
+	}
+
+	@Override
+	public List<IntSemanticRelationType> getSemanticRelationTypes() {
+		return semanticRelationTypes;
 	}
 }

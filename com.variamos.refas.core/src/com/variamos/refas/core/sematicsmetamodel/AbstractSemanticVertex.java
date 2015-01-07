@@ -23,7 +23,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
  * @version 1.1
  * @since 2014-11-23
  */
-public class AbstractSemanticVertex extends AbstractSemanticElement implements
+public abstract class AbstractSemanticVertex extends AbstractSemanticElement implements
 		IntSemanticConcept {
 
 	/**
@@ -33,12 +33,27 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 
 	private boolean booleanSatisfaction;
 
-	private List<IncomingSemanticEdge> groupRelations = new ArrayList<IncomingSemanticEdge>();
 	private List<SemanticPairwiseRelation> directRelations = new ArrayList<SemanticPairwiseRelation>();
+	public static final String
+	/**
+	* 
+	*/
+	VAR_SELECTED_IDEN = "Selected";
 
 	public AbstractSemanticVertex() {
 		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
+	}
+	
+	public AbstractSemanticVertex(String identifier) {
+		super(identifier);
+		createModelingAttributes();
+	}
+	
+	
+	public AbstractSemanticVertex(AbstractSemanticElement parentConcept, String identifier) {
+		super(parentConcept, identifier);
+		createModelingAttributes();
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
@@ -47,10 +62,8 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>());
 		if (getParent() != null) {
-			groupRelations.addAll(parentConcept.getgroupRelations());
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
-			groupRelations = new ArrayList<IncomingSemanticEdge>();
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}	}
 
@@ -71,14 +84,21 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 				disPanelSpacersAttributes);
 		this.booleanSatisfaction = satisfactionType;
 		if (getParent() != null) {
-			groupRelations.addAll(parentConcept.getgroupRelations());
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
-			groupRelations = new ArrayList<IncomingSemanticEdge>();
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}
+		 createModelingAttributes();
 	}
 
+	private void createModelingAttributes()
+	{
+		putSemanticAttribute("Selected",
+				new SimulationStateAttribute("Selected", "Boolean", false,
+						"***Selected***", false));
+		addPropVisibleAttribute("09#" + "Selected");
+	}
+	
 	public boolean isBooleanSatisfaction() {
 		return booleanSatisfaction;
 	}
@@ -87,28 +107,12 @@ public class AbstractSemanticVertex extends AbstractSemanticElement implements
 		this.booleanSatisfaction = booleanSatisfaction;
 	}
 
-	public List<IncomingSemanticEdge> getGroupRelations() {
-		return groupRelations;
-	}
-
-	public void setGroupRelations(List<IncomingSemanticEdge> groupRelations) {
-		this.groupRelations = groupRelations;
-	}
-
 	public void setDirectRelations(List<SemanticPairwiseRelation> directRelations) {
 		this.directRelations = directRelations;
 	}
 
-	public List<IncomingSemanticEdge> getgroupRelations() {
-		return groupRelations;
-	}
-
 	public List<SemanticPairwiseRelation> getDirectRelations() {
 		return directRelations;
-	}
-
-	public void addGroupRelation(IncomingSemanticEdge groupRelation) {
-		groupRelations.add(groupRelation);
 	}
 
 	public void addDirectRelation(SemanticPairwiseRelation directRelation) {
