@@ -18,8 +18,8 @@ import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.LiteralBooleanExpression;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
+import com.cfm.productline.prologEditors.PrologTransformParameters;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.core.util.FileUtils;
 
@@ -27,15 +27,13 @@ public class SWIPrologSolver implements Solver {
 
 	private boolean loaded;
 
-	private HlclProgram hlclProgram = null;
+	private HlclProgram hlclProgram;
 	private String programPath = null;
 	private Query qr;
 	boolean sucessfullLoad;
-	private Variable invocationVariable;
 
 	public final static String PROGRAM_INVOCATION = "productline(L)";
 
-	@Deprecated
 	public SWIPrologSolver() {
 
 	}
@@ -43,11 +41,10 @@ public class SWIPrologSolver implements Solver {
 	public SWIPrologSolver(HlclProgram hlclProgram) {
 		super();
 		this.hlclProgram = hlclProgram;
-		this.invocationVariable = new Variable("L");
 	}
 
 	public int getSolutionsCount() {
-		return 0;
+		return 0; // FIXME this method is hard to do in swi prolog
 	}
 
 	@Override
@@ -66,6 +63,7 @@ public class SWIPrologSolver implements Solver {
 	}
 
 	@Override
+	@Deprecated
 	public void setProductLine(AbstractModel pl) {
 		// TODO Auto-generated method stub
 
@@ -92,16 +90,19 @@ public class SWIPrologSolver implements Solver {
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		hlclProgram = addParametersToProgram(hlclProgram, options);
-		programPath = createPrologFile(hlclProgram);
-		loadSWIProgram(programPath);
-		qr = new Query(PROGRAM_INVOCATION);
-		sucessfullLoad = qr.hasSolution();
-		if (!sucessfullLoad) {
-			throw new TechnicalException(
-					"SWI prolog is not correctly initialized ");
-		}
+		if (hlclProgram == null) {
+			throw new TechnicalException("HlclProgram was not initialized");
+		} else {
 
+			//We create a copy of the HLCLprogram in order to don't modify the real hlclprogram 
+			HlclProgram modifiedCopy= new HlclProgram();
+			modifiedCopy.addAll(hlclProgram.subList(0, hlclProgram.size()));
+			PrologTransformParameters params= addParametersToProgram(modifiedCopy,
+					options);
+			programPath = createPrologFile(modifiedCopy, params);
+			loadSWIProgram(programPath);
+			qr = new Query(PROGRAM_INVOCATION);
+		}
 	}
 
 	@Override
@@ -182,8 +183,6 @@ public class SWIPrologSolver implements Solver {
 
 	}
 
-	
-
 	@Override
 	public Object getProductLine() {
 		// TODO Auto-generated method stub
@@ -215,8 +214,10 @@ public class SWIPrologSolver implements Solver {
 		return values;
 	}
 
-	private HlclProgram addParametersToProgram(HlclProgram prog,
+	private PrologTransformParameters addParametersToProgram(HlclProgram prog,
 			ConfigurationOptions options) {
+
+		PrologTransformParameters params = getParamsFor(options);
 
 		if (options != null) {
 			// Add new literal expressions. All identifiers related with this
@@ -229,12 +230,25 @@ public class SWIPrologSolver implements Solver {
 				prog.addAll(options.getAdditionalConstraintExpressions());
 			}
 		}
-		return prog;
+		return params;
 	}
 
-	private String createPrologFile(HlclProgram hlclProgram) {
+	
+	private PrologTransformParameters getParamsFor(ConfigurationOptions options) {
+		PrologTransformParameters params = new PrologTransformParameters();
+
+		params.setFdLabeling(options.getMode() == ConfigurationMode.FULL);
+		params.setFf(options.isFf());
+		params.setOrder(options.isOrder());
+		params.setLabelingOrder(options.getLabelingOrder());
+		params.setOrderExpressions(options.getOrderExpressions());
+
+		return params;
+	}
+	
+	private String createPrologFile(HlclProgram hlclProgram, PrologTransformParameters params) {
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram);
+		String prologProgram = swiPrologTransformer.transform(hlclProgram, params);
 		String path;
 		try {
 			// Create a temporary file
@@ -263,6 +277,10 @@ public class SWIPrologSolver implements Solver {
 			throw new TechnicalException("Solve method was not invoked");
 		}
 
+	}
+
+	public HlclProgram getHlclProgram() {
+		return hlclProgram;
 	}
 
 }

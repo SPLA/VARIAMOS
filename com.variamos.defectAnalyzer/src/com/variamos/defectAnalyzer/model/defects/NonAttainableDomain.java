@@ -1,6 +1,6 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
@@ -19,7 +19,7 @@ public class NonAttainableDomain extends Defect {
 	
 	public NonAttainableDomain(VariabilityElementDefAna variabilityElementDefAna,
 			Integer notAttainableDomain,
-			Expression verificationExpression) {
+			BooleanExpression verificationExpression) {
 		this(variabilityElementDefAna,notAttainableDomain);
 		this.verificationExpression=verificationExpression;
 	}
