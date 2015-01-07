@@ -54,4 +54,9 @@ public interface IntDefectsVerifier {
 	public List<Defect> getRedundancies(HlclProgram model,
 			Map<BooleanExpression, BooleanExpression> constraitsToVerify);
 
+	public List<Defect> getDefects(HlclProgram model,
+			Set<Identifier> optionalElements,
+			Set<Identifier> deadElementsToVerify,
+			Map<BooleanExpression, BooleanExpression> constraitsToVerifyRedundancies);
+
 }

@@ -37,11 +37,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					throw new TechnicalException("order params are missed");
 				}
 
-				// Add a comma after the FF instruction.
-				if (params.isFf()) {
-					insideLabeling.append(COMMA);
-				}
-
 				for (LabelingOrder labOrder : params.getLabelingOrder()) {
 					if (labOrder.equals(LabelingOrder.MIN)) {
 						insideLabeling.append(MIN);
@@ -55,8 +50,8 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					insideLabeling.append(orderExpression);
 					insideLabeling.append(CLOSE_PARENHESIS);
 					idx++;
-
-					if (idx < (params.getOrderExpressions().size() - 1)) {
+					
+					if(idx< insideLabeling.length()-1){
 						insideLabeling.append(COMMA);
 					}
 				}
@@ -74,7 +69,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			footerExpression.append(DOT);
 			out.append(footerExpression);
 		}
-
+		
 	}
 
 	@Override

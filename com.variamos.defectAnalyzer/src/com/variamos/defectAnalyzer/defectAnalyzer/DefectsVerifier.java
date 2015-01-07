@@ -889,4 +889,14 @@ public class DefectsVerifier extends VariabilityModelAnalyzer implements
 		return redundanciesList;
 
 	}
+
+	@Override
+	public List<Defect> getDefects(
+			HlclProgram model,
+			Set<Identifier> optionalElements,
+			Set<Identifier> deadElementsToVerify,
+			Map<BooleanExpression, BooleanExpression> constraitsToVerifyRedundancies) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
