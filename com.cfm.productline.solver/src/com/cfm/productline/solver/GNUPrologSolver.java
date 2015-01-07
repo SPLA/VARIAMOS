@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet; 
+import java.util.TreeSet;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.HlclProgram;
+import com.cfm.hlcl.HlclUtil;
+import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.jgprolog.core.CompoundTerm;
 import com.cfm.jgprolog.core.IntegerTerm;
@@ -26,7 +28,6 @@ import com.cfm.jgprolog.core.Term;
 import com.cfm.jgprolog.core.VariableSet;
 import com.cfm.jgprolog.core.VariableTerm;
 import com.cfm.productline.Asset;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.productLine.Pl2Hlcl;
 import com.cfm.productline.prologEditors.Hlcl2GnuPrologExact;
@@ -41,6 +42,7 @@ public class GNUPrologSolver implements Solver {
 	private PrologTermFactory ptf;
 	private AbstractModel pl;
 	private QueryResult qr;
+	private HlclProgram hlclProgram;
 
 	public GNUPrologSolver(PrologContext ctx) {
 		prolog = ctx.getEngine();
@@ -178,11 +180,16 @@ public class GNUPrologSolver implements Solver {
 	private void doQuery(Configuration config, ConfigurationOptions options)
 			throws PrologException {
 		prolog.startProlog();
-
-		// Generate the product line program.
+		HlclProgram prog;
 		Hlcl2GnuPrologExact hlcl2gnuProlog = new Hlcl2GnuPrologExact();
+		// Generate the product line program.
+		if (pl == null) {
+			prog = hlclProgram;
+		} else {
 
-		HlclProgram prog = Pl2Hlcl.transformExact(pl);
+			prog = Pl2Hlcl.transformExact(pl);
+		}
+
 		PrologTransformParameters params = addParametersToProgram(prog, options);
 
 		String str = hlcl2gnuProlog.transform(prog, params);
@@ -194,24 +201,37 @@ public class GNUPrologSolver implements Solver {
 		} catch (PrologException e) {
 			e.printStackTrace();
 		}
-
 		// Generate the configurationQuery.
 		// Generate the variables.
 		Set<String> ids = new TreeSet<>();
 		Map<String, VariableTerm> vars = new TreeMap<>();
-		for (VariabilityElement elm : pl.getVariabilityElements()) {
-			// ids.add(elm.getIdentifier());
-			// vars.put(elm.getIdentifier(),
-			// ptf.newVariable(elm.getIdentifier()));
-			ids.add(elm.getName());
-			vars.put(elm.getName(), ptf.newVariable(elm.getName()));
-		}
+		if (pl != null) {
 
-		for (Asset a : pl.getAssets().values()) {
-			ids.add(a.getIdentifier());
-			vars.put(a.getIdentifier(), ptf.newVariable(a.getIdentifier()));
-		}
+			for (VariabilityElement elm : pl.getVariabilityElements()) {
+				// ids.add(elm.getIdentifier());
+				// vars.put(elm.getIdentifier(),
+				// ptf.newVariable(elm.getIdentifier()));
+				ids.add(elm.getName());
+				vars.put(elm.getName(), ptf.newVariable(elm.getName()));
+			}
 
+			for (Asset a : pl.getAssets().values()) {
+				ids.add(a.getIdentifier());
+				vars.put(a.getIdentifier(), ptf.newVariable(a.getIdentifier()));
+			}
+		} else {
+			Set<Identifier> identifiers = HlclUtil
+					.getUsedIdentifiers(hlclProgram);
+
+			for (Identifier id : identifiers) {
+				// ids.add(elm.getIdentifier());
+				// vars.put(elm.getIdentifier(),
+				// ptf.newVariable(elm.getIdentifier()));
+				ids.add(id.getId());
+				vars.put(id.getId(), ptf.newVariable(id.getId()));
+			}
+
+		}
 		VariableTerm[] varTermsArray = new VariableTerm[vars.size()];
 		int count = 0;
 		for (String id : vars.keySet()) {
@@ -236,7 +256,7 @@ public class GNUPrologSolver implements Solver {
 		CompoundTerm query = addSubQueries(parts, ptf);
 		System.out.println(query.toString());
 		qr = prolog.runQuery(query);
-		
+
 	}
 
 	public void endSolving() {
@@ -348,7 +368,7 @@ public class GNUPrologSolver implements Solver {
 		File file = new File(programPath);
 		String absolutePath = file.getAbsolutePath();
 		boolean isSatisfiable = Boolean.FALSE;
-		
+
 		if (prolog != null) {
 			try {
 				prolog.startProlog();
@@ -357,7 +377,7 @@ public class GNUPrologSolver implements Solver {
 				endSolving();
 				throw new TechnicalException(e1);
 			}
-			
+
 			// Create a Variable L
 			VariableTerm L = ptf.newVariable("L");
 
@@ -388,15 +408,13 @@ public class GNUPrologSolver implements Solver {
 
 	@Override
 	public void setHLCLProgram(HlclProgram hlclProgram) {
-		// TODO Auto-generated method stub
-		
+		this.hlclProgram = hlclProgram;
+
 	}
 
 	@Override
 	public boolean hasSolution() {
-		return false; //FIXME
+		return false; // FIXME
 	}
-
-
 
 }

@@ -3,14 +3,14 @@ package com.variamos.defectAnalyzer.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
-import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
+import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 
 public class DefectAnalyzerControllerOutDTO {
 
 	private VariabilityModel variabilityModel;
-	private List<Diagnostic> allDiagnostics; 
+	private List<Diagnosis> allDiagnostics; 
 	private Long time;
 	private ClassifiedDiagnosis classifiedCauses;
 	private ClassifiedDiagnosis classifiedCorrections;
@@ -33,7 +33,7 @@ public class DefectAnalyzerControllerOutDTO {
 	/**
 	 * @return the allDiagnostics
 	 */
-	public List<Diagnostic> getAllDiagnostics() {
+	public List<Diagnosis> getAllDiagnostics() {
 		return allDiagnostics;
 	}
 
@@ -41,20 +41,20 @@ public class DefectAnalyzerControllerOutDTO {
 	 * @param allDiagnostics
 	 *            the allDiagnostics to set
 	 */
-	public void setAllDiagnostics(List<Diagnostic> allDiagnostics) {
+	public void setAllDiagnostics(List<Diagnosis> allDiagnostics) {
 		this.allDiagnostics = allDiagnostics;
 	}
 
 	public DefectAnalyzerControllerOutDTO() {
 		super();
 		classifiedCauses = new ClassifiedDiagnosis();
-		allDiagnostics= new ArrayList<Diagnostic>();
+		allDiagnostics= new ArrayList<Diagnosis>();
 		classifiedCorrections = new ClassifiedDiagnosis();
 		// TODO Auto-generated constructor stub
 	}
 
 	public DefectAnalyzerControllerOutDTO(VariabilityModel variabilityModel,
-			List<Diagnostic> allDiagnostics) {
+			List<Diagnosis> allDiagnostics) {
 		super();
 		this.variabilityModel = variabilityModel;
 		this.allDiagnostics = allDiagnostics;

@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.jgprolog.core.PrologException;
 import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
 import com.variamos.defectAnalyzer.model.AnalyzedCorrectionSet;
 import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.defects.Redundancy;
@@ -61,7 +61,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			List<Dependency> fixedDependenciesList, Defect defectToAnalyze)
 			throws FunctionalException {
 
-		Collection<Expression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(dependenciesSet,
 						fixedDependenciesList);
 
@@ -113,7 +113,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 	 * @throws FunctionalException
 	 * @throws PrologException
 	 */
-	private Diagnostic identifyMCSandMUSes(
+	private Diagnosis identifyMCSandMUSes(
 			DefectAnalyzerMode correctionSetIdentifcationType,
 			Map<Long, Dependency> modelDependenciesListToTest,
 			Map<Long, Dependency> fixedDependenciesList,
@@ -192,7 +192,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			}
 
 			// Se crea un diagnóstico
-			Diagnostic diagnostic = createDiagnostic(allMCSes, defectToAnalyze);
+			Diagnosis diagnostic = createDiagnostic(allMCSes, defectToAnalyze);
 			if (r > 2) {
 				diagnostic.setCorrecMayoresUno(true);
 			}
@@ -606,7 +606,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 
 	}
 
-	public Diagnostic analyzeCausesCorrectionsRedundancies(
+	public Diagnosis analyzeCausesCorrectionsRedundancies(
 			Defect defectToAnalyze,
 			Map<Long, Dependency> modelDependenciesList,
 			Map<Long, Dependency> fixedDependenciesList,
@@ -628,7 +628,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 				fixedDependenciesList, defectAnalyzerMode);
 	}
 
-	public Diagnostic analyzeCausesOneDefect(Defect defectToAnalyze,
+	public Diagnosis analyzeCausesOneDefect(Defect defectToAnalyze,
 			Map<Long, Dependency> modelDependenciesList,
 			Map<Long, Dependency> fixedDependenciesList,
 			DefectAnalyzerMode defectAnalyzerMode)
@@ -640,7 +640,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 
 		// Se identifican los MCSes y los MUSes
 		if (defectAnalyzerMode != null) {
-			Diagnostic diagnostic = identifyMCSandMUSes(
+			Diagnosis diagnostic = identifyMCSandMUSes(
 					defectAnalyzerMode, modelDependenciesList,
 					fixedDependenciesList, prologTempPath, defectToAnalyze);
 			long endTime = System.currentTimeMillis();
@@ -684,7 +684,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		}
 		allDefects.addAll(vmCauseAnalizerInDTO.getFalseOptionalFeaturesList());
 
-		List<Diagnostic> allDiagnostics = new ArrayList<Diagnostic>();
+		List<Diagnosis> allDiagnostics = new ArrayList<Diagnosis>();
 		// if (allDefects.size() == 1) {
 		// // Se comienzan a analizar las causas para cada defecto
 		if (vmCauseAnalizerInDTO.getVoidModel() != null
@@ -694,7 +694,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 
 			VoidModel voidModelDefect = new VoidModel(vmAnalyzerInDTO
 					.getVariabilityModel().getName());
-			Diagnostic diagnosticVoid = invokeCausesIdentiferOneDefect(
+			Diagnosis diagnosticVoid = invokeCausesIdentiferOneDefect(
 					voidModelDefect,
 					vmCauseAnalizerInDTO.getDefectAnalyzerMode());
 			allDiagnostics.add(diagnosticVoid);
@@ -715,7 +715,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 				// identificar
 				// los conjuntos de correción se crea el diagnóstico en el
 				// mapa
-				Diagnostic diagnosticDeadFeatures = invokeCausesIdentiferOneDefect(
+				Diagnosis diagnosticDeadFeatures = invokeCausesIdentiferOneDefect(
 						deadFeature,
 						vmCauseAnalizerInDTO
 								.getDefectAnalyzerMode());
@@ -737,7 +737,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// sus causas
 			for (Defect falseOptionalFeature : vmCauseAnalizerInDTO
 					.getFalseOptionalFeaturesList()) {
-				Diagnostic diagnosticFalseOptional = invokeCausesIdentiferOneDefect(
+				Diagnosis diagnosticFalseOptional = invokeCausesIdentiferOneDefect(
 						falseOptionalFeature,
 						vmCauseAnalizerInDTO
 								.getDefectAnalyzerMode());
@@ -755,7 +755,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// Se recorren las redundancias del modelo y se analizan
 			// sus causas
 			for (Defect redundancy : vmCauseAnalizerInDTO.getRedundancies()) {
-				Diagnostic diagnosticRedundancy = analyzeCausesCorrectionsRedundancies(
+				Diagnosis diagnosticRedundancy = analyzeCausesCorrectionsRedundancies(
 						redundancy, vmAnalyzerInDTO.getVariabilityModel()
 								.getDependencies(), vmAnalyzerInDTO
 								.getVariabilityModel().getFixedDependencies(),
@@ -775,7 +775,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// son
 			// iguales a las de cualquier característica muerta o falsa
 			// característica opcional
-			Diagnostic diagnostic = new Diagnostic();
+			Diagnosis diagnostic = new Diagnosis();
 			diagnostic.setDefect(vmCauseAnalizerInDTO.getFalseProductLine());
 			allDiagnostics.add(diagnostic);
 		}
@@ -792,13 +792,13 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 	 * @return Diagnostic object with the defect, and the correctionsubsets
 	 * @throws FunctionalException
 	 */
-	private Diagnostic createDiagnostic(
+	private Diagnosis createDiagnostic(
 			List<List<Dependency>> allCorrectionSubsets, Defect defectToAnalyze)
 			throws FunctionalException {
 
 		if (!allCorrectionSubsets.isEmpty()) {
 			// Se crea un diagnóstico y se adiciona a la lista
-			Diagnostic diagnostic = new Diagnostic();
+			Diagnosis diagnostic = new Diagnosis();
 			diagnostic.setDefect(defectToAnalyze);
 			diagnostic.setCorrectionSubsets(allCorrectionSubsets);
 			return diagnostic;
@@ -810,7 +810,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 			// + defectToAnalyze.getDefectType().name() + " "
 			// + defectToAnalyze.getId());
 		}
-		return new Diagnostic();
+		return new Diagnosis();
 	}
 
 	public AnalyzedCorrectionSet analyzeCorrectionSets(
@@ -856,7 +856,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		analyzerInDTO.setSolverEditorType(prologEditorType);
 
 		// CREATE VERIFIER MAIN CLASS
-		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+		DefectsVerifier verifier = new DefectsVerifier(
 				analyzerInDTO);
 		VMVerifierOutDTO outDTO = verifier.verifierOfDefects(Boolean.TRUE,
 				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE);
@@ -870,7 +870,7 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 		return analyzedCorrectionSet;
 	}
 
-	public void printResults(Diagnostic diagnostic) {
+	public void printResults(Diagnosis diagnostic) {
 		// 3. PRINT RESULTS
 		System.out.println("_________________ RESULTADOS____________________");
 		System.out.println("_________________ MCS____________________");
@@ -881,12 +881,12 @@ public class VariabilityModelCausesAndCorrectionsAnalyzer extends
 
 	}
 
-	private Diagnostic invokeCausesIdentiferOneDefect(Defect defect,
+	private Diagnosis invokeCausesIdentiferOneDefect(Defect defect,
 			DefectAnalyzerMode defectAnalyzerMode)
 			throws FunctionalException {
 		long startCorrectionSetTestTime = System.currentTimeMillis();
 
-		Diagnostic diagnostic = null;
+		Diagnosis diagnostic = null;
 		if (defect instanceof Redundancy) {
 			diagnostic = analyzeCausesCorrectionsRedundancies(defect,
 					vmAnalyzerInDTO.getVariabilityModel().getDependencies(),

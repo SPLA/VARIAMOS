@@ -1,6 +1,6 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class Defect {
@@ -9,7 +9,7 @@ public class Defect {
 	protected DefectType defectType;
 	// Guarda la lista de restricciones que se usan para identificar el defecto
 	// con las operaciones de verificación
-	protected Expression verificationExpression;
+	protected BooleanExpression verificationExpression;
 
 	
 	
@@ -100,14 +100,14 @@ public class Defect {
 	/**
 	 * @return the verificationExpression
 	 */
-	public Expression getVerificationExpression() {
+	public BooleanExpression getVerificationExpression() {
 		return verificationExpression;
 	}
 
 	/**
 	 * @param verificationExpression the verificationExpression to set
 	 */
-	public void setVerificationExpression(Expression verificationExpression) {
+	public void setVerificationExpression(BooleanExpression verificationExpression) {
 		this.verificationExpression = verificationExpression;
 	}
 

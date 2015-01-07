@@ -259,4 +259,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			out += expression.toString() + "\n";
 		return out;
 	}
+
+	public Refas getRefas() {
+		return refas;
+	}
+
+	public void setRefas(Refas refas) {
+		this.refas = refas;
+	}
+
 }
