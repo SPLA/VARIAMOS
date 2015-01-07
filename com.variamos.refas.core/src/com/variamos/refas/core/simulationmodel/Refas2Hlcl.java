@@ -259,4 +259,5 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void setRefas(Refas refas) {
 		this.refas = refas;
 	}
+
 }

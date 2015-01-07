@@ -268,6 +268,8 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		});
 		
 		jScrollPane6.setViewportView(tblSolutions);
+		tblSolutions.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblSolutions.getColumnModel().getColumn(1).setPreferredWidth(40);
 
 		cmdGetNextSolution.setText("Get next solution");
 		cmdGetNextSolution.addActionListener(new ActionListener() {
@@ -656,6 +658,9 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				}
 			}
 		}
+		
+		//sb.deleteCharAt(sb.length()-1);
+		
 
 		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();// must
 																				// configure
@@ -670,7 +675,8 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			for (int i = 0; i < model.getRowCount(); i++) {
 				String lastConf = (String) model.getValueAt(
 						i, 1);
-
+				
+				
 				
 				if (lastConf.equals(sb.toString())) {
 					existe=true;
