@@ -1434,6 +1434,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					"There are false optional elements on the model.",
 					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
 					null);
+		else
+			JOptionPane.showMessageDialog(frame,
+					"No false optional elements identifed on the model.",
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
 	}
 
 }
