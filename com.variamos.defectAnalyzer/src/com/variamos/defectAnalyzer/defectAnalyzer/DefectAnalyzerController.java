@@ -2,7 +2,7 @@ package com.variamos.defectAnalyzer.defectAnalyzer;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays; 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -16,8 +16,8 @@ import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
-import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
 import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
+import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
@@ -486,7 +486,7 @@ public class DefectAnalyzerController {
 				.getSolverEditorType());
 
 		// Create class
-		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+		DefectsVerifier verifier = new DefectsVerifier(
 				verifierInDTO);
 
 		outDTO = verifier.verifierOfDefects(

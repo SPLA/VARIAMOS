@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cfm.hlcl.BooleanExpression;
+import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
@@ -49,6 +50,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 	private Map<Long, Dependency> variabilityDependenciesMap;
 	private Map<Long, Dependency> permanentDependenciesMap;
 	private Map<Long, Dependency> inclusionExclusionDependenciesMap;
+	private HlclProgram model;
 
 	private FeatureModelTransformerRules transformerRules;
 
@@ -61,6 +63,7 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 		variabilityDependenciesMap = new HashMap<Long, Dependency>();
 		permanentDependenciesMap = new HashMap<Long, Dependency>();
 		inclusionExclusionDependenciesMap = new HashMap<Long, Dependency>();
+		model= new HlclProgram();
 
 	}
 

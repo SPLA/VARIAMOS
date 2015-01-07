@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
 import com.cfm.productline.Constraint;

@@ -11,23 +11,44 @@ public class VerifierUtilExpression {
 
 	private static final HlclFactory f = new HlclFactory();
 
+	@Deprecated
 	public static BooleanExpression verifyAssignValueToVariabilityElementExpression(
 			VariabilityElementDefAna variabilityElementDefAna, int valueToVerify) {
 
 		// VariabilityElement = valueToVerify
-		Identifier element = f.newIdentifier(variabilityElementDefAna.getName());
+		Identifier element = f
+				.newIdentifier(variabilityElementDefAna.getName());
+		NumericIdentifier nonValue = f.number(valueToVerify);
+		BooleanExpression numericExpression = f.equals(element, nonValue);
+		return numericExpression;
+	}
+
+	public static BooleanExpression verifyAssignValueToVariabilityElementExpression(
+			Identifier element, int valueToVerify) {
 		NumericIdentifier nonValue = f.number(valueToVerify);
 		BooleanExpression numericExpression = f.equals(element, nonValue);
 		return numericExpression;
 	}
 	
-	
+	public static BooleanExpression verifyFalseOptionalExpression(
+			Identifier element) {
+
+		// VariabilityElement = 0
+		NumericIdentifier nonValue = f
+				.number(TransformerConstants.NON_SELECTED_VALUE);
+		BooleanExpression numericExpression = f.equals(element, nonValue);
+		return numericExpression;
+	}
+
+
 	public static BooleanExpression verifyFalseOptionalExpression(
 			VariabilityElementDefAna variabilityElementDefAna) {
 
 		// VariabilityElement = 0
-		Identifier element = f.newIdentifier(variabilityElementDefAna.getName());
-		NumericIdentifier nonValue = f.number(TransformerConstants.NON_SELECTED_VALUE);
+		Identifier element = f
+				.newIdentifier(variabilityElementDefAna.getName());
+		NumericIdentifier nonValue = f
+				.number(TransformerConstants.NON_SELECTED_VALUE);
 		BooleanExpression numericExpression = f.equals(element, nonValue);
 		return numericExpression;
 	}

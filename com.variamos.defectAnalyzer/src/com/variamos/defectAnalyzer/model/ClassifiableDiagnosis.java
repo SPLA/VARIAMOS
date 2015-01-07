@@ -6,6 +6,8 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
 
 public class ClassifiableDiagnosis {
 	// Puede ser una causa o una corrección según como se use
+		
+		private List<CauCos> caucosElements;
 		private List<Dependency> diagnosticElements;
 		private Long id;
 		private List<Defect> defects;

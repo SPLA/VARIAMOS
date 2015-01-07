@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Expression;
+import com.cfm.hlcl.Domain;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.jgprolog.core.PrologException;
+import com.cfm.productline.solver.Configuration;
+import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
@@ -34,87 +38,43 @@ import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
 import com.variamos.defectAnalyzer.util.VerifierUtilExpression;
 
-public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
+public class DefectsVerifier extends VariabilityModelAnalyzer implements
+		IntDefectsVerifier {
 
 	private VMAnalyzerInDTO analyzerInDTO;
 
 	// Variables usadas para almacenar información que es útil cuando se hacen
 	// otras operaciones de verificación
-	private Map<VariabilityElementDefAna, Set<Integer>> attainableDomainsByVariabilityElementMap;
+	private Map<Identifier, Set<Integer>> attainableDomainsByVariabilityElementMap;
 	private SolverOperationsUtil solver;
 
-	public VariabilityModelVerifier(VMAnalyzerInDTO analyzerInDTO) {
+	public DefectsVerifier(VMAnalyzerInDTO analyzerInDTO) {
 		super(analyzerInDTO);
 		this.analyzerInDTO = analyzerInDTO;
-		attainableDomainsByVariabilityElementMap = new HashMap<VariabilityElementDefAna, Set<Integer>>();
-		solver= new SolverOperationsUtil(analyzerInDTO.getSolverEditorType());
-		
+		attainableDomainsByVariabilityElementMap = new HashMap<Identifier, Set<Integer>>();
+		solver = new SolverOperationsUtil(analyzerInDTO.getSolverEditorType());
+
 	}
 
-	/**
-	 * 
-	 * @return This operation takes a PLM as input and returns TRUE if the PLM
-	 *         does not define any products.
-	 * @throws FunctionalException
-	 */
-	public Defect isVoid() throws FunctionalException {
+	@Override
+	public Defect isVoid(HlclProgram model) {
 
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-				.dependencyToExpressionList(analyzerInDTO.getVariabilityModel()
-						.getDependencies(), analyzerInDTO.getVariabilityModel()
-						.getFixedDependencies());
-		if (analyzerInDTO.getVariabilityModel().getDomainStringList() != null
-				&& !analyzerInDTO.getVariabilityModel().getDomainStringList()
-						.isEmpty()) {
-			// Saves the variability model in a prolog program
-			ConstraintRepresentationUtil.savePrologRepresentationProgram(
-					prologTempPath, variabilityModelConstraintRepresentation,
-					analyzerInDTO.getVariabilityModel().getDomainStringList(),
-					prologEditorType);
-
-		} else {
-
-			// Saves the variability model in a prolog program
-			ConstraintRepresentationUtil.savePrologRepresentationProgram(
-					prologTempPath, variabilityModelConstraintRepresentation,
-					prologEditorType);
-		}
-
-		boolean isVoid = !solver.isSatisfiable(prologTempPath);
-
+		boolean isVoid = !solver.isSatisfiable(model);
 		if (isVoid) {
-			return new VoidModel(analyzerInDTO.getVariabilityModel().getName());
-		}else{
-			return null;
+			return new VoidModel(Boolean.TRUE);
+		} else {
+			return new VoidModel(Boolean.FALSE);
 		}
-	
+
 	}
 
-	/**
-	 * This operation takes a PLM as input and returns true if at most one valid
-	 * product can be configured with it
-	 * 
-	 * @param path
-	 * @param prologEditorType
-	 * @return
-	 * @throws FunctionalException
-	 */
-	public Defect isFalsePLM() throws FunctionalException {
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-				.dependencyToExpressionList(analyzerInDTO.getVariabilityModel()
-						.getDependencies(), analyzerInDTO.getVariabilityModel()
-						.getFixedDependencies());
-		// Saves the variability model in a prolog program
-		ConstraintRepresentationUtil.savePrologRepresentationProgram(
-				prologTempPath, variabilityModelConstraintRepresentation,
-				prologEditorType);
-		boolean isFPL= SolverOperationsUtil.isFalseProductLine(prologTempPath,
-				prologEditorType);
-		
-		if(isFPL){
-			return new FalseProductLine(analyzerInDTO.getVariabilityModel());
-		}else{
-			return null;
+	@Override
+	public Defect isFalsePL(HlclProgram model) {
+		boolean isFPL = solver.isFalseProductLine(model);
+		if (isFPL) {
+			return new FalseProductLine(Boolean.TRUE);
+		} else {
+			return new FalseProductLine(Boolean.FALSE);
 		}
 	}
 
@@ -127,6 +87,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * @throws FunctionalException
 	 * 
 	 */
+	@Deprecated
 	public List<Defect> identifyDeadFeatures(
 			Map<String, VariabilityElementDefAna> elementsListToVerify)
 			throws FunctionalException {
@@ -180,8 +141,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 					// Se evalua si el modelo de restricciones guardado en la
 					// ruta temporal es satisfacible
-					isSatisfiable = solver.isSatisfiable(
-							prologTempPath);
+					isSatisfiable = solver.isSatisfiable(prologTempPath);
 
 					if (isSatisfiable) {
 						// Si es satisfacible la feature no es dead y se pasa a
@@ -203,8 +163,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 							// objetos
 							Set<Integer> attainableDomainValuesList = new HashSet<Integer>();
 							attainableDomainValuesList.add(definedDomainValue);
-							attainableDomainsByVariabilityElementMap.put(
-									element, attainableDomainValuesList);
+
 						}
 						break;
 					} else {
@@ -216,11 +175,13 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 			if (isDead) {
 				// Se crea un nuevo defecto
-				DeadElement deadElement = new DeadElement(element,
-						constraintToIdentifyDeadFeature);
-				deadElementsList.add(deadElement);
-
-				System.out.println("dead feature" + element.getName());
+				/*
+				 * adElement deadElement = new DeadElement(element,
+				 * constraintToIdentifyDeadFeature);
+				 * deadElementsList.add(deadElement);
+				 * 
+				 * System.out.println("dead feature" + element.getName());
+				 */
 			}
 
 		}
@@ -236,6 +197,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * @throws FunctionalException
 	 * 
 	 */
+	@Deprecated
 	public List<Defect> identifyFalseOptionalFeatures(
 			Map<String, VariabilityElementDefAna> optionalElementsMap)
 			throws FunctionalException {
@@ -247,7 +209,8 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 		boolean isSatisfiable = Boolean.TRUE;
 		if (optionalElementsMap != null) {
-			for (VariabilityElementDefAna element : optionalElementsMap.values()) {
+			for (VariabilityElementDefAna element : optionalElementsMap
+					.values()) {
 
 				variabilityModelConstraintRepresentation.clear();
 				// Ejm F1 #= 0.
@@ -278,18 +241,20 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 				// Se evalua si el modelo de restricciones guardado en la
 				// ruta temporal es resoluble
-				isSatisfiable = solver.isSatisfiable(
-						prologTempPath);
+				isSatisfiable = solver.isSatisfiable(prologTempPath);
 
 				// Se evalua si este nuevo modelo es satisfacible
 				if (!isSatisfiable) {
 					// Se crea un nuevo defecto
-					FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
-							element, constraintToIdentifyFalseOptionalFeature);
-					falseOptionalElementsList.add(falseOptionalElement);
-					System.out.println("false optional" + element.getName());
-				}
+					/*
+					 * FalseOptionalElement falseOptionalElement = new
+					 * FalseOptionalElement( element,
+					 * constraintToIdentifyFalseOptionalFeature);
+					 * falseOptionalElementsList.add(falseOptionalElement);
+					 * System.out.println("false optional" + element.getName());
+					 */
 
+				}
 			}
 		} else {
 			throw new FunctionalException("Optional elements were not received");
@@ -420,8 +385,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 				// Se evalua si el modelo de restricciones guardado en la
 				// ruta temporal es resoluble
-				isSatisfiable = solver.isSatisfiable(
-						prologTempPath);
+				isSatisfiable = solver.isSatisfiable(prologTempPath);
 
 				if (!isSatisfiable) {
 					// La restricción si es redundante pq el modelo se volvió
@@ -446,7 +410,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 * @return
 	 * @throws FunctionalException
 	 */
-	public List<Defect> identifyNonAttainableDomains(
+	private List<Defect> identifyNonAttainableDomains(
 			Map<String, VariabilityElementDefAna> elementsMapToVerify)
 			throws FunctionalException {
 
@@ -506,10 +470,12 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 
 					// Se evalua si este nuevo modelo es satisfacible y se
 					// obtienen los valores de la configuración
-					//FIXME
-					/*configuredValuesList = SolverOperationsUtil
-							.getSelectedVariablesByConfigurations(
-									prologTempPath, 1, prologEditorType);*/
+					// FIXME
+					/*
+					 * configuredValuesList = SolverOperationsUtil
+					 * .getSelectedVariablesByConfigurations( prologTempPath, 1,
+					 * prologEditorType);
+					 */
 
 					// Si se obtienen valores esto quiere decir q es
 					// satisfacible
@@ -572,8 +538,11 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 					// objetos
 					Set<Integer> attainableDomainValuesSet = new HashSet<Integer>();
 					attainableDomainValuesSet.add(value);
-					attainableDomainsByVariabilityElementMap.put(element,
-							attainableDomainValuesSet);
+					// FIXME
+					/*
+					 * attainableDomainsByVariabilityElementMap.put(element,
+					 * attainableDomainValuesSet);
+					 */
 				}
 
 			} else {
@@ -603,15 +572,16 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 		// Siempre se verifica si es void, pq por como está pensado la
 		// solución
 		// es obligatorio hacer esto
-		Defect isVoid = isVoid();
-		outDTO.setVoidModel(isVoid);
+		// Defect isVoid = isVoid();
+		// outDTO.setVoidModel(isVoid);
+		Defect isVoid = null;// FIXME
 
-		if (isVoid==null) {
+		if (isVoid == null) {
 
 			outDTO.setVoidModel(isVoid);
 			if (verifyFalseProductLine) {
-				Defect isFalsePLM = isFalsePLM();
-				outDTO.setFalseProductLineModel(isFalsePLM);
+				// Defect isFalsePLM = isFalsePLM();
+				// outDTO.setFalseProductLineModel(isFalsePLM);
 			}
 			if (verifyDeadFeatures) {
 				// Dead features
@@ -628,7 +598,7 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 					List<Defect> falseOptionalFeatures = identifyFalseOptionalFeatures(optionalElements);
 					outDTO.setFalseOptionalFeaturesList(falseOptionalFeatures);
 				}
-				
+
 			}
 			if (verifyNonAttainableDomains) {
 				List<Defect> nonAttainableDomainsList = identifyNonAttainableDomains(analyzerInDTO
@@ -696,5 +666,227 @@ public class VariabilityModelVerifier extends VariabilityModelAnalyzer {
 	 */
 	public void setPrologEditorType(SolverEditorType prologEditorType) {
 		this.prologEditorType = prologEditorType;
+	}
+
+	@Override
+	public Defect isDeadElement(HlclProgram model, Identifier identifier) {
+
+		List<Integer> definedDomainValues = null;
+		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
+		BooleanExpression constraintToAdd = null;
+		BooleanExpression verificationExpression = null;
+		boolean isDead = Boolean.TRUE;
+		Domain domain = identifier.getDomain();
+		// Se obtienen los valores parametrizados para esta variable
+		definedDomainValues = domain.getPossibleValues();
+		boolean isSatisfiable = Boolean.FALSE;
+		// Se busca para cada variable los valores de dominio y se analiza
+		for (Integer definedDomainValue : definedDomainValues) {
+			// Ejm F1 #= 1. Se excluye el 0
+			isSatisfiable = Boolean.FALSE;
+
+			if (definedDomainValue > TransformerConstants.NON_SELECTED_VALUE) {
+				variabilityModelConstraintRepresentation.clear();
+
+				constraintToAdd = VerifierUtilExpression
+						.verifyAssignValueToVariabilityElementExpression(
+								identifier, definedDomainValue);
+				// Se adiciona la restricción al conjunto de restricciones
+				// que representa el modelo de variabilidad
+				ConfigurationOptions options = new ConfigurationOptions();
+				options.addAdditionalExpression(constraintToAdd);
+
+				// Se evalua si el modelo de restricciones es satisfacible
+				isSatisfiable = solver.isSatisfiable(model,
+						new Configuration(), options);
+
+				if (isSatisfiable) {
+					// Si es satisfacible la feature no es dead y se pasa a
+					// la siguiente feature
+					isDead = Boolean.FALSE;
+
+					// Se adiciona ese valor como valor permitido para no
+					// verificarlo en los notAttainableDomains
+					if (attainableDomainsByVariabilityElementMap
+							.containsKey(identifier)) {
+						// Se adiciona el valor a la lista de dominios
+						// permitidos
+						attainableDomainsByVariabilityElementMap
+								.get(identifier).add(definedDomainValue);
+					} else {
+						// Se adiciona el variabilityElement al mapa y se
+						// adicionan el valor de dominio. Se crea un nuevo
+						// objeto para evitar problemas de referencia entre
+						// objetos
+						Set<Integer> attainableDomainValuesList = new HashSet<Integer>();
+						attainableDomainValuesList.add(definedDomainValue);
+						attainableDomainsByVariabilityElementMap.put(
+								identifier, attainableDomainValuesList);
+					}
+					break;
+				} else {
+					verificationExpression = constraintToAdd;
+				}
+			}
+
+		}
+
+		if (isDead) {
+			// Se crea un nuevo defecto
+			DeadElement deadElement = new DeadElement(identifier,
+					verificationExpression);
+			System.out.println("dead feature" + identifier.getId());
+			return deadElement;
+		}
+		return null;
+	}
+
+	@Override
+	public Defect isFalseOptionalElement(HlclProgram model,
+			Identifier identifier) {
+		BooleanExpression verificationExpression = null;
+		boolean isSatisfiable = Boolean.TRUE;
+
+		// Ejm F1 #= 0.
+		// Se adiciona las restricciones que tiene el modelo de
+		// variabilidad inicial
+
+		verificationExpression = VerifierUtilExpression
+				.verifyFalseOptionalExpression(identifier);
+		// Se adiciona la restricción de verificacion al conjunto de
+		// restricciones
+		// que representa el modelo de variabilidad
+		ConfigurationOptions options = new ConfigurationOptions();
+		options.addAdditionalExpression(verificationExpression);
+
+		// Se evalua si el modelo de restricciones es satisfacible
+		isSatisfiable = solver.isSatisfiable(model, new Configuration(),
+				options);
+
+		// Se evalua si este nuevo modelo es satisfacible
+		if (!isSatisfiable) {
+			// Se crea un nuevo defecto
+			FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
+					identifier, verificationExpression);
+			return falseOptionalElement;
+		} else {
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Defect> getDeadElements(HlclProgram model,
+			Set<Identifier> elementsToVerify) {
+		List<Defect> deadElementsList = new ArrayList<Defect>();
+
+		for (Identifier identifier : elementsToVerify) {
+			DeadElement deadElement = (DeadElement) isDeadElement(model,
+					identifier);
+			if (deadElement != null) {
+				deadElementsList.add(deadElement);
+			}
+		}
+		return deadElementsList;
+	}
+
+	@Override
+	public List<Defect> getFalseOptionalElements(HlclProgram model,
+			Set<Identifier> elementsToVerify) {
+		List<Defect> falseOptionalList = new ArrayList<Defect>();
+
+		for (Identifier identifier : elementsToVerify) {
+			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
+					model, identifier);
+			if (falseOptionalElement != null) {
+				falseOptionalList.add(falseOptionalElement);
+			}
+		}
+		return falseOptionalList;
+	}
+
+	@Override
+	public Defect isRedundant(HlclProgram model,
+			BooleanExpression expressionToVerify, BooleanExpression negation) {
+
+		if (expressionToVerify == null || negation == null) {
+			throw new TechnicalException(
+					"The expreession to verify redundancy and their negation is mandatory");
+		}
+
+		if (!model.contains(expressionToVerify)) {
+			throw new TechnicalException(
+					"HlclProgram does not contain the expression to verify:"
+							+ expressionToVerify
+							+ "redundancy verification is not possible");
+		}
+
+		HlclProgram modelWithoutRedundancy = new HlclProgram();
+		boolean isSatisfiable = Boolean.FALSE;
+
+		// Se evalua si el modelo de restricciones guardado en la
+		// ruta temporal es resoluble
+		isSatisfiable = solver.isSatisfiable(model);
+
+		if (isSatisfiable) {
+
+			// 2. Se verifica si el modelo sin la restriccion redundante es
+			// resoluble
+			for (BooleanExpression expression : model) {
+				if (!expression.equals(expressionToVerify)) {
+					modelWithoutRedundancy.add(expression);
+				}
+			}
+
+			// Se evalua si el modelo de restricciones sin la redundancia es
+			// resoluble
+			isSatisfiable = solver.isSatisfiable(modelWithoutRedundancy);
+
+			if (!isSatisfiable) {
+				// La relación no es redundante, pq se requiere para que el
+				// modelo funcione
+				return null;
+			} else {
+				// Si el nuevo modelo es resoluble entonces se adicionan las
+				// instrucciones que corresponen a la negación de la restricción
+				// que se cree redundante
+				ConfigurationOptions options = new ConfigurationOptions();
+				options.addAdditionalExpression(negation);
+
+				isSatisfiable = solver.isSatisfiable(modelWithoutRedundancy,
+						new Configuration(), options);
+
+				if (!isSatisfiable) {
+					// La restricción si es redundante pq el modelo se volvió
+					// irresoluble
+					Defect redundancy = new Redundancy(expressionToVerify,
+							negation);
+					return redundancy;
+
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Defect> getRedundancies(HlclProgram model,
+			Map<BooleanExpression, BooleanExpression> constraitsToVerify) {
+		List<Defect> redundanciesList = new ArrayList<Defect>();
+		Iterator<BooleanExpression> it = constraitsToVerify.keySet().iterator();
+		while (it.hasNext()) {
+			BooleanExpression expressionToVerify = it.next();
+			BooleanExpression negation = constraitsToVerify
+					.get(expressionToVerify);
+			Redundancy redudancy = (Redundancy) isRedundant(model,
+					expressionToVerify, negation);
+			if (redudancy != null) {
+				redundanciesList.add(redudancy);
+			}
+
+		}
+
+		return redundanciesList;
+
 	}
 }

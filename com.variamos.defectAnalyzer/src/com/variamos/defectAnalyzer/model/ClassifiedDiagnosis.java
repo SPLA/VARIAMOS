@@ -21,6 +21,14 @@ public class ClassifiedDiagnosis {
 		this.noCommonDiagnosis = noCommonDiagnosis;
 	}
 
+	public int getCommonDiagnosisSize() {
+		return commonDiagnosis.size();
+	}
+
+	public int getUnCommonDiagnosisSize() {
+		return noCommonDiagnosis.size();
+	}
+
 	/**
 	 * @return the commonDiagnosis
 	 */
@@ -47,7 +55,8 @@ public class ClassifiedDiagnosis {
 	 * @param noCommonDiagnosis
 	 *            the noCommonDiagnosis to set
 	 */
-	public void setNoCommonDiagnosis(List<ClassifiableDiagnosis> noCommonDiagnosis) {
+	public void setNoCommonDiagnosis(
+			List<ClassifiableDiagnosis> noCommonDiagnosis) {
 		this.noCommonDiagnosis = noCommonDiagnosis;
 	}
 
