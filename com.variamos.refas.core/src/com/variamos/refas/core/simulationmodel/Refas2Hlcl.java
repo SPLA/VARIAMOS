@@ -12,6 +12,8 @@ import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.NumericExpression;
+import com.cfm.productline.compiler.solverSymbols.LabelingOrder;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
@@ -63,8 +65,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * ONE_SOLUTION currently supported)
 	 */
 
-	public HlclProgram getHlclProgram()
-	{
+	public HlclProgram getHlclProgram() {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createVertexExpressions(null);
@@ -78,36 +79,33 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			transformations.addAll(constraintGroup.getTransformations());
 
 		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIndentifiers(f));
+			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
-				hlclProgram
-						.add(((AbstractBooleanExpression) transformation)
-								.transform(f, idMap));
+				hlclProgram.add(((AbstractBooleanExpression) transformation)
+						.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractBooleanTransformation) transformation)
 				// .transformNegation(f, idMap, true, false));
 			} else if (transformation instanceof AbstractComparisonExpression) {
-				hlclProgram
-						.add(((AbstractComparisonExpression) transformation)
-								.transform(f, idMap));
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
 				// For negation testing
 				// prog.add(((AbstractComparisonTransformation)
 				// transformation)
 				// .transformNegation(f, idMap));
 			} else {
-				hlclProgram
-						.add(((AbstractComparisonExpression) transformation)
-								.transform(f, idMap));
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
 			}
 
 		}
 		return hlclProgram;
 	}
-	
+
 	public boolean execute(int solutions) {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
-			
+
 			hlclProgram = getHlclProgram();
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
@@ -119,8 +117,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			swiSolver = new SWIPrologSolver(hlclProgram);
 
 			try {
-				swiSolver
-						.solve(new Configuration(), new ConfigurationOptions());
+				ConfigurationOptions configurationOptions = new ConfigurationOptions();
+				configurationOptions.setOrder(true);
+				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
+				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
+				labelingOrderList.add(LabelingOrder.MIN);
+				orderExpressionList.add(f.sum(f.newIdentifier("Feature1_Opt"),
+						f.sum(f.newIdentifier("Feature1_Opt"),
+								f.newIdentifier("Feature2_Opt"))));
+				configurationOptions.setLabelingOrder(labelingOrderList);
+				configurationOptions.setOrderExpressions(orderExpressionList);
+				swiSolver.solve(new Configuration(), configurationOptions);
 			} catch (Exception e) {
 				System.out.println("No solution");
 				return false;

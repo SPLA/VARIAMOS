@@ -18,8 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,6 +39,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.cfm.common.AbstractModel;
+import com.cfm.hlcl.HlclFactory;
+import com.cfm.hlcl.Identifier;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
@@ -51,6 +55,12 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
+import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
+import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.defectAnalyzer.model.defects.Defect;
+import com.variamos.defectAnalyzer.model.defects.FalseOptionalElement;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.PLEditorToolBar;
@@ -79,6 +89,7 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstView;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
@@ -157,9 +168,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
-		
+
 		configurator.setRefas2hlcl(refas2hlcl);
-		
+
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
 		if (perspective == 0) {
@@ -248,10 +259,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
-		
+
 		configurator.setRefas2hlcl(refas2hlcl);
-		
-		
+
 		registerEvents();
 		Collection<InstView> instViews = ((Refas) abstractModel)
 				.getSyntaxRefas().getInstViews();
@@ -694,7 +704,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		elementSimPropPanel.setLayout(new SpringLayout());
 
 		configurator = new ConfiguratorPanel();
-		
+
 		configuratorProperties = new ConfigurationPropertiesTab();
 
 		expressions = new RefasExpressionPanel(this, elm);
@@ -705,7 +715,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		// Bottom panel : Properties, Messages and Configuration
 		extensionTabs = new JTabbedPane(JTabbedPane.TOP,
-				JTabbedPane.SCROLL_TAB_LAYOUT);		
+				JTabbedPane.SCROLL_TAB_LAYOUT);
 		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
@@ -785,7 +795,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
-		
+
 	}
 
 	public void bringUpExtension(String name) {
@@ -1256,7 +1266,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
 	}
-	
+
 	public void executeSimulation(boolean first) {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
@@ -1298,6 +1308,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		updateObjects();
 		((MainFrame) getFrame()).waitingCursor(false);
 	}
+
 	// public void editProperties(final Editable elm) {
 	//
 	// // elementDesPropPanel.removeAll();
@@ -1396,23 +1407,33 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// elementDesPropPanel.revalidate();
 	// }
 
-	public void verifyErrors() {	
-		refas2hlcl.getHlclProgram();
-		Collection<InstPairwiseRelation> pairwiseRelations=((Refas) getEditedModel()).getConstraintInstEdges().values();
-		List<String> identifiers = new ArrayList<String>();
-		for (InstPairwiseRelation pairwiseRelation : pairwiseRelations)
-		{
+	public void verifyErrors() {
+		HlclFactory f = new HlclFactory();
+		Collection<InstVertex> pairwiseRelations = ((Refas) getEditedModel())
+				.getVariabilityVertexCollection();
+		Set<Identifier> identifiers = new HashSet<Identifier>();
+		for (InstVertex pairwiseRelation : pairwiseRelations) {
 			if (pairwiseRelation.isOptional())
-				identifiers.add(pairwiseRelation.getIdentifier()+"_"+AbstractSemanticVertex.VAR_SELECTED_IDEN);
-				
+				identifiers.add(f.newIdentifier(pairwiseRelation
+						.getIdentifier()
+						+ "_"
+						+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
+
 		}
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"There are false optional elements on the model.",
-							"Verification Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
+		// Make input DTO
+		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
+
+		// Set Prolog editor type
+		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
+		List<Defect> falseOptionalList = defectVerifier
+				.getFalseOptionalElements(refas2hlcl.getHlclProgram(),
+						identifiers);
+		if (falseOptionalList.size() > 0)
+			JOptionPane.showMessageDialog(frame,
+					"There are false optional elements on the model.",
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
 	}
 
 }

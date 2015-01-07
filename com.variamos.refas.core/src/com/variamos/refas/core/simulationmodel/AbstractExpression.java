@@ -147,7 +147,7 @@ public abstract class AbstractExpression {
 		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
 	}
 
-	public Map<String, Identifier> getIndentifiers(HlclFactory f) {
+	public Map<String, Identifier> getIdentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
 		//	System.out.println(leftVertex.getIdentifier() + " "
@@ -185,10 +185,10 @@ public abstract class AbstractExpression {
 				
 		}
 		if (leftSubExpression != null) {
-			out.putAll(leftSubExpression.getIndentifiers(f));
+			out.putAll(leftSubExpression.getIdentifiers(f));
 		}
 		if (rightSubExpression != null) {
-			out.putAll(rightSubExpression.getIndentifiers(f));
+			out.putAll(rightSubExpression.getIdentifiers(f));
 		}
 		return out;
 	}
