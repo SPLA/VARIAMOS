@@ -275,7 +275,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				while (refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION))
 					if (processConfiguration(refas2hlcl.getConfiguration()))
 						break;
-				//System.out.println("y ya no tiene más soluciones");
+				
 			}
 
 		});
