@@ -1,5 +1,7 @@
 package com.variamos.syntaxsupport.metamodelsupport;
 
+import com.cfm.hlcl.Domain;
+
 public class ModelingAttribute extends AbstractAttribute {
 	/**
 	 * 

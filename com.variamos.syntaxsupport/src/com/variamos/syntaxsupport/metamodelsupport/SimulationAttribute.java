@@ -1,5 +1,7 @@
 package com.variamos.syntaxsupport.metamodelsupport;
 
+import com.cfm.hlcl.Domain;
+
 public class SimulationAttribute extends AbstractAttribute {
 
 	/**
@@ -10,6 +12,12 @@ public class SimulationAttribute extends AbstractAttribute {
 	public SimulationAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		super(name, type, affectProperties, displayName, defaultValue);
+	}
+	
+	public SimulationAttribute(String name, String type,
+			boolean affectProperties, String displayName, 
+			Object defaultValue, Domain domain) {
+		super(name, type, affectProperties, displayName, defaultValue, domain);
 	}
 
 	public SimulationAttribute(String name, String type,

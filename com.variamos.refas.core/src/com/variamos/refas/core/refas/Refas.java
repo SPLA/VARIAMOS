@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cfm.common.AbstractModel;
+import com.cfm.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
@@ -810,6 +811,10 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("SatisfactionConflict",
 				new SimulationStateAttribute("SatisfactionConflict", "Boolean",
 						false, "Satisfaction Conflict", false));
+		
+		semGeneralElement.putSemanticAttribute("Opt",
+				new SimulationStateAttribute("Opt", "Integer", 
+						false, "Satisfaction Conflict", 0, new RangeDomain(0,20)));
 
 		// semGeneralElement.putSemanticAttribute("Selected",
 		// new SimulationStateAttribute("Selected", "Boolean", false,

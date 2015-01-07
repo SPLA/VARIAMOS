@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cfm.hlcl.Domain;
+
 /**
  * A class to represent semantic and syntax concepts attributes. The attributes
  * are dynamically loaded on modeling perspective. Part of PhD work at
