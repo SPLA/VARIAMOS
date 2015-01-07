@@ -1296,5 +1296,4 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// public void setOperationMode(OperationMode operationMode) {
 	// this.operationMode = operationMode;
 	// }
-
 }
