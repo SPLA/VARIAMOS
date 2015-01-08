@@ -165,6 +165,10 @@ public class InstPairwiseRelation extends InstElement {
 		getInstAttribute(VAR_METAPAIRWISE_OBJ).setValueObject(metaEdge);
 		supportMetaPairwiseRelIden = metaEdge.getIdentifier();
 		setVariable(MetaElement.VAR_DESCRIPTION, metaEdge.getDescription());
+		setVariable(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
+				metaEdge.getIdentifier());
+		setVariable(MetaElement.VAR_DESCRIPTION,
+				metaEdge.getDescription());
 		createInstAttributes();
 	}
 
@@ -481,6 +485,8 @@ public class InstPairwiseRelation extends InstElement {
 				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
 
 				String name = visibleAttribute.substring(3);
+				if (getInstAttributes().get(name)!= null)
+				{
 				if (nameEnd != -1) {
 					name = visibleAttribute.substring(3, nameEnd);
 					String variable = null;
@@ -530,6 +536,11 @@ public class InstPairwiseRelation extends InstElement {
 					}
 					if (!nvar)
 						out += getInstAttributes().get(name);
+				}
+				}
+				else
+				{
+					System.err.println(name+" attribute is null");
 				}
 			}
 		}
@@ -601,5 +612,10 @@ public class InstPairwiseRelation extends InstElement {
 	@Override
 	public MetaElement getSupportMetaElement() {
 		return getMetaPairwiseRelation();
+	}
+
+	public void setUpdatePairwiseRelationType() {
+		setVariable("relationType",semanticPairwiseRelationType);
+		
 	}
 }

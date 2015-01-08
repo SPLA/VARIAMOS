@@ -194,8 +194,9 @@ public class SharedActions {
 			}
 		}
 		if (value instanceof InstPairwiseRelation) {
-			InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
-			instPairwiseRelation.createAttributes(new HashMap<String, InstAttribute>());
+			try{
+				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
+						instPairwiseRelation.createAttributes(new HashMap<String, InstAttribute>());
 			InstVertex sourceVertex = (InstVertex) source.getSource()
 					.getValue();
 			InstVertex targetVertex = (InstVertex) source.getTarget()
@@ -210,6 +211,7 @@ public class SharedActions {
 			if (metaPairwiseRelation != null) {
 				instPairwiseRelation.setSupportMetaPairwiseRelation(
 						metaPairwiseRelation);
+				instPairwiseRelation.setUpdatePairwiseRelationType();
 				instPairwiseRelation.setVariable(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
 						instPairwiseRelation.getSemanticPairwiseRelationType());
@@ -249,6 +251,7 @@ public class SharedActions {
 					}					
 					catch (Exception e)
 					{
+						System.err.println("Contained exception");
 						e.printStackTrace();
 					}
 				}
@@ -258,6 +261,12 @@ public class SharedActions {
 			refas.putConstraintInstEdge(instPairwiseRelation);
 
 			editor.refreshElement(instPairwiseRelation);
+			}
+			catch (Exception e)
+			{
+				System.err.println("Contained exception");
+				e.printStackTrace();
+			}
 		}
 
 	}
