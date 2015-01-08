@@ -56,6 +56,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
@@ -1420,35 +1421,35 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
 
 		}
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
+	
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(SolverEditorType.SWI_PROLOG);
+		List<Defect> falseOptionalList;
+		try {
+			falseOptionalList = defectVerifier.getFalseOptionalElements(
+					refas2hlcl.getHlclProgram(), identifiers);
+			if (falseOptionalList.size() > 0) {
+				String defects = "(";
+				for (Defect defect : falseOptionalList) {
+					String[] o = defect.getId().split("_");
+					defects += o[0] + ", ";
+				}
+				defects = defects.substring(0, defects.length() - 2) + ")";
 
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
-		List<Defect> falseOptionalList = defectVerifier
-				.getFalseOptionalElements(refas2hlcl.getHlclProgram(),
-						identifiers);
-		if (falseOptionalList.size() > 0)
-		{
-			String defects = "(";
-			for (Defect defect: falseOptionalList)
-			{	
-				String[] o = defect.getId().split("_");
-				defects +=  o[0]+ ", ";
-			}
-			defects = defects.substring(0, defects.length()-2)+")";
-				
+				JOptionPane.showMessageDialog(frame, falseOptionalList.size()
+						+ " false optional element(s) found on the model. "
+						+ defects, "Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+			} else
+				JOptionPane.showMessageDialog(frame,
+						"No false optional elements identifed on the model.",
+						"Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+		} catch (FunctionalException e) {
 			JOptionPane.showMessageDialog(frame,
-					falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
-					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
-					null);
+					e.getMessage(),"Verification Message",
+					JOptionPane.INFORMATION_MESSAGE, null);
 		}
-		else
-			JOptionPane.showMessageDialog(frame,
-					"No false optional elements identifed on the model.",
-					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
-					null);
+
 	}
 
 }

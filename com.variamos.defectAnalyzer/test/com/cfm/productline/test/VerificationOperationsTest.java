@@ -29,23 +29,13 @@ public class VerificationOperationsTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		
-		 // Make input DTO
-		 VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-		
-		 // Set transformed variability model
-		 verifierInDTO.setVariabilityModel(variabilityModel);
-		 // Set Prolog editor type
-		 verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-		
-		
-		IntDefectsVerifier verifier= new DefectsVerifier(verifierInDTO);
-		HlclProgram model = ConstraintRepresentationUtil.expressionToHlclProgram(variabilityModelConstraintRepresentation);
-		VoidModel isVoid=(VoidModel) verifier.isVoid(model);
+
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
+		HlclProgram model = ConstraintRepresentationUtil
+				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+		VoidModel isVoid = (VoidModel) verifier.isVoid(model);
 		assertTrue(isVoid.isVoidModel());
-		
-		
-		
 
 	}
 

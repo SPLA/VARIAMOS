@@ -8,9 +8,9 @@ public class FalseProductLine extends Defect {
 	private VariabilityModel variabilityModel;
 	private boolean isFalsePL;
 
-	public FalseProductLine(boolean isFalsePL) {
+	public FalseProductLine() {
 		super();
-		this.isFalsePL = isFalsePL;
+		this.isFalsePL = Boolean.TRUE;
 	}
 
 	public boolean isFalsePL() {

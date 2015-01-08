@@ -15,7 +15,7 @@ import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
-import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
+import com.variamos.defectAnalyzer.dto.VerificationResult;
 import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
 import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
 import com.variamos.defectAnalyzer.model.Dependency;
@@ -24,10 +24,7 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.defectAnalyzer.util.ExportUtil;
 
-
 public class DefectAnalyzerController {
-
-
 
 	public DefectAnalyzerController() {
 		super();
@@ -39,7 +36,7 @@ public class DefectAnalyzerController {
 			String outputDirectoryPath) throws FunctionalException {
 
 		long startCorrectionSetTestTime, endCorrectionSetTestTime, totalCorrectionSetTestTime = 0;
-		VMVerifierOutDTO verifierOutDTO = null;
+		VerificationResult verifierOutDTO = null;
 		VMCauseAnalyzerOutDTO causeAnalizerOutDTO = new VMCauseAnalyzerOutDTO();
 		DefectAnalyzerControllerOutDTO defectAnalyzerControllerOut = new DefectAnalyzerControllerOutDTO();
 		defectAnalyzerControllerOut.setVariabilityModel(defectAnalyzerInDTO
@@ -196,7 +193,7 @@ public class DefectAnalyzerController {
 	}
 
 	public void exportCorrectionCausesSubsets(
-			VMVerifierOutDTO vmVerifierOutDTO,
+			VerificationResult vmVerifierOutDTO,
 			VMCauseAnalyzerOutDTO causeAnalyzerOutDTO,
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, Long tiempoTest,
 			ClassifiedDiagnosis classifiedCauses,
@@ -454,8 +451,8 @@ public class DefectAnalyzerController {
 			resultadosFila.add(Integer.toString(defectsByMCSMUSes
 					.getDiagnosticElements().size()));
 			resultadosFila.add(defectsByMCSMUSes.getDefects().toString());
-			resultadosFila.add(Integer.toString(defectsByMCSMUSes
-					.getDefects().size()));
+			resultadosFila.add(Integer.toString(defectsByMCSMUSes.getDefects()
+					.size()));
 			clasificacion.add(resultadosFila);
 		}
 		return clasificacion;
@@ -469,11 +466,11 @@ public class DefectAnalyzerController {
 	 * @throws FunctionalException
 	 * 
 	 */
-	private VMVerifierOutDTO verifyDefects(
+	private VerificationResult verifyDefects(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO)
 			throws FunctionalException {
 
-		VMVerifierOutDTO outDTO = new VMVerifierOutDTO();
+		VerificationResult outDTO = new VerificationResult();
 		// Se construye el DTO de entrada del verificador
 		// Make input DTO
 		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
@@ -487,14 +484,16 @@ public class DefectAnalyzerController {
 
 		// Create class
 		DefectsVerifier verifier = new DefectsVerifier(
-				verifierInDTO);
+				defectAnalyzerInDTO.getSolverEditorType());
 
-		outDTO = verifier.verifierOfDefects(
-				defectAnalyzerInDTO.isVerifyDeadFeatures(),
-				defectAnalyzerInDTO.isVerifyFalseOptionalElement(),
-				defectAnalyzerInDTO.isVerifyFalseProductLine(),
-				defectAnalyzerInDTO.isVerifyNonAttainableDomain(),
-				defectAnalyzerInDTO.isVerifyRedundancies());
+		/*
+		 * outDTO = verifier.verifierOfDefects(
+		 * defectAnalyzerInDTO.isVerifyDeadFeatures(),
+		 * defectAnalyzerInDTO.isVerifyFalseOptionalElement(),
+		 * defectAnalyzerInDTO.isVerifyFalseProductLine(),
+		 * defectAnalyzerInDTO.isVerifyNonAttainableDomain(),
+		 * defectAnalyzerInDTO.isVerifyRedundancies());
+		 */
 
 		return outDTO;
 
@@ -511,7 +510,7 @@ public class DefectAnalyzerController {
 	 */
 	private VMCauseAnalyzerOutDTO causesAnalyzer(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO,
-			VMVerifierOutDTO verifierOutDTO) throws FunctionalException {
+			VerificationResult verifierOutDTO) throws FunctionalException {
 
 		// Información del DTO
 		VMAnalyzerInDTO vmAnalyzerInDTO = new VMAnalyzerInDTO();
@@ -522,13 +521,12 @@ public class DefectAnalyzerController {
 
 		// Se invoca el analizador de causas
 		VariabilityModelCausesAndCorrectionsAnalyzer causesAnalyzer = new VariabilityModelCausesAndCorrectionsAnalyzer(
-				vmAnalyzerInDTO);
+				defectAnalyzerInDTO.getSolverEditorType());
 
 		VMCauseAnalyzerInDTO vmCauseAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 
-		vmCauseAnalyzerInDTO
-				.setDefectAnalyzerMode(defectAnalyzerInDTO
-						.getDefectAnalyzerMode());
+		vmCauseAnalyzerInDTO.setDefectAnalyzerMode(defectAnalyzerInDTO
+				.getDefectAnalyzerMode());
 
 		vmCauseAnalyzerInDTO.setFalseProductLine(verifierOutDTO
 				.getFalseProductLineModel());

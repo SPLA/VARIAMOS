@@ -1,12 +1,13 @@
 package com.variamos.defectAnalyzer.defectAnalyzer;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.dto.VerificationResult;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
 public interface IntDefectsVerifier {
@@ -29,34 +30,46 @@ public interface IntDefectsVerifier {
 	 */
 	public Defect isFalsePL(HlclProgram model);
 
-	public Defect isDeadElement(HlclProgram model, Identifier identifier);
+	/**
+	 * This method try to obtain a solution for each identifier . If no solution is found then the identifier is a dead element
+	 * @param model
+	 * @param identifier
+	 * @return null if the identifier is not dead, a DeadElement defect otherwise
+	 * @throws FunctionalException
+	 */
+	public Defect isDeadElement(HlclProgram model, Identifier identifier) throws FunctionalException;
 
 	public Defect isFalseOptionalElement(HlclProgram model,
-			Identifier identifier);
+			Identifier identifier) throws FunctionalException;
 
 	public Defect isRedundant(HlclProgram model,
-			BooleanExpression expressionToVerify, BooleanExpression negation);
+			BooleanExpression expressionToVerify) throws FunctionalException;
 
 	public List<Defect> getDeadElements(HlclProgram model,
-			Set<Identifier> elementsToVerify);
+			Set<Identifier> elementsToVerify) throws FunctionalException;
 
 	public List<Defect> getFalseOptionalElements(HlclProgram model,
-			Set<Identifier> elementsToVerify);
+			Set<Identifier> elementsToVerify) throws FunctionalException;
 
 	/**
 	 * @param model
 	 *            expressed as Hlclprogram
-	 * @param constraitsToVerify
-	 *            : For each pair of elements: key of map - expression to
-	 *            verify. Value of map: negation of the expression to verify
+	 * @param constraitsToVerifyRedundacies
+	 *            : expressions to verify if they are redundant.
 	 * @return Defect
 	 */
 	public List<Defect> getRedundancies(HlclProgram model,
-			Map<BooleanExpression, BooleanExpression> constraitsToVerify);
+			List<BooleanExpression> constraitsToVerifyRedundacies) throws FunctionalException;
+	
+	public List<Defect> getAllNonAttainableDomains(HlclProgram model,
+			Set<Identifier> elementsToVerify) throws FunctionalException;
+	
+	public List<Defect> getNonAttainableDomains(HlclProgram model,
+			Identifier identifier) throws FunctionalException ;
 
-	public List<Defect> getDefects(HlclProgram model,
+	public VerificationResult getDefects(
+			HlclProgram model,
 			Set<Identifier> optionalElements,
-			Set<Identifier> deadElementsToVerify,
-			Map<BooleanExpression, BooleanExpression> constraitsToVerifyRedundancies);
+			Set<Identifier> deadElementsToVerify, List<BooleanExpression> constraintsToVerifyRedundancies);
 
 }

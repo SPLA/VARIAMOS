@@ -1,58 +1,38 @@
 package com.variamos.defectAnalyzer.model.defects;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.cfm.hlcl.Identifier;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class NonAttainableDomain extends Defect {
-	private VariabilityElementDefAna variabilityElementDefAna;
-	private Integer notAttainableDomain;
+	private Identifier identifier;
+	private Integer unreachableValue;
 
-	public NonAttainableDomain(VariabilityElementDefAna variabilityElementDefAna,
-			Integer notAttainableDomain) {
+	public NonAttainableDomain(Identifier identifier, Integer unreachableValue,
+			BooleanExpression verificationExpression) {
 		super();
-		this.variabilityElementDefAna = variabilityElementDefAna;
-		this.id = variabilityElementDefAna.getName();
-		this.notAttainableDomain = notAttainableDomain;
+		this.identifier = identifier;
+		this.id = identifier.getId() + " = " + unreachableValue.toString();
+		this.unreachableValue = unreachableValue;
 		defectType = DefectType.NON_ATTAINABLE_DOMAIN;
 	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(Identifier identifier) {
+		this.identifier = identifier;
+	}
+
+	public Integer getUnreachableValue() {
+		return unreachableValue;
+	}
+
+	public void setUnreachableValue(Integer unreachableValue) {
+		this.unreachableValue = unreachableValue;
+	}
+
 	
-	public NonAttainableDomain(VariabilityElementDefAna variabilityElementDefAna,
-			Integer notAttainableDomain,
-			BooleanExpression verificationExpression) {
-		this(variabilityElementDefAna,notAttainableDomain);
-		this.verificationExpression=verificationExpression;
-	}
-
-
-	/**
-	 * @return the variabilityElement
-	 */
-	public VariabilityElementDefAna getVariabilityElement() {
-		return variabilityElementDefAna;
-	}
-
-	/**
-	 * @param variabilityElementDefAna
-	 *            the variabilityElement to set
-	 */
-	public void setVariabilityElement(VariabilityElementDefAna variabilityElementDefAna) {
-		this.variabilityElementDefAna = variabilityElementDefAna;
-	}
-
-	/**
-	 * @return the notAttainableDomain
-	 */
-	public Integer getNotAttainableDomain() {
-		return notAttainableDomain;
-	}
-
-	/**
-	 * @param notAttainableDomain
-	 *            the notAttainableDomain to set
-	 */
-	public void setNotAttainableDomain(Integer notAttainableDomain) {
-		this.notAttainableDomain = notAttainableDomain;
-	}
 
 }

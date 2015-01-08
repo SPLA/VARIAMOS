@@ -2,13 +2,13 @@ package com.cfm.productline.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -19,10 +19,10 @@ import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
@@ -44,15 +44,8 @@ public class VerificatorTest {
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 		VoidModel isVoid = (VoidModel) verifier.isVoid(model);
@@ -67,15 +60,8 @@ public class VerificatorTest {
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
 
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 		FalseProductLine isFalsePL = (FalseProductLine) verifier
@@ -90,23 +76,22 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
-		DeadElement deadElement = (DeadElement) verifier.isDeadElement(model,
-				identifiers.iterator().next());
-		assertTrue(deadElement != null);
+		DeadElement deadElement;
+		try {
+			deadElement = (DeadElement) verifier.isDeadElement(model,
+					identifiers.iterator().next());
+			assertTrue(deadElement != null);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -116,25 +101,25 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 		Collection<Dependency> traversalDependencies = variabilityModel
 				.getInclusionExclusionDependencies().values();
 		Dependency dependencyToEvaluate = traversalDependencies.iterator()
 				.next();
-		Redundancy redundancy = (Redundancy) verifier.isRedundant(model,
-				dependencyToEvaluate.getConstraintExpression(),
-				dependencyToEvaluate.getNegationExpression());
-		assertTrue(redundancy == null);
+		List<BooleanExpression> negationList = new ArrayList<BooleanExpression>();
+		negationList.add(dependencyToEvaluate.getNegationExpression());
+		Redundancy redundancy;
+		try {
+			redundancy = (Redundancy) verifier.isRedundant(model,
+					dependencyToEvaluate.getConstraintExpression());
+			assertTrue(redundancy == null);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -144,19 +129,12 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 
-		Map<BooleanExpression, BooleanExpression> constraitsToVerify = new HashMap<BooleanExpression, BooleanExpression>();
+		List<BooleanExpression> constraitsToVerify = new ArrayList<BooleanExpression>();
 
 		Collection<Dependency> traversalDependencies = variabilityModel
 				.getInclusionExclusionDependencies().values();
@@ -164,14 +142,18 @@ public class VerificatorTest {
 
 		while (it.hasNext()) {
 			Dependency dependency = it.next();
-			constraitsToVerify.put(dependency.getConstraintExpression(),
-					dependency.getNegationExpression());
-
+			constraitsToVerify.add(dependency.getConstraintExpression());
 		}
 
-		List<Defect> redundancies = verifier.getRedundancies(model,
-				constraitsToVerify);
-		assertTrue(redundancies.size() == 3);
+		List<Defect> redundancies;
+		try {
+			redundancies = verifier.getRedundancies(model, constraitsToVerify);
+			assertTrue(redundancies.size() == 3);
+
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -181,23 +163,21 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
-		List<Defect> deadElements = verifier
-				.getDeadElements(model, identifiers);
-		assertTrue(deadElements.size() == 10);
+		List<Defect> deadElements;
+		try {
+			deadElements = verifier.getDeadElements(model, identifiers);
+			assertTrue(deadElements.size() == 10);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -207,15 +187,8 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 
@@ -238,9 +211,15 @@ public class VerificatorTest {
 
 		}
 
-		List<Defect> falseOptionalElements = verifier.getFalseOptionalElements(
-				model, identifiersToVerify);
-		assertTrue(falseOptionalElements.size() == 2);
+		List<Defect> falseOptionalElements;
+		try {
+			falseOptionalElements = verifier.getFalseOptionalElements(model,
+					identifiersToVerify);
+			assertTrue(falseOptionalElements.size() == 2);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 
@@ -250,15 +229,9 @@ public class VerificatorTest {
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
 				.dependencyToExpressionList(variabilityModel.getDependencies(),
 						variabilityModel.getFixedDependencies());
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
 
-		// Set transformed variability model
-		verifierInDTO.setVariabilityModel(variabilityModel);
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-
-		IntDefectsVerifier verifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram model = ConstraintRepresentationUtil
 				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
 
@@ -273,9 +246,41 @@ public class VerificatorTest {
 				break;
 			}
 		}
-		FalseOptionalElement falseOptional = (FalseOptionalElement) verifier
-				.isFalseOptionalElement(model, identify);
-		assertTrue(falseOptional != null);
+		FalseOptionalElement falseOptional;
+		try {
+			falseOptional = (FalseOptionalElement) verifier
+					.isFalseOptionalElement(model, identify);
+			assertTrue(falseOptional != null);
+
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void isNotAttainableDomains() {
+		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+				.dependencyToExpressionList(variabilityModel.getDependencies(),
+						variabilityModel.getFixedDependencies());
+		IntDefectsVerifier verifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
+		HlclProgram model = ConstraintRepresentationUtil
+				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+
+		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
+
+		List<Defect> nonAttainableDomains;
+		try {
+			nonAttainableDomains =  verifier.getNonAttainableDomains(
+					model, identifiers.iterator().next());
+			assertTrue(nonAttainableDomains.size()==1);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 
 	}
 

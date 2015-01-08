@@ -13,15 +13,12 @@ public class VoidModel extends Defect {
 	}
 	
 	
-	public VoidModel(boolean isVoidModel) {
+	public VoidModel() {
 		super();
-		this.isVoidModel = isVoidModel;
 		defectType = DefectType.VOID_MODEL;
+		isVoidModel=Boolean.TRUE;
 	}
-	public VoidModel(String variabilityModelName) {
-		super();
-		this.id = variabilityModelName;
-		defectType = DefectType.VOID_MODEL;
-	}
+	
+
 
 }

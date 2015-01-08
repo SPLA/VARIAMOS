@@ -2,7 +2,7 @@ package com.variamos.defectAnalyzer.model;
 
 import java.util.List;
 
-import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
+import com.variamos.defectAnalyzer.dto.VerificationResult;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
 public class AnalyzedCorrectionSet {
@@ -10,7 +10,7 @@ public class AnalyzedCorrectionSet {
 	private Long id;
 	private VariabilityModel variabilityModel;
 	private List<Dependency> correctionSubsets;
-	private VMVerifierOutDTO verifierOutDTO;
+	private VerificationResult verifierOutDTO;
 	private Defect analyzedDefect;
 
 	/**
@@ -76,7 +76,7 @@ public class AnalyzedCorrectionSet {
 	/**
 	 * @return the verifierOutDTO
 	 */
-	public VMVerifierOutDTO getVerifierOutDTO() {
+	public VerificationResult getVerifierOutDTO() {
 		return verifierOutDTO;
 	}
 
@@ -84,7 +84,7 @@ public class AnalyzedCorrectionSet {
 	 * @param verifierOutDTO
 	 *            the verifierOutDTO to set
 	 */
-	public void setVerifierOutDTO(VMVerifierOutDTO verifierOutDTO) {
+	public void setVerifierOutDTO(VerificationResult verifierOutDTO) {
 		this.verifierOutDTO = verifierOutDTO;
 	}
 

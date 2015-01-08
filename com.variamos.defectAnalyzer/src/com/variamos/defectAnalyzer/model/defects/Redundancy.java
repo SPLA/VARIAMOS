@@ -1,5 +1,7 @@
 package com.variamos.defectAnalyzer.model.defects;
 
+import java.util.List;
+
 import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
@@ -9,7 +11,7 @@ public class Redundancy extends Defect {
 
 	private Dependency redundantDependency;
 	private BooleanExpression redundantExpression;
-	private BooleanExpression negation;
+	private List<BooleanExpression> negationList;
 	
 	@Deprecated
 	public Redundancy(Dependency redundantDependency) {
@@ -30,13 +32,10 @@ public class Redundancy extends Defect {
 	
 
 	public Redundancy(BooleanExpression redundantExpression,
-			BooleanExpression negation) {
+			List<BooleanExpression> negationList) {
 		super();
 		this.redundantExpression = redundantExpression;
-		this.negation = negation;
-		this.id = redundantExpression.toString();
-		defectType = DefectType.REDUNDANCY;
-
+		this.negationList = negationList;
 	}
 	/**
 	 * @return the redundantDependency
@@ -60,13 +59,13 @@ public class Redundancy extends Defect {
 	public void setRedundantExpression(BooleanExpression redundantExpression) {
 		this.redundantExpression = redundantExpression;
 	}
-
-	public BooleanExpression getNegation() {
-		return negation;
+	public List<BooleanExpression> getNegationList() {
+		return negationList;
+	}
+	public void setNegationList(List<BooleanExpression> negationList) {
+		this.negationList = negationList;
 	}
 
-	public void setNegation(BooleanExpression negation) {
-		this.negation = negation;
-	}
+
 
 }

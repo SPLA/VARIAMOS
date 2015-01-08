@@ -11,17 +11,7 @@ public class VerifierUtilExpression {
 
 	private static final HlclFactory f = new HlclFactory();
 
-	@Deprecated
-	public static BooleanExpression verifyAssignValueToVariabilityElementExpression(
-			VariabilityElementDefAna variabilityElementDefAna, int valueToVerify) {
 
-		// VariabilityElement = valueToVerify
-		Identifier element = f
-				.newIdentifier(variabilityElementDefAna.getName());
-		NumericIdentifier nonValue = f.number(valueToVerify);
-		BooleanExpression numericExpression = f.equals(element, nonValue);
-		return numericExpression;
-	}
 
 	public static BooleanExpression verifyAssignValueToVariabilityElementExpression(
 			Identifier element, int valueToVerify) {
