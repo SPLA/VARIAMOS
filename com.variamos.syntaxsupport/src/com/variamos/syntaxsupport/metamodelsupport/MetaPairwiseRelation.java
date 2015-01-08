@@ -1,10 +1,13 @@
 package com.variamos.syntaxsupport.metamodelsupport;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 /**
  * A class to represented edges of the meta model. Extends from MetaElement
  * adding the allowed semantic concepts and edge types. An dynamic attribute for
@@ -37,7 +40,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	/**
 	 * 
 	 */
-	private IntSemanticPairwiseRelation semanticRelation;
+	private IntSemanticPairwiseRelation semanticPairwiseRelation;
 	
 	public static final
 	/**
@@ -86,7 +89,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		this(identifier, visible, name, style, description, width, height, image,
 				borderStroke, origin, destination, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
-		this.semanticRelation = semanticRelation;
+		this.semanticPairwiseRelation = semanticRelation;
 		 createModelingAttributes();
 	}
 		
@@ -180,6 +183,67 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METAPAIRWISERELTYPE+"#==#"+"generalConstraint");
 		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METAPAIRWISERELTYPE+"#==#"+"generalConstraint");
 	}
+	
+	public Set<String> getPropVisibleAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPropVisibleAttributes());
+
+		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPropEditableAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPropEditableAttributes());
+
+		modelingAttributesNames.addAll(super.getPropEditableAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelVisibleAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPanelVisibleAttributes());
+
+		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelSpacersAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPanelSpacersAttributes());
+
+		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getSemanticAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getSemanticAttributesNames());
+		return modelingAttributesNames;
+	}
+
+	public AbstractAttribute getSemanticAttribute(String name) {
+		return semanticPairwiseRelation.getSemanticAttribute(name);
+	}
+
+	public List<IntSemanticRelationType> getSemanticRelationTypes() {
+		return semanticPairwiseRelation.getSemanticRelationTypes();
+	}
+
 
 	public void setOrigin(MetaVertex origin) {
 		this.origin = origin;

@@ -143,21 +143,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				Iterator<InstVertex> iterVertex = refas.getVariabilityVertexCollection().iterator();
 				InstVertex instVertex = iterVertex.next();
 				orderExpressionList.add(getSumExpression(instVertex, iterVertex));
-				/*orderExpressionList.add(f.sum(f.newIdentifier("Feature1_Opt"),
-								f.sum(f.newIdentifier("Feature2_Opt"),
-										f.sum(f.newIdentifier("Feature3_Opt"),
-												f.sum(f.newIdentifier("Feature4_Opt"),
-														f.sum(f.newIdentifier("Feature5_Opt"),
-																f.sum(f.newIdentifier("Feature7_Opt"),
-																				f.sum(f.newIdentifier("Feature8_Opt"),
-																						f.sum(f.newIdentifier("Feature9_Opt"),
-																								f.sum(f.newIdentifier("Feature10_Opt"),
-																										f.sum(f.newIdentifier("Feature11_Opt"),
-																												f.sum(f.newIdentifier("Feature12_Opt"),
-																														f.sum(f.newIdentifier("Feature13_Opt"),
-																																f.sum(f.newIdentifier("Feature14_Opt"),
-																																		f.newIdentifier("Feature15_Opt")))))))))))))));
-				*/
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);

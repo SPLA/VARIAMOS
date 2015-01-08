@@ -21,7 +21,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 	 */
 	private static final long serialVersionUID = 2544731646206260777L;
 	// new
-	private IntSemanticOverTwoRelation intSemanticOverTwoRelation;
+	private IntSemanticOverTwoRelation semanticOverTwoRelation;
 
 	public static final String
 	/**
@@ -100,7 +100,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 			IntSemanticOverTwoRelation intSemanticOverTwoRelation) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, topConcept, backgroundColor, resizable);
-		this.intSemanticOverTwoRelation = intSemanticOverTwoRelation;
+		this.semanticOverTwoRelation = intSemanticOverTwoRelation;
 		createGroupDepModelingAttributes();
 	}
 
@@ -120,8 +120,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (intSemanticOverTwoRelation != null)
-			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+		if (semanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
@@ -131,8 +131,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (intSemanticOverTwoRelation != null)
-			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+		if (semanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
@@ -142,8 +142,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (intSemanticOverTwoRelation != null)
-			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+		if (semanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
@@ -153,8 +153,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (intSemanticOverTwoRelation != null)
-			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+		if (semanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
@@ -163,17 +163,17 @@ public class MetaOverTwoRelation extends MetaVertex {
 
 	public Set<String> getSemanticAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (intSemanticOverTwoRelation != null)
-			modelingAttributesNames.addAll(intSemanticOverTwoRelation
+		if (semanticOverTwoRelation != null)
+			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getSemanticAttributesNames());
 		return modelingAttributesNames;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return intSemanticOverTwoRelation.getSemanticAttribute(name);
+		return semanticOverTwoRelation.getSemanticAttribute(name);
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return intSemanticOverTwoRelation.getSemanticRelationTypes();
+		return semanticOverTwoRelation.getSemanticRelationTypes();
 	}
 }

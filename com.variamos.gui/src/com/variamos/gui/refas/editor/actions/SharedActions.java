@@ -106,14 +106,28 @@ public class SharedActions {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
+							try{
 							loadSupportObjects(editor, mv2.getValue(), mv2,
 									graph);
+							}
+							catch(Exception e)
+							{								
+								e.printStackTrace();
+								System.err.println(mv2.getValue().toString());
+							}
 						}
 					}
 				} else
 					for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+						try{
 						loadSupportObjects(editor, mv1.getValue(), mv1, graph);
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						System.err.println(mv1.getValue().toString());
+					}
 					}
 			}
 		}

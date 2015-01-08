@@ -187,27 +187,41 @@ public class InstPairwiseRelation extends InstElement {
 							.getModelingAttribute(name), semanticPairwiseRelationType);
 			}
 
+			
+			Iterator<String> semanticAttributes = getMetaPairwiseRelation().getSemanticAttributes().iterator();
+			while (semanticAttributes.hasNext()) {
+				String name = semanticAttributes.next();
+				if (name.equals("identifier"))
+					addInstAttribute(name, getMetaPairwiseRelation().getSemanticAttribute(name),
+							getIdentifier());
+				else
+					addInstAttribute(name, getMetaPairwiseRelation().getSemanticAttribute(name), null);
+			}
+			/*
+			
 			if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 					&& getInstAttribute(
 							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 							.getValueObject() != null) {
-				IntSemanticPairwiseRelation sementicRelation = (IntSemanticPairwiseRelation) getInstAttribute(
+				IntSemanticPairwiseRelation semanticRelation = (IntSemanticPairwiseRelation) getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject();
-				Iterator<String> semanticAttributes = sementicRelation
+				Iterator<String> semanticAttributes = semanticRelation
 						.getSemanticAttributesNames().iterator();
 				while (semanticAttributes.hasNext()) {
 					String name = semanticAttributes.next();
 					if (name.equals("identifier"))
 						addInstAttribute(name,
-								sementicRelation.getSemanticAttribute(name),
+								semanticRelation.getSemanticAttribute(name),
 								getIdentifier());
 					else
 						addInstAttribute(name,
-								sementicRelation.getSemanticAttribute(name),
+								semanticRelation.getSemanticAttribute(name),
 								null);
 				}
-			}
+				}
+				*/
+			
 		}
 
 	}

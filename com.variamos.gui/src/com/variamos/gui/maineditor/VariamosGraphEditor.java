@@ -40,6 +40,7 @@ import javax.swing.event.ChangeListener;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.HlclFactory;
+import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
@@ -81,6 +82,7 @@ import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
+import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.refas.core.types.PerspectiveType;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
@@ -753,10 +755,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						if (elm instanceof InstOverTwoRelation) {
 							editableElementType = "groupdep";
 						}
-						expressions.configure(getEditedModel(), refas2hlcl
+						MetaExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(
 										lastEditableElement.getIdentifier(),
-										editableElementType),
+										editableElementType);
+						
+						expressions.configure(getEditedModel(), metaExpressionSet ,
 								(InstElement) lastEditableElement);
 						updateExpressions = false;
 					}
@@ -786,11 +790,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(expressionsArea));
 			}
+			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
+					new JScrollPane(expressions));
 		}
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
-		extensionTabs.addTab(mxResources.get("editExpressionsTab"),
-				new JScrollPane(expressions));
+
 		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
 				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
@@ -1039,6 +1044,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								public void actionPerformed(ActionEvent e) {
 									if (!recursiveCall) {
 										editPropertiesRefas(elm);
+										updateExpressions = true;
 									}
 								}
 							});
@@ -1068,6 +1074,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									editPropertiesRefas(elm);
+									updateExpressions = true;
 								}
 							});
 							elementConfPropSubPanel.add(button);
@@ -1411,6 +1418,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		HlclFactory f = new HlclFactory();
 		Collection<InstVertex> pairwiseRelations = ((Refas) getEditedModel())
 				.getVariabilityVertexCollection();
+		// Make input DTO
+		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
+
+		// Set Prolog editor type
+		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
+		HlclProgram hlclProgram = refas2hlcl.getHlclProgram();
 		Set<Identifier> identifiers = new HashSet<Identifier>();
 		for (InstVertex pairwiseRelation : pairwiseRelations) {
 			if (pairwiseRelation.isOptional())
@@ -1418,16 +1432,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						.getIdentifier()
 						+ "_"
 						+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
-
 		}
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
-
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
 		List<Defect> falseOptionalList = defectVerifier
-				.getFalseOptionalElements(refas2hlcl.getHlclProgram(),
+				.getFalseOptionalElements(hlclProgram,
 						identifiers);
 		if (falseOptionalList.size() > 0)
 		{
