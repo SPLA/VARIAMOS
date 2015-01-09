@@ -327,7 +327,7 @@ public class RefasGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map);
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map, "test");
 		Refas refas = getRefas();
 
 		cell.setValue(directRelation);

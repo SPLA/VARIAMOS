@@ -42,7 +42,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	private String supportMetaPairwiseRelIden;
 
-	private String semanticPairwiseRelationType;
+	private String semanticPairwiseRelType;
 
 	public static final String
 	/**
@@ -68,7 +68,7 @@ public class InstPairwiseRelation extends InstElement {
 	VAR_METAPAIRWISE_CLASS = MetaPairwiseRelation.class.getCanonicalName();
 
 	public InstPairwiseRelation() {
-		this(new HashMap<String, InstAttribute>());
+		this(new HashMap<String, InstAttribute>(),"test");
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
@@ -117,25 +117,26 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	// TODO restrict available relation types according to syntax definition
-	public InstPairwiseRelation(Map<String, InstAttribute> instAttributes) {
+	public InstPairwiseRelation(Map<String, InstAttribute> instAttributes, String supportMetaPairwiseRelIden) {
 		super(null); // TODO use the same identifier, not a local attribute
 		createAttributes(instAttributes);
+		this.supportMetaPairwiseRelIden=supportMetaPairwiseRelIden;
 	}
 
-	public String getMetaPairwiseRelationIden() {
+	public String getSupportMetaPairwiseRelIden() {
 		return supportMetaPairwiseRelIden;
 	}
 
-	public String getSemanticPairwiseRelationType() {
-		return semanticPairwiseRelationType;
+	public String getSemanticPairwiseRelType() {
+		return semanticPairwiseRelType;
 	}
 
-	public void setSemanticPairwiseRelationType(String semanticRelationType) {
-		this.semanticPairwiseRelationType = semanticRelationType;
+	public void setSemanticPairwiseRelType(String semanticRelationType) {
+		this.semanticPairwiseRelType = semanticRelationType;
 	}
 
-	public void setMetaPairwiseRelationIden(String metaPairwiseRelationIden) {
-		this.supportMetaPairwiseRelIden = metaPairwiseRelationIden;
+	public void setSupportMetaPairwiseRelIden(String metaPairwiseRelationIden) {
+		supportMetaPairwiseRelIden = metaPairwiseRelationIden;
 		vars.put(VAR_METAPAIRWISE_IDEN, metaPairwiseRelationIden);
 	}
 	
@@ -188,7 +189,7 @@ public class InstPairwiseRelation extends InstElement {
 				else if (getInstAttribute(name) == null
 						|| getInstAttribute(name).getValue() == null)
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name), semanticPairwiseRelationType);
+							.getModelingAttribute(name), semanticPairwiseRelType);
 			}
 
 			
@@ -581,7 +582,7 @@ public class InstPairwiseRelation extends InstElement {
 					.getIdentifier();
 		}
 		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null)
-			semanticPairwiseRelationType = ((String) getInstAttribute(
+			semanticPairwiseRelType = ((String) getInstAttribute(
 					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
 					.trim();
 		
@@ -615,7 +616,7 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void setUpdatePairwiseRelationType() {
-		setVariable("relationType",semanticPairwiseRelationType);
+	//	setVariable("relationType",semanticPairwiseRelationType);
 		
 	}
 }

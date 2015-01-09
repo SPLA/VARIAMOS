@@ -103,6 +103,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					String validation = "/com/variamos/gui/refas/editor/images/sim_validation.png";
 					String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
 					String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
+					String error = "/com/mxgraph/examples/swing/images/x-red.gif";
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
@@ -242,6 +243,17 @@ public class VariamosGraphComponent extends mxGraphComponent {
 										+ "; Another preferred selected (Third red circle)");
 						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+					}
+					if ((boolean) instConcept.getInstAttribute(
+							"VerificationError").getValue()) {
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource(error)),
+								"This element has issues in properties or relations");
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_RIGHT);
 						addCellOverlay(tmp, over3);
 					}
 				} catch (Exception e) {

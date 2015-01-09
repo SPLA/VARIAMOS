@@ -204,7 +204,7 @@ public class SharedActions {
 			MetaPairwiseRelation metaPairwiseRelation = refas.getSyntaxRefas()
 					.getValidMetaPairwiseRelation(sourceVertex.getSupportMetaVertex(),
 							targetVertex.getSupportMetaVertex(),
-							instPairwiseRelation.getMetaPairwiseRelationIden(),
+							instPairwiseRelation.getSupportMetaPairwiseRelIden(),
 							true);
 			instPairwiseRelation.setSourceRelation(sourceVertex, true);
 			instPairwiseRelation.setTargetRelation(targetVertex, true);
@@ -214,7 +214,7 @@ public class SharedActions {
 				instPairwiseRelation.setUpdatePairwiseRelationType();
 				instPairwiseRelation.setVariable(
 						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
-						instPairwiseRelation.getSemanticPairwiseRelationType());
+						instPairwiseRelation.getSemanticPairwiseRelType());
 
 				Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
 						.getInstAttributes().values().iterator();
@@ -240,7 +240,7 @@ public class SharedActions {
 					if (instAttribute.getIdentifier().equals(
 							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
 						instAttribute.setValue(instPairwiseRelation
-								.getSemanticPairwiseRelationType());
+								.getSemanticPairwiseRelType());
 				/*	if (instAttribute.getIdentifier().equals(
 							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
 					{

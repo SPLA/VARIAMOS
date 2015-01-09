@@ -816,6 +816,10 @@ public class Refas extends AbstractModel {
 				new SimulationStateAttribute("Opt", "Integer", false,
 						"Satisfaction Conflict", 0, new RangeDomain(0, 20)));
 
+		semGeneralElement.putSemanticAttribute("VerificationError",
+				new SimulationStateAttribute("VerificationError", "Boolean", false,
+						"VerificationError", false));
+		
 		// semGeneralElement.putSemanticAttribute("Selected",
 		// new SimulationStateAttribute("Selected", "Boolean", false,
 		// "***Selected***", false));

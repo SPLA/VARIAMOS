@@ -142,6 +142,14 @@ public abstract class InstElement implements Serializable, EditableElement {
 		}
 	}
 
+	public Map<String, Object> getVars() {
+		return vars;
+	}
+
+	public void setVars(Map<String, Object> vars) {
+		this.vars = vars;
+	}
+
 	public IntSemanticElement getEditableSemanticElement() {
 		return editableSemanticElement;
 	}

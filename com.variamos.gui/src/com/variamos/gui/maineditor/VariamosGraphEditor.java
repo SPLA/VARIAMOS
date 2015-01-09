@@ -1415,6 +1415,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// }
 
 	public void verifyErrors() {
+		refas2hlcl.cleanElementsOptional();
 		HlclFactory f = new HlclFactory();
 		Collection<InstVertex> pairwiseRelations = ((Refas) getEditedModel())
 				.getVariabilityVertexCollection();
@@ -1426,6 +1427,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
 		HlclProgram hlclProgram = refas2hlcl.getHlclProgram();
 		Set<Identifier> identifiers = new HashSet<Identifier>();
+		
 		for (InstVertex pairwiseRelation : pairwiseRelations) {
 			if (pairwiseRelation.isOptional())
 				identifiers.add(f.newIdentifier(pairwiseRelation
@@ -1438,24 +1440,41 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						identifiers);
 		if (falseOptionalList.size() > 0)
 		{
+			List<String> outIdentifiers = new ArrayList<String>();
 			String defects = "(";
 			for (Defect defect: falseOptionalList)
 			{	
 				String[] o = defect.getId().split("_");
 				defects +=  o[0]+ ", ";
+				outIdentifiers.add(o[0]);
 			}
+			refas2hlcl.updateErrorMark(outIdentifiers);
 			defects = defects.substring(0, defects.length()-2)+")";
 				
 			JOptionPane.showMessageDialog(frame,
 					falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
 					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
 					null);
+
 		}
 		else
+		{
+			refas2hlcl.updateErrorMark(null);
 			JOptionPane.showMessageDialog(frame,
 					"No false optional elements identifed on the model.",
 					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
 					null);
+		}
+		if (lastEditableElement == null)
+			JOptionPane
+					.showMessageDialog(
+							frame,
+							"Please select any element and after execute the verification.",
+							"Verification Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
+		else
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
 	}
 
 }
