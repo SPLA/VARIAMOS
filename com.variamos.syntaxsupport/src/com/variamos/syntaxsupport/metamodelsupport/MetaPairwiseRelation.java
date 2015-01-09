@@ -228,6 +228,15 @@ public class MetaPairwiseRelation extends MetaElement {
 		return modelingAttributesNames;
 	}
 
+
+	public AbstractAttribute getAbstractAttribute(String attributeName) {
+		AbstractAttribute out = getSemanticAttribute(attributeName);
+		if (out == null)
+			return getModelingAttribute(attributeName);
+		else
+			return out;
+	}
+	
 	public Set<String> getSemanticAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (semanticPairwiseRelation != null)

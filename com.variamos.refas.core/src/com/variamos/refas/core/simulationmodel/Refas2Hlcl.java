@@ -224,7 +224,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateErrorMark(List<String> identifiers) {
 		// Call the SWIProlog and obtain the result
 
-		int i = 0;
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			InstAttribute instAttribute = instVertex
 					.getInstAttribute("VerificationError");

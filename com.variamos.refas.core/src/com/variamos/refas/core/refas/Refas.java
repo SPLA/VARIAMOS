@@ -1990,10 +1990,28 @@ public class Refas extends AbstractModel {
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
 
+		
+		MetaPairwiseRelation metaHardPairwiseRel2 = new MetaPairwiseRelation(
+				"HardRelation2", true, "HardRelation2", "",
+				"Direct relation between two"
+						+ " hard concepts. Defines different types of"
+						+ " relations and cartinalities", 50, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
+				directHardHardSemanticEdge);
+		
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-vaPR", instEdge);
 		instEdge.setIdentifier("variab-vaPR");
 		instEdge.setEditableMetaElement(metaHardPairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVA, true);
+		instEdge.setSourceRelation(instVertexVA, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-vaPR2", instEdge);
+		instEdge.setIdentifier("variab-vaPR2");
+		instEdge.setEditableMetaElement(metaHardPairwiseRel2);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexVA, true);
@@ -2988,14 +3006,18 @@ public class Refas extends AbstractModel {
 								instElement2.getIdentifier())
 						&& pwr.getEditableMetaElement().getIdentifier()
 								.equals(metaPairwiseIden))
-					return pwr.getMetaPairwiseRelation();
+					return (MetaPairwiseRelation) pwr.getEditableMetaElement();
 			}
 		}
 		if (instElement2 instanceof MetaConcept
 				&& ((MetaConcept) instElement2).getParent() != null)
-			return (getValidMetaPairwiseRelation(instElement,
+		{
+			MetaPairwiseRelation out = (getValidMetaPairwiseRelation(instElement,
 					((MetaConcept) instElement2).getParent(), metaPairwiseIden,
 					false));
+			if (out != null)
+				return out;
+		}
 		if (instElement instanceof MetaConcept
 				&& ((MetaConcept) instElement).getParent() != null && first)
 			return (getValidMetaPairwiseRelation(

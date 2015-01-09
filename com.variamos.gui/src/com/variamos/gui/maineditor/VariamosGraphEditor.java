@@ -1473,8 +1473,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							"Verification Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
 		else
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
+			try{
+				((RefasGraph) getGraphComponent().getGraph())
+				.refreshVariable(lastEditableElement);	
+			}
+			catch (Exception e)
+		{
+				lastEditableElement = null;
+				JOptionPane
+				.showMessageDialog(
+						frame,
+						"Please select any element and after execute the verification.",
+						"Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+		}
 	}
 
 }

@@ -616,7 +616,7 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void setUpdatePairwiseRelationType() {
-	//	setVariable("relationType",semanticPairwiseRelationType);
+		setVariable("relationType",semanticPairwiseRelType);
 		
 	}
 }

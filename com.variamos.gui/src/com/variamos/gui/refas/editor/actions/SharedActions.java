@@ -144,12 +144,8 @@ public class SharedActions {
 					.getSyntaxRefas()
 					.getVertex(instOverTwoRelation.getSupportMetaVertexIdentifier())
 					.getEditableMetaElement();
-			// IntSemanticElement sgd = editor.getSematicSintaxObject()
-			// .getSemanticElement(ic.getSemanticOverTwoRelationIden());
 			instOverTwoRelation.setSupportMetaVertex(metaOverTwoRelation);
 			refas.putInstGroupDependency(instOverTwoRelation);
-			// if (sgd != null)
-			// ic.setSemanticOverTwoRelation((SemanticOverTwoRelation) sgd);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
 			while (ias.hasNext()) {
@@ -223,8 +219,8 @@ public class SharedActions {
 						
 					InstAttribute instAttribute = (InstAttribute) instAttributesIter
 							.next();
-					AbstractAttribute absAttribute = metaPairwiseRelation
-							.getModelingAttribute(instAttribute
+
+					AbstractAttribute absAttribute = metaPairwiseRelation.getAbstractAttribute(instAttribute
 									.getAttributeName());
 					if (absAttribute == null)
 						absAttribute = instPairwiseRelation.getSemanticAttribute();
@@ -241,13 +237,13 @@ public class SharedActions {
 							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
 						instAttribute.setValue(instPairwiseRelation
 								.getSemanticPairwiseRelType());
-				/*	if (instAttribute.getIdentifier().equals(
-							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
-					{
-						String a = source.getValue().toString();
-						instAttribute.setValue(a);
-					}*/
-						
+					if (instAttribute.getIdentifier().equals(
+							"relationType"))
+						instAttribute.setValue(instPairwiseRelation
+								.getSemanticPairwiseRelType());
+					List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
+							.getSupportMetaElement()).getSemanticRelationTypes();
+					instAttribute.setValidationRelationTypes(semGD);
 					}					
 					catch (Exception e)
 					{
