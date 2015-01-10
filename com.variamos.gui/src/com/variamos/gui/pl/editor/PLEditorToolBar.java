@@ -99,7 +99,7 @@ public class PLEditorToolBar extends JToolBar {
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
 		}
 			
-		if (variamosGraphEditor.getPerspective() == 2 || variamosGraphEditor.getPerspective() == 4) {			
+		if (variamosGraphEditor.getPerspective() == 4) {			
 			addSeparator();
 			add(variamosGraphEditor.bind("clean", new SimulationAction(true, false),
 					"/com/mxgraph/examples/swing/images/pan.gif"));

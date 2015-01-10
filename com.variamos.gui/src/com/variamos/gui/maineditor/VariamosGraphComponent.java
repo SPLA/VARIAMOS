@@ -87,13 +87,14 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		boolean isValid = true;
 		Object tmp2 = model.getChildAt(cell, 0);
 
-		if (model.getChildCount(tmp2) >0) {
-			tmp2 = model.getChildAt(tmp2, 0); // TODO implement for other model
+		if (model.getChildCount(tmp2) > 0
+				&& ((mxCell) tmp2).getValue()!=null) {
+			Object tmp3 = model.getChildAt(tmp2, 0); // TODO implement for other model
 												// views
-			int childCount = model.getChildCount(tmp2);
+			int childCount = model.getChildCount(tmp3);
 
 			for (int i = 0; i < childCount; i++) {
-				mxCell tmp = (mxCell) model.getChildAt(tmp2, i);
+				mxCell tmp = (mxCell) model.getChildAt(tmp3, i);
 				Object val = tmp.getValue();
 				if (tmp.getGeometry() != null && val != null
 						&& val instanceof InstConcept) {
@@ -248,6 +249,24 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							over3.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over3);
 						}
+					} catch (Exception e) {
+					}
+				}
+			}
+		}
+		if (model.getChildCount(tmp2) > 0) {
+			tmp2 = model.getChildAt(tmp2, 0); // TODO implement for other model
+												// views
+			int childCount = model.getChildCount(tmp2);
+
+			for (int i = 0; i < childCount; i++) {
+				mxCell tmp = (mxCell) model.getChildAt(tmp2, i);
+				Object val = tmp.getValue();
+				if (tmp.getGeometry() != null && val != null
+						&& val instanceof InstConcept) {
+					try {
+						InstConcept instConcept = (InstConcept) val;
+						String error = "/com/mxgraph/examples/swing/images/x-red.gif";
 						if ((boolean) instConcept.getInstAttribute(
 								"VerificationError").getValue()) {
 							mxCellOverlay over3 = new mxCellOverlay(
@@ -262,23 +281,9 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 					} catch (Exception e) {
 					}
-
-					/*
-					 * mxCellState state = graph.getView().getState(tmp);
-					 * //state.setX(100); if (state != null) {
-					 * updateCellOverlayComponent(state, over); }
-					 * this.eventSource.fireEvent(new
-					 * mxEventObject(mxEvent.ADD_OVERLAY, "cell", tmp,
-					 * "overlay", over));
-					 */
 				}
-				// setCellWarning(tmp, "test");
-
 			}
 		}
-
-		// Updates the display with the warning icons before any potential
-		// alerts are displayed
 	}
 
 	private void configureConnectionHandler() {

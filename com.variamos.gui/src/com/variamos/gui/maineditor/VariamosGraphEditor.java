@@ -74,6 +74,7 @@ import com.variamos.gui.refas.editor.RefasEditorToolBar;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
+import com.variamos.gui.refas.editor.actions.SharedActions;
 import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
 import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
@@ -782,13 +783,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// new JScrollPane(elementDesPropPanel));
 			extensionTabs.addTab(mxResources.get("elementDisPropTab"),
 					new JScrollPane(elementDesignPanel));
-			if (perspective == 2) {
+			if (perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementConfPropTab"),
 						new JScrollPane(elementConfigPropPanel));
 				// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				// new JScrollPane(elementExpressionPanel));
 				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 						new JScrollPane(elementSimPropPanel));
+			}
+				if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(expressionsArea));
 			}
@@ -1250,7 +1253,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			this.graphComponent.getGraph().selectAll();
 			this.graphComponent.getGraph().removeCells();		
 			graphComponent.getGraph().addCells(graph1.cloneCells(graph1.getChildCells(graph1.getDefaultParent())));
-
+			SharedActions.afterSaveGraph(graphComponent.getGraph(), this);
+			((mxCell)graphComponent.getGraph().getDefaultParent()).setValue("simul");
 			// mxGraphModel.prototype.cloneCells
 			/*
 			 * Object parent =

@@ -786,9 +786,9 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Required" + "#==#" + "true");
 		semGeneralElement.addPropVisibleAttribute("10#" + "ForcedSatisfied" + "#"
-				+ "Required" + "#==#" + "false" + "#" + "true");
+				+ "Required" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ForcedSelected" + "#"
-				+ "Required" + "#==#" + "false" + "#" + "true");
+				+ "Required" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("16#" + "PreferredSelected" + "#"
 				+ "Required" + "#==#" + "false" + "#" + "true");
 		
