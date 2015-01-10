@@ -280,11 +280,11 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		return val.toString();
 	}
 	//TODO remove non serializable attributes
-	public Map<String, Object> getDynamicAttributeComponentsMap() {
+	public Map<String, Object> getDynamicInstAttributeComponentsMap() {
 		return dynamicInstAttributeComponentsMap;
 	}
 	//TODO add non serializable attributes
-	public void setDynamicAttributeComponentsMap(Map<String, Object> vars) {
+	public void setDynamicInstAttributeComponentsMap(Map<String, Object> vars) {
 		this.dynamicInstAttributeComponentsMap = vars;
 	}
 
