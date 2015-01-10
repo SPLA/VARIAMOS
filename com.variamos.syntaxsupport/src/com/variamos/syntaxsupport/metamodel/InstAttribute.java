@@ -75,24 +75,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * Dynamic storage of attributes
 	 */
-	protected Map<String, Object> vars = new HashMap<>();
+	protected Map<String, Object> dynamicInstAttributeComponentsMap = new HashMap<>();
 
 	public InstAttribute() {
 
 	}
 
 	public InstAttribute(String identifier) {
-		vars.put(VAR_IDENTIFIER, identifier);
+		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public InstAttribute(String identifier,
 			AbstractAttribute modelingAttribute, Object value) {
 		super();
 		this.attributeObject = modelingAttribute;
-		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		vars.put(VAR_VALUE, value);
-		vars.put(VAR_DISPLAYVALUE, null);
+		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
+		dynamicInstAttributeComponentsMap.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		dynamicInstAttributeComponentsMap.put(VAR_VALUE, value);
+		dynamicInstAttributeComponentsMap.put(VAR_DISPLAYVALUE, null);
 	}
 
 	public InstAttribute(String identifier,
@@ -100,26 +100,26 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			Object valueObject) {
 		super();
 		this.attributeObject = modelingAttribute;
-		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		vars.put(VAR_VALUE, value);
-		vars.put(VAR_DISPLAYVALUE, null);
+		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
+		dynamicInstAttributeComponentsMap.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		dynamicInstAttributeComponentsMap.put(VAR_VALUE, value);
+		dynamicInstAttributeComponentsMap.put(VAR_DISPLAYVALUE, null);
 		this.valueObject = valueObject;
 
 		// this.value = value;
 	}
 
-	public Object getVariable(String name) {
-		return vars.get(name);
+	public Object getDynamicInstAttributeComponentMap(String name) {
+		return dynamicInstAttributeComponentsMap.get(name);
 	}
 
-	public void setVariable(String name, Object value) {
-		vars.put(name, value);
+	public void setDynamicInstAttributeComponentMap(String name, Object value) {
+		dynamicInstAttributeComponentsMap.put(name, value);
 	}
 
 	public void setIdentifier(String identifier) {
 		// this.identifier = identifier;
-		setVariable(VAR_IDENTIFIER, identifier);
+		setDynamicInstAttributeComponentMap(VAR_IDENTIFIER, identifier);
 	}
 
 	public void setAffectProperties(boolean affectProperties) {
@@ -140,45 +140,45 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	public void setValidationMEList(List<MetaPairwiseRelation> metaEdge) {
 		// this.identifier = identifier;
-		setVariable(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
+		setDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<MetaPairwiseRelation> getValidationMEList() {
-		return (List<MetaPairwiseRelation>) getVariable(VAR_METAEDGE_LIST_VALIDATION);
+		return (List<MetaPairwiseRelation>) getDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
 	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
+		setDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
-		return (List<IntSemanticRelationType>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
+		return (List<IntSemanticRelationType>) getDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setValidationDRList(List<IntSemanticPairwiseRelation> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
+		setDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticPairwiseRelation> getPairwiseRelValidationList() {
-		return (List<IntSemanticPairwiseRelation>) getVariable(VAR_PAIRWISEREL_VALIDATION_LIST);
+		return (List<IntSemanticPairwiseRelation>) getDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setAttribute(AbstractAttribute modelingAttribute) {
 		this.attributeObject = modelingAttribute;
 		if (modelingAttribute != null)
-			setVariable(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+			setDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
-		return (String) getVariable(VAR_IDENTIFIER);
+		return (String) getDynamicInstAttributeComponentMap(VAR_IDENTIFIER);
 		// return identifier;
 	}
 
@@ -187,24 +187,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	}
 
 	public String getAttributeName() {
-		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
+		return (String) getDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public Object getValue() {
-		return getVariable(VAR_VALUE);
+		return getDynamicInstAttributeComponentMap(VAR_VALUE);
 		// return value;
 	}
 
 	public Object getDisplayValue() {
-		if (getVariable(VAR_DISPLAYVALUE) == null)
-			return getVariable(VAR_VALUE);
+		if (getDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE) == null)
+			return getDynamicInstAttributeComponentMap(VAR_VALUE);
 		else
-			return getVariable(VAR_DISPLAYVALUE);
+			return getDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE);
 		// return value;
 	}
 
 	public void setValue(Object value) {
-		setVariable(VAR_VALUE, value);
+		setDynamicInstAttributeComponentMap(VAR_VALUE, value);
 		// this.value = value;
 	}
 
@@ -279,25 +279,25 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			return "";
 		return val.toString();
 	}
-
-	public Map<String, Object> getVars() {
-		return vars;
+	//TODO remove non serializable attributes
+	public Map<String, Object> getDynamicInstAttributeComponentsMap() {
+		return dynamicInstAttributeComponentsMap;
 	}
-
-	public void setVars(Map<String, Object> vars) {
-		this.vars = vars;
+	//TODO add non serializable attributes
+	public void setDynamicInstAttributeComponentsMap(Map<String, Object> vars) {
+		this.dynamicInstAttributeComponentsMap = vars;
 	}
 
 	public void clearModelingAttribute() {
-		attributeObject = null;
-		valueObject = null;
-		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, null);
-		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, null);
-		setVariable(VAR_METAEDGE_LIST_VALIDATION, null);
+	//	attributeObject = null;
+	//	valueObject = null;
+		setDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST, null);
+		setDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST, null);
+		setDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION, null);
 	}
 
 	public void displayValue(String out) {
-		setVariable(VAR_DISPLAYVALUE, out);
+		setDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE, out);
 
 	}
 
@@ -324,7 +324,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	@Override
 	public String getName() {
-		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
+		return (String) getDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public String getAttributeDefaultValue() {
@@ -333,18 +333,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
-		if (instElement instanceof InstOverTwoRelation
-				|| instElement instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstOverTwoRelation) {
 
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType()
 							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
-						.getSupportMetaElement()).getSemanticRelationTypes();
+						.getTransSupportMetaElement()).getSemanticRelationTypes();
 				setValidationRelationTypes(semanticRelationTypes);
 			}
 		}
 		if (instElement instanceof InstPairwiseRelation) {
+			if (this.getAttribute() != null && getEnumType() != null
+					&& getEnumType()
+							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
+				List<IntSemanticRelationType> semanticRelationTypes = ((MetaPairwiseRelation) instElement
+						.getTransSupportMetaElement()).getSemanticRelationTypes();
+				setValidationRelationTypes(semanticRelationTypes);
+			}
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType().equals(
 							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {

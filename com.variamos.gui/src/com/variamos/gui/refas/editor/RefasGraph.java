@@ -103,7 +103,7 @@ public class RefasGraph extends AbstractGraph {
 					String id = instVertex.getIdentifier();
 					child.setValue(instVertex);
 					child.setVisible(true);
-					child.setStyle(instVertex.getSupportMetaVertex().getStyle());
+					child.setStyle(instVertex.getTransSupportMetaElement().getStyle());
 					child.setGeometry(new mxGeometry(50 + pos * 3,
 							50 + pos * 3, 120, 100));
 					child.setVertex(true);
@@ -121,7 +121,7 @@ public class RefasGraph extends AbstractGraph {
 						String id = instView.getIdentifier();
 						child.setValue(instView);
 						child.setVisible(true);
-						child.setStyle(instView.getSupportMetaView().getStyle());
+						child.setStyle(instView.getTransSupportMetaElement().getStyle());
 						child.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child.setVertex(true);
@@ -138,7 +138,7 @@ public class RefasGraph extends AbstractGraph {
 						String id2 = instChildView.getIdentifier();
 						child2.setValue(instChildView);
 						child2.setVisible(true);
-						child2.setStyle(instChildView.getSupportMetaView().getStyle());
+						child2.setStyle(instChildView.getTransSupportMetaElement().getStyle());
 						child2.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child2.setVertex(true);
@@ -165,9 +165,9 @@ public class RefasGraph extends AbstractGraph {
 						mxCell target = this.getCellById(instEdge
 								.getTargetRelations().get(0).getIdentifier());
 						child.setStyle("");
-						if (instEdge.getSupportMetaElement() != null) {
-							MetaElement e = instEdge.getSupportMetaElement();
-							child.setStyle(instEdge.getSupportMetaElement()
+						if (instEdge.getTransSupportMetaElement() != null) {
+							MetaElement e = instEdge.getTransSupportMetaElement();
+							child.setStyle(instEdge.getTransSupportMetaElement()
 									.getStyle());
 						}
 
@@ -327,7 +327,7 @@ public class RefasGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map);
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map, "test");
 		Refas refas = getRefas();
 
 		cell.setValue(directRelation);
@@ -436,7 +436,7 @@ public class RefasGraph extends AbstractGraph {
 						else {
 							if (cellValue instanceof InstConcept) {
 								InstConcept c = (InstConcept) cellValue;
-								name = c.getSupportMetaConcept().getIdentifier();
+								name = c.getTransSupportMetaElement().getIdentifier();
 							}
 							if (cellValue instanceof InstOverTwoRelation) {
 								InstOverTwoRelation c = (InstOverTwoRelation) cellValue;
@@ -523,7 +523,8 @@ public class RefasGraph extends AbstractGraph {
 
 	protected void removingRefaElements(mxCell cell) {
 		Object obj = cell.getValue();
-		refas.removeElement(obj);
+		if (obj instanceof InstElement)
+		refas.removeElement((InstElement)obj);
 	}
 
 	protected void removingClones(mxCell cell) {

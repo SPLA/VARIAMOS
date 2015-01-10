@@ -60,7 +60,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 		super(identifier,
 				mxResources.get("defect-concepts") + " " + identifier, idMap,
 				hlclFactory);
-		this.instVertex = instVertex;		
+		this.instVertex = instVertex;
 		defineTransformations();
 	}
 
@@ -302,30 +302,33 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation52 = new SumNumericExpression(
 								instVertex, "ValidationSatisfied", false,
 								transformation51);
-						AbstractNumericExpression transformation53 = new SumNumericExpression(
-								instVertex, instVertex, "AlternativeSatisfied",
-								"ValidationSatisfied");
+						AbstractNumericExpression transformation53 = new ProdNumericExpression(
+								instVertex, "AlternativeSatisfied", true,
+								getHlclFactory().number(2));
+						AbstractNumericExpression transformation54 = new SumNumericExpression(
+								instVertex, "ValidationSatisfied", false,
+								transformation53);
 
-						AbstractNumericExpression transformation54 = new ProdNumericExpression(
-								transformation52, transformation53);
+						AbstractNumericExpression transformation55 = new ProdNumericExpression(
+								transformation52, transformation54);
 
-						AbstractNumericExpression transformation55 = new DiffNumericExpression(
+						AbstractNumericExpression transformation56 = new DiffNumericExpression(
 								instVertex, "AlternativeSatisfied", false,
 								getHlclFactory().number(1));
-						AbstractNumericExpression transformation56 = new DiffNumericExpression(
+						AbstractNumericExpression transformation57 = new DiffNumericExpression(
 								instVertex, "ForcedSatisfied", false,
 								getHlclFactory().number(1));
-						AbstractNumericExpression transformation57 = new ProdNumericExpression(
-								transformation55, transformation56);
 						AbstractNumericExpression transformation58 = new ProdNumericExpression(
+								transformation56, transformation57);
+						AbstractNumericExpression transformation59 = new ProdNumericExpression(
 								instVertex, "ValidationSatisfied", false,
-								transformation57);
-						
-						AbstractNumericExpression transformation59 = new SumNumericExpression(
-								transformation54, transformation58);
+								transformation58);
+
+						AbstractNumericExpression transformation60 = new DiffNumericExpression(
+								transformation55, transformation59);
 
 						AbstractNumericExpression transformation61 = new SumNumericExpression(
-								transformation50, transformation59);
+								transformation50, transformation60);
 
 						AbstractNumericExpression transformation62 = new SumNumericExpression(
 								instVertex, instVertex, "ForcedSatisfied",
@@ -339,12 +342,26 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation65 = new ProdNumericExpression(
 								instVertex, "SatisfactionConflict", false,
 								transformation64);
+						
 
 						SumNumericExpression transformation66 = new SumNumericExpression(
-								transformation61, transformation65);
+								instVertex, "AlternativeSatisfied", true, transformation65);
+						
+						SumNumericExpression transformation67 = new SumNumericExpression(
+								instVertex, "ForcedSatisfied", true, transformation66);
+						
+						SumNumericExpression transformation68 = new SumNumericExpression(
+										instVertex, "ForcedSelected", true, transformation67);
+										
 						getTransformations().add(
 								new EqualsComparisonExpression(instVertex,
-										"Opt", true, transformation66));
+										"Opt", true, transformation68));
+
+						  getTransformations() .add(new
+						  EqualsComparisonExpression(instVertex, "Opt",
+						  getHlclFactory().number(0)));
+						 
+
 					}
 				}
 

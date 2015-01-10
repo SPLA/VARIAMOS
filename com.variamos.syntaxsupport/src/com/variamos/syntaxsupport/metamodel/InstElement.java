@@ -39,27 +39,29 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public static final String VAR_IDENTIFIER = "identifier",
 			VAR_INSTATTRIBUTES = "InstAttribute";
 
-	protected Map<String, Object> vars = new HashMap<>();
+	private Map<String, Object> dynamicAttributesMap = new HashMap<>();
 
-	protected IntSemanticElement editableSemanticElement;
+	private IntSemanticElement editableSemanticElement;
 
-	protected MetaElement editableMetaElement;
+	private MetaElement editableMetaElement;
 
 	/**
 	 * The elements incoming to the element
 	 */
-	protected List<InstElement> sourceRelations;
+	private List<InstElement> sourceRelations;
 	/**
 	 * The elements outgoing from the element
 	 */
-	protected List<InstElement> targetRelations;
+	private List<InstElement> targetRelations;
 
 	private boolean optional = false;
+
+	private String supportMetaElementIden;
 
 	public InstElement(String identifier) {
 		sourceRelations = new ArrayList<InstElement>();
 		targetRelations = new ArrayList<InstElement>();
-		vars.put(VAR_IDENTIFIER, identifier);
+		dynamicAttributesMap.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public boolean isOptional() {
@@ -142,6 +144,14 @@ public abstract class InstElement implements Serializable, EditableElement {
 		}
 	}
 
+	public Map<String, Object> getDynamicAttributesMap() {
+		return dynamicAttributesMap;
+	}
+
+	public void setDynamicAttributesMap(Map<String, Object> dynamicAttributesMap) {
+		this.dynamicAttributesMap = dynamicAttributesMap;
+	}
+
 	public IntSemanticElement getEditableSemanticElement() {
 		return editableSemanticElement;
 	}
@@ -155,24 +165,41 @@ public abstract class InstElement implements Serializable, EditableElement {
 		return editableMetaElement;
 	}
 
-	public abstract MetaElement getSupportMetaElement();
+	public String getSupportMetaElementIden()
+	{
+		return supportMetaElementIden;
+	}
+	
+	public void setSupportMetaElementIden(String supportMetaElementIden)
+	{
+		this.supportMetaElementIden=supportMetaElementIden;
+	}
+	
+	public abstract MetaElement getTransSupportMetaElement();
+	
+	public abstract void setTransSupportMetaElement(MetaElement supportMetaElement);
 
 	public void setEditableMetaElement(MetaElement metaElement) {
 		this.editableMetaElement = metaElement;
 	}
 
-	public Object getVariable(String name) {
-		return vars.get(name);
+	public Object getDynamicVariable(String name) {
+		return dynamicAttributesMap.get(name);
+	}
+	
+	public void setDynamicVariable(String name, Object value) {
+		dynamicAttributesMap.put(name, value);
 	}
 
+
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.get(name);
 	}
 
 	public List<InstAttribute> getInstAttributesList() {
 		List<InstAttribute> out = new ArrayList<InstAttribute>();
-		out.addAll(((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+		out.addAll(((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.values());
 		return out;
 	}
@@ -183,7 +210,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public String getIdentifier() {
-		return (String) getVariable(VAR_IDENTIFIER);
+		return (String) getDynamicVariable(VAR_IDENTIFIER);
 		// return identifier;
 	}
 
@@ -213,13 +240,13 @@ public abstract class InstElement implements Serializable, EditableElement {
 			}
 		}
 
-		if (getSupportMetaElement() != null) {
-			Set<String> visibleAttributesNames = getSupportMetaElement()
+		if (getTransSupportMetaElement() != null) {
+			Set<String> visibleAttributesNames = getTransSupportMetaElement()
 					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getSupportMetaElement()
+			Set<String> spacersAttributes = getTransSupportMetaElement()
 					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
@@ -329,25 +356,25 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	protected void createInstAttributes() {
-		if (getSupportMetaElement() != null) {
-			Iterator<String> modelingAttributes = getSupportMetaElement()
+		if (getTransSupportMetaElement() != null) {
+			Iterator<String> modelingAttributes = getTransSupportMetaElement()
 					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getSupportMetaElement()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getSupportMetaElement()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name),
-							getSupportMetaElement().getDescription());
+							getTransSupportMetaElement().getDescription());
 				else
-					addInstAttribute(name, getSupportMetaElement()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name), null);
 			}
 
-			if (getSupportMetaElement() instanceof MetaConcept) {
-				MetaConcept metaConcept = (MetaConcept) getSupportMetaElement();
+			if (getTransSupportMetaElement() instanceof MetaConcept) {
+				MetaConcept metaConcept = (MetaConcept) getTransSupportMetaElement();
 				Iterator<String> semanticAttributes = metaConcept
 						.getSemanticAttributes().iterator();
 				while (semanticAttributes.hasNext()) {
@@ -359,7 +386,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 					else if (name.equals(MetaElement.VAR_DESCRIPTION))
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
-								getSupportMetaElement().getDescription());
+								getTransSupportMetaElement().getDescription());
 					else
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name), null);
@@ -415,4 +442,22 @@ public abstract class InstElement implements Serializable, EditableElement {
 		this.optional  = optional;
 		
 	}
+	
+	public void clearEditableMetaVertex() {
+		editableMetaElement = null;
+	};
+	
+
+	public void clearMetaPairwiseRelation(String attribute) {
+		dynamicAttributesMap.put(attribute, null);
+	}
+	
+
+	public void clearInstAttributesObjects() {
+		for (InstAttribute attribute : this.getInstAttributes().values()) {
+			attribute.setValueObject(null);
+			attribute.clearModelingAttribute();
+		}
+	}
+	
 }

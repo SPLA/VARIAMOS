@@ -17,6 +17,10 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SemanticRelationType extends AbstractSemanticElement implements IntSemanticRelationType {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2252623722653740972L;
 	private String diplayName;
 	private String panelName;
 	private boolean relationExclusive;
@@ -27,6 +31,10 @@ public class SemanticRelationType extends AbstractSemanticElement implements Int
 	private int minTargetCardinality;
 	private int maxTargetCardinality;
 
+	public SemanticRelationType() {
+		super("");
+	}
+	
 	public SemanticRelationType(String identifier) {
 		super(identifier);
 	}

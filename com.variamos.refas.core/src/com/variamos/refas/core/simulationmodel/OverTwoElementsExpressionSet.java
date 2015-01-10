@@ -2,9 +2,7 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import com.cfm.hlcl.HlclFactory;
@@ -19,13 +17,10 @@ import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.expressions.OrBooleanExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
 import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
-import com.variamos.refas.core.sematicsmetamodel.SemanticRelationType;
-import com.variamos.refas.core.types.CardinalityType;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 
 //TODO refactor: OverTwoElementExpressionSet
 /**
@@ -78,8 +73,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 	private void defineTransformations() {
 
-		MetaOverTwoRelation metaGroupDep = instOverTwoRelation
-				.getSupportMetaOverTwoRelation();
+		MetaElement metaGroupDep = instOverTwoRelation
+				.getTransSupportMetaElement();
 		boolean targetActiveAttribute =false;
 		if (instOverTwoRelation
 				.getTargetRelations().size() > 0)

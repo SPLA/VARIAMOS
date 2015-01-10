@@ -103,20 +103,19 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 		return hlclProgram;
 	}
-	
-	public NumericExpression getSumExpression(InstVertex last, Iterator<InstVertex> iterVertex)
-	{
-		if  (iterVertex.hasNext())
-		{
+
+	public NumericExpression getSumExpression(InstVertex last,
+			Iterator<InstVertex> iterVertex) {
+		if (iterVertex.hasNext()) {
 			InstVertex instVertex = iterVertex.next();
-			if (last.getInstAttribute("Opt") != null && last.getInstAttribute("Active").getAsBoolean() == true)
-				return f.sum(f.newIdentifier(last.getIdentifier()+"_Opt"),getSumExpression(instVertex,iterVertex));
+			if (last.getInstAttribute("Opt") != null
+					&& last.getInstAttribute("Active").getAsBoolean() == true)
+				return f.sum(f.newIdentifier(last.getIdentifier() + "_Opt"),
+						getSumExpression(instVertex, iterVertex));
 			else
-				return getSumExpression(instVertex,iterVertex);
-		}
-		else
-			return 
-					f.newIdentifier(last.getIdentifier()+"_Opt");
+				return getSumExpression(instVertex, iterVertex);
+		} else
+			return f.newIdentifier(last.getIdentifier() + "_Opt");
 
 	}
 
@@ -140,24 +139,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
-				Iterator<InstVertex> iterVertex = refas.getVariabilityVertexCollection().iterator();
+				Iterator<InstVertex> iterVertex = refas
+						.getVariabilityVertexCollection().iterator();
 				InstVertex instVertex = iterVertex.next();
-				orderExpressionList.add(getSumExpression(instVertex, iterVertex));
-				/*orderExpressionList.add(f.sum(f.newIdentifier("Feature1_Opt"),
-								f.sum(f.newIdentifier("Feature2_Opt"),
-										f.sum(f.newIdentifier("Feature3_Opt"),
-												f.sum(f.newIdentifier("Feature4_Opt"),
-														f.sum(f.newIdentifier("Feature5_Opt"),
-																f.sum(f.newIdentifier("Feature7_Opt"),
-																				f.sum(f.newIdentifier("Feature8_Opt"),
-																						f.sum(f.newIdentifier("Feature9_Opt"),
-																								f.sum(f.newIdentifier("Feature10_Opt"),
-																										f.sum(f.newIdentifier("Feature11_Opt"),
-																												f.sum(f.newIdentifier("Feature12_Opt"),
-																														f.sum(f.newIdentifier("Feature13_Opt"),
-																																f.sum(f.newIdentifier("Feature14_Opt"),
-																																		f.newIdentifier("Feature15_Opt")))))))))))))));
-				*/
+				orderExpressionList
+						.add(getSumExpression(instVertex, iterVertex));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
@@ -229,6 +215,40 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			 * System.out.print(vertexId + " " + attribute + " " +
 			 * vertex.getInstAttribute(attribute) .getAttributeType() + "; ");
 			 */
+		}
+	}
+
+	/**
+	 * Updates the GUI errors
+	 */
+	public void updateErrorMark(List<String> identifiers) {
+		// Call the SWIProlog and obtain the result
+
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttribute = instVertex
+					.getInstAttribute("VerificationError");
+			// System.out.println(vertexId + " " + attribute);
+			if (identifiers != null
+					&& identifiers.contains(instVertex.getIdentifier()))
+				instAttribute.setValue(true);
+			else
+				instAttribute.setValue(false);
+		}
+
+	}
+
+	/**
+	 * Resets the GUI optional variable
+	 */
+	public void cleanElementsOptional() {
+		// Call the SWIProlog and obtain the result
+
+		int i = 0;
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttribute = instVertex
+					.getInstAttribute("Optional");
+			if (instAttribute.getAttributeType().equals("Boolean"))
+				instAttribute.setValue(false);
 		}
 	}
 

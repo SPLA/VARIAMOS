@@ -36,7 +36,6 @@ public class InstConcept extends InstVertex {
 
 	public static final String VAR_METACONCEPT_IDEN = "MetaConceptIde";
 	// protected Map<String, MetaConcept> vars = new HashMap<>();
-	private MetaConcept supportMetaConcept;
 
 	public InstConcept() {
 		super("");
@@ -44,7 +43,7 @@ public class InstConcept extends InstVertex {
 
 	public InstConcept(MetaConcept metaConcept) {
 		super("");
-		setSupportMetaVertex(metaConcept);
+		setTransSupportMetaElement(metaConcept);
 		createInstAttributes();
 	}
 
@@ -52,7 +51,7 @@ public class InstConcept extends InstVertex {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		if (supportMetaConcept != null)
-			setSupportMetaVertex(supportMetaConcept);
+			setTransSupportMetaElement(supportMetaConcept);
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
 		copyValuesToInstAttributes();
@@ -61,7 +60,7 @@ public class InstConcept extends InstVertex {
 	public InstConcept(String identifier, MetaConcept supportMetaConcept,
 			IntSemanticElement editableSemanticElement) {
 		super(identifier);
-		setSupportMetaVertex(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaConcept);
 		setEditableSemanticElement(editableSemanticElement);
 		createInstAttributes();
 	}
@@ -70,60 +69,47 @@ public class InstConcept extends InstVertex {
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setSupportMetaVertex(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaConcept);
 		createInstAttributes();
 	}
 
 	public InstConcept(String identifier, MetaConcept supportMetaConcept) {
 		super(identifier);
-		setSupportMetaVertex(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaConcept);
 		createInstAttributes();
 	}
 
-	public Object getVariable(String name) {
-		return vars.get(name);
-	}
-
-	public void setVariable(String name, MetaConcept metaConcept) {
-		vars.put(name, metaConcept);
-	}
-
-	public MetaConcept getSupportMetaConcept() {
-		// return (MetaConcept)getVariable(VAR_METACONCEPT);
-		return supportMetaConcept;
-	}
-
 	protected void createInstAttributes() {
-		if (getSupportMetaConcept() != null) {
-			Iterator<String> modelingAttributes = getSupportMetaConcept()
+		if (getTransSupportMetaElement() != null) {
+			Iterator<String> modelingAttributes = getTransSupportMetaElement()
 					.getModelingAttributesNames().iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getSupportMetaConcept()
-							.getModelingAttribute(name), getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name), getTransSupportMetaElement()
 							.getDescription());
 				else
-					addInstAttribute(name, getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name), null);
 			}
 
-			Iterator<String> semanticAttributes = getSupportMetaConcept()
+			Iterator<String> semanticAttributes = getTransSupportMetaElement()
 					.getSemanticAttributes().iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
-					addInstAttribute(name, getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getSemanticAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
-					addInstAttribute(name, getSupportMetaConcept()
-							.getSemanticAttribute(name), getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getSemanticAttribute(name), getTransSupportMetaElement()
 							.getDescription());
 				else
-					addInstAttribute(name, getSupportMetaConcept()
+					addInstAttribute(name, getTransSupportMetaElement()
 							.getSemanticAttribute(name), null);
 			}
 		}
@@ -135,14 +121,14 @@ public class InstConcept extends InstVertex {
 
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getSupportMetaConcept()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaVertexIdentifier() {
-		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METACONCEPT_IDEN);
+	public String getSupportMetaElementIdentifier() {
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		return (String) dynamicAttributesMap.get(VAR_METACONCEPT_IDEN);
 	}
 
 	/**
@@ -152,13 +138,13 @@ public class InstConcept extends InstVertex {
 	@Deprecated
 	public String toStringOld() { 
 		String out = "";
-		if (getSupportMetaConcept() != null) {
-			Set<String> visibleAttributesNames = getSupportMetaConcept()
+		if (getTransSupportMetaElement() != null) {
+			Set<String> visibleAttributesNames = getTransSupportMetaElement()
 					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getSupportMetaConcept()
+			Set<String> spacersAttributes = getTransSupportMetaElement()
 					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
@@ -261,36 +247,31 @@ public class InstConcept extends InstVertex {
 
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaConcept.getDescription());
+		MetaElement supportMetaElement = this.getTransSupportMetaElement();
+		if (supportMetaElement != null)
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 	}
 
-	public void setSupportMetaVertex(MetaVertex metaConcept) {
-		this.supportMetaConcept = (MetaConcept) metaConcept;
-		setVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
-		setVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+	public void setTransSupportMetaElement(MetaVertex metaConcept) {
+		super.setTransSupportMetaElement(metaConcept);
+		
+		//TODO delete
+		setDynamicVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
 		// createInstAttributes();
 	}
 
-	public void setMetaConceptIdentifier(String metaConceptIdentifier) {
-		setVariable(VAR_METACONCEPT_IDEN, metaConceptIdentifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaConcept.getDescription());
+	public void setMetaElementIdentifier(String metaConceptIdentifier) {
+		MetaElement supportMetaElement = this.getTransSupportMetaElement();
+		setDynamicVariable(VAR_METACONCEPT_IDEN, metaConceptIdentifier);
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-		supportMetaConcept = null;
+	//	supportMetaElement = null;
 
-	}
-
-	@Override
-	public MetaVertex getSupportMetaVertex() {
-		return supportMetaConcept;
-	}
-
-	@Override
-	public MetaElement getSupportMetaElement() {
-		return supportMetaConcept;
 	}
 
 }
