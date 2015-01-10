@@ -9,6 +9,12 @@ public class SimulationAttribute extends AbstractAttribute {
 	 */
 	private static final long serialVersionUID = -2574853604112183883L;
 
+	
+	public SimulationAttribute()
+	{
+		super();
+	}
+	
 	public SimulationAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		super(name, type, affectProperties, displayName, defaultValue);

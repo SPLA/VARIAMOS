@@ -378,8 +378,8 @@ public class Refas extends AbstractModel {
 		return out;
 	}
 
-	public void removeElement(Object obj) {
-		((InstElement) obj).clearRelations();
+	public void removeElement(InstElement obj) {
+		obj.clearRelations();
 		if (obj instanceof InstConcept) {
 			InstConcept concept = (InstConcept) obj;
 
@@ -728,6 +728,12 @@ public class Refas extends AbstractModel {
 				new SemanticAttribute("Description", "String", false,
 						"Description", ""));
 
+		semGeneralElement.putSemanticAttribute("Required",
+				new SemanticAttribute("Required", "Boolean", true,
+						"Is Required", false));
+		
+		semGeneralElement.addPropEditableAttribute("04#" + "Required");
+		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
 		// Configuration attributes
 
 		semGeneralElement.putSemanticAttribute("Active",
@@ -736,14 +742,12 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("Visibility",
 				new SimulationConfigAttribute("Visibility", "Boolean", false,
 						"Is Visible", true));
-		semGeneralElement.putSemanticAttribute("Required",
-				new SimulationConfigAttribute("Required", "Boolean", true,
-						"Is Required", false));
+
 		semGeneralElement.putSemanticAttribute("Allowed",
 				new SimulationConfigAttribute("Allowed", "Boolean", true,
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
-				new SimulationConfigAttribute("RequiredLevel", "Integer",
+				new SemanticAttribute("RequiredLevel", "Integer",
 						false, "Required Level", 0)); // TODO define domain
 														// or Enum
 														// Level
@@ -754,31 +758,40 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("ForcedSelected",
 				new SimulationConfigAttribute("ForcedSelected", "Boolean",
 						false, "Force Selection", false));
+		semGeneralElement.putSemanticAttribute("PreferredSelected",
+				new SimulationConfigAttribute("PreferredSelected", "Boolean",
+						false, "Preferred Selection", false));
 
-		semGeneralElement.addPropEditableAttribute("01#" + "Active");
+		semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
+				+ "Required" + "#==#" + "false" + "#" + "true");
 		// semGeneralElement.addDisPropEditableAttribute("02#" +
 		// "Visibility"
 		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("03#" + "Allowed" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
-		semGeneralElement.addPropEditableAttribute("04#" + "Required" + "#"
-				+ "Allowed" + "#==#" + "true" + "#" + "false");
-		semGeneralElement.addPropEditableAttribute("05#" + "RequiredLevel"
-				+ "#" + "Required" + "#==#" + "true" + "#" + "0");
+//		semGeneralElement.addPropEditableAttribute("05#" + "RequiredLevel"
+	//			+ "#" + "Required" + "#==#" + "true" + "#" + "0");
 		semGeneralElement.addPropEditableAttribute("10#" + "ForcedSatisfied"
 				+ "#" + "Allowed" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ForcedSelected"
 				+ "#" + "Allowed" + "#==#" + "true" + "#" + "false");
-
+		semGeneralElement.addPropEditableAttribute("16#" + "PreferredSelected"
+				+ "#" + "Allowed" + "#==#" + "true" + "#" + "false");
+		
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
-		semGeneralElement.addPropVisibleAttribute("03#" + "Allowed");
-		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
+		semGeneralElement.addPropVisibleAttribute("03#" + "Allowed" + "#"
+				+ "Required" + "#==#" + "false" + "#" + "true");
+		
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Required" + "#==#" + "true");
-		semGeneralElement.addPropVisibleAttribute("10#" + "ForcedSatisfied");
-		semGeneralElement.addPropVisibleAttribute("15#" + "ForcedSelected");
-
+		semGeneralElement.addPropVisibleAttribute("10#" + "ForcedSatisfied" + "#"
+				+ "Required" + "#==#" + "false" + "#" + "true");
+		semGeneralElement.addPropVisibleAttribute("15#" + "ForcedSelected" + "#"
+				+ "Required" + "#==#" + "false" + "#" + "true");
+		semGeneralElement.addPropVisibleAttribute("16#" + "PreferredSelected" + "#"
+				+ "Required" + "#==#" + "false" + "#" + "true");
+		
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
@@ -3035,9 +3048,9 @@ public class Refas extends AbstractModel {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 				mapElements = getSyntaxRefas().getValidPairwiseRelations(
 						instPairwise.getSourceRelations().get(0)
-								.getSupportMetaElement(),
+								.getTransSupportMetaElement(),
 						instPairwise.getTargetRelations().get(0)
-								.getSupportMetaElement(), true);
+								.getTransSupportMetaElement(), true);
 			}
 			v.updateValidationList((InstElement) elm, mapElements);
 		}

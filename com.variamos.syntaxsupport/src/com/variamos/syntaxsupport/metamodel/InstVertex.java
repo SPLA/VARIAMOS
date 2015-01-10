@@ -29,7 +29,7 @@ public abstract class InstVertex extends InstElement {
 	 */
 	private static final long serialVersionUID = -2214656166959965220L;
 
-	protected MetaVertex supportMetaElement;
+	private MetaVertex supportMetaElement;
 
 	/*
 	 * private String identifier; private Map<String, InstAttribute>
@@ -51,50 +51,52 @@ public abstract class InstVertex extends InstElement {
 			Map<String, InstAttribute> instAttributes,
 			Map<String, InstPairwiseRelation> instRelations) {
 		super(identifier);
-		vars.put(VAR_INSTATTRIBUTES, instAttributes);
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 	}
-
-	public MetaVertex getSupportMetaElement() {
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * @return
+	 */
+	public MetaVertex getTransSupportMetaElement() {
 		return supportMetaElement;
 	}
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * @return
+	 */
 
-	public void setSupportMetaElement(MetaVertex supportMetaElement) {
-		this.supportMetaElement = supportMetaElement;
-	}
-
-	public Object getVariable(String name) {
-		return vars.get(name);
-	}
-
-	public void setVariable(String name, Object value) {
-		vars.put(name, value);
+	@Override	
+	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
+		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.supportMetaElement = (MetaVertex)supportMetaElement;
 	}
 
 	public void setIdentifier(String identifier) {
-		setVariable(VAR_IDENTIFIER, identifier);
+		setDynamicVariable(VAR_IDENTIFIER, identifier);
 		setInstAttribute(VAR_IDENTIFIER, identifier);
 		// this.identifier = identifier;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
+		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
 		// return instAttributes;
 	}
 
 	public Collection<InstAttribute> getInstAttributesCollection() {
-		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.values();
 		// return instAttributes;
 	}
 
 	public void setInstAttributes(Map<String, InstAttribute> instAttributes) {
-		setVariable(VAR_INSTATTRIBUTES, instAttributes);
+		setDynamicVariable(VAR_INSTATTRIBUTES, instAttributes);
 	}
 
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.get(name);
 		// return instAttributes.get(name);
 	}
@@ -117,7 +119,7 @@ public abstract class InstVertex extends InstElement {
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 		// superclass
-		Set<String> attributesNames = getSupportMetaElement()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
@@ -192,25 +194,6 @@ public abstract class InstVertex extends InstElement {
 		return value;
 
 	}
-
-	public Map<String, Object> getVars() {
-		return vars;
-	}
-
-	public void setVars(Map<String, Object> vars) {
-		this.vars = vars;
-	}
-
-	public void clearInstAttributesObjects() {
-		for (InstAttribute attribute : this.getInstAttributes().values()) {
-			attribute.setValueObject(null);
-			attribute.clearModelingAttribute();
-		}
-	}
-
-	public void clearEditableMetaVertex() {
-		editableMetaElement = null;
-	};
 
 	public abstract String getSupportMetaElementIdentifier();
 

@@ -91,12 +91,15 @@ public class PLEditorToolBar extends JToolBar {
 		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
-		addSeparator();
 
-		if (variamosGraphEditor.getPerspective() == 2) {
+		if (variamosGraphEditor.getPerspective() == 2 || variamosGraphEditor.getPerspective() == 4) {
+			addSeparator();
+
 			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
+		}
 			
+		if (variamosGraphEditor.getPerspective() == 2 || variamosGraphEditor.getPerspective() == 4) {			
 			addSeparator();
 			add(variamosGraphEditor.bind("clean", new SimulationAction(true, false),
 					"/com/mxgraph/examples/swing/images/pan.gif"));

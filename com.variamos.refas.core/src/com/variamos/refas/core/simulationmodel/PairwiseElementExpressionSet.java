@@ -25,6 +25,7 @@ import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 //TODO refactor: PairwiseElementExpressionSet
 /**
@@ -76,7 +77,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 		return directEdgeType;
 	}
 
-	public InstPairwiseRelation getInstEdge() {
+	public InstPairwiseRelation getInstPairwiseRelation() {
 		return instPairwiseRelation;
 	}
 

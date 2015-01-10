@@ -144,13 +144,22 @@ public class AbstractAttribute implements Serializable {
 	 */
 	VAR_HINT = "Hint";
 	public Map<String, EditableElementAttribute> getEditableElementAttributes() {
-		return vars;
+		return dynamicAttributeComponentsMap;
 	}
 
 	/**
 	 * Dynamic storage of attributes
 	 */
-	protected Map<String, EditableElementAttribute> vars = new HashMap<>();
+	protected Map<String, EditableElementAttribute> dynamicAttributeComponentsMap = new HashMap<>();
+
+	public Map<String, EditableElementAttribute> getDynamicAttributeComponentsMap() {
+		return dynamicAttributeComponentsMap;
+	}
+
+	public void setDynamicAttributeComponentsMap(
+			Map<String, EditableElementAttribute> dynamicAttributesMap) {
+		this.dynamicAttributeComponentsMap = dynamicAttributesMap;
+	}
 
 	/**
 	 * 
@@ -414,25 +423,25 @@ public class AbstractAttribute implements Serializable {
 
 		if (type.equals("Class")||type.equals("MClass")||type.equals("Enum")||type.equals("MEnum"))
 			type = "String";
-		vars.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
+		dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
 				name));
-		vars.put(VAR_TYPE, new AttributeElement(VAR_TYPE, "String", VAR_TYPE,
+		dynamicAttributeComponentsMap.put(VAR_TYPE, new AttributeElement(VAR_TYPE, "String", VAR_TYPE,
 				type));
-		vars.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
+		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
 				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
-		vars.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
+		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
 				"String", VAR_DISPLAYNAMENAME, displayName));
-		vars.put(VAR_CLASSCANONICALNAME, new AttributeElement(
+		dynamicAttributeComponentsMap.put(VAR_CLASSCANONICALNAME, new AttributeElement(
 				VAR_CLASSCANONICALNAME, "String", VAR_CLASSCANONICALNAMENAME,
 				enumType));
-		vars.put(VAR_METACONCEPTINSTTYPE, new AttributeElement(
+		dynamicAttributeComponentsMap.put(VAR_METACONCEPTINSTTYPE, new AttributeElement(
 				VAR_METACONCEPTINSTTYPE, "String", VAR_METACONCEPTINSTTYPENAME,
 				metaConceptInstanceType));
-		vars.put(VAR_DEFAULTVALUE, new AttributeElement(VAR_DEFAULTVALUE,
+		dynamicAttributeComponentsMap.put(VAR_DEFAULTVALUE, new AttributeElement(VAR_DEFAULTVALUE,
 				type, VAR_DEFAULTVALUENAME, defaultValue));
-		vars.put(VAR_DOMAIN, new AttributeElement(VAR_DOMAIN, "String",
+		dynamicAttributeComponentsMap.put(VAR_DOMAIN, new AttributeElement(VAR_DOMAIN, "String",
 				VAR_DOMAIN, domain)); //TODO Change String to Domain
-		vars.put(VAR_HINT, new AttributeElement(VAR_HINT, "String", VAR_HINT,
+		dynamicAttributeComponentsMap.put(VAR_HINT, new AttributeElement(VAR_HINT, "String", VAR_HINT,
 				hint));
 	}
 
@@ -442,7 +451,7 @@ public class AbstractAttribute implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-		vars.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
+		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
 				"String", VAR_DISPLAYNAMENAME, displayName));
 
 	}
@@ -481,14 +490,14 @@ public class AbstractAttribute implements Serializable {
 
 	public void setAffectProperties(boolean affectProperties) {
 		this.affectProperties = affectProperties;
-		vars.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
+		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
 				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
 
 	}
 
 	public void setName(String name) {
 	this.name = name;	
-	vars.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
+	dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
 			name));
 
 	}

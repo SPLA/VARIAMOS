@@ -75,9 +75,12 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public InstOverTwoRelation(MetaOverTwoRelation metaOverTwoRelation) {
 		super("");
-		vars.put(VAR_METAOVERTWOREL_IDEN, metaOverTwoRelation.getIdentifier());
-		this.supportMetaElement = metaOverTwoRelation;
-		setVariable(MetaElement.VAR_DESCRIPTION,
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
+				metaOverTwoRelation.getIdentifier());
+		setTransSupportMetaElement(metaOverTwoRelation);
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaOverTwoRelation.getDescription());
 
 		sourceAttributeNames = new HashSet<String>();
@@ -88,12 +91,14 @@ public class InstOverTwoRelation extends InstVertex {
 			MetaOverTwoRelation supportMetaOvetTwoRelation,
 			MetaElement editableMetaElement) {
 		super(identifier);
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
 		setEditableMetaElement(editableMetaElement);
 		if (supportMetaOvetTwoRelation != null) {
-			vars.put(VAR_METAOVERTWOREL_IDEN,
+			dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 					supportMetaOvetTwoRelation.getIdentifier());
-			this.supportMetaElement = supportMetaOvetTwoRelation;
-			setVariable(MetaElement.VAR_DESCRIPTION,
+			setTransSupportMetaElement(supportMetaOvetTwoRelation);
+			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 					supportMetaOvetTwoRelation.getDescription());
 		}
 		sourceAttributeNames = new HashSet<String>();
@@ -101,26 +106,32 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public InstOverTwoRelation(String identifier,
-			MetaOverTwoRelation metaGroupDependency,
+			MetaOverTwoRelation supportMetaOvetTwoRelation,
 			IntSemanticElement semanticElement) {
 		super(identifier);
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
 		setEditableSemanticElement(semanticElement);
-		vars.put(VAR_METAOVERTWOREL_IDEN, metaGroupDependency.getIdentifier());
-		this.supportMetaElement = metaGroupDependency;
-		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaGroupDependency.getDescription());
+		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
+				supportMetaOvetTwoRelation.getIdentifier());
+		setTransSupportMetaElement(supportMetaOvetTwoRelation);
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				supportMetaOvetTwoRelation.getDescription());
 
 		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
 	public InstOverTwoRelation(String identifier,
-			MetaOverTwoRelation metaGroupDependency) {
+			MetaOverTwoRelation supportMetaOvetTwoRelation) {
 		super(identifier);
-		vars.put(VAR_METAOVERTWOREL_IDEN, metaGroupDependency.getIdentifier());
-		this.supportMetaElement = metaGroupDependency;
-		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaGroupDependency.getDescription());
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
+				supportMetaOvetTwoRelation.getIdentifier());
+		setTransSupportMetaElement(supportMetaOvetTwoRelation);
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				supportMetaOvetTwoRelation.getDescription());
 
 		sourceAttributeNames = new HashSet<String>();
 		createInstAttributes();
@@ -142,15 +153,17 @@ public class InstOverTwoRelation extends InstVertex {
 							.getModelingAttribute(name), null);
 			}
 
-			Iterator<String> semanticAttributes = this.supportMetaElement
-					.getSemanticAttributes().iterator();
+			Iterator<String> semanticAttributes = this
+					.getTransSupportMetaElement().getSemanticAttributes()
+					.iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals("identifier"))
-					addInstAttribute(name, supportMetaElement.getSemanticAttribute(name),
-							getIdentifier());
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getSemanticAttribute(name), getIdentifier());
 				else
-					addInstAttribute(name, supportMetaElement.getSemanticAttribute(name), null);
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getSemanticAttribute(name), null);
 			}
 		}
 	}
@@ -174,22 +187,26 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public MetaVertex getSupportMetaOverTwoRelation() {
-		return supportMetaElement;
+		return getTransSupportMetaElement();
 	}
 
 	public String getSupportMetaElementIdentifier() {
-		return (String) vars.get(VAR_METAOVERTWOREL_IDEN);
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		return (String) dynamicAttributesMap.get(VAR_METAOVERTWOREL_IDEN);
 	}
 
 	public String getSemanticOverTwoRelationIden() {
-		if ((String) vars.get(VAR_SEMANTICOVERTWOREL_IDEN) == null)
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		if ((String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN) == null)
 			if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null)
 				return ((IntSemanticOverTwoRelation) getInstAttribute(
 						VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 						.getIdentifier();
 			else
 				return null;
-		return (String) vars.get(VAR_SEMANTICOVERTWOREL_IDEN);
+		return (String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN);
 	}
 
 	public IntSemanticOverTwoRelation getSemanticOverTwoRelation() {
@@ -202,52 +219,57 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
-		setVariable(MetaElement.VAR_DESCRIPTION,
-				supportMetaElement.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				getTransSupportMetaElement().getDescription());
 
 	}
 
-	public void setSupportMetaElement(MetaVertex metaOverTwoRelation) {
-		this.supportMetaElement = (MetaOverTwoRelation) metaOverTwoRelation;
-		setVariable(VAR_METAOVERTWOREL_IDEN,
-				metaOverTwoRelation.getIdentifier());
-		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaOverTwoRelation.getDescription());
+	public void setTransSupportMetaElement(MetaVertex supportMetaOvetTwoRelation) {
+		super.setTransSupportMetaElement(supportMetaOvetTwoRelation);
+		setDynamicVariable(VAR_METAOVERTWOREL_IDEN,
+				supportMetaOvetTwoRelation.getIdentifier());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				supportMetaOvetTwoRelation.getDescription());
 
 	}
 
 	public void setSemanticOverTwoRelation(IntSemanticOverTwoRelation sgd) {
-		setVariable(VAR_SEMANTICOVERTWOREL_IDEN, sgd.getIdentifier());
+		setDynamicVariable(VAR_SEMANTICOVERTWOREL_IDEN, sgd.getIdentifier());
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, sgd);
 
 	}
 
 	public void setSemanticOverTwoRelationIden(
 			String semanticOverTwoRelationIdentifier) {
-		setVariable(VAR_SEMANTICOVERTWOREL_IDEN,
+		setDynamicVariable(VAR_SEMANTICOVERTWOREL_IDEN,
 				semanticOverTwoRelationIdentifier);
 	}
 
 	public void setMetaOverTwoRelationIden(String metaOverTwoRelationIdentifier) {
-		setVariable(VAR_METAOVERTWOREL_IDEN, metaOverTwoRelationIdentifier);
+		setDynamicVariable(VAR_METAOVERTWOREL_IDEN,
+				metaOverTwoRelationIdentifier);
 		// createInstAttributes();
 	}
 
 	public String getOutCardinality() {
-		return (String) (getVariable(VAR_OUTCARDINALITY));
+		return (String) (getDynamicVariable(VAR_OUTCARDINALITY));
 	}
 
 	public void setOutCardinality(String identifier) {
-		vars.put(VAR_OUTCARDINALITY, identifier);
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_OUTCARDINALITY, identifier);
 		;
 	}
 
 	public String getInCardinality() {
-		return (String) (getVariable(VAR_INCARDINALITY));
+		return (String) (getDynamicVariable(VAR_INCARDINALITY));
 	}
 
 	public void setInCardinality(String identifier) {
-		vars.put(VAR_INCARDINALITY, identifier);
+		Map<String, Object> dynamicAttributesMap = this
+				.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_INCARDINALITY, identifier);
 		;
 	}
 
@@ -336,16 +358,6 @@ public class InstOverTwoRelation extends InstVertex {
 						.getValueObject() != null)
 			return ((IntSemanticOverTwoRelation) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject());
-		return null;
-	}
-
-	private AbstractAttribute getSemanticAttributeOld(String name) {
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null)
-			return ((IntSemanticOverTwoRelation) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getSemanticAttribute(name);
 		return null;
 	}
 
@@ -474,17 +486,18 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-		supportMetaElement = null;
+		// supportMetaElement = null;
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, null);
 		// TODO Auto-generated method stub
 	}
 
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
-		AbstractAttribute out = supportMetaElement.getSemanticAttribute(attributeName);
+		AbstractAttribute out = getTransSupportMetaElement()
+				.getSemanticAttribute(attributeName);
 		if (out == null)
-			return getSupportMetaOverTwoRelation().getModelingAttribute(attributeName);
+			return getSupportMetaOverTwoRelation().getModelingAttribute(
+					attributeName);
 		else
 			return out;
 	}
-
 }

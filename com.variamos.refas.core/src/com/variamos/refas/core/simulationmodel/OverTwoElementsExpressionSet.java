@@ -74,7 +74,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	private void defineTransformations() {
 
 		MetaElement metaGroupDep = instOverTwoRelation
-				.getSupportMetaElement();
+				.getTransSupportMetaElement();
 		boolean targetActiveAttribute =false;
 		if (instOverTwoRelation
 				.getTargetRelations().size() > 0)

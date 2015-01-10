@@ -36,7 +36,7 @@ public class InstEnumeration extends InstVertex {
 
 	public InstEnumeration(MetaEnumeration metaEnumeration) {
 		super("");
-		setSupportMetaElement(metaEnumeration);
+		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -44,7 +44,7 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super("");
 		setEditableMetaElement(editableMetaElement);
-		setSupportMetaElement(metaEnumeration);
+		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -52,13 +52,13 @@ public class InstEnumeration extends InstVertex {
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setSupportMetaElement(metaEnumeration);
+		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration) {
 		super(identifier);
-		setSupportMetaElement(metaEnumeration);
+		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -66,68 +66,56 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
-		setSupportMetaElement(metaEnumeration);
+		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
-	public Object getVariable(String name) {
-		return vars.get(name);	
-	}
-
-	public void setVariable(String name, MetaEnumeration value) {
-		vars.put(name, value);
-	}
-
-	public MetaVertex getMetaEnumeration() {
-		return supportMetaElement;
-	}
-
 	protected void createInstAttributes() {
-		Iterator<String> modelingAttributes = getMetaEnumeration()
+		Iterator<String> modelingAttributes = getTransSupportMetaElement()
 				.getModelingAttributesNames().iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
-				addInstAttribute(name, getMetaEnumeration()
+				addInstAttribute(name, getTransSupportMetaElement()
 						.getModelingAttribute(name), getIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name, getMetaEnumeration()
-						.getModelingAttribute(name), getMetaEnumeration()
+				addInstAttribute(name, getTransSupportMetaElement()
+						.getModelingAttribute(name), getTransSupportMetaElement()
 						.getDescription());
 			else
-				addInstAttribute(name, getMetaEnumeration()
+				addInstAttribute(name, getTransSupportMetaElement()
 						.getModelingAttribute(name), null);
 		}
 	}
 
 	public List<InstAttribute> getEditableVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getMetaEnumeration()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 														// superclass
-		Set<String> attributesNames = getMetaEnumeration()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public String getSupportMetaElementIdentifier() {
-		// return metaConcept.getIdentified();
-		return (String) vars.get(VAR_METAENUM_IDEN);
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
 	}
 
 	public String toStringOld() { // TODO move partially to superclass
 		String out = "";
-		if (getMetaEnumeration() != null) {
-			Set<String> visibleAttributesNames = getMetaEnumeration()
+		if (getTransSupportMetaElement() != null) {
+			Set<String> visibleAttributesNames = getTransSupportMetaElement()
 					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getMetaEnumeration()
+			Set<String> spacersAttributes = getTransSupportMetaElement()
 					.getPanelSpacersAttributes();
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
@@ -214,29 +202,31 @@ public class InstEnumeration extends InstVertex {
 
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
-		setVariable(MetaElement.VAR_DESCRIPTION,
+		MetaElement supportMetaElement = this.getTransSupportMetaElement();
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaElement.getDescription());
 	}
 
-	public void setSupportMetaElement(MetaVertex metaEnumeration) {
-		this.supportMetaElement = metaEnumeration;
-		setVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
-		setVariable(MetaElement.VAR_DESCRIPTION,
+	public void setTransSupportMetaElement(MetaVertex metaEnumeration) {
+		super.setTransSupportMetaElement(metaEnumeration);
+		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
-		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
 
 		// createInstAttributes();
 	}
 
 	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
-		setVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
+		MetaElement supportMetaElement = this.getTransSupportMetaElement();
+		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-		supportMetaElement = null;
+	//	supportMetaElement = null;
 	}
 
 }

@@ -25,7 +25,8 @@ public class InstView extends InstElement {
 	
 	public InstView(String identifier) {
 		super(identifier);
-		vars.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		createInstAttributes();
@@ -35,7 +36,8 @@ public class InstView extends InstElement {
 	public InstView(String identifier, MetaConcept supportMetaConcept,
 			MetaElement editableMetaElement) {
 		super(identifier);
-		vars.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
 		this.supportMetaConcept = supportMetaConcept;
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
@@ -78,19 +80,19 @@ public class InstView extends InstElement {
 	@Override
 	public List<InstAttribute> getEditableVariables() {
 		// superclass
-		Set<String> attributesNames = getSupportMetaElement()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
+		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
 	}
 
 	@Override
 	public List<InstAttribute> getVisibleVariables() {
-		Set<String> attributesNames = this.getSupportMetaElement()
+		Set<String> attributesNames = this.getTransSupportMetaElement()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
@@ -173,7 +175,7 @@ public class InstView extends InstElement {
 
 
 	@Override
-	public MetaElement getSupportMetaElement() {
+	public MetaElement getTransSupportMetaElement() {
 		return supportMetaConcept;
 	}
 
@@ -183,5 +185,11 @@ public class InstView extends InstElement {
 
 	public void addChildView(InstView instView) {
 		childViews.add(instView);
+	}
+
+	@Override
+	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
+		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.supportMetaConcept = (MetaConcept)supportMetaElement;
 	}
 }

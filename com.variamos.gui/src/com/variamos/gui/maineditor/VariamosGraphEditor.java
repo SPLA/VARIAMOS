@@ -536,9 +536,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		AbstractGraph abstractGraph = null;
 
 		// todo: review other perspectives
-		if (perspective == 0 || perspective == 1)
+		if (perspective == 0)
 			abstractGraph = new ProductLineGraph();
-		if (perspective == 2 || perspective == 3 || perspective == 4)
+		if (perspective == 2 || perspective == 1 || perspective == 3
+				|| perspective == 4)
 			abstractGraph = new RefasGraph(sematicSyntaxObject);
 		// abstractGraph = (AbstractGraph) getGraphComponent()
 		// .getGraph();
@@ -743,8 +744,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 					String name = ((JTabbedPane) e.getSource())
 							.getTitleAt(tabIndex);
-					if (name.equals("Edit Expressions")
-							&& editableElementType != null && perspective == 2
+					if (name.equals("Viaul Expressions Editor")
+							&& editableElementType != null && (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
 						if (elm instanceof InstConcept) {
 							editableElementType = "vertex";
@@ -759,8 +760,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								.getElementConstraintGroup(
 										lastEditableElement.getIdentifier(),
 										editableElementType);
-						
-						expressions.configure(getEditedModel(), metaExpressionSet ,
+
+						expressions.configure(getEditedModel(),
+								metaExpressionSet,
 								(InstElement) lastEditableElement);
 						updateExpressions = false;
 					}
@@ -935,7 +937,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (elm instanceof InstOverTwoRelation) {
 					editableElementType = "groupdep";
 				}
-				if (editableElementType != null && this.perspective == 2) {
+				if (editableElementType != null && (this.perspective == 2 || this.perspective == 4)) {
 					expressionsArea.setText(refas2hlcl
 							.getElementTextConstraints(elm.getIdentifier(),
 									editableElementType));
@@ -959,12 +961,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					if (elm instanceof InstPairwiseRelation) {
 						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 						mapElements = ((Refas) getEditedModel())
-								.getSyntaxRefas()
-								.getValidPairwiseRelations(
+								.getSyntaxRefas().getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
-												.get(0).getSupportMetaElement(),
+												.get(0)
+												.getTransSupportMetaElement(),
 										instPairwise.getTargetRelations()
-												.get(0).getSupportMetaElement(),
+												.get(0)
+												.getTransSupportMetaElement(),
 										true);
 					}
 					v.updateValidationList((InstElement) elm, mapElements);
@@ -1120,9 +1123,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
 						.getValidPairwiseRelations(
 								instPairwise.getSourceRelations().get(0)
-										.getSupportMetaElement(),
+										.getTransSupportMetaElement(),
 								instPairwise.getTargetRelations().get(0)
-										.getSupportMetaElement(), true);
+										.getTransSupportMetaElement(), true);
 			}
 			v.updateValidationList((InstElement) elm, mapElements);
 			final WidgetR w = factory.getWidgetFor(v);
@@ -1242,8 +1245,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			this.graphComponent.setGraph(modelEditor.getGraphComponent()
-					.getGraph());
+			mxGraph graph1 = modelEditor.getGraphComponent()
+			.getGraph();
+			this.graphComponent.getGraph().selectAll();
+			this.graphComponent.getGraph().removeCells();		
+			graphComponent.getGraph().addCells(graph1.cloneCells(graph1.getChildCells(graph1.getDefaultParent())));
 
 			// mxGraphModel.prototype.cloneCells
 			/*
@@ -1427,7 +1433,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
 		HlclProgram hlclProgram = refas2hlcl.getHlclProgram();
 		Set<Identifier> identifiers = new HashSet<Identifier>();
-		
+
 		for (InstVertex pairwiseRelation : pairwiseRelations) {
 			if (pairwiseRelation.isOptional())
 				identifiers.add(f.newIdentifier(pairwiseRelation
@@ -1436,45 +1442,36 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
 		}
 		List<Defect> falseOptionalList = defectVerifier
-				.getFalseOptionalElements(hlclProgram,
-						identifiers);
-		if (falseOptionalList.size() > 0)
-		{
+				.getFalseOptionalElements(hlclProgram, identifiers);
+		if (falseOptionalList.size() > 0) {
 			List<String> outIdentifiers = new ArrayList<String>();
 			String defects = "(";
-			for (Defect defect: falseOptionalList)
-			{	
+			for (Defect defect : falseOptionalList) {
 				String[] o = defect.getId().split("_");
-				defects +=  o[0]+ ", ";
+				defects += o[0] + ", ";
 				outIdentifiers.add(o[0]);
 			}
 			refas2hlcl.updateErrorMark(outIdentifiers);
-			defects = defects.substring(0, defects.length()-2)+")";
-			
-			try{
+			defects = defects.substring(0, defects.length() - 2) + ")";
+
+			try {
 				((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(lastEditableElement);	
-				JOptionPane.showMessageDialog(frame,
-						falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
-						"Verification Message", JOptionPane.INFORMATION_MESSAGE,
-						null);
-			}
-			catch (Exception e)
-		{
+						.refreshVariable(lastEditableElement);
+				JOptionPane.showMessageDialog(frame, falseOptionalList.size()
+						+ " false optional element(s) found on the model. "
+						+ defects, "Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+			} catch (Exception e) {
 				lastEditableElement = null;
 				JOptionPane
-				.showMessageDialog(
-						frame,
-						"Please select any element and after execute the verification.",
-						"Verification Message",
-						JOptionPane.INFORMATION_MESSAGE, null);
-		}
-				
+						.showMessageDialog(
+								frame,
+								"Please select any element and after execute the verification.",
+								"Verification Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			}
 
-
-		}
-		else
-		{
+		} else {
 			refas2hlcl.updateErrorMark(null);
 			JOptionPane.showMessageDialog(frame,
 					"No false optional elements identifed on the model.",
