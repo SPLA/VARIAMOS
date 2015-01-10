@@ -1450,11 +1450,27 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			refas2hlcl.updateErrorMark(outIdentifiers);
 			defects = defects.substring(0, defects.length()-2)+")";
+			
+			try{
+				((RefasGraph) getGraphComponent().getGraph())
+				.refreshVariable(lastEditableElement);	
+				JOptionPane.showMessageDialog(frame,
+						falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
+						"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+						null);
+			}
+			catch (Exception e)
+		{
+				lastEditableElement = null;
+				JOptionPane
+				.showMessageDialog(
+						frame,
+						"Please select any element and after execute the verification.",
+						"Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+		}
 				
-			JOptionPane.showMessageDialog(frame,
-					falseOptionalList.size() +" false optional element(s) found on the model. " + defects,
-					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
-					null);
+
 
 		}
 		else
@@ -1472,21 +1488,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							"Please select any element and after execute the verification.",
 							"Verification Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
-		else
-			try{
-				((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(lastEditableElement);	
-			}
-			catch (Exception e)
-		{
-				lastEditableElement = null;
-				JOptionPane
-				.showMessageDialog(
-						frame,
-						"Please select any element and after execute the verification.",
-						"Verification Message",
-						JOptionPane.INFORMATION_MESSAGE, null);
-		}
 	}
 
 }

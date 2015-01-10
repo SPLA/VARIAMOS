@@ -64,7 +64,7 @@ public class SharedActions {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
 			String str = null;// (String) ic.getSemanticOverTwoRelationIden();
 			// ic.setSemanticOverTwoRelationIden(str);
-			str = (String) ic.getSupportMetaVertexIdentifier();
+			str = (String) ic.getSupportMetaElementIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
 			ic.clearEditableMetaVertex();
 			ic.clearInstAttributesObjects();
@@ -142,9 +142,9 @@ public class SharedActions {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
 			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
 					.getSyntaxRefas()
-					.getVertex(instOverTwoRelation.getSupportMetaVertexIdentifier())
+					.getVertex(instOverTwoRelation.getSupportMetaElementIdentifier())
 					.getEditableMetaElement();
-			instOverTwoRelation.setSupportMetaVertex(metaOverTwoRelation);
+			instOverTwoRelation.setSupportMetaElement(metaOverTwoRelation);
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
@@ -166,13 +166,13 @@ public class SharedActions {
 		} else if (value instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) value;
 			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
-					.getVertex(instVertex.getSupportMetaVertexIdentifier())
+					.getVertex(instVertex.getSupportMetaElementIdentifier())
 					.getEditableMetaElement();
 			if (metaVertex == null)
 				System.err.println("Concept Null"
-						+ instVertex.getSupportMetaVertexIdentifier());
+						+ instVertex.getSupportMetaElementIdentifier());
 			else
-				instVertex.setSupportMetaVertex(metaVertex);
+				instVertex.setSupportMetaElement(metaVertex);
 			refas.putVariabilityInstVertex(instVertex);
 			Iterator<InstAttribute> ias = instVertex.getInstAttributes()
 					.values().iterator();
@@ -198,8 +198,8 @@ public class SharedActions {
 			InstVertex targetVertex = (InstVertex) source.getTarget()
 					.getValue();
 			MetaPairwiseRelation metaPairwiseRelation = refas.getSyntaxRefas()
-					.getValidMetaPairwiseRelation(sourceVertex.getSupportMetaVertex(),
-							targetVertex.getSupportMetaVertex(),
+					.getValidMetaPairwiseRelation(sourceVertex.getSupportMetaElement(),
+							targetVertex.getSupportMetaElement(),
 							instPairwiseRelation.getSupportMetaPairwiseRelIden(),
 							true);
 			instPairwiseRelation.setSourceRelation(sourceVertex, true);

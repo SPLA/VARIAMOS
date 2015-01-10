@@ -151,9 +151,7 @@ public class InstPairwiseRelation extends InstElement {
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
 
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-		SemanticAttribute semAttribute = new SemanticAttribute(
-				VAR_METAPAIRWISE_OBJ, "Class", true, VAR_METAPAIRWISE_NAME,
-				VAR_METAPAIRWISE_CLASS, "HardRelation", "");
+		SemanticAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute
 		vars.put(VAR_METAPAIRWISE_OBJ, semAttribute);
 

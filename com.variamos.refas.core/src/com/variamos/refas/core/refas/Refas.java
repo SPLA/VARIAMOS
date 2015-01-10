@@ -233,14 +233,14 @@ public class Refas extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
-			classId = ((InstConcept) element).getSupportMetaVertexIdentifier();
+			classId = ((InstConcept) element).getSupportMetaElementIdentifier();
 		else {
 			if (element instanceof InstEnumeration)
 				classId = ((InstEnumeration) element)
-						.getSupportMetaVertexIdentifier();
+						.getSupportMetaElementIdentifier();
 			else
 				classId = ((InstOverTwoRelation) element)
-						.getSupportMetaVertexIdentifier();
+						.getSupportMetaElementIdentifier();
 		}
 		while (variabilityInstVertex.containsKey(classId + id)) {
 			id++;
@@ -252,14 +252,14 @@ public class Refas extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
-			classId = ((InstConcept) element).getSupportMetaVertexIdentifier();
+			classId = ((InstConcept) element).getSupportMetaElementIdentifier();
 		else {
 			if (element instanceof InstEnumeration)
 				classId = ((InstEnumeration) element)
-						.getSupportMetaVertexIdentifier();
+						.getSupportMetaElementIdentifier();
 			else
 				classId = ((InstOverTwoRelation) element)
-						.getSupportMetaVertexIdentifier();
+						.getSupportMetaElementIdentifier();
 		}
 		while (otherInstVertex.containsKey(classId + id)) {
 			id++;
@@ -270,7 +270,7 @@ public class Refas extends AbstractModel {
 	private String getNextInstGroupDependencyId(InstOverTwoRelation grouDep) {
 
 		int id = 1;
-		String classId = grouDep.getSupportMetaVertexIdentifier();
+		String classId = grouDep.getSupportMetaElementIdentifier();
 
 		while (instGroupDependencies.containsKey(classId + id)) {
 			id++;

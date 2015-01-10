@@ -29,7 +29,6 @@ public class InstEnumeration extends InstVertex {
 	 */
 	private static final long serialVersionUID = 188655707058755882L;
 	public static final String VAR_METAENUM_IDEN = "MetaEnumIde";
-	private MetaVertex metaEnumeration;
 
 	public InstEnumeration() {
 		super("");
@@ -37,7 +36,7 @@ public class InstEnumeration extends InstVertex {
 
 	public InstEnumeration(MetaEnumeration metaEnumeration) {
 		super("");
-		setSupportMetaVertex(metaEnumeration);
+		setSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -45,7 +44,7 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super("");
 		setEditableMetaElement(editableMetaElement);
-		setSupportMetaVertex(metaEnumeration);
+		setSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -53,13 +52,13 @@ public class InstEnumeration extends InstVertex {
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setSupportMetaVertex(metaEnumeration);
+		setSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration) {
 		super(identifier);
-		setSupportMetaVertex(metaEnumeration);
+		setSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -67,7 +66,7 @@ public class InstEnumeration extends InstVertex {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
-		setSupportMetaVertex(metaEnumeration);
+		setSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
@@ -80,7 +79,7 @@ public class InstEnumeration extends InstVertex {
 	}
 
 	public MetaVertex getMetaEnumeration() {
-		return metaEnumeration;
+		return supportMetaElement;
 	}
 
 	protected void createInstAttributes() {
@@ -115,7 +114,7 @@ public class InstEnumeration extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaVertexIdentifier() {
+	public String getSupportMetaElementIdentifier() {
 		// return metaConcept.getIdentified();
 		return (String) vars.get(VAR_METAENUM_IDEN);
 	}
@@ -216,11 +215,11 @@ public class InstEnumeration extends InstVertex {
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
 		setVariable(MetaElement.VAR_DESCRIPTION,
-				metaEnumeration.getDescription());
+				supportMetaElement.getDescription());
 	}
 
-	public void setSupportMetaVertex(MetaVertex metaEnumeration) {
-		this.metaEnumeration = metaEnumeration;
+	public void setSupportMetaElement(MetaVertex metaEnumeration) {
+		this.supportMetaElement = metaEnumeration;
 		setVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
 		setVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
@@ -231,23 +230,13 @@ public class InstEnumeration extends InstVertex {
 
 	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
 		setVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
-		setVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
+		setVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-		metaEnumeration = null;
-	}
-
-	@Override
-	public MetaVertex getSupportMetaVertex() {
-		return metaEnumeration;
-	}
-
-	@Override
-	public MetaElement getSupportMetaElement() {
-		return metaEnumeration;
+		supportMetaElement = null;
 	}
 
 }

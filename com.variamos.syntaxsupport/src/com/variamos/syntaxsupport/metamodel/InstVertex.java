@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 /**
@@ -27,6 +28,8 @@ public abstract class InstVertex extends InstElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -2214656166959965220L;
+
+	protected MetaVertex supportMetaElement;
 
 	/*
 	 * private String identifier; private Map<String, InstAttribute>
@@ -49,6 +52,14 @@ public abstract class InstVertex extends InstElement {
 			Map<String, InstPairwiseRelation> instRelations) {
 		super(identifier);
 		vars.put(VAR_INSTATTRIBUTES, instAttributes);
+	}
+
+	public MetaVertex getSupportMetaElement() {
+		return supportMetaElement;
+	}
+
+	public void setSupportMetaElement(MetaVertex supportMetaElement) {
+		this.supportMetaElement = supportMetaElement;
 	}
 
 	public Object getVariable(String name) {
@@ -197,15 +208,12 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
-	public abstract MetaVertex getSupportMetaVertex();
-
 	public void clearEditableMetaVertex() {
 		editableMetaElement = null;
 	};
 
-	public abstract String getSupportMetaVertexIdentifier();
+	public abstract String getSupportMetaElementIdentifier();
 
-	public abstract void setSupportMetaVertex(MetaVertex mc);
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		return this.getIdentifier() + "_"

@@ -289,8 +289,8 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	}
 
 	public void clearModelingAttribute() {
-		attributeObject = null;
-		valueObject = null;
+	//	attributeObject = null;
+	//	valueObject = null;
 		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, null);
 		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, null);
 		setVariable(VAR_METAEDGE_LIST_VALIDATION, null);
