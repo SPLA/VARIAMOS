@@ -268,9 +268,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		registerEvents();
 		Collection<InstView> instViews = ((Refas) abstractModel)
 				.getSyntaxRefas().getInstViews();
-		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
+		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
+		refasGraph.setValidation(false);
+		refasGraph.setModel(abstractModel);
+		refasGraph.setValidation(true);
 		graphEditorFunctions = new RefasGraphEditorFunctions(this);
-		RefasGraph refasGraph = (RefasGraph) component.getGraph();
+	//	RefasGraph refasGraph = (RefasGraph) component.getGraph();
 
 		this.graphLayout("organicLayout", false);
 		this.getGraphComponent().zoomAndCenter();
