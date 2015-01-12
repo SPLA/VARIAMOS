@@ -116,6 +116,16 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
+						
+						// identifierId_Required #==>
+						// identifierId_Core #= 1						
+						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
+								instVertex, "Core",
+								getHlclFactory().number(1));
+						getTransformations().add(
+								new ImplicationBooleanExpression(instVertex,
+										instAttribute.getIdentifier(), true, transformation9));
+						
 					}
 					// identifierId_SimRequired #==>
 					// identifierId_ValidationSelected #= 1

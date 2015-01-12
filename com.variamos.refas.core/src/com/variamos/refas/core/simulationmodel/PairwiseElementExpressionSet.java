@@ -146,6 +146,15 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getTransformations().add(
 						new GreaterOrEqualsBooleanExpression(transformation7,
 								new NumberNumericExpression(1)));
+				// SourceId_Core #==>
+				// targetId_Core #= 1						
+				AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
+						instPairwiseRelation.getTargetRelations().get(0), "Core",
+						getHlclFactory().number(1));
+				getTransformations().add(
+						new ImplicationBooleanExpression(instPairwiseRelation.getSourceRelations().get(0),
+								"Core", true, transformation9));
+				
 				break;
 			case conflict:
 
@@ -253,6 +262,15 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "Selected", true,
 								transformation20));
+				// targetId_Core #==>
+				// SourceId_Core #= 1						
+				AbstractComparisonExpression transformation200 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0), "Core",
+						getHlclFactory().number(1));
+				getTransformations().add(
+						new ImplicationBooleanExpression(instPairwiseRelation.getTargetRelations().get(0),
+								"Core", true, transformation200));
+				
 				break;
 			case optional:
 				sourceAttributeNames.add("Selected");

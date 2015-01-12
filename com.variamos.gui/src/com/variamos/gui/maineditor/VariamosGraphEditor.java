@@ -1254,7 +1254,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
 			SharedActions.cloneGraph(source, target);
-			SharedActions.afterOpenCloneGraph(graphComponent.getGraph(), this);
+			SharedActions.afterOpenCloneGraph(source, this);
+			SharedActions.afterOpenCloneGraph(target, this);
 			((mxCell)graphComponent.getGraph().getDefaultParent()).setValue("simul");
 			// Different from null, to display simulation colors
 		}
@@ -1313,7 +1314,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		else
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
-		updateObjects();
+		//updateObjects();
 		((MainFrame) getFrame()).waitingCursor(false);
 	}
 

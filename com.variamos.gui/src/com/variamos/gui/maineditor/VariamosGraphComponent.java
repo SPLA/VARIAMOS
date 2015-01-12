@@ -87,17 +87,17 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		boolean isValid = true;
 		Object tmp2 = model.getChildAt(cell, 0);
 
-		if (model.getChildCount(tmp2) > 0
-				&& ((mxCell) tmp2).getValue()!=null) {
-			Object tmp3 = model.getChildAt(tmp2, 0); // TODO implement for other model
-												// views
+		if (model.getChildCount(tmp2) > 0) {
+			Object tmp3 = model.getChildAt(tmp2, 0); // TODO implement for other
+														// model
+			// views
 			int childCount = model.getChildCount(tmp3);
 
 			for (int i = 0; i < childCount; i++) {
 				mxCell tmp = (mxCell) model.getChildAt(tmp3, i);
 				Object val = tmp.getValue();
 				if (tmp.getGeometry() != null && val != null
-						&& val instanceof InstConcept) {
+						&& val instanceof InstConcept && ((mxCell) tmp2).getValue() != null) {
 					try {
 						InstConcept instConcept = (InstConcept) val;
 						String backtop = null, backbottom = null, backtophint = null, backbottomhint = null;
@@ -107,12 +107,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
 						String error = "/com/mxgraph/examples/swing/images/x-red.gif";
 						if ((boolean) instConcept.getInstAttribute("Required")
+								.getValue() || (boolean) instConcept.getInstAttribute("Core")
 								.getValue()) {
 							mxCellOverlay over3 = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-									"Element required by user (red on sides)");
+									"Element part of the core (red on sides)");
 							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 							over3.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over3);
@@ -120,13 +121,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-									"Element required by user (red on sides)");
+									"Element part of the core (red on sides)");
 
 							backbottomhint += "; Satisfied by validation (Second green circle)";
 							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 							over3.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over3);
-						}
+						} else
 						if (!(boolean) instConcept.getInstAttribute("Active")
 								.getValue()) {
 							backtop = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
@@ -250,6 +251,74 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							addCellOverlay(tmp, over3);
 						}
 					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if (tmp.getGeometry() != null && val != null && ((mxCell) tmp2).getValue() == null
+						&& val instanceof InstConcept) {					
+					String backtophint = "", backbottomhint = "";
+					InstConcept instConcept = (InstConcept) val;
+					if ((boolean) instConcept.getInstAttribute("Required")
+							.getValue()) {
+						backtophint = "Element is part of the core. Marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
+												backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is part of the core. Marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
+												backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+					}
+					else if ((boolean) instConcept.getInstAttribute("Core")
+							.getValue()) {
+						backtophint = "Element is part of the core. Not marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
+												backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is part of the core. Not marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
+												backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+					}
+					else  {
+						backtophint = "Element is not part of the core. Not marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
+												backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is not part of the core. Not marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
+												backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
 					}
 				}
 			}

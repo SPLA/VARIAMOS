@@ -237,8 +237,9 @@ public class ElementDesignPanel extends JPanel {
 						List<InstAttribute> editables = elm
 								.getEditableVariables();
 
-						if (!editables.contains(v)
-								|| editor.getPerspective() == 4)
+						if (!editables.contains(v))
+								//|| editor.getPerspective() == 4)
+							//TODO activate
 							w.getEditor().setEnabled(false);
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));
@@ -252,6 +253,7 @@ public class ElementDesignPanel extends JPanel {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										finalEditor.executeSimulation(true);
 										editorProperties(finalEditor, finalElm);
 									}
 								});
