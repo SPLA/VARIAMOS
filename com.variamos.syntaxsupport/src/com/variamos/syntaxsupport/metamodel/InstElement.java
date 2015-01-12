@@ -39,7 +39,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public static final String VAR_IDENTIFIER = "identifier",
 			VAR_INSTATTRIBUTES = "InstAttribute";
 
-	private Map<String, Object> dynamicAttributesMap = new HashMap<>();
+	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
 	private IntSemanticElement editableSemanticElement;
 
@@ -48,20 +48,20 @@ public abstract class InstElement implements Serializable, EditableElement {
 	/**
 	 * The elements incoming to the element
 	 */
-	private List<InstElement> sourceRelations;
+	private List<InstElement> volatileSourceRelations;
 	/**
 	 * The elements outgoing from the element
 	 */
-	private List<InstElement> targetRelations;
+	private List<InstElement> volatileTargetRelations;
 
 	private boolean optional = false;
 
 	private String supportMetaElementIden;
 
 	public InstElement(String identifier) {
-		sourceRelations = new ArrayList<InstElement>();
-		targetRelations = new ArrayList<InstElement>();
-		dynamicAttributesMap.put(VAR_IDENTIFIER, identifier);
+		volatileSourceRelations = new ArrayList<InstElement>();
+		volatileTargetRelations = new ArrayList<InstElement>();
+		dynamicAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public boolean isOptional() {
@@ -69,21 +69,21 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public List<InstElement> getTargetRelations() {
-		return targetRelations;
+		return volatileTargetRelations;
 	}
 
 	public void addTargetRelation(InstElement target, boolean firstCall) {
-		this.targetRelations.add(target);
+		this.volatileTargetRelations.add(target);
 		if (firstCall)
 			target.addSourceRelation(this, false);
 	}
 
 	public List<InstElement> getSourceRelations() {
-		return sourceRelations;
+		return volatileSourceRelations;
 	}
 
 	public void addSourceRelation(InstElement source, boolean firstCall) {
-		this.sourceRelations.add(source);
+		this.volatileSourceRelations.add(source);
 		if (firstCall)
 			source.addTargetRelation(this, false);
 	}
@@ -138,18 +138,17 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableSemanticElement
 							.getIdentifier());
 				if (instAttribute.getIdentifier().equals("Parent"))
-					instAttribute.setValue(editableSemanticElement
-							.getParent());
+					instAttribute.setValue(editableSemanticElement.getParent());
 			}
 		}
 	}
 
-	public Map<String, Object> getDynamicAttributesMap() {
-		return dynamicAttributesMap;
+	public Map<String, Object> getDynamicAttributes() {
+		return dynamicAttributes;
 	}
 
-	public void setDynamicAttributesMap(Map<String, Object> dynamicAttributesMap) {
-		this.dynamicAttributesMap = dynamicAttributesMap;
+	public void setDynamicAttributes(Map<String, Object> dynamicAttributesMap) {
+		this.dynamicAttributes = dynamicAttributesMap;
 	}
 
 	public IntSemanticElement getEditableSemanticElement() {
@@ -165,32 +164,30 @@ public abstract class InstElement implements Serializable, EditableElement {
 		return editableMetaElement;
 	}
 
-	public String getSupportMetaElementIden()
-	{
+	public String getSupportMetaElementIden() {
 		return supportMetaElementIden;
 	}
-	
-	public void setSupportMetaElementIden(String supportMetaElementIden)
-	{
-		this.supportMetaElementIden=supportMetaElementIden;
+
+	public void setSupportMetaElementIden(String supportMetaElementIden) {
+		this.supportMetaElementIden = supportMetaElementIden;
 	}
-	
+
 	public abstract MetaElement getTransSupportMetaElement();
-	
-	public abstract void setTransSupportMetaElement(MetaElement supportMetaElement);
+
+	public abstract void setTransSupportMetaElement(
+			MetaElement supportMetaElement);
 
 	public void setEditableMetaElement(MetaElement metaElement) {
 		this.editableMetaElement = metaElement;
 	}
 
 	public Object getDynamicVariable(String name) {
-		return dynamicAttributesMap.get(name);
-	}
-	
-	public void setDynamicVariable(String name, Object value) {
-		dynamicAttributesMap.put(name, value);
+		return dynamicAttributes.get(name);
 	}
 
+	public void setDynamicVariable(String name, Object value) {
+		dynamicAttributes.put(name, value);
+	}
 
 	public InstAttribute getInstAttribute(String name) {
 		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
@@ -394,7 +391,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 			}
 		}
 	}
-	
 
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
 		removeTargetRelations();
@@ -402,56 +398,54 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	}
 
-
 	public void clearRelations() {
 		removeTargetRelations();
 		removeSourceRelations();
 
 	}
-	
+
 	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
 		removeSourceRelations();
 		addSourceRelation(sourceRelation, firstCall);
 	}
 
 	protected void removeSourceRelations() {
-		for (InstElement instElement : sourceRelations)
+		for (InstElement instElement : volatileSourceRelations)
 			instElement.removeTargetRelation(this);
-		sourceRelations.clear();
+		volatileSourceRelations.clear();
 
 	}
 
 	private void removeTargetRelation(InstElement instElement) {
-		targetRelations.remove(instElement);
+		volatileTargetRelations.remove(instElement);
 
 	}
 
 	protected void removeTargetRelations() {
-		for (InstElement instElement : targetRelations)
+		for (InstElement instElement : volatileTargetRelations)
 			instElement.removeSourceRelation(this);
-		targetRelations.clear();
+		volatileTargetRelations.clear();
 
 	}
 
 	private void removeSourceRelation(InstElement instElement) {
-		sourceRelations.remove(instElement);
+		volatileSourceRelations.remove(instElement);
 
 	}
 
-	public void setOptional(boolean optional) { 
-		this.optional  = optional;
-		
+	public void setOptional(boolean optional) {
+		this.optional = optional;
+
 	}
-	
+
 	public void clearEditableMetaVertex() {
 		editableMetaElement = null;
+		editableSemanticElement = null;
 	};
-	
 
 	public void clearMetaPairwiseRelation(String attribute) {
-		dynamicAttributesMap.put(attribute, null);
+		dynamicAttributes.put(attribute, null);
 	}
-	
 
 	public void clearInstAttributesObjects() {
 		for (InstAttribute attribute : this.getInstAttributes().values()) {
@@ -459,5 +453,5 @@ public abstract class InstElement implements Serializable, EditableElement {
 			attribute.clearModelingAttribute();
 		}
 	}
-	
+
 }

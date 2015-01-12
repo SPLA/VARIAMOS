@@ -138,7 +138,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public void setSupportMetaPairwiseRelIden(String metaPairwiseRelationIden) {
 		supportMetaPairwiseRelIden = metaPairwiseRelationIden;
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN, metaPairwiseRelationIden);
 	}
 	
@@ -151,7 +151,7 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 		SemanticAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute

@@ -128,6 +128,7 @@ public class SaveAction extends AbstractEditorAction {
 		AbstractModel pl = null;
 
 		if (editor != null) {
+			final VariamosGraphEditor finalEditor = editor;
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 
 			mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -196,6 +197,7 @@ public class SaveAction extends AbstractEditorAction {
 				dialogShown = true;
 
 				if (rc != JFileChooser.APPROVE_OPTION) {
+					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 					return;
 				} else {
 					lastDir = fc.getSelectedFile().getParent();
@@ -216,6 +218,7 @@ public class SaveAction extends AbstractEditorAction {
 				if (new File(filename).exists()
 						&& JOptionPane.showConfirmDialog(graphComponent,
 								mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 					return;
 				}
 			} else {
@@ -238,6 +241,8 @@ public class SaveAction extends AbstractEditorAction {
 																	height));
 											canvas.setEmbedded(true);
 
+											((MainFrame) finalEditor.getFrame())
+													.waitingCursor(false);
 											return canvas;
 										}
 
@@ -259,11 +264,11 @@ public class SaveAction extends AbstractEditorAction {
 					generatePrologFile(pl, filename);
 				} else if (ext.equalsIgnoreCase("plg")
 						|| ext.equalsIgnoreCase("xml")) {
-					SharedActions.beforeSaveGraph(graph);
+					mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
 					mxCodec codec = new mxCodec();
-					String xml = mxXmlUtils.getXml(codec.encode(graph
+					String xml = mxXmlUtils.getXml(codec.encode(outGraph
 							.getModel()));
-					SharedActions.afterSaveGraph(graph, editor);
+					SharedActions.afterSaveGraph(outGraph, editor);
 					mxUtils.writeFile(xml, filename);
 
 					editor.setModified(false);
