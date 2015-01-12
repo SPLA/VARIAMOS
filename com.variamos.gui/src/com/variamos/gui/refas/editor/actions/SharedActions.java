@@ -35,8 +35,26 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
+	
+	public static mxGraph cloneGraph(mxGraph source, mxGraph target)
+	{
+		if (target == null)
+			target = new mxGraph();
+		target.selectAll();
+		target.removeCells();		
+		target.addCells(source.cloneCells(source.getChildCells(source.getDefaultParent())));
+		return target;
+	}
+	
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
-		mxIGraphModel refasGraph = graph.getModel();
+		long startTime = System.currentTimeMillis();
+		mxGraph outGraph = cloneGraph(graph, null);
+		long stopTime = System.currentTimeMillis();
+	      long elapsedTime = stopTime - startTime;
+	      System.out.println("clone clean: "+elapsedTime);
+		 startTime = System.currentTimeMillis();
+		
+		mxIGraphModel refasGraph = outGraph.getModel();
 		if (graph instanceof RefasGraph) {
 			Object o = refasGraph.getRoot(); // Main Root
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
@@ -56,7 +74,10 @@ public class SharedActions {
 				}
 			}
 		}
-		return graph;
+		 stopTime = System.currentTimeMillis();
+	       elapsedTime = stopTime - startTime;
+	      System.out.println("object clean: "+elapsedTime);
+		return outGraph;
 	}
 
 	private static void deleteSupportObjects(Object value) {
@@ -66,7 +87,7 @@ public class SharedActions {
 			 ic.setSemanticOverTwoRelationIden(str);
 			str = (String) ic.getSupportMetaElementIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
-		//	ic.clearEditableMetaVertex();
+			ic.clearEditableMetaVertex();
 			ic.clearInstAttributesObjects();
 		} else if (value instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) value;
@@ -77,7 +98,8 @@ public class SharedActions {
 		if (value instanceof InstPairwiseRelation) {
 			InstPairwiseRelation ic = (InstPairwiseRelation) value;
 			ic.updateIdentifiers();
-		//	ic.clearMetaPairwiseRelation();
+			ic.clearMetaPairwiseRelation();
+			ic.clearEditableMetaVertex();
 			ic.clearRelations();
 			ic.clearInstAttributesObjects();
 		}

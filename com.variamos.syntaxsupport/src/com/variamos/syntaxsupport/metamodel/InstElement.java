@@ -39,7 +39,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public static final String VAR_IDENTIFIER = "identifier",
 			VAR_INSTATTRIBUTES = "InstAttribute";
 
-	private Map<String, Object> dynamicAttributesMap = new HashMap<>();
+	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
 	private IntSemanticElement editableSemanticElement;
 
@@ -61,7 +61,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public InstElement(String identifier) {
 		sourceRelations = new ArrayList<InstElement>();
 		targetRelations = new ArrayList<InstElement>();
-		dynamicAttributesMap.put(VAR_IDENTIFIER, identifier);
+		dynamicAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public boolean isOptional() {
@@ -138,18 +138,17 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableSemanticElement
 							.getIdentifier());
 				if (instAttribute.getIdentifier().equals("Parent"))
-					instAttribute.setValue(editableSemanticElement
-							.getParent());
+					instAttribute.setValue(editableSemanticElement.getParent());
 			}
 		}
 	}
 
-	public Map<String, Object> getDynamicAttributesMap() {
-		return dynamicAttributesMap;
+	public Map<String, Object> getDynamicAttributes() {
+		return dynamicAttributes;
 	}
 
-	public void setDynamicAttributesMap(Map<String, Object> dynamicAttributesMap) {
-		this.dynamicAttributesMap = dynamicAttributesMap;
+	public void setDynamicAttributes(Map<String, Object> dynamicAttributesMap) {
+		this.dynamicAttributes = dynamicAttributesMap;
 	}
 
 	public IntSemanticElement getEditableSemanticElement() {
@@ -165,32 +164,30 @@ public abstract class InstElement implements Serializable, EditableElement {
 		return editableMetaElement;
 	}
 
-	public String getSupportMetaElementIden()
-	{
+	public String getSupportMetaElementIden() {
 		return supportMetaElementIden;
 	}
-	
-	public void setSupportMetaElementIden(String supportMetaElementIden)
-	{
-		this.supportMetaElementIden=supportMetaElementIden;
+
+	public void setSupportMetaElementIden(String supportMetaElementIden) {
+		this.supportMetaElementIden = supportMetaElementIden;
 	}
-	
+
 	public abstract MetaElement getTransSupportMetaElement();
-	
-	public abstract void setTransSupportMetaElement(MetaElement supportMetaElement);
+
+	public abstract void setTransSupportMetaElement(
+			MetaElement supportMetaElement);
 
 	public void setEditableMetaElement(MetaElement metaElement) {
 		this.editableMetaElement = metaElement;
 	}
 
 	public Object getDynamicVariable(String name) {
-		return dynamicAttributesMap.get(name);
-	}
-	
-	public void setDynamicVariable(String name, Object value) {
-		dynamicAttributesMap.put(name, value);
+		return dynamicAttributes.get(name);
 	}
 
+	public void setDynamicVariable(String name, Object value) {
+		dynamicAttributes.put(name, value);
+	}
 
 	public InstAttribute getInstAttribute(String name) {
 		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
@@ -394,7 +391,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 			}
 		}
 	}
-	
 
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
 		removeTargetRelations();
@@ -402,13 +398,12 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	}
 
-
 	public void clearRelations() {
 		removeTargetRelations();
 		removeSourceRelations();
 
 	}
-	
+
 	public void setSourceRelation(InstElement sourceRelation, boolean firstCall) {
 		removeSourceRelations();
 		addSourceRelation(sourceRelation, firstCall);
@@ -438,20 +433,19 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	}
 
-	public void setOptional(boolean optional) { 
-		this.optional  = optional;
-		
+	public void setOptional(boolean optional) {
+		this.optional = optional;
+
 	}
-	
+
 	public void clearEditableMetaVertex() {
 		editableMetaElement = null;
+		editableSemanticElement = null;
 	};
-	
 
 	public void clearMetaPairwiseRelation(String attribute) {
-		dynamicAttributesMap.put(attribute, null);
+		dynamicAttributes.put(attribute, null);
 	}
-	
 
 	public void clearInstAttributesObjects() {
 		for (InstAttribute attribute : this.getInstAttributes().values()) {
@@ -459,5 +453,5 @@ public abstract class InstElement implements Serializable, EditableElement {
 			attribute.clearModelingAttribute();
 		}
 	}
-	
+
 }

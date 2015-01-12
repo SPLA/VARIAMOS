@@ -103,7 +103,7 @@ public class InstEnumeration extends InstVertex {
 	}
 
 	public String getSupportMetaElementIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
 	}
 

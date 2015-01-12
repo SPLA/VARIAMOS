@@ -35,12 +35,14 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * Object associated to an existing metaElement, syntaxElement or
 	 * InstElement - from JList or JComboBox
+	 * This attribute is not serialized (get/set differ from name)
 	 */
-	private Object valueObject;
+	private Object volatileValueObject;
 	/**
-	 * MetaModel attribute object supporting the instance
+	 * MetaModel/Semantic attribute object supporting the instance
+	 * This attribute is not serialized (get/set differ from name)
 	 */
-	private AbstractAttribute attributeObject;
+	private AbstractAttribute volatileAttribute;
 
 	public static final String
 	/**
@@ -75,146 +77,146 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * Dynamic storage of attributes
 	 */
-	protected Map<String, Object> dynamicInstAttributeComponentsMap = new HashMap<>();
+	protected Map<String, Object> instAttributeAttributes = new HashMap<>();
 
 	public InstAttribute() {
 
 	}
 
 	public InstAttribute(String identifier) {
-		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public InstAttribute(String identifier,
 			AbstractAttribute modelingAttribute, Object value) {
 		super();
-		this.attributeObject = modelingAttribute;
-		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
-		dynamicInstAttributeComponentsMap.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		dynamicInstAttributeComponentsMap.put(VAR_VALUE, value);
-		dynamicInstAttributeComponentsMap.put(VAR_DISPLAYVALUE, null);
+		this.volatileAttribute = modelingAttribute;
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		instAttributeAttributes.put(VAR_VALUE, value);
+		instAttributeAttributes.put(VAR_DISPLAYVALUE, null);
 	}
 
 	public InstAttribute(String identifier,
 			AbstractAttribute modelingAttribute, Object value,
 			Object valueObject) {
 		super();
-		this.attributeObject = modelingAttribute;
-		dynamicInstAttributeComponentsMap.put(VAR_IDENTIFIER, identifier);
-		dynamicInstAttributeComponentsMap.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		dynamicInstAttributeComponentsMap.put(VAR_VALUE, value);
-		dynamicInstAttributeComponentsMap.put(VAR_DISPLAYVALUE, null);
-		this.valueObject = valueObject;
+		this.volatileAttribute = modelingAttribute;
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		instAttributeAttributes.put(VAR_VALUE, value);
+		instAttributeAttributes.put(VAR_DISPLAYVALUE, null);
+		this.volatileValueObject = valueObject;
 
 		// this.value = value;
 	}
 
-	public Object getDynamicInstAttributeComponentMap(String name) {
-		return dynamicInstAttributeComponentsMap.get(name);
+	public Object getInstAttributeAttributes(String name) {
+		return instAttributeAttributes.get(name);
 	}
 
-	public void setDynamicInstAttributeComponentMap(String name, Object value) {
-		dynamicInstAttributeComponentsMap.put(name, value);
+	public void setInstAttributeAttributes(String name, Object value) {
+		instAttributeAttributes.put(name, value);
 	}
 
 	public void setIdentifier(String identifier) {
 		// this.identifier = identifier;
-		setDynamicInstAttributeComponentMap(VAR_IDENTIFIER, identifier);
+		setInstAttributeAttributes(VAR_IDENTIFIER, identifier);
 	}
 
 	public void setAffectProperties(boolean affectProperties) {
-		attributeObject.setAffectProperties(affectProperties);
+		volatileAttribute.setAffectProperties(affectProperties);
 	}
 
 	public boolean isAffectProperties() {
-		return attributeObject.isAffectProperties();
+		return volatileAttribute.isAffectProperties();
 	}
 
 	public void setDisplayName(String displayName) {
-		attributeObject.setDisplayName(displayName);
+		volatileAttribute.setDisplayName(displayName);
 	}
 
 	public String getDisplayName() {
-		return attributeObject.getDisplayName();
+		return volatileAttribute.getDisplayName();
 	}
 
 	public void setValidationMEList(List<MetaPairwiseRelation> metaEdge) {
 		// this.identifier = identifier;
-		setDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
+		setInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<MetaPairwiseRelation> getValidationMEList() {
-		return (List<MetaPairwiseRelation>) getDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION);
+		return (List<MetaPairwiseRelation>) getInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
 	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
-		setDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
-		return (List<IntSemanticRelationType>) getDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST);
+		return (List<IntSemanticRelationType>) getInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setValidationDRList(List<IntSemanticPairwiseRelation> semGD) {
 		// this.identifier = identifier;
-		setDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticPairwiseRelation> getPairwiseRelValidationList() {
-		return (List<IntSemanticPairwiseRelation>) getDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST);
+		return (List<IntSemanticPairwiseRelation>) getInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setAttribute(AbstractAttribute modelingAttribute) {
-		this.attributeObject = modelingAttribute;
+		this.volatileAttribute = modelingAttribute;
 		if (modelingAttribute != null)
-			setDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+			setInstAttributeAttributes(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
-		return (String) getDynamicInstAttributeComponentMap(VAR_IDENTIFIER);
+		return (String) getInstAttributeAttributes(VAR_IDENTIFIER);
 		// return identifier;
 	}
 
 	public AbstractAttribute getAttribute() {
-		return attributeObject;
+		return volatileAttribute;
 	}
 
 	public String getAttributeName() {
-		return (String) getDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttributes(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public Object getValue() {
-		return getDynamicInstAttributeComponentMap(VAR_VALUE);
+		return getInstAttributeAttributes(VAR_VALUE);
 		// return value;
 	}
 
 	public Object getDisplayValue() {
-		if (getDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE) == null)
-			return getDynamicInstAttributeComponentMap(VAR_VALUE);
+		if (getInstAttributeAttributes(VAR_DISPLAYVALUE) == null)
+			return getInstAttributeAttributes(VAR_VALUE);
 		else
-			return getDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE);
+			return getInstAttributeAttributes(VAR_DISPLAYVALUE);
 		// return value;
 	}
 
 	public void setValue(Object value) {
-		setDynamicInstAttributeComponentMap(VAR_VALUE, value);
+		setInstAttributeAttributes(VAR_VALUE, value);
 		// this.value = value;
 	}
 
 	public String getAttributeType() {
-		return attributeObject.getType();
+		return volatileAttribute.getType();
 	}
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub
-		return attributeObject.getClassCanonicalName();
+		return volatileAttribute.getClassCanonicalName();
 	}
 
 	public void setType(String selectedItem) {
@@ -281,32 +283,32 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	}
 	//TODO remove non serializable attributes
 	public Map<String, Object> getDynamicInstAttributeComponentsMap() {
-		return dynamicInstAttributeComponentsMap;
+		return instAttributeAttributes;
 	}
 	//TODO add non serializable attributes
 	public void setDynamicInstAttributeComponentsMap(Map<String, Object> vars) {
-		this.dynamicInstAttributeComponentsMap = vars;
+		this.instAttributeAttributes = vars;
 	}
 
 	public void clearModelingAttribute() {
 	//	attributeObject = null;
 	//	valueObject = null;
-		setDynamicInstAttributeComponentMap(VAR_OVERTWOREL_VALIDATION_LIST, null);
-		setDynamicInstAttributeComponentMap(VAR_PAIRWISEREL_VALIDATION_LIST, null);
-		setDynamicInstAttributeComponentMap(VAR_METAEDGE_LIST_VALIDATION, null);
+		setInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST, null);
+		setInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST, null);
+		setInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION, null);
 	}
 
 	public void displayValue(String out) {
-		setDynamicInstAttributeComponentMap(VAR_DISPLAYVALUE, out);
+		setInstAttributeAttributes(VAR_DISPLAYVALUE, out);
 
 	}
 
 	public void setValueObject(Object valueObject) {
-		this.valueObject = valueObject;
+		this.volatileValueObject = valueObject;
 	}
 
 	public Object getValueObject() {
-		return valueObject;
+		return volatileValueObject;
 	}
 
 	@Override
@@ -324,11 +326,11 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	@Override
 	public String getName() {
-		return (String) getDynamicInstAttributeComponentMap(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttributes(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public String getAttributeDefaultValue() {
-		return (String) attributeObject.getDefaultValue();
+		return (String) volatileAttribute.getDefaultValue();
 	}
 
 	public void updateValidationList(InstElement instElement,
@@ -360,12 +362,6 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 				while (elementNames.hasNext()) {
 					String elementName = elementNames.next();
 					if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
-						// also
-						// validate
-						// origin
-						// and
-						// destination
-						// relation
 						metaGD.add((MetaPairwiseRelation) mapElements
 								.get(elementName));
 				}

@@ -1251,25 +1251,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			mxGraph graph1 = modelEditor.getGraphComponent()
-			.getGraph();
-			this.graphComponent.getGraph().selectAll();
-			this.graphComponent.getGraph().removeCells();		
-			graphComponent.getGraph().addCells(graph1.cloneCells(graph1.getChildCells(graph1.getDefaultParent())));
+			mxGraph source = modelEditor.getGraphComponent().getGraph();
+			mxGraph target = graphComponent.getGraph();
+			SharedActions.cloneGraph(source, target);
 			SharedActions.afterSaveGraph(graphComponent.getGraph(), this);
 			((mxCell)graphComponent.getGraph().getDefaultParent()).setValue("simul");
-			// mxGraphModel.prototype.cloneCells
-			/*
-			 * Object parent =
-			 * modelEditor.getGraphComponent().getGraph().getDefaultParent();
-			 * modelEditor.getGraphComponent().getGraph().selectAll(); Object[]
-			 * all =
-			 * modelEditor.getGraphComponent().getGraph().getSelectionCells();
-			 * modelEditor.getGraphComponent().getGraph().addCell(all);
-			 * this.graphComponent.getGraph().selectAll();
-			 * this.graphComponent.getGraph().addCells(all);
-			 */}
-
+			// Different from null, to display simulation colors
+		}
 	}
 
 	public void cleanSimulation() {

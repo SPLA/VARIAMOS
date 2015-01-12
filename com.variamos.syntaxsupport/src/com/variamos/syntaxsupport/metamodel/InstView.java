@@ -25,7 +25,7 @@ public class InstView extends InstElement {
 	
 	public InstView(String identifier) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
@@ -36,7 +36,7 @@ public class InstView extends InstElement {
 	public InstView(String identifier, MetaConcept supportMetaConcept,
 			MetaElement editableMetaElement) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
 		this.supportMetaConcept = supportMetaConcept;
 		instVertices = new ArrayList<InstVertex>();

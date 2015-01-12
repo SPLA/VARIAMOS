@@ -2056,6 +2056,7 @@ public class Refas extends AbstractModel {
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexOper, true);
 
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-oper", instEdge);
 		instEdge.setIdentifier("variab-oper");
@@ -2145,6 +2146,13 @@ public class Refas extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexVA, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-opertoLF", instEdge);
+		instEdge.setIdentifier("variab-opertoLF");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexLF, true);
+		instEdge.setSourceRelation(instVertexOper, true);
 
 		// Hard OverTwoRelations
 
@@ -2865,6 +2873,8 @@ public class Refas extends AbstractModel {
 		instViews.add(instView);
 		syntaxMetaView.addConcept(sOperationalization);
 		instView.addInstVertex(instVertexOper);
+		instView.addInstVertex(instVertexLF);
+		
 		IntSemanticConcept semAsset = (IntSemanticConcept) ((InstConcept) this
 				.getSemanticRefas().getVertex("SemAsset"))
 				.getEditableSemanticElement();
@@ -2892,6 +2902,9 @@ public class Refas extends AbstractModel {
 		syntaxMetaChildView.addConcept(syntaxAsset);
 		syntaxMetaView.addConcept(sOperationalization);
 		syntaxMetaChildView.addConcept(sOperationalization);
+		syntaxMetaView.addConcept(syntaxLeafFeature);
+		syntaxMetaChildView.addConcept(syntaxLeafFeature);
+		
 		InstVertex instVertexAsset = new InstConcept("Asset",
 				supportMetaElementConcept, syntaxAsset);
 		variabilityInstVertex.put("Asset", instVertexAsset);
@@ -2929,6 +2942,15 @@ public class Refas extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAsset, sOperationalization, directAssetOperSemanticEdge);
 		syntaxMetaView.addConcept(metaOperEdge);
+		
+		MetaPairwiseRelation metaFeatureEdge = new MetaPairwiseRelation(
+				"Asset To Feature Relation", true, "Asset To Feature Relation", "",
+				"Represents the "
+						+ "implementation of an feature by an"
+						+ " asset", 50, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				syntaxAsset, syntaxLeafFeature, directAssetOperSemanticEdge);
+		syntaxMetaView.addConcept(metaFeatureEdge);
 
 		MetaPairwiseRelation metaAssetEdge = new MetaPairwiseRelation(
 				"Asset To Asset Relation", true, "Asset To Asset Relation", "",
@@ -2944,6 +2966,14 @@ public class Refas extends AbstractModel {
 		instEdge.setEditableMetaElement(metaOperEdge);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexOper, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("asset0-assettoFeat", instEdge);
+		instEdge.setIdentifier("asset0-assettoFeat");
+		instEdge.setEditableMetaElement(metaFeatureEdge);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexLF, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
 
 		instEdge = new InstPairwiseRelation();
@@ -2982,6 +3012,13 @@ public class Refas extends AbstractModel {
 		instEdge.setIdentifier("asset0-oper");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexOper, true);
+		instEdge.setSourceRelation(childView, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("asset0-feat", instEdge);
+		instEdge.setIdentifier("asset0-feat");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
+		instEdge.setTargetRelation(instVertexLF, true);
 		instEdge.setSourceRelation(childView, true);
 
 		instEdge = new InstPairwiseRelation();

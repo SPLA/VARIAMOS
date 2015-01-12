@@ -259,11 +259,11 @@ public class SaveAction extends AbstractEditorAction {
 					generatePrologFile(pl, filename);
 				} else if (ext.equalsIgnoreCase("plg")
 						|| ext.equalsIgnoreCase("xml")) {
-					SharedActions.beforeSaveGraph(graph);
+					mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
 					mxCodec codec = new mxCodec();
-					String xml = mxXmlUtils.getXml(codec.encode(graph
+					String xml = mxXmlUtils.getXml(codec.encode(outGraph
 							.getModel()));
-					SharedActions.afterSaveGraph(graph, editor);
+					//SharedActions.afterSaveGraph(outGraph, editor);
 					mxUtils.writeFile(xml, filename);
 
 					editor.setModified(false);

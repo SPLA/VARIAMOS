@@ -79,7 +79,7 @@ public class MetaPairwiseRelation extends MetaElement {
 
 	public MetaPairwiseRelation() {
 
-		createModelingAttributes();
+		//createModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible, String name,
@@ -90,7 +90,7 @@ public class MetaPairwiseRelation extends MetaElement {
 				borderStroke, origin, destination, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
 		this.semanticPairwiseRelation = semanticRelation;
-		 createModelingAttributes();
+		// createModelingAttributes();
 	}
 		
 	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
@@ -100,7 +100,7 @@ public class MetaPairwiseRelation extends MetaElement {
 				height, image, borderStroke,
 				origin, destination, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
-		createModelingAttributes();
+		//createModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
@@ -123,7 +123,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createModelingAttributes();
+		//createModelingAttributes();
 	}
 	
 	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
@@ -155,10 +155,10 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createModelingAttributes();
+		//createModelingAttributes();
 	}
 	
-	public void createModelingAttributes() {
+	public void createPWModelingAttributes() {
 		//TODO include attribute based on other object values, cardinalityType from semanticTypes
 //		addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new SemanticAttribute(
 //				VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,

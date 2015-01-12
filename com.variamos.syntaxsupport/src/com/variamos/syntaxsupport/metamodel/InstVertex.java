@@ -51,7 +51,7 @@ public abstract class InstVertex extends InstElement {
 			Map<String, InstAttribute> instAttributes,
 			Map<String, InstPairwiseRelation> instRelations) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 	}
 	/**

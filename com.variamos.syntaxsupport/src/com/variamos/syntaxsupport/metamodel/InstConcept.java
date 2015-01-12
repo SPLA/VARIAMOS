@@ -127,7 +127,7 @@ public class InstConcept extends InstVertex {
 	}
 
 	public String getSupportMetaElementIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributesMap();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METACONCEPT_IDEN);
 	}
 

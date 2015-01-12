@@ -663,15 +663,28 @@ public class EditorActions {
 					} else if (ext.equalsIgnoreCase("mxe")
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
-
-						SharedActions.beforeSaveGraph(graph);
+						long startTime = System.currentTimeMillis();
+						mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
+						long stopTime = System.currentTimeMillis();
+						long elapsedTime = stopTime - startTime;
+						System.out.println("beforeSaveGraph time : "
+								+ elapsedTime);
+						startTime = System.currentTimeMillis();
 						mxCodec codec = new mxCodec();
-						String xml = mxXmlUtils.getXml(codec.encode(graph
+						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
-						if (editor instanceof VariamosGraphEditor)
-							SharedActions.afterSaveGraph(graph,
-									(VariamosGraphEditor) editor);
 						mxUtils.writeFile(xml, filename);
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						System.out
+								.println("serialization time: " + elapsedTime);
+						startTime = System.currentTimeMillis();
+					//	if (editor instanceof VariamosGraphEditor)
+					//		SharedActions.afterSaveGraph(graph,
+					//				(VariamosGraphEditor) editor);
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						System.out.println("recover time: " + elapsedTime);
 
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
@@ -1446,7 +1459,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				((MainFrame)editor.getFrame()).waitingCursor(true);
+				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1549,7 +1562,7 @@ public class EditorActions {
 						}
 					}
 				}
-				((MainFrame)editor.getFrame()).waitingCursor(false);
+				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}
