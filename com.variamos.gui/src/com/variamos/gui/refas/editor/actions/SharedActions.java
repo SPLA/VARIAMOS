@@ -35,27 +35,30 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
-	
-	public static mxGraph cloneGraph(mxGraph source, mxGraph target)
-	{
+
+	public static mxGraph cloneGraph(mxGraph source, mxGraph target) {
 		if (target == null)
 			target = new mxGraph();
 		target.selectAll();
-		target.removeCells();		
-		target.addCells(source.cloneCells(source.getChildCells(source.getDefaultParent())));
+		target.removeCells();
+		target.addCells(source.cloneCells(source.getChildCells(source
+				.getDefaultParent())));
 		return target;
 	}
-	
+
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
 		long startTime = System.currentTimeMillis();
+		((RefasGraph) graph).setValidation(false);
 		mxGraph outGraph = cloneGraph(graph, null);
 		long stopTime = System.currentTimeMillis();
-	      long elapsedTime = stopTime - startTime;
-	      System.out.println("clone clean: "+elapsedTime);
-		 startTime = System.currentTimeMillis();
-		
+		long elapsedTime = stopTime - startTime;
+		System.out.println("clone clean: " + elapsedTime);
+		startTime = System.currentTimeMillis();
+
 		mxIGraphModel refasGraph = outGraph.getModel();
 		if (graph instanceof RefasGraph) {
+
+
 			Object o = refasGraph.getRoot(); // Main Root
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
 			for (int i = 0; i < o1.getChildCount(); i++) {
@@ -74,9 +77,9 @@ public class SharedActions {
 				}
 			}
 		}
-		 stopTime = System.currentTimeMillis();
-	       elapsedTime = stopTime - startTime;
-	      System.out.println("object clean: "+elapsedTime);
+		stopTime = System.currentTimeMillis();
+		elapsedTime = stopTime - startTime;
+		System.out.println("object clean: " + elapsedTime);
 		return outGraph;
 	}
 
@@ -84,7 +87,7 @@ public class SharedActions {
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation ic = (InstOverTwoRelation) value;
 			String str = null;// (String) ic.getSemanticOverTwoRelationIden();
-			 ic.setSemanticOverTwoRelationIden(str);
+			ic.setSemanticOverTwoRelationIden(str);
 			str = (String) ic.getSupportMetaElementIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
 			ic.clearEditableMetaVertex();
@@ -100,20 +103,26 @@ public class SharedActions {
 			ic.updateIdentifiers();
 			ic.clearMetaPairwiseRelation();
 			ic.clearEditableMetaVertex();
-			ic.clearRelations();
+			//ic.clearRelations();
 			ic.clearInstAttributesObjects();
 		}
 
 	}
 
+	public static void afterSaveGraph(mxGraph graph, VariamosGraphEditor editor) {
+		if (graph instanceof RefasGraph) {
+			((RefasGraph) graph).setValidation(true);
+		}
+	}
+
 	/**
-	 * Load metamodel objects after saving or loading the graph
+	 * Load metamodel/semantic objects after loading or cloning the graph
 	 * 
 	 * @param graph
 	 * @param editor
 	 * @return
 	 */
-	public static mxGraph afterSaveGraph(mxGraph graph,
+	public static mxGraph afterOpenCloneGraph(mxGraph graph,
 			VariamosGraphEditor editor) {
 		mxIGraphModel refasGraph = graph.getModel();
 		if (graph instanceof RefasGraph) {
@@ -128,12 +137,10 @@ public class SharedActions {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
-							try{
-							loadSupportObjects(editor, mv2.getValue(), mv2,
-									graph);
-							}
-							catch(Exception e)
-							{								
+							try {
+								loadSupportObjects(editor, mv2.getValue(), mv2,
+										graph);
+							} catch (Exception e) {
 								e.printStackTrace();
 								System.err.println(mv2.getValue().toString());
 							}
@@ -142,14 +149,13 @@ public class SharedActions {
 				} else
 					for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
-						try{
-						loadSupportObjects(editor, mv1.getValue(), mv1, graph);
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-						System.err.println(mv1.getValue().toString());
-					}
+						try {
+							loadSupportObjects(editor, mv1.getValue(), mv1,
+									graph);
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.err.println(mv1.getValue().toString());
+						}
 					}
 			}
 		}
@@ -164,7 +170,9 @@ public class SharedActions {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
 			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
 					.getSyntaxRefas()
-					.getVertex(instOverTwoRelation.getSupportMetaElementIdentifier())
+					.getVertex(
+							instOverTwoRelation
+									.getSupportMetaElementIdentifier())
 					.getEditableMetaElement();
 			instOverTwoRelation.setTransSupportMetaElement(metaOverTwoRelation);
 			refas.putInstGroupDependency(instOverTwoRelation);
@@ -175,7 +183,8 @@ public class SharedActions {
 				ia.setAttribute(instOverTwoRelation.getAbstractAttribute(ia
 						.getAttributeName()));
 				List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
-						.getTransSupportMetaElement()).getSemanticRelationTypes();
+						.getTransSupportMetaElement())
+						.getSemanticRelationTypes();
 				ia.setValidationRelationTypes(semGD);
 				if (ia.getAttributeType().equals("Boolean")
 						&& ia.getValue() instanceof String)
@@ -212,76 +221,82 @@ public class SharedActions {
 			}
 		}
 		if (value instanceof InstPairwiseRelation) {
-			try{
+			try {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
-						instPairwiseRelation.createAttributes(new HashMap<String, InstAttribute>());
-			InstVertex sourceVertex = (InstVertex) source.getSource()
-					.getValue();
-			InstVertex targetVertex = (InstVertex) source.getTarget()
-					.getValue();
-			MetaPairwiseRelation metaPairwiseRelation = refas.getSyntaxRefas()
-					.getValidMetaPairwiseRelation(sourceVertex.getTransSupportMetaElement(),
-							targetVertex.getTransSupportMetaElement(),
-							instPairwiseRelation.getSupportMetaPairwiseRelIden(),
-							true);
-			instPairwiseRelation.setSourceRelation(sourceVertex, true);
-			instPairwiseRelation.setTargetRelation(targetVertex, true);
-			if (metaPairwiseRelation != null) {
-				instPairwiseRelation.setSupportMetaPairwiseRelation(
-						metaPairwiseRelation);
-				instPairwiseRelation.setUpdatePairwiseRelationType();
-				instPairwiseRelation.setDynamicVariable(
-						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
-						instPairwiseRelation.getSemanticPairwiseRelType());
+				instPairwiseRelation
+						.createAttributes(new HashMap<String, InstAttribute>());
+				InstVertex sourceVertex = (InstVertex) source.getSource()
+						.getValue();
+				InstVertex targetVertex = (InstVertex) source.getTarget()
+						.getValue();
+				MetaPairwiseRelation metaPairwiseRelation = refas
+						.getSyntaxRefas().getValidMetaPairwiseRelation(
+								sourceVertex.getTransSupportMetaElement(),
+								targetVertex.getTransSupportMetaElement(),
+								instPairwiseRelation
+										.getSupportMetaPairwiseRelIden(), true);
+				instPairwiseRelation.setSourceRelation(sourceVertex, true);
+				instPairwiseRelation.setTargetRelation(targetVertex, true);
+				if (metaPairwiseRelation != null) {
+					instPairwiseRelation
+							.setSupportMetaPairwiseRelation(metaPairwiseRelation);
+					instPairwiseRelation.setUpdatePairwiseRelationType();
+					instPairwiseRelation.setDynamicVariable(
+							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
+							instPairwiseRelation.getSemanticPairwiseRelType());
 
-				Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
-						.getInstAttributes().values().iterator();
-				while (instAttributesIter.hasNext()) {
-					try{
-						
-					InstAttribute instAttribute = (InstAttribute) instAttributesIter
-							.next();
+					Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
+							.getInstAttributes().values().iterator();
+					while (instAttributesIter.hasNext()) {
+						try {
 
-					AbstractAttribute absAttribute = metaPairwiseRelation.getAbstractAttribute(instAttribute
-									.getAttributeName());
-					if (absAttribute == null)
-						absAttribute = instPairwiseRelation.getSemanticAttribute();
-					instAttribute.setAttribute(absAttribute);
-				//	if (absAttribute != null)// TODO find a better fix
-						if (instAttribute.getAttributeType().equals("Boolean")
-								&& instAttribute.getValue() != null
-								&& instAttribute.getValue() instanceof String)
-							if (((String) instAttribute.getValue()).equals("0"))
-								instAttribute.setValue(false);
-							else
-								instAttribute.setValue(true);
-					if (instAttribute.getIdentifier().equals(
-							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
-						instAttribute.setValue(instPairwiseRelation
-								.getSemanticPairwiseRelType());
-					if (instAttribute.getIdentifier().equals(
-							"relationType"))
-						instAttribute.setValue(instPairwiseRelation
-								.getSemanticPairwiseRelType());
-					List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
-							.getTransSupportMetaElement()).getSemanticRelationTypes();
-					instAttribute.setValidationRelationTypes(semGD);
-					}					
-					catch (Exception e)
-					{
-						System.err.println("Contained exception");
-						e.printStackTrace();
+							InstAttribute instAttribute = (InstAttribute) instAttributesIter
+									.next();
+
+							AbstractAttribute absAttribute = metaPairwiseRelation
+									.getAbstractAttribute(instAttribute
+											.getAttributeName());
+							if (absAttribute == null)
+								absAttribute = instPairwiseRelation
+										.getSemanticAttribute();
+							instAttribute.setAttribute(absAttribute);
+							// if (absAttribute != null)// TODO find a better
+							// fix
+							if (instAttribute.getAttributeType().equals(
+									"Boolean")
+									&& instAttribute.getValue() != null
+									&& instAttribute.getValue() instanceof String)
+								if (((String) instAttribute.getValue())
+										.equals("0"))
+									instAttribute.setValue(false);
+								else
+									instAttribute.setValue(true);
+							if (instAttribute
+									.getIdentifier()
+									.equals(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE))
+								instAttribute.setValue(instPairwiseRelation
+										.getSemanticPairwiseRelType());
+							if (instAttribute.getIdentifier().equals(
+									"relationType"))
+								instAttribute.setValue(instPairwiseRelation
+										.getSemanticPairwiseRelType());
+							List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
+									.getTransSupportMetaElement())
+									.getSemanticRelationTypes();
+							instAttribute.setValidationRelationTypes(semGD);
+						} catch (Exception e) {
+							System.err.println("Contained exception");
+							e.printStackTrace();
+						}
 					}
+
 				}
+				// TODO add edges to groupDependecies and claims to
+				// otherInstEdges
+				refas.putConstraintInstEdge(instPairwiseRelation);
 
-			}
-			// TODO add edges to groupDependecies and claims to otherInstEdges
-			refas.putConstraintInstEdge(instPairwiseRelation);
-
-			editor.refreshElement(instPairwiseRelation);
-			}
-			catch (Exception e)
-			{
+				editor.refreshElement(instPairwiseRelation);
+			} catch (Exception e) {
 				System.err.println("Contained exception");
 				e.printStackTrace();
 			}

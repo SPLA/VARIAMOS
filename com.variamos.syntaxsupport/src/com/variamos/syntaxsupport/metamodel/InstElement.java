@@ -48,19 +48,19 @@ public abstract class InstElement implements Serializable, EditableElement {
 	/**
 	 * The elements incoming to the element
 	 */
-	private List<InstElement> sourceRelations;
+	private List<InstElement> volatileSourceRelations;
 	/**
 	 * The elements outgoing from the element
 	 */
-	private List<InstElement> targetRelations;
+	private List<InstElement> volatileTargetRelations;
 
 	private boolean optional = false;
 
 	private String supportMetaElementIden;
 
 	public InstElement(String identifier) {
-		sourceRelations = new ArrayList<InstElement>();
-		targetRelations = new ArrayList<InstElement>();
+		volatileSourceRelations = new ArrayList<InstElement>();
+		volatileTargetRelations = new ArrayList<InstElement>();
 		dynamicAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
@@ -69,21 +69,21 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public List<InstElement> getTargetRelations() {
-		return targetRelations;
+		return volatileTargetRelations;
 	}
 
 	public void addTargetRelation(InstElement target, boolean firstCall) {
-		this.targetRelations.add(target);
+		this.volatileTargetRelations.add(target);
 		if (firstCall)
 			target.addSourceRelation(this, false);
 	}
 
 	public List<InstElement> getSourceRelations() {
-		return sourceRelations;
+		return volatileSourceRelations;
 	}
 
 	public void addSourceRelation(InstElement source, boolean firstCall) {
-		this.sourceRelations.add(source);
+		this.volatileSourceRelations.add(source);
 		if (firstCall)
 			source.addTargetRelation(this, false);
 	}
@@ -410,26 +410,26 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	protected void removeSourceRelations() {
-		for (InstElement instElement : sourceRelations)
+		for (InstElement instElement : volatileSourceRelations)
 			instElement.removeTargetRelation(this);
-		sourceRelations.clear();
+		volatileSourceRelations.clear();
 
 	}
 
 	private void removeTargetRelation(InstElement instElement) {
-		targetRelations.remove(instElement);
+		volatileTargetRelations.remove(instElement);
 
 	}
 
 	protected void removeTargetRelations() {
-		for (InstElement instElement : targetRelations)
+		for (InstElement instElement : volatileTargetRelations)
 			instElement.removeSourceRelation(this);
-		targetRelations.clear();
+		volatileTargetRelations.clear();
 
 	}
 
 	private void removeSourceRelation(InstElement instElement) {
-		sourceRelations.remove(instElement);
+		volatileSourceRelations.remove(instElement);
 
 	}
 

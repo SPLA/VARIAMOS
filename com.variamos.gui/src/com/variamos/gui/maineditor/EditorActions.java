@@ -525,7 +525,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-
+				final BasicGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
@@ -595,6 +595,8 @@ public class EditorActions {
 					dialogShown = true;
 
 					if (rc != JFileChooser.APPROVE_OPTION) {
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					} else {
 						lastDir = fc.getSelectedFile().getParent();
@@ -615,6 +617,8 @@ public class EditorActions {
 					if (new File(filename).exists()
 							&& JOptionPane.showConfirmDialog(graphComponent,
 									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					}
 				} else {
@@ -679,9 +683,9 @@ public class EditorActions {
 						System.out
 								.println("serialization time: " + elapsedTime);
 						startTime = System.currentTimeMillis();
-					//	if (editor instanceof VariamosGraphEditor)
-					//		SharedActions.afterSaveGraph(graph,
-					//				(VariamosGraphEditor) editor);
+						if (editor instanceof VariamosGraphEditor)
+							SharedActions.afterSaveGraph(graph,
+									(VariamosGraphEditor) editor);
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						System.out.println("recover time: " + elapsedTime);
@@ -1459,6 +1463,8 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
+
+				final BasicGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
@@ -1479,6 +1485,8 @@ public class EditorActions {
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
 
+								((MainFrame) finalEditor.getFrame())
+										.waitingCursor(false);
 								return super.accept(file)
 										|| lcase.endsWith(".png")
 										|| lcase.endsWith(".vdx");
@@ -1532,7 +1540,7 @@ public class EditorActions {
 									PLGReader.loadPLG(fc.getSelectedFile(),
 											graph);
 									editor.setCurrentFile(fc.getSelectedFile());
-									SharedActions.afterSaveGraph(graph,
+									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
 									variamosEditor
 											.populateIndex(((AbstractGraph) graph)

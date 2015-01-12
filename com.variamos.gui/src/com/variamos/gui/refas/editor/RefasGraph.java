@@ -328,10 +328,11 @@ public class RefasGraph extends AbstractGraph {
 
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
+		if (validation) {
 		if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
 			return super.isValidConnection(source, target);
 		}
-		if (validation) {
+
 			mxCell s = (mxCell) source;
 			mxCell t = (mxCell) target;
 
@@ -355,9 +356,11 @@ public class RefasGraph extends AbstractGraph {
 				directRelation.clearMetaPairwiseRelation();
 				return false;
 			}
-		}
+		
 
 		return super.isValidConnection(source, target);
+		}
+		return true;
 	}
 
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {

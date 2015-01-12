@@ -271,7 +271,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
 		refasGraph.setModel(abstractModel);
-		refasGraph.setValidation(true);
+		//refasGraph.setValidation(true);
 		graphEditorFunctions = new RefasGraphEditorFunctions(this);
 	//	RefasGraph refasGraph = (RefasGraph) component.getGraph();
 
@@ -1254,7 +1254,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
 			SharedActions.cloneGraph(source, target);
-			SharedActions.afterSaveGraph(graphComponent.getGraph(), this);
+			SharedActions.afterOpenCloneGraph(graphComponent.getGraph(), this);
 			((mxCell)graphComponent.getGraph().getDefaultParent()).setValue("simul");
 			// Different from null, to display simulation colors
 		}

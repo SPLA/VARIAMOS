@@ -132,7 +132,7 @@
   </realization>  
   <association id="17">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="18" name="sourceRelations">        
+      <attribute id="18" name="volatileSourceRelations">        
         <position height="18" width="88" x="1016" y="1939"/>      
       </attribute>      
       <multiplicity id="19" minimum="0" maximum="2147483647">        
@@ -144,7 +144,7 @@
   </association>  
   <association id="20">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="21" name="targetRelations">        
+      <attribute id="21" name="volatileTargetRelations">        
         <position height="18" width="82" x="973" y="1928"/>      
       </attribute>      
       <multiplicity id="22" minimum="0" maximum="2147483647">        
