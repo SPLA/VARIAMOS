@@ -53,7 +53,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return configuration;
 	}
 
-	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1;
+	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
+			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2;
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
@@ -67,14 +68,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * ONE_SOLUTION currently supported)
 	 */
 
-	public HlclProgram getHlclProgram() {
+	public HlclProgram getHlclProgram(int execType) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
-		createVertexExpressions(null);
-		createEdgeExpressions(null);
+		createVertexExpressions(null, execType);
+		createEdgeExpressions(null, execType);
 		// Previous call to createEdgeExpressions is required to fill the
 		// attribute names for createGroupExpressions
-		createGroupExpressions(null);
+		createGroupExpressions(null, execType);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		for (MetaExpressionSet constraintGroup : constraintGroups.values())
@@ -105,25 +106,25 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public NumericExpression getSumExpression(InstVertex last,
-			Iterator<InstVertex> iterVertex) {
+			Iterator<InstVertex> iterVertex, String attributeName) {
 		if (iterVertex.hasNext()) {
 			InstVertex instVertex = iterVertex.next();
-			if (last.getInstAttribute("Opt") != null
+			if (last.getInstAttribute(attributeName) != null
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
-				return f.sum(f.newIdentifier(last.getIdentifier() + "_Opt"),
-						getSumExpression(instVertex, iterVertex));
+				return f.sum(f.newIdentifier(last.getIdentifier() + "_"+attributeName),
+						getSumExpression(instVertex, iterVertex,attributeName));
 			else
-				return getSumExpression(instVertex, iterVertex);
+				return getSumExpression(instVertex, iterVertex,attributeName);
 		} else
-			return f.newIdentifier(last.getIdentifier() + "_Opt");
+			return f.newIdentifier(last.getIdentifier() + "_"+attributeName);
 
 	}
 
-	public boolean execute(int solutions) {
+	public boolean execute(int solutions, int execType) {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 
-			hlclProgram = getHlclProgram();
+			hlclProgram = getHlclProgram(execType);
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
 			for (Expression exp : hlclProgram) {
@@ -139,15 +140,22 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
+				labelingOrderList.add(LabelingOrder.MIN);
 				Iterator<InstVertex> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstVertex instVertex = iterVertex.next();
 				orderExpressionList
-						.add(getSumExpression(instVertex, iterVertex));
+						.add(getSumExpression(instVertex, iterVertex,"Order"));
+				iterVertex = refas
+						.getVariabilityVertexCollection().iterator();
+				instVertex = iterVertex.next();
+				orderExpressionList
+						.add(getSumExpression(instVertex, iterVertex,"Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.out.println("No solution");
 				return false;
 			}
@@ -253,14 +261,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public MetaExpressionSet getElementConstraintGroup(String identifier,
-			String type) {
+			String concetType, int execType) {
 
-		if (type.equals("vertex"))
-			createVertexExpressions(identifier);
-		else if (type.equals("edge"))
-			createEdgeExpressions(identifier);
-		else if (type.equals("groupdep"))
-			createGroupExpressions(identifier);
+		if (concetType.equals("vertex"))
+			createVertexExpressions(identifier, execType);
+		else if (concetType.equals("edge"))
+			createEdgeExpressions(identifier, execType);
+		else if (concetType.equals("groupdep"))
+			createGroupExpressions(identifier, execType);
 		return constraintGroups.get(identifier);
 	}
 
@@ -268,20 +276,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return text;
 	}
 
-	private void createVertexExpressions(String identifier) {
+	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
 			for (InstVertex elm : refas.getConstraintVertexCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new SingleElementExpressionSet(elm.getIdentifier(),
-								idMap, f, elm));
+								idMap, f, elm, execType));
 			}
 		else
 			constraintGroups.put(identifier,
 					new SingleElementExpressionSet(identifier, idMap, f, refas
-							.getConstraintVertex().get(identifier)));
+							.getConstraintVertex().get(identifier), execType));
 	}
 
-	private void createEdgeExpressions(String identifier) {
+	private void createEdgeExpressions(String identifier, int execType) {
 		if (identifier == null)
 			for (InstPairwiseRelation elm : refas
 					.getConstraintInstEdgesCollection()) {
@@ -296,26 +304,28 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
-	private void createGroupExpressions(String identifier) {
-		createEdgeExpressions(null); // TODO define a better solution
+	private void createGroupExpressions(String identifier, int execType) {
+		createEdgeExpressions(null, execType); // TODO define a better solution
 		if (identifier == null)
 			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new OverTwoElementsExpressionSet(elm.getIdentifier(),
-								idMap, f, elm));
+								idMap, f, elm, execType));
 			}
 		else
 			constraintGroups.put(identifier,
 					new OverTwoElementsExpressionSet(identifier, idMap, f,
-							refas.getInstGroupDependencies().get(identifier)));
+							refas.getInstGroupDependencies().get(identifier),
+							execType));
 
 	}
 
-	public String getElementTextConstraints(String identifier, String string) {
+	public String getElementTextConstraints(String identifier, String string,
+			int execType) {
 		String out = "";
 		for (Expression expression : getElementConstraintGroup(identifier,
-				string).getExpressions())
+				string, execType).getExpressions())
 			out += expression.toString() + "\n";
 		return out;
 	}

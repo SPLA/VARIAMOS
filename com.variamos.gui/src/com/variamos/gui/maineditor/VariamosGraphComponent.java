@@ -87,17 +87,18 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		boolean isValid = true;
 		Object tmp2 = model.getChildAt(cell, 0);
 
-		if (model.getChildCount(tmp2) > 0
-				&& ((mxCell) tmp2).getValue()!=null) {
-			Object tmp3 = model.getChildAt(tmp2, 0); // TODO implement for other model
-												// views
+		if (model.getChildCount(tmp2) > 0) {
+			Object tmp3 = model.getChildAt(tmp2, 0); // TODO implement for other
+														// model
+			// views
 			int childCount = model.getChildCount(tmp3);
 
 			for (int i = 0; i < childCount; i++) {
 				mxCell tmp = (mxCell) model.getChildAt(tmp3, i);
 				Object val = tmp.getValue();
 				if (tmp.getGeometry() != null && val != null
-						&& val instanceof InstConcept) {
+						&& val instanceof InstConcept
+						&& ((mxCell) tmp2).getValue() != null) {
 					try {
 						InstConcept instConcept = (InstConcept) val;
 						String backtop = null, backbottom = null, backtophint = null, backbottomhint = null;
@@ -106,13 +107,16 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
 						String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
 						String error = "/com/mxgraph/examples/swing/images/x-red.gif";
+						String confnot = "/com/variamos/gui/refas/editor/images/sim_confnot.png";
 						if ((boolean) instConcept.getInstAttribute("Required")
-								.getValue()) {
+								.getValue()
+								|| (boolean) instConcept.getInstAttribute(
+										"Core").getValue()) {
 							mxCellOverlay over3 = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-									"Element required by user (red on sides)");
+									"Element part of the core (red on sides)");
 							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 							over3.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over3);
@@ -120,136 +124,242 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-									"Element required by user (red on sides)");
+									"Element part of the core (red on sides)");
 
 							backbottomhint += "; Satisfied by validation (Second green circle)";
 							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 							over3.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over3);
-						}
-						if (!(boolean) instConcept.getInstAttribute("Active")
-								.getValue()) {
-							backtop = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
-							backtophint = "Element inactivated by user (black background)";
-							backbottom = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
-							backbottomhint = backtophint;
-						} else if (!(boolean) instConcept.getInstAttribute(
-								"Allowed").getValue()) {
-							backtop = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
-							backtophint = "Element not allowed by user (gray background)";
-							backbottom = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
-							backbottomhint = backtophint;
 						} else {
-							backtop = "/com/variamos/gui/refas/editor/images/sim_normal.png";
-							backtophint = "Element currently not satisfied (white background)";
-							backbottom = "/com/variamos/gui/refas/editor/images/sim_normal.png";
-							backbottomhint = "Element currently not selected (white background)";
-							;
-						}
-						if ((boolean) instConcept.getInstAttribute("Satisfied")
-								.getValue()) {
-							backtop = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
-							backtophint = "Element satisfied (Green background)";
-						}
-						if ((boolean) instConcept.getInstAttribute("Selected")
-								.getValue()) {
-							backbottom = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
-							backbottomhint = "Element selected (Green background)";
-						}
+							if (!(boolean) instConcept.getInstAttribute(
+									"Active").getValue()) {
+								backtop = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
+								backtophint = "Element inactivated by user (black background)";
+								backbottom = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
+								backbottomhint = backtophint;
+							} else if (!(boolean) instConcept.getInstAttribute(
+									"Allowed").getValue()) {
+								backtop = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
+								backtophint = "Element not allowed by user (gray background)";
+								backbottom = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
+								backbottomhint = backtophint;
+							} else {
+								backtop = "/com/variamos/gui/refas/editor/images/sim_normal.png";
+								backtophint = "Element currently not satisfied (white background)";
+								backbottom = "/com/variamos/gui/refas/editor/images/sim_normal.png";
+								backbottomhint = "Element currently not selected (white background)";
+								;
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"Satisfied").getValue()) {
+								backtop = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
+								backtophint = "Element satisfied (Green background)";
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"Selected").getValue()) {
+								backbottom = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
+								backbottomhint = "Element selected (Green background)";
+							}
 
-						mxCellOverlay over = new mxCellOverlay(new ImageIcon(
-								mxGraphComponent.class.getResource(backtop)),
-								backtophint);
-						over.setVerticalAlign(mxConstants.ALIGN_TOP);
-						over.setAlign(mxConstants.ALIGN_CENTER);
-						addCellOverlay(tmp, over);
-						mxCellOverlay over2 = new mxCellOverlay(
-								new ImageIcon(
-										mxGraphComponent.class
-												.getResource(backbottom)),
-								backbottomhint);
-						over2.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-						over2.setAlign(mxConstants.ALIGN_CENTER);
-						addCellOverlay(tmp, over2);
-						if ((boolean) instConcept.getInstAttribute(
-								"ForcedSatisfied").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
+							mxCellOverlay over = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
-													.getResource(forced)),
-									backtophint
-											+ "\n Force Satisfied (First green circle)");
-							backtophint += "\n Force Satisfied (First green circle)";
-							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
-						}
-						if ((boolean) instConcept.getInstAttribute(
-								"ValidationSatisfied").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
+													.getResource(backtop)),
+									backtophint);
+							over.setVerticalAlign(mxConstants.ALIGN_TOP);
+							over.setAlign(mxConstants.ALIGN_CENTER);
+							addCellOverlay(tmp, over);
+							mxCellOverlay over2 = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
-													.getResource(validation)),
-									backtophint
-											+ "; Satisfied by validation (Second green circle)");
+													.getResource(backbottom)),
+									backbottomhint);
+							over2.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+							over2.setAlign(mxConstants.ALIGN_CENTER);
+							addCellOverlay(tmp, over2);
+							if ((boolean) instConcept.getInstAttribute(
+									"ConfigSatisfied").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(forced)),
+										backtophint
+												+ "\n Force Satisfied (First green circle)");
+								backtophint += "\n Force Satisfied (First green circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"NextPrefSatisfied").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(mxGraphComponent.class
+												.getResource(validation)),
+										backtophint
+												+ "; Satisfied by preference (Second green circle)");
 
-							backtophint += "; Satisfied by validation (Second green circle)";
-							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
-						}
-						if ((boolean) instConcept.getInstAttribute(
-								"AlternativeSatisfied").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
-									new ImageIcon(
-											mxGraphComponent.class
-													.getResource(altern)),
-									backtophint
-											+ "; Satisfied by an alternative (Third green circle)");
-							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
-						}
-						if ((boolean) instConcept.getInstAttribute(
-								"ForcedSelected").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
-									new ImageIcon(
-											mxGraphComponent.class
-													.getResource(forced)),
-									backbottomhint
-											+ "; Forced Selected (First green circle)");
-							backbottomhint += "; Forced Selected (First green circle)";
-							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
-						}
-						if ((boolean) instConcept.getInstAttribute(
-								"ValidationSelected").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
-									new ImageIcon(
-											mxGraphComponent.class
-													.getResource(validation)),
-									backbottomhint
-											+ "; Selected by validation (Second green circle)");
+								backtophint += "; Satisfied by preference (Second green circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"NextReqSatisfied").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(altern)),
+										backtophint
+												+ "; Satisfaction required (Third green circle)");
+								over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"ConfigSelected").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(forced)),
+										backbottomhint
+												+ "; Configuration Selected (First green circle)");
+								backbottomhint += "; Configuration Selected (First green circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"ConfigNotSatisfied").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(confnot)),
+										backtophint
+												+ "; Configuration Not Satisfied (First red circle)");
+								backtophint += "; Configuration Not Satisfied (First red circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"ConfigNotSelected").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(confnot)),
+										backbottomhint
+												+ "; Configuration Not Selected (First red circle)");
+								backbottomhint += "; Configuration Not Selected (First red circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"NextPrefSelected").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(mxGraphComponent.class
+												.getResource(validation)),
+										backbottomhint
+												+ "; Selected by preference (Second green circle)");
 
-							backbottomhint += "; Selected by validation (Second green circle)";
-							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
-						}
-						if ((boolean) instConcept.getInstAttribute(
-								"NotPrefSelected").getValue()) {
-							mxCellOverlay over3 = new mxCellOverlay(
-									new ImageIcon(
-											mxGraphComponent.class
-													.getResource(notpref)),
-									backbottomhint
-											+ "; Another preferred selected (Third red circle)");
-							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-							over3.setAlign(mxConstants.ALIGN_CENTER);
-							addCellOverlay(tmp, over3);
+								backbottomhint += "; Selected by preference (Second green circle)";
+								over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"NextReqSelected").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(altern)),
+										backbottomhint
+												+ "; Selection required (Third green circle)");
+								over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
+							if ((boolean) instConcept.getInstAttribute(
+									"NextNotSelected").getValue()) {
+								mxCellOverlay over3 = new mxCellOverlay(
+										new ImageIcon(
+												mxGraphComponent.class
+														.getResource(notpref)),
+										backbottomhint
+												+ "; Selection conflict (Third red circle)");
+								over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+								over3.setAlign(mxConstants.ALIGN_CENTER);
+								addCellOverlay(tmp, over3);
+							}
 						}
 					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if (tmp.getGeometry() != null && val != null
+						&& ((mxCell) tmp2).getValue() == null
+						&& val instanceof InstConcept) {
+					String backtophint = "", backbottomhint = "";
+					InstConcept instConcept = (InstConcept) val;
+					if ((boolean) instConcept.getInstAttribute("Required")
+							.getValue()) {
+						backtophint = "Element is part of the core. Marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
+								backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is part of the core. Marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
+								backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+					} else if ((boolean) instConcept.getInstAttribute("Core")
+							.getValue()) {
+						backtophint = "Element is part of the core. Not marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
+								backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is part of the core. Not marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
+								backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+					} else {
+						backtophint = "Element is not part of the core. Not marked as required";
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
+								backtophint);
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
+						backbottomhint = "Element is not part of the core. Not marked as required";
+						over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
+								backbottomhint);
+						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(tmp, over3);
 					}
 				}
 			}
