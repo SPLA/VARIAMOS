@@ -111,17 +111,17 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		// this.value = value;
 	}
 
-	public Object getInstAttributeAttributes(String name) {
+	public Object getInstAttributeAttribute(String name) {
 		return instAttributeAttributes.get(name);
 	}
 
-	public void setInstAttributeAttributes(String name, Object value) {
+	public void setInstAttributeAttribute(String name, Object value) {
 		instAttributeAttributes.put(name, value);
 	}
 
 	public void setIdentifier(String identifier) {
 		// this.identifier = identifier;
-		setInstAttributeAttributes(VAR_IDENTIFIER, identifier);
+		setInstAttributeAttribute(VAR_IDENTIFIER, identifier);
 	}
 
 	public void setAffectProperties(boolean affectProperties) {
@@ -142,45 +142,45 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	public void setValidationMEList(List<MetaPairwiseRelation> metaEdge) {
 		// this.identifier = identifier;
-		setInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
+		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<MetaPairwiseRelation> getValidationMEList() {
-		return (List<MetaPairwiseRelation>) getInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION);
+		return (List<MetaPairwiseRelation>) getInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
 	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
-		setInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
-		return (List<IntSemanticRelationType>) getInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST);
+		return (List<IntSemanticRelationType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setValidationDRList(List<IntSemanticPairwiseRelation> semGD) {
 		// this.identifier = identifier;
-		setInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticPairwiseRelation> getPairwiseRelValidationList() {
-		return (List<IntSemanticPairwiseRelation>) getInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST);
+		return (List<IntSemanticPairwiseRelation>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setAttribute(AbstractAttribute modelingAttribute) {
 		this.volatileAttribute = modelingAttribute;
 		if (modelingAttribute != null)
-			setInstAttributeAttributes(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+			setInstAttributeAttribute(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
-		return (String) getInstAttributeAttributes(VAR_IDENTIFIER);
+		return (String) getInstAttributeAttribute(VAR_IDENTIFIER);
 		// return identifier;
 	}
 
@@ -189,24 +189,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	}
 
 	public String getAttributeName() {
-		return (String) getInstAttributeAttributes(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttribute(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public Object getValue() {
-		return getInstAttributeAttributes(VAR_VALUE);
+		return getInstAttributeAttribute(VAR_VALUE);
 		// return value;
 	}
 
 	public Object getDisplayValue() {
-		if (getInstAttributeAttributes(VAR_DISPLAYVALUE) == null)
-			return getInstAttributeAttributes(VAR_VALUE);
+		if (getInstAttributeAttribute(VAR_DISPLAYVALUE) == null)
+			return getInstAttributeAttribute(VAR_VALUE);
 		else
-			return getInstAttributeAttributes(VAR_DISPLAYVALUE);
+			return getInstAttributeAttribute(VAR_DISPLAYVALUE);
 		// return value;
 	}
 
 	public void setValue(Object value) {
-		setInstAttributeAttributes(VAR_VALUE, value);
+		setInstAttributeAttribute(VAR_VALUE, value);
 		// this.value = value;
 	}
 
@@ -282,24 +282,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		return val.toString();
 	}
 	//TODO remove non serializable attributes
-	public Map<String, Object> getDynamicInstAttributeComponentsMap() {
+	public Map<String, Object> getInstAttributeAttributes() {
 		return instAttributeAttributes;
 	}
 	//TODO add non serializable attributes
-	public void setDynamicInstAttributeComponentsMap(Map<String, Object> vars) {
+	public void setInstAttributeAttributes(Map<String, Object> vars) {
 		this.instAttributeAttributes = vars;
 	}
 
 	public void clearModelingAttribute() {
 	//	attributeObject = null;
 	//	valueObject = null;
-		setInstAttributeAttributes(VAR_OVERTWOREL_VALIDATION_LIST, null);
-		setInstAttributeAttributes(VAR_PAIRWISEREL_VALIDATION_LIST, null);
-		setInstAttributeAttributes(VAR_METAEDGE_LIST_VALIDATION, null);
+		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, null);
+		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, null);
+		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, null);
 	}
 
 	public void displayValue(String out) {
-		setInstAttributeAttributes(VAR_DISPLAYVALUE, out);
+		setInstAttributeAttribute(VAR_DISPLAYVALUE, out);
 
 	}
 
@@ -326,7 +326,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	@Override
 	public String getName() {
-		return (String) getInstAttributeAttributes(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttribute(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public String getAttributeDefaultValue() {
