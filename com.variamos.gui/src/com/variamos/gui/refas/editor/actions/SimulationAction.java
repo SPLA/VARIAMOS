@@ -30,6 +30,6 @@ public class SimulationAction extends AbstractEditorAction {
 		if (clean)
 			editor.cleanSimulation();
 		else
-			editor.executeSimulation(first);
+			editor.executeSimulation(first, 2);
 	}
 }

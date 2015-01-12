@@ -21,7 +21,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 		StringBuilder footerExpression = new StringBuilder();
 		StringBuilder insideLabeling = new StringBuilder();
-		StringBuilder orderExpression = new StringBuilder();
 		int idx = 0;
 		if (params.isFdLabeling()) {
 			footerExpression.append(LABELING);
@@ -50,13 +49,15 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 						insideLabeling.append(MAX);
 					}
 					insideLabeling.append(OPEN_PARENTHESIS);
+
+					StringBuilder orderExpression = new StringBuilder();
 					transformNumericExpression(params.getOrderExpressions()
 							.get(idx), orderExpression);
 					insideLabeling.append(orderExpression);
 					insideLabeling.append(CLOSE_PARENHESIS);
 					idx++;
 
-					if (idx < (params.getOrderExpressions().size() - 1)) {
+					if (idx <= (params.getOrderExpressions().size() - 1)) {
 						insideLabeling.append(COMMA);
 					}
 				}

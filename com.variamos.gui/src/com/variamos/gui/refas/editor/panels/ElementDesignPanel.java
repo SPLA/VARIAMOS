@@ -32,6 +32,7 @@ import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -238,8 +239,8 @@ public class ElementDesignPanel extends JPanel {
 								.getEditableVariables();
 
 						if (!editables.contains(v))
-								//|| editor.getPerspective() == 4)
-							//TODO activate
+							// || editor.getPerspective() == 4)
+							// TODO activate
 							w.getEditor().setEnabled(false);
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));
@@ -253,7 +254,7 @@ public class ElementDesignPanel extends JPanel {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										finalEditor.executeSimulation(true);
+										finalEditor.executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 										editorProperties(finalEditor, finalElm);
 									}
 								});

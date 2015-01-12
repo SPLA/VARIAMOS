@@ -53,12 +53,12 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRelation instOverTwoRelation) {
+			InstOverTwoRelation instOverTwoRelation, int execType) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
 		SingleElementExpressionSet restConst = new SingleElementExpressionSet(identifier,
-				idMap, hlclFactory, instOverTwoRelation);
+				idMap, hlclFactory, instOverTwoRelation, execType);
 		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
 	}

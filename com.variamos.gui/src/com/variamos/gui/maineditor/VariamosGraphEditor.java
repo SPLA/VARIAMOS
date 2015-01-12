@@ -271,9 +271,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
 		refasGraph.setModel(abstractModel);
-		//refasGraph.setValidation(true);
+		// refasGraph.setValidation(true);
 		graphEditorFunctions = new RefasGraphEditorFunctions(this);
-	//	RefasGraph refasGraph = (RefasGraph) component.getGraph();
+		// RefasGraph refasGraph = (RefasGraph) component.getGraph();
 
 		this.graphLayout("organicLayout", false);
 		this.getGraphComponent().zoomAndCenter();
@@ -748,8 +748,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 					String name = ((JTabbedPane) e.getSource())
 							.getTitleAt(tabIndex);
-					if (name.equals("Viaul Expressions Editor")
-							&& editableElementType != null && (perspective == 2 || perspective == 4)
+					if (name.equals("Visual Expressions Editor")
+							&& editableElementType != null
+							&& (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
 						if (elm instanceof InstConcept) {
 							editableElementType = "vertex";
@@ -763,7 +764,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						MetaExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(
 										lastEditableElement.getIdentifier(),
-										editableElementType);
+										editableElementType, Refas2Hlcl.SIMUL_EXEC);
 
 						expressions.configure(getEditedModel(),
 								metaExpressionSet,
@@ -794,7 +795,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 						new JScrollPane(elementSimPropPanel));
 			}
-				if (perspective == 2 || perspective == 4) {
+			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(expressionsArea));
 			}
@@ -943,10 +944,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (elm instanceof InstOverTwoRelation) {
 					editableElementType = "groupdep";
 				}
-				if (editableElementType != null && (this.perspective == 2 || this.perspective == 4)) {
+				if (editableElementType != null
+						&& (this.perspective == 2 || this.perspective == 4)) {
 					expressionsArea.setText(refas2hlcl
 							.getElementTextConstraints(elm.getIdentifier(),
-									editableElementType));
+									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 					// expressions.configure(
 					// getEditedModel(),
 					// refas2hlcl.getElementConstraintGroup(
@@ -958,7 +960,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				elementSimPropSubPanel.add(new JPanel());
 				test.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						executeSimulation(true);
+						executeSimulation(true, 2);
 					}
 				});
 				// TODO split in two new classes, one for each panel
@@ -1052,6 +1054,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									if (!recursiveCall) {
+										executeSimulation(true, 1);
 										editPropertiesRefas(elm);
 										updateExpressions = true;
 									}
@@ -1082,6 +1085,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							JButton button = new JButton("Validate");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
+									executeSimulation(true, 1);
 									editPropertiesRefas(elm);
 									updateExpressions = true;
 								}
@@ -1256,7 +1260,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			SharedActions.cloneGraph(source, target);
 			SharedActions.afterOpenCloneGraph(source, this);
 			SharedActions.afterOpenCloneGraph(target, this);
-			((mxCell)graphComponent.getGraph().getDefaultParent()).setValue("simul");
+			((mxCell) graphComponent.getGraph().getDefaultParent())
+					.setValue("simul");
 			// Different from null, to display simulation colors
 		}
 	}
@@ -1276,28 +1281,53 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					.refreshVariable(lastEditableElement);
 	}
 
-	public void executeSimulation(boolean first) {
+	public void executeSimulation(boolean first, int type) {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		if (first)
-			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, type);
 		else
-			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
+			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION, type);
 		if (result) {
 			refas2hlcl.updateGUIElements();
 			messagesArea.setText(refas2hlcl.getText());
-			bringUpTab(mxResources.get("elementSimPropTab"));
+			//bringUpTab(mxResources.get("elementSimPropTab"));
 			editPropertiesRefas(lastEditableElement);
 		} else {
 			if (first) {
-				JOptionPane
-						.showMessageDialog(
-								frame,
-								"No solution found for this model configuration."
-										+ " \n Please review the restrictions defined and "
-										+ "try again. \nAttributes values were not updated.",
-								"Simulation Execution Error",
-								JOptionPane.INFORMATION_MESSAGE, null);
+				switch (type) {
+				case Refas2Hlcl.DESIGN_EXEC:
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Last validated change makes the model inconsistent."
+											+ " \n Please review the restrictions defined and "
+											+ "try again. \nModel visual representation was not updated.",
+									"Simulation Execution Error",
+									JOptionPane.INFORMATION_MESSAGE, null);
+					break;
+				case Refas2Hlcl.CONF_EXEC:
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Last configuration change validated makes the model "
+											+ "\n inconsistent. Please review the selection and "
+											+ "try again. \nAttributes values were not updated.",
+									"Simulation Execution Error",
+									JOptionPane.INFORMATION_MESSAGE, null);
+					break;
+				case Refas2Hlcl.SIMUL_EXEC:
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"No solution found for this model configuration."
+											+ " \n Please review the restrictions defined and "
+											+ "try again. \nAttributes values were not updated.",
+									"Simulation Execution Error",
+									JOptionPane.INFORMATION_MESSAGE, null);
+					break;
+				}
+
 			} else
 				JOptionPane.showMessageDialog(frame, "No more solutions found",
 						"Simulation Message", JOptionPane.INFORMATION_MESSAGE,
@@ -1314,7 +1344,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		else
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
-		//updateObjects();
+		// updateObjects();
 		((MainFrame) getFrame()).waitingCursor(false);
 	}
 
@@ -1427,7 +1457,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// Set Prolog editor type
 		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
-		HlclProgram hlclProgram = refas2hlcl.getHlclProgram();
+		HlclProgram hlclProgram = refas2hlcl.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
 		Set<Identifier> identifiers = new HashSet<Identifier>();
 
 		for (InstVertex pairwiseRelation : pairwiseRelations) {
