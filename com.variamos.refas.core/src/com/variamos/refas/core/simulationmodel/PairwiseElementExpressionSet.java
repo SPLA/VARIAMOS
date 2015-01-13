@@ -82,7 +82,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 	}
 
 	private void defineTransformations() {
-
+//		instPairwiseRelation.getSourceRelations()
+//		.get(0).setOptional(false);
 		MetaPairwiseRelation metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
 		boolean sourceActiveAttribute = (boolean) instPairwiseRelation
@@ -92,6 +93,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				.getTargetRelations().get(0).getInstAttribute("Active")
 				.getValue();
 		boolean activeVertex = false;
+		instPairwiseRelation.setOptional(false);
 		if (sourceActiveAttribute && targetActiveAttribute)
 			activeVertex = true;
 		if (activeVertex
@@ -136,6 +138,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case required:
 				sourceAttributeNames.add("Selected");
+				sourceAttributeNames.add("Core");
 				// (( 1 - SourceId_Selected) + targetId_Selected) #>= 1
 				AbstractNumericExpression transformation6 = new DiffNumericExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
@@ -324,9 +327,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						new EqualsComparisonExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "Optional",
 								getHlclFactory().number(1)));
-				instPairwiseRelation.getSourceRelations()
-				.get(0).setOptional(true);
-				setOptional(true);
+				instPairwiseRelation.setOptional(true);
+
 				break;
 			case claim:
 

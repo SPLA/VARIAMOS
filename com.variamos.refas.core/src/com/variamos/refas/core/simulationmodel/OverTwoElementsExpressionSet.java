@@ -146,7 +146,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					default:
 						return;
 					}
-
+					if (!relationType.equals("and") && sourceName.equals("Core"))
+						continue;
 					Constructor<?> constructor1 = null, constructor2 = null;
 					try {
 						constructor1 = abstractTransformation.getClass()

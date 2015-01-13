@@ -43,6 +43,16 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	 * This attribute is not serialized (get/set differ from name)
 	 */
 	private AbstractAttribute volatileAttribute;
+	
+	private boolean enabled;
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public static final String
 	/**

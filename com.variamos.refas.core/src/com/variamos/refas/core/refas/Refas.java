@@ -762,7 +762,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("ConfigNotSatisfied",
 				new SimulationConfigAttribute("ConfigNotSatisfied", "Boolean",
 						true, "Configuration Not Satisfied", false));
-		
+
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
 				new SimulationConfigAttribute("ConfigSelected", "Boolean",
 						true, "Configuration Selected", false));
@@ -783,7 +783,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropEditableAttribute("11#" + "ConfigNotSatisfied"
 				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "true");
+				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 
@@ -792,7 +792,12 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
-		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
+		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
+		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied");
+		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
+		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected");
+
+/*		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
 		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
@@ -800,7 +805,7 @@ public class Refas extends AbstractModel {
 				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
-
+*/		
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
@@ -809,11 +814,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
 				new SimulationStateAttribute("SimRequiredLevel", "Integer",
 						false, "Required Level", false));
-		semGeneralElement
-				.putSemanticAttribute("ValidationRequiredLevel",
-						new SimulationStateAttribute("ValidationRequiredLevel",
-								"Integer", false,
-								"Required Level by Validation", false));
+
 		semGeneralElement.putSemanticAttribute("SimRequired",
 				new SimulationStateAttribute("SimRequired", "Boolean", false,
 						"***Required***", false));
@@ -834,10 +835,14 @@ public class Refas extends AbstractModel {
 				new SimulationStateAttribute("NextNotSatisfied", "Boolean",
 						false, "Satisfaction Conflict", false));
 
+		semGeneralElement.putSemanticAttribute("HasParent",
+				new SimulationStateAttribute("HasParent", "Boolean", false,
+						"Has Parent", true));
+
 		semGeneralElement.putSemanticAttribute("Opt",
 				new SimulationStateAttribute("Opt", "Integer", false,
 						"FilterVariable", 0, new RangeDomain(0, 20)));
-		
+
 		semGeneralElement.putSemanticAttribute("Order",
 				new SimulationStateAttribute("Order", "Integer", false,
 						"SortVariable", 0, new RangeDomain(0, 40)));
@@ -863,23 +868,21 @@ public class Refas extends AbstractModel {
 				new SimulationStateAttribute("Optional", "Boolean", false,
 						"*Is Optional*", false));
 
-		semGeneralElement.putSemanticAttribute("SimAllowed",
-				new SimulationStateAttribute("SimAllowed", "Boolean", false,
-						"Is Allowed", true));
-
-		semGeneralElement.addPropVisibleAttribute("01#" + "SimRequired");
-		semGeneralElement.addPropVisibleAttribute("03#" + "NextNotSelected");
-		semGeneralElement.addPropVisibleAttribute("05#" + "NextPrefSelected");
-		semGeneralElement.addPropVisibleAttribute("07#" + "NextReqSelected");
+		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
+		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
+		semGeneralElement.addPropVisibleAttribute("05#" + "NextReqSelected");
+		semGeneralElement.addPropVisibleAttribute("07#" + "NextNotSelected");
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "Satisfied");
-		semGeneralElement.addPropVisibleAttribute("04#" + "NextReqSatisfied");
+		semGeneralElement.addPropVisibleAttribute("04#" + "NextPrefSatisfied");
 		semGeneralElement.addPropVisibleAttribute("06#" + "NextReqSatisfied");
-//		semGeneralElement.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		semGeneralElement.addPropVisibleAttribute("10#" + "NextNotSatisfied");
 
 		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
 
+		semGeneralElement.addPropVisibleAttribute("12#" + "SimRequired");
+
+		// semGeneralElement.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		// Definition of variability concept and relations
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");
@@ -3187,17 +3190,20 @@ public class Refas extends AbstractModel {
 		return null;
 	}
 
-	public void updateValidationLists(InstElement elm) {
+	public void updateValidationLists(InstElement elm, InstElement instSource,
+			InstElement instTarget) {
 		List<InstAttribute> visible = elm.getVisibleVariables();
+		InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+		if (instSource == null)
+			instSource = instPairwise.getSourceRelations().get(0);
+		if (instTarget == null)
+			instTarget = instPairwise.getTargetRelations().get(0);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;
 			if (elm instanceof InstPairwiseRelation) {
-				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 				mapElements = getSyntaxRefas().getValidPairwiseRelations(
-						instPairwise.getSourceRelations().get(0)
-								.getTransSupportMetaElement(),
-						instPairwise.getTargetRelations().get(0)
-								.getTransSupportMetaElement(), true);
+						instSource.getTransSupportMetaElement(),
+						instTarget.getTransSupportMetaElement(), true);
 			}
 			v.updateValidationList((InstElement) elm, mapElements);
 		}

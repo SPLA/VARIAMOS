@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.HlclProgram;
@@ -71,6 +72,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public HlclProgram getHlclProgram(int execType) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createModelExpressions(execType);
 		createVertexExpressions(null, execType);
 		createEdgeExpressions(null, execType);
 		// Previous call to createEdgeExpressions is required to fill the
@@ -78,9 +80,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		createGroupExpressions(null, execType);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (MetaExpressionSet constraintGroup : constraintGroups.values())
-			transformations.addAll(constraintGroup.getTransformations());
+			if (constraintGroup instanceof ModelExpressionSet)
+				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
+						.getBooleanExpressions());
+			else
+				transformations.addAll(constraintGroup.getTransformations());
 
+		for (BooleanExpression transformation : modelExpressions) {
+			hlclProgram.add(transformation);
+		}
 		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
@@ -111,12 +121,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			InstVertex instVertex = iterVertex.next();
 			if (last.getInstAttribute(attributeName) != null
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
-				return f.sum(f.newIdentifier(last.getIdentifier() + "_"+attributeName),
-						getSumExpression(instVertex, iterVertex,attributeName));
+				return f.sum(
+						f.newIdentifier(last.getIdentifier() + "_"
+								+ attributeName),
+						getSumExpression(instVertex, iterVertex, attributeName));
 			else
-				return getSumExpression(instVertex, iterVertex,attributeName);
+				return getSumExpression(instVertex, iterVertex, attributeName);
 		} else
-			return f.newIdentifier(last.getIdentifier() + "_"+attributeName);
+			return f.newIdentifier(last.getIdentifier() + "_" + attributeName);
 
 	}
 
@@ -144,13 +156,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				Iterator<InstVertex> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
 				InstVertex instVertex = iterVertex.next();
-				orderExpressionList
-						.add(getSumExpression(instVertex, iterVertex,"Order"));
-				iterVertex = refas
-						.getVariabilityVertexCollection().iterator();
+				orderExpressionList.add(getSumExpression(instVertex,
+						iterVertex, "Order"));
+				iterVertex = refas.getVariabilityVertexCollection().iterator();
 				instVertex = iterVertex.next();
-				orderExpressionList
-						.add(getSumExpression(instVertex, iterVertex,"Opt"));
+				orderExpressionList.add(getSumExpression(instVertex,
+						iterVertex, "Opt"));
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
@@ -206,19 +217,22 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String[] split = identifier.split("_");
 			String vertexId = split[0];
 			String attribute = split[1];
-			InstElement vertex = refas.getElement(vertexId);
-			// System.out.println(vertexId + " " + attribute);
-			if (vertex.getInstAttribute(attribute).getAttributeType()
-					.equals("Boolean"))
+			if (!vertexId.equals("Model")) {
 
-				if (prologOut.get(identifier).intValue() == 1)
-					vertex.getInstAttribute(attribute).setValue(true);
-				else if (prologOut.get(identifier).intValue() == 0)
-					vertex.getInstAttribute(attribute).setValue(false);
+				InstElement vertex = refas.getElement(vertexId);
+				// System.out.println(vertexId + " " + attribute);
+				if (vertex.getInstAttribute(attribute).getAttributeType()
+						.equals("Boolean"))
 
-				else
-					vertex.getInstAttribute(attribute).setValue(
-							prologOut.get(i));
+					if (prologOut.get(identifier).intValue() == 1)
+						vertex.getInstAttribute(attribute).setValue(true);
+					else if (prologOut.get(identifier).intValue() == 0)
+						vertex.getInstAttribute(attribute).setValue(false);
+
+					else
+						vertex.getInstAttribute(attribute).setValue(
+								prologOut.get(i));
+			}
 			/*
 			 * System.out.print(vertexId + " " + attribute + " " +
 			 * vertex.getInstAttribute(attribute) .getAttributeType() + "; ");
@@ -249,9 +263,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Resets the GUI optional variable
 	 */
 	public void cleanElementsOptional() {
-		// Call the SWIProlog and obtain the result
-
-		int i = 0;
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			InstAttribute instAttribute = instVertex
 					.getInstAttribute("Optional");
@@ -274,6 +285,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public String getText() {
 		return text;
+	}
+
+	private void createModelExpressions(int execType) {
+		constraintGroups.put("Model", new ModelExpressionSet("", "", idMap, f,
+				refas, execType));
 	}
 
 	private void createVertexExpressions(String identifier, int execType) {
