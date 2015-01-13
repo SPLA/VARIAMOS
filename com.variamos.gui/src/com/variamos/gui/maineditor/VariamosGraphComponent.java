@@ -293,7 +293,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							}
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						System.out.println("Cell draw error");
+						//e.printStackTrace();
 					}
 				}
 				if (tmp.getGeometry() != null && val != null
@@ -301,6 +302,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						&& val instanceof InstConcept) {
 					String backtophint = "", backbottomhint = "";
 					InstConcept instConcept = (InstConcept) val;
+					try{
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
 						backtophint = "Element is part of the core. Marked as required";
@@ -360,6 +362,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(tmp, over3);
+					}
+					} catch (Exception e) {
+						System.out.println("Cell draw error");
+						//e.printStackTrace();
 					}
 				}
 			}
