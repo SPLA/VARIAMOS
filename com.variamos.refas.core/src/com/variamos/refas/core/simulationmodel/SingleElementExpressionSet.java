@@ -1,5 +1,7 @@
 package com.variamos.refas.core.simulationmodel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.cfm.hlcl.HlclFactory;
@@ -9,6 +11,7 @@ import com.variamos.refas.core.expressions.AndBooleanExpression;
 import com.variamos.refas.core.expressions.DiffNumericExpression;
 import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
+import com.variamos.refas.core.expressions.GreaterBooleanExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
@@ -18,7 +21,9 @@ import com.variamos.refas.core.expressions.ProdNumericExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 
 //TODO refactor: SingleElementExpressionSet
@@ -293,18 +298,58 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 										transformation10));
 					}
 
+					if (instAttribute.getIdentifier().equals("NextNotSelected")) {
+						List<String> outRelations = new ArrayList<String>();
+						outRelations.add("conflict");
+						List<String> inRelations = new ArrayList<String>();
+						inRelations.add("conflict");
+						AbstractNumericExpression transformation50 = recursiveSum(
+								instVertex, "Selected", outRelations,
+								inRelations);
+						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+								transformation50,
+								new NumberNumericExpression(1));
+						getTransformations().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "NextNotSelected", true, transformation51));
+					}
+					
+					if (instAttribute.getIdentifier().equals("NextReqSelected")) {
+						List<String> outRelations = new ArrayList<String>();
+						outRelations.add("mandatory");
+						List<String> inRelations = new ArrayList<String>();
+						inRelations.add("required");
+						AbstractNumericExpression transformation50 = recursiveSum(
+								instVertex, "Selected", outRelations,
+								inRelations);
+						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+								transformation50,
+								new NumberNumericExpression(1));
+						AbstractBooleanExpression transformation52 = new NotBooleanExpression(
+								instVertex, "Core");
+						AbstractBooleanExpression transformation53 = new AndBooleanExpression(
+								transformation52,transformation51);
+						getTransformations().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "NextReqSelected", true, transformation53));
+					}
+
 					if (instAttribute.getIdentifier().equals("Order")) {
 						AbstractNumericExpression transformation50 = new ProdNumericExpression(
 								instVertex, "NextReqSelected", true,
 								getHlclFactory().number(4));
 						AbstractNumericExpression transformation51 = new DiffNumericExpression(
-								instVertex, instVertex, "NextPrefSatisfied", "NextPrefSelected");
+								instVertex, instVertex, "NextPrefSatisfied",
+								"NextPrefSelected");
 						AbstractNumericExpression transformation52 = new ProdNumericExpression(
-								transformation51, new NumberNumericExpression(8));
+								transformation51,
+								new NumberNumericExpression(8));
 						AbstractNumericExpression transformation53 = new DiffNumericExpression(
-								instVertex, instVertex, "NextReqSatisfied", "NextReqSelected");
+								instVertex, instVertex, "NextReqSatisfied",
+								"NextReqSelected");
 						AbstractNumericExpression transformation54 = new ProdNumericExpression(
-								transformation53, new NumberNumericExpression(16));
+								transformation53, new NumberNumericExpression(
+										16));
 
 						AbstractNumericExpression transformation55 = new SumNumericExpression(
 								instVertex, "NextPrefSelected", true,
@@ -329,10 +374,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						// identifierId_NextReqSelected ) #/\
 						// ( 1 - identifierId_NextNotSelected ) )
 
-						getTransformations()
-								.add(new EqualsComparisonExpression(instVertex,
-										instAttribute.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
 						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 								instVertex, instVertex, "ConfigSelected",
 								"NextPrefSelected");
@@ -401,5 +442,45 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 		}
 
+	}
+
+	private AbstractNumericExpression recursiveSum(InstVertex instVertex2,
+			String string, List<String> outRelations, List<String> inRelations) {
+		AbstractNumericExpression outExp = null;
+		for (String relName : outRelations) {
+			for (InstElement target : instVertex2.getTargetRelations()) {
+				String type = ((InstPairwiseRelation) target)
+						.getSemanticPairwiseRelType();
+				if (relName.equals(type)) {
+					if (outExp == null)
+						outExp = new SumNumericExpression((InstVertex) target
+								.getTargetRelations().get(0), string, false,
+								getHlclFactory().number(0));
+					else
+						outExp = new SumNumericExpression((InstVertex) target
+								.getTargetRelations().get(0), string, true,
+								outExp);
+				}
+			}
+		}
+		for (String relName : inRelations) {
+			for (InstElement target : instVertex.getSourceRelations()) {
+				String type = ((InstPairwiseRelation) target)
+						.getSemanticPairwiseRelType();
+				if (relName.equals(type)) {
+					if (outExp == null)
+						outExp = new SumNumericExpression((InstVertex) target
+								.getSourceRelations().get(0), string, false,
+								getHlclFactory().number(0));
+					else
+						outExp = new SumNumericExpression((InstVertex) target
+								.getSourceRelations().get(0), string, true,
+								outExp);
+				}
+			}
+		}
+		if (outExp == null)
+			return new NumberNumericExpression(0);
+		return outExp;
 	}
 }
