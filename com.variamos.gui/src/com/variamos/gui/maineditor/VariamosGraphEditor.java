@@ -1266,7 +1266,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 		if (perspective == 4) {
 
-			executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
+			//executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 			
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
