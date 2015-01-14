@@ -191,15 +191,17 @@ public class ElementDesignPanel extends JPanel {
 							@Override
 							public void focusLost(FocusEvent arg0) {
 								// Makes it pull the values.
-								EditableElementAttribute v = w
+								EditableElementAttribute elementAttribute = w
 										.getInstAttribute();
-								if (v.getAttributeType().equals("String")
-										&& !v.getIdentifier().equals(
-												"Description"))
-									v.setValue(AbstractElement.multiLine(
-											v.toString(), 15));
+								if (elementAttribute.getAttributeType().equals(
+										"String")
+										&& !elementAttribute.getIdentifier()
+												.equals("Description"))
+									elementAttribute.setValue(AbstractElement.multiLine(
+											elementAttribute.toString(), 15));
 								// Divide lines every 15 characters (aprox.)
-								onVariableEdited(finalEditor, finalElm, v);
+								onVariableEdited(finalEditor, finalElm,
+										elementAttribute);
 							}
 
 							@Override
@@ -241,7 +243,12 @@ public class ElementDesignPanel extends JPanel {
 						if (!editables.contains(v))
 							// || editor.getPerspective() == 4)
 							// TODO activate
+						{
 							w.getEditor().setEnabled(false);
+
+						}
+						
+
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));
 						{
@@ -254,7 +261,8 @@ public class ElementDesignPanel extends JPanel {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										finalEditor.executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
+										finalEditor.executeSimulation(true,
+												Refas2Hlcl.DESIGN_EXEC);
 										editorProperties(finalEditor, finalElm);
 									}
 								});

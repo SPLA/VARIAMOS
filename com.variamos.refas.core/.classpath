@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.solver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="src" path="/com.cfm.productline.compiler"/>
+	<classpathentry kind="src" path="/com.cfm.hlcl"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

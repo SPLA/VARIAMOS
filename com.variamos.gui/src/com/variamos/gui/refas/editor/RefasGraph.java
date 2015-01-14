@@ -329,9 +329,9 @@ public class RefasGraph extends AbstractGraph {
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
 		if (validation) {
-		if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
-			return super.isValidConnection(source, target);
-		}
+			if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
+				return super.isValidConnection(source, target);
+			}
 
 			mxCell s = (mxCell) source;
 			mxCell t = (mxCell) target;
@@ -345,20 +345,15 @@ public class RefasGraph extends AbstractGraph {
 			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
 					"test");
 			Refas refas = getRefas();
-
-			instSource.addTargetRelation(directRelation, true);
-			instTarget.addSourceRelation(directRelation, true);
-			refas.updateValidationLists(directRelation);
+			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 			if (pwrList.size() == 0) {
-				directRelation.clearRelations();
 				directRelation.clearMetaPairwiseRelation();
 				return false;
 			}
-		
 
-		return super.isValidConnection(source, target);
+			return super.isValidConnection(source, target);
 		}
 		return true;
 	}
@@ -381,10 +376,11 @@ public class RefasGraph extends AbstractGraph {
 				"test");
 		Refas refas = getRefas();
 
+		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
-		refas.updateValidationLists(directRelation);
+		refas.updateValidationLists(directRelation, source, target);
 		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
@@ -396,7 +392,6 @@ public class RefasGraph extends AbstractGraph {
 			// relations - fix delete
 			return false;
 		}
-		id = refas.addNewConstraintInstEdge(directRelation);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
 					modelViewIndex + "-" + modelViewSubIndex + id, cell);

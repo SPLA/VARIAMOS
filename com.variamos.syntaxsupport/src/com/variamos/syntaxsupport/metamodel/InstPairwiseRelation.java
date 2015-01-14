@@ -130,8 +130,10 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public String getSemanticPairwiseRelType() {
-		if (semanticPairwiseRelType == null
-				&& getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null)
+		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
+				&& (semanticPairwiseRelType != null && !semanticPairwiseRelType
+						.equals(getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
+						|| semanticPairwiseRelType == null))
 			semanticPairwiseRelType = ((String) getInstAttribute(
 					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
 					.trim();
