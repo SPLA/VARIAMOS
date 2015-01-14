@@ -1,22 +1,26 @@
 package com.variamos.syntaxsupport.metamodelsupport;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+
 /**
  * A class to represented edges of the meta model. Extends from MetaElement
  * adding the allowed semantic concepts and edge types. An dynamic attribute for
- * selected semantic concept Part of PhD work at University of Paris 1
- * Refactor: Merged with MetaEdge
+ * selected semantic concept Part of PhD work at University of Paris 1 Refactor:
+ * Merged with MetaEdge
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-10
- * @see com.variamos.syntaxsupport.metamodelsupport.MetaElement
- *  * @see com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation
+ * @see com.variamos.syntaxsupport.metamodelsupport.MetaElement * @see
+ *      com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation
  */
 public class MetaPairwiseRelation extends MetaElement {
 	/**
@@ -37,38 +41,38 @@ public class MetaPairwiseRelation extends MetaElement {
 	/**
 	 * 
 	 */
-	private IntSemanticPairwiseRelation semanticRelation;
-	
-	public static final
-	/**
-	 * CanonicalName of DirectSemanticEdge - no direct reference allowed
-	 */
-	String VAR_SEMANTICPAIRWISEREL_CLASS = IntSemanticPairwiseRelation.class.getCanonicalName(),
-	/**
-	 * Name of the semantic relation attribute
-	 */
-	VAR_SEMANTICPAIRWISEREL_IDEN = "semanticRelation",
-	/**
-	 * Display name of the semantic relation attribute
-	 */
-	VAR_SEMANTICPAIRWISEREL_NAME = "Semantic Relation",
-	/**
+	private IntSemanticPairwiseRelation semanticPairwiseRelation;
+
+	public static final/**
+						 * CanonicalName of DirectSemanticEdge - no direct reference allowed
+						 */
+	String VAR_SEMANTICPAIRWISEREL_CLASS = IntSemanticPairwiseRelation.class
+			.getCanonicalName(),
+			/**
+			 * Name of the semantic relation attribute
+			 */
+			VAR_SEMANTICPAIRWISEREL_IDEN = "semanticRelation",
+			/**
+			 * Display name of the semantic relation attribute
+			 */
+			VAR_SEMANTICPAIRWISEREL_NAME = "Semantic Relation",
+			/**
 	 * 
 	 */
-	VAR_METAPAIRWISERELTYPE="directEdgeType",
-	/**
+			VAR_METAPAIRWISERELTYPE = "directEdgeType",
+			/**
 	 * 
 	 * 
 	 */
-	VAR_METAPAIRWISERELTYPE_NAME = "Relation Type",
-	/**
+			VAR_METAPAIRWISERELTYPE_NAME = "Relation Type",
+			/**
 	 * 
 	 */
-	VAR_METAPAIRWISERELTYPE_CLASS = "com.variamos.refas.core.types.DirectEdgeType",
+			VAR_METAPAIRWISERELTYPE_CLASS = "com.variamos.refas.core.types.DirectEdgeType",
 			/**
 			 * 
 			 */
-			VAR_METAGENERALCONSTRAINT="generalConstraint",
+			VAR_METAGENERALCONSTRAINT = "generalConstraint",
 			/**
 			 * 
 			 */
@@ -76,39 +80,39 @@ public class MetaPairwiseRelation extends MetaElement {
 
 	public MetaPairwiseRelation() {
 
-		createModelingAttributes();
+		createPWModelingAttributes();
 	}
 
-	public MetaPairwiseRelation(String identifier, boolean visible, String name,
-			String style, String description, int width, int height, String image,
-			int borderStroke, MetaVertex origin, MetaVertex destination,
-			IntSemanticPairwiseRelation semanticRelation) {
-		this(identifier, visible, name, style, description, width, height, image,
-				borderStroke, origin, destination, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
-		this.semanticRelation = semanticRelation;
-		 createModelingAttributes();
-	}
-		
-	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
-			int height, String image, int borderStroke,
-			MetaVertex origin, MetaVertex destination) {
-		this(identifier, visible, name, style, description, width,
-				height, image, borderStroke,
-				origin, destination, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
-		createModelingAttributes();
+	public MetaPairwiseRelation(String identifier, boolean visible,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke, MetaVertex origin,
+			MetaVertex destination, IntSemanticPairwiseRelation semanticRelation) {
+		this(identifier, visible, name, style, description, width, height,
+				image, borderStroke, origin, destination, 1, 1, 1, 1, "", "",
+				false, TypeOfLine.solid);
+		this.semanticPairwiseRelation = semanticRelation;
+		createPWModelingAttributes();
 	}
 
-	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
-			int height, String image, int borderStroke,			
-			MetaVertex origin,
-			MetaVertex destination,int iniLowCardinality,
+	public MetaPairwiseRelation(String identifier, boolean visible,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke, MetaVertex origin,
+			MetaVertex destination) {
+		this(identifier, visible, name, style, description, width, height,
+				image, borderStroke, origin, destination, 1, 1, 1, 1, "", "",
+				false, TypeOfLine.solid);
+		createPWModelingAttributes();
+	}
+
+	public MetaPairwiseRelation(String identifier, boolean visible,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke, MetaVertex origin,
+			MetaVertex destination, int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
 			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
-		super( identifier, visible, name, style, description, width,
-				height, image, borderStroke);
+		super(identifier, visible, name, style, description, width, height,
+				image, borderStroke);
 		this.origin = origin;
 		this.destination = destination;
 
@@ -120,28 +124,25 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createModelingAttributes();
+		createPWModelingAttributes();
 	}
-	
-	public MetaPairwiseRelation(String identifier, boolean visible, String name, String style, String description, int width,
+
+	public MetaPairwiseRelation(String identifier, boolean visible,
+			String name, String style, String description, int width,
 			int height, String image, int borderStroke,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes,
 			Map<String, AbstractAttribute> modelingAttributes,
-			MetaVertex origin,
-			MetaVertex destination, int iniLowCardinality,
+			MetaVertex origin, MetaVertex destination, int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
 			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
-		super( identifier, visible, name, style, description, width,
-				height, image, borderStroke,
-				disPropVisibleAttributes,
-				 disPropEditableAttributes,
-			disPanelVisibleAttributes,
-				 disPanelSpacersAttributes,
-				  modelingAttributes);
+		super(identifier, visible, name, style, description, width, height,
+				image, borderStroke, disPropVisibleAttributes,
+				disPropEditableAttributes, disPanelVisibleAttributes,
+				disPanelSpacersAttributes, modelingAttributes);
 		this.origin = origin;
 		this.destination = destination;
 		this.iniLowCardinality = iniLowCardinality;
@@ -152,15 +153,17 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createModelingAttributes();
+		createPWModelingAttributes();
 	}
-	
-	public void createModelingAttributes() {
-		//TODO include attribute based on other object values, cardinalityType from semanticTypes
-//		addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new SemanticAttribute(
-//				VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
-//				VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
-//				"OperGoalOverTwoRel", ""));
+
+	public void createPWModelingAttributes() {
+		// TODO include attribute based on other object values, cardinalityType
+		// from semanticTypes
+		// addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new
+		// SemanticAttribute(
+		// VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
+		// VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
+		// "OperGoalOverTwoRel", ""));
 		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
 				VAR_METAPAIRWISERELTYPE, "Enumeration", true,
 				VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
@@ -170,15 +173,84 @@ public class MetaPairwiseRelation extends MetaElement {
 				VAR_METAGENERALCONSTRAINT, "String", false,
 				VAR_METAGENERALCONSTRAINTNAME, ""));
 
-		
-//		this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
-//		this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
-		
+		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
+		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
+
 		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
-		
-		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METAPAIRWISERELTYPE+"#==#"+"generalConstraint");
-		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT +"#"+VAR_METAPAIRWISERELTYPE+"#==#"+"generalConstraint");
+
+		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+	}
+
+	public Set<String> getPropVisibleAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPropVisibleAttributes());
+
+		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPropEditableAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPropEditableAttributes());
+
+		modelingAttributesNames.addAll(super.getPropEditableAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelVisibleAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPanelVisibleAttributes());
+
+		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelSpacersAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getPanelSpacersAttributes());
+
+		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
+		return modelingAttributesNames;
+	}
+
+	public AbstractAttribute getAbstractAttribute(String attributeName) {
+		AbstractAttribute out = getSemanticAttribute(attributeName);
+		if (out == null)
+			return getModelingAttribute(attributeName);
+		else
+			return out;
+	}
+
+	public Set<String> getSemanticAttributes() {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		if (semanticPairwiseRelation != null)
+			modelingAttributesNames.addAll(semanticPairwiseRelation
+					.getSemanticAttributesNames());
+		return modelingAttributesNames;
+	}
+
+	public AbstractAttribute getSemanticAttribute(String name) {
+		return semanticPairwiseRelation.getSemanticAttribute(name);
+	}
+
+	public List<IntSemanticRelationType> getSemanticRelationTypes() {
+		return semanticPairwiseRelation.getSemanticRelationTypes();
 	}
 
 	public void setOrigin(MetaVertex origin) {

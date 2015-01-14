@@ -14,6 +14,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
@@ -40,11 +41,9 @@ public class InstPairwiseRelation extends InstElement {
 	 */
 	private String identifier;
 
-	private String metaPairwiseRelationIden;
+	private String supportMetaPairwiseRelIden;
 
-	private String semanticPairwiseRelationType;
-
-	private String instPairwiseRelationIden;
+	private String semanticPairwiseRelType;
 
 	public static final String
 	/**
@@ -70,7 +69,8 @@ public class InstPairwiseRelation extends InstElement {
 	VAR_METAPAIRWISE_CLASS = MetaPairwiseRelation.class.getCanonicalName();
 
 	public InstPairwiseRelation() {
-		this(new HashMap<String, InstAttribute>());
+		this(new HashMap<String, InstAttribute>(), "test");
+		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
 	public InstPairwiseRelation(IntSemanticElement editableSemanticElement) {
@@ -79,10 +79,12 @@ public class InstPairwiseRelation extends InstElement {
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
-	public InstPairwiseRelation(MetaPairwiseRelation metaEdge,
+	public InstPairwiseRelation(
+			MetaPairwiseRelation supportMetaPairwiseRelation,
+			String supportInstPairwiseRelationIden,
 			IntSemanticElement editableSemanticElement) {
 		super(null);
-		setMetaPairwiseRelation(metaEdge);
+		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
 		setEditableSemanticElement(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
@@ -105,65 +107,78 @@ public class InstPairwiseRelation extends InstElement {
 	 * @param editableMetaElement
 	 *            : Only for syntax refas, not for modeling
 	 */
-	public InstPairwiseRelation(MetaPairwiseRelation metaPairwiseRelation,
+	public InstPairwiseRelation(
+			MetaPairwiseRelation supportMetaPairwiseRelation,
 			MetaElement editableMetaElement) {
 		super(null);
 		setEditableMetaElement(editableMetaElement);
-		this.instPairwiseRelationIden = instPairwiseRelationIden;
-		
+
 		createAttributes(new HashMap<String, InstAttribute>());
-		setMetaPairwiseRelation(metaPairwiseRelation);
+		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
 	}
 
-	//TODO restrict available relation types according to syntax definition
-	public InstPairwiseRelation(Map<String, InstAttribute> instAttributes) {
+	// TODO restrict available relation types according to syntax definition
+	public InstPairwiseRelation(Map<String, InstAttribute> instAttributes,
+			String supportMetaPairwiseRelIden) {
 		super(null); // TODO use the same identifier, not a local attribute
 		createAttributes(instAttributes);
+		this.supportMetaPairwiseRelIden = supportMetaPairwiseRelIden;
 	}
 
-	public String getMetaPairwiseRelationIden() {
-		return metaPairwiseRelationIden;
+	public String getSupportMetaPairwiseRelIden() {
+		return supportMetaPairwiseRelIden;
 	}
 
-	public String getInstPairwiseRelationIden() {
-		return instPairwiseRelationIden;
-	}
-	
-	public String getSemanticPairwiseRelationType() {
-		return semanticPairwiseRelationType;
-	}
-
-	public void setSemanticPairwiseRelationType(String semanticRelationType) {
-		this.semanticPairwiseRelationType = semanticRelationType;
-	}
-
-	public void setMetaPairwiseRelationIden(String metaPairwiseRelationIden) {
-		this.metaPairwiseRelationIden = metaPairwiseRelationIden;
-		vars.put(VAR_METAPAIRWISE_IDEN, metaPairwiseRelationIden);
+	public String getSemanticPairwiseRelType() {
+		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
+				&& (semanticPairwiseRelType != null && !semanticPairwiseRelType
+						.equals(getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
+						|| semanticPairwiseRelType == null))
+			semanticPairwiseRelType = ((String) getInstAttribute(
+					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
+					.trim();
+		return semanticPairwiseRelType;
 	}
 
-	public void setInstPairwiseRelationIden(String instPairwiseRelationIden) {
-		this.instPairwiseRelationIden = metaPairwiseRelationIden;		
+	public void setSemanticPairwiseRelType(String semanticRelationType) {
+		this.semanticPairwiseRelType = semanticRelationType;
 	}
 
-	private void createAttributes(Map<String, InstAttribute> instAttributes) {
+	public void setSupportMetaPairwiseRelIden(String metaPairwiseRelationIden) {
+		supportMetaPairwiseRelIden = metaPairwiseRelationIden;
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN,
+				metaPairwiseRelationIden);
+	}
 
-		vars.put(VAR_INSTATTRIBUTES, instAttributes);
-		SemanticAttribute semAttribute = new SemanticAttribute(
-				VAR_METAPAIRWISE_OBJ, "Class", true, VAR_METAPAIRWISE_NAME,
-				VAR_METAPAIRWISE_CLASS, "HardRelation", "");
+	public SemanticAttribute getSemanticAttribute() {
+		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ, "Class", true,
+				VAR_METAPAIRWISE_NAME, VAR_METAPAIRWISE_CLASS, "HardRelation",
+				"");
+
+	}
+
+	public void createAttributes(Map<String, InstAttribute> instAttributes) {
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
+		SemanticAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute
-		vars.put(VAR_METAPAIRWISE_OBJ, semAttribute);
+		dynamicAttributesMap.put(VAR_METAPAIRWISE_OBJ, semAttribute);
 
 		// Add the InstAttribute initially empty
-		vars.put(VAR_METAPAIRWISE_IDEN, "");
+		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN, "");
 		addInstAttribute(VAR_METAPAIRWISE_OBJ, semAttribute, "");
 	}
 
-	public void setMetaPairwiseRelation(MetaPairwiseRelation metaEdge) {
+	public void setSupportMetaPairwiseRelation(MetaElement metaEdge) {
 		getInstAttribute(VAR_METAPAIRWISE_OBJ).setValueObject(metaEdge);
-		metaPairwiseRelationIden = metaEdge.getIdentifier();
-		setVariable(MetaElement.VAR_DESCRIPTION, metaEdge.getDescription());
+		supportMetaPairwiseRelIden = metaEdge.getIdentifier();
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				metaEdge.getDescription());
+		setDynamicVariable(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
+				metaEdge.getIdentifier());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				metaEdge.getDescription());
 		createInstAttributes();
 	}
 
@@ -183,29 +198,20 @@ public class InstPairwiseRelation extends InstElement {
 				else if (getInstAttribute(name) == null
 						|| getInstAttribute(name).getValue() == null)
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name), null);
+							.getModelingAttribute(name),
+							semanticPairwiseRelType);
 			}
 
-			if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
-					&& getInstAttribute(
-							MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
-							.getValueObject() != null) {
-				IntSemanticPairwiseRelation sementicRelation = (IntSemanticPairwiseRelation) getInstAttribute(
-						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
-						.getValueObject();
-				Iterator<String> semanticAttributes = sementicRelation
-						.getSemanticAttributesNames().iterator();
-				while (semanticAttributes.hasNext()) {
-					String name = semanticAttributes.next();
-					if (name.equals("identifier"))
-						addInstAttribute(name,
-								sementicRelation.getSemanticAttribute(name),
-								getIdentifier());
-					else
-						addInstAttribute(name,
-								sementicRelation.getSemanticAttribute(name),
-								null);
-				}
+			Iterator<String> semanticAttributes = getMetaPairwiseRelation()
+					.getSemanticAttributes().iterator();
+			while (semanticAttributes.hasNext()) {
+				String name = semanticAttributes.next();
+				if (name.equals("identifier"))
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getSemanticAttribute(name), getIdentifier());
+				else
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getSemanticAttribute(name), null);
 			}
 		}
 
@@ -330,32 +336,14 @@ public class InstPairwiseRelation extends InstElement {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
+		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
 	}
 
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES))
+		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.get(name);
 		// return instAttributes.get(name);
-	}
-
-	public Object getVariable(String name) {
-		return vars.get(name);
-	}
-
-	public void setVariable(String name, Object value) {
-		vars.put(name, value);
-	}
-
-	public void clearMetaPairwiseRelation() {
-		vars.put(VAR_METAPAIRWISE_OBJ, null);
-	}
-
-	public void clearInstAttributesClassObjects() {
-		for (InstAttribute attribute : this.getInstAttributes().values()) {
-			attribute.setValueObject(null);
-		}
 	}
 
 	public Set<String> getDisPropEditableAttributes() {
@@ -465,61 +453,67 @@ public class InstPairwiseRelation extends InstElement {
 				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
 
 				String name = visibleAttribute.substring(3);
-				if (nameEnd != -1) {
-					name = visibleAttribute.substring(3, nameEnd);
-					String variable = null;
-					String condition = null;
-					String value = null;
-					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-					condition = visibleAttribute.substring(varEnd + 1, condEnd);
-					value = visibleAttribute.substring(condEnd + 1);
-					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null)
-						validCondition = false;
-					else if (varValue.getValue().toString().trim()
-							.equals(value)) {
-						if (condition.equals("!="))
+				if (getInstAttributes().get(name) != null) {
+					if (nameEnd != -1) {
+						name = visibleAttribute.substring(3, nameEnd);
+						String variable = null;
+						String condition = null;
+						String value = null;
+						variable = visibleAttribute.substring(nameEnd + 1,
+								varEnd);
+						condition = visibleAttribute.substring(varEnd + 1,
+								condEnd);
+						value = visibleAttribute.substring(condEnd + 1);
+						InstAttribute varValue = getInstAttributes().get(
+								variable);
+						if (varValue == null)
 							validCondition = false;
-					} else {
-						if (condition.equals("=="))
-							validCondition = false;
-					}
-				}
-				boolean nvar = false;
-				if (name != null && validCondition) {
-					Iterator<String> spacers = spacersAttributes.iterator();
-					while (spacers.hasNext()) {
-						String spacer = spacers.next();
-						if (spacer.indexOf("#" + name + "#") != -1) {
-							nvar = true;
-							int sp1 = spacer.indexOf("#");
-							int sp2 = spacer.indexOf("#", sp1 + 1);
-
-							out += spacer.substring(0, sp1);
-							out += getInstAttributes().get(name).toString()
-									.trim();
-							while (sp2 != spacer.length()) {
-								int sp3 = spacer.indexOf("#", sp2 + 1);
-								if (sp3 == -1) {
-
-									out += spacer.substring(sp2 + 1);
-									break;
-								}
-								out += spacer.substring(sp2 + 1, sp3);
-
-								sp2 = sp3;
-							}
+						else if (varValue.getValue().toString().trim()
+								.equals(value)) {
+							if (condition.equals("!="))
+								validCondition = false;
+						} else {
+							if (condition.equals("=="))
+								validCondition = false;
 						}
-
 					}
-					if (!nvar)
-						out += getInstAttributes().get(name);
+					boolean nvar = false;
+					if (name != null && validCondition) {
+						Iterator<String> spacers = spacersAttributes.iterator();
+						while (spacers.hasNext()) {
+							String spacer = spacers.next();
+							if (spacer.indexOf("#" + name + "#") != -1) {
+								nvar = true;
+								int sp1 = spacer.indexOf("#");
+								int sp2 = spacer.indexOf("#", sp1 + 1);
+
+								out += spacer.substring(0, sp1);
+								out += getInstAttributes().get(name).toString()
+										.trim();
+								while (sp2 != spacer.length()) {
+									int sp3 = spacer.indexOf("#", sp2 + 1);
+									if (sp3 == -1) {
+
+										out += spacer.substring(sp2 + 1);
+										break;
+									}
+									out += spacer.substring(sp2 + 1, sp3);
+
+									sp2 = sp3;
+								}
+							}
+
+						}
+						if (!nvar)
+							out += getInstAttributes().get(name);
+					}
+				} else {
+					System.err.println(name + " attribute is null");
 				}
 			}
 		}
 		return out;
 	}
-
 
 	public void loadSemantic() {
 		Iterator<InstAttribute> ias = getInstAttributes().values().iterator();
@@ -551,17 +545,11 @@ public class InstPairwiseRelation extends InstElement {
 		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE_OBJ)
 				.getValueObject();
 		if (metaEdge != null) {
-			metaPairwiseRelationIden = ((MetaPairwiseRelation) metaEdge)
+			supportMetaPairwiseRelIden = ((MetaPairwiseRelation) metaEdge)
 					.getIdentifier();
 		}
-		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null) {
-			Object semanticEdge = getInstAttribute(
-					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
-					.getValueObject();
-		}
-		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE)
-				.getValue() != null)
-			semanticPairwiseRelationType = ((String) getInstAttribute(
+		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null)
+			semanticPairwiseRelType = ((String) getInstAttribute(
 					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
 					.trim();
 
@@ -590,7 +578,22 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	@Override
-	public MetaElement getSupportMetaElement() {
+	public MetaElement getTransSupportMetaElement() {
 		return getMetaPairwiseRelation();
+	}
+
+	@Override
+	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
+		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		setSupportMetaPairwiseRelation(supportMetaElement);
+	}
+
+	public void setUpdatePairwiseRelationType() {
+		setDynamicVariable("relationType", semanticPairwiseRelType);
+
+	}
+
+	public void clearMetaPairwiseRelation() {
+		super.clearMetaPairwiseRelation(VAR_METAPAIRWISE_OBJ);
 	}
 }

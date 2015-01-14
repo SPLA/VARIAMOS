@@ -25,7 +25,7 @@ public abstract class MetaElement implements Serializable {
 	 * 
 	 */
 	VAR_IDENTIFIER = "identifier",
-			/**
+	/**
 			 * 
 			 */
 	VAR_DESCRIPTION = "Description";
@@ -85,13 +85,13 @@ public abstract class MetaElement implements Serializable {
 	 * 
 	 */
 	private List<String> panelSpacersAttributes;
+
 	/**
 	 * 
 	 */
 	public MetaElement() {
 
-		this("", true, "", "", "", 100, 40,
-				"", 1, new ArrayList<String>(),
+		this("", true, "", "", "", 100, 40, "", 1, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
@@ -144,7 +144,7 @@ public abstract class MetaElement implements Serializable {
 				VAR_DESCRIPTION, "String", false, "description", null));
 
 		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
-	//	this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
+		// this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 
 	}
 
@@ -204,23 +204,19 @@ public abstract class MetaElement implements Serializable {
 		return image;
 	}
 
-	public void setPropVisibleAttributes(
-			List<String> disPropVisibleAttributes) {
+	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
 		this.propVisibleAttributes = disPropVisibleAttributes;
 	}
 
-	public void setPropEditableAttributes(
-			List<String> disPropEditableAttributes) {
+	public void setPropEditableAttributes(List<String> disPropEditableAttributes) {
 		this.propEditableAttributes = disPropEditableAttributes;
 	}
 
-	public void setPanelVisibleAttributes(
-			List<String> disPanelVisibleAttributes) {
+	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
-	public void setPanelSpacersAttributes(
-			List<String> disPanelSpacersAttributes) {
+	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
@@ -279,10 +275,10 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	public Map<String,AbstractAttribute> getModelingAttributes() {
+	public Map<String, AbstractAttribute> getModelingAttributes() {
 		return modelingAttributes;
 	}
-	
+
 	public AbstractAttribute getDeclaredModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}
@@ -332,7 +328,7 @@ public abstract class MetaElement implements Serializable {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-		
+
 	}
 
 	public Object getParent() {

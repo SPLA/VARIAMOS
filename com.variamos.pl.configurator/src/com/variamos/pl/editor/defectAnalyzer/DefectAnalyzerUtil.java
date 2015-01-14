@@ -4,7 +4,7 @@ import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TransformerException;
-import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
@@ -30,7 +30,7 @@ public class DefectAnalyzerUtil {
 
 	}
 
-	public static VariabilityModelVerifier createVerifierClass(
+	public static DefectsVerifier createVerifierClass(
 			ProductLine productLine, SolverEditorType prologEditorType)
 			throws TransformerException {
 
@@ -44,7 +44,7 @@ public class DefectAnalyzerUtil {
 		verifierInDTO.setSolverEditorType(prologEditorType);
 
 		// CREATE VERIFIER MAIN CLASS
-		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+		DefectsVerifier verifier = new DefectsVerifier(
 				verifierInDTO);
 
 		return verifier;

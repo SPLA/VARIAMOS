@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -135,4 +136,6 @@ public abstract class MetaVertex extends MetaElement {
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
 		return this.getModelingAttribute(attributeName);
 	}
+	public abstract Set<String> getSemanticAttributes() ;
+	public abstract AbstractAttribute getSemanticAttribute(String name); 
 }

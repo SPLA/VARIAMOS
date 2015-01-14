@@ -16,6 +16,7 @@ import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.pl.configurator.io.PLGReader;
 
@@ -64,6 +65,7 @@ public class OpenAction extends AbstractEditorAction{
 
 		if (editor != null)
 		{
+			final BasicGraphEditor finalEditor = editor;
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
 							mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
@@ -86,7 +88,7 @@ public class OpenAction extends AbstractEditorAction{
 						public boolean accept(File file)
 						{
 							String lcase = file.getName().toLowerCase();
-
+							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 							return lcase.endsWith(".plg")
 									|| lcase.endsWith(".sxfm");
 						}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
@@ -97,5 +98,12 @@ public class MetaEnumeration extends MetaVertex {
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMNAME + "#\n\n");
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMVALUE + "#\n");
 	}
-
+	public Set<String> getSemanticAttributes() 
+	{
+		return null;
+	}
+	public AbstractAttribute getSemanticAttribute(String name) 
+	{
+		return null;
+	}
 }

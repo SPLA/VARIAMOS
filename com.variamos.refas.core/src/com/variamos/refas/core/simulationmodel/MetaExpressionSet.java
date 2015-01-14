@@ -101,7 +101,7 @@ public abstract class MetaExpressionSet {
 	public List<Expression> getExpressions() {
 		List<Expression> out = new ArrayList<Expression>();
 		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIndentifiers(hlclFactory));
+			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 				out.add(transformation.transform(hlclFactory, idMap));
 		}
 		return out;
@@ -111,7 +111,7 @@ public abstract class MetaExpressionSet {
 	{
 		List<Expression> out = new ArrayList<Expression>();
 		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIndentifiers(hlclFactory));
+			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
 				out.add(((AbstractBooleanExpression)transformation).transformNegation(hlclFactory, idMap, false, true));
 		}
@@ -121,7 +121,7 @@ public abstract class MetaExpressionSet {
 	public HlclProgram getHlclExpressions() {
 		HlclProgram prog = new HlclProgram();
 		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIndentifiers(hlclFactory));
+			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
 				prog.add(((AbstractBooleanExpression) transformation)
 						.transform(hlclFactory, idMap));

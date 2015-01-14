@@ -35,7 +35,7 @@ public abstract class WidgetR extends JPanel{
 		
 	}
 
-
+	
 	public EditableElementAttribute getInstAttribute() {
 		pullValue(edited);
 		return edited;

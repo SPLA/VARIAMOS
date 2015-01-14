@@ -12,6 +12,11 @@ public class SimulationConfigAttribute extends SimulationAttribute {
 	 */
 	private static final long serialVersionUID = -7430454253717334119L;
 
+	 public SimulationConfigAttribute()
+	 {
+		 super();
+	 }
+	
 	/**
 	 * 
 	 */

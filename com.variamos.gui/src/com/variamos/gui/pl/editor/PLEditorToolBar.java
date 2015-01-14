@@ -29,6 +29,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.actions.SimulationAction;
+import com.variamos.gui.refas.editor.actions.VerificationAction;
 
 public class PLEditorToolBar extends JToolBar {
 
@@ -90,12 +91,21 @@ public class PLEditorToolBar extends JToolBar {
 		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
-		addSeparator();
 
-		if (variamosGraphEditor.getPerspective() == 2) {
-			add(variamosGraphEditor.bind("first", new SimulationAction(true),
+		if (variamosGraphEditor.getPerspective() == 2 || variamosGraphEditor.getPerspective() == 4) {
+			addSeparator();
+
+			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
+					"/com/mxgraph/examples/swing/images/checkmark.gif"));
+		}
+			
+		if (variamosGraphEditor.getPerspective() == 4) {			
+			addSeparator();
+			add(variamosGraphEditor.bind("clean", new SimulationAction(true, false),
+					"/com/mxgraph/examples/swing/images/pan.gif"));
+			add(variamosGraphEditor.bind("first", new SimulationAction(false, true),
 					"/com/mxgraph/examples/swing/images/diamond_start.gif"));
-			add(variamosGraphEditor.bind("next", new SimulationAction(false),
+			add(variamosGraphEditor.bind("next", new SimulationAction(false, false),
 					"/com/mxgraph/examples/swing/images/block_end.gif"));
 		}
 

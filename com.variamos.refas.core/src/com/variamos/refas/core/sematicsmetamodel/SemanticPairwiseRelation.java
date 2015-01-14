@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.variamos.refas.core.types.LevelType;
 import com.variamos.refas.core.types.SatisficingType;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
@@ -52,11 +53,17 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 			/**
 	* 
 	*/
-			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName();
+			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
+			
+					VAR_RELATIONTYPE_IDEN = "relationType",
+					VAR_RELATIONTYPE_NAME = "Relation Type",
+					VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
+							.getCanonicalName();
 
 
 	public SemanticPairwiseRelation() {
 		super(null);
+		defineSemanticAttributes();
 	}
 
 
@@ -65,6 +72,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
 		this.toSoftSemanticConcept = toSoftSemanticConcept;
+		defineSemanticAttributes();
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
@@ -76,6 +84,15 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-
+	private void defineSemanticAttributes()
+	{
+		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
+				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
+				VAR_RELATIONTYPE_CLASS, "", ""));
+		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
+		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
+	}
 
 }

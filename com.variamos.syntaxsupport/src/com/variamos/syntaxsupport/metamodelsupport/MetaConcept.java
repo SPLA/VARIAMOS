@@ -78,11 +78,18 @@ public class MetaConcept extends MetaVertex {
 		this.semanticConcept = semanticConcept;
 	}
 
-	public IntSemanticConcept getSemanticConcept() {
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * Emulates the transient attribute modifier
+	 * @return
+	 */
+	public IntSemanticConcept getTransSemanticConcept() {
 		return semanticConcept;
 	}
-
-	public void setSemanticConcept(IntSemanticConcept semanticConcept) {
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 */
+	public void setTransSemanticConcept(IntSemanticConcept semanticConcept) {
 		this.semanticConcept = semanticConcept;
 	}
 

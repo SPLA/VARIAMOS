@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
@@ -55,7 +55,7 @@ public class VerifyDeadElementAction extends AbstractEditorAction {
 			
 			//System.out.println(variabilityModel.toString());
 
-			VariabilityModelVerifier verifier = DefectAnalyzerUtil
+			DefectsVerifier verifier = DefectAnalyzerUtil
 					.createVerifierClass(pl, prologEditorType);
 
 			List<Defect> deadFeatures = verifier

@@ -8,10 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 public class InstView extends InstElement {
 
@@ -24,12 +21,42 @@ public class InstView extends InstElement {
 
 	private List<InstVertex> instVertices;
 
-	private MetaConcept metaConcept;
+	private MetaConcept supportMetaConcept;
+	
+	public InstView(String identifier) {
+		super(identifier);
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		instVertices = new ArrayList<InstVertex>();
+		childViews = new ArrayList<InstView>();
+		createInstAttributes();
+		copyValuesToInstAttributes();
+	}
+
+	public InstView(String identifier, MetaConcept supportMetaConcept,
+			MetaElement editableMetaElement) {
+		super(identifier);
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		this.supportMetaConcept = supportMetaConcept;
+		instVertices = new ArrayList<InstVertex>();
+		childViews = new ArrayList<InstView>();
+		setEditableMetaElement(editableMetaElement);
+		createInstAttributes();
+		copyValuesToInstAttributes();
+	}
+
+	public InstView(MetaConcept metaConcept) {
+		super("");
+		this.supportMetaConcept = metaConcept;
+		instVertices = new ArrayList<InstVertex>();
+		childViews = new ArrayList<InstView>();
+	}
 
 	public List<InstVertex> getInstVertices() {
 		return instVertices;
 	}
-
+	
 	public void setInstVertices(List<InstVertex> instVertexs) {
 		this.instVertices = instVertexs;
 	}
@@ -42,33 +69,7 @@ public class InstView extends InstElement {
 		this.childViews = childViews;
 	}
 
-	public InstView(String identifier) {
-		super(identifier);
-		vars.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
-		instVertices = new ArrayList<InstVertex>();
-		childViews = new ArrayList<InstView>();
-		createInstAttributes();
-		copyValuesToInstAttributes();
-	}
 
-	public InstView(String identifier, MetaConcept metaConcept,
-			MetaElement editableMetaElement) {
-		super(identifier);
-		vars.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
-		this.metaConcept = metaConcept;
-		instVertices = new ArrayList<InstVertex>();
-		childViews = new ArrayList<InstView>();
-		setEditableMetaElement(editableMetaElement);
-		createInstAttributes();
-		copyValuesToInstAttributes();
-	}
-
-	public InstView(MetaConcept metaConcept) {
-		super("");
-		this.metaConcept = metaConcept;
-		instVertices = new ArrayList<InstVertex>();
-		childViews = new ArrayList<InstView>();
-	}
 
 	@Override
 	public String getIdentifier() {
@@ -79,19 +80,19 @@ public class InstView extends InstElement {
 	@Override
 	public List<InstAttribute> getEditableVariables() {
 		// superclass
-		Set<String> attributesNames = getMetaView()
+		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getVariable(VAR_INSTATTRIBUTES);
+		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
 	}
 
 	@Override
 	public List<InstAttribute> getVisibleVariables() {
-		Set<String> attributesNames = this.getMetaView()
+		Set<String> attributesNames = this.getTransSupportMetaElement()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);
 	}
@@ -168,13 +169,14 @@ public class InstView extends InstElement {
 
 	}
 
-	public MetaConcept getMetaView() {
-		return metaConcept;
+	public void setSupportMetaElement(MetaConcept supportMetaConcept) {
+		this.supportMetaConcept = supportMetaConcept;
 	}
 
+
 	@Override
-	public MetaElement getSupportMetaElement() {
-		return metaConcept;
+	public MetaElement getTransSupportMetaElement() {
+		return supportMetaConcept;
 	}
 
 	public void addInstVertex(InstVertex instVertex) {
@@ -183,5 +185,11 @@ public class InstView extends InstElement {
 
 	public void addChildView(InstView instView) {
 		childViews.add(instView);
+	}
+
+	@Override
+	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
+		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.supportMetaConcept = (MetaConcept)supportMetaElement;
 	}
 }

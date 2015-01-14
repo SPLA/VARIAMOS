@@ -1,20 +1,19 @@
 package com.variamos.defectAnalyzer.model;
 
-import com.cfm.hlcl.Expression;
-import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
+import com.cfm.hlcl.BooleanExpression;
 
 public class Dependency implements Cloneable {
 
 	private String originalRelationShipText;
 	private Long relationShipNumber;
 
-	private Expression constraintExpression;
+	private BooleanExpression constraintExpression;
 
 	// Negación de la expresión. Sirve para identificar las redundancias
 	// automáticamente en modelos de caraacteristicas. En las otras notaciones
 	// si se debe escribir la expresión manualmente
 	
-	private Expression negationExpression;
+	private BooleanExpression negationExpression;
 
 
 	public Dependency() {
@@ -62,7 +61,7 @@ public class Dependency implements Cloneable {
 	/**
 	 * @return the constraintExpression
 	 */
-	public Expression getConstraintExpression() {
+	public BooleanExpression getConstraintExpression() {
 		return constraintExpression;
 	}
 
@@ -70,7 +69,7 @@ public class Dependency implements Cloneable {
 	 * @param constraintExpression
 	 *            the constraintExpression to set
 	 */
-	public void setConstraintExpression(Expression constraintExpression) {
+	public void setConstraintExpression(BooleanExpression constraintExpression) {
 		this.constraintExpression = constraintExpression;
 	}
 
@@ -149,7 +148,7 @@ public class Dependency implements Cloneable {
 	/**
 	 * @return the negationExpression
 	 */
-	public Expression getNegationExpression() {
+	public BooleanExpression getNegationExpression() {
 		return negationExpression;
 	}
 
@@ -157,7 +156,7 @@ public class Dependency implements Cloneable {
 	 * @param negationExpression
 	 *            the negationExpression to set
 	 */
-	public void setNegationExpression(Expression negationExpression) {
+	public void setNegationExpression(BooleanExpression negationExpression) {
 		this.negationExpression = negationExpression;
 	}
 

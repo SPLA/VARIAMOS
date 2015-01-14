@@ -9,7 +9,11 @@ public interface SWIPrologSymbols  {
 	// HEADER FOR GNU PROLOG
 	public static final String HEADER = ":-use_module(library(clpfd)).\nproductline(L):-\n";
 	
-	public static final String END="labeling([ff], L).";
+	public static final String LABELING="labeling";
+	public static final String FF="ff";
+	public static final String MIN="min";
+	public static final String MAX="max";
+	public static final String INVOCATION="L";
 	
 	public static final String IN=" in ";
 	public static final String INS=" ins";

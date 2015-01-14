@@ -23,5 +23,4 @@ public interface EditableElementAttribute {
 	public String getDisplayName();
 
 	public String getName();
-
 }

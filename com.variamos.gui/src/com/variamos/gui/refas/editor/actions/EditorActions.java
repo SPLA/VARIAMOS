@@ -537,7 +537,7 @@ public class EditorActions {
 			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
-
+				final VariamosGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
@@ -607,6 +607,8 @@ public class EditorActions {
 					dialogShown = true;
 
 					if (rc != JFileChooser.APPROVE_OPTION) {
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					} else {
 						lastDir = fc.getSelectedFile().getParent();
@@ -627,6 +629,9 @@ public class EditorActions {
 					if (new File(filename).exists()
 							&& JOptionPane.showConfirmDialog(graphComponent,
 									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					}
 				} else {
@@ -676,8 +681,8 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						mxCodec codec = new mxCodec();
-						SharedActions.beforeSaveGraph(graph);
-						String xml = mxXmlUtils.getXml(codec.encode(graph
+						mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
+						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
 						SharedActions.afterSaveGraph(graph, editor);
 						mxUtils.writeFile(xml, filename);
@@ -724,7 +729,7 @@ public class EditorActions {
 							JOptionPane.ERROR_MESSAGE);
 				}
 
-				((MainFrame) editor.getFrame()).waitingCursor(true);
+				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}
@@ -1456,7 +1461,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				((MainFrame)editor.getFrame()).waitingCursor(true);
+				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1521,6 +1526,9 @@ public class EditorActions {
 													.getSelectedFile()
 													.getAbsolutePath()));
 								} else {
+									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
+									SharedActions.beforeLoadGraph(graph,
+											variamosEditor);
 									Document document = mxXmlUtils
 											.parseXml(mxUtils.readFile(fc
 													.getSelectedFile()
@@ -1530,8 +1538,7 @@ public class EditorActions {
 									codec.decode(document.getDocumentElement(),
 											graph.getModel());
 									editor.setCurrentFile(fc.getSelectedFile());
-									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
-									SharedActions.afterSaveGraph(graph,
+									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
 									resetEditor((VariamosGraphEditor) editor);
 								}
@@ -1546,7 +1553,7 @@ public class EditorActions {
 						}
 					}
 				}
-				((MainFrame)editor.getFrame()).waitingCursor(false);
+				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}

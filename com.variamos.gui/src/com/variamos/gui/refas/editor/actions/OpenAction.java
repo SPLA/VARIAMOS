@@ -65,6 +65,7 @@ public class OpenAction extends AbstractEditorAction{
 
 		if (editor != null)
 		{
+			final BasicGraphEditor finalEditor = editor;
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
@@ -89,6 +90,7 @@ public class OpenAction extends AbstractEditorAction{
 						{
 							String lcase = file.getName().toLowerCase();
 
+							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 							return lcase.endsWith(".plg")
 									|| lcase.endsWith(".sxfm");
 						}
@@ -136,11 +138,13 @@ public class OpenAction extends AbstractEditorAction{
 //										graph.getModel());
 								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 								//variamosEditor.editModelReset();
+
+								SharedActions.beforeLoadGraph(graph, variamosEditor);
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc
 										.getSelectedFile());
-								SharedActions.afterSaveGraph(graph, variamosEditor);
+								SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 									variamosEditor.populateIndex(((AbstractGraph)graph).getProductLine());
 								resetEditor(variamosEditor);
 							}

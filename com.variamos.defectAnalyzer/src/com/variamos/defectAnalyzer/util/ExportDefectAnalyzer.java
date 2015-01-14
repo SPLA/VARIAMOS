@@ -9,9 +9,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.DeadElement;
 import com.variamos.defectAnalyzer.model.defects.FalseOptionalElement;
 import com.variamos.defectAnalyzer.model.defects.FalseProductLine;
@@ -43,7 +43,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
+				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 
 				for (int j = 0; j < diagnostic.getCorrectionSubsets().size(); j++) {
@@ -182,7 +182,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
+				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 
 				List<String> resultadosFila = new ArrayList<String>();
@@ -289,7 +289,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
+				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 				todosDefectos++;
 				if (diagnostic.getDefect() instanceof VoidModel) {
@@ -385,7 +385,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
+				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 				todosDefectos++;
 				if (diagnostic.getDefect() instanceof VoidModel) {
