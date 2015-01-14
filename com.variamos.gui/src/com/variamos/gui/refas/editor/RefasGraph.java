@@ -65,6 +65,7 @@ public class RefasGraph extends AbstractGraph {
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
 	private boolean validation = true;
+	private int perspective=2;
 
 	public boolean isValidation() {
 		return validation;
@@ -90,9 +91,10 @@ public class RefasGraph extends AbstractGraph {
 		this.modelViewSubIndex = modelSubView;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax) {
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective) {
 		init();
 		this.semanticPlusSyntax = semanticPlusSyntax;
+		this.perspective = perspective;
 	}
 
 	public void defineInitialGraph() {
@@ -328,6 +330,8 @@ public class RefasGraph extends AbstractGraph {
 
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
+		if (perspective == 4)
+			return false;
 		if (validation) {
 			if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
 				return super.isValidConnection(source, target);

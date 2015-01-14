@@ -792,12 +792,12 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
-		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
+/*		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
 		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected");
-
-/*		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
+*/
+		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
 		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
@@ -805,7 +805,7 @@ public class Refas extends AbstractModel {
 				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
-*/		
+		
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",

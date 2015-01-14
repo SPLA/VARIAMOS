@@ -47,6 +47,8 @@ public class SharedActions {
 	}
 
 	public static mxGraph beforeSaveGraph(mxGraph graph) {
+		((RefasGraph) graph).setValidation(false);
+		
 		long startTime = System.currentTimeMillis();
 		((RefasGraph) graph).setValidation(false);
 		mxGraph outGraph = cloneGraph(graph, null);
@@ -109,6 +111,12 @@ public class SharedActions {
 
 	}
 
+	public static void beforeLoadGraph(mxGraph graph, VariamosGraphEditor editor) {
+		if (graph instanceof RefasGraph) {
+			((RefasGraph) graph).setValidation(false);
+		}
+	}
+	
 	public static void afterSaveGraph(mxGraph graph, VariamosGraphEditor editor) {
 		if (graph instanceof RefasGraph) {
 			((RefasGraph) graph).setValidation(true);
@@ -158,6 +166,8 @@ public class SharedActions {
 						}
 					}
 			}
+
+			((RefasGraph) graph).setValidation(true);
 		}
 		return graph;
 	}
