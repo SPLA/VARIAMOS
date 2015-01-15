@@ -11,7 +11,6 @@ import com.variamos.refas.core.expressions.AndBooleanExpression;
 import com.variamos.refas.core.expressions.DiffNumericExpression;
 import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
-import com.variamos.refas.core.expressions.GreaterBooleanExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
@@ -104,7 +103,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							getTransformations().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
-													.getIdentifier(), "Core"));
+													.getIdentifier(), "Core"))
+													;
 						else {
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
@@ -240,8 +240,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					// identifierId_Core #= value for simulation
-					if (instAttribute.getIdentifier().equals("Core")
-							&& execType == Refas2Hlcl.SIMUL_EXEC) {
+					if (instAttribute.getIdentifier().equals("Core")){
+							//&& execType == Refas2Hlcl.SIMUL_EXEC) {
 						getTransformations()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),

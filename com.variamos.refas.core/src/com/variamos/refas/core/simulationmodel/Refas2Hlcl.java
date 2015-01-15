@@ -354,4 +354,23 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		this.refas = refas;
 	}
 
+	
+	/**
+	 * Update Core concepts on model
+	 * @param outIdentifiers
+	 */
+	public void updateCoreConcepts(List<String> outIdentifiers) {
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttribute = instVertex
+					.getInstAttribute("Core");
+			// System.out.println(vertexId + " " + attribute);
+			if (outIdentifiers != null
+					&& outIdentifiers.contains(instVertex.getIdentifier()))
+				instAttribute.setValue(true);
+			else
+				instAttribute.setValue(false);
+		}
+		
+	}
+
 }
