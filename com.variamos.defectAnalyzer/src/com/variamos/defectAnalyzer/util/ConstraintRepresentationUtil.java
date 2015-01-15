@@ -116,6 +116,22 @@ public class ConstraintRepresentationUtil {
 		}
 		return hlclProgram;
 	}
+	
+	/**
+	 * @param expressionsList
+	 * @return creates a HLCLProgram list from a boolean Expression matrix
+	 */
+	public List<HlclProgram> expresions2HlclProgramList(
+			List<List<BooleanExpression>> expressionsList) {
+
+		List<HlclProgram> hlcLProgramList = new ArrayList<HlclProgram>();
+		for (List<BooleanExpression> expressions : expressionsList) {
+			HlclProgram expressionProgram = new HlclProgram();
+			expressionProgram.addAll(expressions);
+			hlcLProgramList.add(expressionProgram);
+		}
+		return hlcLProgramList;
+	}
 
 	public static Collection<BooleanExpression> dependencyListToExpressionList(
 			Collection<Dependency> dependencies) {

@@ -3,18 +3,18 @@ package com.variamos.defectAnalyzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassifiedDiagnosis {
+public class ClassifiedElement {
 
 	List<ClassifiableDiagnosis> commonDiagnosis;
 	List<ClassifiableDiagnosis> noCommonDiagnosis;
 
-	public ClassifiedDiagnosis() {
+	public ClassifiedElement() {
 		super();
 		commonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
 		noCommonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
 	}
 
-	public ClassifiedDiagnosis(List<ClassifiableDiagnosis> commonDiagnosis,
+	public ClassifiedElement(List<ClassifiableDiagnosis> commonDiagnosis,
 			List<ClassifiableDiagnosis> noCommonDiagnosis) {
 		super();
 		this.commonDiagnosis = commonDiagnosis;

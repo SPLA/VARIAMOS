@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
-public class VMVerifierOutDTO {
+public class VerificationResult {
 
 	private List<Defect> deadFeaturesList;
 	private List<Defect> falseOptionalFeaturesList;
@@ -14,9 +14,8 @@ public class VMVerifierOutDTO {
 	private Defect voidModel;
 	private Defect falseProductLineModel;
 
-	public VMVerifierOutDTO() {
+	public VerificationResult() {
 		super();
-		// TODO Auto-generated constructor stub
 		deadFeaturesList = new ArrayList<Defect>();
 		falseOptionalFeaturesList = new ArrayList<Defect>();
 		domainNotAttainableList = new ArrayList<Defect>();
@@ -54,20 +53,6 @@ public class VMVerifierOutDTO {
 		this.falseOptionalFeaturesList = falseOptionalFeaturesList;
 	}
 
-	/**
-	 * @return the domainNotAttainableList
-	 */
-	public List<Defect> getDomainNotAttainableList() {
-		return domainNotAttainableList;
-	}
-
-	/**
-	 * @param domainNotAttainableList
-	 *            the domainNotAttainableList to set
-	 */
-	public void setDomainNotAttainableList(List<Defect> domainNotAttainableList) {
-		this.domainNotAttainableList = domainNotAttainableList;
-	}
 
 	/**
 	 * @return the redundanciesList

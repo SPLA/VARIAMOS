@@ -6,12 +6,8 @@ import javax.swing.JTextArea;
 
 import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
-import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
 public class VerifyFalseProductLineModelAction extends

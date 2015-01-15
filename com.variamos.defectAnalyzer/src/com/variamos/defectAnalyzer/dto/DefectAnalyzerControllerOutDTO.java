@@ -3,7 +3,7 @@ package com.variamos.defectAnalyzer.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.defectAnalyzer.model.ClassifiedDiagnosis;
+import com.variamos.defectAnalyzer.model.ClassifiedElement;
 import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 
@@ -12,8 +12,8 @@ public class DefectAnalyzerControllerOutDTO {
 	private VariabilityModel variabilityModel;
 	private List<Diagnosis> allDiagnostics; 
 	private Long time;
-	private ClassifiedDiagnosis classifiedCauses;
-	private ClassifiedDiagnosis classifiedCorrections;
+	private ClassifiedElement classifiedCauses;
+	private ClassifiedElement classifiedCorrections;
 
 	/**
 	 * @return the variabilityModel
@@ -47,9 +47,9 @@ public class DefectAnalyzerControllerOutDTO {
 
 	public DefectAnalyzerControllerOutDTO() {
 		super();
-		classifiedCauses = new ClassifiedDiagnosis();
+		classifiedCauses = new ClassifiedElement();
 		allDiagnostics= new ArrayList<Diagnosis>();
-		classifiedCorrections = new ClassifiedDiagnosis();
+		classifiedCorrections = new ClassifiedElement();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -78,7 +78,7 @@ public class DefectAnalyzerControllerOutDTO {
 	/**
 	 * @return the classifiedCorrections
 	 */
-	public ClassifiedDiagnosis getClassifiedCorrections() {
+	public ClassifiedElement getClassifiedCorrections() {
 		return classifiedCorrections;
 	}
 
@@ -87,14 +87,14 @@ public class DefectAnalyzerControllerOutDTO {
 	 *            the classifiedCorrections to set
 	 */
 	public void setClassifiedCorrections(
-			ClassifiedDiagnosis classifiedCorrections) {
+			ClassifiedElement classifiedCorrections) {
 		this.classifiedCorrections = classifiedCorrections;
 	}
 
 	/**
 	 * @return the classifiedCauses
 	 */
-	public ClassifiedDiagnosis getClassifiedCauses() {
+	public ClassifiedElement getClassifiedCauses() {
 		return classifiedCauses;
 	}
 
@@ -102,7 +102,7 @@ public class DefectAnalyzerControllerOutDTO {
 	 * @param classifiedCauses
 	 *            the classifiedCauses to set
 	 */
-	public void setClassifiedCauses(ClassifiedDiagnosis classifiedCauses) {
+	public void setClassifiedCauses(ClassifiedElement classifiedCauses) {
 		this.classifiedCauses = classifiedCauses;
 	}
 

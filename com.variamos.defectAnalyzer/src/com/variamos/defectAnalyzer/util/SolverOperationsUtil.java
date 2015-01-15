@@ -13,7 +13,6 @@ public class SolverOperationsUtil {
 
 	private Solver solver;
 	
-
 	public SolverOperationsUtil() {
 		super();
 	}
@@ -47,6 +46,12 @@ public class SolverOperationsUtil {
 		solver.solve(configuration, configurationOptions);
 		return solver.hasSolution();
 
+	}
+	
+	public Configuration getConfiguration(HlclProgram model, Configuration configuration, ConfigurationOptions configurationOptions){
+		solver.setHLCLProgram(model);
+		solver.solve(configuration, configurationOptions);
+		return solver.getSolution();
 	}
 
 	/**

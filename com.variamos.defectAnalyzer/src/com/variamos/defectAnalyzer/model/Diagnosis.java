@@ -3,6 +3,7 @@ package com.variamos.defectAnalyzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
 /**
@@ -14,21 +15,26 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
  */
 public class Diagnosis {
 	private Defect defect;
-	private List<Cause> causes1;
-	private List<Correction> corrections;
+	private List<CauCos> causes;
+	private List<CauCos> corrections;
 
-	
-	private List<List<Dependency>> correctionSubsets;
-	private List<List<Dependency>> causes;
-	private boolean timeOverCorrections=Boolean.FALSE;
-	private boolean timeOverCauses=Boolean.FALSE;
-	private boolean correcMayoresUno=Boolean.FALSE;
-	
+	private Long correctionsProcessingTime;
+	private Long causesProcessingTime;
+
+
 	public Diagnosis() {
-		super();
-		causes = new ArrayList<List<Dependency>>();
-		correctionSubsets=new ArrayList<List<Dependency>>();
+		causes= new ArrayList<CauCos>();
+		corrections=  new ArrayList<CauCos>();
 	}
+	
+	
+
+	public Diagnosis(Defect defect) {
+		this();
+		this.defect = defect;
+	}
+
+
 
 	/**
 	 * @return the defect
@@ -37,67 +43,33 @@ public class Diagnosis {
 		return defect;
 	}
 
-	/**
-	 * @param defect
-	 *            the defect to set
-	 */
 	public void setDefect(Defect defect) {
 		this.defect = defect;
-	}
-
-	/**
-	 * @return the causes
-	 */
-	public List<List<Dependency>> getCauses() {
-		return causes;
-	}
-
-	/**
-	 * @param causes
-	 *            the causes to set
-	 */
-	public void setCauses(List<List<Dependency>> causes) {
-		this.causes = causes;
-	}
-
-	/**
-	 * @param correctionSubsets
-	 *            the correctionSubsets to set
-	 */
-	public void setCorrectionSubsets(List<List<Dependency>> correctionSubsets) {
-		this.correctionSubsets = correctionSubsets;
-	}
-
-	/**
-	 * @return the correctionSubsets
-	 */
-	public List<List<Dependency>> getCorrectionSubsets() {
-		return correctionSubsets;
 	}
 
 	public void printCorrections() {
 		int i = 1;
 		System.out.println("Defecto" + defect.getId());
-		for (List<Dependency> mcsSet : correctionSubsets) {
-			System.out.println("Corrección: "+ i);
-			printDependenciesSet(mcsSet);
+		for (CauCos correction : corrections) {
+			System.out.println("Corrección: " + i);
+			printCorrectionSet(correction.getElements());
 			i++;
 		}
 	}
 
 	public void printCauses() {
 		int i = 1;
-		
-		for (List<Dependency> musSet : causes) {
-			System.out.println("Causa: "+ i);
-			printDependenciesSet(musSet);
+
+		for (CauCos cause : causes) {
+			System.out.println("Causa: " + i);
+			printCorrectionSet(cause.getElements());
 			i++;
 		}
 	}
-	
-	public void printDependenciesSet(List<Dependency> set){
-		for (Dependency dependency : set) {
-			System.out.print(dependency.getOriginalRelationShipText());
+
+	public void printCorrectionSet(List<BooleanExpression> expressios) {
+		for (BooleanExpression expression : expressios) {
+			System.out.print(expression.toString());
 			System.out.print(" , ");
 			System.out.println();
 		}
@@ -138,46 +110,46 @@ public class Diagnosis {
 		return true;
 	}
 
-	/**
-	 * @return the timeOverCorrections
-	 */
-	public boolean isTimeOverCorrections() {
-		return timeOverCorrections;
+	
+
+	public void setCorrections(List<CauCos> corrections) {
+		this.corrections = corrections;
 	}
 
-	/**
-	 * @param timeOverCorrections the timeOverCorrections to set
-	 */
-	public void setTimeOverCorrections(boolean timeOverCorrections) {
-		this.timeOverCorrections = timeOverCorrections;
+	public Long getCorrectionsProcessingTime() {
+		return correctionsProcessingTime;
 	}
 
-	/**
-	 * @return the timeOverCauses
-	 */
-	public boolean isTimeOverCauses() {
-		return timeOverCauses;
+	public void setCorrectionsProcessingTime(Long correctionsProcessingTime) {
+		this.correctionsProcessingTime = correctionsProcessingTime;
 	}
 
-	/**
-	 * @param timeOverCauses the timeOverCauses to set
-	 */
-	public void setTimeOverCauses(boolean timeOverCauses) {
-		this.timeOverCauses = timeOverCauses;
+	public Long getCausesProcessingTime() {
+		return causesProcessingTime;
 	}
 
-	/**
-	 * @return the correcMayoresUno
-	 */
-	public boolean isCorrecMayoresUno() {
-		return correcMayoresUno;
+	public void setCausesProcessingTime(Long causesProcessingTime) {
+		this.causesProcessingTime = causesProcessingTime;
 	}
 
-	/**
-	 * @param correcMayoresUno the correcMayoresUno to set
-	 */
-	public void setCorrecMayoresUno(boolean correcMayoresUno) {
-		this.correcMayoresUno = correcMayoresUno;
+	public List<CauCos> getCauses() {
+		return causes;
 	}
 
+	public List<CauCos> getCorrections() {
+		return corrections;
+	}
+
+
+
+	public void setCauses(List<CauCos> causes) {
+		this.causes = causes;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Diagnosis [defect=" + defect + "]";
+	}
 }

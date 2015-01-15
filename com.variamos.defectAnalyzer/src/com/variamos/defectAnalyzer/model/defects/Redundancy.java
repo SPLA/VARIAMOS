@@ -1,72 +1,26 @@
 package com.variamos.defectAnalyzer.model.defects;
 
+import java.util.List;
+
 import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class Redundancy extends Defect {
 
+	private List<BooleanExpression> negationList;
 
-	private Dependency redundantDependency;
-	private BooleanExpression redundantExpression;
-	private BooleanExpression negation;
-	
-	@Deprecated
-	public Redundancy(Dependency redundantDependency) {
-		super();
-		this.redundantDependency = redundantDependency;
-		this.id = redundantDependency.toString();
-		defectType = DefectType.REDUNDANCY;
-
-	}
-	@Deprecated
-	public Redundancy(Dependency redundantDependency,
-			BooleanExpression verificationExpression) {
-		this(redundantDependency);
-		this.verificationExpression = verificationExpression;
-
-	}
-	
-	
-
-	public Redundancy(BooleanExpression redundantExpression,
-			BooleanExpression negation) {
-		super();
-		this.redundantExpression = redundantExpression;
-		this.negation = negation;
-		this.id = redundantExpression.toString();
-		defectType = DefectType.REDUNDANCY;
-
-	}
-	/**
-	 * @return the redundantDependency
-	 */
-	public Dependency getRedundantDependency() {
-		return redundantDependency;
+	public Redundancy(List<BooleanExpression> negationList,BooleanExpression verificationExpression) {
+		super(verificationExpression);
+		this.negationList = negationList;
 	}
 
-	/**
-	 * @param redundantDependency
-	 *            the redundantDependency to set
-	 */
-	public void setRedundantDependency(Dependency redundantDependency) {
-		this.redundantDependency = redundantDependency;
+	public List<BooleanExpression> getNegationList() {
+		return negationList;
 	}
 
-	public BooleanExpression getRedundantExpression() {
-		return redundantExpression;
-	}
-
-	public void setRedundantExpression(BooleanExpression redundantExpression) {
-		this.redundantExpression = redundantExpression;
-	}
-
-	public BooleanExpression getNegation() {
-		return negation;
-	}
-
-	public void setNegation(BooleanExpression negation) {
-		this.negation = negation;
+	public void setNegationList(List<BooleanExpression> negationList) {
+		this.negationList = negationList;
 	}
 
 }
