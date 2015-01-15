@@ -1,5 +1,7 @@
 package com.variamos.refas.core.simulationmodel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.cfm.hlcl.HlclFactory;
@@ -18,8 +20,11 @@ import com.variamos.refas.core.expressions.ProdNumericExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 
 //TODO refactor: SingleElementExpressionSet
 /**
@@ -56,19 +61,19 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 	 */
 	public SingleElementExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstVertex instVertex) {
+			InstVertex instVertex, int execType) {
 		super(identifier,
 				mxResources.get("defect-concepts") + " " + identifier, idMap,
 				hlclFactory);
-		this.instVertex = instVertex;		
-		defineTransformations();
+		this.instVertex = instVertex;
+		defineTransformations(execType);
 	}
 
 	public InstVertex getInstEdge() {
 		return instVertex;
 	}
 
-	private void defineTransformations() {
+	private void defineTransformations(int execType) {
 
 		if (instVertex instanceof InstConcept
 				|| instVertex instanceof InstOverTwoRelation) {
@@ -92,56 +97,238 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						else
 							attributeValue = (Integer) instAttribute.getValue();
 					}
-					// identifierId_SimAllowed #= identifierId_Allowed
-					if (instAttribute.getIdentifier().equals("Allowed")) {
 
-						getTransformations()
-								.add(new EqualsComparisonExpression(instVertex,
-										instAttribute.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-
-						getTransformations().add(
-								new EqualsComparisonExpression(instVertex,
-										instVertex, "SimAllowed", instAttribute
-												.getIdentifier()));
+					if (instAttribute.getIdentifier().equals("IsRootFeature")){
+						if (instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature"))
+						{
+							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
+							list.add(new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(1)));
+							this.getRelaxableExpressions().put("Root",list);
+							
+						}
+						else
+						{
+							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
+							list.add(new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(0)));
+							this.getRelaxableExpressions().put("Root",list);
+							
+						}
 					}
-					// identifierId_SimRequired #= identifierId_Required
+					
+					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
+						if (execType == Refas2Hlcl.CORE_EXEC)
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instVertex, instAttribute
+													.getIdentifier(), "Core"))
+													;
+						else {
+							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(1));
+							getElementExpressions().add(
+									new ImplicationBooleanExpression(
+											instVertex, "Core", true,
+											transformation7));
+
+							if (attributeValue == 1
+									|| execType == Refas2Hlcl.SIMUL_EXEC)
+								getElementExpressions().add(
+										new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(
+														attributeValue)));
+							AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
+									instVertex, "ConfigSatisfied",
+									getHlclFactory().number(1));
+							getElementExpressions().add(
+									new ImplicationBooleanExpression(
+											instVertex, instAttribute
+													.getIdentifier(), true,
+											transformation8));
+
+							AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
+									instVertex, "ConfigNotSelected",
+									getHlclFactory().number(0));
+							getElementExpressions().add(
+									new ImplicationBooleanExpression(
+											instVertex, instAttribute
+													.getIdentifier(), true,
+											transformation9));
+						}
+					}
+
+					// identifierId_SimRequired #==>
+					// identifierId_ConfigSatisfied #= 1
+					if (instAttribute.getIdentifier().equals("ConfigSatisfied")) {
+						if (execType == Refas2Hlcl.DESIGN_EXEC)
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instVertex, instAttribute
+													.getIdentifier(), "Core"));
+						else {
+							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(1));
+							getElementExpressions().add(
+									new ImplicationBooleanExpression(
+											instVertex, "Core", true,
+											transformation7));
+
+							if (attributeValue == 1
+									|| execType == Refas2Hlcl.SIMUL_EXEC)
+								getElementExpressions().add(
+										new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(
+														attributeValue)));
+						}
+
+						/*
+						 * else { AbstractComparisonExpression transformation9 =
+						 * new EqualsComparisonExpression( instVertex,
+						 * instAttribute.getIdentifier(),
+						 * getHlclFactory().number(1));
+						 * getTransformations().add( new
+						 * ImplicationBooleanExpression( instVertex,
+						 * "SimRequired", true, transformation9)); }
+						 */
+					}
+
+					if (instAttribute.getIdentifier().equals(
+							"ConfigNotSelected")) {
+
+						if (attributeValue == 1
+								|| execType == Refas2Hlcl.SIMUL_EXEC)
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instAttribute.getIdentifier(),
+											getHlclFactory().number(
+													attributeValue)));
+
+						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
+								instVertex, "Selected", getHlclFactory()
+										.number(0));
+						getElementExpressions().add(
+								new ImplicationBooleanExpression(instVertex,
+										instAttribute.getIdentifier(), true,
+										transformation8));
+					}
+
+					// identifierId_ConfigNotSatisfied #==>
+					// identifierId_ConfigNotSelected #=1
+					// identifierId_ConfigNotSatisfied #==>
+					// identifierId_ConfigSatisfied #=0
+					if (instAttribute.getIdentifier().equals(
+							"ConfigNotSatisfied")) {
+						if (attributeValue == 1
+								|| execType == Refas2Hlcl.SIMUL_EXEC)
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instAttribute.getIdentifier(),
+											getHlclFactory().number(
+													attributeValue)));
+
+						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
+								instVertex, "ConfigNotSelected",
+								getHlclFactory().number(1));
+						getElementExpressions().add(
+								new ImplicationBooleanExpression(instVertex,
+										instAttribute.getIdentifier(), true,
+										transformation8));
+
+						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
+								instVertex, "ConfigSatisfied", getHlclFactory()
+										.number(0));
+						getElementExpressions().add(
+								new ImplicationBooleanExpression(instVertex,
+										instAttribute.getIdentifier(), true,
+										transformation9));
+
+						AbstractComparisonExpression transformation10 = new EqualsComparisonExpression(
+								instVertex, "Satisfied", getHlclFactory()
+										.number(0));
+						getElementExpressions().add(
+								new ImplicationBooleanExpression(instVertex,
+										instAttribute.getIdentifier(), true,
+										transformation10));
+					}
+
+					// identifierId_Core #= value for simulation
+					if (instAttribute.getIdentifier().equals("Core")
+							&& execType != Refas2Hlcl.CORE_EXEC) {
+						getElementExpressions()
+								.add(new EqualsComparisonExpression(instVertex,
+										instAttribute.getIdentifier(),
+										getHlclFactory().number(attributeValue)));
+					}
+
+					if (instAttribute.getIdentifier().equals("HasParent")) {
+						MetaElement element = (MetaElement) instVertex
+								.getTransSupportMetaElement();
+						if (element.getIdentifier().equals("LeafFeature")
+								|| element.getIdentifier().equals(
+										"GeneralFeature")) {
+							if (parent(instVertex))
+								getElementExpressions().add(
+										new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(1)));
+							else
+								getElementExpressions().add(
+										new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(0)));
+							/*
+							 * getTransformations().add( new
+							 * EqualsComparisonExpression(instVertex,
+							 * instAttribute .getIdentifier(),
+							 * getHlclFactory().number(1)));
+							 */
+						}
+					}
+
 					if (instAttribute.getIdentifier().equals("Required")) {
-						getTransformations()
+
+						// identifierId_SimRequired #= identifierId_Required
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
-					}
-					// identifierId_SimRequired #==>
-					// identifierId_ValidationSelected #= 1
-					if (instAttribute.getIdentifier().equals(
-							"ValidationSelected")) {
+
+						// identifierId_Required #==>
+						// identifierId_Core #= 1
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
-								instVertex, instAttribute.getIdentifier(),
-								getHlclFactory().number(1));
-						getTransformations().add(
+								instVertex, "Core", getHlclFactory().number(1));
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
-										"SimRequired", true, transformation9));
+										instAttribute.getIdentifier(), true,
+										transformation9));
+
 					}
 
 					// identifierId_SimInitialRequiredLevel #=
 					// identifierId_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
-						getTransformations().add(
-								new EqualsComparisonExpression(instVertex,
-										"SatisfactionConflict",
-										getHlclFactory().number(0)));
-						getTransformations()
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "InitialRequiredLevel",
 										instAttribute.getIdentifier()));
@@ -156,7 +343,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instAttribute.getIdentifier(), false,
 								transformation1);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new GreaterOrEqualsBooleanExpression(
 										transformation1,
 										new NumberNumericExpression(1)));
@@ -171,180 +358,189 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instAttribute.getIdentifier(), false,
 								transformation2);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new GreaterOrEqualsBooleanExpression(
 										transformation2,
 										new NumberNumericExpression(1)));
-
-						// ( 1 - identifierId_SimAllowed ) * (
-						// identifierId_SimRequired + identifierId_Satisfied )
-						// #=
-						// 0
-						AbstractNumericExpression transformation3 = new DiffNumericExpression(
-								instVertex, "SimAllowed", false,
-								getHlclFactory().number(1));
-						AbstractNumericExpression transformation4 = new SumNumericExpression(
-								instVertex, instVertex, "SimRequired",
-								instAttribute.getIdentifier());
-						transformation3 = new ProdNumericExpression(
-								transformation3, transformation4);
-
-						getTransformations().add(
-								new EqualsComparisonExpression(transformation3,
-										new NumberNumericExpression(0)));
 					}
 
-					if (instAttribute.getIdentifier().equals("ForcedSatisfied")) {
-						// Identifier_Satisfied #<=>
-						// ( ( Identifier_ForcedSatisfied #\/
-						// Identifier_AlternativeSatisfied ) #\/
-						// ( Identifier_ValidationSatisfied #/\
-						// identifierId_SimAllowed )
-						// #/\ ( 1 - identifierId_SatisfactionConflict ) )
-						getTransformations()
+					if (instAttribute.getIdentifier()
+							.equals("NextNotSatisfied")) {
+						// IdentifierId_Satisfied #<=>
+						// ( ( IdentifierId_ConfigSatisfied #\/
+						// IdentifierId_NextPrefSatisfied ) #\/
+						// ( IdentifierId_NextReqSatisfied )
+						// #/\ ( 1 - identifierId_NextNotSatisfied ) )
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
-								instVertex, instVertex, "ForcedSatisfied",
-								"AlternativeSatisfied");
+								instVertex, instVertex, "ConfigSatisfied",
+								"NextPrefSatisfied");
 						AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-								instVertex, "ValidationSatisfied", false,
+								instVertex, "NextReqSatisfied", false,
 								transformation6);
 						AbstractBooleanExpression transformation9 = new NotBooleanExpression(
-								instVertex, "SatisfactionConflict");
+								instVertex, "NextNotSatisfied");
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								transformation7, transformation9);
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Satisfied", true,
 										transformation10));
-
-						// getTransformations()
-						// .add(new EqualsComparisonExpression(instVertex,
-						// instAttribute.getIdentifier(),
-						// getHlclFactory().number(attributeValue)));
-						// AbstractBooleanExpression transformation6 = new
-						// OrBooleanExpression(
-						// instVertex, instVertex, "ForcedSatisfied",
-						// "AlternativeSatisfied");
-						// AbstractBooleanExpression transformation7 = new
-						// AndBooleanExpression(
-						// instVertex, instVertex, "ValidationSatisfied",
-						// "SimAllowed");
-						// AbstractBooleanExpression transformation8 = new
-						// OrBooleanExpression(
-						// transformation6, transformation7);
-						// AbstractBooleanExpression transformation9 = new
-						// NotBooleanExpression(
-						// instVertex, "SatisfactionConflict");
-						// AbstractBooleanExpression transformation10 = new
-						// AndBooleanExpression(
-						// transformation8, transformation9);
-						// getTransformations().add(
-						// new DoubleImplicationBooleanExpression(
-						// instVertex, "Satisfied", true,
-						// transformation10));
-
 					}
-					// Set ForceSelected from GUI properties
-					if (instAttribute.getIdentifier().equals("ForcedSelected")) {
 
-						getTransformations()
-								.add(new EqualsComparisonExpression(instVertex,
-										instAttribute.getIdentifier(),
-										getHlclFactory().number(attributeValue)));
-					}
-					if (instAttribute.getIdentifier().equals("Selected")) {
-						// identifierId_Selected #<=>
-						// ( ( ( ( identifierId_SolverSelected #/\
-						// identifierId_NotPrefSelected )
-						// #\/ identifierId_ValidationSelected ) #\/
-						// identifierId_ForceSelected ) #/\
-						// identifierId_SimAllowed )
-
-						AbstractBooleanExpression transformation12 = new OrBooleanExpression(
-								instVertex, instVertex, "ForcedSelected",
-								"ValidationSelected");
-						AbstractBooleanExpression transformation13 = new AndBooleanExpression(
-								instVertex, "SimAllowed", false,
-								transformation12);
-						getTransformations().add(
+					if (instAttribute.getIdentifier().equals("NextNotSelected")) {
+						List<String> outRelations = new ArrayList<String>();
+						outRelations.add("conflict");
+						List<String> inRelations = new ArrayList<String>();
+						inRelations.add("conflict");
+						AbstractNumericExpression transformation50 = sumRelations(
+								instVertex, "Selected", outRelations,
+								inRelations);
+						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+								transformation50,
+								new NumberNumericExpression(1));
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
-										instVertex, instAttribute
-												.getIdentifier(), true,
-										transformation13));
+										instVertex, "NextNotSelected", true,
+										transformation51));
+					}
 
-						/*
-						 * AbstractBooleanExpression transformation10 = new
-						 * AndBooleanExpression( instVertex, instVertex,
-						 * "SolverSelected", "NotPrefSelected");
-						 * AbstractBooleanExpression transformation11 = new
-						 * OrBooleanExpression( instVertex,
-						 * "ValidationSelected", false, transformation10);
-						 * AbstractBooleanExpression transformation12 = new
-						 * OrBooleanExpression( instVertex, "ForcedSelected",
-						 * false, transformation11); AbstractBooleanExpression
-						 * transformation13 = new AndBooleanExpression(
-						 * instVertex, "SimAllowed", false, transformation12);
-						 * getTransformations().add( new
-						 * DoubleImplicationBooleanExpression( instVertex,
-						 * instAttribute .getIdentifier(), true,
-						 * transformation13));
-						 */
-						AbstractNumericExpression transformation50 = new ProdNumericExpression(
-								instVertex, instVertex, "ForcedSelected",
-								"ValidationSelected");
+					if (instAttribute.getIdentifier().equals("NextReqSelected")) {
+						List<String> outRelations = new ArrayList<String>();
+						outRelations.add("mandatory");
+						List<String> inRelations = new ArrayList<String>();
+						inRelations.add("required");
+						AbstractNumericExpression transformation50 = sumRelations(
+								instVertex, "Selected", outRelations,
+								inRelations);
+						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+								transformation50,
+								new NumberNumericExpression(1));
+						AbstractBooleanExpression transformation52 = new NotBooleanExpression(
+								instVertex, "Core");
+						AbstractBooleanExpression transformation53 = new AndBooleanExpression(
+								transformation52, transformation51);
+						getElementExpressions().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "NextReqSelected", true,
+										transformation53));
+					}
 
+					// Order#<==>
+					if (instAttribute.getIdentifier().equals("Order")) {
+						AbstractNumericExpression transformation48 = new ProdNumericExpression(
+								instVertex, "NextReqSelected", true,
+								getHlclFactory().number(4));
+						AbstractNumericExpression transformation49 = new SumNumericExpression(
+								instVertex, instVertex, "NextPrefSatisfied",
+								"ConfigSatisfied");
+						AbstractNumericExpression transformation50 = new DiffNumericExpression(
+								instVertex, "NextPrefSelected", false,
+								transformation49);
 						AbstractNumericExpression transformation51 = new ProdNumericExpression(
-								instVertex, "ForcedSatisfied", true,
-								getHlclFactory().number(2));
+								transformation50,
+								new NumberNumericExpression(8));
 						AbstractNumericExpression transformation52 = new SumNumericExpression(
-								instVertex, "ValidationSatisfied", false,
-								transformation51);
-						AbstractNumericExpression transformation53 = new SumNumericExpression(
-								instVertex, instVertex, "AlternativeSatisfied",
-								"ValidationSatisfied");
+								instVertex, instVertex, "NextReqSatisfied",
+								"ConfigSatisfied");
 
+						AbstractNumericExpression transformation53 = new DiffNumericExpression(
+								instVertex, "NextReqSelected", false,
+								transformation52);
 						AbstractNumericExpression transformation54 = new ProdNumericExpression(
-								transformation52, transformation53);
+								transformation53, new NumberNumericExpression(
+										16));
 
-						AbstractNumericExpression transformation55 = new DiffNumericExpression(
-								instVertex, "AlternativeSatisfied", false,
-								getHlclFactory().number(1));
-						AbstractNumericExpression transformation56 = new DiffNumericExpression(
-								instVertex, "ForcedSatisfied", false,
-								getHlclFactory().number(1));
-						AbstractNumericExpression transformation57 = new ProdNumericExpression(
+						AbstractNumericExpression transformation55 = new SumNumericExpression(
+								instVertex, "NextPrefSelected", true,
+								transformation48);
+
+						AbstractNumericExpression transformation56 = new SumNumericExpression(
+								transformation51, transformation54);
+						AbstractNumericExpression transformation57 = new SumNumericExpression(
 								transformation55, transformation56);
-						AbstractNumericExpression transformation58 = new ProdNumericExpression(
-								instVertex, "ValidationSatisfied", false,
-								transformation57);
-						
-						AbstractNumericExpression transformation59 = new SumNumericExpression(
-								transformation54, transformation58);
 
-						AbstractNumericExpression transformation61 = new SumNumericExpression(
-								transformation50, transformation59);
-
-						AbstractNumericExpression transformation62 = new SumNumericExpression(
-								instVertex, instVertex, "ForcedSatisfied",
-								"ValidationSatisfied");
-						AbstractNumericExpression transformation63 = new SumNumericExpression(
-								instVertex, instVertex, "AlternativeSatisfied",
-								"SatisfactionConflict");
-						AbstractNumericExpression transformation64 = new SumNumericExpression(
-								transformation62, transformation63);
-
-						AbstractNumericExpression transformation65 = new ProdNumericExpression(
-								instVertex, "SatisfactionConflict", false,
-								transformation64);
-
-						SumNumericExpression transformation66 = new SumNumericExpression(
-								transformation61, transformation65);
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
-										"Opt", true, transformation66));
+										"Order", true, transformation57));
+					}
+
+					// Set ForceSelected from GUI properties
+
+					if (instAttribute.getIdentifier().equals("NextNotSelected")) {
+						// identifierId_Selected #<=>
+						// ( ( ( identifierId_ConfigSelected
+						// #\/ identifierId_NextPrefSelected ) #\/
+						// identifierId_NextReqSelected ) #/\
+						// ( 1 - identifierId_NextNotSelected ) )
+
+						AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+								instVertex, instVertex, "ConfigSelected",
+								"NextPrefSelected");
+						AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+								instVertex, "NextReqSelected", false,
+								transformation6);
+						AbstractBooleanExpression transformation9 = new NotBooleanExpression(
+								instVertex, "NextNotSelected");
+						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
+								transformation7, transformation9);
+						getElementExpressions().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "Selected", true,
+										transformation10));
+
+						// Opt #<==>
+						AbstractNumericExpression transformation50 = new SumNumericExpression(
+								instVertex, instVertex, "NextReqSelected",
+								"ConfigSelected");
+						AbstractNumericExpression transformation51 = new ProdNumericExpression(
+								instVertex, "NextPrefSelected", true,
+								transformation50);
+
+						AbstractNumericExpression transformation52 = new SumNumericExpression(
+								instVertex, instVertex, "NextPrefSelected",
+								"ConfigSelected");
+						AbstractNumericExpression transformation53 = new ProdNumericExpression(
+								instVertex, "NextReqSelected", true,
+								transformation52);
+
+						AbstractNumericExpression transformation54 = new SumNumericExpression(
+								transformation51, transformation53);
+
+						AbstractNumericExpression transformation55 = new SumNumericExpression(
+								instVertex, instVertex, "NextReqSatisfied",
+								"ConfigSatisfied");
+
+						AbstractNumericExpression transformation56 = new ProdNumericExpression(
+								instVertex, "NextPrefSatisfied", true,
+								transformation55);
+
+						AbstractNumericExpression transformation57 = new SumNumericExpression(
+								instVertex, instVertex, "NextPrefSatisfied",
+								"ConfigSatisfied");
+						AbstractNumericExpression transformation58 = new ProdNumericExpression(
+								instVertex, "NextReqSatisfied", true,
+								transformation57);
+
+						AbstractNumericExpression transformation59 = new SumNumericExpression(
+								transformation56, transformation58);
+
+						AbstractNumericExpression transformation60 = new SumNumericExpression(
+								transformation54, transformation59);
+
+						getElementExpressions().add(
+								new EqualsComparisonExpression(instVertex,
+										"Opt", true, transformation60));
+
+						// Opt#=0
+
+						getElementExpressions().add(
+								new EqualsComparisonExpression(instVertex,
+										"Opt", getHlclFactory().number(0)));
+
 					}
 				}
 
@@ -352,5 +548,78 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 		}
 
+	}
+
+	private AbstractNumericExpression sumRelations(InstVertex instVertex2,
+			String string, List<String> outRelations, List<String> inRelations) {
+		AbstractNumericExpression outExp = null;
+		for (String relName : outRelations) {
+			for (InstElement target : instVertex2.getTargetRelations()) {
+				String type = ((InstPairwiseRelation) target)
+						.getSemanticPairwiseRelType();
+				if (relName.equals(type)) {
+					if (outExp == null)
+						outExp = new SumNumericExpression((InstVertex) target
+								.getTargetRelations().get(0), string, false,
+								getHlclFactory().number(0));
+					else
+						outExp = new SumNumericExpression((InstVertex) target
+								.getTargetRelations().get(0), string, true,
+								outExp);
+				}
+			}
+		}
+		for (String relName : inRelations) {
+			for (InstElement target : instVertex.getSourceRelations()) {
+				String type = ((InstPairwiseRelation) target)
+						.getSemanticPairwiseRelType();
+				if (relName.equals(type)) {
+					if (outExp == null)
+						outExp = new SumNumericExpression((InstVertex) target
+								.getSourceRelations().get(0), string, false,
+								getHlclFactory().number(0));
+					else
+						outExp = new SumNumericExpression((InstVertex) target
+								.getSourceRelations().get(0), string, true,
+								outExp);
+				}
+			}
+		}
+		if (outExp == null)
+			return new NumberNumericExpression(0);
+		return outExp;
+	}
+
+	private boolean parent(InstVertex instVertex2) {
+		List<String> outRelations = new ArrayList<String>();
+		outRelations.add("mandatory");
+		outRelations.add("optional");
+		for (String relName : outRelations) {
+			for (InstElement target : instVertex2.getTargetRelations()) {
+				String type = ((InstPairwiseRelation) target)
+						.getSemanticPairwiseRelType();
+				if (relName.equals(type)) {
+					if (target.getTargetRelations().get(0)
+							.getInstAttribute("Active").getAsBoolean())
+						return true;
+				} else if (type != null && type.equals("none")) {
+					InstVertex grouprel = (InstVertex) target
+							.getTargetRelations().get(0);
+					if (grouprel.getTargetRelations().size() > 0) {
+						String relType = ((InstPairwiseRelation) grouprel
+								.getTargetRelations().get(0))
+								.getSemanticPairwiseRelType();
+						if (relType.equals(relName))
+							if (grouprel.getTargetRelations().get(0)
+									.getTargetRelations().get(0)
+									.getInstAttribute("Active").getAsBoolean())
+								return true;
+					}
+
+				}
+
+			}
+		}
+		return false;
 	}
 }

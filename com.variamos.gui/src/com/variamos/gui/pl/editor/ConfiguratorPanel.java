@@ -274,7 +274,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdGetNextSolution.setText("Get next solution");
 		cmdGetNextSolution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				while (refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION))
+				while (refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION, Refas2Hlcl.CONF_EXEC))
 					if (processConfiguration(refas2hlcl.getConfiguration()))
 						break;
 				
@@ -286,7 +286,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdGetSolutions.setText("Get solutions");
 		cmdGetSolutions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+				boolean result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
 				if (result) {
 					processConfiguration(refas2hlcl.getConfiguration());
 					cmdGetNextSolution.setVisible(true);
@@ -743,7 +743,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		panel.add(cmdNext, constraints);
 		cmdNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+				refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
 				solutionPanel.addSolution(refas2hlcl.getConfiguration());
 			}
 		});

@@ -32,6 +32,7 @@ import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.syntaxsupport.metamodel.EditableElement;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
 import com.variamos.syntaxsupport.metamodel.InstConcept;
@@ -137,8 +138,9 @@ public class ElementDesignPanel extends JPanel {
 				type = "vertex";
 			}
 			if (elm instanceof InstPairwiseRelation) {
-				if (((InstPairwiseRelation)elm).getSourceRelations().size()==0)
-					//TODO workaround for non supported relations - delete after fix
+				if (((InstPairwiseRelation) elm).getSourceRelations().size() == 0)
+					// TODO workaround for non supported relations - delete
+					// after fix
 					return;
 				type = "edge";
 			}
@@ -147,8 +149,8 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (elm instanceof InstElement) {
 				if (((InstElement) elm).getEditableMetaElement() != null)
-					description = ((InstElement) elm).getSupportMetaElement()
-							.getDescription();
+					description = ((InstElement) elm)
+							.getTransSupportMetaElement().getDescription();
 			}
 			int count = 0;
 			while (count < 2) {
@@ -165,12 +167,14 @@ public class ElementDesignPanel extends JPanel {
 							mapElements = ((Refas) editor.getEditedModel())
 									.getSyntaxRefas()
 									.getValidPairwiseRelations(
-											instPairwise.getSourceRelations()
+											instPairwise
+													.getSourceRelations()
 													.get(0)
-													.getSupportMetaElement(),
-											instPairwise.getTargetRelations()
+													.getTransSupportMetaElement(),
+											instPairwise
+													.getTargetRelations()
 													.get(0)
-													.getSupportMetaElement(),
+													.getTransSupportMetaElement(),
 											true);
 						}
 						v.updateValidationList(((InstElement) elm), mapElements);
@@ -187,15 +191,17 @@ public class ElementDesignPanel extends JPanel {
 							@Override
 							public void focusLost(FocusEvent arg0) {
 								// Makes it pull the values.
-								EditableElementAttribute v = w
+								EditableElementAttribute elementAttribute = w
 										.getInstAttribute();
-								if (v.getAttributeType().equals("String")
-										&& !v.getIdentifier().equals(
-												"Description"))
-									v.setValue(AbstractElement.multiLine(
-											v.toString(), 15));
+								if (elementAttribute.getAttributeType().equals(
+										"String")
+										&& !elementAttribute.getIdentifier()
+												.equals("Description"))
+									elementAttribute.setValue(AbstractElement.multiLine(
+											elementAttribute.toString(), 15));
 								// Divide lines every 15 characters (aprox.)
-								onVariableEdited(finalEditor, finalElm, v);
+								onVariableEdited(finalEditor, finalElm,
+										elementAttribute);
 							}
 
 							@Override
@@ -234,8 +240,14 @@ public class ElementDesignPanel extends JPanel {
 						List<InstAttribute> editables = elm
 								.getEditableVariables();
 
-						if (!editables.contains(v))
+						if (!editables.contains(v)
+								|| editor.getPerspective() == 4)
+
+						{
 							w.getEditor().setEnabled(false);
+
+						}
+
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));
 						{
@@ -243,10 +255,14 @@ public class ElementDesignPanel extends JPanel {
 							elementDesPropSubPanel.add(new JLabel(v
 									.getDisplayName() + ": "));
 							elementDesPropSubPanel.add(w);
-							if (v.isAffectProperties()) {
+							if (v.isAffectProperties()
+									&& editor.getPerspective() != 4) {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										finalEditor.identifyCoreConcepts();
+										finalEditor.executeSimulation(true,
+												Refas2Hlcl.DESIGN_EXEC);
 										editorProperties(finalEditor, finalElm);
 									}
 								});

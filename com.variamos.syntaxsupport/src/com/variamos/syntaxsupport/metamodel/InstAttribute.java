@@ -35,12 +35,24 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * Object associated to an existing metaElement, syntaxElement or
 	 * InstElement - from JList or JComboBox
+	 * This attribute is not serialized (get/set differ from name)
 	 */
-	private Object valueObject;
+	private Object volatileValueObject;
 	/**
-	 * MetaModel attribute object supporting the instance
+	 * MetaModel/Semantic attribute object supporting the instance
+	 * This attribute is not serialized (get/set differ from name)
 	 */
-	private AbstractAttribute attributeObject;
+	private AbstractAttribute volatileAttribute;
+	
+	private boolean enabled;
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public static final String
 	/**
@@ -75,146 +87,146 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 	/**
 	 * Dynamic storage of attributes
 	 */
-	protected Map<String, Object> vars = new HashMap<>();
+	protected Map<String, Object> instAttributeAttributes = new HashMap<>();
 
 	public InstAttribute() {
 
 	}
 
 	public InstAttribute(String identifier) {
-		vars.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
 	public InstAttribute(String identifier,
 			AbstractAttribute modelingAttribute, Object value) {
 		super();
-		this.attributeObject = modelingAttribute;
-		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		vars.put(VAR_VALUE, value);
-		vars.put(VAR_DISPLAYVALUE, null);
+		this.volatileAttribute = modelingAttribute;
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		instAttributeAttributes.put(VAR_VALUE, value);
+		instAttributeAttributes.put(VAR_DISPLAYVALUE, null);
 	}
 
 	public InstAttribute(String identifier,
 			AbstractAttribute modelingAttribute, Object value,
 			Object valueObject) {
 		super();
-		this.attributeObject = modelingAttribute;
-		vars.put(VAR_IDENTIFIER, identifier);
-		vars.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
-		vars.put(VAR_VALUE, value);
-		vars.put(VAR_DISPLAYVALUE, null);
-		this.valueObject = valueObject;
+		this.volatileAttribute = modelingAttribute;
+		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
+		instAttributeAttributes.put(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+		instAttributeAttributes.put(VAR_VALUE, value);
+		instAttributeAttributes.put(VAR_DISPLAYVALUE, null);
+		this.volatileValueObject = valueObject;
 
 		// this.value = value;
 	}
 
-	public Object getVariable(String name) {
-		return vars.get(name);
+	public Object getInstAttributeAttribute(String name) {
+		return instAttributeAttributes.get(name);
 	}
 
-	public void setVariable(String name, Object value) {
-		vars.put(name, value);
+	public void setInstAttributeAttribute(String name, Object value) {
+		instAttributeAttributes.put(name, value);
 	}
 
 	public void setIdentifier(String identifier) {
 		// this.identifier = identifier;
-		setVariable(VAR_IDENTIFIER, identifier);
+		setInstAttributeAttribute(VAR_IDENTIFIER, identifier);
 	}
 
 	public void setAffectProperties(boolean affectProperties) {
-		attributeObject.setAffectProperties(affectProperties);
+		volatileAttribute.setAffectProperties(affectProperties);
 	}
 
 	public boolean isAffectProperties() {
-		return attributeObject.isAffectProperties();
+		return volatileAttribute.isAffectProperties();
 	}
 
 	public void setDisplayName(String displayName) {
-		attributeObject.setDisplayName(displayName);
+		volatileAttribute.setDisplayName(displayName);
 	}
 
 	public String getDisplayName() {
-		return attributeObject.getDisplayName();
+		return volatileAttribute.getDisplayName();
 	}
 
 	public void setValidationMEList(List<MetaPairwiseRelation> metaEdge) {
 		// this.identifier = identifier;
-		setVariable(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
+		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<MetaPairwiseRelation> getValidationMEList() {
-		return (List<MetaPairwiseRelation>) getVariable(VAR_METAEDGE_LIST_VALIDATION);
+		return (List<MetaPairwiseRelation>) getInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
 	public void setValidationRelationTypes(List<IntSemanticRelationType> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticRelationType> getOverTwoRelValidationList() {
-		return (List<IntSemanticRelationType>) getVariable(VAR_OVERTWOREL_VALIDATION_LIST);
+		return (List<IntSemanticRelationType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setValidationDRList(List<IntSemanticPairwiseRelation> semGD) {
 		// this.identifier = identifier;
-		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
+		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<IntSemanticPairwiseRelation> getPairwiseRelValidationList() {
-		return (List<IntSemanticPairwiseRelation>) getVariable(VAR_PAIRWISEREL_VALIDATION_LIST);
+		return (List<IntSemanticPairwiseRelation>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
 	public void setAttribute(AbstractAttribute modelingAttribute) {
-		this.attributeObject = modelingAttribute;
+		this.volatileAttribute = modelingAttribute;
 		if (modelingAttribute != null)
-			setVariable(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
+			setInstAttributeAttribute(VAR_ATTRIBUTE_IDEN, modelingAttribute.getName());
 	}
 
 	public String getIdentifier() {
-		return (String) getVariable(VAR_IDENTIFIER);
+		return (String) getInstAttributeAttribute(VAR_IDENTIFIER);
 		// return identifier;
 	}
 
 	public AbstractAttribute getAttribute() {
-		return attributeObject;
+		return volatileAttribute;
 	}
 
 	public String getAttributeName() {
-		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttribute(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public Object getValue() {
-		return getVariable(VAR_VALUE);
+		return getInstAttributeAttribute(VAR_VALUE);
 		// return value;
 	}
 
 	public Object getDisplayValue() {
-		if (getVariable(VAR_DISPLAYVALUE) == null)
-			return getVariable(VAR_VALUE);
+		if (getInstAttributeAttribute(VAR_DISPLAYVALUE) == null)
+			return getInstAttributeAttribute(VAR_VALUE);
 		else
-			return getVariable(VAR_DISPLAYVALUE);
+			return getInstAttributeAttribute(VAR_DISPLAYVALUE);
 		// return value;
 	}
 
 	public void setValue(Object value) {
-		setVariable(VAR_VALUE, value);
+		setInstAttributeAttribute(VAR_VALUE, value);
 		// this.value = value;
 	}
 
 	public String getAttributeType() {
-		return attributeObject.getType();
+		return volatileAttribute.getType();
 	}
 
 	public Object getEnumType() {
 		// TODO Auto-generated method stub
-		return attributeObject.getClassCanonicalName();
+		return volatileAttribute.getClassCanonicalName();
 	}
 
 	public void setType(String selectedItem) {
@@ -279,34 +291,34 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			return "";
 		return val.toString();
 	}
-
-	public Map<String, Object> getVars() {
-		return vars;
+	//TODO remove non serializable attributes
+	public Map<String, Object> getInstAttributeAttributes() {
+		return instAttributeAttributes;
 	}
-
-	public void setVars(Map<String, Object> vars) {
-		this.vars = vars;
+	//TODO add non serializable attributes
+	public void setInstAttributeAttributes(Map<String, Object> vars) {
+		this.instAttributeAttributes = vars;
 	}
 
 	public void clearModelingAttribute() {
-		attributeObject = null;
-		valueObject = null;
-		setVariable(VAR_OVERTWOREL_VALIDATION_LIST, null);
-		setVariable(VAR_PAIRWISEREL_VALIDATION_LIST, null);
-		setVariable(VAR_METAEDGE_LIST_VALIDATION, null);
+	//	attributeObject = null;
+	//	valueObject = null;
+		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, null);
+		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, null);
+		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, null);
 	}
 
 	public void displayValue(String out) {
-		setVariable(VAR_DISPLAYVALUE, out);
+		setInstAttributeAttribute(VAR_DISPLAYVALUE, out);
 
 	}
 
 	public void setValueObject(Object valueObject) {
-		this.valueObject = valueObject;
+		this.volatileValueObject = valueObject;
 	}
 
 	public Object getValueObject() {
-		return valueObject;
+		return volatileValueObject;
 	}
 
 	@Override
@@ -324,27 +336,33 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 	@Override
 	public String getName() {
-		return (String) getVariable(VAR_ATTRIBUTE_IDEN);
+		return (String) getInstAttributeAttribute(VAR_ATTRIBUTE_IDEN);
 	}
 
 	public String getAttributeDefaultValue() {
-		return (String) attributeObject.getDefaultValue();
+		return (String) volatileAttribute.getDefaultValue();
 	}
 
 	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
-		if (instElement instanceof InstOverTwoRelation
-				|| instElement instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstOverTwoRelation) {
 
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType()
 							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
-						.getSupportMetaElement()).getSemanticRelationTypes();
+						.getTransSupportMetaElement()).getSemanticRelationTypes();
 				setValidationRelationTypes(semanticRelationTypes);
 			}
 		}
 		if (instElement instanceof InstPairwiseRelation) {
+			if (this.getAttribute() != null && getEnumType() != null
+					&& getEnumType()
+							.equals("com.variamos.refas.core.sematicsmetamodel.SemanticRelationType")) {
+				List<IntSemanticRelationType> semanticRelationTypes = ((MetaPairwiseRelation) instElement
+						.getTransSupportMetaElement()).getSemanticRelationTypes();
+				setValidationRelationTypes(semanticRelationTypes);
+			}
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType().equals(
 							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
@@ -354,12 +372,6 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 				while (elementNames.hasNext()) {
 					String elementName = elementNames.next();
 					if (mapElements.get(elementName) instanceof MetaPairwiseRelation) // TODO
-						// also
-						// validate
-						// origin
-						// and
-						// destination
-						// relation
 						metaGD.add((MetaPairwiseRelation) mapElements
 								.get(elementName));
 				}

@@ -292,7 +292,7 @@ public class SemanticPlusSyntax {
 
 		SemanticConcept semAssumption = new SemanticConcept(semHardConcept,
 				"Assumption");
-		semanticConcepts.put("AS", semAssumption);
+		semanticConcepts.put("Asset", semAssumption);
 
 		SemanticConcept semGoal = new SemanticConcept(semHardConcept, "Goal");
 		semGoal.addPanelVisibleAttribute("01#" + "satisfactionType");
@@ -316,7 +316,7 @@ public class SemanticPlusSyntax {
 
 		SemanticConcept semAsset = new SemanticConcept(semGeneralElement,
 				"Asset");
-		semanticConcepts.put("ASSE", semAsset);
+		semanticConcepts.put("Asset", semAsset);
 
 		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
 				semGeneralElement, "Claim", true);
@@ -1412,7 +1412,7 @@ public class SemanticPlusSyntax {
 		metaViews.add(syntaxMetaView);
 		syntaxMetaView.addConcept(sOperationalization);
 
-		MetaConcept syntaxAsset = new MetaConcept("AS", true, "Asset",
+		MetaConcept syntaxAsset = new MetaConcept("Asset", true, "Asset",
 				"refasasset", "Represents a asset of the system. The most"
 						+ " important assets to represent are those than"
 						+ " can implement operationalizations", 100, 40,
@@ -1434,7 +1434,7 @@ public class SemanticPlusSyntax {
 
 		syntaxMetaChildView.addConcept(sOperationalization);
 		syntaxMetaView.addConcept(sOperationalization);
-		syntaxElements.put("AS", syntaxAsset);
+		syntaxElements.put("Asset", syntaxAsset);
 
 		syntaxMetaChildView = new MetaView("FunctionalAssets",
 				"Functionl Assets Relations", "Assets Palette", 1);
