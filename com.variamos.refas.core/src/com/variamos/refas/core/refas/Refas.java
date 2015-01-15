@@ -2873,6 +2873,7 @@ public class Refas extends AbstractModel {
 		instView = new InstView("Assets", metaView, syntaxMetaView);
 		instViews.add(instView);
 		syntaxMetaView.addConcept(sOperationalization);
+		syntaxMetaView.addConcept(syntaxLeafFeature);		
 		instView.addInstVertex(instVertexOper);
 		instView.addInstVertex(instVertexLF);
 
@@ -2890,6 +2891,9 @@ public class Refas extends AbstractModel {
 																				// to
 		// semantic
 		// attributes
+
+		syntaxMetaView.addConcept(syntaxAsset);
+		
 		syntaxAsset.addPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addPropEditableAttribute("03#" + "name");
 		syntaxAsset.addPropVisibleAttribute("03#" + "name");
