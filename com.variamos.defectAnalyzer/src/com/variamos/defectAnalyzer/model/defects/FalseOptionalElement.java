@@ -20,7 +20,7 @@ public class FalseOptionalElement extends Defect {
 	public FalseOptionalElement(Identifier falseOptional,
 			BooleanExpression verificationExpression) {
 		this(falseOptional);
-		this.verificationExpression = verificationExpression;
+		setVerificationExpression(verificationExpression);
 	}
 
 

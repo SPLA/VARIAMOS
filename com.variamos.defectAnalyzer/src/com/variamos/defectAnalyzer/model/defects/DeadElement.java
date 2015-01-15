@@ -14,7 +14,7 @@ public class DeadElement extends Defect {
 		this.deadIdentifier = deadIdentifier;
 		this.id = deadIdentifier.getId();
 		defectType = DefectType.DEAD_FEATURE;
-		this.verificationExpression = verificationExpression;
+		setVerificationExpression(verificationExpression);
 	}
 
 	public Identifier getDeadIdentifier() {

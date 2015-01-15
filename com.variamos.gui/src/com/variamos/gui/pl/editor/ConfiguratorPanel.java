@@ -652,7 +652,9 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			String attribute = split[1];
 			if ("Selected".equals(attribute)) {
 				if (configSet.get(identifier) == 1) {// variable seleccionada
-					sb.append(" "+refas2hlcl.getRefas().getVertex(vertexId) + " "); // create object Solution and
+					String var=refas2hlcl.getRefas().getVertex(vertexId).toString();
+					if(!var.contains("mutex") && !var.contains("and") && !var.contains("or"))
+					sb.append(" "+ var + " "); // create object Solution and
 												// save all the info of the
 												// solution
 				}
@@ -674,10 +676,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			boolean existe=false;
 			for (int i = 0; i < model.getRowCount(); i++) {
 				String lastConf = (String) model.getValueAt(
-						i, 1);
-				
-				
-				
+						i, 1);				
 				if (lastConf.equals(sb.toString())) {
 					existe=true;
 					break;
@@ -1299,5 +1298,4 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// public void setOperationMode(OperationMode operationMode) {
 	// this.operationMode = operationMode;
 	// }
-
 }

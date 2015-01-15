@@ -57,6 +57,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
@@ -1298,11 +1299,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void executeSimulation(boolean first, int type) {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
-		if (first)
-		{		
+		if (first) {
 			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, type);
-		}			
-		else
+		} else
 			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION, type);
 		if (result) {
 			refas2hlcl.updateGUIElements();
@@ -1463,70 +1462,80 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// }
 
 	public void verifyErrors() {
-		refas2hlcl.cleanElementsOptional();
-		HlclFactory f = new HlclFactory();
-		Collection<InstPairwiseRelation> pairwiseRelations = ((Refas) getEditedModel())
-				.getConstraintInstEdgesCollection();
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
 
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
-		HlclProgram hlclProgram = refas2hlcl
-				.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
-		Set<Identifier> identifiers = new HashSet<Identifier>();
+		try {
+			refas2hlcl.cleanElementsOptional();
+			HlclFactory f = new HlclFactory();
+			IntDefectsVerifier defectVerifier = new DefectsVerifier(
+					SolverEditorType.SWI_PROLOG);
+			HlclProgram hlclProgram = refas2hlcl
+					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
+			Collection<InstVertex> pairwiseRelations = ((Refas) getEditedModel())
+					.getVariabilityVertexCollection();
+			Set<Identifier> identifiers = new HashSet<Identifier>();
+			for (InstVertex pairwiseRelation : pairwiseRelations) {
+				if (pairwiseRelation.isOptional())
+					identifiers.add(f.newIdentifier(pairwiseRelation
+							.getIdentifier()
+							+ "_"
+							+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
 
-		for (InstPairwiseRelation pairwiseRelation : pairwiseRelations) {
-			if (pairwiseRelation.isOptional())
-				identifiers.add(f.newIdentifier(pairwiseRelation
-						.getSourceRelations().get(0).getIdentifier()
-						+ "_" + AbstractSemanticVertex.VAR_SELECTED_IDEN));
-		}
-		List<Defect> falseOptionalList = defectVerifier
-				.getFalseOptionalElements(hlclProgram, identifiers);
-		if (falseOptionalList.size() > 0) {
-			List<String> outIdentifiers = new ArrayList<String>();
-			String defects = "(";
-			for (Defect defect : falseOptionalList) {
-				String[] o = defect.getId().split("_");
-				defects += o[0] + ", ";
-				outIdentifiers.add(o[0]);
 			}
-			refas2hlcl.updateErrorMark(outIdentifiers);
-			defects = defects.substring(0, defects.length() - 2) + ")";
 
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-				JOptionPane.showMessageDialog(frame, falseOptionalList.size()
-						+ " false optional element(s) found on the model. "
-						+ defects, "Verification Message",
+			List<Defect> falseOptionalList = defectVerifier
+					.getFalseOptionalElements(hlclProgram, identifiers);
+
+			if (falseOptionalList.size() > 0) {
+				List<String> outIdentifiers = new ArrayList<String>();
+				String defects = "(";
+				for (Defect defect : falseOptionalList) {
+					String[] o = defect.getId().split("_");
+					defects += o[0] + ", ";
+					outIdentifiers.add(o[0]);
+				}
+				refas2hlcl.updateErrorMark(outIdentifiers);
+				defects = defects.substring(0, defects.length() - 2) + ")";
+
+				try {
+					((RefasGraph) getGraphComponent().getGraph())
+							.refreshVariable(lastEditableElement);
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									falseOptionalList.size()
+											+ " false optional element(s) found on the model. "
+											+ defects, "Verification Message",
+									JOptionPane.INFORMATION_MESSAGE, null);
+				} catch (Exception e) {
+					lastEditableElement = null;
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Please select any element and after execute the verification.",
+									"Verification Message",
+									JOptionPane.INFORMATION_MESSAGE, null);
+				}
+
+			} else {
+				refas2hlcl.updateErrorMark(null);
+				JOptionPane.showMessageDialog(frame,
+						"No false optional elements identifed on the model.",
+						"Verification Message",
 						JOptionPane.INFORMATION_MESSAGE, null);
-			} catch (Exception e) {
-				lastEditableElement = null;
+			}
+			if (lastEditableElement == null)
 				JOptionPane
 						.showMessageDialog(
 								frame,
 								"Please select any element and after execute the verification.",
 								"Verification Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
-			}
 
-		} else {
-			refas2hlcl.updateErrorMark(null);
-			JOptionPane.showMessageDialog(frame,
-					"No false optional elements identifed on the model.",
+		} catch (FunctionalException e) {
+			JOptionPane.showMessageDialog(frame, e.getMessage(),
 					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
 					null);
 		}
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Please select any element and after execute the verification.",
-							"Verification Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
 	}
 
 	public void identifyCoreConcepts() {
@@ -1534,12 +1543,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		HlclFactory f = new HlclFactory();
 		Collection<InstVertex> instVertices = ((Refas) getEditedModel())
 				.getVariabilityVertexCollection();
-		// Make input DTO
-		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
 
-		// Set Prolog editor type
-		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(
+				SolverEditorType.SWI_PROLOG);
 		HlclProgram hlclProgram = refas2hlcl
 				.getHlclProgram(Refas2Hlcl.CORE_EXEC);
 		Set<Identifier> identifiers = new HashSet<Identifier>();
@@ -1548,23 +1554,31 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			identifiers.add(f.newIdentifier(instVertex.getIdentifier() + "_"
 					+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
 		}
-		List<Defect> coreConceptsList = defectVerifier
-				.getFalseOptionalElements(hlclProgram, identifiers);
-
-		List<String> outIdentifiers = new ArrayList<String>();
-		if (coreConceptsList.size() > 0) {			
-			for (Defect conceptVariable : coreConceptsList) {
-				String[] conceptId = conceptVariable.getId().split("_");
-				outIdentifiers.add(conceptId[0]);
-			}
-		}
-		refas2hlcl.updateCoreConcepts(outIdentifiers);
-
+		List<Defect> coreConceptsList;
 		try {
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
-		} catch (Exception e) {
-			lastEditableElement = null;
+			coreConceptsList = defectVerifier.getFalseOptionalElements(
+					hlclProgram, identifiers);
+			List<String> outIdentifiers = new ArrayList<String>();
+			if (coreConceptsList.size() > 0) {
+				for (Defect conceptVariable : coreConceptsList) {
+					String[] conceptId = conceptVariable.getId().split("_");
+					outIdentifiers.add(conceptId[0]);
+				}
+			}
+			refas2hlcl.updateCoreConcepts(outIdentifiers);
+
+			try {
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+			} catch (Exception e) {
+				lastEditableElement = null;
+			}
+
+		} catch (FunctionalException e1) {
+			JOptionPane.showMessageDialog(frame, e1.getMessage(),
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
 		}
+
 	}
 }
