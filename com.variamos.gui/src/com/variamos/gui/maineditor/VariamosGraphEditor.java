@@ -39,8 +39,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.cfm.common.AbstractModel;
+import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.HlclProgram;
+import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
@@ -58,11 +60,18 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.defectAnalyzer.CauCosAnayzer;
 import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
+import com.variamos.defectAnalyzer.defectAnalyzer.IntCauCosAnalyzer;
 import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
+import com.variamos.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.defectAnalyzer.model.CauCos;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.defects.FalseOptionalElement;
+import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.defectAnalyzer.model.enums.DefectType;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.PLEditorToolBar;
@@ -1470,15 +1479,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					SolverEditorType.SWI_PROLOG);
 			HlclProgram hlclProgram = refas2hlcl
 					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
-			Collection<InstVertex> pairwiseRelations = ((Refas) getEditedModel())
-					.getVariabilityVertexCollection();
+			Collection<InstPairwiseRelation> pairwiseRelations = ((Refas) getEditedModel())
+					.getConstraintInstEdgesCollection();
 			Set<Identifier> identifiers = new HashSet<Identifier>();
-			for (InstVertex pairwiseRelation : pairwiseRelations) {
+			for (InstPairwiseRelation pairwiseRelation : pairwiseRelations) {
 				if (pairwiseRelation.isOptional())
 					identifiers.add(f.newIdentifier(pairwiseRelation
-							.getIdentifier()
-							+ "_"
-							+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
+							.getSourceRelations().get(0).getIdentifier()
+							+ "_" + AbstractSemanticVertex.VAR_SELECTED_IDEN));
 
 			}
 
@@ -1496,6 +1504,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				refas2hlcl.updateErrorMark(outIdentifiers);
 				defects = defects.substring(0, defects.length() - 2) + ")";
 
+				IntCauCosAnalyzer defectsAnalyzer= new CauCosAnayzer();
+			//	DefectAnalyzerResult result= defectsAnalyzer.getCauCos(falseOptionalList, hlclProgram, fixedConstraints, DefectAnalyzerMode.PARTIAL);
 				try {
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
@@ -1523,6 +1533,65 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						"Verification Message",
 						JOptionPane.INFORMATION_MESSAGE, null);
 			}
+			if (lastEditableElement == null)
+				JOptionPane
+						.showMessageDialog(
+								frame,
+								"Please select any element and after execute the verification.",
+								"Verification Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+
+		} catch (FunctionalException e) {
+			JOptionPane.showMessageDialog(frame, e.getMessage(),
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
+		}
+	}
+	
+	public void verifyRoot() {
+
+		try {
+			HlclFactory f = new HlclFactory();
+			HlclProgram hlclProgram = refas2hlcl
+					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
+
+			Defect defect = new Defect(refas2hlcl.rootVerityTest());
+			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+			HlclProgram fixed = new HlclProgram();
+				IntCauCosAnalyzer defectsAnalyzer= new CauCosAnayzer();
+				Diagnosis result= defectsAnalyzer.getCauCos(defect, refas2hlcl.rootRelaxedTest(), fixed, DefectAnalyzerMode.PARTIAL);
+
+					List<String> outIdentifiers = new ArrayList<String>();
+					String defects = "(";
+					for (CauCos correction : result.getCorrections()) {
+						List<BooleanExpression> corr = correction.getElements();
+						Set<Identifier> iden= HlclUtil.getUsedIdentifiers(corr.get(0));
+						Identifier firsIden = iden.iterator().next();
+						String[] o = firsIden.getId().split("_");
+						defects += o[0] + ", ";
+						outIdentifiers.add(o[0]);
+					}
+					refas2hlcl.updateErrorMark(outIdentifiers);
+
+				try {
+					((RefasGraph) getGraphComponent().getGraph())
+							.refreshVariable(lastEditableElement);
+					JOptionPane
+							.showMessageDialog(
+									frame,
+											" Too many roots. "
+											+ defects, "Verification Message",
+									JOptionPane.INFORMATION_MESSAGE, null);
+				} catch (Exception e) {
+					lastEditableElement = null;
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Please select any element and after execute the verification.",
+									"Verification Message",
+									JOptionPane.INFORMATION_MESSAGE, null);
+				}
+
 			if (lastEditableElement == null)
 				JOptionPane
 						.showMessageDialog(

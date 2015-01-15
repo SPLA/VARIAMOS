@@ -390,7 +390,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				// Se inserta la transition constraint en el primer elemento
 				newUnsatisfiableSet.add(0, transitionClause);
 			} else {
-				throw new RuntimeException("Verificar enfoque dicothomic");
+				throw new FunctionalException("Verify dicothomic approach to identify defect corrections");
 			}
 			identifiedTransitionConstraints = identifiedTransitionConstraints + 1;
 			unsatisfiableSize = newUnsatisfiableSet.size();
