@@ -1536,7 +1536,9 @@ public class EditorActions {
 										.toLowerCase().endsWith(".plg")) {
 									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 									// variamosEditor.editModelReset();
-
+									SharedActions.beforeLoadGraph(graph,
+											variamosEditor);
+									
 									PLGReader.loadPLG(fc.getSelectedFile(),
 											graph);
 									editor.setCurrentFile(fc.getSelectedFile());

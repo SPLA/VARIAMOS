@@ -138,6 +138,8 @@ public class OpenAction extends AbstractEditorAction{
 //										graph.getModel());
 								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 								//variamosEditor.editModelReset();
+
+								SharedActions.beforeLoadGraph(graph, variamosEditor);
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc

@@ -240,14 +240,13 @@ public class ElementDesignPanel extends JPanel {
 						List<InstAttribute> editables = elm
 								.getEditableVariables();
 
-						if (!editables.contains(v))
-							// || editor.getPerspective() == 4)
-							// TODO activate
+						if (!editables.contains(v)
+								|| editor.getPerspective() == 4)
+
 						{
 							w.getEditor().setEnabled(false);
 
 						}
-						
 
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));

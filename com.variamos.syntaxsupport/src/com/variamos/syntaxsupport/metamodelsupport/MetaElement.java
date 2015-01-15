@@ -203,6 +203,10 @@ public abstract class MetaElement implements Serializable {
 	public String getImage() {
 		return image;
 	}
+	
+	public abstract Set<String> getSemanticAttributes() ;
+	
+	public abstract AbstractAttribute getSemanticAttribute(String name);
 
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
 		this.propVisibleAttributes = disPropVisibleAttributes;

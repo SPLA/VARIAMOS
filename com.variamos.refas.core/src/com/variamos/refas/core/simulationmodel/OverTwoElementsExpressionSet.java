@@ -57,8 +57,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
-		SingleElementExpressionSet restConst = new SingleElementExpressionSet(identifier,
-				idMap, hlclFactory, instOverTwoRelation, execType);
+		SingleElementExpressionSet restConst = new SingleElementExpressionSet(
+				identifier, idMap, hlclFactory, instOverTwoRelation, execType);
 		getTransformations().addAll(restConst.getTransformations());
 		defineTransformations();
 	}
@@ -75,17 +75,15 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 		MetaElement metaGroupDep = instOverTwoRelation
 				.getTransSupportMetaElement();
-		boolean targetActiveAttribute =false;
-		if (instOverTwoRelation
-				.getTargetRelations().size() > 0)
-			//TODO support multiple targets
-			targetActiveAttribute = (boolean) ((InstPairwiseRelation)instOverTwoRelation
-				.getTargetRelations().get(0)).getTargetRelations().get(0).getInstAttribute("Active")
-				.getValue(); 
-		if (targetActiveAttribute
-				&& metaGroupDep != null) {
-			relationType = (String)instOverTwoRelation.getInstAttribute(
-							SemanticOverTwoRelation.VAR_RELATIONTYPE_IDEN).getValue();
+		boolean targetActiveAttribute = false;
+		if (instOverTwoRelation.getTargetRelations().size() > 0)
+			// TODO support multiple targets
+			targetActiveAttribute = (boolean) ((InstPairwiseRelation) instOverTwoRelation
+					.getTargetRelations().get(0)).getTargetRelations().get(0)
+					.getInstAttribute("Active").getValue();
+		if (targetActiveAttribute && metaGroupDep != null) {
+			relationType = (String) instOverTwoRelation.getInstAttribute(
+					SemanticOverTwoRelation.VAR_RELATIONTYPE_IDEN).getValue();
 			// System.out.println(relationType);
 
 			for (String sourceName : instOverTwoRelation
@@ -97,7 +95,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 				AbstractExpression recursiveExpression2 = null;
 				if (instEdges1.hasNext()) {
 					InstElement left1 = instEdges1.next();
-					while ((boolean) ((InstPairwiseRelation)left1).getSourceRelations().get(0)
+					while ((boolean) ((InstPairwiseRelation) left1)
+							.getSourceRelations().get(0)
 							.getInstAttribute("Active").getValue() == false) {
 						if (instEdges1.hasNext())
 							left1 = instEdges1.next();
@@ -146,13 +145,14 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					default:
 						return;
 					}
-					if (!relationType.equals("and") && sourceName.equals("Core"))
+					if (!relationType.equals("and")
+							&& sourceName.equals("Core"))
 						continue;
 					Constructor<?> constructor1 = null, constructor2 = null;
 					try {
 						constructor1 = abstractTransformation.getClass()
-								.getConstructor(InstElement.class, String.class,
-										Boolean.TYPE,
+								.getConstructor(InstElement.class,
+										String.class, Boolean.TYPE,
 										AbstractExpression.class);
 						constructor2 = abstractTransformation.getClass()
 								.getConstructor(InstElement.class,
@@ -174,8 +174,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 								constructor2, instEdges1, left1, sourceName);
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
-										instOverTwoRelation, sourceName,
-										true, recursiveExpression1));
+										instOverTwoRelation, sourceName, true,
+										recursiveExpression1));
 						break;
 					case "mutex":
 						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
@@ -187,8 +187,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 								new NumberNumericExpression(1));
 						getTransformations().add(
 								new DoubleImplicationBooleanExpression(
-										instOverTwoRelation, sourceName,
-										true, transformation1));
+										instOverTwoRelation, sourceName, true,
+										transformation1));
 
 						break;
 					case "range":
@@ -229,7 +229,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		}
 	}
 
-	//TODO refactor createExpression
+	// TODO refactor createExpression
 	private AbstractExpression transformation(Constructor<?> constructor1,
 			Constructor<?> constructor2, Iterator<InstElement> instEdges,
 			InstElement left, String sourceName) {
@@ -238,8 +238,9 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstPairwiseRelation) instEdge).getSourceRelations().get(0)
-					.getInstAttribute("Active").getValue() == false) {
+			while ((boolean) ((InstPairwiseRelation) instEdge)
+					.getSourceRelations().get(0).getInstAttribute("Active")
+					.getValue() == false) {
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
 				else
@@ -247,13 +248,16 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					// with one
 					// element
 					return new AndBooleanExpression(
-							((InstPairwiseRelation)left).getSourceRelations().get(0), ((InstPairwiseRelation)left).getSourceRelations().get(0),
-							sourceName, sourceName);
+							((InstPairwiseRelation) left).getSourceRelations()
+									.get(0), ((InstPairwiseRelation) left)
+									.getSourceRelations().get(0), sourceName,
+							sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {
 					return (AbstractExpression) constructor1.newInstance(
-							((InstPairwiseRelation)left).getSourceRelations().get(0),
+							((InstPairwiseRelation) left).getSourceRelations()
+									.get(0),
 							sourceName,
 							true,
 							transformation(constructor1, constructor2,
@@ -265,8 +269,9 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			} else
 				try {
 					return (AbstractExpression) constructor2.newInstance(
-							((InstPairwiseRelation)left).getSourceRelations().get(0),
-							((InstPairwiseRelation)instEdge).getSourceRelations().get(0), sourceName,
+							((InstPairwiseRelation) left).getSourceRelations()
+									.get(0), ((InstPairwiseRelation) instEdge)
+									.getSourceRelations().get(0), sourceName,
 							sourceName);
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
@@ -275,8 +280,9 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		} else
 			// TODO define a cleaner way to deal with group relations with one
 			// element
-			return new AndBooleanExpression(((InstPairwiseRelation)left).getSourceRelations().get(0),
-					((InstPairwiseRelation)left).getSourceRelations().get(0), sourceName, sourceName);
+			return new AndBooleanExpression(((InstPairwiseRelation) left)
+					.getSourceRelations().get(0), ((InstPairwiseRelation) left)
+					.getSourceRelations().get(0), sourceName, sourceName);
 		return null;
 	}
 }
