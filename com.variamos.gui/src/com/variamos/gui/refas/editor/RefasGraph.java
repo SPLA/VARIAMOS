@@ -65,7 +65,7 @@ public class RefasGraph extends AbstractGraph {
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
 	private boolean validation = true;
-	private int perspective=2;
+	private int perspective = 2;
 
 	public boolean isValidation() {
 		return validation;
@@ -578,7 +578,7 @@ public class RefasGraph extends AbstractGraph {
 			refas.removeElement((InstElement) obj);
 	}
 
-	protected void removingClones(mxCell cell) {
+	protected void removingss(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
 		Object o = refasGraph.getRoot(); // Main Root
@@ -894,8 +894,8 @@ public class RefasGraph extends AbstractGraph {
 		else if (modelViewSubIndex == -1)
 			cell = getCellById(modelViewIndex + e.getIdentifier());
 		else
-			cell = getCellById(modelViewIndex + "-" + modelViewSubIndex
-					+ e.getIdentifier());
+			cell = getCellById(modelViewIndex + e.getIdentifier() + "-"
+					+ modelViewSubIndex);
 		// Update visibility
 		if (e instanceof VariabilityElement) {
 			VariabilityElement v = (VariabilityElement) e;

@@ -139,7 +139,7 @@ public class RefasExpressionPanel extends JPanel {
 		setLayout(new BorderLayout());
 		solutionPanel = new JPanel(new SpringLayout());
 		List<AbstractExpression> expressions = expressionSet
-				.getTransformations();
+				.getElementExpressions();
 		for (AbstractExpression expression : expressions) {
 			showExpression(expression, element, solutionPanel, 255);
 		}

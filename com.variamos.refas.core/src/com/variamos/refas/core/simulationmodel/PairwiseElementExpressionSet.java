@@ -22,10 +22,7 @@ import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 
 //TODO refactor: PairwiseElementExpressionSet
 /**
@@ -146,7 +143,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractNumericExpression transformation7 = new SumNumericExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", false, transformation6);
-				getTransformations().add(
+				getElementExpressions().add(
 						new GreaterOrEqualsBooleanExpression(transformation7,
 								new NumberNumericExpression(1)));
 				// SourceId_Core #==>
@@ -154,7 +151,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0), "Core",
 						getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation.getSourceRelations().get(0),
 								"Core", true, transformation9));
 				
@@ -169,7 +166,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Satisfied", "Satisfied");
-				getTransformations().add(
+				getElementExpressions().add(
 						new LessOrEqualsBooleanExpression(transformation76,
 								new NumberNumericExpression(1)));
 				// SourceId_Satisfied #==> targetId_SatisfactionConflict #= 1
@@ -231,7 +228,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NextReqSatisfied", getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getSourceRelations().get(0), "Satisfied",
 								true, transformation16));
@@ -241,7 +238,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation199 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0), "Core",
 						getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation.getSourceRelations().get(0),
 								"Core", true, transformation199));
 				break;
@@ -253,7 +250,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "NextReqSelected", true,
 								transformation18));
@@ -261,7 +258,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation188 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "NextPrefSelected", true,
 								transformation188));
@@ -270,7 +267,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation189 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0), "Core",
 						getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation.getTargetRelations().get(0),
 								"Core", true, transformation189));
 				break;
@@ -290,7 +287,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation201= new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "NextPrefSelected", true,
 								transformation201));
@@ -299,7 +296,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation20 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "NextReqSelected", true,
 								transformation20));
@@ -308,7 +305,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation200 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0), "Core",
 						getHlclFactory().number(1));
-				getTransformations().add(
+				getElementExpressions().add(
 						new ImplicationBooleanExpression(instPairwiseRelation.getTargetRelations().get(0),
 								"Core", true, transformation200));
 				
@@ -323,7 +320,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								"Selected", "Selected"));
 */
 				// targetId_Optional #= 1
-				getTransformations().add(
+				getElementExpressions().add(
 						new EqualsComparisonExpression(instPairwiseRelation
 								.getTargetRelations().get(0), "Optional",
 								getHlclFactory().number(1)));
@@ -337,7 +334,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				// SourceId_CompExp #==>
 				// targetId_level #= R_level
 				// TODO review
-				getTransformations().add(
+				getElementExpressions().add(
 						new EqualsComparisonExpression(instPairwiseRelation
 								.getSourceRelations().get(0), "CompExp",
 								getHlclFactory().number(1)));
@@ -351,7 +348,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 
 				AbstractBooleanExpression transformation23 = new ImplicationBooleanExpression(
 						transformation21, transformation22);
-				getTransformations().add(
+				getElementExpressions().add(
 						new DoubleImplicationBooleanExpression(
 								instPairwiseRelation.getSourceRelations()
 										.get(0), "ClaimSelected", true,
@@ -362,7 +359,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				// targetId_level #=
 				// R_level
 				// TODO review
-				getTransformations().add(
+				getElementExpressions().add(
 						new EqualsComparisonExpression(instPairwiseRelation
 								.getSourceRelations().get(0), "CompExp",
 								getHlclFactory().number(1)));
@@ -373,7 +370,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractBooleanExpression transformation25 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"CompExp", true, transformation24);
-				getTransformations().add(
+				getElementExpressions().add(
 						new DoubleImplicationBooleanExpression(
 								instPairwiseRelation.getSourceRelations()
 										.get(0), "SDSelected", true,
@@ -384,7 +381,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				String attributeValue = (String) instPairwiseRelation
 						.getInstAttribute("generalConstraint").getValue();
 				if (attributeValue != null && !attributeValue.equals(""))
-					getTransformations().add(
+					getElementExpressions().add(
 							new LiteralBooleanExpression(attributeValue));
 
 				break;

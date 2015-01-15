@@ -11,7 +11,6 @@ import com.variamos.refas.core.expressions.AndBooleanExpression;
 import com.variamos.refas.core.expressions.DiffNumericExpression;
 import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
-import com.variamos.refas.core.expressions.GreaterBooleanExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
@@ -99,24 +98,46 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							attributeValue = (Integer) instAttribute.getValue();
 					}
 
+					if (instAttribute.getIdentifier().equals("IsRootFeature")){
+						if (instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature"))
+						{
+							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
+							list.add(new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(1)));
+							this.getRelaxableExpressions().put("Root",list);
+							
+						}
+						else
+						{
+							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
+							list.add(new EqualsComparisonExpression(
+									instVertex, instAttribute.getIdentifier(),
+									getHlclFactory().number(0)));
+							this.getRelaxableExpressions().put("Root",list);
+							
+						}
+					}
+					
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
-						if (execType == Refas2Hlcl.DESIGN_EXEC)
-							getTransformations().add(
+						if (execType == Refas2Hlcl.CORE_EXEC)
+							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
-													.getIdentifier(), "Core"));
+													.getIdentifier(), "Core"))
+													;
 						else {
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1));
-							getTransformations().add(
+							getElementExpressions().add(
 									new ImplicationBooleanExpression(
 											instVertex, "Core", true,
 											transformation7));
 
 							if (attributeValue == 1
 									|| execType == Refas2Hlcl.SIMUL_EXEC)
-								getTransformations().add(
+								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
 														.getIdentifier(),
@@ -125,7 +146,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
 									instVertex, "ConfigSatisfied",
 									getHlclFactory().number(1));
-							getTransformations().add(
+							getElementExpressions().add(
 									new ImplicationBooleanExpression(
 											instVertex, instAttribute
 													.getIdentifier(), true,
@@ -134,7 +155,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
 									instVertex, "ConfigNotSelected",
 									getHlclFactory().number(0));
-							getTransformations().add(
+							getElementExpressions().add(
 									new ImplicationBooleanExpression(
 											instVertex, instAttribute
 													.getIdentifier(), true,
@@ -146,7 +167,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// identifierId_ConfigSatisfied #= 1
 					if (instAttribute.getIdentifier().equals("ConfigSatisfied")) {
 						if (execType == Refas2Hlcl.DESIGN_EXEC)
-							getTransformations().add(
+							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
 													.getIdentifier(), "Core"));
@@ -154,14 +175,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1));
-							getTransformations().add(
+							getElementExpressions().add(
 									new ImplicationBooleanExpression(
 											instVertex, "Core", true,
 											transformation7));
 
 							if (attributeValue == 1
 									|| execType == Refas2Hlcl.SIMUL_EXEC)
-								getTransformations().add(
+								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
 														.getIdentifier(),
@@ -185,7 +206,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 						if (attributeValue == 1
 								|| execType == Refas2Hlcl.SIMUL_EXEC)
-							getTransformations().add(
+							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instAttribute.getIdentifier(),
 											getHlclFactory().number(
@@ -194,7 +215,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
 								instVertex, "Selected", getHlclFactory()
 										.number(0));
-						getTransformations().add(
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation8));
@@ -208,7 +229,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							"ConfigNotSatisfied")) {
 						if (attributeValue == 1
 								|| execType == Refas2Hlcl.SIMUL_EXEC)
-							getTransformations().add(
+							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instAttribute.getIdentifier(),
 											getHlclFactory().number(
@@ -217,7 +238,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
 								instVertex, "ConfigNotSelected",
 								getHlclFactory().number(1));
-						getTransformations().add(
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation8));
@@ -225,7 +246,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
 								instVertex, "ConfigSatisfied", getHlclFactory()
 										.number(0));
-						getTransformations().add(
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation9));
@@ -233,7 +254,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractComparisonExpression transformation10 = new EqualsComparisonExpression(
 								instVertex, "Satisfied", getHlclFactory()
 										.number(0));
-						getTransformations().add(
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation10));
@@ -241,8 +262,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 					// identifierId_Core #= value for simulation
 					if (instAttribute.getIdentifier().equals("Core")
-							&& execType == Refas2Hlcl.SIMUL_EXEC) {
-						getTransformations()
+							&& execType != Refas2Hlcl.CORE_EXEC) {
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
@@ -255,13 +276,13 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								|| element.getIdentifier().equals(
 										"GeneralFeature")) {
 							if (parent(instVertex))
-								getTransformations().add(
+								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
 														.getIdentifier(),
 												getHlclFactory().number(1)));
 							else
-								getTransformations().add(
+								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
 														.getIdentifier(),
@@ -278,12 +299,12 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					if (instAttribute.getIdentifier().equals("Required")) {
 
 						// identifierId_SimRequired #= identifierId_Required
-						getTransformations()
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
@@ -292,7 +313,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						// identifierId_Core #= 1
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
 								instVertex, "Core", getHlclFactory().number(1));
-						getTransformations().add(
+						getElementExpressions().add(
 								new ImplicationBooleanExpression(instVertex,
 										instAttribute.getIdentifier(), true,
 										transformation9));
@@ -302,12 +323,12 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// identifierId_SimInitialRequiredLevel #=
 					// identifierId_RequiredLevel
 					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
-						getTransformations()
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "InitialRequiredLevel",
 										instAttribute.getIdentifier()));
@@ -322,7 +343,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instAttribute.getIdentifier(), false,
 								transformation1);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new GreaterOrEqualsBooleanExpression(
 										transformation1,
 										new NumberNumericExpression(1)));
@@ -337,7 +358,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instAttribute.getIdentifier(), false,
 								transformation2);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new GreaterOrEqualsBooleanExpression(
 										transformation2,
 										new NumberNumericExpression(1)));
@@ -350,7 +371,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						// IdentifierId_NextPrefSatisfied ) #\/
 						// ( IdentifierId_NextReqSatisfied )
 						// #/\ ( 1 - identifierId_NextNotSatisfied ) )
-						getTransformations()
+						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
@@ -364,7 +385,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instVertex, "NextNotSatisfied");
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								transformation7, transformation9);
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Satisfied", true,
 										transformation10));
@@ -381,7 +402,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
 								transformation50,
 								new NumberNumericExpression(1));
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextNotSelected", true,
 										transformation51));
@@ -402,7 +423,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instVertex, "Core");
 						AbstractBooleanExpression transformation53 = new AndBooleanExpression(
 								transformation52, transformation51);
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextReqSelected", true,
 										transformation53));
@@ -442,7 +463,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation57 = new SumNumericExpression(
 								transformation55, transformation56);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										"Order", true, transformation57));
 					}
@@ -466,7 +487,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instVertex, "NextNotSelected");
 						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
 								transformation7, transformation9);
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Selected", true,
 										transformation10));
@@ -510,13 +531,13 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						AbstractNumericExpression transformation60 = new SumNumericExpression(
 								transformation54, transformation59);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										"Opt", true, transformation60));
 
 						// Opt#=0
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										"Opt", getHlclFactory().number(0)));
 

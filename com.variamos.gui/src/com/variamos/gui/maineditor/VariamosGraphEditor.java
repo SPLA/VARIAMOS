@@ -1266,8 +1266,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 		if (perspective == 4) {
 
-			//executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
-			
+			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
+
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
 			SharedActions.cloneGraph(source, target);
@@ -1299,7 +1299,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		if (first)
+		{		
 			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, type);
+		}			
 		else
 			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION, type);
 		if (result) {
@@ -1527,4 +1529,42 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							JOptionPane.INFORMATION_MESSAGE, null);
 	}
 
+	public void identifyCoreConcepts() {
+		refas2hlcl.cleanElementsOptional();
+		HlclFactory f = new HlclFactory();
+		Collection<InstVertex> instVertices = ((Refas) getEditedModel())
+				.getVariabilityVertexCollection();
+		// Make input DTO
+		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
+
+		// Set Prolog editor type
+		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
+		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
+		HlclProgram hlclProgram = refas2hlcl
+				.getHlclProgram(Refas2Hlcl.CORE_EXEC);
+		Set<Identifier> identifiers = new HashSet<Identifier>();
+
+		for (InstVertex instVertex : instVertices) {
+			identifiers.add(f.newIdentifier(instVertex.getIdentifier() + "_"
+					+ AbstractSemanticVertex.VAR_SELECTED_IDEN));
+		}
+		List<Defect> coreConceptsList = defectVerifier
+				.getFalseOptionalElements(hlclProgram, identifiers);
+
+		List<String> outIdentifiers = new ArrayList<String>();
+		if (coreConceptsList.size() > 0) {			
+			for (Defect conceptVariable : coreConceptsList) {
+				String[] conceptId = conceptVariable.getId().split("_");
+				outIdentifiers.add(conceptId[0]);
+			}
+		}
+		refas2hlcl.updateCoreConcepts(outIdentifiers);
+
+		try {
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
+		} catch (Exception e) {
+			lastEditableElement = null;
+		}
+	}
 }
