@@ -1299,11 +1299,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		if (first)
-		{
-			if (type == Refas2Hlcl.DESIGN_EXEC)
-			{
-				identifyCoreConcepts();
-			}				
+		{		
 			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, type);
 		}			
 		else
@@ -1545,7 +1541,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		verifierInDTO.setSolverEditorType(SolverEditorType.SWI_PROLOG);
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(verifierInDTO);
 		HlclProgram hlclProgram = refas2hlcl
-				.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
+				.getHlclProgram(Refas2Hlcl.CORE_EXEC);
 		Set<Identifier> identifiers = new HashSet<Identifier>();
 
 		for (InstVertex instVertex : instVertices) {

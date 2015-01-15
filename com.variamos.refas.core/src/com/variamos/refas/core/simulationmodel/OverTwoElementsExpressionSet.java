@@ -59,7 +59,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		this.instOverTwoRelation = instOverTwoRelation;
 		SingleElementExpressionSet restConst = new SingleElementExpressionSet(
 				identifier, idMap, hlclFactory, instOverTwoRelation, execType);
-		getTransformations().addAll(restConst.getTransformations());
+		getElementExpressions().addAll(restConst.getElementExpressions());
 		defineTransformations();
 	}
 
@@ -172,7 +172,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						// A2_"attribute" ) #\/ ... )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instOverTwoRelation, sourceName, true,
 										recursiveExpression1));
@@ -185,7 +185,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						AbstractExpression transformation1 = new EqualsComparisonExpression(
 								recursiveExpression1,
 								new NumberNumericExpression(1));
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instOverTwoRelation, sourceName, true,
 										transformation1));
@@ -210,7 +210,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						AbstractExpression transformation5 = new AndBooleanExpression(
 								transformation3, transformation4);
 
-						getTransformations().add(
+						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instOverTwoRelation/*
 															 * .getTargetRelations

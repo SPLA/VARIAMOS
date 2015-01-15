@@ -1,6 +1,7 @@
 package com.variamos.refas.core.simulationmodel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,16 @@ public abstract class MetaExpressionSet {
 	/**
 	 * 
 	 */
-	private List<AbstractExpression> transformations;
+	private List<AbstractExpression> elementExpressions;
+	/**
+	 * 
+	 */
+	private Map<String,List<AbstractExpression>> relaxableExpressions;
+	/**
+	 * 
+	 */
+	private Map<String,List<AbstractExpression>> compulsoryExpressions;
+	
 	/**
 	 * 
 	 */
@@ -58,7 +68,9 @@ public abstract class MetaExpressionSet {
 	public MetaExpressionSet(String identifier, String description,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super();
-		transformations = new ArrayList<AbstractExpression>();
+		elementExpressions = new ArrayList<AbstractExpression>();
+		relaxableExpressions = new HashMap<String,List<AbstractExpression>>();
+		compulsoryExpressions = new HashMap<String,List<AbstractExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
 		this.identifier = identifier;
@@ -94,15 +106,35 @@ public abstract class MetaExpressionSet {
 	}
 
 
-	public List<AbstractExpression> getTransformations() {
-		return transformations;
+	public List<AbstractExpression> getElementExpressions() {
+		return elementExpressions;
+	}
+	
+	public Map<String,List<AbstractExpression>> getRelaxableExpressions() {
+		return relaxableExpressions;
+	}
+	
+	public Map<String,List<AbstractExpression>> getCompulsoryExpressions() {
+		return compulsoryExpressions;
 	}
 
+	public List<AbstractExpression> getRelaxableExpressionList(String element) {
+		return relaxableExpressions.get(element);
+	}
+
+	public List<AbstractExpression> getCompulsoryExpressionList(String element) {
+		return compulsoryExpressions.get(element);
+	}
+
+	/**
+	 * Expression for textual representation
+	 * @return
+	 */
 	public List<Expression> getExpressions() {
 		List<Expression> out = new ArrayList<Expression>();
-		for (AbstractExpression transformation : transformations) {
-			idMap.putAll(transformation.getIdentifiers(hlclFactory));
-				out.add(transformation.transform(hlclFactory, idMap));
+		for (AbstractExpression expression : elementExpressions) {
+			idMap.putAll(expression.getIdentifiers(hlclFactory));
+				out.add(expression.transform(hlclFactory, idMap));
 		}
 		return out;
 	}
@@ -110,7 +142,7 @@ public abstract class MetaExpressionSet {
 	public List<Expression> getExpressionsNegations()
 	{
 		List<Expression> out = new ArrayList<Expression>();
-		for (AbstractExpression transformation : transformations) {
+		for (AbstractExpression transformation : elementExpressions) {
 			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
 				out.add(((AbstractBooleanExpression)transformation).transformNegation(hlclFactory, idMap, false, true));
@@ -118,9 +150,9 @@ public abstract class MetaExpressionSet {
 		return out;
 	}
 
-	public HlclProgram getHlclExpressions() {
+	public HlclProgram getHlclElementExpressions() {
 		HlclProgram prog = new HlclProgram();
-		for (AbstractExpression transformation : transformations) {
+		for (AbstractExpression transformation : elementExpressions) {
 			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
 				prog.add(((AbstractBooleanExpression) transformation)
@@ -131,5 +163,20 @@ public abstract class MetaExpressionSet {
 		}
 		return prog;
 	}
+	
+	public HlclProgram getHlclRelaxableExpressions(String element) {
+		HlclProgram prog = new HlclProgram();
+		for (AbstractExpression transformation : relaxableExpressions.get(element)) {
+			idMap.putAll(transformation.getIdentifiers(hlclFactory));
+			if (transformation instanceof AbstractBooleanExpression)
+				prog.add(((AbstractBooleanExpression) transformation)
+						.transform(hlclFactory, idMap));
+			else
+				prog.add(((AbstractComparisonExpression) transformation)
+						.transform(hlclFactory, idMap));
+		}
+		return prog;
+	}
+	
 
 }

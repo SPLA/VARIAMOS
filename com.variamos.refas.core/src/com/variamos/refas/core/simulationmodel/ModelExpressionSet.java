@@ -39,21 +39,15 @@ public class ModelExpressionSet extends MetaExpressionSet {
 
 	private void defineTransforamtions(int execType) {
 		AbstractNumericExpression rootOutExp = null;
-		AbstractNumericExpression notRootOutExp = null;
 		for (InstVertex vertex : refas.getVariabilityVertexCollection()) {
-			MetaElement element = (MetaElement) vertex
-					.getTransSupportMetaElement();
 			if (vertex.getInstAttribute("Active").getAsBoolean()) {
-				if (element.getIdentifier().equals("RootFeature")) {
 					if (rootOutExp == null)
-						rootOutExp = new SumNumericExpression(
-								new NumberNumericExpression(1),
+						rootOutExp = new SumNumericExpression(vertex,
+								"IsRootFeature", true,
 								new NumberNumericExpression(0));
 					else
-						rootOutExp = new SumNumericExpression(
-								new NumberNumericExpression(1), rootOutExp);
-				}
-
+						rootOutExp = new SumNumericExpression(vertex,
+								"IsRootFeature", true, rootOutExp);
 			}
 		}
 		if (rootOutExp != null) {

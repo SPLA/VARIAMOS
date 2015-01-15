@@ -55,7 +55,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
-			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2;
+			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3;
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
@@ -85,8 +85,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
 						.getBooleanExpressions());
-			else
-				transformations.addAll(constraintGroup.getTransformations());
+			else {
+				transformations.addAll(constraintGroup.getElementExpressions());
+				if (constraintGroup.getRelaxableExpressionList("Root") != null)
+					transformations.addAll(constraintGroup
+							.getRelaxableExpressionList("Root"));
+			}
 
 		for (BooleanExpression transformation : modelExpressions) {
 			hlclProgram.add(transformation);
@@ -354,15 +358,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		this.refas = refas;
 	}
 
-	
 	/**
 	 * Update Core concepts on model
+	 * 
 	 * @param outIdentifiers
 	 */
 	public void updateCoreConcepts(List<String> outIdentifiers) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			InstAttribute instAttribute = instVertex
-					.getInstAttribute("Core");
+			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
 			// System.out.println(vertexId + " " + attribute);
 			if (outIdentifiers != null
 					&& outIdentifiers.contains(instVertex.getIdentifier()))
@@ -370,7 +373,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			else
 				instAttribute.setValue(false);
 		}
-		
+
 	}
 
 }

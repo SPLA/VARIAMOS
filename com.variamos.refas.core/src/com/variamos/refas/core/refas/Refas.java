@@ -734,6 +734,9 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.putSemanticAttribute("Core", new SemanticAttribute(
 				"Core", "Boolean", true, "Is a Core Concept", false));
+		
+		semGeneralElement.putSemanticAttribute("IsRootFeature", new SemanticAttribute(
+				"IsRootFeature", "Boolean", true, "Is a Root Feature Concept", false));
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
