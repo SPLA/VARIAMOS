@@ -73,4 +73,15 @@ public class MetaView extends MetaElement implements Serializable {
 		childViews.add(metaChildView);
 	}
 
+	@Override
+	public Set<String> getSemanticAttributes() {
+		return null;
+	}
+
+	@Override
+	public AbstractAttribute getSemanticAttribute(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
