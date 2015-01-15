@@ -40,6 +40,11 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private Map<Identifier, Set<Integer>> attainableDomainsByVariabilityElementMap;
 	private SolverOperationsUtil solver;
 
+	public DefectsVerifier() {
+		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
+
+	}
+
 	public DefectsVerifier(SolverEditorType solverEditorType) {
 		attainableDomainsByVariabilityElementMap = new HashMap<Identifier, Set<Integer>>();
 		solver = new SolverOperationsUtil(solverEditorType);
@@ -130,7 +135,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				}
 
 			}
-		}else{
+		} else {
 			throw new FunctionalException(
 					"Model is void. Unable to verify not attainable dommains");
 		}
@@ -364,8 +369,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			for (BooleanExpression expression : model) {
 				if (!expression.equals(expressionToVerify)) {
 					modelWithoutRedundancy.add(expression);
-				} else {
-					System.out.println("Encontre la expresion");
 				}
 
 			}
@@ -407,8 +410,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				if (!isSatisfiable) {
 					// La restricción si es redundante pq el modelo se volvió
 					// irresoluble
-					Defect redundancy = new Redundancy(expressionToVerify,
-							negationList);
+					Defect redundancy = new Redundancy(negationList,
+							expressionToVerify);
 					return redundancy;
 
 				}

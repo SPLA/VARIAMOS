@@ -18,9 +18,10 @@ import com.variamos.defectAnalyzer.model.defects.FalseProductLine;
 import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 
+
 public class ExportDefectAnalyzer {
 
-	public static void exportListaModelosDetalleAnalisis(
+	/*public static void exportListaModelosDetalleAnalisis(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -151,7 +152,7 @@ public class ExportDefectAnalyzer {
 		String resuladosPath = outputDirectoryPath + directoryName
 				+ "detallado" + System.currentTimeMillis() + ".xls";
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
-	}
+	}*/
 
 	/**
 	 * Entrega para cada modelo analizado para cada defecto cuantas causas y
@@ -160,7 +161,7 @@ public class ExportDefectAnalyzer {
 	 * @param defectAnalyzerControllerOutDTOList
 	 * @param directoryName
 	 */
-	public static void exportarListaModelosResumidaxTamCorrecc(
+	/*public static void exportarListaModelosResumidaxTamCorrecc(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -236,7 +237,7 @@ public class ExportDefectAnalyzer {
 		String resuladosPath = outputDirectoryPath + directoryName + "Resumida"
 				+ System.currentTimeMillis() + ".xls";
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
-	}
+	}*/
 
 	/**
 	 * Resume los resultados de todos los modelos que estaban en @param
@@ -245,7 +246,7 @@ public class ExportDefectAnalyzer {
 	 * @param defectAnalyzerControllerOutDTOList
 	 * @param directoryName
 	 */
-	public static void exportaModelosAnalizadosOverview(
+	/*public static void exportaModelosAnalizadosOverview(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -452,5 +453,5 @@ public class ExportDefectAnalyzer {
 			throw new FunctionalException("El directorio de salida "
 					+ outputDirectoryPath + " no existe");
 		}
-	}
+	}*/
 }

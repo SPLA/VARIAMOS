@@ -1,5 +1,13 @@
 package com.cfm.productline.test;
 
+import static org.junit.Assert.assertTrue;
+
+import com.variamos.core.enums.NotationType;
+import com.variamos.core.exceptions.TransformerException;
+import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
+
 //import com.cfm.productline.defectAnalyzer.VariabilityModelCauseAnalyzer;
 
 public class CauseAnalyzerApplicationCaseTest {
@@ -427,4 +435,6 @@ public class CauseAnalyzerApplicationCaseTest {
 //
 //	}
 
+	
+	
 }

@@ -1,19 +1,9 @@
 package com.variamos.defectAnalyzer.main;
 
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.defectAnalyzer.DefectAnalyzerController;
-import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerInDTO;
-import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
-import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
-import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 
 public class DefectAnalyzerMain {
 
-	public DefectAnalyzerControllerOutDTO analyzeSplotFM(String modelName,
+	/*public DefectAnalyzerControllerOutDTO analyzeSplotFM(String modelName,
 			String modelPath, String outputDirectoryPath,
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO) {
 		try {
@@ -52,7 +42,7 @@ public class DefectAnalyzerMain {
 			System.out.println(e.getMessage());
 		}
 		return null;
-	}
+	}*/
 
 	/**
 	 * Método para ejecutar el análisis de los defectos de un feature model
@@ -63,7 +53,7 @@ public class DefectAnalyzerMain {
 	 * @throws FunctionalException
 	 */
 
-	public DefectAnalyzerControllerOutDTO analyzeSplotFM(String modelName,
+	/*public DefectAnalyzerControllerOutDTO analyzeSplotFM(String modelName,
 			String modelPath, String outputDirectoryPath)
 			throws FunctionalException {
 
@@ -101,5 +91,5 @@ public class DefectAnalyzerMain {
 					defectAnalyzerInDTO);
 		
 		
-	}
+	}*/
 }

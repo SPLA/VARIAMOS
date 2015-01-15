@@ -1,8 +1,9 @@
-package com.variamos.defectAnalyzer.model;
+package com.variamos.defectAnalyzer.dto;
 
 import java.util.List;
 
-import com.variamos.defectAnalyzer.dto.VerificationResult;
+import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 
 public class AnalyzedCorrectionSet {

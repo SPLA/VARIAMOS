@@ -1,5 +1,8 @@
 package com.variamos.defectAnalyzer.model.defects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
@@ -9,13 +12,22 @@ public class Defect {
 	protected DefectType defectType;
 	// Guarda la lista de restricciones que se usan para identificar el defecto
 	// con las operaciones de verificación
-	protected BooleanExpression verificationExpression;
+	protected List<BooleanExpression> verificationExpressions;
 
-	
-	
-	
 	public Defect() {
 		super();
+		verificationExpressions = new ArrayList<BooleanExpression>();
+	}
+
+	public Defect(BooleanExpression verificationExpression) {
+		super();
+		verificationExpressions.add(verificationExpression);
+
+	}
+
+	public Defect(List<BooleanExpression> verificationExpressions) {
+		super();
+		this.verificationExpressions = verificationExpressions;
 	}
 
 	/**
@@ -101,16 +113,31 @@ public class Defect {
 	 * @return the verificationExpression
 	 */
 	public BooleanExpression getVerificationExpression() {
-		return verificationExpression;
+
+		if (!verificationExpressions.isEmpty()) {
+			return verificationExpressions.get(0);
+		} else {
+			return null;
+		}
+
 	}
 
 	/**
-	 * @param verificationExpression the verificationExpression to set
+	 * @param verificationExpression
+	 *            the verificationExpression to set
 	 */
-	public void setVerificationExpression(BooleanExpression verificationExpression) {
-		this.verificationExpression = verificationExpression;
+	public void setVerificationExpression(
+			BooleanExpression verificationExpression) {
+		verificationExpressions.add(verificationExpression);
 	}
 
-	
+	public List<BooleanExpression> getVerificationExpressions() {
+		return verificationExpressions;
+	}
+
+	public void setVerificationExpressions(
+			List<BooleanExpression> verificationExpressions) {
+		this.verificationExpressions = verificationExpressions;
+	}
 
 }
