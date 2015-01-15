@@ -63,6 +63,56 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
+	public List<BooleanExpression> rootVerityTest()
+	{
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createModelExpressions(0);
+		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+			if (constraintGroup instanceof ModelExpressionSet)
+				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
+						.getBooleanExpressions());
+		return modelExpressions;
+		/*
+		for (BooleanExpression transformation : modelExpressions) {
+			hlclProgram.add(transformation);
+		}
+		return hlclProgram;
+		*/
+	}
+	
+	public HlclProgram rootRelaxedTest() {
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createVertexExpressions(null, 0);
+
+		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+		{
+			if (constraintGroup.getRelaxableExpressionList("Root") != null)
+					transformations.addAll(constraintGroup
+							.getRelaxableExpressionList("Root"));
+			}
+
+		for (AbstractExpression transformation : transformations) {
+			idMap.putAll(transformation.getIdentifiers(f));
+			if (transformation instanceof AbstractBooleanExpression) {
+				hlclProgram.add(((AbstractBooleanExpression) transformation)
+						.transform(f, idMap));
+			} else if (transformation instanceof AbstractComparisonExpression) {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			} else {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			}
+
+		}
+		return hlclProgram;
+	}
+	
+	
 	/**
 	 * Create a new HlclProgram with the expression of all concepts and
 	 * relations and calls SWIProlog to return a solution or all solutions (only
