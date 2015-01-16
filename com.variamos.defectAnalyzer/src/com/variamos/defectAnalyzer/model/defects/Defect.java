@@ -20,7 +20,7 @@ public class Defect {
 	}
 
 	public Defect(BooleanExpression verificationExpression) {
-		super();
+		this();
 		verificationExpressions.add(verificationExpression);
 
 	}

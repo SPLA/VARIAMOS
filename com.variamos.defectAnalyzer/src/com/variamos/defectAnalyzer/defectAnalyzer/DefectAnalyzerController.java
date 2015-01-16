@@ -483,8 +483,8 @@ public class DefectAnalyzerController {
 				.getSolverEditorType());
 
 		// Create class
-		DefectsVerifier verifier = new DefectsVerifier(
-				defectAnalyzerInDTO.getSolverEditorType());
+		//DefectsVerifier verifier = new DefectsVerifier(
+				//defectAnalyzerInDTO.getSolverEditorType());
 
 		/*
 		 * outDTO = verifier.verifierOfDefects(
