@@ -1,8 +1,10 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -102,6 +104,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					try {
 						InstConcept instConcept = (InstConcept) val;
 						String backtop = null, backbottom = null, backtophint = null, backbottomhint = null;
+	
 						String forced = "/com/variamos/gui/refas/editor/images/sim_forced.png";
 						String validation = "/com/variamos/gui/refas/editor/images/sim_validation.png";
 						String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
@@ -370,6 +373,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				}
 			}
 		}
+		List<String> redx = new ArrayList<String>();
+		for (int red = 1; red < 7; red++)
+			redx.add("/com/variamos/gui/refas/editor/images/red-x-"
+					+ red + ".gif");
+		
 		if (model.getChildCount(tmp2) > 0) {
 			tmp2 = model.getChildAt(tmp2, 0); // TODO implement for other model
 												// views
@@ -383,19 +391,31 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					try {
 						InstConcept instConcept = (InstConcept) val;
 						String error = "/com/mxgraph/examples/swing/images/x-red.gif";
+						int pos = 0;
+						for (String defect : instConcept.getDefects().values())
+						{
+							mxCellOverlay over3 = new mxCellOverlay(
+									new ImageIcon(
+											mxGraphComponent.class
+													.getResource(redx.get(pos))),defect);
+							over3.setVerticalAlign(mxConstants.ALIGN_MIDDLE);
+							over3.setAlign(mxConstants.ALIGN_RIGHT);
+							addCellOverlay(tmp, over3);
+						}
+						
 						if ((boolean) instConcept.getInstAttribute(
 								"VerificationError").getValue()) {
 							mxCellOverlay over3 = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource(error)),
-									"This element is a false optional");
+									"This element is a false optional or too many roots features");
 							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 							over3.setAlign(mxConstants.ALIGN_RIGHT);
 							addCellOverlay(tmp, over3);
 						}
 						if (!instConcept.getInstAttribute("HasParent")
-										.getAsBoolean()) {
+								.getAsBoolean()) {
 							mxCellOverlay over3 = new mxCellOverlay(
 									new ImageIcon(
 											mxGraphComponent.class
@@ -407,9 +427,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						}
 
 					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			}
+			
+			
+			
 		}
 	}
 

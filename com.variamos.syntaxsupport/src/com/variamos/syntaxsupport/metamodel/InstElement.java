@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
@@ -57,10 +58,29 @@ public abstract class InstElement implements Serializable, EditableElement {
 	private boolean optional = false;
 
 	private String supportMetaElementIden;
+	
+	private Map<String,String> volatileDefects;
 
+	public Map<String, String> getDefects() {
+		return volatileDefects;
+	}
+
+	public void setDefects(Map<String, String> defects) {
+		this.volatileDefects = defects;
+	}
+
+	public void putDefect(String identifier, String defect) {
+		this.volatileDefects.put(identifier, defect);
+	}
+	
+	public void removeDefect(String identifier) {
+		this.volatileDefects.remove(identifier);
+	}
+	
 	public InstElement(String identifier) {
 		volatileSourceRelations = new ArrayList<InstElement>();
 		volatileTargetRelations = new ArrayList<InstElement>();
+		volatileDefects = new TreeMap<String,String>() ;
 		dynamicAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 

@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -1501,11 +1502,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					defects += o[0] + ", ";
 					outIdentifiers.add(o[0]);
 				}
-				refas2hlcl.updateErrorMark(outIdentifiers);
+				refas2hlcl
+						.updateErrorMark(
+								outIdentifiers,
+								"FalseOpt",
+								"This element is a false optional. Modify the required attribute or the relations");
 				defects = defects.substring(0, defects.length() - 2) + ")";
 
-				IntCauCosAnalyzer defectsAnalyzer= new CauCosAnayzer();
-			//	DefectAnalyzerResult result= defectsAnalyzer.getCauCos(falseOptionalList, hlclProgram, fixedConstraints, DefectAnalyzerMode.PARTIAL);
+				IntCauCosAnalyzer defectsAnalyzer = new CauCosAnayzer();
+				// DefectAnalyzerResult result=
+				// defectsAnalyzer.getCauCos(falseOptionalList, hlclProgram,
+				// fixedConstraints, DefectAnalyzerMode.PARTIAL);
 				try {
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
@@ -1547,7 +1554,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					null);
 		}
 	}
-	
+
 	public void verifyRoot() {
 
 		try {
@@ -1558,39 +1565,46 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			Defect defect = new Defect(refas2hlcl.rootVerityTest());
 			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
 			HlclProgram fixed = new HlclProgram();
-				IntCauCosAnalyzer defectsAnalyzer= new CauCosAnayzer();
-				Diagnosis result= defectsAnalyzer.getCauCos(defect, refas2hlcl.rootRelaxedTest(), fixed, DefectAnalyzerMode.PARTIAL);
+			IntCauCosAnalyzer defectsAnalyzer = new CauCosAnayzer();
+			Diagnosis result = defectsAnalyzer.getCauCos(defect,
+					refas2hlcl.rootRelaxedTest(), fixed,
+					DefectAnalyzerMode.COMPLETE);
 
-					List<String> outIdentifiers = new ArrayList<String>();
-					String defects = "(";
-					for (CauCos correction : result.getCorrections()) {
-						List<BooleanExpression> corr = correction.getElements();
-						Set<Identifier> iden= HlclUtil.getUsedIdentifiers(corr.get(0));
-						Identifier firsIden = iden.iterator().next();
-						String[] o = firsIden.getId().split("_");
+			Set<String> outIdentifiers = new TreeSet<String>();
+			String defects = "(";
+			for (CauCos correction : result.getCauses()) {
+				List<BooleanExpression> corr = correction.getElements();
+				for (BooleanExpression expression : corr) {
+					Set<Identifier> iden = HlclUtil
+							.getUsedIdentifiers(expression);
+					Identifier firsIden = iden.iterator().next();
+					String[] o = firsIden.getId().split("_");
+
+					if (outIdentifiers.add(o[0]))
 						defects += o[0] + ", ";
-						outIdentifiers.add(o[0]);
-					}
-					refas2hlcl.updateErrorMark(outIdentifiers);
-
-				try {
-					((RefasGraph) getGraphComponent().getGraph())
-							.refreshVariable(lastEditableElement);
-					JOptionPane
-							.showMessageDialog(
-									frame,
-											" Too many roots. "
-											+ defects, "Verification Message",
-									JOptionPane.INFORMATION_MESSAGE, null);
-				} catch (Exception e) {
-					lastEditableElement = null;
-					JOptionPane
-							.showMessageDialog(
-									frame,
-									"Please select any element and after execute the verification.",
-									"Verification Message",
-									JOptionPane.INFORMATION_MESSAGE, null);
 				}
+			}
+			refas2hlcl.updateErrorMark(outIdentifiers, "Root",
+					"More than one root element is not allowed. Delete "
+							+ (outIdentifiers.size() - 1) + " from the model");
+			defects = defects.substring(0, defects.length() - 2) + ")";
+			try {
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+				JOptionPane.showMessageDialog(frame, outIdentifiers.size()
+						+ " roots identified " + defects
+						+ ".\n Please keep only one of them.",
+						"Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+			} catch (Exception e) {
+				lastEditableElement = null;
+				JOptionPane
+						.showMessageDialog(
+								frame,
+								"Please select any element and after execute the verification.",
+								"Verification Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			}
 
 			if (lastEditableElement == null)
 				JOptionPane

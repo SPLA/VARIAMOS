@@ -1,6 +1,7 @@
 package com.variamos.refas.core.simulationmodel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -297,7 +298,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	/**
 	 * Updates the GUI errors
 	 */
-	public void updateErrorMark(List<String> identifiers) {
+	public void updateErrorMark(Collection<String> identifiers) {
 		// Call the SWIProlog and obtain the result
 
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
@@ -309,6 +310,23 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				instAttribute.setValue(true);
 			else
 				instAttribute.setValue(false);
+		}
+
+	}
+	
+	/**
+	 * Updates the GUI errors
+	 */
+	public void updateErrorMark(Collection<String> identifiers, String defectId, String defectDescription) {
+		// Call the SWIProlog and obtain the result
+
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+
+			if (identifiers != null
+					&& identifiers.contains(instVertex.getIdentifier()))
+				instVertex.putDefect(defectId, defectDescription);
+			else
+				instVertex.removeDefect(defectId);
 		}
 
 	}

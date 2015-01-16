@@ -120,7 +120,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 					
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
-						if (execType == Refas2Hlcl.CORE_EXEC)
+						if (execType == Refas2Hlcl.CORE_EXEC || execType == Refas2Hlcl.DESIGN_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
@@ -163,15 +163,16 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 					}
 
-					// identifierId_SimRequired #==>
-					// identifierId_ConfigSatisfied #= 1
 					if (instAttribute.getIdentifier().equals("ConfigSatisfied")) {
-						if (execType == Refas2Hlcl.DESIGN_EXEC)
+						if (execType == Refas2Hlcl.CORE_EXEC ||execType == Refas2Hlcl.DESIGN_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
 													.getIdentifier(), "Core"));
 						else {
+
+							// identifierId_Core #==>
+							// identifierId_ConfigSatisfied #= 1
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1));
