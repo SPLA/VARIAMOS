@@ -525,7 +525,8 @@ public class RefasGraph extends AbstractGraph {
 										c2.setId(i + id + "-" + j);
 										c2.setValue(cell.getValue());
 
-									//	getModel().setVisible(c2, false);
+										getModel().setVisible(c2, false);
+										getModel().setVisible(c2, true);
 										model.add(mv2, c2, mv2.getChildCount());
 										// Add a clone to other models
 									}
@@ -547,7 +548,8 @@ public class RefasGraph extends AbstractGraph {
 									c2.setId(i + id);
 									c2.setValue(cell.getValue());
 
-								//	getModel().setVisible(c2, false);
+									getModel().setVisible(c2, false);
+									getModel().setVisible(c2, true);
 									model.add(mv1, c2, mv1.getChildCount());
 									// Add a clone to other
 								}

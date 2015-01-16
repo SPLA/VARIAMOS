@@ -2152,6 +2152,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-opertoLF", instEdge);
 		instEdge.setIdentifier("variab-opertoLF");
+		instEdge.setEditableMetaElement(metaFeatVertPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexLF, true);
 		instEdge.setSourceRelation(instVertexOper, true);
