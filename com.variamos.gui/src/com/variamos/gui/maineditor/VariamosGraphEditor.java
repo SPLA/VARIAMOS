@@ -1572,7 +1572,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			Set<String> outIdentifiers = new TreeSet<String>();
 			String defects = "(";
-			for (CauCos correction : result.getCauses()) {
+			for (CauCos correction : result.getCorrections()) {
 				List<BooleanExpression> corr = correction.getElements();
 				for (BooleanExpression expression : corr) {
 					Set<Identifier> iden = HlclUtil
