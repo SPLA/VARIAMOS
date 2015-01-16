@@ -57,19 +57,6 @@ public class MetaPairwiseRelation extends MetaElement {
 			 */
 			VAR_SEMANTICPAIRWISEREL_NAME = "Semantic Relation",
 			/**
-	 * 
-	 */
-			VAR_METAPAIRWISERELTYPE = "directEdgeType",
-			/**
-	 * 
-	 * 
-	 */
-			VAR_METAPAIRWISERELTYPE_NAME = "Relation Type",
-			/**
-	 * 
-	 */
-			VAR_METAPAIRWISERELTYPE_CLASS = "com.variamos.refas.core.types.DirectEdgeType",
-			/**
 			 * 
 			 */
 			VAR_METAGENERALCONSTRAINT = "generalConstraint",
@@ -179,10 +166,10 @@ public class MetaPairwiseRelation extends MetaElement {
 //		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 //		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 
-		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
-		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+//		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+//				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+//		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+//				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
 	}
 
 	public Set<String> getPropVisibleAttributes() {

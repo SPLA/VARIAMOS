@@ -260,6 +260,7 @@ public class ElementDesignPanel extends JPanel {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										finalEditor.cleanNotificationBar();
 										finalEditor.identifyCoreConcepts();
 										finalEditor.executeSimulation(true,
 												Refas2Hlcl.DESIGN_EXEC);

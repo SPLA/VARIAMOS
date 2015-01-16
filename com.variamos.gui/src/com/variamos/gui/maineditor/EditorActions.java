@@ -668,7 +668,7 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						long startTime = System.currentTimeMillis();
-						mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
+						mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true);
 						long stopTime = System.currentTimeMillis();
 						long elapsedTime = stopTime - startTime;
 						System.out.println("beforeSaveGraph time : "

@@ -130,13 +130,12 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public String getSemanticPairwiseRelType() {
-		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
-				&& (semanticPairwiseRelType != null && !semanticPairwiseRelType
-						.equals(getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-						|| semanticPairwiseRelType == null))
-			semanticPairwiseRelType = ((String) getInstAttribute(
-					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-					.trim();
+		if (getInstAttribute("relationType") != null
+				&& (semanticPairwiseRelType != null
+						&& !semanticPairwiseRelType.equals(getInstAttribute(
+								"relationType").getValue()) || semanticPairwiseRelType == null))
+			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
+					.getValue()).trim();
 		return semanticPairwiseRelType;
 	}
 
@@ -175,8 +174,7 @@ public class InstPairwiseRelation extends InstElement {
 		supportMetaPairwiseRelIden = metaEdge.getIdentifier();
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
-		setDynamicVariable(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
-				metaEdge.getIdentifier());
+		setDynamicVariable("relationType", metaEdge.getIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
 		createInstAttributes();
@@ -548,10 +546,9 @@ public class InstPairwiseRelation extends InstElement {
 			supportMetaPairwiseRelIden = ((MetaPairwiseRelation) metaEdge)
 					.getIdentifier();
 		}
-		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null)
-			semanticPairwiseRelType = ((String) getInstAttribute(
-					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-					.trim();
+		if (getInstAttribute("relationType") != null)
+			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
+					.getValue()).trim();
 
 	}
 
