@@ -681,7 +681,7 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						mxCodec codec = new mxCodec();
-						mxGraph outGraph = SharedActions.beforeSaveGraph(graph);
+						mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true);
 						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
 						SharedActions.afterSaveGraph(graph, editor);

@@ -65,6 +65,11 @@ public class EnumerationWidget extends WidgetR {
 			if (instAttribute.getValue()!= null && out.equals(instAttribute.getValue()))
 				txtValue.setSelectedItem(out);
 		}
+		if (instAttribute.getValue()== null)
+		{
+			txtValue.setSelectedIndex(0);
+			instAttribute.setValue((String)txtValue.getSelectedItem());
+		}
 		revalidate();
 		repaint();
 	}

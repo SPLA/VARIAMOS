@@ -75,8 +75,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public InstOverTwoRelation(MetaOverTwoRelation metaOverTwoRelation) {
 		super("");
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 				metaOverTwoRelation.getIdentifier());
 		setTransSupportMetaElement(metaOverTwoRelation);
@@ -91,8 +90,7 @@ public class InstOverTwoRelation extends InstVertex {
 			MetaOverTwoRelation supportMetaOvetTwoRelation,
 			MetaElement editableMetaElement) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEditableMetaElement(editableMetaElement);
 		if (supportMetaOvetTwoRelation != null) {
 			dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
@@ -109,8 +107,7 @@ public class InstOverTwoRelation extends InstVertex {
 			MetaOverTwoRelation supportMetaOvetTwoRelation,
 			IntSemanticElement semanticElement) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEditableSemanticElement(semanticElement);
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 				supportMetaOvetTwoRelation.getIdentifier());
@@ -125,8 +122,7 @@ public class InstOverTwoRelation extends InstVertex {
 	public InstOverTwoRelation(String identifier,
 			MetaOverTwoRelation supportMetaOvetTwoRelation) {
 		super(identifier);
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 				supportMetaOvetTwoRelation.getIdentifier());
 		setTransSupportMetaElement(supportMetaOvetTwoRelation);
@@ -191,19 +187,24 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public String getSupportMetaElementIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAOVERTWOREL_IDEN);
 	}
 
 	public String getSemanticOverTwoRelationIden() {
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		if ((String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN) == null)
-			if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null)
+			if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null) {
+				dynamicAttributesMap.put(
+						VAR_SEMANTICOVERTWOREL_IDEN,
+						((IntSemanticOverTwoRelation) getInstAttribute(
+								VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
+								.getIdentifier());
 				return ((IntSemanticOverTwoRelation) getInstAttribute(
 						VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 						.getIdentifier();
+			}
+
 			else
 				return null;
 		return (String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN);
@@ -256,8 +257,7 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public void setOutCardinality(String identifier) {
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_OUTCARDINALITY, identifier);
 		;
 	}
@@ -267,8 +267,7 @@ public class InstOverTwoRelation extends InstVertex {
 	}
 
 	public void setInCardinality(String identifier) {
-		Map<String, Object> dynamicAttributesMap = this
-				.getDynamicAttributes();
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INCARDINALITY, identifier);
 		;
 	}
@@ -335,7 +334,7 @@ public class InstOverTwoRelation extends InstVertex {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getSemanticAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
@@ -369,8 +368,7 @@ public class InstOverTwoRelation extends InstVertex {
 						.getValueObject() != null) {
 			Object o = getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 					.getValueObject();
-			String semGroupDep = (String) ((IntSemanticOverTwoRelation) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
+			String semGroupDep = (String) ((IntSemanticOverTwoRelation) o)
 					.getIdentifier();
 
 			if (!semGroupDepOld.equals(semGroupDep)) {

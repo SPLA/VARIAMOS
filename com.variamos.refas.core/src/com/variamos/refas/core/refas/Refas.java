@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1744,17 +1745,17 @@ public class Refas extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setSourceRelation(instView, true);
 
-		MetaConcept syntaxLeafFeature = new MetaConcept("LeafFeature", true,
+		MetaConcept syntaxVertexLF = new MetaConcept("LeafFeature", true,
 				"LeafFeature", "plnode", "Defines a leaf feature", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
-		syntaxLeafFeature.setParent(syntaxFeature);
+		syntaxVertexLF.setParent(syntaxFeature);
 
 		InstVertex instVertexLF = new InstConcept("LeafFeature",
-				supportMetaElementConcept, syntaxLeafFeature);
+				supportMetaElementConcept, syntaxVertexLF);
 		variabilityInstVertex.put("LeafFeature", instVertexLF);
-		syntaxMetaView.addConcept(syntaxLeafFeature);
+		syntaxMetaView.addConcept(syntaxVertexLF);
 		instView.addInstVertex(instVertexLF);
 
 		instEdge = new InstPairwiseRelation();
@@ -1864,7 +1865,7 @@ public class Refas extends AbstractModel {
 				"FeatOverTwoRel", true, "FeatOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
-						+ " cartinalities", 20, 20,
+						+ " cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticFeatureFeatureGroupRelation);
 
@@ -2118,7 +2119,7 @@ public class Refas extends AbstractModel {
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 50, 50,
+						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
@@ -2127,7 +2128,7 @@ public class Refas extends AbstractModel {
 				"HardRelation2", true, "HardRelation2", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 50, 50,
+						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
@@ -2151,6 +2152,7 @@ public class Refas extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-opertoLF", instEdge);
 		instEdge.setIdentifier("variab-opertoLF");
+		instEdge.setEditableMetaElement(metaFeatVertPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexLF, true);
 		instEdge.setSourceRelation(instVertexOper, true);
@@ -2165,7 +2167,7 @@ public class Refas extends AbstractModel {
 				"HardOverTwoRel", true, "HardOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 20, 20,
+						+ " relations and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticHardHardGroupRelation);
 
@@ -2346,7 +2348,7 @@ public class Refas extends AbstractModel {
 		MetaPairwiseRelation metaSoftEdge = new MetaPairwiseRelation(
 				"Soft Relation", true, "Soft Relation", "",
 				"Direct relation between two soft concepts. Defines"
-						+ " different types of relations and cartinalities",
+						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSGSGSemEdge);
 		syntaxAbsSoftGoal.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
@@ -2372,7 +2374,7 @@ public class Refas extends AbstractModel {
 				true, "SoftgoalOverTwoRel", "plgroup",
 				"Direct relation between soft"
 						+ " concepts. Defines different types of relations"
-						+ " and cartinalities", 20, 20,
+						+ " and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticSGSGGroupRelation);
 
@@ -2669,7 +2671,10 @@ public class Refas extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexGSG, true);
 		instEdge.setSourceRelation(instView, true);
+		
 		syntaxMetaView.addConcept(sOperationalization);
+		instView.addInstVertex(instVertexOper);
+
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-oper", instEdge);
@@ -2873,7 +2878,7 @@ public class Refas extends AbstractModel {
 		instView = new InstView("Assets", metaView, syntaxMetaView);
 		instViews.add(instView);
 		syntaxMetaView.addConcept(sOperationalization);
-		syntaxMetaView.addConcept(syntaxLeafFeature);		
+		syntaxMetaView.addConcept(syntaxVertexLF);		
 		instView.addInstVertex(instVertexOper);
 		instView.addInstVertex(instVertexLF);
 
@@ -2907,8 +2912,12 @@ public class Refas extends AbstractModel {
 		syntaxMetaChildView.addConcept(syntaxAsset);
 		syntaxMetaView.addConcept(sOperationalization);
 		syntaxMetaChildView.addConcept(sOperationalization);
-		syntaxMetaView.addConcept(syntaxLeafFeature);
-		syntaxMetaChildView.addConcept(syntaxLeafFeature);
+		syntaxMetaView.addConcept(syntaxVertexLF);
+		syntaxMetaChildView.addConcept(syntaxVertexLF);
+		childView.addInstVertex(instVertexOper);
+		childView.addInstVertex(instVertexLF);
+
+
 
 		InstVertex instVertexAsset = new InstConcept("Asset",
 				supportMetaElementConcept, syntaxAsset);
@@ -2953,7 +2962,7 @@ public class Refas extends AbstractModel {
 				"", "Represents the " + "implementation of an feature by an"
 						+ " asset", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAsset, syntaxLeafFeature, directAssetOperSemanticEdge);
+				syntaxAsset, syntaxVertexLF, directAssetOperSemanticEdge);
 		syntaxMetaView.addConcept(metaFeatureEdge);
 
 		MetaPairwiseRelation metaAssetEdge = new MetaPairwiseRelation(
@@ -3042,6 +3051,9 @@ public class Refas extends AbstractModel {
 		// childView.addInstVertex(instVertexOper);
 		syntaxMetaChildView.addConcept(syntaxAsset);
 		childView.addInstVertex(instVertexAsset);
+
+
+
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset1-asset", instEdge);
@@ -3215,4 +3227,31 @@ public class Refas extends AbstractModel {
 			v.updateValidationList((InstElement) elm, mapElements);
 		}
 	}
+	
+	public boolean elementsValidation(String element, int modelViewInd,
+			int modelViewSubInd) {
+		if (modelViewInd < instViews.size() && modelViewSubInd == -1) {
+			Iterator<InstElement> metaConcept = instViews.get(modelViewInd)
+					.getSourceRelations().iterator();
+			for (int i = 0; i < instViews.get(modelViewInd).getInstVertices()
+					.size(); i++) {
+
+				if (metaConcept.next().getIdentifier().equals(element))
+					return true;
+			}
+		}
+		if (modelViewInd < instViews.size()
+				&& modelViewSubInd != -1
+				&& modelViewSubInd < instViews.get(modelViewInd)
+						.getChildViews().size()) {
+			Iterator<InstVertex> metaElements = instViews.get(modelViewInd)
+					.getChildViews().get(modelViewSubInd).getInstVertices()
+					.iterator();
+			while (metaElements.hasNext())
+				if (metaElements.next().getIdentifier().equals(element))
+					return true;
+		}
+		return false;
+	}
+
 }

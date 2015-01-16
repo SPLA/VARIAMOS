@@ -106,6 +106,11 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1)));
 							this.getRelaxableExpressions().put("Root",list);
+							// identifierId_SimRequired #= identifierId_Required
+							getElementExpressions()
+									.add(new EqualsComparisonExpression(instVertex,
+											"Required",
+											getHlclFactory().number(1)));
 							
 						}
 						else
@@ -120,7 +125,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 					
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
-						if (execType == Refas2Hlcl.CORE_EXEC)
+						if (execType == Refas2Hlcl.CORE_EXEC || execType == Refas2Hlcl.DESIGN_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
@@ -163,15 +168,16 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 					}
 
-					// identifierId_SimRequired #==>
-					// identifierId_ConfigSatisfied #= 1
 					if (instAttribute.getIdentifier().equals("ConfigSatisfied")) {
-						if (execType == Refas2Hlcl.DESIGN_EXEC)
+						if (execType == Refas2Hlcl.CORE_EXEC ||execType == Refas2Hlcl.DESIGN_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
 													.getIdentifier(), "Core"));
 						else {
+
+							// identifierId_Core #==>
+							// identifierId_ConfigSatisfied #= 1
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1));
@@ -297,18 +303,19 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					if (instAttribute.getIdentifier().equals("Required")) {
-
+						if (!instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature"))
+						{
 						// identifierId_SimRequired #= identifierId_Required
 						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
-
+						}
 						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
-
+						
 						// identifierId_Required #==>
 						// identifierId_Core #= 1
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
