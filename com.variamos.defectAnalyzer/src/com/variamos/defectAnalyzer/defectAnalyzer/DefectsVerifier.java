@@ -37,22 +37,26 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	// Variables usadas para almacenar información que es útil cuando se hacen
 	// otras operaciones de verificación
-	private Map<Identifier, Set<Integer>> attainableDomainsByVariabilityElementMap;
+	private Map<Identifier, Set<Integer>> verifiedValuesMap;
 	private SolverOperationsUtil solver;
+	private HlclProgram model;
+	// Hlcl program identifiers
+	private Set<Identifier> identifiersList;
 
 	public DefectsVerifier() {
 		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
 
 	}
 
-	public DefectsVerifier(SolverEditorType solverEditorType) {
-		attainableDomainsByVariabilityElementMap = new HashMap<Identifier, Set<Integer>>();
+	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
+		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
 		solver = new SolverOperationsUtil(solverEditorType);
-
+		this.model = model;
+		identifiersList = HlclUtil.getUsedIdentifiers(model);
 	}
 
 	@Override
-	public Defect isVoid(HlclProgram model) {
+	public Defect isVoid() {
 
 		boolean isVoid = !solver.isSatisfiable(model);
 		if (isVoid) {
@@ -64,7 +68,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public Defect isFalsePL(HlclProgram model) {
+	public Defect isFalsePL() {
 		boolean isFPL = solver.isFalseProductLine(model);
 		if (isFPL) {
 			return new FalseProductLine();
@@ -73,8 +77,22 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 	}
 
-	public List<Defect> getNonAttainableDomains(HlclProgram model,
-			Identifier identifier) throws FunctionalException {
+	private boolean existValue(Identifier identifier, int valueToTest) {
+		// Cada vez que se hace una configuración se bloquean valores no tener
+		// que verificar luego estos valores
+		Set<Integer> attainableDomains = verifiedValuesMap.get(identifier);
+		if (attainableDomains == null
+				|| (attainableDomains != null && !attainableDomains
+						.contains(valueToTest))) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public List<Defect> getNonAttainableDomains(Identifier identifier)
+			throws FunctionalException {
 
 		List<Defect> notAttainableDomains = new ArrayList<Defect>();
 		List<Integer> definedDomainValues = null;
@@ -94,8 +112,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			// siempre y cuando no este en la lista de valores permitidos
 			for (Integer valueToTest : definedDomainValues) {
 
-				attainableDomains = attainableDomainsByVariabilityElementMap
-						.get(identifier);
+				attainableDomains = verifiedValuesMap.get(identifier);
 				variabilityModelConstraintRepresentation.clear();
 				if (attainableDomains == null
 						|| (attainableDomains != null && !attainableDomains
@@ -124,8 +141,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 								.getUsedIdentifiers(model);
 						// Los valores identificados no son non attainable
 						// domains, se actualizan los valores en el mapa
-						updateEvaluatedDomainsMap(configurationResult,
-								identifiersList);
+						updateEvaluatedDomainsMap(configurationResult);
 					} else {
 						// Se crea un nuevo defecto
 						NonAttainableDomain defect = new NonAttainableDomain(
@@ -143,8 +159,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
-	private void updateEvaluatedDomainsMap(Configuration configuration,
-			Set<Identifier> identifiersList) {
+	private void updateEvaluatedDomainsMap(Configuration configuration) {
 
 		TreeMap<String, Integer> configurationValues = configuration
 				.getConfiguration();
@@ -158,19 +173,17 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 				number = configurationValues.get(identifier.getId());
 				// Se verifica si el mapa de dominios tiene el identifier
-				if (attainableDomainsByVariabilityElementMap
-						.containsKey(identifier)) {
+				if (verifiedValuesMap.containsKey(identifier)) {
 					// Si existe se adiciona el valor de la variable al set de
 					// dominios permitidos
-					attainableDomainsByVariabilityElementMap.get(identifier)
-							.add(number);
+					verifiedValuesMap.get(identifier).add(number);
 				} else {
 					// Si el mapa no contiene el identifier se adiciona
 					// al mapa de dominios
 					Set<Integer> attainableDomainValuesSet = new HashSet<Integer>();
 					attainableDomainValuesSet.add(number);
-					attainableDomainsByVariabilityElementMap.put(identifier,
-							attainableDomainValuesSet);
+					verifiedValuesMap
+							.put(identifier, attainableDomainValuesSet);
 
 				}
 
@@ -183,41 +196,11 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
-	public static void printFoundDefects(VerificationResult outDTO) {
-		// 3. PRINT RESULTS
-		System.out.println("VOID MODEL: " + outDTO.isVoidModel());
-		System.out.println("FALSE PRODUCT LINE: "
-				+ outDTO.isFalseProductLineModel());
-
-		if (outDTO.getDeadFeaturesList() != null) {
-			for (Defect deadElement : outDTO.getDeadFeaturesList()) {
-				System.out.println("DEAD FEATURE " + deadElement.getId());
-			}
-		}
-
-		if (outDTO.getFalseOptionalFeaturesList() != null) {
-			for (Defect falseOptionalFeature : outDTO
-					.getFalseOptionalFeaturesList()) {
-				System.out.println("FALSE OPTIONAL FEATURE "
-						+ falseOptionalFeature.getId());
-			}
-		}
-		/*
-		 * if (outDTO.getDomainNotAttainableList() != null) { for (Defect
-		 * nonAttainableDomain : outDTO .getDomainNotAttainableList()) {
-		 * 
-		 * Integer nonAttainableValue = ((NonAttainableDomain)
-		 * nonAttainableDomain) .getNotAttainableDomain();
-		 * System.out.println("NON ATTAINABLE DOMAIN " +
-		 * nonAttainableDomain.getId() + " VALUE : " + nonAttainableValue); } }
-		 */
-	}
-
 	@Override
-	public Defect isDeadElement(HlclProgram model, Identifier identifier)
+	public Defect isDeadElement(Identifier identifier)
 			throws FunctionalException {
 
-		VoidModel isVoid = (VoidModel) isVoid(model);
+		VoidModel isVoid = (VoidModel) isVoid();
 
 		if (isVoid == null) {
 
@@ -257,12 +240,11 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 						// Se adiciona ese valor como valor permitido para no
 						// verificarlo en los notAttainableDomains
-						if (attainableDomainsByVariabilityElementMap
-								.containsKey(identifier)) {
+						if (verifiedValuesMap.containsKey(identifier)) {
 							// Se adiciona el valor a la lista de dominios
 							// permitidos
-							attainableDomainsByVariabilityElementMap.get(
-									identifier).add(definedDomainValue);
+							verifiedValuesMap.get(identifier).add(
+									definedDomainValue);
 						} else {
 							// Se adiciona el variabilityElement al mapa y se
 							// adicionan el valor de dominio. Se crea un nuevo
@@ -270,8 +252,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 							// objetos
 							Set<Integer> attainableDomainValuesList = new HashSet<Integer>();
 							attainableDomainValuesList.add(definedDomainValue);
-							attainableDomainsByVariabilityElementMap.put(
-									identifier, attainableDomainValuesList);
+							verifiedValuesMap.put(identifier,
+									attainableDomainValuesList);
 						}
 						// Se termina el ciclo y no se analizan mas valores de
 						// dominio
@@ -297,51 +279,63 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 	}
 
-	@Override
-	public Defect isFalseOptionalElement(HlclProgram model,
-			Identifier identifier) throws FunctionalException {
-		BooleanExpression verificationExpression = null;
-		boolean isSatisfiable = Boolean.TRUE;
-		VoidModel isVoid = (VoidModel) isVoid(model);
+	public Defect isFalseOptionalElement(Identifier identifier)
+			throws FunctionalException {
 
-		if (isVoid == null) {
+		// Se verifica si ya existe en el mapa el valor de cero para ese
+		// identificador
+		if (existValue(identifier, 0)) {
 
-			// Ejm F1 #= 0.
-			// Se adiciona las restricciones que tiene el modelo de
-			// variabilidad inicial
+			Configuration configurationResult = solver.getConfiguration(model,
+					new Configuration(), new ConfigurationOptions());
+			BooleanExpression verificationExpression = null;
+			if (configurationResult != null) {
 
-			verificationExpression = VerifierUtilExpression
-					.verifyFalseOptionalExpression(identifier);
-			// Se adiciona la restricción de verificacion al conjunto de
-			// restricciones
-			// que representa el modelo de variabilidad
-			ConfigurationOptions options = new ConfigurationOptions();
-			options.addAdditionalExpression(verificationExpression);
+				// Los valores identificados se actualizan en el mapa para
+				// evitar luego consultas innecesarias
+				updateEvaluatedDomainsMap(configurationResult);
 
-			// Se evalua si el modelo de restricciones es satisfacible
-			isSatisfiable = solver.isSatisfiable(model, new Configuration(),
-					options);
+				// Ejm F1 #= 0.
+				// Se adiciona las restricciones que tiene el modelo de
+				// variabilidad inicial
 
-			// Se evalua si este nuevo modelo es satisfacible
-			if (!isSatisfiable) {
-				// Se crea un nuevo defecto
-				FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
-						identifier, verificationExpression);
-				return falseOptionalElement;
+				verificationExpression = VerifierUtilExpression
+						.verifyFalseOptionalExpression(identifier);
+				// Se adiciona la restricción de verificacion al conjunto de
+				// restricciones
+				// que representa el modelo de variabilidad
+				ConfigurationOptions options = new ConfigurationOptions();
+				options.addAdditionalExpression(verificationExpression);
+
+				// Se evalua si el modelo de restricciones es satisfacible
+				configurationResult = solver.getConfiguration(model,
+						new Configuration(), options);
+
+				// Se evalua si este nuevo modelo es satisfacible
+				if (configurationResult == null) {
+					// Se crea un nuevo defecto
+					FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
+							identifier, verificationExpression);
+					return falseOptionalElement;
+				} else {
+					// No defect was found, values domains are updated
+					updateEvaluatedDomainsMap(configurationResult);
+					return null;
+				}
 			} else {
-				// No defect was found
-				return null;
+				throw new FunctionalException(
+						"Model is void. Unable to verify false optional elements");
 			}
-		} else {
-			throw new FunctionalException(
-					"Model is void. Unable to verify false optional elements");
-		}
 
+		} else {
+			// No defect was found
+			return null;
+		}
 	}
 
 	@Override
-	public Defect isRedundant(HlclProgram model,
-			BooleanExpression expressionToVerify) throws FunctionalException {
+	public Defect isRedundant(BooleanExpression expressionToVerify)
+			throws FunctionalException {
 
 		if (expressionToVerify == null) {
 			throw new TechnicalException(
@@ -426,13 +420,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public List<Defect> getDeadElements(HlclProgram model,
-			Set<Identifier> elementsToVerify) throws FunctionalException {
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify)
+			throws FunctionalException {
 		List<Defect> deadElementsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			DeadElement deadElement = (DeadElement) isDeadElement(model,
-					identifier);
+			DeadElement deadElement = (DeadElement) isDeadElement(identifier);
 			if (deadElement != null) {
 				deadElementsList.add(deadElement);
 			}
@@ -441,13 +434,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public List<Defect> getFalseOptionalElements(HlclProgram model,
+	public List<Defect> getFalseOptionalElements(
 			Set<Identifier> elementsToVerify) throws FunctionalException {
 		List<Defect> falseOptionalList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
-					model, identifier);
+			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(identifier);
 			if (falseOptionalElement != null) {
 				falseOptionalList.add(falseOptionalElement);
 			}
@@ -456,15 +448,14 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public List<Defect> getRedundancies(HlclProgram model,
+	public List<Defect> getRedundancies(
 			List<BooleanExpression> constraitsToVerify)
 			throws FunctionalException {
 		List<Defect> redundanciesList = new ArrayList<Defect>();
 		Iterator<BooleanExpression> it = constraitsToVerify.iterator();
 		while (it.hasNext()) {
 			BooleanExpression expressionToVerify = it.next();
-			Redundancy redudancy = (Redundancy) isRedundant(model,
-					expressionToVerify);
+			Redundancy redudancy = (Redundancy) isRedundant(expressionToVerify);
 			if (redudancy != null) {
 				redundanciesList.add(redudancy);
 			}
@@ -475,13 +466,12 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	}
 
-	public List<Defect> getAllNonAttainableDomains(HlclProgram model,
+	public List<Defect> getAllNonAttainableDomains(
 			Set<Identifier> elementsToVerify) throws FunctionalException {
 		List<Defect> nonAttainableDomainsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			List<Defect> nonAttainableDomains = getNonAttainableDomains(model,
-					identifier);
+			List<Defect> nonAttainableDomains = getNonAttainableDomains(identifier);
 			if (nonAttainableDomains != null && !nonAttainableDomains.isEmpty()) {
 				nonAttainableDomainsList.addAll(nonAttainableDomains);
 			}
@@ -491,8 +481,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	}
 
 	@Override
-	public VerificationResult getDefects(HlclProgram model,
-			Set<Identifier> optionalElements,
+	public VerificationResult getDefects(Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify,
 			List<BooleanExpression> constraintsToVerifyRedundancies) {
 
@@ -502,35 +491,32 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			throw new TechnicalException(
 					"HLCL program is required to verify defects");
 		}
-		VoidModel isVoid = (VoidModel) isVoid(model);
+		VoidModel isVoid = (VoidModel) isVoid();
 		if (isVoid.isVoidModel()) {
 			defectsList.add(isVoid);
 			verificationResult.setVoidModel(isVoid);
 		} else {
 			try {
-				FalseProductLine falseProductLine = (FalseProductLine) isFalsePL(model);
+				FalseProductLine falseProductLine = (FalseProductLine) isFalsePL();
 				if (falseProductLine.isFalsePL()) {
 					verificationResult
 							.setFalseProductLineModel(falseProductLine);
 				}
 				if (!deadElementsToVerify.isEmpty()) {
-					List<Defect> deadList = getDeadElements(model,
-							deadElementsToVerify);
+					List<Defect> deadList = getDeadElements(deadElementsToVerify);
 					if (deadList.isEmpty()) {
 						verificationResult.setDeadFeaturesList(deadList);
 					}
 
 				}
 				if (!optionalElements.isEmpty()) {
-					List<Defect> falseOptionalList = getFalseOptionalElements(
-							model, optionalElements);
+					List<Defect> falseOptionalList = getFalseOptionalElements(optionalElements);
 					if (falseOptionalList.isEmpty()) {
 						verificationResult
 								.setFalseOptionalFeaturesList(falseOptionalList);
 					}
 				}
-				List<Defect> redundanciesList = getRedundancies(model,
-						constraintsToVerifyRedundancies);
+				List<Defect> redundanciesList = getRedundancies(constraintsToVerifyRedundancies);
 				if (redundanciesList.isEmpty()) {
 					verificationResult.setRedundanciesList(redundanciesList);
 				}
@@ -541,5 +527,17 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 		return verificationResult;
 
+	}
+
+	public HlclProgram getModel() {
+		return model;
+	}
+
+	public void setProgram(HlclProgram model) {
+		// Si se cambia el program se debe borrar el mapa que tiene cache de los
+		// valores datos por el solver a los identificadores
+		verifiedValuesMap.clear();
+		identifiersList = HlclUtil.getUsedIdentifiers(model);
+		this.model = model;
 	}
 }

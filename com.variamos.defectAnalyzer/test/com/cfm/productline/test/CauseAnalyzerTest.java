@@ -54,14 +54,14 @@ public class CauseAnalyzerTest {
 		HlclProgram fixedConstraints = ConstraintRepresentationUtil
 				.expressionToHlclProgram(fixedExpressions);
 
-		IntDefectsVerifier verifier = new DefectsVerifier(
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
 
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
 		DeadElement deadElement;
 		try {
-			deadElement = (DeadElement) verifier.isDeadElement(model,
+			deadElement = (DeadElement) verifier.isDeadElement(
 					identifiers.iterator().next());
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
@@ -105,14 +105,14 @@ public class CauseAnalyzerTest {
 		HlclProgram fixedConstraints = ConstraintRepresentationUtil
 				.expressionToHlclProgram(fixedExpressions);
 
-		IntDefectsVerifier verifier = new DefectsVerifier(
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
 
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
 		DeadElement deadElement;
 		try {
-			deadElement = (DeadElement) verifier.isDeadElement(model,
+			deadElement = (DeadElement) verifier.isDeadElement(
 					identifiers.iterator().next());
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
@@ -148,14 +148,14 @@ public class CauseAnalyzerTest {
 		HlclProgram fixedConstraints = ConstraintRepresentationUtil
 				.expressionToHlclProgram(fixedExpressions);
 
-		IntDefectsVerifier verifier = new DefectsVerifier(
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
 
 		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
 
 		List<Defect> deadElements;
 		try {
-			deadElements = verifier.getDeadElements(model, identifiers);
+			deadElements = verifier.getDeadElements(identifiers);
 			IntCauCosAnalyzer caucosAnalyzer = new CauCosAnayzer(
 					SolverEditorType.SWI_PROLOG);
 			DefectAnalyzerResult result = caucosAnalyzer.getCauCos(

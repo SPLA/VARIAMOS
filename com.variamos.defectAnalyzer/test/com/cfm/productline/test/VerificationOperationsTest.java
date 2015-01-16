@@ -22,22 +22,6 @@ import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 
 public class VerificationOperationsTest {
 
-	@Test
-	public void isVoidTest() {
-
-		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
-		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
-				.dependencyToExpressionList(variabilityModel.getDependencies(),
-						variabilityModel.getFixedDependencies());
-
-		IntDefectsVerifier verifier = new DefectsVerifier(
-				SolverEditorType.SWI_PROLOG);
-		HlclProgram model = ConstraintRepresentationUtil
-				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
-		VoidModel isVoid = (VoidModel) verifier.isVoid(model);
-		assertTrue(isVoid.isVoidModel());
-
-	}
 
 	// public void testVerifyDefectsModel() {
 	//

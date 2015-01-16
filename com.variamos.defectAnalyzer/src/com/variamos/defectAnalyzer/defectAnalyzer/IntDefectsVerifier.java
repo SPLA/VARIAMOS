@@ -13,11 +13,10 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
 public interface IntDefectsVerifier {
 
 	/**
-	 * @return This operation takes a HLCLProgram as input and returns TRUE if
-	 *         it does not define any products.
+	 * @return This operation returns TRUE if the hlclprogram does not define any products.
 	 *
 	 */
-	public Defect isVoid(HlclProgram model);
+	public Defect isVoid();
 
 	/**
 	 * This operation takes a HLCLProgram as input and returns true if at most
@@ -28,7 +27,7 @@ public interface IntDefectsVerifier {
 	 * @return
 	 * 
 	 */
-	public Defect isFalsePL(HlclProgram model);
+	public Defect isFalsePL();
 
 	/**
 	 * This method try to obtain a solution for each identifier . If no solution is found then the identifier is a dead element
@@ -37,19 +36,15 @@ public interface IntDefectsVerifier {
 	 * @return null if the identifier is not dead, a DeadElement defect otherwise
 	 * @throws FunctionalException
 	 */
-	public Defect isDeadElement(HlclProgram model, Identifier identifier) throws FunctionalException;
+	public Defect isDeadElement(Identifier identifier) throws FunctionalException;
 
-	public Defect isFalseOptionalElement(HlclProgram model,
-			Identifier identifier) throws FunctionalException;
+	public Defect isFalseOptionalElement(Identifier identifier) throws FunctionalException;
 
-	public Defect isRedundant(HlclProgram model,
-			BooleanExpression expressionToVerify) throws FunctionalException;
+	public Defect isRedundant(BooleanExpression expressionToVerify) throws FunctionalException;
 
-	public List<Defect> getDeadElements(HlclProgram model,
-			Set<Identifier> elementsToVerify) throws FunctionalException;
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException;
 
-	public List<Defect> getFalseOptionalElements(HlclProgram model,
-			Set<Identifier> elementsToVerify) throws FunctionalException;
+	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException;
 
 	/**
 	 * @param model
@@ -58,17 +53,13 @@ public interface IntDefectsVerifier {
 	 *            : expressions to verify if they are redundant.
 	 * @return Defect
 	 */
-	public List<Defect> getRedundancies(HlclProgram model,
-			List<BooleanExpression> constraitsToVerifyRedundacies) throws FunctionalException;
+	public List<Defect> getRedundancies(List<BooleanExpression> constraitsToVerifyRedundacies) throws FunctionalException;
 	
-	public List<Defect> getAllNonAttainableDomains(HlclProgram model,
-			Set<Identifier> elementsToVerify) throws FunctionalException;
+	public List<Defect> getAllNonAttainableDomains(	Set<Identifier> elementsToVerify) throws FunctionalException;
 	
-	public List<Defect> getNonAttainableDomains(HlclProgram model,
-			Identifier identifier) throws FunctionalException ;
+	public List<Defect> getNonAttainableDomains(Identifier identifier) throws FunctionalException ;
 
 	public VerificationResult getDefects(
-			HlclProgram model,
 			Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify, List<BooleanExpression> constraintsToVerifyRedundancies);
 

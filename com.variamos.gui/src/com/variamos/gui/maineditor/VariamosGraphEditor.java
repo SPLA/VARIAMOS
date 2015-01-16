@@ -1547,10 +1547,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		try {
 			refas2hlcl.cleanElementsOptional();
 			HlclFactory f = new HlclFactory();
-			IntDefectsVerifier defectVerifier = new DefectsVerifier(
-					SolverEditorType.SWI_PROLOG);
 			HlclProgram hlclProgram = refas2hlcl
 					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
+			IntDefectsVerifier defectVerifier = new DefectsVerifier(hlclProgram,
+					SolverEditorType.SWI_PROLOG);
 			Collection<InstPairwiseRelation> pairwiseRelations = ((Refas) getEditedModel())
 					.getConstraintInstEdgesCollection();
 			Set<Identifier> identifiers = new HashSet<Identifier>();
@@ -1563,7 +1563,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			iniSTime = System.currentTimeMillis();
 			List<Defect> falseOptionalList = defectVerifier
-					.getFalseOptionalElements(hlclProgram, identifiers);
+					.getFalseOptionalElements(identifiers);
 			endSTime = System.currentTimeMillis();
 			if (falseOptionalList.size() > 0) {
 				List<String> outIdentifiers = new ArrayList<String>();
@@ -1727,11 +1727,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			HlclFactory f = new HlclFactory();
 			Collection<InstVertex> instVertices = ((Refas) getEditedModel())
 					.getVariabilityVertexCollection();
-
-			IntDefectsVerifier defectVerifier = new DefectsVerifier(
-					SolverEditorType.SWI_PROLOG);
 			HlclProgram hlclProgram = refas2hlcl
 					.getHlclProgram(Refas2Hlcl.CORE_EXEC);
+			IntDefectsVerifier defectVerifier = new DefectsVerifier(hlclProgram,
+					SolverEditorType.SWI_PROLOG);
+			
 			Set<Identifier> identifiers = new HashSet<Identifier>();
 
 			for (InstVertex instVertex : instVertices) {
@@ -1741,8 +1741,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			List<Defect> coreConceptsList;
 
 			iniSTime = System.currentTimeMillis();
-			coreConceptsList = defectVerifier.getFalseOptionalElements(
-					hlclProgram, identifiers);
+			coreConceptsList = defectVerifier.getFalseOptionalElements( identifiers);
 			endSTime = System.currentTimeMillis();
 			List<String> outIdentifiers = new ArrayList<String>();
 			if (coreConceptsList.size() > 0) {
