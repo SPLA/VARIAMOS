@@ -17,6 +17,7 @@ public class VoidModel extends Defect {
 		super();
 		defectType = DefectType.VOID_MODEL;
 		isVoidModel=Boolean.TRUE;
+		id="Void model";
 	}
 	
 

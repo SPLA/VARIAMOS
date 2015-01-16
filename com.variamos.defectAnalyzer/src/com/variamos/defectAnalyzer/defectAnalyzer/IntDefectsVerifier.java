@@ -17,7 +17,7 @@ public interface IntDefectsVerifier {
 	 *
 	 */
 	public Defect isVoid();
-
+	
 	/**
 	 * This operation takes a HLCLProgram as input and returns true if at most
 	 * one valid product can be configured with it

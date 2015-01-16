@@ -43,10 +43,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	// Hlcl program identifiers
 	private Set<Identifier> identifiersList;
 
-	public DefectsVerifier() {
-		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
-
-	}
 
 	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
