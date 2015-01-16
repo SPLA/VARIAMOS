@@ -1436,7 +1436,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(false);
 		long endTime = System.currentTimeMillis();
 		lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
-				+ (endSTime - iniSTime) + "]" + " ";
+				+ (endSTime - iniSTime) + "]" + " -- ";
 
 	}
 
@@ -1634,7 +1634,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "False Opt.: " + (endTime - iniTime) + "["
-					+ (endSTime - iniSTime) + "]" + " ";
+					+ (endSTime - iniSTime) + "]" + " -- ";
 		}
 
 	}
@@ -1713,7 +1713,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "Root Verif.: " + (endTime - iniTime)
-					+ "[" + (endSTime - iniSTime) + "]" + " ";
+					+ "[" + (endSTime - iniSTime) + "]" + " -- ";
 		}
 	}
 
@@ -1769,7 +1769,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "Core Identif.: " + (endTime - iniTime)
-					+ "[" + (endSTime - iniSTime) + "]" + " ";
+					+ "[" + (endSTime - iniSTime) + "]" + " -- ";
 		}
 	}
 }

@@ -98,11 +98,10 @@ public class SharedActions {
 			ic.setSemanticOverTwoRelationIden(str);
 			str = (String) ic.getSupportMetaElementIdentifier();
 			ic.setMetaOverTwoRelationIden(str);
-			if (beforeSave)
-			{
+			if (beforeSave) {
 				ic.clearEditableMetaVertex();
-				ic.clearInstAttributesObjects();	
-			}			
+				ic.clearInstAttributesObjects();
+			}
 		} else if (value instanceof InstVertex && beforeSave) {
 			InstVertex instVertex = (InstVertex) value;
 			instVertex.clearEditableMetaVertex();
@@ -112,14 +111,13 @@ public class SharedActions {
 		if (value instanceof InstPairwiseRelation) {
 			InstPairwiseRelation ic = (InstPairwiseRelation) value;
 			ic.updateIdentifiers();
-			if(beforeSave)
-			{
+			if (beforeSave) {
 				ic.clearMetaPairwiseRelation();
 				ic.clearEditableMetaVertex();
 				// ic.clearRelations();
-				ic.clearInstAttributesObjects();	
+				ic.clearInstAttributesObjects();
 			}
-			
+
 		}
 
 	}
@@ -152,12 +150,13 @@ public class SharedActions {
 			Object o = refasGraph.getRoot(); // Main Root
 			Object o1 = refasGraph.getChildAt(o, 0); // Null Root
 			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
-				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
 				// Root model view mvInd
-				if (refasGraph.getChildCount(mv0) > 0
-						&& mv0.getChildAt(0).getValue().equals(mv0.getValue())) {
-					for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
-						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
+				for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
+					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+					if (refasGraph.getChildCount(mv0) > 0
+							&& mv0.getChildAt(0).getValue()
+									.equals(mv0.getValue())) {
 						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
 							try {
@@ -168,10 +167,7 @@ public class SharedActions {
 								System.err.println(mv2.getValue().toString());
 							}
 						}
-					}
-				} else
-					for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
-						mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+					} else
 						try {
 							loadSupportObjects(editor, mv1.getValue(), mv1,
 									graph);
@@ -179,9 +175,8 @@ public class SharedActions {
 							e.printStackTrace();
 							System.err.println(mv1.getValue().toString());
 						}
-					}
+				}
 			}
-
 			((RefasGraph) graph).setValidation(true);
 		}
 		if (instAttributesToDelete.size() > 0)
@@ -321,9 +316,8 @@ public class SharedActions {
 					instPairwiseRelation
 							.setSupportMetaPairwiseRelation(metaPairwiseRelation);
 					instPairwiseRelation.setUpdatePairwiseRelationType();
-			//		instPairwiseRelation.setDynamicVariable(
-			//				MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
-			//				instPairwiseRelation.getSemanticPairwiseRelType());
+					instPairwiseRelation.setDynamicVariable("relationType",
+							instPairwiseRelation.getSemanticPairwiseRelType());
 
 					Iterator<InstAttribute> instAttributesIter = instPairwiseRelation
 							.getInstAttributes().values().iterator();

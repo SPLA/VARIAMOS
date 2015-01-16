@@ -403,7 +403,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							addCellOverlay(tmp, over3);
 						}
 						
-						if ((boolean) instConcept.getInstAttribute(
+					/*	if ((boolean) instConcept.getInstAttribute(
 								"VerificationError").getValue()) {
 							mxCellOverlay over3 = new mxCellOverlay(
 									new ImageIcon(
@@ -414,6 +414,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							over3.setAlign(mxConstants.ALIGN_RIGHT);
 							addCellOverlay(tmp, over3);
 						}
+						*/
 						if (!instConcept.getInstAttribute("HasParent")
 								.getAsBoolean()) {
 							mxCellOverlay over3 = new mxCellOverlay(

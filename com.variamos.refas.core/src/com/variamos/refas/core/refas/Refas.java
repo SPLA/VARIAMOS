@@ -1865,7 +1865,7 @@ public class Refas extends AbstractModel {
 				"FeatOverTwoRel", true, "FeatOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
-						+ " cartinalities", 20, 20,
+						+ " cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticFeatureFeatureGroupRelation);
 
@@ -2119,7 +2119,7 @@ public class Refas extends AbstractModel {
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 50, 50,
+						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
@@ -2128,7 +2128,7 @@ public class Refas extends AbstractModel {
 				"HardRelation2", true, "HardRelation2", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 50, 50,
+						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
@@ -2167,7 +2167,7 @@ public class Refas extends AbstractModel {
 				"HardOverTwoRel", true, "HardOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cartinalities", 20, 20,
+						+ " relations and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticHardHardGroupRelation);
 
@@ -2348,7 +2348,7 @@ public class Refas extends AbstractModel {
 		MetaPairwiseRelation metaSoftEdge = new MetaPairwiseRelation(
 				"Soft Relation", true, "Soft Relation", "",
 				"Direct relation between two soft concepts. Defines"
-						+ " different types of relations and cartinalities",
+						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSGSGSemEdge);
 		syntaxAbsSoftGoal.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
@@ -2374,7 +2374,7 @@ public class Refas extends AbstractModel {
 				true, "SoftgoalOverTwoRel", "plgroup",
 				"Direct relation between soft"
 						+ " concepts. Defines different types of relations"
-						+ " and cartinalities", 20, 20,
+						+ " and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticSGSGGroupRelation);
 
