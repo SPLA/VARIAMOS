@@ -29,6 +29,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.actions.SimulationAction;
+import com.variamos.gui.refas.editor.actions.UpdateAction;
 import com.variamos.gui.refas.editor.actions.VerificationAction;
 
 public class PLEditorToolBar extends JToolBar {
@@ -97,6 +98,9 @@ public class PLEditorToolBar extends JToolBar {
 
 			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
+			
+			add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
+					"/com/mxgraph/examples/swing/images/tree.gif"));
 		}
 			
 		if (variamosGraphEditor.getPerspective() == 4) {			

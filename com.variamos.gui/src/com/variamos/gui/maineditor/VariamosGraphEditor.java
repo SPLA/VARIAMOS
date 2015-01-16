@@ -1585,7 +1585,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							.updateErrorMark(
 									outIdentifiers,
 									"FalseOpt",
-									"This element is a false optional. Modify the required attribute or the relations");
+									"This element is a false optional. Modify the required attribute or the relation type");
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
 					JOptionPane
