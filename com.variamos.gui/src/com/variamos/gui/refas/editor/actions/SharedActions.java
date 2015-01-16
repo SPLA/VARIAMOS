@@ -152,8 +152,17 @@ public class SharedActions {
 			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
 				// Root model view mvInd
 				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
-				for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
-					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+				//First vertices and after edges
+				Object[] vertexCells = graph.getChildCells(mv0, true, false);
+				Object[] edgeCells = graph.getChildCells(mv0, false, true);
+				Object[] allCells = new Object[vertexCells.length+edgeCells.length];
+				
+				  System.arraycopy(vertexCells, 0, allCells, 0, vertexCells.length);
+				    System.arraycopy(edgeCells, 0, allCells, vertexCells.length, edgeCells.length);
+				for (Object anyCell : allCells){
+				//for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
+				//	mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+					mxCell mv1 = (mxCell)anyCell;
 					if (refasGraph.getChildCount(mv0) > 0
 							&& mv0.getChildAt(0).getValue()
 									.equals(mv0.getValue())) {
