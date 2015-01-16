@@ -185,7 +185,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	}
 
-	private List<CauCos> getCauses(Defect defectToAnalyze,
+	private List<CauCos> getCauses(Defect defectToAnalyze,HlclProgram fixedConstraints,
 			List<CauCos> corrections,
 			List<List<BooleanExpression>> unsatisfiableSets,
 			DefectAnalyzerMode mode) throws FunctionalException {
@@ -195,11 +195,18 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		if (mode.equals(DefectAnalyzerMode.PARTIAL)) {
 			// We use the unsatisfiable constraints previusly identified. They
-			// are causes identified of the analyzed defect
-			allMUSes.addAll(unsatisfiableSets);
-
+			// are causes identified when we identify corrections
+			
+			//Each MUS is filter to avoid verification expressions and fixed expressions in the set of causes
+			for(List<BooleanExpression> expressions: unsatisfiableSets){
+				List<BooleanExpression>expressionsFiltered= new ArrayList<BooleanExpression>();
+				expressionsFiltered.addAll(expressions);
+				expressionsFiltered.removeAll(defectToAnalyze.getVerificationExpressions());
+				expressionsFiltered.removeAll(fixedConstraints);
+				allMUSes.add(expressionsFiltered);
+			}
 		} else if (mode.equals(DefectAnalyzerMode.COMPLETE)) {
-			// We use the hitting set method to identify causes
+			// In this case we use the hitting set method to identify causes
 			List<List<BooleanExpression>> sets = new ArrayList<List<BooleanExpression>>();
 			for (CauCos correction : corrections) {
 				sets.add(correction.getElements());
@@ -390,7 +397,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				// Se inserta la transition constraint en el primer elemento
 				newUnsatisfiableSet.add(0, transitionClause);
 			} else {
-				throw new RuntimeException("Verificar enfoque dicothomic");
+				throw new FunctionalException("Verify dicothomic approach to identify defect corrections");
 			}
 			identifiedTransitionConstraints = identifiedTransitionConstraints + 1;
 			unsatisfiableSize = newUnsatisfiableSet.size();
@@ -600,6 +607,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		Diagnosis diagnosis = new Diagnosis(defect);
 		List<List<BooleanExpression>> unsatisfiableSets = new ArrayList<List<BooleanExpression>>();
 
+		//To avoid null pointer exceptions
+		if(fixedConstraints==null){
+			fixedConstraints= new HlclProgram();
+		}
+			
 		// Corrections
 		List<CauCos> corrections = getCorrections(defect, model,
 				fixedConstraints, unsatisfiableSets, mode);
@@ -611,7 +623,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		// Causes
 		startTime = System.nanoTime();
-		List<CauCos> causes = getCauses(defect, corrections, unsatisfiableSets,
+		List<CauCos> causes = getCauses(defect,fixedConstraints, corrections, unsatisfiableSets,
 				mode);
 		diagnosis.setCauses(causes);
 		endTime = System.nanoTime();
