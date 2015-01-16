@@ -1549,8 +1549,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			HlclFactory f = new HlclFactory();
 			HlclProgram hlclProgram = refas2hlcl
 					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
-			IntDefectsVerifier defectVerifier = new DefectsVerifier(hlclProgram,
-					SolverEditorType.SWI_PROLOG);
+			IntDefectsVerifier defectVerifier = new DefectsVerifier(
+					hlclProgram, SolverEditorType.SWI_PROLOG);
 			Collection<InstPairwiseRelation> pairwiseRelations = ((Refas) getEditedModel())
 					.getConstraintInstEdgesCollection();
 			Set<Identifier> identifiers = new HashSet<Identifier>();
@@ -1645,56 +1645,67 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		long endSTime = 0;
 		((MainFrame) getFrame()).waitingCursor(true);
 		try {
-			HlclFactory f = new HlclFactory();
-			HlclProgram hlclProgram = refas2hlcl
-					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
-
+			iniSTime = System.currentTimeMillis();
 			Defect defect = new Defect(refas2hlcl.rootVerityTest());
 			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
-			HlclProgram fixed = new HlclProgram();
+			HlclProgram modelToVerify = new HlclProgram();
+			modelToVerify.addAll(refas2hlcl.rootVerityTest());
+			modelToVerify.addAll(refas2hlcl.rootRelaxedTest());
+			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
+					SolverEditorType.SWI_PROLOG);
+			// The model has two or more roots
+			Defect voidModel = verifier.isVoid();
+			if (voidModel != null) {
 
-			IntCauCosAnalyzer defectsAnalyzer = new CauCosAnayzer();
-			iniSTime = System.currentTimeMillis();
-			Diagnosis result = defectsAnalyzer.getCauCos(defect,
-					refas2hlcl.rootRelaxedTest(), fixed,
-					DefectAnalyzerMode.COMPLETE);
-			endSTime = System.currentTimeMillis();
-			Set<String> outIdentifiers = new TreeSet<String>();
-			String defects = "(";
-			for (CauCos correction : result.getCorrections()) {
-				List<BooleanExpression> corr = correction.getElements();
-				for (BooleanExpression expression : corr) {
-					Set<Identifier> iden = HlclUtil
-							.getUsedIdentifiers(expression);
-					Identifier firsIden = iden.iterator().next();
-					String[] o = firsIden.getId().split("_");
+				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer();
+				HlclProgram fixedConstraint = new HlclProgram();
+				fixedConstraint.addAll(refas2hlcl.rootVerityTest());
+				Diagnosis result = cauCosAnalyzer.getCauCos(defect,
+						refas2hlcl.rootRelaxedTest(),
+						fixedConstraint,
+						DefectAnalyzerMode.PARTIAL);
+				endSTime = System.currentTimeMillis();
+				Set<String> outIdentifiers = new TreeSet<String>();
+				String defects = "(";
+				for (CauCos correction : result.getCorrections()) {
+					List<BooleanExpression> corr = correction.getElements();
+					for (BooleanExpression expression : corr) {
+						Set<Identifier> iden = HlclUtil
+								.getUsedIdentifiers(expression);
+						Identifier firsIden = iden.iterator().next();
+						String[] o = firsIden.getId().split("_");
 
-					if (outIdentifiers.add(o[0]))
-						defects += o[0] + ", ";
+						if (outIdentifiers.add(o[0]))
+							defects += o[0] + ", ";
+					}
 				}
-			}
-			refas2hlcl.updateErrorMark(outIdentifiers, "Root",
-					"More than one root element is not allowed. Delete "
-							+ (outIdentifiers.size() - 1) + " from the model");
-			defects = defects.substring(0, defects.length() - 2) + ")";
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-				JOptionPane.showMessageDialog(frame, outIdentifiers.size()
-						+ " roots identified " + defects
-						+ ".\n Please keep only one of them.",
-						"Verification Message",
-						JOptionPane.INFORMATION_MESSAGE, null);
-			} catch (Exception e) {
-				lastEditableElement = null;
-				JOptionPane
-						.showMessageDialog(
-								frame,
-								"Please select any element and after execute the verification.",
+				// There are more than one root.
+				if (!outIdentifiers.isEmpty()) {
+					refas2hlcl.updateErrorMark(outIdentifiers, "Root",
+							"More than one root element is not allowed. Delete "
+									+ (outIdentifiers.size() - 1)
+									+ " from the model");
+					defects = defects.substring(0, defects.length() - 2) + ")";
+					try {
+						((RefasGraph) getGraphComponent().getGraph())
+								.refreshVariable(lastEditableElement);
+						JOptionPane.showMessageDialog(frame,
+								outIdentifiers.size() + " roots identified "
+										+ defects
+										+ ".\n Please keep only one of them.",
 								"Verification Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
+					} catch (Exception e) {
+						lastEditableElement = null;
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Please select any element and after execute the verification.",
+										"Verification Message",
+										JOptionPane.INFORMATION_MESSAGE, null);
+					}
+				}
 			}
-
 			// if (lastEditableElement == null)
 			// JOptionPane
 			// .showMessageDialog(
@@ -1729,9 +1740,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					.getVariabilityVertexCollection();
 			HlclProgram hlclProgram = refas2hlcl
 					.getHlclProgram(Refas2Hlcl.CORE_EXEC);
-			IntDefectsVerifier defectVerifier = new DefectsVerifier(hlclProgram,
-					SolverEditorType.SWI_PROLOG);
-			
+			IntDefectsVerifier defectVerifier = new DefectsVerifier(
+					hlclProgram, SolverEditorType.SWI_PROLOG);
+
 			Set<Identifier> identifiers = new HashSet<Identifier>();
 
 			for (InstVertex instVertex : instVertices) {
@@ -1741,7 +1752,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			List<Defect> coreConceptsList;
 
 			iniSTime = System.currentTimeMillis();
-			coreConceptsList = defectVerifier.getFalseOptionalElements( identifiers);
+			coreConceptsList = defectVerifier
+					.getFalseOptionalElements(identifiers);
 			endSTime = System.currentTimeMillis();
 			List<String> outIdentifiers = new ArrayList<String>();
 			if (coreConceptsList.size() > 0) {

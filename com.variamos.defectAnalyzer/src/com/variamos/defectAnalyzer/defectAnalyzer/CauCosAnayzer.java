@@ -47,7 +47,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 	 * @return true: is satisfiable. Otherwise False
 	 * @throws FunctionalException
 	 */
-	private boolean isMCS(List<BooleanExpression> modelExpressions,
+	private boolean hasSolution(List<BooleanExpression> modelExpressions,
 			List<BooleanExpression> fixedExpressions, Defect defectToAnalyze)
 			throws FunctionalException {
 
@@ -185,8 +185,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	}
 
-	private List<CauCos> getCauses(Defect defectToAnalyze,HlclProgram fixedConstraints,
-			List<CauCos> corrections,
+	private List<CauCos> getCauses(Defect defectToAnalyze,
+			HlclProgram fixedConstraints, List<CauCos> corrections,
 			List<List<BooleanExpression>> unsatisfiableSets,
 			DefectAnalyzerMode mode) throws FunctionalException {
 
@@ -196,12 +196,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		if (mode.equals(DefectAnalyzerMode.PARTIAL)) {
 			// We use the unsatisfiable constraints previusly identified. They
 			// are causes identified when we identify corrections
-			
-			//Each MUS is filter to avoid verification expressions and fixed expressions in the set of causes
-			for(List<BooleanExpression> expressions: unsatisfiableSets){
-				List<BooleanExpression>expressionsFiltered= new ArrayList<BooleanExpression>();
+
+			// Each MUS is filter to avoid verification expressions and fixed
+			// expressions in the set of causes
+			for (List<BooleanExpression> expressions : unsatisfiableSets) {
+				List<BooleanExpression> expressionsFiltered = new ArrayList<BooleanExpression>();
 				expressionsFiltered.addAll(expressions);
-				expressionsFiltered.removeAll(defectToAnalyze.getVerificationExpressions());
+				expressionsFiltered.removeAll(defectToAnalyze
+						.getVerificationExpressions());
 				expressionsFiltered.removeAll(fixedConstraints);
 				allMUSes.add(expressionsFiltered);
 			}
@@ -284,7 +286,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				modelExpressions.removeAll(candidateMCS);
 
 				// Se verifica si el nuevo conjunto es satisfacible
-				isMCS = isMCS(modelExpressions, fixedExpressions, defect);
+				isMCS = hasSolution(modelExpressions, fixedExpressions, defect);
 
 				// Si es satisfacible entonces se adiciona al conjunto de MCS
 				// identificados, se
@@ -347,7 +349,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			// satisfiable
 			subsetOriginalSetOfClauses.addAll(originalSetOfClauses.subList(0,
 					center));
-			isSatisfiable = isMCS(subsetOriginalSetOfClauses,
+			isSatisfiable = hasSolution(subsetOriginalSetOfClauses,
 					fixedDependenciesList, defectToAnalyze);
 			if (isSatisfiable) {
 				min = center + 1;
@@ -397,14 +399,15 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				// Se inserta la transition constraint en el primer elemento
 				newUnsatisfiableSet.add(0, transitionClause);
 			} else {
-				throw new FunctionalException("Verify dicothomic approach to identify defect corrections");
+				throw new FunctionalException(
+						"Verify dicothomic approach to identify defect corrections");
 			}
 			identifiedTransitionConstraints = identifiedTransitionConstraints + 1;
 			unsatisfiableSize = newUnsatisfiableSet.size();
 		}
 
 		// We have to determine if the last constraint belongs to the MUC
-		boolean isSatisfiable = isMCS(
+		boolean isSatisfiable = hasSolution(
 				newUnsatisfiableSet.subList(1, newUnsatisfiableSet.size()),
 				fixedDependenciesList, defectToAnalyze);
 		if (!isSatisfiable) {
@@ -598,7 +601,6 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	}
 
-	
 	@Override
 	public Diagnosis getCauCos(Defect defect, HlclProgram model,
 			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
@@ -607,30 +609,36 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		Diagnosis diagnosis = new Diagnosis(defect);
 		List<List<BooleanExpression>> unsatisfiableSets = new ArrayList<List<BooleanExpression>>();
 
-		//To avoid null pointer exceptions
-		if(fixedConstraints==null){
-			fixedConstraints= new HlclProgram();
+		// To avoid null pointer exceptions
+		if (fixedConstraints == null) {
+			fixedConstraints = new HlclProgram();
 		}
-			
-		// Corrections
-		List<CauCos> corrections = getCorrections(defect, model,
-				fixedConstraints, unsatisfiableSets, mode);
-		diagnosis.setCorrections(corrections);
-		long endTime = System.nanoTime();
-		long totalTime = endTime - startTime;
-		diagnosis.setCorrectionsProcessingTime(totalTime);
-		System.out.println(" Correctios time: " + totalTime);
 
-		// Causes
-		startTime = System.nanoTime();
-		List<CauCos> causes = getCauses(defect,fixedConstraints, corrections, unsatisfiableSets,
-				mode);
-		diagnosis.setCauses(causes);
-		endTime = System.nanoTime();
-		totalTime = endTime - startTime;
-		diagnosis.setCausesProcessingTime(totalTime);
-		System.out.println(" Causes time: " + totalTime);
-		return diagnosis;
+		if (!hasSolution(model, fixedConstraints, defect)) {
+
+			// Corrections
+			List<CauCos> corrections = getCorrections(defect, model,
+					fixedConstraints, unsatisfiableSets, mode);
+			diagnosis.setCorrections(corrections);
+			long endTime = System.nanoTime();
+			long totalTime = endTime - startTime;
+			diagnosis.setCorrectionsProcessingTime(totalTime);
+			System.out.println(" Correctios time: " + totalTime);
+
+			// Causes
+			startTime = System.nanoTime();
+			List<CauCos> causes = getCauses(defect, fixedConstraints,
+					corrections, unsatisfiableSets, mode);
+			diagnosis.setCauses(causes);
+			endTime = System.nanoTime();
+			totalTime = endTime - startTime;
+			diagnosis.setCausesProcessingTime(totalTime);
+			System.out.println(" Causes time: " + totalTime);
+			return diagnosis;
+		}else{
+			//Solo se identifican causas y correcciones si el modelo es irresoluble
+			return diagnosis;
+		}
 	}
 
 	@Override
@@ -717,10 +725,10 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		caucosResult.setClassifiedCauses(classifiedCauses);
 		caucosResult.setClassifiedCorrections(classifiedCorrections);
-		
+
 		long endTime = System.nanoTime();
 		long totalTime = endTime - startTime;
-		
+
 		caucosResult.setTotalTime(totalTime);
 		return caucosResult;
 	}
