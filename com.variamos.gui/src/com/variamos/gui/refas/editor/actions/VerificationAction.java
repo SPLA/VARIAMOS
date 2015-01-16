@@ -22,8 +22,9 @@ public class VerificationAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
+		editor.cleanNotificationBar();
 	//	editor.identifyCoreConcepts();
-	//	editor.verifyErrors();
+		editor.verifyErrors();
 		editor.verifyRoot();
 	}
 }

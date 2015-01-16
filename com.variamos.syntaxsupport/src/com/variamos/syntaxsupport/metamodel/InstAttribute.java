@@ -365,7 +365,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 			}
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType().equals(
-							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
+							InstPairwiseRelation.VAR_METAPAIRWISE_OBJ_CLASS)) {
 
 				Iterator<String> elementNames = mapElements.keySet().iterator();
 				List<MetaPairwiseRelation> metaGD = new ArrayList<MetaPairwiseRelation>();

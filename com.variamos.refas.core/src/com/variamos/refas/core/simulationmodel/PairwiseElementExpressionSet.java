@@ -18,6 +18,7 @@ import com.variamos.refas.core.expressions.LiteralBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
 import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
+import com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation;
 import com.variamos.refas.core.types.DirectEdgeType;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
@@ -38,7 +39,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */
-	private DirectEdgeType directEdgeType;
+	private String relationType;
 	/**
 	 * The source edge for the constraint
 	 */
@@ -70,8 +71,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 		defineTransformations();
 	}
 
-	public DirectEdgeType getDirectEdgeType() {
-		return directEdgeType;
+	public String getDirectEdgeType() {
+		return relationType;
 	}
 
 	public InstPairwiseRelation getInstPairwiseRelation() {
@@ -96,20 +97,19 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 		if (activeVertex
 				&& metaPairwiseRelation != null
 				&& instPairwiseRelation
-						.getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
+						.getInstAttribute(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN) != null
 				&& !(instPairwiseRelation.getTargetRelations().get(0) instanceof InstOverTwoRelation)
 				&& instPairwiseRelation.getInstAttribute(
-						MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE)
+						SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
 						.getValue() != null) {
-			directEdgeType = DirectEdgeType
-					.valueOf(((String) instPairwiseRelation.getInstAttribute(
-							MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE)
-							.getValue()).trim().replace(" ", "_"));
-			setDescription(getDescription() + directEdgeType);
+			relationType = ((String) instPairwiseRelation.getInstAttribute(
+							SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
+							.getValue()).trim().replace(" ", "_");
+			setDescription(getDescription() + relationType);
 			Set<String> sourceAttributeNames = new HashSet<String>();
-			switch (directEdgeType) {
+			switch (relationType) {
 
-			case preferred:
+			case "preferred":
 				sourceAttributeNames.add("Satisfied");
 				sourceAttributeNames.add("NotPrefSelected");
 				// ( ( SourceId_Satisfied #/\ targetId_Satisfied ) #/\
@@ -133,7 +133,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								transformation4));
 */
 				break;
-			case required:
+			case "required":
 				sourceAttributeNames.add("Selected");
 				sourceAttributeNames.add("Core");
 				// (( 1 - SourceId_Selected) + targetId_Selected) #>= 1
@@ -156,7 +156,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								"Core", true, transformation9));
 				
 				break;
-			case conflict:
+			case "conflict":
 
 				sourceAttributeNames.add("Satisfied");
 			//	sourceAttributeNames.add("SatisfactionConflict");
@@ -189,7 +189,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 * transformation9));
 				 */
 				break;
-			case alternative:
+			case "alternative":
 				sourceAttributeNames.add("Satisfied");
 			//	sourceAttributeNames.add("ValidationSelected");
 			//	sourceAttributeNames.add("AlternativeSelected");
@@ -219,9 +219,9 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								transformation15));
 								*/
 				break;
-			case means_ends:
+			case "means_ends":
 				sourceAttributeNames.add("Selected");
-			case implication:
+			case "implication":
 				sourceAttributeNames.add("NextReqSatisfied");
 				sourceAttributeNames.add("Core");
 				// SourceId_Satisfied #==> targetId_NextReqSatisfied #= 1
@@ -242,7 +242,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						new ImplicationBooleanExpression(instPairwiseRelation.getSourceRelations().get(0),
 								"Core", true, transformation199));
 				break;
-			case implementation:
+			case "implementation":
 
 				sourceAttributeNames.add("NextReqSelected");
 				sourceAttributeNames.add("Core");
@@ -271,7 +271,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						new ImplicationBooleanExpression(instPairwiseRelation.getTargetRelations().get(0),
 								"Core", true, transformation189));
 				break;
-			case mandatory:
+			case "mandatory":
 				sourceAttributeNames.add("NextReqSelected");
 				sourceAttributeNames.add("Core");
 				// SourceId_Selected #==> targetId_ValidationSelected #=1
@@ -310,15 +310,15 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								"Core", true, transformation200));
 				
 				break;
-			case optional:
+			case "optional":
 				// SourceId_Selected #>= targetId_Selected
-			/*	getTransformations().add(
+				getElementExpressions().add(
 						new LessOrEqualsBooleanExpression(
 								instPairwiseRelation.getSourceRelations()
 										.get(0), instPairwiseRelation
 										.getTargetRelations().get(0),
 								"Selected", "Selected"));
-*/
+
 				// targetId_Optional #= 1
 				getElementExpressions().add(
 						new EqualsComparisonExpression(instPairwiseRelation
@@ -327,7 +327,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				instPairwiseRelation.setOptional(true);
 
 				break;
-			case claim:
+			case "claim":
 
 				sourceAttributeNames.add("Selected");
 				// SourceId_ClaimSelected #<=> SourceId_Selected #/\
@@ -354,7 +354,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 										.get(0), "ClaimSelected", true,
 								transformation23));
 				break;
-			case softdependency:
+			case "softdependency":
 				// SourceId_SD #<=> SourceId_CompExp #==>
 				// targetId_level #=
 				// R_level
@@ -377,7 +377,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 								transformation25));
 
 				break;
-			case generalConstraint:
+			case "generalConstraint":
 				String attributeValue = (String) instPairwiseRelation
 						.getInstAttribute("generalConstraint").getValue();
 				if (attributeValue != null && !attributeValue.equals(""))
@@ -385,7 +385,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 							new LiteralBooleanExpression(attributeValue));
 
 				break;
-			case none:
+			case "none":
 				break;
 			}
 			InstElement instVertex = instPairwiseRelation.getSourceRelations()

@@ -58,15 +58,15 @@ public class InstPairwiseRelation extends InstElement {
 	 * Name of the MetaPairwiseRelation object for both semantic and instance
 	 * objects
 	 */
-	VAR_METAPAIRWISE_OBJ = "MetaPairwise",
+	VAR_METAPAIRWISE_OBJ_IDEN = "MetaPairwise",
 	/**
 	 * Display Name for MetaPairwiseRelation instance object
 	 */
-	VAR_METAPAIRWISE_NAME = "Type of Relation",
+	VAR_METAPAIRWISE_OBJ_NAME = "Type of Relation",
 	/**
 	 * Canonical class name of MetaPairwiseRelation
 	 */
-	VAR_METAPAIRWISE_CLASS = MetaPairwiseRelation.class.getCanonicalName();
+	VAR_METAPAIRWISE_OBJ_CLASS = MetaPairwiseRelation.class.getCanonicalName();
 
 	public InstPairwiseRelation() {
 		this(new HashMap<String, InstAttribute>(), "test");
@@ -130,13 +130,13 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public String getSemanticPairwiseRelType() {
-		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null
-				&& (semanticPairwiseRelType != null && !semanticPairwiseRelType
-						.equals(getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-						|| semanticPairwiseRelType == null))
-			semanticPairwiseRelType = ((String) getInstAttribute(
-					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-					.trim();
+		if (getInstAttribute("relationType") != null && getInstAttribute(
+				"relationType").getValue() != null)
+			if( (semanticPairwiseRelType != null
+						&& !semanticPairwiseRelType.equals(getInstAttribute(
+								"relationType").getValue()) || semanticPairwiseRelType == null))
+			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
+					.getValue()).trim();
 		return semanticPairwiseRelType;
 	}
 
@@ -152,8 +152,8 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public SemanticAttribute getSemanticAttribute() {
-		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ, "Class", true,
-				VAR_METAPAIRWISE_NAME, VAR_METAPAIRWISE_CLASS, "HardRelation",
+		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
+				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
 				"");
 
 	}
@@ -163,20 +163,19 @@ public class InstPairwiseRelation extends InstElement {
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 		SemanticAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute
-		dynamicAttributesMap.put(VAR_METAPAIRWISE_OBJ, semAttribute);
+		dynamicAttributesMap.put(VAR_METAPAIRWISE_OBJ_IDEN, semAttribute);
 
 		// Add the InstAttribute initially empty
 		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN, "");
-		addInstAttribute(VAR_METAPAIRWISE_OBJ, semAttribute, "");
+		addInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN, semAttribute, "");
 	}
 
 	public void setSupportMetaPairwiseRelation(MetaElement metaEdge) {
-		getInstAttribute(VAR_METAPAIRWISE_OBJ).setValueObject(metaEdge);
+		getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN).setValueObject(metaEdge);
 		supportMetaPairwiseRelIden = metaEdge.getIdentifier();
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
-		setDynamicVariable(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE,
-				metaEdge.getIdentifier());
+		setDynamicVariable("relationType", metaEdge.getIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
 		createInstAttributes();
@@ -245,8 +244,8 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public MetaPairwiseRelation getMetaPairwiseRelation() {
-		if (getInstAttribute(VAR_METAPAIRWISE_OBJ) != null)
-			return (MetaPairwiseRelation) (getInstAttribute(VAR_METAPAIRWISE_OBJ)
+		if (getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN) != null)
+			return (MetaPairwiseRelation) (getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN)
 					.getValueObject());
 		return null;
 	}
@@ -270,7 +269,7 @@ public class InstPairwiseRelation extends InstElement {
 					null);
 		} else {
 			editableInstAttributes = new ArrayList<InstAttribute>();
-			editableInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ));
+			editableInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
 		}
 		return editableInstAttributes;
 	}
@@ -286,7 +285,7 @@ public class InstPairwiseRelation extends InstElement {
 					null);
 		} else {
 			visibleInstAttributes = new ArrayList<InstAttribute>();
-			visibleInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ));
+			visibleInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
 			;
 		}
 		return visibleInstAttributes;
@@ -361,7 +360,7 @@ public class InstPairwiseRelation extends InstElement {
 					.getPropEditableAttributes());
 		}
 
-		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ);
+		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ_IDEN);
 
 		return editableAttributes;
 	}
@@ -393,7 +392,7 @@ public class InstPairwiseRelation extends InstElement {
 					.getPropVisibleAttributes());
 		}
 
-		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ);
+		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ_IDEN);
 
 		return editableAttributes;
 	}
@@ -542,16 +541,15 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void updateIdentifiers() {
-		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE_OBJ)
+		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN)
 				.getValueObject();
 		if (metaEdge != null) {
 			supportMetaPairwiseRelIden = ((MetaPairwiseRelation) metaEdge)
 					.getIdentifier();
 		}
-		if (getInstAttribute(MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE) != null)
-			semanticPairwiseRelType = ((String) getInstAttribute(
-					MetaPairwiseRelation.VAR_METAPAIRWISERELTYPE).getValue())
-					.trim();
+		if (getInstAttribute("relationType") != null)
+			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
+					.getValue()).trim();
 
 	}
 
@@ -594,6 +592,6 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public void clearMetaPairwiseRelation() {
-		super.clearMetaPairwiseRelation(VAR_METAPAIRWISE_OBJ);
+		super.clearMetaPairwiseRelation(VAR_METAPAIRWISE_OBJ_IDEN);
 	}
 }

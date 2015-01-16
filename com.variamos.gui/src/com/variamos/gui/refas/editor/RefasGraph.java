@@ -509,9 +509,10 @@ public class RefasGraph extends AbstractGraph {
 								for (int j = 0; j < refasGraph
 										.getChildCount(mv1); j++) {
 									mxCell mv2 = (mxCell) refasGraph
-											.getChildAt(mv1, j);									
-									if (semanticPlusSyntax.elementsValidation(
-											name, i, j)
+											.getChildAt(mv1, j);
+									if (refas.getSyntaxRefas().elementsValidation(name, i, j)
+								//	if (semanticPlusSyntax.elementsValidation(
+									//		name, i, j)
 											&& (i != modelViewIndex || j != modelViewSubIndex)) {
 
 										mxCell c2 = null;
@@ -525,6 +526,7 @@ public class RefasGraph extends AbstractGraph {
 										c2.setValue(cell.getValue());
 
 										getModel().setVisible(c2, false);
+										getModel().setVisible(c2, true);
 										model.add(mv2, c2, mv2.getChildCount());
 										// Add a clone to other models
 									}
@@ -547,6 +549,7 @@ public class RefasGraph extends AbstractGraph {
 									c2.setValue(cell.getValue());
 
 									getModel().setVisible(c2, false);
+									getModel().setVisible(c2, true);
 									model.add(mv1, c2, mv1.getChildCount());
 									// Add a clone to other
 								}
@@ -634,7 +637,14 @@ public class RefasGraph extends AbstractGraph {
 							vertices = mxGraphModel.getChildCells(getModel(),
 									mv00, true, false);
 
-							for (int i = 0; i < vertices.length; i++) {
+							if (modelViewIndex != mvInd
+									|| (modelViewSubIndex != -1 && modelViewSubIndex != mvSubInd))
+								getModel().setVisible(mv00, false);
+							else
+
+								getModel().setVisible(mv00, true);
+							
+					/*		for (int i = 0; i < vertices.length; i++) {
 								mxCell cell = ((mxCell) vertices[i]);
 								if (modelViewIndex != mvInd
 										|| (modelViewSubIndex != -1 && modelViewSubIndex != mvSubInd)) {
@@ -660,6 +670,7 @@ public class RefasGraph extends AbstractGraph {
 											PL_EVT_NODE_CHANGE, "cell", cell));
 								}
 							}
+							*/
 						}
 
 					}
@@ -668,8 +679,13 @@ public class RefasGraph extends AbstractGraph {
 
 					vertices = mxGraphModel.getChildCells(getModel(), mv0,
 							true, false);
+					if (modelViewIndex != mvInd)
+						getModel().setVisible(mv0, false);
+					else
 
-					for (int i = 0; i < vertices.length; i++) {
+						getModel().setVisible(mv0, true);
+
+		/*			for (int i = 0; i < vertices.length; i++) {
 						mxCell cell = ((mxCell) vertices[i]);
 						if (modelViewIndex != mvInd) {
 
@@ -692,7 +708,7 @@ public class RefasGraph extends AbstractGraph {
 							this.fireEvent(new mxEventObject(
 									PL_EVT_NODE_CHANGE, "cell", cell));
 						}
-					}
+					}*/
 				}
 			}
 

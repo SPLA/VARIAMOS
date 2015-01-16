@@ -241,7 +241,8 @@ public class ElementDesignPanel extends JPanel {
 								.getEditableVariables();
 
 						if (!editables.contains(v)
-								|| editor.getPerspective() == 4)
+							//	|| editor.getPerspective() == 4
+							)
 
 						{
 							w.getEditor().setEnabled(false);
@@ -256,10 +257,13 @@ public class ElementDesignPanel extends JPanel {
 									.getDisplayName() + ": "));
 							elementDesPropSubPanel.add(w);
 							if (v.isAffectProperties()
-									&& editor.getPerspective() != 4) {
+									//&& editor.getPerspective() != 4
+									) 
+									{
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										finalEditor.cleanNotificationBar();
 										finalEditor.identifyCoreConcepts();
 										finalEditor.executeSimulation(true,
 												Refas2Hlcl.DESIGN_EXEC);
