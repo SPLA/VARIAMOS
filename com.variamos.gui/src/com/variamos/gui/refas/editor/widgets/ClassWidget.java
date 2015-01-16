@@ -121,7 +121,9 @@ public class ClassWidget extends WidgetR {
 			// System.out.println("yr"+txtValue.getSelectedIndex());
 			if (txtValue.getSelectedIndex() == -1
 					&& txtValue.getItemCount() > 0)
+			{
 				txtValue.setSelectedItem(0);
+			}
 
 		} else {
 			if (aClass.isInterface() ||	aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
@@ -181,6 +183,11 @@ public class ClassWidget extends WidgetR {
 				}
 			}
 
+		}
+		if (instAttribute.getValue()== null)
+		{
+			txtValue.setSelectedIndex(0);
+			instAttribute.setValue((String)txtValue.getSelectedItem());
 		}
 		pushValue(v);
 	}

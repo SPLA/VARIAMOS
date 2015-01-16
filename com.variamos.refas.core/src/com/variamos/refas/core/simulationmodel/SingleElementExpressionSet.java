@@ -106,6 +106,11 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1)));
 							this.getRelaxableExpressions().put("Root",list);
+							// identifierId_SimRequired #= identifierId_Required
+							getElementExpressions()
+									.add(new EqualsComparisonExpression(instVertex,
+											"Required",
+											getHlclFactory().number(1)));
 							
 						}
 						else
@@ -298,18 +303,19 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					if (instAttribute.getIdentifier().equals("Required")) {
-
+						if (!instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature"))
+						{
 						// identifierId_SimRequired #= identifierId_Required
 						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
-
+						}
 						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
-
+						
 						// identifierId_Required #==>
 						// identifierId_Core #= 1
 						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(

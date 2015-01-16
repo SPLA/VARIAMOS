@@ -164,11 +164,11 @@ public class MetaPairwiseRelation extends MetaElement {
 		// VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
 		// VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
 		// "OperGoalOverTwoRel", ""));
-		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
+/*		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
 				VAR_METAPAIRWISERELTYPE, "Enumeration", true,
 				VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
-				"means_ends", ""));
-
+				"mandatory", ""));
+*/
 		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
 				VAR_METAGENERALCONSTRAINT, "String", false,
 				VAR_METAGENERALCONSTRAINTNAME, ""));
@@ -176,8 +176,8 @@ public class MetaPairwiseRelation extends MetaElement {
 		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 
-		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
-		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
+//		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
+//		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 
 		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
 				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
