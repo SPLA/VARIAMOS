@@ -268,14 +268,17 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 					// identifierId_Core #= value for simulation
 					if (instAttribute.getIdentifier().equals("Core")
-							&& execType != Refas2Hlcl.CORE_EXEC) {
+							&& execType != Refas2Hlcl.CORE_EXEC
+							) {
 						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
 					}
 
-					if (instAttribute.getIdentifier().equals("HasParent")) {
+					if (instAttribute.getIdentifier().equals("HasParent")
+							&& (execType != Refas2Hlcl.CORE_EXEC )
+							) {
 						MetaElement element = (MetaElement) instVertex
 								.getTransSupportMetaElement();
 						if (element.getIdentifier().equals("LeafFeature")
@@ -302,8 +305,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 					}
 
-					if (instAttribute.getIdentifier().equals("Required")) {
-						if (!instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature"))
+					if (instAttribute.getIdentifier().equals("Required") 
+							) {
+						if (!instVertex.getTransSupportMetaElement().getIdentifier().equals("RootFeature")
+								&& (execType != Refas2Hlcl.CORE_EXEC))
 						{
 						// identifierId_SimRequired #= identifierId_Required
 						getElementExpressions()
@@ -329,7 +334,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 					// identifierId_SimInitialRequiredLevel #=
 					// identifierId_RequiredLevel
-					if (instAttribute.getIdentifier().equals("RequiredLevel")) {
+					if (instAttribute.getIdentifier().equals("RequiredLevel") 
+							&& (execType != Refas2Hlcl.CORE_EXEC)
+							) {
 						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
@@ -437,7 +444,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					// Order#<==>
-					if (instAttribute.getIdentifier().equals("Order")) {
+					if (instAttribute.getIdentifier().equals("Order")
+							&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))
+							) {
 						AbstractNumericExpression transformation48 = new ProdNumericExpression(
 								instVertex, "NextReqSelected", true,
 								getHlclFactory().number(4));
@@ -500,6 +509,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 										transformation10));
 
 						// Opt #<==>
+						if (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))
+						{
 						AbstractNumericExpression transformation50 = new SumNumericExpression(
 								instVertex, instVertex, "NextReqSelected",
 								"ConfigSelected");
@@ -541,7 +552,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										"Opt", true, transformation60));
-
+						}
 						// Opt#=0
 
 						getElementExpressions().add(
