@@ -370,6 +370,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class ScaleAction extends AbstractAction {
+		public ScaleAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Scale Model");
+		}
 		/**
 		 * 
 		 */
@@ -438,6 +444,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class PrintAction extends AbstractAction {
+		public PrintAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Print Model");
+		}
 		/**
 		 * 
 		 */
@@ -471,6 +483,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class SaveAction extends AbstractAction {
+		public SaveAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Save Model");
+		}
 		/**
 		 * 
 		 */
@@ -1114,6 +1132,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class HistoryAction extends AbstractAction {
+		public HistoryAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Undo/Redo Action");
+		}
 		/**
 		 * 
 		 */
@@ -1248,6 +1272,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class NewAction extends AbstractAction {
+		public NewAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "New Model");
+		}
 		/**
 		 * 
 		 */
@@ -1386,6 +1416,13 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class OpenAction extends AbstractAction {
+		
+		public OpenAction()
+		{
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Open Model");
+		}
 		/**
 		 * 
 		 */

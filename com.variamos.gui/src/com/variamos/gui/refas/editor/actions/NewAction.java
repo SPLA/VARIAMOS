@@ -12,6 +12,12 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 @SuppressWarnings("serial")
 public class NewAction extends AbstractEditorAction
 	{
+	public NewAction()
+	{
+		super();
+
+		this.putValue(SHORT_DESCRIPTION, "N");
+	}
 		/**
 		 * 
 		 */

@@ -64,8 +64,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
-	public List<BooleanExpression> rootVerityTest()
-	{
+	public List<BooleanExpression> rootVerityTest() {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createModelExpressions(0);
@@ -76,25 +75,22 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getBooleanExpressions());
 		return modelExpressions;
 		/*
-		for (BooleanExpression transformation : modelExpressions) {
-			hlclProgram.add(transformation);
-		}
-		return hlclProgram;
-		*/
+		 * for (BooleanExpression transformation : modelExpressions) {
+		 * hlclProgram.add(transformation); } return hlclProgram;
+		 */
 	}
-	
+
 	public HlclProgram rootRelaxedTest() {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createVertexExpressions(null, 0);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values())
-		{
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getRelaxableExpressionList("Root") != null)
-					transformations.addAll(constraintGroup
-							.getRelaxableExpressionList("Root"));
-			}
+				transformations.addAll(constraintGroup
+						.getRelaxableExpressionList("Root"));
+		}
 
 		for (AbstractExpression transformation : transformations) {
 			idMap.putAll(transformation.getIdentifiers(f));
@@ -112,8 +108,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 		return hlclProgram;
 	}
-	
-	
+
 	/**
 	 * Create a new HlclProgram with the expression of all concepts and
 	 * relations and calls SWIProlog to return a solution or all solutions (only
@@ -203,7 +198,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
-				configurationOptions.setOrder(true);
+				if (execType != Refas2Hlcl.CORE_EXEC
+						&& execType != Refas2Hlcl.DESIGN_EXEC)
+					configurationOptions.setOrder(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
@@ -313,11 +310,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 
 	}
-	
+
 	/**
 	 * Updates the GUI errors
 	 */
-	public void updateErrorMark(Collection<String> identifiers, String defectId, String defectDescription) {
+	public void updateErrorMark(Collection<String> identifiers,
+			String defectId, String defectDescription) {
 		// Call the SWIProlog and obtain the result
 
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
