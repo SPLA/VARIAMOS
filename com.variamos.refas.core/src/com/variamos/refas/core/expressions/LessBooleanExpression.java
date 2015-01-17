@@ -65,8 +65,8 @@ public class LessBooleanExpression extends AbstractBooleanExpression {
 			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 
-		return f.lessThan((Identifier) expressionTerms.get(0),
-				(Identifier) expressionTerms.get(1));
+		return f.lessThan((NumericExpression) expressionTerms.get(0),
+				(NumericExpression) expressionTerms.get(1));
 	}
 
 	@Override

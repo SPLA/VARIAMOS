@@ -82,6 +82,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					.getInstAttribute("Active");
 			if (validAttribute == null
 					|| ((boolean) validAttribute.getValue()) == true) {
+				List<AbstractExpression> coreAndFalseOptList = new ArrayList<AbstractExpression>();
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributesCollection()) {
 
@@ -98,36 +99,143 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							attributeValue = (Integer) instAttribute.getValue();
 					}
 
-					if (instAttribute.getIdentifier().equals("IsRootFeature")) {
-						if (instVertex.getTransSupportMetaElement()
-								.getIdentifier().equals("RootFeature")) {
-							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
-							list.add(new EqualsComparisonExpression(instVertex,
-									instAttribute.getIdentifier(),
-									getHlclFactory().number(1)));
-							this.getRelaxableExpressions().put("Root", list);
-							// identifierId_SimRequired #= identifierId_Required
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											"Required", getHlclFactory()
-													.number(1)));
+					// ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-						} else {
-							// identifierId_SimRequired #= identifierId_Required
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											instAttribute.getIdentifier(),
+					if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
+						if (instAttribute.getIdentifier().equals(
+								"IsRootFeature")) {
+							List<AbstractExpression> rootList = new ArrayList<AbstractExpression>();
+							if (instVertex.getTransSupportMetaElement()
+									.getIdentifier().equals("RootFeature")) {
+								rootList.add(new EqualsComparisonExpression(
+										instVertex, instAttribute
+												.getIdentifier(),
+										getHlclFactory().number(1)));
+								rootList.add(new EqualsComparisonExpression(
+										instVertex, "Required",
+										getHlclFactory().number(1)));
+								this.getRelaxableExpressions().put("Root",
+										rootList);
+							} else {
+								// identifierId_SimRequired #=
+								// identifierId_Required
+								rootList.add(new EqualsComparisonExpression(
+										instVertex, instAttribute
+												.getIdentifier(),
+										getHlclFactory().number(0)));
+								this.getRelaxableExpressions().put("Root",
+										rootList);
+							}
+						}
+
+						if (instAttribute.getIdentifier().equals("HasParent")) {
+							MetaElement element = (MetaElement) instVertex
+									.getTransSupportMetaElement();
+
+							List<AbstractExpression> parentList = new ArrayList<AbstractExpression>();
+							if (element.getIdentifier().equals("LeafFeature")
+									|| element.getIdentifier().equals(
+											"GeneralFeature")) {
+								if (parent(instVertex))
+									parentList
+											.add(new EqualsComparisonExpression(
+													instVertex, instAttribute
+															.getIdentifier(),
+													getHlclFactory().number(1)));
+								else
+									parentList
+											.add(new EqualsComparisonExpression(
+													instVertex, instAttribute
+															.getIdentifier(),
+													getHlclFactory().number(0)));
+								/*
+								 * getTransformations().add( new
+								 * EqualsComparisonExpression(instVertex,
+								 * instAttribute .getIdentifier(),
+								 * getHlclFactory().number(1)));
+								 */
+							} else
+								parentList.add(new EqualsComparisonExpression(
+										instVertex, instAttribute
+												.getIdentifier(),
+										getHlclFactory().number(1)));
+							this.getRelaxableExpressions().put("Parent",
+									parentList);
+						}
+
+						if (instAttribute.getIdentifier().equals("Required")) {
+
+							coreAndFalseOptList
+									.add(new EqualsComparisonExpression(
+											instVertex, instAttribute
+													.getIdentifier(),
 											getHlclFactory().number(
 													attributeValue)));
 
-							List<AbstractExpression> list = new ArrayList<AbstractExpression>();
-							list.add(new EqualsComparisonExpression(instVertex,
-									instAttribute.getIdentifier(),
-									getHlclFactory().number(0)));
-							this.getRelaxableExpressions().put("Root", list);
+							// identifierId_Required #==>
+							// identifierId_Selected #= 1
+							AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
+									instVertex, "Selected", getHlclFactory()
+											.number(1));
+							coreAndFalseOptList
+									.add(new ImplicationBooleanExpression(
+											instVertex, instAttribute
+													.getIdentifier(), true,
+											transformation9));
+						}
+						if (instAttribute.getIdentifier().equals("Satisfied")) {
+							// ( ( 1 - identifierId_Selected ) +
+							// identifierId_Satisfied
+							// ) #>= 1
+							AbstractNumericExpression transformation2 = new DiffNumericExpression(
+									instVertex, "Selected", false,
+									getHlclFactory().number(1));
+							transformation2 = new SumNumericExpression(
+									instVertex, instAttribute.getIdentifier(),
+									false, transformation2);
+
+							coreAndFalseOptList
+									.add(new GreaterOrEqualsBooleanExpression(
+											transformation2,
+											new NumberNumericExpression(1)));
+
+							// IdentifierId_Satisfied #<=>
+							// ( ( IdentifierId_ConfigSatisfied #\/
+							// IdentifierId_NextPrefSatisfied ) #\/
+							// ( IdentifierId_NextReqSatisfied ) )
+
+							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+									instVertex, instVertex, "ConfigSatisfied",
+									"NextPrefSatisfied");
+							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, "NextReqSatisfied", false,
+									transformation6);
+							coreAndFalseOptList
+									.add(new DoubleImplicationBooleanExpression(
+											instVertex, "Satisfied", true,
+											transformation7));
 
 						}
+						if (instAttribute.getIdentifier().equals("Selected")) {
+							// identifierId_Selected #<=>
+							// ( ( ( identifierId_ConfigSelected
+							// #\/ identifierId_NextPrefSelected ) #\/
+							// identifierId_NextReqSelected ) ) )
+
+							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+									instVertex, instVertex, "ConfigSelected",
+									"NextPrefSelected");
+							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, "NextReqSelected", false,
+									transformation6);
+							coreAndFalseOptList
+									.add(new DoubleImplicationBooleanExpression(
+											instVertex, "Selected", true,
+											transformation7));
+						}
 					}
+
+					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
 						if (execType == Refas2Hlcl.CORE_EXEC
@@ -279,40 +387,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
 										getHlclFactory().number(attributeValue)));
-					}
-
-					if (instAttribute.getIdentifier().equals("HasParent")
-							&& (execType != Refas2Hlcl.CORE_EXEC)) {
-						MetaElement element = (MetaElement) instVertex
-								.getTransSupportMetaElement();
-						if (element.getIdentifier().equals("LeafFeature")
-								|| element.getIdentifier().equals(
-										"GeneralFeature")) {
-							if (parent(instVertex))
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, instAttribute
-														.getIdentifier(),
-												getHlclFactory().number(1)));
-							else
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, instAttribute
-														.getIdentifier(),
-												getHlclFactory().number(0)));
-							/*
-							 * getTransformations().add( new
-							 * EqualsComparisonExpression(instVertex,
-							 * instAttribute .getIdentifier(),
-							 * getHlclFactory().number(1)));
-							 */
-						}
-						else
-							getElementExpressions().add(
-									new EqualsComparisonExpression(
-											instVertex, instAttribute
-													.getIdentifier(),
-											getHlclFactory().number(1)));
 					}
 
 					if (instAttribute.getIdentifier().equals("Required")) {
@@ -560,6 +634,25 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 					}
 				}
+				List<AbstractExpression> coreList = this
+						.getCompulsoryExpressionList("Core");
+				if (coreList != null)
+					coreList.addAll(coreAndFalseOptList);
+				else
+					this.getCompulsoryExpressions().put("Core",
+							coreAndFalseOptList);
+				List<AbstractExpression> falseList = this
+						.getCompulsoryExpressionList("FalseOpt");
+				if (falseList != null)
+					falseList.addAll(coreAndFalseOptList);
+				this.getCompulsoryExpressions().put("FalseOpt",
+						coreAndFalseOptList);
+				List<AbstractExpression> falseList2 = this
+						.getCompulsoryExpressionList("FalseOpt2");
+				if (falseList2 != null)
+					falseList2.addAll(coreAndFalseOptList);
+				this.getCompulsoryExpressions().put("FalseOpt2",
+						coreAndFalseOptList);
 
 			}
 

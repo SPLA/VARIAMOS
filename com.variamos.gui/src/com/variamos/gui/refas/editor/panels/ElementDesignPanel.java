@@ -262,8 +262,8 @@ public class ElementDesignPanel extends JPanel {
 									public void actionPerformed(ActionEvent e) {
 										finalEditor.cleanNotificationBar();
 										// finalEditor.identifyCoreConcepts();
-										finalEditor.executeSimulation(true,
-												Refas2Hlcl.DESIGN_EXEC);
+									//	finalEditor.executeSimulation(true,
+									//			Refas2Hlcl.DESIGN_EXEC);
 										editorProperties(finalEditor, finalElm);
 									}
 								});
