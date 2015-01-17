@@ -307,6 +307,12 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							 * getHlclFactory().number(1)));
 							 */
 						}
+						else
+							getElementExpressions().add(
+									new EqualsComparisonExpression(
+											instVertex, instAttribute
+													.getIdentifier(),
+											getHlclFactory().number(1)));
 					}
 
 					if (instAttribute.getIdentifier().equals("Required")) {
@@ -416,25 +422,27 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 										transformation51));
 					}
 
-					/*
-					 * if
-					 * (instAttribute.getIdentifier().equals("NextReqSelected"))
-					 * { List<String> outRelations = new ArrayList<String>();
-					 * outRelations.add("mandatory"); List<String> inRelations =
-					 * new ArrayList<String>(); inRelations.add("required");
-					 * AbstractNumericExpression transformation50 =
-					 * sumRelations( instVertex, "Selected", outRelations,
-					 * inRelations); AbstractBooleanExpression transformation51
-					 * = new GreaterOrEqualsBooleanExpression( transformation50,
-					 * new NumberNumericExpression(1));
-					 * AbstractBooleanExpression transformation52 = new
-					 * NotBooleanExpression( instVertex, "Core");
-					 * AbstractBooleanExpression transformation53 = new
-					 * AndBooleanExpression( transformation52,
-					 * transformation51); getElementExpressions().add( new
-					 * DoubleImplicationBooleanExpression( instVertex,
-					 * "NextReqSelected", true, transformation53)); }
-					 */
+					if (instAttribute.getIdentifier().equals("NextReqSelected")) {
+						List<String> outRelations = new ArrayList<String>();
+						outRelations.add("mandatory");
+						List<String> inRelations = new ArrayList<String>();
+						inRelations.add("required");
+						AbstractNumericExpression transformation50 = sumRelations(
+								instVertex, "Selected", outRelations,
+								inRelations);
+						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
+								transformation50,
+								new NumberNumericExpression(1));
+						AbstractBooleanExpression transformation52 = new NotBooleanExpression(
+								instVertex, "Core");
+						AbstractBooleanExpression transformation53 = new AndBooleanExpression(
+								transformation52, transformation51);
+						getElementExpressions().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "NextReqSelected", true,
+										transformation53));
+					}
+
 					// Order#<==>
 					if (instAttribute.getIdentifier().equals("Order")
 							&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
@@ -634,7 +642,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					if (target.getTargetRelations().get(0)
 							.getInstAttribute("Active").getAsBoolean())
 						return true;
-				} else if (type != null &&(type.equals("Group") ||type.equals("none"))) {
+				} else if (type != null
+						&& (type.equals("Group") || type.equals("none"))) {
 					InstVertex grouprel = (InstVertex) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
