@@ -251,7 +251,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			hlclProgram.add(transformation);
 		}
 		for (AbstractExpression transformation : transformations) {
-			System.out.println(transformation.expressionStructure());
+			//System.out.println(transformation.expressionStructure());
 			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
 				hlclProgram.add(((AbstractBooleanExpression) transformation)

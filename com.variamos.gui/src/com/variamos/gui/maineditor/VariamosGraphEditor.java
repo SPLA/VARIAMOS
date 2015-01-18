@@ -51,6 +51,7 @@ import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
+import com.cfm.productline.solver.Configuration;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -171,6 +172,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private String editableElementType = null;
 
 	private String lastSolverInvocations = "";
+	private Configuration lastConfiguration;
 
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
@@ -1407,7 +1409,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		if (first) {
 			result = refas2hlcl.execute("", Refas2Hlcl.ONE_SOLUTION, type);
 		} else
+		{
 			result = refas2hlcl.execute("", Refas2Hlcl.NEXT_SOLUTION, type);
+			Configuration currentConfiguration = refas2hlcl.getConfiguration();
+			List<String> modifiedIdentifiers = compareSolutions (lastConfiguration, currentConfiguration);
+			System.out.println(modifiedIdentifiers);
+		}
+		lastConfiguration = refas2hlcl.getConfiguration();
 		endSTime = System.currentTimeMillis();
 		if (result) {
 			refas2hlcl.updateGUIElements(null);
@@ -1561,6 +1569,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	//
 	// elementDesPropPanel.revalidate();
 	// }
+
+	private List<String> compareSolutions(Configuration lastConfiguration,
+			Configuration currentConfiguration) {
+		List<String> out = new ArrayList<String>();
+		Map<String, Integer> lastConfig =  lastConfiguration.getConfiguration();
+		Map<String, Integer> currentConfig =  currentConfiguration.getConfiguration();
+		for (String solution: lastConfig.keySet())
+			if (lastConfig.get(solution) != currentConfig.get(solution))
+				out.add(solution);
+		return out;
+	}
 
 	@Deprecated
 	public void verifyErrors() {
@@ -1988,8 +2007,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			} else
 				endSTime = System.currentTimeMillis();
 			refas2hlcl.updateErrorMark(outIdentifiers, verifElement, verifHint);
-			refresh();
 
+			((MainFrame) getFrame()).waitingCursor(true);
 			// if (lastEditableElement == null)
 			// JOptionPane
 			// .showMessageDialog(

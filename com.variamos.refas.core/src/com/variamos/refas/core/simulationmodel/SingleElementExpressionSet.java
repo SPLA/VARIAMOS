@@ -246,8 +246,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 											instVertex, "Core", true,
 											transformation7));
 */
-							if (attributeValue == 1	
-									|| execType == Refas2Hlcl.SIMUL_EXEC)
+					//		if (attributeValue == 1	
+					//				|| execType == Refas2Hlcl.SIMUL_EXEC)
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -301,7 +301,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(
 														attributeValue)));
-						
+							else
+								getElementExpressions().add(
+										new ImplicationBooleanExpression(instVertex,instVertex, "ConfigNotSelected",
+												instAttribute.getIdentifier()));
 
 						/*
 						 * else { AbstractComparisonExpression transformation9 =
@@ -324,6 +327,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 											instAttribute.getIdentifier(),
 											getHlclFactory().number(
 													attributeValue)));
+						else
+							getElementExpressions().add(
+									new ImplicationBooleanExpression(instVertex,instVertex, "ConfigNotSatisfied",
+											instAttribute.getIdentifier()));
 
 						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
 								instVertex, "Selected", getHlclFactory()
@@ -340,14 +347,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// identifierId_ConfigSatisfied #=0
 					if (instAttribute.getIdentifier().equals(
 							"ConfigNotSatisfied")) {
-						if (attributeValue == 1
-								|| execType == Refas2Hlcl.SIMUL_EXEC)
+				//		if (attributeValue == 1
+				//				|| execType == Refas2Hlcl.SIMUL_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instAttribute.getIdentifier(),
 											getHlclFactory().number(
 													attributeValue)));
 
+							
 						AbstractComparisonExpression transformation8 = new EqualsComparisonExpression(
 								instVertex, "ConfigNotSelected",
 								getHlclFactory().number(1));
@@ -420,6 +428,12 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new GreaterOrEqualsBooleanExpression(
 										transformation1,
 										new NumberNumericExpression(1)));
+						
+						// Restriction to only show satisfaction is selected
+						getElementExpressions().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex,instVertex,
+										instAttribute.getIdentifier(),"Selected"));
 
 						// ( ( 1 - identifierId_Selected ) +
 						// identifierId_Satisfied
