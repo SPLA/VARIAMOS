@@ -99,7 +99,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							attributeValue = (Integer) instAttribute.getValue();
 					}
 
-					// ///////////////////////////////////////////////////////////////////////////////////////////////////////
+					// ini///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 					if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
 						if (instAttribute.getIdentifier().equals(
@@ -235,7 +235,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 					}
 
-					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
+					// end//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
 /*							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
@@ -469,7 +469,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						outRelations.add("conflict");
 						List<String> inRelations = new ArrayList<String>();
 						inRelations.add("conflict");
-					/*	AbstractNumericExpression transformation50 = sumRelations(
+						AbstractNumericExpression transformation50 = sumRelations(
 								instVertex, "Selected", outRelations,
 								inRelations);
 						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
@@ -479,9 +479,10 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextNotSelected", true,
 										transformation51));
-					*/}
+					}
 
 					if (instAttribute.getIdentifier().equals("NextReqSelected")) {
+						/*
 						List<String> outRelations = new ArrayList<String>();
 						outRelations.add("mandatory");
 						List<String> inRelations = new ArrayList<String>();
@@ -500,6 +501,25 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextReqSelected", true,
 										transformation53));
+										*/
+						
+						// IdentifierId_NextReqSelected #<=>
+						// ( ( IdentifierId_ConfigSelected +
+						// IdentifierId_NextPrefSelected ) #=
+						// ( 0 )
+						// #/\ ( identifierId_Selected ) )
+						AbstractNumericExpression transformation6 = new SumNumericExpression(
+								instVertex, instVertex, "ConfigSelected",
+								"NextPrefSelected");
+						EqualsComparisonExpression transformation7 = new EqualsComparisonExpression(
+								transformation6, new NumberNumericExpression(0));
+						AbstractBooleanExpression transformation10 = new AndBooleanExpression(
+								 instVertex, "Selected", true, transformation7);
+						getElementExpressions().add(
+								new DoubleImplicationBooleanExpression(
+										instVertex, "NextReqSelected", true,
+										transformation10));
+
 					}
 
 					// Order#<==>
@@ -565,6 +585,23 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new DoubleImplicationBooleanExpression(
 										instVertex, "Selected", true,
 										transformation10));
+						
+						//  ( ( ( identifierId_ConfigSelected
+						// + identifierId_NextPrefSelected ) +
+						// identifierId_NextReqSelected ) *
+						// identifierId_NextNotSelected )  #= 0
+
+						AbstractNumericExpression transformation61 = new SumNumericExpression(
+								instVertex, instVertex, "ConfigSelected",
+								"NextPrefSelected");
+						AbstractNumericExpression transformation62 = new SumNumericExpression(
+								instVertex, "NextReqSelected", false,
+								transformation61);
+						AbstractNumericExpression transformation63 = new ProdNumericExpression(
+								instVertex, "NextNotSelected", true, transformation62);
+						EqualsComparisonExpression transformation64 = new EqualsComparisonExpression(
+								transformation63, new NumberNumericExpression(0));
+						getElementExpressions().add(transformation64);
 
 						// Opt #<==>
 						if (execType != Refas2Hlcl.CORE_EXEC

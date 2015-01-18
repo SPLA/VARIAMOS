@@ -1498,6 +1498,8 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
+
+				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
@@ -1563,7 +1565,6 @@ public class EditorActions {
 													.getSelectedFile()
 													.getAbsolutePath()));
 								} else {
-									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
 									Document document = mxXmlUtils
@@ -1590,6 +1591,7 @@ public class EditorActions {
 						}
 					}
 				}
+				variamosEditor.refresh();
 				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}

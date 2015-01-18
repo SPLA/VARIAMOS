@@ -65,6 +65,7 @@ public class OpenAction extends AbstractEditorAction{
 
 		if (editor != null)
 		{
+			VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 			final BasicGraphEditor finalEditor = editor;
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
@@ -136,7 +137,6 @@ public class OpenAction extends AbstractEditorAction{
 //								codec.decode(
 //										document.getDocumentElement(),
 //										graph.getModel());
-								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 								//variamosEditor.editModelReset();
 
 								SharedActions.beforeLoadGraph(graph, variamosEditor);
@@ -161,6 +161,7 @@ public class OpenAction extends AbstractEditorAction{
 					}
 				}
 			}
+			variamosEditor.refresh();
 			((MainFrame)editor.getFrame()).waitingCursor(false);
 		}
 	}

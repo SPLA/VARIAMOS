@@ -360,7 +360,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					.values()) {
 				// System.out.println(vertexId + " " + attribute);
 				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
-						&& instAttribute.getAttributeType().equals("Boolean"))
+						&& instAttribute.getAttributeType().equals("Boolean") && !instAttribute.getIdentifier().equals("HasParent"))
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);

@@ -313,7 +313,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 */
 				break;
 			case "mandatory":
-				sourceAttributeNames.add("NextReqSelected");
+				//sourceAttributeNames.add("NextReqSelected");
 				sourceAttributeNames.add("Selected");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Selected #==> targetId_ValidationSelected #=1
@@ -479,13 +479,14 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			}
 
-			List<AbstractExpression> parentList = this
+		/*	List<AbstractExpression> parentList = this
 					.getCompulsoryExpressionList("Parent");
 			if (parentList != null)
 				parentList.addAll(structureList);
 			else
 				this.getCompulsoryExpressions().put("Parent",
 						structureList);
+						*/
 			List<AbstractExpression> coreList = this
 					.getCompulsoryExpressionList("Core");
 			if (coreList != null)

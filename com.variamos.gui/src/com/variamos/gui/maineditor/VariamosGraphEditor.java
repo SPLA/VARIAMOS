@@ -1137,7 +1137,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				elementExpressionPanel.revalidate();
 				elementSimPropPanel.revalidate();
 			}
-			((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
+			refresh();
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
@@ -1145,6 +1145,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		} finally {
 			recursiveCall = false;
 		}
+	}
+	
+	public void refresh(){
+		try
+		{
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
+		}
+		catch(Exception e)
+		{
+			lastEditableElement = ((RefasGraph)this.getGraphComponent().getGraph()).getEditableElement();
+			try
+			{
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+			}
+			catch(Exception p)
+			{
+				System.out.println("Update error");
+			}
+
+		}
+
 	}
 
 	public void refreshElement(EditableElement elm) {
@@ -1230,8 +1253,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							.setIdentifier((String) instAttribute.getValue());
 			}
 		}
-		((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(editableElement);
+		refresh();
 	}
 
 	protected void installToolBar(MainFrame mainFrame, int perspective) {
@@ -1353,16 +1375,26 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void cleanSimulation() {
 
 		refas2hlcl.cleanGUIElements();
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Select any element and after clean the simulation.",
-							"Simulation Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
-		else
+		try
+		{
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
+		}
+		catch(Exception e)
+		{
+			lastEditableElement = ((RefasGraph)this.getGraphComponent().getGraph()).getEditableElement();
+			try
+			{
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+			}
+			catch(Exception p)
+			{
+				System.out.println("Update error");
+			}
+
+		}
+
 	}
 
 	public void executeSimulation(boolean first, int type) {
@@ -1423,16 +1455,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						null);
 
 		}
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Select any element and after execute the simulation.",
-							"Simulation Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
-		else
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
+		refresh();
 		// updateObjects();
 		((MainFrame) getFrame()).waitingCursor(false);
 		long endTime = System.currentTimeMillis();
@@ -1539,6 +1562,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// elementDesPropPanel.revalidate();
 	// }
 
+	@Deprecated
 	public void verifyErrors() {
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -1640,6 +1664,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	}
 
+	@Deprecated
 	public void verifyRoot() {
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -1783,9 +1808,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			posList++;
 		}
 
-		if (lastEditableElement != null)
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
+		refresh();
+		
 
 		((MainFrame) getFrame()).waitingCursor(false);
 	}
@@ -1806,7 +1830,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
 
-			System.out.println(falseOptIdentifiers);
+			//System.out.println(falseOptIdentifiers);
 			List<String> freeIdentifiers = getFreeIdentifiers(currentResult);
 
 			Set<Identifier> identifiers = new HashSet<Identifier>();
@@ -1847,7 +1871,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			Set<String> uniqueIdentifiers = new HashSet<String>();
 			uniqueIdentifiers.addAll(falseOptIdentifiers);
-			System.out.println(uniqueIdentifiers);
+			//System.out.println(uniqueIdentifiers);
 			if (uniqueIdentifiers.size() > 0)
 				JOptionPane.showMessageDialog(frame, uniqueIdentifiers.size()
 						+ verifMessage, "Verification Message",
@@ -1964,13 +1988,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			} else
 				endSTime = System.currentTimeMillis();
 			refas2hlcl.updateErrorMark(outIdentifiers, verifElement, verifHint);
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-
-			} catch (Exception e) {
-				lastEditableElement = null;
-			}
+			refresh();
 
 			// if (lastEditableElement == null)
 			// JOptionPane
@@ -1995,6 +2013,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			return;
 	}
 
+	@Deprecated
 	public void identifyCoreConcepts() {
 		long iniSTime = 0;
 		long endSTime = 0;
@@ -2031,12 +2050,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			refas2hlcl.updateCoreConcepts(outIdentifiers);
 
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-			} catch (Exception e) {
-				lastEditableElement = null;
-			}
+			refresh();
 
 		} catch (FunctionalException e1) {
 			endSTime = System.currentTimeMillis();

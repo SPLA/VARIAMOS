@@ -1463,7 +1463,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-
+				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 				final BasicGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
@@ -1534,7 +1534,6 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".plg")) {
-									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 									// variamosEditor.editModelReset();
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
@@ -1572,6 +1571,7 @@ public class EditorActions {
 						}
 					}
 				}
+				variamosEditor.refresh();
 				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
