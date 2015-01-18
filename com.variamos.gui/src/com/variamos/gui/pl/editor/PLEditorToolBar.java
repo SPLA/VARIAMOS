@@ -99,8 +99,8 @@ public class PLEditorToolBar extends JToolBar {
 			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
 			
-			add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
-					"/com/mxgraph/examples/swing/images/tree.gif"));
+	//		add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
+	//				"/com/mxgraph/examples/swing/images/tree.gif"));
 		}
 			
 		if (variamosGraphEditor.getPerspective() == 4) {			

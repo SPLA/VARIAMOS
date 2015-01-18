@@ -259,15 +259,17 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 				coreLists.addAll(coreList);
 			else
 				this.getCompulsoryExpressions().put("Core", coreList);
+			
 			List<AbstractExpression> falseList = this
 					.getCompulsoryExpressionList("FalseOpt");
 			if (falseList != null)
 				falseList.addAll(coreList);
 			this.getCompulsoryExpressions().put("FalseOpt", coreList);
+			
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");
 			if (falseList2 != null)
-				falseList2.addAll(coreList);
+				falseList2.addAll(allList);
 			this.getCompulsoryExpressions().put("FalseOpt2", allList);
 		}
 	}

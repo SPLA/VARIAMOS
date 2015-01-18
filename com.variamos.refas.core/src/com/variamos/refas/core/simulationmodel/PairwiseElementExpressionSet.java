@@ -376,6 +376,14 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out3);
 				structureList.add(out3);
 				allList.add(out3);
+				// SourceId_Selected #>= targetId_Selected
+				EqualsComparisonExpression out55 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"Selected", "Selected");
+				getElementExpressions().add(out55);
+				structureList.add(out55);
+				allList.add(out55);
 				// targetId_Core #==>
 				// SourceId_Core #= 1
 				/*
@@ -491,10 +499,11 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				falseList.addAll(allList);
 			this.getCompulsoryExpressions().put("FalseOpt",
 					allList);
+			
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");
 			if (falseList2 != null)
-				falseList.addAll(allList);
+				falseList2.addAll(allList);
 			this.getCompulsoryExpressions().put("FalseOpt2",
 					allList);
 

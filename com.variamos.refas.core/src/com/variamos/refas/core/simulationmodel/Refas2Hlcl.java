@@ -146,6 +146,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				transformations.addAll(constraintGroup
 						.getCompulsoryExpressionList(element));
 		}
+		
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createEdgeExpressions(null, 4);
+
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getCompulsoryExpressionList(element) != null)
+				transformations.addAll(constraintGroup
+						.getCompulsoryExpressionList(element));
+		}
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createGroupExpressions(null, 4, element);
 
@@ -555,6 +564,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				instAttribute.setValue(true);
 			else
 				instAttribute.setValue(false);
+		}
+
+	}
+	public void updateCoreConcepts(Set<String> outIdentifiers) {
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
+			// System.out.println(vertexId + " " + attribute);
+			if (outIdentifiers != null
+					&& outIdentifiers.contains(instVertex.getIdentifier()))
+				instAttribute.setValue(true);
+			
 		}
 
 	}

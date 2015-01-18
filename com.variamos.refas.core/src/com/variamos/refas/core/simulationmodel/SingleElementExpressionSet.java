@@ -238,22 +238,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 					if (instAttribute.getIdentifier().equals("ConfigSelected")) {
-						if (execType == Refas2Hlcl.CORE_EXEC
-								|| execType == Refas2Hlcl.DESIGN_EXEC)
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											instVertex, instAttribute
-													.getIdentifier(), "Core"));
-						else {
-							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
+/*							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
 									instVertex, instAttribute.getIdentifier(),
 									getHlclFactory().number(1));
 							getElementExpressions().add(
 									new ImplicationBooleanExpression(
 											instVertex, "Core", true,
 											transformation7));
-
-							if (attributeValue == 1
+*/
+							if (attributeValue == 1	
 									|| execType == Refas2Hlcl.SIMUL_EXEC)
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
@@ -278,18 +271,18 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 											instVertex, instAttribute
 													.getIdentifier(), true,
 											transformation9));
-						}
+						
 					}
 
 					if (instAttribute.getIdentifier().equals("ConfigSatisfied")) {
-						if (execType == Refas2Hlcl.CORE_EXEC
+			/*			if (execType == Refas2Hlcl.CORE_EXEC
 								|| execType == Refas2Hlcl.DESIGN_EXEC)
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											instVertex, instAttribute
 													.getIdentifier(), "Core"));
 						else {
-
+*/
 							// identifierId_Core #==>
 							// identifierId_ConfigSatisfied #= 1
 							AbstractComparisonExpression transformation7 = new EqualsComparisonExpression(
@@ -308,7 +301,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(
 														attributeValue)));
-						}
+						
 
 						/*
 						 * else { AbstractComparisonExpression transformation9 =
@@ -381,8 +374,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					// identifierId_Core #= value for simulation
-					if (instAttribute.getIdentifier().equals("Core")
-							&& execType != Refas2Hlcl.CORE_EXEC) {
+					if (instAttribute.getIdentifier().equals("Core")) {
 						getElementExpressions()
 								.add(new EqualsComparisonExpression(instVertex,
 										instAttribute.getIdentifier(),
@@ -390,21 +382,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					}
 
 					if (instAttribute.getIdentifier().equals("Required")) {
-
+						getElementExpressions().add(
+								new EqualsComparisonExpression(instVertex,
+										"Required",
+										getHlclFactory().number(attributeValue)));
 						getElementExpressions().add(
 								new EqualsComparisonExpression(instVertex,
 										instVertex, "SimRequired",
 										instAttribute.getIdentifier()));
-
-						// identifierId_Required #==>
-						// identifierId_Core #= 1
-						AbstractComparisonExpression transformation9 = new EqualsComparisonExpression(
-								instVertex, "Core", getHlclFactory().number(1));
-						getElementExpressions().add(
-								new ImplicationBooleanExpression(instVertex,
-										instAttribute.getIdentifier(), true,
-										transformation9));
-
 					}
 
 					// identifierId_SimInitialRequiredLevel #=
@@ -484,7 +469,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						outRelations.add("conflict");
 						List<String> inRelations = new ArrayList<String>();
 						inRelations.add("conflict");
-						AbstractNumericExpression transformation50 = sumRelations(
+					/*	AbstractNumericExpression transformation50 = sumRelations(
 								instVertex, "Selected", outRelations,
 								inRelations);
 						AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
@@ -494,7 +479,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextNotSelected", true,
 										transformation51));
-					}
+					*/}
 
 					if (instAttribute.getIdentifier().equals("NextReqSelected")) {
 						List<String> outRelations = new ArrayList<String>();
@@ -641,12 +626,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 				else
 					this.getCompulsoryExpressions().put("Core",
 							coreAndFalseOptList);
+				
 				List<AbstractExpression> falseList = this
 						.getCompulsoryExpressionList("FalseOpt");
 				if (falseList != null)
 					falseList.addAll(coreAndFalseOptList);
 				this.getCompulsoryExpressions().put("FalseOpt",
 						coreAndFalseOptList);
+				
 				List<AbstractExpression> falseList2 = this
 						.getCompulsoryExpressionList("FalseOpt2");
 				if (falseList2 != null)
