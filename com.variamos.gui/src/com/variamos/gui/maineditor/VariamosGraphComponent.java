@@ -154,7 +154,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								;
 							}
 							if ((boolean) instConcept.getInstAttribute(
-									"Satisfied").getValue()) {
+									"Selected").getValue()) {
 								backtop = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
 								backtophint = "Element satisfied (Green background)";
 							}
@@ -181,7 +181,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							over2.setAlign(mxConstants.ALIGN_CENTER);
 							addCellOverlay(tmp, over2);
 							if ((boolean) instConcept.getInstAttribute(
-									"ConfigSatisfied").getValue()) {
+									"ConfigSelected").getValue()) {
 								mxCellOverlay over3 = new mxCellOverlay(
 										new ImageIcon(
 												mxGraphComponent.class
@@ -194,7 +194,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								addCellOverlay(tmp, over3);
 							}
 							if ((boolean) instConcept.getInstAttribute(
-									"NextPrefSatisfied").getValue()) {
+									"NextPrefSelected").getValue()) {
 								mxCellOverlay over3 = new mxCellOverlay(
 										new ImageIcon(mxGraphComponent.class
 												.getResource(validation)),
@@ -207,7 +207,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								addCellOverlay(tmp, over3);
 							}
 							if ((boolean) instConcept.getInstAttribute(
-									"NextReqSatisfied").getValue()) {
+									"NextReqSelected").getValue()) {
 								mxCellOverlay over3 = new mxCellOverlay(
 										new ImageIcon(
 												mxGraphComponent.class
@@ -232,7 +232,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								addCellOverlay(tmp, over3);
 							}
 							if ((boolean) instConcept.getInstAttribute(
-									"ConfigNotSatisfied").getValue()) {
+									"ConfigNotSelected").getValue()) {
 								mxCellOverlay over3 = new mxCellOverlay(
 										new ImageIcon(
 												mxGraphComponent.class
