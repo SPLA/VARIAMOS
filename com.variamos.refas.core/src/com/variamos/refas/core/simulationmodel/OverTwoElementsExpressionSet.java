@@ -2,7 +2,9 @@ package com.variamos.refas.core.simulationmodel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.cfm.hlcl.HlclFactory;
@@ -53,13 +55,23 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRelation instOverTwoRelation, int execType) {
+			InstOverTwoRelation instOverTwoRelation, int execType,
+			String element) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
 		SingleElementExpressionSet restConst = new SingleElementExpressionSet(
 				identifier, idMap, hlclFactory, instOverTwoRelation, execType);
-		getElementExpressions().addAll(restConst.getElementExpressions());
+		if (element.equals(""))
+			getElementExpressions().addAll(restConst.getElementExpressions());
+		else {
+			this.getRelaxableExpressions().put(element,
+					restConst.getRelaxableExpressionList(element));
+			this.getCompulsoryExpressions().put(element,
+					restConst.getCompulsoryExpressionList(element));
+			this.getVerificationExpressions().put(element,
+					restConst.getVerificationExpressionsList(element));
+		}
 		defineTransformations();
 	}
 
@@ -85,7 +97,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			relationType = (String) instOverTwoRelation.getInstAttribute(
 					SemanticOverTwoRelation.VAR_RELATIONTYPE_IDEN).getValue();
 			// System.out.println(relationType);
-
+			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
+			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
 			for (String sourceName : instOverTwoRelation
 					.getSourceAttributeNames()) {
 				AbstractExpression abstractTransformation = null;
@@ -145,9 +158,9 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					default:
 						return;
 					}
-		//			if (!relationType.equals("and")
-		//					&& sourceName.equals("Core"))
-		//				continue;
+					if (!relationType.equals("and")
+							&& sourceName.equals("Core"))
+						continue;
 					Constructor<?> constructor1 = null, constructor2 = null;
 					try {
 						constructor1 = abstractTransformation.getClass()
@@ -162,6 +175,8 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						e.printStackTrace();
 					}
 
+
+
 					switch (relationType) {
 
 					case "and":
@@ -172,10 +187,13 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						// A2_"attribute" ) #\/ ... )
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
-						getElementExpressions().add(
-								new DoubleImplicationBooleanExpression(
-										instOverTwoRelation, sourceName, true,
-										recursiveExpression1));
+						AbstractBooleanExpression out = new DoubleImplicationBooleanExpression(
+								instOverTwoRelation, sourceName, true,
+								recursiveExpression1);
+						getElementExpressions().add(out);
+						if (relationType.equals("and"))
+							coreList.add(out);
+						allList.add(out);
 						break;
 					case "mutex":
 						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
@@ -185,11 +203,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						AbstractExpression transformation1 = new EqualsComparisonExpression(
 								recursiveExpression1,
 								new NumberNumericExpression(1));
-						getElementExpressions().add(
-								new DoubleImplicationBooleanExpression(
-										instOverTwoRelation, sourceName, true,
-										transformation1));
-
+						AbstractBooleanExpression out2 = new DoubleImplicationBooleanExpression(
+								instOverTwoRelation, sourceName, true,
+								transformation1);
+						getElementExpressions().add(out2);
+						allList.add(out2);
 						break;
 					case "range":
 
@@ -209,16 +227,19 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 						AbstractExpression transformation5 = new AndBooleanExpression(
 								transformation3, transformation4);
-
-						getElementExpressions().add(
-								new DoubleImplicationBooleanExpression(
-										instOverTwoRelation/*
-															 * .getTargetRelations
-															 * ().get(0)
-															 * .getToRelation()
-															 */, sourceName,
-										true, transformation5));
-
+						AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
+								instOverTwoRelation/*
+													 * .getTargetRelations
+													 * ().get(0)
+													 * .getToRelation()
+													 */, sourceName, true,
+								transformation5);
+						getElementExpressions().add(out3);
+						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+								.getInstAttribute("lowCardinality")
+								.getAsInteger())
+							coreList.add(out3);
+						allList.add(out3);
 						break;
 
 					default:
@@ -226,6 +247,30 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					}
 				}
 			}
+			List<AbstractExpression> parentList = this
+					.getCompulsoryExpressionList("Parent");
+			if (parentList != null)
+				parentList.addAll(allList);
+			else
+				this.getCompulsoryExpressions().put("Parent", allList);
+			List<AbstractExpression> coreLists = this
+					.getCompulsoryExpressionList("Core");
+			if (coreLists != null)
+				coreLists.addAll(coreList);
+			else
+				this.getCompulsoryExpressions().put("Core", coreList);
+			
+			List<AbstractExpression> falseList = this
+					.getCompulsoryExpressionList("FalseOpt");
+			if (falseList != null)
+				falseList.addAll(coreList);
+			this.getCompulsoryExpressions().put("FalseOpt", coreList);
+			
+			List<AbstractExpression> falseList2 = this
+					.getCompulsoryExpressionList("FalseOpt2");
+			if (falseList2 != null)
+				falseList2.addAll(allList);
+			this.getCompulsoryExpressions().put("FalseOpt2", allList);
 		}
 	}
 

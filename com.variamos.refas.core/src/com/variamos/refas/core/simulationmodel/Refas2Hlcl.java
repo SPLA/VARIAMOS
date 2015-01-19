@@ -56,7 +56,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
-			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3;
+			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
+			VAL_UPD_EXEC = 4;
 
 	public Refas2Hlcl(Refas refas) {
 		this.refas = refas;
@@ -65,19 +66,119 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public List<BooleanExpression> rootVerityTest() {
-		HlclProgram hlclProgram = new HlclProgram();
+		// HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
-		createModelExpressions(0);
+		createModelExpressions(4);
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (MetaExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
-						.getBooleanExpressions());
+						.getBooleanExpressionList("Root"));
 		return modelExpressions;
 		/*
 		 * for (BooleanExpression transformation : modelExpressions) {
 		 * hlclProgram.add(transformation); } return hlclProgram;
 		 */
+	}
+
+	public List<BooleanExpression> verityTest(String element) {
+		// HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createModelExpressions(4);
+		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+			if (constraintGroup instanceof ModelExpressionSet)
+				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
+						.getBooleanExpressionList(element));
+		return modelExpressions;
+		/*
+		 * for (BooleanExpression transformation : modelExpressions) {
+		 * hlclProgram.add(transformation); } return hlclProgram;
+		 */
+	}
+
+	public HlclProgram relaxedTest(String element) {
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createVertexExpressions(null, 4);
+
+		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getRelaxableExpressionList(element) != null)
+				transformations.addAll(constraintGroup
+						.getRelaxableExpressionList(element));
+		}
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createGroupExpressions(null, 4, element);
+
+		List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getRelaxableExpressionList(element) != null)
+				transformations2.addAll(constraintGroup
+						.getRelaxableExpressionList(element));
+		}
+
+		for (AbstractExpression transformation : transformations) {
+			idMap.putAll(transformation.getIdentifiers(f));
+			if (transformation instanceof AbstractBooleanExpression) {
+				hlclProgram.add(((AbstractBooleanExpression) transformation)
+						.transform(f, idMap));
+			} else if (transformation instanceof AbstractComparisonExpression) {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			} else {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			}
+
+		}
+		return hlclProgram;
+	}
+
+	public HlclProgram compulsoryTest(String element) {
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createVertexExpressions(null, 4);
+
+		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getCompulsoryExpressionList(element) != null)
+				transformations.addAll(constraintGroup
+						.getCompulsoryExpressionList(element));
+		}
+		
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createEdgeExpressions(null, 4);
+
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getCompulsoryExpressionList(element) != null)
+				transformations.addAll(constraintGroup
+						.getCompulsoryExpressionList(element));
+		}
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		createGroupExpressions(null, 4, element);
+
+		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup.getCompulsoryExpressionList(element) != null)
+				transformations.addAll(constraintGroup
+						.getCompulsoryExpressionList(element));
+		}
+
+		for (AbstractExpression transformation : transformations) {
+			idMap.putAll(transformation.getIdentifiers(f));
+			if (transformation instanceof AbstractBooleanExpression) {
+				hlclProgram.add(((AbstractBooleanExpression) transformation)
+						.transform(f, idMap));
+			} else if (transformation instanceof AbstractComparisonExpression) {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			} else {
+				hlclProgram.add(((AbstractComparisonExpression) transformation)
+						.transform(f, idMap));
+			}
+
+		}
+		return hlclProgram;
 	}
 
 	public HlclProgram rootRelaxedTest() {
@@ -111,11 +212,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	/**
 	 * Create a new HlclProgram with the expression of all concepts and
-	 * relations and calls SWIProlog to return a solution or all solutions (only
-	 * ONE_SOLUTION currently supported)
+	 * relations and calls SWIProlog to return a solution or all solutions
 	 */
 
-	public HlclProgram getHlclProgram(int execType) {
+	public HlclProgram getHlclProgram(String element,int execType) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		createModelExpressions(execType);
@@ -123,25 +223,35 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		createEdgeExpressions(null, execType);
 		// Previous call to createEdgeExpressions is required to fill the
 		// attribute names for createGroupExpressions
-		createGroupExpressions(null, execType);
+		createGroupExpressions(null, execType, element);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (MetaExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
-				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
-						.getBooleanExpressions());
+				// modelExpressions.addAll(((ModelExpressionSet)
+				// constraintGroup)
+				// .getBooleanExpressions())
+				;
 			else {
-				transformations.addAll(constraintGroup.getElementExpressions());
-				if (constraintGroup.getRelaxableExpressionList("Root") != null)
+				if (constraintGroup.getVerificationExpressionsList(element) != null)
 					transformations.addAll(constraintGroup
-							.getRelaxableExpressionList("Root"));
+							.getVerificationExpressionsList(element));				
+				if (constraintGroup.getRelaxableExpressionList(element) != null)
+					transformations.addAll(constraintGroup
+							.getRelaxableExpressionList(element));				
+				if (constraintGroup.getCompulsoryExpressionList(element) != null)
+					transformations.addAll(constraintGroup
+							.getCompulsoryExpressionList(element));
+				if (element.equals(""))
+					transformations.addAll(constraintGroup.getElementExpressions());
 			}
 
 		for (BooleanExpression transformation : modelExpressions) {
 			hlclProgram.add(transformation);
 		}
 		for (AbstractExpression transformation : transformations) {
+			//System.out.println(transformation.expressionStructure());
 			idMap.putAll(transformation.getIdentifiers(f));
 			if (transformation instanceof AbstractBooleanExpression) {
 				hlclProgram.add(((AbstractBooleanExpression) transformation)
@@ -182,11 +292,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
-	public boolean execute(int solutions, int execType) {
+	public boolean execute(String element, int solutions, int execType) {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 
-			hlclProgram = getHlclProgram(execType);
+			hlclProgram = getHlclProgram(element, execType);
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
 			for (Expression exp : hlclProgram) {
@@ -199,7 +309,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
 				if (execType != Refas2Hlcl.CORE_EXEC
-						&& execType != Refas2Hlcl.DESIGN_EXEC)
+						&& execType != Refas2Hlcl.DESIGN_EXEC
+						&& execType != Refas2Hlcl.VAL_UPD_EXEC)
 					configurationOptions.setOrder(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
@@ -249,7 +360,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					.values()) {
 				// System.out.println(vertexId + " " + attribute);
 				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
-						&& instAttribute.getAttributeType().equals("Boolean"))
+						&& instAttribute.getAttributeType().equals("Boolean") && !instAttribute.getIdentifier().equals("HasParent"))
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);
@@ -257,10 +368,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
+	public Map<String, Integer> getResult()
+	{
+		return configuration.getConfiguration();
+	}
+	
 	/**
 	 * Updates the GUI with the configuration
 	 */
-	public void updateGUIElements() {
+	public void updateGUIElements(List<String> attributes) {
 		// Call the SWIProlog and obtain the result
 		Map<String, Integer> prologOut = configuration.getConfiguration();
 
@@ -270,25 +386,35 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String vertexId = split[0];
 			String attribute = split[1];
 			if (!vertexId.equals("Model")) {
-
 				InstElement vertex = refas.getElement(vertexId);
-				// System.out.println(vertexId + " " + attribute);
-				if (vertex.getInstAttribute(attribute).getAttributeType()
-						.equals("Boolean"))
+				if (attributes == null) {
+					// System.out.println(vertexId + " " + attribute);
+					if (vertex.getInstAttribute(attribute).getAttributeType()
+							.equals("Boolean"))
 
-					if (prologOut.get(identifier).intValue() == 1)
-						vertex.getInstAttribute(attribute).setValue(true);
-					else if (prologOut.get(identifier).intValue() == 0)
-						vertex.getInstAttribute(attribute).setValue(false);
+						if (prologOut.get(identifier).intValue() == 1)
+							vertex.getInstAttribute(attribute).setValue(true);
+						else if (prologOut.get(identifier).intValue() == 0)
+							vertex.getInstAttribute(attribute).setValue(false);
 
-					else
-						vertex.getInstAttribute(attribute).setValue(
-								prologOut.get(i));
+						else
+							vertex.getInstAttribute(attribute).setValue(
+									prologOut.get(i));
+				} else if (attribute.equals("Selected"))
+					for (String attTarget : attributes) {
+						if (vertex.getInstAttribute(attTarget)
+								.getAttributeType().equals("Boolean"))
+							if (prologOut.get(identifier).intValue() == 1)
+								vertex.getInstAttribute(attTarget).setValue(
+										true);
+							else if (prologOut.get(identifier).intValue() == 0)
+								vertex.getInstAttribute(attTarget).setValue(
+										false);
+							else
+								vertex.getInstAttribute(attTarget).setValue(
+										prologOut.get(i));
+					}
 			}
-			/*
-			 * System.out.print(vertexId + " " + attribute + " " +
-			 * vertex.getInstAttribute(attribute) .getAttributeType() + "; ");
-			 */
 		}
 	}
 
@@ -349,7 +475,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		else if (concetType.equals("edge"))
 			createEdgeExpressions(identifier, execType);
 		else if (concetType.equals("groupdep"))
-			createGroupExpressions(identifier, execType);
+			createGroupExpressions(identifier, execType, "");
 		return constraintGroups.get(identifier);
 	}
 
@@ -390,20 +516,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
-	private void createGroupExpressions(String identifier, int execType) {
+	private void createGroupExpressions(String identifier, int execType, String element) {
 		createEdgeExpressions(null, execType); // TODO define a better solution
 		if (identifier == null)
 			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new OverTwoElementsExpressionSet(elm.getIdentifier(),
-								idMap, f, elm, execType));
+								idMap, f, elm, execType, element));
 			}
 		else
 			constraintGroups.put(identifier,
 					new OverTwoElementsExpressionSet(identifier, idMap, f,
 							refas.getInstGroupDependencies().get(identifier),
-							execType));
+							execType, element));
 
 	}
 
@@ -438,6 +564,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				instAttribute.setValue(true);
 			else
 				instAttribute.setValue(false);
+		}
+
+	}
+	public void updateCoreConcepts(Set<String> outIdentifiers) {
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
+			// System.out.println(vertexId + " " + attribute);
+			if (outIdentifiers != null
+					&& outIdentifiers.contains(instVertex.getIdentifier()))
+				instAttribute.setValue(true);
+			
 		}
 
 	}

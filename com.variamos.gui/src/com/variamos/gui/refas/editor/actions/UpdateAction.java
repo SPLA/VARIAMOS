@@ -24,6 +24,7 @@ public class UpdateAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.cleanNotificationBar();
-		editor.identifyCoreConcepts();
+		//editor.identifyCoreConcepts();
+		editor.verify();
 	}
 }

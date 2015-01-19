@@ -408,6 +408,34 @@ public class RefasGraph extends AbstractGraph {
 		return true;
 	}
 
+	
+	public EditableElement getEditableElement(){
+		// Move new element to the current View - clone if
+		// necessary in multiple views
+		mxGraphModel refasGraph = (mxGraphModel) getModel();
+		// Main Root
+		Object rootCell = refasGraph.getRoot();
+		// Null Root
+		Object viewsParent = refasGraph.getChildAt(rootCell, 0);
+		// Top level view /Element
+		Object topLevelView = refasGraph.getChildAt(viewsParent, 0);
+		
+		if (((mxCell)topLevelView).getValue() instanceof EditableElement)
+			return (EditableElement)((mxCell)topLevelView).getValue() ;
+		else
+		{
+			// Child View/Element
+			Object secondLevelCell = refasGraph.getChildAt(topLevelView, 0);
+			if (((mxCell)secondLevelCell).getValue() instanceof EditableElement)
+				return (EditableElement)((mxCell)secondLevelCell).getValue() ;
+			else
+			{
+				// Child View/Element
+				Object thirdLevelCell = refasGraph.getChildAt(topLevelView, 0);
+				return (EditableElement)((mxCell)thirdLevelCell).getValue() ;
+			}
+		}
+	}
 	// TODO review from here for requirements
 
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {

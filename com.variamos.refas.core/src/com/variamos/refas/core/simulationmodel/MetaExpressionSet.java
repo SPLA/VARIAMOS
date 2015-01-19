@@ -40,12 +40,16 @@ public abstract class MetaExpressionSet {
 	/**
 	 * 
 	 */
-	private Map<String,List<AbstractExpression>> relaxableExpressions;
+	private Map<String, List<AbstractExpression>> relaxableExpressions;
 	/**
 	 * 
 	 */
-	private Map<String,List<AbstractExpression>> compulsoryExpressions;
-	
+	private Map<String, List<AbstractExpression>> compulsoryExpressions;
+	/**
+	 * 
+	 */
+	private Map<String, List<AbstractExpression>> verificationExpressions;
+
 	/**
 	 * 
 	 */
@@ -53,7 +57,7 @@ public abstract class MetaExpressionSet {
 	/**
 	 * 
 	 */
-	private HlclFactory hlclFactory;	
+	private HlclFactory hlclFactory;
 	/**
 	 * 
 	 */
@@ -69,8 +73,9 @@ public abstract class MetaExpressionSet {
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super();
 		elementExpressions = new ArrayList<AbstractExpression>();
-		relaxableExpressions = new HashMap<String,List<AbstractExpression>>();
-		compulsoryExpressions = new HashMap<String,List<AbstractExpression>>();
+		relaxableExpressions = new HashMap<String, List<AbstractExpression>>();
+		compulsoryExpressions = new HashMap<String, List<AbstractExpression>>();
+		verificationExpressions = new HashMap<String, List<AbstractExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
 		this.identifier = identifier;
@@ -100,22 +105,25 @@ public abstract class MetaExpressionSet {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public boolean isOptional() {
 		return optional;
 	}
 
-
 	public List<AbstractExpression> getElementExpressions() {
 		return elementExpressions;
 	}
-	
-	public Map<String,List<AbstractExpression>> getRelaxableExpressions() {
+
+	public Map<String, List<AbstractExpression>> getRelaxableExpressions() {
 		return relaxableExpressions;
 	}
-	
-	public Map<String,List<AbstractExpression>> getCompulsoryExpressions() {
+
+	public Map<String, List<AbstractExpression>> getCompulsoryExpressions() {
 		return compulsoryExpressions;
+	}
+
+	public Map<String, List<AbstractExpression>> getVerificationExpressions() {
+		return verificationExpressions;
 	}
 
 	public List<AbstractExpression> getRelaxableExpressionList(String element) {
@@ -126,26 +134,32 @@ public abstract class MetaExpressionSet {
 		return compulsoryExpressions.get(element);
 	}
 
+	public List<AbstractExpression> getVerificationExpressionsList(
+			String element) {
+		return verificationExpressions.get(element);
+	}
+
 	/**
 	 * Expression for textual representation
+	 * 
 	 * @return
 	 */
 	public List<Expression> getExpressions() {
 		List<Expression> out = new ArrayList<Expression>();
 		for (AbstractExpression expression : elementExpressions) {
 			idMap.putAll(expression.getIdentifiers(hlclFactory));
-				out.add(expression.transform(hlclFactory, idMap));
+			out.add(expression.transform(hlclFactory, idMap));
 		}
 		return out;
 	}
 
-	public List<Expression> getExpressionsNegations()
-	{
+	public List<Expression> getExpressionsNegations() {
 		List<Expression> out = new ArrayList<Expression>();
 		for (AbstractExpression transformation : elementExpressions) {
 			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
-				out.add(((AbstractBooleanExpression)transformation).transformNegation(hlclFactory, idMap, false, true));
+				out.add(((AbstractBooleanExpression) transformation)
+						.transformNegation(hlclFactory, idMap, false, true));
 		}
 		return out;
 	}
@@ -163,10 +177,11 @@ public abstract class MetaExpressionSet {
 		}
 		return prog;
 	}
-	
+
 	public HlclProgram getHlclRelaxableExpressions(String element) {
 		HlclProgram prog = new HlclProgram();
-		for (AbstractExpression transformation : relaxableExpressions.get(element)) {
+		for (AbstractExpression transformation : relaxableExpressions
+				.get(element)) {
 			idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			if (transformation instanceof AbstractBooleanExpression)
 				prog.add(((AbstractBooleanExpression) transformation)
@@ -177,6 +192,5 @@ public abstract class MetaExpressionSet {
 		}
 		return prog;
 	}
-	
 
 }

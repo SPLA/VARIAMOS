@@ -58,7 +58,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		transformProgram(program, out);
 		out.append(COMMA).append(LF);
 		writeFooter(out);
-		System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
+	//	System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
 		return out.toString();
 	}
 	

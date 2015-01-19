@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
+import com.cfm.productline.solver.Configuration;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.shape.mxStencilShape;
@@ -170,6 +172,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private String editableElementType = null;
 
 	private String lastSolverInvocations = "";
+	private Configuration lastConfiguration;
 
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
@@ -1136,7 +1139,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				elementExpressionPanel.revalidate();
 				elementSimPropPanel.revalidate();
 			}
-			((RefasGraph) getGraphComponent().getGraph()).refreshVariable(elm);
+			refresh();
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
@@ -1144,6 +1147,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		} finally {
 			recursiveCall = false;
 		}
+	}
+	
+	public void refresh(){
+		try
+		{
+			((RefasGraph) getGraphComponent().getGraph())
+					.refreshVariable(lastEditableElement);
+		}
+		catch(Exception e)
+		{
+			lastEditableElement = ((RefasGraph)this.getGraphComponent().getGraph()).getEditableElement();
+			try
+			{
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+			}
+			catch(Exception p)
+			{
+				System.out.println("Update error");
+			}
+
+		}
+
 	}
 
 	public void refreshElement(EditableElement elm) {
@@ -1229,8 +1255,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							.setIdentifier((String) instAttribute.getValue());
 			}
 		}
-		((RefasGraph) getGraphComponent().getGraph())
-				.refreshVariable(editableElement);
+		refresh();
 	}
 
 	protected void installToolBar(MainFrame mainFrame, int perspective) {
@@ -1352,16 +1377,26 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void cleanSimulation() {
 
 		refas2hlcl.cleanGUIElements();
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Select any element and after clean the simulation.",
-							"Simulation Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
-		else
+		try
+		{
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
+		}
+		catch(Exception e)
+		{
+			lastEditableElement = ((RefasGraph)this.getGraphComponent().getGraph()).getEditableElement();
+			try
+			{
+				((RefasGraph) getGraphComponent().getGraph())
+						.refreshVariable(lastEditableElement);
+			}
+			catch(Exception p)
+			{
+				System.out.println("Update error");
+			}
+
+		}
+
 	}
 
 	public void executeSimulation(boolean first, int type) {
@@ -1372,12 +1407,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		boolean result = false;
 		iniSTime = System.currentTimeMillis();
 		if (first) {
-			result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION, type);
+			result = refas2hlcl.execute("", Refas2Hlcl.ONE_SOLUTION, type);
 		} else
-			result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION, type);
+		{
+			result = refas2hlcl.execute("", Refas2Hlcl.NEXT_SOLUTION, type);
+			Configuration currentConfiguration = refas2hlcl.getConfiguration();
+			List<String> modifiedIdentifiers = compareSolutions (lastConfiguration, currentConfiguration);
+			System.out.println(modifiedIdentifiers);
+		}
+		lastConfiguration = refas2hlcl.getConfiguration();
 		endSTime = System.currentTimeMillis();
 		if (result) {
-			refas2hlcl.updateGUIElements();
+			refas2hlcl.updateGUIElements(null);
 			messagesArea.setText(refas2hlcl.getText());
 			// bringUpTab(mxResources.get("elementSimPropTab"));
 			editPropertiesRefas(lastEditableElement);
@@ -1422,16 +1463,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						null);
 
 		}
-		if (lastEditableElement == null)
-			JOptionPane
-					.showMessageDialog(
-							frame,
-							"Select any element and after execute the simulation.",
-							"Simulation Message",
-							JOptionPane.INFORMATION_MESSAGE, null);
-		else
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
+		refresh();
 		// updateObjects();
 		((MainFrame) getFrame()).waitingCursor(false);
 		long endTime = System.currentTimeMillis();
@@ -1538,6 +1570,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// elementDesPropPanel.revalidate();
 	// }
 
+	private List<String> compareSolutions(Configuration lastConfiguration,
+			Configuration currentConfiguration) {
+		List<String> out = new ArrayList<String>();
+		Map<String, Integer> lastConfig =  lastConfiguration.getConfiguration();
+		Map<String, Integer> currentConfig =  currentConfiguration.getConfiguration();
+		for (String solution: lastConfig.keySet())
+			if (lastConfig.get(solution) != currentConfig.get(solution))
+				out.add(solution);
+		return out;
+	}
+
+	@Deprecated
 	public void verifyErrors() {
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -1547,8 +1591,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		try {
 			refas2hlcl.cleanElementsOptional();
 			HlclFactory f = new HlclFactory();
-			HlclProgram hlclProgram = refas2hlcl
-					.getHlclProgram(Refas2Hlcl.DESIGN_EXEC);
+			HlclProgram hlclProgram = refas2hlcl.getHlclProgram("FalseOpt",
+					Refas2Hlcl.DESIGN_EXEC);
 			IntDefectsVerifier defectVerifier = new DefectsVerifier(
 					hlclProgram, SolverEditorType.SWI_PROLOG);
 			Collection<InstPairwiseRelation> pairwiseRelations = ((Refas) getEditedModel())
@@ -1639,6 +1683,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	}
 
+	@Deprecated
 	public void verifyRoot() {
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
@@ -1661,8 +1706,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				HlclProgram fixedConstraint = new HlclProgram();
 				fixedConstraint.addAll(refas2hlcl.rootVerityTest());
 				Diagnosis result = cauCosAnalyzer.getCauCos(defect,
-						refas2hlcl.rootRelaxedTest(),
-						fixedConstraint,
+						refas2hlcl.rootRelaxedTest(), fixedConstraint,
 						DefectAnalyzerMode.PARTIAL);
 				endSTime = System.currentTimeMillis();
 				Set<String> outIdentifiers = new TreeSet<String>();
@@ -1728,6 +1772,267 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 	}
 
+	public void verify() {
+
+		((MainFrame) getFrame()).waitingCursor(true);
+
+		List<String> verifList = new ArrayList<String>();
+		List<String> actionList = new ArrayList<String>();
+
+		verifList.add("Root");
+		verifList.add("Parent");
+		verifList.add("Core");
+	//	verifList.add("FalseOpt");
+		//verifList.add("FalseOpt2");
+
+		actionList.add("Err");
+		actionList.add("Err");
+		actionList.add("Upd");
+		actionList.add("Upd");
+		List<String> verifMessageList = new ArrayList<String>();
+		verifMessageList
+				.add(" roots identified.\n Please keep only one of them.");
+		verifMessageList
+				.add(" concepts without a parent identified.\n Please add appropiated relations.");
+		verifMessageList.add(" false optional concept(s) identified. Please review required attributes and relations.");
+		verifMessageList
+				.add(" false optional concept(s) identified. Please review required attributes and relations.");
+		List<String> verifHintList = new ArrayList<String>();
+		verifHintList
+				.add("This is a root concept. More than one root concept identified.");
+		verifHintList.add("This concept requires a parent.");
+		verifHintList.add("This concept is a false optional. Please review required attribute or relations.");
+		verifHintList
+				.add("This concept is a false optional. Please review required attribute or relations.");
+
+		int posList = 0;
+
+		List<String> updateList = new ArrayList<String>();
+		updateList.add("Core");
+		updateList.add("Selected");
+		updateList.add("Satisfied");
+		updateList.add("ConfigSatisfied");
+		updateList.add("ConfigSelected");
+		// updateList.add("");
+
+		for (String verifElement : verifList) {
+			String verifMessage = verifMessageList.get(posList);
+			String verifHint = verifMessageList.get(posList);
+			if (actionList.get(posList).equals("Err")) {
+
+				verifyDefects(verifElement, verifMessage, verifHint);
+			} else {
+				updateModel(verifElement, verifMessage, verifHint, updateList);
+			}
+			posList++;
+		}
+
+		refresh();
+		
+
+		((MainFrame) getFrame()).waitingCursor(false);
+	}
+
+	public void updateModel(String element, String verifMessage,
+			String verifHint, List<String> attributes) {
+		HlclFactory f = new HlclFactory();
+		long iniTime = System.currentTimeMillis();
+		long iniSTime = 0;
+		long endSTime = 0;
+		boolean result = false;
+		iniSTime = System.currentTimeMillis();
+		result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION, 4);
+		endSTime = System.currentTimeMillis();
+		if (result) {
+			refas2hlcl.updateGUIElements(attributes);
+			Map<String, Integer> currentResult = refas2hlcl.getResult();
+			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
+					refas2hlcl.getResult());
+
+			//System.out.println(falseOptIdentifiers);
+			List<String> freeIdentifiers = getFreeIdentifiers(currentResult);
+
+			Set<Identifier> identifiers = new HashSet<Identifier>();
+
+			for (String freeIndentifier : freeIdentifiers) {
+				if (!freeIndentifier.startsWith("FeatOverTwo"))
+					identifiers.add(f.newIdentifier(freeIndentifier));
+			}
+			if (freeIdentifiers.size() > 0) {
+				try {
+					IntDefectsVerifier defectVerifier = new DefectsVerifier(
+
+					refas2hlcl.getHlclProgram("FalseOpt2",
+							Refas2Hlcl.VAL_UPD_EXEC),
+							SolverEditorType.SWI_PROLOG);
+
+					List<Defect> coreConceptsList = null;
+
+					coreConceptsList = defectVerifier
+							.getFalseOptionalElements(identifiers);
+
+					endSTime = System.currentTimeMillis();
+					List<String> outIdentifiers = new ArrayList<String>();
+					if (coreConceptsList.size() > 0) {
+						for (Defect conceptVariable : coreConceptsList) {
+							String[] conceptId = conceptVariable.getId().split(
+									"_");
+							outIdentifiers.add(conceptId[0]);
+						}
+					}
+					falseOptIdentifiers.addAll(outIdentifiers);
+					// refas2hlcl.updateCoreConcepts(outIdentifiers);
+				} catch (FunctionalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			Set<String> uniqueIdentifiers = new HashSet<String>();
+			uniqueIdentifiers.addAll(falseOptIdentifiers);
+			//System.out.println(uniqueIdentifiers);
+			if (uniqueIdentifiers.size() > 0)
+				JOptionPane.showMessageDialog(frame, uniqueIdentifiers.size()
+						+ verifMessage, "Verification Message",
+						JOptionPane.INFORMATION_MESSAGE, null);
+
+			refas2hlcl.updateErrorMark(uniqueIdentifiers, element, verifHint);
+			
+			refas2hlcl.updateCoreConcepts(uniqueIdentifiers);
+
+			messagesArea.setText(refas2hlcl.getText());
+			// bringUpTab(mxResources.get("elementSimPropTab"));
+			editPropertiesRefas(lastEditableElement);
+		} else {
+			JOptionPane
+					.showMessageDialog(
+							frame,
+							"Last validated change makes the model inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.",
+							"Simulation Execution Error",
+							JOptionPane.INFORMATION_MESSAGE, null);
+		}
+
+		// updateObjects();
+		long endTime = System.currentTimeMillis();
+		lastSolverInvocations += element + "Exec: " + (endTime - iniTime) + "["
+				+ (endSTime - iniSTime) + "]" + " -- ";
+
+	}
+
+	private List<String> getFreeIdentifiers(Map<String, Integer> currentResult) {
+		List<String> out = new ArrayList<String>();
+		for (String id : currentResult.keySet()) {
+			String[] o = id.split("_");
+			if (o[1].equals("Selected") && currentResult.get(id) == 0)
+				out.add(id);
+
+		}
+		return out;
+	}
+
+	private List<String> getNewIdentifiers(Map<String, Integer> currentResult,
+			Map<String, Integer> lastResult) {
+		List<String> out = new ArrayList<String>();
+		for (String id : currentResult.keySet()) {
+			String[] o = id.split("_");
+			if (o[1].equals("Selected") && lastResult.get(id) == 0
+					&& currentResult.get(id) == 1)
+				out.add(o[0]);
+
+		}
+		return out;
+	}
+
+	private void verifyDefects(String verifElement, String verifMessage,
+			String verifHint) {
+		boolean exit = false;
+		long iniTime = System.currentTimeMillis();
+		long iniSTime = 0;
+		long endSTime = 0;
+		try {
+
+			List<BooleanExpression> verify = refas2hlcl
+					.verityTest(verifElement);
+			HlclProgram relaxed = refas2hlcl.relaxedTest(verifElement);
+			HlclProgram fixed = refas2hlcl.compulsoryTest(verifElement);
+			Defect defect = new Defect(verify);
+			defect.setDefectType(DefectType.SEMANTIC_SPECIFIC_DEFECT);
+			HlclProgram modelToVerify = new HlclProgram();
+			modelToVerify.addAll(verify);
+			modelToVerify.addAll(relaxed);
+			modelToVerify.addAll(fixed);
+			iniSTime = System.currentTimeMillis();
+			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
+					SolverEditorType.SWI_PROLOG);
+			// The model has two or more roots
+			Defect voidModel = verifier.isVoid();
+
+			Set<String> outIdentifiers = new TreeSet<String>();
+			if (voidModel != null) {
+
+				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer();
+				HlclProgram fixedConstraint = new HlclProgram();
+				fixedConstraint.addAll(verify);
+				fixedConstraint.addAll(fixed);
+				Diagnosis result = cauCosAnalyzer.getCauCos(defect, relaxed,
+						fixedConstraint, DefectAnalyzerMode.PARTIAL);
+				endSTime = System.currentTimeMillis();
+				String defects = "(";
+				for (CauCos correction : result.getCorrections()) {
+					List<BooleanExpression> corr = correction.getElements();
+					for (BooleanExpression expression : corr) {
+						Set<Identifier> iden = HlclUtil
+								.getUsedIdentifiers(expression);
+						Identifier firsIden = iden.iterator().next();
+						String[] o = firsIden.getId().split("_");
+
+						if (outIdentifiers.add(o[0]))
+							defects += o[0] + ", ";
+					}
+				}
+				// There are more than one root.
+				if (!outIdentifiers.isEmpty()) {
+
+					defects = defects.substring(0, defects.length() - 2) + ")";
+					JOptionPane.showMessageDialog(frame, outIdentifiers.size()
+							+ verifMessage + "\n" + defects,
+							"Verification Message",
+							JOptionPane.INFORMATION_MESSAGE, null);
+				}
+				if (verifElement.equals("Root")
+						|| verifElement.equals("Parent"))
+					exit = true;
+			} else
+				endSTime = System.currentTimeMillis();
+			refas2hlcl.updateErrorMark(outIdentifiers, verifElement, verifHint);
+
+			((MainFrame) getFrame()).waitingCursor(true);
+			// if (lastEditableElement == null)
+			// JOptionPane
+			// .showMessageDialog(
+			// frame,
+			// "Please select any element and after execute the verification.",
+			// "Verification Message",
+			// JOptionPane.INFORMATION_MESSAGE, null);
+
+		} catch (FunctionalException e) {
+			endSTime = System.currentTimeMillis();
+			JOptionPane.showMessageDialog(frame, e.getMessage(),
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
+		} finally {
+			long endTime = System.currentTimeMillis();
+			lastSolverInvocations += verifElement + " Verif.: "
+					+ (endTime - iniTime) + "[" + (endSTime - iniSTime) + "]"
+					+ " -- ";
+		}
+		if (exit)
+			return;
+	}
+
+	@Deprecated
 	public void identifyCoreConcepts() {
 		long iniSTime = 0;
 		long endSTime = 0;
@@ -1738,8 +2043,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			HlclFactory f = new HlclFactory();
 			Collection<InstVertex> instVertices = ((Refas) getEditedModel())
 					.getVariabilityVertexCollection();
-			HlclProgram hlclProgram = refas2hlcl
-					.getHlclProgram(Refas2Hlcl.CORE_EXEC);
+			HlclProgram hlclProgram = refas2hlcl.getHlclProgram("Core",
+					Refas2Hlcl.CORE_EXEC);
 			IntDefectsVerifier defectVerifier = new DefectsVerifier(
 					hlclProgram, SolverEditorType.SWI_PROLOG);
 
@@ -1764,12 +2069,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			refas2hlcl.updateCoreConcepts(outIdentifiers);
 
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-			} catch (Exception e) {
-				lastEditableElement = null;
-			}
+			refresh();
 
 		} catch (FunctionalException e1) {
 			endSTime = System.currentTimeMillis();
