@@ -1898,7 +1898,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						}
 					}
 					falseOptIdentifiers.addAll(falseOptIdentOthers);
-/*
+
 					freeIdentifiers.removeAll(falseOptIdentifiers);
 
 					Set<Identifier> identDeadElements = new HashSet<Identifier>();
@@ -1923,7 +1923,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							deadIdentifiers.add(conceptId[0]);
 						}
 					}
-					*/
+					
 					// refas2hlcl.updateCoreConcepts(outIdentifiers);
 				} catch (FunctionalException e) {
 					// TODO Auto-generated catch block
@@ -1943,7 +1943,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			refas2hlcl.updateCoreConcepts(uniqueIdentifiers);
 
-			//refas2hlcl.updateDeadConcepts(deadIdentifiers);
+			refas2hlcl.updateDeadConcepts(deadIdentifiers);
 
 			messagesArea.setText(refas2hlcl.getText());
 			// bringUpTab(mxResources.get("elementSimPropTab"));

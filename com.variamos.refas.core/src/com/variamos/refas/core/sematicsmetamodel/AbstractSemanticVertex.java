@@ -96,6 +96,9 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
+		putSemanticAttribute("NotAvailable",
+				new SimulationStateAttribute("NotAvailable", "Boolean", false,
+						"***Not Avaliable***", false));
 	}
 	
 	public boolean isBooleanSatisfaction() {

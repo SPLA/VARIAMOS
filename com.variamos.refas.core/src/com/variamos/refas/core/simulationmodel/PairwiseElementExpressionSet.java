@@ -444,7 +444,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				} else {
 
 					// SourceId_NextNotSatisfied #= targetId_NextNotSatisfied
-					if (execType != Refas2Hlcl.VAL_UPD_EXEC) {
+				/*	if (execType != Refas2Hlcl.VAL_UPD_EXEC) {
 						OrBooleanExpression transformation44 = new OrBooleanExpression(
 								instPairwiseRelation.getTargetRelations()
 										.get(0), instPairwiseRelation
@@ -457,7 +457,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						getElementExpressions().add(out12);
 						structureList.add(out12);
 						allList.add(out12);
-					}
+					}*/
 				}
 
 				break;

@@ -230,6 +230,7 @@ public class SharedActions {
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
+			System.out.println(instOverTwoRelation.getInstAttributes().size());
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				AbstractAttribute attribute = instOverTwoRelation
@@ -254,12 +255,29 @@ public class SharedActions {
 			}
 			if (instOverTwoRelation.getInstAttributes().size() < instOverTwoRelation
 					.getTransSupportMetaElement().getModelingAttributes()
-					.size()) {
-				System.out.print(instOverTwoRelation
-						.getTransSupportMetaElement().getModelingAttributes()
-						.size()
-						- instOverTwoRelation.getInstAttributes().size()
-						+ "Non existent Attributes ");
+					.size()
+					+ instOverTwoRelation.getTransSupportMetaElement()
+							.getSemanticAttributes().size()) {
+				for (String attributeName : instOverTwoRelation
+						.getTransSupportMetaElement().getSemanticAttributes()) {
+					if (instOverTwoRelation.getInstAttribute(attributeName) == null
+							&& instOverTwoRelation.getTransSupportMetaElement()
+									.getSemanticAttribute(attributeName)!= null) {
+						instOverTwoRelation.addInstAttribute(attributeName,
+								instOverTwoRelation
+										.getTransSupportMetaElement()
+										.getSemanticAttribute(attributeName),
+								null);
+						System.out.println("create" + attributeName);
+						additionAttributes = true;
+					} else if (instOverTwoRelation.getInstAttribute(attributeName) == null) {
+						instOverTwoRelation.addInstAttribute(attributeName, instOverTwoRelation
+								.getTransSupportMetaElement()
+								.getModelingAttribute(attributeName), null);
+						System.out.println("create" + attributeName);
+						additionAttributes = true;
+					}
+				}
 			}
 			editor.refreshElement(instOverTwoRelation);
 		} else if (value instanceof InstVertex) {
@@ -294,13 +312,23 @@ public class SharedActions {
 			}
 			if (instVertex.getInstAttributes().size() < instVertex
 					.getTransSupportMetaElement().getSemanticAttributes()
-					.size()) {
+					.size()
+					+ instVertex.getTransSupportMetaElement()
+							.getModelingAttributes().size()) {
 				for (String attributeName : instVertex
 						.getTransSupportMetaElement().getSemanticAttributes()) {
-					if (instVertex.getInstAttribute(attributeName) == null) {
+					if (instVertex.getInstAttribute(attributeName) == null
+							&& instVertex.getTransSupportMetaElement()
+									.getSemanticAttribute(attributeName) != null) {
 						instVertex.addInstAttribute(attributeName, instVertex
 								.getTransSupportMetaElement()
 								.getSemanticAttribute(attributeName), null);
+						System.out.println("create" + attributeName);
+						additionAttributes = true;
+					} else if (instVertex.getInstAttribute(attributeName) == null) {
+						instVertex.addInstAttribute(attributeName, instVertex
+								.getTransSupportMetaElement()
+								.getModelingAttribute(attributeName), null);
 						System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
@@ -381,12 +409,17 @@ public class SharedActions {
 					}
 					if (instPairwiseRelation.getInstAttributes().size() < instPairwiseRelation
 							.getTransSupportMetaElement()
-							.getSemanticAttributes().size()) {
+							.getSemanticAttributes().size()
+							+ instPairwiseRelation.getTransSupportMetaElement()
+									.getModelingAttributes().size()) {
 						for (String attributeName : instPairwiseRelation
 								.getTransSupportMetaElement()
 								.getSemanticAttributes()) {
 							if (instPairwiseRelation
-									.getInstAttribute(attributeName) == null) {
+									.getInstAttribute(attributeName) == null
+									&& instPairwiseRelation
+											.getTransSupportMetaElement()
+											.getSemanticAttribute(attributeName) != null) {
 								instPairwiseRelation.addInstAttribute(
 										attributeName,
 										instPairwiseRelation
@@ -395,8 +428,19 @@ public class SharedActions {
 														attributeName), null);
 								System.out.println("create" + attributeName);
 								additionAttributes = true;
+							} else if (instPairwiseRelation
+									.getInstAttribute(attributeName) == null) {
+								instPairwiseRelation.addInstAttribute(
+										attributeName,
+										instPairwiseRelation
+												.getTransSupportMetaElement()
+												.getModelingAttribute(
+														attributeName), null);
+								System.out.println("create" + attributeName);
+								additionAttributes = true;
 							}
 						}
+
 					}
 				}
 				// TODO add edges to groupDependecies and claims to

@@ -765,13 +765,6 @@ public class Refas extends AbstractModel {
 												// or Enum
 												// Level
 
-		semGeneralElement.putSemanticAttribute("ConfigSatisfied",
-				new SimulationConfigAttribute("ConfigSatisfied", "Boolean",
-						true, "Configuration Satisfied", false));
-		semGeneralElement.putSemanticAttribute("ConfigNotSatisfied",
-				new SimulationConfigAttribute("ConfigNotSatisfied", "Boolean",
-						true, "Configuration Not Satisfied", false));
-
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
 				new SimulationConfigAttribute("ConfigSelected", "Boolean",
 						true, "Configuration Selected", false));
@@ -839,16 +832,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextReqSatisfied",
 				new SimulationStateAttribute("NextReqSatisfied", "Boolean",
 						false, "Satisfaction required", false));
-		semGeneralElement.putSemanticAttribute("NextPrefSatisfied",
-				new SimulationStateAttribute("NextPrefSatisfied", "Boolean",
-						false, "Satisfied by preference", false));
-		semGeneralElement.putSemanticAttribute("SatisfiedLevel",
-				new SimulationStateAttribute("SatisfiedLevel", "Integer",
-						false, "Satisficing Level", false));
-		semGeneralElement.putSemanticAttribute("NextNotSatisfied",
-				new SimulationStateAttribute("NextNotSatisfied", "Boolean",
-						false, "Satisfaction Conflict", false));
-
+		
 		semGeneralElement.putSemanticAttribute("HasParent",
 				new SimulationStateAttribute("HasParent", "Boolean", false,
 						"Has Parent", true));
@@ -861,22 +845,19 @@ public class Refas extends AbstractModel {
 				new SimulationStateAttribute("Order", "Integer", false,
 						"SortVariable", 0, new RangeDomain(0, 40)));
 
-		semGeneralElement.putSemanticAttribute("VerificationError",
-				new SimulationStateAttribute("VerificationError", "Boolean",
-						false, "VerificationError", false));
-
 		// semGeneralElement.putSemanticAttribute("Selected",
 		// new SimulationStateAttribute("Selected", "Boolean", false,
 		// "***Selected***", false));
 		semGeneralElement.putSemanticAttribute("NextNotSelected",
 				new SimulationStateAttribute("NextNotSelected", "Boolean",
-						false, "Selectectin conflict", false));
+						false, "Selection conflict", false));
+		
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by preference", false));
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
-						false, "Selection required", false));
+						false, "Selection by restriction(s)", false));
 
 		semGeneralElement.putSemanticAttribute("Optional",
 				new SimulationStateAttribute("Optional", "Boolean", false,
@@ -885,12 +866,9 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("05#" + "NextReqSelected");
-		semGeneralElement.addPropVisibleAttribute("07#" + "NextNotSelected");
 
-		semGeneralElement.addPropVisibleAttribute("02#" + "Satisfied");
-		semGeneralElement.addPropVisibleAttribute("04#" + "NextPrefSatisfied");
-		semGeneralElement.addPropVisibleAttribute("06#" + "NextReqSatisfied");
-		semGeneralElement.addPropVisibleAttribute("10#" + "NextNotSatisfied");
+		semGeneralElement.addPropVisibleAttribute("02#" + "NotAvailable");
+		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
 
 		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
 
