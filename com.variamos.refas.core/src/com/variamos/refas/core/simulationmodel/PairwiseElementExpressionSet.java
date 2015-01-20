@@ -13,6 +13,7 @@ import com.variamos.refas.core.expressions.AndBooleanExpression;
 import com.variamos.refas.core.expressions.DiffNumericExpression;
 import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
+import com.variamos.refas.core.expressions.GreaterBooleanExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.LessOrEqualsBooleanExpression;
@@ -109,7 +110,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 					SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN).getValue())
 					.trim().replace(" ", "_");
 			setDescription(getDescription() + relationType);
-			Set<String> sourceAttributeNames = new HashSet<String>();
+			Set<String> sourcePositiveAttributeNames = new HashSet<String>();
+			Set<String> sourceNegativeAttributeNames = new HashSet<String>();
 
 			List<AbstractExpression> structureList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
@@ -117,8 +119,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 			switch (relationType) {
 
 			case "preferred":
-				sourceAttributeNames.add("Selected");
-				sourceAttributeNames.add("NotPrefSelected");
+				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("NotPrefSelected");
 				// ( ( SourceId_Satisfied #/\ targetId_Satisfied ) #/\
 				// ( 1 - SourceId_NotPrefSelected )
 				// ) #==> ( SourceId_NotPrefSelected #= 0)
@@ -143,7 +145,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 */
 				break;
 			case "required":
-				sourceAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Selected");
 				// sourceAttributeNames.add("Core");
 				// (( 1 - SourceId_Selected) + targetId_Selected) #>= 1
 				AbstractNumericExpression transformation6 = new DiffNumericExpression(
@@ -171,7 +173,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "conflict":
 
-				sourceAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Selected");
 				// sourceAttributeNames.add("SatisfactionConflict");
 				// ((SourceId_Satisfied) + targetId_Satisfied) #<= 1
 
@@ -204,7 +206,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 */
 				break;
 			case "alternative":
-				sourceAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Selected");
 				// sourceAttributeNames.add("ValidationSelected");
 				// sourceAttributeNames.add("AlternativeSelected");
 				// ( ( ( 1 - SourceId_Satisfied ) #/\ targetId_Satisfied ) #/\
@@ -239,7 +241,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 */
 				break;
 			case "means_ends":
-				sourceAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Selected");
 				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
@@ -254,7 +256,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				allList.add(out11);
 				break;
 			case "implication":
-				sourceAttributeNames.add("NextReqSelected");
+				sourcePositiveAttributeNames.add("NextReqSelected");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Satisfied #==> targetId_NextReqSatisfied #= 1
 				AbstractComparisonExpression transformation161 = new EqualsComparisonExpression(
@@ -280,7 +282,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "implementation":
 
-				sourceAttributeNames.add("NextReqSelected");
+				sourcePositiveAttributeNames.add("NextReqSelected");
 				// sourceAttributeNames.add("Core");
 				// targetId_NextReqSelected #==> SourceId_NextReqSelected #= 1
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
@@ -314,7 +316,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "mandatory":
 				//sourceAttributeNames.add("NextReqSelected");
-				sourceAttributeNames.add("Selected");
+			//	sourcePositiveAttributeNames.add("NextReqSatisfied");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Selected #==> targetId_ValidationSelected #=1
 				/*
@@ -376,14 +378,22 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out3);
 				structureList.add(out3);
 				allList.add(out3);
-				// SourceId_Selected #>= targetId_Selected
-				EqualsComparisonExpression out55 = new EqualsComparisonExpression(
+				// SourceId_Selected #= targetId_Selected
+				DoubleImplicationBooleanExpression out55 = new DoubleImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", "Selected");
 				getElementExpressions().add(out55);
 				structureList.add(out55);
 				allList.add(out55);
+				// SourceId_NextReqSatisfied #= targetId_Selected
+				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"NextReqSatisfied", "Selected");
+				getElementExpressions().add(out56);
+				structureList.add(out56);
+				allList.add(out56);
 				// targetId_Core #==>
 				// SourceId_Core #= 1
 				/*
@@ -396,7 +406,10 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 * true, transformation200));
 				 */
 			case "optional":
-				// SourceId_Selected #>= targetId_Selected
+				sourcePositiveAttributeNames.add("Selected");
+			//	sourcePositiveAttributeNames.add("NextReqSatisfied");
+			//	sourceNegativeAttributeNames.add("NextNotSatisfied");
+				// SourceId_Selected #<= targetId_Selected
 				LessOrEqualsBooleanExpression out5 = new LessOrEqualsBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
@@ -405,13 +418,39 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				structureList.add(out5);
 				allList.add(out5);
 
+
 				if (relationType.equals("optional"))
-					instPairwiseRelation.setOptional(true);
+				{
+			/*		instPairwiseRelation.setOptional(true);
+					// SourceId_NextReqSatisfied #= 0
+					EqualsComparisonExpression out57 = new EqualsComparisonExpression(
+							instPairwiseRelation.getSourceRelations().get(0),
+							"NextReqSatisfied", getHlclFactory().number(1));
+					getElementExpressions().add(out57);
+					structureList.add(out57);
+					allList.add(out57);
+					*/
+				}
+				else
+				{
+					
+					// SourceId_NextNotSatisfied #= targetId_NextNotSatisfied
+					OrBooleanExpression transformation44 = new OrBooleanExpression(
+							instPairwiseRelation.getTargetRelations().get(0),
+							instPairwiseRelation.getTargetRelations().get(0),
+							"NextNotSelected", "ConfigNotSelected");
+					ImplicationBooleanExpression out12 = new ImplicationBooleanExpression(
+							instPairwiseRelation.getSourceRelations().get(0),
+							"NextNotSatisfied", false, transformation44);
+					getElementExpressions().add(out12);
+					structureList.add(out12);
+					allList.add(out12);
+				}
 
 				break;
 			case "claim":
 
-				sourceAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Selected");
 				// SourceId_ClaimSelected #<=> SourceId_Selected #/\
 				// SourceId_CompExp #==>
 				// targetId_level #= R_level
@@ -503,9 +542,12 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 			InstElement instVertex = instPairwiseRelation.getSourceRelations()
 					.get(0);
 			if (instVertex instanceof InstOverTwoRelation) {
-				((InstOverTwoRelation) instVertex).clearSourceAttributeNames();
+				((InstOverTwoRelation) instVertex).clearSourcePositiveAttributeNames();
+				((InstOverTwoRelation) instVertex).clearSourceNegativeAttributeNames(); 
 				((InstOverTwoRelation) instVertex)
-						.addSourceAttributeNames(sourceAttributeNames);
+						.addSourcePositiveAttributeNames(sourcePositiveAttributeNames);
+				((InstOverTwoRelation) instVertex)
+				.addSourceNegativeAttributeNames(sourceNegativeAttributeNames);
 			}
 
 		}

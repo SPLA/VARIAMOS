@@ -1534,7 +1534,9 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".plg")) {
-									// variamosEditor.editModelReset();
+									((VariamosGraphEditor) editor).resetView();
+									 graph = editor.getGraphComponent().getGraph();
+									 //variamosEditor.editModelReset();
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
 									

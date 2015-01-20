@@ -270,7 +270,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 			break;
 		}
 		out.append(SPACE);
-		if (e.getLeft() instanceof NumericExpression)
+		if (e.getRight() instanceof NumericExpression)
 			transformNumericExpression((NumericExpression)e.getRight(), out);
 		else
 			transformBooleanExpression((BooleanExpression)e.getRight(), out);

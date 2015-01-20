@@ -734,14 +734,19 @@ public class Refas extends AbstractModel {
 						"Is Required", false));
 
 		semGeneralElement.putSemanticAttribute("Core", new SemanticAttribute(
-				"Core", "Boolean", true, "Is a Core Concept", false));
-		
-		semGeneralElement.putSemanticAttribute("IsRootFeature", new SemanticAttribute(
-				"IsRootFeature", "Boolean", true, "Is a Root Feature Concept", false));
+				"Core", "Boolean", false, "Is a Core Concept", false));
+
+		semGeneralElement.putSemanticAttribute("Dead", new SemanticAttribute(
+				"Dead", "Boolean", false, "Is a Dead Concept", false));
+
+		semGeneralElement.putSemanticAttribute("IsRootFeature",
+				new SemanticAttribute("IsRootFeature", "Boolean", true,
+						"Is a Root Feature Concept", false));
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("05#" + "Core");
+		semGeneralElement.addPropVisibleAttribute("06#" + "Dead");
 		// Configuration attributes
 
 		semGeneralElement.putSemanticAttribute("Active",
@@ -782,10 +787,11 @@ public class Refas extends AbstractModel {
 		// semGeneralElement.addPropEditableAttribute("05#" + "RequiredLevel"
 		// + "#" + "Required" + "#==#" + "true" + "#" + "0");
 
-		semGeneralElement.addPropEditableAttribute("10#" + "ConfigSatisfied"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
-		semGeneralElement.addPropEditableAttribute("11#" + "ConfigNotSatisfied"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+		// semGeneralElement.addPropEditableAttribute("10#" + "ConfigSatisfied"
+		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
+		// semGeneralElement.addPropEditableAttribute("11#" +
+		// "ConfigNotSatisfied"
+		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
@@ -796,20 +802,24 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
-/*		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
-		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied");
-		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
-		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected");
-*/
-		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
-				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
-		semGeneralElement.addPropVisibleAttribute("10#" + "ConfigNotSatisfied"
-				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
+		/*
+		 * semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
+		 * semGeneralElement.addPropVisibleAttribute("10#" +
+		 * "ConfigNotSatisfied");
+		 * semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
+		 * semGeneralElement.addPropVisibleAttribute("16#" +
+		 * "ConfigNotSelected");
+		 */
+		// semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
+		// + "#" + "Core" + "#==#" + "false" + "#" + "true");
+		// semGeneralElement.addPropVisibleAttribute("10#" +
+		// "ConfigNotSatisfied"
+		// + "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
-		
+
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
@@ -2671,10 +2681,9 @@ public class Refas extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexGSG, true);
 		instEdge.setSourceRelation(instView, true);
-		
+
 		syntaxMetaView.addConcept(sOperationalization);
 		instView.addInstVertex(instVertexOper);
-
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-oper", instEdge);
@@ -2878,7 +2887,7 @@ public class Refas extends AbstractModel {
 		instView = new InstView("Assets", metaView, syntaxMetaView);
 		instViews.add(instView);
 		syntaxMetaView.addConcept(sOperationalization);
-		syntaxMetaView.addConcept(syntaxVertexLF);		
+		syntaxMetaView.addConcept(syntaxVertexLF);
 		instView.addInstVertex(instVertexOper);
 		instView.addInstVertex(instVertexLF);
 
@@ -2898,7 +2907,7 @@ public class Refas extends AbstractModel {
 		// attributes
 
 		syntaxMetaView.addConcept(syntaxAsset);
-		
+
 		syntaxAsset.addPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addPropEditableAttribute("03#" + "name");
 		syntaxAsset.addPropVisibleAttribute("03#" + "name");
@@ -2916,8 +2925,6 @@ public class Refas extends AbstractModel {
 		syntaxMetaChildView.addConcept(syntaxVertexLF);
 		childView.addInstVertex(instVertexOper);
 		childView.addInstVertex(instVertexLF);
-
-
 
 		InstVertex instVertexAsset = new InstConcept("Asset",
 				supportMetaElementConcept, syntaxAsset);
@@ -3051,9 +3058,6 @@ public class Refas extends AbstractModel {
 		// childView.addInstVertex(instVertexOper);
 		syntaxMetaChildView.addConcept(syntaxAsset);
 		childView.addInstVertex(instVertexAsset);
-
-
-
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset1-asset", instEdge);
@@ -3227,7 +3231,7 @@ public class Refas extends AbstractModel {
 			v.updateValidationList((InstElement) elm, mapElements);
 		}
 	}
-	
+
 	public boolean elementsValidation(String element, int modelViewInd,
 			int modelViewSubInd) {
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1) {
@@ -3252,6 +3256,15 @@ public class Refas extends AbstractModel {
 					return true;
 		}
 		return false;
+	}
+
+	public void clear() {
+		this.instViews.clear();
+		this.instGroupDependencies.clear();
+		this.variabilityInstVertex.clear();
+		this.constraintInstEdges.clear();
+		this.otherInstVertex.clear();
+		
 	}
 
 }

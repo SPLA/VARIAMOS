@@ -1,3 +1,4 @@
+
 package com.variamos.gui.maineditor;
 
 import java.awt.Color;
@@ -342,6 +343,26 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									new ImageIcon(
 											mxGraphComponent.class
 													.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
+									backbottomhint);
+							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+							over3.setAlign(mxConstants.ALIGN_CENTER);
+							addCellOverlay(tmp, over3);
+						} else if ((boolean) instConcept.getInstAttribute(
+								"Dead").getValue()) {
+							backtophint = "Element is dead. It cannot be selected";
+							mxCellOverlay over3 = new mxCellOverlay(
+									new ImageIcon(
+											mxGraphComponent.class
+													.getResource("/com/variamos/gui/refas/editor/images/design_dead.png")),
+									backtophint);
+							over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+							over3.setAlign(mxConstants.ALIGN_CENTER);
+							addCellOverlay(tmp, over3);
+							backbottomhint = "Element is dead. It cannot be selected";
+							over3 = new mxCellOverlay(
+									new ImageIcon(
+											mxGraphComponent.class
+													.getResource("/com/variamos/gui/refas/editor/images/design_dead.png")),
 									backbottomhint);
 							over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 							over3.setAlign(mxConstants.ALIGN_CENTER);

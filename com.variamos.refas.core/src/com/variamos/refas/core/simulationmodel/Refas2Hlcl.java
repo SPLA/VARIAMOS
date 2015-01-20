@@ -336,7 +336,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 
 		if (solutions == 0 || solutions == 1) {
-			Configuration newConf = swiSolver.getSolution();
+			Configuration newConf = null;
+			if (swiSolver.hasNextSolution())
+				newConf = swiSolver.getSolution();
 			if (newConf != null)
 				configuration = newConf;
 			else
@@ -548,6 +550,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void setRefas(Refas refas) {
 		this.refas = refas;
+		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		swiSolver = null;
+		//TODO close solver?
 	}
 
 	/**
@@ -577,6 +582,26 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			
 		}
 
+	}
+
+	public void updateDeadConcepts(List<String> deadIdentifiers) {
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			InstAttribute instAttributeDead = instVertex.getInstAttribute("Dead");
+			InstAttribute instAttributeNotSel = instVertex.getInstAttribute("ConfigNotSelected");
+			// System.out.println(vertexId + " " + attribute);
+			if (deadIdentifiers != null
+					&& deadIdentifiers.contains(instVertex.getIdentifier()))
+			{
+				instAttributeDead.setValue(true);
+				instAttributeNotSel.setValue(true);
+			}
+				
+			else
+			{
+				instAttributeDead.setValue(false);
+				instAttributeNotSel.setValue(false);
+			}			
+		}
 	}
 
 }

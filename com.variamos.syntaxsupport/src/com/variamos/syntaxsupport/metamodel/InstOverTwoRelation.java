@@ -57,7 +57,9 @@ public class InstOverTwoRelation extends InstVertex {
 	 * SingleElementExpressionSet required during the generation of expressions
 	 * for MultiElementExpressionSet
 	 */
-	private Set<String> sourceAttributeNames;
+	private Set<String> sourcePositiveAttributeNames;
+	
+	private Set<String> sourceNegativeAttributeNames;
 
 	/**
 	 * TODO review if needed
@@ -67,7 +69,8 @@ public class InstOverTwoRelation extends InstVertex {
 	public InstOverTwoRelation() {
 		super();
 
-		sourceAttributeNames = new HashSet<String>();
+		sourcePositiveAttributeNames = new HashSet<String>();
+		sourceNegativeAttributeNames = new HashSet<String>();
 		// vars.put(VAR_METAGROUPDEPIDENTIFIER,null);
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCYID,null);
 		// vars.put(VAR_SEMANTICGROUPDEPENDENCY,null);
@@ -82,7 +85,8 @@ public class InstOverTwoRelation extends InstVertex {
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaOverTwoRelation.getDescription());
 
-		sourceAttributeNames = new HashSet<String>();
+		sourcePositiveAttributeNames = new HashSet<String>();
+		sourceNegativeAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
@@ -99,7 +103,8 @@ public class InstOverTwoRelation extends InstVertex {
 			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 					supportMetaOvetTwoRelation.getDescription());
 		}
-		sourceAttributeNames = new HashSet<String>();
+		sourcePositiveAttributeNames = new HashSet<String>();
+		sourceNegativeAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
@@ -115,7 +120,8 @@ public class InstOverTwoRelation extends InstVertex {
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaOvetTwoRelation.getDescription());
 
-		sourceAttributeNames = new HashSet<String>();
+		sourcePositiveAttributeNames = new HashSet<String>();
+		sourceNegativeAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
@@ -129,7 +135,8 @@ public class InstOverTwoRelation extends InstVertex {
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaOvetTwoRelation.getDescription());
 
-		sourceAttributeNames = new HashSet<String>();
+		sourcePositiveAttributeNames = new HashSet<String>();
+		sourceNegativeAttributeNames = new HashSet<String>();
 		createInstAttributes();
 	}
 
@@ -164,24 +171,45 @@ public class InstOverTwoRelation extends InstVertex {
 		}
 	}
 
-	public Set<String> getSourceAttributeNames() {
-		return sourceAttributeNames;
+	public Set<String> getSourcePositiveAttributeNames() {
+		return sourcePositiveAttributeNames;
+	}
+
+	public Set<String> getSourceNegativeAttributeNames() {
+		return sourceNegativeAttributeNames;
+	}
+	
+	/**
+	 * Add the name of the attributes for MultiElementExpressionSet
+	 * 
+	 * @param sourcePositiveAttributeNames
+	 *            Name of attributes for double implication
+	 */
+	public void addSourcePositiveAttributeNames(
+			Set<String> sourcePositiveAttributeNames) {
+		this.sourcePositiveAttributeNames.addAll(sourcePositiveAttributeNames);
 	}
 
 	/**
 	 * Add the name of the attributes for MultiElementExpressionSet
 	 * 
-	 * @param sourceAttributeNames
+	 * @param sourcePositiveAttributeNames
 	 *            Name of attributes for double implication
 	 */
-	public void addSourceAttributeNames(Set<String> sourceAttributeNames) {
-		this.sourceAttributeNames.addAll(sourceAttributeNames);
+	public void addSourceNegativeAttributeNames(
+			Set<String> sourceNegativeAttributeNames) {
+		this.sourceNegativeAttributeNames.addAll(sourceNegativeAttributeNames);
 	}
 
-	public void clearSourceAttributeNames() {
-		this.sourceAttributeNames.clear();
+	public void clearSourcePositiveAttributeNames() {
+		this.sourcePositiveAttributeNames.clear();
 	}
 
+	public void clearSourceNegativeAttributeNames() {
+		this.sourceNegativeAttributeNames.clear();
+	}
+
+	
 	public MetaVertex getSupportMetaOverTwoRelation() {
 		return getTransSupportMetaElement();
 	}

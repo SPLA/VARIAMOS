@@ -100,7 +100,50 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
 			for (String sourceName : instOverTwoRelation
-					.getSourceAttributeNames()) {
+					.getSourceNegativeAttributeNames()) {
+				AbstractExpression abstractTransformation = null;
+				Iterator<InstElement> instEdges1 = instOverTwoRelation
+						.getSourceRelations().iterator();
+				AbstractExpression recursiveExpression1 = null;
+				AbstractExpression recursiveExpression2 = null;
+				if (instEdges1.hasNext()) {
+					InstElement left1 = instEdges1.next();
+					while ((boolean) ((InstPairwiseRelation) left1)
+							.getSourceRelations().get(0)
+							.getInstAttribute("Active").getValue() == false) {
+						if (instEdges1.hasNext())
+							left1 = instEdges1.next();
+						else
+							return;
+					}
+					abstractTransformation = new AndBooleanExpression();
+					Constructor<?> constructor1 = null, constructor2 = null;
+					try {
+						constructor1 = abstractTransformation.getClass()
+								.getConstructor(InstElement.class,
+										String.class, Boolean.TYPE,
+										AbstractExpression.class);
+						constructor2 = abstractTransformation.getClass()
+								.getConstructor(InstElement.class,
+										InstElement.class, String.class,
+										String.class);
+					} catch (NoSuchMethodException | SecurityException e) {
+						e.printStackTrace();
+					}
+
+					recursiveExpression1 = transformation(constructor1,
+							constructor2, instEdges1, left1, sourceName);
+					AbstractBooleanExpression out = new DoubleImplicationBooleanExpression(
+							instOverTwoRelation, sourceName, true,
+							recursiveExpression1);
+					getElementExpressions().add(out);
+					if (relationType.equals("and"))
+						coreList.add(out);
+					allList.add(out);
+				}
+			}
+			for (String sourceName : instOverTwoRelation
+					.getSourcePositiveAttributeNames()) {
 				AbstractExpression abstractTransformation = null;
 				Iterator<InstElement> instEdges1 = instOverTwoRelation
 						.getSourceRelations().iterator();
@@ -175,8 +218,6 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						e.printStackTrace();
 					}
 
-
-
 					switch (relationType) {
 
 					case "and":
@@ -196,18 +237,25 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 						allList.add(out);
 						break;
 					case "mutex":
-						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
-						// ) + ... ) #<=> 1)
+						// (( ( A1_"attribute" + A2_"attribute"
+						// ) + ... ) #<= 1)
 						recursiveExpression1 = transformation(constructor1,
 								constructor2, instEdges1, left1, sourceName);
+							LessOrEqualsBooleanExpression out2 = new LessOrEqualsBooleanExpression(
+								recursiveExpression1, 
+								new NumberNumericExpression(1));
+						getElementExpressions().add(out2);
+						allList.add(out2);
+						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
+						// ) + ... ) #<=> 1)
 						AbstractExpression transformation1 = new EqualsComparisonExpression(
 								recursiveExpression1,
 								new NumberNumericExpression(1));
-						AbstractBooleanExpression out2 = new DoubleImplicationBooleanExpression(
+						AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
 								instOverTwoRelation, sourceName, true,
 								transformation1);
-						getElementExpressions().add(out2);
-						allList.add(out2);
+						getElementExpressions().add(out3);
+						allList.add(out3);
 						break;
 					case "range":
 
@@ -227,19 +275,19 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 
 						AbstractExpression transformation5 = new AndBooleanExpression(
 								transformation3, transformation4);
-						AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
+						AbstractBooleanExpression out0 = new DoubleImplicationBooleanExpression(
 								instOverTwoRelation/*
 													 * .getTargetRelations
 													 * ().get(0)
 													 * .getToRelation()
 													 */, sourceName, true,
 								transformation5);
-						getElementExpressions().add(out3);
+						getElementExpressions().add(out0);
 						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
 								.getInstAttribute("lowCardinality")
 								.getAsInteger())
-							coreList.add(out3);
-						allList.add(out3);
+							coreList.add(out0);
+						allList.add(out0);
 						break;
 
 					default:
@@ -259,13 +307,13 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 				coreLists.addAll(coreList);
 			else
 				this.getCompulsoryExpressions().put("Core", coreList);
-			
+
 			List<AbstractExpression> falseList = this
 					.getCompulsoryExpressionList("FalseOpt");
 			if (falseList != null)
 				falseList.addAll(coreList);
 			this.getCompulsoryExpressions().put("FalseOpt", coreList);
-			
+
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");
 			if (falseList2 != null)
