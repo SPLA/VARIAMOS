@@ -240,12 +240,12 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							// identifierId_NextReqSelected ) #/\
 							// 1 - identifierId_NextNotSelected )) )
 
-							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
+					/*		AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 									instVertex, instVertex, "ConfigSelected",
 									"NextPrefSelected");
-							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-									instVertex, "NextReqSelected", false,
-									transformation6);
+					*/
+							/*AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, instVertex, "NextReqSelected", "NextPrefSelected");
 							AbstractBooleanExpression transformation8 = new NotBooleanExpression(
 									instVertex, "NextNotSelected");
 							AbstractBooleanExpression transformation9 = new AndBooleanExpression(
@@ -254,7 +254,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									.add(new DoubleImplicationBooleanExpression(
 											instVertex, "Selected", true,
 											transformation9));
-						}
+						*/
+							}
 						/*		if (instAttribute.getIdentifier().equals("NextReqSelected")) {
 
 						List<String> outRelations = new ArrayList<String>();						

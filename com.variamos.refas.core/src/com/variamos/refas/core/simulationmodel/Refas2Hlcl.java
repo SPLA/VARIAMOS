@@ -509,12 +509,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					.getConstraintInstEdgesCollection()) {
 				constraintGroups.put(elm.getIdentifier(),
 						new PairwiseElementExpressionSet(elm.getIdentifier(),
-								idMap, f, elm));
+								idMap, f, elm, execType));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
 					new PairwiseElementExpressionSet(identifier, idMap, f,
-							refas.getConstraintInstEdges().get(identifier)));
+							refas.getConstraintInstEdges().get(identifier), execType));
 
 	}
 
