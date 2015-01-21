@@ -148,6 +148,8 @@ public class ElementDesignPanel extends JPanel {
 			int count = 0;
 			while (count < 2) {
 				designPanelElements = 0;
+				if (elm instanceof InstPairwiseRelation)
+					designPanelElements++;
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = elm.getVisibleVariables();
 				for (InstAttribute v : visible) {
@@ -234,7 +236,7 @@ public class ElementDesignPanel extends JPanel {
 								.getEditableVariables();
 
 						if (!editables.contains(v)
-							//	|| editor.getPerspective() == 4
+								|| editor.getPerspective() == 4
 								)
 
 						{
@@ -250,7 +252,7 @@ public class ElementDesignPanel extends JPanel {
 									.getDisplayName() + ": "));
 							elementDesPropSubPanel.add(w);
 							if (v.isAffectProperties()
-									//&& editor.getPerspective() != 4
+									&& editor.getPerspective() != 4
 									) {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
