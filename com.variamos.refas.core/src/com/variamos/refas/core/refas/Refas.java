@@ -821,18 +821,18 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
 				new SimulationStateAttribute("SimRequiredLevel", "Integer",
 						false, "Required Level", false));
-
+/*
 		semGeneralElement.putSemanticAttribute("SimRequired",
 				new SimulationStateAttribute("SimRequired", "Boolean", false,
 						"***Required***", false));
-
-		semGeneralElement.putSemanticAttribute("Satisfied",
+*/
+/*		semGeneralElement.putSemanticAttribute("Satisfied",
 				new SimulationStateAttribute("Satisfied", "Boolean", false,
 						"***Satisfied***", false));
 		semGeneralElement.putSemanticAttribute("NextReqSatisfied",
 				new SimulationStateAttribute("NextReqSatisfied", "Boolean",
 						false, "Satisfaction required", false));
-		
+		*/
 		semGeneralElement.putSemanticAttribute("HasParent",
 				new SimulationStateAttribute("HasParent", "Boolean", false,
 						"Has Parent", true));
@@ -858,21 +858,22 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
 						false, "Selection by restriction(s)", false));
-
+/*
 		semGeneralElement.putSemanticAttribute("Optional",
 				new SimulationStateAttribute("Optional", "Boolean", false,
 						"*Is Optional*", false));
-
+*/
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("05#" + "NextReqSelected");
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "NotAvailable");
 		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
+		semGeneralElement.addPropVisibleAttribute("06#" + "Order");
 
-		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
+//		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
 
-		semGeneralElement.addPropVisibleAttribute("12#" + "SimRequired");
+//		semGeneralElement.addPropVisibleAttribute("12#" + "SimRequired");
 
 		// semGeneralElement.addPropVisibleAttribute("08#" + "SatisfiedLevel");
 		// Definition of variability concept and relations

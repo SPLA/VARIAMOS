@@ -99,7 +99,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			// System.out.println(relationType);
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
-			for (String sourceName : instOverTwoRelation
+			/*for (String sourceName : instOverTwoRelation
 					.getSourceNegativeAttributeNames()) {
 				AbstractExpression abstractTransformation = null;
 				Iterator<InstElement> instEdges1 = instOverTwoRelation
@@ -142,6 +142,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					allList.add(out);
 				}
 			}
+			*/
 			for (String sourceName : instOverTwoRelation
 					.getSourcePositiveAttributeNames()) {
 				AbstractExpression abstractTransformation = null;

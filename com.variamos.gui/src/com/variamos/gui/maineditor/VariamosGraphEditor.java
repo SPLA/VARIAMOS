@@ -1860,6 +1860,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		endSTime = System.currentTimeMillis();
 		if (result) {
 			refas2hlcl.updateGUIElements(attributes);
+			((MainFrame) getFrame()).waitingCursor(true);
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
@@ -1944,6 +1945,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			refas2hlcl.updateCoreConcepts(uniqueIdentifiers);
 
 			refas2hlcl.updateDeadConcepts(deadIdentifiers);
+			
 
 			messagesArea.setText(refas2hlcl.getText());
 			// bringUpTab(mxResources.get("elementSimPropTab"));
