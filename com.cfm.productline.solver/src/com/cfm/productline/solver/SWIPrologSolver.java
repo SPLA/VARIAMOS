@@ -156,8 +156,11 @@ public class SWIPrologSolver implements Solver {
 				if (value == 0) {
 					configuration.ban(identifier.getId());
 				}
-				if (value == 1) {
+				else if (value == 1) {
 					configuration.enforce(identifier.getId());
+				}
+				else {
+					configuration.set(identifier.getId(),value);
 				}
 				i++;
 			}

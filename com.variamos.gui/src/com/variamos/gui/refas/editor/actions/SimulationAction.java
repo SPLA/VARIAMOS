@@ -33,7 +33,7 @@ public class SimulationAction extends AbstractEditorAction {
 		else
 		{
 		//	editor.executeSimulation(first, Refas2Hlcl.DESIGN_EXEC);
-			editor.executeSimulation(first, Refas2Hlcl.SIMUL_EXEC);
+			editor.executeSimulation(first, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
 		}
 	}
 }

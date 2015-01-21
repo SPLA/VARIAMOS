@@ -161,7 +161,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				allList.add(out10);
 
 				// ((targetId_NotAvailable) #=> sourceId_NotAvailable) #= 1
-				AbstractNumericExpression transformation73 = new SumNumericExpression(
+				EqualsComparisonExpression transformation73 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NotAvailable", true, new NumberNumericExpression(1));
 				AbstractBooleanExpression out90 = new ImplicationBooleanExpression(
@@ -433,7 +433,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NotAvailable", "NotAvailable");
 				getElementExpressions().add(out54);
-				structureList.add(out54);
+				//structureList.add(out54);
 				allList.add(out54);
 
 				// targetId_Core #==>
@@ -466,7 +466,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NotAvailable", "NotAvailable");
 				getElementExpressions().add(out12);
-				structureList.add(out12);
+				//structureList.add(out12);
 				allList.add(out12);
 
 				if (relationType.equals("optional")) {

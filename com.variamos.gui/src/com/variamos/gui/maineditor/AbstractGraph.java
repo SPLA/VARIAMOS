@@ -1,7 +1,6 @@
 package com.variamos.gui.maineditor;
 
 
-import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.cfm.common.AbstractModel;
