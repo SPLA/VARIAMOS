@@ -68,7 +68,6 @@ public class VerificatorTest {
 
 	}
 
-	@Test
 	public void isDeadElement() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
@@ -93,7 +92,6 @@ public class VerificatorTest {
 
 	}
 
-	@Test
 	public void isRedundant() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
@@ -122,7 +120,6 @@ public class VerificatorTest {
 
 	}
 
-	@Test
 	public void allRedundancies() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
@@ -215,9 +212,13 @@ public class VerificatorTest {
 
 		List<Defect> falseOptionalElements;
 		try {
-			falseOptionalElements = verifier.getFalseOptionalElements(
-					identifiersToVerify);
-			assertTrue(falseOptionalElements.size() == 2);
+			long startTime = System.currentTimeMillis();
+			falseOptionalElements = verifier
+					.getFalseOptionalElements(identifiers);
+			assertTrue(falseOptionalElements.size() == 15);
+			long endTime = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println(" Analysis time method 1: " + totalTime);
 		} catch (FunctionalException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -225,7 +226,75 @@ public class VerificatorTest {
 
 	}
 
+	
+	public void testMethod1() {
+		for (int i = 0; i < 2; i++) {
+			System.out.println(" time " + i);
+			allFalseOptional();
+		}
+	}
+
 	@Test
+	public void testMethod2() {
+		for (int i = 0; i < 2; i++) {
+			System.out.println(" time " + i);
+			allFalseOptional2();
+		}
+	}
+
+	public void allFalseOptional2() {
+		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+				.dependencyToExpressionList(variabilityModel.getDependencies(),
+						variabilityModel.getFixedDependencies());
+
+		HlclProgram model = ConstraintRepresentationUtil
+				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
+				SolverEditorType.SWI_PROLOG);
+
+		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
+
+		Set<Identifier> identifiersToVerify = new HashSet<Identifier>();
+
+		Identifier identify = null;
+		Iterator<Identifier> iterator = identifiers.iterator();
+		int i = 0;
+		while (iterator.hasNext()) {
+
+			identify = (Identifier) iterator.next();
+			// switch (identify.getId()) {
+			// case "Archivo":
+			// case "Flash":
+			// case "Busquedas":
+			// identifiersToVerify.add(identify);
+			// break;
+			// }
+			if (i < 10) {
+				identifiersToVerify.add(identify);
+			}else{
+				break;
+			}
+			i++;
+
+		}
+
+//		List<Defect> falseOptionalElements;
+//		try {
+//			long startTime = System.currentTimeMillis();
+//			//falseOptionalElements = verifier
+//					.getFalseOptionalElements2(identifiers);
+//			assertTrue(falseOptionalElements.size() == 15);
+//			long endTime = System.currentTimeMillis();
+//			long totalTime = endTime - startTime;
+//			System.out.println(" Analysis time method 2: " + totalTime);
+//		} catch (FunctionalException e) {
+//			e.printStackTrace();
+//			fail(e.getMessage());
+//		}
+
+	}
+
 	public void isFalseOptional() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
@@ -243,16 +312,20 @@ public class VerificatorTest {
 		while (iterator.hasNext()) {
 
 			identify = (Identifier) iterator.next();
-			if (identify.getId() == "Archivo") {
+			if (identify.getId().equals("Archivo")) {
 				break;
 			}
 		}
 		FalseOptionalElement falseOptional;
 		try {
+			long startTime = System.currentTimeMillis();
 			falseOptional = (FalseOptionalElement) verifier
-					.isFalseOptionalElement( identify);
+					.isFalseOptionalElement(identify);
 			assertTrue(falseOptional != null);
-
+			assertTrue(falseOptional.getId().equals("Archivo"));
+			long endTime = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println(" Analysis time method 1: " + totalTime);
 		} catch (FunctionalException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -260,7 +333,46 @@ public class VerificatorTest {
 
 	}
 
-	@Test
+//	public void isFalseOptional2() {
+//		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
+//		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+//				.dependencyToExpressionList(variabilityModel.getDependencies(),
+//						variabilityModel.getFixedDependencies());
+//
+//		HlclProgram model = ConstraintRepresentationUtil
+//				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+//		IntDefectsVerifier verifier = new DefectsVerifier(model,
+//				SolverEditorType.SWI_PROLOG);
+//		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
+//
+//		Identifier identify = null;
+//		Iterator<Identifier> iterator = identifiers.iterator();
+//		while (iterator.hasNext()) {
+//
+//			identify = (Identifier) iterator.next();
+//			if (identify.getId().equals("Archivo")) {
+//				break;
+//			}
+//		}
+//
+//		FalseOptionalElement falseOptional;
+//		try {
+//			long startTime = System.currentTimeMillis();
+//			falseOptional = (FalseOptionalElement) verifier
+//					.isFalseOptionalElement2(identify);
+//			assertTrue(falseOptional != null);
+//			assertTrue(falseOptional.getId().equals("Archivo"));
+//			long endTime = System.currentTimeMillis();
+//			long totalTime = endTime - startTime;
+//			System.out.println(" Analysis time method 2: " + totalTime);
+//
+//		} catch (FunctionalException e) {
+//			e.printStackTrace();
+//			fail(e.getMessage());
+//		}
+//
+//	}
+
 	public void isNotAttainableDomains() {
 		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalSimplified_24_fmFalseProductLine.sxfm");
 		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
@@ -275,8 +387,8 @@ public class VerificatorTest {
 
 		List<Defect> nonAttainableDomains;
 		try {
-			nonAttainableDomains = verifier.getNonAttainableDomains(
-					identifiers.iterator().next());
+			nonAttainableDomains = verifier.getNonAttainableDomains(identifiers
+					.iterator().next());
 			assertTrue(nonAttainableDomains.size() == 1);
 		} catch (FunctionalException e) {
 			e.printStackTrace();

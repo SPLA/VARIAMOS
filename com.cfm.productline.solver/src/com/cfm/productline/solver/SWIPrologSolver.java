@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import jpl.Compound;
 import jpl.Query;
 import jpl.Term;
+import jpl.Util;
 import jpl.Variable;
 
 import com.cfm.common.AbstractModel;
@@ -31,6 +34,7 @@ public class SWIPrologSolver implements Solver {
 	private String programPath = null;
 	private Query qr;
 	boolean sucessfullLoad;
+	private Map<String, Variable> vars;
 
 	public final static String PROGRAM_INVOCATION = "productline(L)";
 
@@ -80,29 +84,90 @@ public class SWIPrologSolver implements Solver {
 
 			}
 			qr = null;
-		}
-		if (qr == null) {
+			vars = new TreeMap<>();
 			doQuery(config, options);
-
 		}
-
+		// Creates the query
+		consultProgram(config, options);
 	}
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		if (hlclProgram == null) {
+		if ((hlclProgram == null || hlclProgram.isEmpty()) && options.getProgramPath() == null) {
 			throw new TechnicalException("HlclProgram was not initialized");
+		}
+		else if (hlclProgram == null) {
+			// A predefined prolog file is charged
+			programPath = options.getProgramPath();
 		} else {
 
-			//We create a copy of the HLCLprogram in order to don't modify the real hlclprogram 
-			HlclProgram modifiedCopy= new HlclProgram();
+			// We create a copy of the HLCLprogram in order to don't modify the
+			// real hlclprogram
+			HlclProgram modifiedCopy = new HlclProgram();
 			modifiedCopy.addAll(hlclProgram.subList(0, hlclProgram.size()));
-			PrologTransformParameters params= addParametersToProgram(modifiedCopy,
-					options);
+			PrologTransformParameters params = addParametersToProgram(
+					modifiedCopy, options);
 			programPath = createPrologFile(modifiedCopy, params);
-			loadSWIProgram(programPath);
-			qr = new Query(PROGRAM_INVOCATION);
+			Set<Identifier> identifiers = HlclUtil
+					.getUsedIdentifiers(hlclProgram);
+			// Variables map is mandatory for dynamic configurations
+			for (Identifier id : identifiers) {
+				vars.put(id.getId(), new Variable(id.getId()));
+			}
 		}
+		loadSWIProgram(programPath);
+	}
+
+	private void consultProgram(Configuration config,
+			ConfigurationOptions options) {
+		if (options.getProgramName() == null) {
+			List<Compound> parts = new ArrayList<>();
+			Term[] varTermsArray = new Term[vars.size()];
+			int count = 0;
+			for (String id : vars.keySet()) {
+				varTermsArray[count] = vars.get(id);
+				count++;
+			}
+			// Generate the list of variables Ejm L={A,B,C}
+			Term L = Util.termArrayToList(varTermsArray);
+
+			// Generate the assigns for the not ignored variables
+			for (String id : config.getNotIgnored()) {
+				// Create the atom
+				jpl.Integer i = new jpl.Integer(config.stateOf(id));
+				// Create the compound for the assign.
+				Compound assign = new Compound("=", new Term[] { vars.get(id),
+						i });
+				parts.add(assign);
+			}
+
+			parts.add(new Compound("productline", new Term[] { L }));
+
+			// Add all additional configuration options
+			Compound query = addSubQueries(parts);
+			System.out.println(query.toString());
+			qr = new Query(query);
+		} else {
+			qr = new Query(options.programName + "(L)");
+		}
+	}
+
+	private static Compound addSubQueries(List<Compound> parts) {
+
+		if (parts.size() == 0)
+			return null;
+
+		if (parts.size() == 1)
+			return parts.get(0);
+
+		int n = parts.size();
+
+		Compound partial = new Compound(",", new Term[] { parts.get(n - 2),
+				parts.get(n - 1) });
+		for (int i = n - 3; i >= 0; i--)
+			partial = new Compound(",", new Term[] { parts.get(i), partial });
+
+		return partial;
 	}
 
 	@Override
@@ -116,7 +181,6 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public Configuration getSolution() {
-
 		if (qr != null) {
 			if (hasNextSolution()) {
 				Hashtable<Variable, Term> configurationHashSet = qr
@@ -136,37 +200,62 @@ public class SWIPrologSolver implements Solver {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
 		Term invocationTerm = (Term) configurationHashSet.get("L");
-
-		List<Integer> configurationValues = new ArrayList<Integer>();
-		// Obtiene del resultado de L los valores asignados a cada variable
-		// descomponiendo el resultado
-		configurationValues = getSolutionValues(invocationTerm.args(),
-				configurationValues);
-
-		// Obtiene la lista ordenada de identificadores del hlcl program
-		// para asignarlos a la configuracion. En este mismo orden se crean
-		// cuando se define el programa de prolog
-		Set<Identifier> idsSet = HlclUtil.getUsedIdentifiers(hlclProgram);
 		Configuration configuration = new Configuration();
+		if (invocationTerm != null) {
+			List<Integer> configurationValues = new ArrayList<Integer>();
+			// Obtiene del resultado de L los valores asignados a cada variable
+			// descomponiendo el resultado
+			configurationValues = getSolutionValues(invocationTerm.args(),
+					configurationValues);
 
-		int i = 0;
-		if (idsSet.size() == idsSet.size()) {
-			for (Identifier identifier : idsSet) {
-				int value = configurationValues.get(i);
-				if (value == 0) {
-					configuration.ban(identifier.getId());
+			// Obtiene la lista ordenada de identificadores del hlcl program
+			// para asignarlos a la configuracion. En este mismo orden se crean
+			// cuando se define el programa de prolog
+			Set<Identifier> idsSet = HlclUtil.getUsedIdentifiers(hlclProgram);
+
+			int i = 0;
+			if (idsSet.size() == idsSet.size()) {
+				for (Identifier identifier : idsSet) {
+					int value = configurationValues.get(i);
+					if (value == 0) {
+						configuration.ban(identifier.getId());
+					}
+					if (value == 1) {
+						configuration.enforce(identifier.getId());
+					} else {
+						configuration.set(identifier.getId(), value);
+					}
+					i++;
 				}
-				if (value == 1) {
-					configuration.enforce(identifier.getId());
-				}
-				i++;
+				return configuration;
+			} else {
+				throw new TechnicalException(
+						"Configurated values and number of variables defined in expressions must be equals");
 			}
-			return configuration;
 		} else {
-			throw new TechnicalException(
-					"Configurated values and number of variables defined in expressions must be equals");
-		}
+			Set<Variable> variables = configurationHashSet.keySet();
 
+			Term term;
+			String variable;
+			Iterator iterator = variables.iterator();
+			while (iterator.hasNext()) {
+				variable = (String) iterator.next();
+				term = configurationHashSet.get(variable);
+
+				if (term.isInteger()) {
+					Integer termValue = term.intValue();
+					if (termValue == 0) {
+						configuration.ban(variable);
+					} else if (termValue == 1) {
+						configuration.enforce(variable);
+					} else {
+						configuration.set(variable, termValue);
+					}
+
+				}
+			}
+		}
+		return configuration;
 	}
 
 	private boolean loadSWIProgram(String temporalPath) {
@@ -233,7 +322,6 @@ public class SWIPrologSolver implements Solver {
 		return params;
 	}
 
-	
 	private PrologTransformParameters getParamsFor(ConfigurationOptions options) {
 		PrologTransformParameters params = new PrologTransformParameters();
 
@@ -245,10 +333,12 @@ public class SWIPrologSolver implements Solver {
 
 		return params;
 	}
-	
-	private String createPrologFile(HlclProgram hlclProgram, PrologTransformParameters params) {
+
+	private String createPrologFile(HlclProgram hlclProgram,
+			PrologTransformParameters params) {
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram, params);
+		String prologProgram = swiPrologTransformer.transform(hlclProgram,
+				params);
 		String path;
 		try {
 			// Create a temporary file

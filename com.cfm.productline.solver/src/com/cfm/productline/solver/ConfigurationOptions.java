@@ -25,6 +25,11 @@ public class ConfigurationOptions {
 
 	// Sirve para saber cuando cerrar la conexión anterior para abrir una nueva
 	public boolean startFromZero;
+	
+	public String programName; 
+	
+	//Sirve para cargar directamente un archivo que ya existe en prolog
+	public String programPath;
 
 	public ConfigurationOptions() {
 		mode = ConfigurationMode.FULL;
@@ -118,5 +123,21 @@ public class ConfigurationOptions {
 
 	public void setOrderExpressions(List<NumericExpression> orderExpressions) {
 		this.orderExpressions = orderExpressions;
+	}
+
+	public String getProgramName() {
+		return programName;
+	}
+
+	public void setProgramName(String programName) {
+		this.programName = programName;
+	}
+
+	public String getProgramPath() {
+		return programPath;
+	}
+
+	public void setProgramPath(String programPath) {
+		this.programPath = programPath;
 	}
 }
