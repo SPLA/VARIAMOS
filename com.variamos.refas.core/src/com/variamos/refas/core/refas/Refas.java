@@ -70,10 +70,8 @@ public class Refas extends AbstractModel {
 	/**
 	 * 
 	 */
-	private Map<String, InstVertex> variabilityInstVertex; // TODO Move
-															// variables and
-															// enums to
-															// otherElements
+	private Map<String, InstVertex> variabilityInstVertex; 
+	// TODO Move variables and enums to otherElements
 	/**
 	 * 
 	 */
@@ -820,18 +818,6 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
 				new SimulationStateAttribute("SimRequiredLevel", "Integer",
 						false, "Required Level", false));
-/*
-		semGeneralElement.putSemanticAttribute("SimRequired",
-				new SimulationStateAttribute("SimRequired", "Boolean", false,
-						"***Required***", false));
-*/
-/*		semGeneralElement.putSemanticAttribute("Satisfied",
-				new SimulationStateAttribute("Satisfied", "Boolean", false,
-						"***Satisfied***", false));
-		semGeneralElement.putSemanticAttribute("NextReqSatisfied",
-				new SimulationStateAttribute("NextReqSatisfied", "Boolean",
-						false, "Satisfaction required", false));
-		*/
 		semGeneralElement.putSemanticAttribute("HasParent",
 				new SimulationStateAttribute("HasParent", "Boolean", false,
 						"Has Parent", true));
@@ -844,9 +830,6 @@ public class Refas extends AbstractModel {
 				new SimulationStateAttribute("Order", "Integer", false,
 						"SortVariable", 0, new RangeDomain(0, 40)));
 
-		// semGeneralElement.putSemanticAttribute("Selected",
-		// new SimulationStateAttribute("Selected", "Boolean", false,
-		// "***Selected***", false));
 		semGeneralElement.putSemanticAttribute("NextNotSelected",
 				new SimulationStateAttribute("NextNotSelected", "Boolean",
 						false, "Selection conflict", false));
@@ -857,11 +840,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
 						false, "Selection by restriction(s)", false));
-/*
-		semGeneralElement.putSemanticAttribute("Optional",
-				new SimulationStateAttribute("Optional", "Boolean", false,
-						"*Is Optional*", false));
-*/
+
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
 		semGeneralElement.addPropVisibleAttribute("05#" + "NextReqSelected");
@@ -870,12 +849,6 @@ public class Refas extends AbstractModel {
 		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
 		semGeneralElement.addPropVisibleAttribute("06#" + "Order");
 
-//		semGeneralElement.addPropVisibleAttribute("11#" + "Optional");
-
-//		semGeneralElement.addPropVisibleAttribute("12#" + "SimRequired");
-
-		// semGeneralElement.addPropVisibleAttribute("08#" + "SatisfiedLevel");
-		// Definition of variability concept and relations
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");
 
@@ -897,24 +870,6 @@ public class Refas extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
 		instEdge.setTargetRelation(instVertexGE, true);
 		instEdge.setSourceRelation(instVertexHC, true);
-
-		// Direct Relations of the semanticAssumption
-		/*
-		 * dirRelation = new DirectRelation(semVariabilityElement,
-		 * DirectRelationType.preferred);
-		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
-		 * new DirectRelation(semVariabilityElement,
-		 * DirectRelationType.required);
-		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
-		 * new DirectRelation(semVariabilityElement,
-		 * DirectRelationType.conflict);
-		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
-		 * new DirectRelation(semVariabilityElement,
-		 * DirectRelationType.alternative);
-		 * semVariabilityElement.addDirectRelation(dirRelation); dirRelation =
-		 * new DirectRelation(semVariabilityElement, DirectRelationType.mutex);
-		 * semVariabilityElement.addDirectRelation(dirRelation);
-		 */
 
 		// Feature concepts
 
@@ -1667,10 +1622,10 @@ public class Refas extends AbstractModel {
 				.getVertex("Concept").getEditableMetaElement();
 		MetaConcept supportMetaElementOverTwo = (MetaConcept) getSyntaxRefas()
 				.getVertex("OverTwoRelation").getEditableMetaElement();
-		MetaPairwiseRelation supportMetaPairwiseRelation = (MetaPairwiseRelation) getSyntaxRefas()
+/*		MetaPairwiseRelation supportMetaPairwiseRelation = (MetaPairwiseRelation) getSyntaxRefas()
 				.getConstraintInstEdge("PairwiseRelation")
 				.getEditableMetaElement();
-
+*/
 		IntSemanticConcept semFeature = (IntSemanticConcept) ((InstConcept) getSemanticRefas()
 				.getVertex("SemFeature")).getEditableSemanticElement();
 
@@ -2089,20 +2044,11 @@ public class Refas extends AbstractModel {
 
 		// Direct Hard Relations
 
-		List<IntSemanticPairwiseRelation> directHardSemanticEdges = new ArrayList<IntSemanticPairwiseRelation>();
+		
 		IntSemanticPairwiseRelation directHardHardSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
 				.getConstraintInstEdge("HardHardDirectEdge")
 				.getEditableSemanticElement();
-		IntSemanticPairwiseRelation directGoalGoalSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
-				.getConstraintInstEdge("GoalGoalDirectEdge")
-				.getEditableSemanticElement();
-		IntSemanticPairwiseRelation directOperGoalSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
-				.getConstraintInstEdge("OperGoalDirectEdge")
-				.getEditableSemanticElement();
-		IntSemanticPairwiseRelation directOperOperSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
-				.getConstraintInstEdge("OperOperDirectEdge")
-				.getEditableSemanticElement();
-
+		
 		MetaPairwiseRelation metaHardPairwiseRel = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
@@ -3084,10 +3030,6 @@ public class Refas extends AbstractModel {
 		// constraintInstEdges.put("Asset To Oper Relation", new InstEdge(
 		// MetaEdge, metaOperEdge));
 
-	}
-
-	private InstElement getInstView(int index) {
-		return instViews.get(index);
 	}
 
 	public PerspectiveType getPerspectiveType() {

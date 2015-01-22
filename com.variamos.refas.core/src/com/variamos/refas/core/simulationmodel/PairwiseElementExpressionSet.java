@@ -132,16 +132,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"Selected");
 				AbstractBooleanExpression transformation3 = new AndBooleanExpression(
 						transformation2, transformation1);
-				/*
-				 * AbstractComparisonExpression transformation4 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * "NotPrefSelected", getHlclFactory().number(1));
-				 * 
-				 * getTransformations().add( new
-				 * ImplicationBooleanExpression(transformation3,
-				 * transformation4));
-				 */
+
 				break;
 			case "required":
 				sourcePositiveAttributeNames.add("Selected");
@@ -169,17 +160,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"NotAvailable", true, transformation73);
 				getElementExpressions().add(out90);
 				allList.add(out90);
-				// SourceId_Core #==>
-				// targetId_Core #= 1
-				/*
-				 * AbstractComparisonExpression transformation9 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0), "Core",
-				 * getHlclFactory().number(1)); getElementExpressions().add( new
-				 * ImplicationBooleanExpression
-				 * (instPairwiseRelation.getSourceRelations().get(0), "Core",
-				 * true, transformation9));
-				 */
+
 				break;
 			case "conflict":
 
@@ -217,25 +198,6 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out98);
 				allList.add(out98);
 
-				// SourceId_Satisfied #==> targetId_SatisfactionConflict #= 1
-				/*
-				 * AbstractComparisonExpression transformation8 = new
-				 * EqualsComparisonExpression(
-				 * instEdge.getTargetRelations().get(0), "SatisfactionConflict",
-				 * getHlclFactory().number(1)); getTransformations().add( new
-				 * ImplicationBooleanExpression(instEdge
-				 * .getSourceRelations().get(0), "Satisfied", true,
-				 * transformation8));
-				 * 
-				 * // targetId_Satisfied #==> SourceId_SatisfactionConflict #= 1
-				 * AbstractComparisonExpression transformation9 = new
-				 * EqualsComparisonExpression(
-				 * instEdge.getSourceRelations().get(0), "SatisfactionConflict",
-				 * getHlclFactory().number(1)); getTransformations().add( new
-				 * ImplicationBooleanExpression(instEdge
-				 * .getTargetRelations().get(0), "Satisfied", true,
-				 * transformation9));
-				 */
 				break;
 			case "alternative":
 				sourcePositiveAttributeNames.add("Selected");
@@ -299,18 +261,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"Selected", true, transformation161);
 				getElementExpressions().add(out8);
 				allList.add(out8);
-				// No break to include the following expression
-				// sourceId_Core #==>
-				// targetId_Core #= 1
-				/*
-				 * AbstractComparisonExpression transformation199 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0), "Core",
-				 * getHlclFactory().number(1)); getElementExpressions().add( new
-				 * ImplicationBooleanExpression
-				 * (instPairwiseRelation.getSourceRelations().get(0), "Core",
-				 * true, transformation199));
-				 */
+
 				break;
 			case "implementation":
 
@@ -334,92 +285,11 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"NextPrefSelected", true, transformation188);
 				getElementExpressions().add(out6);
 				allList.add(out6);
-				// targetId_Core #==>
-				// SourceId_Core #= 1
-				/*
-				 * AbstractComparisonExpression transformation189 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Core",
-				 * getHlclFactory().number(1)); getElementExpressions().add( new
-				 * ImplicationBooleanExpression
-				 * (instPairwiseRelation.getTargetRelations().get(0), "Core",
-				 * true, transformation189));
-				 */
+	
 				break;
 			case "mandatory":
-				// sourceAttributeNames.add("NextReqSelected");
-				// sourcePositiveAttributeNames.add("NextReqSatisfied");
-				// sourceAttributeNames.add("Core");
-				// SourceId_Selected #==> targetId_ValidationSelected #=1
-				/*
-				 * AbstractComparisonExpression transformation19 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "ValidationSelected", getHlclFactory().number(1));
-				 * getTransformations().add( new
-				 * ImplicationBooleanExpression(instPairwiseRelation
-				 * .getSourceRelations().get(0), "Selected", true,
-				 * transformation19));
-				 */
-				/*
-				 * // targetId_ConfigSelected #==> SourceId_NextReqSelected #=1
-				 * #\/ // SourceId_ConfigSelected #=1 if (execType !=
-				 * Refas2Hlcl.VAL_UPD_EXEC) { AbstractExpression out1 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * "NextReqSelected", getHlclFactory().number(1)); if (execType
-				 * != Refas2Hlcl.VAL_UPD_EXEC) { AbstractComparisonExpression
-				 * transformation202 = new EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations() .get(0),
-				 * "ConfigSelected", getHlclFactory().number(1)); out1 = new
-				 * OrBooleanExpression(out1, transformation202); }
-				 * AbstractBooleanExpression out = new
-				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "ConfigSelected", true, out1);
-				 * getElementExpressions().add(out); structureList.add(out);
-				 * allList.add(out); } // targetId_NextPrefSelected #==>
-				 * SourceId_NextReqSelected #=1 // #\/ SourceId_ConfigSelected
-				 * #=1 if (execType != Refas2Hlcl.VAL_UPD_EXEC) {
-				 * AbstractExpression out = new EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * "NextReqSelected", getHlclFactory().number(1)); if (execType
-				 * != Refas2Hlcl.VAL_UPD_EXEC) { AbstractComparisonExpression
-				 * transformation199 = new EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations() .get(0),
-				 * "ConfigSelected", getHlclFactory().number(1)); out = new
-				 * OrBooleanExpression(transformation199, out); }
-				 * AbstractBooleanExpression out4 = new
-				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "NextPrefSelected", true, out);
-				 * getElementExpressions().add(out4); structureList.add(out4);
-				 * allList.add(out4); } // targetId_NextReqSelected #==>
-				 * SourceId_NextReqSelected #=1 // #\/ SourceId_ConfigSelected
-				 * #=1 if (execType != Refas2Hlcl.VAL_UPD_EXEC) {
-				 * AbstractExpression out2 = new EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * "NextReqSelected", getHlclFactory().number(1)); if (execType
-				 * != Refas2Hlcl.VAL_UPD_EXEC) { AbstractComparisonExpression
-				 * transformation212 = new EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations() .get(0),
-				 * "ConfigSelected", getHlclFactory().number(1)); out2 = new
-				 * OrBooleanExpression(out2, transformation212); }
-				 * AbstractBooleanExpression out3 = new
-				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "NextReqSelected", true, out2);
-				 * getElementExpressions().add(out3); structureList.add(out3);
-				 * allList.add(out3); } // SourceId_Selected #=
-				 * targetId_Selected DoubleImplicationBooleanExpression out55 =
-				 * new DoubleImplicationBooleanExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * instPairwiseRelation.getTargetRelations().get(0), "Selected",
-				 * "Selected"); getElementExpressions().add(out55);
-				 * structureList.add(out55); allList.add(out55);
-				 */
+				
 				// SourceId_Selected #= targetId_Selected
-
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
@@ -435,18 +305,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out54);
 				//structureList.add(out54);
 				allList.add(out54);
-
-				// targetId_Core #==>
-				// SourceId_Core #= 1
-				/*
-				 * AbstractComparisonExpression transformation200 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Core",
-				 * getHlclFactory().number(1)); getElementExpressions().add( new
-				 * ImplicationBooleanExpression
-				 * (instPairwiseRelation.getTargetRelations().get(0), "Core",
-				 * true, transformation200));
-				 */
+				
 			case "optional":
 				sourcePositiveAttributeNames.add("Selected");
 				sourceNegativeAttributeNames.add("NotAvailable");
@@ -468,35 +327,6 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out12);
 				//structureList.add(out12);
 				allList.add(out12);
-
-				if (relationType.equals("optional")) {
-					/*
-					 * instPairwiseRelation.setOptional(true); //
-					 * SourceId_NextReqSatisfied #= 0 EqualsComparisonExpression
-					 * out57 = new EqualsComparisonExpression(
-					 * instPairwiseRelation.getSourceRelations().get(0),
-					 * "NextReqSatisfied", getHlclFactory().number(1));
-					 * getElementExpressions().add(out57);
-					 * structureList.add(out57); allList.add(out57);
-					 */
-				} else {
-
-					// SourceId_NextNotSatisfied #= targetId_NextNotSatisfied
-					/*
-					 * if (execType != Refas2Hlcl.VAL_UPD_EXEC) {
-					 * OrBooleanExpression transformation44 = new
-					 * OrBooleanExpression(
-					 * instPairwiseRelation.getTargetRelations() .get(0),
-					 * instPairwiseRelation .getTargetRelations().get(0),
-					 * "NextNotSelected", "ConfigNotSelected");
-					 * ImplicationBooleanExpression out12 = new
-					 * ImplicationBooleanExpression(
-					 * instPairwiseRelation.getSourceRelations() .get(0),
-					 * "NextNotSatisfied", false, transformation44);
-					 * getElementExpressions().add(out12);
-					 * structureList.add(out12); allList.add(out12); }
-					 */
-				}
 
 				break;
 			case "claim":
