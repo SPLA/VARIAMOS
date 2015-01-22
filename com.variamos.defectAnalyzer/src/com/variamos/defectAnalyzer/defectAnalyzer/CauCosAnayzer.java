@@ -54,18 +54,18 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		// Se adiciona a la lista la expression que permite verificar el defecto
 		if (defectToAnalyze.getVerificationExpressions() != null) {
 
-			ConstraintRepresentationUtil
-					.expressionToHlclProgram(modelExpressions);
-			modelExpressions.addAll(defectToAnalyze
+			List<BooleanExpression> modelCopy= new ArrayList<BooleanExpression>();
+			modelCopy.addAll(modelExpressions);
+			modelCopy.addAll(defectToAnalyze
 					.getVerificationExpressions());
 			if (!fixedExpressions.isEmpty()) {
-				modelExpressions.addAll(fixedExpressions);
+				modelCopy.addAll(fixedExpressions);
 			}
 
-			ConfigurationOptions options = new ConfigurationOptions();
-			options.setAdditionalConstraintExpressions(modelExpressions);
-			boolean isMCS = solver.isSatisfiable(new HlclProgram(),
-					new Configuration(), options);
+			HlclProgram program= new HlclProgram();
+			program.addAll(modelCopy);
+			boolean isMCS = solver.isSatisfiable(program,
+					new Configuration(), new ConfigurationOptions());
 
 			// Se retorna el resultado
 			return isMCS;
@@ -268,7 +268,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		while (advance) {
 
-			candidateMCS = getNextSet(expressionsToTest, newUnsatisfiableSet);
+			candidateMCS = getNextSet(expressionsToTest, blockedConstraints);
 
 			if (candidateMCS != null) {
 

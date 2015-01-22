@@ -93,7 +93,7 @@ public class SWIPrologSolver implements Solver {
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		if (hlclProgram == null && options.getProgramPath() == null) {
+		if ((hlclProgram == null || hlclProgram.isEmpty()) && options.getProgramPath() == null) {
 			throw new TechnicalException("HlclProgram was not initialized");
 		}
 		else if (hlclProgram == null) {
