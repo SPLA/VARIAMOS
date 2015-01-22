@@ -29,7 +29,6 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.actions.SimulationAction;
-import com.variamos.gui.refas.editor.actions.UpdateAction;
 import com.variamos.gui.refas.editor.actions.VerificationAction;
 
 public class PLEditorToolBar extends JToolBar {

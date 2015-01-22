@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.Identifier;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.dto.VerificationResult;
@@ -40,11 +39,13 @@ public interface IntDefectsVerifier {
 
 	public Defect isFalseOptionalElement(Identifier identifier) throws FunctionalException;
 
+
 	public Defect isRedundant(BooleanExpression expressionToVerify) throws FunctionalException;
 
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException;
 
 	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException;
+	
 
 	/**
 	 * @param model

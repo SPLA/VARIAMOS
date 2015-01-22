@@ -30,7 +30,7 @@ public class SWIPrologTest {
 	/**
 	 * Little example to test the program load in SWI Prolog.
 	 */
-	@Test
+	
 	public void isSatisfiableTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -48,7 +48,7 @@ public class SWIPrologTest {
 
 	}
 
-	@Test
+	
 	public void oneConfigurationTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -60,14 +60,38 @@ public class SWIPrologTest {
 		HlclProgram hlclProgram = new HlclProgram();
 		hlclProgram.add(numericExpression);
 		Solver swiSolver = new SWIPrologSolver(hlclProgram);
+	
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
-		Configuration configuration = swiSolver.getSolution();
-		System.out.println("configuration: " + configuration.toString());
-		assertTrue(configuration != null);
+		Configuration configurationObtained = swiSolver.getSolution();
+		assertTrue(configurationObtained != null);
+		
 
 	}
 
 	@Test
+	public void oneDynamicConfigurationTest() {
+
+		Identifier A = f.newIdentifier("A", "A");
+		A.setDomain(new BinaryDomain());
+		Identifier B = f.newIdentifier("B", "B");
+		B.setDomain(new BinaryDomain());
+		// A <=> B
+		BooleanExpression numericExpression = f.doubleImplies(A, B);
+		HlclProgram hlclProgram = new HlclProgram();
+		hlclProgram.add(numericExpression);
+		Solver swiSolver = new SWIPrologSolver(hlclProgram);
+
+		Configuration configuration = new Configuration();
+		configuration.enforce("A");
+		swiSolver.solve(configuration, new ConfigurationOptions());
+		Configuration configurationObtained = swiSolver.getSolution();
+		System.out.println("configuration: " + configuration.toString());
+		assertTrue(configurationObtained != null);
+		assertTrue(configurationObtained.getConfiguration().get("A") == 1);
+
+	}
+	
+	
 	public void allConfigurationsTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -82,7 +106,7 @@ public class SWIPrologTest {
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
 		int solFound = 0;
 
-		Configuration configuration= new Configuration();
+		Configuration configuration = new Configuration();
 		while (configuration != null) {
 
 			System.out.println("Configuration: " + solFound);
@@ -91,12 +115,34 @@ public class SWIPrologTest {
 				System.out.println("----" + configuration.toString());
 				solFound++;
 			}
-			
 
-		} 
+		}
 
 		assertTrue(solFound == 2);
 
+	}
+
+	@Test
+	public void loadMethod() {
+
+		Solver swiSolver = new SWIPrologSolver(null);
+		ConfigurationOptions options = new ConfigurationOptions();
+		options.setProgramPath("E:/falseOptionalTest.pl");
+		String productLineName = "productline";
+		long startTime = System.currentTimeMillis();
+		for (int i = 0; i < 10; i++) {
+
+			options.setProgramName(productLineName + (i + 1));
+			swiSolver.solve(new Configuration(), options);
+			swiSolver.getSolution();
+			if (i == 0) {
+				options.setStartFromZero(false);
+			}
+			System.out.println(" time " + i);
+		}
+		long endTime = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		System.out.println(" load time: " + totalTime);
 	}
 
 	public void isSatisfiableWithParametersTest() {
