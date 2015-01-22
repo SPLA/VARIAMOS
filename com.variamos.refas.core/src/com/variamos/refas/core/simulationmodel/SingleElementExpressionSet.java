@@ -369,7 +369,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									.add(new EqualsComparisonExpression(
 											instVertex, instAttribute
 													.getIdentifier(),
-											getHlclFactory().number(0)));
+											getHlclFactory().number(attributeValue)));
 						}
 						if (instAttribute.getIdentifier().equals(
 								"NextPrefSelected")) {
@@ -698,10 +698,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								instVertex, "Dead");
 						AbstractBooleanExpression transformation53 = new AndBooleanExpression(
 								transformation51, transformation52);
+						AbstractBooleanExpression transformation54 = new NotBooleanExpression(
+								instVertex, "ConfigNotSelected");
+						AbstractBooleanExpression transformation55 = new AndBooleanExpression(
+								transformation54, transformation53);
 						getElementExpressions().add(
 								new DoubleImplicationBooleanExpression(
 										instVertex, "NextNotSelected", false,
-										transformation53));
+										transformation55));
 					}
 
 					if (instAttribute.getIdentifier().equals("NextReqSelected")) {

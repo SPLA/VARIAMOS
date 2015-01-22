@@ -25,8 +25,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -170,7 +172,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private String lastSolverInvocations = "";
 	private Configuration lastConfiguration;
 
-	private List<String> defects =  new ArrayList<String>();
+	private List<String> defects = new ArrayList<String>();
 
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
@@ -275,7 +277,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
 		super(frame, "", component, perspective);
-
+		defects.add("Root");
+		defects.add("Parent");
+		defects.add("FalseOpt");
+		defects.add("Dead");
+		defects.add("Core");
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
 
@@ -770,7 +776,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 					String name = ((JTabbedPane) e.getSource())
 							.getTitleAt(tabIndex);
-					if (name.equals("Visual Expressions Editor")
+					if (name.equals("Element Expressions (Visual)")
 							&& editableElementType != null
 							&& (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
@@ -810,7 +816,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// new JScrollPane(elementDesPropPanel));
 			extensionTabs.addTab(mxResources.get("elementDisPropTab"),
 					new JScrollPane(elementDesignPanel));
-			if (perspective == 2 || perspective == 4) {
+			if (perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementConfPropTab"),
 						new JScrollPane(elementConfigPropPanel));
 				// extensionTabs.addTab(mxResources.get("elementExpressionTab"),
@@ -1096,18 +1102,27 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						elementConfPropSubPanel.add(w);
 
 						if (v.isAffectProperties()) {
-							JComponent wc = w.getEditor();
-							if (wc instanceof ItemSelectable)
-								((ItemSelectable) wc)
-										.addItemListener(new ItemListener() {
-											@Override
-											public void itemStateChanged(
-													ItemEvent e) {
-												editPropertiesRefas(elm);
-												updateExpressions = true;
+							if (w.getEditor() instanceof JCheckBox)
+								((JCheckBox) w.getEditor())
+										.addActionListener(new ActionListener() {
+											public void actionPerformed(
+													ActionEvent e) {
+												AbstractButton aButton = (AbstractButton) e
+														.getSource();
+												boolean selected = aButton
+														.getModel()
+														.isSelected();
+												System.out.println(selected);
+												((JCheckBox) w.getEditor())
+														.repaint();
+												new Thread() {
+													public void run() {
+														editPropertiesRefas(elm);
+													}
+												}.start();
 											}
 										});
-							JButton button = new JButton("Validate");
+							JButton button = new JButton("Configure");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									cleanNotificationBar();
@@ -1778,11 +1793,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void verify() {
-		verify(null);
+		verify(defects);
 	}
 
 	public void verify(List<String> defect) {
-
+		boolean errors = false;
 		((MainFrame) getFrame()).waitingCursor(true);
 
 		List<String> verifList = new ArrayList<String>();
@@ -1824,43 +1839,52 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// updateList.add("");
 
 		List<String> outMessageList = new ArrayList<String>();
+		if (defect.size() > 0)
+			for (String verifElement : verifList) {
+				if (defect == null || defect.contains(verifElement)
+						|| verifElement.equals("Core")) {
+					String verifMessage = verifMessageList.get(posList);
+					String verifHint = verifMessageList.get(posList);
+					if (actionList.get(posList).equals("Err")) {
 
-		for (String verifElement : verifList) {
-			if (defect == null || defect.contains(verifElement)
-					|| verifElement.equals("Core")) {
-				String verifMessage = verifMessageList.get(posList);
-				String verifHint = verifMessageList.get(posList);
-				if (actionList.get(posList).equals("Err")) {
-
-					outMessageList.add(verifyDefects(verifElement,
-							verifMessage, verifHint));
-				} else {
-					if (defect == null || defect.contains("Core")
-							|| defect.contains("Dead")
-							|| defect.contains("FalseOpt"))
-						outMessageList.add(updateModel(verifElement,
-								verifMessage, verifHint, updateList, defect));
+						outMessageList.add(verifyDefects(verifElement,
+								verifMessage, verifHint));
+					} else {
+						if (defect == null || defect.contains("Core")
+								|| defect.contains("Dead")
+								|| defect.contains("FalseOpt"))
+							outMessageList
+									.addAll(updateModel(verifElement,
+											verifMessage, verifHint,
+											updateList, defect));
+					}
 				}
+				posList++;
 			}
-			posList++;
-		}
 		if (defect == null || defect.contains("Simul"))
 			executeSimulation(true, Refas2Hlcl.CONF_EXEC, false, "Simul");
 
 		for (String outMessage : outMessageList) {
-			if (outMessage != null)
+			if (outMessage != null) {
 				JOptionPane.showMessageDialog(frame, outMessage,
 						"Verification Message",
 						JOptionPane.INFORMATION_MESSAGE, null);
+				errors = true;
+			}
 		}
+		if (!errors)
+			JOptionPane.showMessageDialog(frame, "No errors found",
+					"Verification Message", JOptionPane.INFORMATION_MESSAGE,
+					null);
 		refresh();
 
 		((MainFrame) getFrame()).waitingCursor(false);
 	}
 
-	public String updateModel(String element, String verifMessage,
+	public List<String> updateModel(String element, String verifMessage,
 			String verifHint, List<String> attributes, List<String> defect) {
 		HlclFactory f = new HlclFactory();
+		List<String> out = new ArrayList<String>();
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
@@ -1875,7 +1899,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
 			System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
-					currentResult);
+					refas2hlcl.getResult());
 
 			// System.out.println(falseOptIdentifiers);
 			List<String> freeIdentifiers = getFreeIdentifiers(currentResult);
@@ -1944,6 +1968,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 										.split("_");
 								deadIdentifiers.add(conceptId[0]);
 							}
+							out.add(deadIndetifiersList.size()
+									+ " dead elements identified.");
 						}
 
 					// refas2hlcl.updateCoreConcepts(outIdentifiers);
@@ -1957,14 +1983,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			Set<String> uniqueIdentifiers = new HashSet<String>();
 			uniqueIdentifiers.addAll(falseOptIdentifiers);
 			// System.out.println(uniqueIdentifiers);
-			if (uniqueIdentifiers.size() > 0)
-				JOptionPane.showMessageDialog(frame, uniqueIdentifiers.size()
-						+ verifMessage, "Verification Message",
-						JOptionPane.INFORMATION_MESSAGE, null);
 
-			if (defect == null || defect.contains("FalseOpt"))
+			if (defect == null || defect.contains("FalseOpt")) {
+				if (uniqueIdentifiers.size() > 0)
+					out.add(uniqueIdentifiers.size() + verifMessage);
 				refas2hlcl.updateErrorMark(uniqueIdentifiers, element,
 						verifHint);
+			}
 
 			if (defect == null || defect.contains("Core"))
 				refas2hlcl.updateCoreConcepts(uniqueIdentifiers);
@@ -1979,16 +2004,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += element + "Exec: " + (endTime - iniTime)
 					+ "[" + (endSTime - iniSTime) + "]" + " -- ";
-			return "Last validated change makes the model inconsistent."
+			out.add("Last validated change makes the model inconsistent."
 					+ " \n Please review the restrictions defined and "
-					+ "try again. \nModel visual representation was not updated.";
+					+ "try again. \nModel visual representation was not updated.");
 		}
 
 		// updateObjects();
 		long endTime = System.currentTimeMillis();
 		lastSolverInvocations += element + "Exec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
-		return null;
+		return out;
 	}
 
 	private List<String> getFreeIdentifiers(Map<String, Integer> currentResult) {
@@ -2149,11 +2174,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void updateDefects(String string, boolean b) {
-		if (b)
-			if(!defects.contains(string))
-			defects.add(string);
-		else
+		if (b) {
+			if (!defects.contains(string))
+				defects.add(string);
+		} else
 			defects.remove(string);
-		
+
+		System.out.println(string + " " + b);
+
 	}
 }

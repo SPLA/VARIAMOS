@@ -6,18 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
+import javax.swing.JCheckBox;
 
 import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
@@ -65,21 +70,21 @@ public class ElementDesignPanel extends JPanel {
 		rootPanel1.add(contentPanel1);
 		JPanel dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 200));
+		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel1.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(300, 200));
-		dummyP.setMaximumSize(new Dimension(500, 200));
+		dummyP.setMinimumSize(new Dimension(300, 300));
+		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel2.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel2, 2, 1, 4, 4, 4, 4);
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 200));
+		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel3, 2, 1, 4, 4, 4, 4);
 
@@ -90,15 +95,12 @@ public class ElementDesignPanel extends JPanel {
 		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setMinimumSize(new Dimension(500, 0));
 		add(dummyP);
-	/*	dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 200));
-		add(dummyP);
-		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 200));
-		add(dummyP);
-		*/
+		/*
+		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
+		 * dummyP.setMinimumSize(new Dimension(500, 200)); add(dummyP); dummyP =
+		 * new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
+		 * dummyP.setMinimumSize(new Dimension(500, 200)); add(dummyP);
+		 */
 		SpringUtilities.makeCompactGrid(this, 2, 1, 4, 4, 4, 4);
 
 	}
@@ -216,9 +218,44 @@ public class ElementDesignPanel extends JPanel {
 											onVariableEdited(finalEditor,
 													finalElm,
 													w.getInstAttribute());
+
+											editorProperties(finalEditor,
+													finalElm);
 										}
 									}
 								});
+						if (w.getEditor() instanceof JCheckBox)
+							((JCheckBox) w.getEditor())
+									.addActionListener(new ActionListener() {
+										public void actionPerformed(
+												ActionEvent e) {
+											finalEditor.cleanNotificationBar();
+											// finalEditor.identifyCoreConcepts();
+											// finalEditor.executeSimulation(true,
+											// Refas2Hlcl.DESIGN_EXEC);
+											new Thread() {
+												public void run() {
+													editorProperties(
+															finalEditor,
+															finalElm);
+												}
+											}.start();
+										}
+									});
+						/*
+						 * if (w.getEditor() instanceof JComboBox) ((JComboBox)
+						 * w.getEditor()) .addItemListener(new ItemListener() {
+						 * 
+						 * @Override public void itemStateChanged(ItemEvent e) {
+						 * finalEditor.cleanNotificationBar(); //
+						 * finalEditor.identifyCoreConcepts(); //
+						 * finalEditor.executeSimulation(true, //
+						 * Refas2Hlcl.DESIGN_EXEC); new Thread() { public void
+						 * run() { editorProperties( finalEditor, finalElm); }
+						 * }.start(); }
+						 * 
+						 * });
+						 */
 						if (w instanceof MClassWidget
 								|| w instanceof MEnumerationWidget) {
 							w.getEditor().setPreferredSize(
@@ -236,8 +273,7 @@ public class ElementDesignPanel extends JPanel {
 								.getEditableVariables();
 
 						if (!editables.contains(v)
-								|| editor.getPerspective() == 4
-								)
+								|| editor.getPerspective() == 4)
 
 						{
 							w.getEditor().setEnabled(false);
@@ -251,21 +287,19 @@ public class ElementDesignPanel extends JPanel {
 							elementDesPropSubPanel.add(new JLabel(v
 									.getDisplayName() + ": "));
 							elementDesPropSubPanel.add(w);
+
 							if (v.isAffectProperties()
-									&& editor.getPerspective() != 4
-									) {
+									&& editor.getPerspective() != 4 &&  !(w.getEditor() instanceof JCheckBox)) {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										finalEditor.cleanNotificationBar();
-										// finalEditor.identifyCoreConcepts();
-										// finalEditor.executeSimulation(true,
-										// Refas2Hlcl.DESIGN_EXEC);
 										editorProperties(finalEditor, finalElm);
 									}
 								});
 								elementDesPropSubPanel.add(button);
 							} else
+
 								elementDesPropSubPanel.add(new JPanel());
 
 							designPanelElements++;
@@ -302,7 +336,7 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 30));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 200));
+			contentPanel1.setMaximumSize(new Dimension(200, 300));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
