@@ -1778,7 +1778,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void verify() {
-		verify(defects);
+		verify(null);
 	}
 
 	public void verify(List<String> defect) {

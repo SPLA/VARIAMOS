@@ -114,77 +114,75 @@ public class RefasMenuBar extends JMenuBar {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 
-				if (arg0.getSource() instanceof Component)
-				{
+				if (arg0.getSource() instanceof Component) {
 					Component component = (Component) arg0.getSource();
 
 					while (component != null
-							&& !(component instanceof VariamosGraphEditor))
-					{
+							&& !(component instanceof VariamosGraphEditor)) {
 						component = component.getParent();
 					}
 					if (((JCheckBoxMenuItem) arg0.getSource()).getState())
-					((VariamosGraphEditor) component).updateDefects("Root", true);
+						((VariamosGraphEditor) component).updateDefects("Root",
+								true);
 					else
-						((VariamosGraphEditor) component).updateDefects("Root", false);
+						((VariamosGraphEditor) component).updateDefects("Root",
+								false);
 				}
 			}
 
 		});
 		menu.add(item);
-		
-		item = new JCheckBoxMenuItem(
-				mxResources.get("verifyParents"));
+
+		item = new JCheckBoxMenuItem(mxResources.get("verifyParents"));
 		item.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 
-				if (arg0.getSource() instanceof Component)
-				{
+				if (arg0.getSource() instanceof Component) {
 					Component component = (Component) arg0.getSource();
 
 					while (component != null
-							&& !(component instanceof VariamosGraphEditor))
-					{
+							&& !(component instanceof VariamosGraphEditor)) {
 						component = component.getParent();
 					}
 					if (((JCheckBoxMenuItem) arg0.getSource()).getState())
-					((VariamosGraphEditor) component).updateDefects("Parent", true);
+						((VariamosGraphEditor) component).updateDefects(
+								"Parent", true);
 					else
-						((VariamosGraphEditor) component).updateDefects("Parent", false);
+						((VariamosGraphEditor) component).updateDefects(
+								"Parent", false);
 				}
 			}
 
 		});
 		menu.add(item);
-		
-		item = new JCheckBoxMenuItem(
-				mxResources.get("verifyDeadElement"));
+
+		item = new JCheckBoxMenuItem(mxResources.get("verifyDeadElement"));
 		item.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 
-				if (arg0.getSource() instanceof Component)
-				{
+				if (arg0.getSource() instanceof Component) {
 					Component component = (Component) arg0.getSource();
 
 					while (component != null
-							&& !(component instanceof VariamosGraphEditor))
-					{
+							&& !(component instanceof VariamosGraphEditor)) {
 						component = component.getParent();
 					}
 					if (((JCheckBoxMenuItem) arg0.getSource()).getState())
-					((VariamosGraphEditor) component).updateDefects("Dead", true);
+						((VariamosGraphEditor) component).updateDefects("Dead",
+								true);
 					else
-						((VariamosGraphEditor) component).updateDefects("Dead", false);
+						((VariamosGraphEditor) component).updateDefects("Dead",
+								false);
 				}
 			}
 
 		});
 		menu.add(item);
-		
+
 		item = new JCheckBoxMenuItem(
 				mxResources.get("verifyFalseOptionalElements"));
 		item.addChangeListener(new ChangeListener() {
@@ -192,19 +190,19 @@ public class RefasMenuBar extends JMenuBar {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 
-				if (arg0.getSource() instanceof Component)
-				{
+				if (arg0.getSource() instanceof Component) {
 					Component component = (Component) arg0.getSource();
 
 					while (component != null
-							&& !(component instanceof VariamosGraphEditor))
-					{
+							&& !(component instanceof VariamosGraphEditor)) {
 						component = component.getParent();
 					}
 					if (((JCheckBoxMenuItem) arg0.getSource()).getState())
-					((VariamosGraphEditor) component).updateDefects("FalseOpt", true);
+						((VariamosGraphEditor) component).updateDefects(
+								"FalseOpt", true);
 					else
-						((VariamosGraphEditor) component).updateDefects("FalseOpt", false);
+						((VariamosGraphEditor) component).updateDefects(
+								"FalseOpt", false);
 				}
 			}
 
