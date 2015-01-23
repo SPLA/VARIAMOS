@@ -70,7 +70,7 @@ public class Refas extends AbstractModel {
 	/**
 	 * 
 	 */
-	private Map<String, InstVertex> variabilityInstVertex; 
+	private Map<String, InstVertex> variabilityInstVertex;
 	// TODO Move variables and enums to otherElements
 	/**
 	 * 
@@ -715,7 +715,8 @@ public class Refas extends AbstractModel {
 				"View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null);
 
-		SemanticConcept semGeneralElement = new SemanticConcept();
+		SemanticConcept semGeneralElement = new SemanticConcept(
+				"semGeneralElement");
 		InstVertex instVertexGE = new InstConcept("SemGeneralElement",
 				metaConcept, semGeneralElement);
 		variabilityInstVertex.put("SemGeneralElement", instVertexGE);
@@ -833,7 +834,7 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextNotSelected",
 				new SimulationStateAttribute("NextNotSelected", "Boolean",
 						false, "Selection conflict", false));
-		
+
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by preference", false));
@@ -1622,10 +1623,11 @@ public class Refas extends AbstractModel {
 				.getVertex("Concept").getEditableMetaElement();
 		MetaConcept supportMetaElementOverTwo = (MetaConcept) getSyntaxRefas()
 				.getVertex("OverTwoRelation").getEditableMetaElement();
-/*		MetaPairwiseRelation supportMetaPairwiseRelation = (MetaPairwiseRelation) getSyntaxRefas()
-				.getConstraintInstEdge("PairwiseRelation")
-				.getEditableMetaElement();
-*/
+		/*
+		 * MetaPairwiseRelation supportMetaPairwiseRelation =
+		 * (MetaPairwiseRelation) getSyntaxRefas()
+		 * .getConstraintInstEdge("PairwiseRelation") .getEditableMetaElement();
+		 */
 		IntSemanticConcept semFeature = (IntSemanticConcept) ((InstConcept) getSemanticRefas()
 				.getVertex("SemFeature")).getEditableSemanticElement();
 
@@ -1649,7 +1651,7 @@ public class Refas extends AbstractModel {
 		// instView.addInstVertex(instVertexF);
 
 		MetaConcept syntaxRootFeature = new MetaConcept("RootFeature", true,
-				"RootFeature", "plnode", "Defines a root feature", 100, 80,
+				"RootFeature", "plnode", "Defines a root feature", 100, 70,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
@@ -1670,7 +1672,7 @@ public class Refas extends AbstractModel {
 
 		MetaConcept syntaxGeneralFeature = new MetaConcept("GeneralFeature",
 				true, "GeneralFeature", "plnode", "Defines a general feature",
-				100, 80, "/com/variamos/gui/pl/editor/images/plnode.png", true,
+				100, 70, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
 		syntaxGeneralFeature.setParent(syntaxFeature);
@@ -1689,7 +1691,7 @@ public class Refas extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxVertexLF = new MetaConcept("LeafFeature", true,
-				"LeafFeature", "plnode", "Defines a leaf feature", 100, 80,
+				"LeafFeature", "plnode", "Defines a leaf feature", 100, 70,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
@@ -2044,11 +2046,10 @@ public class Refas extends AbstractModel {
 
 		// Direct Hard Relations
 
-		
 		IntSemanticPairwiseRelation directHardHardSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
 				.getConstraintInstEdge("HardHardDirectEdge")
 				.getEditableSemanticElement();
-		
+
 		MetaPairwiseRelation metaHardPairwiseRel = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
@@ -2627,7 +2628,7 @@ public class Refas extends AbstractModel {
 						+ " The claim is activated only when all the"
 						+ " operationalizations are selected and the"
 						+ " conditional expression is true. The claim"
-						+ " includes a relation with a softgoal (SG)", 100, 40,
+						+ " includes a relation with a softgoal (SG)", 100, 50,
 				"/com/variamos/gui/refas/editor/images/claim.png", true,
 				Color.BLUE.toString(), 1, true, semClaim);
 		syntaxMetaView.addConcept(syntaxClaim);
@@ -2657,7 +2658,7 @@ public class Refas extends AbstractModel {
 						+ " satisfaction of a softgoal. The soft dependency is"
 						+ " activated only when the conditional expression is true."
 						+ " The SD includes a relation with a softgoal (SG)",
-				100, 40, "/com/variamos/gui/refas/editor/images/softdep.png",
+				100, 70, "/com/variamos/gui/refas/editor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, true, semSoftDependency);
 
 		syntaxMetaView.addConcept(syntaxSoftDependency);
@@ -2805,7 +2806,7 @@ public class Refas extends AbstractModel {
 		// Assets model
 
 		syntaxMetaView = new MetaView("Assets", true, "Assets General Model",
-				"plnode", "Defines a feature", 100, 80,
+				"plnode", "Defines an Asset", 100, 90,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Assets Palette", 5);
 		instView = new InstView("Assets", metaView, syntaxMetaView);
@@ -3184,7 +3185,7 @@ public class Refas extends AbstractModel {
 		this.variabilityInstVertex.clear();
 		this.constraintInstEdges.clear();
 		this.otherInstVertex.clear();
-		
+
 	}
 
 }

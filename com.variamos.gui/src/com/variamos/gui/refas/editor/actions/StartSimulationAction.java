@@ -12,10 +12,10 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 
 @SuppressWarnings("serial")
-public class VerificationAction extends AbstractEditorAction {
+public class StartSimulationAction extends AbstractEditorAction {
 
-	public VerificationAction() {
-		this.putValue(SHORT_DESCRIPTION, mxResources.get("verifyElements"));
+	public StartSimulationAction() {
+		this.putValue(SHORT_DESCRIPTION, mxResources.get("startSimulation"));
 	}
 
 	/**
@@ -24,7 +24,7 @@ public class VerificationAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearNotificationBar();
-		//editor.verifyErrors();
-		editor.verify();
+		editor.executeSimulation(true, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
+		
 	}
 }

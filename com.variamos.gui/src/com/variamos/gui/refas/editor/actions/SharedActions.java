@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -240,11 +239,16 @@ public class SharedActions {
 	private static Object[] getSortedCells(mxGraph graph, mxCell mv0) {
 		Object[] vertexCells = graph.getChildCells(mv0, true, false);
 		Object[] edgeCells = graph.getChildCells(mv0, false, true);
-		Object[] allCells = new Object[vertexCells.length + edgeCells.length];
+		Object[] mvCells = graph.getChildCells(mv0, false, false);
+		Object[] allCells = new Object[vertexCells.length + edgeCells.length
+				+ mvCells.length];
 
 		System.arraycopy(vertexCells, 0, allCells, 0, vertexCells.length);
 		System.arraycopy(edgeCells, 0, allCells, vertexCells.length,
 				edgeCells.length);
+
+		System.arraycopy(mvCells, 0, allCells, vertexCells.length
+				+ edgeCells.length, mvCells.length);
 		return allCells;
 	}
 
@@ -264,7 +268,7 @@ public class SharedActions {
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
-			//System.out.println(instOverTwoRelation.getInstAttributes().size());
+			// System.out.println(instOverTwoRelation.getInstAttributes().size());
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				AbstractAttribute attribute = instOverTwoRelation
@@ -302,7 +306,7 @@ public class SharedActions {
 										.getTransSupportMetaElement()
 										.getSemanticAttribute(attributeName),
 								null);
-						//System.out.println("create" + attributeName);
+						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					} else if (instOverTwoRelation
 							.getInstAttribute(attributeName) == null) {
@@ -311,7 +315,7 @@ public class SharedActions {
 										.getTransSupportMetaElement()
 										.getModelingAttribute(attributeName),
 								null);
-						//System.out.println("create" + attributeName);
+						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
 				}
@@ -347,29 +351,43 @@ public class SharedActions {
 					ias.remove();
 				}
 			}
-			if (instVertex.getInstAttributes().size() < instVertex
-					.getTransSupportMetaElement().getSemanticAttributes()
-					.size()
+			int semAtt = 0;
+			if (instVertex.getTransSupportMetaElement().getSemanticAttributes() != null)
+				semAtt = instVertex.getTransSupportMetaElement()
+						.getSemanticAttributes().size();
+			if (instVertex.getInstAttributes().size() < semAtt
 					+ instVertex.getTransSupportMetaElement()
 							.getModelingAttributes().size()) {
-				for (String attributeName : instVertex
-						.getTransSupportMetaElement().getSemanticAttributes()) {
-					if (instVertex.getInstAttribute(attributeName) == null
-							&& instVertex.getTransSupportMetaElement()
-									.getSemanticAttribute(attributeName) != null) {
-						instVertex.addInstAttribute(attributeName, instVertex
-								.getTransSupportMetaElement()
-								.getSemanticAttribute(attributeName), null);
-						//System.out.println("create" + attributeName);
-						additionAttributes = true;
-					} else if (instVertex.getInstAttribute(attributeName) == null) {
-						instVertex.addInstAttribute(attributeName, instVertex
-								.getTransSupportMetaElement()
-								.getModelingAttribute(attributeName), null);
-						//System.out.println("create" + attributeName);
-						additionAttributes = true;
+				if (semAtt > 0)
+					for (String attributeName : instVertex
+							.getTransSupportMetaElement()
+							.getSemanticAttributes()) {
+						if (instVertex.getInstAttribute(attributeName) == null
+								&& instVertex.getTransSupportMetaElement()
+										.getSemanticAttribute(attributeName) != null) {
+							instVertex
+									.addInstAttribute(
+											attributeName,
+											instVertex
+													.getTransSupportMetaElement()
+													.getSemanticAttribute(
+															attributeName),
+											null);
+							// System.out.println("create" + attributeName);
+							additionAttributes = true;
+						} else if (instVertex.getInstAttribute(attributeName) == null) {
+							instVertex
+									.addInstAttribute(
+											attributeName,
+											instVertex
+													.getTransSupportMetaElement()
+													.getModelingAttribute(
+															attributeName),
+											null);
+							// System.out.println("create" + attributeName);
+							additionAttributes = true;
+						}
 					}
-				}
 			}
 		}
 		if (value instanceof InstPairwiseRelation) {
@@ -463,7 +481,7 @@ public class SharedActions {
 												.getTransSupportMetaElement()
 												.getSemanticAttribute(
 														attributeName), null);
-								//System.out.println("create" + attributeName);
+								// System.out.println("create" + attributeName);
 								additionAttributes = true;
 							} else if (instPairwiseRelation
 									.getInstAttribute(attributeName) == null) {
@@ -473,7 +491,7 @@ public class SharedActions {
 												.getTransSupportMetaElement()
 												.getModelingAttribute(
 														attributeName), null);
-								//System.out.println("create" + attributeName);
+								// System.out.println("create" + attributeName);
 								additionAttributes = true;
 							}
 						}

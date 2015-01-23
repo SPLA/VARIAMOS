@@ -239,14 +239,19 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NextReqSelected", getHlclFactory().number(1));
-				getElementExpressions().add(
-						new ImplicationBooleanExpression(instPairwiseRelation
-								.getSourceRelations().get(0), "Selected", true,
-								transformation16));
+
+				AbstractBooleanExpression out12 = new ImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", true, transformation16);
+				getElementExpressions().add(out12);
+				structureList.add(out12);
+				allList.add(out12);
+				
 				AbstractBooleanExpression out11 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, transformation16);
 				getElementExpressions().add(out11);
+				structureList.add(out11);
 				allList.add(out11);
 				break;
 			case "implication":
@@ -285,10 +290,10 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"NextPrefSelected", true, transformation188);
 				getElementExpressions().add(out6);
 				allList.add(out6);
-	
+
 				break;
 			case "mandatory":
-				
+
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
@@ -303,9 +308,9 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NotAvailable", "NotAvailable");
 				getElementExpressions().add(out54);
-				//structureList.add(out54);
+				// structureList.add(out54);
 				allList.add(out54);
-				
+
 			case "optional":
 				sourcePositiveAttributeNames.add("Selected");
 				sourceNegativeAttributeNames.add("NotAvailable");
@@ -320,13 +325,13 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				allList.add(out5);
 
 				// targetId_NotAvailable #<= SourceId_NotAvailable
-				LessOrEqualsBooleanExpression out12 = new LessOrEqualsBooleanExpression(
+				LessOrEqualsBooleanExpression out13 = new LessOrEqualsBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NotAvailable", "NotAvailable");
-				getElementExpressions().add(out12);
-				//structureList.add(out12);
-				allList.add(out12);
+				getElementExpressions().add(out13);
+				// structureList.add(out12);
+				allList.add(out13);
 
 				break;
 			case "claim":

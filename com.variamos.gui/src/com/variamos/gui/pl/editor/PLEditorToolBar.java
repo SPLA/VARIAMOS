@@ -28,8 +28,15 @@ import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.refas.editor.actions.SimulationAction;
+import com.variamos.gui.refas.editor.actions.ClearSimulationAction;
+import com.variamos.gui.refas.editor.actions.ClearVerificationAction;
+import com.variamos.gui.refas.editor.actions.NextSimulationAction;
+import com.variamos.gui.refas.editor.actions.ParentElementAction;
+import com.variamos.gui.refas.editor.actions.RootElementAction;
+import com.variamos.gui.refas.editor.actions.StartSimulationAction;
 import com.variamos.gui.refas.editor.actions.VerificationAction;
+import com.variamos.gui.refas.editor.actions.VerifyDeadElementAction;
+import com.variamos.gui.refas.editor.actions.VerifyFalseOptElementAction;
 
 public class PLEditorToolBar extends JToolBar {
 
@@ -92,24 +99,34 @@ public class PLEditorToolBar extends JToolBar {
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
 
-		if (variamosGraphEditor.getPerspective() == 2 || variamosGraphEditor.getPerspective() == 4) {
+		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
 
+			add(variamosGraphEditor.bind("clearElements", new ClearVerificationAction(),
+					"/com/mxgraph/examples/swing/images/pan.gif"));
 			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
-			
+			addSeparator();
+			add(variamosGraphEditor.bind("verifyRoot", new RootElementAction(),
+					"/com/mxgraph/examples/swing/images/tree.gif"));
+			add(variamosGraphEditor.bind("verifyParents", new ParentElementAction(),
+					"/com/mxgraph/examples/swing/images/straight.gif"));
+			add(variamosGraphEditor.bind("verifyDeadElement", new VerifyDeadElementAction(),
+					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/dead.png"));
+			add(variamosGraphEditor.bind("verifyFalseOptionalElements", new VerifyFalseOptElementAction(),
+					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/false.png"));
 	//		add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
 	//				"/com/mxgraph/examples/swing/images/tree.gif"));
 		}
 			
 		if (variamosGraphEditor.getPerspective() == 4) {			
 			addSeparator();
-			add(variamosGraphEditor.bind("clean", new SimulationAction(true, false),
-					"/com/mxgraph/examples/swing/images/pan.gif"));
-			add(variamosGraphEditor.bind("first", new SimulationAction(false, true),
-					"/com/mxgraph/examples/swing/images/diamond_start.gif"));
-			add(variamosGraphEditor.bind("next", new SimulationAction(false, false),
-					"/com/mxgraph/examples/swing/images/block_end.gif"));
+			add(variamosGraphEditor.bind("clean", new ClearSimulationAction(),
+					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/player_stop.png"));
+			add(variamosGraphEditor.bind("first", new StartSimulationAction(),
+					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/direction_right.png"));
+			add(variamosGraphEditor.bind("next", new NextSimulationAction(),
+					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/fastforward.png"));
 		}
 
 		// Gets the list of available fonts from the local graphics environment

@@ -23,7 +23,10 @@ import com.variamos.refas.core.refas.Refas;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
 import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 public class ModelExpressionSet extends MetaExpressionSet {
 
@@ -50,49 +53,58 @@ public class ModelExpressionSet extends MetaExpressionSet {
 		AbstractNumericExpression prefOutExp = null;
 
 		for (InstVertex vertex : refas.getVariabilityVertexCollection()) {
-			if (vertex.getInstAttribute("Active").getAsBoolean()) {
-				if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
-					if (rootOutExp == null)
-						rootOutExp = new SumNumericExpression(vertex,
-								"IsRootFeature", true,
-								new NumberNumericExpression(0));
-					else
-						rootOutExp = new SumNumericExpression(vertex,
-								"IsRootFeature", true, rootOutExp);
-					if (parentOutExp == null)
-						parentOutExp = new ProdNumericExpression(vertex,
-								"HasParent", true, new NumberNumericExpression(
-										1));
-					else
-						parentOutExp = new ProdNumericExpression(vertex,
-								"HasParent", true, parentOutExp);
+			MetaVertex metaElement = ((MetaVertex) vertex
+					.getTransSupportMetaElement());
+			IntSemanticElement semElement = metaElement
+					.getTransSemanticConcept();
+			while (semElement != null && semElement.getIdentifier() != null
+					&& !semElement.getIdentifier().equals("semGeneralElement"))
+				semElement = semElement.getParent();
+			if (semElement != null && semElement.getIdentifier() != null
+					&& semElement.getIdentifier().equals("semGeneralElement"))
+				if (vertex.getInstAttribute("Active").getAsBoolean()) {
+					if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
+						if (rootOutExp == null)
+							rootOutExp = new SumNumericExpression(vertex,
+									"IsRootFeature", true,
+									new NumberNumericExpression(0));
+						else
+							rootOutExp = new SumNumericExpression(vertex,
+									"IsRootFeature", true, rootOutExp);
+						if (parentOutExp == null)
+							parentOutExp = new ProdNumericExpression(vertex,
+									"HasParent", true,
+									new NumberNumericExpression(1));
+						else
+							parentOutExp = new ProdNumericExpression(vertex,
+									"HasParent", true, parentOutExp);
 
-					if (coreOutExp == null)
-						coreOutExp = new SumNumericExpression(vertex,
-								"Selected", true,
-								new NumberNumericExpression(0));
-					else
-						coreOutExp = new SumNumericExpression(vertex,
-								"Selected", true, coreOutExp);
-				}
-				if (execType == Refas2Hlcl.SIMUL_EXEC) {
-					if (reqOutExp == null)
-						reqOutExp = new SumNumericExpression(vertex,
-								"NextReqSelected", true,
-								new NumberNumericExpression(0));
-					else
-						reqOutExp = new SumNumericExpression(vertex,
-								"NextReqSelected", true, reqOutExp);
+						if (coreOutExp == null)
+							coreOutExp = new SumNumericExpression(vertex,
+									"Selected", true,
+									new NumberNumericExpression(0));
+						else
+							coreOutExp = new SumNumericExpression(vertex,
+									"Selected", true, coreOutExp);
+					}
+					if (execType == Refas2Hlcl.SIMUL_EXEC) {
+						if (reqOutExp == null)
+							reqOutExp = new SumNumericExpression(vertex,
+									"NextReqSelected", true,
+									new NumberNumericExpression(0));
+						else
+							reqOutExp = new SumNumericExpression(vertex,
+									"NextReqSelected", true, reqOutExp);
 
-					if (prefOutExp == null)
-						prefOutExp = new SumNumericExpression(vertex,
-								"NextPrefSelected", true,
-								new NumberNumericExpression(0));
-					else
-						prefOutExp = new SumNumericExpression(vertex,
-								"NextPrefSelected", true, prefOutExp);
+						if (prefOutExp == null)
+							prefOutExp = new SumNumericExpression(vertex,
+									"NextPrefSelected", true,
+									new NumberNumericExpression(0));
+						else
+							prefOutExp = new SumNumericExpression(vertex,
+									"NextPrefSelected", true, prefOutExp);
+					}
 				}
-			}
 			List<BooleanExpression> rootList = new ArrayList<BooleanExpression>();
 			List<BooleanExpression> parentList = new ArrayList<BooleanExpression>();
 			List<BooleanExpression> coreList = new ArrayList<BooleanExpression>();
@@ -146,28 +158,28 @@ public class ModelExpressionSet extends MetaExpressionSet {
 			} else
 				booleanExpressions.put("Core", coreList);
 
-	/*		if (reqOutExp != null) {
-				LessOrEqualsBooleanExpression compPrefOutExp = new LessOrEqualsBooleanExpression(
-						prefOutExp, new NumberNumericExpression(0));
-				LessOrEqualsBooleanExpression compReqOutExp = new LessOrEqualsBooleanExpression(
-						reqOutExp, new NumberNumericExpression(0));
-				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
-
-				idMap.putAll(reqOutExp.getIdentifiers(getHlclFactory()));
-				Identifier identifier1 = this.getHlclFactory().newIdentifier(
-						"amodel_req");
-				identifier1.setDomain(new RangeDomain(0, 200));
-				idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
-
-				simulList.add(this.getHlclFactory().equals(identifier1,
-						reqOutExp.transform(getHlclFactory(), idMap)));
-
-				simulList.add(this.getHlclFactory().implies(
-						compPrefOutExp.transform(getHlclFactory(), idMap),
-						compReqOutExp.transform(getHlclFactory(), idMap)));
-
-			}
-			*/
+			/*
+			 * if (reqOutExp != null) { LessOrEqualsBooleanExpression
+			 * compPrefOutExp = new LessOrEqualsBooleanExpression( prefOutExp,
+			 * new NumberNumericExpression(0)); LessOrEqualsBooleanExpression
+			 * compReqOutExp = new LessOrEqualsBooleanExpression( reqOutExp, new
+			 * NumberNumericExpression(0)); Map<String, Identifier> idMap = new
+			 * HashMap<String, Identifier>();
+			 * 
+			 * idMap.putAll(reqOutExp.getIdentifiers(getHlclFactory()));
+			 * Identifier identifier1 = this.getHlclFactory().newIdentifier(
+			 * "amodel_req"); identifier1.setDomain(new RangeDomain(0, 200));
+			 * idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
+			 * 
+			 * simulList.add(this.getHlclFactory().equals(identifier1,
+			 * reqOutExp.transform(getHlclFactory(), idMap)));
+			 * 
+			 * simulList.add(this.getHlclFactory().implies(
+			 * compPrefOutExp.transform(getHlclFactory(), idMap),
+			 * compReqOutExp.transform(getHlclFactory(), idMap)));
+			 * 
+			 * }
+			 */
 			if (prefOutExp != null) {
 				Map<String, Identifier> idMap = new HashMap<String, Identifier>();
 

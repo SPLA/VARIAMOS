@@ -783,7 +783,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							String iden = ((InstConcept) elm)
 									.getTransSupportMetaElement()
 									.getIdentifier();
-							System.out.println(iden);
+							//System.out.println(iden);
 							if (iden.equals("CG")
 									|| iden.equals("LocalVariable")
 									|| iden.equals("GlobalVariable")
@@ -968,7 +968,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (elm instanceof InstConcept) {
 					String iden = ((InstConcept) elm)
 							.getTransSupportMetaElement().getIdentifier();
-					System.out.println(iden);
+					//System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("LocalVariable")
 							|| iden.equals("GlobalVariable")
 							|| iden.equals("ENUM"))
@@ -1102,7 +1102,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									if (!recursiveCall) {
-										cleanNotificationBar();
+										clearNotificationBar();
 										executeSimulation(true,
 												Refas2Hlcl.CONF_EXEC);
 										editPropertiesRefas(elm);
@@ -1131,7 +1131,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												boolean selected = aButton
 														.getModel()
 														.isSelected();
-												System.out.println(selected);
+												//System.out.println(selected);
 												((JCheckBox) w.getEditor())
 														.repaint();
 												new Thread() {
@@ -1144,7 +1144,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							JButton button = new JButton("Configure");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-									cleanNotificationBar();
+									clearNotificationBar();
 									executeSimulation(true,
 											Refas2Hlcl.CONF_EXEC);
 									editPropertiesRefas(elm);
@@ -1346,8 +1346,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// SharedActions.beforeGraphOperation(source, false);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
-			System.out.println(this.getModelViewIndex() + " "
-					+ this.getModelSubViewIndex());
+			//System.out.println(this.getModelViewIndex() + " "
+			//		+ this.getModelSubViewIndex());
 			SharedActions.afterOpenCloneGraph(source, this);
 			SharedActions.afterOpenCloneGraph(target, this);
 			((mxCell) graphComponent.getGraph().getDefaultParent())
@@ -1404,13 +1404,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				});
 	}
 
-	public void cleanNotificationBar() {
+	public void clearNotificationBar() {
 		lastSolverInvocations = "";
 	}
 
-	public void cleanSimulation() {
+	public void clearElementErrors()
+	{
+		refas2hlcl.cleanGUIErrors();
+		this.refresh();
+	}
+	
+	public void clearSimulation() {
 
-		refas2hlcl.cleanGUIElements();
+		refas2hlcl.clearGUIElements();
 		try {
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
@@ -1450,7 +1456,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (result) {
 				List<String> modifiedIdentifiers = compareSolutions(
 						lastConfiguration, currentConfiguration);
-				System.out.println(modifiedIdentifiers);
+				//System.out.println(modifiedIdentifiers);
 			}
 		}
 		lastConfiguration = refas2hlcl.getConfiguration();
@@ -1630,7 +1636,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			refas2hlcl.updateGUIElements(attributes);
 			((MainFrame) getFrame()).waitingCursor(true);
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
-			System.out.println(currentResult);
+			//System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
 

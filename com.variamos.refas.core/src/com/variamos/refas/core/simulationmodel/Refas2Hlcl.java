@@ -28,9 +28,11 @@ import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.metamodelsupport.SimulationControlAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
@@ -355,7 +357,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	/**
 	 * Resets the GUI with false
 	 */
-	public void cleanGUIElements() {
+	public void clearGUIElements() {
 		// Call the SWIProlog and obtain the result
 
 		int i = 0;
@@ -372,6 +374,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 		}
 	}
+	
+	/**
+	 * Resets the GUI errors
+	 */
+	public void cleanGUIErrors() {
+		// Call the SWIProlog and obtain the result
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			instVertex.clearDefects();
+		}
+	}
+
 
 	public Map<String, Integer> getResult() {
 		return configuration.getConfiguration();
@@ -593,24 +606,34 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void updateDeadConcepts(List<String> deadIdentifiers) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			InstAttribute instAttributeDead = instVertex
-					.getInstAttribute("Dead");
-			InstAttribute instAttributeNotSel = instVertex
-					.getInstAttribute("ConfigNotSelected");
-			InstAttribute instAttributeNotAva = instVertex
-					.getInstAttribute("NotAvailable");
-			// System.out.println(vertexId + " " + attribute);
-			if (deadIdentifiers != null
-					&& deadIdentifiers.contains(instVertex.getIdentifier())) {
-				instAttributeDead.setValue(true);
-				instAttributeNotSel.setValue(true);
-				instAttributeNotAva.setValue(true);
-			}
+			MetaVertex metaElement = ((MetaVertex) instVertex
+					.getTransSupportMetaElement());
+			IntSemanticElement semElement = metaElement
+					.getTransSemanticConcept();
+			while (semElement != null && semElement.getIdentifier() != null
+					&& !semElement.getIdentifier().equals("semGeneralElement"))
+				semElement = semElement.getParent();
+			if (semElement != null && semElement.getIdentifier() != null
+					&& semElement.getIdentifier().equals("semGeneralElement")) {
+				InstAttribute instAttributeDead = instVertex
+						.getInstAttribute("Dead");
+				InstAttribute instAttributeNotSel = instVertex
+						.getInstAttribute("ConfigNotSelected");
+				InstAttribute instAttributeNotAva = instVertex
+						.getInstAttribute("NotAvailable");
+				// System.out.println(vertexId + " " + attribute);
+				if (deadIdentifiers != null
+						&& deadIdentifiers.contains(instVertex.getIdentifier())) {
+					instAttributeDead.setValue(true);
+					instAttributeNotSel.setValue(true);
+					instAttributeNotAva.setValue(true);
+				}
 
-			else {
-				instAttributeDead.setValue(false);
-				instAttributeNotSel.setValue(false);
-				instAttributeNotAva.setValue(false);
+				else {
+					instAttributeDead.setValue(false);
+					instAttributeNotSel.setValue(false);
+					instAttributeNotAva.setValue(false);
+				}
 			}
 		}
 	}

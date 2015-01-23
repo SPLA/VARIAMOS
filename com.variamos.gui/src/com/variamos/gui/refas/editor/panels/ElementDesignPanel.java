@@ -228,7 +228,7 @@ public class ElementDesignPanel extends JPanel {
 									.addActionListener(new ActionListener() {
 										public void actionPerformed(
 												ActionEvent e) {
-											finalEditor.cleanNotificationBar();
+											finalEditor.clearNotificationBar();
 											// finalEditor.identifyCoreConcepts();
 											// finalEditor.executeSimulation(true,
 											// Refas2Hlcl.DESIGN_EXEC);
@@ -292,7 +292,7 @@ public class ElementDesignPanel extends JPanel {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										finalEditor.cleanNotificationBar();
+										finalEditor.clearNotificationBar();
 										editorProperties(finalEditor, finalElm);
 									}
 								});
