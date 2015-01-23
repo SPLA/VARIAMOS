@@ -43,7 +43,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	// Hlcl program identifiers
 	private Set<Identifier> identifiersList;
 
-
 	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
 		solver = new SolverOperationsUtil(solverEditorType);
@@ -80,9 +79,9 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		if (attainableDomains == null
 				|| (attainableDomains != null && !attainableDomains
 						.contains(valueToTest))) {
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 
 	}
@@ -92,7 +91,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 		List<Defect> notAttainableDomains = new ArrayList<Defect>();
 		List<Integer> definedDomainValues = null;
-		Set<Integer> attainableDomains = null;
 		List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
 
 		BooleanExpression verificationExpression = null;
@@ -108,11 +106,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			// siempre y cuando no este en la lista de valores permitidos
 			for (Integer valueToTest : definedDomainValues) {
 
-				attainableDomains = verifiedValuesMap.get(identifier);
 				variabilityModelConstraintRepresentation.clear();
-				if (attainableDomains == null
-						|| (attainableDomains != null && !attainableDomains
-								.contains(valueToTest))) {
+				if (!existValue(identifier, valueToTest)) {
 					// Constraint para verificar el dominio no alcanzable
 					verificationExpression = VerifierUtilExpression
 							.verifyAssignValueToVariabilityElementExpression(
@@ -196,137 +191,238 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isDeadElement(Identifier identifier)
 			throws FunctionalException {
 
-		VoidModel isVoid = (VoidModel) isVoid();
+		List<Integer> definedDomainValues = null;
+		boolean createDefect = Boolean.TRUE;
+		Domain domain = identifier.getDomain();
+		// Se obtienen los valores parametrizados para esta variable
+		definedDomainValues = domain.getPossibleValues();
+		Configuration configurationResult = null;
+		int nonAttainableValue = 0;
 
-		if (isVoid == null) {
+		for (Integer definedDomainValue : definedDomainValues) {
 
-			List<Integer> definedDomainValues = null;
-			List<BooleanExpression> variabilityModelConstraintRepresentation = new ArrayList<BooleanExpression>();
-			BooleanExpression constraintToAdd = null;
-			BooleanExpression verificationExpression = null;
-			boolean isDead = Boolean.TRUE;
-			Domain domain = identifier.getDomain();
-			// Se obtienen los valores parametrizados para esta variable
-			definedDomainValues = domain.getPossibleValues();
-			boolean isSatisfiable = Boolean.FALSE;
-			// Se busca para cada variable los valores de dominio y se analiza
-			for (Integer definedDomainValue : definedDomainValues) {
-				// Ejm F1 #= 1. Se excluye el 0
-				isSatisfiable = Boolean.FALSE;
+			if (definedDomainValue > TransformerConstants.NON_SELECTED_VALUE) {
+				// Se verifica si ya existe en el mapa el identificador con
+				// el valor
+				if (!existValue(identifier, definedDomainValue)) {
 
-				if (definedDomainValue > TransformerConstants.NON_SELECTED_VALUE) {
-					variabilityModelConstraintRepresentation.clear();
+					Configuration configuration = new Configuration();
+					configuration.set(identifier.getId(), definedDomainValue);
+					configurationResult = solver.getConfiguration(model,
+							configuration, new ConfigurationOptions());
 
-					constraintToAdd = VerifierUtilExpression
-							.verifyAssignValueToVariabilityElementExpression(
-									identifier, definedDomainValue);
-					// Se adiciona la restricción al conjunto de restricciones
-					// que representa el modelo de variabilidad
-					ConfigurationOptions options = new ConfigurationOptions();
-					options.addAdditionalExpression(constraintToAdd);
-
-					// Se evalua si el modelo de restricciones es satisfacible
-					isSatisfiable = solver.isSatisfiable(model,
-							new Configuration(), options);
-
-					if (isSatisfiable) {
-						// Si es satisfacible la feature no es dead y se pasa a
-						// la siguiente feature
-						isDead = Boolean.FALSE;
-
-						// Se adiciona ese valor como valor permitido para no
-						// verificarlo en los notAttainableDomains
-						if (verifiedValuesMap.containsKey(identifier)) {
-							// Se adiciona el valor a la lista de dominios
-							// permitidos
-							verifiedValuesMap.get(identifier).add(
-									definedDomainValue);
-						} else {
-							// Se adiciona el variabilityElement al mapa y se
-							// adicionan el valor de dominio. Se crea un nuevo
-							// objeto para evitar problemas de referencia entre
-							// objetos
-							Set<Integer> attainableDomainValuesList = new HashSet<Integer>();
-							attainableDomainValuesList.add(definedDomainValue);
-							verifiedValuesMap.put(identifier,
-									attainableDomainValuesList);
-						}
-						// Se termina el ciclo y no se analizan mas valores de
-						// dominio
+					if (configurationResult != null) {
+						// Los valores identificados se actualizan en el
+						// mapa para
+						// evitar luego consultas innecesarias
+						updateEvaluatedDomainsMap(configurationResult);
+						createDefect = Boolean.FALSE;
 						break;
 					} else {
-						verificationExpression = constraintToAdd;
+						nonAttainableValue = definedDomainValue;
 					}
+				} else {
+					// no hay defecto
+					createDefect = Boolean.FALSE;
+					break;
 				}
-
 			}
-
-			if (isDead) {
-				// Se crea un nuevo defecto
-				DeadElement deadElement = new DeadElement(identifier,
-						verificationExpression);
-				System.out.println("dead feature" + identifier.getId());
-				return deadElement;
-			}
-			return null;
-		} else {
-			throw new FunctionalException(
-					"Model is void. Unable to verify dead elements elements");
 		}
+		if (createDefect) {
+			BooleanExpression verificationExpression = null;
+			// Ejm F1 #= 0.
+			// Se adiciona las restricciones que tiene el modelo de
+			// variabilidad inicial
+			verificationExpression = VerifierUtilExpression
+					.verifyAssignValueToVariabilityElementExpression(
+							identifier, nonAttainableValue);
+			// Se crea un nuevo defecto
+			DeadElement deadElement = new DeadElement(identifier,
+					verificationExpression);
+			return deadElement;
+		} else {
+			return null;
+		}
+
 	}
 
+	/* We simpliy the verification operation using partial configurations */
+	// public Defect isDeadElement(Identifier identifier)
+	// throws FunctionalException {
+	//
+	// VoidModel isVoid = (VoidModel) isVoid();
+	//
+	// if (isVoid == null) {
+	//
+	// List<Integer> definedDomainValues = null;
+	// List<BooleanExpression> variabilityModelConstraintRepresentation = new
+	// ArrayList<BooleanExpression>();
+	// BooleanExpression constraintToAdd = null;
+	// BooleanExpression verificationExpression = null;
+	// boolean isDead = Boolean.TRUE;
+	// Domain domain = identifier.getDomain();
+	// // Se obtienen los valores parametrizados para esta variable
+	// definedDomainValues = domain.getPossibleValues();
+	// boolean isSatisfiable = Boolean.FALSE;
+	// // Se busca para cada variable los valores de dominio y se analiza
+	// for (Integer definedDomainValue : definedDomainValues) {
+	// // Ejm F1 #= 1. Se excluye el 0
+	// isSatisfiable = Boolean.FALSE;
+	//
+	// if (definedDomainValue > TransformerConstants.NON_SELECTED_VALUE) {
+	// variabilityModelConstraintRepresentation.clear();
+	//
+	// constraintToAdd = VerifierUtilExpression
+	// .verifyAssignValueToVariabilityElementExpression(
+	// identifier, definedDomainValue);
+	// // Se adiciona la restricción al conjunto de restricciones
+	// // que representa el modelo de variabilidad
+	// ConfigurationOptions options = new ConfigurationOptions();
+	// options.addAdditionalExpression(constraintToAdd);
+	//
+	// // Se evalua si el modelo de restricciones es satisfacible
+	// isSatisfiable = solver.isSatisfiable(model,
+	// new Configuration(), options);
+	//
+	// if (isSatisfiable) {
+	// // Si es satisfacible la feature no es dead y se pasa a
+	// // la siguiente feature
+	// isDead = Boolean.FALSE;
+	//
+	// // Se adiciona ese valor como valor permitido para no
+	// // verificarlo en los notAttainableDomains
+	// if (verifiedValuesMap.containsKey(identifier)) {
+	// // Se adiciona el valor a la lista de dominios
+	// // permitidos
+	// verifiedValuesMap.get(identifier).add(
+	// definedDomainValue);
+	// } else {
+	// // Se adiciona el variabilityElement al mapa y se
+	// // adicionan el valor de dominio. Se crea un nuevo
+	// // objeto para evitar problemas de referencia entre
+	// // objetos
+	// Set<Integer> attainableDomainValuesList = new HashSet<Integer>();
+	// attainableDomainValuesList.add(definedDomainValue);
+	// verifiedValuesMap.put(identifier,
+	// attainableDomainValuesList);
+	// }
+	// // Se termina el ciclo y no se analizan mas valores de
+	// // dominio
+	// break;
+	// } else {
+	// verificationExpression = constraintToAdd;
+	// }
+	// }
+	//
+	// }
+	//
+	// if (isDead) {
+	// // Se crea un nuevo defecto
+	// DeadElement deadElement = new DeadElement(identifier,
+	// verificationExpression);
+	// System.out.println("dead feature" + identifier.getId());
+	// return deadElement;
+	// }
+	// return null;
+	// } else {
+	// throw new FunctionalException(
+	// "Model is void. Unable to verify dead elements elements");
+	// }
+	// }
+
+	/* We simpliy the verification operation using partial configurations */
+
+	// public Defect isFalseOptionalElement(Identifier identifier)
+	// throws FunctionalException {
+	//
+	// // Se verifica si ya existe en el mapa el valor de cero para ese
+	// // identificador
+	// if (!existValue(identifier, 0)) {
+	//
+	// Configuration configurationResult = solver.getConfiguration(model,
+	// new Configuration(), new ConfigurationOptions());
+	// BooleanExpression verificationExpression = null;
+	// if (configurationResult != null) {
+	//
+	// // Los valores identificados se actualizan en el mapa para
+	// // evitar luego consultas innecesarias
+	// updateEvaluatedDomainsMap(configurationResult);
+	//
+	// // Ejm F1 #= 0.
+	// // Se adiciona las restricciones que tiene el modelo de
+	// // variabilidad inicial
+	//
+	// verificationExpression = VerifierUtilExpression
+	// .verifyFalseOptionalExpression(identifier);
+	// // Se adiciona la restricción de verificacion al conjunto de
+	// // restricciones
+	// // que representa el modelo de variabilidad
+	// ConfigurationOptions options = new ConfigurationOptions();
+	// options.addAdditionalExpression(verificationExpression);
+	//
+	// // Se evalua si el modelo de restricciones es satisfacible
+	// configurationResult = solver.getConfiguration(model,
+	// new Configuration(), options);
+	//
+	// // Se evalua si este nuevo modelo es satisfacible
+	// if (configurationResult == null) {
+	// // Se crea un nuevo defecto
+	// FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
+	// identifier, verificationExpression);
+	// return falseOptionalElement;
+	// } else {
+	// // No defect was found, values domains are updated
+	// updateEvaluatedDomainsMap(configurationResult);
+	// return null;
+	// }
+	// } else {
+	// throw new FunctionalException(
+	// "Model is void. Unable to verify false optional elements");
+	// }
+	//
+	// } else {
+	// // No defect was found
+	// return null;
+	// }
+	// }
+
+	@Override
 	public Defect isFalseOptionalElement(Identifier identifier)
 			throws FunctionalException {
 
+		boolean createDefect = Boolean.FALSE;
 		// Se verifica si ya existe en el mapa el valor de cero para ese
 		// identificador
-		if (existValue(identifier, 0)) {
+		if (!existValue(identifier, 0)) {
 
+			Configuration configuration = new Configuration();
+			configuration.ban(identifier.getId());
 			Configuration configurationResult = solver.getConfiguration(model,
-					new Configuration(), new ConfigurationOptions());
-			BooleanExpression verificationExpression = null;
-			if (configurationResult != null) {
+					configuration, new ConfigurationOptions());
 
+			if (configurationResult != null) {
 				// Los valores identificados se actualizan en el mapa para
 				// evitar luego consultas innecesarias
 				updateEvaluatedDomainsMap(configurationResult);
-
-				// Ejm F1 #= 0.
-				// Se adiciona las restricciones que tiene el modelo de
-				// variabilidad inicial
-
-				verificationExpression = VerifierUtilExpression
-						.verifyFalseOptionalExpression(identifier);
-				// Se adiciona la restricción de verificacion al conjunto de
-				// restricciones
-				// que representa el modelo de variabilidad
-				ConfigurationOptions options = new ConfigurationOptions();
-				options.addAdditionalExpression(verificationExpression);
-
-				// Se evalua si el modelo de restricciones es satisfacible
-				configurationResult = solver.getConfiguration(model,
-						new Configuration(), options);
-
-				// Se evalua si este nuevo modelo es satisfacible
-				if (configurationResult == null) {
-					// Se crea un nuevo defecto
-					FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
-							identifier, verificationExpression);
-					return falseOptionalElement;
-				} else {
-					// No defect was found, values domains are updated
-					updateEvaluatedDomainsMap(configurationResult);
-					return null;
-				}
 			} else {
-				throw new FunctionalException(
-						"Model is void. Unable to verify false optional elements");
+				createDefect = Boolean.TRUE;
 			}
-
+		}
+		if (createDefect) {
+			BooleanExpression verificationExpression = null;
+			// Ejm F1 #= 0.
+			// Se adiciona las restricciones que tiene el modelo de
+			// variabilidad inicial
+			verificationExpression = VerifierUtilExpression
+					.verifyFalseOptionalExpression(identifier);
+			// Se crea un nuevo defecto
+			FalseOptionalElement falseOptionalElement = new FalseOptionalElement(
+					identifier, verificationExpression);
+			return falseOptionalElement;
 		} else {
-			// No defect was found
 			return null;
 		}
+
 	}
 
 	@Override
