@@ -1,41 +1,29 @@
 package com.variamos.gui.refas.editor.actions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import javax.swing.CellEditor;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
 import com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation;
-import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
-import com.variamos.refas.core.sematicsmetamodel.SemanticVariable;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
 import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
@@ -43,22 +31,30 @@ public class SharedActions {
 	private static Set<String> instAttributesToDelete = new HashSet<String>();
 	private static boolean additionAttributes = false;
 
-	public static mxGraph cloneGraph(mxGraph source, mxGraph target) {
+	public static mxGraph cloneGraph(mxGraph source, mxGraph target,
+			int modelViewIndex, int modelViewSubIndex) {
+		setVisibleViews(source.getModel(), true, 0, 0);
 		if (target == null)
 			target = new mxGraph();
 		target.selectAll();
 		target.removeCells();
 		target.addCells(source.cloneCells(source.getChildCells(source
 				.getDefaultParent())));
+		setVisibleViews(source.getModel(), false, modelViewIndex,
+				modelViewSubIndex);
+		setVisibleViews(target.getModel(), false, modelViewIndex,
+				modelViewSubIndex);
 		return target;
 	}
 
-	public static mxGraph beforeGraphOperation(mxGraph graph, boolean beforeSave) {
+	public static mxGraph beforeGraphOperation(mxGraph graph,
+			boolean beforeSave, int modelViewIndex, int modelViewSubIndex) {
 		((RefasGraph) graph).setValidation(false);
 
 		long startTime = System.currentTimeMillis();
 		((RefasGraph) graph).setValidation(false);
-		mxGraph outGraph = cloneGraph(graph, null);
+		mxGraph outGraph = cloneGraph(graph, null, modelViewIndex,
+				modelViewSubIndex);
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
 		System.out.println("clone clean: " + elapsedTime);
@@ -89,6 +85,38 @@ public class SharedActions {
 		elapsedTime = stopTime - startTime;
 		System.out.println("object clean: " + elapsedTime);
 		return outGraph;
+	}
+
+	public static void setVisibleViews(mxIGraphModel refasGraph,
+			boolean showAll, int modelViewIndex, int modelViewSubIndex) {
+
+		Object o = refasGraph.getRoot(); // Main Root
+		Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+		for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
+			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
+			if (refasGraph.getChildCount(mv0) > 0) {
+				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
+				if (child.getValue().equals(mv0.getValue())) {
+					for (int mvSubInd = 0; mvSubInd < refasGraph
+							.getChildCount(mv0); mvSubInd++) {
+						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,
+								mvSubInd);
+						if (refasGraph.getChildCount(mv00) > 0) {
+							if (!showAll
+									&& (modelViewIndex != mvInd || (modelViewSubIndex != -1 && modelViewSubIndex != mvSubInd)))
+								refasGraph.setVisible(mv00, false);
+							else
+								refasGraph.setVisible(mv00, true);
+						}
+					}
+				} else {
+					if (modelViewIndex != mvInd && !showAll)
+						refasGraph.setVisible(mv0, false);
+					else
+						refasGraph.setVisible(mv0, true);
+				}
+			}
+		}
 	}
 
 	private static void updateIdAndObjects(Object value, boolean beforeSave) {
@@ -152,16 +180,10 @@ public class SharedActions {
 			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
 				// Root model view mvInd
 				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
-				// First vertices and after edges
-				Object[] vertexCells = graph.getChildCells(mv0, true, false);
-				Object[] edgeCells = graph.getChildCells(mv0, false, true);
-				Object[] allCells = new Object[vertexCells.length
-						+ edgeCells.length];
 
-				System.arraycopy(vertexCells, 0, allCells, 0,
-						vertexCells.length);
-				System.arraycopy(edgeCells, 0, allCells, vertexCells.length,
-						edgeCells.length);
+				// First vertices and after edges
+				Object[] allCells = getSortedCells(graph, mv0);
+
 				for (Object anyCell : allCells) {
 					// for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 					// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
@@ -169,8 +191,9 @@ public class SharedActions {
 					if (refasGraph.getChildCount(mv0) > 0
 							&& mv0.getChildAt(0).getValue()
 									.equals(mv0.getValue())) {
-						for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
-							mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
+						Object[] all2Cells = getSortedCells(graph, mv1);
+						for (Object any2Cell : all2Cells) {
+							mxCell mv2 = (mxCell) any2Cell;
 							try {
 								loadSupportObjects(editor, mv2.getValue(), mv2,
 										graph);
@@ -214,6 +237,17 @@ public class SharedActions {
 		return graph;
 	}
 
+	private static Object[] getSortedCells(mxGraph graph, mxCell mv0) {
+		Object[] vertexCells = graph.getChildCells(mv0, true, false);
+		Object[] edgeCells = graph.getChildCells(mv0, false, true);
+		Object[] allCells = new Object[vertexCells.length + edgeCells.length];
+
+		System.arraycopy(vertexCells, 0, allCells, 0, vertexCells.length);
+		System.arraycopy(edgeCells, 0, allCells, vertexCells.length,
+				edgeCells.length);
+		return allCells;
+	}
+
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
 		Refas refas = ((RefasGraph) editor.getGraphComponent().getGraph())
@@ -230,7 +264,7 @@ public class SharedActions {
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
-			System.out.println(instOverTwoRelation.getInstAttributes().size());
+			//System.out.println(instOverTwoRelation.getInstAttributes().size());
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				AbstractAttribute attribute = instOverTwoRelation
@@ -262,19 +296,22 @@ public class SharedActions {
 						.getTransSupportMetaElement().getSemanticAttributes()) {
 					if (instOverTwoRelation.getInstAttribute(attributeName) == null
 							&& instOverTwoRelation.getTransSupportMetaElement()
-									.getSemanticAttribute(attributeName)!= null) {
+									.getSemanticAttribute(attributeName) != null) {
 						instOverTwoRelation.addInstAttribute(attributeName,
 								instOverTwoRelation
 										.getTransSupportMetaElement()
 										.getSemanticAttribute(attributeName),
 								null);
-						System.out.println("create" + attributeName);
+						//System.out.println("create" + attributeName);
 						additionAttributes = true;
-					} else if (instOverTwoRelation.getInstAttribute(attributeName) == null) {
-						instOverTwoRelation.addInstAttribute(attributeName, instOverTwoRelation
-								.getTransSupportMetaElement()
-								.getModelingAttribute(attributeName), null);
-						System.out.println("create" + attributeName);
+					} else if (instOverTwoRelation
+							.getInstAttribute(attributeName) == null) {
+						instOverTwoRelation.addInstAttribute(attributeName,
+								instOverTwoRelation
+										.getTransSupportMetaElement()
+										.getModelingAttribute(attributeName),
+								null);
+						//System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
 				}
@@ -323,13 +360,13 @@ public class SharedActions {
 						instVertex.addInstAttribute(attributeName, instVertex
 								.getTransSupportMetaElement()
 								.getSemanticAttribute(attributeName), null);
-						System.out.println("create" + attributeName);
+						//System.out.println("create" + attributeName);
 						additionAttributes = true;
 					} else if (instVertex.getInstAttribute(attributeName) == null) {
 						instVertex.addInstAttribute(attributeName, instVertex
 								.getTransSupportMetaElement()
 								.getModelingAttribute(attributeName), null);
-						System.out.println("create" + attributeName);
+						//System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
 				}
@@ -426,7 +463,7 @@ public class SharedActions {
 												.getTransSupportMetaElement()
 												.getSemanticAttribute(
 														attributeName), null);
-								System.out.println("create" + attributeName);
+								//System.out.println("create" + attributeName);
 								additionAttributes = true;
 							} else if (instPairwiseRelation
 									.getInstAttribute(attributeName) == null) {
@@ -436,7 +473,7 @@ public class SharedActions {
 												.getTransSupportMetaElement()
 												.getModelingAttribute(
 														attributeName), null);
-								System.out.println("create" + attributeName);
+								//System.out.println("create" + attributeName);
 								additionAttributes = true;
 							}
 						}

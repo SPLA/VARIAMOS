@@ -199,7 +199,7 @@ public abstract class InstVertex extends InstElement {
 
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-//		System.out.println(this.getIdentifier() + insAttributeLocalId);
+		System.out.println(this.getIdentifier() + insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}

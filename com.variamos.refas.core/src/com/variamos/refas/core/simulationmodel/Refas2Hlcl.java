@@ -246,7 +246,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				if (constraintGroup.getCompulsoryExpressionList(element) != null)
 					transformations.addAll(constraintGroup
 							.getCompulsoryExpressionList(element));
-				if (element.equals("")|| element.equals("Simul"))
+				if (element.equals("") || element.equals("Simul"))
 					transformations.addAll(constraintGroup
 							.getElementExpressions());
 			}
@@ -487,7 +487,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return text;
 	}
 
-	private void createModelExpressions(int execType) {		
+	private void createModelExpressions(int execType) {
 		constraintGroups.put("Model", new ModelExpressionSet("", "", idMap, f,
 				refas, execType));
 	}
@@ -542,9 +542,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public String getElementTextConstraints(String identifier, String string,
 			int execType) {
 		String out = "";
-		for (Expression expression : getElementConstraintGroup(identifier,
-				string, execType).getExpressions())
-			out += expression.toString() + "\n";
+		MetaExpressionSet expressions = getElementConstraintGroup(identifier,
+				string, execType);
+		if (expressions != null)
+			for (Expression expression : expressions.getExpressions())
+				out += expression.toString() + "\n";
 		return out;
 	}
 

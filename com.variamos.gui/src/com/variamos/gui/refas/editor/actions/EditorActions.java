@@ -370,12 +370,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class ScaleAction extends AbstractAction {
-		public ScaleAction()
-		{
+		public ScaleAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "Scale Model");
 		}
+
 		/**
 		 * 
 		 */
@@ -444,12 +444,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class PrintAction extends AbstractAction {
-		public PrintAction()
-		{
+		public PrintAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "Print Model");
 		}
+
 		/**
 		 * 
 		 */
@@ -483,12 +483,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class SaveAction extends AbstractAction {
-		public SaveAction()
-		{
+		public SaveAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "Save Model");
 		}
+
 		/**
 		 * 
 		 */
@@ -699,7 +699,9 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						mxCodec codec = new mxCodec();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true);
+						mxGraph outGraph = SharedActions.beforeGraphOperation(
+								graph, true, editor.getModelViewIndex(),
+								editor.getModelSubViewIndex());
 						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
 						SharedActions.afterSaveGraph(graph, editor);
@@ -1132,12 +1134,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class HistoryAction extends AbstractAction {
-		public HistoryAction()
-		{
+		public HistoryAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "Undo/Redo Action");
 		}
+
 		/**
 		 * 
 		 */
@@ -1272,12 +1274,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class NewAction extends AbstractAction {
-		public NewAction()
-		{
+		public NewAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "New Model");
 		}
+
 		/**
 		 * 
 		 */
@@ -1416,13 +1418,13 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class OpenAction extends AbstractAction {
-		
-		public OpenAction()
-		{
+
+		public OpenAction() {
 			super();
 
 			this.putValue(SHORT_DESCRIPTION, "Open Model");
 		}
+
 		/**
 		 * 
 		 */
@@ -1515,14 +1517,15 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx)") {
+										+ " (.mxe, .png, .vdx, , .plg)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
 
 								return super.accept(file)
 										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx");
+										|| lcase.endsWith(".vdx")
+										|| lcase.endsWith(".plg");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);

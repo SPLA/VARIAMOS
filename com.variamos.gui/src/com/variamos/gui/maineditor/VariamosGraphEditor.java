@@ -95,7 +95,9 @@ import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
+import com.variamos.refas.core.sematicsmetamodel.SemanticConcept;
+import com.variamos.refas.core.sematicsmetamodel.SemanticEnumeration;
+import com.variamos.refas.core.sematicsmetamodel.SemanticVariable;
 import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 import com.variamos.refas.core.types.PerspectiveType;
@@ -105,7 +107,6 @@ import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
 import com.variamos.syntaxsupport.metamodel.InstView;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
@@ -123,10 +124,7 @@ import fm.FeatureModelException;
  * @author jcmunoz
  *
  */
-/**
- * @author jcmunoz
- *
- */
+
 @SuppressWarnings("serial")
 public class VariamosGraphEditor extends BasicGraphEditor {
 
@@ -429,15 +427,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// System.out.println(modelIndex + " " + modelSubIndex);
 		modelViewIndex = modelIndex;
 		modelSubViewIndex = modelSubIndex;
-		RefasGraph mode = ((RefasGraph) getGraphComponent().getGraph());
+		RefasGraph refasGraph = ((RefasGraph) getGraphComponent().getGraph());
 		if (perspective == 4)
 			validElements = null;
 		else
-			validElements = mode.getValidElements(modelViewIndex,
+			validElements = refasGraph.getValidElements(modelViewIndex,
 					modelSubViewIndex);
-		mode.setModelViewIndex(modelIndex);
-		mode.setModelViewSubIndex(modelSubIndex);
-		mode.showElements();
+		refasGraph.setModelViewIndex(modelIndex);
+		refasGraph.setModelViewSubIndex(modelSubIndex);
+		SharedActions.setVisibleViews(refasGraph.getModel(), false,
+				modelViewIndex, modelSubViewIndex);
+		refasGraph.refresh();
 
 		elementDesignPanel.repaint();
 		// elementDesPropPanel.repaint();
@@ -591,7 +591,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		graph.getModel().setRoot(root);
 		if (perspective == 2) {
 			setGraphEditorFunctions(new RefasGraphEditorFunctions(this));
-			Refas refas = (Refas) this.getEditedModel();
 			((Refas) this.getEditedModel()).clear();
 			((RefasGraph) graph).defineInitialGraph();
 
@@ -781,7 +780,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							&& (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
 						if (elm instanceof InstConcept) {
-							editableElementType = "vertex";
+							String iden = ((InstConcept) elm)
+									.getTransSupportMetaElement()
+									.getIdentifier();
+							System.out.println(iden);
+							if (iden.equals("CG")
+									|| iden.equals("LocalVariable")
+									|| iden.equals("GlobalVariable")
+									|| iden.equals("ENUM"))
+								editableElementType = "var";
+							else
+								editableElementType = "vertex";
 						}
 						if (elm instanceof InstPairwiseRelation) {
 							editableElementType = "edge";
@@ -957,7 +966,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				int configurationPanelElements = 0, simulationPanelElements = 1;
 
 				if (elm instanceof InstConcept) {
-					editableElementType = "vertex";
+					String iden = ((InstConcept) elm)
+							.getTransSupportMetaElement().getIdentifier();
+					System.out.println(iden);
+					if (iden.equals("CG") || iden.equals("LocalVariable")
+							|| iden.equals("GlobalVariable")
+							|| iden.equals("ENUM"))
+
+						editableElementType = "var";
+					else
+
+						editableElementType = "vertex";
 				}
 				if (elm instanceof InstPairwiseRelation) {
 					if (((InstPairwiseRelation) elm).getSourceRelations()
@@ -1324,8 +1343,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
-			SharedActions.beforeGraphOperation(source, false);
-			SharedActions.cloneGraph(source, target);
+			// SharedActions.beforeGraphOperation(source, false);
+			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
+					this.getModelSubViewIndex());
+			System.out.println(this.getModelViewIndex() + " "
+					+ this.getModelSubViewIndex());
 			SharedActions.afterOpenCloneGraph(source, this);
 			SharedActions.afterOpenCloneGraph(target, this);
 			((mxCell) graphComponent.getGraph().getDefaultParent())
@@ -1490,6 +1512,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				+ (endSTime - iniSTime) + "]" + " -- ";
 
 	}
+
 	private List<String> compareSolutions(Configuration lastConfiguration,
 			Configuration currentConfiguration) {
 		List<String> out = new ArrayList<String>();
@@ -1830,7 +1853,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		return outMessage;
 	}
-
 
 	public void updateDefects(String string, boolean b) {
 		if (b) {

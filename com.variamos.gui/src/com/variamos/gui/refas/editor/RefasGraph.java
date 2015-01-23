@@ -179,11 +179,10 @@ public class RefasGraph extends AbstractGraph {
 						mxCell target = this.getCellById(instEdge
 								.getTargetRelations().get(0).getIdentifier());
 						child.setStyle("");
-						if (instEdge.getTransSupportMetaElement() != null) {
-							MetaElement e = instEdge
-									.getTransSupportMetaElement();
-							child.setStyle(instEdge
-									.getTransSupportMetaElement().getStyle());
+						MetaElement e = instEdge
+								.getTransSupportMetaElement();
+						if (e != null) {							
+							child.setStyle(e.getStyle());
 						}
 
 						child.setSource(source);
@@ -649,93 +648,6 @@ public class RefasGraph extends AbstractGraph {
 			layout.execute(getDefaultParent()); // todo change root?
 		} catch (Exception e) {
 		}
-
-	}
-
-	public void showElements() {
-		mxIGraphModel refasGraph = getModel();
-
-		Object o = refasGraph.getRoot(); // Main Root
-		Object o1 = refasGraph.getChildAt(o, 0); // Null Root
-		for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
-			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
-			if (refasGraph.getChildCount(mv0) > 0) {
-				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
-				Object[] vertices = null;
-				if (child.getValue().equals(mv0.getValue())) {
-					for (int mvSubInd = 0; mvSubInd < refasGraph
-							.getChildCount(mv0); mvSubInd++) {
-						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,
-								mvSubInd);
-						if (refasGraph.getChildCount(mv00) > 0) {
-							vertices = mxGraphModel.getChildCells(getModel(),
-									mv00, true, false);
-
-							if (modelViewIndex != mvInd
-									|| (modelViewSubIndex != -1 && modelViewSubIndex != mvSubInd))
-								getModel().setVisible(mv00, false);
-							else
-
-								getModel().setVisible(mv00, true);
-
-							/*
-							 * for (int i = 0; i < vertices.length; i++) {
-							 * mxCell cell = ((mxCell) vertices[i]); if
-							 * (modelViewIndex != mvInd || (modelViewSubIndex !=
-							 * -1 && modelViewSubIndex != mvSubInd)) {
-							 * 
-							 * getModel().setVisible(cell, false); Object[]
-							 * edges1 = getEdges(cell); for (Object oo : edges1)
-							 * getModel().setVisible(oo, false);
-							 * this.fireEvent(new mxEventObject(
-							 * PL_EVT_NODE_CHANGE, "cell", cell)); } }
-							 * 
-							 * for (int i = 0; i < vertices.length; i++) {
-							 * mxCell cell = ((mxCell) vertices[i]); if
-							 * (modelViewIndex == mvInd && (modelViewSubIndex ==
-							 * -1 || modelViewSubIndex == mvSubInd)) {
-							 * getModel().setVisible(cell, true); Object[]
-							 * edges2 = getEdges(cell); for (Object oo : edges2)
-							 * getModel().setVisible(oo, true);
-							 * this.fireEvent(new mxEventObject(
-							 * PL_EVT_NODE_CHANGE, "cell", cell)); } }
-							 */
-						}
-
-					}
-
-				} else {
-
-					vertices = mxGraphModel.getChildCells(getModel(), mv0,
-							true, false);
-					if (modelViewIndex != mvInd)
-						getModel().setVisible(mv0, false);
-					else
-
-						getModel().setVisible(mv0, true);
-
-					/*
-					 * for (int i = 0; i < vertices.length; i++) { mxCell cell =
-					 * ((mxCell) vertices[i]); if (modelViewIndex != mvInd) {
-					 * 
-					 * getModel().setVisible(cell, false); Object[] edges1 =
-					 * getEdges(cell); for (Object oo : edges1)
-					 * getModel().setVisible(oo, false); this.fireEvent(new
-					 * mxEventObject( PL_EVT_NODE_CHANGE, "cell", cell)); } }
-					 * 
-					 * for (int i = 0; i < vertices.length; i++) { mxCell cell =
-					 * ((mxCell) vertices[i]); if (modelViewIndex == mvInd) {
-					 * getModel().setVisible(cell, true); Object[] edges2 =
-					 * getEdges(cell); for (Object oo : edges2)
-					 * getModel().setVisible(oo, true); this.fireEvent(new
-					 * mxEventObject( PL_EVT_NODE_CHANGE, "cell", cell)); } }
-					 */
-				}
-			}
-
-		}
-		this.refresh();
-
 	}
 
 	public Refas getRefas() {
