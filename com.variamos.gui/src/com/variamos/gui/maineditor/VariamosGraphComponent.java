@@ -97,6 +97,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				for (int i = 0; i < childCount; i++) {
 					mxCell tmp = (mxCell) model.getChildAt(tmp3, i);
 					if (tmp.isVertex()) {
+
+						// Verify is a semantic general element
 						MetaVertex metaElement = ((MetaVertex) ((InstVertex) tmp
 								.getValue()).getTransSupportMetaElement());
 						IntSemanticElement semElement = metaElement == null ? null
@@ -106,281 +108,182 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								&& !semElement.getIdentifier().equals(
 										"SemGeneralElement"))
 							semElement = semElement.getParent();
+
 						if (semElement != null
 								&& semElement.getIdentifier() != null
 								&& semElement.getIdentifier().equals(
 										"SemGeneralElement")) {
 							Object val = tmp.getValue();
+
+							// For simulation perspective
 							if (tmp.getGeometry() != null && val != null
 									&& val instanceof InstConcept
 									&& ((mxCell) tmp2).getValue() != null) {
 								try {
 									InstConcept instConcept = (InstConcept) val;
-									String backtop = null, backbottom = null, backtophint = null, backbottomhint = null;
+									String backtophint = null, backbottomhint = null;
 
-									String forced = "/com/variamos/gui/refas/editor/images/sim_forced.png";
-									String validation = "/com/variamos/gui/refas/editor/images/sim_validation.png";
-									String altern = "/com/variamos/gui/refas/editor/images/sim_altern.png";
-									String notpref = "/com/variamos/gui/refas/editor/images/sim_notpref.png";
-									String confnot = "/com/variamos/gui/refas/editor/images/sim_confnot.png";
+									String sim_core = "/com/variamos/gui/refas/editor/images/sim_core.png";
+									String sim_dead = "/com/variamos/gui/refas/editor/images/sim_dead.png";
+									String sim_inactive = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
+									String sim_normal = "/com/variamos/gui/refas/editor/images/sim_normal.png";
+									String sim_notavailable = "/com/variamos/gui/refas/editor/images/sim_notavailable.png";
+									String sim_selected = "/com/variamos/gui/refas/editor/images/sim_selected.png";
+									String sim_backcolor = sim_normal;
+
+									String sim_green1 = "/com/variamos/gui/refas/editor/images/sim_green1.png";
+									String sim_green2 = "/com/variamos/gui/refas/editor/images/sim_green2.png";
+									String sim_green3 = "/com/variamos/gui/refas/editor/images/sim_green3.png";
+
+									String sim_red2 = "/com/variamos/gui/refas/editor/images/sim_red2.png";
+									String sim_red3 = "/com/variamos/gui/refas/editor/images/sim_red3.png";
+
 									if ((boolean) instConcept.getInstAttribute(
 											"Required").getValue()
 											|| (boolean) instConcept
 													.getInstAttribute("Core")
 													.getValue()) {
+										sim_backcolor = sim_core;
+										backtophint = "Element part of the core (red on sides)";
+									} else if (!(boolean) instConcept
+											.getInstAttribute("Active")
+											.getValue()) {
+										sim_backcolor = sim_inactive;
+										backtophint = "Element inactivated by user (black background)";
+									} else if ((boolean) instConcept
+											.getInstAttribute("Dead")
+											.getValue()) {
+										sim_backcolor = sim_dead;
+										backtophint = "Dead element (red background)";
+									} else if ((boolean) instConcept
+											.getInstAttribute("NotAvailable")
+											.getValue()) {
+										sim_backcolor = sim_notavailable;
+										backtophint = "Not available for this configuration (red background)";
+									} else if ((boolean) instConcept
+											.getInstAttribute("Selected")
+											.getValue()) {
+										sim_backcolor = sim_selected;
+										backtophint = "Element selected for this configuration (green background)";
+									}
+									mxCellOverlay over2 = new mxCellOverlay(
+											new ImageIcon(
+													mxGraphComponent.class
+															.getResource(sim_backcolor)),
+											backtophint);
+									over2.setVerticalAlign(mxConstants.ALIGN_TOP);
+									over2.setAlign(mxConstants.ALIGN_CENTER);
+									addCellOverlay(tmp, over2);
+
+									if ((boolean) instConcept.getInstAttribute(
+											"Required").getValue()) {
 										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-												"Element part of the core (red on sides)");
+																.getResource(sim_green1)),
+												backtophint
+														+ "\n Core (First green circle)");
+										backtophint += "\n Core (First green circle)";
 										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 										over3.setAlign(mxConstants.ALIGN_CENTER);
 										addCellOverlay(tmp, over3);
-										over3 = new mxCellOverlay(
+									}
+									if ((boolean) instConcept.getInstAttribute(
+											"ConfigSelected").getValue()) {
+										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/sim_required.png")),
-												"Element part of the core (red on sides)");
+																.getResource(sim_green2)),
+												backtophint
+														+ "; Configuration Selected (Second green circle)");
 
-										backbottomhint += "; Satisfied by validation (Second green circle)";
-										over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+										backtophint += "; Configuration Selected (Second green circle)";
+										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 										over3.setAlign(mxConstants.ALIGN_CENTER);
 										addCellOverlay(tmp, over3);
-									} else {
-										if (!(boolean) instConcept
-												.getInstAttribute("Active")
-												.getValue()) {
-											backtop = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
-											backtophint = "Element inactivated by user (black background)";
-											backbottom = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
-											backbottomhint = backtophint;
-										} else if (!(boolean) instConcept
-												.getInstAttribute("Allowed")
-												.getValue()) {
-											backtop = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
-											backtophint = "Element not allowed by user (gray background)";
-											backbottom = "/com/variamos/gui/refas/editor/images/sim_notallowed.png";
-											backbottomhint = backtophint;
-										} else {
-											backtop = "/com/variamos/gui/refas/editor/images/sim_normal.png";
-											backtophint = "Element currently not satisfied (white background)";
-											backbottom = "/com/variamos/gui/refas/editor/images/sim_normal.png";
-											backbottomhint = "Element currently not selected (white background)";
-											;
-										}
-										if ((boolean) instConcept
-												.getInstAttribute("Selected")
-												.getValue()) {
-											backtop = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
-											backtophint = "Element selected (Green background)";
-										}
-										if ((boolean) instConcept
-												.getInstAttribute("Selected")
-												.getValue()) {
-											backbottom = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
-											backbottomhint = "Element selected (Green background)";
-										}
-
-										mxCellOverlay over = new mxCellOverlay(
+									}
+									if ((boolean) instConcept.getInstAttribute(
+											"NextReqSelected").getValue()) {
+										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class
-																.getResource(backtop)),
-												backtophint);
-										over.setVerticalAlign(mxConstants.ALIGN_TOP);
-										over.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over);
-										mxCellOverlay over2 = new mxCellOverlay(
+																.getResource(sim_green3)),
+												backtophint
+														+ "; Config/Simul selected (Third green circle)");
+										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+										over3.setAlign(mxConstants.ALIGN_CENTER);
+										addCellOverlay(tmp, over3);
+									}
+									if ((boolean) instConcept.getInstAttribute(
+											"ConfigNotSelected").getValue()) {
+										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class
-																.getResource(backbottom)),
-												backbottomhint);
-										over2.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-										over2.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over2);
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"Core")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(forced)),
-													backtophint
-															+ "\n Core (First green circle)");
-											backtophint += "\n Core (First green circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"ConfigfSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(validation)),
-													backtophint
-															+ "; Configuration Selected (Second green circle)");
+																.getResource(sim_red2)),
+												backbottomhint
+														+ "; Configuration Not Selected (Second red circle)");
+										backbottomhint += "; Configuration Not Selected (Second red circle)";
+										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+										over3.setAlign(mxConstants.ALIGN_CENTER);
+										addCellOverlay(tmp, over3);
+									}
 
-											backtophint += "; Configuration Selected (Second green circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"NextReqSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(altern)),
-													backtophint
-															+ "; Config/Simul selected (Third green circle)");
-											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"ConfigNotSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(confnot)),
-													backtophint
-															+ "; Configuration Not Selected (First red circle)");
-											backtophint += "; Configuration Not Selected (First red circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"ConfigNotSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(notpref)),
-													backbottomhint
-															+ "; Configuration Not Selected (Second red circle)");
-											backbottomhint += "; Configuration Not Selected (Second red circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"NextNotSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(notpref)),
-													backbottomhint
-															+ "; Config/Simul not selected (Third red circle)");
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
+									if ((boolean) instConcept.getInstAttribute(
+											"NextNotSelected").getValue()) {
+										mxCellOverlay over3 = new mxCellOverlay(
+												new ImageIcon(
+														mxGraphComponent.class
+																.getResource(sim_red3)),
+												backbottomhint
+														+ "; Config/Simul not selected (Third red circle)");
+										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+										over3.setAlign(mxConstants.ALIGN_CENTER);
+										addCellOverlay(tmp, over3);
 									}
 								} catch (Exception e) {
 									System.out.println("Cell draw error");
-									// e.printStackTrace();
+									e.printStackTrace();
 								}
 							}
+
+							// For design perspective
 							if (tmp.getGeometry() != null && val != null
 									&& ((mxCell) tmp2).getValue() == null
 									&& val instanceof InstConcept) {
-								String backtophint = "", backbottomhint = "";
+								String design_required = "/com/variamos/gui/refas/editor/images/design_required.png";
+								String design_normal = "/com/variamos/gui/refas/editor/images/design_normal.png";
+								String design_dead = "/com/variamos/gui/refas/editor/images/design_dead.png";
+								String design_core = "/com/variamos/gui/refas/editor/images/design_core.png";
+								String backtophint = "", icon = "";
 								InstConcept instConcept = (InstConcept) val;
 								try {
 									if ((boolean) instConcept.getInstAttribute(
 											"Required").getValue()) {
 										backtophint = "Element is part of the core. Marked as required";
-										mxCellOverlay over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
-												backtophint);
-										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
-										backbottomhint = "Element is part of the core. Marked as required";
-										over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_required.png")),
-												backbottomhint);
-										over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
+										icon = design_required;
 									} else if ((boolean) instConcept
 											.getInstAttribute("Core")
 											.getValue()) {
 										backtophint = "Element is part of the core. Not marked as required";
-										mxCellOverlay over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
-												backtophint);
-										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
-										backbottomhint = "Element is part of the core. Not marked as required";
-										over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_core.png")),
-												backbottomhint);
-										over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
+										icon = design_core;
 									} else if ((boolean) instConcept
 											.getInstAttribute("Dead")
 											.getValue()) {
 										backtophint = "Element is dead. It cannot be selected";
-										mxCellOverlay over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_dead.png")),
-												backtophint);
-										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
-										backbottomhint = "Element is dead. It cannot be selected";
-										over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_dead.png")),
-												backbottomhint);
-										over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
+										icon = design_dead;
 									} else {
 										backtophint = "Element is not part of the core. Not marked as required";
-										mxCellOverlay over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
-												backtophint);
-										over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
-										backbottomhint = "Element is not part of the core. Not marked as required";
-										over3 = new mxCellOverlay(
-												new ImageIcon(
-														mxGraphComponent.class
-																.getResource("/com/variamos/gui/refas/editor/images/design_normal.png")),
-												backbottomhint);
-										over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-										over3.setAlign(mxConstants.ALIGN_CENTER);
-										addCellOverlay(tmp, over3);
+										icon = design_normal;
 									}
+									mxCellOverlay over3 = new mxCellOverlay(
+											new ImageIcon(
+													mxGraphComponent.class
+															.getResource(icon)),
+											backtophint);
+									over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+									over3.setAlign(mxConstants.ALIGN_CENTER);
+									addCellOverlay(tmp, over3);
+
 								} catch (Exception e) {
 									System.out.println("Cell draw error");
 									// e.printStackTrace();

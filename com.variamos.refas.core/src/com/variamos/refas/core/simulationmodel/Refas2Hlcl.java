@@ -617,21 +617,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
-				InstAttribute instAttributeNotSel = instVertex
-						.getInstAttribute("ConfigNotSelected");
 				InstAttribute instAttributeNotAva = instVertex
 						.getInstAttribute("NotAvailable");
 				// System.out.println(vertexId + " " + attribute);
 				if (deadIdentifiers != null
 						&& deadIdentifiers.contains(instVertex.getIdentifier())) {
 					instAttributeDead.setValue(true);
-					instAttributeNotSel.setValue(true);
 					instAttributeNotAva.setValue(true);
 				}
 
 				else {
 					instAttributeDead.setValue(false);
-					instAttributeNotSel.setValue(false);
 					instAttributeNotAva.setValue(false);
 				}
 			}

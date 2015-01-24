@@ -784,9 +784,9 @@ public class Refas extends AbstractModel {
 		// "ConfigNotSatisfied"
 		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
-				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
+				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
-				+ "#" + "Dead" + "#==#" + "false" + "#" + "true");
+				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
