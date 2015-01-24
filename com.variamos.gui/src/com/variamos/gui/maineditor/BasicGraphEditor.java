@@ -1136,8 +1136,4 @@ public class BasicGraphEditor extends JPanel {
 	public void setDefaultButton() {
 		modelsTabPane.setSelectedIndex(0);
 	}
-
-	public void cleanSimulation() {		
-	}
-
 }

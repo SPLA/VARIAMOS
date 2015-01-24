@@ -246,7 +246,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out12);
 				structureList.add(out12);
 				allList.add(out12);
-				
+
 				AbstractBooleanExpression out11 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, transformation16);

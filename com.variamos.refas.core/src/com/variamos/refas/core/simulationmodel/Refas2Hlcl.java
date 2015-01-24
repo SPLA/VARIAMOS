@@ -635,7 +635,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					instAttributeNotAva.setValue(false);
 				}
 			}
-	//	}
+		}
 	}
 
 

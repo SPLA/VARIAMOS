@@ -449,7 +449,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void updateEditor() {
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
-		perspectiveToolBar.updateButtons();
 	}
 
 	public void updateView() {
@@ -564,7 +563,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void editModel(AbstractModel pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
-
 		// todo: review other perspectives
 		if (perspective == 0)
 			abstractGraph = new ProductLineGraph();
@@ -577,9 +575,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		registerEvents();
 
 		abstractGraph.setModel(pl);
-
-		// productLineIndex.populate(pl);
-
 	}
 
 	public void resetView() {
@@ -783,7 +778,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							String iden = ((InstConcept) elm)
 									.getTransSupportMetaElement()
 									.getIdentifier();
-							//System.out.println(iden);
+							// System.out.println(iden);
 							if (iden.equals("CG")
 									|| iden.equals("LocalVariable")
 									|| iden.equals("GlobalVariable")
@@ -968,7 +963,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (elm instanceof InstConcept) {
 					String iden = ((InstConcept) elm)
 							.getTransSupportMetaElement().getIdentifier();
-					//System.out.println(iden);
+					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("LocalVariable")
 							|| iden.equals("GlobalVariable")
 							|| iden.equals("ENUM"))
@@ -1131,7 +1126,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												boolean selected = aButton
 														.getModel()
 														.isSelected();
-												//System.out.println(selected);
+												// System.out.println(selected);
 												((JCheckBox) w.getEditor())
 														.repaint();
 												new Thread() {
@@ -1343,11 +1338,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
-			// SharedActions.beforeGraphOperation(source, false);
+			SharedActions.beforeGraphOperation(source, false,0,-1);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
-			//System.out.println(this.getModelViewIndex() + " "
-			//		+ this.getModelSubViewIndex());
+			// System.out.println(this.getModelViewIndex() + " "
+			// + this.getModelSubViewIndex());
 			SharedActions.afterOpenCloneGraph(source, this);
 			SharedActions.afterOpenCloneGraph(target, this);
 			((mxCell) graphComponent.getGraph().getDefaultParent())
@@ -1408,12 +1403,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		lastSolverInvocations = "";
 	}
 
-	public void clearElementErrors()
-	{
+	public void clearElementErrors() {
 		refas2hlcl.cleanGUIErrors();
 		this.refresh();
 	}
-	
+
 	public void clearSimulation() {
 
 		refas2hlcl.clearGUIElements();
@@ -1447,7 +1441,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		iniSTime = System.currentTimeMillis();
-		if (first) {
+		if (first || lastConfiguration== null) {
 			result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION, type);
 		} else {
 			result = refas2hlcl
@@ -1456,7 +1450,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (result) {
 				List<String> modifiedIdentifiers = compareSolutions(
 						lastConfiguration, currentConfiguration);
-				//System.out.println(modifiedIdentifiers);
+				// System.out.println(modifiedIdentifiers);
 			}
 		}
 		lastConfiguration = refas2hlcl.getConfiguration();
@@ -1503,12 +1497,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									JOptionPane.INFORMATION_MESSAGE, null);
 					break;
 				}
-
 			} else
 				JOptionPane.showMessageDialog(frame, "No more solutions found",
 						"Simulation Message", JOptionPane.INFORMATION_MESSAGE,
 						null);
-
 		}
 		refresh();
 		// updateObjects();
@@ -1636,7 +1628,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			refas2hlcl.updateGUIElements(attributes);
 			((MainFrame) getFrame()).waitingCursor(true);
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
-			//System.out.println(currentResult);
+			// System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
 

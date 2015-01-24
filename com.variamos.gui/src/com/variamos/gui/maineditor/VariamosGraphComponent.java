@@ -104,12 +104,12 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						while (semElement != null
 								&& semElement.getIdentifier() != null
 								&& !semElement.getIdentifier().equals(
-										"semGeneralElement"))
+										"SemGeneralElement"))
 							semElement = semElement.getParent();
 						if (semElement != null
 								&& semElement.getIdentifier() != null
 								&& semElement.getIdentifier().equals(
-										"semGeneralElement")) {
+										"SemGeneralElement")) {
 							Object val = tmp.getValue();
 							if (tmp.getGeometry() != null && val != null
 									&& val instanceof InstConcept

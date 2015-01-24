@@ -35,7 +35,6 @@ public class PerspectiveAction extends AbstractEditorAction {
 			newActionPerformed(e);
 		else
 			oldActionPerformed(e);
-	
 	}
 	
 	private void newActionPerformed(ActionEvent e) {
@@ -131,9 +130,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 				editor.setModified(false);
 				editor.setCurrentFile(null);
 				editor.getGraphComponent().zoomAndCenter();
-				
 			}
 		}
-		perspective.updateButtons();
 	}
 }
