@@ -15,6 +15,10 @@ import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
+	public List<VariamosGraphEditor> getGraphEditors() {
+		return graphEditors;
+	}
+
 	/**
 	 * 
 	 */
@@ -126,6 +130,8 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(perspective - 1));
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
 		graphEditors.get(perspective - 1).updateObjects();
+		graphEditors.get(perspective - 1).setVisibleModel(0, -1);
+		graphEditors.get(perspective - 1).updateView();
 		this.revalidate();
 		this.repaint();
 	}

@@ -30,8 +30,8 @@ public class SemanticConcept extends AbstractSemanticVertex implements
 		this(null, null);
 	}
 
-	public SemanticConcept(String name) {
-		this(null, name);
+	public SemanticConcept(String identifier) {
+		this(null, identifier);
 	}
 
 	public SemanticConcept(AbstractSemanticVertex parentConcept, String name) {

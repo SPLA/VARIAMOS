@@ -9,21 +9,18 @@ import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
-public class VerifyDeadElementAction extends AbstractEditorAction {
-
-	public VerifyDeadElementAction() {
-		this.putValue(SHORT_DESCRIPTION,
-				mxResources.get("verifyDefectsOptions"));
+public class RootElementAction extends AbstractEditorAction {
+	
+	public RootElementAction() {
+		this.putValue(SHORT_DESCRIPTION, mxResources.get("verifyRoot"));
 	}
-
 	/**
 		 * 
 		 */
 	public void actionPerformed(ActionEvent e) {
-
 		VariamosGraphEditor editor = getEditor(e);
 		List<String> defect = new ArrayList<String>();
-		defect.add("Dead");
+		defect.add("Root");
 		editor.verify(defect);
 	}
 } 

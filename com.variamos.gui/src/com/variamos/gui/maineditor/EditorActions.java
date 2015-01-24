@@ -522,10 +522,10 @@ public class EditorActions {
 		 * 
 		 */
 		public void actionPerformed(ActionEvent e) {
-			BasicGraphEditor editor = getEditor(e);
+			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
-				final BasicGraphEditor finalEditor = editor;
+				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
@@ -668,7 +668,9 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						long startTime = System.currentTimeMillis();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true);
+						mxGraph outGraph = SharedActions.beforeGraphOperation(
+								graph, true, editor.getModelViewIndex(),
+								editor.getModelSubViewIndex());
 						long stopTime = System.currentTimeMillis();
 						long elapsedTime = stopTime - startTime;
 						System.out.println("beforeSaveGraph time : "
@@ -1480,7 +1482,7 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx)") {
+										+ " (.mxe, .png, .vdx, .plg)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1489,7 +1491,8 @@ public class EditorActions {
 										.waitingCursor(false);
 								return super.accept(file)
 										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx");
+										|| lcase.endsWith(".vdx")
+										|| lcase.endsWith(".plg");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1534,10 +1537,13 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".plg")) {
+									((VariamosGraphEditor) editor).resetView();
+									graph = editor.getGraphComponent()
+											.getGraph();
 									// variamosEditor.editModelReset();
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
-									
+
 									PLGReader.loadPLG(fc.getSelectedFile(),
 											graph);
 									editor.setCurrentFile(fc.getSelectedFile());

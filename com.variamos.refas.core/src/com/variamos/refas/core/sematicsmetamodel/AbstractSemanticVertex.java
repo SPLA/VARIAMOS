@@ -57,8 +57,8 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
-			String name, boolean satisfactionType) {
-		this(parentConcept, name, satisfactionType, new ArrayList<String>(),
+			String identifier, boolean satisfactionType) {
+		this(parentConcept, identifier, satisfactionType, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>());
 		if (getParent() != null) {
@@ -96,6 +96,9 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		putSemanticAttribute("Selected",
 				new SimulationStateAttribute("Selected", "Boolean", false,
 						"***Selected***", false));
+		putSemanticAttribute("NotAvailable",
+				new SimulationStateAttribute("NotAvailable", "Boolean", false,
+						"***Not Avaliable***", false));
 	}
 	
 	public boolean isBooleanSatisfaction() {

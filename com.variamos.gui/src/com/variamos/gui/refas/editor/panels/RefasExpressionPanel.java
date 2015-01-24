@@ -110,10 +110,10 @@ public class RefasExpressionPanel extends JPanel {
 
 
 	private void initSolutionPanel(int expressionCount) {
-		solutionPanel.setMaximumSize(new Dimension(600,  50 * expressionCount));
+		solutionPanel.setMaximumSize(new Dimension(600,  55 * expressionCount));
 
 		solutionPanel
-				.setPreferredSize(new Dimension(600, 50 * expressionCount));
+				.setPreferredSize(new Dimension(600, 55 * expressionCount));
 		add(new JScrollPane(solutionPanel));
 		this.setAutoscrolls(true);
 		SpringUtilities.makeCompactGrid(solutionPanel, expressionCount, 1, 4,
@@ -128,8 +128,7 @@ public class RefasExpressionPanel extends JPanel {
 	public void configure(AbstractModel am,
 			MetaExpressionSet expressionSet, InstElement element) {
 		this.expressionSet = expressionSet;
-		Refas pl = (Refas) am;
-		this.refas = pl;
+		this.refas = (Refas) am;
 		initialize(element);
 	}
 	
@@ -352,5 +351,10 @@ public class RefasExpressionPanel extends JPanel {
 		}
 		combo.setSelectedItem(selectedOperator);
 		return combo;
+	}
+
+
+	public void setRefas(Refas refas) {
+		this.refas = refas;
 	}
 }

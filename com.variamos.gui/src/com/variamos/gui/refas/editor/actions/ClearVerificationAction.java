@@ -12,10 +12,10 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 
 @SuppressWarnings("serial")
-public class UpdateAction extends AbstractEditorAction {
+public class ClearVerificationAction extends AbstractEditorAction {
 
-	public UpdateAction() {
-		this.putValue(SHORT_DESCRIPTION, "Update Core Concepts");
+	public ClearVerificationAction() {
+		this.putValue(SHORT_DESCRIPTION, mxResources.get("clearElements"));
 	}
 
 	/**
@@ -23,8 +23,6 @@ public class UpdateAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
-		editor.cleanNotificationBar();
-		//editor.identifyCoreConcepts();
-		editor.verify();
+		editor.clearElementErrors();
 	}
 }

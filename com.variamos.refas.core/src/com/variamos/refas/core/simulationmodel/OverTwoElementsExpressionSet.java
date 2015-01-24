@@ -72,7 +72,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			this.getVerificationExpressions().put(element,
 					restConst.getVerificationExpressionsList(element));
 		}
-		defineTransformations();
+		defineTransformations(element);
 	}
 
 	public String getCardinalityType() {
@@ -83,7 +83,7 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 		return instOverTwoRelation;
 	}
 
-	private void defineTransformations() {
+	private void defineTransformations(String element) {
 
 		MetaElement metaGroupDep = instOverTwoRelation
 				.getTransSupportMetaElement();
@@ -99,49 +99,107 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			// System.out.println(relationType);
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
-			for (String sourceName : instOverTwoRelation
-					.getSourceAttributeNames()) {
-				AbstractExpression abstractTransformation = null;
-				Iterator<InstElement> instEdges1 = instOverTwoRelation
-						.getSourceRelations().iterator();
-				AbstractExpression recursiveExpression1 = null;
-				AbstractExpression recursiveExpression2 = null;
-				if (instEdges1.hasNext()) {
-					InstElement left1 = instEdges1.next();
-					while ((boolean) ((InstPairwiseRelation) left1)
-							.getSourceRelations().get(0)
-							.getInstAttribute("Active").getValue() == false) {
-						if (instEdges1.hasNext())
-							left1 = instEdges1.next();
-						else
+			/*
+			 * for (String sourceName : instOverTwoRelation
+			 * .getSourceNegativeAttributeNames()) { AbstractExpression
+			 * abstractTransformation = null; Iterator<InstElement> instEdges1 =
+			 * instOverTwoRelation .getSourceRelations().iterator();
+			 * AbstractExpression recursiveExpression1 = null;
+			 * AbstractExpression recursiveExpression2 = null; if
+			 * (instEdges1.hasNext()) { InstElement left1 = instEdges1.next();
+			 * while ((boolean) ((InstPairwiseRelation) left1)
+			 * .getSourceRelations().get(0)
+			 * .getInstAttribute("Active").getValue() == false) { if
+			 * (instEdges1.hasNext()) left1 = instEdges1.next(); else return; }
+			 * abstractTransformation = new AndBooleanExpression();
+			 * Constructor<?> constructor1 = null, constructor2 = null; try {
+			 * constructor1 = abstractTransformation.getClass()
+			 * .getConstructor(InstElement.class, String.class, Boolean.TYPE,
+			 * AbstractExpression.class); constructor2 =
+			 * abstractTransformation.getClass()
+			 * .getConstructor(InstElement.class, InstElement.class,
+			 * String.class, String.class); } catch (NoSuchMethodException |
+			 * SecurityException e) { e.printStackTrace(); }
+			 * 
+			 * recursiveExpression1 = transformation(constructor1, constructor2,
+			 * instEdges1, left1, sourceName); AbstractBooleanExpression out =
+			 * new DoubleImplicationBooleanExpression( instOverTwoRelation,
+			 * sourceName, true, recursiveExpression1);
+			 * getElementExpressions().add(out); if (relationType.equals("and"))
+			 * coreList.add(out); allList.add(out); } }
+			 */
+			//System.out.println(relationType + " "  + element);
+			if (relationType.equals("and") || element == null || !element.equals("Core"))
+				for (String sourceName : instOverTwoRelation
+						.getSourcePositiveAttributeNames()) {
+					AbstractExpression abstractTransformation = null;
+					Iterator<InstElement> instEdges1 = instOverTwoRelation
+							.getSourceRelations().iterator();
+					AbstractExpression recursiveExpression1 = null;
+					AbstractExpression recursiveExpression2 = null;
+					if (instEdges1.hasNext()) {
+						InstElement left1 = instEdges1.next();
+						while ((boolean) ((InstPairwiseRelation) left1)
+								.getSourceRelations().get(0)
+								.getInstAttribute("Active").getValue() == false) {
+							if (instEdges1.hasNext())
+								left1 = instEdges1.next();
+							else
+								return;
+						}
+						switch (relationType) {
+						case "and":
+							abstractTransformation = new AndBooleanExpression();
+							break;
+						case "or":
+							abstractTransformation = new OrBooleanExpression();
+							break;
+						case "mutex":
+							abstractTransformation = new SumNumericExpression();
+							break;
+						case "range":
+							abstractTransformation = new SumNumericExpression();
+							Iterator<InstElement> instEdges2 = instOverTwoRelation
+									.getSourceRelations().iterator();
+							// instEdges2.next(); // TODO eliminate duplicated
+							// edges
+							// from collection and remove this
+							// line
+							InstElement left2 = instEdges2.next();
+							Constructor<?> constructor3 = null,
+							constructor4 = null;
+							try {
+								constructor3 = abstractTransformation
+										.getClass().getConstructor(
+												InstElement.class,
+												String.class, Boolean.TYPE,
+												AbstractExpression.class);
+								constructor4 = abstractTransformation
+										.getClass().getConstructor(
+												InstElement.class,
+												InstElement.class,
+												String.class, String.class);
+							} catch (NoSuchMethodException | SecurityException e) {
+								e.printStackTrace();
+							}
+
+							recursiveExpression2 = transformation(constructor3,
+									constructor4, instEdges2, left2, sourceName);
+							break;
+						case "":
 							return;
-					}
-					switch (relationType) {
-					case "and":
-						abstractTransformation = new AndBooleanExpression();
-						break;
-					case "or":
-						abstractTransformation = new OrBooleanExpression();
-						break;
-					case "mutex":
-						abstractTransformation = new SumNumericExpression();
-						break;
-					case "range":
-						abstractTransformation = new SumNumericExpression();
-						Iterator<InstElement> instEdges2 = instOverTwoRelation
-								.getSourceRelations().iterator();
-						// instEdges2.next(); // TODO eliminate duplicated edges
-						// from collection and remove this
-						// line
-						InstElement left2 = instEdges2.next();
-						Constructor<?> constructor3 = null,
-						constructor4 = null;
+
+						default:
+							return;
+						}
+
+						Constructor<?> constructor1 = null, constructor2 = null;
 						try {
-							constructor3 = abstractTransformation.getClass()
+							constructor1 = abstractTransformation.getClass()
 									.getConstructor(InstElement.class,
 											String.class, Boolean.TYPE,
 											AbstractExpression.class);
-							constructor4 = abstractTransformation.getClass()
+							constructor2 = abstractTransformation.getClass()
 									.getConstructor(InstElement.class,
 											InstElement.class, String.class,
 											String.class);
@@ -149,123 +207,106 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 							e.printStackTrace();
 						}
 
-						recursiveExpression2 = transformation(constructor3,
-								constructor4, instEdges2, left2, sourceName);
-						break;
-					case "":
-						return;
+						switch (relationType) {
 
-					default:
-						return;
-					}
-					if (!relationType.equals("and")
-							&& sourceName.equals("Core"))
-						continue;
-					Constructor<?> constructor1 = null, constructor2 = null;
-					try {
-						constructor1 = abstractTransformation.getClass()
-								.getConstructor(InstElement.class,
-										String.class, Boolean.TYPE,
-										AbstractExpression.class);
-						constructor2 = abstractTransformation.getClass()
-								.getConstructor(InstElement.class,
-										InstElement.class, String.class,
-										String.class);
-					} catch (NoSuchMethodException | SecurityException e) {
-						e.printStackTrace();
-					}
+						case "and":
+							// B_Satisfied #<=> ( ( A1_"attribute" #/\
+							// A2_"attribute" ) #/\ ... )
+						case "or":
+							// B_Satisfied #<=> ( ( A1_"attribute" #\/
+							// A2_"attribute" ) #\/ ... )
+							recursiveExpression1 = transformation(constructor1,
+									constructor2, instEdges1, left1, sourceName);
+							AbstractBooleanExpression out = new DoubleImplicationBooleanExpression(
+									instOverTwoRelation, sourceName, true,
+									recursiveExpression1);
+							getElementExpressions().add(out);
+							if (relationType.equals("and"))
+								coreList.add(out);
+							allList.add(out);
+							break;
+						case "mutex":
+							// (( ( A1_"attribute" + A2_"attribute"
+							// ) + ... ) #<= 1)
+							recursiveExpression1 = transformation(constructor1,
+									constructor2, instEdges1, left1, sourceName);
+							LessOrEqualsBooleanExpression out2 = new LessOrEqualsBooleanExpression(
+									recursiveExpression1,
+									new NumberNumericExpression(1));
+							getElementExpressions().add(out2);
+							allList.add(out2);
+							// B_Satisfied #<=> (( ( A1_"attribute" +
+							// A2_"attribute"
+							// ) + ... ) #<=> 1)
+							AbstractExpression transformation1 = new EqualsComparisonExpression(
+									recursiveExpression1,
+									new NumberNumericExpression(1));
+							AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
+									instOverTwoRelation, sourceName, true,
+									transformation1);
+							getElementExpressions().add(out3);
+							allList.add(out3);
+							break;
+						case "range":
 
+							// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
+							// A2_"attribute" ) + ... ) #>= GD_LowCardinality)
+							// #/\
+							// ( ( ( A1_"attribute" + A2_"attribute" ) + ... )
+							// #<=
+							// GD_HighCardinality ) )
+							recursiveExpression1 = transformation(constructor1,
+									constructor2, instEdges1, left1, sourceName);
+							AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
+									instOverTwoRelation, "lowCardinality",
+									false, recursiveExpression1);
 
+							AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
+									instOverTwoRelation, "highCardinality",
+									false, recursiveExpression2);
 
-					switch (relationType) {
+							AbstractExpression transformation5 = new AndBooleanExpression(
+									transformation3, transformation4);
+							AbstractBooleanExpression out0 = new DoubleImplicationBooleanExpression(
+									instOverTwoRelation/*
+														 * .getTargetRelations
+														 * ().get(0)
+														 * .getToRelation()
+														 */, sourceName, true,
+									transformation5);
+							getElementExpressions().add(out0);
+							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
+									.getInstAttribute("lowCardinality")
+									.getAsInteger())
+								coreList.add(out0);
+							allList.add(out0);
+							break;
 
-					case "and":
-						// B_Satisfied #<=> ( ( A1_"attribute" #/\
-						// A2_"attribute" ) #/\ ... )
-					case "or":
-						// B_Satisfied #<=> ( ( A1_"attribute" #\/
-						// A2_"attribute" ) #\/ ... )
-						recursiveExpression1 = transformation(constructor1,
-								constructor2, instEdges1, left1, sourceName);
-						AbstractBooleanExpression out = new DoubleImplicationBooleanExpression(
-								instOverTwoRelation, sourceName, true,
-								recursiveExpression1);
-						getElementExpressions().add(out);
-						if (relationType.equals("and"))
-							coreList.add(out);
-						allList.add(out);
-						break;
-					case "mutex":
-						// B_Satisfied #<=> (( ( A1_"attribute" + A2_"attribute"
-						// ) + ... ) #<=> 1)
-						recursiveExpression1 = transformation(constructor1,
-								constructor2, instEdges1, left1, sourceName);
-						AbstractExpression transformation1 = new EqualsComparisonExpression(
-								recursiveExpression1,
-								new NumberNumericExpression(1));
-						AbstractBooleanExpression out2 = new DoubleImplicationBooleanExpression(
-								instOverTwoRelation, sourceName, true,
-								transformation1);
-						getElementExpressions().add(out2);
-						allList.add(out2);
-						break;
-					case "range":
-
-						// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
-						// A2_"attribute" ) + ... ) #>= GD_LowCardinality) #/\
-						// ( ( ( A1_"attribute" + A2_"attribute" ) + ... ) #<=
-						// GD_HighCardinality ) )
-						recursiveExpression1 = transformation(constructor1,
-								constructor2, instEdges1, left1, sourceName);
-						AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
-								instOverTwoRelation, "lowCardinality", false,
-								recursiveExpression1);
-
-						AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
-								instOverTwoRelation, "highCardinality", false,
-								recursiveExpression2);
-
-						AbstractExpression transformation5 = new AndBooleanExpression(
-								transformation3, transformation4);
-						AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
-								instOverTwoRelation/*
-													 * .getTargetRelations
-													 * ().get(0)
-													 * .getToRelation()
-													 */, sourceName, true,
-								transformation5);
-						getElementExpressions().add(out3);
-						if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
-								.getInstAttribute("lowCardinality")
-								.getAsInteger())
-							coreList.add(out3);
-						allList.add(out3);
-						break;
-
-					default:
-						return;
+						default:
+							return;
+						}
 					}
 				}
-			}
 			List<AbstractExpression> parentList = this
 					.getCompulsoryExpressionList("Parent");
 			if (parentList != null)
 				parentList.addAll(allList);
 			else
 				this.getCompulsoryExpressions().put("Parent", allList);
+
 			List<AbstractExpression> coreLists = this
 					.getCompulsoryExpressionList("Core");
 			if (coreLists != null)
 				coreLists.addAll(coreList);
 			else
 				this.getCompulsoryExpressions().put("Core", coreList);
-			
+
 			List<AbstractExpression> falseList = this
 					.getCompulsoryExpressionList("FalseOpt");
 			if (falseList != null)
 				falseList.addAll(coreList);
 			this.getCompulsoryExpressions().put("FalseOpt", coreList);
-			
+
 			List<AbstractExpression> falseList2 = this
 					.getCompulsoryExpressionList("FalseOpt2");
 			if (falseList2 != null)

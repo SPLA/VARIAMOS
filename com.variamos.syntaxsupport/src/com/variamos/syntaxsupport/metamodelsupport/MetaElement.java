@@ -140,9 +140,9 @@ public abstract class MetaElement implements Serializable {
 	public void createModelingAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new ModelingAttribute(
 				VAR_IDENTIFIER, "String", false, "Identifier", null));
-		this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
+	/*	this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
 				VAR_DESCRIPTION, "String", false, "description", null));
-
+*/
 		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
 		// this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 

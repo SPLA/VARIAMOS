@@ -124,11 +124,11 @@
 		<linecap cap="round"/>
 		<linejoin join="round"/>
 		<path>
-			<move x="30" y="0"/>
-			<line x="70" y="0"/>
-			<line x="100" y="100"/>
-			<line x="0" y="100"/>
-			<line x="30" y="0"/>
+			<move x="30" y="13"/>
+			<line x="70" y="13"/>
+			<line x="100" y="85"/>
+			<line x="0" y="85"/>
+			<line x="30" y="13"/>
 			<close/>
 		</path>
 		<stroke/>
@@ -481,22 +481,22 @@
 		<linejoin join="round"/>
 		<stroke/>
 		<path>
-			<move x="15" y="0"/>
-			<line x="100" y="0"/>
-			<line x="100" y="100"/>
-			<line x="15" y="100"/>
-			<line x="15" y="0"/>
+			<move x="15" y="13"/>
+			<line x="100" y="13"/>
+			<line x="100" y="85"/>
+			<line x="15" y="85"/>
+			<line x="15" y="13"/>
 			<close/>
-			<move x="0" y="20"/>
-			<line x="30" y="20"/>
+			<move x="0" y="25"/>
+			<line x="30" y="25"/>
 			<line x="30" y="40"/>
 			<line x="0" y="40"/>
-			<line x="0" y="20"/>
+			<line x="0" y="25"/>
 			<close/>
 			<move x="0" y="60"/>
 			<line x="30" y="60"/>
-			<line x="30" y="80"/>
-			<line x="0" y="80"/>
+			<line x="30" y="75"/>
+			<line x="0" y="75"/>
 			<line x="0" y="60"/>
 			<close/>
 		</path>		
