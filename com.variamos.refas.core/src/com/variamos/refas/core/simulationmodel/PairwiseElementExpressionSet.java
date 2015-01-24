@@ -238,7 +238,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				sourcePositiveAttributeNames.add("Selected");
 				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", getHlclFactory().number(1));
+						"NextReqSelected", getHlclFactory().number(1));
 
 				AbstractBooleanExpression out12 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
@@ -255,7 +255,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				allList.add(out11);
 				break;
 			case "implication":
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("NextReqSelected");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Satisfied #==> targetId_NextReqSatisfied #= 1
 				AbstractComparisonExpression transformation161 = new EqualsComparisonExpression(
@@ -270,7 +270,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "implementation":
 
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("NextReqSelected");
 				// sourceAttributeNames.add("Core");
 				// targetId_NextReqSelected #==> SourceId_NextReqSelected #= 1
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(

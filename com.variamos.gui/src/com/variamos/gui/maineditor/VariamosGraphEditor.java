@@ -146,7 +146,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
 	private Refas refasModel;
-	
+
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
@@ -187,11 +187,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		super(appTitle, component, perspective);
 
 		refasModel = (Refas) abstractModel;
-		
+
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
-		
+
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
@@ -291,7 +291,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		Collection<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
+		Collection<InstView> instViews = refasModel.getSyntaxRefas()
+				.getInstViews();
 		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
 		refasGraph.setModel(abstractModel);
@@ -883,18 +884,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void editModelReset() {
 		productLineIndex.reset();
 		if (perspective == 0)
-		//	editModel(new ProductLine())
+			// editModel(new ProductLine())
 			;
 		else {
 			// TODO fix when the syntax o semantic model is loaded -> update
 			// dependent models.
-	/*		Refas refas = new Refas(PerspectiveType.modeling,
-					((Refas) getEditedModel()).getSyntaxRefas(),
-					((Refas) getEditedModel()).getSemanticRefas());
-			refas2hlcl = new Refas2Hlcl(refas);			
-			editModel(refas);
-			configurator.setRefas2hlcl(refas2hlcl);
-			*/
+			/*
+			 * Refas refas = new Refas(PerspectiveType.modeling, ((Refas)
+			 * getEditedModel()).getSyntaxRefas(), ((Refas)
+			 * getEditedModel()).getSemanticRefas()); refas2hlcl = new
+			 * Refas2Hlcl(refas); editModel(refas);
+			 * configurator.setRefas2hlcl(refas2hlcl);
+			 */
 		}
 
 	}
@@ -912,12 +913,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public AbstractModel getEditedModel() {
 		return refasModel;
 		/*
-		if (perspective == 0)
-			return ((AbstractGraph) getGraphComponent().getGraph())
-					.getProductLine();
-		else
-			return ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
-*/
+		 * if (perspective == 0) return ((AbstractGraph)
+		 * getGraphComponent().getGraph()) .getProductLine(); else return
+		 * ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
+		 */
 	}
 
 	// jcmunoz: new method for REFAS
@@ -1018,7 +1017,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					Map<String, MetaElement> mapElements = null;
 					if (elm instanceof InstPairwiseRelation) {
 						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-						mapElements = refasModel.getSyntaxRefas().getValidPairwiseRelations(
+						mapElements = refasModel.getSyntaxRefas()
+								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
 												.get(0)
 												.getTransSupportMetaElement(),
@@ -1139,6 +1139,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												new Thread() {
 													public void run() {
 														editPropertiesRefas(elm);
+														configModel(true);
 													}
 												}.start();
 											}
@@ -1360,10 +1361,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (Refas)editedModel;
+		refasModel = (Refas) editedModel;
 		this.refas2hlcl.setRefas(refasModel);
-		
-		
+
 	}
 
 	/**
@@ -1758,6 +1758,74 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		lastSolverInvocations += element + "Exec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
 		return out;
+	}
+
+	public void configModel(boolean test) {
+		HlclFactory f = new HlclFactory();
+		List<String> out = new ArrayList<String>();
+		long iniTime = System.currentTimeMillis();
+		long iniSTime = 0;
+		long endSTime = 0;
+		iniSTime = System.currentTimeMillis();
+		((MainFrame) getFrame()).waitingCursor(true);
+		List<String> configuredIdentifiersNames = refas2hlcl
+				.getConfiguredIdentifier();
+		Set<Identifier> configuredIdentifiers = new HashSet<Identifier>();
+
+		for (String freeIndentifier : configuredIdentifiersNames) {
+			if (!freeIndentifier.startsWith("FeatOverTwo"))
+				configuredIdentifiers.add(f.newIdentifier(freeIndentifier));
+		}
+
+		List<String> requiredConceptsNames = new ArrayList<String>();
+		List<String> deadConceptsNames = new ArrayList<String>();
+		if (configuredIdentifiers.size() > 0) {
+			try {
+				IntDefectsVerifier defectVerifier = new DefectsVerifier(
+						refas2hlcl.getHlclProgram("Simul",
+								Refas2Hlcl.SIMUL_EXEC),
+						SolverEditorType.SWI_PROLOG);
+
+				List<Defect> requiredConcepts = null;
+
+				requiredConcepts = defectVerifier
+						.getFalseOptionalElements(configuredIdentifiers);
+				if (requiredConcepts.size() > 0) {
+					for (Defect conceptVariable : requiredConcepts) {
+						String[] conceptId = conceptVariable.getId().split("_");
+						requiredConceptsNames.add(conceptId[0]);
+
+					}
+				}
+				List<Defect> deadIndetifiersList = null;
+				deadIndetifiersList = defectVerifier
+						.getDeadElements(configuredIdentifiers);
+				endSTime = System.currentTimeMillis();
+
+				if (deadIndetifiersList.size() > 0) {
+					for (Defect conceptVariable : deadIndetifiersList) {
+						String[] conceptId = conceptVariable.getId().split("_");
+						deadConceptsNames.add(conceptId[0]);
+					}
+				}
+			} catch (FunctionalException e) {
+				e.printStackTrace();
+			}
+
+		}
+		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
+
+		refas2hlcl.updateDeadConfigConcepts(deadConceptsNames, test);
+
+		messagesArea.setText(refas2hlcl.getText());
+		// bringUpTab(mxResources.get("elementSimPropTab"));
+		editPropertiesRefas(lastEditableElement);
+
+		// updateObjects();
+		long endTime = System.currentTimeMillis();
+		lastSolverInvocations += "ConfigExec: " + (endTime - iniTime) + "["
+				+ (endSTime - iniSTime) + "]" + " -- ";
+
 	}
 
 	private List<String> getFreeIdentifiers(Map<String, Integer> currentResult) {
