@@ -82,18 +82,11 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 					.getTransSupportMetaElement());
 			IntSemanticElement semElement = metaElement
 					.getTransSemanticConcept();
-<<<<<<< Upstream, based on origin/development
-			while (semElement != null && semElement.getIdentifier() != null && !semElement.getIdentifier().equals("semGeneralElement"))
-				semElement = semElement.getParent();
-			if (semElement != null && semElement.getIdentifier() != null
-					&& semElement.getIdentifier().equals("semGeneralElement")) {
-=======
 			while (semElement != null && semElement.getIdentifier() != null
 					&& !semElement.getIdentifier().equals("SemGeneralElement"))
 				semElement = semElement.getParent();
 			if (semElement != null && semElement.getIdentifier() != null
 					&& semElement.getIdentifier().equals("SemGeneralElement")) {
->>>>>>> d2605d5 Simulation working again with changes elements of other views partially supported
 				InstAttribute validAttribute = instVertex
 						.getInstAttribute("Active");
 				if (validAttribute == null
@@ -423,39 +416,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							 * DoubleImplicationBooleanExpression(
 							 * transformation501,transformation502 ));
 							 */
-<<<<<<< Upstream, based on origin/development
-							outRelations = new ArrayList<String>();
-							outRelations.add("conflict");
-							outRelations.add("optional");
-							outRelations.add("mandatory");
-							outRelations.add("required");
-							inRelations = new ArrayList<String>();
-							inRelations.add("conflict");
-							inRelations.add("mandatory");
-							AbstractNumericExpression transformation50 = sumRelations(
-									instVertex, "NotAvailable", outRelations,
-									inRelations);
-							AbstractBooleanExpression transformation51 = new GreaterOrEqualsBooleanExpression(
-									transformation50,
-									new NumberNumericExpression(1));
-							/*
-							 * AbstractBooleanExpression transformation511 = new
-							 * OrBooleanExpression( instVertex,
-							 * "NextNotSatisfied", true, transformation51);
-							 */
-							AbstractBooleanExpression transformation52 = new NotBooleanExpression(
-									instVertex, "Dead");
-							AbstractBooleanExpression transformation53 = new AndBooleanExpression(
-									transformation51, transformation52);
-							AbstractBooleanExpression transformation54 = new NotBooleanExpression(
-									instVertex, "ConfigNotSelected");
-							AbstractBooleanExpression transformation55 = new AndBooleanExpression(
-									transformation54, transformation53);
-							getElementExpressions().add(
-									new DoubleImplicationBooleanExpression(
-											instVertex, "NextNotSelected",
-											false, transformation55));
-=======
 					/*		outRelations = new ArrayList<String>();
 							outRelations.add("conflict");
 							outRelations.add("optional");
@@ -489,7 +449,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 											instVertex, "NextNotSelected",
 											false, transformation55));
 											*/
->>>>>>> d2605d5 Simulation working again with changes elements of other views partially supported
 						}
 
 						// Order#<==>

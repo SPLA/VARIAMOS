@@ -716,11 +716,7 @@ public class Refas extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null);
 
 		SemanticConcept semGeneralElement = new SemanticConcept(
-<<<<<<< Upstream, based on origin/development
-				"semGeneralElement");
-=======
 				"SemGeneralElement");
->>>>>>> d2605d5 Simulation working again with changes elements of other views partially supported
 		InstVertex instVertexGE = new InstConcept("SemGeneralElement",
 				metaConcept, semGeneralElement);
 		variabilityInstVertex.put("SemGeneralElement", instVertexGE);

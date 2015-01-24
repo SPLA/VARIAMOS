@@ -374,7 +374,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 		}
 	}
-	
+
 	/**
 	 * Resets the GUI errors
 	 */
@@ -637,5 +637,4 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 		}
 	}
-
-
+}
