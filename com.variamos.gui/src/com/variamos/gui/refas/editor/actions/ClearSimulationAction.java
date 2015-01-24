@@ -27,4 +27,3 @@ public class ClearSimulationAction extends AbstractEditorAction {
 		editor.clearSimulation();
 	}
 }
-

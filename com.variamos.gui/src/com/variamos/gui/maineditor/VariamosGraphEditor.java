@@ -1410,7 +1410,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void clearSimulation() {
 
-		refas2hlcl.clearGUIElements();
+		refas2hlcl.cleanGUIElements();
 		try {
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);

@@ -236,9 +236,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 						if (execType == Refas2Hlcl.SIMUL_EXEC) {
 
+
 							if (instAttribute.getIdentifier().equals(
 									"NextNotSelected")) {
-
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -246,7 +246,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 												getHlclFactory().number(
 														attributeValue)));
 							}
-
 							
 							if (instAttribute.getIdentifier().equals(
 									"NextPrefSelected")) {

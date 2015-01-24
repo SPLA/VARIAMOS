@@ -357,7 +357,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	/**
 	 * Resets the GUI with false
 	 */
-	public void clearGUIElements() {
+	public void cleanGUIElements() {
 		// Call the SWIProlog and obtain the result
 
 		int i = 0;
@@ -614,7 +614,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				semElement = semElement.getParent();
 			if (semElement != null && semElement.getIdentifier() != null
 					&& semElement.getIdentifier().equals("SemGeneralElement")) {
-
+					
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
 				InstAttribute instAttributeNotSel = instVertex
@@ -637,4 +637,5 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 		}
 	}
+
 }

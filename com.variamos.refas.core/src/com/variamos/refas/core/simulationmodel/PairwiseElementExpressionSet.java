@@ -233,7 +233,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 * ImplicationBooleanExpression(transformation12,
 				 * transformation15));
 				 */
-				break; 
+				break;
 			case "means_ends":
 				sourcePositiveAttributeNames.add("Selected");
 				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
