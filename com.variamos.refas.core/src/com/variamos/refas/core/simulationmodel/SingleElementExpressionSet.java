@@ -12,6 +12,7 @@ import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
+import com.variamos.refas.core.expressions.LessOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
 import com.variamos.refas.core.expressions.NumberNumericExpression;
 import com.variamos.refas.core.expressions.OrBooleanExpression;
@@ -116,8 +117,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							if (instAttribute.getIdentifier().equals(
 									"IsRootFeature")) {
 								List<AbstractExpression> rootList = new ArrayList<AbstractExpression>();
-								if (instVertex.getTransSupportMetaElement()
-										.getIdentifier().equals("RootFeature")) {
+								String id = instVertex.getTransSupportMetaElement()
+										.getIdentifier();
+								if (id.equals("RootFeature")) {
 									rootList.add(new EqualsComparisonExpression(
 											instVertex, instAttribute
 													.getIdentifier(),
@@ -247,8 +249,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														attributeValue)));
 							}
 							
-							if (instAttribute.getIdentifier().equals(
-									"NextPrefSelected")) {
+						/*	if (instAttribute.getIdentifier().equals(
+									"NextReqSelected")) {
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -256,7 +258,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 												getHlclFactory().number(
 														attributeValue)));
 							}
-
+*/
 						}
 
 						// End Simulation Only
@@ -280,7 +282,25 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 													attributeValue)));
 
 						}
+						if (instAttribute.getIdentifier().equals(
+								"NextPrefSelected")) {
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instAttribute.getIdentifier(),
+											getHlclFactory().number(
+													attributeValue)));
 
+						}
+						
+						// identifierId_Active #= value for simulation
+						if (instAttribute.getIdentifier().equals("Active")) {
+							getElementExpressions().add(
+									new EqualsComparisonExpression(instVertex,
+											instAttribute.getIdentifier(),
+											getHlclFactory().number(
+													attributeValue)));
+						}
+						
 						// identifierId_Dead #= value for simulation
 						if (instAttribute.getIdentifier().equals("Dead")) {
 							getElementExpressions().add(
@@ -290,14 +310,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 													attributeValue)));
 						}
 
-						// identifierId_Active #= value for simulation
-						if (instAttribute.getIdentifier().equals("Active")) {
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											instAttribute.getIdentifier(),
-											getHlclFactory().number(
-													attributeValue)));
-						}
 
 						// identifierId_Core #= value for simulation
 						if (instAttribute.getIdentifier().equals("Core")) {
@@ -435,19 +447,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							 * OrBooleanExpression( instVertex,
 							 * "NextNotSatisfied", true, transformation51);
 							 */
-					/*		AbstractBooleanExpression transformation52 = new NotBooleanExpression(
-									instVertex, "Dead");
-							AbstractBooleanExpression transformation53 = new AndBooleanExpression(
-									transformation51, transformation52);
-							AbstractBooleanExpression transformation54 = new NotBooleanExpression(
-									instVertex, "ConfigNotSelected");
-							AbstractBooleanExpression transformation55 = new AndBooleanExpression(
-									transformation54, transformation53);
-							getElementExpressions().add(
-									new DoubleImplicationBooleanExpression(
-											instVertex, "NextNotSelected",
-											false, transformation55));
-											*/
+
+							AbstractNumericExpression transformation53 = new SumNumericExpression(
+									instVertex, instVertex, "ConfigSelected", "NextReqSelected");
+							AbstractNumericExpression transformation54 = new SumNumericExpression(
+									instVertex, "Core", true, transformation53);
+							AbstractBooleanExpression transformation55 = new LessOrEqualsBooleanExpression(
+									transformation54, new NumberNumericExpression(1));
+							getElementExpressions().add(transformation55);
+											
 						}
 
 						// Order#<==>
@@ -497,14 +505,17 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								.equals("NotAvailable")) {
 							// identifierId_NotAvailable #<=>
 							// ( ( ( identifierId_NextNotSelected
-							// #\/ identifierId_ConfigNotSelected )
+							// #\/ identifierId_ConfigNotSelected
+							// #\/ identifierId_Dead  )
 							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 									instVertex, instVertex,
 									"ConfigNotSelected", "NextNotSelected");
+							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
+									instVertex, "Dead", false, transformation6);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "NotAvailable", true,
-											transformation6));
+											transformation7));
 						}
 
 						if (instAttribute.getIdentifier().equals("Selected")) {
@@ -514,8 +525,8 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							// identifierId_NextReqSelected ) )
 
 							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
-									instVertex, instVertex, "ConfigSelected",
-									"NextPrefSelected");
+									instVertex, instVertex, "Core",
+									"ConfigSelected");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
 									instVertex, "NextReqSelected", false,
 									transformation6);

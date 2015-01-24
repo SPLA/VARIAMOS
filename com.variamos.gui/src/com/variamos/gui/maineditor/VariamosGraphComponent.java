@@ -172,7 +172,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 												.getInstAttribute("Selected")
 												.getValue()) {
 											backtop = "/com/variamos/gui/refas/editor/images/sim_satisselec.png";
-											backtophint = "Element satisfied (Green background)";
+											backtophint = "Element selected (Green background)";
 										}
 										if ((boolean) instConcept
 												.getInstAttribute("Selected")
@@ -199,31 +199,31 @@ public class VariamosGraphComponent extends mxGraphComponent {
 										addCellOverlay(tmp, over2);
 										if ((boolean) instConcept
 												.getInstAttribute(
-														"ConfigSelected")
+														"Core")
 												.getValue()) {
 											mxCellOverlay over3 = new mxCellOverlay(
 													new ImageIcon(
 															mxGraphComponent.class
 																	.getResource(forced)),
 													backtophint
-															+ "\n Force Satisfied (First green circle)");
-											backtophint += "\n Force Satisfied (First green circle)";
+															+ "\n Core (First green circle)");
+											backtophint += "\n Core (First green circle)";
 											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 											over3.setAlign(mxConstants.ALIGN_CENTER);
 											addCellOverlay(tmp, over3);
 										}
 										if ((boolean) instConcept
 												.getInstAttribute(
-														"NextPrefSelected")
+														"ConfigfSelected")
 												.getValue()) {
 											mxCellOverlay over3 = new mxCellOverlay(
 													new ImageIcon(
 															mxGraphComponent.class
 																	.getResource(validation)),
 													backtophint
-															+ "; Satisfied by preference (Second green circle)");
+															+ "; Configuration Selected (Second green circle)");
 
-											backtophint += "; Satisfied by preference (Second green circle)";
+											backtophint += "; Configuration Selected (Second green circle)";
 											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 											over3.setAlign(mxConstants.ALIGN_CENTER);
 											addCellOverlay(tmp, over3);
@@ -237,23 +237,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 															mxGraphComponent.class
 																	.getResource(altern)),
 													backtophint
-															+ "; Satisfaction required (Third green circle)");
+															+ "; Config/Simul selected (Third green circle)");
 											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"ConfigSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(forced)),
-													backbottomhint
-															+ "; Configuration Selected (First green circle)");
-											backbottomhint += "; Configuration Selected (First green circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 											over3.setAlign(mxConstants.ALIGN_CENTER);
 											addCellOverlay(tmp, over3);
 										}
@@ -266,57 +251,28 @@ public class VariamosGraphComponent extends mxGraphComponent {
 															mxGraphComponent.class
 																	.getResource(confnot)),
 													backtophint
-															+ "; Configuration Not Satisfied (First red circle)");
-											backtophint += "; Configuration Not Satisfied (First red circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"ConfigNotSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(confnot)),
-													backbottomhint
 															+ "; Configuration Not Selected (First red circle)");
-											backbottomhint += "; Configuration Not Selected (First red circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+											backtophint += "; Configuration Not Selected (First red circle)";
+											over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 											over3.setAlign(mxConstants.ALIGN_CENTER);
 											addCellOverlay(tmp, over3);
 										}
 										if ((boolean) instConcept
 												.getInstAttribute(
-														"NextPrefSelected")
+														"ConfigNotSelected")
 												.getValue()) {
 											mxCellOverlay over3 = new mxCellOverlay(
 													new ImageIcon(
 															mxGraphComponent.class
-																	.getResource(validation)),
+																	.getResource(notpref)),
 													backbottomhint
-															+ "; Selected by preference (Second green circle)");
+															+ "; Configuration Not Selected (Second red circle)");
+											backbottomhint += "; Configuration Not Selected (Second red circle)";
+											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
+											over3.setAlign(mxConstants.ALIGN_CENTER);
+											addCellOverlay(tmp, over3);
+										}
 
-											backbottomhint += "; Selected by preference (Second green circle)";
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
-										if ((boolean) instConcept
-												.getInstAttribute(
-														"NextReqSelected")
-												.getValue()) {
-											mxCellOverlay over3 = new mxCellOverlay(
-													new ImageIcon(
-															mxGraphComponent.class
-																	.getResource(altern)),
-													backbottomhint
-															+ "; Selection required (Third green circle)");
-											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
-											over3.setAlign(mxConstants.ALIGN_CENTER);
-											addCellOverlay(tmp, over3);
-										}
 										if ((boolean) instConcept
 												.getInstAttribute(
 														"NextNotSelected")
@@ -326,7 +282,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 															mxGraphComponent.class
 																	.getResource(notpref)),
 													backbottomhint
-															+ "; Selection conflict (Third red circle)");
+															+ "; Config/Simul not selected (Third red circle)");
 											over3.setVerticalAlign(mxConstants.ALIGN_BOTTOM);
 											over3.setAlign(mxConstants.ALIGN_CENTER);
 											addCellOverlay(tmp, over3);

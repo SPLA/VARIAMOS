@@ -42,6 +42,7 @@ public class OpenAction extends AbstractEditorAction{
 		editor.getGraphComponent().zoomAndCenter();
 	}
 	
+	@Deprecated
 	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
 		
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
@@ -50,7 +51,7 @@ public class OpenAction extends AbstractEditorAction{
 		SXFMReader reader = new SXFMReader();
 		AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
-		variamosEditor.editModel(pl);
+	//	variamosEditor.editModel(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);

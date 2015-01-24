@@ -145,7 +145,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-
+	private Refas refasModel;
+	
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
@@ -185,13 +186,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			AbstractModel abstractModel) {
 		super(appTitle, component, perspective);
 
+		refasModel = (Refas) abstractModel;
+		
 		metaViews = sematicSyntaxObject.getMetaViews();
-		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
-
+		refas2hlcl = new Refas2Hlcl(refasModel);
+		configurator.setRefas2hlcl(refas2hlcl);
+		
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		((AbstractGraph) graphComponent.getGraph()).setModel(abstractModel);
+		((AbstractGraph) graphComponent.getGraph()).setModel(refasModel);
 		if (perspective == 0) {
 			setPerspective(0);
 			graphEditorFunctions = new PLGraphEditorFunctions(this);
@@ -280,14 +284,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		defects.add("FalseOpt");
 		defects.add("Dead");
 		defects.add("Core");
+		refasModel = (Refas) abstractModel;
 		metaViews = new ArrayList<MetaView>();
-		refas2hlcl = new Refas2Hlcl((Refas) abstractModel);
+		refas2hlcl = new Refas2Hlcl(refasModel);
 
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		Collection<InstView> instViews = ((Refas) abstractModel)
-				.getSyntaxRefas().getInstViews();
+		Collection<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
 		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
 		refasGraph.setModel(abstractModel);
@@ -387,7 +391,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 			center.setDividerLocation(25);
 			upperPart.setDividerLocation(0);
-			if (((Refas) abstractModel).getPerspectiveType().equals(
+			if (refasModel.getPerspectiveType().equals(
 					PerspectiveType.simulation))
 				graphAndRight.setDividerLocation(1100);
 			else
@@ -560,7 +564,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
 	}
 
-	public void editModel(AbstractModel pl) {
+	public void editModel(Refas pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
 		// todo: review other perspectives
@@ -586,9 +590,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		graph.getModel().setRoot(root);
 		if (perspective == 2) {
 			setGraphEditorFunctions(new RefasGraphEditorFunctions(this));
-			((Refas) this.getEditedModel()).clear();
+			refasModel.clear();
 			((RefasGraph) graph).defineInitialGraph();
-
+			System.out.println("");
 		}
 		if (perspective % 2 != 0) {
 			this.graphLayout("organicLayout", true);
@@ -879,16 +883,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void editModelReset() {
 		productLineIndex.reset();
 		if (perspective == 0)
-			editModel(new ProductLine());
+		//	editModel(new ProductLine())
+			;
 		else {
 			// TODO fix when the syntax o semantic model is loaded -> update
 			// dependent models.
-			Refas refas = new Refas(PerspectiveType.modeling,
+	/*		Refas refas = new Refas(PerspectiveType.modeling,
 					((Refas) getEditedModel()).getSyntaxRefas(),
 					((Refas) getEditedModel()).getSemanticRefas());
-			refas2hlcl = new Refas2Hlcl(refas);
+			refas2hlcl = new Refas2Hlcl(refas);			
 			editModel(refas);
 			configurator.setRefas2hlcl(refas2hlcl);
+			*/
 		}
 
 	}
@@ -904,12 +910,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public AbstractModel getEditedModel() {
+		return refasModel;
+		/*
 		if (perspective == 0)
 			return ((AbstractGraph) getGraphComponent().getGraph())
 					.getProductLine();
 		else
 			return ((AbstractGraph) getGraphComponent().getGraph()).getRefas();
-
+*/
 	}
 
 	// jcmunoz: new method for REFAS
@@ -1010,8 +1018,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					Map<String, MetaElement> mapElements = null;
 					if (elm instanceof InstPairwiseRelation) {
 						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-						mapElements = ((Refas) getEditedModel())
-								.getSyntaxRefas().getValidPairwiseRelations(
+						mapElements = refasModel.getSyntaxRefas().getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
 												.get(0)
 												.getTransSupportMetaElement(),
@@ -1205,7 +1212,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			Map<String, MetaElement> mapElements = null;
 			if (elm instanceof InstPairwiseRelation) {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-				mapElements = ((Refas) getEditedModel()).getSyntaxRefas()
+				mapElements = refasModel.getSyntaxRefas()
 						.getValidPairwiseRelations(
 								instPairwise.getSourceRelations().get(0)
 										.getTransSupportMetaElement(),
@@ -1335,10 +1342,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		if (perspective == 4) {
 
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
-
+			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
-			SharedActions.beforeGraphOperation(source, false,0,-1);
+			SharedActions.beforeGraphOperation(source, false, 0, -1);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
 			// System.out.println(this.getModelViewIndex() + " "
@@ -1350,6 +1357,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			// Different from null, to display simulation colors
 
 		}
+	}
+
+	private void updateRefasModel(AbstractModel editedModel) {
+		refasModel = (Refas)editedModel;
+		this.refas2hlcl.setRefas(refasModel);
+		
+		
 	}
 
 	/**
@@ -1441,7 +1455,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		iniSTime = System.currentTimeMillis();
-		if (first || lastConfiguration== null) {
+		if (first || lastConfiguration == null) {
 			result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION, type);
 		} else {
 			result = refas2hlcl
@@ -1450,7 +1464,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (result) {
 				List<String> modifiedIdentifiers = compareSolutions(
 						lastConfiguration, currentConfiguration);
-				// System.out.println(modifiedIdentifiers);
+				System.out.println(modifiedIdentifiers);
 			}
 		}
 		lastConfiguration = refas2hlcl.getConfiguration();
@@ -1566,7 +1580,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		updateList.add("Selected");
 		// updateList.add("Satisfied");
 		// updateList.add("ConfigSatisfied");
-		updateList.add("ConfigSelected");
 		// updateList.add("");
 
 		List<String> outMessageList = new ArrayList<String>();

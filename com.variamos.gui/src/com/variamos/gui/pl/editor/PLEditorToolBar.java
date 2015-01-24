@@ -98,7 +98,6 @@ public class PLEditorToolBar extends JToolBar {
 		add(variamosGraphEditor.bind("Redo", new HistoryAction(false),
 				"/com/mxgraph/examples/swing/images/redo.gif"));
 
-
 		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
 
