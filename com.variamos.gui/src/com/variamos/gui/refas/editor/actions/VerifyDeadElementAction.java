@@ -26,4 +26,4 @@ public class VerifyDeadElementAction extends AbstractEditorAction {
 		defect.add("Dead");
 		editor.verify(defect);
 	}
-}
+} 

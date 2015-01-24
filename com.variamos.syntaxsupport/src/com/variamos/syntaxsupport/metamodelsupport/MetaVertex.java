@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
-
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
  *         1
@@ -123,7 +122,7 @@ public abstract class MetaVertex extends MetaElement {
 	public IntSemanticConcept getTransSemanticConcept() {
 		return null;
 	}
-
+	
 	public boolean equals(MetaVertex obj) {
 		return getIdentifier().equals(obj.getIdentifier());
 	}

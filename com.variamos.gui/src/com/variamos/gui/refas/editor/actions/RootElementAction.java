@@ -23,4 +23,4 @@ public class RootElementAction extends AbstractEditorAction {
 		defect.add("Root");
 		editor.verify(defect);
 	}
-}
+} 

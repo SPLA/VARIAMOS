@@ -27,4 +27,4 @@ public class VerificationAction extends AbstractEditorAction {
 		//editor.verifyErrors();
 		editor.verify();
 	}
-}
+} 

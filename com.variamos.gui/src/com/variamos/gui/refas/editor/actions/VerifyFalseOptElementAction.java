@@ -24,5 +24,5 @@ public class VerifyFalseOptElementAction extends AbstractEditorAction {
 		List<String> defect = new ArrayList<String>();
 		defect.add("FalseOpt");
 		editor.verify(defect);
-	}
+	} 
 }

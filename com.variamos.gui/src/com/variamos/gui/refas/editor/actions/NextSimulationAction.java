@@ -26,4 +26,5 @@ public class NextSimulationAction extends AbstractEditorAction {
 		editor.clearNotificationBar();
 		editor.executeSimulation(false, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
 	}
+
 }

@@ -24,5 +24,5 @@ public class ParentElementAction extends AbstractEditorAction {
 		List<String> defect = new ArrayList<String>();
 		defect.add("Parent");
 		editor.verify(defect);
-	}
+	} 
 }

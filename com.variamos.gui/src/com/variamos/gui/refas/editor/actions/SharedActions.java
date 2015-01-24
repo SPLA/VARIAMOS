@@ -358,36 +358,25 @@ public class SharedActions {
 			if (instVertex.getInstAttributes().size() < semAtt
 					+ instVertex.getTransSupportMetaElement()
 							.getModelingAttributes().size()) {
-				if (semAtt > 0)
-					for (String attributeName : instVertex
-							.getTransSupportMetaElement()
-							.getSemanticAttributes()) {
-						if (instVertex.getInstAttribute(attributeName) == null
-								&& instVertex.getTransSupportMetaElement()
-										.getSemanticAttribute(attributeName) != null) {
-							instVertex
-									.addInstAttribute(
-											attributeName,
-											instVertex
-													.getTransSupportMetaElement()
-													.getSemanticAttribute(
-															attributeName),
-											null);
-							// System.out.println("create" + attributeName);
-							additionAttributes = true;
-						} else if (instVertex.getInstAttribute(attributeName) == null) {
-							instVertex
-									.addInstAttribute(
-											attributeName,
-											instVertex
-													.getTransSupportMetaElement()
-													.getModelingAttribute(
-															attributeName),
-											null);
-							// System.out.println("create" + attributeName);
-							additionAttributes = true;
-						}
+				//TODO modify to support syntax attributes changes
+				for (String attributeName : instVertex
+						.getTransSupportMetaElement().getSemanticAttributes()) {
+					if (instVertex.getInstAttribute(attributeName) == null
+							&& instVertex.getTransSupportMetaElement()
+									.getSemanticAttribute(attributeName) != null) {
+						instVertex.addInstAttribute(attributeName, instVertex
+								.getTransSupportMetaElement()
+								.getSemanticAttribute(attributeName), null);
+						// System.out.println("create" + attributeName);
+						additionAttributes = true;
+					} else if (instVertex.getInstAttribute(attributeName) == null) {
+						instVertex.addInstAttribute(attributeName, instVertex
+								.getTransSupportMetaElement()
+								.getModelingAttribute(attributeName), null);
+						// System.out.println("create" + attributeName);
+						additionAttributes = true;
 					}
+				}
 			}
 		}
 		if (value instanceof InstPairwiseRelation) {

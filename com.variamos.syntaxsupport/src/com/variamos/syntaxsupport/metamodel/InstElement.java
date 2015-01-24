@@ -475,6 +475,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 	public void clearDefects() {
 		volatileDefects.clear();
-		
+	
 	}
 }
