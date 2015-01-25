@@ -253,15 +253,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						if (execType == Refas2Hlcl.SIMUL_EXEC) {
 
 
-							if (instAttribute.getIdentifier().equals(
-									"NextNotSelected")) {
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, instAttribute
-														.getIdentifier(),
-												getHlclFactory().number(
-														attributeValue)));
-							}
+
 							
 						/*	if (instAttribute.getIdentifier().equals(
 									"NextReqSelected")) {
@@ -278,6 +270,16 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						// End Simulation Only
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+						if (instAttribute.getIdentifier().equals(
+								"NextNotSelected")) {
+							getElementExpressions().add(
+									new EqualsComparisonExpression(
+											instVertex, instAttribute
+													.getIdentifier(),
+											getHlclFactory().number(
+													attributeValue)));
+						}
+						
 						if (instAttribute.getIdentifier().equals(
 								"ConfigSelected")) {
 							getElementExpressions().add(

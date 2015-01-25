@@ -1146,21 +1146,21 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												updateTabs = true;
 												((JCheckBox) w.getEditor())
 														.repaint();
-												repaint();
+												//repaint();
 
 												new Thread() {
 													public void run() {
-														try {
-															sleep(1000);
-														} catch (InterruptedException e) {
+												//		try {
+													//		sleep(1000);
+												//		} catch (InterruptedException e) {
 															// TODO
 															// Auto-generated
 															// catch block
-															e.printStackTrace();
-														}
-														synchronized (getEditor()) {
+													//		e.printStackTrace();
+												//		}
+													//	synchronized (getEditor()) {
 															editPropertiesRefas(elm);
-														}
+													//	}
 
 													}
 												}.start();
@@ -1171,18 +1171,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							JButton button = new JButton("Configure");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-									new Thread() {
-										public void run() {
-											synchronized (getEditor()) {
+								//	new Thread() {
+								//		public void run() {
+								//			synchronized (getEditor()) {
 												clearNotificationBar();
 												executeSimulation(true,
 														Refas2Hlcl.CONF_EXEC);
 												editPropertiesRefas(elm);
 												updateExpressions = true;
-											}
+								//			}
 
-										}
-									}.start();
+								//		}
+								//	}.start();
 								}
 							});
 							elementConfPropSubPanel.add(button);
