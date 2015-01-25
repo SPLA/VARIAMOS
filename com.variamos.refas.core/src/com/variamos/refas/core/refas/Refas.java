@@ -838,6 +838,11 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by preference", false));
+		
+		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
+				new SimulationStateAttribute("NextNotPrefSelected", "Boolean",
+						false, "Not Selected by preference", false));
+		
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
 						false, "Selection by restriction(s)", false));

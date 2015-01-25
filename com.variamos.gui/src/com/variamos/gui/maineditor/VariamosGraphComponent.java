@@ -138,9 +138,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									String sim_red2 = "/com/variamos/gui/refas/editor/images/sim_red2.png";
 									String sim_red3 = "/com/variamos/gui/refas/editor/images/sim_red3.png";
 
-									if ((boolean) instConcept.getInstAttribute(
-											"Required").getValue()
-											|| (boolean) instConcept
+									if ((boolean) instConcept
 													.getInstAttribute("Core")
 													.getValue()) {
 										sim_backcolor = sim_core;

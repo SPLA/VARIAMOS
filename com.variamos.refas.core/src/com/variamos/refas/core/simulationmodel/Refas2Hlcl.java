@@ -578,54 +578,60 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * 
 	 * @param outIdentifiers
 	 */
-	public void updateCoreConcepts(Collection<String> outIdentifiers) {
+	public void updateCoreConcepts(Collection<String> outIdentifiers,
+			boolean all) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-		//	if (validateConceptType(instVertex)) {
-				InstAttribute instAttribute = instVertex
-						.getInstAttribute("Core");
-				// System.out.println(vertexId + " " + attribute);
-				if (outIdentifiers != null
-						&& outIdentifiers.contains(instVertex.getIdentifier()))
-					instAttribute.setValue(true);
-				else
+			// if (validateConceptType(instVertex)) {
+			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
+			// System.out.println(vertexId + " " + attribute);
+			if (outIdentifiers != null
+					&& outIdentifiers.contains(instVertex.getIdentifier()))
+				instAttribute.setValue(true);
+			else {
+				if (all)
 					instAttribute.setValue(false);
 			}
-		//}
+		}
+		// }
 	}
 
 	public void updateRequiredConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex)) {
-				InstAttribute instAttribute = instVertex
+				InstAttribute instAttributeTest = instVertex
+						.getInstAttribute("NextPrefSelected");
+				InstAttribute instAttributeConf = instVertex
 						.getInstAttribute("ConfigSelected");
+
 				// System.out.println(vertexId + " " + attribute);
 				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
-					instAttribute.setValue(true);
-					if (!test)
+					if (test) {
+						instAttributeTest.setValue(true);
+					} else {
+						instAttributeConf.setValue(true);
 						instVertex.getInstAttribute("Selected").setValue(true);
+					}
 				} else {
-					instAttribute.setValue(false);
-					if (!test
-							&& !instVertex.getInstAttribute("Core")
-									.getAsBoolean())
-						instVertex.getInstAttribute("Selected").setValue(false);
+					if (test) {
+						instAttributeConf.setValue(false);
+					} else {
+						instAttributeTest.setValue(false);
+						if (!instVertex.getInstAttribute("Core").getAsBoolean())
+							instVertex.getInstAttribute("Selected").setValue(
+									false);
+					}
 				}
 			}
 		}
 	}
 
-	public List<String> getConfiguredIdentifier() {
+	public List<String> getConfiguredIdentifier(String attribute) {
 		List<String> out = new ArrayList<String>();
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex)) {
 				InstAttribute instAttribute = instVertex
-						.getInstAttribute("ConfigSelected");
-				if (instAttribute.getAsBoolean())
-					out.add(instVertex.getIdentifier() + "_"
-							+ instAttribute.getIdentifier());
-				instAttribute = instVertex
-						.getInstAttribute("ConfigNotSelected");
+						.getInstAttribute(attribute);
 				if (instAttribute.getAsBoolean())
 					out.add(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier());
@@ -638,21 +644,28 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex)) {
-				InstAttribute instAttribute = instVertex
-						.getInstAttribute("NextNotSelected");
+				InstAttribute instAttributeTest = instVertex
+						.getInstAttribute("NextNotPrefSelected");
+				InstAttribute instAttributeConf = instVertex
+						.getInstAttribute("ConfigNotSelected");
+
 				// System.out.println(vertexId + " " + attribute);
 				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
-					instAttribute.setValue(true);
-					if (!test)
-						instVertex.getInstAttribute("NotAvailable").setValue(
-								true);
+					if (test) {
+						instAttributeTest.setValue(true);
+					} else {
+						instAttributeConf.setValue(true);
+						instVertex.getInstAttribute("NotAvailable").setValue(true);
+					}
 				} else {
-					instAttribute.setValue(false);
-					if (!test
-							&& !instVertex.getInstAttribute("Dead")
-									.getAsBoolean())
-						instVertex.getInstAttribute("NotAvailable").setValue(
-								false);
+					if (test) {
+						instAttributeConf.setValue(false);
+					} else {
+						instAttributeTest.setValue(false);
+						if (!instVertex.getInstAttribute("Dead").getAsBoolean())
+							instVertex.getInstAttribute("NotAvailable").setValue(
+									false);
+					}
 				}
 			}
 		}
