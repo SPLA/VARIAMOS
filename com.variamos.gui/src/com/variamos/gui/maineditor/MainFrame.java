@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
 				break;
 
 			}
-			refasGraph = new RefasGraph(sematicSyntaxObject,i+1);
+			refasGraph = new RefasGraph(sematicSyntaxObject,i+1, abstractModel);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,

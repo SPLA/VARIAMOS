@@ -254,7 +254,8 @@ public abstract class AbstractGraph extends mxGraph {
 		}
 	}
 	
-	public AbstractModel getlModel()
+	@Deprecated
+	private AbstractModel getlModel()
 	{
 		if (this instanceof RefasGraph)
 			return getRefas();
@@ -263,7 +264,8 @@ public abstract class AbstractGraph extends mxGraph {
 	}
 	
 	//TODO: change to refas - add to refas models
-	public Refas getRefas(){
+	@Deprecated
+	private Refas getRefas(){
 		Refas pl = new Refas(PerspectiveType.modeling);
 		
 		//Object[] vertices = getChildVertices(getDefaultParent());

@@ -60,7 +60,7 @@ public class RefasGraph extends AbstractGraph {
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private Refas refasAtt = null;
+	private Refas refasModel = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
@@ -97,18 +97,25 @@ public class RefasGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, Refas refasModel) {
+		init();
+		this.semanticPlusSyntax = semanticPlusSyntax;
+		this.perspective = perspective;
+		this.refasModel = refasModel;
+	}
+	
 	public void defineInitialGraph() {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
 		Collection views;
-		if (refasAtt.getSyntaxRefas() == null)
+		if (refasModel.getSyntaxRefas() == null)
 			views = semanticPlusSyntax.getMetaViews();
 		else {
-			views = refasAtt.getSyntaxRefas().getInstViews();
+			views = refasModel.getSyntaxRefas().getInstViews();
 			int pos = 0;
 			if (views.size() == 0) {
-				for (InstVertex instVertex : refasAtt.getVertices()) {
+				for (InstVertex instVertex : refasModel.getVertices()) {
 					mxCell child = new mxCell(instVertex.getIdentifier());
 					addCell(child);
 					String id = instVertex.getIdentifier();
@@ -126,7 +133,7 @@ public class RefasGraph extends AbstractGraph {
 					pos++;
 
 				}
-				for (InstView instView : refasAtt.getInstViews()) {
+				for (InstView instView : refasModel.getInstViews()) {
 					if (instView.getChildViews().size() == 0) {
 						mxCell child = new mxCell(instView.getIdentifier());
 						addCell(child);
@@ -165,7 +172,7 @@ public class RefasGraph extends AbstractGraph {
 					}
 				}
 
-				for (InstPairwiseRelation instEdge : refasAtt
+				for (InstPairwiseRelation instEdge : refasModel
 						.getConstraintInstEdgesCollection()) {
 					if (instEdge.getSourceRelations().size() != 0
 							&& instEdge.getIdentifier() != null
@@ -208,7 +215,7 @@ public class RefasGraph extends AbstractGraph {
 		for (Object view : views) {
 			mxCell parent = new mxCell("mv" + i);
 			addCell(parent);
-			if (refasAtt.getSyntaxRefas() == null) {
+			if (refasModel.getSyntaxRefas() == null) {
 				MetaView metaView = (MetaView) view;
 				if (metaView.getChildViews().size() > 0) {
 					addCell(new mxCell("mv" + i), parent); // Add the parent as
@@ -242,10 +249,10 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
-		if (refasAtt.getSyntaxRefas() == null)
+		if (refasModel.getSyntaxRefas() == null)
 			return semanticPlusSyntax.modelElements(modelView, modelSubView);
 		else
-			return refasAtt.getSyntaxRefas()
+			return refasModel.getSyntaxRefas()
 					.modelElements(modelView, modelSubView);
 	}
 
@@ -541,7 +548,7 @@ public class RefasGraph extends AbstractGraph {
 										.getChildCount(mv1); j++) {
 									mxCell mv2 = (mxCell) refasGraph
 											.getChildAt(mv1, j);
-									if (refasAtt.getSyntaxRefas()
+									if (refasModel.getSyntaxRefas()
 											.elementsValidation(name, i, j)
 									// if
 									// (semanticPlusSyntax.elementsValidation(
@@ -608,7 +615,7 @@ public class RefasGraph extends AbstractGraph {
 	protected void removingRefaElements(mxCell cell) {
 		Object obj = cell.getValue();
 		if (obj instanceof InstElement)
-			refasAtt.removeElement((InstElement) obj);
+			refasModel.removeElement((InstElement) obj);
 	}
 
 	protected void removingss(mxCell cell) {
@@ -641,7 +648,7 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refasAtt = (Refas) pl;
+		refasModel = (Refas) pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -651,11 +658,11 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public Refas getRefas() {
-		if (refasAtt == null) {
-			refasAtt = new Refas(PerspectiveType.modeling);
-			return refasAtt;
-		}
-		return refasAtt;
+		/*if (refasModel == null) {
+			refasModel = new Refas(PerspectiveType.modeling);
+			return refasModel;
+		}*/
+		return refasModel;
 	}
 
 	public mxCell getCellById(String id) {

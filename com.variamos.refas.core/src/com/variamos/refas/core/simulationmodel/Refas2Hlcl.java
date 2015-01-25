@@ -578,60 +578,129 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * 
 	 * @param outIdentifiers
 	 */
-	public void updateCoreConcepts(List<String> outIdentifiers) {
+	public void updateCoreConcepts(Collection<String> outIdentifiers,
+			boolean all) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			// if (validateConceptType(instVertex)) {
 			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
 			// System.out.println(vertexId + " " + attribute);
 			if (outIdentifiers != null
 					&& outIdentifiers.contains(instVertex.getIdentifier()))
 				instAttribute.setValue(true);
-			else
-				instAttribute.setValue(false);
+			else {
+				if (all)
+					instAttribute.setValue(false);
+			}
 		}
-
+		// }
 	}
 
-	public void updateCoreConcepts(Set<String> outIdentifiers) {
+	public void updateRequiredConcepts(List<String> requiredConceptsNames,
+			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
-			// System.out.println(vertexId + " " + attribute);
-			if (outIdentifiers != null
-					&& outIdentifiers.contains(instVertex.getIdentifier()))
-				instAttribute.setValue(true);
+			if (validateConceptType(instVertex)) {
+				InstAttribute instAttributeTest = instVertex
+						.getInstAttribute("NextPrefSelected");
+				InstAttribute instAttributeConf = instVertex
+						.getInstAttribute("ConfigSelected");
 
+				// System.out.println(vertexId + " " + attribute);
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
+					if (test) {
+						instAttributeTest.setValue(true);
+					} else {
+						instAttributeConf.setValue(true);
+						instVertex.getInstAttribute("Selected").setValue(true);
+					}
+				} else {
+					if (test) {
+						instAttributeConf.setValue(false);
+					} else {
+						instAttributeTest.setValue(false);
+						if (!instVertex.getInstAttribute("Core").getAsBoolean())
+							instVertex.getInstAttribute("Selected").setValue(
+									false);
+					}
+				}
+			}
 		}
+	}
 
+	public List<String> getConfiguredIdentifier(String attribute) {
+		List<String> out = new ArrayList<String>();
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (validateConceptType(instVertex)) {
+				InstAttribute instAttribute = instVertex
+						.getInstAttribute(attribute);
+				if (instAttribute.getAsBoolean())
+					out.add(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier());
+			}
+		}
+		return out;
+	}
+
+	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
+			boolean test) {
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (validateConceptType(instVertex)) {
+				InstAttribute instAttributeTest = instVertex
+						.getInstAttribute("NextNotPrefSelected");
+				InstAttribute instAttributeConf = instVertex
+						.getInstAttribute("ConfigNotSelected");
+
+				// System.out.println(vertexId + " " + attribute);
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
+					if (test) {
+						instAttributeTest.setValue(true);
+					} else {
+						instAttributeConf.setValue(true);
+						instVertex.getInstAttribute("NotAvailable").setValue(true);
+					}
+				} else {
+					if (test) {
+						instAttributeConf.setValue(false);
+					} else {
+						instAttributeTest.setValue(false);
+						if (!instVertex.getInstAttribute("Dead").getAsBoolean())
+							instVertex.getInstAttribute("NotAvailable").setValue(
+									false);
+					}
+				}
+			}
+		}
+	}
+
+	public boolean validateConceptType(InstVertex instVertex) {
+		MetaVertex metaElement = ((MetaVertex) instVertex
+				.getTransSupportMetaElement());
+		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
+		while (semElement != null && semElement.getIdentifier() != null
+				&& !semElement.getIdentifier().equals("SemGeneralElement"))
+			semElement = semElement.getParent();
+		if (semElement != null && semElement.getIdentifier() != null
+				&& semElement.getIdentifier().equals("SemGeneralElement")) {
+			return true;
+		}
+		return false;
 	}
 
 	public void updateDeadConcepts(List<String> deadIdentifiers) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			MetaVertex metaElement = ((MetaVertex) instVertex
-					.getTransSupportMetaElement());
-			IntSemanticElement semElement = metaElement
-					.getTransSemanticConcept();
-			while (semElement != null && semElement.getIdentifier() != null
-					&& !semElement.getIdentifier().equals("SemGeneralElement"))
-				semElement = semElement.getParent();
-			if (semElement != null && semElement.getIdentifier() != null
-					&& semElement.getIdentifier().equals("SemGeneralElement")) {
-					
+			if (validateConceptType(instVertex)) {
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
-				InstAttribute instAttributeNotSel = instVertex
-						.getInstAttribute("ConfigNotSelected");
 				InstAttribute instAttributeNotAva = instVertex
 						.getInstAttribute("NotAvailable");
 				// System.out.println(vertexId + " " + attribute);
 				if (deadIdentifiers != null
 						&& deadIdentifiers.contains(instVertex.getIdentifier())) {
 					instAttributeDead.setValue(true);
-					instAttributeNotSel.setValue(true);
 					instAttributeNotAva.setValue(true);
 				}
 
 				else {
 					instAttributeDead.setValue(false);
-					instAttributeNotSel.setValue(false);
 					instAttributeNotAva.setValue(false);
 				}
 			}

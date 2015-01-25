@@ -784,9 +784,9 @@ public class Refas extends AbstractModel {
 		// "ConfigNotSatisfied"
 		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
@@ -807,9 +807,9 @@ public class Refas extends AbstractModel {
 		// "ConfigNotSatisfied"
 		// + "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected"
-				+ "#" + "Core" + "#==#" + "false" + "#" + "true");
+				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
-				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
+				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 
 		// Simulation attributes
 
@@ -838,6 +838,11 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by preference", false));
+		
+		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
+				new SimulationStateAttribute("NextNotPrefSelected", "Boolean",
+						false, "Not Selected by preference", false));
+		
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
 						false, "Selection by restriction(s)", false));

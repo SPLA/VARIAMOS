@@ -48,9 +48,9 @@ public class OpenAction extends AbstractEditorAction{
 		variamosEditor.editModelReset();
 		
 		SXFMReader reader = new SXFMReader();
-		AbstractModel pl = reader.readFile(file.getAbsolutePath());
+	//	AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
-		variamosEditor.editModel(pl);
+	//	variamosEditor.editModel(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);
