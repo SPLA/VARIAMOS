@@ -1807,7 +1807,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void configModel(boolean test) {
 		this.clearSimulation();
-		if (invalidConfigHlclProgram)
+		//if (invalidConfigHlclProgram)
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
 					Refas2Hlcl.CONF_EXEC);
 		 invalidConfigHlclProgram = false;
@@ -1832,7 +1832,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
 				configHlclProgram, SolverEditorType.SWI_PROLOG);
-		if (freeIdentifiers.size() > 0) {
+		System.out.println("FREE: " + freeIdentifiers);
+
+
+		System.out.println("CONF: " + configuredIdentNames);
+	/*	if (freeIdentifiers.size() > 0) {
 			try {
 
 				List<Defect> requiredConcepts = null;
@@ -1850,12 +1854,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				e.printStackTrace();
 			}
 		}
-
-		System.out.println("FREE: " + freeIdentifiers);
-
-
-		System.out.println("CONF: " + configuredIdentNames);
-
+*/
+		System.out.println("newSEL: " + requiredConceptsNames);
+		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
+		
 		if (freeIdentifiers.size() > 0) {
 			try {
 				List<Defect> deadIndetifiersList = null;
@@ -1874,8 +1876,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 
 		}
-		System.out.println("newSEL: " + requiredConceptsNames);
-		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
+
 		System.out.println("newNOTAV: " + deadConceptsNames);
 		refas2hlcl.updateDeadConfigConcepts(deadConceptsNames, test);
 

@@ -282,6 +282,24 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														attributeValue)));
 							}
 */
+							if (instAttribute.getIdentifier().equals(
+									"NextPrefSelected")) {
+								getElementExpressions().add(
+										new EqualsComparisonExpression(instVertex,
+												instAttribute.getIdentifier(),
+												getHlclFactory().number(
+														0)));
+
+							}
+							if (instAttribute.getIdentifier().equals(
+									"NextPrefNotSelected")) {
+								getElementExpressions().add(
+										new EqualsComparisonExpression(instVertex,
+												instAttribute.getIdentifier(),
+												getHlclFactory().number(
+														0)));
+
+							}
 						}
 
 						// End Simulation Only
@@ -298,15 +316,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 
 						
-						if (instAttribute.getIdentifier().equals(
-								"NextPrefSelected")) {
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											instAttribute.getIdentifier(),
-											getHlclFactory().number(
-													attributeValue)));
-
-						}
+						
 						
 						// identifierId_Active #= value for simulation
 						if (instAttribute.getIdentifier().equals("Active")) {
@@ -400,11 +410,13 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									instVertex, instVertex,
 									"ConfigNotSelected", "NextNotSelected");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-									instVertex, "Dead", false, transformation6);
+									instVertex,instVertex, "Dead", "NextNotPrefSelected");
+							AbstractBooleanExpression transformation8 = new OrBooleanExpression(
+									transformation7, transformation6);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "NotAvailable", true,
-											transformation7));
+											transformation8));
 						}
 
 						if (instAttribute.getIdentifier().equals("Selected")) {
@@ -417,12 +429,13 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									instVertex, instVertex, "Core",
 									"ConfigSelected");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-									instVertex, "NextReqSelected", false,
-									transformation6);
+									instVertex,instVertex, "NextReqSelected", "NextPrefSelected");
+							AbstractBooleanExpression transformation8 = new OrBooleanExpression(
+									transformation7, transformation6);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "Selected", true,
-											transformation7));
+											transformation8));
 
 							// identifierId_Selected ) *
 							// identifierId_NotAvailable ) #= 0
