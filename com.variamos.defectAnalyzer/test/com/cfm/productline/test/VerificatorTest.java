@@ -180,6 +180,35 @@ public class VerificatorTest {
 		}
 
 	}
+	
+	
+	@Test
+	public void allDeadElementsConfiguration() {
+		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+				.dependencyToExpressionList(variabilityModel.getDependencies(),
+						variabilityModel.getFixedDependencies());
+
+		HlclProgram model = ConstraintRepresentationUtil
+				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
+				SolverEditorType.SWI_PROLOG);
+
+		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
+
+		List<Defect> deadElements;
+		Configuration configuration= new Configuration();
+		configuration.enforce("HTTPS");
+		try {
+			deadElements = verifier.getDeadElements(identifiers, new ConfigurationOptions(),configuration);
+			assertTrue(deadElements.size() == 25);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+
+	}
+
 
 	@Test
 	public void allFalseOptional() {
@@ -228,6 +257,58 @@ public class VerificatorTest {
 
 	}
 
+	
+	@Test
+	public void allFalseOptionalPartialConfiguration() {
+		VariabilityModel variabilityModel = transformFeatureModel("test/testModels/WebPortalTesis.sxfm");
+		Collection<BooleanExpression> variabilityModelConstraintRepresentation = ConstraintRepresentationUtil
+				.dependencyToExpressionList(variabilityModel.getDependencies(),
+						variabilityModel.getFixedDependencies());
+
+		HlclProgram model = ConstraintRepresentationUtil
+				.expressionToHlclProgram(variabilityModelConstraintRepresentation);
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
+				SolverEditorType.SWI_PROLOG);
+
+		Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(model);
+
+		Set<Identifier> identifiersToVerify = new HashSet<Identifier>();
+
+		Identifier identify = null;
+		Iterator<Identifier> iterator = identifiers.iterator();
+		while (iterator.hasNext()) {
+
+			identify = (Identifier) iterator.next();
+			switch (identify.getId()) {
+			case "Archivo":
+			case "Flash":
+			case "Busquedas":
+				identifiersToVerify.add(identify);
+				break;
+			}
+
+		}
+
+		List<Defect> falseOptionalElements;
+		try {
+			long startTime = System.currentTimeMillis();
+			Configuration configuration= new Configuration();
+			configuration.enforce("HTTPS");
+			falseOptionalElements = verifier
+					.getFalseOptionalElements(identifiers,new ConfigurationOptions(), configuration);
+			assertTrue(falseOptionalElements.size() == 20);
+			long endTime = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println(" Analysis time method 1: " + totalTime);
+		} catch (FunctionalException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+
+	}
+
+	
+	
 	
 	public void testMethod1() {
 		for (int i = 0; i < 2; i++) {

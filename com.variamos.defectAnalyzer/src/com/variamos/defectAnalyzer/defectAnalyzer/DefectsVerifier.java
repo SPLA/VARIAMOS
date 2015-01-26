@@ -219,10 +219,15 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				// Se verifica si ya existe en el mapa el identificador con
 				// el valor
 				if (!existValue(identifier, definedDomainValue)) {
-
-					configuration.set(identifier.getId(), definedDomainValue);
+					
+					
+					Configuration copy= new Configuration();
+					TreeMap<String, Integer> configurationValues= new TreeMap<String, Integer>();
+					configurationValues.putAll(configuration.getConfiguration());
+					copy.setConfiguration(configurationValues);	
+					copy.set(identifier.getId(), definedDomainValue);
 					configurationResult = solver.getConfiguration(model,
-							configuration, new ConfigurationOptions());
+							copy, new ConfigurationOptions());
 
 					if (configurationResult != null) {
 						// Los valores identificados se actualizan en el
@@ -425,9 +430,15 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		// identificador
 		if (!existValue(identifier, 0)) {
 
-			configuration.ban(identifier.getId());
+			
+			
+			Configuration copy= new Configuration();
+			TreeMap<String, Integer> configurationValues= new TreeMap<String, Integer>();
+			configurationValues.putAll(configuration.getConfiguration());
+			copy.setConfiguration(configurationValues);	
+			copy.ban(identifier.getId());	
 			Configuration configurationResult = solver.getConfiguration(model,
-					configuration, options);
+					copy, options);
 
 			if (configurationResult != null) {
 				// Los valores identificados se actualizan en el mapa para
