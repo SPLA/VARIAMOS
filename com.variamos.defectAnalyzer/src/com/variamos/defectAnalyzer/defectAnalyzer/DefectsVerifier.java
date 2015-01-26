@@ -128,8 +128,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 					if (configurationResult != null
 							&& !configurationResult.getConfiguration()
 									.isEmpty()) {
-						Set<Identifier> identifiersList = HlclUtil
-								.getUsedIdentifiers(model);
 						// Los valores identificados no son non attainable
 						// domains, se actualizan los valores en el mapa
 						updateEvaluatedDomainsMap(configurationResult);
@@ -191,6 +189,15 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isDeadElement(Identifier identifier)
 			throws FunctionalException {
 
+		return isDeadElement(identifier, new ConfigurationOptions(),
+				new Configuration());
+	}
+
+	@Override
+	public Defect isDeadElement(Identifier identifier,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException {
+
 		List<Integer> definedDomainValues = null;
 		boolean createDefect = Boolean.TRUE;
 		Domain domain = identifier.getDomain();
@@ -199,6 +206,13 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		Configuration configurationResult = null;
 		int nonAttainableValue = 0;
 
+		if (configuration == null) {
+			configuration = new Configuration();
+		}
+		if (options == null) {
+			options = new ConfigurationOptions();
+		}
+
 		for (Integer definedDomainValue : definedDomainValues) {
 
 			if (definedDomainValue > TransformerConstants.NON_SELECTED_VALUE) {
@@ -206,7 +220,6 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				// el valor
 				if (!existValue(identifier, definedDomainValue)) {
 
-					Configuration configuration = new Configuration();
 					configuration.set(identifier.getId(), definedDomainValue);
 					configurationResult = solver.getConfiguration(model,
 							configuration, new ConfigurationOptions());
@@ -390,15 +403,31 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public Defect isFalseOptionalElement(Identifier identifier)
 			throws FunctionalException {
 
+		return isFalseOptionalElement(identifier, new ConfigurationOptions(),
+				new Configuration());
+	}
+
+	@Override
+	public Defect isFalseOptionalElement(Identifier identifier,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException {
+
 		boolean createDefect = Boolean.FALSE;
+
+		if (configuration == null) {
+			configuration = new Configuration();
+		}
+		if (options == null) {
+			options = new ConfigurationOptions();
+		}
+
 		// Se verifica si ya existe en el mapa el valor de cero para ese
 		// identificador
 		if (!existValue(identifier, 0)) {
 
-			Configuration configuration = new Configuration();
 			configuration.ban(identifier.getId());
 			Configuration configurationResult = solver.getConfiguration(model,
-					configuration, new ConfigurationOptions());
+					configuration, options);
 
 			if (configurationResult != null) {
 				// Los valores identificados se actualizan en el mapa para
@@ -514,10 +543,18 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify)
 			throws FunctionalException {
+		return getDeadElements(elementsToVerify, null, null);
+	}
+
+	@Override
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
+			ConfigurationOptions options, Configuration configuration)
+			throws FunctionalException {
 		List<Defect> deadElementsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			DeadElement deadElement = (DeadElement) isDeadElement(identifier);
+			DeadElement deadElement = (DeadElement) isDeadElement(identifier,
+					options, configuration);
 			if (deadElement != null) {
 				deadElementsList.add(deadElement);
 			}
@@ -528,10 +565,19 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public List<Defect> getFalseOptionalElements(
 			Set<Identifier> elementsToVerify) throws FunctionalException {
+
+		return getFalseOptionalElements(elementsToVerify, null, null);
+	}
+
+	@Override
+	public List<Defect> getFalseOptionalElements(
+			Set<Identifier> elementsToVerify, ConfigurationOptions options,
+			Configuration configuration) throws FunctionalException {
 		List<Defect> falseOptionalList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
-			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(identifier);
+			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
+					identifier, options, configuration);
 			if (falseOptionalElement != null) {
 				falseOptionalList.add(falseOptionalElement);
 			}
