@@ -3,10 +3,12 @@ package com.variamos.refas.core.simulationmodel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.cfm.hlcl.BooleanExpression;
@@ -371,6 +373,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);
+				if (instAttribute.getAttributeType().equals("Boolean")&&(
+						instAttribute.getIdentifier().equals("NexPrefSelected")
+						|| instAttribute.getIdentifier().equals("NextNotPrefSelected")))
+
+					if (instAttribute.getAttributeType().equals("Boolean"))
+						instAttribute.setValue(false);
 			}
 		}
 	}
@@ -626,15 +634,50 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
-	public List<String> getConfiguredIdentifier(String attribute) {
-		List<String> out = new ArrayList<String>();
+	public TreeMap<String, Integer> getConfiguredIdentifier() {
+		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex)) {
 				InstAttribute instAttribute = instVertex
-						.getInstAttribute(attribute);
+						.getInstAttribute("ConfigSelected");
 				if (instAttribute.getAsBoolean())
-					out.add(instVertex.getIdentifier() + "_"
-							+ instAttribute.getIdentifier());
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 1);
+				else
+
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 0);
+				instAttribute = instVertex
+						.getInstAttribute("ConfigNotSelected");
+				if (instAttribute.getAsBoolean())
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 1);
+				else
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 0);
+			}
+		}
+		return out;
+	}
+
+	public Set<Identifier> getFreeIdentifiers() {
+		Set<Identifier> out = new HashSet<Identifier>();
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (validateConceptType(instVertex)) {
+				InstAttribute instAttribute = instVertex
+						.getInstAttribute("Core");
+				InstAttribute instAttribute2 = instVertex
+						.getInstAttribute("Dead");
+				InstAttribute instAttribute3 = instVertex
+						.getInstAttribute("ConfigSelected");
+				InstAttribute instAttribute4 = instVertex
+						.getInstAttribute("ConfigNotSelected");
+				if (!instAttribute.getAsBoolean()
+						&& !instAttribute2.getAsBoolean()
+						&& !instAttribute3.getAsBoolean()
+						&& !instAttribute4.getAsBoolean())
+					out.add(f.newIdentifier(instVertex.getIdentifier() + "_"
+							+ "Selected"));
 			}
 		}
 		return out;
@@ -655,7 +698,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						instAttributeTest.setValue(true);
 					} else {
 						instAttributeConf.setValue(true);
-						instVertex.getInstAttribute("NotAvailable").setValue(true);
+						instVertex.getInstAttribute("NotAvailable").setValue(
+								true);
 					}
 				} else {
 					if (test) {
@@ -663,8 +707,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					} else {
 						instAttributeTest.setValue(false);
 						if (!instVertex.getInstAttribute("Dead").getAsBoolean())
-							instVertex.getInstAttribute("NotAvailable").setValue(
-									false);
+							instVertex.getInstAttribute("NotAvailable")
+									.setValue(false);
 					}
 				}
 			}

@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.AbstractButton;
@@ -95,6 +96,7 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.pl.configurator.Configurator;
 import com.variamos.refas.core.refas.Refas;
 import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
@@ -1146,43 +1148,46 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												updateTabs = true;
 												((JCheckBox) w.getEditor())
 														.repaint();
-												//repaint();
+												// repaint();
 
 												new Thread() {
 													public void run() {
-												//		try {
-													//		sleep(1000);
-												//		} catch (InterruptedException e) {
-															// TODO
-															// Auto-generated
-															// catch block
-													//		e.printStackTrace();
-												//		}
-													//	synchronized (getEditor()) {
-															editPropertiesRefas(elm);
-													//	}
+														// try {
+														// sleep(1000);
+														// } catch
+														// (InterruptedException
+														// e) {
+														// TODO
+														// Auto-generated
+														// catch block
+														// e.printStackTrace();
+														// }
+														// synchronized
+														// (getEditor()) {
+														editPropertiesRefas(elm);
+														// }
 
 													}
 												}.start();
 
-												// configModel(true);
+												 configModel(true);
 											}
 										});
 							JButton button = new JButton("Configure");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-								//	new Thread() {
-								//		public void run() {
-								//			synchronized (getEditor()) {
-												clearNotificationBar();
-												executeSimulation(true,
-														Refas2Hlcl.CONF_EXEC);
-												editPropertiesRefas(elm);
-												updateExpressions = true;
-								//			}
+									// new Thread() {
+									// public void run() {
+									// synchronized (getEditor()) {
+									clearNotificationBar();
+									executeSimulation(true,
+											Refas2Hlcl.CONF_EXEC);
+									editPropertiesRefas(elm);
+									updateExpressions = true;
+									// }
 
-								//		}
-								//	}.start();
+									// }
+									// }.start();
 								}
 							});
 							elementConfPropSubPanel.add(button);
@@ -1676,14 +1681,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				Refas2Hlcl.VAL_UPD_EXEC);
 		endSTime = System.currentTimeMillis();
 		if (result) {
+
 			refas2hlcl.updateGUIElements(attributes);
 			((MainFrame) getFrame()).waitingCursor(true);
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
-			// System.out.println(currentResult);
+			System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
 
 			// System.out.println(falseOptIdentifiers);
+
 			List<String> freeIdentifiers = getFreeIdentifiers(currentResult);
 			List<String> deadIdentifiers = new ArrayList<String>();
 
@@ -1799,36 +1806,39 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void configModel(boolean test) {
+		this.clearSimulation();
 		if (invalidConfigHlclProgram)
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-					Refas2Hlcl.SIMUL_EXEC);
-		// invalidConfigHlclProgram = false;
+					Refas2Hlcl.CONF_EXEC);
+		 invalidConfigHlclProgram = false;
 		HlclFactory f = new HlclFactory();
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
 		iniSTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
-		List<String> configuredIdConfSelNames = refas2hlcl
-				.getConfiguredIdentifier("ConfigSelected");
-		Set<Identifier> configuredIdentifiers = new HashSet<Identifier>();
+		TreeMap<String,Integer> configuredIdentNames = refas2hlcl
+				.getConfiguredIdentifier();
+		Configuration config = new Configuration();
 
-		for (String freeIndentifier : configuredIdConfSelNames) {
-			if (!freeIndentifier.startsWith("FeatOverTwo"))
-				configuredIdentifiers.add(f.newIdentifier(freeIndentifier));
-		}
+		Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
+
+		freeIdentifiers = refas2hlcl.getFreeIdentifiers();
+
+		
+		config.setConfiguration(configuredIdentNames);
 
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
 				configHlclProgram, SolverEditorType.SWI_PROLOG);
-		if (configuredIdentifiers.size() > 0) {
+		if (freeIdentifiers.size() > 0) {
 			try {
 
 				List<Defect> requiredConcepts = null;
 
-				requiredConcepts = defectVerifier
-						.getFalseOptionalElements(configuredIdentifiers);
+				requiredConcepts = defectVerifier.getFalseOptionalElements(
+						freeIdentifiers, null, config);
 				if (requiredConcepts.size() > 0) {
 					for (Defect conceptVariable : requiredConcepts) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -1840,20 +1850,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				e.printStackTrace();
 			}
 		}
-		List<String> configuredIdNotSelNames = refas2hlcl
-				.getConfiguredIdentifier("ConfigNotSelected");
 
-		Set<Identifier> configuredIdentifiersNot = new HashSet<Identifier>();
+		System.out.println("FREE: " + freeIdentifiers);
 
-		for (String freeIndentifier : configuredIdNotSelNames) {
-			if (!freeIndentifier.startsWith("FeatOverTwo"))
-				configuredIdentifiersNot.add(f.newIdentifier(freeIndentifier));
-		}
-		if (configuredIdentifiers.size() > 0) {
+
+		System.out.println("CONF: " + configuredIdentNames);
+
+		if (freeIdentifiers.size() > 0) {
 			try {
 				List<Defect> deadIndetifiersList = null;
 				deadIndetifiersList = defectVerifier
-						.getDeadElements(configuredIdentifiersNot);
+						.getDeadElements(freeIdentifiers,null,config);
 				endSTime = System.currentTimeMillis();
 
 				if (deadIndetifiersList.size() > 0) {
@@ -1867,9 +1874,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 
 		}
-		System.out.println(requiredConceptsNames);
+		System.out.println("newSEL: " + requiredConceptsNames);
 		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
-		System.out.println(deadConceptsNames);
+		System.out.println("newNOTAV: " + deadConceptsNames);
 		refas2hlcl.updateDeadConfigConcepts(deadConceptsNames, test);
 
 		messagesArea.setText(refas2hlcl.getText());
