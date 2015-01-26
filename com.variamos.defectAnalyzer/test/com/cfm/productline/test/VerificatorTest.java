@@ -17,6 +17,8 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
+import com.cfm.productline.solver.Configuration;
+import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -214,7 +216,7 @@ public class VerificatorTest {
 		try {
 			long startTime = System.currentTimeMillis();
 			falseOptionalElements = verifier
-					.getFalseOptionalElements(identifiers);
+					.getFalseOptionalElements(identifiers,new ConfigurationOptions(), new Configuration());
 			assertTrue(falseOptionalElements.size() == 15);
 			long endTime = System.currentTimeMillis();
 			long totalTime = endTime - startTime;

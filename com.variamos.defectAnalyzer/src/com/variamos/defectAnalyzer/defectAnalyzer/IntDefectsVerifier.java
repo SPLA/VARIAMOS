@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.Identifier;
+import com.cfm.productline.solver.Configuration;
+import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.dto.VerificationResult;
 import com.variamos.defectAnalyzer.model.defects.Defect;
@@ -36,8 +38,11 @@ public interface IntDefectsVerifier {
 	 * @throws FunctionalException
 	 */
 	public Defect isDeadElement(Identifier identifier) throws FunctionalException;
+	public Defect isDeadElement(Identifier identifier, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+
 
 	public Defect isFalseOptionalElement(Identifier identifier) throws FunctionalException;
+	public Defect isFalseOptionalElement(Identifier identifier,ConfigurationOptions options, Configuration configuration) throws FunctionalException;
 
 
 	public Defect isRedundant(BooleanExpression expressionToVerify) throws FunctionalException;
@@ -45,6 +50,11 @@ public interface IntDefectsVerifier {
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException;
 
 	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException;
+	
+	
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+
+	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
 	
 
 	/**
