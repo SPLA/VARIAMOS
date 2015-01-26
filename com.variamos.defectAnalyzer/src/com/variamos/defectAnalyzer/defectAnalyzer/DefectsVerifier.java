@@ -219,8 +219,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				// Se verifica si ya existe en el mapa el identificador con
 				// el valor
 				if (!existValue(identifier, definedDomainValue)) {
-					
-					
+							
 					Configuration copy= new Configuration();
 					TreeMap<String, Integer> configurationValues= new TreeMap<String, Integer>();
 					configurationValues.putAll(configuration.getConfiguration());
