@@ -373,9 +373,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);
-				if (instAttribute.getAttributeType().equals("Boolean")&&(
-						instAttribute.getIdentifier().equals("NexPrefSelected")
-						|| instAttribute.getIdentifier().equals("NextNotPrefSelected")))
+				if (instAttribute.getAttributeType().equals("Boolean")
+						&& (instAttribute.getIdentifier().equals(
+								"NexPrefSelected") || instAttribute
+								.getIdentifier().equals("NextNotPrefSelected")))
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);
@@ -613,7 +614,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())
+						|| instVertex.getInstAttribute("ConfigSelected")
+								.getAsBoolean()) {
 					if (test) {
 						instAttributeTest.setValue(true);
 					} else {
@@ -622,10 +625,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					}
 				} else {
 					if (test) {
-						instAttributeConf.setValue(false);
-					} else {
 						instAttributeTest.setValue(false);
-						if (!instVertex.getInstAttribute("Core").getAsBoolean())
+					} else {
+						// instAttributeConf.setValue(false);
+						if (!instVertex.getInstAttribute("ConfigSelected")
+								.getAsBoolean()
+								&& !instVertex.getInstAttribute("Core")
+										.getAsBoolean())
 							instVertex.getInstAttribute("Selected").setValue(
 									false);
 					}
@@ -703,10 +709,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					}
 				} else {
 					if (test) {
-						instAttributeConf.setValue(false);
-					} else {
 						instAttributeTest.setValue(false);
-						if (!instVertex.getInstAttribute("Dead").getAsBoolean())
+					} else {
+						// instAttributeConf.setValue(false);
+						if (!instVertex.getInstAttribute("ConfigNotSelected")
+								.getAsBoolean()
+								&& !instVertex.getInstAttribute("Dead")
+										.getAsBoolean())
 							instVertex.getInstAttribute("NotAvailable")
 									.setValue(false);
 					}

@@ -1169,8 +1169,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 													}
 												}.start();
-
-												 configModel(true);
+												// clearNotificationBar();
+												configModel(true);
 											}
 										});
 							JButton button = new JButton("Configure");
@@ -1180,8 +1180,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									// public void run() {
 									// synchronized (getEditor()) {
 									clearNotificationBar();
-									executeSimulation(true,
-											Refas2Hlcl.CONF_EXEC);
+									configModel(false);
+									// executeSimulation(true,
+									// Refas2Hlcl.CONF_EXEC);
 									editPropertiesRefas(elm);
 									updateExpressions = true;
 									// }
@@ -1806,18 +1807,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void configModel(boolean test) {
-		this.clearSimulation();
-		//if (invalidConfigHlclProgram)
-			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-					Refas2Hlcl.CONF_EXEC);
-		 invalidConfigHlclProgram = false;
+		//this.clearNotificationBar();
+		refas2hlcl.cleanGUIElements();
+		if (invalidConfigHlclProgram)
+		configHlclProgram = refas2hlcl.getHlclProgram("Simul",
+				Refas2Hlcl.CONF_EXEC);
+		invalidConfigHlclProgram = false;
 		HlclFactory f = new HlclFactory();
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
 		iniSTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
-		TreeMap<String,Integer> configuredIdentNames = refas2hlcl
+		TreeMap<String, Integer> configuredIdentNames = refas2hlcl
 				.getConfiguredIdentifier();
 		Configuration config = new Configuration();
 
@@ -1825,7 +1827,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		freeIdentifiers = refas2hlcl.getFreeIdentifiers();
 
-		
 		config.setConfiguration(configuredIdentNames);
 
 		List<String> requiredConceptsNames = new ArrayList<String>();
@@ -1834,9 +1835,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				configHlclProgram, SolverEditorType.SWI_PROLOG);
 		System.out.println("FREE: " + freeIdentifiers);
 
-
 		System.out.println("CONF: " + configuredIdentNames);
-	/*	if (freeIdentifiers.size() > 0) {
+
+		if (freeIdentifiers.size() > 0) {
 			try {
 
 				List<Defect> requiredConcepts = null;
@@ -1854,15 +1855,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				e.printStackTrace();
 			}
 		}
-*/
+
 		System.out.println("newSEL: " + requiredConceptsNames);
 		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
-		
+
 		if (freeIdentifiers.size() > 0) {
 			try {
 				List<Defect> deadIndetifiersList = null;
-				deadIndetifiersList = defectVerifier
-						.getDeadElements(freeIdentifiers,null,config);
+				deadIndetifiersList = defectVerifier.getDeadElements(
+						freeIdentifiers, null, config);
 				endSTime = System.currentTimeMillis();
 
 				if (deadIndetifiersList.size() > 0) {
