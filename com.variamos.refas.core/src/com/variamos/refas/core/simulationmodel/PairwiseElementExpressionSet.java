@@ -13,20 +13,17 @@ import com.variamos.refas.core.expressions.AndBooleanExpression;
 import com.variamos.refas.core.expressions.DiffNumericExpression;
 import com.variamos.refas.core.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.EqualsComparisonExpression;
-import com.variamos.refas.core.expressions.GreaterBooleanExpression;
 import com.variamos.refas.core.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.ImplicationBooleanExpression;
 import com.variamos.refas.core.expressions.LessOrEqualsBooleanExpression;
 import com.variamos.refas.core.expressions.LiteralBooleanExpression;
 import com.variamos.refas.core.expressions.NotBooleanExpression;
 import com.variamos.refas.core.expressions.NumberNumericExpression;
-import com.variamos.refas.core.expressions.OrBooleanExpression;
 import com.variamos.refas.core.expressions.SumNumericExpression;
 import com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation;
-import com.variamos.refas.core.types.DirectEdgeType;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
 
 //TODO refactor: PairwiseElementExpressionSet

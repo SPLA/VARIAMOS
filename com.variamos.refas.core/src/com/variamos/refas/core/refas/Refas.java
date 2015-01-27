@@ -770,8 +770,8 @@ public class Refas extends AbstractModel {
 				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
 
-	//	semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
-	//			+ "Core" + "#==#" + "false" + "#" + "true");
+		// semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
+		// + "Core" + "#==#" + "false" + "#" + "true");
 		// semGeneralElement.addDisPropEditableAttribute("02#" +
 		// "Visibility"
 		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
@@ -838,11 +838,11 @@ public class Refas extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by configuration", false));
-		
+
 		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
 				new SimulationStateAttribute("NextNotPrefSelected", "Boolean",
 						false, "Not Selected by configuration", false));
-		
+
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
 						false, "Selected by simulation", false));
@@ -853,7 +853,8 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "NotAvailable");
 		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
-		semGeneralElement.addPropVisibleAttribute("06#" + "NextNotPrefSelected");
+		semGeneralElement
+				.addPropVisibleAttribute("06#" + "NextNotPrefSelected");
 
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");
@@ -1637,7 +1638,7 @@ public class Refas extends AbstractModel {
 				.getVertex("SemFeature")).getEditableSemanticElement();
 
 		MetaConcept syntaxFeature = new MetaConcept("Feature", false,
-				"Feature", "plnode", "Defines a feature", 100, 80,
+				"Feature", "plnode", "Defines a feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
@@ -1656,7 +1657,7 @@ public class Refas extends AbstractModel {
 		// instView.addInstVertex(instVertexF);
 
 		MetaConcept syntaxRootFeature = new MetaConcept("RootFeature", true,
-				"RootFeature", "plnode", "Defines a root feature", 100, 70,
+				"RootFeature", "plnode", "Defines a root feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
@@ -1677,7 +1678,7 @@ public class Refas extends AbstractModel {
 
 		MetaConcept syntaxGeneralFeature = new MetaConcept("GeneralFeature",
 				true, "GeneralFeature", "plnode", "Defines a general feature",
-				100, 70, "/com/variamos/gui/pl/editor/images/plnode.png", true,
+				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
 		syntaxGeneralFeature.setParent(syntaxFeature);
@@ -1696,7 +1697,7 @@ public class Refas extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxVertexLF = new MetaConcept("LeafFeature", true,
-				"LeafFeature", "plnode", "Defines a leaf feature", 100, 70,
+				"LeafFeature", "plnode", "Defines a leaf feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, true, semFeature);
 
@@ -2394,10 +2395,10 @@ public class Refas extends AbstractModel {
 				"Variable", "", null, 0, 0, null, true, null, 1, true,
 				semVariable);
 
-		InstVertex instVertexV = new InstConcept("Variable",
+		InstVertex instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
-		variabilityInstVertex.put("Variable", instVertexV);
-		instView.addInstVertex(instVertexV);
+		variabilityInstVertex.put("Variable", instVertexVar);
+		instView.addInstVertex(instVertexVar);
 
 		/*
 		 * instEdge = new InstEdge();
@@ -2433,7 +2434,7 @@ public class Refas extends AbstractModel {
 		this.constraintInstEdges.put("context-gvtoV", instEdge);
 		instEdge.setIdentifier("context-gvtoV");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
-		instEdge.setTargetRelation(instVertexV, true);
+		instEdge.setTargetRelation(instVertexVar, true);
 		instEdge.setSourceRelation(instVertexGV, true);
 
 		instEdge = new InstPairwiseRelation();
@@ -2469,7 +2470,7 @@ public class Refas extends AbstractModel {
 		this.constraintInstEdges.put("context-lvtoV", instEdge);
 		instEdge.setIdentifier("context-lvtoV");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
-		instEdge.setTargetRelation(instVertexV, true);
+		instEdge.setTargetRelation(instVertexVar, true);
 		instEdge.setSourceRelation(instVertexLV, true);
 
 		instEdge = new InstPairwiseRelation();
@@ -2563,7 +2564,7 @@ public class Refas extends AbstractModel {
 		instEdge.setEditableMetaElement(metaVariableEdge);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCG, true);
-		instEdge.setSourceRelation(instVertexV, true);
+		instEdge.setSourceRelation(instVertexVar, true);
 
 		MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
 				"Context To Context Relation", true,
@@ -2612,6 +2613,7 @@ public class Refas extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGSG, true);
 		instEdge.setSourceRelation(instView, true);
 
+		syntaxMetaView.addConcept(syntaxVertexLF);
 		syntaxMetaView.addConcept(sOperationalization);
 		instView.addInstVertex(instVertexOper);
 
@@ -2816,8 +2818,8 @@ public class Refas extends AbstractModel {
 				"Assets Palette", 5);
 		instView = new InstView("Assets", metaView, syntaxMetaView);
 		instViews.add(instView);
-		syntaxMetaView.addConcept(sOperationalization);
-		syntaxMetaView.addConcept(syntaxVertexLF);
+		// syntaxMetaView.addConcept(sOperationalization);
+		// syntaxMetaView.addConcept(syntaxVertexLF);
 		instView.addInstVertex(instVertexOper);
 		instView.addInstVertex(instVertexLF);
 
@@ -2830,13 +2832,9 @@ public class Refas extends AbstractModel {
 						+ " can implement operationalizations", 100, 40,
 				"/com/variamos/gui/refas/editor/images/component.png", true,
 				Color.WHITE.toString(), 1, true, semAsset);
-		syntaxAsset.addModelingAttribute("name", "String", false, "Name", ""); // TODO
-																				// move
-																				// to
-		// semantic
-		// attributes
+		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "");
 
-		syntaxMetaView.addConcept(syntaxAsset);
+		// syntaxMetaView.addConcept(syntaxAsset);
 
 		syntaxAsset.addPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addPropEditableAttribute("03#" + "name");
@@ -2847,11 +2845,10 @@ public class Refas extends AbstractModel {
 		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 
-		syntaxMetaView.addConcept(syntaxAsset);
 		syntaxMetaChildView.addConcept(syntaxAsset);
-		syntaxMetaView.addConcept(sOperationalization);
+
 		syntaxMetaChildView.addConcept(sOperationalization);
-		syntaxMetaView.addConcept(syntaxVertexLF);
+
 		syntaxMetaChildView.addConcept(syntaxVertexLF);
 		childView.addInstVertex(instVertexOper);
 		childView.addInstVertex(instVertexLF);
@@ -2860,6 +2857,7 @@ public class Refas extends AbstractModel {
 				supportMetaElementConcept, syntaxAsset);
 		variabilityInstVertex.put("Asset", instVertexAsset);
 		instView.addInstVertex(instVertexAsset);
+		childView.addInstVertex(instVertexAsset);
 
 		IntSemanticOverTwoRelation semanticAssetOperGroupRelation = (IntSemanticOverTwoRelation) ((InstConcept) this
 				.getSemanticRefas().getVertex("AssetOperGroupRel"))
