@@ -44,6 +44,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.gui.refas.editor.RefasGraph;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;
@@ -129,6 +130,14 @@ public class SaveAction extends AbstractEditorAction {
 
 		if (editor != null) {
 			final VariamosGraphEditor finalEditor = editor;
+			if (editor.getPerspective()==4)
+			{
+				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+						null);
+				
+				return;
+			}
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 
 			mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -252,9 +261,9 @@ public class SaveAction extends AbstractEditorAction {
 							filename);
 				} else if (ext.equalsIgnoreCase("sxfm")) {
 					SXFMWriter writer = new SXFMWriter();
-					ProductLineGraph plGraph = (ProductLineGraph) graph;
+					
 					mxUtils.writeFile(
-							writer.getSXFMContent(plGraph.getProductLine()),
+							writer.getSXFMContent(editor.getEditedModel()),
 							filename);
 				} else if (ext.equalsIgnoreCase("pl")) {
 					pl = editor.getEditedModel();

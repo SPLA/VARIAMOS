@@ -7,11 +7,11 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
 
 @SuppressWarnings("serial")
-public class ClearSimulationAction extends AbstractEditorAction {
+public class ClearConfigurationAction extends AbstractEditorAction {
 
-	public ClearSimulationAction() {
+	public ClearConfigurationAction() {
 
-		this.putValue(SHORT_DESCRIPTION, mxResources.get("resetSimulation"));
+		this.putValue(SHORT_DESCRIPTION, mxResources.get("resetConfiguration"));
 	}
 
 	/**
@@ -19,6 +19,6 @@ public class ClearSimulationAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
-		editor.clearElementState(Refas2Hlcl.SIMUL_EXEC);
+		editor.clearElementState(Refas2Hlcl.DESIGN_EXEC);
 	}
 }

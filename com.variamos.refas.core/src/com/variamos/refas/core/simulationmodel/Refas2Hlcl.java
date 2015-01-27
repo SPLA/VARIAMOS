@@ -3,10 +3,12 @@ package com.variamos.refas.core.simulationmodel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.cfm.hlcl.BooleanExpression;
@@ -21,8 +23,10 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
+import com.mxgraph.model.mxCell;
 import com.variamos.refas.core.refas.Refas;
 import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstConcept;
 import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
 import com.variamos.syntaxsupport.metamodel.InstElement;
 import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
@@ -218,14 +222,29 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 */
 
 	public HlclProgram getHlclProgram(String element, int execType) {
+		return getHlclProgram(element, execType, null);
+	}
+
+	public HlclProgram getHlclProgram(String element, int execType,
+			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
-		createModelExpressions(execType);
-		createVertexExpressions(null, execType);
-		createEdgeExpressions(null, execType);
+		String elementIdentifier = null;
+		if (instElement == null)
+			createModelExpressions(execType);
+		else
+			elementIdentifier = instElement.getIdentifier();
+		if (instElement == null || instElement instanceof InstConcept
+				|| instElement instanceof InstOverTwoRelation)
+			createVertexExpressions(elementIdentifier, execType);
+
+		if (instElement == null || instElement instanceof InstPairwiseRelation)
+			createEdgeExpressions(elementIdentifier, execType);
 		// Previous call to createEdgeExpressions is required to fill the
 		// attribute names for createGroupExpressions
-		createGroupExpressions(null, execType, element);
+
+		if (instElement == null || instElement instanceof InstOverTwoRelation)
+			createGroupExpressions(elementIdentifier, execType, element);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
@@ -357,17 +376,42 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	/**
 	 * Resets the GUI with false
 	 */
-	public void cleanGUIElements() {
+	public void cleanGUIElements(int execType) {
 		// Call the SWIProlog and obtain the result
 
 		int i = 0;
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (instVertex.getInstAttribute("Core").getAsBoolean()
+					|| instVertex.getInstAttribute("Dead").getAsBoolean())
+				continue;
+			if (execType == Refas2Hlcl.SIMUL_EXEC
+					&& (instVertex.getInstAttribute("ConfigSelected")
+							.getAsBoolean()
+					|| instVertex.getInstAttribute("ConfigNotSelected")
+							.getAsBoolean()))
+				continue;
+			if (execType == Refas2Hlcl.DESIGN_EXEC) {
+				instVertex.getInstAttribute("ConfigSelected").setValue(false);
+				instVertex.getInstAttribute("ConfigNotSelected").setValue(false);
+			}
+
 			for (InstAttribute instAttribute : instVertex.getInstAttributes()
 					.values()) {
 				// System.out.println(vertexId + " " + attribute);
 				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
 						&& instAttribute.getAttributeType().equals("Boolean")
-						&& !instAttribute.getIdentifier().equals("HasParent"))
+						&& !instAttribute.getIdentifier().equals("HasParent")) {
+					if (instAttribute.getAttributeType().equals("Boolean")
+							&& (execType == Refas2Hlcl.DESIGN_EXEC
+									|| execType == Refas2Hlcl.SIMUL_EXEC || (!instAttribute
+									.getIdentifier().equals("Selected") && !instAttribute
+									.getIdentifier().equals("NotAvailable"))))
+						instAttribute.setValue(false);
+				}
+				if (instAttribute.getAttributeType().equals("Boolean")
+						&& (instAttribute.getIdentifier().equals(
+								"NexPrefSelected") || instAttribute
+								.getIdentifier().equals("NextNotPrefSelected")))
 
 					if (instAttribute.getAttributeType().equals("Boolean"))
 						instAttribute.setValue(false);
@@ -605,7 +649,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())
+						|| instVertex.getInstAttribute("ConfigSelected")
+								.getAsBoolean()) {
 					if (test) {
 						instAttributeTest.setValue(true);
 					} else {
@@ -613,37 +659,33 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						instVertex.getInstAttribute("Selected").setValue(true);
 					}
 				} else {
+					// instAttributeConf.setValue(false);
 					if (test) {
-						instAttributeConf.setValue(false);
-					} else {
 						instAttributeTest.setValue(false);
-						if (!instVertex.getInstAttribute("Core").getAsBoolean())
+					} else {
+
+						if (!instVertex.getInstAttribute("ConfigSelected")
+								.getAsBoolean()
+								&& !instVertex.getInstAttribute("Core")
+										.getAsBoolean()) {
 							instVertex.getInstAttribute("Selected").setValue(
 									false);
+						} else
+							instVertex.getInstAttribute("Selected").setValue(
+									true);
 					}
+
 				}
 			}
 		}
 	}
 
-	public List<String> getConfiguredIdentifier(String attribute) {
-		List<String> out = new ArrayList<String>();
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)) {
-				InstAttribute instAttribute = instVertex
-						.getInstAttribute(attribute);
-				if (instAttribute.getAsBoolean())
-					out.add(instVertex.getIdentifier() + "_"
-							+ instAttribute.getIdentifier());
-			}
-		}
-		return out;
-	}
-
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)) {
+			if (validateConceptType(instVertex)
+					|| instVertex.getInstAttribute("ConfigNotSelected")
+							.getAsBoolean()) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextNotPrefSelected");
 				InstAttribute instAttributeConf = instVertex
@@ -655,20 +697,79 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						instAttributeTest.setValue(true);
 					} else {
 						instAttributeConf.setValue(true);
-						instVertex.getInstAttribute("NotAvailable").setValue(true);
+						instVertex.getInstAttribute("NotAvailable").setValue(
+								true);
 					}
 				} else {
 					if (test) {
-						instAttributeConf.setValue(false);
-					} else {
 						instAttributeTest.setValue(false);
-						if (!instVertex.getInstAttribute("Dead").getAsBoolean())
-							instVertex.getInstAttribute("NotAvailable").setValue(
-									false);
+					} else {
+						// instAttributeConf.setValue(false);
+						if (!instVertex.getInstAttribute("ConfigNotSelected")
+								.getAsBoolean()
+								&& !instVertex.getInstAttribute("Dead")
+										.getAsBoolean())
+							instVertex.getInstAttribute("NotAvailable")
+									.setValue(false);
+						else
+							instVertex.getInstAttribute("NotAvailable")
+									.setValue(true);
 					}
 				}
 			}
 		}
+	}
+
+	public TreeMap<String, Integer> getConfiguredIdentifier(
+			Set<InstElement> elementSubSet) {
+		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (validateConceptType(instVertex)
+					&& (elementSubSet == null || elementSubSet
+							.contains(instVertex))) {
+				InstAttribute instAttribute = instVertex
+						.getInstAttribute("ConfigSelected");
+				if (instAttribute.getAsBoolean())
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 1);
+				else
+
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 0);
+				instAttribute = instVertex
+						.getInstAttribute("ConfigNotSelected");
+				if (instAttribute.getAsBoolean())
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 1);
+				else
+					out.put(instVertex.getIdentifier() + "_"
+							+ instAttribute.getIdentifier(), 0);
+			}
+		}
+		return out;
+	}
+
+	public Set<Identifier> getFreeIdentifiers() {
+		Set<Identifier> out = new HashSet<Identifier>();
+		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (validateConceptType(instVertex)) {
+				InstAttribute instAttribute = instVertex
+						.getInstAttribute("Core");
+				InstAttribute instAttribute2 = instVertex
+						.getInstAttribute("Dead");
+				InstAttribute instAttribute3 = instVertex
+						.getInstAttribute("ConfigSelected");
+				InstAttribute instAttribute4 = instVertex
+						.getInstAttribute("ConfigNotSelected");
+				if (!instAttribute.getAsBoolean()
+						&& !instAttribute2.getAsBoolean()
+						&& !instAttribute3.getAsBoolean()
+						&& !instAttribute4.getAsBoolean())
+					out.add(f.newIdentifier(instVertex.getIdentifier() + "_"
+							+ "Selected"));
+			}
+		}
+		return out;
 	}
 
 	public boolean validateConceptType(InstVertex instVertex) {
@@ -707,4 +808,36 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
+	public HlclProgram configGraph(InstElement target,
+			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers) {
+		HlclProgram out = new HlclProgram();
+		if (evaluatedSet.add(target)) {
+			if ((!target.getInstAttribute("Selected").getAsBoolean() && !target
+					.getInstAttribute("NotAvailable").getAsBoolean())
+					|| target.getIdentifier().startsWith("FeatOverTwo")) {
+				if (!target.getInstAttribute("Selected").getAsBoolean()
+						&& !target.getInstAttribute("NotAvailable")
+								.getAsBoolean()
+						&& !target.getIdentifier().startsWith("FeatOverTwo"))
+					freeIdentifiers.add(f.newIdentifier(target.getIdentifier()
+							+ "_Selected"));
+				for (InstElement element : target.getSourceRelations()) {
+					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
+							element));
+					InstElement related = element.getSourceRelations().get(0);
+					out.addAll(configGraph(related, evaluatedSet,
+							freeIdentifiers));
+				}
+				for (InstElement element : target.getTargetRelations()) {
+
+					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
+							element));
+					out.addAll(configGraph(element.getTargetRelations().get(0),
+							evaluatedSet, freeIdentifiers));
+				}
+			}
+			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));
+		}
+		return out;
+	}
 }

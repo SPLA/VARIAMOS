@@ -23,10 +23,18 @@ public class NewAction extends AbstractEditorAction
 		 */
 		public void actionPerformed(ActionEvent e)
 		{
-			BasicGraphEditor editor = getEditor(e);
+			VariamosGraphEditor editor = getEditor(e);
 
 			if (editor != null)
 			{
+				if (editor.getPerspective()==4)
+				{
+					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+							null);
+					
+					return;
+				}
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)

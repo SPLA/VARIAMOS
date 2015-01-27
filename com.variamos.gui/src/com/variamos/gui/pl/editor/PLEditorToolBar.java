@@ -28,6 +28,7 @@ import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.refas.editor.actions.ClearConfigurationAction;
 import com.variamos.gui.refas.editor.actions.ClearSimulationAction;
 import com.variamos.gui.refas.editor.actions.ClearVerificationAction;
 import com.variamos.gui.refas.editor.actions.NextSimulationAction;
@@ -120,7 +121,10 @@ public class PLEditorToolBar extends JToolBar {
 			
 		if (variamosGraphEditor.getPerspective() == 4) {			
 			addSeparator();
-			add(variamosGraphEditor.bind("clean", new ClearSimulationAction(),
+			add(variamosGraphEditor.bind("clearconf", new ClearConfigurationAction(),
+					"/com/mxgraph/examples/swing/images/pan.gif"));
+			addSeparator();
+			add(variamosGraphEditor.bind("cleansimul", new ClearSimulationAction(),
 					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/player_stop.png"));
 			add(variamosGraphEditor.bind("first", new StartSimulationAction(),
 					"/com/variamos/gui/refas/editor/images/www.iconfinder.com/direction_right.png"));

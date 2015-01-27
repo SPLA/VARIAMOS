@@ -103,7 +103,7 @@ public class ElementDesignPanel extends JPanel {
 
 	public void editorProperties(VariamosGraphEditor editor, EditableElement elm) {
 		mainPanel.removeAll();
-		rootPanels = 1;
+		rootPanels = 0;
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
@@ -336,6 +336,7 @@ public class ElementDesignPanel extends JPanel {
 					designPanelElements * 30));
 
 			contentPanel1.setMaximumSize(new Dimension(200, 300));
+			rootPanels++;
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -450,7 +451,8 @@ public class ElementDesignPanel extends JPanel {
 		}
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
 
-		SpringUtilities.makeCompactGrid(mainPanel, 1, rootPanels, 4, 4, 4, 4);
+		System.out.println(mainPanel.getComponentCount() +" " + rootPanels);
+		SpringUtilities.makeCompactGrid(mainPanel, 1, mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();
 		this.repaint();
 	}

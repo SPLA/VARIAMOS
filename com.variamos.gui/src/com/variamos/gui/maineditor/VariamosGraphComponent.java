@@ -138,9 +138,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									String sim_red2 = "/com/variamos/gui/refas/editor/images/sim_red2.png";
 									String sim_red3 = "/com/variamos/gui/refas/editor/images/sim_red3.png";
 
-									if ((boolean) instConcept
-													.getInstAttribute("Core")
-													.getValue()) {
+									if ((boolean) instConcept.getInstAttribute(
+											"Core").getValue()) {
 										sim_backcolor = sim_core;
 										backtophint = "Element part of the core (red on sides)";
 									} else if (!(boolean) instConcept
@@ -187,7 +186,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 										addCellOverlay(tmp, over3);
 									}
 									if ((boolean) instConcept.getInstAttribute(
-											"ConfigSelected").getValue()) {
+											"ConfigSelected").getValue()
+											|| (boolean) instConcept
+													.getInstAttribute(
+															"NextPrefSelected")
+													.getValue()) {
 										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class
@@ -213,7 +216,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 										addCellOverlay(tmp, over3);
 									}
 									if ((boolean) instConcept.getInstAttribute(
-											"ConfigNotSelected").getValue()) {
+											"ConfigNotSelected").getValue()
+											|| (boolean) instConcept
+													.getInstAttribute(
+															"NextNotPrefSelected")
+													.getValue()) {
 										mxCellOverlay over3 = new mxCellOverlay(
 												new ImageIcon(
 														mxGraphComponent.class

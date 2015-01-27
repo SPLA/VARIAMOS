@@ -770,8 +770,8 @@ public class Refas extends AbstractModel {
 				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
 
-		semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
-				+ "Core" + "#==#" + "false" + "#" + "true");
+	//	semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
+	//			+ "Core" + "#==#" + "false" + "#" + "true");
 		// semGeneralElement.addDisPropEditableAttribute("02#" +
 		// "Visibility"
 		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
@@ -833,19 +833,19 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.putSemanticAttribute("NextNotSelected",
 				new SimulationStateAttribute("NextNotSelected", "Boolean",
-						false, "Selection conflict", false));
+						false, "Not selected(inactive)", false));
 
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
 				new SimulationStateAttribute("NextPrefSelected", "Boolean",
-						false, "Selected by preference", false));
+						false, "Selected by configuration", false));
 		
 		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
 				new SimulationStateAttribute("NextNotPrefSelected", "Boolean",
-						false, "Not Selected by preference", false));
+						false, "Not Selected by configuration", false));
 		
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
 				new SimulationStateAttribute("NextReqSelected", "Boolean",
-						false, "Selection by restriction(s)", false));
+						false, "Selected by simulation", false));
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
@@ -853,7 +853,7 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "NotAvailable");
 		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
-		semGeneralElement.addPropVisibleAttribute("06#" + "Order");
+		semGeneralElement.addPropVisibleAttribute("06#" + "NextNotPrefSelected");
 
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");

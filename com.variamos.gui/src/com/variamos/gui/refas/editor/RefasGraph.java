@@ -352,8 +352,7 @@ public class RefasGraph extends AbstractGraph {
 			InstElement instTarget = (InstElement) t.getValue();
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
-					"testRG");
+			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
 			Refas refas = getRefas();
 			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
@@ -382,8 +381,7 @@ public class RefasGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
-				"testRG");
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
 		Refas refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
