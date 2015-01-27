@@ -151,21 +151,21 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out10);
 				allList.add(out10);
 
-				// ((targetId_NotAvailable) #=> sourceId_NotAvailable) #= 1
+		/*		// ((targetId_NotAvailable) #=> sourceId_Selected) #= 0
 				EqualsComparisonExpression transformation73 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"NotAvailable", true, new NumberNumericExpression(1));
+						"Selected", true, new NumberNumericExpression(0));
 				AbstractBooleanExpression out90 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"NotAvailable", true, transformation73);
 				getElementExpressions().add(out90);
 				allList.add(out90);
-
+*/
 				break;
 			case "conflict":
 
 				sourcePositiveAttributeNames.add("Selected");
-				sourceNegativeAttributeNames.add("NotAvailable");
+			//	sourceNegativeAttributeNames.add("NotAvailable");
 				// sourceAttributeNames.add("SatisfactionConflict");
 
 				// ((SourceId_Selected) + targetId_Selected) #<= 1
@@ -178,18 +178,18 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out9);
 				allList.add(out9);
 
-				// ((SourceId_Selected) #=> targetId_NotAvailable) #= 1
+			/*	// ((SourceId_Selected) #=> targetId_Selected) #= 0
 				EqualsComparisonExpression transformation75 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NotAvailable", true, new NumberNumericExpression(1));
+						"Selected", true, new NumberNumericExpression(0));
 				AbstractBooleanExpression out99 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, transformation75);
 				getElementExpressions().add(out99);
 				allList.add(out99);
-
+*/
 				// ((targetId_Selected) #=> sourceId_NotAvailable) #= 1
-				EqualsComparisonExpression transformation74 = new EqualsComparisonExpression(
+			/*	EqualsComparisonExpression transformation74 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"NotAvailable", true, new NumberNumericExpression(1));
 				AbstractBooleanExpression out98 = new ImplicationBooleanExpression(
@@ -197,7 +197,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"Selected", true, transformation74);
 				getElementExpressions().add(out98);
 				allList.add(out98);
-
+*/
 				break;
 			case "alternative":
 				sourcePositiveAttributeNames.add("Selected");

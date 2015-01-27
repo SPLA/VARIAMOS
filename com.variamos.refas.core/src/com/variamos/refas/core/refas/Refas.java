@@ -853,7 +853,7 @@ public class Refas extends AbstractModel {
 
 		semGeneralElement.addPropVisibleAttribute("02#" + "NotAvailable");
 		semGeneralElement.addPropVisibleAttribute("04#" + "NextNotSelected");
-		semGeneralElement.addPropVisibleAttribute("06#" + "Order");
+		semGeneralElement.addPropVisibleAttribute("06#" + "NextNotPrefSelected");
 
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");

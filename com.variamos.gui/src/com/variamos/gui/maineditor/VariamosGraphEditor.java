@@ -1136,7 +1136,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						elementConfPropSubPanel.add(w);
 
 						if (v.isAffectProperties()) {
-							if (w.getEditor() instanceof JCheckBox)
+							/*if (w.getEditor() instanceof JCheckBox)
 								((JCheckBox) w.getEditor())
 										.addActionListener(new ActionListener() {
 											public void actionPerformed(
@@ -1146,8 +1146,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 												// System.out.println(selected);
 												updateTabs = true;
-												((JCheckBox) w.getEditor())
-														.repaint();
+											//	((JCheckBox) w.getEditor())
+											//			.repaint();
 												// repaint();
 
 												new Thread() {
@@ -1164,15 +1164,39 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 														// }
 														// synchronized
 														// (getEditor()) {
-														editPropertiesRefas(elm);
+													//	editPropertiesRefas(elm);
 														// }
 
 													}
 												}.start();
 												// clearNotificationBar();
-												configModel(true);
+											//	configModel((InstElement) elm,
+											//			true);
 											}
-										});
+										});*/
+							if (v.getIdentifier().startsWith("Config"))
+							{
+								JButton button = new JButton("Test");
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										// new Thread() {
+										// public void run() {
+										// synchronized (getEditor()) {
+										clearNotificationBar();
+										configModel((InstElement) elm, true);
+										// executeSimulation(true,
+										// Refas2Hlcl.CONF_EXEC);
+										editPropertiesRefas(elm);
+										updateExpressions = true;
+										// }
+
+										// }
+										// }.start();
+									}
+								});
+								elementConfPropSubPanel.add(button);
+							} else
+								elementConfPropSubPanel.add(new JPanel());
 							JButton button = new JButton("Configure");
 							button.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
@@ -1180,7 +1204,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									// public void run() {
 									// synchronized (getEditor()) {
 									clearNotificationBar();
-									configModel(false);
+									configModel((InstElement) elm, false);
 									// executeSimulation(true,
 									// Refas2Hlcl.CONF_EXEC);
 									editPropertiesRefas(elm);
@@ -1193,7 +1217,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							});
 							elementConfPropSubPanel.add(button);
 						} else
+						{
 							elementConfPropSubPanel.add(new JPanel());
+							elementConfPropSubPanel.add(new JPanel());
+						}
+							
 
 						configurationPanelElements++;
 					}
@@ -1204,7 +1232,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						simulationPanelElements / 2, 6, 4, 4, 4, 4);
 
 				SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
-						configurationPanelElements, 3, 4, 4, 4, 4);
+						configurationPanelElements, 4, 4, 4, 4, 4);
 
 				elementConfigPropPanel.add(elementConfPropSubPanel);
 				elementSimPropPanel.add(elementSimPropSubPanel);
@@ -1468,7 +1496,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void clearSimulation() {
 
-		refas2hlcl.cleanGUIElements();
+		refas2hlcl.cleanGUIElements(true);
 		try {
 			((RefasGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
@@ -1806,26 +1834,34 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return out;
 	}
 
-	public void configModel(boolean test) {
-		//this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements();
-		if (invalidConfigHlclProgram)
-		configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-				Refas2Hlcl.CONF_EXEC);
+	public void configModel(InstElement element, boolean test) {
+		// this.clearNotificationBar();
+		refas2hlcl.cleanGUIElements(false);
+		Set<Identifier> freeIdentifiers = null;
+		Set<InstElement> elementSubSet = null;
+		if (invalidConfigHlclProgram && element == null)
+			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
+					Refas2Hlcl.CONF_EXEC);
+		else
+		{
+			freeIdentifiers = new HashSet<Identifier>();
+			elementSubSet = new HashSet<InstElement>();
+			configHlclProgram = refas2hlcl.configGraph(element,
+					elementSubSet, freeIdentifiers);
+		}
+			
 		invalidConfigHlclProgram = false;
-		HlclFactory f = new HlclFactory();
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
 		iniSTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
 		TreeMap<String, Integer> configuredIdentNames = refas2hlcl
-				.getConfiguredIdentifier();
+				.getConfiguredIdentifier(elementSubSet);
 		Configuration config = new Configuration();
 
-		Set<Identifier> freeIdentifiers = new HashSet<Identifier>();
-
-		freeIdentifiers = refas2hlcl.getFreeIdentifiers();
+		if (freeIdentifiers == null)
+			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
 
 		config.setConfiguration(configuredIdentNames);
 
