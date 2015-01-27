@@ -130,6 +130,14 @@ public class SaveAction extends AbstractEditorAction {
 
 		if (editor != null) {
 			final VariamosGraphEditor finalEditor = editor;
+			if (editor.getPerspective()==4)
+			{
+				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+						null);
+				
+				return;
+			}
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 
 			mxGraphComponent graphComponent = editor.getGraphComponent();

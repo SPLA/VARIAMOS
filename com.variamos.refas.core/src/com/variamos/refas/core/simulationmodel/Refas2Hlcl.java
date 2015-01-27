@@ -376,11 +376,26 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	/**
 	 * Resets the GUI with false
 	 */
-	public void cleanGUIElements(boolean simul) {
+	public void cleanGUIElements(int execType) {
 		// Call the SWIProlog and obtain the result
 
 		int i = 0;
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+			if (instVertex.getInstAttribute("Core").getAsBoolean()
+					|| instVertex.getInstAttribute("Dead").getAsBoolean())
+				continue;
+			if (execType == Refas2Hlcl.SIMUL_EXEC
+					&& instVertex.getInstAttribute("ConfigSelected")
+							.getAsBoolean()
+					|| instVertex.getInstAttribute("ConfigNotSelected")
+							.getAsBoolean())
+				continue;
+			if (execType == Refas2Hlcl.DESIGN_EXEC) {
+				instVertex.getInstAttribute("ConfigSelected").setValue(false);
+				instVertex.getInstAttribute("ConfigNotSelected")
+						.setValue(false);
+			}
+
 			for (InstAttribute instAttribute : instVertex.getInstAttributes()
 					.values()) {
 				// System.out.println(vertexId + " " + attribute);
@@ -389,8 +404,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						&& !instAttribute.getIdentifier().equals("HasParent"))
 
 					if (instAttribute.getAttributeType().equals("Boolean")
-							&& (simul || (!instAttribute.getIdentifier()
-									.equals("Selected") && !instAttribute
+							&& (execType == Refas2Hlcl.DESIGN_EXEC
+									|| execType == Refas2Hlcl.SIMUL_EXEC || (!instAttribute
+									.getIdentifier().equals("Selected") && !instAttribute
 									.getIdentifier().equals("NotAvailable"))))
 						instAttribute.setValue(false);
 				if (instAttribute.getAttributeType().equals("Boolean")
@@ -810,8 +826,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
 							element));
 					InstElement related = element.getSourceRelations().get(0);
-					out.addAll(configGraph(related,
-							evaluatedSet, freeIdentifiers));
+					out.addAll(configGraph(related, evaluatedSet,
+							freeIdentifiers));
 				}
 				for (InstElement element : target.getTargetRelations()) {
 

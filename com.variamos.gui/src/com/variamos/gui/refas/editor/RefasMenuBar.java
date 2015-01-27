@@ -1,25 +1,19 @@
 package com.variamos.gui.refas.editor;
 
-import java.awt.CheckboxMenuItem;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
- 
-import com.variamos.gui.common.actions.ConfigureAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.MainFrame;
+
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.refas.configurator.guiactions.LoadConfigurationAction;
-import com.variamos.gui.refas.configurator.guiactions.SaveConfigurationAction;
-import com.variamos.gui.refas.configurator.guiactions.SaveProductsAction;
+import com.variamos.gui.refas.editor.actions.ClearConfigurationAction;
 import com.variamos.gui.refas.editor.actions.ClearSimulationAction;
 import com.variamos.gui.refas.editor.actions.ClearVerificationAction;
 import com.variamos.gui.refas.editor.actions.ExitAction;
@@ -34,10 +28,6 @@ import com.variamos.gui.refas.editor.actions.ToggleAssetVisibilityAction;
 import com.variamos.gui.refas.editor.actions.TogglePLVisibilityAction;
 import com.variamos.gui.refas.editor.actions.VerificationAction;
 import com.variamos.gui.refas.editor.actions.VerifyDeadElementAction;
-//import com.variamos.gui.pl.editor.actions.VerifyDeadElementAction;
-//import com.variamos.gui.pl.editor.actions.VerifyFalseOptionalElementAction;
-//import com.variamos.gui.pl.editor.actions.VerifyFalseProductLineModelAction;
-//import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 import com.variamos.gui.refas.editor.actions.VerifyFalseOptElementAction;
 
 @SuppressWarnings("serial")
@@ -204,6 +194,26 @@ public class RefasMenuBar extends JMenuBar {
 			add(menu);
 		}
 		if (editor.getPerspective() == 4) {
+
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("configuration")));
+			Action a = editor.bind(mxResources.get("resetConfiguration"),
+					new ClearConfigurationAction());
+			menu.add(a);
+			menu.addSeparator();
+			a = editor.bind(mxResources.get("loadConfiguration"),
+					new ClearSimulationAction());
+			a.setEnabled(false);
+			menu.add(a);
+			a = editor.bind(mxResources.get("resetConfiguration"),
+					new ClearSimulationAction());
+			menu.add(a);
+			a.setEnabled(false);
+			a = editor.bind(mxResources.get("saveProducts"),
+					new ClearSimulationAction());
+			menu.add(a);		
+			a.setEnabled(false);
+			add(menu);
+			
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
 			menu.add(editor.bind(mxResources.get("resetSimulation"),
 					new ClearSimulationAction()));

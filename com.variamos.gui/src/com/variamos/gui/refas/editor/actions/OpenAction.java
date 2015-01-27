@@ -8,7 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
@@ -67,6 +66,14 @@ public class OpenAction extends AbstractEditorAction{
 		if (editor != null)
 		{
 			VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+			if (variamosEditor.getPerspective()==4)
+			{
+				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+						null);
+				
+				return;
+			}
 			final BasicGraphEditor finalEditor = editor;
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()

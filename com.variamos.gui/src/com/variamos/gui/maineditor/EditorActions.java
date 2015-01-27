@@ -525,6 +525,14 @@ public class EditorActions {
 			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
+				if (editor.getPerspective()==4)
+				{
+					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+							null);
+					
+					return;
+				}
 				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -1259,6 +1267,14 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
+				if (editor.getPerspective()==4)
+				{
+					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+							null);
+					
+					return;
+				}
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1465,6 +1481,14 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
+				if (editor.getPerspective()==4)
+				{
+					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
+							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
+							null);
+					
+					return;
+				}
 				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 				final BasicGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);

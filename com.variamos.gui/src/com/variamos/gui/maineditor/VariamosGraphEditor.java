@@ -1494,23 +1494,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		this.refresh();
 	}
 
-	public void clearSimulation() {
+	public void clearElementState(int execType) {
 
-		refas2hlcl.cleanGUIElements(true);
-		try {
-			((RefasGraph) getGraphComponent().getGraph())
-					.refreshVariable(lastEditableElement);
-		} catch (Exception e) {
-			lastEditableElement = ((RefasGraph) this.getGraphComponent()
-					.getGraph()).getEditableElement();
-			try {
-				((RefasGraph) getGraphComponent().getGraph())
-						.refreshVariable(lastEditableElement);
-			} catch (Exception p) {
-				System.out.println("Update error");
-			}
-
-		}
+		refas2hlcl.cleanGUIElements(execType);
+		this.refresh();
 
 	}
 
@@ -1836,7 +1823,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void configModel(InstElement element, boolean test) {
 		// this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements(false);
+		refas2hlcl.cleanGUIElements(Refas2Hlcl.CONF_EXEC);
 		Set<Identifier> freeIdentifiers = null;
 		Set<InstElement> elementSubSet = null;
 		if (invalidConfigHlclProgram && element == null)
