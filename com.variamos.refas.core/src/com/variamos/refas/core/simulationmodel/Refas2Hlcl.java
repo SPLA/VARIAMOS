@@ -385,15 +385,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					|| instVertex.getInstAttribute("Dead").getAsBoolean())
 				continue;
 			if (execType == Refas2Hlcl.SIMUL_EXEC
-					&& instVertex.getInstAttribute("ConfigSelected")
+					&& (instVertex.getInstAttribute("ConfigSelected")
 							.getAsBoolean()
 					|| instVertex.getInstAttribute("ConfigNotSelected")
-							.getAsBoolean())
+							.getAsBoolean()))
 				continue;
 			if (execType == Refas2Hlcl.DESIGN_EXEC) {
 				instVertex.getInstAttribute("ConfigSelected").setValue(false);
-				instVertex.getInstAttribute("ConfigNotSelected")
-						.setValue(false);
+				instVertex.getInstAttribute("ConfigNotSelected").setValue(false);
 			}
 
 			for (InstAttribute instAttribute : instVertex.getInstAttributes()
@@ -401,14 +400,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				// System.out.println(vertexId + " " + attribute);
 				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
 						&& instAttribute.getAttributeType().equals("Boolean")
-						&& !instAttribute.getIdentifier().equals("HasParent"))
-
+						&& !instAttribute.getIdentifier().equals("HasParent")) {
 					if (instAttribute.getAttributeType().equals("Boolean")
 							&& (execType == Refas2Hlcl.DESIGN_EXEC
 									|| execType == Refas2Hlcl.SIMUL_EXEC || (!instAttribute
 									.getIdentifier().equals("Selected") && !instAttribute
 									.getIdentifier().equals("NotAvailable"))))
 						instAttribute.setValue(false);
+				}
 				if (instAttribute.getAttributeType().equals("Boolean")
 						&& (instAttribute.getIdentifier().equals(
 								"NexPrefSelected") || instAttribute
@@ -837,7 +836,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							evaluatedSet, freeIdentifiers));
 				}
 			}
-			out.addAll(getHlclProgram("", Refas2Hlcl.CONF_EXEC, target));
+			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));
 		}
 		return out;
 	}

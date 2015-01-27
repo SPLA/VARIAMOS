@@ -298,30 +298,61 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(0)));
 							}
+							
 							if (instAttribute.getIdentifier().equals(
-									"NextNotPrefSelected")) {
+									"Selected"))
+							{
+								// Opt #<==>
+								if (execType != Refas2Hlcl.CORE_EXEC
+										&& (execType != Refas2Hlcl.DESIGN_EXEC)) {
+									AbstractNumericExpression transformation50 = new SumNumericExpression(
+											instVertex, instVertex,
+											"NextReqSelected", "ConfigSelected");
+									AbstractNumericExpression transformation51 = new ProdNumericExpression(
+											instVertex, "NextPrefSelected", true,
+											transformation50);
+
+									AbstractNumericExpression transformation52 = new SumNumericExpression(
+											instVertex, instVertex,
+											"NextPrefSelected", "ConfigSelected");
+									AbstractNumericExpression transformation53 = new ProdNumericExpression(
+											instVertex, "NextReqSelected", true,
+											transformation52);
+
+									AbstractNumericExpression transformation54 = new SumNumericExpression(
+											transformation51, transformation53);
+
+									getElementExpressions().add(
+											new EqualsComparisonExpression(
+													instVertex, "Opt", true,
+													transformation54));
+								}
+								// Opt#=0
+
 								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, instAttribute
-														.getIdentifier(),
-												getHlclFactory().number(0)));
+										new EqualsComparisonExpression(instVertex,
+												"Opt", getHlclFactory().number(0)));
+
+							}
+							// Order#<==>
+							if (instAttribute.getIdentifier().equals("Order")
+									&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
+								AbstractNumericExpression transformation48 = new ProdNumericExpression(
+										instVertex, "NextReqSelected", true,
+										getHlclFactory().number(4));
+								AbstractNumericExpression transformation55 = new SumNumericExpression(
+										instVertex, "NextPrefSelected", true,
+										transformation48);
+
+								getElementExpressions().add(
+										new EqualsComparisonExpression(instVertex,
+												"Order", true, transformation55));
 							}
 						}
 
 						// End Simulation Only
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-					//	if (execType == Refas2Hlcl.CONF_EXEC) {
-							if (instAttribute.getIdentifier().equals(
-									"NextNotSelected")) {
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, instAttribute
-														.getIdentifier(),
-												getHlclFactory().number(
-														0)));
-							}
-					//	}
 
 						// identifierId_Active #= value for simulation
 						if (instAttribute.getIdentifier().equals("Active")) {
@@ -375,7 +406,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 						}
 
 						if (instAttribute.getIdentifier().equals(
-								"NextNotSelected")) {
+								"ConfigSelected")) {
 
 							AbstractNumericExpression transformation53 = new SumNumericExpression(
 									instVertex, instVertex, "ConfigSelected",
@@ -389,41 +420,24 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 						}
 
-						// Order#<==>
-						if (instAttribute.getIdentifier().equals("Order")
-								&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
-							AbstractNumericExpression transformation48 = new ProdNumericExpression(
-									instVertex, "NextReqSelected", true,
-									getHlclFactory().number(4));
-							AbstractNumericExpression transformation55 = new SumNumericExpression(
-									instVertex, "NextPrefSelected", true,
-									transformation48);
-
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											"Order", true, transformation55));
-						}
+						
 
 						// Set ForceSelected from GUI properties
 
 						if (instAttribute.getIdentifier()
 								.equals("NotAvailable")) {
 							// identifierId_NotAvailable #<=>
-							// ( ( ( identifierId_NextNotSelected
-							// #\/ identifierId_ConfigNotSelected
+							// ( ( ( identifierId_ConfigNotSelected
 							// #\/ identifierId_Dead )
 							AbstractBooleanExpression transformation6 = new OrBooleanExpression(
 									instVertex, instVertex,
-									"ConfigNotSelected", "NextNotSelected");
+									"ConfigNotSelected", "NextNotPrefSelected");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
-									instVertex, instVertex, "Dead",
-									"NextNotPrefSelected");
-							AbstractBooleanExpression transformation8 = new OrBooleanExpression(
-									transformation7, transformation6);
+									instVertex, "Dead", true, transformation6);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "NotAvailable", true,
-											transformation8));
+											transformation7));
 						}
 
 						if (instAttribute.getIdentifier().equals("Selected")) {
@@ -455,37 +469,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									new NumberNumericExpression(0));
 							getElementExpressions().add(transformation62);
 
-							// Opt #<==>
-							if (execType != Refas2Hlcl.CORE_EXEC
-									&& (execType != Refas2Hlcl.DESIGN_EXEC)) {
-								AbstractNumericExpression transformation50 = new SumNumericExpression(
-										instVertex, instVertex,
-										"NextReqSelected", "ConfigSelected");
-								AbstractNumericExpression transformation51 = new ProdNumericExpression(
-										instVertex, "NextPrefSelected", true,
-										transformation50);
-
-								AbstractNumericExpression transformation52 = new SumNumericExpression(
-										instVertex, instVertex,
-										"NextPrefSelected", "ConfigSelected");
-								AbstractNumericExpression transformation53 = new ProdNumericExpression(
-										instVertex, "NextReqSelected", true,
-										transformation52);
-
-								AbstractNumericExpression transformation54 = new SumNumericExpression(
-										transformation51, transformation53);
-
-								getElementExpressions().add(
-										new EqualsComparisonExpression(
-												instVertex, "Opt", true,
-												transformation54));
-							}
-							// Opt#=0
-
-							getElementExpressions().add(
-									new EqualsComparisonExpression(instVertex,
-											"Opt", getHlclFactory().number(0)));
-
+							
 						}
 					}
 					List<AbstractExpression> coreList = this

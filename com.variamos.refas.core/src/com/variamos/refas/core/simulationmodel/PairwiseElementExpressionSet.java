@@ -136,7 +136,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "required":
 				sourcePositiveAttributeNames.add("Selected");
-				sourceNegativeAttributeNames.add("NotAvailable");
+				//sourceNegativeAttributeNames.add("NotAvailable");
 				// sourceAttributeNames.add("Core");
 
 				// (( 1 - SourceId_Selected) + targetId_Selected) #>= 1
@@ -260,7 +260,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				// SourceId_Satisfied #==> targetId_NextReqSatisfied #= 1
 				AbstractComparisonExpression transformation161 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NextReqSelected", getHlclFactory().number(1));
+						"Selected", getHlclFactory().number(1));
 				AbstractBooleanExpression out8 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, transformation161);
@@ -275,21 +275,13 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				// targetId_NextReqSelected #==> SourceId_NextReqSelected #= 1
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"NextReqSelected", getHlclFactory().number(1));
+						"Selected", getHlclFactory().number(1));
 				AbstractBooleanExpression out7 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NextReqSelected", true, transformation18);
+						"Selected", true, transformation18);
 				getElementExpressions().add(out7);
 				structureList.add(out7);
-				// targetId_NextPrefSelected #==> SourceId_NextReqSelected #= 1
-				AbstractComparisonExpression transformation188 = new EqualsComparisonExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
-						"NextReqSelected", getHlclFactory().number(1));
-				AbstractBooleanExpression out6 = new ImplicationBooleanExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						"NextPrefSelected", true, transformation188);
-				getElementExpressions().add(out6);
-				allList.add(out6);
+
 
 				break;
 			case "mandatory":

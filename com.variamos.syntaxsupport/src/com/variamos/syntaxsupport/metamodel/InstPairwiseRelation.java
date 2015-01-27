@@ -69,7 +69,7 @@ public class InstPairwiseRelation extends InstElement {
 	VAR_METAPAIRWISE_OBJ_CLASS = MetaPairwiseRelation.class.getCanonicalName();
 
 	public InstPairwiseRelation() {
-		this(new HashMap<String, InstAttribute>(), "test");
+		this(new HashMap<String, InstAttribute>(), null);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 

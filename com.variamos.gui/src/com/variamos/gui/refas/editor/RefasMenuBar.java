@@ -204,7 +204,7 @@ public class RefasMenuBar extends JMenuBar {
 					new ClearSimulationAction());
 			a.setEnabled(false);
 			menu.add(a);
-			a = editor.bind(mxResources.get("resetConfiguration"),
+			a = editor.bind(mxResources.get("saveConfiguration"),
 					new ClearSimulationAction());
 			menu.add(a);
 			a.setEnabled(false);

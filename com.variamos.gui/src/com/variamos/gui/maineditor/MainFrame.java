@@ -1,4 +1,4 @@
-package com.variamos.gui.maineditor;
+	package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
 			case 3:// simulation
 				abstractModel = new Refas(PerspectiveType.simulation,
 						syntaxRefas, semanticRefas);
-				bgColor = new Color(236, 250, 235);
+				bgColor = new Color(236, 252, 255);
 				break;
 
 			}
