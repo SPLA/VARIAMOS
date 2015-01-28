@@ -7,7 +7,7 @@ import java.util.Map;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
-import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.refas.Refas2Hlcl;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;

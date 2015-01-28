@@ -19,7 +19,7 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.semantic.semanticsupport.AbstractSemanticElement;
+import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;

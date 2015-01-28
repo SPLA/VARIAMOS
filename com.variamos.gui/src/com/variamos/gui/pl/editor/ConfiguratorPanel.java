@@ -54,7 +54,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.refas.Refas2Hlcl;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**

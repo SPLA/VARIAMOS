@@ -40,7 +40,7 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
@@ -60,7 +60,7 @@ public class RefasGraph extends AbstractGraph {
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private Refas refasModel = null;
+	private RefasModel refasModel = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
@@ -97,7 +97,7 @@ public class RefasGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, Refas refasModel) {
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, RefasModel refasModel) {
 		init();
 		this.semanticPlusSyntax = semanticPlusSyntax;
 		this.perspective = perspective;
@@ -353,7 +353,7 @@ public class RefasGraph extends AbstractGraph {
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-			Refas refas = getRefas();
+			RefasModel refas = getRefas();
 			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
@@ -382,7 +382,7 @@ public class RefasGraph extends AbstractGraph {
 				return true;
 		}
 		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-		Refas refas = getRefas();
+		RefasModel refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
@@ -453,7 +453,7 @@ public class RefasGraph extends AbstractGraph {
 				|| cell.getValue() instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			Refas pl = getRefas();
+			RefasModel pl = getRefas();
 			Object cellValue = cell.getValue();
 			if (cell.getGeometry() != null) {
 				if (cellValue instanceof InstVertex) {
@@ -646,7 +646,7 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refasModel = (Refas) pl;
+		refasModel = (RefasModel) pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -655,7 +655,7 @@ public class RefasGraph extends AbstractGraph {
 		}
 	}
 
-	public Refas getRefas() {
+	public RefasModel getRefas() {
 		/*if (refasModel == null) {
 			refasModel = new Refas(PerspectiveType.modeling);
 			return refasModel;

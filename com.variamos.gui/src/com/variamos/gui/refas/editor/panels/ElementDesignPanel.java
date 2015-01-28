@@ -29,7 +29,7 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -160,7 +160,7 @@ public class ElementDesignPanel extends JPanel {
 						Map<String, MetaElement> mapElements = null;
 						if (elm instanceof InstPairwiseRelation) {
 							InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-							mapElements = ((Refas) editor.getEditedModel())
+							mapElements = ((RefasModel) editor.getEditedModel())
 									.getSyntaxRefas()
 									.getValidPairwiseRelations(
 											instPairwise

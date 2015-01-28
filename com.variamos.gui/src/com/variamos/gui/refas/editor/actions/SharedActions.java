@@ -13,8 +13,8 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.semantic.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.refas.RefasModel;
+import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
@@ -255,7 +255,7 @@ public class SharedActions {
 
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
-		Refas refas = ((RefasGraph) editor.getGraphComponent().getGraph())
+		RefasModel refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
 		if (value instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;

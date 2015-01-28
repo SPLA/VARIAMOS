@@ -1,4 +1,4 @@
-package com.variamos.refas.semantic.semanticsupport;
+package com.variamos.semantic.semanticsupport;
 
 /**
  * A class to represent values at the semantic level. Part of PhD work at

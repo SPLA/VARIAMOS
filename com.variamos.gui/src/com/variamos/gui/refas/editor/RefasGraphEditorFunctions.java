@@ -28,7 +28,7 @@ import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
@@ -47,12 +47,12 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 	public RefasGraphEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
 		Collection<MetaElement> metaElements = new HashSet<MetaElement>();
-		if (((Refas) editor.getEditedModel()).getSyntaxRefas() == null) {
+		if (((RefasModel) editor.getEditedModel()).getSyntaxRefas() == null) {
 			for (MetaView metaView : editor.getMetaViews()) {
 				metaElements.addAll(metaView.getElements());
 			}
 		} else {
-			for (InstVertex instVertex : ((Refas) editor.getEditedModel())
+			for (InstVertex instVertex : ((RefasModel) editor.getEditedModel())
 					.getSyntaxRefas().getVertices()) {
 				metaElements.add(instVertex.getEditableMetaElement());
 			}

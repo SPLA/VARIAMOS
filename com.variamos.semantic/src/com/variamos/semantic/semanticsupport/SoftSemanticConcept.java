@@ -1,4 +1,4 @@
-package com.variamos.refas.semantic.semanticsupport;
+package com.variamos.semantic.semanticsupport;
 
 import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;

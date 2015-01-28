@@ -11,7 +11,7 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
@@ -46,11 +46,11 @@ public class MainFrame extends JFrame {
 		this.setTitle(perspectiveTitle + " - " + appTitle);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1070, 740);
-		Refas basicSyntaxRefas = new Refas(PerspectiveType.basicSyntax);
-		Refas basicSemanticRefas = new Refas(PerspectiveType.basicSemantic);
-		Refas semanticRefas = null;
-		Refas syntaxRefas = null;
-		Refas abstractModel = null;
+		RefasModel basicSyntaxRefas = new RefasModel(PerspectiveType.basicSyntax);
+		RefasModel basicSemanticRefas = new RefasModel(PerspectiveType.basicSemantic);
+		RefasModel semanticRefas = null;
+		RefasModel syntaxRefas = null;
+		RefasModel abstractModel = null;
 		SemanticPlusSyntax sematicSyntaxObject = new SemanticPlusSyntax();
 		VariamosGraphEditor.setSematicSyntaxObject(sematicSyntaxObject);
 		RefasGraph refasGraph = null;
@@ -59,15 +59,15 @@ public class MainFrame extends JFrame {
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // semantic
-				abstractModel = new Refas(basicSemanticRefas);
+				abstractModel = new RefasModel(basicSemanticRefas);
 				semanticRefas = abstractModel;
-				syntaxRefas = new Refas(PerspectiveType.syntax,
+				syntaxRefas = new RefasModel(PerspectiveType.syntax,
 						basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
 				break;
 
 			case 1:// modeling
-				abstractModel = new Refas(PerspectiveType.modeling,
+				abstractModel = new RefasModel(PerspectiveType.modeling,
 						syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 3:// simulation
-				abstractModel = new Refas(PerspectiveType.simulation,
+				abstractModel = new RefasModel(PerspectiveType.simulation,
 						syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
 				break;

@@ -1,6 +1,6 @@
 package com.variamos.refas.core.conditionalexpressions;
 
-import com.variamos.refas.semantic.semanticsupport.SemanticVariable;
+import com.variamos.semantic.semanticsupport.SemanticVariable;
 
 public class Variable extends Sentence {
 	private SemanticVariable semanticVariable;

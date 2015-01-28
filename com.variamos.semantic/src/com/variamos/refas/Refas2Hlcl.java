@@ -1,4 +1,4 @@
-package com.variamos.refas.core.refas;
+package com.variamos.refas;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,7 +58,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private Map<String, MetaExpressionSet> constraintGroups;
 	private String text;
 	private HlclProgram hlclProgram = new HlclProgram();
-	private Refas refas;
+	private RefasModel refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration = new Configuration();
 	private boolean hasSolution;
@@ -72,7 +72,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
 			VAL_UPD_EXEC = 4;
 
-	public Refas2Hlcl(Refas refas) {
+	public Refas2Hlcl(RefasModel refas) {
 		this.refas = refas;
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 
@@ -613,11 +613,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return out;
 	}
 
-	public Refas getRefas() {
+	public RefasModel getRefas() {
 		return refas;
 	}
 
-	public void setRefas(Refas refas) {
+	public void setRefas(RefasModel refas) {
 		this.refas = refas;
 		constraintGroups = new HashMap<String, MetaExpressionSet>();
 		swiSolver = null;

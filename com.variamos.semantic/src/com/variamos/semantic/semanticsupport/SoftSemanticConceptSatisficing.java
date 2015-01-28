@@ -1,4 +1,4 @@
-package com.variamos.refas.semantic.semanticsupport;
+package com.variamos.semantic.semanticsupport;
 
 /**
  * A class to represent concepts for Soft concepts satisficing. Part of PhD work

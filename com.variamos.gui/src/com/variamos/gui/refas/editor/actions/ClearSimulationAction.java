@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.refas.Refas2Hlcl;
 
 @SuppressWarnings("serial")
 public class ClearSimulationAction extends AbstractEditorAction {

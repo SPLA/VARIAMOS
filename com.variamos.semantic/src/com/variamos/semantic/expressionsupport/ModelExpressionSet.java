@@ -9,8 +9,8 @@ import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.RangeDomain;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.refas.Refas2Hlcl;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractNumericExpression;
 import com.variamos.semantic.expressions.AndBooleanExpression;
@@ -33,7 +33,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 
 public class ModelExpressionSet extends MetaExpressionSet {
 
-	private Refas refas;
+	private RefasModel refas;
 	private Map<String, List<BooleanExpression>> booleanExpressions = new HashMap<String, List<BooleanExpression>>();
 
 	public List<BooleanExpression> getBooleanExpressionList(String element) {
@@ -42,7 +42,7 @@ public class ModelExpressionSet extends MetaExpressionSet {
 
 	public ModelExpressionSet(String identifier, String description,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			Refas refas, int execType) {
+			RefasModel refas, int execType) {
 		super(identifier, description, idMap, hlclFactory);
 		this.refas = refas;
 		defineExpressions(execType);

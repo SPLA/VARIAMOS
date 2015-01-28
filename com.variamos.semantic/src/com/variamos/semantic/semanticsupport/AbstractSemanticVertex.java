@@ -1,4 +1,4 @@
-package com.variamos.refas.semantic.semanticsupport;
+package com.variamos.semantic.semanticsupport;
 
 import java.io.Serializable;
 import java.util.ArrayList;

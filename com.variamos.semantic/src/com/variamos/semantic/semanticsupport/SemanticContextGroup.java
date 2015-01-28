@@ -1,4 +1,4 @@
-package com.variamos.refas.semantic.semanticsupport;
+package com.variamos.semantic.semanticsupport;
 
 import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
 

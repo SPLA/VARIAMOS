@@ -10,7 +10,7 @@ import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstElement;

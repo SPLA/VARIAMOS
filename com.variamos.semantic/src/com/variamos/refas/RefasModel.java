@@ -1,4 +1,4 @@
-package com.variamos.refas.core.refas;
+package com.variamos.refas;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -15,15 +15,15 @@ import com.cfm.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
-import com.variamos.refas.semantic.semanticsupport.AbstractSemanticVertex;
-import com.variamos.refas.semantic.semanticsupport.SemanticConcept;
-import com.variamos.refas.semantic.semanticsupport.SemanticContextGroup;
-import com.variamos.refas.semantic.semanticsupport.SemanticOverTwoRelation;
-import com.variamos.refas.semantic.semanticsupport.SemanticPairwiseRelation;
-import com.variamos.refas.semantic.semanticsupport.SemanticRelationType;
-import com.variamos.refas.semantic.semanticsupport.SemanticVariable;
-import com.variamos.refas.semantic.semanticsupport.SoftSemanticConcept;
-import com.variamos.refas.semantic.semanticsupport.SoftSemanticConceptSatisficing;
+import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
+import com.variamos.semantic.semanticsupport.SemanticConcept;
+import com.variamos.semantic.semanticsupport.SemanticContextGroup;
+import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.semantic.semanticsupport.SemanticRelationType;
+import com.variamos.semantic.semanticsupport.SemanticVariable;
+import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
+import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.semantic.types.ConceptType;
 import com.variamos.semantic.types.DirectEdgeType;
 import com.variamos.semantic.types.GroupRelationType;
@@ -63,10 +63,10 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
  * @version 1.1
  * @since 2014-11-10
  */
-public class Refas extends AbstractModel {
+public class RefasModel extends AbstractModel {
 
-	private Refas syntaxRefas;
-	private Refas semanticRefas;
+	private RefasModel syntaxRefas;
+	private RefasModel semanticRefas;
 	/**
 	 * 
 	 */
@@ -94,16 +94,16 @@ public class Refas extends AbstractModel {
 
 	private List<InstView> instViews;
 
-	public Refas(PerspectiveType perspectiveType) {
+	public RefasModel(PerspectiveType perspectiveType) {
 		this(perspectiveType, null, null);
 	}
 
-	public Refas(Refas syntaxRefas) {
+	public RefasModel(RefasModel syntaxRefas) {
 		this(PerspectiveType.semantic, syntaxRefas, null);
 	}
 
-	public Refas(PerspectiveType perspectiveType, Refas syntaxRefas,
-			Refas semanticRefas) {
+	public RefasModel(PerspectiveType perspectiveType, RefasModel syntaxRefas,
+			RefasModel semanticRefas) {
 		this.perspectiveType = perspectiveType;
 		this.syntaxRefas = syntaxRefas;
 		this.semanticRefas = semanticRefas;
@@ -136,11 +136,11 @@ public class Refas extends AbstractModel {
 		}
 	}
 
-	public Refas getSyntaxRefas() {
+	public RefasModel getSyntaxRefas() {
 		return syntaxRefas;
 	}
 
-	public Refas getSemanticRefas() {
+	public RefasModel getSemanticRefas() {
 		return semanticRefas;
 	}
 

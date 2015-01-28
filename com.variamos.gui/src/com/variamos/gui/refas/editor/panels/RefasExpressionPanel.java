@@ -65,7 +65,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionSet;
@@ -90,7 +90,7 @@ import com.variamos.syntaxsupport.type.IntegerType;
  */
 @SuppressWarnings("serial")
 public class RefasExpressionPanel extends JPanel {
-	private Refas refas;
+	private RefasModel refas;
 
 	private JPanel solutionPanel;
 
@@ -121,14 +121,14 @@ public class RefasExpressionPanel extends JPanel {
 
 	}
 
-	public Refas getRefas() {
+	public RefasModel getRefas() {
 		return this.refas;
 	}
 
 	public void configure(AbstractModel am,
 			MetaExpressionSet expressionSet, InstElement element) {
 		this.expressionSet = expressionSet;
-		this.refas = (Refas) am;
+		this.refas = (RefasModel) am;
 		initialize(element);
 	}
 	
@@ -354,7 +354,7 @@ public class RefasExpressionPanel extends JPanel {
 	}
 
 
-	public void setRefas(Refas refas) {
+	public void setRefas(RefasModel refas) {
 		this.refas = refas;
 	}
 }

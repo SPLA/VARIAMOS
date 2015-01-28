@@ -45,7 +45,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.RefasModel;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**
@@ -55,7 +55,7 @@ import com.variamos.syntaxsupport.type.IntegerType;
  */
 @SuppressWarnings("serial")
 public class RefasConfiguratorPanel extends AbstractConfigurationPanel {
-	private Refas refas;
+	private RefasModel refas;
 	
 	//Configurator table settings
 	private ConfigurationTreeTable table;
@@ -327,7 +327,7 @@ public class RefasConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 	*/
 	
-	public Refas getRefas() {
+	public RefasModel getRefas() {
 		return this.refas;
 	}
 
@@ -337,7 +337,7 @@ public class RefasConfiguratorPanel extends AbstractConfigurationPanel {
 
 	//todo: change to refas
 	public void configure(AbstractModel am) {
-		Refas pl = (Refas)am;
+		RefasModel pl = (RefasModel)am;
 		this.removeAll();
 		initComponents();
 		this.refas = pl;

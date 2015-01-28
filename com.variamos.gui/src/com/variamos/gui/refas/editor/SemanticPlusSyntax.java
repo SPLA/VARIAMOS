@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.refas.semantic.semanticsupport.*;
+import com.variamos.semantic.semanticsupport.*;
 import com.variamos.semantic.types.DirectEdgeType;
 import com.variamos.semantic.types.GroupRelationType;
 import com.variamos.syntaxsupport.metamodelsupport.*;

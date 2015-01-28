@@ -97,8 +97,8 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.refas.Refas2Hlcl;
+import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.MetaExpressionSet;
 import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.syntax.instancesupport.EditableElement;
@@ -145,7 +145,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-	private Refas refasModel;
+	private RefasModel refasModel;
 
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
@@ -192,7 +192,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			AbstractModel abstractModel) {
 		super(appTitle, component, perspective);
 
-		refasModel = (Refas) abstractModel;
+		refasModel = (RefasModel) abstractModel;
 
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl(refasModel);
@@ -290,7 +290,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		defects.add("FalseOpt");
 		defects.add("Dead");
 		defects.add("Core");
-		refasModel = (Refas) abstractModel;
+		refasModel = (RefasModel) abstractModel;
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 
@@ -501,12 +501,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
+				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
 				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 			} else {
 				{
-					abstractModel = new Refas(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling);
 					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 
 				}
@@ -533,12 +533,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
+				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
 				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 			} else {
 				{
-					abstractModel = new Refas(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling);
 					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 
 				}
@@ -571,7 +571,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
 	}
 
-	public void editModel(Refas pl) {
+	public void editModel(RefasModel pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
 		// todo: review other perspectives
@@ -1433,7 +1433,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (Refas) editedModel;
+		refasModel = (RefasModel) editedModel;
 		this.refas2hlcl.setRefas(refasModel);
 
 	}
