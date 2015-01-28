@@ -25,8 +25,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 	 */
 	private static final long serialVersionUID = 7976788205587295216L;
 	private List<IntSemanticRelationType> semanticRelationTypes;
-	private List<AbstractSemanticVertex> directSemanticEdges;
-	private boolean toSoftSemanticConcept;
+	//private boolean toSoftSemanticConcept;
 	public static final String
 	/**
 	* 
@@ -69,7 +68,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
-		this.toSoftSemanticConcept = toSoftSemanticConcept;
+		//this.toSoftSemanticConcept = toSoftSemanticConcept;
 		defineSemanticAttributes();
 	}
 

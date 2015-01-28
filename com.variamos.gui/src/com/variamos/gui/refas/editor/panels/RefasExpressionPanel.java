@@ -19,14 +19,12 @@ import javax.swing.border.EmptyBorder;
 import com.cfm.common.AbstractModel;
 import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.NumericIdentifier;
-import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionSet;
 import com.variamos.semantic.types.ExpressionClassType;
-import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
@@ -52,14 +50,9 @@ public class RefasExpressionPanel extends JPanel {
 
 	private AbstractExpression selectedExpression;
 
-	private VariamosGraphEditor graphEditor;
-	
-	private EditableElement elm;
 
-	public RefasExpressionPanel(VariamosGraphEditor graphEditor, EditableElement elm) {
-		// initComponents();
-		this.graphEditor = graphEditor;
-		this.elm = elm;
+	public RefasExpressionPanel() {
+
 	}
 
 
@@ -277,6 +270,7 @@ public class RefasExpressionPanel extends JPanel {
 		return combo;
 	}
 
+	@SuppressWarnings("unchecked")
 	private JComboBox<String> createOperatorsCombo(String selectedOperator) {
 		JComboBox<String> combo = new JComboBox<String>();
 		for (ExpressionClassType operatorType : ExpressionClassType.values()) {

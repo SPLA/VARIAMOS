@@ -23,16 +23,16 @@ public class PerspectiveToolBar extends JToolBar {
 	 */
 	private static final long serialVersionUID = -8015443128436394471L;
 	private JButton buttons[] = new JButton[5];
-	private BasicGraphEditor editor;
 	private MainFrame mainFrame;
 
 	/**
 	 * Constructor for a modeling perspective
 	 */
+	@Deprecated
 	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation,
 			int perspective) {
 		super(orientation);
-		this.editor = editor;
+		//this.editor = editor;
 		setBackground(new Color(220, 220, 220));
 		setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
@@ -46,17 +46,17 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[3] = new JButton(mxResources.get("metamodelingPerspButton"));
 		// buttons[2].setEnabled(false);
 		add(buttons[3]);
-		buttons[3].addActionListener(new PerspectiveAction(this, false));
+		buttons[3].addActionListener(new PerspectiveAction(this));
 
 		buttons[2] = new JButton(mxResources.get("modelingPerspButton"));
 		// buttons[2].setEnabled(false);
 		add(buttons[2]);
-		buttons[2].addActionListener(new PerspectiveAction(this, false));
+		buttons[2].addActionListener(new PerspectiveAction(this));
 
 		buttons[4] = new JButton(mxResources.get("simulationPerspButton"));
 		// buttons[2].setEnabled(false);
 		add(buttons[4]);
-		buttons[4].addActionListener(new PerspectiveAction(this, false));
+		buttons[4].addActionListener(new PerspectiveAction(this));
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
@@ -65,7 +65,7 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[1] = new JButton(mxResources.get("defectAnalyzerPerspButton"));
 		// buttons[1].setEnabled(false);
 		add(buttons[1]);
-		buttons[1].addActionListener(new PerspectiveAction(this, false));
+		buttons[1].addActionListener(new PerspectiveAction(this));
 
 		// buttons[perspective].setSelected(true);
 
@@ -92,22 +92,22 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[1].setBorder(new EmptyBorder(3, 7, 3, 7));
 
 		add(buttons[1]);
-		buttons[1].addActionListener(new PerspectiveAction(this, true));
+		buttons[1].addActionListener(new PerspectiveAction(this));
 
 		buttons[3] = new JButton(mxResources.get("syntaxPerspButton"));
 		buttons[3].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[3]);
-		buttons[3].addActionListener(new PerspectiveAction(this, true));
+		buttons[3].addActionListener(new PerspectiveAction(this));
 
 		buttons[2] = new JButton(mxResources.get("modelingPerspButton"));
 		buttons[2].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[2]);
-		buttons[2].addActionListener(new PerspectiveAction(this, true));
+		buttons[2].addActionListener(new PerspectiveAction(this));
 
 		buttons[4] = new JButton(mxResources.get("simulationPerspButton"));
 		buttons[4].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[4]);
-		buttons[4].addActionListener(new PerspectiveAction(this, true));
+		buttons[4].addActionListener(new PerspectiveAction(this));
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);

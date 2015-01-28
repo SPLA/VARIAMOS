@@ -14,7 +14,7 @@ import com.cfm.hlcl.HlclFunction;
 import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.ListDefinitionExpression;
+//import com.cfm.hlcl.ListDefinitionExpression;
 import com.cfm.hlcl.LiteralBooleanExpression;
 import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.NumericIdentifier;
@@ -86,6 +86,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		return out;
 	}
 
+	/*
 	private void transformListExpression(ListDefinitionExpression e,
 			StringBuilder out) {
 		out.append("[");
@@ -93,7 +94,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		writeIdentifiersList(ids, out);
 		out.append("]");
 	}
-
+*/
 	protected void transformLine(Expression e, StringBuilder out) {
 		if (e instanceof HlclProgram) {
 			transformProgram((HlclProgram) e, out);

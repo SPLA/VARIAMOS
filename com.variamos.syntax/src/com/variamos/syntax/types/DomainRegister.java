@@ -33,6 +33,7 @@ public class DomainRegister implements Serializable{
 		reg.put(identifier, domain);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T extends Type> T getDomain(String identifier){
 		return (T) reg.get(identifier);
 	}

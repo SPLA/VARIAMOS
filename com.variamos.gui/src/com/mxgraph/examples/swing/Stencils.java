@@ -88,6 +88,7 @@ public class Stencils extends JFrame
 				graph.getModel().endUpdate();
 			}
 
+			@SuppressWarnings("serial")
 			mxGraphComponent graphComponent = new mxGraphComponent(graph)
 			{
 				// Sets global image base path

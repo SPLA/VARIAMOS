@@ -107,6 +107,7 @@ public class InstEnumeration extends InstVertex {
 		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
 	}
 
+	@SuppressWarnings("unchecked")
 	public String toStringOld() { // TODO move partially to superclass
 		String out = "";
 		if (getTransSupportMetaElement() != null) {

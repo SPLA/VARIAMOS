@@ -20,9 +20,6 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.view.mxGraph;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.pl.editor.shapes.OptionalMarker;
-import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.refas.RefasModel;
-import com.variamos.semantic.types.PerspectiveType;
 
 public abstract class AbstractGraph extends mxGraph {
 
@@ -189,9 +186,9 @@ public abstract class AbstractGraph extends mxGraph {
 	}
 	
 	private void removingEdge(mxCell cell){
-		mxCell source = (mxCell)cell.getSource();
+	/*	mxCell source = (mxCell)cell.getSource();
 		mxCell target = (mxCell)cell.getTarget();
-	/*	
+		
 		if( source.getValue() instanceof GroupConstraint ){
 			//The target is a child, it should be removed
 			GroupConstraint gc = (GroupConstraint)source.getValue();
@@ -254,82 +251,6 @@ public abstract class AbstractGraph extends mxGraph {
 		}
 	}
 	
-	@Deprecated
-	private AbstractModel getlModel()
-	{
-		if (this instanceof RefasGraph)
-			return getRefas();
-		else
-			return getProductLine();
-	}
-	
-	//TODO: change to refas - add to refas models
-	@Deprecated
-	private RefasModel getRefas(){
-		RefasModel pl = new RefasModel(PerspectiveType.modeling);
-		
-		//Object[] vertices = getChildVertices(getDefaultParent());
-		Object[] vertices = mxGraphModel.getChildCells(getModel(), getDefaultParent(), true, false);
-		
-		for(Object obj : vertices){
-			mxCell cell = (mxCell)obj;
-			Object value = cell.getValue();
-			
-			if( value instanceof VariabilityElement ){
-				VariabilityElement vp = (VariabilityElement) value;
-				//pl.addVariabilityPoint(vp);
-				
-				for(Object edgObj : getEdges(cell, null, false, true, true) ){
-					mxCell edge = (mxCell)edgObj;
-					if( edge.getValue() instanceof Constraint ){
-						//pl.addConstraint( (Constraint) edge.getValue());
-					}
-				}
-				
-			}
-			
-			if( value instanceof Constraint ){
-				Constraint c = (Constraint) value;
-				//pl.addConstraint(c);
-			}
-		}
-		
-		//Add the assets to the PLModel only after the VPs are in it
-		for(Object obj : vertices){
-			mxCell cell = (mxCell)obj;
-			Object value = cell.getValue();
-			
-			if( value instanceof Asset ){
-				Asset a = (Asset) value;
-				//pl.addAsset(a);
-				//Get its connections.
-				Object[] edges = getEdges(cell);
-				for(Object o : edges){
-					mxCell edge = (mxCell)o;
-					
-					mxCell target = (mxCell)edge.getTarget();
-					if( target.getValue() instanceof VariabilityElement ){
-						VariabilityElement ve = (VariabilityElement) target.getValue();
-						String assetIdentifier=a.getIdentifier();
-						ve.getAssets().add(assetIdentifier);
-						
-						
-						System.out.println("Added asset");
-					}
-					
-					mxCell source = (mxCell)edge.getSource();
-					if( source.getValue() instanceof VariabilityElement ){
-						VariabilityElement ve = (VariabilityElement) source.getValue();
-						ve.getAssets().add(a.getIdentifier());
-						System.out.println("Added asset");
-					}
-				}
-					
-			}
-		}
-		
-		return pl;
-	}
 	
 	
 	public ProductLine getProductLine(){

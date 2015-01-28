@@ -53,6 +53,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		init(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	public EnumerationAttributeList(VariamosGraphEditor editor, InstElement elm) {
 		this.editor = editor;
 		this.element = elm;
@@ -108,10 +109,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		if (insert) {
 			//TODO move validation to a method on InstEnumeration
+		@SuppressWarnings("unchecked")
 		Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
 				.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
 				.getValue();
-		boolean notFound = true;
 		int i = 1;
 		/*
 		 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -149,6 +150,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(
 				editor, name);
 		dialog.setOnAccept(new DialogButtonAction() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean onAction() {
 				// This calls Pull on each parameter

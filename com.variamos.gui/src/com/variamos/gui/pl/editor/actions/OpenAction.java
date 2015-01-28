@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import com.cfm.productline.io.SXFMReader;
+//import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
@@ -45,7 +45,7 @@ public class OpenAction extends AbstractEditorAction{
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 		variamosEditor.editModelReset();
 		
-		SXFMReader reader = new SXFMReader();
+	//	SXFMReader reader = new SXFMReader();
 	//	AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
 	//	variamosEditor.editModel(pl);

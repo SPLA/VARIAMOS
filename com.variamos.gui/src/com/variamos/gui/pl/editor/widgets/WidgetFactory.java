@@ -10,7 +10,6 @@ import com.variamos.syntax.types.IntegerType;
 import com.variamos.syntax.types.StringType;
 
 
-@SuppressWarnings("deprecation")
 public class WidgetFactory {
 	//private DomainRegister register;
 	

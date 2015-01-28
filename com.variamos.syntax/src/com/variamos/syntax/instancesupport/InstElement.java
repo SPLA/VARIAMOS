@@ -209,11 +209,13 @@ public abstract class InstElement implements Serializable, EditableElement {
 		dynamicAttributes.put(name, value);
 	}
 
+	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
 		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.get(name);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<InstAttribute> getInstAttributesList() {
 		List<InstAttribute> out = new ArrayList<InstAttribute>();
 		out.addAll(((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))

@@ -53,40 +53,6 @@ public class SemanticRelationType extends AbstractSemanticElement implements Int
 		this.minTargetCardinality = minTargetCardinality;
 		this.maxTargetCardinality = maxTargetCardinality;
 	}
-
-	private void createModelingAttributes()
-	{
-	/*	putSemanticAttribute(VAR_LOWCARDINALITY,
-				new SemanticAttribute(VAR_LOWCARDINALITY, "Integer", false,
-						VAR_LOWCARDINALITY, 1, ""));
-		putSemanticAttribute(VAR_HIGHCARDINALITY, new SemanticAttribute(
-				VAR_HIGHCARDINALITY, "Integer", false, VAR_HIGHCARDINALITY, 1,
-				""));
-
-		addPropEditableAttribute("06#" + VAR_CARDINALITYTYPE);
-		addPropEditableAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPropEditableAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPropVisibleAttribute("06#" + VAR_CARDINALITYTYPE);
-		addPropVisibleAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPropVisibleAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPanelVisibleAttribute("06#" + VAR_CARDINALITYTYPE + "#"
-				+ VAR_CARDINALITYTYPE + "#!=#" + "range");
-		addPanelVisibleAttribute("09#" + VAR_LOWCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-		addPanelVisibleAttribute("10#" + VAR_HIGHCARDINALITY + "#"
-				+ VAR_CARDINALITYTYPE + "#==#" + "range");
-
-		addPanelSpacersAttribute("#" + VAR_CARDINALITYTYPE + "#");
-		addPanelSpacersAttribute("[#" + VAR_LOWCARDINALITY + "#-");
-		addPanelSpacersAttribute("#" + VAR_HIGHCARDINALITY + "#]");
-		*/
-	}
 	public String getDiplayName() {
 		return diplayName;
 	}

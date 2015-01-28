@@ -133,7 +133,8 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 						"Selected");
 				AbstractBooleanExpression transformation3 = new AndBooleanExpression(
 						transformation2, transformation1);
-
+				getElementExpressions().add(transformation3);
+				allList.add(transformation3);
 				break;
 			case "required":
 				sourcePositiveAttributeNames.add("Selected");

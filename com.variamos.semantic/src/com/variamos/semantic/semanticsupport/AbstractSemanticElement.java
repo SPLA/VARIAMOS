@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+//import com.variamos.semantic.expressionsupport.MetaExpressionSet;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
@@ -37,8 +37,6 @@ public class AbstractSemanticElement implements Serializable, IntSemanticElement
 	private List<String> panelSpacersAttributes; //preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
 	
-	private List<MetaExpressionSet> metaExpressionSets;
-
 	public AbstractSemanticElement(	String identifier)
 	{
 		this(null, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());

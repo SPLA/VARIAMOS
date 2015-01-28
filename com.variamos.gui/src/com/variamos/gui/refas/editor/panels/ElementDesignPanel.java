@@ -35,7 +35,6 @@ import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
@@ -124,19 +123,11 @@ public class ElementDesignPanel extends JPanel {
 			int designPanelElements = 0;
 			String description = null;
 
-			String type = null;
-			if (elm instanceof InstConcept) {
-				type = "vertex";
-			}
 			if (elm instanceof InstPairwiseRelation) {
 				if (((InstPairwiseRelation) elm).getSourceRelations().size() == 0)
 					// TODO workaround for non supported relations - delete
 					// after fix
 					return;
-				type = "edge";
-			}
-			if (elm instanceof InstOverTwoRelation) {
-				type = "groupdep";
 			}
 			if (elm instanceof InstElement) {
 				if (((InstElement) elm).getEditableMetaElement() != null)
@@ -457,6 +448,7 @@ public class ElementDesignPanel extends JPanel {
 		this.repaint();
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
 			EditableElement editableElement,
 			EditableElementAttribute instAttribute) {

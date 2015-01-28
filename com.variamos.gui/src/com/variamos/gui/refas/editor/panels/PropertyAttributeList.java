@@ -110,7 +110,6 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		this.setEnabled(false);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
-				boolean notFound = true;
 			// Name
 			var = new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
 					false, "Enumeration Value", "");

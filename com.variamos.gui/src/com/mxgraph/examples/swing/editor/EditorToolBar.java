@@ -101,6 +101,7 @@ public class EditorToolBar extends JToolBar
 				"Times New Roman", "Garamond", "Courier New", "-" }));
 		fonts.addAll(Arrays.asList(env.getAvailableFontFamilyNames()));
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox fontCombo = new JComboBox(fonts.toArray());
 		fontCombo.setEditable(true);
 		fontCombo.setMinimumSize(new Dimension(120, 0));
@@ -125,6 +126,7 @@ public class EditorToolBar extends JToolBar
 			}
 		});
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final JComboBox sizeCombo = new JComboBox(new Object[] { "6pt", "8pt",
 				"9pt", "10pt", "12pt", "14pt", "18pt", "24pt", "30pt", "36pt",
 				"48pt", "60pt" });
@@ -182,6 +184,7 @@ public class EditorToolBar extends JToolBar
 
 		final mxGraphView view = editor.getGraphComponent().getGraph()
 				.getView();
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final JComboBox zoomCombo = new JComboBox(new Object[] { "400%",
 				"200%", "150%", "100%", "75%", "50%", mxResources.get("page"),
 				mxResources.get("width"), mxResources.get("actualSize") });

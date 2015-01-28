@@ -1,6 +1,10 @@
 package com.cfm.hlcl;
 
 public class HlclFunction extends HlclProgram{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1531551300143002646L;
 	private FunctionDeclarationExpression decl;
 	
 	public HlclFunction(FunctionDeclarationExpression decl) {

@@ -2,10 +2,10 @@ package com.variamos.gui.pl.editor.actions;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 
-import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.SolverEditorType;
+//import com.cfm.productline.ProductLine;
+//import com.variamos.core.enums.SolverEditorType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
@@ -16,8 +16,8 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 
-		ProductLine pl = null;
-		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
+	//	ProductLine pl = null;
+	//	SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
 		VariamosGraphEditor editor = getEditor(e);
 		editor.bringUpTab("Messages");
@@ -26,10 +26,10 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		ProductLineGraph plGraph = (ProductLineGraph) graph;
 		pl = plGraph.getProductLine();*/
 		
-		pl = (ProductLine)editor.getEditedModel();
+	//	pl = (ProductLine)editor.getEditedModel();
 
-		JTextArea messagesArea = editor.getMessagesArea();
-		StringBuilder outputMessage = new StringBuilder();
+	//	JTextArea messagesArea = editor.getMessagesArea();
+	//	StringBuilder outputMessage = new StringBuilder();
 		/*try {
 
 			DefectsVerifier verifier = DefectAnalyzerUtil

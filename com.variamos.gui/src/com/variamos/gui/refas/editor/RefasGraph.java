@@ -107,6 +107,7 @@ public class RefasGraph extends AbstractGraph {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
+		@SuppressWarnings("rawtypes")
 		Collection views;
 		if (refasModel.getSyntaxRefas() == null)
 			views = semanticPlusSyntax.getMetaViews();
@@ -178,8 +179,6 @@ public class RefasGraph extends AbstractGraph {
 							&& !instEdge.getIdentifier().equals("")) {
 						mxCell child = new mxCell(instEdge.getIdentifier());
 						addCell(child);
-						String i = instEdge.getSourceRelations().get(0)
-								.getIdentifier();
 						mxCell source = this.getCellById(instEdge
 								.getSourceRelations().get(0).getIdentifier());
 						mxCell target = this.getCellById(instEdge
@@ -287,8 +286,6 @@ public class RefasGraph extends AbstractGraph {
 
 	public void loadStencil() {
 		// try {
-		String filename = RefasGraph.class.getResource(
-				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 		Document doc;
 		// System.out.println(filename);
 
@@ -758,7 +755,7 @@ public class RefasGraph extends AbstractGraph {
 	@Override
 	public String validateCell(Object objCell, Hashtable<Object, Object> context) {
 		if (objCell instanceof mxCell) {
-			mxCell cell = (mxCell) objCell;
+		//	mxCell cell = (mxCell) objCell;
 
 			/*
 			 * if (cell.getValue() instanceof GroupGConstraint) {

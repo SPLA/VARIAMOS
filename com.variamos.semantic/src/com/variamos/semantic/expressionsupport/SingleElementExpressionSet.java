@@ -505,7 +505,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 	}
 
-	private AbstractNumericExpression sumRelations(InstVertex instVertex2,
+/*	private AbstractNumericExpression sumRelations(InstVertex instVertex2,
 			String string, List<String> outRelations, List<String> inRelations) {
 		AbstractNumericExpression outExp = null;
 		for (String relName : outRelations) {
@@ -567,6 +567,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 			return new NumberNumericExpression(0);
 		return outExp;
 	}
+	*/
 
 	private boolean oneParent(InstVertex instVertex2) {
 		int out = 0;

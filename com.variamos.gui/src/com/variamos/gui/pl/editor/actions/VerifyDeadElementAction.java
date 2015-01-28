@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 
-import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.SolverEditorType;
+//import com.cfm.productline.ProductLine;
+//import com.variamos.core.enums.SolverEditorType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
@@ -16,8 +16,8 @@ public class VerifyDeadElementAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 
-		ProductLine pl = null;
-		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
+	//	ProductLine pl = null;
+	//	SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
 		VariamosGraphEditor editor = getEditor(e);
 		editor.bringUpTab("Messages");
@@ -30,7 +30,7 @@ public class VerifyDeadElementAction extends AbstractEditorAction {
 		pl = plGraph.getProductLine();*/
 		
 		//PUSE ESTA
-		pl = (ProductLine)editor.getEditedModel();
+	//	pl = (ProductLine)editor.getEditedModel();
 		//pl.printDebug(System.out);
 		
 

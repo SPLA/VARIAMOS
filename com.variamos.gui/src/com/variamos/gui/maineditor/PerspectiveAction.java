@@ -10,11 +10,10 @@ import com.mxgraph.util.mxResources;
 public class PerspectiveAction extends AbstractEditorAction {
 
 	private PerspectiveToolBar perspective;
-	private boolean newP;
 
-	public PerspectiveAction(PerspectiveToolBar perspective, boolean newP) {
+
+	public PerspectiveAction(PerspectiveToolBar perspective) {
 		this.perspective = perspective;
-		this.newP = newP;
 	}
 
 	/**

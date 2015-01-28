@@ -36,11 +36,13 @@ public class Configurator  {
 	/**
 	 * @param pl
 	 */
+	@SuppressWarnings("deprecation")
 	public void setSolverProductLine(AbstractModel pl)
 	{
 		solver.setProductLine(pl);
 	}
 
+	@SuppressWarnings("deprecation")
 	public Map<String, List<Integer>>  reduceDomain(Configuration configuration, ConfigurationOptions configOptions)
 	{
 		return solver.reduceDomain(configuration, configOptions);
@@ -76,6 +78,7 @@ public class Configurator  {
 		products.add(solution);
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean validateInvalid() {
 		for(VariabilityElement e : ((ProductLine)solver.getProductLine()).getVariabilityElements()){
 			for(Configuration conf : products ){
@@ -87,6 +90,7 @@ public class Configurator  {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	public ProductLine getSolverProductLine() {
 		return (ProductLine)solver.getProductLine();
 	}

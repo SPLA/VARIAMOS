@@ -744,7 +744,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		configuratorProperties = new ConfigurationPropertiesTab();
 
-		expressions = new RefasExpressionPanel(this, elm);
+		expressions = new RefasExpressionPanel();
 
 		// if (getPerspective() == 2) {
 
@@ -1302,6 +1302,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(EditableElement editableElement,
 			EditableElementAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
@@ -1372,11 +1373,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 					BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
-		if (mainFrame != null)
-			perspectiveToolBar = new PerspectiveToolBar(mainFrame,
-					JToolBar.HORIZONTAL, perspective);
-		else
-			perspectiveToolBar = new PerspectiveToolBar(this,
+		perspectiveToolBar = new PerspectiveToolBar(mainFrame,
 					JToolBar.HORIZONTAL, perspective);
 		jp.add(perspectiveToolBar, BorderLayout.EAST);
 		add(jp, BorderLayout.NORTH);

@@ -85,6 +85,7 @@ public class InstView extends InstElement {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
 		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);

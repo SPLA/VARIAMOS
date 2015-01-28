@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
 import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.SolverEditorType;
+//import com.variamos.core.enums.SolverEditorType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
@@ -18,7 +18,7 @@ public class VerifyFalseProductLineModelAction extends
 	public void actionPerformed(ActionEvent e) {
 		
 		ProductLine pl = null;
-		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
+	//	SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
 		VariamosGraphEditor editor = getEditor(e);
 		

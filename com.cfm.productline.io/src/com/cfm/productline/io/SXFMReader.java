@@ -163,6 +163,7 @@ public class SXFMReader {
 			FeatureGroup fg = (FeatureGroup)node;
 			c = new GroupConstraint(parent.getID(), fg.getMin(), fg.getMax());
 			
+			@SuppressWarnings("unchecked")
 			Enumeration<FeatureTreeNode> children = fg.children(); 
 			while(children.hasMoreElements()){
 				FeatureTreeNode child = children.nextElement();
@@ -198,6 +199,7 @@ public class SXFMReader {
 			FeatureGroup fg = (FeatureGroup)node;
 			c = new GroupConstraint(parent.getID(), fg.getMin(), fg.getMax());
 			
+			@SuppressWarnings("unchecked")
 			Enumeration<FeatureTreeNode> children = fg.children(); 
 			while(children.hasMoreElements()){
 				FeatureTreeNode child = children.nextElement();

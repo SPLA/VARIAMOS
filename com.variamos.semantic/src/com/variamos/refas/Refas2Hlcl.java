@@ -58,7 +58,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private RefasModel refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration = new Configuration();
-	private boolean hasSolution;
 	private Solver swiSolver;
 
 	public Configuration getConfiguration() {
@@ -383,7 +382,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void cleanGUIElements(int execType) {
 		// Call the SWIProlog and obtain the result
 
-		int i = 0;
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
 			if (instVertex.getInstAttribute("Core").getAsBoolean()
 					|| instVertex.getInstAttribute("Dead").getAsBoolean())

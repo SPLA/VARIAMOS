@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+@SuppressWarnings("deprecation")
 public class TestHlcl {
 	private HlclFactory f = new HlclFactory();
 
@@ -148,14 +149,14 @@ public class TestHlcl {
 	public void testIdentifierCountSimple() {
 		// Create a + 1 > b
 		Identifier a = f.newIdentifier("a");
-		Identifier b = f.newIdentifier("b");
+		//Identifier b = f.newIdentifier("b");
 		NumericIdentifier num1 = f.number(1);
 
 		// a + 1
 		NumericExpression sum = f.sum(a, num1);
 
 		// a + 1 > b
-		ComparisonExpression e = f.greaterThan(sum, b);
+		//ComparisonExpression e = f.greaterThan(sum, b);
 
 		// a + 1 = a+1
 
@@ -224,13 +225,13 @@ public class TestHlcl {
 		// Create ( ( 1 - a ) * ( 5 - b ) >= ( a - b - c ) ) AND d + c < 9 each
 		// one as a constraint instruction
 		Identifier a = f.newIdentifier("a");
-		Identifier b = f.newIdentifier("b");
-		Identifier c = f.newIdentifier("c");
-		Identifier d = f.newIdentifier("d");
+		//Identifier b = f.newIdentifier("b");
+		//Identifier c = f.newIdentifier("c");
+		//Identifier d = f.newIdentifier("d");
 
 		NumericIdentifier n1 = f.number(1);
 		NumericIdentifier n5 = f.number(5);
-		NumericIdentifier n9 = f.number(9);
+		//NumericIdentifier n9 = f.number(9);
 
 		HlclProgram program = new HlclProgram();
 		// 1 >= a

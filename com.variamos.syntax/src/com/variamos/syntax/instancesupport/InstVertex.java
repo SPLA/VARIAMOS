@@ -84,6 +84,7 @@ public abstract class InstVertex extends InstElement {
 		// return instAttributes;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Collection<InstAttribute> getInstAttributesCollection() {
 		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
 				.values();

@@ -1,13 +1,13 @@
 package com.cfm.productline.prologEditors;
 
-import java.util.List;
-import java.util.Set;
+//import java.util.List;
+//import java.util.Set;
 
 import com.cfm.hlcl.BooleanOperation;
 import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.IntervalDomain;
-import com.cfm.hlcl.RangeDomain;
+//import com.cfm.hlcl.Identifier;
+//import com.cfm.hlcl.IntervalDomain;
+//import com.cfm.hlcl.RangeDomain;
 import com.cfm.hlcl.SymbolicExpression;
 import com.cfm.productline.compiler.solverSymbols.GNUPrologSymbols;
 
@@ -54,7 +54,7 @@ public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
 		out.append(makeDomainsAndVariables(ids));*/
 	}
 
-	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
+/*	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
 		// Se contruye la lista de características y de dominios
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
@@ -124,6 +124,7 @@ public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
 		
 		return dommainAndVariables;
 	}
+	*/
 
 	@Override
 	protected void transformSymbolic(SymbolicExpression e, StringBuilder out) {

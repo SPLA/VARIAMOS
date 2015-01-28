@@ -371,20 +371,9 @@ public class InstOverTwoRelation extends InstVertex {
 			IntSemanticOverTwoRelation tmp = (IntSemanticOverTwoRelation) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject();
 			modelingAttributesNames
-					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
-							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-							.getSemanticAttributesNames());
+					.addAll(tmp.getSemanticAttributesNames());
 		}
 		return modelingAttributesNames;
-	}
-
-	private IntSemanticOverTwoRelation getSemanticRelation() {
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null)
-			return ((IntSemanticOverTwoRelation) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject());
-		return null;
 	}
 
 	@Override
@@ -414,11 +403,9 @@ public class InstOverTwoRelation extends InstVertex {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null) {
-			Object o = getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
+			IntSemanticOverTwoRelation o = (IntSemanticOverTwoRelation)getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 					.getValueObject();
-			String semGroupDep = (String) ((IntSemanticOverTwoRelation) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
-					.getIdentifier();
+			String semGroupDep = (String) o.getIdentifier();
 
 			if (!semGroupDepOld.equals(semGroupDep)) {
 				semGroupDepOld = semGroupDep;
