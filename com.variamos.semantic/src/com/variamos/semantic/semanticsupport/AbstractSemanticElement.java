@@ -9,9 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.semantic.expressionsupport.MetaExpressionSet;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at

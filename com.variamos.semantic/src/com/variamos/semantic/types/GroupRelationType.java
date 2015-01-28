@@ -1,6 +1,6 @@
 package com.variamos.semantic.types;
 
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelType;
+import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelType;
 
 /**
  * An enumeration to represent possible group relations types. Part of PhD

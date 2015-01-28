@@ -2,19 +2,18 @@ package com.variamos.syntax.instancesupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
 
 /**
  * Class to store the back end information of relations between more than two

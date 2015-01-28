@@ -2,18 +2,15 @@ package com.variamos.syntax.instancesupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represented modeling instances of concepts from meta model and
@@ -23,7 +20,7 @@ import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.syntaxsupport.metamodelsupport.MetaConcept
+ * @see com.variamos.syntax.metamodelsupport.MetaConcept
  */
 public class InstConcept extends InstVertex {
 	/**

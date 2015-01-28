@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
 
 /**
  * A class to represented the common aspects of modeling vertex of concepts from
@@ -21,7 +21,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.syntaxsupport.metamodelsupport.MetaConcept
+ * @see com.variamos.syntax.metamodelsupport.MetaConcept
  */
 public abstract class InstVertex extends InstElement {
 	/**

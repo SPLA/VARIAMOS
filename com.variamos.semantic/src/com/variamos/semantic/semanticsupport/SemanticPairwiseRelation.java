@@ -1,14 +1,12 @@
 package com.variamos.semantic.semanticsupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represent the edges with semantic back object. Part of PhD work at

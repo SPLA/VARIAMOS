@@ -3,7 +3,7 @@ package com.variamos.semantic.semanticsupport;
 import com.variamos.semantic.types.VariableType;
 import com.variamos.semantic.types.VariationScopeType;
 import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the Semantics of Variables. Part of PhD work at

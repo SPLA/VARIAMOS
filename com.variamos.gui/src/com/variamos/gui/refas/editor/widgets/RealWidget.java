@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
 
 /**
  * Not a real need founded jet. Copied from RealWidget

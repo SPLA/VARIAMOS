@@ -2,10 +2,9 @@ package com.cfm.productline.prologEditors;
 
 import java.util.List;
 import java.util.Set;
- 
+
 import com.cfm.hlcl.BooleanOperation;
 import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.IntervalDomain;
 import com.cfm.hlcl.RangeDomain;

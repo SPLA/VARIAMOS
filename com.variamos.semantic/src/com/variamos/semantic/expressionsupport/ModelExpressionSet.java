@@ -13,23 +13,14 @@ import com.variamos.refas.Refas2Hlcl;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractNumericExpression;
-import com.variamos.semantic.expressions.AndBooleanExpression;
-import com.variamos.semantic.expressions.DoubleImplicationBooleanExpression;
-import com.variamos.semantic.expressions.EqualsComparisonExpression;
 import com.variamos.semantic.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.semantic.expressions.LessBooleanExpression;
-import com.variamos.semantic.expressions.LessOrEqualsBooleanExpression;
-import com.variamos.semantic.expressions.NotBooleanExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressions.ProdNumericExpression;
 import com.variamos.semantic.expressions.SumNumericExpression;
-import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 public class ModelExpressionSet extends MetaExpressionSet {
 

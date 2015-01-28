@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -17,11 +15,9 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.type.IntegerType;
-import com.variamos.syntaxsupport.type.StringType;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.types.StringType;
 
 /**
  * A class to support the property list for instance enumerations on modeling. Initially

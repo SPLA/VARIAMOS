@@ -1,13 +1,11 @@
 package com.variamos.semantic.semanticsupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.semantic.types.GroupRelationType;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represent relations of more than two concepts at semantic level.

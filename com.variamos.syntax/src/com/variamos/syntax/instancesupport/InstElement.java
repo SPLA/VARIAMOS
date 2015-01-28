@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
  * A class to represented modeling elements from meta model and semantic model

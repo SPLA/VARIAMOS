@@ -6,7 +6,6 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationTask;
 import com.cfm.productline.solver.ConfigurationTaskListener;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 public class DefaultConfigurationTaskListener implements
 		ConfigurationTaskListener {

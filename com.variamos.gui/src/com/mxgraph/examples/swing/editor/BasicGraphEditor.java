@@ -59,7 +59,6 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
-import com.variamos.gui.refas.editor.ModelButtonAction;
 
 /**
  * @author example mxgraph

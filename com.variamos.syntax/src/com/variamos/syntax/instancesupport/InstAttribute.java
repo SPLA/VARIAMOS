@@ -7,14 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represented modeling instances of attributes from meta model and

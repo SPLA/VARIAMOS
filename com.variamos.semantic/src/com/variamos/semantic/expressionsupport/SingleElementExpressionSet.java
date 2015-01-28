@@ -26,9 +26,9 @@ import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 //TODO refactor: SingleElementExpressionSet
 /**

@@ -6,7 +6,6 @@ import javax.swing.JTextArea;
 
 import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 

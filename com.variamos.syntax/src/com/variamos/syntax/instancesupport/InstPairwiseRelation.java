@@ -1,6 +1,5 @@
 package com.variamos.syntax.instancesupport;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,15 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
 
 /**
  * Class to store the back end information of relations between two elements

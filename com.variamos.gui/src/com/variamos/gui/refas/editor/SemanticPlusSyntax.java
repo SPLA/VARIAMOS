@@ -7,15 +7,30 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.semantic.semanticsupport.*;
+import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
+import com.variamos.semantic.semanticsupport.SemanticConcept;
+import com.variamos.semantic.semanticsupport.SemanticContextGroup;
+import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.semantic.semanticsupport.SemanticRelationType;
+import com.variamos.semantic.semanticsupport.SemanticVariable;
+import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
+import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.semantic.types.DirectEdgeType;
 import com.variamos.semantic.types.GroupRelationType;
-import com.variamos.syntaxsupport.metamodelsupport.*;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.MetaView;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
+import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelType;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to create semantic and syntax instances for vertex and edges of the

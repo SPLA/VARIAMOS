@@ -2,7 +2,7 @@ package com.variamos.semantic.semanticsupport;
 
 import java.io.Serializable;
 
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the conditional expressions. To be replaced by

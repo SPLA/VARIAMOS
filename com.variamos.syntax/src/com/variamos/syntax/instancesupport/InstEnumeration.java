@@ -3,14 +3,14 @@ package com.variamos.syntax.instancesupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
 
 /**
  * A class to represented modeling instances of enumerations from meta model on
@@ -20,7 +20,7 @@ import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
  * 
  * @version 1.1
  * @since 2014-12-10 *
- * @see com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration
+ * @see com.variamos.syntax.metamodelsupport.MetaEnumeration
  */
 public class InstEnumeration extends InstVertex {
 

@@ -24,8 +24,8 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {

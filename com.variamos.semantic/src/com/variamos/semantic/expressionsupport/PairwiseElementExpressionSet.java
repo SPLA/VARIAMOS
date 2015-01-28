@@ -28,7 +28,7 @@ import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
 
 //TODO refactor: PairwiseElementExpressionSet
 /**

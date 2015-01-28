@@ -22,10 +22,10 @@ import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.type.ClassMultiSelectionType;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.types.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.

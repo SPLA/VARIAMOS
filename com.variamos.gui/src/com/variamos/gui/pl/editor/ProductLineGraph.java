@@ -38,7 +38,6 @@ import com.mxgraph.util.mxXmlUtils;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.GraphTree;
-import com.variamos.gui.maineditor.VariamosGraphComponent;
 
 public class ProductLineGraph extends AbstractGraph {
 

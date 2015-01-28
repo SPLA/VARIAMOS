@@ -1,8 +1,6 @@
 package com.variamos.semantic.semanticsupport;
 
-import java.util.List;
-
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represent types of relations at semantic level. Part of PhD work

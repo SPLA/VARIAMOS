@@ -14,6 +14,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.util.mxGraphActions;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxEvent;
+import com.mxgraph.util.mxEventObject;
+import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.mxgraph.util.mxResources;
+import com.mxgraph.view.mxGraph;
+import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.EditorActions.ColorAction;
 import com.variamos.gui.maineditor.EditorActions.FontStyleAction;
 import com.variamos.gui.maineditor.EditorActions.HistoryAction;
@@ -22,15 +31,6 @@ import com.variamos.gui.maineditor.EditorActions.NewAction;
 import com.variamos.gui.maineditor.EditorActions.OpenAction;
 import com.variamos.gui.maineditor.EditorActions.PrintAction;
 import com.variamos.gui.maineditor.EditorActions.SaveAction;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.util.mxGraphActions;
-import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxResources;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.view.mxGraph;
-import com.mxgraph.view.mxGraphView;
 
 public class EditorToolBar extends JToolBar
 {

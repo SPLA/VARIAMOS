@@ -2,11 +2,6 @@ package com.variamos.semantic.expressions;
 
 import java.util.Map;
 
-
-
-
-
-
 /**
  * Abstract  Class to group the ComparisonTranformation. Part of PhD
  * work at University of Paris 1
@@ -18,12 +13,10 @@ import java.util.Map;
  */
 import com.cfm.hlcl.BooleanExpression;
 import com.cfm.hlcl.ComparisonExpression;
-import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstVertex;
 
 /**
  * Abstract Class to group at the ComparisonTransformation, currently only for

@@ -2,7 +2,7 @@ package com.variamos.semantic.semanticsupport;
 
 import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent soft semantic concepts. Part of PhD work at

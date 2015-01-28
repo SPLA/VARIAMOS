@@ -1,6 +1,6 @@
 package com.variamos.semantic.types;
 
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelType;
 
 /**
  * An enumeration to represent possible direct relations types. Part of PhD

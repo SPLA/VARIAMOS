@@ -46,7 +46,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.refas.RefasModel;
-import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntax.types.IntegerType;
 
 /**
  * @author unknown

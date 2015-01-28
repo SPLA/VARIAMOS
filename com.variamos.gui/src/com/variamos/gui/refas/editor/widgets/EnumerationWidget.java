@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.type.EnumerationSingleSelectionType;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.types.EnumerationSingleSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other

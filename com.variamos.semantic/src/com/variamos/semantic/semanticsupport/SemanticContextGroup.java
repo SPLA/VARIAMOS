@@ -1,6 +1,6 @@
 package com.variamos.semantic.semanticsupport;
 
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 
 /**
  * A class to represent the edges at semantic level. Part of PhD work at

@@ -23,7 +23,6 @@ import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.SWIPrologSolver;
 import com.cfm.productline.solver.Solver;
-import com.mxgraph.model.mxCell;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -38,12 +37,10 @@ import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationControlAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntRefas2Hlcl;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntax.semanticinterface.IntRefas2Hlcl;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1

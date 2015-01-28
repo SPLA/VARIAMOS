@@ -36,21 +36,21 @@ import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.instancesupport.InstView;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
-import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationConfigAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.MetaView;
+import com.variamos.syntax.metamodelsupport.ModelingAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
+import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticConcept;
+import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelType;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
  * A class to represent the model with vertex and edges. Maintains the

@@ -8,7 +8,6 @@ import com.cfm.hlcl.HlclProgram;
 import com.cfm.hlcl.HlclUtil;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.IntervalDomain;
-import com.cfm.hlcl.NumericExpression;
 import com.cfm.hlcl.RangeDomain;
 import com.cfm.productline.compiler.solverSymbols.LabelingOrder;
 import com.cfm.productline.compiler.solverSymbols.SWIPrologSymbols;

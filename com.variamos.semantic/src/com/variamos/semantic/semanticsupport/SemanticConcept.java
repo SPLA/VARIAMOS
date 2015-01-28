@@ -1,8 +1,6 @@
 package com.variamos.semantic.semanticsupport;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 
 /**
  * A class to represent the hard concepts at semantic level. Part of PhD work at

@@ -33,12 +33,12 @@ import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.metamodelsupport.MetaView;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 

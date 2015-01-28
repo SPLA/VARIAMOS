@@ -10,11 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.refas.editor.actions.EditorActions.NewAction;
-import com.variamos.gui.refas.editor.actions.EditorActions.OpenAction;
-import com.variamos.gui.refas.editor.actions.EditorActions.SaveAction;
-import com.variamos.gui.refas.editor.actions.EditorActions.HistoryAction;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxEvent;
@@ -23,6 +18,11 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
 //import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.refas.editor.actions.EditorActions.HistoryAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.NewAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.OpenAction;
+import com.variamos.gui.refas.editor.actions.EditorActions.SaveAction;
 
 public class RefasEditorToolBar extends JToolBar
 {

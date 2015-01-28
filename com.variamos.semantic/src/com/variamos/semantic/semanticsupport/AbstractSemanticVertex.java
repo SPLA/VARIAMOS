@@ -1,18 +1,10 @@
 package com.variamos.semantic.semanticsupport;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaExtends;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 
 /**
  * A class to represent the vertex at semantic level. Part of PhD work at

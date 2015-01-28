@@ -24,7 +24,7 @@ import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaElement;
 
 //TODO refactor: OverTwoElementExpressionSet
 /**

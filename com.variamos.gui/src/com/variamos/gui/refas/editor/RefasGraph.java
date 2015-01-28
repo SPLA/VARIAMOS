@@ -41,7 +41,6 @@ import com.mxgraph.util.mxXmlUtils;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.refas.RefasModel;
-import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -51,9 +50,9 @@ import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.instancesupport.InstView;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.MetaView;
 
 public class RefasGraph extends AbstractGraph {
 

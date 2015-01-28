@@ -3,16 +3,8 @@ package com.variamos.gui.maineditor;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
-import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxResources;
-import com.mxgraph.view.mxGraph;
-import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
-import com.variamos.gui.refas.editor.MetaGraphEditorFunctions;
-import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.gui.refas.editor.SimulationGraphEditorFunctions;
 
 @SuppressWarnings("serial")
 public class PerspectiveAction extends AbstractEditorAction {

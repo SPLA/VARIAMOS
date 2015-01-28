@@ -3,12 +3,10 @@ package com.variamos.semantic.expressions;
 import java.util.Map;
 
 import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.HlclFactory;
 import com.cfm.hlcl.Identifier;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstVertex;
 
 /**
  * Abstract Class to group at the BooleanTransformation. Part of PhD
