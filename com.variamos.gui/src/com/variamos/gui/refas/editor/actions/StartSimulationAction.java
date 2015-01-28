@@ -9,7 +9,7 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
+import com.variamos.refas.core.refas.Refas2Hlcl;
 
 @SuppressWarnings("serial")
 public class StartSimulationAction extends AbstractEditorAction {

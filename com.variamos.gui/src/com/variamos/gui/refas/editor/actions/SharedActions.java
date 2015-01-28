@@ -14,11 +14,11 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.refas.semantic.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
@@ -187,9 +187,10 @@ public class SharedActions {
 					// for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 					// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					mxCell mv1 = (mxCell) anyCell;
-					if (refasGraph.getChildCount(mv0) > 0
-							&& mv0.getChildAt(0).getValue()
-									.equals(mv0.getValue())) {
+					if (refasGraph.getChildCount(mv1) > 0
+							//&& mv0.getChildAt(0).getValue()
+							//		.equals(mv0.getValue())
+									) {
 						Object[] all2Cells = getSortedCells(graph, mv1);
 						for (Object any2Cell : all2Cells) {
 							mxCell mv2 = (mxCell) any2Cell;

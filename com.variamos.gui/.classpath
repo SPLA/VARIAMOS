@@ -6,13 +6,13 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.solver"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/splot_prolog.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.pl.configurator"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.refas.core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntaxsupport"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.productline.io"/>
 	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.semantic"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntax"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.configurator"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

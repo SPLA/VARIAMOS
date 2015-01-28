@@ -68,7 +68,7 @@ import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
 import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasMenuBar;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntax.instancesupport.EditableElement;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original

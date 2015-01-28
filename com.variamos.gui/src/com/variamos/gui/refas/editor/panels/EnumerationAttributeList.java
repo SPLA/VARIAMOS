@@ -15,9 +15,9 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
 import com.variamos.syntaxsupport.type.IntegerType;

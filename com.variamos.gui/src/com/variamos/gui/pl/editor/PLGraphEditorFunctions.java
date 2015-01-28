@@ -14,6 +14,7 @@ import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.examples.swing.GraphEditor;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
@@ -26,7 +27,6 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.editor.logic.ConstraintMode;
 
 public class PLGraphEditorFunctions extends AbstractGraphEditorFunctions {
 	public PLGraphEditorFunctions (VariamosGraphEditor editor)

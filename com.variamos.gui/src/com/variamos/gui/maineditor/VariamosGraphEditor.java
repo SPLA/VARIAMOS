@@ -66,6 +66,7 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.configurator.Configurator;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.defectAnalyzer.CauCosAnayzer;
@@ -96,18 +97,17 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.pl.configurator.Configurator;
 import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
-import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstView;
+import com.variamos.refas.core.refas.Refas2Hlcl;
+import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+import com.variamos.semantic.types.PerspectiveType;
+import com.variamos.syntax.instancesupport.EditableElement;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstView;
 import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
@@ -1428,7 +1428,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			((mxCell) graphComponent.getGraph().getDefaultParent())
 					.setValue("simul");
 			// Different from null, to display simulation colors
-
+			this.refresh();
 		}
 	}
 

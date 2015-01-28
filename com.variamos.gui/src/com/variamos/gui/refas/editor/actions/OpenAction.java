@@ -11,13 +11,13 @@ import com.cfm.common.AbstractModel;
 import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
+import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
 

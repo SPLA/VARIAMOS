@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 
 import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.examples.swing.GraphEditor;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
@@ -26,7 +27,6 @@ import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.pl.editor.logic.ConstraintMode;
 
 public class SimulationGraphEditorFunctions extends AbstractGraphEditorFunctions {
 

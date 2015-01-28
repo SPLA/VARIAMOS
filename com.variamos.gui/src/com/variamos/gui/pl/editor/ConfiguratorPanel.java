@@ -43,6 +43,10 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
+import com.variamos.configurator.Choice;
+import com.variamos.configurator.Configurator;
+import com.variamos.configurator.DomainAnnotation;
+import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
@@ -50,11 +54,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.pl.configurator.Choice;
-import com.variamos.pl.configurator.Configurator;
-import com.variamos.pl.configurator.DomainAnnotation;
-import com.variamos.pl.configurator.io.ConfigurationDTO;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
+import com.variamos.refas.core.refas.Refas2Hlcl;
 import com.variamos.syntaxsupport.type.IntegerType;
 
 /**

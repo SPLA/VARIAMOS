@@ -21,9 +21,9 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
-import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.editor.logic.ConstraintMode;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
 

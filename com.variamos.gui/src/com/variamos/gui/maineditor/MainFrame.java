@@ -12,7 +12,7 @@ import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.types.PerspectiveType;
+import com.variamos.semantic.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {

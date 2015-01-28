@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cfm.productline.Variable;
-import com.variamos.pl.configurator.DomainAnnotation;
+import com.variamos.configurator.DomainAnnotation;
 
 public class ConfigurationNode {
 	

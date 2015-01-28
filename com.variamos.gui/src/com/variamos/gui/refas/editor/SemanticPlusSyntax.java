@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.refas.core.sematicsmetamodel.*;
-import com.variamos.refas.core.types.DirectEdgeType;
-import com.variamos.refas.core.types.GroupRelationType;
+import com.variamos.refas.semantic.semanticsupport.*;
+import com.variamos.semantic.types.DirectEdgeType;
+import com.variamos.semantic.types.GroupRelationType;
 import com.variamos.syntaxsupport.metamodelsupport.*;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
