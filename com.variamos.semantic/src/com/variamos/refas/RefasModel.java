@@ -862,7 +862,7 @@ public class RefasModel extends AbstractModel {
 		semHardConcept.putSemanticAttribute("satisfactionType",
 				new SemanticAttribute("satisfactionType", "Enumeration", false,
 						"satisfactionType",
-						"com.variamos.refas.core.types.SatisfactionType",
+						"com.variamos.semantic.types.SatisfactionType",
 						"achieve", ""));
 		semHardConcept.addPropEditableAttribute("01#" + "satisfactionType");
 		semHardConcept.addPropVisibleAttribute("01#" + "satisfactionType");
@@ -1188,13 +1188,8 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexHHGR, true);
 		instEdge.setSourceRelation(instVertexHC, true);
 
-		// required and conflict direct relations of the HardSemanticConcept
-		List<IntSemanticPairwiseRelType> requires_conflictsDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		requires_conflictsDirectRelation.add(DirectEdgeType.required);
-		requires_conflictsDirectRelation.add(DirectEdgeType.conflict);
-
 		List<AbstractSemanticVertex> semanticVertices = new ArrayList<AbstractSemanticVertex>();
-		semanticVertices.add(semHardConcept);
+		
 
 		List<IntSemanticRelationType> hardSemPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		hardSemPairwiseRelList.add(new SemanticRelationType("means_ends",
@@ -1636,6 +1631,14 @@ public class RefasModel extends AbstractModel {
 		 */
 		IntSemanticConcept semFeature = (IntSemanticConcept) ((InstConcept) getSemanticRefas()
 				.getVertex("SemFeature")).getEditableSemanticElement();
+		
+		IntSemanticConcept semHardConcept = (IntSemanticConcept) ((InstConcept) this
+				.getSemanticRefas().getVertex("SemHardConcept"))
+				.getEditableSemanticElement();
+		
+		IntSemanticConcept semGoal = (IntSemanticConcept) ((InstConcept) this
+				.getSemanticRefas().getVertex("SemGoal"))
+				.getEditableSemanticElement();
 
 		MetaConcept syntaxFeature = new MetaConcept("Feature", false,
 				"Feature", "plnode", "Defines a feature", 100, 50,
@@ -1655,6 +1658,25 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("Feature", instVertexF);
 		// syntaxMetaView.addConcept(syntaxFeature);
 		// instView.addInstVertex(instVertexF);
+		
+		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VA", false,
+				"VariabilityArtifact", null, "", 0, 0, null, true, null, 3,
+				true, semFeature);
+		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
+				"Name", "");
+
+		syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
+
+		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+
+
+		InstVertex instVertexVA = new InstConcept("VA",
+				supportMetaElementConcept, syntaxVariabilityArtifact);
+		variabilityInstVertex.put("VA", instVertexVA);
+		
+		syntaxMetaView.addConcept(syntaxVariabilityArtifact);
 
 		MetaConcept syntaxRootFeature = new MetaConcept("RootFeature", true,
 				"RootFeature", "plnode", "Defines a root feature", 100, 50,
@@ -1669,12 +1691,6 @@ public class RefasModel extends AbstractModel {
 		syntaxMetaView.addConcept(syntaxRootFeature);
 		instView.addInstVertex(instVertexRF);
 
-		InstPairwiseRelation instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("variab-rfeat", instEdge);
-		instEdge.setIdentifier("variab-rfeat");
-		instEdge.setTargetRelation(instVertexRF, true);
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
-		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxGeneralFeature = new MetaConcept("GeneralFeature",
 				true, "GeneralFeature", "plnode", "Defines a general feature",
@@ -1686,15 +1702,9 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		variabilityInstVertex.put("GeneralFeature", instVertexGF);
-		syntaxMetaView.addConcept(syntaxFeature);
+		syntaxMetaView.addConcept(syntaxGeneralFeature);
 		instView.addInstVertex(instVertexGF);
 
-		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("variab-gfeat", instEdge);
-		instEdge.setIdentifier("variab-gfeat");
-		instEdge.setTargetRelation(instVertexGF, true);
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
-		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxVertexLF = new MetaConcept("LeafFeature", true,
 				"LeafFeature", "plnode", "Defines a leaf feature", 100, 50,
@@ -1709,6 +1719,56 @@ public class RefasModel extends AbstractModel {
 		syntaxMetaView.addConcept(syntaxVertexLF);
 		instView.addInstVertex(instVertexLF);
 
+		
+		InstPairwiseRelation instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-rfeat", instEdge);
+		instEdge.setIdentifier("variab-rfeat");
+		instEdge.setTargetRelation(instVertexRF, true);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
+		instEdge.setSourceRelation(instView, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-gfeat", instEdge);
+		instEdge.setIdentifier("variab-gfeat");
+		instEdge.setTargetRelation(instVertexGF, true);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
+		instEdge.setSourceRelation(instView, true);
+		
+		
+
+		
+
+
+		MetaConcept syntaxGoal = new MetaConcept("Goal", false, "Goal",
+				"refasgoal", "Defines a goal of the system"
+						+ " from the stakeholder perspective that can be"
+						+ " satisfied with a clear cut condition", 100, 70,
+				"/com/variamos/gui/refas/editor/images/goal.png", true,
+				Color.BLUE.toString(), 3, true, semHardConcept);
+		
+		syntaxGoal.setParent(syntaxVariabilityArtifact);
+
+		syntaxMetaView.addConcept(syntaxGoal);
+		InstVertex instVertexG = new InstConcept("Goal",
+				supportMetaElementConcept, syntaxGoal);
+		variabilityInstVertex.put("Goal", instVertexG);
+		instView.addInstVertex(instVertexG);
+
+		MetaConcept syntaxTopGoal = new MetaConcept("TopGoal", true,
+				"Top Goal", "refasgoal", "Defines a top goal of the system"
+						+ " from the stakeholder perspective that can be"
+						+ " satisfied with a clear cut condition", 120, 60,
+				"/com/variamos/gui/refas/editor/images/goal.png", true,
+				Color.BLUE.toString(), 3, true, semGoal);
+
+		syntaxTopGoal.setParent(syntaxGoal);
+
+		syntaxMetaView.addConcept(syntaxTopGoal);
+		InstVertex instVertexTG = new InstConcept("TopGoal",
+				supportMetaElementConcept, syntaxTopGoal);
+		variabilityInstVertex.put("TopGoal", instVertexTG);
+		instView.addInstVertex(instVertexTG);
+		
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-lfeat", instEdge);
 		instEdge.setIdentifier("variab-lfeat");
@@ -1865,53 +1925,13 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertex, true);
 		instEdge.setSourceRelation(instVertexGF, true);
 
-		IntSemanticConcept semHardConcept = (IntSemanticConcept) ((InstConcept) this
-				.getSemanticRefas().getVertex("SemHardConcept"))
-				.getEditableSemanticElement();
-		MetaConcept syntaxVariabilityArtifact = new MetaConcept("VA", false,
-				"VariabilityArtifact", null, "", 0, 0, null, true, null, 3,
-				true, semHardConcept);
-		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "");
-
-		syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
-
-		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
-
-		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
-
-		syntaxMetaView.addConcept(syntaxVariabilityArtifact);
-
-		InstVertex instVertexVA = new InstConcept("VA",
-				supportMetaElementConcept, syntaxVariabilityArtifact);
-		variabilityInstVertex.put("VA", instVertexVA);
-
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-va", instEdge);
 		instEdge.setIdentifier("variab-va");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instView, true);
-
-		IntSemanticConcept semGoal = (IntSemanticConcept) ((InstConcept) this
-				.getSemanticRefas().getVertex("SemGoal"))
-				.getEditableSemanticElement();
-
-		MetaConcept syntaxGoal = new MetaConcept("Goal", false, "Goal",
-				"refasgoal", "Defines a goal of the system"
-						+ " from the stakeholder perspective that can be"
-						+ " satisfied with a clear cut condition", 100, 70,
-				"/com/variamos/gui/refas/editor/images/goal.png", true,
-				Color.BLUE.toString(), 3, true, semGoal);
-
-		syntaxGoal.setParent(syntaxVariabilityArtifact);
-
-		syntaxMetaView.addConcept(syntaxGoal);
-		InstVertex instVertexG = new InstConcept("Goal",
-				supportMetaElementConcept, syntaxGoal);
-		variabilityInstVertex.put("Goal", instVertexG);
-		instView.addInstVertex(instVertexG);
-
+		
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvatg", instEdge);
 		instEdge.setIdentifier("variab-extvatg");
@@ -1927,20 +1947,7 @@ public class RefasModel extends AbstractModel {
 		 * instEdge.setSourceRelation(instView, true);
 		 */
 
-		MetaConcept syntaxTopGoal = new MetaConcept("TopGoal", true,
-				"Top Goal", "refasgoal", "Defines a top goal of the system"
-						+ " from the stakeholder perspective that can be"
-						+ " satisfied with a clear cut condition", 120, 60,
-				"/com/variamos/gui/refas/editor/images/goal.png", true,
-				Color.BLUE.toString(), 3, true, semGoal);
 
-		syntaxTopGoal.setParent(syntaxGoal);
-
-		syntaxMetaView.addConcept(syntaxTopGoal);
-		InstVertex instVertexTG = new InstConcept("TopGoal",
-				supportMetaElementConcept, syntaxTopGoal);
-		variabilityInstVertex.put("TopGoal", instVertexTG);
-		instView.addInstVertex(instVertexTG);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extgtg", instEdge);
