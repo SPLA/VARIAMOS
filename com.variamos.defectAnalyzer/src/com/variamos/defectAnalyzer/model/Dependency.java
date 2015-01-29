@@ -1,6 +1,6 @@
 package com.variamos.defectAnalyzer.model;
 
-import com.cfm.hlcl.BooleanExpression;
+import com.variamos.hlcl.BooleanExpression;
 
 public class Dependency implements Cloneable {
 

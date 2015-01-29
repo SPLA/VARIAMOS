@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Domain;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericExpression;
-import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericIdentifier;
 
 import constraints.BooleanVariable;
 

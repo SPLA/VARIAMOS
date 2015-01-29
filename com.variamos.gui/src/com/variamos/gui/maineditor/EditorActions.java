@@ -45,7 +45,6 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.w3c.dom.Document;
 
-import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.analysis.mxDistanceCostFunction;
 import com.mxgraph.analysis.mxGraphAnalysis;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
@@ -75,6 +74,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.refas.editor.actions.SharedActions;
+import com.variamos.io.SXFMWriter;
 
 /**
  *

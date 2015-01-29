@@ -13,12 +13,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.HlclUtil;
-import com.cfm.hlcl.Identifier;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -36,6 +30,12 @@ import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
 
 public class VerificatorTest {
 

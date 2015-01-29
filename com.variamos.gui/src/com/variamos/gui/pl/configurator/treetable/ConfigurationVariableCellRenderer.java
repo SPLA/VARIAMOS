@@ -10,12 +10,12 @@ import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
 import javax.swing.tree.TreeModel;
 
-import com.cfm.hlcl.BinaryDomain;
-import com.cfm.hlcl.Domain;
 import com.cfm.productline.Variable;
 import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
+import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.Domain;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer implements ListCellRenderer{

@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationTask;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationTask;
 
 public abstract class AbstractConfigurationPanel extends JPanel {
 	/**

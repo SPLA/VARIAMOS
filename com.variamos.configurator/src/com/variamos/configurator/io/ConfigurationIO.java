@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import com.cfm.productline.solver.Configuration;
+import com.variamos.solver.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

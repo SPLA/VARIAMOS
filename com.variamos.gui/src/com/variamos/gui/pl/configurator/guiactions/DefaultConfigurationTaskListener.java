@@ -2,10 +2,10 @@ package com.variamos.gui.pl.configurator.guiactions;
 
 import javax.swing.SwingUtilities;
 
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationTask;
-import com.cfm.productline.solver.ConfigurationTaskListener;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationTask;
+import com.variamos.solver.ConfigurationTaskListener;
 
 public class DefaultConfigurationTaskListener implements
 		ConfigurationTaskListener {

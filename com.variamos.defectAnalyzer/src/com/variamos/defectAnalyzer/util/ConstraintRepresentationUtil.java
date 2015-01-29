@@ -7,17 +7,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.HlclUtil;
-import com.cfm.hlcl.Identifier;
-import com.cfm.productline.prologEditors.Hlcl2GnuProlog;
-import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.core.util.FileUtils;
 import com.variamos.defectAnalyzer.model.Dependency;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
+import com.variamos.prologEditors.Hlcl2GnuProlog;
+import com.variamos.prologEditors.Hlcl2SWIProlog;
 
 public class ConstraintRepresentationUtil {
 

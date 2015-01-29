@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.hlcl.RangeDomain;
+import com.variamos.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.cfm.hlcl.BooleanExpression;
+import com.variamos.hlcl.BooleanExpression;
 
 public class CauCos {
 

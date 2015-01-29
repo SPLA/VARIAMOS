@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
 import com.cfm.jgprolog.core.PrologException;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.exceptions.TechnicalException;
@@ -24,6 +20,10 @@ import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.defectAnalyzer.util.PowerSetUtil;
 import com.variamos.defectAnalyzer.util.SetUtil;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
 
 public class CauCosAnayzer implements IntCauCosAnalyzer {
 

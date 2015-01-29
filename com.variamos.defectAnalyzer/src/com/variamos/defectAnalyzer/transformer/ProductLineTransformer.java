@@ -3,19 +3,19 @@ package com.variamos.defectAnalyzer.transformer;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.Identifier;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
-import com.cfm.productline.productLine.Pl2Hlcl;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.Identifier;
+import com.variamos.productline.Pl2Hlcl;
 
 /**
  * Transforma los modelos desde el modelo de línea de productos que usa el

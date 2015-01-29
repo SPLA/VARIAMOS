@@ -1,8 +1,8 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Identifier;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.Identifier;
 
 public class NonAttainableDomain extends Defect {
 	private Identifier identifier;

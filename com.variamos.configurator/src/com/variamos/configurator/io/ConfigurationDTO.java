@@ -1,7 +1,7 @@
 package com.variamos.configurator.io;
 
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
 
 public class ConfigurationDTO { 
 	private ConfigurationOptions options;

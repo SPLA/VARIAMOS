@@ -3,8 +3,8 @@ package com.variamos.defectAnalyzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.defects.Defect;
+import com.variamos.hlcl.BooleanExpression;
 
 /**
  * Objeto que representa el defecto, las causas y los subconjuntos corrección

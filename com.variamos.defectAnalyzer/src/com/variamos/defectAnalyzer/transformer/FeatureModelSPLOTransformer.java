@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.NumericExpression;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
@@ -19,6 +16,9 @@ import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.RangeDomainDefectAnalyzer;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.NumericExpression;
 
 import constraints.BooleanVariable;
 import constraints.PropositionalFormula;

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;

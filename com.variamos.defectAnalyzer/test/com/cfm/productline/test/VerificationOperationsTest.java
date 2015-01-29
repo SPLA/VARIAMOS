@@ -6,8 +6,6 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TransformerException;
@@ -19,6 +17,8 @@ import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
 
 public class VerificationOperationsTest {
 

@@ -3,9 +3,9 @@ package com.variamos.defectAnalyzer.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.hlcl.HlclProgram;
 import com.variamos.defectAnalyzer.model.ClassifiedElement;
 import com.variamos.defectAnalyzer.model.Diagnosis;
+import com.variamos.hlcl.HlclProgram;
 
 /**
  * Entrega los resultados del análisis del defecto causas y correcciones

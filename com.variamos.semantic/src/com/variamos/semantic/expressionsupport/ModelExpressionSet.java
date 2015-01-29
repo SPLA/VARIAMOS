@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.RangeDomain;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.RangeDomain;
 import com.variamos.refas.Refas2Hlcl;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;

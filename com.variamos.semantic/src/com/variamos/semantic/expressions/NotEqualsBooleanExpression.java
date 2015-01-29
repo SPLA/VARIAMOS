@@ -3,12 +3,12 @@ package com.variamos.semantic.expressions;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Expression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericExpression;
-import com.cfm.hlcl.NumericIdentifier;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.syntax.instancesupport.InstElement;
 
 /**

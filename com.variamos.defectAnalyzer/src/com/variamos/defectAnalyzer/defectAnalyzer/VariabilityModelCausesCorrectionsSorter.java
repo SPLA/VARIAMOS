@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.CauCos;
 import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
 import com.variamos.defectAnalyzer.model.ClassifiedElement;
@@ -13,6 +12,7 @@ import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.defectAnalyzer.util.SetUtil;
+import com.variamos.hlcl.BooleanExpression;
 
 public class VariabilityModelCausesCorrectionsSorter {
 

@@ -1,13 +1,13 @@
 package com.variamos.defectAnalyzer.util;
 
-import com.cfm.hlcl.HlclProgram;
 import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
-import com.cfm.productline.solver.GNUPrologSolver;
-import com.cfm.productline.solver.SWIPrologSolver;
-import com.cfm.productline.solver.Solver;
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.GNUPrologSolver;
+import com.variamos.solver.SWIPrologSolver;
+import com.variamos.solver.Solver;
 
 public class SolverOperationsUtil {
 

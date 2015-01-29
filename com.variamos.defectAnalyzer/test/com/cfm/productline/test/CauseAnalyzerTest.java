@@ -10,10 +10,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.HlclUtil;
-import com.cfm.hlcl.Identifier;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -33,6 +29,10 @@ import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
 
 //import com.cfm.productline.defectAnalyzer.VariabilityModelCauseAnalyzer;
 

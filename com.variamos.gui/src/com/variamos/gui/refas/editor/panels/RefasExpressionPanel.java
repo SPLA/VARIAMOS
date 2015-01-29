@@ -17,9 +17,9 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.hlcl.Expression;
-import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.gui.pl.editor.SpringUtilities;
+import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;

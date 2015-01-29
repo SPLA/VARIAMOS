@@ -2,18 +2,18 @@ package com.cfm.productline.compiler;
 
 import org.junit.Test;
 
-import com.cfm.hlcl.ComparisonExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericExpression;
-import com.cfm.hlcl.NumericIdentifier;
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMReader;
-import com.cfm.productline.productLine.Pl2Hlcl;
-import com.cfm.productline.prologEditors.Hlcl2GnuProlog;
-import com.cfm.productline.prologEditors.Hlcl2GnuPrologExact;
-import com.cfm.productline.prologEditors.Hlcl2SWIProlog;
+import com.variamos.hlcl.ComparisonExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.io.SXFMReader;
+import com.variamos.productline.Pl2Hlcl;
+import com.variamos.prologEditors.Hlcl2GnuProlog;
+import com.variamos.prologEditors.Hlcl2GnuPrologExact;
+import com.variamos.prologEditors.Hlcl2SWIProlog;
 
 import fm.FeatureModelException;
 
