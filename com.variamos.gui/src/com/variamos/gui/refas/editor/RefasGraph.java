@@ -96,13 +96,14 @@ public class RefasGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, RefasModel refasModel) {
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective,
+			RefasModel refasModel) {
 		init();
 		this.semanticPlusSyntax = semanticPlusSyntax;
 		this.perspective = perspective;
 		this.refasModel = refasModel;
 	}
-	
+
 	public void defineInitialGraph() {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
@@ -184,9 +185,8 @@ public class RefasGraph extends AbstractGraph {
 						mxCell target = this.getCellById(instEdge
 								.getTargetRelations().get(0).getIdentifier());
 						child.setStyle("");
-						MetaElement e = instEdge
-								.getTransSupportMetaElement();
-						if (e != null) {							
+						MetaElement e = instEdge.getTransSupportMetaElement();
+						if (e != null) {
 							child.setStyle(e.getStyle());
 						}
 
@@ -250,8 +250,8 @@ public class RefasGraph extends AbstractGraph {
 		if (refasModel.getSyntaxRefas() == null)
 			return semanticPlusSyntax.modelElements(modelView, modelSubView);
 		else
-			return refasModel.getSyntaxRefas()
-					.modelElements(modelView, modelSubView);
+			return refasModel.getSyntaxRefas().modelElements(modelView,
+					modelSubView);
 	}
 
 	String getResource(String rsc) {
@@ -348,7 +348,8 @@ public class RefasGraph extends AbstractGraph {
 			InstElement instTarget = (InstElement) t.getValue();
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
+			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
+					null);
 			RefasModel refas = getRefas();
 			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
@@ -377,7 +378,8 @@ public class RefasGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
+				null);
 		RefasModel refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
@@ -569,8 +571,9 @@ public class RefasGraph extends AbstractGraph {
 
 							} else {
 								// if (valid[i] && i != modelViewIndex) {
-								if (semanticPlusSyntax.elementsValidation(name,
-										i, -1) && i != modelViewIndex) {
+								if (refasModel.getSyntaxRefas()
+										.elementsValidation(name, i, -1)
+										&& i != modelViewIndex) {
 
 									mxCell c2 = null;
 									try {
@@ -652,10 +655,10 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public RefasModel getRefas() {
-		/*if (refasModel == null) {
-			refasModel = new Refas(PerspectiveType.modeling);
-			return refasModel;
-		}*/
+		/*
+		 * if (refasModel == null) { refasModel = new
+		 * Refas(PerspectiveType.modeling); return refasModel; }
+		 */
 		return refasModel;
 	}
 
@@ -755,7 +758,7 @@ public class RefasGraph extends AbstractGraph {
 	@Override
 	public String validateCell(Object objCell, Hashtable<Object, Object> context) {
 		if (objCell instanceof mxCell) {
-		//	mxCell cell = (mxCell) objCell;
+			// mxCell cell = (mxCell) objCell;
 
 			/*
 			 * if (cell.getValue() instanceof GroupGConstraint) {

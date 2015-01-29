@@ -1211,17 +1211,17 @@ public class RefasModel extends AbstractModel {
 				"requ.", false, true, true, 1, -1, 1, 1));
 
 		List<IntSemanticRelationType> sgPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		sgPairwiseRelList.add(new SemanticRelationType("Means_Ends",
+		sgPairwiseRelList.add(new SemanticRelationType("means_ends",
 				"means-ends", "means-ends", true, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("Conflict", "conflict",
+		sgPairwiseRelList.add(new SemanticRelationType("conflict", "conflict",
 				"conflict", false, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("Alternative",
+		sgPairwiseRelList.add(new SemanticRelationType("alternative",
 				"altern.", "altern.", false, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("Preferred", "pref.",
+		sgPairwiseRelList.add(new SemanticRelationType("preferred", "pref.",
 				"pref.", false, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("Implication", "impl.",
+		sgPairwiseRelList.add(new SemanticRelationType("implication", "impl.",
 				"Impl.", false, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("Required", "req.",
+		sgPairwiseRelList.add(new SemanticRelationType("required", "req.",
 				"requ.", false, true, true, 1, -1, 1, 1));
 
 		SemanticPairwiseRelation directHardHardSemanticEdge = new SemanticPairwiseRelation(
@@ -1261,8 +1261,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("FeatureFeatureGroupRel", instVertexFFGR);
 
 		List<IntSemanticRelationType> assetoperPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		assetoperPairwiseRelList.add(new SemanticRelationType("Implementation",
-				"Implementation", "imp.", true, true, true, 1, 1, 1, 1));
+		assetoperPairwiseRelList.add(new SemanticRelationType("implementation",
+				"implementation", "imp.", true, true, true, 1, 1, 1, 1));
 
 		SemanticPairwiseRelation semAssetOperPairwiseRel = new SemanticPairwiseRelation(
 				"varAssetOperPairwiseRel", false, assetoperPairwiseRelList);
@@ -3159,12 +3159,9 @@ public class RefasModel extends AbstractModel {
 	public boolean elementsValidation(String element, int modelViewInd,
 			int modelViewSubInd) {
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1) {
-			Iterator<InstElement> metaConcept = instViews.get(modelViewInd)
-					.getSourceRelations().iterator();
-			for (int i = 0; i < instViews.get(modelViewInd).getInstVertices()
-					.size(); i++) {
-
-				if (metaConcept.next().getIdentifier().equals(element))
+			for (InstElement instElement: instViews.get(modelViewInd)
+					.getTargetRelations()) {
+				if (instElement.getIdentifier().equals(element))
 					return true;
 			}
 		}
