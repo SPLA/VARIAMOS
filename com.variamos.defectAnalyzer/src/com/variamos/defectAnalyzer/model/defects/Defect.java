@@ -3,8 +3,8 @@ package com.variamos.defectAnalyzer.model.defects;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
+import com.variamos.hlcl.BooleanExpression;
 
 public class Defect {
 

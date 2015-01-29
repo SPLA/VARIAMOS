@@ -11,12 +11,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import com.cfm.hlcl.BinaryDomain;
-import com.cfm.hlcl.DomainParser;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.VariabilityParameterDialog.DialogButtonAction;
+import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.DomainParser;
 import com.variamos.syntax.types.IntegerType;
 import com.variamos.syntax.types.StringType;
 

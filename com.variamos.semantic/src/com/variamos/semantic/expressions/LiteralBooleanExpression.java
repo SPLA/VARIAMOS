@@ -2,9 +2,9 @@ package com.variamos.semantic.expressions;
 
 import java.util.Map;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
 /**
  * Class to create the Literal expression. Part of PhD
  * work at University of Paris 1

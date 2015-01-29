@@ -398,8 +398,8 @@ public class RefasGraph extends AbstractGraph {
 		}
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
-					modelViewIndex + "-" + modelViewSubIndex + id, cell);
-			cell.setId(modelViewIndex + "-" + modelViewSubIndex + id);
+					modelViewIndex + id + "-" + modelViewSubIndex, cell);
+			cell.setId(modelViewIndex + id + "-" + modelViewSubIndex);
 		} else {
 			refasGraph.getCells().put(modelViewIndex + id, cell);
 			cell.setId(modelViewIndex + id);

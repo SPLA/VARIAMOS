@@ -3,7 +3,11 @@ package com.cfm.productline.solver;
 import com.cfm.jgprolog.core.PrologContext;
 import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
 import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMReader;
+import com.variamos.io.SXFMReader;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationMode;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.GNUPrologSolver;
 
 import fm.FeatureModelException;
 

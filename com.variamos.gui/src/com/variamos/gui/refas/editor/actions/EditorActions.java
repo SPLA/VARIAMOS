@@ -45,7 +45,6 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.w3c.dom.Document;
 
-import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.analysis.mxDistanceCostFunction;
 import com.mxgraph.analysis.mxGraphAnalysis;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
@@ -79,6 +78,7 @@ import com.variamos.gui.maineditor.EditorRuler;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.io.SXFMWriter;
 
 /**
  * A class to support most of the actions through the interface. Initially

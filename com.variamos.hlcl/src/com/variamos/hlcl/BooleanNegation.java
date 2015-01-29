@@ -1,0 +1,26 @@
+package com.variamos.hlcl;
+
+public class BooleanNegation implements BooleanExpression{
+	protected BooleanExpression expression;
+
+	protected BooleanNegation() {
+		super();
+	}
+
+	protected BooleanNegation(BooleanExpression expression) {
+		super();
+		this.expression = expression;
+	}
+
+	public BooleanExpression getExpression() {
+		return expression;
+	}
+
+	public void setExpression(BooleanExpression expression) {
+		this.expression = expression;
+	}
+	@Override
+	public String toString() {
+		return "BooleanOperation [expression=" + expression	+ ", operator=" + "negation" + "]";
+	}
+}

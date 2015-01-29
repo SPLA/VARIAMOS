@@ -9,15 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.BooleanNegation;
-import com.cfm.hlcl.Domain;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.HlclUtil;
-import com.cfm.hlcl.Identifier;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.exceptions.TechnicalException;
@@ -32,6 +23,15 @@ import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 import com.variamos.defectAnalyzer.util.SolverOperationsUtil;
 import com.variamos.defectAnalyzer.util.VerifierUtilExpression;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.BooleanNegation;
+import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
 
 public class DefectsVerifier implements IntDefectsVerifier {
 

@@ -3,7 +3,7 @@ package com.variamos.defectAnalyzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cfm.hlcl.RangeDomain;
+import com.variamos.hlcl.RangeDomain;
 
 public class RangeDomainDefectAnalyzer extends RangeDomain implements
 		DefectAnalyzerDomain {

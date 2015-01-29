@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.1
  * @since 2014-11-24
- * @see com.variamos.refas.core.sematicsmetamodel.DirectSemanticEdge
+ * @see com.variamos.semantic.semanticsupport.DirectSemanticEdge
  */
 public interface IntSemanticPairwiseRelation  extends IntSemanticElement {
 	public List<IntSemanticRelationType> getSemanticRelationTypes();

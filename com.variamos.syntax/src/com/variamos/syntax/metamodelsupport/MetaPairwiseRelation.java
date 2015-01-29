@@ -19,7 +19,7 @@ import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
  * @version 1.1
  * @since 2014-12-10
  * @see com.variamos.syntax.metamodelsupport.MetaElement * @see
- *      com.variamos.refas.core.sematicsmetamodel.SemanticPairwiseRelation
+ *      com.variamos.semantic.semanticsupport.SemanticPairwiseRelation
  */
 public class MetaPairwiseRelation extends MetaElement {
 	/**

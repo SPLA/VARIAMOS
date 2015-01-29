@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
 import com.mxgraph.io.mxCodec;
@@ -34,6 +33,7 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.io.SXFMWriter;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;

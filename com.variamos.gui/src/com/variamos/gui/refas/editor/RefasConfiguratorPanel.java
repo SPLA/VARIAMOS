@@ -25,14 +25,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.hlcl.BinaryDomain;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
-import com.cfm.productline.solver.ConfigurationTask;
 import com.variamos.configurator.Choice;
 import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
@@ -45,7 +41,11 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
+import com.variamos.hlcl.BinaryDomain;
 import com.variamos.refas.RefasModel;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.ConfigurationTask;
 import com.variamos.syntax.types.IntegerType;
 
 /**

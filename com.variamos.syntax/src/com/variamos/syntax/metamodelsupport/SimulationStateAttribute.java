@@ -1,6 +1,6 @@
 package com.variamos.syntax.metamodelsupport;
 
-import com.cfm.hlcl.Domain;
+import com.variamos.hlcl.Domain;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris

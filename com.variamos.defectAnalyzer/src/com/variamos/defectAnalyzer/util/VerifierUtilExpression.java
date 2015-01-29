@@ -1,11 +1,11 @@
 package com.variamos.defectAnalyzer.util;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericIdentifier;
 
 public class VerifierUtilExpression {
 

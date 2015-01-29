@@ -6,13 +6,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cfm.hlcl.BinaryDomain;
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericExpression;
-import com.cfm.hlcl.NumericIdentifier;
+import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.SWIPrologSolver;
+import com.variamos.solver.Solver;
 
 public class SWIPrologTest {
 

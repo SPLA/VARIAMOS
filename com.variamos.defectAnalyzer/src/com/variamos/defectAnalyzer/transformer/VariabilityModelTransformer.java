@@ -3,7 +3,6 @@ package com.variamos.defectAnalyzer.transformer;
 import java.io.File;
 import java.util.Collection;
 
-import com.cfm.hlcl.BooleanExpression;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -11,6 +10,7 @@ import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
+import com.variamos.hlcl.BooleanExpression;
 
 public class VariabilityModelTransformer {
 

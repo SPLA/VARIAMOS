@@ -11,11 +11,11 @@ import java.util.Map;
  * @version 1.1
  * @since 2014-12-15
  */
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.ComparisonExpression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
-import com.cfm.hlcl.NumericExpression;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.ComparisonExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.NumericExpression;
 import com.variamos.syntax.instancesupport.InstElement;
 
 /**

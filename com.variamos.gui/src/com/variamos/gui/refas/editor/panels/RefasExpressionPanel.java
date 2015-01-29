@@ -17,9 +17,9 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.hlcl.Expression;
-import com.cfm.hlcl.NumericIdentifier;
 import com.variamos.gui.pl.editor.SpringUtilities;
+import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
@@ -277,7 +277,7 @@ public class RefasExpressionPanel extends JPanel {
 			Class<AbstractExpression> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractExpression>) Class
-						.forName("com.variamos.refas.core.expressions."
+						.forName("com.variamos.semantic.expressions."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

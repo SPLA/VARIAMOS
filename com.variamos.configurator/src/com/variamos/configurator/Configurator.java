@@ -10,12 +10,12 @@ import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 //import com.cfm.productline.configurator.DomainAnnotation;
 //import com.cfm.productline.configurator.treetable.ConfigurationNode;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
-import com.cfm.productline.solver.ConfigurationTask;
-import com.cfm.productline.solver.ConfigurationTaskListener;
-import com.cfm.productline.solver.GNUPrologSolver;
-import com.cfm.productline.solver.Solver;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.ConfigurationTask;
+import com.variamos.solver.ConfigurationTaskListener;
+import com.variamos.solver.GNUPrologSolver;
+import com.variamos.solver.Solver;
 import com.variamos.configurator.io.ConfigurationDTO;
 
 
@@ -28,7 +28,7 @@ public class Configurator  {
 	private List<Configuration> products;
 	private Solver solver;	
 	public Configurator(){
-		solver = new GNUPrologSolver(new GNUPrologContext());
+		//solver = new GNUPrologSolver(new GNUPrologContext());
 		
 		//initComponents();
 	}

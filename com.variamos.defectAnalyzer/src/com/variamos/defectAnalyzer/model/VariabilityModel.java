@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.HlclProgram;
 import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
+import com.variamos.hlcl.HlclProgram;
 
 public class VariabilityModel extends ProductLine{
 	private String modelName;

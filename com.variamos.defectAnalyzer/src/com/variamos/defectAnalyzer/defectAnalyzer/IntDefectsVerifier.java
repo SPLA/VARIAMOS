@@ -3,13 +3,13 @@ package com.variamos.defectAnalyzer.defectAnalyzer;
 import java.util.List;
 import java.util.Set;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Identifier;
-import com.cfm.productline.solver.Configuration;
-import com.cfm.productline.solver.ConfigurationOptions;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.dto.VerificationResult;
 import com.variamos.defectAnalyzer.model.defects.Defect;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.Identifier;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
 
 public interface IntDefectsVerifier {
 

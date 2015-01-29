@@ -1,6 +1,6 @@
 package com.variamos.syntax.metamodelsupport;
 
-import com.cfm.hlcl.Domain;
+import com.variamos.hlcl.Domain;
 
 public class SimulationAttribute extends AbstractAttribute {
 

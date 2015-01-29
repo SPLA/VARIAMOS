@@ -3,9 +3,9 @@ package com.variamos.defectAnalyzer.transformer;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.Identifier;
 import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.Identifier;
 
 public class ProductLineTransformerRules {
 

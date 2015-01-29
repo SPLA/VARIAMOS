@@ -2,7 +2,7 @@ package com.variamos.defectAnalyzer.model;
 
 import java.util.List;
 
-import com.cfm.hlcl.IntervalDomain;
+import com.variamos.hlcl.IntervalDomain;
 
 public class IntervalDomainDefectAnalyzer extends IntervalDomain implements
 		DefectAnalyzerDomain {

@@ -2,13 +2,13 @@ package com.variamos.defectAnalyzer.defectAnalyzer;
 
 import java.util.List;
 
-import com.cfm.hlcl.HlclProgram;
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.defectAnalyzer.model.CauCos;
 import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
+import com.variamos.hlcl.HlclProgram;
 
 public interface IntCauCosAnalyzer {
 

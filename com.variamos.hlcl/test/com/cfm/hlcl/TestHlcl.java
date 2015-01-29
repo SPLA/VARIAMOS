@@ -7,6 +7,17 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.ComparisonExpression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.LiteralBooleanExpression;
+import com.variamos.hlcl.NumericExpression;
+import com.variamos.hlcl.NumericIdentifier;
+import com.variamos.hlcl.SymbolicExpression;
+
 @SuppressWarnings("deprecation")
 public class TestHlcl {
 	private HlclFactory f = new HlclFactory();

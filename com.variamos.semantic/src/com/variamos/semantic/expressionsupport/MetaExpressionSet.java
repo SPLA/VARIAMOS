@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.Expression;
-import com.cfm.hlcl.HlclFactory;
-import com.cfm.hlcl.HlclProgram;
-import com.cfm.hlcl.Identifier;
+import com.variamos.hlcl.Expression;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.Identifier;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
