@@ -7,18 +7,16 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import com.cfm.common.AbstractModel;
-import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMReader;
+//import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
+import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
 
@@ -47,7 +45,7 @@ public class OpenAction extends AbstractEditorAction{
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 		variamosEditor.editModelReset();
 		
-		SXFMReader reader = new SXFMReader();
+	//	SXFMReader reader = new SXFMReader();
 	//	AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
 	//	variamosEditor.editModel(pl);

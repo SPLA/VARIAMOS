@@ -12,7 +12,6 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;

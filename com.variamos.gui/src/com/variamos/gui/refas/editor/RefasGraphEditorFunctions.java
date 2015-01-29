@@ -20,6 +20,7 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.maineditor.BasicGraphEditor;
@@ -27,18 +28,17 @@ import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
+import com.variamos.refas.RefasModel;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstEnumeration;
+import com.variamos.syntax.instancesupport.InstOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstVertex;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.metamodelsupport.MetaView;
 
 public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -47,12 +47,12 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 	public RefasGraphEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
 		Collection<MetaElement> metaElements = new HashSet<MetaElement>();
-		if (((Refas) editor.getEditedModel()).getSyntaxRefas() == null) {
+		if (((RefasModel) editor.getEditedModel()).getSyntaxRefas() == null) {
 			for (MetaView metaView : editor.getMetaViews()) {
 				metaElements.addAll(metaView.getElements());
 			}
 		} else {
-			for (InstVertex instVertex : ((Refas) editor.getEditedModel())
+			for (InstVertex instVertex : ((RefasModel) editor.getEditedModel())
 					.getSyntaxRefas().getVertices()) {
 				metaElements.add(instVertex.getEditableMetaElement());
 			}

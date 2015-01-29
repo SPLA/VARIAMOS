@@ -27,10 +27,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -96,27 +94,26 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.pl.configurator.Configurator;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.simulationmodel.MetaExpressionSet;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
-import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstView;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationConfigAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.type.DomainRegister;
+import com.variamos.refas.Refas2Hlcl;
+import com.variamos.refas.RefasModel;
+import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+import com.variamos.semantic.types.PerspectiveType;
+import com.variamos.syntax.instancesupport.EditableElement;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstView;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaView;
+import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
+import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.types.DomainRegister;
 
 import fm.FeatureModelException;
 
@@ -145,7 +142,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-	private Refas refasModel;
+	private RefasModel refasModel;
 
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
@@ -192,7 +189,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			AbstractModel abstractModel) {
 		super(appTitle, component, perspective);
 
-		refasModel = (Refas) abstractModel;
+		refasModel = (RefasModel) abstractModel;
 
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl(refasModel);
@@ -290,7 +287,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		defects.add("FalseOpt");
 		defects.add("Dead");
 		defects.add("Core");
-		refasModel = (Refas) abstractModel;
+		refasModel = (RefasModel) abstractModel;
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 
@@ -501,12 +498,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
+				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
 				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 			} else {
 				{
-					abstractModel = new Refas(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling);
 					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 
 				}
@@ -533,12 +530,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			RefasGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new Refas(
+				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
 				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 			} else {
 				{
-					abstractModel = new Refas(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling);
 					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
 
 				}
@@ -571,7 +568,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
 	}
 
-	public void editModel(Refas pl) {
+	public void editModel(RefasModel pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
 		// todo: review other perspectives
@@ -747,7 +744,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		configuratorProperties = new ConfigurationPropertiesTab();
 
-		expressions = new RefasExpressionPanel(this, elm);
+		expressions = new RefasExpressionPanel();
 
 		// if (getPerspective() == 2) {
 
@@ -1305,6 +1302,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((AbstractGraph) getGraphComponent().getGraph()).refreshVariable(e);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(EditableElement editableElement,
 			EditableElementAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
@@ -1375,11 +1373,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 					BorderLayout.WEST);
 		jp.add(new JLabel(), BorderLayout.CENTER);
-		if (mainFrame != null)
-			perspectiveToolBar = new PerspectiveToolBar(mainFrame,
-					JToolBar.HORIZONTAL, perspective);
-		else
-			perspectiveToolBar = new PerspectiveToolBar(this,
+		perspectiveToolBar = new PerspectiveToolBar(mainFrame,
 					JToolBar.HORIZONTAL, perspective);
 		jp.add(perspectiveToolBar, BorderLayout.EAST);
 		add(jp, BorderLayout.NORTH);
@@ -1428,12 +1422,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			((mxCell) graphComponent.getGraph().getDefaultParent())
 					.setValue("simul");
 			// Different from null, to display simulation colors
-
+			this.refresh();
 		}
 	}
 
 	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (Refas) editedModel;
+		refasModel = (RefasModel) editedModel;
 		this.refas2hlcl.setRefas(refasModel);
 
 	}

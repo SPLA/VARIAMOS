@@ -1,6 +1,6 @@
 package com.variamos.gui.common.jelements;
 
-import  javax.swing.JPanel;
+import javax.swing.JPanel;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;

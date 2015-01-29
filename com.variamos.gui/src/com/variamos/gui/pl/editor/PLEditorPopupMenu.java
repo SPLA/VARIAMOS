@@ -2,9 +2,9 @@ package com.variamos.gui.pl.editor;
 
 import javax.swing.JMenu;
 
+import com.mxgraph.util.mxConstants;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPopupMenu;
-import com.mxgraph.util.mxConstants;
 import com.variamos.gui.pl.editor.actions.FigureAction;
 
 public class PLEditorPopupMenu extends EditorPopupMenu

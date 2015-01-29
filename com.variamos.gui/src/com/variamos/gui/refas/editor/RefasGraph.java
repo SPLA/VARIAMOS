@@ -38,29 +38,28 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.pl.editor.logic.ConstraintMode;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.refas.core.types.PerspectiveType;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstView;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaView;
+import com.variamos.refas.RefasModel;
+import com.variamos.syntax.instancesupport.EditableElement;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstEnumeration;
+import com.variamos.syntax.instancesupport.InstOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstVertex;
+import com.variamos.syntax.instancesupport.InstView;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.MetaView;
 
 public class RefasGraph extends AbstractGraph {
 
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private Refas refasModel = null;
+	private RefasModel refasModel = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
@@ -97,7 +96,7 @@ public class RefasGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, Refas refasModel) {
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, RefasModel refasModel) {
 		init();
 		this.semanticPlusSyntax = semanticPlusSyntax;
 		this.perspective = perspective;
@@ -108,6 +107,7 @@ public class RefasGraph extends AbstractGraph {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
+		@SuppressWarnings("rawtypes")
 		Collection views;
 		if (refasModel.getSyntaxRefas() == null)
 			views = semanticPlusSyntax.getMetaViews();
@@ -179,8 +179,6 @@ public class RefasGraph extends AbstractGraph {
 							&& !instEdge.getIdentifier().equals("")) {
 						mxCell child = new mxCell(instEdge.getIdentifier());
 						addCell(child);
-						String i = instEdge.getSourceRelations().get(0)
-								.getIdentifier();
 						mxCell source = this.getCellById(instEdge
 								.getSourceRelations().get(0).getIdentifier());
 						mxCell target = this.getCellById(instEdge
@@ -288,8 +286,6 @@ public class RefasGraph extends AbstractGraph {
 
 	public void loadStencil() {
 		// try {
-		String filename = RefasGraph.class.getResource(
-				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 		Document doc;
 		// System.out.println(filename);
 
@@ -353,7 +349,7 @@ public class RefasGraph extends AbstractGraph {
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-			Refas refas = getRefas();
+			RefasModel refas = getRefas();
 			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
@@ -382,7 +378,7 @@ public class RefasGraph extends AbstractGraph {
 				return true;
 		}
 		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-		Refas refas = getRefas();
+		RefasModel refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
@@ -453,7 +449,7 @@ public class RefasGraph extends AbstractGraph {
 				|| cell.getValue() instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			Refas pl = getRefas();
+			RefasModel pl = getRefas();
 			Object cellValue = cell.getValue();
 			if (cell.getGeometry() != null) {
 				if (cellValue instanceof InstVertex) {
@@ -646,7 +642,7 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refasModel = (Refas) pl;
+		refasModel = (RefasModel) pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -655,7 +651,7 @@ public class RefasGraph extends AbstractGraph {
 		}
 	}
 
-	public Refas getRefas() {
+	public RefasModel getRefas() {
 		/*if (refasModel == null) {
 			refasModel = new Refas(PerspectiveType.modeling);
 			return refasModel;
@@ -759,7 +755,7 @@ public class RefasGraph extends AbstractGraph {
 	@Override
 	public String validateCell(Object objCell, Hashtable<Object, Object> context) {
 		if (objCell instanceof mxCell) {
-			mxCell cell = (mxCell) objCell;
+		//	mxCell cell = (mxCell) objCell;
 
 			/*
 			 * if (cell.getValue() instanceof GroupGConstraint) {

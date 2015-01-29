@@ -29,21 +29,20 @@ import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.core.refas.Refas;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.refas.RefasModel;
+import com.variamos.syntax.instancesupport.EditableElement;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstEnumeration;
+import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaConcept;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.ModelingAttribute;
+import com.variamos.syntax.metamodelsupport.SemanticAttribute;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -124,19 +123,11 @@ public class ElementDesignPanel extends JPanel {
 			int designPanelElements = 0;
 			String description = null;
 
-			String type = null;
-			if (elm instanceof InstConcept) {
-				type = "vertex";
-			}
 			if (elm instanceof InstPairwiseRelation) {
 				if (((InstPairwiseRelation) elm).getSourceRelations().size() == 0)
 					// TODO workaround for non supported relations - delete
 					// after fix
 					return;
-				type = "edge";
-			}
-			if (elm instanceof InstOverTwoRelation) {
-				type = "groupdep";
 			}
 			if (elm instanceof InstElement) {
 				if (((InstElement) elm).getEditableMetaElement() != null)
@@ -160,7 +151,7 @@ public class ElementDesignPanel extends JPanel {
 						Map<String, MetaElement> mapElements = null;
 						if (elm instanceof InstPairwiseRelation) {
 							InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-							mapElements = ((Refas) editor.getEditedModel())
+							mapElements = ((RefasModel) editor.getEditedModel())
 									.getSyntaxRefas()
 									.getValidPairwiseRelations(
 											instPairwise
@@ -457,6 +448,7 @@ public class ElementDesignPanel extends JPanel {
 		this.repaint();
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
 			EditableElement editableElement,
 			EditableElementAttribute instAttribute) {

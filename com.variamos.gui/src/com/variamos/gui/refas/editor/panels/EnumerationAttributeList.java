@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -15,13 +13,11 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstElement;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaEnumeration;
-import com.variamos.syntaxsupport.type.IntegerType;
-import com.variamos.syntaxsupport.type.StringType;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.metamodelsupport.MetaEnumeration;
+import com.variamos.syntax.types.StringType;
 
 /**
  * A class to support the property list for instance enumerations on modeling. Initially
@@ -57,6 +53,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		init(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	public EnumerationAttributeList(VariamosGraphEditor editor, InstElement elm) {
 		this.editor = editor;
 		this.element = elm;
@@ -112,10 +109,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		if (insert) {
 			//TODO move validation to a method on InstEnumeration
+		@SuppressWarnings("unchecked")
 		Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
 				.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
 				.getValue();
-		boolean notFound = true;
 		int i = 1;
 		/*
 		 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -153,6 +150,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(
 				editor, name);
 		dialog.setOnAccept(new DialogButtonAction() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean onAction() {
 				// This calls Pull on each parameter

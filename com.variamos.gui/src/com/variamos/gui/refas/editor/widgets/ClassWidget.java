@@ -15,21 +15,18 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
-import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstVertex;
-import com.variamos.syntaxsupport.metamodel.InstEnumeration;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
+import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
+import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstEnumeration;
+import com.variamos.syntax.instancesupport.InstVertex;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntax.types.ClassSingleSelectionType;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
