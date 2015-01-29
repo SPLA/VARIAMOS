@@ -1734,11 +1734,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setSourceRelation(instView, true);
 		
-		
-
-		
-
-
 		MetaConcept syntaxGoal = new MetaConcept("Goal", false, "Goal",
 				"refasgoal", "Defines a goal of the system"
 						+ " from the stakeholder perspective that can be"

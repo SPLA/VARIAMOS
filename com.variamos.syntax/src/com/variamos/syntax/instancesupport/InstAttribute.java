@@ -348,7 +348,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 			if (this.getAttribute() != null && getEnumType() != null
 					&& getEnumType()
-							.equals("com.variamos..semantic.semanticsupport.SemanticRelationType")) {
+							.equals("com.variamos.semantic.semanticsupport.SemanticRelationType")) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
 						.getTransSupportMetaElement()).getSemanticRelationTypes();
 				setValidationRelationTypes(semanticRelationTypes);
