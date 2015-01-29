@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.1
  * @since 2014-11-24
- * @see com.variamos.refas.core.types.GroupRelationType
+ * @see com.variamos.semantic.types.GroupRelationType
  */
 public interface IntSemanticOverTwoRelType   extends Serializable{
 

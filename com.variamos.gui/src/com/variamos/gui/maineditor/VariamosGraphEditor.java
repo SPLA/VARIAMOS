@@ -1268,7 +1268,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
 			} catch (Exception p) {
-				System.out.println("Update error");
+				System.out.println("VariamosGraphEditor: Update error");
+				p.printStackTrace();
 			}
 
 		}

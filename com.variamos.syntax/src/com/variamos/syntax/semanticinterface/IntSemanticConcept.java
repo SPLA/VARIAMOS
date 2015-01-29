@@ -12,7 +12,7 @@ import com.variamos.syntax.metamodelsupport.AbstractAttribute;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.1
  * @since 2014-11-24
- * @see com.variamos.refas.core.sematicsmetamodel.SemanticConcept
+ * @see com.variamos.semantic.semanticsupport.SemanticConcept
  */
 public interface IntSemanticConcept extends IntSemanticElement{
 	public Set<String> getSemanticAttributesNames();	

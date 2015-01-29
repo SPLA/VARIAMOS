@@ -277,7 +277,7 @@ public class RefasExpressionPanel extends JPanel {
 			Class<AbstractExpression> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractExpression>) Class
-						.forName("com.variamos.refas.core.expressions."
+						.forName("com.variamos.semantic.expressions."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
