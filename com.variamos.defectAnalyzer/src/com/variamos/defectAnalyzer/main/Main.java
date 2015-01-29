@@ -25,7 +25,7 @@ public class Main {
 			// Analizar modelo: identificar defectos, causas y correcciones,
 			// clasificar causas correcciones,exportar resultados
 			DefectAnalyzerMain defectAnalyzer = new DefectAnalyzerMain();
-			defectAnalyzer.analyzeSplotFM(modelName, modelPath, outputPath);
+			//defectAnalyzer.analyzeSplotFM(modelName, modelPath, outputPath);
 
 		} catch (Exception e) {
 			System.out.println("Ocurrio el siguiente error");

@@ -2,7 +2,6 @@ package com.variamos.gui.pl.configurator.treetable;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 public abstract class ConfigurationAction {
 	protected Variable variable;

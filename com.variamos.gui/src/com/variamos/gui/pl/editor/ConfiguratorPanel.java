@@ -2,9 +2,7 @@ package com.variamos.gui.pl.editor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -30,6 +27,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.cfm.common.AbstractModel;
@@ -41,6 +40,10 @@ import com.cfm.productline.Variable;
 import com.cfm.productline.solver.Configuration;
 import com.cfm.productline.solver.ConfigurationOptions;
 import com.cfm.productline.solver.ConfigurationTask;
+import com.variamos.configurator.Choice;
+import com.variamos.configurator.Configurator;
+import com.variamos.configurator.DomainAnnotation;
+import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
@@ -48,12 +51,8 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
-import com.variamos.pl.configurator.Choice;
-import com.variamos.pl.configurator.Configurator;
-import com.variamos.pl.configurator.DomainAnnotation;
-import com.variamos.pl.configurator.io.ConfigurationDTO;
-import com.variamos.refas.core.simulationmodel.Refas2Hlcl;
-import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.refas.Refas2Hlcl;
+import com.variamos.syntax.types.IntegerType;
 
 /**
  * @author unknown jcmunoz: commented unused methods
@@ -166,7 +165,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		JButton cmdEditConfiguredVar = new javax.swing.JButton();
 		JScrollPane jScrollPane6 = new javax.swing.JScrollPane();
 		tblSolutions = new javax.swing.JTable();
-		JButton cmdGetNextSolution = new javax.swing.JButton();
+		final JButton cmdGetNextSolution = new javax.swing.JButton();
 		JButton cmdGetSolutions = new javax.swing.JButton();
 		JComboBox cmbOperators = new javax.swing.JComboBox();
 		JComboBox cmbVarDomain = new javax.swing.JComboBox();
@@ -254,24 +253,41 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 
 		tblSolutions.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] {}, new String[] { "Solution", "Variables" }));
+		
+		tblSolutions.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				processSelectionOnTable();
+			
+			}
+		});
+		
 		jScrollPane6.setViewportView(tblSolutions);
+		tblSolutions.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblSolutions.getColumnModel().getColumn(1).setPreferredWidth(40);
 
 		cmdGetNextSolution.setText("Get next solution");
 		cmdGetNextSolution.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean result = refas2hlcl.execute(Refas2Hlcl.NEXT_SOLUTION);
-				if (result)
-					processConfiguration(refas2hlcl.getConfiguration());
+				while (refas2hlcl.execute("",Refas2Hlcl.NEXT_SOLUTION, Refas2Hlcl.CONF_EXEC))
+					if (processConfiguration(refas2hlcl.getConfiguration()))
+						break;
+				
 			}
 
 		});
+		cmdGetNextSolution.setVisible(false);
 
 		cmdGetSolutions.setText("Get solutions");
 		cmdGetSolutions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean result = refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
-				if (result)
+				boolean result = refas2hlcl.execute("",Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
+				if (result) {
 					processConfiguration(refas2hlcl.getConfiguration());
+					cmdGetNextSolution.setVisible(true);
+				}
 			}
 
 		});
@@ -618,7 +634,13 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 								.addGap(117, 117, 117)));
 	}
 
-	private void processConfiguration(Configuration configuration) {
+	protected void processSelectionOnTable() {
+		DefaultTableModel model=(DefaultTableModel)tblSolutions.getModel();
+		JOptionPane.showMessageDialog(null, model.getValueAt(tblSolutions.getSelectedRow(), 1),"Solution Number: "+model.getValueAt(tblSolutions.getSelectedRow(), 0),JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+	private boolean processConfiguration(Configuration configuration) {
 		TreeMap<String, Integer> configSet = configuration.getConfiguration();
 		StringBuilder sb = new StringBuilder();
 		for (String identifier : configSet.keySet()) {
@@ -627,12 +649,17 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			String attribute = split[1];
 			if ("Selected".equals(attribute)) {
 				if (configSet.get(identifier) == 1) {// variable seleccionada
-					sb.append(vertexId + " "); // create object Solution and
+					String var=refas2hlcl.getRefas().getVertex(vertexId).toString();
+					if(!var.contains("mutex") && !var.contains("and") && !var.contains("or"))
+					sb.append(" "+ var + " "); // create object Solution and
 												// save all the info of the
 												// solution
 				}
 			}
 		}
+		
+		//sb.deleteCharAt(sb.length()-1);
+		
 
 		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();// must
 																				// configure
@@ -641,13 +668,24 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 																				// attributes
 		if (model.getRowCount() == 0) {
 			model.addRow(new Object[] { model.getRowCount() + 1, sb.toString() });
+			return true;
 		} else {
-			String lastConf = (String) model.getValueAt(
-					model.getRowCount() - 1, 1);
-			if (!lastConf.equals(sb.toString()))
-				model.addRow(new Object[] { model.getRowCount() + 1,
-						sb.toString() });
+			boolean existe=false;
+			for (int i = 0; i < model.getRowCount(); i++) {
+				String lastConf = (String) model.getValueAt(
+						i, 1);				
+				if (lastConf.equals(sb.toString())) {
+					existe=true;
+					break;
+				} 
+			}
+			if(!existe){
+				model.addRow(new Object[] { model.getRowCount() + 1,	sb.toString() });
+				return true;
+			}
+			return false;
 		}
+		
 
 	}
 
@@ -702,7 +740,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		panel.add(cmdNext, constraints);
 		cmdNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refas2hlcl.execute(Refas2Hlcl.ONE_SOLUTION);
+				refas2hlcl.execute("",Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
 				solutionPanel.addSolution(refas2hlcl.getConfiguration());
 			}
 		});
@@ -1257,5 +1295,4 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// public void setOperationMode(OperationMode operationMode) {
 	// this.operationMode = operationMode;
 	// }
-
 }

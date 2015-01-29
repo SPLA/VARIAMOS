@@ -7,17 +7,16 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import com.cfm.common.AbstractModel;
-import com.cfm.productline.ProductLine;
-import com.cfm.productline.io.SXFMReader;
+//import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
+import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
 
@@ -46,10 +45,10 @@ public class OpenAction extends AbstractEditorAction{
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 		variamosEditor.editModelReset();
 		
-		SXFMReader reader = new SXFMReader();
-		AbstractModel pl = reader.readFile(file.getAbsolutePath());
+	//	SXFMReader reader = new SXFMReader();
+	//	AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
-		variamosEditor.editModel(pl);
+	//	variamosEditor.editModel(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);
@@ -64,6 +63,7 @@ public class OpenAction extends AbstractEditorAction{
 
 		if (editor != null)
 		{
+			final BasicGraphEditor finalEditor = editor;
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
 							mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
@@ -86,7 +86,7 @@ public class OpenAction extends AbstractEditorAction{
 						public boolean accept(File file)
 						{
 							String lcase = file.getName().toLowerCase();
-
+							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 							return lcase.endsWith(".plg")
 									|| lcase.endsWith(".sxfm");
 						}

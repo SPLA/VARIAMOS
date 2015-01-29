@@ -14,7 +14,7 @@ public class DomainRegister implements Serializable{
 	public DomainRegister(){
 		//Register the basic types
 		registerDomain(new IntegerType());
-		registerDomain(new RealType());
+	//	registerDomain(new RealType());
 		registerDomain(new StringType());
 		registerDomain(new BooleanType());
 	}
@@ -27,6 +27,7 @@ public class DomainRegister implements Serializable{
 		reg.put(identifier, domain);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T extends Type> T getDomain(String identifier){
 		return (T) reg.get(identifier);
 	}

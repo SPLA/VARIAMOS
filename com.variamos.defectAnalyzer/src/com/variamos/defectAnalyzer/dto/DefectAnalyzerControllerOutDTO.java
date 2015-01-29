@@ -3,17 +3,17 @@ package com.variamos.defectAnalyzer.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
-import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
+import com.variamos.defectAnalyzer.model.ClassifiedElement;
+import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.VariabilityModel;
 
 public class DefectAnalyzerControllerOutDTO {
 
 	private VariabilityModel variabilityModel;
-	private List<Diagnostic> allDiagnostics; 
+	private List<Diagnosis> allDiagnostics; 
 	private Long time;
-	private ClassifiedDiagnosis classifiedCauses;
-	private ClassifiedDiagnosis classifiedCorrections;
+	private ClassifiedElement classifiedCauses;
+	private ClassifiedElement classifiedCorrections;
 
 	/**
 	 * @return the variabilityModel
@@ -33,7 +33,7 @@ public class DefectAnalyzerControllerOutDTO {
 	/**
 	 * @return the allDiagnostics
 	 */
-	public List<Diagnostic> getAllDiagnostics() {
+	public List<Diagnosis> getAllDiagnostics() {
 		return allDiagnostics;
 	}
 
@@ -41,20 +41,20 @@ public class DefectAnalyzerControllerOutDTO {
 	 * @param allDiagnostics
 	 *            the allDiagnostics to set
 	 */
-	public void setAllDiagnostics(List<Diagnostic> allDiagnostics) {
+	public void setAllDiagnostics(List<Diagnosis> allDiagnostics) {
 		this.allDiagnostics = allDiagnostics;
 	}
 
 	public DefectAnalyzerControllerOutDTO() {
 		super();
-		classifiedCauses = new ClassifiedDiagnosis();
-		allDiagnostics= new ArrayList<Diagnostic>();
-		classifiedCorrections = new ClassifiedDiagnosis();
+		classifiedCauses = new ClassifiedElement();
+		allDiagnostics= new ArrayList<Diagnosis>();
+		classifiedCorrections = new ClassifiedElement();
 		// TODO Auto-generated constructor stub
 	}
 
 	public DefectAnalyzerControllerOutDTO(VariabilityModel variabilityModel,
-			List<Diagnostic> allDiagnostics) {
+			List<Diagnosis> allDiagnostics) {
 		super();
 		this.variabilityModel = variabilityModel;
 		this.allDiagnostics = allDiagnostics;
@@ -78,7 +78,7 @@ public class DefectAnalyzerControllerOutDTO {
 	/**
 	 * @return the classifiedCorrections
 	 */
-	public ClassifiedDiagnosis getClassifiedCorrections() {
+	public ClassifiedElement getClassifiedCorrections() {
 		return classifiedCorrections;
 	}
 
@@ -87,14 +87,14 @@ public class DefectAnalyzerControllerOutDTO {
 	 *            the classifiedCorrections to set
 	 */
 	public void setClassifiedCorrections(
-			ClassifiedDiagnosis classifiedCorrections) {
+			ClassifiedElement classifiedCorrections) {
 		this.classifiedCorrections = classifiedCorrections;
 	}
 
 	/**
 	 * @return the classifiedCauses
 	 */
-	public ClassifiedDiagnosis getClassifiedCauses() {
+	public ClassifiedElement getClassifiedCauses() {
 		return classifiedCauses;
 	}
 
@@ -102,7 +102,7 @@ public class DefectAnalyzerControllerOutDTO {
 	 * @param classifiedCauses
 	 *            the classifiedCauses to set
 	 */
-	public void setClassifiedCauses(ClassifiedDiagnosis classifiedCauses) {
+	public void setClassifiedCauses(ClassifiedElement classifiedCauses) {
 		this.classifiedCauses = classifiedCauses;
 	}
 

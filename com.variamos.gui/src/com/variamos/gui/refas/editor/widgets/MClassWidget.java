@@ -19,13 +19,13 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
-import com.variamos.syntaxsupport.metamodel.InstAttribute;
-import com.variamos.syntaxsupport.metamodel.InstConcept;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
-import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
-import com.variamos.syntaxsupport.type.ClassMultiSelectionType;
+import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
+import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.types.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.
@@ -124,7 +124,7 @@ public class MClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					MetaVertex mc = ic.getMetaConcept();
+					MetaVertex mc = ic.getTransSupportMetaElement();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

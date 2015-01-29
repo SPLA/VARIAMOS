@@ -1,31 +1,24 @@
 package com.variamos.gui.refas.editor.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
-import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
 
 public class AttributeEditionPanel extends JPanel {
 	/**

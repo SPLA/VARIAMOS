@@ -1,43 +1,27 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.Expression;
-import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
+import java.util.List;
+
+import com.cfm.hlcl.BooleanExpression;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class Redundancy extends Defect {
 
+	private List<BooleanExpression> negationList;
 
-	private Dependency redundantDependency;
-
-	public Redundancy(Dependency redundantDependency) {
-		super();
-		this.redundantDependency = redundantDependency;
-		this.id = redundantDependency.toString();
+	public Redundancy(List<BooleanExpression> negationList,BooleanExpression verificationExpression) {
+		super(verificationExpression);
+		this.negationList = negationList;
 		defectType = DefectType.REDUNDANCY;
-
+		id="Redundancy: "+verificationExpression.toString();
 	}
 
-	public Redundancy(Dependency redundantDependency,
-			Expression verificationExpression) {
-		this(redundantDependency);
-		this.verificationExpression = verificationExpression;
-
+	public List<BooleanExpression> getNegationList() {
+		return negationList;
 	}
 
-	/**
-	 * @return the redundantDependency
-	 */
-	public Dependency getRedundantDependency() {
-		return redundantDependency;
-	}
-
-	/**
-	 * @param redundantDependency
-	 *            the redundantDependency to set
-	 */
-	public void setRedundantDependency(Dependency redundantDependency) {
-		this.redundantDependency = redundantDependency;
+	public void setNegationList(List<BooleanExpression> negationList) {
+		this.negationList = negationList;
 	}
 
 }

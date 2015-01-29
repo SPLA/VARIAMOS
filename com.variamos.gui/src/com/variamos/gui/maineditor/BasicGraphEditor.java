@@ -2,9 +2,7 @@ package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -14,18 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,7 +33,6 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.mxgraph.examples.swing.GraphEditor;
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxCompactTreeLayout;
 import com.mxgraph.layout.mxEdgeLabelLayout;
@@ -64,11 +56,9 @@ import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineMenuBar;
-import com.variamos.gui.refas.editor.ModelButtonAction;
 import com.variamos.gui.refas.editor.RefasMenuBar;
-import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntax.instancesupport.EditableElement;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -1136,5 +1126,4 @@ public class BasicGraphEditor extends JPanel {
 	public void setDefaultButton() {
 		modelsTabPane.setSelectedIndex(0);
 	}
-
 }

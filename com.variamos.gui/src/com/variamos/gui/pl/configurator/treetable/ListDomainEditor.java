@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import com.cfm.hlcl.Domain;
-import com.variamos.pl.configurator.DomainAnnotation;
+import com.variamos.configurator.DomainAnnotation;
 
 @SuppressWarnings("serial")
 public class ListDomainEditor extends JPanel{

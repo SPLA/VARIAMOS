@@ -2,8 +2,8 @@ package com.variamos.gui.refas.editor.actions;
 
 import java.awt.event.ActionEvent;
 
-import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.BasicGraphEditor;
 
 @SuppressWarnings("serial")
 public class ExitAction extends AbstractEditorAction {

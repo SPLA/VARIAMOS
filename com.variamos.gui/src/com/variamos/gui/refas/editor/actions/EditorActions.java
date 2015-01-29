@@ -370,6 +370,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class ScaleAction extends AbstractAction {
+		public ScaleAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Scale Model");
+		}
+
 		/**
 		 * 
 		 */
@@ -438,6 +444,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class PrintAction extends AbstractAction {
+		public PrintAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Print Model");
+		}
+
 		/**
 		 * 
 		 */
@@ -471,6 +483,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class SaveAction extends AbstractAction {
+		public SaveAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Save Model");
+		}
+
 		/**
 		 * 
 		 */
@@ -537,7 +555,7 @@ public class EditorActions {
 			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
-
+				final VariamosGraphEditor finalEditor = editor;
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
@@ -607,6 +625,8 @@ public class EditorActions {
 					dialogShown = true;
 
 					if (rc != JFileChooser.APPROVE_OPTION) {
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					} else {
 						lastDir = fc.getSelectedFile().getParent();
@@ -627,6 +647,9 @@ public class EditorActions {
 					if (new File(filename).exists()
 							&& JOptionPane.showConfirmDialog(graphComponent,
 									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
+
+						((MainFrame) finalEditor.getFrame())
+								.waitingCursor(false);
 						return;
 					}
 				} else {
@@ -676,8 +699,10 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
 						mxCodec codec = new mxCodec();
-						SharedActions.beforeSaveGraph(graph);
-						String xml = mxXmlUtils.getXml(codec.encode(graph
+						mxGraph outGraph = SharedActions.beforeGraphOperation(
+								graph, true, editor.getModelViewIndex(),
+								editor.getModelSubViewIndex());
+						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
 						SharedActions.afterSaveGraph(graph, editor);
 						mxUtils.writeFile(xml, filename);
@@ -724,7 +749,7 @@ public class EditorActions {
 							JOptionPane.ERROR_MESSAGE);
 				}
 
-				((MainFrame) editor.getFrame()).waitingCursor(true);
+				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}
@@ -1109,6 +1134,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class HistoryAction extends AbstractAction {
+		public HistoryAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Undo/Redo Action");
+		}
+
 		/**
 		 * 
 		 */
@@ -1243,6 +1274,12 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class NewAction extends AbstractAction {
+		public NewAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "New Model");
+		}
+
 		/**
 		 * 
 		 */
@@ -1381,6 +1418,13 @@ public class EditorActions {
 	 */
 	@SuppressWarnings("serial")
 	public static class OpenAction extends AbstractAction {
+
+		public OpenAction() {
+			super();
+
+			this.putValue(SHORT_DESCRIPTION, "Open Model");
+		}
+
 		/**
 		 * 
 		 */
@@ -1456,7 +1500,9 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				((MainFrame)editor.getFrame()).waitingCursor(true);
+
+				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
+				((MainFrame) editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1471,14 +1517,15 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx)") {
+										+ " (.mxe, .png, .vdx, , .plg)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
 
 								return super.accept(file)
 										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx");
+										|| lcase.endsWith(".vdx")
+										|| lcase.endsWith(".plg");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1521,6 +1568,8 @@ public class EditorActions {
 													.getSelectedFile()
 													.getAbsolutePath()));
 								} else {
+									SharedActions.beforeLoadGraph(graph,
+											variamosEditor);
 									Document document = mxXmlUtils
 											.parseXml(mxUtils.readFile(fc
 													.getSelectedFile()
@@ -1530,8 +1579,7 @@ public class EditorActions {
 									codec.decode(document.getDocumentElement(),
 											graph.getModel());
 									editor.setCurrentFile(fc.getSelectedFile());
-									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
-									SharedActions.afterSaveGraph(graph,
+									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
 									resetEditor((VariamosGraphEditor) editor);
 								}
@@ -1546,7 +1594,8 @@ public class EditorActions {
 						}
 					}
 				}
-				((MainFrame)editor.getFrame()).waitingCursor(false);
+				variamosEditor.refresh();
+				((MainFrame) editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
 
 @SuppressWarnings("serial")
 public abstract class WidgetR extends JPanel{
@@ -35,7 +35,7 @@ public abstract class WidgetR extends JPanel{
 		
 	}
 
-
+	
 	public EditableElementAttribute getInstAttribute() {
 		pullValue(edited);
 		return edited;

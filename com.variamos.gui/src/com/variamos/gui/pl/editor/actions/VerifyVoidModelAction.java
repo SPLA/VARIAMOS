@@ -2,16 +2,12 @@ package com.variamos.gui.pl.editor.actions;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 
-import com.cfm.productline.ProductLine;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
-import com.variamos.defectAnalyzer.model.defects.Defect;
+//import com.cfm.productline.ProductLine;
+//import com.variamos.core.enums.SolverEditorType;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
 public class VerifyVoidModelAction extends AbstractEditorAction {
@@ -20,8 +16,8 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 
-		ProductLine pl = null;
-		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
+	//	ProductLine pl = null;
+	//	SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
 		VariamosGraphEditor editor = getEditor(e);
 		editor.bringUpTab("Messages");
@@ -30,13 +26,13 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		ProductLineGraph plGraph = (ProductLineGraph) graph;
 		pl = plGraph.getProductLine();*/
 		
-		pl = (ProductLine)editor.getEditedModel();
+	//	pl = (ProductLine)editor.getEditedModel();
 
-		JTextArea messagesArea = editor.getMessagesArea();
-		StringBuilder outputMessage = new StringBuilder();
-		try {
+	//	JTextArea messagesArea = editor.getMessagesArea();
+	//	StringBuilder outputMessage = new StringBuilder();
+		/*try {
 
-			VariabilityModelVerifier verifier = DefectAnalyzerUtil
+			DefectsVerifier verifier = DefectAnalyzerUtil
 					.createVerifierClass(pl, prologEditorType);
 			Defect voidModel = verifier.isVoid();
 			if (voidModel != null) {
@@ -52,6 +48,6 @@ public class VerifyVoidModelAction extends AbstractEditorAction {
 		}
 
 		// Set the end messages
-		messagesArea.setText(outputMessage.toString());
+		messagesArea.setText(outputMessage.toString());*/
 	}
 }

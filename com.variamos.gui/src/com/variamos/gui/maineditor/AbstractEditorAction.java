@@ -1,7 +1,6 @@
 package com.variamos.gui.maineditor;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;

@@ -35,10 +35,9 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.GraphTree;
-import com.variamos.gui.maineditor.VariamosGraphComponent;
-import com.variamos.pl.editor.logic.ConstraintMode;
 
 public class ProductLineGraph extends AbstractGraph {
 
