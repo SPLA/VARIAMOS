@@ -20,6 +20,10 @@ public class InstCell implements Serializable {
 	private InstElement volatileInstElement;
 	private boolean cloned;
 
+	public InstCell() {
+		this.cloned = false;
+	}
+	
 	public InstCell(InstElement instElement, boolean cloned) {
 		this.cloned = cloned;
 		if (cloned)

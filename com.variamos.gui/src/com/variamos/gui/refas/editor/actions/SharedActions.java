@@ -241,6 +241,57 @@ public class SharedActions {
 		return graph;
 	}
 
+	public static InstElement getOriginalInstElement(mxGraph graph,
+			mxCell cloned) {
+		mxIGraphModel refasGraph = graph.getModel();
+		String cellId = cloned.getId();
+		int subview = cellId.indexOf("-");
+		String id = subview == -1 ? cellId.substring(1, cellId.length() - 1)
+				: cellId.substring(1, subview);
+		if (graph instanceof RefasGraph) {
+			Object o = refasGraph.getRoot(); // Main Root
+			Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
+				// Root model view mvInd
+				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
+				// First vertices and after edges
+				Object[] allCells = getSortedCells(graph, mv0);
+
+				for (Object anyCell : allCells) {
+					mxCell mv1 = (mxCell) anyCell;
+					if (refasGraph.getChildCount(mv1) > 0
+					// && mv0.getChildAt(0).getValue()
+					// .equals(mv0.getValue())
+					) {
+						Object[] all2Cells = getSortedCells(graph, mv1);
+						for (Object any2Cell : all2Cells) {
+							mxCell mv2 = (mxCell) any2Cell;
+							String cellId2 = mv2.getId();
+							int subview2 = cellId2.indexOf("-");
+							String id2 = subview2 == -1 ? cellId2.substring(1,
+									cellId2.length()) : cellId2.substring(
+									1, subview2);
+							if (id.equals(id2) && !((InstCell) mv2.getValue()).isCloned())
+								return ((InstCell) mv2.getValue())
+										.getInstElement();
+						}
+					} else {
+						mxCell mv2 = (mxCell) anyCell;
+						String cellId2 = mv2.getId();
+						int subview2 = cellId2.indexOf("-");
+						String id2 = subview2 == -1 ? cellId2.substring(1,
+								cellId2.length()) : cellId2.substring(1,
+								subview2);
+						if (id.equals(id2)&& !((InstCell) mv2.getValue()).isCloned())
+							return ((InstCell) mv2.getValue()).getInstElement();
+					}
+
+				}
+			}
+		}
+		return null;
+	}
+
 	private static Object[] getSortedCells(mxGraph graph, mxCell mv0) {
 		Object[] vertexCells = graph.getChildCells(mv0, true, false);
 		Object[] edgeCells = graph.getChildCells(mv0, false, true);
@@ -261,7 +312,14 @@ public class SharedActions {
 			Object value, mxCell source, mxGraph graph) {
 		RefasModel refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
-		InstElement instElement = ((InstCell) value).getInstElement();
+		InstCell instCell = ((InstCell) value);
+		InstElement instElement = null;
+		if (instCell.isCloned()){
+			instElement = getOriginalInstElement(graph, source);
+			instCell.setInstElement(instElement);
+		}
+		else
+			instElement = instCell.getInstElement();
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
