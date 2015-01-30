@@ -100,6 +100,7 @@ import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.solver.Configuration;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
@@ -315,7 +316,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		} else {
 			int i = 0;
 			for (InstView instView : instViews) {
-				mxCell parent = new mxCell("mv" + i);
+				mxCell parent = new mxCell(new InstCell(null, false));
+				parent.setId("mv" + i);
 				refasGraph.addCell(parent);
 				MetaView metaView = (MetaView) instView
 						.getEditableMetaElement();
@@ -323,10 +325,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				JPanel tabPane = new JPanel();
 				if (metaView.getChildViews().size() > 0) {
 					modelsTabPane.add(metaView.getName(), tabPane);
-					refasGraph.addCell(new mxCell("mv" + i), parent);
+					mxCell child = new mxCell(new InstCell(null, false));
+					child.setId("mv" + i);
+					refasGraph.addCell(child, parent);
 					// Add the parent as first child
 					for (int j = 0; j < metaView.getChildViews().size(); j++) {
-						refasGraph.addCell(new mxCell("mv" + i + "-" + j),
+						mxCell child2 = new mxCell(new InstCell(null, false));
+						child2.setId("mv" + i + "-" + j);
+						refasGraph.addCell(child2,
 								parent);
 						MetaView metaChildView = metaView.getChildViews()
 								.get(j);
@@ -607,7 +613,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		setModified(false);
 	}
-
+	
 	private void registerEvents() {
 		mxGraphSelectionModel selModel = getGraphComponent().getGraph()
 				.getSelectionModel();
@@ -644,9 +650,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// editProperties(elm);
 				// // getGraphComponent().scrollCellToVisible(cell, true);
 				// }
-
-				if (cell.getValue() instanceof EditableElement) {
-					EditableElement elm = (EditableElement) cell.getValue();
+				InstElement value = ((InstCell) cell.getValue())
+				.getInstElement();
+				if (value instanceof EditableElement) {
+					EditableElement elm = (EditableElement) value;
 					editPropertiesRefas(elm);
 					// getGraphComponent().scrollCellToVisible(cell, true);
 				}

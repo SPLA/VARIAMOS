@@ -21,7 +21,9 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
@@ -121,7 +123,8 @@ public class MClassWidget extends WidgetR {
 			mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
 			for (int j = 0; j < mv.getChildCount(); j++) {
 				mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
-				Object value = concept.getValue();
+				InstElement value = ((InstCell) concept.getValue())
+						.getInstElement();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
 					MetaVertex mc = ic.getTransSupportMetaElement();

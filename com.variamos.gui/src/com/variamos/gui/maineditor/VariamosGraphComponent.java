@@ -22,7 +22,9 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import com.variamos.editor.logic.ConstraintMode;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
@@ -101,13 +103,16 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				int childCount = model.getChildCount(tmp3);
 				for (int i = 0; i < childCount; i++) {
 					mxCell childCell = (mxCell) model.getChildAt(tmp3, i);
-					Object childValue = childCell.getValue();
+
+					InstElement childValue = ((InstCell) childCell.getValue())
+							.getInstElement();
 					int child2Count = model.getChildCount(childCell);
 					if (child2Count > 0)
 						for (int k = 0; k < child2Count; k++) {
 							mxCell child2Cell = (mxCell) model.getChildAt(
 									childCell, k);
-							Object child2Value = child2Cell.getValue();
+							InstElement child2Value = ((InstCell) child2Cell.getValue())
+									.getInstElement();
 							drawStatusBar(child2Cell, parentCell);
 							drawErrorIcons(child2Cell, child2Value, redx);
 						}
@@ -150,8 +155,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		if (childCell.isVertex()) {
 
 			// Verify is a semantic general element
-			MetaVertex metaElement = ((MetaVertex) ((InstVertex) childCell
-					.getValue()).getTransSupportMetaElement());
+			MetaVertex metaElement = ((MetaVertex) ((InstCell) childCell
+					.getValue()).getInstElement().getTransSupportMetaElement());
 			IntSemanticElement semElement = metaElement == null ? null
 					: metaElement.getTransSemanticConcept();
 			while (semElement != null && semElement.getIdentifier() != null
@@ -160,7 +165,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 			if (semElement != null && semElement.getIdentifier() != null
 					&& semElement.getIdentifier().equals("SemGeneralElement")) {
-				Object val = childCell.getValue();
+				InstElement val = ((InstCell) childCell.getValue())
+						.getInstElement();
 
 				// For simulation perspective
 				if (childCell.getGeometry() != null && val != null

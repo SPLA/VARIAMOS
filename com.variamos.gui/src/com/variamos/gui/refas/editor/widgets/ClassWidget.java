@@ -18,6 +18,8 @@ import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
@@ -201,7 +203,8 @@ public class ClassWidget extends WidgetR {
 				for (int k = 0; k < concept.getChildCount(); k++) {
 					mxCell concept2 = (mxCell) refasGraph
 							.getChildAt(concept, k);
-					Object value = concept2.getValue();
+					InstElement value = ((InstCell) concept.getValue())
+							.getInstElement();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
 						MetaElement mc = ic.getTransSupportMetaElement();
@@ -209,7 +212,8 @@ public class ClassWidget extends WidgetR {
 							out.add(ic);
 					}
 				}
-				Object value = concept.getValue();
+				InstElement value = ((InstCell) concept.getValue())
+						.getInstElement();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
 					MetaElement mc = ic.getTransSupportMetaElement();

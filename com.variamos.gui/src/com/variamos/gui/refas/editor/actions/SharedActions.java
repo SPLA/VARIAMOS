@@ -16,6 +16,8 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
@@ -68,11 +70,13 @@ public class SharedActions {
 				mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
-					Object value = concept.getValue();
+					InstElement value = (InstElement) ((InstCell) concept
+							.getValue()).getInstElement();
 					for (int k = 0; k < concept.getChildCount(); k++) {
 						mxCell concept2 = (mxCell) refasGraph.getChildAt(
 								concept, k);
-						Object value2 = concept2.getValue();
+						InstElement value2 = (InstElement) ((InstCell) concept2
+								.getValue()).getInstElement();
 						updateIdAndObjects(value2, beforeSave);
 
 					}
@@ -95,7 +99,7 @@ public class SharedActions {
 			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
 			if (refasGraph.getChildCount(mv0) > 0) {
 				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
-				if (child.getValue().equals(mv0.getValue())) {
+				if (child.getId().equals(mv0.getId())) {
 					for (int mvSubInd = 0; mvSubInd < refasGraph
 							.getChildCount(mv0); mvSubInd++) {
 						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,
@@ -188,9 +192,9 @@ public class SharedActions {
 					// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					mxCell mv1 = (mxCell) anyCell;
 					if (refasGraph.getChildCount(mv1) > 0
-							//&& mv0.getChildAt(0).getValue()
-							//		.equals(mv0.getValue())
-									) {
+					// && mv0.getChildAt(0).getValue()
+					// .equals(mv0.getValue())
+					) {
 						Object[] all2Cells = getSortedCells(graph, mv1);
 						for (Object any2Cell : all2Cells) {
 							mxCell mv2 = (mxCell) any2Cell;
@@ -257,7 +261,10 @@ public class SharedActions {
 			Object value, mxCell source, mxGraph graph) {
 		RefasModel refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
-		if (value instanceof InstOverTwoRelation) {
+		InstElement instElement = ((InstCell) ((mxCell) value).getValue())
+				.getInstElement();
+
+		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
 			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
 					.getSyntaxRefas()
@@ -322,7 +329,7 @@ public class SharedActions {
 				}
 			}
 			editor.refreshElement(instOverTwoRelation);
-		} else if (value instanceof InstVertex) {
+		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) value;
 			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
 					.getVertex(instVertex.getSupportMetaElementIdentifier())
@@ -359,7 +366,7 @@ public class SharedActions {
 			if (instVertex.getInstAttributes().size() < semAtt
 					+ instVertex.getTransSupportMetaElement()
 							.getModelingAttributes().size()) {
-				//TODO modify to support syntax attributes changes
+				// TODO modify to support syntax attributes changes
 				for (String attributeName : instVertex
 						.getTransSupportMetaElement().getSemanticAttributes()) {
 					if (instVertex.getInstAttribute(attributeName) == null
@@ -380,15 +387,15 @@ public class SharedActions {
 				}
 			}
 		}
-		if (value instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstPairwiseRelation) {
 			try {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
 				instPairwiseRelation
 						.createAttributes(new HashMap<String, InstAttribute>());
-				InstVertex sourceVertex = (InstVertex) source.getSource()
-						.getValue();
-				InstVertex targetVertex = (InstVertex) source.getTarget()
-						.getValue();
+				InstVertex sourceVertex = (InstVertex) ((InstCell) source
+						.getSource().getValue()).getInstElement();
+				InstVertex targetVertex = (InstVertex) ((InstCell) source
+						.getTarget().getValue()).getInstElement();
 				MetaPairwiseRelation metaPairwiseRelation = refas
 						.getSyntaxRefas().getValidMetaPairwiseRelation(
 								sourceVertex.getTransSupportMetaElement(),
