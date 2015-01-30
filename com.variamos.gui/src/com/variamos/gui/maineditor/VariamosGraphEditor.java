@@ -161,7 +161,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int tabIndex = 0, lastTabIndex = 0;
 	private Refas2Hlcl refas2hlcl;
 	private VariamosGraphEditor modelEditor;
-	private EditableElement lastEditableElement;
+	private InstCell lastEditableElement;
 	private boolean recursiveCall = false;
 	private boolean updateExpressions = true;
 	private String editableElementType = null;
@@ -650,13 +650,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// editProperties(elm);
 				// // getGraphComponent().scrollCellToVisible(cell, true);
 				// }
-				InstElement value = ((InstCell) cell.getValue())
-				.getInstElement();
-				if (value instanceof EditableElement) {
-					EditableElement elm = (EditableElement) value;
-					editPropertiesRefas(elm);
+				InstCell value = (InstCell) cell.getValue();
+			//	if (value instanceof InstCell) {
+				//	EditableElement elm = (EditableElement) value;
+					editPropertiesRefas(value);
 					// getGraphComponent().scrollCellToVisible(cell, true);
-				}
 			}
 		});
 	}
@@ -810,13 +808,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						}
 						MetaExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(
-										lastEditableElement.getIdentifier(),
+										lastEditableElement.getInstElement().getIdentifier(),
 										editableElementType,
 										Refas2Hlcl.CONF_EXEC);
 
 						expressions.configure(getEditedModel(),
-								metaExpressionSet,
-								(InstElement) lastEditableElement);
+								metaExpressionSet,lastEditableElement.getInstElement());
 						updateExpressions = false;
 					}
 				}
@@ -829,7 +826,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return extensionTabs;
 	}
 
-	private void updateVisibleProperties(final EditableElement elm) {
+	private void updateVisibleProperties(final InstCell elm) {
 
 		if (elm == null)
 			extensionTabs.removeAll();
@@ -938,20 +935,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// jcmunoz: new method for REFAS
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void editPropertiesRefas(final EditableElement elm) {
+	public void editPropertiesRefas(final InstCell instCell) {
 		try {
 
-			updateVisibleProperties(elm);
+			updateVisibleProperties(instCell);
 			if (recursiveCall)
 				return;
-			elementDesignPanel.editorProperties(this, elm);
+			elementDesignPanel.editorProperties(this, instCell);
 			this.extensionTabs.repaint();
 			// elementDesPropPanel.removeAll();
 			elementConfigPropPanel.removeAll();
 			elementExpressionPanel.removeAll();
 			elementSimPropPanel.removeAll();
 
-			if (elm == null) {
+			if (instCell == null || instCell.getInstElement()== null) {
 				if (lastTabIndex != 0)
 					lastTabIndex = 0;
 				else {
@@ -962,10 +959,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				lastEditableElement = null;
 				return;
 			} else {
+				final InstElement finalEditElm = instCell.getInstElement();
+				InstElement editElm = instCell.getInstElement();
 				recursiveCall = true;
 				((MainFrame) getFrame()).waitingCursor(true);
-				if (lastEditableElement != elm) {
-					lastEditableElement = elm;
+				if (lastEditableElement != instCell) {
+					lastEditableElement = instCell;
 					// TODO workaround to update after simul
 					updateExpressions = true;
 				}
@@ -976,16 +975,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
-				List<InstAttribute> editables = elm.getEditableVariables();
+				List<InstAttribute> editables = editElm.getEditableVariables();
 
-				List<InstAttribute> visible = elm.getVisibleVariables();
+				List<InstAttribute> visible = editElm.getVisibleVariables();
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 
 				int configurationPanelElements = 0, simulationPanelElements = 1;
 
-				if (elm instanceof InstConcept) {
-					String iden = ((InstConcept) elm)
+				if (editElm instanceof InstConcept) {
+					String iden = ((InstConcept) editElm)
 							.getTransSupportMetaElement().getIdentifier();
 					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("LocalVariable")
@@ -997,8 +996,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 						editableElementType = "vertex";
 				}
-				if (elm instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) elm).getSourceRelations()
+				if (editElm instanceof InstPairwiseRelation) {
+					if (((InstPairwiseRelation) editElm).getSourceRelations()
 							.size() == 0) {
 						((MainFrame) getFrame()).waitingCursor(false);
 						// TODO workaround for non supported relations - delete
@@ -1008,21 +1007,21 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 					editableElementType = "edge";
 				}
-				if (elm instanceof InstOverTwoRelation) {
+				if (editElm instanceof InstOverTwoRelation) {
 					editableElementType = "groupdep";
 				}
 				if (editableElementType != null)
 					if (this.perspective == 2)
 
 						expressionsArea.setText(refas2hlcl
-								.getElementTextConstraints(elm.getIdentifier(),
+								.getElementTextConstraints(editElm.getIdentifier(),
 										editableElementType,
 										Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									elm.getIdentifier(), editableElementType,
+									editElm.getIdentifier(), editableElementType,
 									Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
@@ -1032,8 +1031,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// TODO split in two new classes, one for each panel
 				for (InstAttribute v : visible) {
 					Map<String, MetaElement> mapElements = null;
-					if (elm instanceof InstPairwiseRelation) {
-						InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+					if (editElm instanceof InstPairwiseRelation) {
+						InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
 						mapElements = refasModel.getSyntaxRefas()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
@@ -1044,7 +1043,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												.getTransSupportMetaElement(),
 										true);
 					}
-					v.updateValidationList((InstElement) elm, mapElements);
+					v.updateValidationList(editElm, mapElements);
 
 					final WidgetR w = factory.getWidgetFor(v);
 
@@ -1064,7 +1063,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
 							// Divide lines every 15 characters (aprox.)
-							onVariableEdited(elm, v);
+							onVariableEdited(finalEditElm, v);
 						}
 
 						@Override
@@ -1082,7 +1081,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 											.getPropertyName())) {
 										w.getInstAttribute();
 										updateExpressions = true;
-										onVariableEdited(elm,
+										onVariableEdited(finalEditElm,
 												w.getInstAttribute());
 									}
 								}
@@ -1113,7 +1112,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 											@Override
 											public void itemStateChanged(
 													ItemEvent e) {
-												editPropertiesRefas(elm);
+												editPropertiesRefas(instCell);
 												updateExpressions = true;
 											}
 										});
@@ -1124,7 +1123,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 										clearNotificationBar();
 										executeSimulation(true,
 												Refas2Hlcl.CONF_EXEC);
-										editPropertiesRefas(elm);
+										editPropertiesRefas(instCell);
 										updateExpressions = true;
 									}
 								}
@@ -1187,10 +1186,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 										// public void run() {
 										// synchronized (getEditor()) {
 										clearNotificationBar();
-										configModel((InstElement) elm, true);
+										configModel(finalEditElm, true);
 										// executeSimulation(true,
 										// Refas2Hlcl.CONF_EXEC);
-										editPropertiesRefas(elm);
+										editPropertiesRefas(instCell);
 										updateExpressions = true;
 										// }
 
@@ -1208,10 +1207,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									// public void run() {
 									// synchronized (getEditor()) {
 									clearNotificationBar();
-									configModel((InstElement) elm, false);
+									configModel(finalEditElm, false);
 									// executeSimulation(true,
 									// Refas2Hlcl.CONF_EXEC);
-									editPropertiesRefas(elm);
+									editPropertiesRefas(instCell);
 									updateExpressions = true;
 									// }
 
@@ -1269,9 +1268,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					.refreshVariable(lastEditableElement);
 		} catch (Exception e) {
 			lastEditableElement = ((RefasGraph) this.getGraphComponent()
-					.getGraph()).getEditableElement();
+					.getGraph()).getInstCell();
 			try {
-				if (lastEditableElement != null)
+				if (lastEditableElement != null && lastEditableElement.getInstElement() != null)
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
 			} catch (Exception p) {

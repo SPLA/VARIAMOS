@@ -32,6 +32,7 @@ import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.refas.RefasModel;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstEnumeration;
@@ -100,13 +101,13 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 
-	public void editorProperties(VariamosGraphEditor editor, EditableElement elm) {
+	public void editorProperties(VariamosGraphEditor editor, InstCell instCell) {
 		mainPanel.removeAll();
 		rootPanels = 0;
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
-		final EditableElement finalElm = elm;
+		final InstCell finalInstCell = instCell;
 
 		// updateVisibleProperties(elm);
 
@@ -114,43 +115,46 @@ public class ElementDesignPanel extends JPanel {
 		contentPanel2.removeAll();
 		contentPanel3.removeAll();
 
-		if (elm == null) {
+		if (instCell == null || instCell.getInstElement() == null) {
 			return;
 		} else {
-			elm.getInstAttributes();
+			EditableElement editElm = instCell.getInstElement();
+			editElm.getInstAttributes();
 
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 			int designPanelElements = 0;
 			String description = null;
 
-			if (elm instanceof InstPairwiseRelation) {
-				if (((InstPairwiseRelation) elm).getSourceRelations().size() == 0)
+			if (editElm instanceof InstPairwiseRelation) {
+				if (((InstPairwiseRelation) editElm).getSourceRelations()
+						.size() == 0)
 					// TODO workaround for non supported relations - delete
 					// after fix
 					return;
 			}
-			if (elm instanceof InstElement) {
-				if (((InstElement) elm).getEditableMetaElement() != null)
-					description = ((InstElement) elm)
+			if (editElm instanceof InstElement) {
+				if (((InstElement) editElm).getEditableMetaElement() != null)
+					description = ((InstElement) editElm)
 							.getTransSupportMetaElement().getDescription();
 			}
 			int count = 0;
 			while (count < 2) {
 				designPanelElements = 0;
-				
-				//Warning: Fix for Mac, do not delete it
-				if (elm instanceof InstPairwiseRelation)
+
+				// Warning: Fix for Mac, do not delete it
+				if (editElm instanceof InstPairwiseRelation)
 					designPanelElements++;
-				
+
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
-				Collection<InstAttribute> visible = elm.getVisibleVariables();
+				Collection<InstAttribute> visible = editElm
+						.getVisibleVariables();
 				for (InstAttribute v : visible) {
 					if (v != null
 							&& (v.getAttribute() instanceof ModelingAttribute || v
 									.getAttribute() instanceof SemanticAttribute)) {
 						Map<String, MetaElement> mapElements = null;
-						if (elm instanceof InstPairwiseRelation) {
-							InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+						if (editElm instanceof InstPairwiseRelation) {
+							InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
 							mapElements = ((RefasModel) editor.getEditedModel())
 									.getSyntaxRefas()
 									.getValidPairwiseRelations(
@@ -164,7 +168,8 @@ public class ElementDesignPanel extends JPanel {
 													.getTransSupportMetaElement(),
 											true);
 						}
-						v.updateValidationList(((InstElement) elm), mapElements);
+						v.updateValidationList(((InstElement) editElm),
+								mapElements);
 
 						final WidgetR w = factory.getWidgetFor(v);
 
@@ -187,7 +192,8 @@ public class ElementDesignPanel extends JPanel {
 									elementAttribute.setValue(AbstractElement.multiLine(
 											elementAttribute.toString(), 15));
 								// Divide lines every 15 characters (aprox.)
-								onVariableEdited(finalEditor, finalElm,
+								onVariableEdited(finalEditor,
+										finalInstCell.getInstElement(),
 										elementAttribute);
 							}
 
@@ -206,11 +212,12 @@ public class ElementDesignPanel extends JPanel {
 												.getPropertyName())) {
 											w.getInstAttribute();
 											onVariableEdited(finalEditor,
-													finalElm,
+													finalInstCell
+															.getInstElement(),
 													w.getInstAttribute());
 
 											editorProperties(finalEditor,
-													finalElm);
+													finalInstCell);
 										}
 									}
 								});
@@ -227,7 +234,7 @@ public class ElementDesignPanel extends JPanel {
 												public void run() {
 													editorProperties(
 															finalEditor,
-															finalElm);
+															finalInstCell);
 												}
 											}.start();
 										}
@@ -259,7 +266,7 @@ public class ElementDesignPanel extends JPanel {
 						if (w.editVariable(v))
 							count = 0;
 
-						List<InstAttribute> editables = elm
+						List<InstAttribute> editables = editElm
 								.getEditableVariables();
 
 						if (!editables.contains(v)
@@ -279,12 +286,14 @@ public class ElementDesignPanel extends JPanel {
 							elementDesPropSubPanel.add(w);
 
 							if (v.isAffectProperties()
-									&& editor.getPerspective() != 4 &&  !(w.getEditor() instanceof JCheckBox)) {
+									&& editor.getPerspective() != 4
+									&& !(w.getEditor() instanceof JCheckBox)) {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										finalEditor.clearNotificationBar();
-										editorProperties(finalEditor, finalElm);
+										editorProperties(finalEditor,
+												finalInstCell);
 									}
 								});
 								elementDesPropSubPanel.add(button);
@@ -372,18 +381,18 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setPreferredSize(new Dimension(200, 100));
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
-			if (elm instanceof InstEnumeration) {
+			if (editElm instanceof InstEnumeration) {
 				rootPanels++;
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
-						editorProperties(finalEditor, finalElm);
+						editorProperties(finalEditor, finalInstCell);
 					}
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
-						editorProperties(finalEditor, finalElm);
+						editorProperties(finalEditor, finalInstCell);
 					}
 				});
 				attPanel.setPreferredSize(new Dimension(150, 80));
@@ -391,7 +400,7 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 
 				EnumerationAttributeList attList = new EnumerationAttributeList(
-						editor, (InstElement) elm);
+						editor, instCell.getInstElement());
 				attPanel.add(new JScrollPane(attList));
 
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
@@ -407,12 +416,12 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
-						editorProperties(finalEditor, finalElm);
+						editorProperties(finalEditor, finalInstCell);
 					}
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
-						editorProperties(finalEditor, finalElm);
+						editorProperties(finalEditor, finalInstCell);
 					}
 				});
 
@@ -420,14 +429,14 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributeEdition")));
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
 				PropertyAttributeList attList = null;
-				if (((InstElement) elm).getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor,
-							((InstElement) elm).getEditableMetaElement()
-									.getModelingAttributes(), attributeEdition);
-				if (((InstElement) elm).getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor,
-							((InstElement) elm).getEditableSemanticElement()
-									.getSemanticAttributes(), attributeEdition);
+				if (instCell.getInstElement().getEditableMetaElement() != null)
+					attList = new PropertyAttributeList(editor, instCell
+							.getInstElement().getEditableMetaElement()
+							.getModelingAttributes(), attributeEdition);
+				if (instCell.getInstElement().getEditableSemanticElement() != null)
+					attList = new PropertyAttributeList(editor, instCell
+							.getInstElement().getEditableSemanticElement()
+							.getSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(350, 400));
 				attPanel.setMaximumSize(new Dimension(350, 400));
@@ -442,8 +451,9 @@ public class ElementDesignPanel extends JPanel {
 		}
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
 
-		System.out.println(mainPanel.getComponentCount() +" " + rootPanels);
-		SpringUtilities.makeCompactGrid(mainPanel, 1, mainPanel.getComponentCount(), 4, 4, 4, 4);
+		System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
+		SpringUtilities.makeCompactGrid(mainPanel, 1,
+				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();
 		this.repaint();
 	}

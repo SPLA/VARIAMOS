@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2015-01-29 *
  */
-public class InstCell implements Serializable{
+public class InstCell implements Serializable {
 	/**
 	 * 
 	 */
@@ -20,9 +20,8 @@ public class InstCell implements Serializable{
 	private InstElement volatileInstElement;
 	private boolean cloned;
 
-	public InstCell(InstElement instElement, boolean cloned)
-	{
-		this.cloned =  cloned;
+	public InstCell(InstElement instElement, boolean cloned) {
+		this.cloned = cloned;
 		if (cloned)
 			volatileInstElement = instElement;
 		else
@@ -39,7 +38,7 @@ public class InstCell implements Serializable{
 
 	public InstElement getInstElement() {
 		if (cloned)
-		return volatileInstElement;
+			return volatileInstElement;
 		else
 			return originalInstElement;
 	}
@@ -58,9 +57,11 @@ public class InstCell implements Serializable{
 	public void setCloned(boolean cloned) {
 		this.cloned = cloned;
 	}
-	
-	public String toString()
-	{
-		return this.getInstElement().toString();
+
+	public String toString() {
+		if (getInstElement() != null)
+			return getInstElement().toString();
+		else
+			return null;
 	}
 }

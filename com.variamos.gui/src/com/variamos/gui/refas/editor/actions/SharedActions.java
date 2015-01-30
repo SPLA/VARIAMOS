@@ -261,8 +261,7 @@ public class SharedActions {
 			Object value, mxCell source, mxGraph graph) {
 		RefasModel refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
-		InstElement instElement = ((InstCell) ((mxCell) value).getValue())
-				.getInstElement();
+		InstElement instElement = ((InstCell) value).getInstElement();
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
@@ -330,7 +329,7 @@ public class SharedActions {
 			}
 			editor.refreshElement(instOverTwoRelation);
 		} else if (instElement instanceof InstVertex) {
-			InstVertex instVertex = (InstVertex) value;
+			InstVertex instVertex = (InstVertex) instElement;
 			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
 					.getVertex(instVertex.getSupportMetaElementIdentifier())
 					.getEditableMetaElement();
@@ -389,7 +388,7 @@ public class SharedActions {
 		}
 		if (instElement instanceof InstPairwiseRelation) {
 			try {
-				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
+				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
 				instPairwiseRelation
 						.createAttributes(new HashMap<String, InstAttribute>());
 				InstVertex sourceVertex = (InstVertex) ((InstCell) source

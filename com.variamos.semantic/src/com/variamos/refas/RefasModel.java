@@ -3163,7 +3163,7 @@ public class RefasModel extends AbstractModel {
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1) {
 			for (InstElement instElement: instViews.get(modelViewInd)
 					.getTargetRelations()) {
-				if (instElement.getIdentifier().equals(element))
+				if (instElement.getTargetRelations().get(0).getIdentifier().equals(element))
 					return true;
 			}
 		}
