@@ -15,7 +15,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.cfm.common.AbstractModel;
-import com.cfm.productline.AbstractElement;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
@@ -41,7 +40,6 @@ import com.mxgraph.util.mxXmlUtils;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.refas.RefasModel;
-import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -112,6 +110,7 @@ public class RefasGraph extends AbstractGraph {
 		Collection<InstView> views = refasModel.getSyntaxRefas().getInstViews();
 		int pos = 0;
 		if (views.size() == 0) {
+			//Load Syntax and Semantic
 			for (InstVertex instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell(new InstCell(instVertex, false));
 				child.setId(instVertex.getIdentifier());
@@ -408,32 +407,45 @@ public class RefasGraph extends AbstractGraph {
 		// Main Root
 		Object rootCell = refasGraph.getRoot();
 		// Null Root
-		Object viewsParent = refasGraph.getChildAt(rootCell, 0);
+		mxCell viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
 		// Top level view /Element
-		Object topLevelView = refasGraph.getChildAt(viewsParent, 0);
-
-		Object value = ((mxCell) topLevelView).getValue();
-
-		if (value instanceof InstCell)
-			return (InstCell) value;
-		else {
-			// Child View/Element
-			mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
-					topLevelView, 0);
-			if (secondLevelCell != null) {
-				Object element = secondLevelCell.getValue();
-				if (element instanceof InstCell)
-					return (InstCell) element;
-				else {
-					// Child View/Element
-					Object thirdLevelCell = refasGraph.getChildAt(topLevelView,
-							0);
-					if (thirdLevelCell != null)
-						return (InstCell) ((mxCell) thirdLevelCell).getValue();
+		InstCell instCell = null;
+		int iTop = 0;
+		while ((instCell == null || instCell.getInstElement() != null)
+				&& iTop < viewsParent.getChildCount()) {
+			mxCell topLevelView = (mxCell) refasGraph.getChildAt(viewsParent,
+					iTop);
+			InstCell value = (InstCell) topLevelView.getValue();
+			iTop++;
+			if (((InstCell) value).getInstElement() != null)
+				return (InstCell) value;
+			int iMed = 0;
+			while ((instCell == null || instCell.getInstElement() != null)
+					&& iMed < topLevelView.getChildCount()) {
+				mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
+						topLevelView, iMed);
+				InstCell value2 = (InstCell) topLevelView.getValue();
+				iMed++;
+				if (value2.getInstElement() != null) {
+					InstCell element = (InstCell) secondLevelCell.getValue();
+					if (element.getInstElement() != null)
+						return (InstCell) element;
+				}
+				int iLow = 0;
+				while ((instCell == null || instCell.getInstElement() != null)
+						&& iLow < secondLevelCell.getChildCount()) {
+					InstCell element = (InstCell) ((mxCell) refasGraph
+							.getChildAt(secondLevelCell, iLow)).getValue();
+					iLow++;
+					if (element != null && element.getInstElement() != null) {
+						if (element.getInstElement() != null)
+							return (InstCell) element;
+					}
 				}
 			}
-			return null;
 		}
+		return null;
+
 	}
 
 	// TODO review from here for requirements
@@ -649,6 +661,7 @@ public class RefasGraph extends AbstractGraph {
 			mxGraphLayout layout = new mxOrganicLayout(this);
 			layout.execute(getDefaultParent()); // todo change root?
 		} catch (Exception e) {
+			System.out.println("RefasGraph: Auto Layout failed");
 		}
 	}
 

@@ -401,7 +401,7 @@ public abstract class AbstractGraph extends mxGraph {
 			for(Object o : edges)
 				getModel().setVisible(o, v.isVisible());
 		}
-	//	getModel().setValue(cell, e);
+		getModel().setValue(cell, e);
 		this.fireEvent(new mxEventObject(PL_EVT_NODE_CHANGE, "cell", cell, "element", e));
 		
 	}

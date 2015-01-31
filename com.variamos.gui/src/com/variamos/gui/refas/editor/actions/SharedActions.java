@@ -322,7 +322,7 @@ public class SharedActions {
 			instElement = instCell.getInstElement();
 
 		if (instElement instanceof InstOverTwoRelation) {
-			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
+			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
 			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
 					.getSyntaxRefas()
 					.getVertex(

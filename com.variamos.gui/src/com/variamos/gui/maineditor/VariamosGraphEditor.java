@@ -316,24 +316,24 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		} else {
 			int i = 0;
 			for (InstView instView : instViews) {
-				mxCell parent = new mxCell(new InstCell(null, false));
-				parent.setId("mv" + i);
-				refasGraph.addCell(parent);
+			//	mxCell parent = new mxCell(new InstCell(null, false));
+			//	parent.setId("mv" + i);
+			//	refasGraph.addCell(parent);
 				MetaView metaView = (MetaView) instView
 						.getEditableMetaElement();
 				metaViews.add(metaView);
 				JPanel tabPane = new JPanel();
 				if (metaView.getChildViews().size() > 0) {
 					modelsTabPane.add(metaView.getName(), tabPane);
-					mxCell child = new mxCell(new InstCell(null, false));
-					child.setId("mv" + i);
-					refasGraph.addCell(child, parent);
+			//		mxCell child = new mxCell(new InstCell(null, false));
+			//		child.setId("mv" + i);
+			//		refasGraph.addCell(child, parent);
 					// Add the parent as first child
 					for (int j = 0; j < metaView.getChildViews().size(); j++) {
-						mxCell child2 = new mxCell(new InstCell(null, false));
-						child2.setId("mv" + i + "-" + j);
-						refasGraph.addCell(child2,
-								parent);
+			//			mxCell child2 = new mxCell(new InstCell(null, false));
+			//			child2.setId("mv" + i + "-" + j);
+			//			refasGraph.addCell(child2,
+			//					parent);
 						MetaView metaChildView = metaView.getChildViews()
 								.get(j);
 						JButton a = new JButton(metaChildView.getName());
