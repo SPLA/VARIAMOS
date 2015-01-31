@@ -3171,11 +3171,11 @@ public class RefasModel extends AbstractModel {
 				&& modelViewSubInd != -1
 				&& modelViewSubInd < instViews.get(modelViewInd)
 						.getChildViews().size()) {
-			Iterator<InstVertex> metaElements = instViews.get(modelViewInd)
+			Iterator<InstVertex> instVertex = instViews.get(modelViewInd)
 					.getChildViews().get(modelViewSubInd).getInstVertices()
 					.iterator();
-			while (metaElements.hasNext())
-				if (metaElements.next().getIdentifier().equals(element))
+			while (instVertex.hasNext())
+				if (instVertex.next().getIdentifier().equals(element))
 					return true;
 		}
 		return false;

@@ -40,6 +40,7 @@ public class ModelButtonAction extends AbstractEditorAction {
 					{
 						editor.setVisibleModel(i,j);
 						editor.updateView();
+						System.out.println("view" + i +" "+j);
 					}
 				}
 				}

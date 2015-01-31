@@ -99,7 +99,7 @@ public class SharedActions {
 			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
 			if (refasGraph.getChildCount(mv0) > 0) {
 				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
-				if (child.getId().equals(mv0.getId())) {
+				if (child.getId().startsWith(mv0.getId())) {
 					for (int mvSubInd = 0; mvSubInd < refasGraph
 							.getChildCount(mv0); mvSubInd++) {
 						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,

@@ -237,10 +237,7 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
-		if (refasModel.getSyntaxRefas() == null)
-			return semanticPlusSyntax.modelElements(modelView, modelSubView);
-		else
-			return refasModel.getSyntaxRefas().modelElements(modelView,
+		return refasModel.getSyntaxRefas().modelElements(modelView,
 					modelSubView);
 	}
 
@@ -553,10 +550,7 @@ public class RefasGraph extends AbstractGraph {
 											.getChildAt(mv1, j);
 									if (refasModel.getSyntaxRefas()
 											.elementsValidation(name, i, j)
-									// if
-									// (semanticPlusSyntax.elementsValidation(
-									// name, i, j)
-											&& (i != modelViewIndex || j != modelViewSubIndex)) {
+										&& (i != modelViewIndex || j != modelViewSubIndex)) {
 
 										mxCell c2 = null;
 										try {
