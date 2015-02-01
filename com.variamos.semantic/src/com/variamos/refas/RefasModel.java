@@ -1855,11 +1855,20 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexGF, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("variab-lfeatPR", instEdge);
-		instEdge.setIdentifier("variab-lfeatPR");
+		this.constraintInstEdges.put("variab-lfeat1PR", instEdge);
+		instEdge.setIdentifier("variab-lfeat1PR");
 		instEdge.setEditableMetaElement(metaFeatVertPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexGF, true);
+		instEdge.setSourceRelation(instVertexLF, true);
+
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-lfeat2PR", instEdge);
+		instEdge.setIdentifier("variab-lfeat2PR");
+		instEdge.setEditableMetaElement(metaFeatVertPairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexRF, true);
 		instEdge.setSourceRelation(instVertexLF, true);
 		// Features OverTwoRelations
 

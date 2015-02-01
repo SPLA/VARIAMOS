@@ -174,6 +174,8 @@ public class SharedActions {
 	 */
 	public static mxGraph afterOpenCloneGraph(mxGraph graph,
 			VariamosGraphEditor editor) {
+
+		setVisibleViews(graph.getModel(), true, 0, 0);
 		mxIGraphModel refasGraph = graph.getModel();
 		instAttributesToDelete = new HashSet<String>();
 		additionAttributes = false;
@@ -218,6 +220,8 @@ public class SharedActions {
 			}
 			((RefasGraph) graph).setValidation(true);
 		}
+
+		setVisibleViews(graph.getModel(), false, 0, -1);
 		if (instAttributesToDelete.size() > 0)
 			JOptionPane
 					.showMessageDialog(
