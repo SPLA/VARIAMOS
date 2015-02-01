@@ -414,19 +414,17 @@ public class RefasGraph extends AbstractGraph {
 					iTop);
 			InstCell value = (InstCell) topLevelView.getValue();
 			iTop++;
-			if (((InstCell) value).getInstElement() != null)
+			if (value!= null && value.getInstElement() != null)
 				return (InstCell) value;
 			int iMed = 0;
 			while ((instCell == null || instCell.getInstElement() != null)
 					&& iMed < topLevelView.getChildCount()) {
 				mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
 						topLevelView, iMed);
-				InstCell value2 = (InstCell) topLevelView.getValue();
+				InstCell value2 = (InstCell) secondLevelCell.getValue();
 				iMed++;
-				if (value2.getInstElement() != null) {
-					InstCell element = (InstCell) secondLevelCell.getValue();
-					if (element.getInstElement() != null)
-						return (InstCell) element;
+				if (value2 != null && value2.getInstElement() != null) {
+						return (InstCell) value2;
 				}
 				int iLow = 0;
 				while ((instCell == null || instCell.getInstElement() != null)
@@ -435,7 +433,6 @@ public class RefasGraph extends AbstractGraph {
 							.getChildAt(secondLevelCell, iLow)).getValue();
 					iLow++;
 					if (element != null && element.getInstElement() != null) {
-						if (element.getInstElement() != null)
 							return (InstCell) element;
 					}
 				}
