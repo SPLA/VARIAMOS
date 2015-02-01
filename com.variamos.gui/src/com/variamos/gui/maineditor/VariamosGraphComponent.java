@@ -22,6 +22,7 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import com.variamos.editor.logic.ConstraintMode;
+import com.variamos.gui.refas.editor.actions.SharedActions;
 import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
@@ -112,14 +113,25 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									childCell, k);
 							InstElement child2Value = ((InstCell) child2Cell
 									.getValue()).getInstElement();
-							drawStatusBar(child2Cell, parentCell);
-							drawErrorIcons(child2Cell, child2Value, redx);
+							if (child2Value instanceof InstVertex)
+								if (SharedActions.validateConceptType(
+										(InstVertex) child2Value,
+										"SemGeneralElement")) {
+									drawStatusBar(child2Cell, parentCell);
+									drawErrorIcons(child2Cell, child2Value,
+											redx);
+								}
+
 						}
 					else {
-						drawStatusBar(childCell, parentCell);
-						drawErrorIcons(childCell, childValue, redx);
+						if (childValue instanceof InstVertex)
+							if (SharedActions.validateConceptType(
+									(InstVertex) childValue,
+									"SemGeneralElement")) {
+								drawStatusBar(childCell, parentCell);
+								drawErrorIcons(childCell, childValue, redx);
+							}
 					}
-
 				}
 			}
 		}

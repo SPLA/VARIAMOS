@@ -25,6 +25,7 @@ import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
@@ -457,6 +458,11 @@ public class SharedActions {
 						.getSource().getValue()).getInstElement();
 				InstVertex targetVertex = (InstVertex) ((InstCell) source
 						.getTarget().getValue()).getInstElement();
+				if (sourceVertex == null || targetVertex == null)
+				{
+					System.out.println("Error load" + source.getId());
+					return;
+				}
 				MetaPairwiseRelation metaPairwiseRelation = refas
 						.getSyntaxRefas().getValidMetaPairwiseRelation(
 								sourceVertex.getTransSupportMetaElement(),
@@ -566,6 +572,18 @@ public class SharedActions {
 				e.printStackTrace();
 			}
 		}
-
+	}
+	public static boolean validateConceptType(InstVertex instVertex, String element) {
+		MetaVertex metaElement = ((MetaVertex) instVertex
+				.getTransSupportMetaElement());
+		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
+		while (semElement != null && semElement.getIdentifier() != null
+				&& !semElement.getIdentifier().equals(element))
+			semElement = semElement.getParent();
+		if (semElement != null && semElement.getIdentifier() != null
+				&& semElement.getIdentifier().equals(element)) {
+			return true;
+		}
+		return false;
 	}
 }

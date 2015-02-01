@@ -1,5 +1,6 @@
 package com.variamos.semantic.semanticsupport;
 
+import com.variamos.semantic.types.ContextType;
 import com.variamos.semantic.types.VariableType;
 import com.variamos.semantic.types.VariationScopeType;
 import com.variamos.syntax.instancesupport.InstEnumeration;
@@ -27,7 +28,7 @@ public class SemanticVariable extends AbstractSemanticVertex {
 			
 			VAR_CONTEXTTYPE = "contextType",
 			VAR_CONTEXTTYPENAME = "Context Type",
-			VAR_CONTEXTTYPECLASS = "com.variamos.refas.core.types.ContextType",
+			VAR_CONTEXTTYPECLASS = ContextType.class.getCanonicalName(),
 			
 			VAR_NAME = "name",
 			VAR_NAMENAME = "Name",

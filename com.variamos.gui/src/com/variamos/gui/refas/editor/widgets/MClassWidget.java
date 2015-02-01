@@ -31,7 +31,8 @@ import com.variamos.syntax.types.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.
- * Inspired on other widgets from ProductLine. Part of PhD work at University of Paris 1
+ * Inspired on other widgets from ProductLine. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -56,19 +57,21 @@ public class MClassWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = ClassMultiSelectionType.class.getClassLoader();
+		ClassLoader classLoader = ClassMultiSelectionType.class
+				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			//System.out.println("aClass.getName() = " + aClass.getName());
+			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		String[] out = null;
-		if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+		if (aClass.getSuperclass() != null
+				&& aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
 			semanticConcepts = new HashMap<String, IntSemanticElement>();
 			Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
@@ -90,8 +93,8 @@ public class MClassWidget extends WidgetR {
 		}
 		if (aClass.equals(InstConcept.class)) {
 			concepts = new HashMap<String, InstConcept>();
-			List<InstConcept> list = getInstConcepts(instAttribute.getAttribute()
-					.getMetaConceptInstanceType(), graph);
+			List<InstConcept> list = getInstConcepts(instAttribute
+					.getAttribute().getMetaConceptInstanceType(), graph);
 
 			Set<InstConcept> set = new HashSet<InstConcept>();
 			set.addAll(list);
@@ -164,7 +167,7 @@ public class MClassWidget extends WidgetR {
 		List<String> tmp = txtValue.getSelectedValuesList();
 		for (String str : tmp)
 			out += str + ";";
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		instAttribute.displayValue(out);
 	}
 

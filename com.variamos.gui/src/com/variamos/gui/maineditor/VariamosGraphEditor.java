@@ -1277,9 +1277,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				System.out.println("VariamosGraphEditor: Update error");
 				p.printStackTrace();
 			}
-
 		}
-
 	}
 
 	public void refreshElement(EditableElement elm) {

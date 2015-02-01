@@ -1,5 +1,7 @@
 package com.variamos.semantic.semanticsupport;
 
+import com.variamos.semantic.types.ContextType;
+import com.variamos.semantic.types.VariationScopeType;
 import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 
 /**
@@ -20,10 +22,10 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 
 	private static final String VAR_SCOPE = "scope",
 			VAR_SCOPENAME = "Scope",
-			VAR_SCOPECLASS = "com.variamos.refas.core.types.VariationScopeType",
+			VAR_SCOPECLASS = VariationScopeType.class.getCanonicalName(),
 			VAR_CONTEXTTYPE = "contextType",
 			VAR_CONTEXTTYPENAME = "Context Type",
-			VAR_CONTEXTTYPECLASS = "com.variamos.refas.core.types.ContextType",
+			VAR_CONTEXTTYPECLASS = ContextType.class.getCanonicalName(),
 			VAR_VARIABLENAME = "variableName",
 			VAR_VARIABLENAMENAME = "Variable Name", VAR_DOMAIN = "domain",
 			VAR_DOMAINNAME = "Domain";

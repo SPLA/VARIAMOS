@@ -988,7 +988,7 @@ public class RefasModel extends AbstractModel {
 		semClaim.putSemanticAttribute("Operationalizations",
 				new SemanticAttribute("Operationalizations", "MClass", false,
 						"Operationalizations",
-						"com.variamos.syntaxsupport.metamodel.InstConcept",
+						InstConcept.class.getCanonicalName(),
 						"SemOperationalization", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
 				new SemanticAttribute("ConditionalExpression", "String", false,

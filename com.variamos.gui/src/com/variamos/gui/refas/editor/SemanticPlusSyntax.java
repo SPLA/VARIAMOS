@@ -18,6 +18,7 @@ import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
 import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.semantic.types.DirectEdgeType;
 import com.variamos.semantic.types.GroupRelationType;
+import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.metamodelsupport.MetaConcept;
 import com.variamos.syntax.metamodelsupport.MetaElement;
 import com.variamos.syntax.metamodelsupport.MetaEnumeration;
@@ -336,11 +337,11 @@ public class SemanticPlusSyntax {
 		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
 				semGeneralElement, "Claim", true);
 		semanticConcepts.put("CL", semClaim);
-		semClaim.putSemanticAttribute("Operationalizations",
+		semClaim.putSemanticAttribute(
+				"Operationalizations",
 				new SemanticAttribute("Operationalizations", "MClass", false,
-						"Operationalizations",
-						"com.variamos.syntaxsupport.metamodel.InstConcept",
-						"OPER", "", ""));
+						"Operationalizations", InstConcept.class
+								.getCanonicalName(), "OPER", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
 				new SemanticAttribute("ConditionalExpression", "String", false,
 						"Conditional Expression", ""));
