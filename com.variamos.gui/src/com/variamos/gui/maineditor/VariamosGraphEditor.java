@@ -1013,6 +1013,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (editableElementType != null)
 					if (this.perspective == 2)
 
+						if (refas2hlcl.validateConceptType(editElm, "SemGeneralElement"))
 						expressionsArea.setText(refas2hlcl
 								.getElementTextConstraints(editElm.getIdentifier(),
 										editableElementType,

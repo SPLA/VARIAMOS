@@ -274,9 +274,10 @@ public class SharedActions {
 							String cellId2 = mv2.getId();
 							int subview2 = cellId2.indexOf("-");
 							String id2 = subview2 == -1 ? cellId2.substring(1,
-									cellId2.length()) : cellId2.substring(
-									1, subview2);
-							if (id.equals(id2) && !((InstCell) mv2.getValue()).isCloned())
+									cellId2.length()) : cellId2.substring(1,
+									subview2);
+							if (id.equals(id2)
+									&& !((InstCell) mv2.getValue()).isCloned())
 								return ((InstCell) mv2.getValue())
 										.getInstElement();
 						}
@@ -287,7 +288,8 @@ public class SharedActions {
 						String id2 = subview2 == -1 ? cellId2.substring(1,
 								cellId2.length()) : cellId2.substring(1,
 								subview2);
-						if (id.equals(id2)&& !((InstCell) mv2.getValue()).isCloned())
+						if (id.equals(id2)
+								&& !((InstCell) mv2.getValue()).isCloned())
 							return ((InstCell) mv2.getValue()).getInstElement();
 					}
 
@@ -319,22 +321,28 @@ public class SharedActions {
 				.getRefas();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;
-		if (instCell.isCloned()){
+		if (instCell.isCloned()) {
 			instElement = getOriginalInstElement(graph, source);
 			instCell.setInstElement(instElement);
-		}
-		else
+		} else
 			instElement = instCell.getInstElement();
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
-			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
-					.getSyntaxRefas()
-					.getVertex(
-							instOverTwoRelation
-									.getSupportMetaElementIdentifier())
-					.getEditableMetaElement();
-			instOverTwoRelation.setTransSupportMetaElement(metaOverTwoRelation);
+			InstVertex instVertex = refas.getSyntaxRefas().getVertex(
+					instOverTwoRelation.getSupportMetaElementIdentifier());
+			if (instVertex == null) {
+				System.err
+						.println("Concept Null"
+								+ instOverTwoRelation
+										.getSupportMetaElementIdentifier());
+				return;
+			} else {
+				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instVertex
+						.getEditableMetaElement();
+				instOverTwoRelation
+						.setTransSupportMetaElement(metaOverTwoRelation);
+			}
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
@@ -458,8 +466,7 @@ public class SharedActions {
 						.getSource().getValue()).getInstElement();
 				InstVertex targetVertex = (InstVertex) ((InstCell) source
 						.getTarget().getValue()).getInstElement();
-				if (sourceVertex == null || targetVertex == null)
-				{
+				if (sourceVertex == null || targetVertex == null) {
 					System.out.println("Error load" + source.getId());
 					return;
 				}
@@ -573,9 +580,15 @@ public class SharedActions {
 			}
 		}
 	}
-	public static boolean validateConceptType(InstVertex instVertex, String element) {
-		MetaVertex metaElement = ((MetaVertex) instVertex
+
+	public static boolean validateConceptType(InstElement instElement,
+			String element) {
+		if (instElement == null || !(instElement instanceof InstVertex))
+			return false;
+		MetaVertex metaElement = ((MetaVertex) instElement
 				.getTransSupportMetaElement());
+		if (metaElement == null)
+			return false;
 		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
 		while (semElement != null && semElement.getIdentifier() != null
 				&& !semElement.getIdentifier().equals(element))

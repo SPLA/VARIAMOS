@@ -2893,6 +2893,19 @@ public class RefasModel extends AbstractModel {
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("Asset-OperGroupDep", instVertexAssetOper);
 		instView.addInstVertex(instVertexAssetOper);
+		
+
+		hardMetaOverTwoRel = new MetaOverTwoRelation("AssetFeatGroupDep", true,
+				"AssetFeatGroupDep", "plgroup",
+				"Represents the implementation "
+						+ "of a feautre by a group of assets", 20,
+				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
+				"white", 1, false, semanticAssetOperGroupRelation);
+		syntaxMetaView.addConcept(hardMetaOverTwoRel);
+		InstVertex instVertexAssetFeat = new InstConcept("Asset-FeatGroupDep",
+				supportMetaElementOverTwo, hardMetaOverTwoRel);
+		variabilityInstVertex.put("Asset-FeatGroupDep", instVertexAssetFeat);
+		instView.addInstVertex(instVertexAssetFeat);
 
 		MetaPairwiseRelation metaOperEdge = new MetaPairwiseRelation(
 				"Asset To Oper Relation", true, "Asset To Oper Relation", "",
@@ -2944,20 +2957,36 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexAsset, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("asset0-assettoOT", instEdge);
-		instEdge.setIdentifier("asset0-assettoOT");
+		this.constraintInstEdges.put("asset0-assettoOTG", instEdge);
+		instEdge.setIdentifier("asset0-assettoOTG");
 		instEdge.setEditableMetaElement(metaNonePairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexAssetOper, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("asset0-assettoOTF", instEdge);
+		instEdge.setIdentifier("asset0-assettoOTF");
+		instEdge.setEditableMetaElement(metaNonePairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexAssetFeat, true);
+		instEdge.setSourceRelation(instVertexAsset, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("asset0-OTtoasset", instEdge);
-		instEdge.setIdentifier("asset0-OTtoasset");
+		this.constraintInstEdges.put("asset0-OTGtoOper", instEdge);
+		instEdge.setIdentifier("asset0-OTGtoOper");
 		instEdge.setEditableMetaElement(metaOperEdge);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexOper, true);
 		instEdge.setSourceRelation(instVertexAssetOper, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("asset0-OTGtoFeat", instEdge);
+		instEdge.setIdentifier("asset0-OTGtoFeat");
+		instEdge.setEditableMetaElement(metaOperEdge);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexLF, true);
+		instEdge.setSourceRelation(instVertexAssetFeat, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset0-asset", instEdge);
