@@ -303,6 +303,15 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(0)));
 							}
+
+							if (instAttribute.getIdentifier().equals(
+									"NextNotPrefSelected")) {
+								getElementExpressions().add(
+										new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(0)));
+							}
 							
 							if (instAttribute.getIdentifier().equals(
 									"Selected"))

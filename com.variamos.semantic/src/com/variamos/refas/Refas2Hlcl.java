@@ -388,13 +388,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				continue;
 			if (execType == Refas2Hlcl.SIMUL_EXEC
 					&& (instVertex.getInstAttribute("ConfigSelected")
-							.getAsBoolean()
-					|| instVertex.getInstAttribute("ConfigNotSelected")
-							.getAsBoolean()))
+							.getAsBoolean() || instVertex.getInstAttribute(
+							"ConfigNotSelected").getAsBoolean()))
 				continue;
 			if (execType == Refas2Hlcl.DESIGN_EXEC) {
 				instVertex.getInstAttribute("ConfigSelected").setValue(false);
-				instVertex.getInstAttribute("ConfigNotSelected").setValue(false);
+				instVertex.getInstAttribute("ConfigNotSelected")
+						.setValue(false);
 			}
 
 			for (InstAttribute instAttribute : instVertex.getInstAttributes()
@@ -644,7 +644,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateRequiredConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)) {
+			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextPrefSelected");
 				InstAttribute instAttributeConf = instVertex
@@ -685,7 +685,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)
+			if (validateConceptType(instVertex, "SemGeneralElement")
 					|| instVertex.getInstAttribute("ConfigNotSelected")
 							.getAsBoolean()) {
 				InstAttribute instAttributeTest = instVertex
@@ -726,7 +726,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			Set<InstElement> elementSubSet) {
 		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)
+			if (validateConceptType(instVertex, "SemGeneralElement")
 					&& (elementSubSet == null || elementSubSet
 							.contains(instVertex))) {
 				InstAttribute instAttribute = instVertex
@@ -754,7 +754,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public Set<Identifier> getFreeIdentifiers() {
 		Set<Identifier> out = new HashSet<Identifier>();
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)) {
+			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttribute = instVertex
 						.getInstAttribute("Core");
 				InstAttribute instAttribute2 = instVertex
@@ -774,15 +774,19 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return out;
 	}
 
-	public boolean validateConceptType(InstVertex instVertex) {
-		MetaVertex metaElement = ((MetaVertex) instVertex
+	public boolean validateConceptType(InstElement instElement, String element) {
+		if (instElement == null || !(instElement instanceof InstVertex))
+			return false;
+		MetaVertex metaElement = ((MetaVertex) instElement
 				.getTransSupportMetaElement());
+		if (metaElement == null)
+			return false;
 		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
 		while (semElement != null && semElement.getIdentifier() != null
-				&& !semElement.getIdentifier().equals("SemGeneralElement"))
+				&& !semElement.getIdentifier().equals(element))
 			semElement = semElement.getParent();
 		if (semElement != null && semElement.getIdentifier() != null
-				&& semElement.getIdentifier().equals("SemGeneralElement")) {
+				&& semElement.getIdentifier().equals(element)) {
 			return true;
 		}
 		return false;
@@ -790,7 +794,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void updateDeadConcepts(List<String> deadIdentifiers) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex)) {
+			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
 				InstAttribute instAttributeNotAva = instVertex

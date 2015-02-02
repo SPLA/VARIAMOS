@@ -64,6 +64,7 @@ public class MainFrame extends JFrame {
 				syntaxRefas = new RefasModel(PerspectiveType.syntax,
 						basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
+				System.out.println("Creating Semantic Perspective...");
 				break;
 
 			case 1:// modeling
@@ -71,18 +72,21 @@ public class MainFrame extends JFrame {
 						syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
+				System.out.println("Creating Modeling Perspective...");
 				break;
 
 			case 2:// syntax
 				abstractModel = syntaxRefas;
 
 				bgColor = new Color(255, 255, 245);
+				System.out.println("Creating Syntax Perspective...");
 				break;
 
 			case 3:// simulation
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
+				System.out.println("Creating Simulation Perspective...");
 				break;
 
 			}
@@ -108,6 +112,7 @@ public class MainFrame extends JFrame {
 			editor.updateView();
 		}
 
+		System.out.println("GUI creation complete");
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);

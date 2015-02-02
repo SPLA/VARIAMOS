@@ -21,7 +21,9 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
@@ -29,7 +31,8 @@ import com.variamos.syntax.types.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.
- * Inspired on other widgets from ProductLine. Part of PhD work at University of Paris 1
+ * Inspired on other widgets from ProductLine. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -54,19 +57,21 @@ public class MClassWidget extends WidgetR {
 	public void configure(EditableElementAttribute v,
 			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
 		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = ClassMultiSelectionType.class.getClassLoader();
+		ClassLoader classLoader = ClassMultiSelectionType.class
+				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			//System.out.println("aClass.getName() = " + aClass.getName());
+			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		String[] out = null;
-		if (aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+		if (aClass.getSuperclass() != null
+				&& aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
 			semanticConcepts = new HashMap<String, IntSemanticElement>();
 			Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
@@ -88,8 +93,8 @@ public class MClassWidget extends WidgetR {
 		}
 		if (aClass.equals(InstConcept.class)) {
 			concepts = new HashMap<String, InstConcept>();
-			List<InstConcept> list = getInstConcepts(instAttribute.getAttribute()
-					.getMetaConceptInstanceType(), graph);
+			List<InstConcept> list = getInstConcepts(instAttribute
+					.getAttribute().getMetaConceptInstanceType(), graph);
 
 			Set<InstConcept> set = new HashSet<InstConcept>();
 			set.addAll(list);
@@ -121,7 +126,8 @@ public class MClassWidget extends WidgetR {
 			mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
 			for (int j = 0; j < mv.getChildCount(); j++) {
 				mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
-				Object value = concept.getValue();
+				InstElement value = ((InstCell) concept.getValue())
+						.getInstElement();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
 					MetaVertex mc = ic.getTransSupportMetaElement();
@@ -161,7 +167,7 @@ public class MClassWidget extends WidgetR {
 		List<String> tmp = txtValue.getSelectedValuesList();
 		for (String str : tmp)
 			out += str + ";";
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		instAttribute.displayValue(out);
 	}
 

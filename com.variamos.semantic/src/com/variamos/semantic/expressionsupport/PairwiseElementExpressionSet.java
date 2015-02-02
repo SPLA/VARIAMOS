@@ -236,28 +236,9 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				 * transformation15));
 				 */
 				break;
-			case "means_ends":
-				sourcePositiveAttributeNames.add("Selected");
-				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						"NextReqSelected", getHlclFactory().number(1));
 
-				AbstractBooleanExpression out12 = new ImplicationBooleanExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", true, transformation16);
-				getElementExpressions().add(out12);
-				structureList.add(out12);
-				allList.add(out12);
-
-				AbstractBooleanExpression out11 = new ImplicationBooleanExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", true, transformation16);
-				getElementExpressions().add(out11);
-				structureList.add(out11);
-				allList.add(out11);
-				break;
 			case "implication":
-				sourcePositiveAttributeNames.add("NextReqSelected");
+				sourcePositiveAttributeNames.add("Selected");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Satisfied #==> targetId_NextReqSatisfied #= 1
 				AbstractComparisonExpression transformation161 = new EqualsComparisonExpression(
@@ -276,18 +257,39 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				// sourceAttributeNames.add("Core");
 				// targetId_Selected #==> SourceId_Selected #= 1
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
+						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", getHlclFactory().number(1));
 				AbstractBooleanExpression out7 = new ImplicationBooleanExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", true, transformation18);
 				getElementExpressions().add(out7);
 				structureList.add(out7);
 				allList.add(out7);
 
 				break;
-			case "mandatory":
+			case "means_ends":
+				/*sourcePositiveAttributeNames.add("Selected");
+				AbstractComparisonExpression transformation16 = new EqualsComparisonExpression(
+						instPairwiseRelation.getTargetRelations().get(0),
+						"NextReqSelected", getHlclFactory().number(1));
 
+				AbstractBooleanExpression out12 = new ImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", true, transformation16);
+				getElementExpressions().add(out12);
+				structureList.add(out12);
+				allList.add(out12);
+
+				AbstractBooleanExpression out11 = new ImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", true, transformation16);
+				getElementExpressions().add(out11);
+				structureList.add(out11);
+				allList.add(out11);
+				break;*/
+			case "mandatory":
+				sourcePositiveAttributeNames.add("Selected");
+				sourceNegativeAttributeNames.add("NotAvailable");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
@@ -304,7 +306,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				getElementExpressions().add(out54);
 				// structureList.add(out54);
 				allList.add(out54);
-
+				break;
 			case "optional":
 				sourcePositiveAttributeNames.add("Selected");
 				sourceNegativeAttributeNames.add("NotAvailable");

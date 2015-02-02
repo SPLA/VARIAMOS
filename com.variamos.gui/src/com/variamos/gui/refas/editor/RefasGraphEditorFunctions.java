@@ -29,7 +29,9 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.refas.RefasModel;
+import com.variamos.syntax.instancesupport.InstCell;
 import com.variamos.syntax.instancesupport.InstConcept;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
@@ -70,7 +72,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public void updateEditor(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
-	//	editor.setPerspective(2);
+		// editor.setPerspective(2);
 		editor.editModelReset();
 		// System.out.println("requirements perspective");
 		updateView(validElements, graphComponent, modelViewIndex);
@@ -99,33 +101,43 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 				try {
 					PaletteElement paletteElement = paletteElements.get(i);
 					if (validElements.contains(paletteElement.getId())) {
-						Object obj = null;
+						InstElement obj = null;
 						if (paletteElement.getMetaElement() != null) {
 							MetaElement metaVertex = paletteElement
 									.getMetaElement();
-							
+
 							if (metaVertex instanceof MetaConcept) {
 								MetaElement metaElement = new MetaConcept();
 								Object o = new InstConcept();
-								Constructor<?> c = o.getClass().getConstructor(String.class,
-										MetaConcept.class,MetaElement.class);
-								obj = c.newInstance("",(MetaConcept) metaVertex, metaElement);
+								Constructor<?> c = o.getClass().getConstructor(
+										String.class, MetaConcept.class,
+										MetaElement.class);
+								obj = (InstElement) c.newInstance("",
+										(MetaConcept) metaVertex, metaElement);
 							} else if (metaVertex instanceof MetaOverTwoRelation) {
 								MetaElement metaElement = new MetaOverTwoRelation();
 								Object o = new InstOverTwoRelation();
-								Constructor<?> c = o.getClass().getConstructor(String.class,
-										MetaOverTwoRelation.class,MetaElement.class);
-								obj = c.newInstance("",(MetaOverTwoRelation) metaVertex, metaElement);
+								Constructor<?> c = o.getClass().getConstructor(
+										String.class,
+										MetaOverTwoRelation.class,
+										MetaElement.class);
+								obj = (InstElement) c.newInstance("",
+										(MetaOverTwoRelation) metaVertex,
+										metaElement);
 							} else if (metaVertex instanceof MetaEnumeration) {
 
 								MetaElement metaElement = new MetaEnumeration();
 								Object o = new InstEnumeration();
-								Constructor<?> c = o.getClass().getConstructor(String.class,MetaVertex.class,
+								Constructor<?> c = o.getClass().getConstructor(
+										String.class, MetaVertex.class,
 										MetaElement.class);
-								obj = c.newInstance("",(MetaVertex) metaVertex, metaElement);
+								obj = (InstElement) c.newInstance("",
+										(MetaVertex) metaVertex, metaElement);
 							}
 
 						} else {
+							System.out.println("Not supported element for palette");
+							/*
 							String classSingleName = paletteElement
 									.getClassName().substring(
 											paletteElement.getClassName()
@@ -140,6 +152,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 										.getConstructor(String.class);
 								obj = c.newInstance(paletteElement.getId());
 							}
+							*/
 						}
 						palette.addTemplate(
 								// mxResources.get(
@@ -148,11 +161,9 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 										.getResource(paletteElement.getIcon())),
 								paletteElement.getStyle(), paletteElement
 										.getWidth(),
-								paletteElement.getHeight(), obj);
+								paletteElement.getHeight(), new InstCell(obj,
+										false));
 					}
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (InstantiationException | IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

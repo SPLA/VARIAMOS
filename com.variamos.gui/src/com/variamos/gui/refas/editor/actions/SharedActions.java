@@ -16,6 +16,8 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstAttribute;
+import com.variamos.syntax.instancesupport.InstCell;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
@@ -23,6 +25,7 @@ import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.metamodelsupport.MetaOverTwoRelation;
 import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 public class SharedActions {
@@ -68,11 +71,13 @@ public class SharedActions {
 				mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
-					Object value = concept.getValue();
+					InstElement value = (InstElement) ((InstCell) concept
+							.getValue()).getInstElement();
 					for (int k = 0; k < concept.getChildCount(); k++) {
 						mxCell concept2 = (mxCell) refasGraph.getChildAt(
 								concept, k);
-						Object value2 = concept2.getValue();
+						InstElement value2 = (InstElement) ((InstCell) concept2
+								.getValue()).getInstElement();
 						updateIdAndObjects(value2, beforeSave);
 
 					}
@@ -95,7 +100,7 @@ public class SharedActions {
 			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
 			if (refasGraph.getChildCount(mv0) > 0) {
 				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
-				if (child.getValue().equals(mv0.getValue())) {
+				if (child.getId().startsWith(mv0.getId())) {
 					for (int mvSubInd = 0; mvSubInd < refasGraph
 							.getChildCount(mv0); mvSubInd++) {
 						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,
@@ -170,6 +175,8 @@ public class SharedActions {
 	 */
 	public static mxGraph afterOpenCloneGraph(mxGraph graph,
 			VariamosGraphEditor editor) {
+
+		setVisibleViews(graph.getModel(), true, 0, 0);
 		mxIGraphModel refasGraph = graph.getModel();
 		instAttributesToDelete = new HashSet<String>();
 		additionAttributes = false;
@@ -188,9 +195,9 @@ public class SharedActions {
 					// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					mxCell mv1 = (mxCell) anyCell;
 					if (refasGraph.getChildCount(mv1) > 0
-							//&& mv0.getChildAt(0).getValue()
-							//		.equals(mv0.getValue())
-									) {
+					// && mv0.getChildAt(0).getValue()
+					// .equals(mv0.getValue())
+					) {
 						Object[] all2Cells = getSortedCells(graph, mv1);
 						for (Object any2Cell : all2Cells) {
 							mxCell mv2 = (mxCell) any2Cell;
@@ -214,6 +221,8 @@ public class SharedActions {
 			}
 			((RefasGraph) graph).setValidation(true);
 		}
+
+		setVisibleViews(graph.getModel(), false, 0, -1);
 		if (instAttributesToDelete.size() > 0)
 			JOptionPane
 					.showMessageDialog(
@@ -237,6 +246,59 @@ public class SharedActions {
 		return graph;
 	}
 
+	public static InstElement getOriginalInstElement(mxGraph graph,
+			mxCell cloned) {
+		mxIGraphModel refasGraph = graph.getModel();
+		String cellId = cloned.getId();
+		int subview = cellId.indexOf("-");
+		String id = subview == -1 ? cellId.substring(1, cellId.length())
+				: cellId.substring(1, subview);
+		if (graph instanceof RefasGraph) {
+			Object o = refasGraph.getRoot(); // Main Root
+			Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
+				// Root model view mvInd
+				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
+				// First vertices and after edges
+				Object[] allCells = getSortedCells(graph, mv0);
+
+				for (Object anyCell : allCells) {
+					mxCell mv1 = (mxCell) anyCell;
+					if (refasGraph.getChildCount(mv1) > 0
+					// && mv0.getChildAt(0).getValue()
+					// .equals(mv0.getValue())
+					) {
+						Object[] all2Cells = getSortedCells(graph, mv1);
+						for (Object any2Cell : all2Cells) {
+							mxCell mv2 = (mxCell) any2Cell;
+							String cellId2 = mv2.getId();
+							int subview2 = cellId2.indexOf("-");
+							String id2 = subview2 == -1 ? cellId2.substring(1,
+									cellId2.length()) : cellId2.substring(1,
+									subview2);
+							if (id.equals(id2)
+									&& !((InstCell) mv2.getValue()).isCloned())
+								return ((InstCell) mv2.getValue())
+										.getInstElement();
+						}
+					} else {
+						mxCell mv2 = (mxCell) anyCell;
+						String cellId2 = mv2.getId();
+						int subview2 = cellId2.indexOf("-");
+						String id2 = subview2 == -1 ? cellId2.substring(1,
+								cellId2.length()) : cellId2.substring(1,
+								subview2);
+						if (id.equals(id2)
+								&& !((InstCell) mv2.getValue()).isCloned())
+							return ((InstCell) mv2.getValue()).getInstElement();
+					}
+
+				}
+			}
+		}
+		return null;
+	}
+
 	private static Object[] getSortedCells(mxGraph graph, mxCell mv0) {
 		Object[] vertexCells = graph.getChildCells(mv0, true, false);
 		Object[] edgeCells = graph.getChildCells(mv0, false, true);
@@ -257,15 +319,30 @@ public class SharedActions {
 			Object value, mxCell source, mxGraph graph) {
 		RefasModel refas = ((RefasGraph) editor.getGraphComponent().getGraph())
 				.getRefas();
-		if (value instanceof InstOverTwoRelation) {
-			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) value;
-			MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) refas
-					.getSyntaxRefas()
-					.getVertex(
-							instOverTwoRelation
-									.getSupportMetaElementIdentifier())
-					.getEditableMetaElement();
-			instOverTwoRelation.setTransSupportMetaElement(metaOverTwoRelation);
+		InstCell instCell = ((InstCell) value);
+		InstElement instElement = null;
+		if (instCell.isCloned()) {
+			instElement = getOriginalInstElement(graph, source);
+			instCell.setInstElement(instElement);
+		} else
+			instElement = instCell.getInstElement();
+
+		if (instElement instanceof InstOverTwoRelation) {
+			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
+			InstVertex instVertex = refas.getSyntaxRefas().getVertex(
+					instOverTwoRelation.getSupportMetaElementIdentifier());
+			if (instVertex == null) {
+				System.err
+						.println("OverTwoRel Null"
+								+ instOverTwoRelation
+										.getSupportMetaElementIdentifier());
+				return;
+			} else {
+				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instVertex
+						.getEditableMetaElement();
+				instOverTwoRelation
+						.setTransSupportMetaElement(metaOverTwoRelation);
+			}
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
 					.getInstAttributes().values().iterator();
@@ -322,8 +399,8 @@ public class SharedActions {
 				}
 			}
 			editor.refreshElement(instOverTwoRelation);
-		} else if (value instanceof InstVertex) {
-			InstVertex instVertex = (InstVertex) value;
+		} else if (instElement instanceof InstVertex) {
+			InstVertex instVertex = (InstVertex) instElement;
 			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
 					.getVertex(instVertex.getSupportMetaElementIdentifier())
 					.getEditableMetaElement();
@@ -359,7 +436,7 @@ public class SharedActions {
 			if (instVertex.getInstAttributes().size() < semAtt
 					+ instVertex.getTransSupportMetaElement()
 							.getModelingAttributes().size()) {
-				//TODO modify to support syntax attributes changes
+				// TODO modify to support syntax attributes changes
 				for (String attributeName : instVertex
 						.getTransSupportMetaElement().getSemanticAttributes()) {
 					if (instVertex.getInstAttribute(attributeName) == null
@@ -380,15 +457,19 @@ public class SharedActions {
 				}
 			}
 		}
-		if (value instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstPairwiseRelation) {
 			try {
-				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) value;
+				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
 				instPairwiseRelation
 						.createAttributes(new HashMap<String, InstAttribute>());
-				InstVertex sourceVertex = (InstVertex) source.getSource()
-						.getValue();
-				InstVertex targetVertex = (InstVertex) source.getTarget()
-						.getValue();
+				InstVertex sourceVertex = (InstVertex) ((InstCell) source
+						.getSource().getValue()).getInstElement();
+				InstVertex targetVertex = (InstVertex) ((InstCell) source
+						.getTarget().getValue()).getInstElement();
+				if (sourceVertex == null || targetVertex == null) {
+					System.out.println("Error load" + source.getId());
+					return;
+				}
 				MetaPairwiseRelation metaPairwiseRelation = refas
 						.getSyntaxRefas().getValidMetaPairwiseRelation(
 								sourceVertex.getTransSupportMetaElement(),
@@ -498,6 +579,24 @@ public class SharedActions {
 				e.printStackTrace();
 			}
 		}
+	}
 
+	public static boolean validateConceptType(InstElement instElement,
+			String element) {
+		if (instElement == null || !(instElement instanceof InstVertex))
+			return false;
+		MetaVertex metaElement = ((MetaVertex) instElement
+				.getTransSupportMetaElement());
+		if (metaElement == null)
+			return false;
+		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
+		while (semElement != null && semElement.getIdentifier() != null
+				&& !semElement.getIdentifier().equals(element))
+			semElement = semElement.getParent();
+		if (semElement != null && semElement.getIdentifier() != null
+				&& semElement.getIdentifier().equals(element)) {
+			return true;
+		}
+		return false;
 	}
 }

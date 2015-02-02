@@ -11,7 +11,6 @@ import com.cfm.productline.Editable;
 import com.cfm.productline.ProductLine;
 import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.constraints.GenericConstraint;
-import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.shape.mxMarkerRegistry;
@@ -111,77 +110,7 @@ public abstract class AbstractGraph extends mxGraph {
 	{ return false;}
 	
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
-		
-		if( cell.getValue() instanceof VariabilityElement ){
-			VariabilityElement elm = (VariabilityElement) cell.getValue();
-			
-			if( elm.getIdentifier() != null && !"".equals(elm.getIdentifier()) )
-				return false;
-			
-			ProductLine pl = getProductLine();
-			String id = pl.getNextVPId();
-			
-			//Aqui se setea el name y id por primera vez.
-			elm.setIdentifier(id);
-			elm.setName("<<new>>");
-			
-			//Change the cell id in the model.
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(id, cell);
-			cell.setId(id);
-		}
-		
-		if( cell.getValue() instanceof GroupConstraint ){
-			GroupConstraint gc = (GroupConstraint) cell.getValue();
-		
-			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return false;
-			
-			ProductLine pl = getProductLine();
-			String id = pl.getNextConstraintId();
-			
-			gc.setIdentifier(id);
-			
-			//Change the cell id in the model
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(id, cell);
-			cell.setId(id);
-		}
-		if( cell.getValue() instanceof GenericConstraint ){
-			GenericConstraint gc = (GenericConstraint) cell.getValue();
-			
-			if( gc.getIdentifier() != null && !"".equals(gc.getIdentifier()) )
-				return false;
-			
-			ProductLine pl = getProductLine();
-			String id = pl.getNextConstraintId();
-			
-			gc.setIdentifier(id);
-			
-			//Change the cell id in the model
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(id, cell);
-			cell.setId(id);
-		}
-		
-		if( cell.getValue() instanceof Asset ){
-			Asset a = (Asset) cell.getValue();
-			
-			if( a.getIdentifier() != null && !"".equals(a.getIdentifier()))
-				return false;
-			
-			ProductLine pl = getProductLine();
-			pl.addAsset(a);
-			
-			mxGraphModel model = (mxGraphModel) getModel();
-			model.getCells().remove(cell.getId());
-			model.getCells().put(a.getIdentifier(), cell);
-			cell.setId(a.getIdentifier());
 
-		}
 		return true;
 	}
 	

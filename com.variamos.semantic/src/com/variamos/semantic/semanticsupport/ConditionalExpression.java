@@ -24,14 +24,14 @@ public class ConditionalExpression implements Serializable {
 
 	public ConditionalExpression() {
 		this.sentences[0] = new SemanticAttribute("sentence1", "Class", true,
-				"Sentence", "com.variamos.refas.core.expressions.Sentence", "",
+				"Sentence", "com.variamos.semantic.expressions.Sentence", "",
 				"Left Sentence");
 		this.sentences[1] = new SemanticAttribute("sentence2", "Class", true,
-				"Sentence", "com.variamos.refas.core.expressions.Sentence", "",
+				"Sentence", "com.variamos.semantic.expressions.Sentence", "",
 				"Right Sentence");
 		this.logicalOperator = new SemanticAttribute("operator", "Enumeration",
 				true, "Operator",
-				"com.variamos.refas.core.expressions.LogicalOperator", "",
+				"com.variamos.semantic.expressions.LogicalOperator", "",
 				"Operator");
 	}
 
