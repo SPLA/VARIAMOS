@@ -333,7 +333,7 @@ public class SharedActions {
 					instOverTwoRelation.getSupportMetaElementIdentifier());
 			if (instVertex == null) {
 				System.err
-						.println("Concept Null"
+						.println("OverTwoRel Null"
 								+ instOverTwoRelation
 										.getSupportMetaElementIdentifier());
 				return;

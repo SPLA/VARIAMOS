@@ -120,6 +120,8 @@ public abstract class InstVertex extends InstElement {
 
 	public List<InstAttribute> getVisibleVariables() { // TODO move to
 		// superclass
+		if (getTransSupportMetaElement() == null)
+			return null;
 		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropVisibleAttributes();
 		return getFilteredInstAttributes(attributesNames, null);

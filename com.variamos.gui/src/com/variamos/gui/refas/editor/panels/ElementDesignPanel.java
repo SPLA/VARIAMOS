@@ -148,6 +148,7 @@ public class ElementDesignPanel extends JPanel {
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
 						.getVisibleVariables();
+				if (visible != null)
 				for (InstAttribute v : visible) {
 					if (v != null
 							&& (v.getAttribute() instanceof ModelingAttribute || v

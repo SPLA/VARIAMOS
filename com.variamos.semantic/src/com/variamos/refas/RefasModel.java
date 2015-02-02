@@ -2889,9 +2889,9 @@ public class RefasModel extends AbstractModel {
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticAssetOperGroupRelation);
 		syntaxMetaView.addConcept(hardMetaOverTwoRel);
-		InstVertex instVertexAssetOper = new InstConcept("Asset-OperGroupDep",
+		InstVertex instVertexAssetOper = new InstConcept("AssetOperGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		variabilityInstVertex.put("Asset-OperGroupDep", instVertexAssetOper);
+		variabilityInstVertex.put("AssetOperGroupDep", instVertexAssetOper);
 		instView.addInstVertex(instVertexAssetOper);
 		
 
@@ -2902,9 +2902,9 @@ public class RefasModel extends AbstractModel {
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticAssetOperGroupRelation);
 		syntaxMetaView.addConcept(hardMetaOverTwoRel);
-		InstVertex instVertexAssetFeat = new InstConcept("Asset-FeatGroupDep",
+		InstVertex instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		variabilityInstVertex.put("Asset-FeatGroupDep", instVertexAssetFeat);
+		variabilityInstVertex.put("AssetFeatGroupDep", instVertexAssetFeat);
 		instView.addInstVertex(instVertexAssetFeat);
 
 		MetaPairwiseRelation metaOperEdge = new MetaPairwiseRelation(
