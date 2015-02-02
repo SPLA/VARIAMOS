@@ -251,7 +251,7 @@ public class SharedActions {
 		mxIGraphModel refasGraph = graph.getModel();
 		String cellId = cloned.getId();
 		int subview = cellId.indexOf("-");
-		String id = subview == -1 ? cellId.substring(1, cellId.length() - 1)
+		String id = subview == -1 ? cellId.substring(1, cellId.length())
 				: cellId.substring(1, subview);
 		if (graph instanceof RefasGraph) {
 			Object o = refasGraph.getRoot(); // Main Root

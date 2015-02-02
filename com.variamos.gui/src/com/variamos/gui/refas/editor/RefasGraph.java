@@ -61,7 +61,6 @@ public class RefasGraph extends AbstractGraph {
 	private RefasModel refasModel = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
-	private SemanticPlusSyntax semanticPlusSyntax;
 	private boolean validation = true;
 	private int perspective = 2;
 
@@ -91,14 +90,12 @@ public class RefasGraph extends AbstractGraph {
 
 	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective) {
 		init();
-		this.semanticPlusSyntax = semanticPlusSyntax;
 		this.perspective = perspective;
 	}
 
 	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective,
 			RefasModel refasModel) {
-		init();
-		this.semanticPlusSyntax = semanticPlusSyntax;
+		init();		
 		this.perspective = perspective;
 		this.refasModel = refasModel;
 	}
@@ -415,26 +412,32 @@ public class RefasGraph extends AbstractGraph {
 			InstCell value = (InstCell) topLevelView.getValue();
 			iTop++;
 			if (value!= null && value.getInstElement() != null)
+			{
 				return (InstCell) value;
+			}				
 			int iMed = 0;
 			while ((instCell == null || instCell.getInstElement() != null)
 					&& iMed < topLevelView.getChildCount()) {
 				mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
 						topLevelView, iMed);
-				InstCell value2 = (InstCell) secondLevelCell.getValue();
-				iMed++;
+				InstCell value2 = (InstCell) secondLevelCell.getValue();				
 				if (value2 != null && value2.getInstElement() != null) {
+					modelViewIndex = iMed;
+					modelViewSubIndex = -1;
 						return (InstCell) value2;
 				}
+				iMed++;
 				int iLow = 0;
 				while ((instCell == null || instCell.getInstElement() != null)
 						&& iLow < secondLevelCell.getChildCount()) {
 					InstCell element = (InstCell) ((mxCell) refasGraph
-							.getChildAt(secondLevelCell, iLow)).getValue();
-					iLow++;
+							.getChildAt(secondLevelCell, iLow)).getValue();					
 					if (element != null && element.getInstElement() != null) {
+						modelViewIndex = iMed;
+						modelViewSubIndex = iLow;
 							return (InstCell) element;
 					}
+					iLow++;
 				}
 			}
 		}
