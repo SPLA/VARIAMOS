@@ -592,7 +592,7 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
 				} else if (type != null
-						&& (type.equals("Group") || type.equals("none"))) {
+						&& (type.equals("Group") || type.equals("None"))) {
 					InstVertex grouprel = (InstVertex) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {

@@ -409,11 +409,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									"Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
-						if (instAttribute.getAttributeType().equals("Boolean")
-								&& (execType == Refas2Hlcl.DESIGN_EXEC
-										|| execType == Refas2Hlcl.SIMUL_EXEC || (!instAttribute
-										.getIdentifier().equals("Selected") && !instAttribute
-										.getIdentifier().equals("NotAvailable"))))
+						if (execType == Refas2Hlcl.DESIGN_EXEC
+								|| execType == Refas2Hlcl.SIMUL_EXEC
+								|| (!instAttribute.getIdentifier().equals(
+										"Selected") && !instAttribute
+										.getIdentifier().equals("NotAvailable")))
 							instAttribute.setValue(false);
 					}
 					if (instAttribute.getAttributeType().equals("Boolean")
@@ -694,9 +694,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "SemGeneralElement")
-					&& instVertex.getInstAttribute("ConfigNotSelected")
-							.getAsBoolean()) {
+			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextNotPrefSelected");
 				InstAttribute instAttributeConf = instVertex
