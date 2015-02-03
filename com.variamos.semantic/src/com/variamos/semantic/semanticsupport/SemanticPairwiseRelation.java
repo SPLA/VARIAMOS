@@ -89,7 +89,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
-		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
+		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#\n");
 	}
 
 }

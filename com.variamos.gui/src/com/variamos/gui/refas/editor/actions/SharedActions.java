@@ -460,8 +460,8 @@ public class SharedActions {
 		if (instElement instanceof InstPairwiseRelation) {
 			try {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
-				instPairwiseRelation
-						.createAttributes(new HashMap<String, InstAttribute>());
+			//	instPairwiseRelation
+			//			.createAttributes(new HashMap<String, InstAttribute>());
 				InstVertex sourceVertex = (InstVertex) ((InstCell) source
 						.getSource().getValue()).getInstElement();
 				InstVertex targetVertex = (InstVertex) ((InstCell) source

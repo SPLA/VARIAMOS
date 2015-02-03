@@ -195,7 +195,8 @@ public class RefasMenuBar extends JMenuBar {
 		}
 		if (editor.getPerspective() == 4) {
 
-			menu = (JMenu) menu.add(new JMenu(mxResources.get("configuration")));
+			menu = (JMenu) menu
+					.add(new JMenu(mxResources.get("configuration")));
 			Action a = editor.bind(mxResources.get("resetConfiguration"),
 					new ClearConfigurationAction());
 			menu.add(a);
@@ -210,10 +211,10 @@ public class RefasMenuBar extends JMenuBar {
 			a.setEnabled(false);
 			a = editor.bind(mxResources.get("saveProducts"),
 					new ClearSimulationAction());
-			menu.add(a);		
+			menu.add(a);
 			a.setEnabled(false);
 			add(menu);
-			
+
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
 			menu.add(editor.bind(mxResources.get("resetSimulation"),
 					new ClearSimulationAction()));

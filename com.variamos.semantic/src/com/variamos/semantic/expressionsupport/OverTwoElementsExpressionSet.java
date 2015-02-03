@@ -130,8 +130,9 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 			 * getElementExpressions().add(out); if (relationType.equals("and"))
 			 * coreList.add(out); allList.add(out); } }
 			 */
-			//System.out.println(relationType + " "  + element);
-			if (relationType.equals("and") || element == null || !element.equals("Core"))
+			// System.out.println(relationType + " " + element);
+			if (relationType.equals("and") || element == null
+					|| !element.equals("Core"))
 				for (String sourceName : instOverTwoRelation
 						.getSourcePositiveAttributeNames()) {
 					AbstractExpression abstractTransformation = null;
@@ -141,9 +142,11 @@ public class OverTwoElementsExpressionSet extends MetaExpressionSet {
 					AbstractExpression recursiveExpression2 = null;
 					if (instEdges1.hasNext()) {
 						InstElement left1 = instEdges1.next();
-						while ((boolean) ((InstPairwiseRelation) left1)
-								.getSourceRelations().get(0)
-								.getInstAttribute("Active").getValue() == false) {
+						while (((InstPairwiseRelation) left1)
+								.getSourceRelations().size() != 0
+								&& (boolean) ((InstPairwiseRelation) left1)
+										.getSourceRelations().get(0)
+										.getInstAttribute("Active").getValue() == false) {
 							if (instEdges1.hasNext())
 								left1 = instEdges1.next();
 							else

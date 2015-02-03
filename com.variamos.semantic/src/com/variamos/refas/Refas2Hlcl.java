@@ -258,7 +258,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					modelExpressions
 							.addAll(((ModelExpressionSet) constraintGroup)
 									.getBooleanExpressionList(element));
-
 				}
 			} else {
 				if (constraintGroup.getVerificationExpressionsList(element) != null)
@@ -308,6 +307,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (iterVertex.hasNext()) {
 			InstVertex instVertex = iterVertex.next();
 			if (last.getInstAttribute(attributeName) != null
+					&& this.validateConceptType(last, "SemGeneralElement")
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
 				return f.sum(
 						f.newIdentifier(last.getIdentifier() + "_"
@@ -315,8 +315,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						getSumExpression(instVertex, iterVertex, attributeName));
 			else
 				return getSumExpression(instVertex, iterVertex, attributeName);
-		} else
+		} else if (this.validateConceptType(last, "SemGeneralElement")
+				&& last.getInstAttribute("Active").getAsBoolean() == true)
 			return f.newIdentifier(last.getIdentifier() + "_" + attributeName);
+		else
+			return f.number(0);
 
 	}
 
@@ -337,8 +340,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
-				if ((execType != Refas2Hlcl.CORE_EXEC && execType != Refas2Hlcl.DESIGN_EXEC)
-						|| element.equals("Core"))
+				if ((execType == Refas2Hlcl.SIMUL_EXEC))
 					configurationOptions.setOrder(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
@@ -383,40 +385,45 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// Call the SWIProlog and obtain the result
 
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (instVertex.getInstAttribute("Core").getAsBoolean()
-					|| instVertex.getInstAttribute("Dead").getAsBoolean())
-				continue;
-			if (execType == Refas2Hlcl.SIMUL_EXEC
-					&& (instVertex.getInstAttribute("ConfigSelected")
-							.getAsBoolean() || instVertex.getInstAttribute(
-							"ConfigNotSelected").getAsBoolean()))
-				continue;
-			if (execType == Refas2Hlcl.DESIGN_EXEC) {
-				instVertex.getInstAttribute("ConfigSelected").setValue(false);
-				instVertex.getInstAttribute("ConfigNotSelected")
-						.setValue(false);
-			}
+			if (this.validateConceptType(instVertex, "SemGeneralElement")) {
+				/*
+				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
+				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
+				 */
+				if (execType == Refas2Hlcl.SIMUL_EXEC
+						&& (instVertex.getInstAttribute("ConfigSelected")
+								.getAsBoolean() || instVertex.getInstAttribute(
+								"ConfigNotSelected").getAsBoolean()))
+					continue;
+				if (execType == Refas2Hlcl.DESIGN_EXEC) {
+					instVertex.getInstAttribute("ConfigSelected").setValue(
+							false);
+					instVertex.getInstAttribute("ConfigNotSelected").setValue(
+							false);
+				}
 
-			for (InstAttribute instAttribute : instVertex.getInstAttributes()
-					.values()) {
-				// System.out.println(vertexId + " " + attribute);
-				if (instAttribute.getAttribute() instanceof SimulationStateAttribute
-						&& instAttribute.getAttributeType().equals("Boolean")
-						&& !instAttribute.getIdentifier().equals("HasParent")) {
+				for (InstAttribute instAttribute : instVertex
+						.getInstAttributes().values()) {
+					// System.out.println(vertexId + " " + attribute);
+					if (instAttribute.getAttribute() instanceof SimulationStateAttribute
+							&& instAttribute.getAttributeType().equals(
+									"Boolean")
+							&& !instAttribute.getIdentifier().equals(
+									"HasParent")) {
+						if (execType == Refas2Hlcl.DESIGN_EXEC
+								|| execType == Refas2Hlcl.SIMUL_EXEC
+								|| (!instAttribute.getIdentifier().equals(
+										"Selected") && !instAttribute
+										.getIdentifier().equals("NotAvailable")))
+							instAttribute.setValue(false);
+					}
 					if (instAttribute.getAttributeType().equals("Boolean")
-							&& (execType == Refas2Hlcl.DESIGN_EXEC
-									|| execType == Refas2Hlcl.SIMUL_EXEC || (!instAttribute
-									.getIdentifier().equals("Selected") && !instAttribute
-									.getIdentifier().equals("NotAvailable"))))
+							&& (instAttribute.getIdentifier().equals(
+									"NextPrefSelected") || instAttribute
+									.getIdentifier().equals(
+											"NextNotPrefSelected")))
 						instAttribute.setValue(false);
 				}
-				if (instAttribute.getAttributeType().equals("Boolean")
-						&& (instAttribute.getIdentifier().equals(
-								"NexPrefSelected") || instAttribute
-								.getIdentifier().equals("NextNotPrefSelected")))
-
-					if (instAttribute.getAttributeType().equals("Boolean"))
-						instAttribute.setValue(false);
 			}
 		}
 	}
@@ -450,18 +457,16 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			if (!vertexId.equals("Amodel")) {
 				InstElement vertex = refas.getElement(vertexId);
 				if (attributes == null) {
-					// System.out.println(vertexId + " " + attribute);
+					//System.out.println(vertexId + " " + attribute + " " + prologOut.get(identifier));
 					if (vertex.getInstAttribute(attribute).getAttributeType()
-							.equals("Boolean"))
-
+							.equals("Boolean")) {
 						if (prologOut.get(identifier).intValue() == 1)
 							vertex.getInstAttribute(attribute).setValue(true);
 						else if (prologOut.get(identifier).intValue() == 0)
 							vertex.getInstAttribute(attribute).setValue(false);
-
-						else
-							vertex.getInstAttribute(attribute).setValue(
-									prologOut.get(i));
+					} else
+						vertex.getInstAttribute(attribute).setValue(
+								prologOut.get(identifier).intValue());
 				} else if (attribute.equals("Selected"))
 					for (String attTarget : attributes) {
 						if (vertex.getInstAttribute(attTarget)
@@ -553,9 +558,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
 			for (InstVertex elm : refas.getConstraintVertexCollection()) {
-				constraintGroups.put(elm.getIdentifier(),
-						new SingleElementExpressionSet(elm.getIdentifier(),
-								idMap, f, elm, execType));
+				if (this.validateConceptType(elm, "SemGeneralElement"))
+					constraintGroups.put(elm.getIdentifier(),
+							new SingleElementExpressionSet(elm.getIdentifier(),
+									idMap, f, elm, execType));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -685,9 +691,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
 		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
-			if (validateConceptType(instVertex, "SemGeneralElement")
-					|| instVertex.getInstAttribute("ConfigNotSelected")
-							.getAsBoolean()) {
+			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextNotPrefSelected");
 				InstAttribute instAttributeConf = instVertex
@@ -820,7 +824,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (evaluatedSet.add(target)) {
 			if ((!target.getInstAttribute("Selected").getAsBoolean() && !target
 					.getInstAttribute("NotAvailable").getAsBoolean())
-					|| target.getIdentifier().startsWith("FeatOverTwo")) {
+					|| target.getIdentifier().startsWith("FeatOverTwo")
+					|| target.getIdentifier().startsWith("HardOverTwo")
+					|| target.getIdentifier().startsWith("SoftgoalOverTwo")
+					|| target.getIdentifier().startsWith("OperClaimOverTwo")
+					|| target.getIdentifier().startsWith("AssetOperGroupDep")
+					|| target.getIdentifier().startsWith("AssetFeatGroupDep")) {
 				if (!target.getInstAttribute("Selected").getAsBoolean()
 						&& !target.getInstAttribute("NotAvailable")
 								.getAsBoolean()

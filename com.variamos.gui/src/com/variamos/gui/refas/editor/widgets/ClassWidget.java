@@ -184,7 +184,7 @@ public class ClassWidget extends WidgetR {
 			}
 
 		}
-		if (instAttribute.getValue() == null) {
+		if (instAttribute.getValue() == null && txtValue.getItemCount()>0) {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue((String) txtValue.getSelectedItem());
 		}

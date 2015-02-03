@@ -1,5 +1,7 @@
 package com.variamos.syntax.metamodelsupport;
 
+import com.variamos.hlcl.Domain;
+
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
  *         1
@@ -12,11 +14,10 @@ public class SemanticAttribute extends AbstractAttribute {
 	 */
 	private static final long serialVersionUID = 2582154145921483304L;
 
-	
-	public SemanticAttribute()
-	{
+	public SemanticAttribute() {
 		super();
 	}
+
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		super(name, type, affectProperties, displayName, defaultValue);
@@ -26,6 +27,12 @@ public class SemanticAttribute extends AbstractAttribute {
 			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue) {
 		super(name, type, affectProperties, displayName, enumType, defaultValue);
+	}
+
+	public SemanticAttribute(String name, String type,
+			boolean affectProperties, String displayName, Object defaultValue,
+			Domain domain) {
+		super(name, type, affectProperties, displayName, defaultValue, domain);
 	}
 
 	public SemanticAttribute(String name, String type,

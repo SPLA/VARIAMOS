@@ -36,7 +36,7 @@ public class RefasWidgetFactory {
 
 	public RefasWidgetFactory(VariamosGraphEditor editor) {
 		// this.register = editor.getDomainRegister();
-		this.semanticSyntaxObject = editor.getSematicSintaxObject();
+		this.semanticSyntaxObject = editor.getSematicSyntaxObject();
 		this.graph = editor.getGraphComponent().getGraph();
 
 		widgetReg = new HashMap<String, Class<? extends WidgetR>>();

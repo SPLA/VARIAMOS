@@ -224,6 +224,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
+		//System.out.println("InstE"+ this.getIdentifier() + "_"+insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}

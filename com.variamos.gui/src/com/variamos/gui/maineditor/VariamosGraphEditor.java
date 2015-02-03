@@ -413,10 +413,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		}
 	}
 
-	public SemanticPlusSyntax getSematicSintaxObject() {
-		return sematicSyntaxObject;
-	}
-
 	public AbstractGraphEditorFunctions getGraphEditorFunctions() {
 		return graphEditorFunctions;
 	}
@@ -506,11 +502,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
-				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
+				refasGraph = new RefasGraph(persp);
 			} else {
 				{
 					abstractModel = new RefasModel(PerspectiveType.modeling);
-					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
+					refasGraph = new RefasGraph(persp);
 
 				}
 
@@ -538,11 +534,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling));
-				refasGraph = new RefasGraph(sematicSyntaxObject, persp);
+				refasGraph = new RefasGraph(persp);
 			} else {
 				{
 					abstractModel = new RefasModel(PerspectiveType.modeling);
-					refasGraph = new RefasGraph(sematicSyntaxObject, persp);
+					refasGraph = new RefasGraph(persp);
 
 				}
 
@@ -582,7 +578,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			abstractGraph = new ProductLineGraph();
 		if (perspective == 2 || perspective == 1 || perspective == 3
 				|| perspective == 4)
-			abstractGraph = new RefasGraph(sematicSyntaxObject, perspective);
+			abstractGraph = new RefasGraph(perspective);
 		// abstractGraph = (AbstractGraph) getGraphComponent()
 		// .getGraph();
 		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
@@ -1030,7 +1026,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// elm.getIdentifier(), type), (InstElement) elm);
 
 				// TODO split in two new classes, one for each panel
-				for (InstAttribute v : visible) {
+				for (InstAttribute instAttribute : visible) {
 					Map<String, MetaElement> mapElements = null;
 					if (editElm instanceof InstPairwiseRelation) {
 						InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
@@ -1044,13 +1040,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												.getTransSupportMetaElement(),
 										true);
 					}
-					v.updateValidationList(editElm, mapElements);
+					instAttribute.updateValidationList(editElm, mapElements);
 
-					final WidgetR w = factory.getWidgetFor(v);
+					final WidgetR w = factory.getWidgetFor(instAttribute);
 
 					if (w == null) {
 						recursiveCall = false;
-						System.err.print("No Widget found for " + v);
+						System.err.print("No Widget found for " + instAttribute);
 						return;
 					}
 					// TODO: Add listeners to w.
@@ -1094,18 +1090,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						w.getEditor().setPreferredSize(new Dimension(200, 20));
 						w.getEditor().setMaximumSize(new Dimension(200, 20));
 					}
-					w.editVariable(v);
-					if (!editables.contains(v)) {
+					w.editVariable(instAttribute);
+					if (!editables.contains(instAttribute)) {
 						w.getEditor().setEnabled(false);
 					}
 					// GARA
 					// variablesPanel.add(new JLabel(v.getName() + ":: "));
-					if (v.getAttribute() instanceof SimulationStateAttribute) {
-						elementSimPropSubPanel.add(new JLabel(v
+					if (instAttribute.getAttribute() instanceof SimulationStateAttribute) {
+						elementSimPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementSimPropSubPanel.add(w);
 
-						if (v.isAffectProperties()) {
+						if (instAttribute.isAffectProperties()) {
 							JComponent wc = w.getEditor();
 							if (wc instanceof ItemSelectable)
 								((ItemSelectable) wc)
@@ -1134,12 +1130,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							elementSimPropSubPanel.add(new JPanel());
 
 						simulationPanelElements++;
-					} else if (v.getAttribute() instanceof SimulationConfigAttribute) {
-						elementConfPropSubPanel.add(new JLabel(v
+					} else if (instAttribute.getAttribute() instanceof SimulationConfigAttribute) {
+						elementConfPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementConfPropSubPanel.add(w);
 
-						if (v.isAffectProperties()) {
+						if (instAttribute.isAffectProperties()) {
 							/*if (w.getEditor() instanceof JCheckBox)
 								((JCheckBox) w.getEditor())
 										.addActionListener(new ActionListener() {
@@ -1178,7 +1174,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 											//			true);
 											}
 										});*/
-							if (v.getIdentifier().startsWith("Config"))
+							if (instAttribute.getIdentifier().startsWith("Config"))
 							{
 								JButton button = new JButton("Test");
 								button.addActionListener(new ActionListener() {
