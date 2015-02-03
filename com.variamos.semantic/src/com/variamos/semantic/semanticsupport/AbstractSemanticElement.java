@@ -21,39 +21,43 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
  * @version 1.1
  * @since 2014-12-07
  */
-public class AbstractSemanticElement implements Serializable, IntSemanticElement{
+public class AbstractSemanticElement implements Serializable,
+		IntSemanticElement {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2700689903495112611L;
 	private String identifier;
 	private AbstractSemanticElement parent;
+
 	public AbstractSemanticElement getParent() {
 		return parent;
 	}
-	private List<String> propVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value 
-	private List<String> propEditableAttributes; //position(01-99)#variable#conditionalvariable#operator#value
-	private List<String> panelVisibleAttributes; //position(01-99)#variable#conditionalvariable#operator#value
-	private List<String> panelSpacersAttributes; //preSpacer#variable#1Spacer#2Spacer#3Spacer#...
+
+	private List<String> propVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	private List<String> propEditableAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
+	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	
-	public AbstractSemanticElement(	String identifier)
-	{
-		this(null, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
+
+	public AbstractSemanticElement(String identifier) {
+		this(null, identifier, new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>());
 	}
-	
-	public AbstractSemanticElement(AbstractSemanticElement parentElement,	String identifier)
-	{
-		this(parentElement, identifier, new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(), new ArrayList<String>());
-	}
-	
+
 	public AbstractSemanticElement(AbstractSemanticElement parentElement,
-			String identifier,
-			List<String> propVisibleAttributes,
+			String identifier) {
+		this(parentElement, identifier, new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
+				new ArrayList<String>());
+	}
+
+	public AbstractSemanticElement(AbstractSemanticElement parentElement,
+			String identifier, List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
-			List<String> panelSpacersAttributes)
-	{
+			List<String> panelSpacersAttributes) {
 		this.parent = parentElement;
 		this.identifier = identifier;
 		this.propVisibleAttributes = propVisibleAttributes;
@@ -62,24 +66,20 @@ public class AbstractSemanticElement implements Serializable, IntSemanticElement
 		this.panelSpacersAttributes = panelSpacersAttributes;
 
 	}
-	
-	public void setPropVisibleAttributes(
-			List<String> disPropVisibleAttributes) {
+
+	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
 		this.propVisibleAttributes = disPropVisibleAttributes;
 	}
 
-	public void setPropEditableAttributes(
-			List<String> disPropEditableAttributes) {
+	public void setPropEditableAttributes(List<String> disPropEditableAttributes) {
 		this.propEditableAttributes = disPropEditableAttributes;
 	}
 
-	public void setPanelVisibleAttributes(
-			List<String> disPanelVisibleAttributes) {
+	public void setPanelVisibleAttributes(List<String> disPanelVisibleAttributes) {
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
 	}
 
-	public void setPanelSpacersAttributes(
-			List<String> disPanelSpacersAttributes) {
+	public void setPanelSpacersAttributes(List<String> disPanelSpacersAttributes) {
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 	}
 
@@ -154,7 +154,7 @@ public class AbstractSemanticElement implements Serializable, IntSemanticElement
 	public void addPanelSpacersAttribute(String spacerAttribute) {
 		panelSpacersAttributes.add(spacerAttribute);
 	}
-	
+
 	public Set<String> getSemanticAttributesNames() {
 		Set<String> properties = new HashSet<String>();
 		properties.addAll(getDeclaredSemanticAttributes());
@@ -162,17 +162,21 @@ public class AbstractSemanticElement implements Serializable, IntSemanticElement
 			properties.addAll(parent.getSemanticAttributesNames());
 		return properties;
 	}
-	
-	public Map<String,AbstractAttribute> getSemanticAttributes() {
+
+	public Map<String, AbstractAttribute> getSemanticAttributes() {
+
+		Map<String, AbstractAttribute> abstractAttributes= new HashMap<String, AbstractAttribute>();
+		abstractAttributes.putAll(semanticAttributes);
+		if (parent != null)
+			abstractAttributes.putAll(parent.getSemanticAttributes());
 		return semanticAttributes;
 	}
+
 	public Set<String> getDeclaredSemanticAttributes() {
 		Set<String> abstractAttributesNames = new HashSet<String>();
 		abstractAttributesNames.addAll(semanticAttributes.keySet());
 		return abstractAttributesNames;
 	}
-
-
 
 	public AbstractAttribute getSemanticAttribute(String name) {
 		AbstractAttribute semAtt = semanticAttributes.get(name);
@@ -203,6 +207,7 @@ public class AbstractSemanticElement implements Serializable, IntSemanticElement
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+
 	public String getIdentifier() {
 		return identifier;
 	}

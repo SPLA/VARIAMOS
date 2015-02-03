@@ -335,7 +335,7 @@ public class SemanticPlusSyntax {
 		semanticConcepts.put("Asset", semAsset);
 
 		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
-				semGeneralElement, "Claim", true);
+				semGeneralElement, "Claim", true, null);
 		semanticConcepts.put("CL", semClaim);
 		semClaim.putSemanticAttribute(
 				"Operationalizations",
@@ -372,7 +372,7 @@ public class SemanticPlusSyntax {
 		semClaim.addPanelSpacersAttribute("#" + "Operationalizations" + "#\n#");
 
 		SoftSemanticConceptSatisficing semSoftDependency = new SoftSemanticConceptSatisficing(
-				semGeneralElement, "SoftDependency", false);
+				semGeneralElement, "SoftDependency", false, null);
 		semanticConcepts.put("SD", semSoftDependency);
 
 		semSoftDependency.putSemanticAttribute("CompExp",
@@ -501,7 +501,7 @@ public class SemanticPlusSyntax {
 		requires_conflictsGroupRelation.add(GroupRelationType.conflict);
 
 		SemanticOverTwoRelation semanticHardHardGroupRelation = new SemanticOverTwoRelation(
-				"HardHardOverTwoRel", false, null, null);
+				"HardHardOverTwoRel", false, null);
 		semanticConcepts.put("HardHardOverTwoRel",
 				semanticHardHardGroupRelation);
 
@@ -531,7 +531,7 @@ public class SemanticPlusSyntax {
 		// Feature to Feature
 
 		SemanticOverTwoRelation semanticFeatureFeatureGroupRelation = new SemanticOverTwoRelation(
-				"FeatureFeatureGroupRel", false, null, null);
+				"FeatureFeatureGroupRel", false, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semFeature);
@@ -547,7 +547,7 @@ public class SemanticPlusSyntax {
 		// Goal to Goal
 
 		SemanticOverTwoRelation semanticGoalGoalGroupRelation = new SemanticOverTwoRelation(
-				"GoalGoalOverTwoRel", false, null, null);
+				"GoalGoalOverTwoRel", false, null);
 		semanticVertexs.add(semGoal);
 
 		SemanticPairwiseRelation directGoalGoalSemanticEdge = new SemanticPairwiseRelation(
@@ -559,7 +559,7 @@ public class SemanticPlusSyntax {
 
 		// Oper to Goal and Oper
 		SemanticOverTwoRelation semanticOperGoalGroupRelation = new SemanticOverTwoRelation(
-				"OperGoalOverTwoRel", false, null, null);
+				"OperGoalOverTwoRel", false, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);
@@ -575,7 +575,7 @@ public class SemanticPlusSyntax {
 
 		// Oper to Oper
 		SemanticOverTwoRelation semanticOperOperGroupRelation = new SemanticOverTwoRelation(
-				"OperOperOverTwoRel", false, null, null);
+				"OperOperOverTwoRel", false, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);
@@ -589,7 +589,7 @@ public class SemanticPlusSyntax {
 
 		// SG to SG
 		SemanticOverTwoRelation semanticSGSGGroupRelation = new SemanticOverTwoRelation(
-				"SGSGGroupRel", false, null, null);
+				"SGSGGroupRel", false, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semSoftgoal);
@@ -623,7 +623,7 @@ public class SemanticPlusSyntax {
 
 		// Oper to Claim
 		SemanticOverTwoRelation semanticOperClaimGroupRelation = new SemanticOverTwoRelation(
-				"OperClaimGroupRel", true, null, null);
+				"OperClaimGroupRel", true, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semClaim);
@@ -698,7 +698,7 @@ public class SemanticPlusSyntax {
 
 		// Asset to Oper
 		SemanticOverTwoRelation semanticAssetOperGroupRelation = new SemanticOverTwoRelation(
-				"AssetOperGroupRel", false, null, null);
+				"AssetOperGroupRel", false, null);
 
 		semanticVertexs = new ArrayList<AbstractSemanticVertex>();
 		semanticVertexs.add(semOperationalization);

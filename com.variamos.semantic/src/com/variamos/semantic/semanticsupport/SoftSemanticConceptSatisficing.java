@@ -1,5 +1,9 @@
 package com.variamos.semantic.semanticsupport;
 
+import java.util.List;
+
+import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
+
 /**
  * A class to represent concepts for Soft concepts satisficing. Part of PhD work
  * at University of Paris 1
@@ -9,7 +13,7 @@ package com.variamos.semantic.semanticsupport;
  * @version 1.1
  * @since 2014-11-23
  */
-public class SoftSemanticConceptSatisficing extends AbstractSemanticVertex {
+public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 
 	/**
 	 * 
@@ -19,16 +23,18 @@ public class SoftSemanticConceptSatisficing extends AbstractSemanticVertex {
 
 	public SoftSemanticConceptSatisficing(
 			AbstractSemanticVertex semanticConcept, String name,
-			boolean condExpression) {
-		super(semanticConcept, name, false);
-		if (condExpression)
-			conditionalExpression = new ConditionalExpression();
+			boolean exclusive, List<IntSemanticRelationType> semanticRelationTypes) {
+		super(semanticConcept, name, exclusive, semanticRelationTypes, true);
+	//	if (condExpression)
+	//		conditionalExpression = new ConditionalExpression();
+		//addPanelSpacersAttribute("#" + this.VAR_RELATIONTYPE_IDEN + "#\n\n");
 	}
 
-	public SoftSemanticConceptSatisficing(String name, boolean condExpression) {
-		super(name, false);
-		if (condExpression)
-			conditionalExpression = new ConditionalExpression();
+	public SoftSemanticConceptSatisficing(String name, boolean exclusive,
+			List<IntSemanticRelationType> semanticRelationTypes) {
+		super(name, exclusive, semanticRelationTypes, true);
+	//	if (condExpression)
+	//		conditionalExpression = new ConditionalExpression();
 	}
 
 	public String toString() {

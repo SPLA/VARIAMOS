@@ -1,5 +1,6 @@
 package com.variamos.semantic.semanticsupport;
 
+import com.variamos.hlcl.RangeDomain;
 import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;
 import com.variamos.syntax.metamodelsupport.SemanticAttribute;
@@ -22,9 +23,9 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 	private static final long serialVersionUID = 2755844763829079610L;
 	public static final String VAR_SATISFICINGTYPE = "satisficingType",
 			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
-			VAR_LEVELTYPE = "level",
-			VAR_LEVELTYPENAME = "Satisficing Level",
-			VAR_LEVELTYPECLASS = LevelType.class.getCanonicalName();
+			VAR_CONFREQLEVELTYPE = "ConfigReqLevel",
+			VAR_CONFREQLEVELTYPENAME = "Satisficing Level",
+			VAR_CONFREQLEVELTYPECLASS = LevelType.class.getCanonicalName();
 
 	public SoftSemanticConcept() {
 		super();
@@ -45,16 +46,17 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 	private void defineSemanticAttributes()
 	{
 		putSemanticAttribute(VAR_SATISFICINGTYPE, new SemanticAttribute(
-				VAR_SATISFICINGTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
+				VAR_SATISFICINGTYPE, "Enumeration", false, VAR_CONFREQLEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
 				"achieve", ""));
-		putSemanticAttribute(VAR_LEVELTYPE, new SemanticAttribute(
-				VAR_LEVELTYPE, "Enumeration", false, VAR_LEVELTYPENAME, VAR_LEVELTYPECLASS, "", ""));
+		putSemanticAttribute(VAR_CONFREQLEVELTYPE, new SemanticAttribute(
+				VAR_CONFREQLEVELTYPE, "Integer", false, VAR_CONFREQLEVELTYPENAME, 0, new RangeDomain(0, 5)));
 
 		this.addPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
-	//	this.addDisPropEditableAttribute("15#" + VAR_LEVELTYPE);
+		this.addPropEditableAttribute("05#" + VAR_CONFREQLEVELTYPE
+				+ "#" + "Required" + "#==#" + "true" + "#" + "0");
 		
 		this.addPropVisibleAttribute("10#" + VAR_SATISFICINGTYPE);
-	//	this.addDisPropVisibleAttribute("15#" + VAR_LEVELTYPE);
+		this.addPropVisibleAttribute("05#" + VAR_CONFREQLEVELTYPE);
 
 	}
 

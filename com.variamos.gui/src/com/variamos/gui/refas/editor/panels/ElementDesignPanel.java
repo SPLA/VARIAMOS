@@ -271,7 +271,8 @@ public class ElementDesignPanel extends JPanel {
 								.getEditableVariables();
 
 						if (!editables.contains(v)
-								|| editor.getPerspective() == 4)
+								//|| editor.getPerspective() == 4
+								)
 
 						{
 							w.getEditor().setEnabled(false);

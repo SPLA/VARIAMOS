@@ -15,8 +15,8 @@ import com.variamos.syntax.semanticinterface.IntSemanticConcept;
  * @version 1.1
  * @since 2014-11-23
  */
-public abstract class AbstractSemanticVertex extends AbstractSemanticElement implements
-		IntSemanticConcept {
+public abstract class AbstractSemanticVertex extends AbstractSemanticElement
+		implements IntSemanticConcept {
 
 	/**
 	 * 
@@ -36,28 +36,34 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
 	}
-	
+
 	public AbstractSemanticVertex(String identifier) {
 		super(identifier);
 		createModelingAttributes();
 	}
-	
-	
-	public AbstractSemanticVertex(AbstractSemanticElement parentConcept, String identifier) {
+
+	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
+			String identifier) {
 		super(parentConcept, identifier);
+		if (getParent() != null) {
+			directRelations.addAll(parentConcept.getDirectRelations());
+		} else {
+			directRelations = new ArrayList<SemanticPairwiseRelation>();
+		}
 		createModelingAttributes();
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
 			String identifier, boolean satisfactionType) {
-		this(parentConcept, identifier, satisfactionType, new ArrayList<String>(),
+		this(parentConcept, identifier, satisfactionType,
 				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>());
+				new ArrayList<String>(), new ArrayList<String>());
 		if (getParent() != null) {
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
-		}	}
+		}
+	}
 
 	public AbstractSemanticVertex(String name, boolean satisfactionType) {
 		this(null, name, satisfactionType, new ArrayList<String>(),
@@ -66,7 +72,7 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 	}
 
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
-			String identifier, boolean satisfactionType,
+			String identifier, boolean booleanSatisfaction,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
@@ -74,25 +80,22 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		super(parentConcept, identifier, disPropVisibleAttributes,
 				disPropEditableAttributes, disPanelVisibleAttributes,
 				disPanelSpacersAttributes);
-		this.booleanSatisfaction = satisfactionType;
+		this.booleanSatisfaction = booleanSatisfaction;
 		if (getParent() != null) {
 			directRelations.addAll(parentConcept.getDirectRelations());
 		} else {
 			directRelations = new ArrayList<SemanticPairwiseRelation>();
 		}
-		 createModelingAttributes();
+		createModelingAttributes();
 	}
 
-	private void createModelingAttributes()
-	{
-		putSemanticAttribute("Selected",
-				new SimulationStateAttribute("Selected", "Boolean", false,
-						"***Selected***", false));
-		putSemanticAttribute("NotAvailable",
-				new SimulationStateAttribute("NotAvailable", "Boolean", false,
-						"***Not Avaliable***", false));
+	private void createModelingAttributes() {
+		putSemanticAttribute("Selected", new SimulationStateAttribute(
+				"Selected", "Boolean", false, "***Selected***", false));
+		putSemanticAttribute("NotAvailable", new SimulationStateAttribute(
+				"NotAvailable", "Boolean", false, "***Not Avaliable***", false));
 	}
-	
+
 	public boolean isBooleanSatisfaction() {
 		return booleanSatisfaction;
 	}
@@ -101,7 +104,8 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement imp
 		this.booleanSatisfaction = booleanSatisfaction;
 	}
 
-	public void setDirectRelations(List<SemanticPairwiseRelation> directRelations) {
+	public void setDirectRelations(
+			List<SemanticPairwiseRelation> directRelations) {
 		this.directRelations = directRelations;
 	}
 

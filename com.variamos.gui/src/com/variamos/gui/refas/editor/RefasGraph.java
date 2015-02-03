@@ -88,12 +88,12 @@ public class RefasGraph extends AbstractGraph {
 		this.modelViewSubIndex = modelSubView;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective) {
+	public RefasGraph(int perspective) {
 		init();
 		this.perspective = perspective;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective,
+	public RefasGraph(int perspective,
 			RefasModel refasModel) {
 		init();		
 		this.perspective = perspective;
