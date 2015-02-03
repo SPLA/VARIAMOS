@@ -149,166 +149,174 @@ public class ElementDesignPanel extends JPanel {
 				Collection<InstAttribute> visible = editElm
 						.getVisibleVariables();
 				if (visible != null)
-				for (InstAttribute v : visible) {
-					if (v != null
-							&& (v.getAttribute() instanceof ModelingAttribute || v
-									.getAttribute() instanceof SemanticAttribute)) {
-						Map<String, MetaElement> mapElements = null;
-						if (editElm instanceof InstPairwiseRelation) {
-							InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
-							mapElements = ((RefasModel) editor.getEditedModel())
-									.getSyntaxRefas()
-									.getValidPairwiseRelations(
-											instPairwise
-													.getSourceRelations()
-													.get(0)
-													.getTransSupportMetaElement(),
-											instPairwise
-													.getTargetRelations()
-													.get(0)
-													.getTransSupportMetaElement(),
-											true);
-						}
-						v.updateValidationList(((InstElement) editElm),
-								mapElements);
-
-						final WidgetR w = factory.getWidgetFor(v);
-
-						if (w == null) {
-							System.err.print("No Widget found for " + v);
-							return;
-						}
-						// TODO: Add listeners to w.
-
-						w.getEditor().addFocusListener(new FocusListener() {
-							@Override
-							public void focusLost(FocusEvent arg0) {
-								// Makes it pull the values.
-								EditableElementAttribute elementAttribute = w
-										.getInstAttribute();
-								if (elementAttribute.getAttributeType().equals(
-										"String")
-										&& !elementAttribute.getIdentifier()
-												.equals("Description"))
-									elementAttribute.setValue(AbstractElement.multiLine(
-											elementAttribute.toString(), 15));
-								// Divide lines every 15 characters (aprox.)
-								onVariableEdited(finalEditor,
-										finalInstCell.getInstElement(),
-										elementAttribute);
+					for (InstAttribute v : visible) {
+						if (v != null
+								&& (v.getAttribute() instanceof ModelingAttribute || v
+										.getAttribute() instanceof SemanticAttribute)) {
+							Map<String, MetaElement> mapElements = null;
+							if (editElm instanceof InstPairwiseRelation) {
+								InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
+								mapElements = ((RefasModel) editor
+										.getEditedModel())
+										.getSyntaxRefas()
+										.getValidPairwiseRelations(
+												instPairwise
+														.getSourceRelations()
+														.get(0)
+														.getTransSupportMetaElement(),
+												instPairwise
+														.getTargetRelations()
+														.get(0)
+														.getTransSupportMetaElement(),
+												true);
 							}
+							v.updateValidationList(((InstElement) editElm),
+									mapElements);
 
-							@Override
-							public void focusGained(FocusEvent arg0) {
+							final WidgetR w = factory.getWidgetFor(v);
+
+							if (w == null) {
+								System.err.print("No Widget found for " + v);
+								return;
 							}
-						});
+							// TODO: Add listeners to w.
 
-						w.getEditor().addPropertyChangeListener(
-								new PropertyChangeListener() {
+							w.getEditor().addFocusListener(new FocusListener() {
+								@Override
+								public void focusLost(FocusEvent arg0) {
+									// Makes it pull the values.
+									EditableElementAttribute elementAttribute = w
+											.getInstAttribute();
+									if (elementAttribute.getAttributeType()
+											.equals("String")
+											&& !elementAttribute
+													.getIdentifier().equals(
+															"Description"))
+										elementAttribute.setValue(AbstractElement
+												.multiLine(elementAttribute
+														.toString(), 15));
+									// Divide lines every 15 characters (aprox.)
+									onVariableEdited(finalEditor,
+											finalInstCell.getInstElement(),
+											elementAttribute);
+								}
 
-									@Override
-									public void propertyChange(
-											PropertyChangeEvent evt) {
-										if (WidgetPL.PROPERTY_VALUE.equals(evt
-												.getPropertyName())) {
-											w.getInstAttribute();
-											onVariableEdited(finalEditor,
-													finalInstCell
-															.getInstElement(),
-													w.getInstAttribute());
+								@Override
+								public void focusGained(FocusEvent arg0) {
+								}
+							});
 
-											editorProperties(finalEditor,
-													finalInstCell);
+							w.getEditor().addPropertyChangeListener(
+									new PropertyChangeListener() {
+
+										@Override
+										public void propertyChange(
+												PropertyChangeEvent evt) {
+											if (WidgetPL.PROPERTY_VALUE
+													.equals(evt
+															.getPropertyName())) {
+												w.getInstAttribute();
+												onVariableEdited(
+														finalEditor,
+														finalInstCell
+																.getInstElement(),
+														w.getInstAttribute());
+
+												editorProperties(finalEditor,
+														finalInstCell);
+											}
 										}
-									}
-								});
-						if (w.getEditor() instanceof JCheckBox)
-							((JCheckBox) w.getEditor())
-									.addActionListener(new ActionListener() {
+									});
+							if (w.getEditor() instanceof JCheckBox)
+								((JCheckBox) w.getEditor())
+										.addActionListener(new ActionListener() {
+											public void actionPerformed(
+													ActionEvent e) {
+												finalEditor
+														.clearNotificationBar();
+												// finalEditor.identifyCoreConcepts();
+												// finalEditor.executeSimulation(true,
+												// Refas2Hlcl.DESIGN_EXEC);
+												new Thread() {
+													public void run() {
+														editorProperties(
+																finalEditor,
+																finalInstCell);
+													}
+												}.start();
+											}
+										});
+							/*
+							 * if (w.getEditor() instanceof JComboBox)
+							 * ((JComboBox) w.getEditor()) .addItemListener(new
+							 * ItemListener() {
+							 * 
+							 * @Override public void itemStateChanged(ItemEvent
+							 * e) { finalEditor.cleanNotificationBar(); //
+							 * finalEditor.identifyCoreConcepts(); //
+							 * finalEditor.executeSimulation(true, //
+							 * Refas2Hlcl.DESIGN_EXEC); new Thread() { public
+							 * void run() { editorProperties( finalEditor,
+							 * finalElm); } }.start(); }
+							 * 
+							 * });
+							 */
+							if (w instanceof MClassWidget
+									|| w instanceof MEnumerationWidget) {
+								w.getEditor().setPreferredSize(
+										new Dimension(200, 100));
+							} else {
+								w.getEditor().setPreferredSize(
+										new Dimension(200, 20));
+								w.getEditor().setMaximumSize(
+										new Dimension(200, 20));
+							}
+							if (w.editVariable(v))
+								count = 0;
+
+							List<InstAttribute> editables = editElm
+									.getEditableVariables();
+
+							if (!editables.contains(v)
+									|| editor.getPerspective() == 4)
+
+							{
+								w.getEditor().setEnabled(false);
+
+							}
+
+							// GARA
+							// variablesPanel.add(new JLabel(v.getName() +
+							// ":: "));
+							{
+
+								elementDesPropSubPanel.add(new JLabel(v
+										.getDisplayName() + ": "));
+								elementDesPropSubPanel.add(w);
+
+								if (v.isAffectProperties()
+										&& editor.getPerspective() != 4
+										&& !(w.getEditor() instanceof JCheckBox)) {
+									JButton button = new JButton("Validate");
+									button.addActionListener(new ActionListener() {
 										public void actionPerformed(
 												ActionEvent e) {
 											finalEditor.clearNotificationBar();
-											// finalEditor.identifyCoreConcepts();
-											// finalEditor.executeSimulation(true,
-											// Refas2Hlcl.DESIGN_EXEC);
-											new Thread() {
-												public void run() {
-													editorProperties(
-															finalEditor,
-															finalInstCell);
-												}
-											}.start();
+											editorProperties(finalEditor,
+													finalInstCell);
 										}
 									});
-						/*
-						 * if (w.getEditor() instanceof JComboBox) ((JComboBox)
-						 * w.getEditor()) .addItemListener(new ItemListener() {
-						 * 
-						 * @Override public void itemStateChanged(ItemEvent e) {
-						 * finalEditor.cleanNotificationBar(); //
-						 * finalEditor.identifyCoreConcepts(); //
-						 * finalEditor.executeSimulation(true, //
-						 * Refas2Hlcl.DESIGN_EXEC); new Thread() { public void
-						 * run() { editorProperties( finalEditor, finalElm); }
-						 * }.start(); }
-						 * 
-						 * });
-						 */
-						if (w instanceof MClassWidget
-								|| w instanceof MEnumerationWidget) {
-							w.getEditor().setPreferredSize(
-									new Dimension(200, 100));
-						} else {
-							w.getEditor().setPreferredSize(
-									new Dimension(200, 20));
-							w.getEditor()
-									.setMaximumSize(new Dimension(200, 20));
-						}
-						if (w.editVariable(v))
-							count = 0;
+									elementDesPropSubPanel.add(button);
+								} else
 
-						List<InstAttribute> editables = editElm
-								.getEditableVariables();
+									elementDesPropSubPanel.add(new JPanel());
 
-						if (!editables.contains(v)
-								//|| editor.getPerspective() == 4
-								)
+								designPanelElements++;
 
-						{
-							w.getEditor().setEnabled(false);
+							}
 
 						}
-
-						// GARA
-						// variablesPanel.add(new JLabel(v.getName() + ":: "));
-						{
-
-							elementDesPropSubPanel.add(new JLabel(v
-									.getDisplayName() + ": "));
-							elementDesPropSubPanel.add(w);
-
-							if (v.isAffectProperties()
-									&& editor.getPerspective() != 4
-									&& !(w.getEditor() instanceof JCheckBox)) {
-								JButton button = new JButton("Validate");
-								button.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										finalEditor.clearNotificationBar();
-										editorProperties(finalEditor,
-												finalInstCell);
-									}
-								});
-								elementDesPropSubPanel.add(button);
-							} else
-
-								elementDesPropSubPanel.add(new JPanel());
-
-							designPanelElements++;
-
-						}
-
 					}
-				}
 				count++;
 			}
 			// variablesPanel.setPreferredSize(new Dimension(250, 25 *
