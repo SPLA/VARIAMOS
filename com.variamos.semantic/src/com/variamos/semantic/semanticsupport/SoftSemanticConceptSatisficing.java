@@ -21,6 +21,10 @@ public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 	private static final long serialVersionUID = 134266317319543125L;
 	private ConditionalExpression conditionalExpression;
 
+	public SoftSemanticConceptSatisficing() {
+		super();
+	}
+	
 	public SoftSemanticConceptSatisficing(
 			AbstractSemanticVertex semanticConcept, String name,
 			boolean exclusive, List<IntSemanticRelationType> semanticRelationTypes) {

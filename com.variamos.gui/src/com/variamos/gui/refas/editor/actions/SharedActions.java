@@ -182,42 +182,55 @@ public class SharedActions {
 		additionAttributes = false;
 		if (graph instanceof RefasGraph) {
 			Object o = refasGraph.getRoot(); // Main Root
-			Object o1 = refasGraph.getChildAt(o, 0); // Null Root
-			for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
+			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0);
+			Object[] all0Cells = getSortedCells(graph, o1);
+			for (Object any0Cell : all0Cells) {
 				// Root model view mvInd
-				mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
+				mxCell mv0 = (mxCell) any0Cell;
 
-				// First vertices and after edges
-				Object[] allCells = getSortedCells(graph, mv0);
+				if (refasGraph.getChildCount(mv0) > 0) {
+					// First vertices and after edges
+					Object[] all1Cells = getSortedCells(graph, mv0);
 
-				for (Object anyCell : allCells) {
-					// for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
-					// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
-					mxCell mv1 = (mxCell) anyCell;
-					if (refasGraph.getChildCount(mv1) > 0
-					// && mv0.getChildAt(0).getValue()
-					// .equals(mv0.getValue())
-					) {
-						Object[] all2Cells = getSortedCells(graph, mv1);
-						for (Object any2Cell : all2Cells) {
-							mxCell mv2 = (mxCell) any2Cell;
+					for (Object any1Cell : all1Cells) {
+						// for (int i = 0; i < refasGraph.getChildCount(mv0);
+						// i++) {
+						// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+						mxCell mv1 = (mxCell) any1Cell;
+						if (refasGraph.getChildCount(mv1) > 0
+						// && mv0.getChildAt(0).getValue()
+						// .equals(mv0.getValue())
+						) {
+							Object[] all2Cells = getSortedCells(graph, mv1);
+							for (Object any2Cell : all2Cells) {
+								mxCell mv2 = (mxCell) any2Cell;
+								try {
+									loadSupportObjects(editor, mv2.getValue(),
+											mv2, graph);
+								} catch (Exception e) {
+									e.printStackTrace();
+									System.err.println(mv2.getValue()
+											.toString());
+								}
+							}
+						} else
 							try {
-								loadSupportObjects(editor, mv2.getValue(), mv2,
+								loadSupportObjects(editor, mv1.getValue(), mv1,
 										graph);
 							} catch (Exception e) {
 								e.printStackTrace();
-								System.err.println(mv2.getValue().toString());
+								System.err.println(mv1.getValue().toString());
 							}
-						}
-					} else
-						try {
-							loadSupportObjects(editor, mv1.getValue(), mv1,
-									graph);
-						} catch (Exception e) {
-							e.printStackTrace();
-							System.err.println(mv1.getValue().toString());
-						}
+					}
 				}
+				else
+					try {
+						loadSupportObjects(editor, mv0.getValue(), mv0,
+								graph);
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.err.println(mv0.getValue().toString());
+					}
 			}
 			((RefasGraph) graph).setValidation(true);
 		}
@@ -460,8 +473,8 @@ public class SharedActions {
 		if (instElement instanceof InstPairwiseRelation) {
 			try {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
-			//	instPairwiseRelation
-			//			.createAttributes(new HashMap<String, InstAttribute>());
+				// instPairwiseRelation
+				// .createAttributes(new HashMap<String, InstAttribute>());
 				InstVertex sourceVertex = (InstVertex) ((InstCell) source
 						.getSource().getValue()).getInstElement();
 				InstVertex targetVertex = (InstVertex) ((InstCell) source

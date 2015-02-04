@@ -45,6 +45,13 @@ public class InstView extends InstElement {
 		createInstAttributes();
 		copyValuesToInstAttributes();
 	}
+	
+	public InstView()
+	{
+		super("");
+		instVertices = new ArrayList<InstVertex>();
+		childViews = new ArrayList<InstView>();
+	}
 
 	public InstView(MetaConcept metaConcept) {
 		super("");
