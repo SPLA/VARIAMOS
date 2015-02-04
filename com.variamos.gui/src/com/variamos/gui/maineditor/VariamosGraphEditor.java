@@ -283,11 +283,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
 		super(frame, "", component, perspective);
+		
+		//Default defects validation
 		defects.add("Root");
 		defects.add("Parent");
 		defects.add("FalseOpt");
 		defects.add("Dead");
 		defects.add("Core");
+		
 		refasModel = (RefasModel) abstractModel;
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
@@ -359,6 +362,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						// System.out.println("Tab: "
 						// + modelsTabPane.getTitleAt(modelsTabPane
 						// .getSelectedIndex()));
+						
+						//TODO change to RefasModel
 						List<MetaView> metaViews = sematicSyntaxObject
 								.getMetaViews();
 						VariamosGraphEditor editor = getEditor();
