@@ -5,11 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.variamos.defectAnalyzer.model.CauCos;
-import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
-import com.variamos.defectAnalyzer.model.ClassifiedElement;
-import com.variamos.defectAnalyzer.model.Diagnosis;
+import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
+import com.variamos.defectAnalyzer.diagnostic.DefectsByMCSMUSes;
+import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
+import com.variamos.defectAnalyzer.model.Dependency;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.defectAnalyzer.util.SetUtil;
@@ -18,57 +17,55 @@ public class VariabilityModelCausesCorrectionsSorter {
 
 	public VariabilityModelCausesCorrectionsSorter() {
 		super();
-
+		
 	}
 
-	public ClassifiedElement classifyDiagnosis(List<Diagnosis> allDiagnoses,
+	public ClassifiedDiagnosis classifyDiagnosis(
+			List<Diagnostic> allDiagnostics,
 			ClassificationType classsificationType) {
 
 		// Almacena la colección completa de todos los MUSes o de todos los
 		// MCSes según el parámetro de entrada
-		List<CauCos> cauCosAllElements = new ArrayList<CauCos>();
-		Set<CauCos> caucosAllElementsSet = new HashSet<CauCos>();
-		List<ClassifiableDiagnosis> commonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
-		List<ClassifiableDiagnosis> noCommonDiagnosis = new ArrayList<ClassifiableDiagnosis>();
+		List<List<Dependency>> collectionALLDiagnosisElements = new ArrayList<List<Dependency>>();
+		Set<List<Dependency>> collectionALLDiagnosisElementsSet = new HashSet<List<Dependency>>();
+		List<DefectsByMCSMUSes> commonDiagnosis = new ArrayList<DefectsByMCSMUSes>();
+		List<DefectsByMCSMUSes> noCommonDiagnosis = new ArrayList<DefectsByMCSMUSes>();
+		
 
-		// Se obtiene la colección de todos las causas o correcciones
+		// Se obtiene la colección de todos los MUSES o de todas las causas
 		// según el classificationType
-		for (Diagnosis diagnosis : allDiagnoses) {
+		for (Diagnostic diagnosticElement : allDiagnostics) {
 			if (classsificationType.equals(ClassificationType.CAUSES)) {
-				cauCosAllElements.addAll(diagnosis.getCauses());
+				collectionALLDiagnosisElements.addAll(diagnosticElement
+						.getCauses());
 			} else if (classsificationType
 					.equals(ClassificationType.CORRECTIONS)) {
-				cauCosAllElements.addAll(diagnosis.getCorrections());
+				collectionALLDiagnosisElements.addAll(diagnosticElement
+						.getCorrectionSubsets());
 			}
 
 		}
 
-		// Se pasa a Set para eliminar repetidos
-		for (CauCos cauCos : cauCosAllElements) {
-			caucosAllElementsSet.add(cauCos);
-		}
-		int setSize=caucosAllElementsSet.size();
-		// Se eliminan los repetidos que tenían orden distinto y no eran
-		// detectados por el equals de la clase CauCos
-		List<List<BooleanExpression>> cauCosExpressionsList = new ArrayList<List<BooleanExpression>>();
-		for (CauCos cauCos : caucosAllElementsSet) {
-			cauCosExpressionsList.add(cauCos.getElements());
-		}
 		
-	
-		SetUtil.maintainNoSupersets(cauCosExpressionsList);
-		//FIXME terminar el filtro para que no tenga valores repetidos
+		//Se pasa a Set para eliminar repetidos
+		for(List<Dependency> listDependency:collectionALLDiagnosisElements){
+			collectionALLDiagnosisElementsSet.add(listDependency);
+		}
 
+		// Se eliminan los repetidos que tenían orden distinto y no eran detectados por el equals de la clase Dependency
+		collectionALLDiagnosisElements.clear();
+		collectionALLDiagnosisElements.addAll(SetUtil.maintainNoEqualsSets(collectionALLDiagnosisElementsSet));
+		
 		// Se recorre la unión anteriormente obtenida ( es una causa una
 		// correción)
-		long id = 1;
-		for (CauCos cauCos : cauCosAllElements) {
+		long id=1;
+		for (List<Dependency> set : collectionALLDiagnosisElements) {
 
-			List<Defect> defects = searchDiagnosisByDefects(allDiagnoses,
-					cauCos, classsificationType);
-			ClassifiableDiagnosis defectsByMCSMUSes = new ClassifiableDiagnosis(
-					cauCos, id, defects);
-			if (defects != null && defects.size() > 1) {
+			List<Defect> defects = searchDiagnosisOnDefects(allDiagnostics,
+					set, classsificationType);
+			DefectsByMCSMUSes defectsByMCSMUSes = new DefectsByMCSMUSes(set,id,
+					defects);
+			if (defects != null && defects.size()>1) {
 				commonDiagnosis.add(defectsByMCSMUSes);
 			} else {
 				noCommonDiagnosis.add(defectsByMCSMUSes);
@@ -77,7 +74,7 @@ public class VariabilityModelCausesCorrectionsSorter {
 		}
 
 		// Se construye el elemento clasificado a retornar
-		ClassifiedElement classifiedDiagnosis = new ClassifiedElement(
+		ClassifiedDiagnosis classifiedDiagnosis = new ClassifiedDiagnosis(
 				commonDiagnosis, noCommonDiagnosis);
 
 		return classifiedDiagnosis;
@@ -87,32 +84,32 @@ public class VariabilityModelCausesCorrectionsSorter {
 	 * Busca los defectos para los que se encuentra ese MCS igual
 	 * 
 	 * @param defectsList
-	 * @param cauCos
+	 * @param MCS
 	 * @return
 	 */
-	private List<Defect> searchDiagnosisByDefects(List<Diagnosis> allDiagnoses,
-			CauCos cauCos, ClassificationType classsificationType) {
+	private List<Defect> searchDiagnosisOnDefects(
+			List<Diagnostic> allDiagnostics, List<Dependency> MCS,
+			ClassificationType classsificationType) {
 
-		// Lista de defectos en los que se encuentra la causa o corrección
+		// Lista de defectos en los que se encuentra el MCS
 		List<Defect> defects = new ArrayList<Defect>();
-		for (Diagnosis diagnosis : allDiagnoses) {
+		for (Diagnostic diagnostic : allDiagnostics) {
 
 			if (classsificationType.equals(ClassificationType.CAUSES)) {
 				// Se verifica si en la colección de causas de este diagnostico
-				// esta la causa o correccion a revisar
-				List<CauCos> causes = diagnosis.getCauses();
-				if (causes.contains(cauCos)) {
-					defects.add(diagnosis.getDefect());
+				// esta ese MCS
+				if (SetUtil.verifyExistSetInSetofSets(MCS,
+						diagnostic.getCauses())) {
+					defects.add(diagnostic.getDefect());
 				}
 			} else if (classsificationType
 					.equals(ClassificationType.CORRECTIONS)) {
 
-				// Se verifica si en la colección de correcciones de este
-				// diagnostico
-				// esta ese conjunto
-				List<CauCos> corrections = diagnosis.getCorrections();
-				if (corrections.contains(cauCos)) {
-					defects.add(diagnosis.getDefect());
+				// Se verifica si en la colección de causas de este diagnostico
+				// esta ese MCS
+				if (SetUtil.verifyExistSetInSetofSets(MCS,
+						diagnostic.getCorrectionSubsets())) {
+					defects.add(diagnostic.getDefect());
 
 				}
 
@@ -121,5 +118,6 @@ public class VariabilityModelCausesCorrectionsSorter {
 		}
 		return defects;
 	}
+	
 
 }

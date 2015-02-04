@@ -2,6 +2,7 @@ package com.variamos.gui.pl.configurator.treetable.actions;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
+import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 public class SetValueAction extends ChangeAction<Integer> {
 

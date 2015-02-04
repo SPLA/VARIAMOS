@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
+import com.variamos.pl.configurator.io.ConfigurationIO;
 
 
 @SuppressWarnings("serial")

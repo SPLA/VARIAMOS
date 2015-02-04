@@ -10,23 +10,24 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
+import com.cfm.productline.Asset;
 import com.cfm.productline.constraints.GroupConstraint;
 import com.mxgraph.examples.swing.GraphEditor;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.EditorPalette;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
-import com.variamos.editor.logic.ConstraintMode;
+import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.PLEditorPopupMenu;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.pl.editor.logic.ConstraintMode;
 
 /**
  * A class to support specific functions related to the meta modeling

@@ -38,41 +38,32 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
-import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.refas.RefasModel;
-import com.variamos.syntax.instancesupport.EditableElement;
-import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntax.instancesupport.InstConcept;
-import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntax.instancesupport.InstOverTwoRelation;
-import com.variamos.syntax.instancesupport.InstPairwiseRelation;
-import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntax.instancesupport.InstView;
-import com.variamos.syntax.metamodelsupport.MetaElement;
-import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntax.metamodelsupport.MetaView;
+import com.variamos.pl.editor.logic.ConstraintMode;
+import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.types.PerspectiveType;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstView;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 
 public class RefasGraph extends AbstractGraph {
 
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private RefasModel refasModel = null;
+	private Refas refas = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private SemanticPlusSyntax semanticPlusSyntax;
-	private boolean validation = true;
-	private int perspective = 2;
-
-	public boolean isValidation() {
-		return validation;
-	}
-
-	public void setValidation(boolean validation) {
-		this.validation = validation;
-	}
 
 	public int getModelViewIndex() {
 		return modelViewIndex;
@@ -90,39 +81,29 @@ public class RefasGraph extends AbstractGraph {
 		this.modelViewSubIndex = modelSubView;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective) {
+	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax) {
 		init();
 		this.semanticPlusSyntax = semanticPlusSyntax;
-		this.perspective = perspective;
 	}
 
-	public RefasGraph(SemanticPlusSyntax semanticPlusSyntax, int perspective, RefasModel refasModel) {
-		init();
-		this.semanticPlusSyntax = semanticPlusSyntax;
-		this.perspective = perspective;
-		this.refasModel = refasModel;
-	}
-	
 	public void defineInitialGraph() {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
-		@SuppressWarnings("rawtypes")
 		Collection views;
-		if (refasModel.getSyntaxRefas() == null)
+		if (refas.getSyntaxRefas() == null)
 			views = semanticPlusSyntax.getMetaViews();
 		else {
-			views = refasModel.getSyntaxRefas().getInstViews();
+			views = refas.getSyntaxRefas().getInstViews();
 			int pos = 0;
 			if (views.size() == 0) {
-				for (InstVertex instVertex : refasModel.getVertices()) {
+				for (InstVertex instVertex : refas.getVertices()) {
 					mxCell child = new mxCell(instVertex.getIdentifier());
 					addCell(child);
 					String id = instVertex.getIdentifier();
 					child.setValue(instVertex);
 					child.setVisible(true);
-					child.setStyle(instVertex.getTransSupportMetaElement()
-							.getStyle());
+					child.setStyle(instVertex.getMetaVertex().getStyle());
 					child.setGeometry(new mxGeometry(50 + pos * 3,
 							50 + pos * 3, 120, 100));
 					child.setVertex(true);
@@ -133,15 +114,14 @@ public class RefasGraph extends AbstractGraph {
 					pos++;
 
 				}
-				for (InstView instView : refasModel.getInstViews()) {
+				for (InstView instView : refas.getInstViews()) {
 					if (instView.getChildViews().size() == 0) {
 						mxCell child = new mxCell(instView.getIdentifier());
 						addCell(child);
 						String id = instView.getIdentifier();
 						child.setValue(instView);
 						child.setVisible(true);
-						child.setStyle(instView.getTransSupportMetaElement()
-								.getStyle());
+						child.setStyle(instView.getMetaView().getStyle());
 						child.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child.setVertex(true);
@@ -158,8 +138,7 @@ public class RefasGraph extends AbstractGraph {
 						String id2 = instChildView.getIdentifier();
 						child2.setValue(instChildView);
 						child2.setVisible(true);
-						child2.setStyle(instChildView
-								.getTransSupportMetaElement().getStyle());
+						child2.setStyle(instChildView.getMetaView().getStyle());
 						child2.setGeometry(new mxGeometry(50 + pos * 3,
 								50 + pos * 3, 120, 40));
 						child2.setVertex(true);
@@ -172,22 +151,24 @@ public class RefasGraph extends AbstractGraph {
 					}
 				}
 
-				for (InstPairwiseRelation instEdge : refasModel
+				for (InstPairwiseRelation instEdge : refas
 						.getConstraintInstEdgesCollection()) {
 					if (instEdge.getSourceRelations().size() != 0
 							&& instEdge.getIdentifier() != null
 							&& !instEdge.getIdentifier().equals("")) {
 						mxCell child = new mxCell(instEdge.getIdentifier());
 						addCell(child);
+						String i = instEdge.getSourceRelations().get(0)
+								.getIdentifier();
 						mxCell source = this.getCellById(instEdge
 								.getSourceRelations().get(0).getIdentifier());
 						mxCell target = this.getCellById(instEdge
 								.getTargetRelations().get(0).getIdentifier());
 						child.setStyle("");
-						MetaElement e = instEdge
-								.getTransSupportMetaElement();
-						if (e != null) {							
-							child.setStyle(e.getStyle());
+						if (instEdge.getSupportMetaElement() != null) {
+							MetaElement e = instEdge.getSupportMetaElement();
+							child.setStyle(instEdge.getSupportMetaElement()
+									.getStyle());
 						}
 
 						child.setSource(source);
@@ -213,7 +194,7 @@ public class RefasGraph extends AbstractGraph {
 		for (Object view : views) {
 			mxCell parent = new mxCell("mv" + i);
 			addCell(parent);
-			if (refasModel.getSyntaxRefas() == null) {
+			if (refas.getSyntaxRefas() == null) {
 				MetaView metaView = (MetaView) view;
 				if (metaView.getChildViews().size() > 0) {
 					addCell(new mxCell("mv" + i), parent); // Add the parent as
@@ -247,10 +228,10 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
-		if (refasModel.getSyntaxRefas() == null)
+		if (refas.getSyntaxRefas() == null)
 			return semanticPlusSyntax.modelElements(modelView, modelSubView);
 		else
-			return refasModel.getSyntaxRefas()
+			return refas.getSyntaxRefas()
 					.modelElements(modelView, modelSubView);
 	}
 
@@ -286,6 +267,8 @@ public class RefasGraph extends AbstractGraph {
 
 	public void loadStencil() {
 		// try {
+		String filename = RefasGraph.class.getResource(
+				"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
 		Document doc;
 		// System.out.println(filename);
 
@@ -330,39 +313,6 @@ public class RefasGraph extends AbstractGraph {
 		 */
 	}
 
-	@Override
-	public boolean isValidConnection(Object source, Object target) {
-		if (perspective == 4)
-			return false;
-		if (validation) {
-			if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
-				return super.isValidConnection(source, target);
-			}
-
-			mxCell s = (mxCell) source;
-			mxCell t = (mxCell) target;
-
-			if (s.isEdge() || t.isEdge())
-				return false;
-			InstElement instSource = (InstElement) s.getValue();
-			InstElement instTarget = (InstElement) t.getValue();
-
-			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-			RefasModel refas = getRefas();
-			refas.updateValidationLists(directRelation, instSource, instTarget);
-			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
-			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
-			if (pwrList.size() == 0) {
-				directRelation.clearMetaPairwiseRelation();
-				return false;
-			}
-
-			return super.isValidConnection(source, target);
-		}
-		return true;
-	}
-
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = (InstElement) cell.getSource().getValue();
 		InstElement target = (InstElement) cell.getTarget().getValue();
@@ -377,14 +327,13 @@ public class RefasGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,null);
-		RefasModel refas = getRefas();
+		InstPairwiseRelation directRelation = new InstPairwiseRelation(map);
+		Refas refas = getRefas();
 
-		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(directRelation);
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
-		refas.updateValidationLists(directRelation, source, target);
+		refas.updateValidationLists(directRelation);
 		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
@@ -392,10 +341,11 @@ public class RefasGraph extends AbstractGraph {
 		if (pwrList.size() == 0) {
 			directRelation.clearRelations();
 			directRelation.clearMetaPairwiseRelation();
-			// cell.setVisible(false); // TODO workaround to hide non allowed
-			// relations - fix delete
+			cell.setVisible(false); // TODO workaround to hide non allowed
+									// relations - fix delete
 			return false;
 		}
+		id = refas.addNewConstraintInstEdge(directRelation);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
 					modelViewIndex + "-" + modelViewSubIndex + id, cell);
@@ -408,38 +358,6 @@ public class RefasGraph extends AbstractGraph {
 		return true;
 	}
 
-	public EditableElement getEditableElement() {
-		// Move new element to the current View - clone if
-		// necessary in multiple views
-		mxGraphModel refasGraph = (mxGraphModel) getModel();
-		// Main Root
-		Object rootCell = refasGraph.getRoot();
-		// Null Root
-		Object viewsParent = refasGraph.getChildAt(rootCell, 0);
-		// Top level view /Element
-		Object topLevelView = refasGraph.getChildAt(viewsParent, 0);
-
-		if (((mxCell) topLevelView).getValue() instanceof EditableElement)
-			return (EditableElement) ((mxCell) topLevelView).getValue();
-		else {
-			// Child View/Element
-			Object secondLevelCell = refasGraph.getChildAt(topLevelView, 0);
-			if (secondLevelCell != null)
-				if (((mxCell) secondLevelCell).getValue() instanceof EditableElement)
-					return (EditableElement) ((mxCell) secondLevelCell)
-							.getValue();
-				else {
-					// Child View/Element
-					Object thirdLevelCell = refasGraph.getChildAt(topLevelView,
-							0);
-					if (thirdLevelCell != null)
-						return (EditableElement) ((mxCell) thirdLevelCell)
-								.getValue();
-				}
-			return null;
-		}
-	}
-
 	// TODO review from here for requirements
 
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
@@ -449,7 +367,7 @@ public class RefasGraph extends AbstractGraph {
 				|| cell.getValue() instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			RefasModel pl = getRefas();
+			Refas pl = getRefas();
 			Object cellValue = cell.getValue();
 			if (cell.getGeometry() != null) {
 				if (cellValue instanceof InstVertex) {
@@ -464,35 +382,32 @@ public class RefasGraph extends AbstractGraph {
 						id = pl.addNewOtherInstElement(element);
 					else
 						id = pl.addNewVariabilityInstElement(element);
-				} else {
+				}
+
+				else {
 					elementIdentifier = ((Constraint) cellValue)
 							.getIdentifier();
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
 						return false;
+					// id = pl.addConstraint(constraint);
 				}
+
 				if (id != null) {
 
-					// Move new element to the current View - clone if
-					// necessary in multiple views
+					// Move the element to the appropiate View - clone if
+					// necessary
+					// in multiple views
 					mxGraphModel refasGraph = (mxGraphModel) getModel();
-					// Main Root
-					Object rootCell = refasGraph.getRoot();
-					// Null Root
-					Object viewsParent = refasGraph.getChildAt(rootCell, 0);
-					// Top level view
-					Object topLevelView = null;
-					// Parent to add new element
-					Object correctParentCell = null;
+					Object o = refasGraph.getRoot(); // Main Root
+					Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+					Object mv0 = null;
 					mxGraphModel model = refasGraph;
 					model.getCells().remove(cell.getId());
 					if (modelViewSubIndex != -1) {
-						// Top Level View
-						topLevelView = refasGraph.getChildAt(viewsParent,
-								modelViewIndex);
-						// Child view
-						correctParentCell = refasGraph.getChildAt(topLevelView,
-								modelViewSubIndex);
+						o1 = refasGraph.getChildAt(o1, modelViewIndex); // Parent
+																		// View
+						mv0 = refasGraph.getChildAt(o1, modelViewSubIndex);
 
 						model.getCells().put(
 								modelViewIndex + id + "-" + modelViewSubIndex,
@@ -500,41 +415,38 @@ public class RefasGraph extends AbstractGraph {
 						cell.setId(modelViewIndex + id + "-"
 								+ modelViewSubIndex);
 					} else if (modelViewIndex != -1) {
-						// Top Level view
-						correctParentCell = refasGraph.getChildAt(viewsParent,
-								modelViewIndex);
+						mv0 = refasGraph.getChildAt(o1, modelViewIndex);
 						model.getCells().put(modelViewIndex + id, cell);
 						cell.setId(modelViewIndex + id);
 					} else {
-						// Graph without Views
-						// Add to the view Parent
-						correctParentCell = viewsParent;
+						mv0 = o1;
 						model.getCells().put(id, cell);
 						cell.setId(id);
 					}
-					// Remove from original position
-					parent.remove(index);
-					// Add to the parent according to the model
-					model.add(correctParentCell, cell, 0);
 
-					if (cellValue instanceof InstVertex) {
+					parent.remove(index); // Remove from original position
+					model.add(mv0, cell, 0); // Add to the parent according to
+												// the
+												// model
+					if (cellValue instanceof AbstractElement
+							|| cellValue instanceof InstVertex) {
 						String name = null;
-						if (cellValue instanceof InstConcept) {
-							InstConcept c = (InstConcept) cellValue;
-							name = c.getTransSupportMetaElement()
-									.getIdentifier();
+						if (cellValue instanceof AbstractElement)
+							name = cellValue.getClass().getSimpleName();
+						else {
+							if (cellValue instanceof InstConcept) {
+								InstConcept c = (InstConcept) cellValue;
+								name = c.getMetaConcept().getIdentifier();
+							}
+							if (cellValue instanceof InstOverTwoRelation) {
+								InstOverTwoRelation c = (InstOverTwoRelation) cellValue;
+								name = c.getMetaOverTwoRelation()
+										.getIdentifier();
+							}
 						}
-						if (cellValue instanceof InstOverTwoRelation) {
-							InstOverTwoRelation c = (InstOverTwoRelation) cellValue;
-							name = c.getSupportMetaOverTwoRelation()
-									.getIdentifier();
-						}
-						viewsParent = refasGraph.getChildAt(rootCell, 0); // Null
-																			// Root
-						for (int i = 0; i < refasGraph
-								.getChildCount(viewsParent); i++) {
-							mxCell mv1 = (mxCell) refasGraph.getChildAt(
-									viewsParent, i);
+						o1 = refasGraph.getChildAt(o, 0); // Null Root
+						for (int i = 0; i < refasGraph.getChildCount(o1); i++) {
+							mxCell mv1 = (mxCell) refasGraph.getChildAt(o1, i);
 							if (refasGraph.getChildCount(mv1) > 0
 									&& mv1.getValue().equals(
 											mv1.getChildAt(0).getValue())) {
@@ -542,11 +454,8 @@ public class RefasGraph extends AbstractGraph {
 										.getChildCount(mv1); j++) {
 									mxCell mv2 = (mxCell) refasGraph
 											.getChildAt(mv1, j);
-									if (refasModel.getSyntaxRefas()
-											.elementsValidation(name, i, j)
-									// if
-									// (semanticPlusSyntax.elementsValidation(
-									// name, i, j)
+									if (semanticPlusSyntax.elementsValidation(
+											name, i, j)
 											&& (i != modelViewIndex || j != modelViewSubIndex)) {
 
 										mxCell c2 = null;
@@ -560,9 +469,12 @@ public class RefasGraph extends AbstractGraph {
 										c2.setValue(cell.getValue());
 
 										getModel().setVisible(c2, false);
-										getModel().setVisible(c2, true);
-										model.add(mv2, c2, mv2.getChildCount());
-										// Add a clone to other models
+										model.add(mv2, c2, mv2.getChildCount()); // Add
+																					// a
+																					// clone
+																					// to
+										// other
+										// models
 									}
 
 								}
@@ -583,10 +495,13 @@ public class RefasGraph extends AbstractGraph {
 									c2.setValue(cell.getValue());
 
 									getModel().setVisible(c2, false);
-									getModel().setVisible(c2, true);
-									model.add(mv1, c2, mv1.getChildCount());
-									// Add a clone to other
+									model.add(mv1, c2, mv1.getChildCount()); // Add
+																				// a
+																				// clone
+																				// to
+																				// other
 								}
+
 							}
 						}
 					}
@@ -608,11 +523,10 @@ public class RefasGraph extends AbstractGraph {
 
 	protected void removingRefaElements(mxCell cell) {
 		Object obj = cell.getValue();
-		if (obj instanceof InstElement)
-			refasModel.removeElement((InstElement) obj);
+		refas.removeElement(obj);
 	}
 
-	protected void removingss(mxCell cell) {
+	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
 		Object o = refasGraph.getRoot(); // Main Root
@@ -642,21 +556,108 @@ public class RefasGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refasModel = (RefasModel) pl;
+		refas = (Refas) pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
 			layout.execute(getDefaultParent()); // todo change root?
 		} catch (Exception e) {
 		}
+
 	}
 
-	public RefasModel getRefas() {
-		/*if (refasModel == null) {
-			refasModel = new Refas(PerspectiveType.modeling);
-			return refasModel;
-		}*/
-		return refasModel;
+	public void showElements() {
+		mxIGraphModel refasGraph = getModel();
+
+		Object o = refasGraph.getRoot(); // Main Root
+		Object o1 = refasGraph.getChildAt(o, 0); // Null Root
+		for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
+			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // View root
+			if (refasGraph.getChildCount(mv0) > 0) {
+				mxCell child = (mxCell) refasGraph.getChildAt(mv0, 0);
+				Object[] vertices = null;
+				if (child.getValue().equals(mv0.getValue())) {
+					for (int mvSubInd = 0; mvSubInd < refasGraph
+							.getChildCount(mv0); mvSubInd++) {
+						mxCell mv00 = (mxCell) refasGraph.getChildAt(mv0,
+								mvSubInd);
+						if (refasGraph.getChildCount(mv00) > 0) {
+							vertices = mxGraphModel.getChildCells(getModel(),
+									mv00, true, false);
+
+							for (int i = 0; i < vertices.length; i++) {
+								mxCell cell = ((mxCell) vertices[i]);
+								if (modelViewIndex != mvInd
+										|| (modelViewSubIndex != -1 && modelViewSubIndex != mvSubInd)) {
+
+									getModel().setVisible(cell, false);
+									Object[] edges1 = getEdges(cell);
+									for (Object oo : edges1)
+										getModel().setVisible(oo, false);
+									this.fireEvent(new mxEventObject(
+											PL_EVT_NODE_CHANGE, "cell", cell));
+								}
+							}
+
+							for (int i = 0; i < vertices.length; i++) {
+								mxCell cell = ((mxCell) vertices[i]);
+								if (modelViewIndex == mvInd
+										&& (modelViewSubIndex == -1 || modelViewSubIndex == mvSubInd)) {
+									getModel().setVisible(cell, true);
+									Object[] edges2 = getEdges(cell);
+									for (Object oo : edges2)
+										getModel().setVisible(oo, true);
+									this.fireEvent(new mxEventObject(
+											PL_EVT_NODE_CHANGE, "cell", cell));
+								}
+							}
+						}
+
+					}
+
+				} else {
+
+					vertices = mxGraphModel.getChildCells(getModel(), mv0,
+							true, false);
+
+					for (int i = 0; i < vertices.length; i++) {
+						mxCell cell = ((mxCell) vertices[i]);
+						if (modelViewIndex != mvInd) {
+
+							getModel().setVisible(cell, false);
+							Object[] edges1 = getEdges(cell);
+							for (Object oo : edges1)
+								getModel().setVisible(oo, false);
+							this.fireEvent(new mxEventObject(
+									PL_EVT_NODE_CHANGE, "cell", cell));
+						}
+					}
+
+					for (int i = 0; i < vertices.length; i++) {
+						mxCell cell = ((mxCell) vertices[i]);
+						if (modelViewIndex == mvInd) {
+							getModel().setVisible(cell, true);
+							Object[] edges2 = getEdges(cell);
+							for (Object oo : edges2)
+								getModel().setVisible(oo, true);
+							this.fireEvent(new mxEventObject(
+									PL_EVT_NODE_CHANGE, "cell", cell));
+						}
+					}
+				}
+			}
+
+		}
+		this.refresh();
+
+	}
+
+	public Refas getRefas() {
+		if (refas == null) {
+			refas = new Refas(PerspectiveType.modeling);
+			return refas;
+		}
+		return refas;
 	}
 
 	public mxCell getCellById(String id) {
@@ -755,7 +756,7 @@ public class RefasGraph extends AbstractGraph {
 	@Override
 	public String validateCell(Object objCell, Hashtable<Object, Object> context) {
 		if (objCell instanceof mxCell) {
-		//	mxCell cell = (mxCell) objCell;
+			mxCell cell = (mxCell) objCell;
 
 			/*
 			 * if (cell.getValue() instanceof GroupGConstraint) {
@@ -779,6 +780,35 @@ public class RefasGraph extends AbstractGraph {
 			 */
 		}
 		return super.validateCell(objCell, context);
+	}
+
+	@Override
+	public boolean isValidConnection(Object source, Object target) {
+		if (!(source instanceof mxCell) || !(target instanceof mxCell)) {
+			return super.isValidConnection(source, target);
+		}
+		mxCell s = (mxCell) source;
+		mxCell t = (mxCell) target;
+
+		if (s.isEdge() || t.isEdge())
+			return false;
+
+		if (s.getValue() instanceof Constraint) {
+			return !(t.getValue() instanceof Constraint);
+		}
+
+		if (t.getValue() instanceof Constraint) {
+			return !(s.getValue() instanceof Constraint);
+		}
+
+		if (s.getValue() instanceof VariabilityElement
+				&& t.getValue() instanceof VariabilityElement)
+			return constraintAddingMode != ConstraintMode.None;
+
+		// boolean ret = super.isValidConnection(source, target);
+		//
+		// System.out.println("Is valid Connection: " + ret);
+		return super.isValidConnection(source, target);
 	}
 
 	@Override

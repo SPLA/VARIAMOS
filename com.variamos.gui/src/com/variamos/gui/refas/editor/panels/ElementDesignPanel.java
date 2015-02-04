@@ -8,12 +8,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,24 +26,30 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
+import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
-import com.variamos.refas.RefasModel;
-import com.variamos.syntax.instancesupport.EditableElement;
-import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntax.instancesupport.InstConcept;
-import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntax.instancesupport.InstPairwiseRelation;
-import com.variamos.syntax.metamodelsupport.AbstractAttribute;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.metamodelsupport.MetaConcept;
-import com.variamos.syntax.metamodelsupport.MetaElement;
-import com.variamos.syntax.metamodelsupport.ModelingAttribute;
-import com.variamos.syntax.metamodelsupport.SemanticAttribute;
-import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.refas.core.refas.Refas;
+import com.variamos.syntaxsupport.metamodel.EditableElement;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstConcept;
+import com.variamos.syntaxsupport.metamodel.InstPairwiseRelation;
+import com.variamos.syntaxsupport.metamodel.InstElement;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
+import com.variamos.syntaxsupport.metamodel.InstOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaConcept;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaOverTwoRelation;
+import com.variamos.syntaxsupport.metamodelsupport.ModelingAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.SemanticAttribute;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -65,21 +72,21 @@ public class ElementDesignPanel extends JPanel {
 		rootPanel1.add(contentPanel1);
 		JPanel dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 300));
+		dummyP.setMaximumSize(new Dimension(500, 500));
 		rootPanel1.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(300, 300));
-		dummyP.setMaximumSize(new Dimension(500, 300));
+		dummyP.setMinimumSize(new Dimension(300, 200));
+		dummyP.setMaximumSize(new Dimension(500, 500));
 		rootPanel2.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel2, 2, 1, 4, 4, 4, 4);
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 300));
+		dummyP.setMaximumSize(new Dimension(500, 500));
 		rootPanel3.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel3, 2, 1, 4, 4, 4, 4);
 
@@ -88,21 +95,23 @@ public class ElementDesignPanel extends JPanel {
 		add(mainPanel);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMinimumSize(new Dimension(500, 0));
+		dummyP.setMinimumSize(new Dimension(500, 500));
 		add(dummyP);
-		/*
-		 * dummyP = new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
-		 * dummyP.setMinimumSize(new Dimension(500, 200)); add(dummyP); dummyP =
-		 * new JPanel(); dummyP.setMinimumSize(new Dimension(0, 0));
-		 * dummyP.setMinimumSize(new Dimension(500, 200)); add(dummyP);
-		 */
-		SpringUtilities.makeCompactGrid(this, 2, 1, 4, 4, 4, 4);
+		dummyP = new JPanel();
+		dummyP.setMinimumSize(new Dimension(0, 0));
+		dummyP.setMinimumSize(new Dimension(500, 500));
+		add(dummyP);
+		dummyP = new JPanel();
+		dummyP.setMinimumSize(new Dimension(0, 0));
+		dummyP.setMinimumSize(new Dimension(500, 500));
+		add(dummyP);
+		SpringUtilities.makeCompactGrid(this, 2, 2, 4, 4, 4, 4);
 
 	}
 
 	public void editorProperties(VariamosGraphEditor editor, EditableElement elm) {
 		mainPanel.removeAll();
-		rootPanels = 0;
+		rootPanels = 1;
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
@@ -123,25 +132,27 @@ public class ElementDesignPanel extends JPanel {
 			int designPanelElements = 0;
 			String description = null;
 
+			String type = null;
+			if (elm instanceof InstConcept) {
+				type = "vertex";
+			}
 			if (elm instanceof InstPairwiseRelation) {
-				if (((InstPairwiseRelation) elm).getSourceRelations().size() == 0)
-					// TODO workaround for non supported relations - delete
-					// after fix
+				if (((InstPairwiseRelation)elm).getSourceRelations().size()==0)
+					//TODO workaround for non supported relations - delete after fix
 					return;
+				type = "edge";
+			}
+			if (elm instanceof InstOverTwoRelation) {
+				type = "groupdep";
 			}
 			if (elm instanceof InstElement) {
 				if (((InstElement) elm).getEditableMetaElement() != null)
-					description = ((InstElement) elm)
-							.getTransSupportMetaElement().getDescription();
+					description = ((InstElement) elm).getSupportMetaElement()
+							.getDescription();
 			}
 			int count = 0;
 			while (count < 2) {
 				designPanelElements = 0;
-				
-				//Warning: Fix for Mac, do not delete it
-				if (elm instanceof InstPairwiseRelation)
-					designPanelElements++;
-				
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = elm.getVisibleVariables();
 				for (InstAttribute v : visible) {
@@ -151,17 +162,15 @@ public class ElementDesignPanel extends JPanel {
 						Map<String, MetaElement> mapElements = null;
 						if (elm instanceof InstPairwiseRelation) {
 							InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-							mapElements = ((RefasModel) editor.getEditedModel())
+							mapElements = ((Refas) editor.getEditedModel())
 									.getSyntaxRefas()
 									.getValidPairwiseRelations(
-											instPairwise
-													.getSourceRelations()
+											instPairwise.getSourceRelations()
 													.get(0)
-													.getTransSupportMetaElement(),
-											instPairwise
-													.getTargetRelations()
+													.getSupportMetaElement(),
+											instPairwise.getTargetRelations()
 													.get(0)
-													.getTransSupportMetaElement(),
+													.getSupportMetaElement(),
 											true);
 						}
 						v.updateValidationList(((InstElement) elm), mapElements);
@@ -178,17 +187,15 @@ public class ElementDesignPanel extends JPanel {
 							@Override
 							public void focusLost(FocusEvent arg0) {
 								// Makes it pull the values.
-								EditableElementAttribute elementAttribute = w
+								EditableElementAttribute v = w
 										.getInstAttribute();
-								if (elementAttribute.getAttributeType().equals(
-										"String")
-										&& !elementAttribute.getIdentifier()
-												.equals("Description"))
-									elementAttribute.setValue(AbstractElement.multiLine(
-											elementAttribute.toString(), 15));
+								if (v.getAttributeType().equals("String")
+										&& !v.getIdentifier().equals(
+												"Description"))
+									v.setValue(AbstractElement.multiLine(
+											v.toString(), 15));
 								// Divide lines every 15 characters (aprox.)
-								onVariableEdited(finalEditor, finalElm,
-										elementAttribute);
+								onVariableEdited(finalEditor, finalElm, v);
 							}
 
 							@Override
@@ -208,44 +215,9 @@ public class ElementDesignPanel extends JPanel {
 											onVariableEdited(finalEditor,
 													finalElm,
 													w.getInstAttribute());
-
-											editorProperties(finalEditor,
-													finalElm);
 										}
 									}
 								});
-						if (w.getEditor() instanceof JCheckBox)
-							((JCheckBox) w.getEditor())
-									.addActionListener(new ActionListener() {
-										public void actionPerformed(
-												ActionEvent e) {
-											finalEditor.clearNotificationBar();
-											// finalEditor.identifyCoreConcepts();
-											// finalEditor.executeSimulation(true,
-											// Refas2Hlcl.DESIGN_EXEC);
-											new Thread() {
-												public void run() {
-													editorProperties(
-															finalEditor,
-															finalElm);
-												}
-											}.start();
-										}
-									});
-						/*
-						 * if (w.getEditor() instanceof JComboBox) ((JComboBox)
-						 * w.getEditor()) .addItemListener(new ItemListener() {
-						 * 
-						 * @Override public void itemStateChanged(ItemEvent e) {
-						 * finalEditor.cleanNotificationBar(); //
-						 * finalEditor.identifyCoreConcepts(); //
-						 * finalEditor.executeSimulation(true, //
-						 * Refas2Hlcl.DESIGN_EXEC); new Thread() { public void
-						 * run() { editorProperties( finalEditor, finalElm); }
-						 * }.start(); }
-						 * 
-						 * });
-						 */
 						if (w instanceof MClassWidget
 								|| w instanceof MEnumerationWidget) {
 							w.getEditor().setPreferredSize(
@@ -262,14 +234,8 @@ public class ElementDesignPanel extends JPanel {
 						List<InstAttribute> editables = elm
 								.getEditableVariables();
 
-						if (!editables.contains(v)
-								|| editor.getPerspective() == 4)
-
-						{
+						if (!editables.contains(v))
 							w.getEditor().setEnabled(false);
-
-						}
-
 						// GARA
 						// variablesPanel.add(new JLabel(v.getName() + ":: "));
 						{
@@ -277,19 +243,15 @@ public class ElementDesignPanel extends JPanel {
 							elementDesPropSubPanel.add(new JLabel(v
 									.getDisplayName() + ": "));
 							elementDesPropSubPanel.add(w);
-
-							if (v.isAffectProperties()
-									&& editor.getPerspective() != 4 &&  !(w.getEditor() instanceof JCheckBox)) {
+							if (v.isAffectProperties()) {
 								JButton button = new JButton("Validate");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										finalEditor.clearNotificationBar();
 										editorProperties(finalEditor, finalElm);
 									}
 								});
 								elementDesPropSubPanel.add(button);
 							} else
-
 								elementDesPropSubPanel.add(new JPanel());
 
 							designPanelElements++;
@@ -326,8 +288,7 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 30));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 300));
-			rootPanels++;
+			contentPanel1.setMaximumSize(new Dimension(350, 200));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -442,13 +403,11 @@ public class ElementDesignPanel extends JPanel {
 		}
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
 
-		System.out.println(mainPanel.getComponentCount() +" " + rootPanels);
-		SpringUtilities.makeCompactGrid(mainPanel, 1, mainPanel.getComponentCount(), 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(mainPanel, 1, rootPanels, 4, 4, 4, 4);
 		this.revalidate();
 		this.repaint();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
 			EditableElement editableElement,
 			EditableElementAttribute instAttribute) {
@@ -506,7 +465,8 @@ public class ElementDesignPanel extends JPanel {
 							.setIdentifier((String) instAttribute.getValue());
 			}
 		}
-		editor.refresh();
+		((RefasGraph) editor.getGraphComponent().getGraph())
+				.refreshVariable(editableElement);
 
 	}
 }

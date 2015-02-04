@@ -7,7 +7,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -15,10 +20,17 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
 import com.cfm.productline.io.SXFMWriter;
 import com.mxgraph.canvas.mxICanvas;
 import com.mxgraph.canvas.mxSvgCanvas;
+import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.MainFrame;
 import com.mxgraph.io.mxCodec;
+import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.util.mxCellRenderer.CanvasFactory;
@@ -30,10 +42,8 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
-import com.variamos.gui.maineditor.DefaultFileFilter;
-import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.pl.editor.ProductLineGraph;
 
 import edu.unal.model.enums.PrologEditorType;
 import edu.unal.tranformer.FeatureModelSPLOTransformer;
@@ -118,15 +128,6 @@ public class SaveAction extends AbstractEditorAction {
 		AbstractModel pl = null;
 
 		if (editor != null) {
-			final VariamosGraphEditor finalEditor = editor;
-			if (editor.getPerspective()==4)
-			{
-				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-						null);
-				
-				return;
-			}
 			((MainFrame) editor.getFrame()).waitingCursor(true);
 
 			mxGraphComponent graphComponent = editor.getGraphComponent();
@@ -195,7 +196,6 @@ public class SaveAction extends AbstractEditorAction {
 				dialogShown = true;
 
 				if (rc != JFileChooser.APPROVE_OPTION) {
-					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 					return;
 				} else {
 					lastDir = fc.getSelectedFile().getParent();
@@ -216,7 +216,6 @@ public class SaveAction extends AbstractEditorAction {
 				if (new File(filename).exists()
 						&& JOptionPane.showConfirmDialog(graphComponent,
 								mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
-					((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 					return;
 				}
 			} else {
@@ -239,8 +238,6 @@ public class SaveAction extends AbstractEditorAction {
 																	height));
 											canvas.setEmbedded(true);
 
-											((MainFrame) finalEditor.getFrame())
-													.waitingCursor(false);
 											return canvas;
 										}
 
@@ -250,9 +247,9 @@ public class SaveAction extends AbstractEditorAction {
 							filename);
 				} else if (ext.equalsIgnoreCase("sxfm")) {
 					SXFMWriter writer = new SXFMWriter();
-					
+					ProductLineGraph plGraph = (ProductLineGraph) graph;
 					mxUtils.writeFile(
-							writer.getSXFMContent(editor.getEditedModel()),
+							writer.getSXFMContent(plGraph.getProductLine()),
 							filename);
 				} else if (ext.equalsIgnoreCase("pl")) {
 					pl = editor.getEditedModel();
@@ -262,13 +259,11 @@ public class SaveAction extends AbstractEditorAction {
 					generatePrologFile(pl, filename);
 				} else if (ext.equalsIgnoreCase("plg")
 						|| ext.equalsIgnoreCase("xml")) {
-					mxGraph outGraph = SharedActions.beforeGraphOperation(
-							graph, true, editor.getModelViewIndex(),
-							editor.getModelSubViewIndex());
+					SharedActions.beforeSaveGraph(graph);
 					mxCodec codec = new mxCodec();
-					String xml = mxXmlUtils.getXml(codec.encode(outGraph
+					String xml = mxXmlUtils.getXml(codec.encode(graph
 							.getModel()));
-					SharedActions.afterSaveGraph(outGraph, editor);
+					SharedActions.afterSaveGraph(graph, editor);
 					mxUtils.writeFile(xml, filename);
 
 					editor.setModified(false);

@@ -72,9 +72,9 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
-import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.refas.editor.actions.SharedActions;
+import com.variamos.pl.configurator.io.PLGReader;
 
 /**
  *
@@ -522,18 +522,10 @@ public class EditorActions {
 		 * 
 		 */
 		public void actionPerformed(ActionEvent e) {
-			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
+			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
-					return;
-				}
-				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
+
 				((MainFrame) editor.getFrame()).waitingCursor(true);
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
@@ -603,8 +595,6 @@ public class EditorActions {
 					dialogShown = true;
 
 					if (rc != JFileChooser.APPROVE_OPTION) {
-						((MainFrame) finalEditor.getFrame())
-								.waitingCursor(false);
 						return;
 					} else {
 						lastDir = fc.getSelectedFile().getParent();
@@ -625,8 +615,6 @@ public class EditorActions {
 					if (new File(filename).exists()
 							&& JOptionPane.showConfirmDialog(graphComponent,
 									mxResources.get("overwriteExistingFile")) != JOptionPane.YES_OPTION) {
-						((MainFrame) finalEditor.getFrame())
-								.waitingCursor(false);
 						return;
 					}
 				} else {
@@ -675,30 +663,15 @@ public class EditorActions {
 					} else if (ext.equalsIgnoreCase("mxe")
 							|| ext.equalsIgnoreCase("plg")
 							|| ext.equalsIgnoreCase("xml")) {
-						long startTime = System.currentTimeMillis();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(
-								graph, true, editor.getModelViewIndex(),
-								editor.getModelSubViewIndex());
-						long stopTime = System.currentTimeMillis();
-						long elapsedTime = stopTime - startTime;
-						System.out.println("beforeSaveGraph time : "
-								+ elapsedTime);
-						startTime = System.currentTimeMillis();
+
+						SharedActions.beforeSaveGraph(graph);
 						mxCodec codec = new mxCodec();
-						String xml = mxXmlUtils.getXml(codec.encode(outGraph
+						String xml = mxXmlUtils.getXml(codec.encode(graph
 								.getModel()));
-						mxUtils.writeFile(xml, filename);
-						stopTime = System.currentTimeMillis();
-						elapsedTime = stopTime - startTime;
-						System.out
-								.println("serialization time: " + elapsedTime);
-						startTime = System.currentTimeMillis();
 						if (editor instanceof VariamosGraphEditor)
 							SharedActions.afterSaveGraph(graph,
 									(VariamosGraphEditor) editor);
-						stopTime = System.currentTimeMillis();
-						elapsedTime = stopTime - startTime;
-						System.out.println("recover time: " + elapsedTime);
+						mxUtils.writeFile(xml, filename);
 
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
@@ -1267,14 +1240,6 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
-					return;
-				}
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1481,17 +1446,7 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
-					return;
-				}
-				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
-				final BasicGraphEditor finalEditor = editor;
-				((MainFrame) editor.getFrame()).waitingCursor(true);
+				((MainFrame)editor.getFrame()).waitingCursor(true);
 				if (!editor.isModified()
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
@@ -1506,17 +1461,14 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, .plg)") {
+										+ " (.mxe, .png, .vdx)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
 
-								((MainFrame) finalEditor.getFrame())
-										.waitingCursor(false);
 								return super.accept(file)
 										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx")
-										|| lcase.endsWith(".plg");
+										|| lcase.endsWith(".vdx");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1561,17 +1513,13 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".plg")) {
-									((VariamosGraphEditor) editor).resetView();
-									graph = editor.getGraphComponent()
-											.getGraph();
+									VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 									// variamosEditor.editModelReset();
-									SharedActions.beforeLoadGraph(graph,
-											variamosEditor);
 
 									PLGReader.loadPLG(fc.getSelectedFile(),
 											graph);
 									editor.setCurrentFile(fc.getSelectedFile());
-									SharedActions.afterOpenCloneGraph(graph,
+									SharedActions.afterSaveGraph(graph,
 											variamosEditor);
 									variamosEditor
 											.populateIndex(((AbstractGraph) graph)
@@ -1601,8 +1549,7 @@ public class EditorActions {
 						}
 					}
 				}
-				variamosEditor.refresh();
-				((MainFrame) editor.getFrame()).waitingCursor(false);
+				((MainFrame)editor.getFrame()).waitingCursor(false);
 			}
 		}
 	}

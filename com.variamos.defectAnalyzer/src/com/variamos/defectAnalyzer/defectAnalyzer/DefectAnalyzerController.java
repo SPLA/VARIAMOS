@@ -2,7 +2,7 @@ package com.variamos.defectAnalyzer.defectAnalyzer;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Arrays; 
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -10,34 +10,37 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.variamos.core.exceptions.FunctionalException;
 import com.variamos.core.util.FileUtils;
+import com.variamos.defectAnalyzer.diagnostic.ClassifiedDiagnosis;
+import com.variamos.defectAnalyzer.diagnostic.DefectsByMCSMUSes;
+import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerInDTO;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
-import com.variamos.defectAnalyzer.dto.DefectAnalyzerResult;
-import com.variamos.defectAnalyzer.dto.VerificationResult;
-import com.variamos.defectAnalyzer.model.ClassifiableDiagnosis;
-import com.variamos.defectAnalyzer.model.ClassifiedElement;
+import com.variamos.defectAnalyzer.dto.VMCauseAnalyzerOutDTO;
+import com.variamos.defectAnalyzer.dto.VMVerifierOutDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.defectAnalyzer.util.ExportUtil;
 
+
 public class DefectAnalyzerController {
+
+
 
 	public DefectAnalyzerController() {
 		super();
 
 	}
 
-	/*public DefectAnalyzerControllerOutDTO analyzeModel(
+	public DefectAnalyzerControllerOutDTO analyzeModel(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, String fileName,
 			String outputDirectoryPath) throws FunctionalException {
 
 		long startCorrectionSetTestTime, endCorrectionSetTestTime, totalCorrectionSetTestTime = 0;
-		VerificationResult verifierOutDTO = null;
-		DefectAnalyzerResult causeAnalizerOutDTO = new DefectAnalyzerResult();
+		VMVerifierOutDTO verifierOutDTO = null;
+		VMCauseAnalyzerOutDTO causeAnalizerOutDTO = new VMCauseAnalyzerOutDTO();
 		DefectAnalyzerControllerOutDTO defectAnalyzerControllerOut = new DefectAnalyzerControllerOutDTO();
 		defectAnalyzerControllerOut.setVariabilityModel(defectAnalyzerInDTO
 				.getVariabilityModel());
@@ -60,13 +63,13 @@ public class DefectAnalyzerController {
 
 		// Se clasifican las causa entre comunes y no comunes
 		VariabilityModelCausesCorrectionsSorter sorter = new VariabilityModelCausesCorrectionsSorter();
-		ClassifiedElement classifiedCauses = sorter.classifyDiagnosis(
-				causeAnalizerOutDTO.getAllDiagnosis(),
+		ClassifiedDiagnosis classifiedCauses = sorter.classifyDiagnosis(
+				causeAnalizerOutDTO.getAllDiagnostics(),
 				ClassificationType.CAUSES);
 
 		// Se clasifican las correciones entre comunes y no comunes
-		ClassifiedElement classifiedCorrections = sorter.classifyDiagnosis(
-				causeAnalizerOutDTO.getAllDiagnosis(),
+		ClassifiedDiagnosis classifiedCorrections = sorter.classifyDiagnosis(
+				causeAnalizerOutDTO.getAllDiagnostics(),
 				ClassificationType.CORRECTIONS);
 
 		// Se calcula el tiempo final
@@ -89,24 +92,24 @@ public class DefectAnalyzerController {
 		System.out.println();
 		System.out.println("............................RESULTS............");
 		System.out.println("Cantidad de defectos analizados"
-				+ causeAnalizerOutDTO.getAllDiagnosis().size());
-		printDiagnosis(causeAnalizerOutDTO.getAllDiagnosis());
+				+ causeAnalizerOutDTO.getAllDiagnostics().size());
+		printDiagnosis(causeAnalizerOutDTO.getAllDiagnostics());
 		printAllClassifiedDiagnosis(classifiedCorrections,
 				ClassificationType.CORRECTIONS);
 		printAllClassifiedDiagnosis(classifiedCauses, ClassificationType.CAUSES);
 
 		// Información DTO de salida que sirve para analizar xls resumidos
 		defectAnalyzerControllerOut.setAllDiagnostics(causeAnalizerOutDTO
-				.getAllDiagnosis());
+				.getAllDiagnostics());
 		defectAnalyzerControllerOut.setTime(totalCorrectionSetTestTime);
 		defectAnalyzerControllerOut
 				.setClassifiedCorrections(classifiedCorrections);
 		defectAnalyzerControllerOut.setClassifiedCauses(classifiedCauses);
 
 		return defectAnalyzerControllerOut;
-	}*/
+	}
 
-	/*public void analyzeModels(
+	public void analyzeModels(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO,
 			String directoryPath, String outputDirectoryPath)
 			throws FunctionalException {
@@ -128,7 +131,7 @@ public class DefectAnalyzerController {
 
 		}
 
-	}*/
+	}
 
 	/**
 	 * Imprime el conjunto de causas o de correcciones clasificado
@@ -136,8 +139,8 @@ public class DefectAnalyzerController {
 	 * @param classifiedDiagnosis
 	 * @param classificationType
 	 */
-	/*public void printAllClassifiedDiagnosis(
-			ClassifiedElement classifiedDiagnosis,
+	public void printAllClassifiedDiagnosis(
+			ClassifiedDiagnosis classifiedDiagnosis,
 			ClassificationType classificationType) {
 
 		System.out.println(" \n CLASIFICACIÓN:" + classificationType.name());
@@ -154,12 +157,12 @@ public class DefectAnalyzerController {
 		printClassifiedDiagnosis(classifiedDiagnosis.getNoCommonDiagnosis(),
 				classificationType);
 
-	}*/
+	}
 
-	/*public void printClassifiedDiagnosis(
-			List<ClassifiableDiagnosis> defectsByMCSMUSesList,
+	public void printClassifiedDiagnosis(
+			List<DefectsByMCSMUSes> defectsByMCSMUSesList,
 			ClassificationType classificationType) {
-		for (ClassifiableDiagnosis defectsByMCSMUSes : defectsByMCSMUSesList) {
+		for (DefectsByMCSMUSes defectsByMCSMUSes : defectsByMCSMUSesList) {
 			System.out.println(classificationType.name() + " " + "Id:"
 					+ defectsByMCSMUSes.getId());
 			System.out.println("Cantidad elementos:"
@@ -168,18 +171,18 @@ public class DefectAnalyzerController {
 					+ defectsByMCSMUSes.getDiagnosticElements());
 			System.out.println("Defectos asociados");
 			int i = 1;
-			for (int j = 0; j < defectsByMCSMUSes.getDefects().size(); j++) {
+			for (int j = 0; j < defectsByMCSMUSes.getDefectsList().size(); j++) {
 
 				System.out.println(i + ". "
-						+ defectsByMCSMUSes.getDefects().get(j));
+						+ defectsByMCSMUSes.getDefectsList().get(j));
 				i++;
 			}
 			System.out.println();
 		}
-	}*/
+	}
 
-	public void printDiagnosis(List<Diagnosis> allDiagnosis) {
-		for (Diagnosis diagnostic : allDiagnosis) {
+	public void printDiagnosis(List<Diagnostic> allDiagnosis) {
+		for (Diagnostic diagnostic : allDiagnosis) {
 			System.out.println("______________________________");
 			System.out.println("Defecto:" + diagnostic.getDefect());
 			System.out.println("Causas");
@@ -192,12 +195,12 @@ public class DefectAnalyzerController {
 		}
 	}
 
-	/*public void exportCorrectionCausesSubsets(
-			VerificationResult vmVerifierOutDTO,
-			DefectAnalyzerResult causeAnalyzerOutDTO,
+	public void exportCorrectionCausesSubsets(
+			VMVerifierOutDTO vmVerifierOutDTO,
+			VMCauseAnalyzerOutDTO causeAnalyzerOutDTO,
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO, Long tiempoTest,
-			ClassifiedElement classifiedCauses,
-			ClassifiedElement classifiedCorrections, String fileName,
+			ClassifiedDiagnosis classifiedCauses,
+			ClassifiedDiagnosis classifiedCorrections, String fileName,
 			String outputDirectoryPath) throws FunctionalException {
 
 		List<String> resultadosFila = new ArrayList<String>();
@@ -302,10 +305,10 @@ public class DefectAnalyzerController {
 				"Solución número", "correcionsets" };
 
 		HSSFSheet hoja = resultadosLibro.createSheet();
-		List<Diagnosis> allDiagnostics = causeAnalyzerOutDTO
-				.getAllDiagnosis();
+		List<Diagnostic> allDiagnostics = causeAnalyzerOutDTO
+				.getAllDiagnostics();
 
-		for (Diagnosis diagnosticMapElement : allDiagnostics) {
+		for (Diagnostic diagnosticMapElement : allDiagnostics) {
 			cont = 0;
 			if (diagnosticMapElement != null
 					&& diagnosticMapElement.getCorrectionSubsets() != null) {
@@ -388,7 +391,7 @@ public class DefectAnalyzerController {
 		String resuladosPath = outputDirectoryPath + fileName + ".xls";
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
 	}
-*/
+
 	private List<List<String>> saveDefects(String encabezado,
 			List<Defect> defectosLista) {
 
@@ -423,8 +426,8 @@ public class DefectAnalyzerController {
 	 * @param classifiedCausesCorrectionsList
 	 * @return
 	 */
-	/*private List<List<String>> saveClassification(String encabezado,
-			List<ClassifiableDiagnosis> classifiedCausesCorrectionsList) {
+	private List<List<String>> saveClassification(String encabezado,
+			List<DefectsByMCSMUSes> classifiedCausesCorrectionsList) {
 
 		List<List<String>> clasificacion = new ArrayList<List<String>>();
 
@@ -443,20 +446,20 @@ public class DefectAnalyzerController {
 		encabezadoClasificacion1.add("CantDefe");
 		clasificacion.add(encabezadoClasificacion1);
 
-		for (ClassifiableDiagnosis defectsByMCSMUSes : classifiedCausesCorrectionsList) {
+		for (DefectsByMCSMUSes defectsByMCSMUSes : classifiedCausesCorrectionsList) {
 			List<String> resultadosFila = new ArrayList<String>();
 			resultadosFila.add(Long.toString(defectsByMCSMUSes.getId()));
 			resultadosFila.add(defectsByMCSMUSes.getDiagnosticElements()
 					.toString());
 			resultadosFila.add(Integer.toString(defectsByMCSMUSes
 					.getDiagnosticElements().size()));
-			resultadosFila.add(defectsByMCSMUSes.getDefects().toString());
-			resultadosFila.add(Integer.toString(defectsByMCSMUSes.getDefects()
-					.size()));
+			resultadosFila.add(defectsByMCSMUSes.getDefectsList().toString());
+			resultadosFila.add(Integer.toString(defectsByMCSMUSes
+					.getDefectsList().size()));
 			clasificacion.add(resultadosFila);
 		}
 		return clasificacion;
-	}*/
+	}
 
 	/**
 	 * Invoca el verificador de defectos
@@ -466,11 +469,11 @@ public class DefectAnalyzerController {
 	 * @throws FunctionalException
 	 * 
 	 */
-	private VerificationResult verifyDefects(
+	private VMVerifierOutDTO verifyDefects(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO)
 			throws FunctionalException {
 
-		VerificationResult outDTO = new VerificationResult();
+		VMVerifierOutDTO outDTO = new VMVerifierOutDTO();
 		// Se construye el DTO de entrada del verificador
 		// Make input DTO
 		VMAnalyzerInDTO verifierInDTO = new VMAnalyzerInDTO();
@@ -483,17 +486,15 @@ public class DefectAnalyzerController {
 				.getSolverEditorType());
 
 		// Create class
-		//DefectsVerifier verifier = new DefectsVerifier(
-				//defectAnalyzerInDTO.getSolverEditorType());
+		VariabilityModelVerifier verifier = new VariabilityModelVerifier(
+				verifierInDTO);
 
-		/*
-		 * outDTO = verifier.verifierOfDefects(
-		 * defectAnalyzerInDTO.isVerifyDeadFeatures(),
-		 * defectAnalyzerInDTO.isVerifyFalseOptionalElement(),
-		 * defectAnalyzerInDTO.isVerifyFalseProductLine(),
-		 * defectAnalyzerInDTO.isVerifyNonAttainableDomain(),
-		 * defectAnalyzerInDTO.isVerifyRedundancies());
-		 */
+		outDTO = verifier.verifierOfDefects(
+				defectAnalyzerInDTO.isVerifyDeadFeatures(),
+				defectAnalyzerInDTO.isVerifyFalseOptionalElement(),
+				defectAnalyzerInDTO.isVerifyFalseProductLine(),
+				defectAnalyzerInDTO.isVerifyNonAttainableDomain(),
+				defectAnalyzerInDTO.isVerifyRedundancies());
 
 		return outDTO;
 
@@ -508,9 +509,9 @@ public class DefectAnalyzerController {
 	 * @return
 	 * @throws FunctionalException
 	 */
-	private DefectAnalyzerResult causesAnalyzer(
+	private VMCauseAnalyzerOutDTO causesAnalyzer(
 			DefectAnalyzerControllerInDTO defectAnalyzerInDTO,
-			VerificationResult verifierOutDTO) throws FunctionalException {
+			VMVerifierOutDTO verifierOutDTO) throws FunctionalException {
 
 		// Información del DTO
 		VMAnalyzerInDTO vmAnalyzerInDTO = new VMAnalyzerInDTO();
@@ -520,13 +521,14 @@ public class DefectAnalyzerController {
 				.getSolverEditorType());
 
 		// Se invoca el analizador de causas
-		CauCosAnayzer causesAnalyzer = new CauCosAnayzer(
-				defectAnalyzerInDTO.getSolverEditorType());
+		VariabilityModelCausesAndCorrectionsAnalyzer causesAnalyzer = new VariabilityModelCausesAndCorrectionsAnalyzer(
+				vmAnalyzerInDTO);
 
 		VMCauseAnalyzerInDTO vmCauseAnalyzerInDTO = new VMCauseAnalyzerInDTO();
 
-		vmCauseAnalyzerInDTO.setDefectAnalyzerMode(defectAnalyzerInDTO
-				.getDefectAnalyzerMode());
+		vmCauseAnalyzerInDTO
+				.setDefectAnalyzerMode(defectAnalyzerInDTO
+						.getDefectAnalyzerMode());
 
 		vmCauseAnalyzerInDTO.setFalseProductLine(verifierOutDTO
 				.getFalseProductLineModel());
@@ -537,17 +539,16 @@ public class DefectAnalyzerController {
 				.getFalseOptionalFeaturesList());
 		vmCauseAnalyzerInDTO.setRedundancies(verifierOutDTO
 				.getRedundanciesList());
-		/*DefectAnalyzerResult vmCauseAnalyzerOutDTO = causesAnalyzer
+		VMCauseAnalyzerOutDTO vmCauseAnalyzerOutDTO = causesAnalyzer
 				.causesAnalyzer(defectAnalyzerInDTO.isAnalyzeDeadFeatures(),
 						defectAnalyzerInDTO.isAnalyzeFalseOptional(),
 						defectAnalyzerInDTO.isIdentifyCausesFalseProductLine(),
 						defectAnalyzerInDTO.isAnalyzeDomains(),
 						defectAnalyzerInDTO.isAnalyzeVoidModel(),
 						defectAnalyzerInDTO.isAnalyzeRedundancies(),
-						vmCauseAnalyzerInDTO);*/
+						vmCauseAnalyzerInDTO);
 
-		//return vmCauseAnalyzerOutDTO;
-		return null;
+		return vmCauseAnalyzerOutDTO;
 	}
 
 }

@@ -7,10 +7,12 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.syntax.metamodelsupport.MetaView;
+import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
+import com.variamos.syntaxsupport.metamodelsupport.MetaView;
 
 @SuppressWarnings("serial")
 public class ModelButtonAction extends AbstractEditorAction {

@@ -3,9 +3,9 @@ package com.variamos.gui.pl.editor;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-import com.mxgraph.util.mxResources;
 import com.variamos.gui.common.actions.ConfigureAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
+import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.pl.configurator.guiactions.SaveConfigurationAction;
@@ -17,6 +17,7 @@ import com.variamos.gui.pl.editor.actions.SaveAction;
 import com.variamos.gui.pl.editor.actions.ToggleAssetVisibilityAction;
 import com.variamos.gui.pl.editor.actions.TogglePLVisibilityAction;
 import com.variamos.gui.pl.editor.actions.VerifyDeadElementAction;
+import com.variamos.gui.pl.editor.actions.VerifyFalseOptionalElementAction;
 import com.variamos.gui.pl.editor.actions.VerifyFalseProductLineModelAction;
 import com.variamos.gui.pl.editor.actions.VerifyVoidModelAction;
 
@@ -82,6 +83,7 @@ public class ProductLineMenuBar extends JMenuBar{
 		menu.add(editor.bind(mxResources.get("verifyVoidModel"), new VerifyVoidModelAction()));
 		menu.add(editor.bind(mxResources.get("verifyFalseProductLine"), new VerifyFalseProductLineModelAction()));
 		menu.add(editor.bind(mxResources.get("verifyDeadElement"), new VerifyDeadElementAction()));
+		menu.add(editor.bind(mxResources.get("verifyFalseOptionalElements"), new  VerifyFalseOptionalElementAction()));
 		menu.addSeparator();
 		add(menu);
 

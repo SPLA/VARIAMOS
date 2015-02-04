@@ -15,18 +15,21 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
-import com.variamos.semantic.semanticsupport.SemanticOverTwoRelation;
-import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntax.instancesupport.InstEnumeration;
-import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.metamodelsupport.MetaElement;
-import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
-import com.variamos.syntax.semanticinterface.IntSemanticElement;
-import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
-import com.variamos.syntax.types.ClassSingleSelectionType;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticElement;
+import com.variamos.refas.core.sematicsmetamodel.AbstractSemanticVertex;
+import com.variamos.refas.core.sematicsmetamodel.SemanticOverTwoRelation;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodel.InstVertex;
+import com.variamos.syntaxsupport.metamodel.InstEnumeration;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.MetaPairwiseRelation;
+import com.variamos.syntaxsupport.metamodelsupport.MetaElement;
+import com.variamos.syntaxsupport.metamodelsupport.MetaVertex;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticElement;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.syntaxsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
@@ -117,14 +120,11 @@ public class ClassWidget extends WidgetR {
 			}
 			// System.out.println("yr"+txtValue.getSelectedIndex());
 			if (txtValue.getSelectedIndex() == -1
-					&& txtValue.getItemCount() > 0) {
+					&& txtValue.getItemCount() > 0)
 				txtValue.setSelectedItem(0);
-			}
 
 		} else {
-			if (aClass.isInterface()
-					|| aClass.getSuperclass().equals(
-							AbstractSemanticElement.class)) {
+			if (aClass.isInterface() ||	aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
 				Collection<IntSemanticElement> list = semanticSyntaxObject
 						.getSemanticConcepts().values();
@@ -182,10 +182,6 @@ public class ClassWidget extends WidgetR {
 			}
 
 		}
-		if (instAttribute.getValue() == null) {
-			txtValue.setSelectedIndex(0);
-			instAttribute.setValue((String) txtValue.getSelectedItem());
-		}
 		pushValue(v);
 	}
 
@@ -204,7 +200,7 @@ public class ClassWidget extends WidgetR {
 					Object value = concept2.getValue();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
-						MetaElement mc = ic.getTransSupportMetaElement();
+						MetaVertex mc = ic.getMetaVertex();
 						if (mc.getIdentifier().equals(object))
 							out.add(ic);
 					}
@@ -212,7 +208,7 @@ public class ClassWidget extends WidgetR {
 				Object value = concept.getValue();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaElement mc = ic.getTransSupportMetaElement();
+					MetaVertex mc = ic.getMetaVertex();
 					if (mc.getIdentifier().equals(object))
 						out.add(ic);
 				}

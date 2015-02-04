@@ -6,15 +6,15 @@ import java.util.Map;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.types.BooleanType;
-import com.variamos.syntax.types.ClassMultiSelectionType;
-import com.variamos.syntax.types.ClassSingleSelectionType;
-import com.variamos.syntax.types.EnumerationMultiSelectionType;
-import com.variamos.syntax.types.EnumerationSingleSelectionType;
-import com.variamos.syntax.types.IntegerType;
-import com.variamos.syntax.types.SetType;
-import com.variamos.syntax.types.StringType;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.type.BooleanType;
+import com.variamos.syntaxsupport.type.ClassSingleSelectionType;
+import com.variamos.syntaxsupport.type.EnumerationSingleSelectionType;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.ClassMultiSelectionType;
+import com.variamos.syntaxsupport.type.EnumerationMultiSelectionType;
+import com.variamos.syntaxsupport.type.SetType;
+import com.variamos.syntaxsupport.type.StringType;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from

@@ -4,10 +4,10 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 import javax.swing.TransferHandler;
 
+import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 import com.mxgraph.swing.util.mxGraphActions;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxResources;
-import com.variamos.gui.maineditor.EditorActions.HistoryAction;
 import com.variamos.gui.pl.editor.actions.FigureAction;
 
 public class EditorPopupMenu extends JPopupMenu
