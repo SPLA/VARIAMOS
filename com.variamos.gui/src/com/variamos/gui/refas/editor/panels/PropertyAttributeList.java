@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.DefaultListCellRenderer;
@@ -13,9 +15,10 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.AttributeEditionPanel.DialogButtonAction;
-import com.variamos.syntax.metamodelsupport.AbstractAttribute;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.types.StringType;
+import com.variamos.syntaxsupport.metamodelsupport.AbstractAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.AttributeElement;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.type.StringType;
 
 /**
  * A class to support the property of syntax and semantic concepts for modeling.
@@ -110,6 +113,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		this.setEnabled(false);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
+				boolean notFound = true;
 			// Name
 			var = new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
 					false, "Enumeration Value", "");

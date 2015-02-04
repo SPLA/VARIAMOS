@@ -2,12 +2,16 @@ package com.variamos.gui.pl.editor.actions;
 
 import java.awt.event.ActionEvent;
 
-//import javax.swing.JTextArea;
+import javax.swing.JTextArea;
 
-//import com.cfm.productline.ProductLine;
-//import com.variamos.core.enums.SolverEditorType;
+import com.cfm.productline.ProductLine;
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.defectAnalyzer.VariabilityModelVerifier;
+import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.pl.editor.defectAnalyzer.DefectAnalyzerUtil;
 
 @SuppressWarnings("serial")
 public class VerifyFalseProductLineModelAction extends
@@ -17,13 +21,13 @@ public class VerifyFalseProductLineModelAction extends
 		 */
 	public void actionPerformed(ActionEvent e) {
 		
-	//	ProductLine pl = null;
-	//	SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
+		ProductLine pl = null;
+		SolverEditorType prologEditorType = SolverEditorType.GNU_PROLOG;
 
 		VariamosGraphEditor editor = getEditor(e);
 		
-	//	JTextArea messagesArea = editor.getMessagesArea();
-	//	StringBuilder outputMessage = new StringBuilder();
+		JTextArea messagesArea = editor.getMessagesArea();
+		StringBuilder outputMessage = new StringBuilder();
 		
 		editor.bringUpTab("Messages");
 		
@@ -33,17 +37,17 @@ public class VerifyFalseProductLineModelAction extends
 		pl = plGraph.getProductLine();*/
 		
 		
-	//	pl = (ProductLine)editor.getEditedModel();
+		pl = (ProductLine)editor.getEditedModel();
 		
-	//	pl.printDebug(System.out);
+		pl.printDebug(System.out);
 
 		// Start verification operations
 		// VOID MODEL
 		// Start verification operations
 		// VOID MODEL
-		/*try {
+		try {
 			
-			DefectsVerifier verifier = DefectAnalyzerUtil
+			VariabilityModelVerifier verifier = DefectAnalyzerUtil
 					.createVerifierClass(pl, prologEditorType);
 			
 			Defect falseProductLine = verifier.isFalsePLM();
@@ -60,6 +64,6 @@ public class VerifyFalseProductLineModelAction extends
 		}
 
 		// Set the end messages
-		messagesArea.setText(outputMessage.toString());*/
+		messagesArea.setText(outputMessage.toString());
 	}
 }

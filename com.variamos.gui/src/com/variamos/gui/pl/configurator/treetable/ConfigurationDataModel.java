@@ -8,6 +8,7 @@ import javax.swing.event.TreeModelListener;
 import com.cfm.productline.Variable;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.treetable.actions.SetValueAction;
+import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
 

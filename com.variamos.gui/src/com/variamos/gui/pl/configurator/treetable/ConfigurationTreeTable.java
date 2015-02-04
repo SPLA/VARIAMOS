@@ -11,13 +11,13 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableCellEditor;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
+import com.variamos.pl.configurator.Choice;
 
  
 @SuppressWarnings("serial")

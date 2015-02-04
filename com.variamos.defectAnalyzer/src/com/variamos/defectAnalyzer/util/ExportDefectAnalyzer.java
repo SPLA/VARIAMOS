@@ -9,19 +9,18 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.diagnostic.Diagnostic;
 import com.variamos.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.defectAnalyzer.model.Dependency;
-import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.DeadElement;
 import com.variamos.defectAnalyzer.model.defects.FalseOptionalElement;
 import com.variamos.defectAnalyzer.model.defects.FalseProductLine;
 import com.variamos.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.defectAnalyzer.model.defects.VoidModel;
 
-
 public class ExportDefectAnalyzer {
 
-	/*public static void exportListaModelosDetalleAnalisis(
+	public static void exportListaModelosDetalleAnalisis(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -44,7 +43,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
+				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 
 				for (int j = 0; j < diagnostic.getCorrectionSubsets().size(); j++) {
@@ -152,7 +151,7 @@ public class ExportDefectAnalyzer {
 		String resuladosPath = outputDirectoryPath + directoryName
 				+ "detallado" + System.currentTimeMillis() + ".xls";
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
-	}*/
+	}
 
 	/**
 	 * Entrega para cada modelo analizado para cada defecto cuantas causas y
@@ -161,7 +160,7 @@ public class ExportDefectAnalyzer {
 	 * @param defectAnalyzerControllerOutDTOList
 	 * @param directoryName
 	 */
-	/*public static void exportarListaModelosResumidaxTamCorrecc(
+	public static void exportarListaModelosResumidaxTamCorrecc(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -183,7 +182,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
+				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 
 				List<String> resultadosFila = new ArrayList<String>();
@@ -237,7 +236,7 @@ public class ExportDefectAnalyzer {
 		String resuladosPath = outputDirectoryPath + directoryName + "Resumida"
 				+ System.currentTimeMillis() + ".xls";
 		ExportUtil.guardarXls(resultadosLibro, resuladosPath);
-	}*/
+	}
 
 	/**
 	 * Resume los resultados de todos los modelos que estaban en @param
@@ -246,7 +245,7 @@ public class ExportDefectAnalyzer {
 	 * @param defectAnalyzerControllerOutDTOList
 	 * @param directoryName
 	 */
-	/*public static void exportaModelosAnalizadosOverview(
+	public static void exportaModelosAnalizadosOverview(
 			List<DefectAnalyzerControllerOutDTO> defectAnalyzerControllerOutDTOList,
 			String directoryName, String outputDirectoryPath)
 			throws FunctionalException {
@@ -290,7 +289,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
+				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 				todosDefectos++;
 				if (diagnostic.getDefect() instanceof VoidModel) {
@@ -386,7 +385,7 @@ public class ExportDefectAnalyzer {
 
 			for (int i = 0; i < defectAnalyzerControllerOutDTO
 					.getAllDiagnostics().size(); i++) {
-				Diagnosis diagnostic = defectAnalyzerControllerOutDTO
+				Diagnostic diagnostic = defectAnalyzerControllerOutDTO
 						.getAllDiagnostics().get(i);
 				todosDefectos++;
 				if (diagnostic.getDefect() instanceof VoidModel) {
@@ -453,5 +452,5 @@ public class ExportDefectAnalyzer {
 			throw new FunctionalException("El directorio de salida "
 					+ outputDirectoryPath + " no existe");
 		}
-	}*/
+	}
 }

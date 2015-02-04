@@ -1,28 +1,40 @@
 package com.variamos.defectAnalyzer.model.defects;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.Identifier;
+import com.cfm.hlcl.Expression;
+import com.variamos.defectAnalyzer.model.VariabilityElementDefAna;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
 
 public class DeadElement extends Defect {
 
-	private Identifier deadIdentifier;
+	private VariabilityElementDefAna deadElement;
 
-	public DeadElement(Identifier deadIdentifier,
-			BooleanExpression verificationExpression) {
+	public DeadElement(VariabilityElementDefAna deadElement) {
 		super();
-		this.deadIdentifier = deadIdentifier;
-		this.id = deadIdentifier.getId();
+		this.deadElement = deadElement;
+		this.id = deadElement.getName();
 		defectType = DefectType.DEAD_FEATURE;
-		setVerificationExpression(verificationExpression);
+
 	}
 
-	public Identifier getDeadIdentifier() {
-		return deadIdentifier;
+	public DeadElement(VariabilityElementDefAna deadElement,
+			Expression verificationExpression) {
+		this(deadElement);
+		this.verificationExpression=verificationExpression;
 	}
 
-	public void setDeadIdentifier(Identifier deadIdentifier) {
-		this.deadIdentifier = deadIdentifier;
+	/**
+	 * @return the deadElement
+	 */
+	public VariabilityElementDefAna getDeadElement() {
+		return deadElement;
+	}
+
+	/**
+	 * @param deadElement
+	 *            the deadElement to set
+	 */
+	public void setDeadElement(VariabilityElementDefAna deadElement) {
+		this.deadElement = deadElement;
 	}
 
 }

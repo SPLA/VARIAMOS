@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cfm.hlcl.HlclProgram;
 import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
 
 public class VariabilityModel extends ProductLine{
 	private String modelName;
 	private NotationType notationType;
-	private HlclProgram model;
 	private Map<String, VariabilityElementDefAna> elements;
 	private Map<Long, Dependency> dependencies;
 	// Dependencias propias de la notación que se está utilizando y que no
@@ -297,14 +295,6 @@ public class VariabilityModel extends ProductLine{
 	 */
 	public void setNumberOfDependencies(Integer numberOfDependencies) {
 		this.numberOfDependencies = numberOfDependencies;
-	}
-
-	public HlclProgram getModel() {
-		return model;
-	}
-
-	public void setModel(HlclProgram model) {
-		this.model = model;
 	}
 
 }

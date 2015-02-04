@@ -7,17 +7,18 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-//import com.cfm.common.AbstractModel;
-//import com.cfm.productline.io.SXFMReader;
+import com.cfm.common.AbstractModel;
+import com.cfm.productline.ProductLine;
+import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
-import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.pl.configurator.io.PLGReader;
 
 import fm.FeatureModelException;
 
@@ -41,16 +42,15 @@ public class OpenAction extends AbstractEditorAction{
 		editor.getGraphComponent().zoomAndCenter();
 	}
 	
-	@Deprecated
 	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
 		
 		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
 		variamosEditor.editModelReset();
 		
-	//	SXFMReader reader = new SXFMReader();
-		//AbstractModel pl = reader.readFile(file.getAbsolutePath());
+		SXFMReader reader = new SXFMReader();
+		AbstractModel pl = reader.readFile(file.getAbsolutePath());
 		
-	//	variamosEditor.editModel(pl);
+		variamosEditor.editModel(pl);
 		
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);
@@ -65,16 +65,6 @@ public class OpenAction extends AbstractEditorAction{
 
 		if (editor != null)
 		{
-			VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
-			if (variamosEditor.getPerspective()==4)
-			{
-				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-						null);
-				
-				return;
-			}
-			final BasicGraphEditor finalEditor = editor;
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
@@ -99,7 +89,6 @@ public class OpenAction extends AbstractEditorAction{
 						{
 							String lcase = file.getName().toLowerCase();
 
-							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
 							return lcase.endsWith(".plg")
 									|| lcase.endsWith(".sxfm");
 						}
@@ -145,15 +134,13 @@ public class OpenAction extends AbstractEditorAction{
 //								codec.decode(
 //										document.getDocumentElement(),
 //										graph.getModel());
-							//	variamosEditor.editModelReset();
-								((VariamosGraphEditor) editor).resetView();
-								 graph = editor.getGraphComponent().getGraph();
-								SharedActions.beforeLoadGraph(graph, variamosEditor);
+								VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+								//variamosEditor.editModelReset();
 								
 								PLGReader.loadPLG(fc.getSelectedFile(), graph);
 								editor.setCurrentFile(fc
 										.getSelectedFile());
-								SharedActions.afterOpenCloneGraph(graph, variamosEditor);
+								SharedActions.afterSaveGraph(graph, variamosEditor);
 									variamosEditor.populateIndex(((AbstractGraph)graph).getProductLine());
 								resetEditor(variamosEditor);
 							}
@@ -170,7 +157,6 @@ public class OpenAction extends AbstractEditorAction{
 					}
 				}
 			}
-			variamosEditor.refresh();
 			((MainFrame)editor.getFrame()).waitingCursor(false);
 		}
 	}

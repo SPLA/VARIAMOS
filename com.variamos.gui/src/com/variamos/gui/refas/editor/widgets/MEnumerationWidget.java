@@ -11,9 +11,9 @@ import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.types.EnumerationMultiSelectionType;
+import com.variamos.syntaxsupport.metamodel.InstAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.type.EnumerationMultiSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface with multi-selection.

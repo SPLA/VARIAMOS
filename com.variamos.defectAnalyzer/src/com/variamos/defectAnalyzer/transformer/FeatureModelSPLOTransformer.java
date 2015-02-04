@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cfm.hlcl.BooleanExpression;
-import com.cfm.hlcl.HlclProgram;
+import com.cfm.hlcl.Expression;
 import com.cfm.hlcl.NumericExpression;
 import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.constants.TransformerConstants;
@@ -50,7 +49,6 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 	private Map<Long, Dependency> variabilityDependenciesMap;
 	private Map<Long, Dependency> permanentDependenciesMap;
 	private Map<Long, Dependency> inclusionExclusionDependenciesMap;
-	private HlclProgram model;
 
 	private FeatureModelTransformerRules transformerRules;
 
@@ -63,7 +61,6 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 		variabilityDependenciesMap = new HashMap<Long, Dependency>();
 		permanentDependenciesMap = new HashMap<Long, Dependency>();
 		inclusionExclusionDependenciesMap = new HashMap<Long, Dependency>();
-		model= new HlclProgram();
 
 	}
 
@@ -174,10 +171,10 @@ public class FeatureModelSPLOTransformer implements ITransformer {
 			// Grupo de características
 			else if (node instanceof FeatureGroup) {
 
-				BooleanExpression constraintExpression = null;
-				BooleanExpression negationConstraintExpression = null;
-				BooleanExpression constraintExpression2 = null;
-				BooleanExpression negationConstraintExpression2 = null;
+				Expression constraintExpression = null;
+				Expression negationConstraintExpression = null;
+				Expression constraintExpression2 = null;
+				Expression negationConstraintExpression2 = null;
 				String dependencyName2 = "";
 				// Se obtiene el valor menor y mayor de cardinalidad
 				Long minCardinality = new Long(

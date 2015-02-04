@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 
 /**
  * A class to support boolean widgets on the interface. Copied on BooleanWidget

@@ -40,7 +40,6 @@ class GNUPrologEngine implements PrologEngine {
 		
 		GNUPrologQueryResult res = new GNUPrologQueryResult(cmp, false);
 		res.endQuery(JGProlog.PL_CUT);
-		res.close(); //TODO Should be closed?
 	}
 
 	@Override

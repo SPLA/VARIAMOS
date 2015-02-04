@@ -5,11 +5,12 @@ import java.util.Map;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.syntax.types.BooleanType;
-import com.variamos.syntax.types.IntegerType;
-import com.variamos.syntax.types.StringType;
+import com.variamos.syntaxsupport.type.BooleanType;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.StringType;
 
 
+@SuppressWarnings("deprecation")
 public class WidgetFactory {
 	//private DomainRegister register;
 	

@@ -14,6 +14,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 
+
+
 //import com.cfm.productline.editor.actions.SaveAction;
 import com.mxgraph.analysis.StructuralException;
 import com.mxgraph.analysis.mxAnalysisGraph;
@@ -22,14 +24,6 @@ import com.mxgraph.analysis.mxGraphProperties.GraphType;
 import com.mxgraph.analysis.mxGraphStructure;
 import com.mxgraph.analysis.mxTraversal;
 import com.mxgraph.costfunction.mxCostFunction;
-import com.mxgraph.model.mxIGraphModel;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.swing.util.mxGraphActions;
-import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxResources;
-import com.mxgraph.view.mxGraph;
-import com.mxgraph.view.mxGraphView;
 import com.variamos.gui.maineditor.EditorActions.AlignCellsAction;
 import com.variamos.gui.maineditor.EditorActions.AutosizeAction;
 import com.variamos.gui.maineditor.EditorActions.BackgroundAction;
@@ -65,6 +59,14 @@ import com.variamos.gui.maineditor.EditorActions.TogglePropertyItem;
 import com.variamos.gui.maineditor.EditorActions.ToggleRulersItem;
 import com.variamos.gui.maineditor.EditorActions.WarningAction;
 import com.variamos.gui.maineditor.EditorActions.ZoomPolicyAction;
+import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.swing.util.mxGraphActions;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxPoint;
+import com.mxgraph.util.mxResources;
+import com.mxgraph.view.mxGraph;
+import com.mxgraph.view.mxGraphView;
 
 public class EditorMenuBar extends JMenuBar
 {

@@ -17,8 +17,8 @@ import com.cfm.productline.VariabilityElement;
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.VariabilityParameterDialog.DialogButtonAction;
-import com.variamos.syntax.types.IntegerType;
-import com.variamos.syntax.types.StringType;
+import com.variamos.syntaxsupport.type.IntegerType;
+import com.variamos.syntaxsupport.type.StringType;
 
 @SuppressWarnings("serial")
 public class VariabilityAttributeList extends JList<Variable> {

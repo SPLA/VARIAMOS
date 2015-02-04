@@ -1,4 +1,4 @@
-	package com.variamos.gui.maineditor;
+package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,14 +11,10 @@ import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.RefasModel;
-import com.variamos.semantic.types.PerspectiveType;
+import com.variamos.refas.core.refas.Refas;
+import com.variamos.refas.core.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
-	public List<VariamosGraphEditor> getGraphEditors() {
-		return graphEditors;
-	}
-
 	/**
 	 * 
 	 */
@@ -46,11 +42,11 @@ public class MainFrame extends JFrame {
 		this.setTitle(perspectiveTitle + " - " + appTitle);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1070, 740);
-		RefasModel basicSyntaxRefas = new RefasModel(PerspectiveType.basicSyntax);
-		RefasModel basicSemanticRefas = new RefasModel(PerspectiveType.basicSemantic);
-		RefasModel semanticRefas = null;
-		RefasModel syntaxRefas = null;
-		RefasModel abstractModel = null;
+		Refas basicSyntaxRefas = new Refas(PerspectiveType.basicSyntax);
+		Refas basicSemanticRefas = new Refas(PerspectiveType.basicSemantic);
+		Refas semanticRefas = null;
+		Refas syntaxRefas = null;
+		Refas abstractModel = null;
 		SemanticPlusSyntax sematicSyntaxObject = new SemanticPlusSyntax();
 		VariamosGraphEditor.setSematicSyntaxObject(sematicSyntaxObject);
 		RefasGraph refasGraph = null;
@@ -59,15 +55,15 @@ public class MainFrame extends JFrame {
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // semantic
-				abstractModel = new RefasModel(basicSemanticRefas);
+				abstractModel = new Refas(basicSemanticRefas);
 				semanticRefas = abstractModel;
-				syntaxRefas = new RefasModel(PerspectiveType.syntax,
+				syntaxRefas = new Refas(PerspectiveType.syntax,
 						basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
 				break;
 
 			case 1:// modeling
-				abstractModel = new RefasModel(PerspectiveType.modeling,
+				abstractModel = new Refas(PerspectiveType.modeling,
 						syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
@@ -80,13 +76,13 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 3:// simulation
-				abstractModel = new RefasModel(PerspectiveType.simulation,
+				abstractModel = new Refas(PerspectiveType.simulation,
 						syntaxRefas, semanticRefas);
-				bgColor = new Color(236, 252, 255);
+				bgColor = new Color(236, 250, 235);
 				break;
 
 			}
-			refasGraph = new RefasGraph(sematicSyntaxObject,i+1, abstractModel);
+			refasGraph = new RefasGraph(sematicSyntaxObject);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
@@ -130,8 +126,6 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(perspective - 1));
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
 		graphEditors.get(perspective - 1).updateObjects();
-		graphEditors.get(perspective - 1).setVisibleModel(0, -1);
-		graphEditors.get(perspective - 1).updateView();
 		this.revalidate();
 		this.repaint();
 	}

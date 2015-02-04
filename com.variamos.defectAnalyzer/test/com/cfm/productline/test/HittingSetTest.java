@@ -1,5 +1,14 @@
 package com.cfm.productline.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.variamos.core.exceptions.FunctionalException;
+import com.variamos.defectAnalyzer.defectAnalyzer.HittingSetIdentifier;
+import com.variamos.defectAnalyzer.model.Dependency;
 
 public class HittingSetTest {
 

@@ -10,9 +10,9 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.util.mxResources;
-import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.pl.editor.logic.ConstraintMode;
 
 /**
  * @author jcmunoz

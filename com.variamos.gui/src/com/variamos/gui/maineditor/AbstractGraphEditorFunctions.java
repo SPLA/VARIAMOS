@@ -2,6 +2,10 @@ package com.variamos.gui.maineditor;
 
 
 import java.awt.event.MouseEvent;
+
+import com.variamos.gui.maineditor.BasicGraphEditor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mxgraph.swing.mxGraphComponent;

@@ -1,8 +1,0 @@
-package com.variamos.semantic.types;
-
-public enum ExpressionClassType {
-AndBooleanExpression, AssignBooleanExpression,DiffNumericExpression,DoubleImplicationBooleanExpression,
-EqualsComparisonExpression,GreaterOrEqualsBooleanExpression,ImplicationBooleanExpression,LessBooleanExpression,
-LessOrEqualsBooleanExpression,LiteralBooleanExpression,NotBooleanExpression,NotEqualsBooleanExpression,
-NumberNumericExpression,OrBooleanExpression,ProdNumericExpression,SumNumericExpression
-}

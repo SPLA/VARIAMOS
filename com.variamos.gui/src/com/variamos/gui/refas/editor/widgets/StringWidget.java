@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
+import com.variamos.syntaxsupport.metamodelsupport.EditableElementAttribute;
 
 /**
  * A class to support string widgets on the interface. Copied from StringWidget

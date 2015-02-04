@@ -3,6 +3,7 @@ package com.variamos.gui.pl.configurator.treetable.actions;
 import com.cfm.productline.Variable;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationAction;
+import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 public abstract class ChangeAction<T> extends ConfigurationAction{
 	protected T oldValue, newValue;
