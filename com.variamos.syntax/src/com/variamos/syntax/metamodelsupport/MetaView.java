@@ -77,7 +77,7 @@ public class MetaView extends MetaElement implements Serializable {
 	}
 
 	@Override
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getAllAttributesNames() {
 		return null;
 	}
 

@@ -161,11 +161,12 @@ public class MetaOverTwoRelation extends MetaVertex {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (semanticOverTwoRelation != null)
 			modelingAttributesNames.addAll(semanticOverTwoRelation
 					.getSemanticAttributesNames());
+		modelingAttributesNames.addAll(this.getModelingAttributesNames());
 		return modelingAttributesNames;
 	}
 

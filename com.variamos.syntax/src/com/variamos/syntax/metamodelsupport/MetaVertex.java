@@ -141,6 +141,6 @@ public abstract class MetaVertex extends MetaElement {
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
 		return this.getModelingAttribute(attributeName);
 	}
-	public abstract Set<String> getSemanticAttributes() ;
+	public abstract Set<String> getAllAttributesNames() ;
 	public abstract AbstractAttribute getSemanticAttribute(String name); 
 }

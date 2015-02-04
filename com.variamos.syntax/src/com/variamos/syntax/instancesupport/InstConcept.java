@@ -95,7 +95,7 @@ public class InstConcept extends InstVertex {
 			}
 
 			Iterator<String> semanticAttributes = getTransSupportMetaElement()
-					.getSemanticAttributes().iterator();
+					.getAllAttributesNames().iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))

@@ -386,9 +386,9 @@ public class SharedActions {
 					.getTransSupportMetaElement().getModelingAttributes()
 					.size()
 					+ instOverTwoRelation.getTransSupportMetaElement()
-							.getSemanticAttributes().size()) {
+							.getAllAttributesNames().size()) {
 				for (String attributeName : instOverTwoRelation
-						.getTransSupportMetaElement().getSemanticAttributes()) {
+						.getTransSupportMetaElement().getAllAttributesNames()) {
 					if (instOverTwoRelation.getInstAttribute(attributeName) == null
 							&& instOverTwoRelation.getTransSupportMetaElement()
 									.getSemanticAttribute(attributeName) != null) {
@@ -443,15 +443,13 @@ public class SharedActions {
 				}
 			}
 			int semAtt = 0;
-			if (instVertex.getTransSupportMetaElement().getSemanticAttributes() != null)
+			if (instVertex.getTransSupportMetaElement().getAllAttributesNames() != null)
 				semAtt = instVertex.getTransSupportMetaElement()
-						.getSemanticAttributes().size();
-			if (instVertex.getInstAttributes().size() < semAtt
-					+ instVertex.getTransSupportMetaElement()
-							.getModelingAttributes().size()) {
+						.getAllAttributesNames().size();
+			if (instVertex.getInstAttributes().size() < semAtt) {
 				// TODO modify to support syntax attributes changes
 				for (String attributeName : instVertex
-						.getTransSupportMetaElement().getSemanticAttributes()) {
+						.getTransSupportMetaElement().getAllAttributesNames()) {
 					if (instVertex.getInstAttribute(attributeName) == null
 							&& instVertex.getTransSupportMetaElement()
 									.getSemanticAttribute(attributeName) != null) {
@@ -548,12 +546,12 @@ public class SharedActions {
 					}
 					if (instPairwiseRelation.getInstAttributes().size() < instPairwiseRelation
 							.getTransSupportMetaElement()
-							.getSemanticAttributes().size()
+							.getAllAttributesNames().size()
 							+ instPairwiseRelation.getTransSupportMetaElement()
 									.getModelingAttributes().size()) {
 						for (String attributeName : instPairwiseRelation
 								.getTransSupportMetaElement()
-								.getSemanticAttributes()) {
+								.getAllAttributesNames()) {
 							if (instPairwiseRelation
 									.getInstAttribute(attributeName) == null
 									&& instPairwiseRelation

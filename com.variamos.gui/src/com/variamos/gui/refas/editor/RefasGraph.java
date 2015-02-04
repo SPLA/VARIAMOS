@@ -201,6 +201,8 @@ public class RefasGraph extends AbstractGraph {
 				}
 			}
 		}
+		
+		//Load views for System Design and simulation
 		int i = 0;
 		for (Object view : views) {
 			mxCell parent = new mxCell(new InstCell(null, false));

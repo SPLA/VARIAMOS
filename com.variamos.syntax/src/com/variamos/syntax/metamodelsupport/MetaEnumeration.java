@@ -96,9 +96,9 @@ public class MetaEnumeration extends MetaVertex {
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMNAME + "#\n\n");
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMVALUE + "#\n");
 	}
-	public Set<String> getSemanticAttributes() 
+	public Set<String> getAllAttributesNames() 
 	{
-		return null;
+		return this.getModelingAttributesNames();
 	}
 	public AbstractAttribute getSemanticAttribute(String name) 
 	{
