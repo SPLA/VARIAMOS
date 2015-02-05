@@ -124,7 +124,59 @@ public class MainFrame extends JFrame {
 	}
 
 	private List<MetaExpressionType> createMetaExpressionTypes() {
-		// TODO Auto-generated method stub
+		List<MetaExpressionType> out = new ArrayList<MetaExpressionType>();
+		out.add(new MetaExpressionType("And", "#/\"", "#/\"", "and",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Assign", "=", "=", "assign",
+				MetaExpressionType.IDEN, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Subtraction", "-", "-", "diff",
+				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.NUM, false));
+		out.add(new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
+				"doubleImplies", MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Equals", "#=", "#=", "equals",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
+				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
+				"greaterOrEqualsThan", MetaExpressionType.NUM,
+				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Implies", "#==>", "#==>", "implies",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Less", "#<", "#<", "lessThan",
+				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("LessOrEq", "#<=", "#<=",
+				"lessOrEqualsThan", MetaExpressionType.NUM,
+				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Literal", "", "",
+				"literalBooleanExpression", MetaExpressionType.LIT,
+				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
+		out.add(new MetaExpressionType("Negation", "-", "-",
+				"not", MetaExpressionType.BOOL,
+				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
+		out.add(new MetaExpressionType("Number", "", "",
+				"number", MetaExpressionType.INT,
+				MetaExpressionType.NONE, MetaExpressionType.NUM, true));
+		out.add(new MetaExpressionType("NotEquals",  "\\==",  "\\==",
+				"notEquals", MetaExpressionType.NUM,
+				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+
+		out.add(new MetaExpressionType("Or", "#\"/", "#\"/", "or",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Product", "*", "*", "prod",
+				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.BOOL, false));
+		out.add(new MetaExpressionType("Sum", "+", "+", "sum",
+				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.BOOL, false));
 		return null;
 	}
 

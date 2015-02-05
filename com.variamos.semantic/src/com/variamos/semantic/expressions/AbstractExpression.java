@@ -323,7 +323,7 @@ public abstract class AbstractExpression {
 				break;
 			case LEFTSUBEXPRESSION:
 				if (leftSubExpression instanceof AbstractBooleanExpression)
-					out.add(((AbstractBooleanExpression) leftSubExpression)
+					out.add(( leftSubExpression)
 							.transform(f, idMap));
 				else if (leftSubExpression instanceof AbstractNumericExpression)
 					out.add(((AbstractNumericExpression) leftSubExpression)
