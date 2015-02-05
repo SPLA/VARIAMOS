@@ -40,7 +40,7 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
  * @version 1.1
  * @since 2014-12-16
  */
-public class SingleElementExpressionSet extends MetaExpressionSet {
+public class SingleElementExpressionSet extends ElementExpressionSet {
 
 	static {
 		try {
@@ -287,6 +287,18 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														attributeValue)));
 							}
 
+							if (instAttribute.getIdentifier().equals(
+									"SDReqLevel")) {
+								EqualsComparisonExpression transformation50 = new EqualsComparisonExpression(
+										instVertex, instVertex, "SDReqLevel",
+										"ClaimExpLevel");
+
+								getElementExpressions().add(
+										new DoubleImplicationBooleanExpression(
+												instVertex, "Selected", true,
+												transformation50));
+							}
+
 							/*
 							 * if (instAttribute.getIdentifier().equals(
 							 * "NextReqSelected")) {
@@ -312,10 +324,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(0)));
 							}
-							
-							if (instAttribute.getIdentifier().equals(
-									"Selected"))
-							{
+
+							if (instAttribute.getIdentifier()
+									.equals("Selected")) {
 								// Opt #<==>
 								if (execType != Refas2Hlcl.CORE_EXEC
 										&& (execType != Refas2Hlcl.DESIGN_EXEC)) {
@@ -323,15 +334,16 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 											instVertex, instVertex,
 											"NextReqSelected", "ConfigSelected");
 									AbstractNumericExpression transformation51 = new ProdNumericExpression(
-											instVertex, "NextPrefSelected", true,
-											transformation50);
+											instVertex, "NextPrefSelected",
+											true, transformation50);
 
 									AbstractNumericExpression transformation52 = new SumNumericExpression(
 											instVertex, instVertex,
-											"NextPrefSelected", "ConfigSelected");
+											"NextPrefSelected",
+											"ConfigSelected");
 									AbstractNumericExpression transformation53 = new ProdNumericExpression(
-											instVertex, "NextReqSelected", true,
-											transformation52);
+											instVertex, "NextReqSelected",
+											true, transformation52);
 
 									AbstractNumericExpression transformation54 = new SumNumericExpression(
 											transformation51, transformation53);
@@ -344,8 +356,9 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 								// Opt#=0
 
 								getElementExpressions().add(
-										new EqualsComparisonExpression(instVertex,
-												"Opt", getHlclFactory().number(0)));
+										new EqualsComparisonExpression(
+												instVertex, "Opt",
+												getHlclFactory().number(0)));
 
 							}
 							// Order#<==>
@@ -359,14 +372,14 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 										transformation48);
 
 								getElementExpressions().add(
-										new EqualsComparisonExpression(instVertex,
-												"Order", true, transformation55));
+										new EqualsComparisonExpression(
+												instVertex, "Order", true,
+												transformation55));
 							}
 						}
 
 						// End Simulation Only
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 						// identifierId_Active #= value for simulation
 						if (instAttribute.getIdentifier().equals("Active")) {
@@ -434,8 +447,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 						}
 
-						
-
 						// Set ForceSelected from GUI properties
 
 						if (instAttribute.getIdentifier()
@@ -483,7 +494,6 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 									new NumberNumericExpression(0));
 							getElementExpressions().add(transformation62);
 
-							
 						}
 					}
 					List<AbstractExpression> coreList = this
@@ -514,69 +524,36 @@ public class SingleElementExpressionSet extends MetaExpressionSet {
 
 	}
 
-/*	private AbstractNumericExpression sumRelations(InstVertex instVertex2,
-			String string, List<String> outRelations, List<String> inRelations) {
-		AbstractNumericExpression outExp = null;
-		for (String relName : outRelations) {
-			for (InstElement target : instVertex2.getTargetRelations()) {
-				String type = ((InstPairwiseRelation) target)
-						.getSemanticPairwiseRelType();
-				if (relName.equals(type)) {
-					if (outExp == null)
-						outExp = new SumNumericExpression((InstVertex) target
-								.getTargetRelations().get(0), string, false,
-								getHlclFactory().number(0));
-					else
-						outExp = new SumNumericExpression((InstVertex) target
-								.getTargetRelations().get(0), string, true,
-								outExp);
-				} else if (type != null
-						&& (type.equals("none") || type.equals("Group"))) {
-					InstVertex grouprel = (InstVertex) target
-							.getTargetRelations().get(0);
-					if (grouprel.getTargetRelations().size() > 0) {
-						String relType = ((InstPairwiseRelation) grouprel
-								.getTargetRelations().get(0))
-								.getSemanticPairwiseRelType();
-						if (relType.equals(relName))
-							if (outExp == null)
-								outExp = new SumNumericExpression(
-										(InstVertex) grouprel
-												.getTargetRelations().get(0)
-												.getTargetRelations().get(0),
-										string, false, getHlclFactory().number(
-												0));
-							else
-								outExp = new SumNumericExpression(
-										(InstVertex) grouprel
-												.getTargetRelations().get(0)
-												.getTargetRelations().get(0),
-										string, true, outExp);
-					}
-				}
-			}
-		}
-		for (String relName : inRelations) {
-			for (InstElement target : instVertex.getSourceRelations()) {
-				String type = ((InstPairwiseRelation) target)
-						.getSemanticPairwiseRelType();
-				if (relName.equals(type)) {
-					if (outExp == null)
-						outExp = new SumNumericExpression((InstVertex) target
-								.getSourceRelations().get(0), string, false,
-								getHlclFactory().number(0));
-					else
-						outExp = new SumNumericExpression((InstVertex) target
-								.getSourceRelations().get(0), string, true,
-								outExp);
-				}
-			}
-		}
-		if (outExp == null)
-			return new NumberNumericExpression(0);
-		return outExp;
-	}
-	*/
+	/*
+	 * private AbstractNumericExpression sumRelations(InstVertex instVertex2,
+	 * String string, List<String> outRelations, List<String> inRelations) {
+	 * AbstractNumericExpression outExp = null; for (String relName :
+	 * outRelations) { for (InstElement target :
+	 * instVertex2.getTargetRelations()) { String type = ((InstPairwiseRelation)
+	 * target) .getSemanticPairwiseRelType(); if (relName.equals(type)) { if
+	 * (outExp == null) outExp = new SumNumericExpression((InstVertex) target
+	 * .getTargetRelations().get(0), string, false, getHlclFactory().number(0));
+	 * else outExp = new SumNumericExpression((InstVertex) target
+	 * .getTargetRelations().get(0), string, true, outExp); } else if (type !=
+	 * null && (type.equals("none") || type.equals("Group"))) { InstVertex
+	 * grouprel = (InstVertex) target .getTargetRelations().get(0); if
+	 * (grouprel.getTargetRelations().size() > 0) { String relType =
+	 * ((InstPairwiseRelation) grouprel .getTargetRelations().get(0))
+	 * .getSemanticPairwiseRelType(); if (relType.equals(relName)) if (outExp ==
+	 * null) outExp = new SumNumericExpression( (InstVertex) grouprel
+	 * .getTargetRelations().get(0) .getTargetRelations().get(0), string, false,
+	 * getHlclFactory().number( 0)); else outExp = new SumNumericExpression(
+	 * (InstVertex) grouprel .getTargetRelations().get(0)
+	 * .getTargetRelations().get(0), string, true, outExp); } } } } for (String
+	 * relName : inRelations) { for (InstElement target :
+	 * instVertex.getSourceRelations()) { String type = ((InstPairwiseRelation)
+	 * target) .getSemanticPairwiseRelType(); if (relName.equals(type)) { if
+	 * (outExp == null) outExp = new SumNumericExpression((InstVertex) target
+	 * .getSourceRelations().get(0), string, false, getHlclFactory().number(0));
+	 * else outExp = new SumNumericExpression((InstVertex) target
+	 * .getSourceRelations().get(0), string, true, outExp); } } } if (outExp ==
+	 * null) return new NumberNumericExpression(0); return outExp; }
+	 */
 
 	private boolean oneParent(InstVertex instVertex2) {
 		int out = 0;

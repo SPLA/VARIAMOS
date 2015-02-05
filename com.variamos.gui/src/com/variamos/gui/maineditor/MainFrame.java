@@ -1,4 +1,4 @@
-	package com.variamos.gui.maineditor;
+package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -12,6 +12,7 @@ import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.RefasModel;
+import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
@@ -41,13 +42,16 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<RefasMenuBar>();
+		List<MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
 		this.setTitle(perspectiveTitle + " - " + appTitle);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1070, 740);
-		RefasModel basicSyntaxRefas = new RefasModel(PerspectiveType.basicSyntax);
-		RefasModel basicSemanticRefas = new RefasModel(PerspectiveType.basicSemantic);
+		RefasModel basicSyntaxRefas = new RefasModel(
+				PerspectiveType.basicSyntax, metaExpressionTypes);
+		RefasModel basicSemanticRefas = new RefasModel(
+				PerspectiveType.basicSemantic, metaExpressionTypes);
 		RefasModel semanticRefas = null;
 		RefasModel syntaxRefas = null;
 		RefasModel abstractModel = null;
@@ -59,17 +63,18 @@ public class MainFrame extends JFrame {
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // semantic
-				abstractModel = new RefasModel(basicSemanticRefas);
+				abstractModel = new RefasModel(metaExpressionTypes,
+						basicSemanticRefas);
 				semanticRefas = abstractModel;
 				syntaxRefas = new RefasModel(PerspectiveType.syntax,
-						basicSyntaxRefas, semanticRefas);
+						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
 				System.out.println("Creating Semantic Perspective...");
 				break;
 
 			case 1:// modeling
 				abstractModel = new RefasModel(PerspectiveType.modeling,
-						syntaxRefas, semanticRefas);
+						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
 				System.out.println("Creating Modeling Perspective...");
@@ -84,13 +89,13 @@ public class MainFrame extends JFrame {
 
 			case 3:// simulation
 				abstractModel = new RefasModel(PerspectiveType.simulation,
-						syntaxRefas, semanticRefas);
+						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
 				System.out.println("Creating Simulation Perspective...");
 				break;
 
 			}
-			refasGraph = new RefasGraph(i+1, abstractModel);
+			refasGraph = new RefasGraph(i + 1, abstractModel);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
@@ -116,6 +121,11 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
+	}
+
+	private List<MetaExpressionType> createMetaExpressionTypes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public void waitingCursor(boolean waitingCursor) {

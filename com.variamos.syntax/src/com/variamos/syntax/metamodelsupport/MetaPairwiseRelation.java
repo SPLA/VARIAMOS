@@ -223,7 +223,7 @@ public class MetaPairwiseRelation extends MetaElement {
 			return out;
 	}
 
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (semanticPairwiseRelation != null)
 			modelingAttributesNames.addAll(semanticPairwiseRelation

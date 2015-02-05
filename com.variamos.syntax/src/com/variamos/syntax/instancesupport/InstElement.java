@@ -396,7 +396,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 			if (getTransSupportMetaElement() instanceof MetaConcept) {
 				MetaConcept metaConcept = (MetaConcept) getTransSupportMetaElement();
 				Iterator<String> semanticAttributes = metaConcept
-						.getSemanticAttributes().iterator();
+						.getAllAttributesNames().iterator();
 				while (semanticAttributes.hasNext()) {
 					String name = semanticAttributes.next();
 					if (name.equals(MetaElement.VAR_IDENTIFIER))

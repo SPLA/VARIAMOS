@@ -36,7 +36,7 @@ import com.variamos.syntax.metamodelsupport.MetaElement;
  * @version 1.1
  * @since 2014-12-16
  */
-public class OverTwoElementsExpressionSet extends MetaExpressionSet {
+public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */

@@ -157,13 +157,14 @@ public class MetaConcept extends MetaVertex {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(semanticConcept
 				.getSemanticAttributesNames());
 		if (parent != null) {
 			modelingAttributesNames.addAll(parent.getModelingAttributesNames());
 		}
+		modelingAttributesNames.addAll(this.getModelingAttributesNames());
 		return modelingAttributesNames;
 	}
 

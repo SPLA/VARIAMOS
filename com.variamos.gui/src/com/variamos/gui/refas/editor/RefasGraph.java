@@ -122,8 +122,8 @@ public class RefasGraph extends AbstractGraph {
 				child.setVertex(true);
 				mxGraphModel model = (mxGraphModel) getModel();
 				model.getCells().remove(child.getId());
-				model.getCells().put(id, child);
-				child.setId(id);
+				model.getCells().put("0"+id, child);
+				child.setId("0"+id);
 				pos++;
 
 			}
@@ -141,8 +141,8 @@ public class RefasGraph extends AbstractGraph {
 					child.setVertex(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
-					model.getCells().put(id, child);
-					child.setId(id);
+					model.getCells().put("0"+id, child);
+					child.setId("0"+id);
 					pos++;
 				}
 				for (InstView instChildView : instView.getChildViews()) {
@@ -159,8 +159,8 @@ public class RefasGraph extends AbstractGraph {
 					child2.setVertex(true);
 					mxGraphModel model2 = (mxGraphModel) getModel();
 					model2.getCells().remove(child2.getId());
-					model2.getCells().put(id2, child2);
-					child2.setId(id2);
+					model2.getCells().put("0"+id2, child2);
+					child2.setId("0"+id2);
 					pos++;
 
 				}
@@ -174,9 +174,9 @@ public class RefasGraph extends AbstractGraph {
 					mxCell child = new mxCell(new InstCell(instEdge, false));
 					child.setId(instEdge.getIdentifier());
 					addCell(child);
-					mxCell source = this.getCellById(instEdge
+					mxCell source = this.getCellById(modelViewIndex+instEdge
 							.getSourceRelations().get(0).getIdentifier());
-					mxCell target = this.getCellById(instEdge
+					mxCell target = this.getCellById(modelViewIndex+instEdge
 							.getTargetRelations().get(0).getIdentifier());
 					child.setStyle("");
 					MetaElement e = instEdge.getTransSupportMetaElement();
@@ -196,11 +196,13 @@ public class RefasGraph extends AbstractGraph {
 					child.setEdge(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
-					model.getCells().put(id, child);
-					child.setId(id);
+					model.getCells().put(modelViewIndex+id, child);
+					child.setId(modelViewIndex+id);
 				}
 			}
 		}
+		
+		//Load views for System Design and simulation
 		int i = 0;
 		for (Object view : views) {
 			mxCell parent = new mxCell(new InstCell(null, false));

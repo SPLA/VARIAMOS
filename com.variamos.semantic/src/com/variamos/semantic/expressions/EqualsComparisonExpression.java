@@ -72,7 +72,7 @@ public class EqualsComparisonExpression extends
 	}
 
 	@Override
-	public ComparisonExpression transform(HlclFactory f,
+	public BooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
 		return f.equals((Expression) expressionTerms.get(0),

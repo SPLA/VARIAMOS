@@ -204,7 +204,7 @@ public abstract class MetaElement implements Serializable {
 		return image;
 	}
 	
-	public abstract Set<String> getSemanticAttributes() ;
+	public abstract Set<String> getAllAttributesNames() ;
 	
 	public abstract AbstractAttribute getSemanticAttribute(String name);
 

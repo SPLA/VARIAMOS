@@ -22,7 +22,7 @@ import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
-public class ModelExpressionSet extends MetaExpressionSet {
+public class ModelExpressionSet extends ElementExpressionSet {
 
 	private RefasModel refas;
 	private Map<String, List<BooleanExpression>> booleanExpressions = new HashMap<String, List<BooleanExpression>>();

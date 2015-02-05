@@ -21,6 +21,11 @@ public class MetaView extends MetaElement implements Serializable {
 	private int index;
 	private List<MetaView> childViews;
 	private Set<MetaElement> elements;
+	
+	public MetaView()
+	{
+		
+	}
 
 	public MetaView(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
@@ -72,7 +77,7 @@ public class MetaView extends MetaElement implements Serializable {
 	}
 
 	@Override
-	public Set<String> getSemanticAttributes() {
+	public Set<String> getAllAttributesNames() {
 		return null;
 	}
 

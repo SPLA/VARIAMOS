@@ -156,7 +156,7 @@ public class InstOverTwoRelation extends InstVertex {
 			}
 
 			Iterator<String> semanticAttributes = this
-					.getTransSupportMetaElement().getSemanticAttributes()
+					.getTransSupportMetaElement().getAllAttributesNames()
 					.iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();

@@ -122,6 +122,14 @@ public class InstPairwiseRelation extends InstElement {
 		this.supportMetaPairwiseRelIden = supportMetaPairwiseRelIden;
 	}
 
+	public InstPairwiseRelation(String identifier,
+			MetaPairwiseRelation editableMetaElement) {
+		super(identifier);
+		setEditableMetaElement(editableMetaElement);
+		createAttributes(new HashMap<String, InstAttribute>());
+
+	}
+
 	public String getSupportMetaPairwiseRelIden() {
 		return supportMetaPairwiseRelIden;
 	}
@@ -199,7 +207,7 @@ public class InstPairwiseRelation extends InstElement {
 			}
 
 			Iterator<String> semanticAttributes = getMetaPairwiseRelation()
-					.getSemanticAttributes().iterator();
+					.getAllAttributesNames().iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals("identifier"))

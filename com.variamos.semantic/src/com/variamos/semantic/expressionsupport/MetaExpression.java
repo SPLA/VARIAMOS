@@ -9,6 +9,6 @@ package com.variamos.semantic.expressionsupport;
  * @version 1.1
  * @since 2014-12-13
  */
-public class MetaExpressionSet {
+public class MetaExpression {
 
 }
