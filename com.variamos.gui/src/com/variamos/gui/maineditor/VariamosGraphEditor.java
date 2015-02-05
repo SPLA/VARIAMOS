@@ -95,7 +95,7 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.io.SXFMReader;
 import com.variamos.refas.Refas2Hlcl;
 import com.variamos.refas.RefasModel;
-import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.solver.Configuration;
 import com.variamos.syntax.instancesupport.EditableElement;
@@ -506,11 +506,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
-						PerspectiveType.modeling));
+						PerspectiveType.modeling, null));
 				refasGraph = new RefasGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling, null);
 					refasGraph = new RefasGraph(persp);
 
 				}
@@ -538,11 +538,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
-						PerspectiveType.modeling));
+						PerspectiveType.modeling, null));
 				refasGraph = new RefasGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling);
+					abstractModel = new RefasModel(PerspectiveType.modeling, null);
 					refasGraph = new RefasGraph(persp);
 
 				}
@@ -807,7 +807,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						if (elm instanceof InstOverTwoRelation) {
 							editableElementType = "groupdep";
 						}
-						MetaExpressionSet metaExpressionSet = refas2hlcl
+						ElementExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(
 										lastEditableElement.getInstElement().getIdentifier(),
 										editableElementType,

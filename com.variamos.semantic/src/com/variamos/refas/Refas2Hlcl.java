@@ -26,7 +26,7 @@ import com.variamos.solver.Solver;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
-import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 import com.variamos.semantic.expressionsupport.ModelExpressionSet;
 import com.variamos.semantic.expressionsupport.OverTwoElementsExpressionSet;
 import com.variamos.semantic.expressionsupport.PairwiseElementExpressionSet;
@@ -52,7 +52,7 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
  */
 public class Refas2Hlcl implements IntRefas2Hlcl {
 	private HlclFactory f = new HlclFactory();
-	private Map<String, MetaExpressionSet> constraintGroups;
+	private Map<String, ElementExpressionSet> constraintGroups;
 	private String text;
 	private HlclProgram hlclProgram = new HlclProgram();
 	private RefasModel refas;
@@ -70,16 +70,16 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public Refas2Hlcl(RefasModel refas) {
 		this.refas = refas;
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 
 	}
 
 	public List<BooleanExpression> rootVerityTest() {
 		// HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(Refas2Hlcl.VAL_UPD_EXEC);
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
 						.getBooleanExpressionList("Root"));
@@ -92,10 +92,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public List<BooleanExpression> verityTest(String element) {
 		// HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createModelExpressions(Refas2Hlcl.VAL_UPD_EXEC);
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
 				modelExpressions.addAll(((ModelExpressionSet) constraintGroup)
 						.getBooleanExpressionList(element));
@@ -108,20 +108,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public HlclProgram relaxedTest(String element) {
 		HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, Refas2Hlcl.VAL_UPD_EXEC);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getRelaxableExpressionList(element) != null)
 				transformations.addAll(constraintGroup
 						.getRelaxableExpressionList(element));
 		}
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element);
 
 		List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getRelaxableExpressionList(element) != null)
 				transformations2.addAll(constraintGroup
 						.getRelaxableExpressionList(element));
@@ -146,28 +146,28 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public HlclProgram compulsoryTest(String element) {
 		HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, 4);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getCompulsoryExpressionList(element) != null)
 				transformations.addAll(constraintGroup
 						.getCompulsoryExpressionList(element));
 		}
 
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createEdgeExpressions(null, 4);
 
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getCompulsoryExpressionList(element) != null)
 				transformations.addAll(constraintGroup
 						.getCompulsoryExpressionList(element));
 		}
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element);
 
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getCompulsoryExpressionList(element) != null)
 				transformations.addAll(constraintGroup
 						.getCompulsoryExpressionList(element));
@@ -192,11 +192,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public HlclProgram rootRelaxedTest() {
 		HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createVertexExpressions(null, 0);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values()) {
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup.getRelaxableExpressionList("Root") != null)
 				transformations.addAll(constraintGroup
 						.getRelaxableExpressionList("Root"));
@@ -231,7 +231,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public HlclProgram getHlclProgram(String element, int execType,
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		String elementIdentifier = null;
 		if (instElement == null)
 			createModelExpressions(execType);
@@ -251,7 +251,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
-		for (MetaExpressionSet constraintGroup : constraintGroups.values())
+		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet) {
 				if (((ModelExpressionSet) constraintGroup)
 						.getBooleanExpressionList(element) != null) {
@@ -534,7 +534,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
-	public MetaExpressionSet getElementConstraintGroup(String identifier,
+	public ElementExpressionSet getElementConstraintGroup(String identifier,
 			String concetType, int execType) {
 
 		if (concetType.equals("vertex"))
@@ -606,7 +606,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public String getElementTextConstraints(String identifier, String string,
 			int execType) {
 		String out = "";
-		MetaExpressionSet expressions = getElementConstraintGroup(identifier,
+		ElementExpressionSet expressions = getElementConstraintGroup(identifier,
 				string, execType);
 		if (expressions != null)
 			for (Expression expression : expressions.getExpressions())
@@ -620,7 +620,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void setRefas(RefasModel refas) {
 		this.refas = refas;
-		constraintGroups = new HashMap<String, MetaExpressionSet>();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		swiSolver = null;
 		// TODO close solver?
 	}

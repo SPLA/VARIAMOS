@@ -38,7 +38,7 @@ import com.variamos.syntax.metamodelsupport.MetaPairwiseRelation;
  * @version 1.1
  * @since 2014-12-13
  */
-public class PairwiseElementExpressionSet extends MetaExpressionSet {
+public class PairwiseElementExpressionSet extends ElementExpressionSet {
 	/**
 	 * Type of direct Edge from DirectEdgeType enum: Example means_ends
 	 */
@@ -257,7 +257,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				break;
 			case "implementation":
 
-				sourcePositiveAttributeNames.add("Selected");
+			/*	sourcePositiveAttributeNames.add("Selected");
 				// sourceAttributeNames.add("Core");
 				// targetId_Selected #==> SourceId_Selected #= 1
 				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
@@ -271,7 +271,7 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 				allList.add(out7);
 
 				break;
-
+*/
 			case "OperToClaim":
 			case "means_ends":
 				/*
@@ -337,35 +337,42 @@ public class PairwiseElementExpressionSet extends MetaExpressionSet {
 
 				break;
 			case "ClaimToSG":
+
+				sourcePositiveAttributeNames.add("Selected");
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out21 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
 								(Integer) instPairwiseRelation
-										.getInstAttribute("level").getValue()));
+										.getInstAttribute("level").getAsInteger()));
 				getElementExpressions().add(out21);
 				allList.add(out21);
-				// SourceId_ClaimExpLevel #= SourceId_Level
+				// SourceId_Selected #==> TargetId_ClaimExpLevel #= relId_Level
 				EqualsComparisonExpression out22 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						instPairwiseRelation, "ClaimExpLevel", "level");
-				getElementExpressions().add(out22);
-				allList.add(out22);
+				AbstractBooleanExpression out23 = new ImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", true, out22);
+				getElementExpressions().add(out23);
+				allList.add(out23);
 
 				break;
 			case "SD":
+
+				sourcePositiveAttributeNames.add("Selected");
 				// relId_level #= <<level>>
-				EqualsComparisonExpression out23 = new EqualsComparisonExpression(
+				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
 								(Integer) instPairwiseRelation
-										.getInstAttribute("level").getValue()));
-				getElementExpressions().add(out23);
-				allList.add(out23);
-				// SourceId_ClaimExpLevel #= SourceId_Level
-				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						instPairwiseRelation, "SDReqLevel", "level");
+										.getInstAttribute("level").getAsInteger()));
 				getElementExpressions().add(out24);
 				allList.add(out24);
+				// SourceId_ClaimExpLevel #= SourceId_Level
+				EqualsComparisonExpression out25 = new EqualsComparisonExpression(
+						instPairwiseRelation.getTargetRelations().get(0),
+						instPairwiseRelation, "SDReqLevel", "level");
+				getElementExpressions().add(out25);
+				allList.add(out25);
 
 				break;
 			case "none":

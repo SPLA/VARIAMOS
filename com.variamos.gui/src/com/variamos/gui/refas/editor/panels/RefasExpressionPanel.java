@@ -23,7 +23,7 @@ import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
-import com.variamos.semantic.expressionsupport.MetaExpressionSet;
+import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 import com.variamos.semantic.types.ExpressionClassType;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
@@ -46,7 +46,7 @@ public class RefasExpressionPanel extends JPanel {
 
 	private JPanel solutionPanel;
 
-	private MetaExpressionSet expressionSet;
+	private ElementExpressionSet expressionSet;
 
 	private AbstractExpression selectedExpression;
 
@@ -73,7 +73,7 @@ public class RefasExpressionPanel extends JPanel {
 	}
 
 	public void configure(AbstractModel am,
-			MetaExpressionSet expressionSet, InstElement element) {
+			ElementExpressionSet expressionSet, InstElement element) {
 		this.expressionSet = expressionSet;
 		this.refas = (RefasModel) am;
 		initialize(element);

@@ -222,11 +222,9 @@ public class SharedActions {
 								System.err.println(mv1.getValue().toString());
 							}
 					}
-				}
-				else
+				} else
 					try {
-						loadSupportObjects(editor, mv0.getValue(), mv0,
-								graph);
+						loadSupportObjects(editor, mv0.getValue(), mv0, graph);
 					} catch (Exception e) {
 						e.printStackTrace();
 						System.err.println(mv0.getValue().toString());
