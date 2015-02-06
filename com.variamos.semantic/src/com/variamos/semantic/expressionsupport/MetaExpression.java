@@ -193,4 +193,11 @@ public class MetaExpression implements Serializable {
 		return null;
 	}
 
+	public boolean isSingleInExpression()
+	{
+		if (metaExpressionType != null)
+			return metaExpressionType.isSingleInExpression();
+		return false;
+		
+	}
 }

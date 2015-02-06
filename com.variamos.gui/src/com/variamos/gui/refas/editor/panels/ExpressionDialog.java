@@ -2,18 +2,21 @@ package com.variamos.gui.refas.editor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -21,8 +24,10 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -30,7 +35,6 @@ import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
-import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -52,8 +56,6 @@ public class ExpressionDialog extends JDialog {
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
-	private String lastLeft = null;
-	private String lastRight = null;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -88,7 +90,8 @@ public class ExpressionDialog extends JDialog {
 				selectedExpression = instanceExpression;
 
 			solutionPanel = new JPanel();
-
+			solutionPanel.setAutoscrolls(true);
+			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			showExpression(instanceExpression, element, solutionPanel,
 					MetaExpressionType.BOOL, 255);
 
@@ -101,7 +104,7 @@ public class ExpressionDialog extends JDialog {
 							pack();
 						}
 					});
-			panel.add(solutionPanel);
+			panel.add(new JScrollPane(solutionPanel));
 		}
 
 		SpringUtilities.makeCompactGrid(panel, this.instanceExpressions.length,
@@ -164,22 +167,20 @@ public class ExpressionDialog extends JDialog {
 			int topExpressionType, int color) {
 		final InstElement ele = element;
 		final InstanceExpression exp = instanceExpression;
-		/*
-		 * if
-		 * (instanceExpression.getMetaExpression().getMetaExpressionType().getMethod
-		 * ().equals("number")) { parentPanel.add(new JTextField("" +
-		 * (instanceExpression).getNumber())); return; }
-		 */
-		JPanel childPanel = new JPanel();
-		childPanel.setBorder(new EmptyBorder(1, 1, 1, 1));
-		childPanel.setMaximumSize(new Dimension(800, 300));
-		childPanel.setBackground(new Color(color, color, color));
-		childPanel.addMouseListener(new MouseListener() {
 
+		JPanel basePanel = new JPanel();
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	//	if (selectedExpression == instanceExpression)
+	//		basePanel.setBorder(blackline);
+	//	else
+			basePanel.setBorder(new EmptyBorder(1, 1, 1, 1));
+		basePanel.setMaximumSize(new Dimension(1000, 300));
+		basePanel.setBackground(new Color(color, color, color));
+		basePanel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
-				// System.out.println(exp.toString()+" selected");
 				new Thread() {
 					public void run() {
 						initialize(ele, null);
@@ -189,110 +190,56 @@ public class ExpressionDialog extends JDialog {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
-		JComboBox<String> leftSide = createSidesCombo();
-		leftSide.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					String item = (String) event.getItem();
-					if (!item.equals(lastLeft)) {
-						lastLeft = item;
-						switch (item) {
-						case "SubExpression":
-							instanceExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
-							break;
-						case "Variable":
-
-							instanceExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFT);
-							break;
-						case "Number":
-							instanceExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
-							break;
-						case "VariableValue":
-							instanceExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
-							break;
+		JComboBox<String> leftSide = createSidesCombo(instanceExpression,
+				element, true);
+		JComboBox<String> rightSide = createSidesCombo(instanceExpression,
+				element, false);
+		JPanel leftPanel = new JPanel();
+		leftPanel.setBackground(new Color(color, color, color));
+		leftPanel.addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					selectedExpression = exp;
+					new Thread() {
+						public void run() {
+							initialize(ele, null);
 						}
-						new Thread() {
-							public void run() {
-								initialize(element, null);
-							}
-						}.start();
-						// revalidate();
-						// pack();
-					}
+					}.start();
 				}
-			}
 
-		});
-
-		JComboBox<String> rightSide = createSidesCombo();
-
-		rightSide.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent event) {
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-					String item = (String) event.getItem();
-					if (!item.equals(lastRight)) {
-						lastRight = item;
-						switch (item) {
-						case "SubExpression":
-							instanceExpression
-									.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-							break;
-						case "Variable":
-
-							instanceExpression
-									.setRightExpressionType(ExpressionVertexType.RIGHT);
-							break;
-						case "Number":
-							instanceExpression
-									.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
-							break;
-						case "VariableValue":
-							instanceExpression
-									.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
-							break;
-						}
-						new Thread() {
-							public void run() {
-								initialize(element, null);
-							}
-						}.start();
-						// revalidate();
-						// pack();
-					}
+				@Override
+				public void mousePressed(MouseEvent e) {
 				}
-			}
 
-		});
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+			});
 		if (selectedExpression == instanceExpression) {
-			childPanel.add(leftSide);
+			leftPanel.setBorder(raisedbevel);
+			basePanel.add(leftSide);
 		}
 		if (instanceExpression.getLeftExpressionType() != null)
 			switch (instanceExpression.getLeftExpressionType()) {
@@ -308,6 +255,7 @@ public class ExpressionDialog extends JDialog {
 			case LEFTVARIABLEVALUE:
 				leftSide.setSelectedItem("VariableValue");
 				break;
+			default:
 			}
 
 		if (instanceExpression.getRightExpressionType() != null)
@@ -324,228 +272,237 @@ public class ExpressionDialog extends JDialog {
 			case RIGHTVARIABLEVALUE:
 				rightSide.setSelectedItem("VariableValue");
 				break;
+			default:
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
 			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
 				if (instanceExpression.getLeftSubExpression() == null)
 					instanceExpression.setLeftSubExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
-				// leftSide.setSelectedItem("SubExpression");
 				showExpression(instanceExpression.getLeftSubExpression(),
-						element, childPanel,
+						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
-						color - 20);
+						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
 			}
-
 		}
-
-		/*
-		 * if (instanceExpression.getLeftComparativeExpression() != null) {
-		 * leftSide.setSelectedItem("Number"); showComparativeExpression(
-		 * instanceExpression.getLeftComparativeExpression(), childPanel); } if
-		 * (instanceExpression.getLeftNumericExpression() != null) {
-		 * leftSide.setSelectedItem("Number");
-		 * showComparativeExpression(instanceExpression
-		 * .getLeftNumericExpression(), childPanel); }
-		 */
+		if (leftSide.getSelectedItem().equals("Number")) {
+			if (instanceExpression.getLeftExpressionType() != null)
+				if (instanceExpression.getLeftExpressionType().equals(
+						ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)) {
+					basePanel.add(createTextField(instanceExpression, element,
+							ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE));
+				}
+		}
 		if (leftSide.getSelectedItem().equals("Variable")) {
 			{
 				if (instanceExpression.getMetaExpression()
 						.getMetaExpressionType() != null) {
-					JComboBox<String> identifiers = null;
-					if (instanceExpression.getLeftElement() != null)
-						identifiers = createIdentifiersCombo(
-								1,
-								element,
-								instanceExpression.getLeftElement()
-										.getIdentifier()
-										+ "_"
-										+ instanceExpression
-												.getLeftAttributeName());
-					else
-						identifiers = createIdentifiersCombo(1, element, null);
-					childPanel.add(identifiers);
-					identifiers.addItemListener(new ItemListener() {
-						@Override
-						public void itemStateChanged(ItemEvent event) {
-							if (event.getStateChange() == ItemEvent.SELECTED) {
-								String item = (String) event.getItem();
-								if (item != null) {
-									String[] split = item.split("_");
-									instanceExpression
-											.setLeftElement(refasModel
-													.getVertex(split[0]));
-									instanceExpression
-											.setLeftAttributeName(split[1]);
-									new Thread() {
-										public void run() {
-											initialize(element, null);
-										}
-									}.start();
-									// revalidate();
-									// pack();
-								}
-							}
-						}
-
-					});
-
+					leftPanel.add(createVarCombo(instanceExpression, element,
+							ExpressionVertexType.LEFT,
+							instanceExpression.getLeftValidExpressions()));
 				}
 			}
 		}
-		System.out.println(leftSide.getSelectedItem());
 		if (leftSide.getSelectedItem().equals("VariableValue")) {
 			{
 				if (instanceExpression.getMetaExpression()
 						.getMetaExpressionType() != null) {
-					JComboBox<String> identifiers = null;
-					if (instanceExpression.getLeftElement() != null)
-						identifiers = createIdentifiersValueCombo(
-								element,
-								instanceExpression.getLeftElement()
-										.getIdentifier()
-										+ "_"
-										+ instanceExpression
-												.getLeftAttributeName());
-					else
-						identifiers = createIdentifiersValueCombo(element, null);
-					childPanel.add(identifiers);
-					identifiers.addItemListener(new ItemListener() {
-						@Override
-						public void itemStateChanged(ItemEvent event) {
-							if (event.getStateChange() == ItemEvent.SELECTED) {
-								String item = (String) event.getItem();
-								if (item != null) {
-									String[] split = item.split("_");
-									instanceExpression
-											.setLeftElement(refasModel
-													.getVertex(split[0]));
-									instanceExpression
-											.setLeftAttributeName(split[1]);
-									new Thread() {
-										public void run() {
-											initialize(element, null);
-										}
-									}.start();
-									// revalidate();
-									// pack();
-								}
-							}
-						}
-
-					});
-
+					leftPanel.add(createVarCombo(instanceExpression, element,
+							ExpressionVertexType.LEFTVARIABLEVALUE,
+							instanceExpression.getLeftValidExpressions()));
 				}
 			}
 		}
+		basePanel.add(leftPanel);
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(new Color(color, color, color));
+		centerPanel.addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					selectedExpression = exp;
+					new Thread() {
+						public void run() {
+							initialize(ele, null);
+						}
+					}.start();
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+			});
 		JComboBox<String> centerCombo = createOperatorsCombo(
-				instanceExpression.getOperation(), topExpressionType);
-		childPanel.add(centerCombo);
-		centerCombo.addItemListener(new ItemListener() {
+				instanceExpression, element, instanceExpression.getOperation(),
+				topExpressionType);
+		if (selectedExpression == instanceExpression) {
+			centerPanel.setBorder(raisedbevel);
+		}
+		centerPanel.add(centerCombo);
+		basePanel.add(centerPanel);
+		JPanel rightPanel = new JPanel();
+		rightPanel.setBackground(new Color(color, color, color));
+		rightPanel.addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					selectedExpression = exp;
+					new Thread() {
+						public void run() {
+							initialize(ele, null);
+						}
+					}.start();
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+			});
+		if (!instanceExpression.isSingleInExpression()) {
+			if (selectedExpression == instanceExpression) {
+				rightPanel.setBorder(raisedbevel);
+				basePanel.add(rightSide);
+			}
+			if (rightSide.getSelectedItem().equals("SubExpression")) {
+				if (instanceExpression.getMetaExpression()
+						.getMetaExpressionType() != null) {
+					if (instanceExpression.getRightSubExpression() == null)
+						instanceExpression.setRightSubExpression(
+								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
+								"id");
+					showExpression(instanceExpression.getRightSubExpression(),
+							element, rightPanel,
+							instanceExpression.getRightValidExpressions(),
+							color > 20 ? color - 20 : color > 5 ? color - 5
+									: color);
+				}
+			}
+			if (rightSide.getSelectedItem().equals("Number")) {
+				if (instanceExpression.getRightExpressionType() != null)
+					if (instanceExpression.getRightExpressionType().equals(
+							ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)) {
+						rightPanel
+								.add(createTextField(
+										instanceExpression,
+										element,
+										ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE));
+					}
+			}
+			if (rightSide.getSelectedItem().equals("Variable")) {
+				if (instanceExpression.getMetaExpression()
+						.getMetaExpressionType() != null) {
+					rightPanel.add(createVarCombo(instanceExpression, element,
+							ExpressionVertexType.RIGHT,
+							instanceExpression.getRightValidExpressions()));
+				}
+			}
+			if (rightSide.getSelectedItem().equals("VariableValue")) {
+				if (instanceExpression.getMetaExpression()
+						.getMetaExpressionType() != null) {
+					rightPanel.add(createVarCombo(instanceExpression, element,
+							ExpressionVertexType.RIGHTVARIABLEVALUE,
+							instanceExpression.getRightValidExpressions()));
+				}
+			}
+		}
+		if (color == 255) {
+		//	JLabel lab = new JLabel("");
+			//lab.setPreferredSize(new Dimension(200, 10));
+		//	lab.setMaximumSize(new Dimension(200, 10));
+		//	rightPanel.add(lab);
+		}
+		basePanel.add(rightPanel);
+		parentPanel.add(basePanel);
+	}
+
+	private JTextField createTextField(
+			final InstanceExpression instanceExpression,
+			final InstElement element,
+			final ExpressionVertexType expressionVertexType) {
+		JTextField textField = new JTextField(""
+				+ (instanceExpression).getNumber());
+		textField.addFocusListener(new FocusListener() {
+
+			public void actionPerformed(ActionEvent event) {
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+			}
+
+			@Override
+			public void focusLost(FocusEvent event) {
+				String item = (String) ((JTextField) event.getSource())
+						.getText();
+				if (item != null) {
+					instanceExpression.setNumber(Integer.parseInt(item));
+				}
+			}
+		});
+		return textField;
+	}
+
+	private JComboBox<String> createVarCombo(
+			final InstanceExpression instanceExpression,
+			final InstElement element,
+			final ExpressionVertexType expressionVertexType, int validType) {
+		JComboBox<String> identifiers = null;
+		String varIdentifier = null;
+		varIdentifier = instanceExpression
+				.getElementAttributeIdentifier(expressionVertexType);
+		identifiers = createIdentifiersCombo(expressionVertexType, element,
+				varIdentifier);
+		identifiers.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String item = (String) event.getItem();
 					if (item != null) {
-						instanceExpression.setMetaExpressionType(refasModel
-								.getMetaExpressionTypes().get(item));
+						String[] split = item.split("_");
+						instanceExpression.setElement(
+								refasModel.getVertex(split[0]),
+								expressionVertexType);
+						instanceExpression.setAttributeName(split[1],
+								expressionVertexType);
+						new Thread() {
+							public void run() {
+								initialize(element, null);
+							}
+						}.start();
 					}
-					new Thread() {
-						public void run() {
-							initialize(element, null);
-						}
-					}.start();
-					// revalidate();
-					// pack();
-
 				}
 			}
 
 		});
-
-		if (selectedExpression == instanceExpression) {
-			childPanel.add(rightSide);
-		}
-		if (rightSide.getSelectedItem().equals("SubExpression")) {
-			// rightSide.setSelectedItem("SubExpression");
-			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
-				if (instanceExpression.getRightSubExpression() == null)
-
-					instanceExpression
-							.setRightSubExpression(
-									ExpressionVertexType.RIGHTSUBEXPRESSION,
-									null, "id");
-				showExpression(instanceExpression.getRightSubExpression(),
-						element, childPanel,
-						instanceExpression.getRightValidExpressions(),
-						color - 20);
-			}
-		}
-		/*
-		 * if (instanceExpression.getRightComparativeExpression() != null){
-		 * rightSide.setSelectedItem("Number"); showComparativeExpression(
-		 * instanceExpression.getRightComparativeExpression(), childPanel); } if
-		 * (instanceExpression.getRightNumericExpression() != null){
-		 * rightSide.setSelectedItem("Number");
-		 * showComparativeExpression(instanceExpression
-		 * .getRightNumericExpression(), childPanel); }
-		 */
-		if (rightSide.getSelectedItem().equals("Variable")) {
-
-			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
-				JComboBox<String> identifiers = null;
-				if (instanceExpression.getRightElement() != null)
-					identifiers = createIdentifiersCombo(
-							1,
-							element,
-							instanceExpression.getRightElement()
-									.getIdentifier()
-									+ "_"
-									+ instanceExpression
-											.getRightAttributeName());
-				else
-					identifiers = createIdentifiersCombo(1, element, null);
-				childPanel.add(identifiers);
-				identifiers.addItemListener(new ItemListener() {
-					@Override
-					public void itemStateChanged(ItemEvent event) {
-						if (event.getStateChange() == ItemEvent.SELECTED) {
-							String item = (String) event.getItem();
-							if (item != null) {
-								String[] split = item.split("_");
-								instanceExpression.setLeftElement(refasModel
-										.getVertex(split[0]));
-								instanceExpression
-										.setLeftAttributeName(split[1]);
-								new Thread() {
-									public void run() {
-										initialize(element, null);
-									}
-								}.start();
-								// revalidate();
-								// pack();
-							}
-						}
-					}
-
-				});
-			}
-		}
-		if (color == 255) {
-			JLabel lab = new JLabel("");
-			lab.setPreferredSize(new Dimension(200, 10));
-			lab.setMaximumSize(new Dimension(200, 10));
-			childPanel.add(lab);
-		}
-		parentPanel.add(childPanel);
+		return identifiers;
 	}
 
 	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
 			String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
-
-		IntSemanticElement semElement = ((MetaVertex) element
-				.getTransSupportMetaElement()).getTransSemanticConcept();
 		for (InstVertex instVertex : refasModel
 				.getVariabilityVertexCollection()) {
 			IntSemanticElement semElement2 = ((MetaVertex) instVertex
@@ -574,16 +531,16 @@ public class ExpressionDialog extends JDialog {
 				}
 			}
 		}
+		combo.setSelectedItem(selectedElement);
 		return combo;
 	}
 
-	private JComboBox<String> createIdentifiersCombo(int type,
+	private JComboBox<String> createIdentifiersCombo(ExpressionVertexType type,
 			InstElement element, String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
 
-		if (type == 1) {
-			IntSemanticElement semElement = ((MetaVertex) element
-					.getTransSupportMetaElement()).getTransSemanticConcept();
+		if (type == ExpressionVertexType.LEFT
+				|| type == ExpressionVertexType.RIGHT) {
 			for (InstVertex instVertex : refasModel
 					.getVariabilityVertexCollection()) {
 				IntSemanticElement semElement2 = ((MetaVertex) instVertex
@@ -595,7 +552,12 @@ public class ExpressionDialog extends JDialog {
 					combo.addItem(instVertex.getIdentifier() + "_" + "value");
 				}
 			}
-		} else {
+		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
+				|| type == ExpressionVertexType.RIGHTVARIABLEVALUE) {
+			return createIdentifiersValueCombo(element, selectedElement);
+		} else
+
+		{
 			if (element instanceof InstConcept)
 				for (String attributeName : element.getInstAttributes()
 						.keySet())
@@ -645,8 +607,9 @@ public class ExpressionDialog extends JDialog {
 		return combo;
 	}
 
-	@SuppressWarnings("unchecked")
-	private JComboBox<String> createOperatorsCombo(String selectedOperator,
+	private JComboBox<String> createOperatorsCombo(
+			final InstanceExpression instanceExpression,
+			final InstElement element, String selectedOperator,
 			int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
 		List<MetaExpressionType> metaExpressionTypes = MetaExpressionType
@@ -657,16 +620,92 @@ public class ExpressionDialog extends JDialog {
 			combo.addItem(metaExpressionType.getTextConnector());
 		}
 		combo.setSelectedItem(selectedOperator);
+		combo.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					String item = (String) event.getItem();
+					if (item != null) {
+						instanceExpression.setMetaExpressionType(refasModel
+								.getMetaExpressionTypes().get(item));
+					}
+					new Thread() {
+						public void run() {
+							initialize(element, null);
+						}
+					}.start();
+					// revalidate();
+					// pack();
+
+				}
+			}
+
+		});
 		return combo;
 	}
 
-	private JComboBox<String> createSidesCombo() {
+	private JComboBox<String> createSidesCombo(
+			final InstanceExpression instanceExpression,
+			final InstElement element, final boolean left) {
 		JComboBox<String> combo = new JComboBox<String>();
-
+		combo.addItem("Variable");
 		combo.addItem("SubExpression");
 		combo.addItem("Number");
-		combo.addItem("Variable");
 		combo.addItem("VariableValue");
+		combo.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					String item = (String) event.getItem();
+					if ((!item.equals(instanceExpression.getLastLeft()) && left)
+							|| (!item.equals(instanceExpression.getLastRight()) && !left)) {
+						if (left)
+							instanceExpression.setLastLeft(item);
+						if (!left)
+							instanceExpression.setLastRight(item);
+						switch (item) {
+						case "SubExpression":
+							if (left)
+								instanceExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+							else
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+							break;
+						case "Variable":
+							if (left)
+								instanceExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFT);
+							else
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHT);
+							break;
+						case "Number":
+							if (left)
+								instanceExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
+							else
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+							break;
+						case "VariableValue":
+							if (left)
+								instanceExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+							else
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
+							break;
+						}
+						new Thread() {
+							public void run() {
+								initialize(element, null);
+							}
+						}.start();
+					}
+				}
+			}
+		});
 		return combo;
 	}
 

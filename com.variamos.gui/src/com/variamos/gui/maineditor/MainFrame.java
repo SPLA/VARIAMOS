@@ -134,7 +134,7 @@ public class MainFrame extends JFrame {
 				MetaExpressionType.IDEN, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
 		out.put("Subtraction",new MetaExpressionType("Subtraction", "-", "-", "diff",
-				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.NUM, false));
 		out.put("DoubleImplies",new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
 				"doubleImplies", MetaExpressionType.BOOL,
@@ -143,20 +143,20 @@ public class MainFrame extends JFrame {
 				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
 		out.put("Greater",new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
-				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
 		out.put("GreaterOrEq",new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
-				"greaterOrEqualsThan", MetaExpressionType.NUM,
-				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+				"greaterOrEqualsThan", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
 		out.put("Implies",new MetaExpressionType("Implies", "#==>", "#==>", "implies",
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, false));
 		out.put("Less",new MetaExpressionType("Less", "#<", "#<", "lessThan",
-				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
 		out.put("LessOrEq",new MetaExpressionType("LessOrEquals", "#<=", "#<=",
-				"lessOrEqualsThan", MetaExpressionType.NUM,
-				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+				"lessOrEqualsThan", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
 		out.put("Literal",new MetaExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", MetaExpressionType.LIT,
 				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
@@ -167,17 +167,17 @@ public class MainFrame extends JFrame {
 				"number", MetaExpressionType.INT,
 				MetaExpressionType.NONE, MetaExpressionType.NUM, true));
 		out.put("NotEquals",new MetaExpressionType("NotEquals",  "\\==",  "\\==",
-				"notEquals", MetaExpressionType.NUM,
-				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
+				"notEquals", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
 
 		out.put("Or",new MetaExpressionType("Or", "#\"/", "#\"/", "or",
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, false));
 		out.put("Product",new MetaExpressionType("Product", "*", "*", "prod",
-				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.NUM, false));
 		out.put("Sum",new MetaExpressionType("Sum", "+", "+", "sum",
-				MetaExpressionType.NUM, MetaExpressionType.NUM,
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.NUM, false));
 		return out;
 	}

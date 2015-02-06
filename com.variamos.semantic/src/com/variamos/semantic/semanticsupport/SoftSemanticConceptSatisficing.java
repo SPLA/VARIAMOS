@@ -2,6 +2,7 @@ package com.variamos.semantic.semanticsupport;
 
 import java.util.List;
 
+import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
 /**
@@ -19,7 +20,7 @@ public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 	 * 
 	 */
 	private static final long serialVersionUID = 134266317319543125L;
-	private ConditionalExpression conditionalExpression;
+	private InstanceExpression instanceExpression;
 
 	public SoftSemanticConceptSatisficing() {
 		super();
@@ -43,7 +44,6 @@ public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 
 	public String toString() {
 
-		return "SSCS: " + super.toString() + "condit: "
-				+ conditionalExpression.getExpression();
+		return "SSCS: " + super.toString();
 	}
 }
