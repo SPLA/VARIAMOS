@@ -203,7 +203,7 @@ public class ClassWidget extends WidgetR {
 				for (int k = 0; k < concept.getChildCount(); k++) {
 					mxCell concept2 = (mxCell) refasGraph
 							.getChildAt(concept, k);
-					InstElement value = ((InstCell) concept.getValue())
+					InstElement value = ((InstCell) concept2.getValue())
 							.getInstElement();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
@@ -241,8 +241,8 @@ public class ClassWidget extends WidgetR {
 		}
 		if (instVertex != null) {
 			Object set = instVertex.get((String) txtValue.getSelectedItem());
-			if (instAttribute.getValueObject() == null
-					|| !instAttribute.getValueObject().equals(set)) {
+			if ((instAttribute.getValueObject() == null && set != null)
+					|| (instAttribute.getValueObject() != null && !instAttribute.getValueObject().equals(set))) {
 				instAttribute.setValueObject(set);
 				out = true;
 			}
