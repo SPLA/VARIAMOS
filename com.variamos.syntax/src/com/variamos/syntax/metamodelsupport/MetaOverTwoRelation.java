@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
@@ -176,5 +177,13 @@ public class MetaOverTwoRelation extends MetaVertex {
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
 		return semanticOverTwoRelation.getSemanticRelationTypes();
+	}
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * Emulates the transient attribute modifier
+	 * @return
+	 */
+	public IntSemanticConcept getTransSemanticConcept() {
+		return (IntSemanticConcept) semanticOverTwoRelation;
 	}
 }

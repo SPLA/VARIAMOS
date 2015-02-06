@@ -30,11 +30,16 @@ import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
+import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
+import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.instancesupport.InstVertex;
+import com.variamos.syntax.metamodelsupport.MetaVertex;
+import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
  * @author unknown
@@ -219,13 +224,16 @@ public class ExpressionDialog extends JDialog {
 							instanceExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 							break;
-						case "Identifier":
+						case "Variable":
 
 							instanceExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFT);
 							break;
 						case "Number":
-
+							instanceExpression
+									.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+							break;
+						case "VariableValue":
 							instanceExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
 							break;
@@ -257,15 +265,18 @@ public class ExpressionDialog extends JDialog {
 							instanceExpression
 									.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 							break;
-						case "Identifier":
+						case "Variable":
 
 							instanceExpression
 									.setRightExpressionType(ExpressionVertexType.RIGHT);
 							break;
 						case "Number":
-
 							instanceExpression
 									.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+							break;
+						case "VariableValue":
+							instanceExpression
+									.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 							break;
 						}
 						new Thread() {
@@ -289,10 +300,13 @@ public class ExpressionDialog extends JDialog {
 				leftSide.setSelectedItem("SubExpression");
 				break;
 			case LEFT:
-				leftSide.setSelectedItem("Identifier");
+				leftSide.setSelectedItem("Variable");
 				break;
 			case LEFTNUMERICEXPRESSIONVALUE:
 				leftSide.setSelectedItem("Number");
+				break;
+			case LEFTVARIABLEVALUE:
+				leftSide.setSelectedItem("VariableValue");
 				break;
 			}
 
@@ -302,10 +316,13 @@ public class ExpressionDialog extends JDialog {
 				rightSide.setSelectedItem("SubExpression");
 				break;
 			case RIGHT:
-				rightSide.setSelectedItem("Identifier");
+				rightSide.setSelectedItem("Variable");
 				break;
 			case RIGHTNUMERICEXPRESSIONVALUE:
 				rightSide.setSelectedItem("Number");
+				break;
+			case RIGHTVARIABLEVALUE:
+				rightSide.setSelectedItem("VariableValue");
 				break;
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
@@ -331,13 +348,14 @@ public class ExpressionDialog extends JDialog {
 		 * showComparativeExpression(instanceExpression
 		 * .getLeftNumericExpression(), childPanel); }
 		 */
-		if (leftSide.getSelectedItem().equals("Identifier")) {
+		if (leftSide.getSelectedItem().equals("Variable")) {
 			{
 				if (instanceExpression.getMetaExpression()
 						.getMetaExpressionType() != null) {
 					JComboBox<String> identifiers = null;
 					if (instanceExpression.getLeftElement() != null)
 						identifiers = createIdentifiersCombo(
+								1,
 								element,
 								instanceExpression.getLeftElement()
 										.getIdentifier()
@@ -345,7 +363,52 @@ public class ExpressionDialog extends JDialog {
 										+ instanceExpression
 												.getLeftAttributeName());
 					else
-						identifiers = createIdentifiersCombo(element, null);
+						identifiers = createIdentifiersCombo(1, element, null);
+					childPanel.add(identifiers);
+					identifiers.addItemListener(new ItemListener() {
+						@Override
+						public void itemStateChanged(ItemEvent event) {
+							if (event.getStateChange() == ItemEvent.SELECTED) {
+								String item = (String) event.getItem();
+								if (item != null) {
+									String[] split = item.split("_");
+									instanceExpression
+											.setLeftElement(refasModel
+													.getVertex(split[0]));
+									instanceExpression
+											.setLeftAttributeName(split[1]);
+									new Thread() {
+										public void run() {
+											initialize(element, null);
+										}
+									}.start();
+									// revalidate();
+									// pack();
+								}
+							}
+						}
+
+					});
+
+				}
+			}
+		}
+		System.out.println(leftSide.getSelectedItem());
+		if (leftSide.getSelectedItem().equals("VariableValue")) {
+			{
+				if (instanceExpression.getMetaExpression()
+						.getMetaExpressionType() != null) {
+					JComboBox<String> identifiers = null;
+					if (instanceExpression.getLeftElement() != null)
+						identifiers = createIdentifiersValueCombo(
+								element,
+								instanceExpression.getLeftElement()
+										.getIdentifier()
+										+ "_"
+										+ instanceExpression
+												.getLeftAttributeName());
+					else
+						identifiers = createIdentifiersValueCombo(element, null);
 					childPanel.add(identifiers);
 					identifiers.addItemListener(new ItemListener() {
 						@Override
@@ -427,12 +490,13 @@ public class ExpressionDialog extends JDialog {
 		 * showComparativeExpression(instanceExpression
 		 * .getRightNumericExpression(), childPanel); }
 		 */
-		if (rightSide.getSelectedItem().equals("Identifier")) {
+		if (rightSide.getSelectedItem().equals("Variable")) {
 
 			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
 				JComboBox<String> identifiers = null;
 				if (instanceExpression.getRightElement() != null)
 					identifiers = createIdentifiersCombo(
+							1,
 							element,
 							instanceExpression.getRightElement()
 									.getIdentifier()
@@ -440,7 +504,7 @@ public class ExpressionDialog extends JDialog {
 									+ instanceExpression
 											.getRightAttributeName());
 				else
-					identifiers = createIdentifiersCombo(element, null);
+					identifiers = createIdentifiersCombo(1, element, null);
 				childPanel.add(identifiers);
 				identifiers.addItemListener(new ItemListener() {
 					@Override
@@ -476,48 +540,107 @@ public class ExpressionDialog extends JDialog {
 		parentPanel.add(childPanel);
 	}
 
-	private JComboBox<String> createIdentifiersCombo(InstElement element,
+	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
 			String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
-		if (element instanceof InstConcept)
-			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		if (element instanceof InstPairwiseRelation) {
-			for (String attributeName : ((InstPairwiseRelation) element)
-					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element)
-						.getSourceRelations().get(0).getIdentifier()
-						+ "_" + attributeName);
-			for (String attributeName : ((InstPairwiseRelation) element)
-					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element)
-						.getTargetRelations().get(0).getIdentifier()
-						+ "_" + attributeName);
-			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		}
 
-		if (element instanceof InstOverTwoRelation) {
-			if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstPairwiseRelation) ((InstOverTwoRelation) element)
-						.getTargetRelations().get(0)).getTargetRelations()
-						.get(0).getInstAttributes().keySet())
-					combo.addItem(((InstPairwiseRelation) ((InstOverTwoRelation) element)
-							.getTargetRelations().get(0)).getTargetRelations()
-							.get(0).getIdentifier()
-							+ "_" + attributeName);
-			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
-					.getSourceRelations())
-				for (String attributeName : ((InstPairwiseRelation) sourceRelation)
+		IntSemanticElement semElement = ((MetaVertex) element
+				.getTransSupportMetaElement()).getTransSemanticConcept();
+		for (InstVertex instVertex : refasModel
+				.getVariabilityVertexCollection()) {
+			IntSemanticElement semElement2 = ((MetaVertex) instVertex
+					.getTransSupportMetaElement()).getTransSemanticConcept();
+			if (semElement2 != null
+					&& semElement2.getIdentifier().equals("Variable")) {
+				String variableType = (String) instVertex.getInstAttribute(
+						SemanticVariable.VAR_VARIABLETYPE).getValue();
+				switch (variableType) {
+				case "Boolean":
+					combo.addItem(instVertex.getIdentifier() + "_" + "true");
+					combo.addItem(instVertex.getIdentifier() + "_" + "false");
+					break;
+				case "Integer":
+					combo.addItem(instVertex.getIdentifier() + "_" + "0");
+					combo.addItem(instVertex.getIdentifier() + "_" + "1");
+					combo.addItem(instVertex.getIdentifier() + "_" + "2");
+					combo.addItem(instVertex.getIdentifier() + "_" + "3");
+					combo.addItem(instVertex.getIdentifier() + "_" + "4");
+					break;
+				case "Enumeration":
+					combo.addItem(instVertex.getIdentifier() + "_" + "ToDo");
+
+					break;
+
+				}
+			}
+		}
+		return combo;
+	}
+
+	private JComboBox<String> createIdentifiersCombo(int type,
+			InstElement element, String selectedElement) {
+		JComboBox<String> combo = new JComboBox<String>();
+
+		if (type == 1) {
+			IntSemanticElement semElement = ((MetaVertex) element
+					.getTransSupportMetaElement()).getTransSemanticConcept();
+			for (InstVertex instVertex : refasModel
+					.getVariabilityVertexCollection()) {
+				IntSemanticElement semElement2 = ((MetaVertex) instVertex
+						.getTransSupportMetaElement())
+						.getTransSemanticConcept();
+				if (semElement2 != null
+						&& semElement2.getIdentifier().equals("Variable")) {
+
+					combo.addItem(instVertex.getIdentifier() + "_" + "value");
+				}
+			}
+		} else {
+			if (element instanceof InstConcept)
+				for (String attributeName : element.getInstAttributes()
+						.keySet())
+					combo.addItem(element.getIdentifier() + "_" + attributeName);
+
+			if (element instanceof InstPairwiseRelation) {
+				for (String attributeName : ((InstPairwiseRelation) element)
 						.getSourceRelations().get(0).getInstAttributes()
 						.keySet())
-					combo.addItem(((InstPairwiseRelation) sourceRelation)
+					combo.addItem(((InstPairwiseRelation) element)
 							.getSourceRelations().get(0).getIdentifier()
 							+ "_" + attributeName);
-			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		}
+				for (String attributeName : ((InstPairwiseRelation) element)
+						.getTargetRelations().get(0).getInstAttributes()
+						.keySet())
+					combo.addItem(((InstPairwiseRelation) element)
+							.getTargetRelations().get(0).getIdentifier()
+							+ "_" + attributeName);
+				for (String attributeName : element.getInstAttributes()
+						.keySet())
+					combo.addItem(element.getIdentifier() + "_" + attributeName);
+			}
 
+			if (element instanceof InstOverTwoRelation) {
+				if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
+					for (String attributeName : ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+							.getTargetRelations().get(0)).getTargetRelations()
+							.get(0).getInstAttributes().keySet())
+						combo.addItem(((InstPairwiseRelation) ((InstOverTwoRelation) element)
+								.getTargetRelations().get(0))
+								.getTargetRelations().get(0).getIdentifier()
+								+ "_" + attributeName);
+				for (InstElement sourceRelation : ((InstOverTwoRelation) element)
+						.getSourceRelations())
+					for (String attributeName : ((InstPairwiseRelation) sourceRelation)
+							.getSourceRelations().get(0).getInstAttributes()
+							.keySet())
+						combo.addItem(((InstPairwiseRelation) sourceRelation)
+								.getSourceRelations().get(0).getIdentifier()
+								+ "_" + attributeName);
+				for (String attributeName : element.getInstAttributes()
+						.keySet())
+					combo.addItem(element.getIdentifier() + "_" + attributeName);
+			}
+		}
 		combo.setSelectedItem(selectedElement);
 		return combo;
 	}
@@ -542,7 +665,8 @@ public class ExpressionDialog extends JDialog {
 
 		combo.addItem("SubExpression");
 		combo.addItem("Number");
-		combo.addItem("Identifier");
+		combo.addItem("Variable");
+		combo.addItem("VariableValue");
 		return combo;
 	}
 
