@@ -15,6 +15,7 @@ import com.variamos.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
 import com.variamos.semantic.semanticsupport.SemanticConcept;
@@ -1133,8 +1134,8 @@ public class RefasModel extends AbstractModel {
 		// InstConcept.class.getCanonicalName(),
 		// "SemOperationalization", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "String", false,
-						"Conditional Expression", ""));
+				new SemanticAttribute("ConditionalExpression", "Object"/*InstanceExpression.class.getCanonicalName()*/, false,
+						"Conditional Expression", null));
 		semClaim.putSemanticAttribute("CompExp", new SimulationConfigAttribute(
 				"CompExp", "Boolean", false, "Boolean Comp. Expression", true));
 		semClaim.putSemanticAttribute("ClaimSelected",

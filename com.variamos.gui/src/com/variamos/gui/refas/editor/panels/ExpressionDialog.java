@@ -52,12 +52,12 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
 @SuppressWarnings("serial")
 public class ExpressionDialog extends JDialog {
 	private InstanceExpression[] instanceExpressions;
-	private DialogButtonAction onAccept, onCancel;
+	private ExpressionButtonAction onAccept, onCancel;
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
 
-	static interface DialogButtonAction {
+	static interface ExpressionButtonAction {
 		public boolean onAction();
 	}
 
@@ -721,11 +721,11 @@ public class ExpressionDialog extends JDialog {
 		setVisible(true);
 	}
 
-	public void setOnAccept(DialogButtonAction onAccept) {
+	public void setOnAccept(ExpressionButtonAction onAccept) {
 		this.onAccept = onAccept;
 	}
 
-	public void setOnCancel(DialogButtonAction onCancel) {
+	public void setOnCancel(ExpressionButtonAction onCancel) {
 		this.onCancel = onCancel;
 	}
 

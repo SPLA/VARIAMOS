@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
+import com.variamos.gui.refas.editor.panels.AttributeEditionPanel.DialogButtonAction;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
@@ -45,6 +47,7 @@ import com.variamos.syntax.metamodelsupport.MetaElement;
 import com.variamos.syntax.metamodelsupport.ModelingAttribute;
 import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.gui.refas.editor.panels.ExpressionDialog.ExpressionButtonAction;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -121,7 +124,7 @@ public class ElementDesignPanel extends JPanel {
 		} else {
 			EditableElement editElm = instCell.getInstElement();
 			editElm.getInstAttributes();
-			final InstElement finalEditElm  = (InstElement) editElm;
+			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 			int designPanelElements = 0;
 			String description = null;
@@ -154,6 +157,7 @@ public class ElementDesignPanel extends JPanel {
 						if (instAttribute != null
 								&& (instAttribute.getAttribute() instanceof ModelingAttribute || instAttribute
 										.getAttribute() instanceof SemanticAttribute)) {
+							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;
 							if (editElm instanceof InstPairwiseRelation) {
 								InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
@@ -174,172 +178,200 @@ public class ElementDesignPanel extends JPanel {
 							instAttribute.updateValidationList(
 									((InstElement) editElm), mapElements);
 
-							final WidgetR widget = factory
-									.getWidgetFor(instAttribute);
+							if (instAttribute.getIdentifier().equals(
+									"ConditionalExpression")) {
+								JButton button = new JButton("Edit Expression");
+								if (editor.getPerspective() == 4)
+									button.setEnabled(false);
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										InstanceExpression ie = (InstanceExpression) finalInstAttribute
+												.getValue();
+										if (ie == null)
+											ie = new InstanceExpression(true,
+													"id");
+										final ExpressionDialog dialog = new ExpressionDialog(
+												finalEditor, finalEditElm,
+												false, ie);
+										dialog.center();
+										dialog.setOnAccept(new ExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												// This calls Pull on each
+												// parameter
+												// attributeEdition.getParameters();
+												finalInstAttribute.setValue(dialog
+														.getExpressions()[0]);
+												// attributes.put(name.getName(),
+												// v);
 
-							if (widget == null) {
-								System.err.print("No Widget found for "
-										+ instAttribute);
-								return;
-							}
-							// TODO: Add listeners to w.
+												// afterAction();
+												return true;
+											}
+										});
+									}
+								});
+								elementDesPropSubPanel.add(new JLabel(
+										"Conditional Expression"));
+								elementDesPropSubPanel.add(button);
+								elementDesPropSubPanel.add(new JPanel());
+							} else {
+								final WidgetR widget = factory
+										.getWidgetFor(instAttribute);
 
-							widget.getEditor().addFocusListener(
-									new FocusListener() {
-										@Override
-										public void focusLost(FocusEvent arg0) {
-											// Makes it pull the values.
-											EditableElementAttribute elementAttribute = widget
-													.getInstAttribute();
-											if (elementAttribute
-													.getAttributeType().equals(
-															"String")
-													&& !elementAttribute
-															.getIdentifier()
-															.equals("Description"))
-												elementAttribute
-														.setValue(AbstractElement.multiLine(
-																elementAttribute
-																		.toString(),
-																15));
-											// Divide lines every 15 characters
-											// (aprox.)
-											onVariableEdited(finalEditor,
-													finalInstCell
-															.getInstElement(),
-													elementAttribute);
-										}
+								if (widget == null) {
+									System.err.print("No Widget found for "
+											+ instAttribute);
+									return;
+								}
+								// TODO: Add listeners to w.
 
-										@Override
-										public void focusGained(FocusEvent arg0) {
-										}
-									});
-
-							widget.getEditor().addPropertyChangeListener(
-									new PropertyChangeListener() {
-
-										@Override
-										public void propertyChange(
-												PropertyChangeEvent evt) {
-											if (WidgetPL.PROPERTY_VALUE
-													.equals(evt
-															.getPropertyName())) {
-												widget.getInstAttribute();
+								widget.getEditor().addFocusListener(
+										new FocusListener() {
+											@Override
+											public void focusLost(
+													FocusEvent arg0) {
+												// Makes it pull the values.
+												EditableElementAttribute elementAttribute = widget
+														.getInstAttribute();
+												if (elementAttribute
+														.getAttributeType()
+														.equals("String")
+														&& !elementAttribute
+																.getIdentifier()
+																.equals("Description"))
+													elementAttribute
+															.setValue(AbstractElement.multiLine(
+																	elementAttribute
+																			.toString(),
+																	15));
+												// Divide lines every 15
+												// characters
+												// (aprox.)
 												onVariableEdited(
 														finalEditor,
 														finalInstCell
 																.getInstElement(),
-														widget.getInstAttribute());
-
-												editorProperties(finalEditor,
-														finalInstCell);
+														elementAttribute);
 											}
-										}
-									});
-							if (widget.getEditor() instanceof JCheckBox)
-								((JCheckBox) widget.getEditor())
-										.addActionListener(new ActionListener() {
+
+											@Override
+											public void focusGained(
+													FocusEvent arg0) {
+											}
+										});
+
+								widget.getEditor().addPropertyChangeListener(
+										new PropertyChangeListener() {
+
+											@Override
+											public void propertyChange(
+													PropertyChangeEvent evt) {
+												if (WidgetPL.PROPERTY_VALUE.equals(evt
+														.getPropertyName())) {
+													widget.getInstAttribute();
+													onVariableEdited(
+															finalEditor,
+															finalInstCell
+																	.getInstElement(),
+															widget.getInstAttribute());
+
+													editorProperties(
+															finalEditor,
+															finalInstCell);
+												}
+											}
+										});
+								if (widget.getEditor() instanceof JCheckBox)
+									((JCheckBox) widget.getEditor())
+											.addActionListener(new ActionListener() {
+												public void actionPerformed(
+														ActionEvent e) {
+													finalEditor
+															.clearNotificationBar();
+													// finalEditor.identifyCoreConcepts();
+													// finalEditor.executeSimulation(true,
+													// Refas2Hlcl.DESIGN_EXEC);
+													new Thread() {
+														public void run() {
+															editorProperties(
+																	finalEditor,
+																	finalInstCell);
+														}
+													}.start();
+												}
+											});
+								/*
+								 * if (w.getEditor() instanceof JComboBox)
+								 * ((JComboBox) w.getEditor())
+								 * .addItemListener(new ItemListener() {
+								 * 
+								 * @Override public void
+								 * itemStateChanged(ItemEvent e) {
+								 * finalEditor.cleanNotificationBar(); //
+								 * finalEditor.identifyCoreConcepts(); //
+								 * finalEditor.executeSimulation(true, //
+								 * Refas2Hlcl.DESIGN_EXEC); new Thread() {
+								 * public void run() { editorProperties(
+								 * finalEditor, finalElm); } }.start(); }
+								 * 
+								 * });
+								 */
+								if (widget instanceof MClassWidget
+										|| widget instanceof MEnumerationWidget) {
+									widget.getEditor().setPreferredSize(
+											new Dimension(200, 100));
+								} else {
+									widget.getEditor().setPreferredSize(
+											new Dimension(200, 20));
+									widget.getEditor().setMaximumSize(
+											new Dimension(200, 20));
+								}
+								if (widget.editVariable(instAttribute))
+									count = 0;
+
+								List<InstAttribute> editables = editElm
+										.getEditableVariables();
+
+								if (!editables.contains(instAttribute)
+										|| editor.getPerspective() == 4)
+
+								{
+									widget.getEditor().setEnabled(false);
+
+								}
+
+								// GARA
+								// variablesPanel.add(new JLabel(v.getName() +
+								// ":: "));
+								{
+
+									elementDesPropSubPanel.add(new JLabel(
+											instAttribute.getDisplayName()
+													+ ": "));
+									elementDesPropSubPanel.add(widget);
+
+									if (instAttribute.isAffectProperties()
+											&& editor.getPerspective() != 4
+											&& !(widget.getEditor() instanceof JCheckBox)) {
+										JButton button = new JButton("Validate");
+										button.addActionListener(new ActionListener() {
 											public void actionPerformed(
 													ActionEvent e) {
 												finalEditor
 														.clearNotificationBar();
-												// finalEditor.identifyCoreConcepts();
-												// finalEditor.executeSimulation(true,
-												// Refas2Hlcl.DESIGN_EXEC);
-												new Thread() {
-													public void run() {
-														editorProperties(
-																finalEditor,
-																finalInstCell);
-													}
-												}.start();
+												editorProperties(finalEditor,
+														finalInstCell);
 											}
 										});
-							/*
-							 * if (w.getEditor() instanceof JComboBox)
-							 * ((JComboBox) w.getEditor()) .addItemListener(new
-							 * ItemListener() {
-							 * 
-							 * @Override public void itemStateChanged(ItemEvent
-							 * e) { finalEditor.cleanNotificationBar(); //
-							 * finalEditor.identifyCoreConcepts(); //
-							 * finalEditor.executeSimulation(true, //
-							 * Refas2Hlcl.DESIGN_EXEC); new Thread() { public
-							 * void run() { editorProperties( finalEditor,
-							 * finalElm); } }.start(); }
-							 * 
-							 * });
-							 */
-							if (widget instanceof MClassWidget
-									|| widget instanceof MEnumerationWidget) {
-								widget.getEditor().setPreferredSize(
-										new Dimension(200, 100));
-							} else {
-								widget.getEditor().setPreferredSize(
-										new Dimension(200, 20));
-								widget.getEditor().setMaximumSize(
-										new Dimension(200, 20));
-							}
-							if (widget.editVariable(instAttribute))
-								count = 0;
-
-							List<InstAttribute> editables = editElm
-									.getEditableVariables();
-
-							if (!editables.contains(instAttribute)
-									|| editor.getPerspective() == 4)
-
-							{
-								widget.getEditor().setEnabled(false);
+										elementDesPropSubPanel.add(button);
+									} else
+										elementDesPropSubPanel
+												.add(new JPanel());
+								}
 
 							}
-
-							// GARA
-							// variablesPanel.add(new JLabel(v.getName() +
-							// ":: "));
-							{
-
-								elementDesPropSubPanel.add(new JLabel(
-										instAttribute.getDisplayName() + ": "));
-								elementDesPropSubPanel.add(widget);
-
-								if (instAttribute.isAffectProperties()
-										&& editor.getPerspective() != 4
-										&& !(widget.getEditor() instanceof JCheckBox)) {
-									JButton button = new JButton("Validate");
-									button.addActionListener(new ActionListener() {
-										public void actionPerformed(
-												ActionEvent e) {
-											finalEditor.clearNotificationBar();
-											editorProperties(finalEditor,
-													finalInstCell);
-										}
-									});
-									elementDesPropSubPanel.add(button);
-								} else if (instAttribute.getIdentifier()
-										.equals("ConditionalExpression")
-										&& editor.getPerspective() != 4) {
-									JButton button = new JButton(
-											"Edit Expression");
-									button.addActionListener(new ActionListener() {
-										public void actionPerformed(
-												ActionEvent e) {
-											ExpressionDialog dialog = new ExpressionDialog(
-													finalEditor, finalEditElm,
-													false,
-													new InstanceExpression(
-															true, "id"));
-											dialog.center();
-										}
-									});
-									elementDesPropSubPanel.add(button);
-								} else
-									elementDesPropSubPanel.add(new JPanel());
-
-								designPanelElements++;
-
-							}
-
+							designPanelElements++;
 						}
 					}
 				count++;

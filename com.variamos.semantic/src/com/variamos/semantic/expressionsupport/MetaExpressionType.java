@@ -1,5 +1,6 @@
 package com.variamos.semantic.expressionsupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,11 @@ import java.util.List;
  * @version 1.1
  * @since 2015-02-05
  */
-public class MetaExpressionType {
+public class MetaExpressionType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3166856881413230258L;
 	private String gnuPrologConnector;
 	private String swiPrologConnector;
 	private String textConnector;
@@ -26,6 +31,10 @@ public class MetaExpressionType {
 	public static final int NONE = 0, BOOL = 1, NUM = 2, IDEN = 3, ANY = 4,
 			LIT = 6, INT = 6;
 
+	public MetaExpressionType()
+	{
+		
+	}
 	public MetaExpressionType(String textConnector, String gnuPrologConnector,
 			String swiPrologConnector, String method, int leftExpression,
 			int rightExpression, int resultExpression,
