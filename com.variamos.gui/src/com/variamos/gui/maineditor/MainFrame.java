@@ -3,7 +3,9 @@ package com.variamos.gui.maineditor;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
@@ -42,7 +44,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<RefasMenuBar>();
-		List<MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
+		Map<String, MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
 		this.setTitle(perspectiveTitle + " - " + appTitle);
@@ -123,9 +125,61 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private List<MetaExpressionType> createMetaExpressionTypes() {
-		// TODO Auto-generated method stub
-		return null;
+	private Map<String, MetaExpressionType> createMetaExpressionTypes() {
+		Map<String, MetaExpressionType> out = new HashMap<String,MetaExpressionType>();
+		out.put("And",new MetaExpressionType("And", "#/\"", "#/\"", "and",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.put("Assign",new MetaExpressionType("Assign", "=", "=", "assign",
+				MetaExpressionType.IDEN, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.put("Subtraction",new MetaExpressionType("Subtraction", "-", "-", "diff",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.NUM, false));
+		out.put("DoubleImplies",new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
+				"doubleImplies", MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL, false));
+		out.put("Equals",new MetaExpressionType("Equals", "#=", "#=", "equals",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.put("Greater",new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.put("GreaterOrEq",new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
+				"greaterOrEqualsThan", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
+		out.put("Implies",new MetaExpressionType("Implies", "#==>", "#==>", "implies",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.put("Less",new MetaExpressionType("Less", "#<", "#<", "lessThan",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.BOOL, false));
+		out.put("LessOrEq",new MetaExpressionType("LessOrEquals", "#<=", "#<=",
+				"lessOrEqualsThan", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
+		out.put("Literal",new MetaExpressionType("LiteralBool", "", "",
+				"literalBooleanExpression", MetaExpressionType.LIT,
+				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
+		out.put("Negation",new MetaExpressionType("Negation", "-", "-",
+				"not", MetaExpressionType.BOOL,
+				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
+		out.put("Number",new MetaExpressionType("Number", "", "",
+				"number", MetaExpressionType.INT,
+				MetaExpressionType.NONE, MetaExpressionType.NUM, true));
+		out.put("NotEquals",new MetaExpressionType("NotEquals",  "\\==",  "\\==",
+				"notEquals", MetaExpressionType.ANY,
+				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
+
+		out.put("Or",new MetaExpressionType("Or", "#\"/", "#\"/", "or",
+				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
+				MetaExpressionType.BOOL, false));
+		out.put("Product",new MetaExpressionType("Product", "*", "*", "prod",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.NUM, false));
+		out.put("Sum",new MetaExpressionType("Sum", "+", "+", "sum",
+				MetaExpressionType.ANY, MetaExpressionType.ANY,
+				MetaExpressionType.NUM, false));
+		return out;
 	}
 
 	public void waitingCursor(boolean waitingCursor) {

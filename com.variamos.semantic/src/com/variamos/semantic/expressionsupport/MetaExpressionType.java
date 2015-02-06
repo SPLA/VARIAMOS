@@ -1,5 +1,10 @@
 package com.variamos.semantic.expressionsupport;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * A class to represent the types of expression. Part of PhD work at University
  * of Paris 1
@@ -9,25 +14,38 @@ package com.variamos.semantic.expressionsupport;
  * @version 1.1
  * @since 2015-02-05
  */
-public class MetaExpressionType {
+public class MetaExpressionType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3166856881413230258L;
 	private String gnuPrologConnector;
 	private String swiPrologConnector;
 	private String textConnector;
-	private boolean booleanInExpressions;
-	private boolean booleanResultExpression;
+	private int leftExpression;
+	private int rightExpression;
+	private int resultExpression;
 	private String method;
 	private boolean singleInExpression;
 
+	public static final int NONE = 0, BOOL = 1, NUM = 2, IDEN = 3, ANY = 4,
+			LIT = 6, INT = 6;
+
+	public MetaExpressionType()
+	{
+		
+	}
 	public MetaExpressionType(String textConnector, String gnuPrologConnector,
-			String swiPrologConnector, boolean booleanInExpressions,
-			boolean booleanResultExpression, String method,
+			String swiPrologConnector, String method, int leftExpression,
+			int rightExpression, int resultExpression,
 			boolean singleInExpression) {
 		super();
 		this.gnuPrologConnector = gnuPrologConnector;
 		this.swiPrologConnector = swiPrologConnector;
 		this.textConnector = textConnector;
-		this.booleanInExpressions = booleanInExpressions;
-		this.booleanResultExpression = booleanResultExpression;
+		this.leftExpression = leftExpression;
+		this.rightExpression = rightExpression;
+		this.resultExpression = resultExpression;
 		this.method = method;
 		this.singleInExpression = singleInExpression;
 	}
@@ -44,12 +62,16 @@ public class MetaExpressionType {
 		return textConnector;
 	}
 
-	public boolean isBooleanInExpressions() {
-		return booleanInExpressions;
+	public int getLeftValidExpressions() {
+		return leftExpression;
 	}
 
-	public boolean isBooleanResultExpression() {
-		return booleanResultExpression;
+	public int getRightValidExpressions() {
+		return rightExpression;
+	}
+
+	public int getResultExpressions() {
+		return resultExpression;
 	}
 
 	public String getMethod() {
@@ -59,4 +81,20 @@ public class MetaExpressionType {
 	public boolean isSingleInExpression() {
 		return singleInExpression;
 	}
+
+	public static List<MetaExpressionType> getValidMetaExpressionTypes(
+			Collection<MetaExpressionType> metaExpressionList, int valid) {
+		List<MetaExpressionType> out = new ArrayList<MetaExpressionType>();
+		for (MetaExpressionType metaExpressionType : metaExpressionList) {
+			int evaluated = metaExpressionType.getResultExpressions();
+			if (evaluated == valid)
+				out.add(metaExpressionType);
+			if (valid == MetaExpressionType.ANY)
+				if (evaluated == MetaExpressionType.BOOL
+						|| evaluated == MetaExpressionType.NUM)
+					out.add(metaExpressionType);
+		}
+		return out;
+	}
+
 }
