@@ -1,6 +1,7 @@
 package com.variamos.semantic.expressionsupport;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class MetaExpressionType {
 	}
 
 	public static List<MetaExpressionType> getValidMetaExpressionTypes(
-			List<MetaExpressionType> metaExpressionList, int valid) {
+			Collection<MetaExpressionType> metaExpressionList, int valid) {
 		List<MetaExpressionType> out = new ArrayList<MetaExpressionType>();
 		for (MetaExpressionType metaExpressionType : metaExpressionList) {
 			int evaluated = metaExpressionType.getResultExpressions();

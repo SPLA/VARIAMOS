@@ -3,7 +3,9 @@ package com.variamos.gui.maineditor;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 
@@ -42,7 +44,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<RefasMenuBar>();
-		List<MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
+		Map<String, MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
 		this.setTitle(perspectiveTitle + " - " + appTitle);
@@ -123,61 +125,61 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private List<MetaExpressionType> createMetaExpressionTypes() {
-		List<MetaExpressionType> out = new ArrayList<MetaExpressionType>();
-		out.add(new MetaExpressionType("And", "#/\"", "#/\"", "and",
+	private Map<String, MetaExpressionType> createMetaExpressionTypes() {
+		Map<String, MetaExpressionType> out = new HashMap<String,MetaExpressionType>();
+		out.put("And",new MetaExpressionType("And", "#/\"", "#/\"", "and",
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Assign", "=", "=", "assign",
+		out.put("Assign",new MetaExpressionType("Assign", "=", "=", "assign",
 				MetaExpressionType.IDEN, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Subtraction", "-", "-", "diff",
+		out.put("Subtraction",new MetaExpressionType("Subtraction", "-", "-", "diff",
 				MetaExpressionType.NUM, MetaExpressionType.NUM,
 				MetaExpressionType.NUM, false));
-		out.add(new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
+		out.put("DoubleImplies",new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
 				"doubleImplies", MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Equals", "#=", "#=", "equals",
+		out.put("Equals",new MetaExpressionType("Equals", "#=", "#=", "equals",
 				MetaExpressionType.ANY, MetaExpressionType.ANY,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
+		out.put("Greater",new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
 				MetaExpressionType.NUM, MetaExpressionType.NUM,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
+		out.put("GreaterOrEq",new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
 				"greaterOrEqualsThan", MetaExpressionType.NUM,
 				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Implies", "#==>", "#==>", "implies",
+		out.put("Implies",new MetaExpressionType("Implies", "#==>", "#==>", "implies",
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Less", "#<", "#<", "lessThan",
+		out.put("Less",new MetaExpressionType("Less", "#<", "#<", "lessThan",
 				MetaExpressionType.NUM, MetaExpressionType.NUM,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("LessOrEq", "#<=", "#<=",
+		out.put("LessOrEq",new MetaExpressionType("LessOrEquals", "#<=", "#<=",
 				"lessOrEqualsThan", MetaExpressionType.NUM,
 				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Literal", "", "",
+		out.put("Literal",new MetaExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", MetaExpressionType.LIT,
 				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
-		out.add(new MetaExpressionType("Negation", "-", "-",
+		out.put("Negation",new MetaExpressionType("Negation", "-", "-",
 				"not", MetaExpressionType.BOOL,
 				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
-		out.add(new MetaExpressionType("Number", "", "",
+		out.put("Number",new MetaExpressionType("Number", "", "",
 				"number", MetaExpressionType.INT,
 				MetaExpressionType.NONE, MetaExpressionType.NUM, true));
-		out.add(new MetaExpressionType("NotEquals",  "\\==",  "\\==",
+		out.put("NotEquals",new MetaExpressionType("NotEquals",  "\\==",  "\\==",
 				"notEquals", MetaExpressionType.NUM,
 				MetaExpressionType.NUM, MetaExpressionType.BOOL, false));
 
-		out.add(new MetaExpressionType("Or", "#\"/", "#\"/", "or",
+		out.put("Or",new MetaExpressionType("Or", "#\"/", "#\"/", "or",
 				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
 				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Product", "*", "*", "prod",
+		out.put("Product",new MetaExpressionType("Product", "*", "*", "prod",
 				MetaExpressionType.NUM, MetaExpressionType.NUM,
-				MetaExpressionType.BOOL, false));
-		out.add(new MetaExpressionType("Sum", "+", "+", "sum",
+				MetaExpressionType.NUM, false));
+		out.put("Sum",new MetaExpressionType("Sum", "+", "+", "sum",
 				MetaExpressionType.NUM, MetaExpressionType.NUM,
-				MetaExpressionType.BOOL, false));
-		return null;
+				MetaExpressionType.NUM, false));
+		return out;
 	}
 
 	public void waitingCursor(boolean waitingCursor) {

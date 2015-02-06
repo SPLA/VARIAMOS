@@ -68,7 +68,7 @@ public class RefasModel extends AbstractModel {
 
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
-	private List<MetaExpressionType> metaExpressionTypes;
+	private Map<String, MetaExpressionType> metaExpressionTypes;
 	/**
 	 * 
 	 */
@@ -78,6 +78,8 @@ public class RefasModel extends AbstractModel {
 	 * 
 	 */
 	private Map<String, InstVertex> otherInstVertex;
+
+
 	/**
 	 * 
 	 */
@@ -97,17 +99,17 @@ public class RefasModel extends AbstractModel {
 	private List<InstView> instViews;
 
 	public RefasModel(PerspectiveType perspectiveType,
-			List<MetaExpressionType> metaExpressionTypes) {
+			Map<String,MetaExpressionType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
-	public RefasModel(List<MetaExpressionType> metaExpressionTypes,
+	public RefasModel(Map<String, MetaExpressionType> metaExpressionTypes,
 			RefasModel syntaxRefas) {
 		this(PerspectiveType.semantic, metaExpressionTypes, syntaxRefas, null);
 	}
 
 	public RefasModel(PerspectiveType perspectiveType,
-			List<MetaExpressionType> metaExpressionTypes,
+			Map<String, MetaExpressionType> metaExpressionTypes,
 			RefasModel syntaxRefas, RefasModel semanticRefas) {
 		this.perspectiveType = perspectiveType;
 		this.syntaxRefas = syntaxRefas;
@@ -146,6 +148,10 @@ public class RefasModel extends AbstractModel {
 		return syntaxRefas;
 	}
 
+	public Map<String,MetaExpressionType> getMetaExpressionTypes() {
+		return metaExpressionTypes;
+	}
+	
 	public RefasModel getSemanticRefas() {
 		return semanticRefas;
 	}

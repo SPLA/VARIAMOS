@@ -1,7 +1,6 @@
 package com.variamos.semantic.expressionsupport;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.semantic.types.ExpressionVertexType;
@@ -15,7 +14,12 @@ import com.variamos.semantic.types.ExpressionVertexType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class MetaExpression {
+public class MetaExpression implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1977213643411960771L;
+	private String identifier;
 	private MetaExpressionType metaExpressionType;
 	private AbstractSemanticElement leftVertex;
 	private AbstractSemanticElement rightVertex;
@@ -24,60 +28,101 @@ public class MetaExpression {
 	private MetaExpression leftSubExpression;
 	private MetaExpression rightSubExpression;
 	private int number;
-	private List<ExpressionVertexType> expressionVertexTypes = new ArrayList<ExpressionVertexType>();
+	private ExpressionVertexType leftExpressionType;
+	private ExpressionVertexType rightExpressionType;
 
 	public MetaExpression() {
 
 	}
 
-	public MetaExpression(MetaExpressionType metaExpressionType,
+	public MetaExpression(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public MetaExpression(String identifier,
+			MetaExpressionType metaExpressionType) {
+		this.identifier = identifier;
+		this.metaExpressionType = metaExpressionType;
+	}
+
+	public MetaExpression(String identifier,
+			MetaExpressionType metaExpressionType,
 			AbstractSemanticElement left, AbstractSemanticElement right,
 			String leftAttributeName, String rightAttributeName) {
+		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
 		this.leftVertex = left;
 		this.rightVertex = right;
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
-		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
-		this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+		this.leftExpressionType = ExpressionVertexType.LEFT;
+		this.rightExpressionType = ExpressionVertexType.RIGHT;
 	}
 
-	public MetaExpression(MetaExpressionType metaExpressionType,
+	public MetaExpression(String identifier,
+			MetaExpressionType metaExpressionType,
 			AbstractSemanticElement vertex, String attributeName,
 			boolean replaceTarget, MetaExpression subExpression) {
+		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
 		if (replaceTarget) {
 			this.leftVertex = vertex;
 			this.leftAttributeName = attributeName;
-			this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
-			this.expressionVertexTypes
-					.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
+			this.leftExpressionType = ExpressionVertexType.LEFT;
+			this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
 			this.rightSubExpression = subExpression;
 		} else {
 			this.rightVertex = vertex;
 			this.rightAttributeName = attributeName;
-			this.expressionVertexTypes
-					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
-			this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+			this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
+			this.rightExpressionType = ExpressionVertexType.RIGHT;
 			this.leftSubExpression = subExpression;
 		}
 	}
 
-	public MetaExpression(MetaExpressionType metaExpressionType,
+	public MetaExpression(String identifier,
+			MetaExpressionType metaExpressionType,
 			MetaExpression leftSubExpression, MetaExpression rightSubExpression) {
+		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
 		this.leftSubExpression = leftSubExpression;
 		this.rightSubExpression = rightSubExpression;
-		this.expressionVertexTypes.add(ExpressionVertexType.LEFTSUBEXPRESSION);
-		this.expressionVertexTypes.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
+		this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
+		this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
 	}
 
-	public MetaExpression(MetaExpressionType metaExpressionType,
+	public MetaExpression(String identifier,
+			MetaExpressionType metaExpressionType,
 			AbstractSemanticElement vertex, String attributeName) {
+		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
 		this.leftVertex = vertex;
 		this.leftAttributeName = attributeName;
-		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+		this.leftExpressionType = ExpressionVertexType.LEFT;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public ExpressionVertexType getLeftExpressionType() {
+		return leftExpressionType;
+	}
+
+	public void setLeftExpressionType(ExpressionVertexType leftExpressionType) {
+		this.leftExpressionType = leftExpressionType;
+	}
+
+	public ExpressionVertexType getRightExpressionType() {
+		return rightExpressionType;
+	}
+
+	public void setRightExpressionType(ExpressionVertexType rightExpressionType) {
+		this.rightExpressionType = rightExpressionType;
 	}
 
 	public void setMetaExpressionType(MetaExpressionType metaExpressionType) {
@@ -116,29 +161,36 @@ public class MetaExpression {
 		return number;
 	}
 
-	public List<ExpressionVertexType> getExpressionVertexTypes() {
-		return expressionVertexTypes;
-	}
-	
-	public int getLeftValidExpressions()
-	{
+	public int getLeftValidExpressions() {
 		if (metaExpressionType == null)
 			return 0;
 		return metaExpressionType.getLeftValidExpressions();
 	}
 
-	public int getRightValidExpressions()
-	{
+	public int getRightValidExpressions() {
 		if (metaExpressionType == null)
 			return 0;
 		return metaExpressionType.getRightValidExpressions();
 	}
-	
-	public int getResultExpressions()
-	{
+
+	public int getResultExpressions() {
 		if (metaExpressionType == null)
 			return 0;
 		return metaExpressionType.getResultExpressions();
 	}
-	
+
+	public void setLeftAttributeName(String attribute) {
+		this.leftAttributeName = attribute;
+	}
+
+	public void setRightAttributeName(String attribute) {
+		this.rightAttributeName = attribute;
+	}
+
+	public String getOperation() {
+		if (metaExpressionType != null)
+			return metaExpressionType.getTextConnector();
+		return null;
+	}
+
 }
