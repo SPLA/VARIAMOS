@@ -124,6 +124,14 @@ public class MetaExpression implements Serializable {
 	public void setRightExpressionType(ExpressionVertexType rightExpressionType) {
 		this.rightExpressionType = rightExpressionType;
 	}
+	
+	public ExpressionVertexType[] getExpressionTypes()
+	{
+		ExpressionVertexType[] out = new ExpressionVertexType[2];
+		out[0] = getLeftExpressionType();
+		out[1] = getRightExpressionType();
+		return out;
+	}
 
 	public void setMetaExpressionType(MetaExpressionType metaExpressionType) {
 		this.metaExpressionType = metaExpressionType;

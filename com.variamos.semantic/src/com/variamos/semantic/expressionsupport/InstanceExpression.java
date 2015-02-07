@@ -295,7 +295,8 @@ public class InstanceExpression implements Serializable {
 	public void setMetaExpressionType(MetaExpressionType metaExpressionType) {
 		if (customExpression)
 			customMetaExpression.setMetaExpressionType(metaExpressionType);
-		if (metaExpressionType == null || metaExpressionType.isSingleInExpression()) {
+		if (metaExpressionType == null
+				|| metaExpressionType.isSingleInExpression()) {
 			rightSubExpression = null;
 			rightElement = null;
 			getMetaExpression().setRightExpressionType(null);
@@ -436,6 +437,7 @@ public class InstanceExpression implements Serializable {
 		case RIGHT:
 		case RIGHTVARIABLEVALUE:
 			this.setRightElement(vertex);
+			default:
 		}
 	}
 
@@ -459,5 +461,43 @@ public class InstanceExpression implements Serializable {
 
 	public boolean isSingleInExpression() {
 		return getMetaExpression().isSingleInExpression();
+	}
+
+	public String toString() {
+		return "";//expressionStructure();
+	}
+	public String expressionStructure() {
+		String out = "";
+		int i = 0;
+		for (ExpressionVertexType expressionVertex : getMetaExpression().getExpressionTypes()) {
+			//if (expressionConnectors.size() > i)
+				//out += " " + expressionConnectors.get(i) + " ";
+			switch (expressionVertex) {
+			case LEFTVARIABLEVALUE:
+				out += leftValue;
+				break;
+			case RIGHTVARIABLEVALUE:
+				out += rightValue;
+				break;
+			case LEFT:
+				out += getLeftAttributeName();
+				break;
+			case RIGHT:
+				out += getRightAttributeName();
+
+				break;
+			case LEFTSUBEXPRESSION:
+				out += "(" + leftSubExpression.expressionStructure() + ")";
+				break;
+			case RIGHTSUBEXPRESSION:
+				out += "(" + rightSubExpression.expressionStructure() + ")";
+				break;
+			default:
+				break;
+
+			}
+			i++;
+		}
+		return out;
 	}
 }
