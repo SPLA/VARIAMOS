@@ -11,11 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cfm.common.AbstractModel;
-import com.variamos.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
-import com.variamos.semantic.expressionsupport.InstanceExpression;
+import com.variamos.hlcl.RangeDomain;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
 import com.variamos.semantic.semanticsupport.SemanticConcept;
@@ -27,8 +26,6 @@ import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
 import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.semantic.types.ConceptType;
-import com.variamos.semantic.types.DirectEdgeType;
-import com.variamos.semantic.types.GroupRelationType;
 import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -50,7 +47,6 @@ import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
 import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
@@ -1223,78 +1219,6 @@ public class RefasModel extends AbstractModel {
 
 		// Relations
 
-		// features relations
-		List<GroupRelationType> featureMeansGroupRelation = new ArrayList<GroupRelationType>();
-		featureMeansGroupRelation.add(GroupRelationType.means_ends);
-
-		List<IntSemanticPairwiseRelType> FeatureDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		FeatureDirectRelation.add(DirectEdgeType.mandatory);
-		FeatureDirectRelation.add(DirectEdgeType.optional);
-		FeatureDirectRelation.add(DirectEdgeType.conflict);
-		FeatureDirectRelation.add(DirectEdgeType.required);
-
-		// goal relations
-		List<GroupRelationType> alternativeGroupRelation = new ArrayList<GroupRelationType>();
-		alternativeGroupRelation.add(GroupRelationType.alternative);
-		/*
-		 * List<GroupRelationType> altern_impl_meansGroupRelation = new
-		 * ArrayList<GroupRelationType>();
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.alternative);
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.means_ends);
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.implication);
-		 */
-		List<IntSemanticPairwiseRelType> alternative_prefferedDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		alternative_prefferedDirectRelation.add(DirectEdgeType.alternative);
-		alternative_prefferedDirectRelation.add(DirectEdgeType.preferred);
-
-		List<IntSemanticPairwiseRelType> alter_preff_impl_meansDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.alternative);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.preferred);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.implication);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.means_ends);
-
-		List<IntSemanticPairwiseRelType> allSGDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		allSGDirectRelation.add(DirectEdgeType.alternative);
-		allSGDirectRelation.add(DirectEdgeType.preferred);
-		allSGDirectRelation.add(DirectEdgeType.implication);
-		allSGDirectRelation.add(DirectEdgeType.means_ends);
-		allSGDirectRelation.add(DirectEdgeType.conflict);
-		allSGDirectRelation.add(DirectEdgeType.required);
-
-		List<GroupRelationType> means_endsImplicationGroupRelation = new ArrayList<GroupRelationType>();
-		means_endsImplicationGroupRelation.add(GroupRelationType.means_ends);
-		means_endsImplicationGroupRelation.add(GroupRelationType.implication);
-
-		List<GroupRelationType> implicationGroupRelation = new ArrayList<GroupRelationType>();
-		implicationGroupRelation.add(GroupRelationType.implication);
-
-		List<IntSemanticPairwiseRelType> implicationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		implicationDirectRelation.add(DirectEdgeType.implication);
-
-		List<IntSemanticPairwiseRelType> means_endsImplicationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		means_endsImplicationDirectRelation.add(DirectEdgeType.means_ends);
-		means_endsImplicationDirectRelation.add(DirectEdgeType.implication);
-
-		List<IntSemanticPairwiseRelType> softdepDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		softdepDirectRelation.add(DirectEdgeType.softdependency);
-
-		List<IntSemanticPairwiseRelType> noneDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		noneDirectRelation.add(DirectEdgeType.none);
-
-		List<IntSemanticPairwiseRelType> claimDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		claimDirectRelation.add(DirectEdgeType.claim);
-
-		List<GroupRelationType> implementationGroupRelation = new ArrayList<GroupRelationType>();
-		implementationGroupRelation.add(GroupRelationType.implementation);
-
-		List<IntSemanticPairwiseRelType> implementationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		implementationDirectRelation.add(DirectEdgeType.implementation);
-
-		// required and conflict group relations of the HardSemanticConcept
-		List<GroupRelationType> requires_conflictsGroupRelation = new ArrayList<GroupRelationType>();
-		requires_conflictsGroupRelation.add(GroupRelationType.required);
-		requires_conflictsGroupRelation.add(GroupRelationType.conflict);
-
 		List<IntSemanticRelationType> hardSemOverTwoRelList = new ArrayList<IntSemanticRelationType>();
 		hardSemOverTwoRelList.add(new SemanticRelationType("and", "And",
 				"means-ends", false, false, false, 2, -1, 1, 1));
@@ -1917,15 +1841,6 @@ public class RefasModel extends AbstractModel {
 
 		// Feature direct relations
 
-		// TODO delete
-		List<IntSemanticPairwiseRelType> allSGDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		allSGDirectRelation.add(DirectEdgeType.alternative);
-		allSGDirectRelation.add(DirectEdgeType.preferred);
-		allSGDirectRelation.add(DirectEdgeType.implication);
-		allSGDirectRelation.add(DirectEdgeType.means_ends);
-		allSGDirectRelation.add(DirectEdgeType.conflict);
-		allSGDirectRelation.add(DirectEdgeType.required);
-
 		IntSemanticPairwiseRelation semNonePaiwiseRel = (IntSemanticPairwiseRelation) getSemanticRefas()
 				.getConstraintInstEdge("NonePairwiseRel")
 				.getEditableSemanticElement();
@@ -2098,8 +2013,8 @@ public class RefasModel extends AbstractModel {
 		this.constraintInstEdges.put("variab-extgtg", instEdge);
 		instEdge.setIdentifier("variab-extgtg");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
-		instEdge.setTargetRelation(instVertexG, true);
-		instEdge.setSourceRelation(instVertexTG, true);
+		instEdge.setTargetRelation(instVertexTG, true);
+		instEdge.setSourceRelation(instVertexG, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-topgoal", instEdge);
