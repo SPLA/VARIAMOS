@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" language="java" name="com.variamos.syntax.metamodelsupport.EditableElementAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/EditableElementAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-239" y="699"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="2" language="java" name="com.variamos.syntax.metamodelsupport.TypeOfLine" 
+    project="com.variamos.syntax" file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/TypeOfLine.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="352" y="84"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="3" language="java" name="com.variamos.syntax.metamodelsupport.MetaPairwiseRelation" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaPairwiseRelation.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="309" width="295" x="532" y="-9"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.variamos.syntax.metamodelsupport.ModelingAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/ModelingAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="75" width="216" x="351" y="853"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.variamos.syntax.metamodelsupport.SimulationAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/SimulationAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="76" width="224" x="240" y="727"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.variamos.syntax.metamodelsupport.MetaElement" project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaElement.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="348" width="260" x="-369" y="10"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.variamos.syntax.metamodelsupport.MetaOverTwoRelation" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaOverTwoRelation.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="167" width="297" x="-368" y="379"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.variamos.syntax.metamodelsupport.SemanticAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/SemanticAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="79" width="245" x="577" y="853"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.variamos.syntax.metamodelsupport.MetaExtends" project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaExtends.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="95" width="200" x="251" y="607"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.variamos.syntax.metamodelsupport.SimulationConfigAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/SimulationConfigAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="75" width="227" x="-22" y="572"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.variamos.syntax.metamodelsupport.SimulationControlAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/SimulationControlAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="79" width="182" x="-144" y="837"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.variamos.syntax.metamodelsupport.SimulationStateAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/SimulationStateAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="76" width="226" x="102" y="865"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.variamos.syntax.metamodelsupport.MetaView" project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaView.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="111" width="208" x="-33" y="-8"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.variamos.syntax.metamodelsupport.AttributeElement" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/AttributeElement.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="149" width="217" x="-69" y="670"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.variamos.syntax.metamodelsupport.MetaConcept" project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaConcept.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="98" width="208" x="234" y="447"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.variamos.syntax.metamodelsupport.AbstractAttribute" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/AbstractAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="506" width="291" x="541" y="326"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.variamos.syntax.metamodelsupport.MetaEnumeration" 
+    project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaEnumeration.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="168" width="252" x="-43" y="394"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.variamos.syntax.metamodelsupport.MetaVertex" project="com.variamos.syntax" 
+    file="/com.variamos.syntax/src/com/variamos/syntax/metamodelsupport/MetaVertex.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="133" width="224" x="3" y="190"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="19">    
+    <bendpoint x="-6" y="357"/>    
+    <bendpoint x="496" y="400"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="20" name="modelingAttributes">        
+        <position height="0" width="0" x="-366" y="-1716"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-366" y="-1716"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <bendpoint x="449" y="353"/>    
+    <bendpoint x="326" y="328"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="23" name="destination">        
+        <position height="0" width="0" x="-12" y="-952"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-12" y="-952"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <realization id="26">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <association id="28">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="29" name="childViews">        
+        <position height="0" width="0" x="-674" y="55"/>      
+      </attribute>      
+      <multiplicity id="30" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-674" y="55"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="31">    
+    <bendpoint x="342" y="201"/>    
+    <bendpoint x="134" y="153"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="32">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="33" name="elements">        
+        <position height="0" width="0" x="-516" y="58"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-516" y="58"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="36">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="37" name="typeOfLine">        
+        <position height="0" width="0" x="-828" y="-171"/>      
+      </attribute>      
+      <multiplicity id="38" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-828" y="-171"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="39">    
+    <bendpoint x="14" y="130"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="40">    
+    <bendpoint x="442" y="584"/>    
+    <bendpoint x="472" y="528"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="41" name="parent">        
+        <position height="0" width="0" x="52" y="-1202"/>      
+      </attribute>      
+      <multiplicity id="42" minimum="0" maximum="1">        
+        <position height="0" width="0" x="52" y="-1202"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <bendpoint x="445" y="382"/>    
+    <bendpoint x="288" y="358"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="44" name="origin">        
+        <position height="0" width="0" x="-12" y="-952"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-12" y="-952"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="46">    
+    <bendpoint x="173" y="834"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="49" name="parent">        
+        <position height="0" width="0" x="52" y="-1202"/>      
+      </attribute>      
+      <multiplicity id="50" minimum="0" maximum="1">        
+        <position height="0" width="0" x="52" y="-1202"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="52">    
+    <bendpoint x="232" y="404"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <association id="53">    
+    <bendpoint x="462" y="316"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="54" name="asSourceEdges">        
+        <position height="0" width="0" x="-164" y="-419"/>      
+      </attribute>      
+      <multiplicity id="55" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-164" y="-419"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <bendpoint x="414" y="248"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="57" name="asTargetEdges">        
+        <position height="0" width="0" x="-164" y="-419"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-164" y="-419"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="59">    
+    <bendpoint x="748" y="864"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -2015,8 +2015,8 @@ public class RefasModel extends AbstractModel {
 		this.constraintInstEdges.put("variab-extgtg", instEdge);
 		instEdge.setIdentifier("variab-extgtg");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
-		instEdge.setTargetRelation(instVertexTG, true);
-		instEdge.setSourceRelation(instVertexG, true);
+		instEdge.setTargetRelation(instVertexG, true);
+		instEdge.setSourceRelation(instVertexTG, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-topgoal", instEdge);
@@ -2313,7 +2313,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxGeneralSoftGoal = new MetaConcept(
-				"GeneralSSoftgoal",
+				"GeneralSoftgoal",
 				true,
 				"General Softgoal",
 				"refassoftgoal",
@@ -2330,9 +2330,9 @@ public class RefasModel extends AbstractModel {
 
 		syntaxGeneralSoftGoal.setParent(syntaxAbsSoftGoal);
 		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
-		InstVertex instVertexGSG = new InstConcept("GeneralSSoftgoal",
+		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
-		variabilityInstVertex.put("GeneralSSoftgoal", instVertexGSG);
+		variabilityInstVertex.put("GeneralSoftgoal", instVertexGSG);
 		instView.addInstVertex(instVertexGSG);
 
 		instEdge = new InstPairwiseRelation();

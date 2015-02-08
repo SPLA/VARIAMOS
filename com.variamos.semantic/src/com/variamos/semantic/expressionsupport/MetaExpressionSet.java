@@ -17,6 +17,9 @@ public class MetaExpressionSet {
 	private String identifier;
 	private String description;
 	private boolean userSelectable;
+	private int priority;
+	private int responseAction;
+	private String errorDescription;
 	private List<AbstractSemanticElement> semanticElements;
 	private List<ExpressionSetSubAction> expressionSetSubAction;
 }
