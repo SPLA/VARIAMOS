@@ -1,212 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="com.variamos.semantic.semanticsupport.SemanticEnumeration" 
-    project="com.variamos.semantic" 
-    file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticEnumeration.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="171" width="228" x="956" y="12"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="com.variamos.semantic.semanticsupport.AbstractSemanticVertex" 
+  <class id="1" language="java" name="com.variamos.semantic.semanticsupport.AbstractSemanticVertex" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/AbstractSemanticVertex.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="351" width="399" x="464" y="637"/>    
+    <position height="114" width="249" x="355" y="300"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.variamos.semantic.semanticsupport.SemanticConcept" 
+  <class id="2" language="java" name="com.variamos.semantic.semanticsupport.SemanticConcept" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticConcept.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="171" width="245" x="948" y="634"/>    
+    <position height="78" width="250" x="693" y="226"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.variamos.semantic.semanticsupport.SemanticContextGroup" 
+  <class id="3" language="java" name="com.variamos.semantic.semanticsupport.SemanticContextGroup" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticContextGroup.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="351" width="276" x="918" y="1098"/>    
+    <position height="257" width="281" x="662" y="500"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing" 
+  <class id="4" language="java" name="com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SoftSemanticConceptSatisficing.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="326" x="59" y="1222"/>    
+    <position height="77" width="283" x="21" y="602"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.variamos.semantic.semanticsupport.SoftSemanticConcept" 
+  <class id="5" language="java" name="com.variamos.semantic.semanticsupport.SoftSemanticConcept" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SoftSemanticConcept.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="261" width="248" x="946" y="818"/>    
+    <position height="165" width="253" x="690" y="319"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.variamos.semantic.semanticsupport.SemanticRelationType" 
+  <class id="6" language="java" name="com.variamos.semantic.semanticsupport.SemanticRelationType" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticRelationType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="603" width="240" x="480" y="13"/>    
+    <position height="239" width="240" x="357" y="19"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.variamos.semantic.semanticsupport.SemanticValue" 
-    project="com.variamos.semantic" 
-    file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticValue.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="840" y="70"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="9" language="java" name="com.variamos.semantic.semanticsupport.SemanticPairwiseRelation" 
+  <class id="7" language="java" name="com.variamos.semantic.semanticsupport.SemanticPairwiseRelation" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticPairwiseRelation.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="208" y="196"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="257" width="303" x="21" y="21"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.variamos.semantic.semanticsupport.SemanticVariable" 
+  <class id="8" language="java" name="com.variamos.semantic.semanticsupport.SemanticVariable" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticVariable.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="423" width="250" x="534" y="1025"/>    
+    <position height="329" width="255" x="352" y="438"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.variamos.semantic.semanticsupport.AbstractSemanticElement" 
+  <class id="9" language="java" name="com.variamos.semantic.semanticsupport.AbstractSemanticElement" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/AbstractSemanticElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="729" width="388" x="17" y="419"/>    
+    <position height="205" width="274" x="34" y="307"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.variamos.semantic.semanticsupport.SemanticOverTwoRelation" 
+  <class id="10" language="java" name="com.variamos.semantic.semanticsupport.SemanticOverTwoRelation" 
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/semanticsupport/SemanticOverTwoRelation.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="423" width="455" x="737" y="202"/>    
+    <position height="185" width="309" x="633" y="22"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="13">    
-    <bendpoint x="484" y="1072"/>    
+  <generalization id="11">    
+    <bendpoint x="637" y="275"/>    
     <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
   </generalization>  
-  <association id="14">    
-    <bendpoint x="460" y="678"/>    
-    <bendpoint x="464" y="211"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="15" name="directRelations">        
+  <generalization id="12">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="13">    
+    <bendpoint x="441" y="284"/>    
+    <bendpoint x="342" y="283"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="14" name="directRelations">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="2147483647">        
+      <multiplicity id="15" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <bendpoint x="165" y="546"/>    
+    <bendpoint x="265" y="546"/>    
+    <bendpoint x="260" y="529"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="17" name="parent">        
+        <position height="0" width="0" x="17" y="-112"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="17" y="-112"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="17">    
+  <generalization id="19">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="20">    
+    <bendpoint x="326" y="329"/>    
     <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="9"/>  
   </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <association id="19">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="20" name="parent">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="22">    
-    <bendpoint x="840" y="178"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="23" name="values">        
-        <position height="0" width="0" x="0" y="-8"/>      
-      </attribute>      
-      <multiplicity id="24" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="-8"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="25">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="26">    
-    <bendpoint x="845" y="1093"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="27">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="28">    
-    <bendpoint x="903" y="646"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="29">    
-    <bendpoint x="929" y="661"/>    
+  <generalization id="21">    
+    <bendpoint x="652" y="502"/>    
+    <bendpoint x="650" y="424"/>    
     <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

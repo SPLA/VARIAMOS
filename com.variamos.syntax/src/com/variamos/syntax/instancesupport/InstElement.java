@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.metamodelsupport.MetaConcept;
 import com.variamos.syntax.metamodelsupport.MetaElement;
+import com.variamos.syntax.semanticinterface.IntInstanceExpression;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
 /**
@@ -42,6 +43,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
+	private IntInstanceExpression insExpressions;
 	private IntSemanticElement editableSemanticElement;
 
 	private MetaElement editableMetaElement;

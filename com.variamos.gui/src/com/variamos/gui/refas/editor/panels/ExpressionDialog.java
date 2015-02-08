@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -37,8 +38,10 @@ import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.types.ExpressionVertexType;
+import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
+import com.variamos.syntax.instancesupport.InstEnumeration;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstVertex;
@@ -171,10 +174,10 @@ public class ExpressionDialog extends JDialog {
 		JPanel basePanel = new JPanel();
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-	//	if (selectedExpression == instanceExpression)
-	//		basePanel.setBorder(blackline);
-	//	else
-			basePanel.setBorder(new EmptyBorder(1, 1, 1, 1));
+		// if (selectedExpression == instanceExpression)
+		// basePanel.setBorder(blackline);
+		// else
+		basePanel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		basePanel.setMaximumSize(new Dimension(1000, 300));
 		basePanel.setBackground(new Color(color, color, color));
 		basePanel.addMouseListener(new MouseListener() {
@@ -211,32 +214,32 @@ public class ExpressionDialog extends JDialog {
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(new Color(color, color, color));
 		leftPanel.addMouseListener(new MouseListener() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					selectedExpression = exp;
-					new Thread() {
-						public void run() {
-							initialize(ele, null);
-						}
-					}.start();
-				}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedExpression = exp;
+				new Thread() {
+					public void run() {
+						initialize(ele, null);
+					}
+				}.start();
+			}
 
-				@Override
-				public void mousePressed(MouseEvent e) {
-				}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseExited(MouseEvent e) {
-				}
-			});
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		if (selectedExpression == instanceExpression) {
 			leftPanel.setBorder(raisedbevel);
 			basePanel.add(leftSide);
@@ -276,10 +279,10 @@ public class ExpressionDialog extends JDialog {
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
 			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
-				if (instanceExpression.getLeftSubExpression() == null)
-					instanceExpression.setLeftSubExpression(
+				if (instanceExpression.getLeftInstanceExpression() == null)
+					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
-				showExpression(instanceExpression.getLeftSubExpression(),
+				showExpression(instanceExpression.getLeftInstanceExpression(),
 						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
@@ -317,32 +320,32 @@ public class ExpressionDialog extends JDialog {
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(color, color, color));
 		centerPanel.addMouseListener(new MouseListener() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					selectedExpression = exp;
-					new Thread() {
-						public void run() {
-							initialize(ele, null);
-						}
-					}.start();
-				}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedExpression = exp;
+				new Thread() {
+					public void run() {
+						initialize(ele, null);
+					}
+				}.start();
+			}
 
-				@Override
-				public void mousePressed(MouseEvent e) {
-				}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseExited(MouseEvent e) {
-				}
-			});
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		JComboBox<String> centerCombo = createOperatorsCombo(
 				instanceExpression, element, instanceExpression.getOperation(),
 				topExpressionType);
@@ -354,32 +357,32 @@ public class ExpressionDialog extends JDialog {
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBackground(new Color(color, color, color));
 		rightPanel.addMouseListener(new MouseListener() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					selectedExpression = exp;
-					new Thread() {
-						public void run() {
-							initialize(ele, null);
-						}
-					}.start();
-				}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedExpression = exp;
+				new Thread() {
+					public void run() {
+						initialize(ele, null);
+					}
+				}.start();
+			}
 
-				@Override
-				public void mousePressed(MouseEvent e) {
-				}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
 
-				@Override
-				public void mouseExited(MouseEvent e) {
-				}
-			});
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		if (!instanceExpression.isSingleInExpression()) {
 			if (selectedExpression == instanceExpression) {
 				rightPanel.setBorder(raisedbevel);
@@ -388,11 +391,11 @@ public class ExpressionDialog extends JDialog {
 			if (rightSide.getSelectedItem().equals("SubExpression")) {
 				if (instanceExpression.getMetaExpression()
 						.getMetaExpressionType() != null) {
-					if (instanceExpression.getRightSubExpression() == null)
-						instanceExpression.setRightSubExpression(
+					if (instanceExpression.getRightInstanceExpression() == null)
+						instanceExpression.setRightInstanceExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
 								"id");
-					showExpression(instanceExpression.getRightSubExpression(),
+					showExpression(instanceExpression.getRightInstanceExpression(),
 							element, rightPanel,
 							instanceExpression.getRightValidExpressions(),
 							color > 20 ? color - 20 : color > 5 ? color - 5
@@ -428,10 +431,10 @@ public class ExpressionDialog extends JDialog {
 			}
 		}
 		if (color == 255) {
-		//	JLabel lab = new JLabel("");
-			//lab.setPreferredSize(new Dimension(200, 10));
-		//	lab.setMaximumSize(new Dimension(200, 10));
-		//	rightPanel.add(lab);
+			// JLabel lab = new JLabel("");
+			// lab.setPreferredSize(new Dimension(200, 10));
+			// lab.setMaximumSize(new Dimension(200, 10));
+			// rightPanel.add(lab);
 		}
 		basePanel.add(rightPanel);
 		parentPanel.add(basePanel);
@@ -524,8 +527,15 @@ public class ExpressionDialog extends JDialog {
 					combo.addItem(instVertex.getIdentifier() + "_" + "4");
 					break;
 				case "Enumeration":
-					combo.addItem(instVertex.getIdentifier() + "_" + "ToDo");
-
+					Object object = instVertex.getInstAttribute(
+							"enumerationType").getValueObject();
+					if (object != null) {
+						Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+								.getInstAttribute("value")).getValue();
+						for (InstAttribute value : values)
+							combo.addItem(instVertex.getIdentifier() + "_"
+									+ value.getValue());
+					}
 					break;
 
 				}

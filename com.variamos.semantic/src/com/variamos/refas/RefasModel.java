@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cfm.common.AbstractModel;
-import com.variamos.hlcl.RangeDomain;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.hlcl.RangeDomain;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
@@ -27,8 +27,6 @@ import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
 import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.semantic.types.ConceptType;
-import com.variamos.semantic.types.DirectEdgeType;
-import com.variamos.semantic.types.GroupRelationType;
 import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstConcept;
@@ -50,7 +48,6 @@ import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
 import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 import com.variamos.syntax.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelType;
 import com.variamos.syntax.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.syntax.semanticinterface.IntSemanticRelationType;
 
@@ -80,7 +77,6 @@ public class RefasModel extends AbstractModel {
 	 */
 	private Map<String, InstVertex> otherInstVertex;
 
-
 	/**
 	 * 
 	 */
@@ -100,7 +96,7 @@ public class RefasModel extends AbstractModel {
 	private List<InstView> instViews;
 
 	public RefasModel(PerspectiveType perspectiveType,
-			Map<String,MetaExpressionType> metaExpressionTypes) {
+			Map<String, MetaExpressionType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
@@ -149,10 +145,10 @@ public class RefasModel extends AbstractModel {
 		return syntaxRefas;
 	}
 
-	public Map<String,MetaExpressionType> getMetaExpressionTypes() {
+	public Map<String, MetaExpressionType> getMetaExpressionTypes() {
 		return metaExpressionTypes;
 	}
-	
+
 	public RefasModel getSemanticRefas() {
 		return semanticRefas;
 	}
@@ -1134,7 +1130,8 @@ public class RefasModel extends AbstractModel {
 		// InstConcept.class.getCanonicalName(),
 		// "SemOperationalization", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "Object"/*InstanceExpression.class.getCanonicalName()*/, false,
+				new SemanticAttribute("ConditionalExpression",
+						InstanceExpression.class.getCanonicalName(), false,
 						"Conditional Expression", null));
 		semClaim.putSemanticAttribute("CompExp", new SimulationConfigAttribute(
 				"CompExp", "Boolean", false, "Boolean Comp. Expression", true));
@@ -1176,6 +1173,10 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGE, true);
 		instEdge.setSourceRelation(instVertexSD, true);
 
+		semSoftDependency.putSemanticAttribute("ConditionalExpression",
+				new SemanticAttribute("ConditionalExpression",
+						InstanceExpression.class.getCanonicalName(), false,
+						"Conditional Expression", null));
 		semSoftDependency.putSemanticAttribute("CompExp",
 				new SimulationConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
@@ -1183,9 +1184,6 @@ public class RefasModel extends AbstractModel {
 				new SimulationConfigAttribute("SDSelected", "Boolean", false,
 						"SD Selected", false));
 
-		semSoftDependency.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "String", false,
-						"Conditional Expression", ""));
 		semSoftDependency.addPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
 		semSoftDependency.addPropEditableAttribute("03#"
@@ -1222,78 +1220,6 @@ public class RefasModel extends AbstractModel {
 		semSDElements.add(semSoftDependency);
 
 		// Relations
-
-		// features relations
-		List<GroupRelationType> featureMeansGroupRelation = new ArrayList<GroupRelationType>();
-		featureMeansGroupRelation.add(GroupRelationType.means_ends);
-
-		List<IntSemanticPairwiseRelType> FeatureDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		FeatureDirectRelation.add(DirectEdgeType.mandatory);
-		FeatureDirectRelation.add(DirectEdgeType.optional);
-		FeatureDirectRelation.add(DirectEdgeType.conflict);
-		FeatureDirectRelation.add(DirectEdgeType.required);
-
-		// goal relations
-		List<GroupRelationType> alternativeGroupRelation = new ArrayList<GroupRelationType>();
-		alternativeGroupRelation.add(GroupRelationType.alternative);
-		/*
-		 * List<GroupRelationType> altern_impl_meansGroupRelation = new
-		 * ArrayList<GroupRelationType>();
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.alternative);
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.means_ends);
-		 * altern_impl_meansGroupRelation.add(GroupRelationType.implication);
-		 */
-		List<IntSemanticPairwiseRelType> alternative_prefferedDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		alternative_prefferedDirectRelation.add(DirectEdgeType.alternative);
-		alternative_prefferedDirectRelation.add(DirectEdgeType.preferred);
-
-		List<IntSemanticPairwiseRelType> alter_preff_impl_meansDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.alternative);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.preferred);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.implication);
-		alter_preff_impl_meansDirectRelation.add(DirectEdgeType.means_ends);
-
-		List<IntSemanticPairwiseRelType> allSGDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		allSGDirectRelation.add(DirectEdgeType.alternative);
-		allSGDirectRelation.add(DirectEdgeType.preferred);
-		allSGDirectRelation.add(DirectEdgeType.implication);
-		allSGDirectRelation.add(DirectEdgeType.means_ends);
-		allSGDirectRelation.add(DirectEdgeType.conflict);
-		allSGDirectRelation.add(DirectEdgeType.required);
-
-		List<GroupRelationType> means_endsImplicationGroupRelation = new ArrayList<GroupRelationType>();
-		means_endsImplicationGroupRelation.add(GroupRelationType.means_ends);
-		means_endsImplicationGroupRelation.add(GroupRelationType.implication);
-
-		List<GroupRelationType> implicationGroupRelation = new ArrayList<GroupRelationType>();
-		implicationGroupRelation.add(GroupRelationType.implication);
-
-		List<IntSemanticPairwiseRelType> implicationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		implicationDirectRelation.add(DirectEdgeType.implication);
-
-		List<IntSemanticPairwiseRelType> means_endsImplicationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		means_endsImplicationDirectRelation.add(DirectEdgeType.means_ends);
-		means_endsImplicationDirectRelation.add(DirectEdgeType.implication);
-
-		List<IntSemanticPairwiseRelType> softdepDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		softdepDirectRelation.add(DirectEdgeType.softdependency);
-
-		List<IntSemanticPairwiseRelType> noneDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		noneDirectRelation.add(DirectEdgeType.none);
-
-		List<IntSemanticPairwiseRelType> claimDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		claimDirectRelation.add(DirectEdgeType.claim);
-
-		List<GroupRelationType> implementationGroupRelation = new ArrayList<GroupRelationType>();
-		implementationGroupRelation.add(GroupRelationType.implementation);
-
-		List<IntSemanticPairwiseRelType> implementationDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		implementationDirectRelation.add(DirectEdgeType.implementation);
-
-		// required and conflict group relations of the HardSemanticConcept
-		List<GroupRelationType> requires_conflictsGroupRelation = new ArrayList<GroupRelationType>();
-		requires_conflictsGroupRelation.add(GroupRelationType.required);
-		requires_conflictsGroupRelation.add(GroupRelationType.conflict);
 
 		List<IntSemanticRelationType> hardSemOverTwoRelList = new ArrayList<IntSemanticRelationType>();
 		hardSemOverTwoRelList.add(new SemanticRelationType("and", "And",
@@ -1917,15 +1843,6 @@ public class RefasModel extends AbstractModel {
 
 		// Feature direct relations
 
-		// TODO delete
-		List<IntSemanticPairwiseRelType> allSGDirectRelation = new ArrayList<IntSemanticPairwiseRelType>();
-		allSGDirectRelation.add(DirectEdgeType.alternative);
-		allSGDirectRelation.add(DirectEdgeType.preferred);
-		allSGDirectRelation.add(DirectEdgeType.implication);
-		allSGDirectRelation.add(DirectEdgeType.means_ends);
-		allSGDirectRelation.add(DirectEdgeType.conflict);
-		allSGDirectRelation.add(DirectEdgeType.required);
-
 		IntSemanticPairwiseRelation semNonePaiwiseRel = (IntSemanticPairwiseRelation) getSemanticRefas()
 				.getConstraintInstEdge("NonePairwiseRel")
 				.getEditableSemanticElement();
@@ -2396,7 +2313,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 
 		MetaConcept syntaxGeneralSoftGoal = new MetaConcept(
-				"GeneralSSoftgoal",
+				"GeneralSoftgoal",
 				true,
 				"General Softgoal",
 				"refassoftgoal",
@@ -2413,9 +2330,9 @@ public class RefasModel extends AbstractModel {
 
 		syntaxGeneralSoftGoal.setParent(syntaxAbsSoftGoal);
 		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
-		InstVertex instVertexGSG = new InstConcept("GeneralSSoftgoal",
+		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
-		variabilityInstVertex.put("GeneralSSoftgoal", instVertexGSG);
+		variabilityInstVertex.put("GeneralSoftgoal", instVertexGSG);
 		instView.addInstVertex(instVertexGSG);
 
 		instEdge = new InstPairwiseRelation();
