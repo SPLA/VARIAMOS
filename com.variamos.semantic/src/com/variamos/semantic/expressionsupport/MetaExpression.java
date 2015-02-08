@@ -21,15 +21,18 @@ public class MetaExpression implements Serializable {
 	private static final long serialVersionUID = -1977213643411960771L;
 	private String identifier;
 	private MetaExpressionType metaExpressionType;
-	private AbstractSemanticElement leftVertex;
-	private AbstractSemanticElement rightVertex;
+	private ExpressionSubAction expressionSubAction;
+	private int number;
+	private boolean recursiveExpression;
+	private AbstractSemanticElement leftSemanticElement;
+	private AbstractSemanticElement rightSemanticElement;
 	private String leftAttributeName;
 	private String rightAttributeName;
-	private MetaExpression leftSubExpression;
-	private MetaExpression rightSubExpression;
-	private int number;
+	private MetaExpression leftMetaExpression;
+	private MetaExpression rightMetaExpression;
 	private ExpressionVertexType leftExpressionType;
 	private ExpressionVertexType rightExpressionType;
+
 
 	public MetaExpression() {
 
@@ -47,12 +50,12 @@ public class MetaExpression implements Serializable {
 
 	public MetaExpression(String identifier,
 			MetaExpressionType metaExpressionType,
-			AbstractSemanticElement left, AbstractSemanticElement right,
+			AbstractSemanticElement leftSemanticElement, AbstractSemanticElement rightSemanticElement,
 			String leftAttributeName, String rightAttributeName) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
-		this.leftVertex = left;
-		this.rightVertex = right;
+		this.leftSemanticElement = leftSemanticElement;
+		this.rightSemanticElement = rightSemanticElement;
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
 		this.leftExpressionType = ExpressionVertexType.LEFT;
@@ -61,42 +64,42 @@ public class MetaExpression implements Serializable {
 
 	public MetaExpression(String identifier,
 			MetaExpressionType metaExpressionType,
-			AbstractSemanticElement vertex, String attributeName,
-			boolean replaceTarget, MetaExpression subExpression) {
+			AbstractSemanticElement leftSemanticElement, String leftAttributeName,
+			boolean replaceTarget, MetaExpression leftMetaExpression) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
 		if (replaceTarget) {
-			this.leftVertex = vertex;
-			this.leftAttributeName = attributeName;
+			this.leftSemanticElement = leftSemanticElement;
+			this.leftAttributeName = leftAttributeName;
 			this.leftExpressionType = ExpressionVertexType.LEFT;
 			this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
-			this.rightSubExpression = subExpression;
+			this.rightMetaExpression = leftMetaExpression;
 		} else {
-			this.rightVertex = vertex;
-			this.rightAttributeName = attributeName;
+			this.rightSemanticElement = leftSemanticElement;
+			this.rightAttributeName = leftAttributeName;
 			this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
 			this.rightExpressionType = ExpressionVertexType.RIGHT;
-			this.leftSubExpression = subExpression;
+			this.leftMetaExpression = leftMetaExpression;
 		}
 	}
 
 	public MetaExpression(String identifier,
 			MetaExpressionType metaExpressionType,
-			MetaExpression leftSubExpression, MetaExpression rightSubExpression) {
+			MetaExpression leftMetaExpression, MetaExpression rightMetaExpression) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
-		this.leftSubExpression = leftSubExpression;
-		this.rightSubExpression = rightSubExpression;
+		this.leftMetaExpression = leftMetaExpression;
+		this.rightMetaExpression = rightMetaExpression;
 		this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
 		this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
 	}
 
 	public MetaExpression(String identifier,
 			MetaExpressionType metaExpressionType,
-			AbstractSemanticElement vertex, String attributeName) {
+			AbstractSemanticElement leftSemanticElement, String attributeName) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
-		this.leftVertex = vertex;
+		this.leftSemanticElement = leftSemanticElement;
 		this.leftAttributeName = attributeName;
 		this.leftExpressionType = ExpressionVertexType.LEFT;
 	}
@@ -115,6 +118,34 @@ public class MetaExpression implements Serializable {
 
 	public void setLeftExpressionType(ExpressionVertexType leftExpressionType) {
 		this.leftExpressionType = leftExpressionType;
+	}
+
+	public boolean isRecursiveExpression() {
+		return recursiveExpression;
+	}
+
+	public void setRecursiveExpression(boolean recursiveExpression) {
+		this.recursiveExpression = recursiveExpression;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public void setLeftSemanticElement(AbstractSemanticElement leftSemanticElement) {
+		this.leftSemanticElement = leftSemanticElement;
+	}
+
+	public void setRightSemanticElement(AbstractSemanticElement rightSemanticElement) {
+		this.rightSemanticElement = rightSemanticElement;
+	}
+
+	public void setLeftMetaExpression(MetaExpression leftMetaExpression) {
+		this.leftMetaExpression = leftMetaExpression;
+	}
+
+	public void setRightMetaExpression(MetaExpression rightMetaExpression) {
+		this.rightMetaExpression = rightMetaExpression;
 	}
 
 	public ExpressionVertexType getRightExpressionType() {
@@ -141,12 +172,12 @@ public class MetaExpression implements Serializable {
 		return metaExpressionType;
 	}
 
-	public AbstractSemanticElement getLeftVertex() {
-		return leftVertex;
+	public AbstractSemanticElement getLeftSemanticElement() {
+		return leftSemanticElement;
 	}
 
-	public AbstractSemanticElement getRightVertex() {
-		return rightVertex;
+	public AbstractSemanticElement getRightSemanticElement() {
+		return rightSemanticElement;
 	}
 
 	public String getLeftAttributeName() {
@@ -157,12 +188,12 @@ public class MetaExpression implements Serializable {
 		return rightAttributeName;
 	}
 
-	public MetaExpression getLeftSubExpression() {
-		return leftSubExpression;
+	public MetaExpression getLeftMetaExpression() {
+		return leftMetaExpression;
 	}
 
-	public MetaExpression getRightSubExpression() {
-		return rightSubExpression;
+	public MetaExpression getRightMetaExpression() {
+		return rightMetaExpression;
 	}
 
 	public int getNumber() {

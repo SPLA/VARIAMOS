@@ -1,5 +1,9 @@
 package com.variamos.semantic.expressionsupport;
 
+import java.util.List;
+
+import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
+
 /**
  * A class to store MetaExpression Sets. Part of PhD work at University of
  * Paris 1
@@ -10,5 +14,9 @@ package com.variamos.semantic.expressionsupport;
  * @since 2015-02-05
  */
 public class MetaExpressionSet {
-
+	private String identifier;
+	private String description;
+	private boolean userSelectable;
+	private List<AbstractSemanticElement> semanticElements;
+	private List<ExpressionSetSubAction> expressionSetSubAction;
 }

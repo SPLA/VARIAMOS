@@ -13,6 +13,7 @@ import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
+import com.variamos.syntax.semanticinterface.IntInstanceExpression;
 
 /**
  * A class to represent InstanceExpressions. Part of PhD work at University of
@@ -23,7 +24,7 @@ import com.variamos.syntax.metamodelsupport.AbstractAttribute;
  * @version 1.1
  * @since 2014-02-05
  */
-public class InstanceExpression implements Serializable {
+public class InstanceExpression implements Serializable, IntInstanceExpression {
 	/**
 	 * 
 	 */
@@ -34,8 +35,9 @@ public class InstanceExpression implements Serializable {
 	private MetaExpression customMetaExpression;
 	private InstElement leftElement;
 	private InstElement rightElement;
-	private InstanceExpression leftSubExpression;
-	private InstanceExpression rightSubExpression;
+	private InstanceExpression leftInstanceExpression;
+	private InstanceExpression rightInstanceExpression;
+	private ExpressionSubAction expressionSubAction;
 	private String leftValue;
 	private String rightValue;
 	private String lastLeft = null;
@@ -93,25 +95,25 @@ public class InstanceExpression implements Serializable {
 
 	public InstanceExpression(MetaExpression metaExpression,
 			InstElement vertex, boolean replaceTarget,
-			InstanceExpression subExpression) {
+			InstanceExpression instanceExpression) {
 		this.volatileMetaExpression = metaExpression;
 		this.metaExpressionId = metaExpression.getIdentifier();
 		if (replaceTarget) {
 			this.leftElement = vertex;
-			this.rightSubExpression = subExpression;
+			this.rightInstanceExpression = instanceExpression;
 		} else {
 			this.rightElement = vertex;
-			this.leftSubExpression = subExpression;
+			this.leftInstanceExpression = instanceExpression;
 		}
 	}
 
 	public InstanceExpression(MetaExpression metaExpression,
-			InstanceExpression leftSubExpression,
-			InstanceExpression rightSubExpression) {
+			InstanceExpression leftInstanceExpression,
+			InstanceExpression rightInstanceExpression) {
 		this.volatileMetaExpression = metaExpression;
 		this.metaExpressionId = metaExpression.getIdentifier();
-		this.leftSubExpression = leftSubExpression;
-		this.rightSubExpression = rightSubExpression;
+		this.leftInstanceExpression = leftInstanceExpression;
+		this.rightInstanceExpression = rightInstanceExpression;
 	}
 
 	public InstanceExpression(MetaExpression metaExpression, InstElement vertex) {
@@ -169,11 +171,11 @@ public class InstanceExpression implements Serializable {
 			}
 
 		}
-		if (leftSubExpression != null) {
-			out.putAll(leftSubExpression.getIdentifiers());
+		if (leftInstanceExpression != null) {
+			out.putAll(leftInstanceExpression.getIdentifiers());
 		}
-		if (rightSubExpression != null) {
-			out.putAll(rightSubExpression.getIdentifiers());
+		if (rightInstanceExpression != null) {
+			out.putAll(rightInstanceExpression.getIdentifiers());
 		}
 		return out;
 	}
@@ -206,10 +208,10 @@ public class InstanceExpression implements Serializable {
 
 				break;
 			case LEFTSUBEXPRESSION:
-				out.add(leftSubExpression.createExpression());
+				out.add(leftInstanceExpression.createExpression());
 				break;
 			case RIGHTSUBEXPRESSION:
-				out.add(rightSubExpression.createExpression());
+				out.add(rightInstanceExpression.createExpression());
 				break;
 			default:
 				break;
@@ -236,28 +238,28 @@ public class InstanceExpression implements Serializable {
 		this.rightElement = rightElement;
 	}
 
-	public InstanceExpression getLeftSubExpression() {
-		return leftSubExpression;
+	public InstanceExpression getLeftInstanceExpression() {
+		return leftInstanceExpression;
 	}
 
-	public void setLeftSubExpression(InstanceExpression leftSubExpression) {
-		this.leftSubExpression = leftSubExpression;
+	public void setLeftInstanceExpression(InstanceExpression leftSubExpression) {
+		this.leftInstanceExpression = leftSubExpression;
 	}
 
-	public InstanceExpression getRightSubExpression() {
-		return rightSubExpression;
+	public InstanceExpression getRightInstanceExpression() {
+		return rightInstanceExpression;
 	}
 
-	public void setRightSubExpression(InstanceExpression rightSubExpression) {
-		this.rightSubExpression = rightSubExpression;
+	public void setRightInstanceExpression(InstanceExpression rightSubExpression) {
+		this.rightInstanceExpression = rightSubExpression;
 	}
 
-	public void setLeftSubExpression(ExpressionVertexType type,
+	public void setLeftInstanceExpression(ExpressionVertexType type,
 			MetaExpressionType metaExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION)
-			this.leftSubExpression = new InstanceExpression(true, id);
+			this.leftInstanceExpression = new InstanceExpression(true, id);
 		if (type == ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)
-			this.leftSubExpression = new InstanceExpression(true,
+			this.leftInstanceExpression = new InstanceExpression(true,
 					new MetaExpression(id, metaExpressionType));
 		getMetaExpression().setLeftExpressionType(type);
 	}
@@ -268,12 +270,12 @@ public class InstanceExpression implements Serializable {
 		getMetaExpression().setLeftAttributeName(attribute);
 	}
 
-	public void setRightSubExpression(ExpressionVertexType type,
+	public void setRightInstanceExpression(ExpressionVertexType type,
 			MetaExpressionType metaExpressionType, String id) {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
-			this.rightSubExpression = new InstanceExpression(true, id);
+			this.rightInstanceExpression = new InstanceExpression(true, id);
 		if (type == ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)
-			this.rightSubExpression = new InstanceExpression(true,
+			this.rightInstanceExpression = new InstanceExpression(true,
 					new MetaExpression(id, metaExpressionType));
 		getMetaExpression().setRightExpressionType(type);
 	}
@@ -297,7 +299,7 @@ public class InstanceExpression implements Serializable {
 			customMetaExpression.setMetaExpressionType(metaExpressionType);
 		if (metaExpressionType == null
 				|| metaExpressionType.isSingleInExpression()) {
-			rightSubExpression = null;
+			rightInstanceExpression = null;
 			rightElement = null;
 			getMetaExpression().setRightExpressionType(null);
 		}
@@ -400,6 +402,22 @@ public class InstanceExpression implements Serializable {
 		return null;
 	}
 
+	public String getLeftValue() {
+		return leftValue;
+	}
+
+	public void setLeftValue(String leftValue) {
+		this.leftValue = leftValue;
+	}
+
+	public String getRightValue() {
+		return rightValue;
+	}
+
+	public void setRightValue(String rightValue) {
+		this.rightValue = rightValue;
+	}
+
 	public String getElementAttributeIdentifier(
 			ExpressionVertexType expressionVertexType) {
 		switch (expressionVertexType) {
@@ -437,7 +455,7 @@ public class InstanceExpression implements Serializable {
 		case RIGHT:
 		case RIGHTVARIABLEVALUE:
 			this.setRightElement(vertex);
-			default:
+		default:
 		}
 	}
 
@@ -464,14 +482,16 @@ public class InstanceExpression implements Serializable {
 	}
 
 	public String toString() {
-		return "";//expressionStructure();
+		return "";// expressionStructure();
 	}
+
 	public String expressionStructure() {
 		String out = "";
 		int i = 0;
-		for (ExpressionVertexType expressionVertex : getMetaExpression().getExpressionTypes()) {
-			//if (expressionConnectors.size() > i)
-				//out += " " + expressionConnectors.get(i) + " ";
+		for (ExpressionVertexType expressionVertex : getMetaExpression()
+				.getExpressionTypes()) {
+			// if (expressionConnectors.size() > i)
+			// out += " " + expressionConnectors.get(i) + " ";
 			switch (expressionVertex) {
 			case LEFTVARIABLEVALUE:
 				out += leftValue;
@@ -487,10 +507,11 @@ public class InstanceExpression implements Serializable {
 
 				break;
 			case LEFTSUBEXPRESSION:
-				out += "(" + leftSubExpression.expressionStructure() + ")";
+				out += "(" + leftInstanceExpression.expressionStructure() + ")";
 				break;
 			case RIGHTSUBEXPRESSION:
-				out += "(" + rightSubExpression.expressionStructure() + ")";
+				out += "(" + rightInstanceExpression.expressionStructure()
+						+ ")";
 				break;
 			default:
 				break;

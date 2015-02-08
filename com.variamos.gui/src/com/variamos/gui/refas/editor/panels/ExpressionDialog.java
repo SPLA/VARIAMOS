@@ -279,10 +279,10 @@ public class ExpressionDialog extends JDialog {
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
 			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
-				if (instanceExpression.getLeftSubExpression() == null)
-					instanceExpression.setLeftSubExpression(
+				if (instanceExpression.getLeftInstanceExpression() == null)
+					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
-				showExpression(instanceExpression.getLeftSubExpression(),
+				showExpression(instanceExpression.getLeftInstanceExpression(),
 						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
@@ -391,11 +391,11 @@ public class ExpressionDialog extends JDialog {
 			if (rightSide.getSelectedItem().equals("SubExpression")) {
 				if (instanceExpression.getMetaExpression()
 						.getMetaExpressionType() != null) {
-					if (instanceExpression.getRightSubExpression() == null)
-						instanceExpression.setRightSubExpression(
+					if (instanceExpression.getRightInstanceExpression() == null)
+						instanceExpression.setRightInstanceExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
 								"id");
-					showExpression(instanceExpression.getRightSubExpression(),
+					showExpression(instanceExpression.getRightInstanceExpression(),
 							element, rightPanel,
 							instanceExpression.getRightValidExpressions(),
 							color > 20 ? color - 20 : color > 5 ? color - 5

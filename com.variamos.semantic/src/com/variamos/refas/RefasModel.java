@@ -15,6 +15,7 @@ import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
+import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.expressionsupport.MetaExpressionType;
 import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
 import com.variamos.semantic.semanticsupport.SemanticConcept;
@@ -76,7 +77,6 @@ public class RefasModel extends AbstractModel {
 	 */
 	private Map<String, InstVertex> otherInstVertex;
 
-
 	/**
 	 * 
 	 */
@@ -96,7 +96,7 @@ public class RefasModel extends AbstractModel {
 	private List<InstView> instViews;
 
 	public RefasModel(PerspectiveType perspectiveType,
-			Map<String,MetaExpressionType> metaExpressionTypes) {
+			Map<String, MetaExpressionType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
@@ -145,10 +145,10 @@ public class RefasModel extends AbstractModel {
 		return syntaxRefas;
 	}
 
-	public Map<String,MetaExpressionType> getMetaExpressionTypes() {
+	public Map<String, MetaExpressionType> getMetaExpressionTypes() {
 		return metaExpressionTypes;
 	}
-	
+
 	public RefasModel getSemanticRefas() {
 		return semanticRefas;
 	}
@@ -1130,7 +1130,8 @@ public class RefasModel extends AbstractModel {
 		// InstConcept.class.getCanonicalName(),
 		// "SemOperationalization", "", ""));
 		semClaim.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "Object"/*InstanceExpression.class.getCanonicalName()*/, false,
+				new SemanticAttribute("ConditionalExpression",
+						InstanceExpression.class.getCanonicalName(), false,
 						"Conditional Expression", null));
 		semClaim.putSemanticAttribute("CompExp", new SimulationConfigAttribute(
 				"CompExp", "Boolean", false, "Boolean Comp. Expression", true));
@@ -1172,6 +1173,10 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGE, true);
 		instEdge.setSourceRelation(instVertexSD, true);
 
+		semSoftDependency.putSemanticAttribute("ConditionalExpression",
+				new SemanticAttribute("ConditionalExpression",
+						InstanceExpression.class.getCanonicalName(), false,
+						"Conditional Expression", null));
 		semSoftDependency.putSemanticAttribute("CompExp",
 				new SimulationConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
@@ -1179,9 +1184,6 @@ public class RefasModel extends AbstractModel {
 				new SimulationConfigAttribute("SDSelected", "Boolean", false,
 						"SD Selected", false));
 
-		semSoftDependency.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression", "String", false,
-						"Conditional Expression", ""));
 		semSoftDependency.addPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
 		semSoftDependency.addPropEditableAttribute("03#"
