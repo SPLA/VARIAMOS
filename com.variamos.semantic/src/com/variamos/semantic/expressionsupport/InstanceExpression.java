@@ -1,6 +1,9 @@
 package com.variamos.semantic.expressionsupport;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.Map;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.RangeDomain;
+import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
@@ -24,22 +29,56 @@ import com.variamos.syntax.semanticinterface.IntInstanceExpression;
  * @version 1.1
  * @since 2014-02-05
  */
+/**
+ * @author jcmunoz
+ *
+ */
 public class InstanceExpression implements Serializable, IntInstanceExpression {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6296982198124042304L;
 	private static HlclFactory hlclFactory = new HlclFactory();
-	private MetaExpression volatileMetaExpression;
 
+	/**
+	 * Associated MetaExpression: volatile for semantic MetaExpression; custom
+	 * for variable expressions or InstElement custom expressions
+	 */
+	private MetaExpression volatileMetaExpression;
 	private MetaExpression customMetaExpression;
+
+	/**
+	 * for LEFT
+	 */
 	private InstElement leftElement;
+
+	/**
+	 * for RIGHT
+	 */
 	private InstElement rightElement;
+
+	/**
+	 * for LEFTSUBEXPRESSION
+	 */
 	private InstanceExpression leftInstanceExpression;
+	/**
+	 * for RIGHTSUBEXPRESSION
+	 */
 	private InstanceExpression rightInstanceExpression;
-	private ExpressionSubAction expressionSubAction;
+
+	// TODO change to a new class for type (normal, relax)
+	private List<ExpressionSubAction> expressionSubActions;
+
+	/**
+	 * For LEFTVARIABLEVALUE
+	 */
 	private String leftValue;
+
+	/**
+	 * For RIGHTVARIABLEVALUE
+	 */
 	private String rightValue;
+
 	private String lastLeft = null;
 	private String lastRight = null;
 
@@ -59,7 +98,6 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		this.lastRight = lastRight;
 	}
 
-	private int number;
 	private boolean customExpression;
 	private String metaExpressionId;
 
@@ -123,51 +161,98 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public Expression createExpression() {
-		Map<String, Identifier> idMap = getIdentifiers();
 		List<Expression> expressionTerms = expressionTerms();
-		// return hlclFactory.greaterOrEqualsThan(
-		// (NumericExpression) expressionTerms.get(0),
-		// (NumericExpression) expressionTerms.get(1));
+		Class<? extends HlclFactory> hlclFactoryClass = hlclFactory.getClass();
+		MetaExpressionType metaExpressionType = getMetaExpression()
+				.getMetaExpressionType();
+		boolean singleParameter = metaExpressionType.isSingleInExpression();
+		boolean arrayParameters = metaExpressionType.isArrayParameters();
+		Class<? extends Expression> parameter1 = null, parameter2 = null;
+		parameter1 = getMetaExpression().getMetaExpressionType()
+				.getLeftExpressionClass();
+		if (!singleParameter)
+			parameter2 = getMetaExpression().getMetaExpressionType()
+					.getRightExpressionClass();
+		Method factoryMethod = null;
+		try {
+			if (singleParameter) {
+				// For negation, literal and number expressions
+				factoryMethod = hlclFactoryClass.getMethod(
+						metaExpressionType.getMethod(), parameter1);
+				factoryMethod.invoke(hlclFactory,
+						parameter1.cast(expressionTerms.get(0)));
+			} else if (arrayParameters) {
+				// For Sum and Product Expressions
+				Object dynamicArrayObject = Array.newInstance(parameter1, 2);
+
+				Object[] dynamicArrayCast = (Object[]) dynamicArrayObject;
+				dynamicArrayCast[0] = parameter1.cast(expressionTerms.get(0));
+				dynamicArrayCast[1] = parameter2.cast(expressionTerms.get(1));
+
+				factoryMethod = hlclFactoryClass.getMethod(
+						metaExpressionType.getMethod(),
+						dynamicArrayObject.getClass());
+				return (Expression) factoryMethod.invoke(hlclFactory,
+						dynamicArrayObject);
+
+			} else {
+				// For the other expressions
+				factoryMethod = hlclFactoryClass.getMethod(
+						metaExpressionType.getMethod(), parameter1, parameter2);
+
+				return (Expression) factoryMethod.invoke(hlclFactory,
+						parameter1.cast(expressionTerms.get(0)),
+						parameter2.cast(expressionTerms.get(1)));
+			}
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	private Map<String, Identifier> getIdentifiers() {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
-		if (leftElement != null) {
+		if (leftElement != null
+				&& getMetaExpression().getLeftAttributeName() != null) {
 			// System.out.println(leftVertex.getIdentifier() + " "
 			// + leftAttributeName);
 			Identifier identifier = hlclFactory.newIdentifier(leftElement
-					.getInstAttributeFullIdentifier(volatileMetaExpression
-							.getLeftAttributeName()), volatileMetaExpression
+					.getInstAttributeFullIdentifier(getMetaExpression()
+							.getLeftAttributeName()), getMetaExpression()
 					.getLeftAttributeName());
 			out.put(leftElement
-					.getInstAttributeFullIdentifier(volatileMetaExpression
+					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getLeftAttributeName()), identifier);
 			AbstractAttribute attribute = leftElement.getInstAttribute(
-					volatileMetaExpression.getLeftAttributeName())
-					.getAttribute();
+					getMetaExpression().getLeftAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
+				else
+					identifier.setDomain(new RangeDomain(0, 4));
 			}
 		}
-		if (rightElement != null) {
+		if (rightElement != null
+				&& getMetaExpression().getRightAttributeName() != null) {
 			// System.out
 			// .println(rightVertex.getIdentifier() + rightAttributeName);
 			Identifier identifier = hlclFactory.newIdentifier(rightElement
-					.getInstAttributeFullIdentifier(volatileMetaExpression
-							.getRightAttributeName()), volatileMetaExpression
+					.getInstAttributeFullIdentifier(getMetaExpression()
+							.getRightAttributeName()), getMetaExpression()
 					.getRightAttributeName());
 
 			out.put(rightElement
-					.getInstAttributeFullIdentifier(volatileMetaExpression
+					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getRightAttributeName()), identifier);
 			AbstractAttribute attribute = rightElement.getInstAttribute(
-					volatileMetaExpression.getRightAttributeName())
-					.getAttribute();
+					getMetaExpression().getRightAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
+				else
+					identifier.setDomain(new RangeDomain(0, 4));
 			}
 
 		}
@@ -176,6 +261,45 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		}
 		if (rightInstanceExpression != null) {
 			out.putAll(rightInstanceExpression.getIdentifiers());
+		}
+		return out;
+	}
+
+	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
+		Identifier out = null;
+		if (expressionVertexType.name().equals("LEFT")) {
+			// System.out.println(leftVertex.getIdentifier() + " "
+			// + leftAttributeName);
+			Identifier identifier = hlclFactory.newIdentifier(leftElement
+					.getInstAttributeFullIdentifier(getMetaExpression()
+							.getLeftAttributeName()), getMetaExpression()
+					.getLeftAttributeName());
+			AbstractAttribute attribute = leftElement.getInstAttribute(
+					getMetaExpression().getLeftAttributeName()).getAttribute();
+			if (attribute.getType().equals("Integer")) {
+				if (attribute.getDomain() != null)
+					identifier.setDomain(attribute.getDomain());
+				else
+					identifier.setDomain(new RangeDomain(0, 4));
+			}
+			return identifier;
+		}
+		if (expressionVertexType.name().equals("RIGHT")) {
+			// System.out
+			// .println(rightVertex.getIdentifier() + rightAttributeName);
+			Identifier identifier = hlclFactory.newIdentifier(rightElement
+					.getInstAttributeFullIdentifier(getMetaExpression()
+							.getRightAttributeName()), getMetaExpression()
+					.getRightAttributeName());
+			AbstractAttribute attribute = rightElement.getInstAttribute(
+					getMetaExpression().getRightAttributeName()).getAttribute();
+			if (attribute.getType().equals("Integer")) {
+				if (attribute.getDomain() != null)
+					identifier.setDomain(attribute.getDomain());
+				else
+					identifier.setDomain(new RangeDomain(0, 4));
+			}
+			return identifier;
 		}
 		return out;
 	}
@@ -197,15 +321,23 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		for (ExpressionVertexType expressionType : expressionVertexTypes) {
 			switch (expressionType) {
 			case LEFT:
-				out.add(idMap.get(leftElement
-						.getInstAttributeFullIdentifier(volatileMetaExpression
-								.getLeftAttributeName())));
+				out.add(getIdentifier(expressionType));
 				break;
 			case RIGHT:
-				out.add(idMap.get(rightElement
-						.getInstAttributeFullIdentifier(volatileMetaExpression
-								.getRightAttributeName())));
+				out.add(getIdentifier(expressionType));
+				break;
+			case LEFTNUMERICEXPRESSIONVALUE:
+				out.add(hlclFactory.number(getMetaExpression().getNumber()));
+				break;
+			case RIGHTNUMERICEXPRESSIONVALUE:
+				out.add(hlclFactory.number(getMetaExpression().getNumber()));
 
+				break;
+			case LEFTVARIABLEVALUE:
+				out.add(hlclFactory.number(getVariableIntValue(expressionType)));
+				break;
+			case RIGHTVARIABLEVALUE:
+				out.add(hlclFactory.number(getVariableIntValue(expressionType)));
 				break;
 			case LEFTSUBEXPRESSION:
 				out.add(leftInstanceExpression.createExpression());
@@ -220,6 +352,37 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		}
 
 		return out;
+	}
+
+	private int getVariableIntValue(ExpressionVertexType expressionVertexType) {
+		String value = null;
+		String valueType = null;
+		switch (expressionVertexType) {
+		case LEFTVARIABLEVALUE:
+			value = leftValue;
+			valueType = (String) this.leftElement.getInstAttribute(
+					SemanticVariable.VAR_VARIABLETYPE).getValue();
+			break;
+		case RIGHTVARIABLEVALUE:
+			value = rightValue;
+			valueType = (String) this.rightElement.getInstAttribute(
+					SemanticVariable.VAR_VARIABLETYPE).getValue();
+
+			break;
+		default:
+		}
+		switch (valueType) {
+		case "Boolean":
+			if (value.equals("true"))
+				return 1;
+			else
+				return 0;
+		case "Integer":
+			return Integer.parseInt(value);
+		case "Enumeration":
+			return 0; // TODO
+		}
+		return 0;
 	}
 
 	public InstElement getLeftElement() {
@@ -287,11 +450,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public int getNumber() {
-		return number;
+		return getMetaExpression().getNumber();
 	}
 
 	public void setNumber(int number) {
-		this.number = number;
+		getMetaExpression().setNumber(number);
 	}
 
 	public void setMetaExpressionType(MetaExpressionType metaExpressionType) {

@@ -252,6 +252,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
+		{
+			if (constraintGroup instanceof SingleElementExpressionSet) {
+				if (((SingleElementExpressionSet) constraintGroup)
+						.getBooleanExpression(element) != null) {
+					modelExpressions
+							.add(((SingleElementExpressionSet) constraintGroup)
+									.getBooleanExpression(element));
+				}
+			}
 			if (constraintGroup instanceof ModelExpressionSet) {
 				if (((ModelExpressionSet) constraintGroup)
 						.getBooleanExpressionList(element) != null) {
@@ -273,6 +282,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					transformations.addAll(constraintGroup
 							.getElementExpressions());
 			}
+		}
 
 		for (BooleanExpression transformation : modelExpressions) {
 			hlclProgram.add(transformation);

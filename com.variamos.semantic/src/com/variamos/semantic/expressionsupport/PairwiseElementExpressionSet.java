@@ -273,6 +273,28 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 */
 			case "OperToClaim":
+				sourcePositiveAttributeNames.add("Selected");
+				sourceNegativeAttributeNames.add("NotAvailable");
+				// SourceId_Selected #= targetId_Selected
+				AndBooleanExpression out43 = new AndBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"Selected", "ConditionalExpression");
+				EqualsComparisonExpression out46 = new EqualsComparisonExpression(
+						instPairwiseRelation.getTargetRelations().get(0),
+						"Selected", true, out43);
+				getElementExpressions().add(out46);
+				structureList.add(out46);
+				allList.add(out46);
+
+				EqualsComparisonExpression out44 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"NotAvailable", "NotAvailable");
+				getElementExpressions().add(out44);
+				// structureList.add(out44);
+				allList.add(out44);
+				break;
 			case "means_ends":
 				/*
 				 * sourcePositiveAttributeNames.add("Selected");

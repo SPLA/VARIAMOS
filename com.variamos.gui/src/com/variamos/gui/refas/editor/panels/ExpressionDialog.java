@@ -96,7 +96,7 @@ public class ExpressionDialog extends JDialog {
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			showExpression(instanceExpression, element, solutionPanel,
-					MetaExpressionType.BOOL, 255);
+					MetaExpressionType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -282,6 +282,8 @@ public class ExpressionDialog extends JDialog {
 				if (instanceExpression.getLeftInstanceExpression() == null)
 					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
+				instanceExpression
+						.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 				showExpression(instanceExpression.getLeftInstanceExpression(),
 						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
@@ -303,6 +305,8 @@ public class ExpressionDialog extends JDialog {
 					leftPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.LEFT,
 							instanceExpression.getLeftValidExpressions()));
+					instanceExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFT);
 				}
 			}
 		}
@@ -313,6 +317,8 @@ public class ExpressionDialog extends JDialog {
 					leftPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.LEFTVARIABLEVALUE,
 							instanceExpression.getLeftValidExpressions()));
+					instanceExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 				}
 			}
 		}
@@ -395,11 +401,14 @@ public class ExpressionDialog extends JDialog {
 						instanceExpression.setRightInstanceExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
 								"id");
-					showExpression(instanceExpression.getRightInstanceExpression(),
+					showExpression(
+							instanceExpression.getRightInstanceExpression(),
 							element, rightPanel,
 							instanceExpression.getRightValidExpressions(),
 							color > 20 ? color - 20 : color > 5 ? color - 5
 									: color);
+					instanceExpression
+					.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("Number")) {
@@ -419,6 +428,8 @@ public class ExpressionDialog extends JDialog {
 					rightPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.RIGHT,
 							instanceExpression.getRightValidExpressions()));
+					instanceExpression
+					.setRightExpressionType(ExpressionVertexType.RIGHT);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("VariableValue")) {
@@ -427,15 +438,12 @@ public class ExpressionDialog extends JDialog {
 					rightPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.RIGHTVARIABLEVALUE,
 							instanceExpression.getRightValidExpressions()));
+					instanceExpression
+					.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 				}
 			}
 		}
-		if (color == 255) {
-			// JLabel lab = new JLabel("");
-			// lab.setPreferredSize(new Dimension(200, 10));
-			// lab.setMaximumSize(new Dimension(200, 10));
-			// rightPanel.add(lab);
-		}
+
 		basePanel.add(rightPanel);
 		parentPanel.add(basePanel);
 	}
