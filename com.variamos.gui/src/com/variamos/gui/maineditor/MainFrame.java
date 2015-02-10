@@ -126,59 +126,58 @@ public class MainFrame extends JFrame {
 	}
 
 	private Map<String, MetaExpressionType> createMetaExpressionTypes() {
-		Map<String, MetaExpressionType> out = new HashMap<String,MetaExpressionType>();
-		out.put("And",new MetaExpressionType("And", "#/\"", "#/\"", "and",
-				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
-				MetaExpressionType.BOOL, false));
-		out.put("Assign",new MetaExpressionType("Assign", "=", "=", "assign",
-				MetaExpressionType.IDEN, MetaExpressionType.ANY,
-				MetaExpressionType.BOOL, false));
-		out.put("Subtraction",new MetaExpressionType("Subtraction", "-", "-", "diff",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.NUM, false));
-		out.put("DoubleImplies",new MetaExpressionType("DoubleImplies", "#<==>", "#<==>",
-				"doubleImplies", MetaExpressionType.BOOL,
-				MetaExpressionType.BOOL, MetaExpressionType.BOOL, false));
-		out.put("Equals",new MetaExpressionType("Equals", "#=", "#=", "equals",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.BOOL, false));
-		out.put("Greater",new MetaExpressionType("Greater", "#>", "#>", "greaterThan",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.BOOL, false));
-		out.put("GreaterOrEq",new MetaExpressionType("GreaterOrEq", "#>=", "#>=",
-				"greaterOrEqualsThan", MetaExpressionType.ANY,
-				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
-		out.put("Implies",new MetaExpressionType("Implies", "#==>", "#==>", "implies",
-				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
-				MetaExpressionType.BOOL, false));
-		out.put("Less",new MetaExpressionType("Less", "#<", "#<", "lessThan",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.BOOL, false));
-		out.put("LessOrEq",new MetaExpressionType("LessOrEquals", "#<=", "#<=",
-				"lessOrEqualsThan", MetaExpressionType.ANY,
-				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
-		out.put("Literal",new MetaExpressionType("LiteralBool", "", "",
+		Map<String, MetaExpressionType> out = new HashMap<String, MetaExpressionType>();
+		out.put("And", new MetaExpressionType("And", "#/\"", "#/\"", "and",
+				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP,
+				MetaExpressionType.BOOLEXP, false,false));
+		out.put("Assign", new MetaExpressionType("Assign", "=", "=", "assign",
+				MetaExpressionType.IDEN, MetaExpressionType.EXP,
+				MetaExpressionType.BOOLEXP, false,false));
+		out.put("Subtraction", new MetaExpressionType("Subtraction", "-", "-",
+				"diff", MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, false,false));
+		out.put("DoubleImplies", new MetaExpressionType("DoubleImplies",
+				"#<==>", "#<==>", "doubleImplies", MetaExpressionType.BOOLEXP,
+				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("Equals", new MetaExpressionType("Equals", "#=", "#=",
+				"equals", MetaExpressionType.EXP, MetaExpressionType.EXP,
+				MetaExpressionType.BOOLEXP, false,false));
+		out.put("Greater", new MetaExpressionType("Greater", "#>", "#>",
+				"greaterThan", MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("GreaterOrEq", new MetaExpressionType("GreaterOrEq", "#>=",
+				"#>=", "greaterOrEqualsThan", MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("Implies", new MetaExpressionType("Implies", "#==>", "#==>",
+				"implies", MetaExpressionType.BOOLEXP,
+				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("Less", new MetaExpressionType("Less", "#<", "#<", "lessThan",
+				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
+				MetaExpressionType.BOOLEXP, false,false));
+		out.put("LessOrEq", new MetaExpressionType("LessOrEquals", "#<=",
+				"#<=", "lessOrEqualsThan", MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("Literal", new MetaExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", MetaExpressionType.LIT,
-				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
-		out.put("Negation",new MetaExpressionType("Negation", "-", "-",
-				"not", MetaExpressionType.BOOL,
-				MetaExpressionType.NONE, MetaExpressionType.BOOL, true));
-		out.put("Number",new MetaExpressionType("Number", "", "",
-				"number", MetaExpressionType.INT,
-				MetaExpressionType.NONE, MetaExpressionType.NUM, true));
-		out.put("NotEquals",new MetaExpressionType("NotEquals",  "\\==",  "\\==",
-				"notEquals", MetaExpressionType.ANY,
-				MetaExpressionType.ANY, MetaExpressionType.BOOL, false));
-
-		out.put("Or",new MetaExpressionType("Or", "#\"/", "#\"/", "or",
-				MetaExpressionType.BOOL, MetaExpressionType.BOOL,
-				MetaExpressionType.BOOL, false));
-		out.put("Product",new MetaExpressionType("Product", "*", "*", "prod",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.NUM, false));
-		out.put("Sum",new MetaExpressionType("Sum", "+", "+", "sum",
-				MetaExpressionType.ANY, MetaExpressionType.ANY,
-				MetaExpressionType.NUM, false));
+				MetaExpressionType.NONE, MetaExpressionType.BOOLEXP, true,false));
+		out.put("Negation", new MetaExpressionType("Negation", "-", "-", "not",
+				MetaExpressionType.BOOLEXP, MetaExpressionType.NONE,
+				MetaExpressionType.BOOLEXP, true,false));
+		out.put("Number", new MetaExpressionType("Number", "", "", "number",
+				MetaExpressionType.INTVAL, MetaExpressionType.NONE,
+				MetaExpressionType.NUMEXP, true,false));
+		out.put("NotEquals", new MetaExpressionType("NotEquals", "\\==",
+				"\\==", "notEquals", MetaExpressionType.EXP,
+				MetaExpressionType.EXP, MetaExpressionType.BOOLEXP, false,false));
+		out.put("Or", new MetaExpressionType("Or", "#\"/", "#\"/", "or",
+				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP,
+				MetaExpressionType.BOOLEXP, false,false));
+		out.put("Product", new MetaExpressionType("Product", "*", "*", "prod",
+				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, false,true));
+		out.put("Sum", new MetaExpressionType("Sum", "+", "+", "sum",
+				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
+				MetaExpressionType.NUMEXP, false,true));
 		return out;
 	}
 

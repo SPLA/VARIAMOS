@@ -12,10 +12,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,11 +26,12 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.refas.editor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.gui.refas.editor.panels.ExpressionDialog.ExpressionButtonAction;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
 import com.variamos.gui.refas.editor.widgets.WidgetR;
+import com.variamos.hlcl.Expression;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.syntax.instancesupport.EditableElement;
@@ -47,7 +48,6 @@ import com.variamos.syntax.metamodelsupport.MetaElement;
 import com.variamos.syntax.metamodelsupport.ModelingAttribute;
 import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
-import com.variamos.gui.refas.editor.panels.ExpressionDialog.ExpressionButtonAction;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -204,7 +204,24 @@ public class ElementDesignPanel extends JPanel {
 														.getExpressions()[0]);
 												// attributes.put(name.getName(),
 												// v);
-
+												try
+												{
+													Expression exp = ((InstanceExpression) finalInstAttribute
+															.getValue())
+															.createExpression();
+													System.out.println(exp);
+												} catch(Exception e)
+												{
+													JOptionPane
+													.showMessageDialog(
+															finalEditor,
+															"Complete the expression before closing the editor",
+															"Expression Error",
+															JOptionPane.INFORMATION_MESSAGE, null);
+													e.printStackTrace();
+													return false;
+												}
+														
 												// afterAction();
 												return true;
 											}

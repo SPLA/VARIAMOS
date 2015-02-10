@@ -1,6 +1,7 @@
 package com.variamos.semantic.expressionsupport;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.semantic.types.ExpressionVertexType;
@@ -21,16 +22,52 @@ public class MetaExpression implements Serializable {
 	private static final long serialVersionUID = -1977213643411960771L;
 	private String identifier;
 	private MetaExpressionType metaExpressionType;
-	private ExpressionSubAction expressionSubAction;
+	
+	// TODO change to a new class for type (normal, relax) 
+	private List<ExpressionSubAction>  expressionSubActions;
+	
+	
 	private int number;
 	private boolean recursiveExpression;
+	
+	/**
+	 * for LEFT
+	 */
 	private AbstractSemanticElement leftSemanticElement;
+	
+	/**
+	 * for RIGHT
+	 */
 	private AbstractSemanticElement rightSemanticElement;
+	
+	/**
+	 * for LEFT
+	 */
 	private String leftAttributeName;
+	
+	/**
+	 * for RIGHT 
+	 */
 	private String rightAttributeName;
+	
+	/**
+	 * for LEFTSUBEXPRESSION
+	 */
 	private MetaExpression leftMetaExpression;
+	
+	/**
+	 * for RIGHTSUBEXPRESSION 
+	 */
 	private MetaExpression rightMetaExpression;
+	
+	/**
+	 * for LEFTSUBEXPRESSION
+	 */
 	private ExpressionVertexType leftExpressionType;
+	
+	/**
+	 * for RIGHTSUBEXPRESSION 
+	 */
 	private ExpressionVertexType rightExpressionType;
 
 
@@ -40,12 +77,17 @@ public class MetaExpression implements Serializable {
 
 	public MetaExpression(String identifier) {
 		this.identifier = identifier;
+		this.leftExpressionType = ExpressionVertexType.LEFTVARIABLEVALUE;
+		this.rightExpressionType = ExpressionVertexType.RIGHTVARIABLEVALUE;
+
 	}
 
 	public MetaExpression(String identifier,
 			MetaExpressionType metaExpressionType) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
+		this.leftExpressionType = ExpressionVertexType.LEFTVARIABLEVALUE;
+		this.rightExpressionType = ExpressionVertexType.RIGHTVARIABLEVALUE;
 	}
 
 	public MetaExpression(String identifier,
