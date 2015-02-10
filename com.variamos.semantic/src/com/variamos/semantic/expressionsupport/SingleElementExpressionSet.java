@@ -1,9 +1,11 @@
 package com.variamos.semantic.expressionsupport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
@@ -53,6 +55,12 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 * The source vertex for the constraint
 	 */
 	private InstVertex instVertex;
+
+	private Map<String, BooleanExpression> booleanExpressions = new HashMap<String, BooleanExpression>();
+
+	public BooleanExpression getBooleanExpression(String element) {
+		return booleanExpressions.get(element);
+	}
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -258,6 +266,15 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 						if (execType == Refas2Hlcl.SIMUL_EXEC) {
+
+							if (instAttribute.getIdentifier().equals(
+									"ConditionalExpression")) {
+								booleanExpressions
+										.put("Simul",
+												(BooleanExpression) ((InstanceExpression) instAttribute
+														.getValue())
+														.createExpression());
+							}
 
 							if (instAttribute.getIdentifier().equals(
 									"ConfigNotSelected")) {
