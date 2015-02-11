@@ -66,7 +66,7 @@ public class ExpressionDialog extends JDialog {
 	public ExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, boolean multiExpression,
 			InstanceExpression... instanceExpressions) {
-		super(editor.getFrame(), "Parameters");
+		super(editor.getFrame(), "Expressions Editor");
 		refasModel = (RefasModel) editor.getEditedModel();
 		this.initialize(instElement, instanceExpressions);
 

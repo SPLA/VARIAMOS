@@ -63,13 +63,22 @@ public class MetaExpression implements Serializable {
 	/**
 	 * for LEFTSUBEXPRESSION
 	 */
-	private ExpressionVertexType leftExpressionType;
+	private ExpressionVertexType volatileLeftExpType;
+	
+	/**
+	 * for LEFTSUBEXPRESSION XML serialization
+	 */
+	private String leftExpTypeStr;
 	
 	/**
 	 * for RIGHTSUBEXPRESSION 
 	 */
-	private ExpressionVertexType rightExpressionType;
+	private ExpressionVertexType volatileRightExpType;
 
+	/**
+	 * for RIGHTSUBEXPRESSION  XML Serialization
+	 */
+	private String rightExpTypeStr;
 
 	public MetaExpression() {
 
@@ -77,8 +86,8 @@ public class MetaExpression implements Serializable {
 
 	public MetaExpression(String identifier) {
 		this.identifier = identifier;
-		this.leftExpressionType = ExpressionVertexType.LEFTVARIABLEVALUE;
-		this.rightExpressionType = ExpressionVertexType.RIGHTVARIABLEVALUE;
+		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 
 	}
 
@@ -86,8 +95,8 @@ public class MetaExpression implements Serializable {
 			MetaExpressionType metaExpressionType) {
 		this.identifier = identifier;
 		this.metaExpressionType = metaExpressionType;
-		this.leftExpressionType = ExpressionVertexType.LEFTVARIABLEVALUE;
-		this.rightExpressionType = ExpressionVertexType.RIGHTVARIABLEVALUE;
+		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
+		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 	}
 
 	public MetaExpression(String identifier,
@@ -100,8 +109,8 @@ public class MetaExpression implements Serializable {
 		this.rightSemanticElement = rightSemanticElement;
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
-		this.leftExpressionType = ExpressionVertexType.LEFT;
-		this.rightExpressionType = ExpressionVertexType.RIGHT;
+		setLeftExpressionType(ExpressionVertexType.LEFT);
+		setRightExpressionType(ExpressionVertexType.RIGHT);
 	}
 
 	public MetaExpression(String identifier,
@@ -113,14 +122,14 @@ public class MetaExpression implements Serializable {
 		if (replaceTarget) {
 			this.leftSemanticElement = leftSemanticElement;
 			this.leftAttributeName = leftAttributeName;
-			this.leftExpressionType = ExpressionVertexType.LEFT;
-			this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
+			setLeftExpressionType(ExpressionVertexType.LEFT);
+			setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 			this.rightMetaExpression = leftMetaExpression;
 		} else {
 			this.rightSemanticElement = leftSemanticElement;
 			this.rightAttributeName = leftAttributeName;
-			this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
-			this.rightExpressionType = ExpressionVertexType.RIGHT;
+			setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+			setRightExpressionType(ExpressionVertexType.RIGHT);
 			this.leftMetaExpression = leftMetaExpression;
 		}
 	}
@@ -132,8 +141,8 @@ public class MetaExpression implements Serializable {
 		this.metaExpressionType = metaExpressionType;
 		this.leftMetaExpression = leftMetaExpression;
 		this.rightMetaExpression = rightMetaExpression;
-		this.leftExpressionType = ExpressionVertexType.LEFTSUBEXPRESSION;
-		this.rightExpressionType = ExpressionVertexType.RIGHTSUBEXPRESSION;
+		setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+		setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 	}
 
 	public MetaExpression(String identifier,
@@ -143,9 +152,27 @@ public class MetaExpression implements Serializable {
 		this.metaExpressionType = metaExpressionType;
 		this.leftSemanticElement = leftSemanticElement;
 		this.leftAttributeName = attributeName;
-		this.leftExpressionType = ExpressionVertexType.LEFT;
+		setLeftExpressionType(ExpressionVertexType.LEFT);
 	}
 
+	public String getLeftExpTypeStr() {
+		return leftExpTypeStr;
+	}
+
+	public void setLeftExpTypeStr(String leftExpressionTypeString) {
+		this.leftExpTypeStr = leftExpressionTypeString;
+		this.volatileLeftExpType = ExpressionVertexType.valueOf(leftExpTypeStr);
+	}
+
+	public String getRightExpTypeStr() {
+		return rightExpTypeStr;
+	}
+
+	public void setRightExpTypeStr(String rightExpressionTypeString) {
+		this.rightExpTypeStr = rightExpressionTypeString;
+		this.volatileRightExpType = ExpressionVertexType.valueOf(rightExpTypeStr);
+	}
+	
 	public String getIdentifier() {
 		return identifier;
 	}
@@ -155,11 +182,12 @@ public class MetaExpression implements Serializable {
 	}
 
 	public ExpressionVertexType getLeftExpressionType() {
-		return leftExpressionType;
+		return volatileLeftExpType;
 	}
 
 	public void setLeftExpressionType(ExpressionVertexType leftExpressionType) {
-		this.leftExpressionType = leftExpressionType;
+		this.volatileLeftExpType = leftExpressionType;
+		this.leftExpTypeStr = volatileLeftExpType.toString();
 	}
 
 	public boolean isRecursiveExpression() {
@@ -168,6 +196,7 @@ public class MetaExpression implements Serializable {
 
 	public void setRecursiveExpression(boolean recursiveExpression) {
 		this.recursiveExpression = recursiveExpression;
+		
 	}
 
 	public void setNumber(int number) {
@@ -191,11 +220,12 @@ public class MetaExpression implements Serializable {
 	}
 
 	public ExpressionVertexType getRightExpressionType() {
-		return rightExpressionType;
+		return volatileRightExpType;
 	}
 
 	public void setRightExpressionType(ExpressionVertexType rightExpressionType) {
-		this.rightExpressionType = rightExpressionType;
+		this.volatileRightExpType = rightExpressionType;
+		this.rightExpTypeStr = volatileRightExpType.toString();
 	}
 	
 	public ExpressionVertexType[] getExpressionTypes()

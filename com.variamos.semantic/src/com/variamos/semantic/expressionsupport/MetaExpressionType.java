@@ -69,6 +69,53 @@ public class MetaExpressionType implements Serializable {
 			return null;
 		}
 	}
+	public int getLeftExpression() {
+		return leftExpression;
+	}
+
+	public void setLeftExpression(int leftExpression) {
+		this.leftExpression = leftExpression;
+	}
+
+	public int getRightExpression() {
+		return rightExpression;
+	}
+
+	public void setRightExpression(int rightExpression) {
+		this.rightExpression = rightExpression;
+	}
+
+	public int getResultExpression() {
+		return resultExpression;
+	}
+
+	public void setResultExpression(int resultExpression) {
+		this.resultExpression = resultExpression;
+	}
+
+	public void setGnuPrologConnector(String gnuPrologConnector) {
+		this.gnuPrologConnector = gnuPrologConnector;
+	}
+
+	public void setSwiPrologConnector(String swiPrologConnector) {
+		this.swiPrologConnector = swiPrologConnector;
+	}
+
+	public void setTextConnector(String textConnector) {
+		this.textConnector = textConnector;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public void setArrayParameters(boolean arrayParameters) {
+		this.arrayParameters = arrayParameters;
+	}
+
+	public void setSingleInExpression(boolean singleInExpression) {
+		this.singleInExpression = singleInExpression;
+	}
 
 	public Class<? extends Expression> getLeftExpressionClass() {
 		return getExpressionClass(leftExpression);
