@@ -498,6 +498,7 @@
     <end type="TARGET" refId="26"/>  
   </realization>  
   <association id="84">    
+    <bendpoint x="702" y="274"/>    
     <end type="SOURCE" refId="11" navigable="false">      
       <attribute id="85" name="identifierExpressionList">        
         <position height="0" width="0" x="-444" y="-200"/>      
@@ -572,7 +573,7 @@
     <end type="TARGET" refId="1"/>  
   </realization>  
   <association id="102">    
-    <bendpoint x="489" y="283"/>    
+    <bendpoint x="480" y="261"/>    
     <end type="SOURCE" refId="30" navigable="false">      
       <attribute id="103" name="identifier">        
         <position height="0" width="0" x="-444" y="-200"/>      

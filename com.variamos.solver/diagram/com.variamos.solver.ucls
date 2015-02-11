@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="com.variamos.solver.Configuration" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/Configuration.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="150" y="747"/>    
+    <position height="-1" width="-1" x="148" y="184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="com.variamos.solver.SWIPrologSolver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/SWIPrologSolver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="746" y="310"/>    
+    <position height="-1" width="-1" x="730" y="613"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="com.variamos.solver.ConfigurationOptions" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/ConfigurationOptions.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1236" y="539"/>    
+    <position height="-1" width="-1" x="1169" y="577"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <interface id="4" language="java" name="com.variamos.solver.Solver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/Solver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="260" x="324" y="629"/>    
+    <position height="261" width="260" x="294" y="11"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <class id="5" language="java" name="com.variamos.solver.GNUPrologSolver" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/GNUPrologSolver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="248" y="289"/>    
+    <position height="-1" width="-1" x="249" y="639"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <enumeration id="6" language="java" name="com.variamos.solver.ConfigurationMode" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/ConfigurationMode.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1339" y="84"/>    
+    <position height="-1" width="-1" x="1276" y="74"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </enumeration>  
   <class id="7" language="java" name="com.variamos.solver.ConfigurationTask" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/ConfigurationTask.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="367" x="639" y="700"/>    
+    <position height="153" width="367" x="565" y="13"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,7 +67,7 @@
   <interface id="8" language="java" name="com.variamos.solver.ConfigurationTaskListener" project="com.variamos.solver" 
     file="/com.variamos.solver/src/com/variamos/solver/ConfigurationTaskListener.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1129" y="84"/>    
+    <position height="-1" width="-1" x="1061" y="73"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,6 +75,7 @@
     </display>  
   </interface>  
   <association id="9">    
+    <bendpoint x="957" y="225"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="10" name="options"/>      
       <multiplicity id="11" minimum="0" maximum="1"/>    
@@ -87,8 +88,8 @@
     <end type="TARGET" refId="4"/>  
   </realization>  
   <association id="13">    
-    <bendpoint x="589" y="918"/>    
-    <bendpoint x="294" y="918"/>    
+    <bendpoint x="640" y="264"/>    
+    <bendpoint x="333" y="328"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="14" name="configuration"/>      
       <multiplicity id="15" minimum="0" maximum="1"/>    
@@ -105,11 +106,12 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="19">    
-    <bendpoint x="650" y="641"/>    
+    <bendpoint x="472" y="353"/>    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
   <association id="20">    
+    <bendpoint x="616" y="214"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="21" name="solver"/>      
       <multiplicity id="22" minimum="0" maximum="1"/>    
@@ -118,7 +120,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="23">    
-    <bendpoint x="1025" y="572"/>    
+    <bendpoint x="821" y="202"/>    
     <bendpoint x="1028" y="194"/>    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="24" name="listener"/>      
