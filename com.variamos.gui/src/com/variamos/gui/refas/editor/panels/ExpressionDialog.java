@@ -22,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -528,11 +527,13 @@ public class ExpressionDialog extends JDialog {
 					combo.addItem(instVertex.getIdentifier() + "_" + "false");
 					break;
 				case "Integer":
-					combo.addItem(instVertex.getIdentifier() + "_" + "0");
-					combo.addItem(instVertex.getIdentifier() + "_" + "1");
-					combo.addItem(instVertex.getIdentifier() + "_" + "2");
-					combo.addItem(instVertex.getIdentifier() + "_" + "3");
-					combo.addItem(instVertex.getIdentifier() + "_" + "4");
+					String domain = (String) instVertex.getInstAttribute(
+							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+					String split[] = domain.split(",");
+					for (String dom : split)
+					{ combo.addItem(instVertex.getIdentifier() + "_" + dom);
+					
+					}
 					break;
 				case "Enumeration":
 					Object object = instVertex.getInstAttribute(

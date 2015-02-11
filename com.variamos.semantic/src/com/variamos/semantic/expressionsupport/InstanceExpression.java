@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
@@ -230,8 +231,14 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
-				else
-					identifier.setDomain(new RangeDomain(0, 4));
+				else {
+					if (attribute.getName().equals("value")) {
+						String domain = (String) leftElement.getInstAttribute(
+								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+						identifier.setDomain(DomainParser.parseDomain(domain));
+					} else
+						identifier.setDomain(new RangeDomain(0, 4));
+				}
 			}
 		}
 		if (rightElement != null
@@ -252,6 +259,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else
+					if (attribute.getName().equals("value")) {
+						String domain = (String) rightElement.getInstAttribute(
+								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+						identifier.setDomain(DomainParser.parseDomain(domain));
+					} else
 					identifier.setDomain(new RangeDomain(0, 4));
 			}
 
