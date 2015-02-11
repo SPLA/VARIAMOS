@@ -38,22 +38,22 @@ public class PropertyParameterDialog extends JDialog{
 	}
 	
 	public PropertyParameterDialog(VariamosGraphEditor editor, EditableElementAttribute... arguments){
-		super(editor.getFrame(), "Parameters");
+		super(editor.getFrame(), "Enumeration Value");
 		
 		setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
-		setPreferredSize(new Dimension(250, 100));
+		setPreferredSize(new Dimension(250, 130));
 		
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 		
 		widgets = new HashMap<String, WidgetR>();
 		
-		for(EditableElementAttribute p : arguments){
-			WidgetR w = factory.getWidgetFor(p);
-			w.editVariable(p);
+		for(EditableElementAttribute elementAttribute : arguments){
+			WidgetR w = factory.getWidgetFor(elementAttribute);
+			w.editVariable(elementAttribute);
 			
 			w.addPropertyChangeListener("value", new PropertyChangeListener() {
 				@Override
@@ -64,9 +64,9 @@ public class PropertyParameterDialog extends JDialog{
 				}
 			});
 			
-			widgets.put((String)p.getValue(), w);
+			widgets.put(elementAttribute.getIdentifier(), w);
 
-			panel.add(new JLabel(p.getDisplayName() + ": "));
+			panel.add(new JLabel(elementAttribute.getDisplayName() + ": "));
 			panel.add(w);
 		}
 		

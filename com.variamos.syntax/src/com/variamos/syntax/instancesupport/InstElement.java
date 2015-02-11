@@ -240,8 +240,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public String toString() {
 		String out = "";
 		String out2 = "";
-		if (getEditableMetaElement() != null
-				&& getEditableMetaElement() != null) {
+		if (getEditableMetaElement() != null) {
 			out2 = "\n";
 			Set<String> modelingAttributes = getEditableMetaElement()
 					.getDeclaredModelingAttributesNames();

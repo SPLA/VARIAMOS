@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+import com.cfm.productline.type.IntegerType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.syntax.instancesupport.InstAttribute;
@@ -20,9 +21,9 @@ import com.variamos.syntax.metamodelsupport.MetaEnumeration;
 import com.variamos.syntax.types.StringType;
 
 /**
- * A class to support the property list for instance enumerations on modeling. Initially
- * copied from VariabilityAttributeList on pl.editor. Part of PhD work at University of
- * Paris 1
+ * A class to support the property list for instance enumerations on modeling.
+ * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
+ * at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -32,7 +33,7 @@ import com.variamos.syntax.types.StringType;
  */
 @SuppressWarnings("serial")
 public class EnumerationAttributeList extends JList<InstAttribute> {
-	
+
 	/**
 	 * Reference to the editor required for Dialog
 	 */
@@ -74,8 +75,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(100, 80));
-		setMaximumSize(new Dimension(100, 80));
+		setPreferredSize(new Dimension(100, 180));
+		setMaximumSize(new Dimension(100, 180));
 
 		addMouseListener(new MouseAdapter() {
 
@@ -104,35 +105,45 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		});
 	}
 
-	protected void editItem(InstAttribute var) {
-		final boolean insert = (var == null);
+	protected void editItem(InstAttribute instAttribute) {
+		final boolean insert = (instAttribute == null);
 
+		final InstAttribute instName = new InstAttribute("enumName",
+				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
+						false, "Enum Value", ""), "");
+
+		final InstAttribute instIdentifier = new InstAttribute("enumId",
+				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
+						false, "Enum Integer Id", ""), 0);
 		if (insert) {
-			//TODO move validation to a method on InstEnumeration
-		@SuppressWarnings("unchecked")
-		Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-				.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
-				.getValue();
-		int i = 1;
-		/*
-		 * while (notFound) { for (InstAttribute i : instAttributes) {
-		 * if(i.getIdentifier().equals("enum"+i)) break; }
-		 * //instAttributes.contains(new InstAttribute("enum"+i++))); ) }
-		 */
-		while (instAttributes.contains(new InstAttribute("enum" + i))) {
-			i++;//TODO fix ids? verify they are different
-		}
+			// TODO move validation to a method on InstEnumeration
+			@SuppressWarnings("unchecked")
+			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
+					.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
+					.getValue();
+			int i = 1;
+			/*
+			 * while (notFound) { for (InstAttribute i : instAttributes) {
+			 * if(i.getIdentifier().equals("enum"+i)) break; }
+			 * //instAttributes.contains(new InstAttribute("enum"+i++))); ) }
+			 */
+			while (instAttributes.contains(new InstAttribute("enum" + i))) {
+				i++;// TODO fix ids? verify they are different
+			}
 
-		// Name
-		var = new InstAttribute("enum" + i,
-				new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-						false, "Enumeration Value", ""), "");
-		
+			// Name
+			instAttribute = new InstAttribute("enum" + i,
+					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+							false, "Enumeration Value", ""), "");
+		} else {
+			String split[] = ((String) instAttribute.getValue()).split("-");
+			instIdentifier.setValue(split[0]);
+			instName.setValue(split[1]);
 		}
-		final InstAttribute name = var;
-		
+		final InstAttribute finalInstAttribute = instAttribute;
+
 		// HACK for accesing a non-final variable inside of an inner class
-		final InstAttribute[] buffer = { name };
+		final InstAttribute[] buffer = { finalInstAttribute };
 
 		// SetDomain metaDomain = new SetDomain();
 		// metaDomain.setIdentifier("MetaDomain");
@@ -146,9 +157,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
 
-
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(
-				editor, name);
+				editor, instIdentifier, instName);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -157,7 +167,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				dialog.getParameters();
 
 				InstAttribute v = buffer[0];
-				v.setIdentifier((String) name.getIdentifier());
+				v.setValue(((Integer) instIdentifier.getValue()).intValue() + "-"
+						+ (String) instName.getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
