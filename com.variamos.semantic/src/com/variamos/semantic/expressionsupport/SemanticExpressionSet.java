@@ -13,7 +13,7 @@ import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
  * @version 1.1
  * @since 2015-02-05
  */
-public class MetaExpressionSet {
+public class SemanticExpressionSet {
 	private String identifier;
 	private String description;
 	private boolean userSelectable;

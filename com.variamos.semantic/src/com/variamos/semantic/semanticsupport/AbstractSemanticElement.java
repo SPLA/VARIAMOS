@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-import com.variamos.semantic.expressionsupport.MetaExpression;
+import com.variamos.semantic.expressionsupport.SemanticExpression;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
@@ -40,7 +40,7 @@ public class AbstractSemanticElement implements Serializable,
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private List<MetaExpression> metaExpresions;
+	private List<SemanticExpression> metaExpresions;
 
 	public AbstractSemanticElement(String identifier) {
 		this(null, identifier, new ArrayList<String>(),

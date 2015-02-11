@@ -34,7 +34,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
-import com.variamos.semantic.expressionsupport.MetaExpressionType;
+import com.variamos.semantic.expressionsupport.SemanticExpressionType;
 import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.types.ExpressionVertexType;
 import com.variamos.syntax.instancesupport.InstAttribute;
@@ -95,7 +95,7 @@ public class ExpressionDialog extends JDialog {
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			showExpression(instanceExpression, element, solutionPanel,
-					MetaExpressionType.BOOLEXP, 255);
+					SemanticExpressionType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -277,7 +277,7 @@ public class ExpressionDialog extends JDialog {
 			default:
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
-			if (instanceExpression.getMetaExpression().getMetaExpressionType() != null) {
+			if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
 				if (instanceExpression.getLeftInstanceExpression() == null)
 					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
@@ -299,8 +299,8 @@ public class ExpressionDialog extends JDialog {
 		}
 		if (leftSide.getSelectedItem().equals("Variable")) {
 			{
-				if (instanceExpression.getMetaExpression()
-						.getMetaExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression()
+						.getSemanticExpressionType() != null) {
 					leftPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.LEFT,
 							instanceExpression.getLeftValidExpressions()));
@@ -311,8 +311,8 @@ public class ExpressionDialog extends JDialog {
 		}
 		if (leftSide.getSelectedItem().equals("VariableValue")) {
 			{
-				if (instanceExpression.getMetaExpression()
-						.getMetaExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression()
+						.getSemanticExpressionType() != null) {
 					leftPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.LEFTVARIABLEVALUE,
 							instanceExpression.getLeftValidExpressions()));
@@ -394,8 +394,8 @@ public class ExpressionDialog extends JDialog {
 				basePanel.add(rightSide);
 			}
 			if (rightSide.getSelectedItem().equals("SubExpression")) {
-				if (instanceExpression.getMetaExpression()
-						.getMetaExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression()
+						.getSemanticExpressionType() != null) {
 					if (instanceExpression.getRightInstanceExpression() == null)
 						instanceExpression.setRightInstanceExpression(
 								ExpressionVertexType.RIGHTSUBEXPRESSION, null,
@@ -422,8 +422,8 @@ public class ExpressionDialog extends JDialog {
 					}
 			}
 			if (rightSide.getSelectedItem().equals("Variable")) {
-				if (instanceExpression.getMetaExpression()
-						.getMetaExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression()
+						.getSemanticExpressionType() != null) {
 					rightPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.RIGHT,
 							instanceExpression.getRightValidExpressions()));
@@ -432,8 +432,8 @@ public class ExpressionDialog extends JDialog {
 				}
 			}
 			if (rightSide.getSelectedItem().equals("VariableValue")) {
-				if (instanceExpression.getMetaExpression()
-						.getMetaExpressionType() != null) {
+				if (instanceExpression.getSemanticExpression()
+						.getSemanticExpressionType() != null) {
 					rightPanel.add(createVarCombo(instanceExpression, element,
 							ExpressionVertexType.RIGHTVARIABLEVALUE,
 							instanceExpression.getRightValidExpressions()));
@@ -637,12 +637,12 @@ public class ExpressionDialog extends JDialog {
 			final InstElement element, String selectedOperator,
 			int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
-		List<MetaExpressionType> metaExpressionTypes = MetaExpressionType
-				.getValidMetaExpressionTypes(refasModel
-						.getMetaExpressionTypes().values(), topExpressionType);
+		List<SemanticExpressionType> semanticExpressionTypes = SemanticExpressionType
+				.getValidSemanticExpressionTypes(refasModel
+						.getSemanticExpressionTypes().values(), topExpressionType);
 
-		for (MetaExpressionType metaExpressionType : metaExpressionTypes) {
-			combo.addItem(metaExpressionType.getTextConnector());
+		for (SemanticExpressionType semanticExpressionType : semanticExpressionTypes) {
+			combo.addItem(semanticExpressionType.getTextConnector());
 		}
 		combo.setSelectedItem(selectedOperator);
 		combo.addItemListener(new ItemListener() {
@@ -651,8 +651,8 @@ public class ExpressionDialog extends JDialog {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String item = (String) event.getItem();
 					if (item != null) {
-						instanceExpression.setMetaExpressionType(refasModel
-								.getMetaExpressionTypes().get(item));
+						instanceExpression.setSemanticExpressionType(refasModel
+								.getSemanticExpressionTypes().get(item));
 					}
 					new Thread() {
 						public void run() {

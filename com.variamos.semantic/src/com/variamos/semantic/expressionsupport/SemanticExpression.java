@@ -7,7 +7,7 @@ import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
 import com.variamos.semantic.types.ExpressionVertexType;
 
 /**
- * A class to represent MetaExpressions. Part of PhD work at University of Paris
+ * A class to represent SemanticExpressions. Part of PhD work at University of Paris
  * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
@@ -15,13 +15,13 @@ import com.variamos.semantic.types.ExpressionVertexType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class MetaExpression implements Serializable {
+public class SemanticExpression implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1977213643411960771L;
 	private String identifier;
-	private MetaExpressionType metaExpressionType;
+	private SemanticExpressionType semanticExpressionType;
 	
 	// TODO change to a new class for type (normal, relax) 
 	private List<ExpressionSubAction>  expressionSubActions;
@@ -53,12 +53,12 @@ public class MetaExpression implements Serializable {
 	/**
 	 * for LEFTSUBEXPRESSION
 	 */
-	private MetaExpression leftMetaExpression;
+	private SemanticExpression leftSemanticExpression;
 	
 	/**
 	 * for RIGHTSUBEXPRESSION 
 	 */
-	private MetaExpression rightMetaExpression;
+	private SemanticExpression rightSemanticExpression;
 	
 	/**
 	 * for LEFTSUBEXPRESSION
@@ -80,31 +80,31 @@ public class MetaExpression implements Serializable {
 	 */
 	private String rightExpTypeStr;
 
-	public MetaExpression() {
+	public SemanticExpression() {
 
 	}
 
-	public MetaExpression(String identifier) {
+	public SemanticExpression(String identifier) {
 		this.identifier = identifier;
 		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 
 	}
 
-	public MetaExpression(String identifier,
-			MetaExpressionType metaExpressionType) {
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType) {
 		this.identifier = identifier;
-		this.metaExpressionType = metaExpressionType;
+		this.semanticExpressionType = semanticExpressionType;
 		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 	}
 
-	public MetaExpression(String identifier,
-			MetaExpressionType metaExpressionType,
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			AbstractSemanticElement leftSemanticElement, AbstractSemanticElement rightSemanticElement,
 			String leftAttributeName, String rightAttributeName) {
 		this.identifier = identifier;
-		this.metaExpressionType = metaExpressionType;
+		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticElement = leftSemanticElement;
 		this.rightSemanticElement = rightSemanticElement;
 		this.leftAttributeName = leftAttributeName;
@@ -113,43 +113,43 @@ public class MetaExpression implements Serializable {
 		setRightExpressionType(ExpressionVertexType.RIGHT);
 	}
 
-	public MetaExpression(String identifier,
-			MetaExpressionType metaExpressionType,
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			AbstractSemanticElement leftSemanticElement, String leftAttributeName,
-			boolean replaceTarget, MetaExpression leftMetaExpression) {
+			boolean replaceTarget, SemanticExpression leftSemanticExpression) {
 		this.identifier = identifier;
-		this.metaExpressionType = metaExpressionType;
+		this.semanticExpressionType = semanticExpressionType;
 		if (replaceTarget) {
 			this.leftSemanticElement = leftSemanticElement;
 			this.leftAttributeName = leftAttributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFT);
 			setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-			this.rightMetaExpression = leftMetaExpression;
+			this.rightSemanticExpression = leftSemanticExpression;
 		} else {
 			this.rightSemanticElement = leftSemanticElement;
 			this.rightAttributeName = leftAttributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			setRightExpressionType(ExpressionVertexType.RIGHT);
-			this.leftMetaExpression = leftMetaExpression;
+			this.leftSemanticExpression = leftSemanticExpression;
 		}
 	}
 
-	public MetaExpression(String identifier,
-			MetaExpressionType metaExpressionType,
-			MetaExpression leftMetaExpression, MetaExpression rightMetaExpression) {
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
+			SemanticExpression leftSemanticExpression, SemanticExpression rightSemanticExpression) {
 		this.identifier = identifier;
-		this.metaExpressionType = metaExpressionType;
-		this.leftMetaExpression = leftMetaExpression;
-		this.rightMetaExpression = rightMetaExpression;
+		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticExpression = leftSemanticExpression;
+		this.rightSemanticExpression = rightSemanticExpression;
 		setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 		setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 	}
 
-	public MetaExpression(String identifier,
-			MetaExpressionType metaExpressionType,
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			AbstractSemanticElement leftSemanticElement, String attributeName) {
 		this.identifier = identifier;
-		this.metaExpressionType = metaExpressionType;
+		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticElement = leftSemanticElement;
 		this.leftAttributeName = attributeName;
 		setLeftExpressionType(ExpressionVertexType.LEFT);
@@ -211,12 +211,12 @@ public class MetaExpression implements Serializable {
 		this.rightSemanticElement = rightSemanticElement;
 	}
 
-	public void setLeftMetaExpression(MetaExpression leftMetaExpression) {
-		this.leftMetaExpression = leftMetaExpression;
+	public void setLeftSemanticExpression(SemanticExpression leftSemanticExpression) {
+		this.leftSemanticExpression = leftSemanticExpression;
 	}
 
-	public void setRightMetaExpression(MetaExpression rightMetaExpression) {
-		this.rightMetaExpression = rightMetaExpression;
+	public void setRightSemanticExpression(SemanticExpression rightSemanticExpression) {
+		this.rightSemanticExpression = rightSemanticExpression;
 	}
 
 	public ExpressionVertexType getRightExpressionType() {
@@ -236,12 +236,12 @@ public class MetaExpression implements Serializable {
 		return out;
 	}
 
-	public void setMetaExpressionType(MetaExpressionType metaExpressionType) {
-		this.metaExpressionType = metaExpressionType;
+	public void setSemanticExpressionType(SemanticExpressionType semanticExpressionType) {
+		this.semanticExpressionType = semanticExpressionType;
 	}
 
-	public MetaExpressionType getMetaExpressionType() {
-		return metaExpressionType;
+	public SemanticExpressionType getSemanticExpressionType() {
+		return semanticExpressionType;
 	}
 
 	public AbstractSemanticElement getLeftSemanticElement() {
@@ -260,12 +260,12 @@ public class MetaExpression implements Serializable {
 		return rightAttributeName;
 	}
 
-	public MetaExpression getLeftMetaExpression() {
-		return leftMetaExpression;
+	public SemanticExpression getLeftSemanticExpression() {
+		return leftSemanticExpression;
 	}
 
-	public MetaExpression getRightMetaExpression() {
-		return rightMetaExpression;
+	public SemanticExpression getRightSemanticExpression() {
+		return rightSemanticExpression;
 	}
 
 	public int getNumber() {
@@ -273,21 +273,21 @@ public class MetaExpression implements Serializable {
 	}
 
 	public int getLeftValidExpressions() {
-		if (metaExpressionType == null)
+		if (semanticExpressionType == null)
 			return 0;
-		return metaExpressionType.getLeftValidExpressions();
+		return semanticExpressionType.getLeftValidExpressions();
 	}
 
 	public int getRightValidExpressions() {
-		if (metaExpressionType == null)
+		if (semanticExpressionType == null)
 			return 0;
-		return metaExpressionType.getRightValidExpressions();
+		return semanticExpressionType.getRightValidExpressions();
 	}
 
 	public int getResultExpressions() {
-		if (metaExpressionType == null)
+		if (semanticExpressionType == null)
 			return 0;
-		return metaExpressionType.getResultExpressions();
+		return semanticExpressionType.getResultExpressions();
 	}
 
 	public void setLeftAttributeName(String attribute) {
@@ -299,15 +299,15 @@ public class MetaExpression implements Serializable {
 	}
 
 	public String getOperation() {
-		if (metaExpressionType != null)
-			return metaExpressionType.getTextConnector();
+		if (semanticExpressionType != null)
+			return semanticExpressionType.getTextConnector();
 		return null;
 	}
 
 	public boolean isSingleInExpression()
 	{
-		if (metaExpressionType != null)
-			return metaExpressionType.isSingleInExpression();
+		if (semanticExpressionType != null)
+			return semanticExpressionType.isSingleInExpression();
 		return false;
 		
 	}

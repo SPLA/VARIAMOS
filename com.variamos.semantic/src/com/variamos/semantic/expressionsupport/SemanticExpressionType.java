@@ -18,7 +18,7 @@ import com.variamos.hlcl.NumericExpression;
  * @version 1.1
  * @since 2015-02-05
  */
-public class MetaExpressionType implements Serializable {
+public class SemanticExpressionType implements Serializable {
 	/**
 	 * 
 	 */
@@ -36,11 +36,11 @@ public class MetaExpressionType implements Serializable {
 	public static final int NONE = 0, BOOLEXP = 1, NUMEXP = 2, EXP = 3,
 			IDEN = 4, BOOLVAL = 5, INTVAL = 6, LIT = 7;
 
-	public MetaExpressionType() {
+	public SemanticExpressionType() {
 
 	}
 
-	public MetaExpressionType(String textConnector, String gnuPrologConnector,
+	public SemanticExpressionType(String textConnector, String gnuPrologConnector,
 			String swiPrologConnector, String method, int leftExpression,
 			int rightExpression, int resultExpression,
 			boolean singleInExpression, boolean arrayParameters) {
@@ -162,18 +162,18 @@ public class MetaExpressionType implements Serializable {
 		return singleInExpression;
 	}
 
-	public static List<MetaExpressionType> getValidMetaExpressionTypes(
-			Collection<MetaExpressionType> metaExpressionList, int valid) {
-		List<MetaExpressionType> out = new ArrayList<MetaExpressionType>();
-		for (MetaExpressionType metaExpressionType : metaExpressionList) {
-			int evaluated = metaExpressionType.getResultExpressions();
+	public static List<SemanticExpressionType> getValidSemanticExpressionTypes(
+			Collection<SemanticExpressionType> semanticExpressionList, int valid) {
+		List<SemanticExpressionType> out = new ArrayList<SemanticExpressionType>();
+		for (SemanticExpressionType semanticExpressionType : semanticExpressionList) {
+			int evaluated = semanticExpressionType.getResultExpressions();
 			if (evaluated == valid)
-				out.add(metaExpressionType);
-			if (valid == MetaExpressionType.EXP
-					|| valid == MetaExpressionType.NUMEXP)
-				if (evaluated == MetaExpressionType.BOOLEXP
-						|| evaluated == MetaExpressionType.NUMEXP)
-					out.add(metaExpressionType);
+				out.add(semanticExpressionType);
+			if (valid == SemanticExpressionType.EXP
+					|| valid == SemanticExpressionType.NUMEXP)
+				if (evaluated == SemanticExpressionType.BOOLEXP
+						|| evaluated == SemanticExpressionType.NUMEXP)
+					out.add(semanticExpressionType);
 		}
 		return out;
 	}

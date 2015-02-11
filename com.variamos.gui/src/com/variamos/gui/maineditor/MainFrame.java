@@ -14,7 +14,7 @@ import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
 import com.variamos.gui.refas.editor.RefasMenuBar;
 import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.refas.RefasModel;
-import com.variamos.semantic.expressionsupport.MetaExpressionType;
+import com.variamos.semantic.expressionsupport.SemanticExpressionType;
 import com.variamos.semantic.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<RefasMenuBar>();
-		Map<String, MetaExpressionType> metaExpressionTypes = createMetaExpressionTypes();
+		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
 		this.setTitle(perspectiveTitle + " - " + appTitle);
@@ -125,59 +125,59 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private Map<String, MetaExpressionType> createMetaExpressionTypes() {
-		Map<String, MetaExpressionType> out = new HashMap<String, MetaExpressionType>();
-		out.put("And", new MetaExpressionType("And", "#/\"", "#/\"", "and",
-				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP,
-				MetaExpressionType.BOOLEXP, false,false));
-		out.put("Assign", new MetaExpressionType("Assign", "=", "=", "assign",
-				MetaExpressionType.IDEN, MetaExpressionType.EXP,
-				MetaExpressionType.BOOLEXP, false,false));
-		out.put("Subtraction", new MetaExpressionType("Subtraction", "-", "-",
-				"diff", MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, false,false));
-		out.put("DoubleImplies", new MetaExpressionType("DoubleImplies",
-				"#<==>", "#<==>", "doubleImplies", MetaExpressionType.BOOLEXP,
-				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("Equals", new MetaExpressionType("Equals", "#=", "#=",
-				"equals", MetaExpressionType.EXP, MetaExpressionType.EXP,
-				MetaExpressionType.BOOLEXP, false,false));
-		out.put("Greater", new MetaExpressionType("Greater", "#>", "#>",
-				"greaterThan", MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("GreaterOrEq", new MetaExpressionType("GreaterOrEq", "#>=",
-				"#>=", "greaterOrEqualsThan", MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("Implies", new MetaExpressionType("Implies", "#==>", "#==>",
-				"implies", MetaExpressionType.BOOLEXP,
-				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("Less", new MetaExpressionType("Less", "#<", "#<", "lessThan",
-				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
-				MetaExpressionType.BOOLEXP, false,false));
-		out.put("LessOrEq", new MetaExpressionType("LessOrEquals", "#<=",
-				"#<=", "lessOrEqualsThan", MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("Literal", new MetaExpressionType("LiteralBool", "", "",
-				"literalBooleanExpression", MetaExpressionType.LIT,
-				MetaExpressionType.NONE, MetaExpressionType.BOOLEXP, true,false));
-		out.put("Negation", new MetaExpressionType("Negation", "-", "-", "not",
-				MetaExpressionType.BOOLEXP, MetaExpressionType.NONE,
-				MetaExpressionType.BOOLEXP, true,false));
-		out.put("Number", new MetaExpressionType("Number", "", "", "number",
-				MetaExpressionType.INTVAL, MetaExpressionType.NONE,
-				MetaExpressionType.NUMEXP, true,false));
-		out.put("NotEquals", new MetaExpressionType("NotEquals", "\\==",
-				"\\==", "notEquals", MetaExpressionType.EXP,
-				MetaExpressionType.EXP, MetaExpressionType.BOOLEXP, false,false));
-		out.put("Or", new MetaExpressionType("Or", "#\"/", "#\"/", "or",
-				MetaExpressionType.BOOLEXP, MetaExpressionType.BOOLEXP,
-				MetaExpressionType.BOOLEXP, false,false));
-		out.put("Product", new MetaExpressionType("Product", "*", "*", "prod",
-				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, false,true));
-		out.put("Sum", new MetaExpressionType("Sum", "+", "+", "sum",
-				MetaExpressionType.NUMEXP, MetaExpressionType.NUMEXP,
-				MetaExpressionType.NUMEXP, false,true));
+	private Map<String, SemanticExpressionType> createMetaExpressionTypes() {
+		Map<String, SemanticExpressionType> out = new HashMap<String, SemanticExpressionType>();
+		out.put("And", new SemanticExpressionType("And", "#/\"", "#/\"", "and",
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Assign", new SemanticExpressionType("Assign", "=", "=", "assign",
+				SemanticExpressionType.IDEN, SemanticExpressionType.EXP,
+				SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-", "-",
+				"diff", SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, false,false));
+		out.put("DoubleImplies", new SemanticExpressionType("DoubleImplies",
+				"#<==>", "#<==>", "doubleImplies", SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Equals", new SemanticExpressionType("Equals", "#=", "#=",
+				"equals", SemanticExpressionType.EXP, SemanticExpressionType.EXP,
+				SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Greater", new SemanticExpressionType("Greater", "#>", "#>",
+				"greaterThan", SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("GreaterOrEq", new SemanticExpressionType("GreaterOrEq", "#>=",
+				"#>=", "greaterOrEqualsThan", SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Implies", new SemanticExpressionType("Implies", "#==>", "#==>",
+				"implies", SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Less", new SemanticExpressionType("Less", "#<", "#<", "lessThan",
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.BOOLEXP, false,false));
+		out.put("LessOrEq", new SemanticExpressionType("LessOrEquals", "#<=",
+				"#<=", "lessOrEqualsThan", SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Literal", new SemanticExpressionType("LiteralBool", "", "",
+				"literalBooleanExpression", SemanticExpressionType.LIT,
+				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,false));
+		out.put("Negation", new SemanticExpressionType("Negation", "-", "-", "not",
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.NONE,
+				SemanticExpressionType.BOOLEXP, true,false));
+		out.put("Number", new SemanticExpressionType("Number", "", "", "number",
+				SemanticExpressionType.INTVAL, SemanticExpressionType.NONE,
+				SemanticExpressionType.NUMEXP, true,false));
+		out.put("NotEquals", new SemanticExpressionType("NotEquals", "\\==",
+				"\\==", "notEquals", SemanticExpressionType.EXP,
+				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Or", new SemanticExpressionType("Or", "#\"/", "#\"/", "or",
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, false,false));
+		out.put("Product", new SemanticExpressionType("Product", "*", "*", "prod",
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, false,true));
+		out.put("Sum", new SemanticExpressionType("Sum", "+", "+", "sum",
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, false,true));
 		return out;
 	}
 
