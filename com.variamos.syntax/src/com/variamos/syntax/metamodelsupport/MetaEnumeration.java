@@ -87,8 +87,8 @@ public class MetaEnumeration extends MetaVertex {
 		this.addPropEditableAttribute("02#" + VAR_METAENUMVALUE);
 
 		this.addPropVisibleAttribute("01#" + VAR_METAENUMNAME);
-		// this.addDisPropVisibleAttribute("02#" + VAR_METAENUMVALUE); //TODO
-		// enable when the attribute JPanel gets loaded dynamically
+		// this.addDisPropVisibleAttribute("02#" + VAR_METAENUMVALUE);
+		//TODO enable when the attribute JPanel gets loaded dynamically
 
 		this.addPanelVisibleAttribute("01#" + VAR_METAENUMNAME);
 		this.addPanelVisibleAttribute("02#" + VAR_METAENUMVALUE);

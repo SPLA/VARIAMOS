@@ -41,6 +41,9 @@ public class SemanticVariable extends AbstractSemanticVertex {
 			VAR_VARIABLETYPENAME = "Variable Type",
 			VAR_VARIABLETYPECLASS = VariableType.class.getCanonicalName(),
 
+			VAR_VARIABLEDOMAIN = "variableDomain",
+			VAR_VARIABLEDOMAINNAME = "Variable Domain",
+
 			VAR_ENUMERATIONTYPE = "enumerationType",
 			VAR_ENUMERATIONTYPENAME = "Enumeration",
 			VAR_ENUMERATIONTYPECLASS = InstEnumeration.class.getCanonicalName();
@@ -71,25 +74,31 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
 				VAR_VARIABLETYPE, "Enumeration", true, VAR_VARIABLETYPENAME,
 				VAR_VARIABLETYPECLASS, "String", ""));
+		putSemanticAttribute(VAR_VARIABLEDOMAIN, new SemanticAttribute(
+				VAR_VARIABLEDOMAIN, "String", false, VAR_VARIABLEDOMAINNAME,
+				"0,1"));
 		putSemanticAttribute(VAR_ENUMERATIONTYPE, new SemanticAttribute(
 				VAR_ENUMERATIONTYPE, "Class", false, VAR_ENUMERATIONTYPENAME,
 				VAR_ENUMERATIONTYPECLASS, "ME", "String", ""));
-		//TODO define domain for enumtype
-		putSemanticAttribute(VAR_VALUE, new SimulationStateAttribute(
-				VAR_VALUE, "Integer", false, VAR_VALUENAME, 0));
+		// TODO define domain for enumtype
+		putSemanticAttribute(VAR_VALUE, new SimulationStateAttribute(VAR_VALUE,
+				"Integer", false, VAR_VALUENAME, 0));
 
 		this.addPropEditableAttribute("01#" + VAR_NAME);
 		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);
-		this.addPropEditableAttribute("03#" + VAR_ENUMERATIONTYPE);
-		this.addPropEditableAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addPropEditableAttribute("05#" + VAR_SCOPE);
+		this.addPropEditableAttribute("03#" + VAR_VARIABLEDOMAIN);
+		this.addPropEditableAttribute("04#" + VAR_ENUMERATIONTYPE);
+		this.addPropEditableAttribute("05#" + VAR_CONTEXTTYPE);
+		this.addPropEditableAttribute("06#" + VAR_SCOPE);
 
 		this.addPropVisibleAttribute("01#" + VAR_NAME);
 		this.addPropVisibleAttribute("02#" + VAR_VARIABLETYPE);
-		this.addPropVisibleAttribute("03#" + VAR_ENUMERATIONTYPE + "#"
+		this.addPropVisibleAttribute("03#" + VAR_VARIABLEDOMAIN + "#"
+				+ VAR_VARIABLETYPE + "#==#" + "Integer");
+		this.addPropVisibleAttribute("04#" + VAR_ENUMERATIONTYPE + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		this.addPropVisibleAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addPropVisibleAttribute("05#" + VAR_SCOPE);
+		this.addPropVisibleAttribute("05#" + VAR_CONTEXTTYPE);
+		this.addPropVisibleAttribute("06#" + VAR_SCOPE);
 
 		this.addPanelVisibleAttribute("01#" + VAR_NAME);
 		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE + "#"

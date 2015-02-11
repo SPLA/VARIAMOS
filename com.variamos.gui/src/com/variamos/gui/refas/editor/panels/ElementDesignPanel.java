@@ -237,7 +237,7 @@ public class ElementDesignPanel extends JPanel {
 										.getWidgetFor(instAttribute);
 
 								if (widget == null) {
-									System.err.print("No Widget found for "
+									System.err.print("EDP: No Widget found for "
 											+ instAttribute);
 									return;
 								}

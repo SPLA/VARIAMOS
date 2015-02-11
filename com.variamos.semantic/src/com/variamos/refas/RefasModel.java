@@ -16,7 +16,7 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
-import com.variamos.semantic.expressionsupport.MetaExpressionType;
+import com.variamos.semantic.expressionsupport.SemanticExpressionType;
 import com.variamos.semantic.semanticsupport.AbstractSemanticVertex;
 import com.variamos.semantic.semanticsupport.SemanticConcept;
 import com.variamos.semantic.semanticsupport.SemanticContextGroup;
@@ -66,7 +66,7 @@ public class RefasModel extends AbstractModel {
 
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
-	private Map<String, MetaExpressionType> metaExpressionTypes;
+	private Map<String, SemanticExpressionType> semanticExpressionTypes;
 	/**
 	 * 
 	 */
@@ -96,21 +96,21 @@ public class RefasModel extends AbstractModel {
 	private List<InstView> instViews;
 
 	public RefasModel(PerspectiveType perspectiveType,
-			Map<String, MetaExpressionType> metaExpressionTypes) {
+			Map<String, SemanticExpressionType> metaExpressionTypes) {
 		this(perspectiveType, metaExpressionTypes, null, null);
 	}
 
-	public RefasModel(Map<String, MetaExpressionType> metaExpressionTypes,
+	public RefasModel(Map<String, SemanticExpressionType> metaExpressionTypes,
 			RefasModel syntaxRefas) {
 		this(PerspectiveType.semantic, metaExpressionTypes, syntaxRefas, null);
 	}
 
 	public RefasModel(PerspectiveType perspectiveType,
-			Map<String, MetaExpressionType> metaExpressionTypes,
+			Map<String, SemanticExpressionType> semanticExpressionTypes,
 			RefasModel syntaxRefas, RefasModel semanticRefas) {
 		this.perspectiveType = perspectiveType;
 		this.syntaxRefas = syntaxRefas;
-		this.metaExpressionTypes = metaExpressionTypes;
+		this.semanticExpressionTypes = semanticExpressionTypes;
 		this.semanticRefas = semanticRefas;
 		variabilityInstVertex = new HashMap<String, InstVertex>();
 		instGroupDependencies = new HashMap<String, InstOverTwoRelation>();
@@ -145,8 +145,8 @@ public class RefasModel extends AbstractModel {
 		return syntaxRefas;
 	}
 
-	public Map<String, MetaExpressionType> getMetaExpressionTypes() {
-		return metaExpressionTypes;
+	public Map<String, SemanticExpressionType> getSemanticExpressionTypes() {
+		return semanticExpressionTypes;
 	}
 
 	public RefasModel getSemanticRefas() {

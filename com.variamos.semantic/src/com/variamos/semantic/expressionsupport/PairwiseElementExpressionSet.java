@@ -255,23 +255,6 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				allList.add(out8);
 
 				break;
-			case "implementation":
-
-			/*	sourcePositiveAttributeNames.add("Selected");
-				// sourceAttributeNames.add("Core");
-				// targetId_Selected #==> SourceId_Selected #= 1
-				AbstractComparisonExpression transformation18 = new EqualsComparisonExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", getHlclFactory().number(1));
-				AbstractBooleanExpression out7 = new ImplicationBooleanExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", true, transformation18);
-				getElementExpressions().add(out7);
-				structureList.add(out7);
-				allList.add(out7);
-
-				break;
-*/
 			case "OperToClaim":
 				sourcePositiveAttributeNames.add("Selected");
 				sourceNegativeAttributeNames.add("NotAvailable");
@@ -279,7 +262,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				AndBooleanExpression out43 = new AndBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "ConditionalExpression");
+						"Selected", "CompExp");
 				EqualsComparisonExpression out46 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", true, out43);
@@ -295,26 +278,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				// structureList.add(out44);
 				allList.add(out44);
 				break;
+			case "implementation":
 			case "means_ends":
-				/*
-				 * sourcePositiveAttributeNames.add("Selected");
-				 * AbstractComparisonExpression transformation16 = new
-				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "NextReqSelected", getHlclFactory().number(1));
-				 * 
-				 * AbstractBooleanExpression out12 = new
-				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Selected",
-				 * true, transformation16); getElementExpressions().add(out12);
-				 * structureList.add(out12); allList.add(out12);
-				 * 
-				 * AbstractBooleanExpression out11 = new
-				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Selected",
-				 * true, transformation16); getElementExpressions().add(out11);
-				 * structureList.add(out11); allList.add(out11); break;
-				 */
 			case "mandatory":
 				sourcePositiveAttributeNames.add("Selected");
 				sourceNegativeAttributeNames.add("NotAvailable");

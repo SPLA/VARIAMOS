@@ -1047,12 +1047,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					}
 					instAttribute.updateValidationList(editElm, mapElements);
 
+					if (instAttribute.getIdentifier().equals(
+							"ConditionalExpression")) {
+						continue;
+					}
 					final WidgetR w = factory.getWidgetFor(instAttribute);
 
 					if (w == null) {
 						recursiveCall = false;
-						System.err.print("No Widget found for " + instAttribute);
-						return;
+						System.err.print("VGE: No Widget found for " + instAttribute);
+						continue;
 					}
 					// TODO: Add listeners to w.
 

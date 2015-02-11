@@ -107,52 +107,69 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 									.getMetaElement();
 
 							if (metaVertex instanceof MetaConcept) {
-								MetaElement metaElement = new MetaConcept();
+								// MetaElement metaElement = new MetaConcept();
 								Object o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaConcept.class,
 										MetaElement.class);
-								obj = (InstElement) c.newInstance("",
-										(MetaConcept) metaVertex, metaElement);
+								if (editor.getPerspective() != 2)
+									obj = (InstElement) c.newInstance("",
+											(MetaConcept) metaVertex,
+											new MetaConcept());
+								else
+									obj = (InstElement) c.newInstance("",
+											(MetaConcept) metaVertex, null);
+
 							} else if (metaVertex instanceof MetaOverTwoRelation) {
-								MetaElement metaElement = new MetaOverTwoRelation();
+								// MetaElement metaElement = ;
 								Object o = new InstOverTwoRelation();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class,
 										MetaOverTwoRelation.class,
 										MetaElement.class);
-								obj = (InstElement) c.newInstance("",
-										(MetaOverTwoRelation) metaVertex,
-										metaElement);
-							} else if (metaVertex instanceof MetaEnumeration) {
+								if (editor.getPerspective() != 2)
+									obj = (InstElement) c.newInstance("",
+											(MetaOverTwoRelation) metaVertex,
+											new MetaOverTwoRelation());
+								else
 
-								MetaElement metaElement = new MetaEnumeration();
+									obj = (InstElement) c.newInstance("",
+											(MetaOverTwoRelation) metaVertex,
+											null);
+							} else if (metaVertex instanceof MetaEnumeration) {
+								// MetaElement metaElement = new
+								// MetaEnumeration();
 								Object o = new InstEnumeration();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaVertex.class,
 										MetaElement.class);
-								obj = (InstElement) c.newInstance("",
-										(MetaVertex) metaVertex, metaElement);
+								if (editor.getPerspective() != 2)
+									obj = (InstElement) c.newInstance("",
+											(MetaVertex) metaVertex,
+											new MetaEnumeration());
+								else
+
+									obj = (InstElement) c.newInstance("",
+											(MetaVertex) metaVertex, null);
 							}
 
 						} else {
-							System.out.println("Not supported element for palette");
+							System.out
+									.println("Not supported element for palette");
 							/*
-							String classSingleName = paletteElement
-									.getClassName().substring(
-											paletteElement.getClassName()
-													.lastIndexOf(".") + 1);
-							Class<?> ref = Class.forName(paletteElement
-									.getClassName());
-
-							if (paletteElement.getId().equals(classSingleName)) {
-								obj = ref.newInstance();
-							} else {
-								Constructor<?> c = ref
-										.getConstructor(String.class);
-								obj = c.newInstance(paletteElement.getId());
-							}
-							*/
+							 * String classSingleName = paletteElement
+							 * .getClassName().substring(
+							 * paletteElement.getClassName() .lastIndexOf(".") +
+							 * 1); Class<?> ref = Class.forName(paletteElement
+							 * .getClassName());
+							 * 
+							 * if
+							 * (paletteElement.getId().equals(classSingleName))
+							 * { obj = ref.newInstance(); } else {
+							 * Constructor<?> c = ref
+							 * .getConstructor(String.class); obj =
+							 * c.newInstance(paletteElement.getId()); }
+							 */
 						}
 						palette.addTemplate(
 								// mxResources.get(

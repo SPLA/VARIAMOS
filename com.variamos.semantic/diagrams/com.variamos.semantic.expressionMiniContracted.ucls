@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="com.variamos.semantic.expressionsupport.MetaExpression" 
+  <class id="1" language="java" name="com.variamos.semantic.expressionsupport.SemanticExpression" 
     project="com.variamos.semantic" 
-    file="/com.variamos.semantic/src/com/variamos/semantic/expressionsupport/MetaExpression.java" binary="false" 
+    file="/com.variamos.semantic/src/com/variamos/semantic/expressionsupport/SemanticExpression.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="221" width="296" x="422" y="-35"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -12,9 +12,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.variamos.semantic.expressionsupport.MetaExpressionType" 
+  <class id="2" language="java" name="com.variamos.semantic.expressionsupport.SemanticExpressionType" 
     project="com.variamos.semantic" 
-    file="/com.variamos.semantic/src/com/variamos/semantic/expressionsupport/MetaExpressionType.java" binary="false" 
+    file="/com.variamos.semantic/src/com/variamos/semantic/expressionsupport/SemanticExpressionType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="382" width="293" x="427" y="-446"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -56,148 +56,164 @@
     </display>  
   </class>  
   <association id="6">    
-    <bendpoint x="213" y="-160"/>    
+    <bendpoint x="325" y="-199"/>    
+    <bendpoint x="328" y="-52"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="7" name="rightElement">        
-        <position height="0" width="0" x="-16" y="-1062"/>      
+      <attribute id="7" name="customSemanticExpression">        
+        <position height="0" width="0" x="-102" y="-197"/>      
       </attribute>      
       <multiplicity id="8" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-16" y="-1062"/>      
+        <position height="0" width="0" x="-102" y="-197"/>      
       </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="9">    
-    <bendpoint x="219" y="-4"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="10" name="metaExpresions"/>      
-      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="12">    
-    <bendpoint x="731" y="167"/>    
-    <bendpoint x="729" y="197"/>    
-    <bendpoint x="688" y="204"/>    
+  <association id="9">    
+    <bendpoint x="184" y="153"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="rightMetaExpression"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+      <attribute id="10" name="leftSemanticElement">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="12">    
+    <bendpoint x="405" y="192"/>    
+    <bendpoint x="385" y="162"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="13" name="leftSemanticExpression">        
+        <position height="0" width="0" x="-102" y="-197"/>      
+      </attribute>      
+      <multiplicity id="14" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-102" y="-197"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <bendpoint x="405" y="192"/>    
-    <bendpoint x="385" y="162"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="leftMetaExpression">        
-        <position height="0" width="0" x="-102" y="-197"/>      
+      <attribute id="16" name="rightSemanticElement">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-102" y="-197"/>      
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="18">    
-    <bendpoint x="184" y="153"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="19" name="leftSemanticElement"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <association id="22">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="23" name="rightSemanticElement"/>      
-      <multiplicity id="24" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
     <bendpoint x="362" y="-278"/>    
     <bendpoint x="360" y="-334"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="26" name="rightInstanceExpression">        
+      <attribute id="19" name="rightInstanceExpression">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
+      <multiplicity id="20" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="28">    
-    <bendpoint x="71" y="-159"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="29" name="leftElement">        
-        <position height="0" width="0" x="-16" y="-1062"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-16" y="-1062"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
-    <bendpoint x="325" y="-199"/>    
-    <bendpoint x="328" y="-52"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="32" name="customMetaExpression">        
-        <position height="0" width="0" x="-102" y="-197"/>      
-      </attribute>      
-      <multiplicity id="33" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-102" y="-197"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="34">    
+  <association id="21">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="35" name="metaExpressionType">        
+      <attribute id="22" name="semanticExpressionType">        
         <position height="0" width="0" x="-100" y="-3"/>      
       </attribute>      
-      <multiplicity id="36" minimum="0" maximum="1">        
+      <multiplicity id="23" minimum="0" maximum="1">        
         <position height="0" width="0" x="-100" y="-3"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="37">    
+  <association id="24">    
     <bendpoint x="360" y="-255"/>    
     <bendpoint x="360" y="-112"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="38" name="volatileMetaExpression">        
+      <attribute id="25" name="volatileSemanticExpression">        
         <position height="0" width="0" x="-102" y="-197"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
+      <multiplicity id="26" minimum="0" maximum="1">        
         <position height="0" width="0" x="-102" y="-197"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="40">    
+  <association id="27">    
+    <bendpoint x="213" y="-160"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="28" name="volatileRightElement">        
+        <position height="0" width="0" x="-16" y="-1062"/>      
+      </attribute>      
+      <multiplicity id="29" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-16" y="-1062"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <bendpoint x="71" y="-159"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="31" name="volatieLeftElement">        
+        <position height="0" width="0" x="-16" y="-1062"/>      
+      </attribute>      
+      <multiplicity id="32" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-16" y="-1062"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
     <bendpoint x="323" y="-231"/>    
     <bendpoint x="304" y="-170"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="41" name="leftInstanceExpression"/>      
-      <multiplicity id="42" minimum="0" maximum="1"/>    
+      <attribute id="34" name="leftInstanceExpression">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <bendpoint x="219" y="-4"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="37" name="semanticExpresions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <bendpoint x="731" y="167"/>    
+    <bendpoint x="729" y="197"/>    
+    <bendpoint x="688" y="204"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="40" name="rightSemanticExpression">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
