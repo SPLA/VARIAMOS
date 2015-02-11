@@ -407,7 +407,7 @@ public class ExpressionDialog extends JDialog {
 							color > 20 ? color - 20 : color > 5 ? color - 5
 									: color);
 					instanceExpression
-					.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+							.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("Number")) {
@@ -428,7 +428,7 @@ public class ExpressionDialog extends JDialog {
 							ExpressionVertexType.RIGHT,
 							instanceExpression.getRightValidExpressions()));
 					instanceExpression
-					.setRightExpressionType(ExpressionVertexType.RIGHT);
+							.setRightExpressionType(ExpressionVertexType.RIGHT);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("VariableValue")) {
@@ -438,7 +438,7 @@ public class ExpressionDialog extends JDialog {
 							ExpressionVertexType.RIGHTVARIABLEVALUE,
 							instanceExpression.getRightValidExpressions()));
 					instanceExpression
-					.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
+							.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 				}
 			}
 		}
@@ -479,6 +479,12 @@ public class ExpressionDialog extends JDialog {
 			final InstanceExpression instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
+		if (instanceExpression.getSideElement(expressionVertexType) == null)
+		{
+			String id = instanceExpression.getSideElementIdentifier(expressionVertexType);
+			instanceExpression.setElement(refasModel.getVertex(id),
+					expressionVertexType);
+		}
 		JComboBox<String> identifiers = null;
 		String varIdentifier = null;
 		varIdentifier = instanceExpression
@@ -530,9 +536,9 @@ public class ExpressionDialog extends JDialog {
 					String domain = (String) instVertex.getInstAttribute(
 							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
 					String split[] = domain.split(",");
-					for (String dom : split)
-					{ combo.addItem(instVertex.getIdentifier() + "_" + dom);
-					
+					for (String dom : split) {
+						combo.addItem(instVertex.getIdentifier() + "_" + dom);
+
 					}
 					break;
 				case "Enumeration":

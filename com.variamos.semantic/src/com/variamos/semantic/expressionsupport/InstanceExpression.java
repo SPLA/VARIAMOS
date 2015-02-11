@@ -51,12 +51,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	/**
 	 * for LEFT
 	 */
-	private InstElement leftElement;
+	private InstElement volatieLeftElement;
 
 	/**
 	 * for RIGHT
 	 */
-	private InstElement rightElement;
+	private InstElement volatileRightElement;
 
 	/**
 	 * for LEFTSUBEXPRESSION
@@ -83,6 +83,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private String lastLeft = null;
 	private String lastRight = null;
 
+	private boolean customExpression;
+	private String metaExpressionId;
+
+	private String rightElementId;
+	private String leftElementId;
+
 	public String getLastLeft() {
 		return lastLeft;
 	}
@@ -98,9 +104,6 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setLastRight(String lastRight) {
 		this.lastRight = lastRight;
 	}
-
-	private boolean customExpression;
-	private String metaExpressionId;
 
 	public InstanceExpression() {
 		customExpression = false;
@@ -128,8 +131,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			InstElement right) {
 		this.volatileMetaExpression = metaExpression;
 		this.metaExpressionId = metaExpression.getIdentifier();
-		this.leftElement = left;
-		this.rightElement = right;
+		setLeftElement(left);
+		setRightElement(right);
 	}
 
 	public InstanceExpression(MetaExpression metaExpression,
@@ -138,10 +141,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		this.volatileMetaExpression = metaExpression;
 		this.metaExpressionId = metaExpression.getIdentifier();
 		if (replaceTarget) {
-			this.leftElement = vertex;
+			setLeftElement(vertex);
 			this.rightInstanceExpression = instanceExpression;
 		} else {
-			this.rightElement = vertex;
+			setRightElement(vertex);
 			this.leftInstanceExpression = instanceExpression;
 		}
 	}
@@ -158,7 +161,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public InstanceExpression(MetaExpression metaExpression, InstElement vertex) {
 		this.volatileMetaExpression = metaExpression;
 		this.metaExpressionId = metaExpression.getIdentifier();
-		this.leftElement = vertex;
+		setLeftElement(vertex);
 	}
 
 	public Expression createExpression() {
@@ -215,25 +218,25 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	private Map<String, Identifier> getIdentifiers() {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
-		if (leftElement != null
+		if (volatieLeftElement != null
 				&& getMetaExpression().getLeftAttributeName() != null) {
 			// System.out.println(leftVertex.getIdentifier() + " "
 			// + leftAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(leftElement
+			Identifier identifier = hlclFactory.newIdentifier(volatieLeftElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getLeftAttributeName()), getMetaExpression()
 					.getLeftAttributeName());
-			out.put(leftElement
+			out.put(volatieLeftElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getLeftAttributeName()), identifier);
-			AbstractAttribute attribute = leftElement.getInstAttribute(
+			AbstractAttribute attribute = volatieLeftElement.getInstAttribute(
 					getMetaExpression().getLeftAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else {
 					if (attribute.getName().equals("value")) {
-						String domain = (String) leftElement.getInstAttribute(
+						String domain = (String) volatieLeftElement.getInstAttribute(
 								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
 						identifier.setDomain(DomainParser.parseDomain(domain));
 					} else
@@ -241,29 +244,28 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				}
 			}
 		}
-		if (rightElement != null
+		if (volatileRightElement != null
 				&& getMetaExpression().getRightAttributeName() != null) {
 			// System.out
 			// .println(rightVertex.getIdentifier() + rightAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(rightElement
+			Identifier identifier = hlclFactory.newIdentifier(volatileRightElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getRightAttributeName()), getMetaExpression()
 					.getRightAttributeName());
 
-			out.put(rightElement
+			out.put(volatileRightElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getRightAttributeName()), identifier);
-			AbstractAttribute attribute = rightElement.getInstAttribute(
+			AbstractAttribute attribute = volatileRightElement.getInstAttribute(
 					getMetaExpression().getRightAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
-				else
-					if (attribute.getName().equals("value")) {
-						String domain = (String) rightElement.getInstAttribute(
-								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-						identifier.setDomain(DomainParser.parseDomain(domain));
-					} else
+				else if (attribute.getName().equals("value")) {
+					String domain = (String) volatileRightElement.getInstAttribute(
+							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+					identifier.setDomain(DomainParser.parseDomain(domain));
+				} else
 					identifier.setDomain(new RangeDomain(0, 4));
 			}
 
@@ -282,11 +284,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (expressionVertexType.name().equals("LEFT")) {
 			// System.out.println(leftVertex.getIdentifier() + " "
 			// + leftAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(leftElement
+			Identifier identifier = hlclFactory.newIdentifier(volatieLeftElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getLeftAttributeName()), getMetaExpression()
 					.getLeftAttributeName());
-			AbstractAttribute attribute = leftElement.getInstAttribute(
+			AbstractAttribute attribute = volatieLeftElement.getInstAttribute(
 					getMetaExpression().getLeftAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
@@ -299,11 +301,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (expressionVertexType.name().equals("RIGHT")) {
 			// System.out
 			// .println(rightVertex.getIdentifier() + rightAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(rightElement
+			Identifier identifier = hlclFactory.newIdentifier(volatileRightElement
 					.getInstAttributeFullIdentifier(getMetaExpression()
 							.getRightAttributeName()), getMetaExpression()
 					.getRightAttributeName());
-			AbstractAttribute attribute = rightElement.getInstAttribute(
+			AbstractAttribute attribute = volatileRightElement.getInstAttribute(
 					getMetaExpression().getRightAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
@@ -317,7 +319,6 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	private List<Expression> expressionTerms() {
-		Map<String, Identifier> idMap = getIdentifiers();
 		List<Expression> out = new ArrayList<Expression>();
 
 		List<ExpressionVertexType> expressionVertexTypes = new ArrayList<ExpressionVertexType>();
@@ -372,12 +373,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		switch (expressionVertexType) {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
-			valueType = (String) this.leftElement.getInstAttribute(
+			valueType = (String) this.volatieLeftElement.getInstAttribute(
 					SemanticVariable.VAR_VARIABLETYPE).getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
-			valueType = (String) this.rightElement.getInstAttribute(
+			valueType = (String) this.volatileRightElement.getInstAttribute(
 					SemanticVariable.VAR_VARIABLETYPE).getValue();
 
 			break;
@@ -398,19 +399,27 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public InstElement getLeftElement() {
-		return leftElement;
+		return volatieLeftElement;
 	}
 
 	public void setLeftElement(InstElement leftElement) {
-		this.leftElement = leftElement;
+		this.volatieLeftElement = leftElement;
+		if (leftElement != null)
+			leftElementId = leftElement.getIdentifier();
+		else
+			leftElementId = null;
 	}
 
 	public InstElement getRightElement() {
-		return rightElement;
+		return volatileRightElement;
 	}
 
 	public void setRightElement(InstElement rightElement) {
-		this.rightElement = rightElement;
+		this.volatileRightElement = rightElement;
+		if (rightElement != null)
+			rightElementId = rightElement.getIdentifier();
+		else
+			rightElementId = null;
 	}
 
 	public InstanceExpression getLeftInstanceExpression() {
@@ -441,7 +450,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public void setLeftElement(InstElement instElement, String attribute) {
 		getMetaExpression().setLeftExpressionType(ExpressionVertexType.LEFT);
-		this.leftElement = instElement;
+		this.volatieLeftElement = instElement;
 		getMetaExpression().setLeftAttributeName(attribute);
 	}
 
@@ -457,7 +466,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public void setRightElement(InstElement instElement, String attribute) {
 		getMetaExpression().setRightExpressionType(ExpressionVertexType.RIGHT);
-		this.leftElement = instElement;
+		this.volatieLeftElement = instElement;
 		getMetaExpression().setRightAttributeName(attribute);
 	}
 
@@ -475,7 +484,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (metaExpressionType == null
 				|| metaExpressionType.isSingleInExpression()) {
 			rightInstanceExpression = null;
-			rightElement = null;
+			volatileRightElement = null;
 			getMetaExpression().setRightExpressionType(null);
 		}
 	}
@@ -567,14 +576,36 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		getMetaExpression().setRightExpressionType(expressionVertexType);
 	}
 
-	public String getElementIdentifier(ExpressionVertexType expressionVertexType) {
-		if (expressionVertexType == ExpressionVertexType.LEFT)
+	public String getSideElementIdentifier(
+			ExpressionVertexType expressionVertexType) {
+		if (expressionVertexType == ExpressionVertexType.LEFT) {
 			if (getLeftElement() != null)
 				return getLeftElement().getIdentifier();
-			else if (expressionVertexType == ExpressionVertexType.RIGHT)
-				if (getRightElement() != null)
-					return getRightElement().getIdentifier();
+			else
+				return leftElementId;
+		} else if (expressionVertexType == ExpressionVertexType.RIGHT) {
+			if (getRightElement() != null)
+				return getRightElement().getIdentifier();
+			else
+				return rightElementId;
+		}
 		return null;
+	}
+
+	public String getRightElementId() {
+		return rightElementId;
+	}
+
+	public void setRightElementId(String rightElementId) {
+		this.rightElementId = rightElementId;
+	}
+
+	public String getLeftElementId() {
+		return leftElementId;
+	}
+
+	public void setLeftElementId(String leftElementId) {
+		this.leftElementId = leftElementId;
 	}
 
 	public String getLeftValue() {
@@ -616,6 +647,19 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			break;
 		default:
 			return null;
+		}
+		return null;
+	}
+
+	public InstElement getSideElement(ExpressionVertexType expressionVertexType) {
+		switch (expressionVertexType) {
+		case LEFT:
+		case LEFTVARIABLEVALUE:
+			return getLeftElement();
+		case RIGHT:
+		case RIGHTVARIABLEVALUE:
+			return getRightElement();
+		default:
 		}
 		return null;
 	}
