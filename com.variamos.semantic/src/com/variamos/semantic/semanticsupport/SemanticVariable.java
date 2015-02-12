@@ -99,6 +99,8 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
 		this.addPropVisibleAttribute("05#" + VAR_CONTEXTTYPE);
 		this.addPropVisibleAttribute("06#" + VAR_SCOPE);
+		this.addPropVisibleAttribute("06#" + VAR_VALUE);
+		this.addPropVisibleAttribute("07#" + VAR_VALUE);
 
 		this.addPanelVisibleAttribute("01#" + VAR_NAME);
 		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE + "#"

@@ -2695,11 +2695,11 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 		instView.addInstVertex(instVertexOper);
 
-		IntSemanticOverTwoRelation semClaim = (IntSemanticOverTwoRelation) ((InstConcept) this
+		IntSemanticConcept semClaim = (IntSemanticConcept) ((InstConcept) this
 				.getSemanticRefas().getVertex("SemClaim"))
 				.getEditableSemanticElement();
 
-		MetaOverTwoRelation syntaxClaim = new MetaOverTwoRelation("CL", true,
+		MetaConcept syntaxClaim = new MetaConcept("CL", true,
 				"Claim", "refasclaim", "A claim includes a group of"
 						+ " operationalizations and a logical condition"
 						+ " to evaluate the claim satisfaction."
@@ -2709,6 +2709,18 @@ public class RefasModel extends AbstractModel {
 						+ " includes a relation with a softgoal (SG)", 100, 50,
 				"/com/variamos/gui/refas/editor/images/claim.png", true,
 				Color.BLUE.toString(), 1, true, semClaim);
+		
+		syntaxClaim.addModelingAttribute("name", "String", false,
+				"Name", "");
+
+		syntaxClaim.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxClaim.addPropEditableAttribute("03#" + "name");
+
+		syntaxClaim.addPropVisibleAttribute("03#" + "name");
+		
+		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		
 		syntaxMetaView.addConcept(syntaxClaim);
 		InstVertex instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
@@ -2738,6 +2750,15 @@ public class RefasModel extends AbstractModel {
 						+ " The SD includes a relation with a softgoal (SG)",
 				100, 70, "/com/variamos/gui/refas/editor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, true, semSoftDependency);
+		
+		syntaxSoftDependency.addModelingAttribute("name", "String", false,
+				"Name", "");
+
+		syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
+
+		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
 		syntaxMetaView.addConcept(syntaxSoftDependency);
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
