@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -162,6 +163,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		this.volatileSemanticExpression = semanticExpression;
 		this.semanticExpressionId = semanticExpression.getIdentifier();
 		setLeftElement(vertex);
+	}
+	
+	public Expression createSGSExpression(String element)
+	{
+		Expression condition = createExpression();
+		Identifier iden = hlclFactory.newIdentifier(element+"_Selected");
+		return hlclFactory.doubleImplies(iden, (BooleanExpression)condition);
 	}
 
 	public Expression createExpression() {

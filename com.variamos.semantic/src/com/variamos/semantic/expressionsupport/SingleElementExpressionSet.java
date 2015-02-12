@@ -32,7 +32,6 @@ import com.variamos.syntax.metamodelsupport.MetaElement;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
 
-//TODO refactor: SingleElementExpressionSet
 /**
  * A class to represent the constraints for restrictions of a concept. Part of
  * PhD work at University of Paris 1
@@ -269,11 +268,14 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
+								if ((InstanceExpression) instAttribute
+										.getValue() != null)
 								booleanExpressions
 										.put("Simul",
 												(BooleanExpression) ((InstanceExpression) instAttribute
 														.getValue())
-														.createExpression());
+														.createSGSExpression(instVertex
+																.getIdentifier()));
 							}
 
 							if (instAttribute.getIdentifier().equals(

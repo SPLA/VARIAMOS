@@ -208,7 +208,7 @@ public class ElementDesignPanel extends JPanel {
 												{
 													Expression exp = ((InstanceExpression) finalInstAttribute
 															.getValue())
-															.createExpression();
+															.createSGSExpression(finalEditElm.getIdentifier());
 													System.out.println(exp);
 												} catch(Exception e)
 												{
