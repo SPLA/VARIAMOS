@@ -267,7 +267,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", true, out43);
 				getElementExpressions().add(out46);
-				structureList.add(out46);
+				//structureList.add(out46);
 				allList.add(out46);
 
 				EqualsComparisonExpression out44 = new EqualsComparisonExpression(
@@ -358,8 +358,11 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				EqualsComparisonExpression out25 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						instPairwiseRelation, "SDReqLevel", "level");
-				getElementExpressions().add(out25);
-				allList.add(out25);
+				ImplicationBooleanExpression out26 = new ImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", true, out25);
+				getElementExpressions().add(out26);
+				allList.add(out26);
 
 				break;
 			case "none":
