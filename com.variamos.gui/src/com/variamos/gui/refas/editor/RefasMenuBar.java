@@ -17,12 +17,14 @@ import com.variamos.gui.refas.editor.actions.ClearConfigurationAction;
 import com.variamos.gui.refas.editor.actions.ClearSimulationAction;
 import com.variamos.gui.refas.editor.actions.ClearVerificationAction;
 import com.variamos.gui.refas.editor.actions.ExitAction;
+import com.variamos.gui.refas.editor.actions.HideSimulationDashBoardAction;
 import com.variamos.gui.refas.editor.actions.NewAction;
 import com.variamos.gui.refas.editor.actions.NextSimulationAction;
 import com.variamos.gui.refas.editor.actions.OpenAction;
 import com.variamos.gui.refas.editor.actions.ParentElementAction;
 import com.variamos.gui.refas.editor.actions.RootElementAction;
 import com.variamos.gui.refas.editor.actions.SaveAction;
+import com.variamos.gui.refas.editor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.refas.editor.actions.StartSimulationAction;
 import com.variamos.gui.refas.editor.actions.ToggleAssetVisibilityAction;
 import com.variamos.gui.refas.editor.actions.TogglePLVisibilityAction;
@@ -88,6 +90,7 @@ public class RefasMenuBar extends JMenuBar {
 		menu.add(editor.graphLayout("organicLayout", true));
 		menu.add(editor.graphLayout("circleLayout", true));
 		add(menu);
+		final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 
 		if (editor.getPerspective() == 2) {
 			menu = (JMenu) menu
@@ -110,8 +113,6 @@ public class RefasMenuBar extends JMenuBar {
 			menu.add(editor.bind(mxResources.get("clearElements"),
 					new ClearVerificationAction()));
 			add(menu);
-
-			final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 
 			menu = (JMenu) menu.add(new JMenu(mxResources
 					.get("verifyDefectsOptions")));
@@ -222,6 +223,34 @@ public class RefasMenuBar extends JMenuBar {
 					new StartSimulationAction()));
 			menu.add(editor.bind(mxResources.get("nextSimulation"),
 					new NextSimulationAction()));
+			menu.addSeparator();
+			menu.add(editor.bind(mxResources.get("showSimulationDashBoard"),
+					new ShowSimulationDashBoardAction()));
+			menu.add(editor.bind(mxResources.get("hideSimulationDashBoard"),
+					new HideSimulationDashBoardAction()));
+			JCheckBoxMenuItem item = new JCheckBoxMenuItem(
+					mxResources.get("nameSimulationDashBoard"));
+			item.setState(true);
+			item.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					AbstractButton aButton = (AbstractButton) arg0.getSource();
+					boolean selected = aButton.getModel().isSelected();
+
+					if (selected)
+						{
+						finalEditor.showNames(true);
+						finalEditor.updateDashBoard(false, false);
+						}
+					else
+					{
+						finalEditor.showNames(false);
+						finalEditor.updateDashBoard(false, false);
+					}
+				}
+			});
+			menu.add(item);
 			add(menu);
 		}
 

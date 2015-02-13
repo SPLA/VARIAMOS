@@ -180,10 +180,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
 	
-	public void updateDashBoard(boolean updateConcepts)
+	public void updateDashBoard(boolean updateConcepts, boolean updated)
 	{
-		dashBoardFrame.updateDashBoard(refasModel, updateConcepts);
-		dashBoardFrame.showDashBoard();
+		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
+		dashBoardFrame.showDashBoard(true);
+	}
+
+	public void showNames(boolean showNames)
+	{
+		dashBoardFrame.setShowNames(showNames);
+	}
+	
+	public void showDashBoard(boolean visible)
+	{
+		dashBoardFrame.showDashBoard(visible);
 	}
 
 	public Refas2Hlcl getRefas2hlcl() {

@@ -1,6 +1,7 @@
 package com.variamos.gui.refas.editor.panels;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -32,6 +33,8 @@ public class VariamosDashBoardFrame extends JFrame {
 	private JPanel solutionPanel = new JPanel(new SpringLayout());
 
 	private Map<String, Map<String, VisualElement>> elements = null;
+	
+	private boolean showNames = true;
 
 	public VariamosDashBoardFrame(RefasModel refasModel) {
 		this.refasModel = refasModel;
@@ -39,8 +42,8 @@ public class VariamosDashBoardFrame extends JFrame {
 
 	}
 
-	public void showDashBoard() {
-		this.setVisible(true);
+	public void showDashBoard(boolean visible) {
+		this.setVisible(visible);
 	}
 
 	public void initSolutionPanel() {
@@ -65,14 +68,19 @@ public class VariamosDashBoardFrame extends JFrame {
 					elements.put(metaId, new TreeMap<String, VisualElement>());
 				VisualElement visualElement = new VisualElement(instVertex);
 				elements.get(metaId).put(instId, visualElement);
-				solutionPanel.add(visualElement.showElement());
+			//	solutionPanel.add(visualElement.showElement(showNames, true));
 				out++;
 			}
 		}
 		return out;
 	}
 
-	public void updateDashBoard(RefasModel refasModel, boolean updateConcepts) {
+	public void setShowNames(boolean showNames)
+	{
+		this.showNames = showNames;
+	}
+	
+	public void updateDashBoard(RefasModel refasModel, boolean updateConcepts, boolean updated) {
 		this.refasModel = refasModel;
 		int concepts = 0;
 		if (updateConcepts)
@@ -82,15 +90,19 @@ public class VariamosDashBoardFrame extends JFrame {
 		for (Map<String, VisualElement> groupElement : elements.values()) {
 			boolean title = false;
 			JPanel typePanel = new JPanel(new SpringLayout());
-			int elements = 0;
+			int elements = 0, cols = 3;
 			for (VisualElement element : groupElement.values()) {
 				if (!title) {
-					solutionPanel.add(new JLabel("***"
-							+ element.getMetaElementId() + "***"));
+					JLabel titleLab = new JLabel("***                 "
+							+ element.getMetaElementName() + "s              ***");
+
+					titleLab.setFont(new Font("default", Font.BOLD, 14));
+					solutionPanel.add(titleLab);
 					title = true;
+					cols = element.getCols();
 					concepts++;
 				}
-				typePanel.add(element.showElement());
+				typePanel.add(element.showElement(showNames, updated));
 				elements++;				
 			}
 			if(elements%3>0)
@@ -103,7 +115,7 @@ public class VariamosDashBoardFrame extends JFrame {
 				typePanel.add(new JLabel(""));
 				elements++;
 			}
-			SpringUtilities.makeCompactGrid(typePanel, elements/3, 3, 4, 4, 4, 4);
+			SpringUtilities.makeCompactGrid(typePanel, elements/cols, cols, 4, 4, 4, 4);
 			solutionPanel.add(typePanel);
 			concepts++;
 		}
