@@ -1602,7 +1602,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void verify() {
+		try{
 		verify(defects);
+		}
+		catch (java.lang.UnsatisfiedLinkError e)
+		{
+			JOptionPane.showMessageDialog(frame, "Solver not correctly configured",
+					"System Configuration Error",
+					JOptionPane.INFORMATION_MESSAGE, null);
+		}
 	}
 
 	public void verify(List<String> defect) {
