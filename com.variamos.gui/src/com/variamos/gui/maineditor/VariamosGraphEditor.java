@@ -83,6 +83,7 @@ import com.variamos.gui.refas.editor.SemanticPlusSyntax;
 import com.variamos.gui.refas.editor.actions.SharedActions;
 import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
 import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
+import com.variamos.gui.refas.editor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
@@ -176,6 +177,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private boolean invalidConfigHlclProgram = true;
 
 	private boolean updateTabs = false;
+	
+	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
+	
+	public void updateDashBoard(boolean updateConcepts)
+	{
+		dashBoardFrame.updateDashBoard(refasModel, updateConcepts);
+		dashBoardFrame.showDashBoard();
+	}
 
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
@@ -462,6 +471,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void updateEditor() {
+		dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
 	}

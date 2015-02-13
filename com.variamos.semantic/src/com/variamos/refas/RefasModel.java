@@ -854,6 +854,8 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("IsRootFeature",
 				new SemanticAttribute("IsRootFeature", "Boolean", true,
 						"Is a Root Feature Concept", false));
+				
+		
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
@@ -873,11 +875,8 @@ public class RefasModel extends AbstractModel {
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new SemanticAttribute("RequiredLevel", "Integer", false,
-						"Required Level", 0, new RangeDomain(0, 5))); // TODO
-																		// define
-																		// domain
-		// or Enum
-		// Level
+						"Required Level", 0, new RangeDomain(0, 4))); 
+		// TODO define domain or Enum Level
 
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
 				new SimulationConfigAttribute("ConfigSelected", "Boolean",
@@ -885,43 +884,26 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected",
 				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
+		
+		semGeneralElement.putSemanticAttribute("DashBoardVisible",
+				new SimulationConfigAttribute("DashBoardVisible", "Boolean", true,
+						"Visible on Dashboard", true));
 
-		// semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
-		// + "Core" + "#==#" + "false" + "#" + "true");
-		// semGeneralElement.addDisPropEditableAttribute("02#" +
-		// "Visibility"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
-		// semGeneralElement.addPropEditableAttribute("05#" + "RequiredLevel"
-		// + "#" + "Required" + "#==#" + "true" + "#" + "0");
 
-		// semGeneralElement.addPropEditableAttribute("10#" + "ConfigSatisfied"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
-		// semGeneralElement.addPropEditableAttribute("11#" +
-		// "ConfigNotSatisfied"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
+		semGeneralElement.addPropEditableAttribute("03#" + "DashBoardVisible");
+		
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
+
+		semGeneralElement.addPropVisibleAttribute("03#" + "DashBoardVisible");
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
-		/*
-		 * semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
-		 * semGeneralElement.addPropVisibleAttribute("10#" +
-		 * "ConfigNotSatisfied");
-		 * semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
-		 * semGeneralElement.addPropVisibleAttribute("16#" +
-		 * "ConfigNotSelected");
-		 */
-		// semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
-		// + "#" + "Core" + "#==#" + "false" + "#" + "true");
-		// semGeneralElement.addPropVisibleAttribute("10#" +
-		// "ConfigNotSatisfied"
-		// + "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected"
 				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
