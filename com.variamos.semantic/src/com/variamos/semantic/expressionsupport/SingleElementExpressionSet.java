@@ -270,12 +270,23 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									"ConditionalExpression")) {
 								if ((InstanceExpression) instAttribute
 										.getValue() != null)
-								booleanExpressions
-										.put("Simul",
-												(BooleanExpression) ((InstanceExpression) instAttribute
-														.getValue())
-														.createSGSExpression(instVertex
-																.getIdentifier()));
+									booleanExpressions
+											.put("Simul",
+													(BooleanExpression) ((InstanceExpression) instAttribute
+															.getValue())
+															.createSGSExpression(instVertex
+																	.getIdentifier()));
+								else
+									booleanExpressions
+											.put("Simul",
+													(BooleanExpression) getHlclFactory()
+															.equals(getHlclFactory()
+																	.newIdentifier(
+																			instVertex
+																					.getIdentifier()
+																					+ "_CompExp"),
+																	getHlclFactory()
+																			.number(1)));
 							}
 
 							if (instAttribute.getIdentifier().equals(

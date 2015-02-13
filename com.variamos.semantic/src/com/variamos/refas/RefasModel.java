@@ -854,6 +854,8 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("IsRootFeature",
 				new SemanticAttribute("IsRootFeature", "Boolean", true,
 						"Is a Root Feature Concept", false));
+				
+		
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
@@ -873,11 +875,8 @@ public class RefasModel extends AbstractModel {
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new SemanticAttribute("RequiredLevel", "Integer", false,
-						"Required Level", 0, new RangeDomain(0, 5))); // TODO
-																		// define
-																		// domain
-		// or Enum
-		// Level
+						"Required Level", 0, new RangeDomain(0, 4))); 
+		// TODO define domain or Enum Level
 
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
 				new SimulationConfigAttribute("ConfigSelected", "Boolean",
@@ -885,43 +884,26 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected",
 				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
+		
+		semGeneralElement.putSemanticAttribute("DashBoardVisible",
+				new SimulationConfigAttribute("DashBoardVisible", "Boolean", true,
+						"Visible on Dashboard", true));
 
-		// semGeneralElement.addPropEditableAttribute("01#" + "Active" + "#"
-		// + "Core" + "#==#" + "false" + "#" + "true");
-		// semGeneralElement.addDisPropEditableAttribute("02#" +
-		// "Visibility"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
-		// semGeneralElement.addPropEditableAttribute("05#" + "RequiredLevel"
-		// + "#" + "Required" + "#==#" + "true" + "#" + "0");
 
-		// semGeneralElement.addPropEditableAttribute("10#" + "ConfigSatisfied"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
-		// semGeneralElement.addPropEditableAttribute("11#" +
-		// "ConfigNotSatisfied"
-		// + "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
+		semGeneralElement.addPropEditableAttribute("03#" + "DashBoardVisible");
+		
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
+
+		semGeneralElement.addPropVisibleAttribute("03#" + "DashBoardVisible");
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
-		/*
-		 * semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied");
-		 * semGeneralElement.addPropVisibleAttribute("10#" +
-		 * "ConfigNotSatisfied");
-		 * semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected");
-		 * semGeneralElement.addPropVisibleAttribute("16#" +
-		 * "ConfigNotSelected");
-		 */
-		// semGeneralElement.addPropVisibleAttribute("10#" + "ConfigSatisfied"
-		// + "#" + "Core" + "#==#" + "false" + "#" + "true");
-		// semGeneralElement.addPropVisibleAttribute("10#" +
-		// "ConfigNotSatisfied"
-		// + "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("15#" + "ConfigSelected"
 				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
 		semGeneralElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
@@ -2695,11 +2677,11 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 		instView.addInstVertex(instVertexOper);
 
-		IntSemanticOverTwoRelation semClaim = (IntSemanticOverTwoRelation) ((InstConcept) this
+		IntSemanticConcept semClaim = (IntSemanticConcept) ((InstConcept) this
 				.getSemanticRefas().getVertex("SemClaim"))
 				.getEditableSemanticElement();
 
-		MetaOverTwoRelation syntaxClaim = new MetaOverTwoRelation("CL", true,
+		MetaConcept syntaxClaim = new MetaConcept("CL", true,
 				"Claim", "refasclaim", "A claim includes a group of"
 						+ " operationalizations and a logical condition"
 						+ " to evaluate the claim satisfaction."
@@ -2709,6 +2691,18 @@ public class RefasModel extends AbstractModel {
 						+ " includes a relation with a softgoal (SG)", 100, 50,
 				"/com/variamos/gui/refas/editor/images/claim.png", true,
 				Color.BLUE.toString(), 1, true, semClaim);
+		
+		syntaxClaim.addModelingAttribute("name", "String", false,
+				"Name", "");
+
+		syntaxClaim.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxClaim.addPropEditableAttribute("03#" + "name");
+
+		syntaxClaim.addPropVisibleAttribute("03#" + "name");
+		
+		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		
 		syntaxMetaView.addConcept(syntaxClaim);
 		InstVertex instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
@@ -2738,6 +2732,15 @@ public class RefasModel extends AbstractModel {
 						+ " The SD includes a relation with a softgoal (SG)",
 				100, 70, "/com/variamos/gui/refas/editor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, true, semSoftDependency);
+		
+		syntaxSoftDependency.addModelingAttribute("name", "String", false,
+				"Name", "");
+
+		syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
+
+		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
+
+		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
 		syntaxMetaView.addConcept(syntaxSoftDependency);
 		InstVertex instVertexSD = new InstConcept("SoftDependency",

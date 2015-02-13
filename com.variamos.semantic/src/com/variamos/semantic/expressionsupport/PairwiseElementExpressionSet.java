@@ -15,6 +15,7 @@ import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.AbstractNumericExpression;
 import com.variamos.semantic.expressions.AndBooleanExpression;
 import com.variamos.semantic.expressions.DiffNumericExpression;
+import com.variamos.semantic.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.semantic.expressions.EqualsComparisonExpression;
 import com.variamos.semantic.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.semantic.expressions.ImplicationBooleanExpression;
@@ -263,7 +264,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", "CompExp");
-				EqualsComparisonExpression out46 = new EqualsComparisonExpression(
+				DoubleImplicationBooleanExpression out46 = new DoubleImplicationBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", true, out43);
 				getElementExpressions().add(out46);
@@ -361,8 +362,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				ImplicationBooleanExpression out26 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, out25);
-				getElementExpressions().add(out26);
+				getElementExpressions().add(out26);				
 				allList.add(out26);
+				
+				DoubleImplicationBooleanExpression out27 = new DoubleImplicationBooleanExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getSourceRelations().get(0),
+						"Selected", "CompExp");
+				getElementExpressions().add(out27);
 
 				break;
 			case "none":

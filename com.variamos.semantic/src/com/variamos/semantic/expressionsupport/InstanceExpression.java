@@ -168,7 +168,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public Expression createSGSExpression(String element)
 	{
 		Expression condition = createExpression();
-		Identifier iden = hlclFactory.newIdentifier(element+"_Selected");
+		Identifier iden = hlclFactory.newIdentifier(element+"_CompExp");
 		return hlclFactory.doubleImplies(iden, (BooleanExpression)condition);
 	}
 
@@ -299,6 +299,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			AbstractAttribute attribute = volatieLeftElement.getInstAttribute(
 					getSemanticExpression().getLeftAttributeName()).getAttribute();
 			if (attribute.getType().equals("Integer")) {
+				if (attribute.getName().equals("value")) {
+					String domain = (String) volatieLeftElement.getInstAttribute(
+							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+					identifier.setDomain(DomainParser.parseDomain(domain));
+				} else
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else
