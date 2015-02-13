@@ -43,7 +43,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
-	private IntInstanceExpression insExpressions;
+	private List<IntInstanceExpression> instanceExpressions;
 	private IntSemanticElement editableSemanticElement;
 
 	private MetaElement editableMetaElement;

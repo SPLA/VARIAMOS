@@ -13,7 +13,7 @@ import com.variamos.semantic.semanticsupport.AbstractSemanticElement;
  * @version 1.1
  * @since 2015-02-05
  */
-public class SemanticExpressionSet {
+public class SemExprSet {
 	private String identifier;
 	private String description;
 	private boolean userSelectable;
@@ -21,5 +21,5 @@ public class SemanticExpressionSet {
 	private int responseAction;
 	private String errorDescription;
 	private List<AbstractSemanticElement> semanticElements;
-	private List<ExpressionSetSubAction> expressionSetSubAction;
+	private List<SemExprSetSubAction> expressionSetSubAction;
 }

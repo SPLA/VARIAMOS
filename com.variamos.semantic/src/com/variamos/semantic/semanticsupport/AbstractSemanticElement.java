@@ -40,7 +40,7 @@ public class AbstractSemanticElement implements Serializable,
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private List<SemanticExpression> metaExpresions;
+	private List<SemanticExpression> semanticExpresions;
 
 	public AbstractSemanticElement(String identifier) {
 		this(null, identifier, new ArrayList<String>(),
