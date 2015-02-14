@@ -180,10 +180,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
 	
-	public void updateDashBoard(boolean updateConcepts)
+	public void updateDashBoard(boolean updateConcepts, boolean updated)
 	{
-		dashBoardFrame.updateDashBoard(refasModel, updateConcepts);
-		dashBoardFrame.showDashBoard();
+		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
+		dashBoardFrame.showDashBoard(true);
+	}
+
+	public void showNames(boolean showNames)
+	{
+		dashBoardFrame.setShowNames(showNames);
+	}
+	
+	public void showDashBoard(boolean visible)
+	{
+		dashBoardFrame.showDashBoard(visible);
 	}
 
 	public Refas2Hlcl getRefas2hlcl() {
@@ -323,10 +333,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			upperPart.setDividerLocation(0);
 			graphAndRight.setDividerLocation(700);
 			setVisibleModel(-1, -1);
-
 			updateView();
 		} else {
-			int i = 0;
 			for (InstView instView : instViews) {
 			//	mxCell parent = new mxCell(new InstCell(null, false));
 			//	parent.setId("mv" + i);
@@ -411,7 +419,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						((MainFrame) editor.getFrame()).waitingCursor(false);
 					}
 				});
-				i++;
 			}
 			center.setDividerLocation(25);
 			upperPart.setDividerLocation(0);
@@ -1428,7 +1435,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			SharedActions.afterOpenCloneGraph(target, this);
 		}
 		if (perspective == 4) {
-
+			clearElementState(Refas2Hlcl.DESIGN_EXEC);
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
@@ -1450,7 +1457,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private void updateRefasModel(AbstractModel editedModel) {
 		refasModel = (RefasModel) editedModel;
 		this.refas2hlcl.setRefas(refasModel);
-
 	}
 
 	/**
@@ -1462,7 +1468,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		if (!lastSolverInvocations.equals("")) {
 			solver = " Last Execution Times(ms) {Total[Solver]}: "
 					+ lastSolverInvocations + " || ";
-
 		}
 		status(solver + e.getX() + ", " + e.getY());
 	}

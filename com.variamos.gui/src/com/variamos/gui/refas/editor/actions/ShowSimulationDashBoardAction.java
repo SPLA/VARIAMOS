@@ -8,20 +8,18 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.refas.Refas2Hlcl;
 
 @SuppressWarnings("serial")
-public class NextSimulationAction extends AbstractEditorAction {
+public class ShowSimulationDashBoardAction extends AbstractEditorAction {
 
-	public NextSimulationAction() {
-		this.putValue(SHORT_DESCRIPTION, mxResources.get("nextSimulation"));
+	public ShowSimulationDashBoardAction() {
+
+	//	this.putValue(SHORT_DESCRIPTION, mxResources.get("resetSimulation"));
 	}
 
 	/**
 		 * 
 		 */
 	public void actionPerformed(ActionEvent e) {
-		VariamosGraphEditor editor = getEditor(e);
-		editor.clearNotificationBar();
-		editor.executeSimulation(false, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
-		editor.updateDashBoard(false, true);
+		VariamosGraphEditor editor = getEditor(e);		
+		editor.updateDashBoard(true, false);
 	}
-
 }

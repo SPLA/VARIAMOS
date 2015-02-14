@@ -69,7 +69,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private InstanceExpression rightInstanceExpression;
 
 	// TODO change to a new class for type (normal, relax)
-	private List<ExpressionSubAction> expressionSubActions;
+	private List<ExpressionSubAction> SemExprSubActions;
 
 	/**
 	 * For LEFTVARIABLEVALUE
