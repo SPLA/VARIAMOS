@@ -88,6 +88,13 @@ public class VisualElement implements Comparable {
 		if (updated)
 			updateValues();
 		JPanel row = new JPanel();
+		JLabel label = null;
+		if (showNames)
+			label = new JLabel((String) instElement.getInstAttribute("name")
+					.getValue());
+		else
+			label = new JLabel(instElement.getIdentifier());
+		row.add(label);
 		if (semanticElement instanceof SemanticVariable) {
 			row.add(new JLabel("Type: "));
 			row.add(new JLabel((String) instElement.getInstAttribute(
@@ -96,22 +103,15 @@ public class VisualElement implements Comparable {
 			row.add(new JLabel(instElement.getInstAttribute("value")
 					.getAsInteger() + ""));
 		} else {
-			JLabel label = null;
-			if (showNames)
-				label = new JLabel((String) instElement
-						.getInstAttribute("name").getValue());
-			else
-				label = new JLabel(instElement.getIdentifier());
 			if (selected)
 				row.setBackground(green);
 			if (notAvailable)
 				row.setBackground(red);
 			if (this.updated) {
 				label.setForeground(yellow);
-				row.setBorder( BorderFactory.createLineBorder(Color.black));
+				row.setBorder(BorderFactory.createLineBorder(Color.black));
 				label.setFont(new Font("default", Font.BOLD, 12));
 			}
-			row.add(label);
 			row.add(new JLabel(otherParameters));
 		}
 		return row;

@@ -268,14 +268,16 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
-								if ((InstanceExpression) instAttribute
-										.getValue() != null)
+								InstanceExpression instanceExpression = (InstanceExpression) instAttribute
+										.getValue();
+								if (instanceExpression != null)
+								{
 									booleanExpressions
 											.put("Simul",
-													(BooleanExpression) ((InstanceExpression) instAttribute
-															.getValue())
+													(BooleanExpression) (instanceExpression)
 															.createSGSExpression(instVertex
 																	.getIdentifier()));
+								}
 								else
 									booleanExpressions
 											.put("Simul",
