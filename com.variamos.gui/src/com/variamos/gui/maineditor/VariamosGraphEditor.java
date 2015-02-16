@@ -153,7 +153,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected JPanel elementConfigPropPanel;
 	protected JPanel elementExpressionPanel;
 	protected JPanel elementSimPropPanel;
-	protected PerspectiveToolBar perspectiveToolBar;
+	protected JPanel perspectiveToolBarPanel;
 	// Bottom tabs
 	protected JTabbedPane extensionTabs;
 	protected static SemanticPlusSyntax sematicSyntaxObject;
@@ -177,22 +177,20 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private boolean invalidConfigHlclProgram = true;
 
 	private boolean updateTabs = false;
-	
-	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
-	
-	public void updateDashBoard(boolean updateConcepts, boolean updated)
-	{
+
+	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
+			(RefasModel) getEditedModel());
+
+	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
 		dashBoardFrame.showDashBoard(true);
 	}
 
-	public void showNames(boolean showNames)
-	{
+	public void showNames(boolean showNames) {
 		dashBoardFrame.setShowNames(showNames);
 	}
-	
-	public void showDashBoard(boolean visible)
-	{
+
+	public void showDashBoard(boolean visible) {
 		dashBoardFrame.showDashBoard(visible);
 	}
 
@@ -214,7 +212,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
-
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
@@ -302,18 +299,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
 		super(frame, "", component, perspective);
-		
-		//Default defects validation
+
+		// Default defects validation
 		defects.add("Root");
 		defects.add("Parent");
 		defects.add("FalseOpt");
 		defects.add("Dead");
 		defects.add("Core");
-		
+
 		refasModel = (RefasModel) abstractModel;
 		metaViews = new ArrayList<MetaView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
-
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
@@ -336,24 +332,25 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			updateView();
 		} else {
 			for (InstView instView : instViews) {
-			//	mxCell parent = new mxCell(new InstCell(null, false));
-			//	parent.setId("mv" + i);
-			//	refasGraph.addCell(parent);
+				// mxCell parent = new mxCell(new InstCell(null, false));
+				// parent.setId("mv" + i);
+				// refasGraph.addCell(parent);
 				MetaView metaView = (MetaView) instView
 						.getEditableMetaElement();
 				metaViews.add(metaView);
 				JPanel tabPane = new JPanel();
 				if (metaView.getChildViews().size() > 0) {
 					modelsTabPane.add(metaView.getName(), tabPane);
-			//		mxCell child = new mxCell(new InstCell(null, false));
-			//		child.setId("mv" + i);
-			//		refasGraph.addCell(child, parent);
+					// mxCell child = new mxCell(new InstCell(null, false));
+					// child.setId("mv" + i);
+					// refasGraph.addCell(child, parent);
 					// Add the parent as first child
 					for (int j = 0; j < metaView.getChildViews().size(); j++) {
-			//			mxCell child2 = new mxCell(new InstCell(null, false));
-			//			child2.setId("mv" + i + "-" + j);
-			//			refasGraph.addCell(child2,
-			//					parent);
+						// mxCell child2 = new mxCell(new InstCell(null,
+						// false));
+						// child2.setId("mv" + i + "-" + j);
+						// refasGraph.addCell(child2,
+						// parent);
 						MetaView metaChildView = metaView.getChildViews()
 								.get(j);
 						JButton a = new JButton(metaChildView.getName());
@@ -379,8 +376,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						// System.out.println("Tab: "
 						// + modelsTabPane.getTitleAt(modelsTabPane
 						// .getSelectedIndex()));
-						
-						//TODO change to RefasModel
+
+						// TODO change to RefasModel
 						List<MetaView> metaViews = sematicSyntaxObject
 								.getMetaViews();
 						VariamosGraphEditor editor = getEditor();
@@ -446,6 +443,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return modelViewIndex;
 	}
 
+	public void setAdvancedPerspective(boolean advancedPerspective) {
+		getMainFrame().setAdvancedPerspective(advancedPerspective);
+		this.installToolBar(getMainFrame(), perspective);
+	}
+
 	public int getModelSubViewIndex() {
 		return modelSubViewIndex;
 	}
@@ -478,7 +480,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void updateEditor() {
-		dashBoardFrame = new VariamosDashBoardFrame((RefasModel)getEditedModel());
+		dashBoardFrame = new VariamosDashBoardFrame(
+				(RefasModel) getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
 	}
@@ -527,7 +530,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				refasGraph = new RefasGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling, null);
+					abstractModel = new RefasModel(PerspectiveType.modeling,
+							null);
 					refasGraph = new RefasGraph(persp);
 
 				}
@@ -559,7 +563,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				refasGraph = new RefasGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling, null);
+					abstractModel = new RefasModel(PerspectiveType.modeling,
+							null);
 					refasGraph = new RefasGraph(persp);
 
 				}
@@ -631,7 +636,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		setModified(false);
 	}
-	
+
 	private void registerEvents() {
 		mxGraphSelectionModel selModel = getGraphComponent().getGraph()
 				.getSelectionModel();
@@ -669,10 +674,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// // getGraphComponent().scrollCellToVisible(cell, true);
 				// }
 				InstCell value = (InstCell) cell.getValue();
-			//	if (value instanceof InstCell) {
-				//	EditableElement elm = (EditableElement) value;
-					editPropertiesRefas(value);
-					// getGraphComponent().scrollCellToVisible(cell, true);
+				// if (value instanceof InstCell) {
+				// EditableElement elm = (EditableElement) value;
+				editPropertiesRefas(value);
+				// getGraphComponent().scrollCellToVisible(cell, true);
 			}
 		});
 	}
@@ -825,13 +830,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 							editableElementType = "groupdep";
 						}
 						ElementExpressionSet metaExpressionSet = refas2hlcl
-								.getElementConstraintGroup(
-										lastEditableElement.getInstElement().getIdentifier(),
+								.getElementConstraintGroup(lastEditableElement
+										.getInstElement().getIdentifier(),
 										editableElementType,
 										Refas2Hlcl.CONF_EXEC);
 
 						expressions.configure(getEditedModel(),
-								metaExpressionSet,lastEditableElement.getInstElement());
+								metaExpressionSet,
+								lastEditableElement.getInstElement());
 						updateExpressions = false;
 					}
 				}
@@ -966,7 +972,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			elementExpressionPanel.removeAll();
 			elementSimPropPanel.removeAll();
 
-			if (instCell == null || instCell.getInstElement()== null) {
+			if (instCell == null || instCell.getInstElement() == null) {
 				if (lastTabIndex != 0)
 					lastTabIndex = 0;
 				else {
@@ -1031,17 +1037,19 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				if (editableElementType != null)
 					if (this.perspective == 2)
 
-						if (refas2hlcl.validateConceptType(editElm, "SemGeneralElement"))
-						expressionsArea.setText(refas2hlcl
-								.getElementTextConstraints(editElm.getIdentifier(),
-										editableElementType,
-										Refas2Hlcl.CONF_EXEC));
+						if (refas2hlcl.validateConceptType(editElm,
+								"SemGeneralElement"))
+							expressionsArea.setText(refas2hlcl
+									.getElementTextConstraints(
+											editElm.getIdentifier(),
+											editableElementType,
+											Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									editElm.getIdentifier(), editableElementType,
-									Refas2Hlcl.SIMUL_EXEC));
+									editElm.getIdentifier(),
+									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
 				// refas2hlcl.getElementConstraintGroup(
@@ -1072,7 +1080,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 					if (w == null) {
 						recursiveCall = false;
-						System.err.print("VGE: No Widget found for " + instAttribute);
+						System.err.print("VGE: No Widget found for "
+								+ instAttribute);
 						continue;
 					}
 					// TODO: Add listeners to w.
@@ -1162,46 +1171,29 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						elementConfPropSubPanel.add(w);
 
 						if (instAttribute.isAffectProperties()) {
-							/*if (w.getEditor() instanceof JCheckBox)
-								((JCheckBox) w.getEditor())
-										.addActionListener(new ActionListener() {
-											public void actionPerformed(
-													ActionEvent e) {
-												AbstractButton aButton = (AbstractButton) e
-														.getSource();
-
-												// System.out.println(selected);
-												updateTabs = true;
-											//	((JCheckBox) w.getEditor())
-											//			.repaint();
-												// repaint();
-
-												new Thread() {
-													public void run() {
-														// try {
-														// sleep(1000);
-														// } catch
-														// (InterruptedException
-														// e) {
-														// TODO
-														// Auto-generated
-														// catch block
-														// e.printStackTrace();
-														// }
-														// synchronized
-														// (getEditor()) {
-													//	editPropertiesRefas(elm);
-														// }
-
-													}
-												}.start();
-												// clearNotificationBar();
-											//	configModel((InstElement) elm,
-											//			true);
-											}
-										});*/
-							if (instAttribute.getIdentifier().startsWith("Config"))
-							{
+							/*
+							 * if (w.getEditor() instanceof JCheckBox)
+							 * ((JCheckBox) w.getEditor())
+							 * .addActionListener(new ActionListener() { public
+							 * void actionPerformed( ActionEvent e) {
+							 * AbstractButton aButton = (AbstractButton) e
+							 * .getSource();
+							 * 
+							 * // System.out.println(selected); updateTabs =
+							 * true; // ((JCheckBox) w.getEditor()) //
+							 * .repaint(); // repaint();
+							 * 
+							 * new Thread() { public void run() { // try { //
+							 * sleep(1000); // } catch // (InterruptedException
+							 * // e) { // TODO // Auto-generated // catch block
+							 * // e.printStackTrace(); // } // synchronized //
+							 * (getEditor()) { // editPropertiesRefas(elm); // }
+							 * 
+							 * } }.start(); // clearNotificationBar(); //
+							 * configModel((InstElement) elm, // true); } });
+							 */
+							if (instAttribute.getIdentifier().startsWith(
+									"Config")) {
 								JButton button = new JButton("Test");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -1242,12 +1234,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 								}
 							});
 							elementConfPropSubPanel.add(button);
-						} else
-						{
+						} else {
 							elementConfPropSubPanel.add(new JPanel());
 							elementConfPropSubPanel.add(new JPanel());
 						}
-							
 
 						configurationPanelElements++;
 					}
@@ -1293,7 +1283,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			lastEditableElement = ((RefasGraph) this.getGraphComponent()
 					.getGraph()).getInstCell();
 			try {
-				if (lastEditableElement != null && lastEditableElement.getInstElement() != null)
+				if (lastEditableElement != null
+						&& lastEditableElement.getInstElement() != null)
 					((RefasGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
 			} catch (Exception p) {
@@ -1390,21 +1381,28 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		refresh();
 	}
 
-	protected void installToolBar(MainFrame mainFrame, int perspective) {
+	protected PerspectiveToolBar installToolBar(MainFrame mainFrame,
+			int perspective) {
+		if (perspectiveToolBarPanel== null)
+		{
+			perspectiveToolBarPanel = new JPanel();
+			add(perspectiveToolBarPanel, BorderLayout.NORTH);
+		}
 
-		JPanel jp = new JPanel();
-		jp.setLayout(new BorderLayout());
-		if (perspective == 3)
-			jp.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
-					BorderLayout.WEST);
-		else
-			jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
-					BorderLayout.WEST);
-		jp.add(new JLabel(), BorderLayout.CENTER);
-		perspectiveToolBar = new PerspectiveToolBar(mainFrame,
-					JToolBar.HORIZONTAL, perspective);
-		jp.add(perspectiveToolBar, BorderLayout.EAST);
-		add(jp, BorderLayout.NORTH);
+		perspectiveToolBarPanel.removeAll();
+		perspectiveToolBarPanel.setLayout(new BorderLayout());
+		// if (perspective == 3)
+		perspectiveToolBarPanel.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
+				BorderLayout.WEST);
+		// else
+		// jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
+		// BorderLayout.WEST);
+		perspectiveToolBarPanel.add(new JLabel(), BorderLayout.CENTER);
+		PerspectiveToolBar perspectiveToolBar = new PerspectiveToolBar(
+				mainFrame, JToolBar.HORIZONTAL, perspective);
+		perspectiveToolBarPanel.add(perspectiveToolBar, BorderLayout.EAST);
+		
+		return perspectiveToolBar;
 	}
 
 	public final MainFrame getMainFrame() {
@@ -1617,12 +1615,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	}
 
 	public void verify() {
-		try{
-		verify(defects);
-		}
-		catch (java.lang.UnsatisfiedLinkError e)
-		{
-			JOptionPane.showMessageDialog(frame, "Solver not correctly configured",
+		try {
+			verify(defects);
+		} catch (java.lang.UnsatisfiedLinkError e) {
+			JOptionPane.showMessageDialog(frame,
+					"Solver not correctly configured",
 					"System Configuration Error",
 					JOptionPane.INFORMATION_MESSAGE, null);
 		}
@@ -1857,14 +1854,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		if (invalidConfigHlclProgram && element == null)
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
 					Refas2Hlcl.CONF_EXEC);
-		else
-		{
+		else {
 			freeIdentifiers = new HashSet<Identifier>();
 			elementSubSet = new HashSet<InstElement>();
-			configHlclProgram = refas2hlcl.configGraph(element,
-					elementSubSet, freeIdentifiers);
+			configHlclProgram = refas2hlcl.configGraph(element, elementSubSet,
+					freeIdentifiers);
 		}
-			
+
 		invalidConfigHlclProgram = false;
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;

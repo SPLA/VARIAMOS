@@ -32,7 +32,7 @@ public class PerspectiveToolBar extends JToolBar {
 	public PerspectiveToolBar(final BasicGraphEditor editor, int orientation,
 			int perspective) {
 		super(orientation);
-		//this.editor = editor;
+		// this.editor = editor;
 		setBackground(new Color(220, 220, 220));
 		setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createEmptyBorder(3, 3, 3, 3), getBorder()));
@@ -88,17 +88,20 @@ public class PerspectiveToolBar extends JToolBar {
 		JLabel lb;
 		lb = new JLabel("Perspectives:  ");
 		add(lb);
-		buttons[1] = new JButton(mxResources.get("semanticPerspButton"));
-		buttons[1].setBorder(new EmptyBorder(3, 7, 3, 7));
+		if (mainFrame.isAdvancedPerspective()) {
+			buttons[1] = new JButton(mxResources.get("semanticPerspButton"));
+			buttons[1].setBorder(new EmptyBorder(3, 7, 3, 7));
 
-		add(buttons[1]);
-		buttons[1].addActionListener(new PerspectiveAction(this));
+			add(buttons[1]);
 
-		buttons[3] = new JButton(mxResources.get("syntaxPerspButton"));
-		buttons[3].setBorder(new EmptyBorder(3, 7, 3, 7));
-		add(buttons[3]);
-		buttons[3].addActionListener(new PerspectiveAction(this));
+			buttons[1].addActionListener(new PerspectiveAction(this));
 
+			buttons[3] = new JButton(mxResources.get("syntaxPerspButton"));
+			buttons[3].setBorder(new EmptyBorder(3, 7, 3, 7));
+			add(buttons[3]);
+
+			buttons[3].addActionListener(new PerspectiveAction(this));
+		}
 		buttons[2] = new JButton(mxResources.get("modelingPerspButton"));
 		buttons[2].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[2]);
@@ -112,20 +115,9 @@ public class PerspectiveToolBar extends JToolBar {
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
 		// buttons[0].addActionListener(new PerspectiveAction(this));
-
+		if (buttons[perspective] != null)
 		buttons[perspective].setSelected(true);
 
-	}
-
-	public void updatePerspective() {
-		mainFrame.setLayout();
-		for (int i = 1; i < 5; i++) // From 1: Hide PL perspective
-		{
-			if (i == mainFrame.getPerspective())
-				buttons[i].setSelected(true);
-			else
-				buttons[i].setSelected(false);
-		}
 	}
 
 	public void updatePerspective(int ind) {
