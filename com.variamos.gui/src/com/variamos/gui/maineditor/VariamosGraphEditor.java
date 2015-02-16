@@ -1392,7 +1392,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		perspectiveToolBarPanel.removeAll();
 		perspectiveToolBarPanel.setLayout(new BorderLayout());
 		// if (perspective == 3)
-		perspectiveToolBarPanel.add(new RefasEditorToolBar(this, JToolBar.HORIZONTAL),
+		perspectiveToolBarPanel.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
 				BorderLayout.WEST);
 		// else
 		// jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
