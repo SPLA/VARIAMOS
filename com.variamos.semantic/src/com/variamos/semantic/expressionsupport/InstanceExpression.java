@@ -110,6 +110,18 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		customExpression = false;
 	}
 
+	public void loadVolatileElements(Map<String, InstVertex>instVertices)
+	{
+		if (leftElementId != null)
+			volatileLeftElement = instVertices.get(leftElementId);
+		if (rightElementId != null)
+			volatileRightElement = instVertices.get(rightElementId);
+		if (leftInstanceExpression!= null)
+			leftInstanceExpression.loadVolatileElements(instVertices);
+		if (rightInstanceExpression!= null)
+			rightInstanceExpression.loadVolatileElements(instVertices);
+	}
+	
 	public InstanceExpression(boolean customExpression, String id) {
 		this.customExpression = customExpression;
 		if (customExpression) {

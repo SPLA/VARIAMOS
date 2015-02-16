@@ -14,6 +14,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.refas.editor.RefasGraph;
 import com.variamos.refas.RefasModel;
+import com.variamos.semantic.expressionsupport.InstanceExpression;
 import com.variamos.semantic.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstCell;
@@ -435,6 +436,13 @@ public class SharedActions {
 							ia.setValue(false);
 						else
 							ia.setValue(true);
+					if (ia.getIdentifier().equals("ConditionalExpression")) {
+						InstanceExpression instanceExpression = (InstanceExpression) ia
+								.getValue();
+						if (instanceExpression != null)
+							instanceExpression.loadVolatileElements(refas
+									.getVariabilityVertex());
+					}
 				} else {
 					instAttributesToDelete.add(ia.getAttributeName());
 					ias.remove();

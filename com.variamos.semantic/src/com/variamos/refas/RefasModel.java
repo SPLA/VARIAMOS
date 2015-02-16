@@ -1062,6 +1062,11 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexSG, true);
 
 		SemanticVariable semVariable = new SemanticVariable("Variable");
+
+		semVariable.putSemanticAttribute("DashBoardVisible",
+				new SimulationConfigAttribute("DashBoardVisible", "Boolean", true,
+						"Visible on Dashboard", true));
+
 		InstVertex instVertexVAR = new InstConcept("SemVariable", metaConcept,
 				semVariable);
 		variabilityInstVertex.put("SemVariable", instVertexVAR);
