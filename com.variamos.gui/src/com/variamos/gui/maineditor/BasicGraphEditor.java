@@ -481,8 +481,10 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected void installToolBar(MainFrame mainFrame, int perspective) {
-		add(new EditorToolBar(this, JToolBar.HORIZONTAL), BorderLayout.NORTH);
+	protected JToolBar installToolBar(MainFrame mainFrame, int perspective) {
+		EditorToolBar out = new EditorToolBar(this, JToolBar.HORIZONTAL);
+		add(out, BorderLayout.NORTH);
+		return out;
 	}
 
 	/**

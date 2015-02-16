@@ -489,6 +489,12 @@ public class ExpressionDialog extends JDialog {
 		String varIdentifier = null;
 		varIdentifier = instanceExpression
 				.getElementAttributeIdentifier(expressionVertexType);
+		if (varIdentifier == null)
+		{
+			varIdentifier = instanceExpression.getSideElementIdentifier(expressionVertexType);
+			InstVertex instVertex = refasModel.getVertex(varIdentifier);
+			instanceExpression.setElement(instVertex,expressionVertexType);
+		}
 		identifiers = createIdentifiersCombo(expressionVertexType, element,
 				varIdentifier);
 		identifiers.addItemListener(new ItemListener() {

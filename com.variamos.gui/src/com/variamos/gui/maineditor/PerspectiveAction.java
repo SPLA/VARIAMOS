@@ -29,6 +29,8 @@ public class PerspectiveAction extends AbstractEditorAction {
 		VariamosGraphEditor editor = getEditor(e);
 		MainFrame mainFrame = editor.getMainFrame();
 		int perspectiveInd = mainFrame.getPerspective();
+		perspective = editor.installToolBar(mainFrame, perspectiveInd);
+		 
 		JButton jb = (JButton) e.getSource();
 		if (perspectiveInd != 1
 				&& jb.getText().equals(mxResources.get("semanticPerspButton"))) {
@@ -54,5 +56,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 			System.out.println("simulationPerspButton");
 		}
 		perspective.updatePerspective(mainFrame.getPerspective());
+		mainFrame.validate();
+		mainFrame.repaint();
 	}
 }

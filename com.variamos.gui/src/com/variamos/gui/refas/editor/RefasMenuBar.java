@@ -17,6 +17,7 @@ import com.variamos.gui.refas.editor.actions.ClearConfigurationAction;
 import com.variamos.gui.refas.editor.actions.ClearSimulationAction;
 import com.variamos.gui.refas.editor.actions.ClearVerificationAction;
 import com.variamos.gui.refas.editor.actions.ExitAction;
+import com.variamos.gui.refas.editor.actions.HideAdvancedPerspectiveAction;
 import com.variamos.gui.refas.editor.actions.HideSimulationDashBoardAction;
 import com.variamos.gui.refas.editor.actions.NewAction;
 import com.variamos.gui.refas.editor.actions.NextSimulationAction;
@@ -24,6 +25,7 @@ import com.variamos.gui.refas.editor.actions.OpenAction;
 import com.variamos.gui.refas.editor.actions.ParentElementAction;
 import com.variamos.gui.refas.editor.actions.RootElementAction;
 import com.variamos.gui.refas.editor.actions.SaveAction;
+import com.variamos.gui.refas.editor.actions.ShowAdvancedPerspectiveAction;
 import com.variamos.gui.refas.editor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.refas.editor.actions.StartSimulationAction;
 import com.variamos.gui.refas.editor.actions.ToggleAssetVisibilityAction;
@@ -253,6 +255,14 @@ public class RefasMenuBar extends JMenuBar {
 			menu.add(item);
 			add(menu);
 		}
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
+		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"),
+				new ShowAdvancedPerspectiveAction()));
+		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
+				new HideAdvancedPerspectiveAction()));
+		menu.addSeparator();
+
+		add(menu);
 
 	}
 

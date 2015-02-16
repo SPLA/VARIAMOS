@@ -33,6 +33,7 @@ public class MainFrame extends JFrame {
 	protected String appTitle;
 	private int perspective = 1;
 	private Cursor waitCursor, defaultCursor;
+	private boolean showPerspectiveButton = false;
 
 	public int getPerspective() {
 		return perspective;
@@ -129,55 +130,69 @@ public class MainFrame extends JFrame {
 		Map<String, SemanticExpressionType> out = new HashMap<String, SemanticExpressionType>();
 		out.put("And", new SemanticExpressionType("And", "#/\"", "#/\"", "and",
 				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false,false));
-		out.put("Assign", new SemanticExpressionType("Assign", "=", "=", "assign",
-				SemanticExpressionType.IDEN, SemanticExpressionType.EXP,
-				SemanticExpressionType.BOOLEXP, false,false));
-		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-", "-",
-				"diff", SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, false,false));
+				SemanticExpressionType.BOOLEXP, false, false));
+		out.put("Assign", new SemanticExpressionType("Assign", "=", "=",
+				"assign", SemanticExpressionType.IDEN,
+				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+				false, false));
+		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-",
+				"-", "diff", SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				false, false));
 		out.put("DoubleImplies", new SemanticExpressionType("DoubleImplies",
-				"#<==>", "#<==>", "doubleImplies", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP, false,false));
+				"#<==>", "#<==>", "doubleImplies",
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, false, false));
 		out.put("Equals", new SemanticExpressionType("Equals", "#=", "#=",
-				"equals", SemanticExpressionType.EXP, SemanticExpressionType.EXP,
-				SemanticExpressionType.BOOLEXP, false,false));
+				"equals", SemanticExpressionType.EXP,
+				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+				false, false));
 		out.put("Greater", new SemanticExpressionType("Greater", "#>", "#>",
 				"greaterThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+				false, false));
 		out.put("GreaterOrEq", new SemanticExpressionType("GreaterOrEq", "#>=",
 				"#>=", "greaterOrEqualsThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
-		out.put("Implies", new SemanticExpressionType("Implies", "#==>", "#==>",
-				"implies", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP, false,false));
-		out.put("Less", new SemanticExpressionType("Less", "#<", "#<", "lessThan",
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.BOOLEXP, false,false));
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+				false, false));
+		out.put("Implies", new SemanticExpressionType("Implies", "#==>",
+				"#==>", "implies", SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
+				false, false));
+		out.put("Less", new SemanticExpressionType("Less", "#<", "#<",
+				"lessThan", SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+				false, false));
 		out.put("LessOrEq", new SemanticExpressionType("LessOrEquals", "#<=",
 				"#<=", "lessOrEqualsThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP, false,false));
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+				false, false));
 		out.put("Literal", new SemanticExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", SemanticExpressionType.LIT,
-				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,false));
-		out.put("Negation", new SemanticExpressionType("Negation", "-", "-", "not",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.NONE,
-				SemanticExpressionType.BOOLEXP, true,false));
-		out.put("Number", new SemanticExpressionType("Number", "", "", "number",
-				SemanticExpressionType.INTVAL, SemanticExpressionType.NONE,
-				SemanticExpressionType.NUMEXP, true,false));
+				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
+				true, false));
+		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
+				"not", SemanticExpressionType.BOOLEXP,
+				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
+				true, false));
+		out.put("Number", new SemanticExpressionType("Number", "", "",
+				"number", SemanticExpressionType.INTVAL,
+				SemanticExpressionType.NONE, SemanticExpressionType.NUMEXP,
+				true, false));
 		out.put("NotEquals", new SemanticExpressionType("NotEquals", "\\==",
 				"\\==", "notEquals", SemanticExpressionType.EXP,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP, false,false));
+				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+				false, false));
 		out.put("Or", new SemanticExpressionType("Or", "#\"/", "#\"/", "or",
 				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false,false));
-		out.put("Product", new SemanticExpressionType("Product", "*", "*", "prod",
+				SemanticExpressionType.BOOLEXP, false, false));
+		out.put("Product", new SemanticExpressionType("Product", "*", "*",
+				"prod", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, false,true));
+				false, true));
 		out.put("Sum", new SemanticExpressionType("Sum", "+", "+", "sum",
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, false,true));
+				SemanticExpressionType.NUMEXP, false, true));
 		return out;
 	}
 
@@ -197,10 +212,25 @@ public class MainFrame extends JFrame {
 		this.getRootPane().getContentPane().removeAll();
 		this.add(graphEditors.get(perspective - 1));
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
+		graphEditors.get(perspective - 1).installToolBar(this, perspective);
 		graphEditors.get(perspective - 1).updateObjects();
-		graphEditors.get(perspective - 1).setVisibleModel(0, -1);
+		graphEditors.get(perspective - 1).setVisibleModel(0, - 1);
 		graphEditors.get(perspective - 1).updateView();
 		this.revalidate();
 		this.repaint();
+	}
+
+	public void setAdvancedPerspective(boolean advancedPerspective) {
+			showPerspectiveButton = advancedPerspective;
+			int i=0;
+			for (VariamosGraphEditor e : graphEditors)
+			{
+				e.installToolBar(this, i++);
+			}
+	}
+	
+	public boolean isAdvancedPerspective()
+	{
+		return showPerspectiveButton;
 	}
 }

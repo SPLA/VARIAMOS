@@ -115,22 +115,22 @@ public class SemanticExpression implements Serializable {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
-			AbstractSemanticElement leftSemanticElement, String leftAttributeName,
-			boolean replaceTarget, SemanticExpression leftSemanticExpression) {
+			AbstractSemanticElement semanticElement, String attributeName,
+			boolean replaceTarget, SemanticExpression semanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceTarget) {
-			this.leftSemanticElement = leftSemanticElement;
-			this.leftAttributeName = leftAttributeName;
+			this.leftSemanticElement = semanticElement;
+			this.leftAttributeName = attributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFT);
 			setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-			this.rightSemanticExpression = leftSemanticExpression;
+			this.rightSemanticExpression = semanticExpression;
 		} else {
-			this.rightSemanticElement = leftSemanticElement;
-			this.rightAttributeName = leftAttributeName;
+			this.rightSemanticElement = semanticElement;
+			this.rightAttributeName = attributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			setRightExpressionType(ExpressionVertexType.RIGHT);
-			this.leftSemanticExpression = leftSemanticExpression;
+			this.leftSemanticExpression = semanticExpression;
 		}
 	}
 
