@@ -394,11 +394,8 @@ public abstract class AbstractExpression {
 				break;
 			case LEFTSUBEXPRESSION:
 				if (negateLeft
-						&& leftSubExpression instanceof AbstractBooleanExpression) // TODO
-																						// special
-																						// case
-																						// for
-																						// assign
+						&& leftSubExpression instanceof AbstractBooleanExpression) 
+					// TODO special case for assign
 					out.add(((AbstractBooleanExpression) leftSubExpression)
 							.transformNegation(f, idMap, false, false));
 				else
@@ -406,11 +403,8 @@ public abstract class AbstractExpression {
 				break;
 			case RIGHTSUBEXPRESSION:
 				if (negateRight
-						&& rightSubExpression instanceof AbstractBooleanExpression)// TODO
-																						// special
-																						// case
-																						// for
-																						// assign
+						&& rightSubExpression instanceof AbstractBooleanExpression)
+					// TODO special case for assign
 					out.add(((AbstractBooleanExpression) rightSubExpression)
 							.transformNegation(f, idMap, false, false));
 				else

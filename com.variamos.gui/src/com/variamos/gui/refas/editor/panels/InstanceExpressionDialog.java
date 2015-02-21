@@ -52,18 +52,18 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
  *
  */
 @SuppressWarnings("serial")
-public class ExpressionDialog extends JDialog {
+public class InstanceExpressionDialog extends JDialog {
 	private InstanceExpression[] instanceExpressions;
-	private ExpressionButtonAction onAccept, onCancel;
+	private InstanceExpressionButtonAction onAccept, onCancel;
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
 
-	static interface ExpressionButtonAction {
+	static interface InstanceExpressionButtonAction {
 		public boolean onAction();
 	}
 
-	public ExpressionDialog(VariamosGraphEditor editor,
+	public InstanceExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, boolean multiExpression,
 			InstanceExpression... instanceExpressions) {
 		super(editor.getFrame(), "Expressions Editor");
@@ -482,7 +482,7 @@ public class ExpressionDialog extends JDialog {
 		if (instanceExpression.getSideElement(expressionVertexType) == null)
 		{
 			String id = instanceExpression.getSideElementIdentifier(expressionVertexType);
-			instanceExpression.setElement(refasModel.getVertex(id),
+			instanceExpression.setInstElement(refasModel.getVertex(id),
 					expressionVertexType);
 		}
 		JComboBox<String> identifiers = null;
@@ -492,8 +492,8 @@ public class ExpressionDialog extends JDialog {
 		if (varIdentifier == null)
 		{
 			varIdentifier = instanceExpression.getSideElementIdentifier(expressionVertexType);
-			InstVertex instVertex = refasModel.getVertex(varIdentifier);
-			instanceExpression.setElement(instVertex,expressionVertexType);
+			InstElement instVertex = refasModel.getVertex(varIdentifier);
+			instanceExpression.setInstElement(instVertex,expressionVertexType);
 		}
 		identifiers = createIdentifiersCombo(expressionVertexType, element,
 				varIdentifier);
@@ -504,7 +504,7 @@ public class ExpressionDialog extends JDialog {
 					String item = (String) event.getItem();
 					if (item != null) {
 						String[] split = item.split("_");
-						instanceExpression.setElement(
+						instanceExpression.setInstElement(
 								refasModel.getVertex(split[0]),
 								expressionVertexType);
 						instanceExpression.setAttributeName(split[1],
@@ -525,7 +525,7 @@ public class ExpressionDialog extends JDialog {
 	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
 			String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
-		for (InstVertex instVertex : refasModel
+		for (InstElement instVertex : refasModel
 				.getVariabilityVertexCollection()) {
 			IntSemanticElement semElement2 = ((MetaVertex) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
@@ -572,7 +572,7 @@ public class ExpressionDialog extends JDialog {
 
 		if (type == ExpressionVertexType.LEFT
 				|| type == ExpressionVertexType.RIGHT) {
-			for (InstVertex instVertex : refasModel
+			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
 				IntSemanticElement semElement2 = ((MetaVertex) instVertex
 						.getTransSupportMetaElement())
@@ -752,11 +752,11 @@ public class ExpressionDialog extends JDialog {
 		setVisible(true);
 	}
 
-	public void setOnAccept(ExpressionButtonAction onAccept) {
+	public void setOnAccept(InstanceExpressionButtonAction onAccept) {
 		this.onAccept = onAccept;
 	}
 
-	public void setOnCancel(ExpressionButtonAction onCancel) {
+	public void setOnCancel(InstanceExpressionButtonAction onCancel) {
 		this.onCancel = onCancel;
 	}
 

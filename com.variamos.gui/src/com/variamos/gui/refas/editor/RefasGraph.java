@@ -108,7 +108,7 @@ public class RefasGraph extends AbstractGraph {
 		int pos = 0;
 		if (views.size() == 0) {
 			//Load Syntax and Semantic
-			for (InstVertex instVertex : refasModel.getVertices()) {
+			for (InstElement instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell(new InstCell(instVertex, false));
 				child.setId(instVertex.getIdentifier());
 				addCell(child);

@@ -70,7 +70,7 @@ public class RefasModel extends AbstractModel {
 	/**
 	 * 
 	 */
-	private Map<String, InstVertex> variabilityInstVertex;
+	private Map<String, InstElement> variabilityInstVertex;
 	// TODO Move variables and enums to otherElements
 	/**
 	 * 
@@ -112,7 +112,7 @@ public class RefasModel extends AbstractModel {
 		this.syntaxRefas = syntaxRefas;
 		this.semanticExpressionTypes = semanticExpressionTypes;
 		this.semanticRefas = semanticRefas;
-		variabilityInstVertex = new HashMap<String, InstVertex>();
+		variabilityInstVertex = new HashMap<String, InstElement>();
 		instGroupDependencies = new HashMap<String, InstOverTwoRelation>();
 		otherInstVertex = new HashMap<String, InstVertex>();
 		constraintInstEdges = new HashMap<String, InstPairwiseRelation>();
@@ -309,15 +309,15 @@ public class RefasModel extends AbstractModel {
 		return classId + "O" + id;
 	}
 
-	public Map<String, InstVertex> getVariabilityVertex() {
+	public Map<String, InstElement> getVariabilityVertex() {
 		return variabilityInstVertex;
 	}
 
-	public Collection<InstVertex> getVariabilityVertexCollection() {
+	public Collection<InstElement> getVariabilityVertexCollection() {
 		return variabilityInstVertex.values();
 	}
 
-	public void setVariabilityVertex(Map<String, InstVertex> elements) {
+	public void setVariabilityVertex(Map<String, InstElement> elements) {
 		this.variabilityInstVertex = elements;
 	}
 
@@ -358,15 +358,15 @@ public class RefasModel extends AbstractModel {
 		return null;
 	}
 
-	public InstVertex getVertex(String vertexId) {
-		InstVertex out = variabilityInstVertex.get(vertexId);
+	public InstElement getVertex(String vertexId) {
+		InstElement out = variabilityInstVertex.get(vertexId);
 		if (out == null)
 			out = instGroupDependencies.get(vertexId);
 		return out;
 	}
 
-	public Set<InstVertex> getVertices() {
-		Set<InstVertex> out = new HashSet<InstVertex>();
+	public Set<InstElement> getVertices() {
+		Set<InstElement> out = new HashSet<InstElement>();
 		out.addAll(variabilityInstVertex.values());
 		out.addAll(instGroupDependencies.values());
 		out.addAll(otherInstVertex.values());
@@ -407,15 +407,15 @@ public class RefasModel extends AbstractModel {
 	/**
 	 * @return all InstVertex with constraints (excludes MetaEnumation)
 	 */
-	public List<InstVertex> getConstraintVertexCollection() {
-		ArrayList<InstVertex> out = new ArrayList<InstVertex>();
+	public List<InstElement> getConstraintVertexCollection() {
+		ArrayList<InstElement> out = new ArrayList<InstElement>();
 		out.addAll(variabilityInstVertex.values());
 		out.addAll(instGroupDependencies.values());
 		return out;
 	}
 
-	public Map<String, InstVertex> getConstraintVertex() {
-		Map<String, InstVertex> out = new HashMap<String, InstVertex>();
+	public Map<String, InstElement> getConstraintVertex() {
+		Map<String, InstElement> out = new HashMap<String, InstElement>();
 		out.putAll(variabilityInstVertex);
 		out.putAll(instGroupDependencies);
 		return out;
@@ -425,7 +425,7 @@ public class RefasModel extends AbstractModel {
 		List<String> elements = new ArrayList<String>();
 		// modelViewInd = -1; // TODO for initial testing, delete
 		if (modelViewInd == -1) {
-			for (InstVertex instVertex : variabilityInstVertex.values()) {
+			for (InstElement instVertex : variabilityInstVertex.values()) {
 				if (instVertex.getEditableMetaElement().getVisible())
 					elements.add(instVertex.getEditableMetaElement()
 							.getIdentifier());

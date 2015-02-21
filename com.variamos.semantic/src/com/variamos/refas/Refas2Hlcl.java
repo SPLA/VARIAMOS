@@ -312,10 +312,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return hlclProgram;
 	}
 
-	public NumericExpression getSumExpression(InstVertex last,
-			Iterator<InstVertex> iterVertex, String attributeName) {
+	public NumericExpression getSumExpression(InstElement last,
+			Iterator<InstElement> iterVertex, String attributeName) {
 		if (iterVertex.hasNext()) {
-			InstVertex instVertex = iterVertex.next();
+			InstElement instVertex = iterVertex.next();
 			if (last.getInstAttribute(attributeName) != null
 					&& this.validateConceptType(last, "SemGeneralElement")
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
@@ -356,9 +356,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
 				labelingOrderList.add(LabelingOrder.MIN);
-				Iterator<InstVertex> iterVertex = refas
+				Iterator<InstElement> iterVertex = refas
 						.getVariabilityVertexCollection().iterator();
-				InstVertex instVertex = iterVertex.next();
+				InstElement instVertex = iterVertex.next();
 				orderExpressionList.add(getSumExpression(instVertex,
 						iterVertex, "Order"));
 				iterVertex = refas.getVariabilityVertexCollection().iterator();
@@ -394,7 +394,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void cleanGUIElements(int execType) {
 		// Call the SWIProlog and obtain the result
 
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (this.validateConceptType(instVertex, "SemGeneralElement")) {
 				/*
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
@@ -443,7 +443,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 */
 	public void cleanGUIErrors() {
 		// Call the SWIProlog and obtain the result
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			instVertex.clearDefects();
 		}
 	}
@@ -501,7 +501,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public void updateErrorMark(Collection<String> identifiers) {
 		// Call the SWIProlog and obtain the result
 
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			InstAttribute instAttribute = instVertex
 					.getInstAttribute("VerificationError");
 			// System.out.println(vertexId + " " + attribute);
@@ -521,7 +521,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			String defectId, String defectDescription) {
 		// Call the SWIProlog and obtain the result
 
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 
 			if (identifiers != null
 					&& identifiers.contains(instVertex.getIdentifier()))
@@ -536,7 +536,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Resets the GUI optional variable
 	 */
 	public void cleanElementsOptional() {
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			InstAttribute instAttribute = instVertex
 					.getInstAttribute("Optional");
 			if (instAttribute.getAttributeType().equals("Boolean"))
@@ -567,7 +567,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
-			for (InstVertex elm : refas.getConstraintVertexCollection()) {
+			for (InstElement elm : refas.getConstraintVertexCollection()) {
 				if (this.validateConceptType(elm, "SemGeneralElement"))
 					constraintGroups.put(elm.getIdentifier(),
 							new SingleElementExpressionSet(elm.getIdentifier(),
@@ -642,7 +642,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 */
 	public void updateCoreConcepts(Collection<String> outIdentifiers,
 			boolean all) {
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			// if (validateConceptType(instVertex)) {
 			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
 			// System.out.println(vertexId + " " + attribute);
@@ -659,7 +659,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void updateRequiredConcepts(List<String> requiredConceptsNames,
 			boolean test) {
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextPrefSelected");
@@ -700,7 +700,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public void updateDeadConfigConcepts(List<String> requiredConceptsNames,
 			boolean test) {
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
 						.getInstAttribute("NextNotPrefSelected");
@@ -739,7 +739,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public TreeMap<String, Integer> getConfiguredIdentifier(
 			Set<InstElement> elementSubSet) {
 		TreeMap<String, Integer> out = new TreeMap<String, Integer>();
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "SemGeneralElement")
 					&& (elementSubSet == null || elementSubSet
 							.contains(instVertex))) {
@@ -767,7 +767,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public Set<Identifier> getFreeIdentifiers() {
 		Set<Identifier> out = new HashSet<Identifier>();
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttribute = instVertex
 						.getInstAttribute("Core");
@@ -807,7 +807,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public void updateDeadConcepts(List<String> deadIdentifiers) {
-		for (InstVertex instVertex : refas.getVariabilityVertex().values()) {
+		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "SemGeneralElement")) {
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");

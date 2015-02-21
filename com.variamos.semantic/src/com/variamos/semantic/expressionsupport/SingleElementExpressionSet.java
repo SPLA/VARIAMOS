@@ -53,7 +53,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	/**
 	 * The source vertex for the constraint
 	 */
-	private InstVertex instVertex;
+	private InstElement instVertex;
 
 	private Map<String, BooleanExpression> booleanExpressions = new HashMap<String, BooleanExpression>();
 
@@ -72,7 +72,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 */
 	public SingleElementExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstVertex instVertex, int execType) {
+			InstElement instVertex, int execType) {
 		super(identifier,
 				mxResources.get("defect-concepts") + " " + identifier, idMap,
 				hlclFactory);
@@ -80,7 +80,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 		defineTransformations(execType);
 	}
 
-	public InstVertex getInstEdge() {
+	public InstElement getInstEdge() {
 		return instVertex;
 	}
 
@@ -102,7 +102,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 				if (validAttribute == null
 						|| ((boolean) validAttribute.getValue()) == true) {
 					List<AbstractExpression> coreAndFalseOptList = new ArrayList<AbstractExpression>();
-					for (InstAttribute instAttribute : instVertex
+					for (InstAttribute instAttribute : ((InstVertex)instVertex)
 							.getInstAttributesCollection()) {
 						int attributeValue = 0;
 						String type = (String) instAttribute.getAttributeType();
@@ -587,7 +587,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	 * null) return new NumberNumericExpression(0); return outExp; }
 	 */
 
-	private boolean oneParent(InstVertex instVertex2) {
+	private boolean oneParent(InstElement instVertex2) {
 		int out = 0;
 		List<String> outRelations = new ArrayList<String>();
 		outRelations.add("mandatory");

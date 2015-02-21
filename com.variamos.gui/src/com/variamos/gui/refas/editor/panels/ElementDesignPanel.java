@@ -26,7 +26,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.refas.editor.panels.ExpressionDialog.ExpressionButtonAction;
+import com.variamos.gui.refas.editor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
@@ -190,11 +190,11 @@ public class ElementDesignPanel extends JPanel {
 										if (ie == null)
 											ie = new InstanceExpression(true,
 													"id");
-										final ExpressionDialog dialog = new ExpressionDialog(
+										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie);
 										dialog.center();
-										dialog.setOnAccept(new ExpressionButtonAction() {
+										dialog.setOnAccept(new InstanceExpressionButtonAction() {
 											@Override
 											public boolean onAction() {
 												// This calls Pull on each

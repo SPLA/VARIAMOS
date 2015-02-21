@@ -18,6 +18,7 @@ import com.variamos.semantic.expressions.LessBooleanExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressions.ProdNumericExpression;
 import com.variamos.semantic.expressions.SumNumericExpression;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.metamodelsupport.MetaVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
@@ -46,7 +47,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		AbstractNumericExpression reqOutExp = null;
 		AbstractNumericExpression prefOutExp = null;
 
-		for (InstVertex vertex : refas.getVariabilityVertexCollection()) {
+		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
 			MetaVertex metaElement = ((MetaVertex) vertex
 					.getTransSupportMetaElement());
 			IntSemanticElement semElement = metaElement
