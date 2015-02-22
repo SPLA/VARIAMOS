@@ -195,11 +195,6 @@
     <position height="-1" width="-1" x="1329" y="377"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="39" language="java" name="com.variamos.gui.pl.editor.style" project="com.variamos.gui" 
-    file="/com.variamos.gui/src/com/variamos/gui/pl/editor/style" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="798" y="1068"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
-  </package>  
   <package id="40" language="java" name="com.variamos.gui.pl.configurator.treetable.actions" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/pl/configurator/treetable/actions" binary="false" corner="BOTTOM_RIGHT">    
     <position height="55" width="377" x="455" y="512"/>    
