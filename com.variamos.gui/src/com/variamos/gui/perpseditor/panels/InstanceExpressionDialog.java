@@ -171,7 +171,6 @@ public class InstanceExpressionDialog extends JDialog {
 		final InstanceExpression exp = instanceExpression;
 
 		JPanel basePanel = new JPanel();
-		Border blackline = BorderFactory.createLineBorder(Color.black);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		// if (selectedExpression == instanceExpression)
 		// basePanel.setBorder(blackline);

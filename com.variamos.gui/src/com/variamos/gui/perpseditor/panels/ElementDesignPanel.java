@@ -160,8 +160,8 @@ public class ElementDesignPanel extends JPanel {
 				if (((InstElement)editElm).getEditableSemanticElement() != null)
 				{
 					elementDesPropSubPanel.add(new JLabel(
-							"Semantic Expression"));
-					JButton button = new JButton("Edit Expression");
+							"Semantic Expressions"));
+					JButton button = new JButton("Open Semantic Expressions Editor");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
