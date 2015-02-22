@@ -54,7 +54,7 @@ public class RefasGraphEditorFunctions extends AbstractGraphEditorFunctions {
 				metaElements.addAll(metaView.getElements());
 			}
 		} else {
-			for (InstVertex instVertex : ((RefasModel) editor.getEditedModel())
+			for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
 					.getSyntaxRefas().getVertices()) {
 				metaElements.add(instVertex.getEditableMetaElement());
 			}

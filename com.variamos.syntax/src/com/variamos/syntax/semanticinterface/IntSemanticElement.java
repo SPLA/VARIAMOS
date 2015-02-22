@@ -1,7 +1,9 @@
 package com.variamos.syntax.semanticinterface;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 
@@ -20,10 +22,15 @@ public interface IntSemanticElement extends Serializable {
 
 	AbstractAttribute getSemanticAttribute(String attributeName);
 
+	public Set<String> getDeclaredSemanticAttributes();
+	
 	void setIdentifier(String value);
 	
 	public Map<String,AbstractAttribute> getSemanticAttributes();
 
 	IntSemanticElement getParent();
 
+	public Set<String> getSemanticAttributesNames();
+	
+	public List<IntSemanticExpression> getSemanticExpresions();
 }

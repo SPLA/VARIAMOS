@@ -341,7 +341,7 @@ public class SharedActions {
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
-			InstVertex instVertex = refas.getSyntaxRefas().getVertex(
+			InstElement instVertex = refas.getSyntaxRefas().getVertex(
 					instOverTwoRelation.getSupportMetaElementIdentifier());
 			if (instVertex == null) {
 				System.err

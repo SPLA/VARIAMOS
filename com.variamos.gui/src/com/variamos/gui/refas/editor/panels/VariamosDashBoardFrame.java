@@ -19,6 +19,7 @@ import com.variamos.semantic.semanticsupport.SemanticConcept;
 import com.variamos.semantic.semanticsupport.SemanticVariable;
 import com.variamos.semantic.semanticsupport.SoftSemanticConcept;
 import com.variamos.semantic.semanticsupport.SoftSemanticConceptSatisficing;
+import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticConcept;
 
@@ -56,7 +57,7 @@ public class VariamosDashBoardFrame extends JFrame {
 	private int loadConcepts() {
 		int out = 0;
 		elements = new HashMap<String, Map<String, VisualElement>>();
-		for (InstVertex instVertex : refasModel
+		for (InstElement instVertex : refasModel
 				.getVariabilityVertexCollection()) {
 			if (instVertex.getInstAttribute("DashBoardVisible") != null
 					&& instVertex.getInstAttribute("DashBoardVisible")

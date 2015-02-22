@@ -26,7 +26,8 @@ import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.refas.editor.panels.ExpressionDialog.ExpressionButtonAction;
+import com.variamos.gui.refas.editor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
+import com.variamos.gui.refas.editor.panels.SemanticExpressionDialog.SemanticExpressionButtonAction;
 import com.variamos.gui.refas.editor.widgets.MClassWidget;
 import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
 import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
@@ -34,6 +35,7 @@ import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.hlcl.Expression;
 import com.variamos.refas.RefasModel;
 import com.variamos.semantic.expressionsupport.InstanceExpression;
+import com.variamos.semantic.expressionsupport.SemanticExpression;
 import com.variamos.syntax.instancesupport.EditableElement;
 import com.variamos.syntax.instancesupport.InstAttribute;
 import com.variamos.syntax.instancesupport.InstCell;
@@ -48,6 +50,7 @@ import com.variamos.syntax.metamodelsupport.MetaElement;
 import com.variamos.syntax.metamodelsupport.ModelingAttribute;
 import com.variamos.syntax.metamodelsupport.SemanticAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticExpression;
 
 public class ElementDesignPanel extends JPanel {
 
@@ -152,6 +155,57 @@ public class ElementDesignPanel extends JPanel {
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
 						.getVisibleVariables();
+				if (((InstElement)editElm).getEditableSemanticElement() != null)
+				{
+					elementDesPropSubPanel.add(new JLabel(
+							"Semantic Expression"));
+					JButton button = new JButton("Edit Expression");
+					if (editor.getPerspective() == 4)
+						button.setEnabled(false);
+					button.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							List<IntSemanticExpression> ie = ((InstElement) finalEditElm).getEditableSemanticElement().getSemanticExpresions();
+							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
+									finalEditor, finalEditElm, ie);
+							dialog.center();
+							dialog.setOnAccept(new SemanticExpressionButtonAction() {
+								@Override
+								public boolean onAction() {
+									// This calls Pull on each
+									// parameter
+									// attributeEdition.getParameters();
+									//finalInstAttribute.setValue(dialog
+									//		.getExpressions()[0]);
+									// attributes.put(name.getName(),
+									// v);
+									try
+									{
+										//Expression exp = ((InstanceExpression) finalInstAttribute
+										//		.getValue())
+										//		.createSGSExpression(finalEditElm.getIdentifier());
+										//System.out.println(exp);
+									} catch(Exception e)
+									{
+										JOptionPane
+										.showMessageDialog(
+												finalEditor,
+												"Complete the expression before closing the editor",
+												"Expression Error",
+												JOptionPane.INFORMATION_MESSAGE, null);
+										e.printStackTrace();
+										return false;
+									}
+											
+									// afterAction();
+									return true;
+								}
+							});
+						}
+					});
+					elementDesPropSubPanel.add(button);
+					elementDesPropSubPanel.add(new JPanel());
+					designPanelElements++;
+				}
 				if (visible != null)
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
@@ -190,11 +244,11 @@ public class ElementDesignPanel extends JPanel {
 										if (ie == null)
 											ie = new InstanceExpression(true,
 													"id");
-										final ExpressionDialog dialog = new ExpressionDialog(
+										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie);
 										dialog.center();
-										dialog.setOnAccept(new ExpressionButtonAction() {
+										dialog.setOnAccept(new InstanceExpressionButtonAction() {
 											@Override
 											public boolean onAction() {
 												// This calls Pull on each

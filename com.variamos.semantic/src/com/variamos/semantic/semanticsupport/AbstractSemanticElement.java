@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import com.variamos.semantic.expressionsupport.SemanticExpression;
 import com.variamos.syntax.metamodelsupport.AbstractAttribute;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticExpression;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -40,7 +40,7 @@ public class AbstractSemanticElement implements Serializable,
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private List<SemanticExpression> semanticExpresions;
+	private List<IntSemanticExpression> semanticExpresions;
 
 	public AbstractSemanticElement(String identifier) {
 		this(null, identifier, new ArrayList<String>(),
@@ -171,7 +171,7 @@ public class AbstractSemanticElement implements Serializable,
 		abstractAttributes.putAll(semanticAttributes);
 		if (parent != null)
 			abstractAttributes.putAll(parent.getSemanticAttributes());
-		return semanticAttributes;
+		return abstractAttributes;
 	}
 
 	public Set<String> getDeclaredSemanticAttributes() {
@@ -212,6 +212,14 @@ public class AbstractSemanticElement implements Serializable,
 
 	public String getIdentifier() {
 		return identifier;
+	}
+
+	public List<IntSemanticExpression> getSemanticExpresions() {
+		return semanticExpresions;
+	}
+
+	public void setSemanticExpresions(List<IntSemanticExpression> semanticExpresions) {
+		this.semanticExpresions = semanticExpresions;
 	}
 
 }

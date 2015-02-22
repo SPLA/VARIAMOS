@@ -31,18 +31,18 @@ public class InstEnumeration extends InstVertex {
 	public static final String VAR_METAENUM_IDEN = "MetaEnumIde";
 
 	public InstEnumeration() {
-		super("");
+		super();
 	}
 
 	public InstEnumeration(MetaEnumeration metaEnumeration) {
-		super("");
+		super();
 		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
 	}
 
 	public InstEnumeration(MetaVertex metaEnumeration,
 			MetaElement editableMetaElement) {
-		super("");
+		super();
 		setEditableMetaElement(editableMetaElement);
 		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes();
