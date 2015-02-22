@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -33,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -53,11 +55,16 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
  */
 @SuppressWarnings("serial")
 public class InstanceExpressionDialog extends JDialog {
-	private InstanceExpression[] instanceExpressions;
+	private List<InstanceExpression> instanceExpressions;
 	private InstanceExpressionButtonAction onAccept, onCancel;
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
+	private boolean displayVariableName = false;
+	private int width = 950;
+	private int height = 300;
+	private boolean multiExpressions;
+	private boolean displayTextExpression;
 
 	static interface InstanceExpressionButtonAction {
 		public boolean onAction();
@@ -65,19 +72,24 @@ public class InstanceExpressionDialog extends JDialog {
 
 	public InstanceExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, boolean multiExpression,
-			InstanceExpression... instanceExpressions) {
+			List<InstanceExpression> instanceExpressions) {
 		super(editor.getFrame(), "Expressions Editor");
+		this.multiExpressions = multiExpression;
 		refasModel = (RefasModel) editor.getEditedModel();
+		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, instanceExpressions);
-
-		setPreferredSize(new Dimension(950, 400));
-		setMaximumSize(new Dimension(1650, 1080));
 	}
 
-	public void initialize(InstElement element,
-			InstanceExpression[] instanceExpressions) {
+	public void initialize(final InstElement element,
+			List<InstanceExpression> instanceExpressions) {
 		this.getContentPane().removeAll();
 		// removeAll();
+		if (this.getWidth() != 0)
+			width = this.getWidth();
+		if (this.getHeight() != 0)
+			height = this.getHeight();
+
+		this.setPreferredSize(new Dimension(width, height));
 		setLayout(new BorderLayout());
 
 		JPanel panel = new JPanel();
@@ -108,9 +120,71 @@ public class InstanceExpressionDialog extends JDialog {
 					});
 			panel.add(new JScrollPane(solutionPanel));
 		}
+		JPanel options = new JPanel();
+		JCheckBox conceptNamesCheck = new JCheckBox("Display Text Expression ");
+		if (displayTextExpression)
+			conceptNamesCheck.setSelected(true);
+		options.add(conceptNamesCheck);
+		conceptNamesCheck.addActionListener(new ActionListener() {
 
-		SpringUtilities.makeCompactGrid(panel, this.instanceExpressions.length,
-				1, 4, 4, 4, 4);
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				displayTextExpression = !displayTextExpression;
+				new Thread() {
+					public void run() {
+						initialize(element, null);
+					}
+				}.start();
+				revalidate();
+				repaint();
+			}
+		});
+		JCheckBox varNamesCheck = new JCheckBox(
+				"Display Variable Names (not identifiers)");
+		if (displayVariableName)
+			varNamesCheck.setSelected(true);
+		options.add(varNamesCheck);
+		varNamesCheck.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				displayVariableName = !displayVariableName;
+
+				new Thread() {
+					public void run() {
+						initialize(element, null);
+					}
+				}.start();
+				revalidate();
+				repaint();
+			}
+		});
+		if (multiExpressions) {
+			final List<InstanceExpression> finalInstanceExpressions = instanceExpressions;
+			JButton addButton = new JButton("Add new Instance Expression");
+			addButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					finalInstanceExpressions.add(new InstanceExpression());
+
+					new Thread() {
+						public void run() {
+							initialize(element, null);
+						}
+					}.start();
+					revalidate();
+					repaint();
+				}
+			});
+			options.add(addButton);
+		}
+		panel.add(options);
+		SpringUtilities.makeCompactGrid(panel,
+				this.instanceExpressions.size() + 1, 1, 4, 4, 4, 4);
 
 		add(panel, BorderLayout.CENTER);
 
@@ -276,7 +350,8 @@ public class InstanceExpressionDialog extends JDialog {
 			default:
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
-			if (instanceExpression.getSemanticExpression().getSemanticExpressionType() != null) {
+			if (instanceExpression.getSemanticExpression()
+					.getSemanticExpressionType() != null) {
 				if (instanceExpression.getLeftInstanceExpression() == null)
 					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
@@ -453,11 +528,6 @@ public class InstanceExpressionDialog extends JDialog {
 		JTextField textField = new JTextField(""
 				+ (instanceExpression).getNumber());
 		textField.addFocusListener(new FocusListener() {
-
-			public void actionPerformed(ActionEvent event) {
-
-			}
-
 			@Override
 			public void focusGained(FocusEvent e) {
 			}
@@ -478,9 +548,9 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstanceExpression instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
-		if (instanceExpression.getSideElement(expressionVertexType) == null)
-		{
-			String id = instanceExpression.getSideElementIdentifier(expressionVertexType);
+		if (instanceExpression.getSideElement(expressionVertexType) == null) {
+			String id = instanceExpression
+					.getSideElementIdentifier(expressionVertexType);
 			instanceExpression.setInstElement(refasModel.getVertex(id),
 					expressionVertexType);
 		}
@@ -488,11 +558,11 @@ public class InstanceExpressionDialog extends JDialog {
 		String varIdentifier = null;
 		varIdentifier = instanceExpression
 				.getElementAttributeIdentifier(expressionVertexType);
-		if (varIdentifier == null)
-		{
-			varIdentifier = instanceExpression.getSideElementIdentifier(expressionVertexType);
+		if (varIdentifier == null) {
+			varIdentifier = instanceExpression
+					.getSideElementIdentifier(expressionVertexType);
 			InstElement instVertex = refasModel.getVertex(varIdentifier);
-			instanceExpression.setInstElement(instVertex,expressionVertexType);
+			instanceExpression.setInstElement(instVertex, expressionVertexType);
 		}
 		identifiers = createIdentifiersCombo(expressionVertexType, element,
 				varIdentifier);
@@ -644,7 +714,8 @@ public class InstanceExpressionDialog extends JDialog {
 		JComboBox<String> combo = new JComboBox<String>();
 		List<SemanticExpressionType> semanticExpressionTypes = SemanticExpressionType
 				.getValidSemanticExpressionTypes(refasModel
-						.getSemanticExpressionTypes().values(), topExpressionType);
+						.getSemanticExpressionTypes().values(),
+						topExpressionType);
 
 		for (SemanticExpressionType semanticExpressionType : semanticExpressionTypes) {
 			combo.addItem(semanticExpressionType.getTextConnector());
@@ -664,12 +735,8 @@ public class InstanceExpressionDialog extends JDialog {
 							initialize(element, null);
 						}
 					}.start();
-					// revalidate();
-					// pack();
-
-				}
+					}
 			}
-
 		});
 		return combo;
 	}
@@ -742,7 +809,7 @@ public class InstanceExpressionDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public InstanceExpression[] getExpressions() {
+	public List<InstanceExpression> getExpressions() {
 		return instanceExpressions;
 	}
 

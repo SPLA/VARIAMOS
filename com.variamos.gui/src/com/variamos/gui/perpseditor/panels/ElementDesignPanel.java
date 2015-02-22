@@ -8,6 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -157,16 +158,18 @@ public class ElementDesignPanel extends JPanel {
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
 						.getVisibleVariables();
-				if (((InstElement)editElm).getEditableSemanticElement() != null)
-				{
+				if (((InstElement) editElm).getEditableSemanticElement() != null) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
-					JButton button = new JButton("Open Semantic Expressions Editor");
+					JButton button = new JButton(
+							"Open Semantic Expressions Editor");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							List<IntSemanticExpression> ie = ((InstElement) finalEditElm).getEditableSemanticElement().getSemanticExpresions();
+							List<IntSemanticExpression> ie = ((InstElement) finalEditElm)
+									.getEditableSemanticElement()
+									.getSemanticExpresions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
 									finalEditor, finalEditElm, ie);
 							dialog.center();
@@ -176,28 +179,29 @@ public class ElementDesignPanel extends JPanel {
 									// This calls Pull on each
 									// parameter
 									// attributeEdition.getParameters();
-									//finalInstAttribute.setValue(dialog
-									//		.getExpressions()[0]);
+									// finalInstAttribute.setValue(dialog
+									// .getExpressions()[0]);
 									// attributes.put(name.getName(),
 									// v);
-									try
-									{
-										//Expression exp = ((InstanceExpression) finalInstAttribute
-										//		.getValue())
-										//		.createSGSExpression(finalEditElm.getIdentifier());
-										//System.out.println(exp);
-									} catch(Exception e)
-									{
+									try {
+										// Expression exp =
+										// ((InstanceExpression)
+										// finalInstAttribute
+										// .getValue())
+										// .createSGSExpression(finalEditElm.getIdentifier());
+										// System.out.println(exp);
+									} catch (Exception e) {
 										JOptionPane
-										.showMessageDialog(
-												finalEditor,
-												"Complete the expression before closing the editor",
-												"Expression Error",
-												JOptionPane.INFORMATION_MESSAGE, null);
+												.showMessageDialog(
+														finalEditor,
+														"Complete the expression before closing the editor",
+														"Expression Error",
+														JOptionPane.INFORMATION_MESSAGE,
+														null);
 										e.printStackTrace();
 										return false;
 									}
-											
+
 									// afterAction();
 									return true;
 								}
@@ -241,11 +245,15 @@ public class ElementDesignPanel extends JPanel {
 									button.setEnabled(false);
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
-										InstanceExpression ie = (InstanceExpression) finalInstAttribute
-												.getValue();
-										if (ie == null)
-											ie = new InstanceExpression(true,
-													"id");
+										List<InstanceExpression> ie = new ArrayList<InstanceExpression>();
+										;
+										if ((InstanceExpression) finalInstAttribute
+												.getValue() != null)
+											ie.add((InstanceExpression) finalInstAttribute
+													.getValue());
+										else
+											ie.add(new InstanceExpression(true,
+													"id"));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie);
@@ -256,28 +264,30 @@ public class ElementDesignPanel extends JPanel {
 												// This calls Pull on each
 												// parameter
 												// attributeEdition.getParameters();
-												finalInstAttribute.setValue(dialog
-														.getExpressions()[0]);
+												finalInstAttribute
+														.setValue(dialog
+																.getExpressions()
+																.get(0));
 												// attributes.put(name.getName(),
 												// v);
-												try
-												{
+												try {
 													Expression exp = ((InstanceExpression) finalInstAttribute
 															.getValue())
-															.createSGSExpression(finalEditElm.getIdentifier());
+															.createSGSExpression(finalEditElm
+																	.getIdentifier());
 													System.out.println(exp);
-												} catch(Exception e)
-												{
+												} catch (Exception e) {
 													JOptionPane
-													.showMessageDialog(
-															finalEditor,
-															"Complete the expression before closing the editor",
-															"Expression Error",
-															JOptionPane.INFORMATION_MESSAGE, null);
+															.showMessageDialog(
+																	finalEditor,
+																	"Complete the expression before closing the editor",
+																	"Expression Error",
+																	JOptionPane.INFORMATION_MESSAGE,
+																	null);
 													e.printStackTrace();
 													return false;
 												}
-														
+
 												// afterAction();
 												return true;
 											}
@@ -293,8 +303,9 @@ public class ElementDesignPanel extends JPanel {
 										.getWidgetFor(instAttribute);
 
 								if (widget == null) {
-									System.err.print("EDP: No Widget found for "
-											+ instAttribute);
+									System.err
+											.print("EDP: No Widget found for "
+													+ instAttribute);
 									return;
 								}
 								// TODO: Add listeners to w.
@@ -379,7 +390,7 @@ public class ElementDesignPanel extends JPanel {
 											.addActionListener(new ActionListener() {
 												public void actionPerformed(
 														ActionEvent e) {
-													
+
 													new Thread() {
 														public void run() {
 															editorProperties(
@@ -389,22 +400,16 @@ public class ElementDesignPanel extends JPanel {
 													}.start();
 												}
 											});
-							/*	if (widget.getEditor() instanceof JComboBox)
-									((JComboBox) widget.getEditor())
-											.addActionListener(new ActionListener() {
-												public void actionPerformed(
-														ActionEvent e) {
-													
-													new Thread() {
-														public void run() {
-															editorProperties(
-																	finalEditor,
-																	finalInstCell);
-														}
-													}.start();
-												}
-											});
-											*/
+								/*
+								 * if (widget.getEditor() instanceof JComboBox)
+								 * ((JComboBox) widget.getEditor())
+								 * .addActionListener(new ActionListener() {
+								 * public void actionPerformed( ActionEvent e) {
+								 * 
+								 * new Thread() { public void run() {
+								 * editorProperties( finalEditor,
+								 * finalInstCell); } }.start(); } });
+								 */
 								/*
 								 * if (w.getEditor() instanceof JComboBox)
 								 * ((JComboBox) w.getEditor())
@@ -622,7 +627,7 @@ public class ElementDesignPanel extends JPanel {
 		}
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
 
-		//System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
+		// System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();

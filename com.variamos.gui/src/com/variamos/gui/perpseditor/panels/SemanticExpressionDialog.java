@@ -57,6 +57,8 @@ public class SemanticExpressionDialog extends JDialog {
 	private RefasModel refasModel;
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
+	private int width = 950;
+	private int height = 300;
 
 	static interface SemanticExpressionButtonAction {
 		public boolean onAction();
@@ -69,14 +71,17 @@ public class SemanticExpressionDialog extends JDialog {
 		refasModel = (RefasModel) editor.getEditedModel();
 		this.semanticExpressions = new ArrayList<IntSemanticExpression>();
 		this.semanticExpressions.add(new SemanticExpression(instElement));
+		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, semanticExpressions);
-
-		setPreferredSize(new Dimension(950, 400));
-		setMaximumSize(new Dimension(1650, 1080));
 	}
 
 	public void initialize(final InstElement element,
 			final List<IntSemanticExpression> semanticExpressions) {
+		if (this.getWidth() != 0)
+			width = this.getWidth();
+		if (this.getHeight() != 0)
+			height = this.getHeight();
+		this.setPreferredSize(new Dimension(width, height));
 		this.getContentPane().removeAll();
 		// removeAll();
 		setLayout(new BorderLayout());
@@ -126,7 +131,6 @@ public class SemanticExpressionDialog extends JDialog {
 						initialize(element, null);
 					}
 				}.start();
-				pack();
 				revalidate();
 				repaint();
 			}
@@ -148,7 +152,6 @@ public class SemanticExpressionDialog extends JDialog {
 						initialize(element, null);
 					}
 				}.start();
-				pack();
 				revalidate();
 				repaint();
 			}
@@ -166,7 +169,6 @@ public class SemanticExpressionDialog extends JDialog {
 						initialize(element, null);
 					}
 				}.start();
-				pack();
 				revalidate();
 				repaint();
 			}
@@ -387,7 +389,7 @@ public class SemanticExpressionDialog extends JDialog {
 							.add(createCombo(
 									semanticExpression,
 									element,
-									ExpressionVertexType.LEFTANYCONCEPTVARIABLE,
+									ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE,
 									semanticExpression
 											.getLeftValidExpressions(), true));
 					leftPanel
@@ -628,8 +630,8 @@ public class SemanticExpressionDialog extends JDialog {
 		selectedElement = semanticExpression.getSelectedElement(
 				expressionVertexType, isConcept);
 
-		identifiers = fillCombo(expressionVertexType, element, selectedElement,
-				isConcept);
+		identifiers = fillCombo(semanticExpression, expressionVertexType,
+				element, selectedElement, isConcept);
 		identifiers.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
@@ -661,41 +663,18 @@ public class SemanticExpressionDialog extends JDialog {
 		return identifiers;
 	}
 
-	/*
-	 * private JComboBox<String> createIdentifiersValueCombo(InstElement
-	 * element, String selectedElement) { JComboBox<String> combo = new
-	 * JComboBox<String>(); for (InstVertex instVertex : refasModel
-	 * .getVariabilityVertexCollection()) { IntSemanticElement semElement2 =
-	 * ((MetaVertex) instVertex
-	 * .getTransSupportMetaElement()).getTransSemanticConcept(); if (semElement2
-	 * != null && semElement2.getIdentifier().equals("Variable")) { String
-	 * variableType = (String) instVertex.getInstAttribute(
-	 * SemanticVariable.VAR_VARIABLETYPE).getValue(); switch (variableType) {
-	 * case "Boolean": combo.addItem(instVertex.getIdentifier() + "_" + "true");
-	 * combo.addItem(instVertex.getIdentifier() + "_" + "false"); break; case
-	 * "Integer": String domain = (String) instVertex.getInstAttribute(
-	 * SemanticVariable.VAR_VARIABLEDOMAIN).getValue(); String split[] =
-	 * domain.split(","); for (String dom : split) {
-	 * combo.addItem(instVertex.getIdentifier() + "_" + dom);
-	 * 
-	 * } break; case "Enumeration": Object object = instVertex.getInstAttribute(
-	 * "enumerationType").getValueObject(); if (object != null) {
-	 * Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute)
-	 * ((InstEnumeration) object) .getInstAttribute("value")).getValue(); for
-	 * (InstAttribute value : values) combo.addItem(instVertex.getIdentifier() +
-	 * "_" + value.getValue()); } break;
-	 * 
-	 * } } } combo.setSelectedItem(selectedElement); return combo; }
-	 */
-	private JComboBox<String> fillCombo(ExpressionVertexType type,
-			InstElement element, String selectedElement, boolean isConcept) {
+	private JComboBox<String> fillCombo(
+			final SemanticExpression semanticExpression,
+			ExpressionVertexType type, InstElement element,
+			String selectedElement, boolean isConcept) {
 		JComboBox<String> combo = new JComboBox<String>();
 		Collection<InstElement> instElements = null;
 		instElements = new ArrayList<InstElement>();
-
+		InstElement instElement = semanticExpression.getLeftSemanticElement();
 		switch (type) {
 		case LEFTCONCEPTVARIABLE:
 		case RIGHTCONCEPTVARIABLE:
+			instElement = element;
 			if (element instanceof InstConcept)
 				instElements.add(element);
 			if (element instanceof InstPairwiseRelation) {
@@ -725,7 +704,6 @@ public class SemanticExpressionDialog extends JDialog {
 
 			break;
 		case LEFTCONCEPTTYPEVARIABLE:
-		case LEFTANYCONCEPTVARIABLE:
 			instElements = refasModel.getVariabilityVertexCollection();
 			break;
 		case LEFTINCOMRELVARIABLE:
@@ -741,6 +719,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 		}
 		if (isConcept) {
+			combo.addItem("-- Any Concept --");
 			for (InstElement instVertex : instElements) {
 				if (displayConceptName
 						&& instVertex.getInstAttribute("name") != null)
@@ -750,15 +729,16 @@ public class SemanticExpressionDialog extends JDialog {
 					combo.addItem(instVertex.getIdentifier());
 			}
 		} else {
-			for (AbstractAttribute attribute : element
-					.getEditableSemanticElement().getSemanticAttributes()
-					.values())
+			if (instElement != null)
+				for (AbstractAttribute attribute : instElement
+						.getEditableSemanticElement().getSemanticAttributes()
+						.values())
 
-				if (displayVariableName)
+					if (displayVariableName)
 
-					combo.addItem(attribute.getDisplayName());
-				else
-					combo.addItem(attribute.getName());
+						combo.addItem(attribute.getDisplayName());
+					else
+						combo.addItem(attribute.getName());
 
 		}
 		combo.setSelectedItem(selectedElement);
@@ -856,10 +836,6 @@ public class SemanticExpressionDialog extends JDialog {
 						case "A Concept Type Variable":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE);
-							break;
-						case "Any Concept Variable":
-							semanticExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTANYCONCEPTVARIABLE);
 							break;
 						case "Any Incomming Relation Variable":
 							semanticExpression
