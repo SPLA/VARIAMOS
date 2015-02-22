@@ -246,9 +246,6 @@ public class InstanceExpressionDialog extends JDialog {
 
 		JPanel basePanel = new JPanel();
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		// if (selectedExpression == instanceExpression)
-		// basePanel.setBorder(blackline);
-		// else
 		basePanel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		basePanel.setMaximumSize(new Dimension(1000, 300));
 		basePanel.setBackground(new Color(color, color, color));
@@ -355,13 +352,13 @@ public class InstanceExpressionDialog extends JDialog {
 				if (instanceExpression.getLeftInstanceExpression() == null)
 					instanceExpression.setLeftInstanceExpression(
 							ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
-				instanceExpression
-						.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 				showExpression(instanceExpression.getLeftInstanceExpression(),
 						element, leftPanel,
 						instanceExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
-			}
+				instanceExpression
+				.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+		}
 		}
 		if (leftSide.getSelectedItem().equals("Number")) {
 			if (instanceExpression.getLeftExpressionType() != null)

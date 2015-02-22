@@ -122,13 +122,21 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			rightInstanceExpression.loadVolatileElements(instVertices);
 	}
 	
-	public InstanceExpression(boolean customExpression, String id) {
+	public InstanceExpression(boolean customExpression, String id, boolean first) {
 		this.customExpression = customExpression;
 		if (customExpression) {
 			customSemanticExpression = new SemanticExpression(id);
 			semanticExpressionId = id;
 		}
-
+		if (first)
+		{
+		setLeftInstanceExpression(
+				ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
+		setRightInstanceExpression(
+				ExpressionVertexType.RIGHTSUBEXPRESSION, null, "id");
+		}
+		this.setLeftExpressionType(ExpressionVertexType.LEFT);
+		this.setRightExpressionType(ExpressionVertexType.RIGHT);
 	}
 
 	public InstanceExpression(boolean customExpression,
@@ -466,7 +474,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setLeftInstanceExpression(ExpressionVertexType type,
 			SemanticExpressionType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION)
-			this.leftInstanceExpression = new InstanceExpression(true, id);
+			this.leftInstanceExpression = new InstanceExpression(true, id, false);
 		if (type == ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)
 			this.leftInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));
@@ -482,7 +490,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setRightInstanceExpression(ExpressionVertexType type,
 			SemanticExpressionType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
-			this.rightInstanceExpression = new InstanceExpression(true, id);
+			this.rightInstanceExpression = new InstanceExpression(true, id, false);
 		if (type == ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)
 			this.rightInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));

@@ -253,7 +253,7 @@ public class ElementDesignPanel extends JPanel {
 													.getValue());
 										else
 											ie.add(new InstanceExpression(true,
-													"id"));
+													"id", true));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie);

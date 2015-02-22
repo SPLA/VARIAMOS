@@ -239,9 +239,6 @@ public class SemanticExpressionDialog extends JDialog {
 
 		JPanel basePanel = new JPanel();
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		// if (selectedExpression == instanceExpression)
-		// basePanel.setBorder(blackline);
-		// else
 		basePanel.setBorder(new EmptyBorder(1, 1, 1, 1));
 		basePanel.setMaximumSize(new Dimension(1000, 300));
 		basePanel.setBackground(new Color(color, color, color));
