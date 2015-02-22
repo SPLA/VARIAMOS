@@ -171,7 +171,7 @@ public class AbstractSemanticElement implements Serializable,
 		abstractAttributes.putAll(semanticAttributes);
 		if (parent != null)
 			abstractAttributes.putAll(parent.getSemanticAttributes());
-		return semanticAttributes;
+		return abstractAttributes;
 	}
 
 	public Set<String> getDeclaredSemanticAttributes() {

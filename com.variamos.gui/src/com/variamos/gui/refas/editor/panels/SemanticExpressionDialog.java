@@ -722,7 +722,7 @@ public class SemanticExpressionDialog extends JDialog {
 				combo.addItem(instVertex.getIdentifier());
 			}
 		} else {
-			for (String attributeName : element.getInstAttributes().keySet())
+			for (String attributeName : element.getEditableSemanticElement().getSemanticAttributes().keySet())
 				combo.addItem(attributeName);
 
 		}

@@ -253,7 +253,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 		if (getEditableSemanticElement() != null) {
 			out2 = "\n";
 			Set<String> modelingAttributes = getEditableSemanticElement()
-					.getSemanticAttributes().keySet();
+					.getDeclaredSemanticAttributes();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals("identifier")
 						&& !attributeName.equals("Description"))
