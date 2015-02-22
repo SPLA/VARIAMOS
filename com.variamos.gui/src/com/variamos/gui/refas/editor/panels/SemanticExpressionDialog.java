@@ -40,6 +40,7 @@ import com.variamos.syntax.instancesupport.InstConcept;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstOverTwoRelation;
 import com.variamos.syntax.instancesupport.InstPairwiseRelation;
+import com.variamos.syntax.semanticinterface.IntSemanticExpression;
 
 /**
  * @author unknown
@@ -47,7 +48,7 @@ import com.variamos.syntax.instancesupport.InstPairwiseRelation;
  */
 @SuppressWarnings("serial")
 public class SemanticExpressionDialog extends JDialog {
-	private List<SemanticExpression> semanticExpressions;
+	private List<IntSemanticExpression> semanticExpressions;
 	private SemanticExpressionButtonAction onAccept, onCancel;
 	private SemanticExpression selectedExpression;
 	private JPanel solutionPanel;
@@ -58,11 +59,11 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	public SemanticExpressionDialog(VariamosGraphEditor editor,
-			InstElement instElement, boolean multiExpression,
-			List<SemanticExpression> semanticExpressions) {
+			InstElement instElement, 
+			List<IntSemanticExpression> semanticExpressions) {
 		super(editor.getFrame(), "Semantic Expressions Editor");
 		refasModel = (RefasModel) editor.getEditedModel();
-		this.semanticExpressions = new ArrayList<SemanticExpression>();
+		this.semanticExpressions = new ArrayList<IntSemanticExpression>();
 		this.semanticExpressions.add(new SemanticExpression(instElement));
 		this.initialize(instElement, semanticExpressions);
 
@@ -71,7 +72,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	public void initialize(final InstElement element,
-			final List<SemanticExpression> semanticExpressions) {
+			final List<IntSemanticExpression> semanticExpressions) {
 		this.getContentPane().removeAll();
 		// removeAll();
 		setLayout(new BorderLayout());
@@ -81,16 +82,16 @@ public class SemanticExpressionDialog extends JDialog {
 
 		if (semanticExpressions != null)
 			this.semanticExpressions = semanticExpressions;
-		final List<SemanticExpression> finalSemanticExpressions = this.semanticExpressions;
-		for (SemanticExpression semanticExpression : this.semanticExpressions) {
+		final List<IntSemanticExpression> finalSemanticExpressions = this.semanticExpressions;
+		for (IntSemanticExpression semanticExpression : this.semanticExpressions) {
 
 			if (semanticExpressions != null)
-				selectedExpression = semanticExpression;
+				selectedExpression = (SemanticExpression)semanticExpression;
 
 			solutionPanel = new JPanel();
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
-			showExpression(semanticExpression, element, solutionPanel,
+			showExpression((SemanticExpression)semanticExpression, element, solutionPanel,
 					SemanticExpressionType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
@@ -854,7 +855,7 @@ public class SemanticExpressionDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public List<SemanticExpression> getExpressions() {
+	public List<IntSemanticExpression> getExpressions() {
 		return semanticExpressions;
 	}
 

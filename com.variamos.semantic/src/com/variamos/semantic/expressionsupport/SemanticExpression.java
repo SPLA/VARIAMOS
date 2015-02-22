@@ -9,6 +9,7 @@ import com.variamos.semantic.types.RecursiveExpressionType;
 import com.variamos.syntax.instancesupport.InstElement;
 import com.variamos.syntax.instancesupport.InstVertex;
 import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.syntax.semanticinterface.IntSemanticExpression;
 
 /**
  * A class to represent SemanticExpressions. Part of PhD work at University of
@@ -19,7 +20,7 @@ import com.variamos.syntax.semanticinterface.IntSemanticElement;
  * @version 1.1
  * @since 2014-02-05
  */
-public class SemanticExpression implements Serializable {
+public class SemanticExpression implements Serializable, IntSemanticExpression {
 	/**
 	 * 
 	 */

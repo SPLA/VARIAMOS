@@ -37,7 +37,7 @@
   <class id="4" language="java" name="com.variamos.syntax.instancesupport.InstElement" project="com.variamos.syntax" 
     file="/com.variamos.syntax/src/com/variamos/syntax/instancesupport/InstElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="80" width="249" x="-1" y="38"/>    
+    <position height="80" width="249" x="0" y="-35"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -136,7 +136,7 @@
     project="com.variamos.semantic" 
     file="/com.variamos.semantic/src/com/variamos/semantic/types/ExpressionVertexType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="152" y="312"/>    
+    <position height="-1" width="-1" x="147" y="322"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -241,13 +241,13 @@
   </association>  
   <association id="36">    
     <bendpoint x="289" y="-125"/>    
-    <bendpoint x="289" y="5"/>    
+    <bendpoint x="298" y="-55"/>    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="37" name="volatileRightInstElement">        
-        <position height="0" width="0" x="-96" y="-892"/>      
+        <position height="0" width="0" x="-95" y="-965"/>      
       </attribute>      
       <multiplicity id="38" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-96" y="-892"/>      
+        <position height="0" width="0" x="-95" y="-965"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
@@ -308,13 +308,13 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="51">    
-    <bendpoint x="165" y="137"/>    
+    <bendpoint x="144" y="93"/>    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="52" name="volatileRightExpType">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-5" y="10"/>      
       </attribute>      
       <multiplicity id="53" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-5" y="10"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
@@ -395,13 +395,13 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="70">    
-    <bendpoint x="481" y="307"/>    
+    <bendpoint x="446" y="280"/>    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="71" name="volatileLeftExpType">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-5" y="10"/>      
       </attribute>      
       <multiplicity id="72" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-5" y="10"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
@@ -423,7 +423,7 @@
   </association>  
   <association id="76">    
     <bendpoint x="325" y="-199"/>    
-    <bendpoint x="339" y="34"/>    
+    <bendpoint x="337" y="72"/>    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="77" name="customSemanticExpression">        
         <position height="0" width="0" x="-156" y="-187"/>      
@@ -437,13 +437,12 @@
   </association>  
   <association id="79">    
     <bendpoint x="-15" y="-143"/>    
-    <bendpoint x="14" y="-29"/>    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="80" name="volatileLefInsttElement">        
-        <position height="0" width="0" x="-96" y="-892"/>      
+        <position height="0" width="0" x="-95" y="-965"/>      
       </attribute>      
       <multiplicity id="81" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-96" y="-892"/>      
+        <position height="0" width="0" x="-95" y="-965"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
@@ -451,7 +450,7 @@
   </association>  
   <association id="82">    
     <bendpoint x="360" y="-255"/>    
-    <bendpoint x="361" y="-62"/>    
+    <bendpoint x="385" y="-64"/>    
     <end type="SOURCE" refId="3" navigable="false">      
       <attribute id="83" name="volatileSemanticExpression">        
         <position height="0" width="0" x="-156" y="-187"/>      
@@ -464,7 +463,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="85">    
-    <bendpoint x="370" y="303"/>    
+    <bendpoint x="344" y="293"/>    
     <bendpoint x="296" y="-162"/>    
     <end type="SOURCE" refId="12" navigable="false">      
       <attribute id="86" name="instanceExpressions">        
