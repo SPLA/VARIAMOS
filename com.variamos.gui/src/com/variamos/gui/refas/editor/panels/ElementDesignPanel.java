@@ -622,7 +622,7 @@ public class ElementDesignPanel extends JPanel {
 		}
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
 
-		System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
+		//System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();

@@ -1541,7 +1541,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (result) {
 				List<String> modifiedIdentifiers = compareSolutions(
 						lastConfiguration, currentConfiguration);
-				System.out.println(modifiedIdentifiers);
+				//System.out.println(modifiedIdentifiers);
 			}
 		}
 		lastConfiguration = refas2hlcl.getConfiguration();
@@ -1880,9 +1880,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
 				configHlclProgram, SolverEditorType.SWI_PROLOG);
-		System.out.println("FREE: " + freeIdentifiers);
+		//System.out.println("FREE: " + freeIdentifiers);
 
-		System.out.println("CONF: " + configuredIdentNames);
+		//System.out.println("CONF: " + configuredIdentNames);
 
 		if (freeIdentifiers.size() > 0) {
 			try {
@@ -1903,7 +1903,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 		}
 
-		System.out.println("newSEL: " + requiredConceptsNames);
+		//System.out.println("newSEL: " + requiredConceptsNames);
 		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
 
 		if (freeIdentifiers.size() > 0) {

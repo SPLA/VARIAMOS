@@ -486,11 +486,11 @@ public class RefasGraph extends AbstractGraph {
 					// Main Root
 					Object rootCell = refasGraph.getRoot();
 					// Null Root
-					Object viewsParent = refasGraph.getChildAt(rootCell, 0);
+					mxCell viewsParent = (mxCell)refasGraph.getChildAt(rootCell, 0);
 					// Top level view
 					Object topLevelView = null;
 					// Parent to add new element
-					Object correctParentCell = null;
+					mxCell correctParentCell = null;
 					mxGraphModel model = refasGraph;
 					model.getCells().remove(cell.getId());
 					if (modelViewSubIndex != -1) {
@@ -498,7 +498,7 @@ public class RefasGraph extends AbstractGraph {
 						topLevelView = refasGraph.getChildAt(viewsParent,
 								modelViewIndex);
 						// Child view
-						correctParentCell = refasGraph.getChildAt(topLevelView,
+						correctParentCell = (mxCell) refasGraph.getChildAt(topLevelView,
 								modelViewSubIndex);
 
 						model.getCells().put(
@@ -508,7 +508,7 @@ public class RefasGraph extends AbstractGraph {
 								+ modelViewSubIndex);
 					} else if (modelViewIndex != -1) {
 						// Top Level view
-						correctParentCell = refasGraph.getChildAt(viewsParent,
+						correctParentCell = (mxCell)refasGraph.getChildAt(viewsParent,
 								modelViewIndex);
 						model.getCells().put(modelViewIndex + id, cell);
 						cell.setId(modelViewIndex + id);
@@ -536,8 +536,8 @@ public class RefasGraph extends AbstractGraph {
 							name = c.getSupportMetaOverTwoRelation()
 									.getIdentifier();
 						}
-						viewsParent = refasGraph.getChildAt(rootCell, 0); // Null
-																			// Root
+						viewsParent = (mxCell)refasGraph.getChildAt(rootCell, 0); 
+						// Null Root
 						for (int i = 0; i < refasGraph
 								.getChildCount(viewsParent); i++) {
 							mxCell mv1 = (mxCell) refasGraph.getChildAt(
@@ -567,13 +567,17 @@ public class RefasGraph extends AbstractGraph {
 												((InstCell) cell.getValue())
 														.getInstElement(), true));
 
-										getModel().setVisible(c2, false);
-										getModel().setVisible(c2, true);
 										model.add(mv2, c2, mv2.getChildCount());
+									//	getModel().setVisible(c2, false);
+										mv2.setVisible(true);
+									//	getModel().setVisible(c2, true);
+										mv2.setVisible(false);
 										// Add a clone to other models
 									}
 
 								}
+								correctParentCell.setVisible(false);
+								correctParentCell.setVisible(true);
 
 							} else {
 								// if (valid[i] && i != modelViewIndex) {
@@ -591,10 +595,14 @@ public class RefasGraph extends AbstractGraph {
 									c2.setId(i + id);
 									c2.setValue(new InstCell(((InstCell) cell
 											.getValue()).getInstElement(), true));
-									getModel().setVisible(c2, false);
-									getModel().setVisible(c2, true);
+									//getModel().setVisible(c2, false);
+									//getModel().setVisible(c2, true);
 									model.add(mv1, c2, mv1.getChildCount());
+									mv1.setVisible(true);
+									mv1.setVisible(false);
 									// Add a clone to other
+									correctParentCell.setVisible(false);
+									correctParentCell.setVisible(true);
 								}
 							}
 						}
