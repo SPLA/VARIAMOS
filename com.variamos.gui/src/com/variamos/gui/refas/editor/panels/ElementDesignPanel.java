@@ -14,11 +14,13 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import com.cfm.productline.AbstractElement;
@@ -372,6 +374,37 @@ public class ElementDesignPanel extends JPanel {
 													}.start();
 												}
 											});
+								if (widget.getEditor() instanceof JTextField)
+									((JTextField) widget.getEditor())
+											.addActionListener(new ActionListener() {
+												public void actionPerformed(
+														ActionEvent e) {
+													
+													new Thread() {
+														public void run() {
+															editorProperties(
+																	finalEditor,
+																	finalInstCell);
+														}
+													}.start();
+												}
+											});
+							/*	if (widget.getEditor() instanceof JComboBox)
+									((JComboBox) widget.getEditor())
+											.addActionListener(new ActionListener() {
+												public void actionPerformed(
+														ActionEvent e) {
+													
+													new Thread() {
+														public void run() {
+															editorProperties(
+																	finalEditor,
+																	finalInstCell);
+														}
+													}.start();
+												}
+											});
+											*/
 								/*
 								 * if (w.getEditor() instanceof JComboBox)
 								 * ((JComboBox) w.getEditor())
