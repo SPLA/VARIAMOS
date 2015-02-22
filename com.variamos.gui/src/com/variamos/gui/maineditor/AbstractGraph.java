@@ -42,7 +42,7 @@ public abstract class AbstractGraph extends mxGraph {
 		/*mxCodec codec = new mxCodec();
 		Document doc = mxUtils.loadDocument(VariamosGraphComponent.class
 				.getResource(
-						"/com/variamos/gui/pl/editor/style/styles.xml")
+						"/com/variamos/gui/perspeditor/style/styles.xml")
 				.toString());
 		codec.decode(doc.getDocumentElement(), stylesheet);
 		*/

@@ -56,7 +56,7 @@ public class ProductLineGraph extends AbstractGraph {
 		// To draw elements on the Graph
 		mxCodec codec = new mxCodec();
 		Document doc = mxUtils.loadDocument(ProductLineGraph.class
-				.getResource("/com/variamos/gui/pl/editor/style/styles.xml")
+				.getResource("/com/variamos/gui/perspeditor/style/styles.xml")
 				.toString());
 		codec.decode(doc.getDocumentElement(), stylesheet);
 		loadStencil();
@@ -65,7 +65,7 @@ public class ProductLineGraph extends AbstractGraph {
 	public void loadStencil() {
 		try {
 			String filename = Stencils.class.getResource(
-					"/com/variamos/gui/refas/editor/style/shapes.xml").getPath();
+					"/com/variamos/gui/perspeditor/style/shapes.xml").getPath();
 			Document doc;
 
 			doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));

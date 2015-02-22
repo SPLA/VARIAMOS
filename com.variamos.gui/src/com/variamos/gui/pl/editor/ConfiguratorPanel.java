@@ -41,6 +41,7 @@ import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
+import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
 import com.variamos.gui.pl.configurator.solution.SolutionPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
@@ -48,11 +49,11 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
-import com.variamos.refas.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.ConfigurationTask;
-import com.variamos.syntax.types.IntegerType;
 
 /**
  * @author unknown jcmunoz: commented unused methods

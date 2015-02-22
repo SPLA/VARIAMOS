@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.syntax.types.BooleanType;
-import com.variamos.syntax.types.IntegerType;
-import com.variamos.syntax.types.StringType;
+import com.variamos.perspsupport.types.BooleanType;
+import com.variamos.perspsupport.types.IntegerType;
+import com.variamos.perspsupport.types.StringType;
 
 
 public class WidgetFactory {

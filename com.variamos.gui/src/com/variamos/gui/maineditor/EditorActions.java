@@ -72,8 +72,8 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
+import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.refas.editor.actions.SharedActions;
 import com.variamos.io.SXFMWriter;
 
 /**

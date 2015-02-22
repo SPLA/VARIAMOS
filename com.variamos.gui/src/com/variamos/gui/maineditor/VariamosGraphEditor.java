@@ -68,54 +68,52 @@ import com.variamos.defectAnalyzer.model.Diagnosis;
 import com.variamos.defectAnalyzer.model.defects.Defect;
 import com.variamos.defectAnalyzer.model.enums.DefectAnalyzerMode;
 import com.variamos.defectAnalyzer.model.enums.DefectType;
+import com.variamos.gui.perpseditor.panels.ElementDesignPanel;
+import com.variamos.gui.perpseditor.panels.RefasExpressionPanel;
+import com.variamos.gui.perpseditor.panels.VariamosDashBoardFrame;
+import com.variamos.gui.perspeditor.PerspEditorFunctions;
+import com.variamos.gui.perspeditor.ModelButtonAction;
+import com.variamos.gui.perspeditor.PerspEditorToolBar;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
+import com.variamos.gui.perspeditor.SemanticPlusSyntax;
+import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.gui.perspeditor.actions.SharedActions;
+import com.variamos.gui.perspeditor.widgets.MClassWidget;
+import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
+import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
+import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
-import com.variamos.gui.pl.editor.PLEditorToolBar;
-import com.variamos.gui.pl.editor.PLGraphEditorFunctions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.gui.pl.editor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.gui.refas.editor.ModelButtonAction;
-import com.variamos.gui.refas.editor.RefasEditorToolBar;
-import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.gui.refas.editor.actions.SharedActions;
-import com.variamos.gui.refas.editor.panels.ElementDesignPanel;
-import com.variamos.gui.refas.editor.panels.RefasExpressionPanel;
-import com.variamos.gui.refas.editor.panels.VariamosDashBoardFrame;
-import com.variamos.gui.refas.editor.widgets.MClassWidget;
-import com.variamos.gui.refas.editor.widgets.MEnumerationWidget;
-import com.variamos.gui.refas.editor.widgets.RefasWidgetFactory;
-import com.variamos.gui.refas.editor.widgets.WidgetR;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.io.SXFMReader;
-import com.variamos.refas.Refas2Hlcl;
-import com.variamos.refas.RefasModel;
+import com.variamos.perspsupport.instancesupport.EditableElement;
+import com.variamos.perspsupport.instancesupport.InstAttribute;
+import com.variamos.perspsupport.instancesupport.InstCell;
+import com.variamos.perspsupport.instancesupport.InstConcept;
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
+import com.variamos.perspsupport.instancesupport.InstView;
+import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaConcept;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
+import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
+import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
+import com.variamos.perspsupport.types.DomainRegister;
+import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.expressionsupport.ElementExpressionSet;
-import com.variamos.semantic.types.PerspectiveType;
 import com.variamos.solver.Configuration;
-import com.variamos.syntax.instancesupport.EditableElement;
-import com.variamos.syntax.instancesupport.InstAttribute;
-import com.variamos.syntax.instancesupport.InstCell;
-import com.variamos.syntax.instancesupport.InstConcept;
-import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstOverTwoRelation;
-import com.variamos.syntax.instancesupport.InstPairwiseRelation;
-import com.variamos.syntax.instancesupport.InstView;
-import com.variamos.syntax.metamodelsupport.AbstractAttribute;
-import com.variamos.syntax.metamodelsupport.EditableElementAttribute;
-import com.variamos.syntax.metamodelsupport.MetaConcept;
-import com.variamos.syntax.metamodelsupport.MetaElement;
-import com.variamos.syntax.metamodelsupport.MetaView;
-import com.variamos.syntax.metamodelsupport.SimulationConfigAttribute;
-import com.variamos.syntax.metamodelsupport.SimulationStateAttribute;
-import com.variamos.syntax.semanticinterface.IntSemanticElement;
-import com.variamos.syntax.types.DomainRegister;
 
 import fm.FeatureModelException;
 
@@ -216,15 +214,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		registerEvents();
 		((AbstractGraph) graphComponent.getGraph()).setModel(refasModel);
-		if (perspective == 0) {
-			setPerspective(0);
-			graphEditorFunctions = new PLGraphEditorFunctions(this);
-			graphEditorFunctions.updateEditor(validElements,
-					getGraphComponent(), modelViewIndex);
-		}
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
-		RefasGraph refasGraph = (RefasGraph) component.getGraph();
+		PerspEditorGraph refasGraph = (PerspEditorGraph) component.getGraph();
 		refasGraph.getModel().setRoot(root);
 		for (int i = 0; i < metaViews.size(); i++) {
 			mxCell parent = new mxCell("mv" + i);
@@ -315,11 +307,11 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		registerEvents();
 		Collection<InstView> instViews = refasModel.getSyntaxRefas()
 				.getInstViews();
-		RefasGraph refasGraph = ((RefasGraph) graphComponent.getGraph());
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
 		refasGraph.setModel(abstractModel);
 		refasGraph.setValidation(true);
-		graphEditorFunctions = new RefasGraphEditorFunctions(this);
+		graphEditorFunctions = new PerspEditorFunctions(this);
 		// RefasGraph refasGraph = (RefasGraph) component.getGraph();
 
 		this.graphLayout("organicLayout", false);
@@ -460,7 +452,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		// System.out.println(modelIndex + " " + modelSubIndex);
 		modelViewIndex = modelIndex;
 		modelSubViewIndex = modelSubIndex;
-		RefasGraph refasGraph = ((RefasGraph) getGraphComponent().getGraph());
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) getGraphComponent().getGraph());
 		if (perspective == 4)
 			validElements = null;
 		else
@@ -522,17 +514,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			System.out.println("Initializing modeling perspective...");
 			persp = 2;
-			RefasGraph refasGraph = null;
+			PerspEditorGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling, null));
-				refasGraph = new RefasGraph(persp);
+				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
 					abstractModel = new RefasModel(PerspectiveType.modeling,
 							null);
-					refasGraph = new RefasGraph(persp);
+					refasGraph = new PerspEditorGraph(persp);
 
 				}
 
@@ -544,7 +536,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				vge2.setVisibleModel(0, -1);
 				vge2.setDefaultButton();
 				vge2.setPerspective(2);
-				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
+				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
 				vge2.updateEditor();
 
 				System.out.println("Modeling perspective initialized.");
@@ -555,17 +547,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			System.out.println("Initializing meta-modeling perspective...");
 			// todo: change for metamodeling
 			persp = 3;
-			RefasGraph refasGraph = null;
+			PerspEditorGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
 						PerspectiveType.modeling, null));
-				refasGraph = new RefasGraph(persp);
+				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
 					abstractModel = new RefasModel(PerspectiveType.modeling,
 							null);
-					refasGraph = new RefasGraph(persp);
+					refasGraph = new PerspEditorGraph(persp);
 
 				}
 
@@ -576,7 +568,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				vge2.createFrame().setVisible(true);
 				vge2.setVisibleModel(0, -1);
 				vge2.setPerspective(3);
-				vge2.setGraphEditorFunctions(new RefasGraphEditorFunctions(vge2));
+				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
 				vge2.updateEditor();
 				mxCell root = new mxCell();
 				root.insert(new mxCell());
@@ -605,7 +597,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			abstractGraph = new ProductLineGraph();
 		if (perspective == 2 || perspective == 1 || perspective == 3
 				|| perspective == 4)
-			abstractGraph = new RefasGraph(perspective);
+			abstractGraph = new PerspEditorGraph(perspective);
 		// abstractGraph = (AbstractGraph) getGraphComponent()
 		// .getGraph();
 		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
@@ -622,9 +614,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		root.insert(new mxCell());
 		graph.getModel().setRoot(root);
 		if (perspective == 2) {
-			setGraphEditorFunctions(new RefasGraphEditorFunctions(this));
+			setGraphEditorFunctions(new PerspEditorFunctions(this));
 			refasModel.clear();
-			((RefasGraph) graph).defineInitialGraph();
+			((PerspEditorGraph) graph).defineInitialGraph();
 			System.out.println("");
 		}
 		if (perspective % 2 != 0) {
@@ -1277,15 +1269,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void refresh() {
 		try {
-			((RefasGraph) getGraphComponent().getGraph())
+			((PerspEditorGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
 		} catch (Exception e) {
-			lastEditableElement = ((RefasGraph) this.getGraphComponent()
+			lastEditableElement = ((PerspEditorGraph) this.getGraphComponent()
 					.getGraph()).getInstCell();
 			try {
 				if (lastEditableElement != null
 						&& lastEditableElement.getInstElement() != null)
-					((RefasGraph) getGraphComponent().getGraph())
+					((PerspEditorGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
 			} catch (Exception p) {
 				System.out.println("VariamosGraphEditor: Update error");
@@ -1392,7 +1384,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		perspectiveToolBarPanel.removeAll();
 		perspectiveToolBarPanel.setLayout(new BorderLayout());
 		// if (perspective == 3)
-		perspectiveToolBarPanel.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),
+		perspectiveToolBarPanel.add(new PerspEditorToolBar(this, JToolBar.HORIZONTAL),
 				BorderLayout.WEST);
 		// else
 		// jp.add(new PLEditorToolBar(this, JToolBar.HORIZONTAL),

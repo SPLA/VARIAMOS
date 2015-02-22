@@ -22,13 +22,13 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
 import com.variamos.editor.logic.ConstraintMode;
-import com.variamos.gui.refas.editor.actions.SharedActions;
-import com.variamos.syntax.instancesupport.InstCell;
-import com.variamos.syntax.instancesupport.InstConcept;
-import com.variamos.syntax.instancesupport.InstElement;
-import com.variamos.syntax.instancesupport.InstVertex;
-import com.variamos.syntax.metamodelsupport.MetaVertex;
-import com.variamos.syntax.semanticinterface.IntSemanticElement;
+import com.variamos.gui.perspeditor.actions.SharedActions;
+import com.variamos.perspsupport.instancesupport.InstCell;
+import com.variamos.perspsupport.instancesupport.InstConcept;
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstVertex;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
@@ -91,7 +91,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		mxCell parentCell = (mxCell) model.getChildAt(cell, 0);
 		List<String> redx = new ArrayList<String>();
 		for (int red = 1; red < 7; red++)
-			redx.add("/com/variamos/gui/refas/editor/images/red-x-" + red
+			redx.add("/com/variamos/gui/perspeditor/images/red-x-" + red
 					+ ".gif");
 
 		if (model.getChildCount(parentCell) > 0) {
@@ -178,20 +178,20 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							InstConcept instConcept = (InstConcept) val;
 							String backtophint = null, backbottomhint = null;
 
-							String sim_core = "/com/variamos/gui/refas/editor/images/sim_core.png";
-							String sim_dead = "/com/variamos/gui/refas/editor/images/sim_dead.png";
-							String sim_inactive = "/com/variamos/gui/refas/editor/images/sim_inactive.png";
-							String sim_normal = "/com/variamos/gui/refas/editor/images/sim_normal.png";
-							String sim_notavailable = "/com/variamos/gui/refas/editor/images/sim_notavailable.png";
-							String sim_selected = "/com/variamos/gui/refas/editor/images/sim_selected.png";
+							String sim_core = "/com/variamos/gui/perspeditor/images/sim_core.png";
+							String sim_dead = "/com/variamos/gui/perspeditor/images/sim_dead.png";
+							String sim_inactive = "/com/variamos/gui/perspeditor/images/sim_inactive.png";
+							String sim_normal = "/com/variamos/gui/perspeditor/images/sim_normal.png";
+							String sim_notavailable = "/com/variamos/gui/perspeditor/images/sim_notavailable.png";
+							String sim_selected = "/com/variamos/gui/perspeditor/images/sim_selected.png";
 							String sim_backcolor = sim_normal;
 
-							String sim_green1 = "/com/variamos/gui/refas/editor/images/sim_green1.png";
-							String sim_green2 = "/com/variamos/gui/refas/editor/images/sim_green2.png";
-							String sim_green3 = "/com/variamos/gui/refas/editor/images/sim_green3.png";
+							String sim_green1 = "/com/variamos/gui/perspeditor/images/sim_green1.png";
+							String sim_green2 = "/com/variamos/gui/perspeditor/images/sim_green2.png";
+							String sim_green3 = "/com/variamos/gui/perspeditor/images/sim_green3.png";
 
-							String sim_red2 = "/com/variamos/gui/refas/editor/images/sim_red2.png";
-							String sim_red3 = "/com/variamos/gui/refas/editor/images/sim_red3.png";
+							String sim_red2 = "/com/variamos/gui/perspeditor/images/sim_red2.png";
+							String sim_red3 = "/com/variamos/gui/perspeditor/images/sim_red3.png";
 
 							if ((boolean) instConcept.getInstAttribute("Core")
 									.getValue()) {
@@ -296,10 +296,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					if (childCell.getGeometry() != null && val != null
 							&& ((mxCell) parentCell).getValue() == null
 							&& val instanceof InstConcept) {
-						String design_required = "/com/variamos/gui/refas/editor/images/design_required.png";
-						String design_normal = "/com/variamos/gui/refas/editor/images/design_normal.png";
-						String design_dead = "/com/variamos/gui/refas/editor/images/design_dead.png";
-						String design_core = "/com/variamos/gui/refas/editor/images/design_core.png";
+						String design_required = "/com/variamos/gui/perspeditor/images/design_required.png";
+						String design_normal = "/com/variamos/gui/perspeditor/images/design_normal.png";
+						String design_dead = "/com/variamos/gui/perspeditor/images/design_dead.png";
+						String design_core = "/com/variamos/gui/perspeditor/images/design_core.png";
 						String backtophint = "", icon = "";
 						InstConcept instConcept = (InstConcept) val;
 						try {

@@ -9,13 +9,13 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import com.variamos.gui.refas.editor.RefasGraph;
-import com.variamos.gui.refas.editor.RefasGraphEditorFunctions;
-import com.variamos.gui.refas.editor.RefasMenuBar;
-import com.variamos.gui.refas.editor.SemanticPlusSyntax;
-import com.variamos.refas.RefasModel;
-import com.variamos.semantic.expressionsupport.SemanticExpressionType;
-import com.variamos.semantic.types.PerspectiveType;
+import com.variamos.gui.perspeditor.PerspEditorFunctions;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
+import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.gui.perspeditor.SemanticPlusSyntax;
+import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
+import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.types.PerspectiveType;
 
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
@@ -40,11 +40,11 @@ public class MainFrame extends JFrame {
 	}
 
 	private List<VariamosGraphEditor> graphEditors;
-	private List<RefasMenuBar> editorsMenu;
+	private List<PerspEditorMenuBar> editorsMenu;
 
 	public MainFrame() {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
-		editorsMenu = new ArrayList<RefasMenuBar>();
+		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.appTitle = "VariaMos";
 		this.perspectiveTitle = "Modeling Perspective";
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
 		RefasModel abstractModel = null;
 		SemanticPlusSyntax sematicSyntaxObject = new SemanticPlusSyntax();
 		VariamosGraphEditor.setSematicSyntaxObject(sematicSyntaxObject);
-		RefasGraph refasGraph = null;
+		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
 		for (int i = 0; i < 4; i++) {
@@ -98,12 +98,12 @@ public class MainFrame extends JFrame {
 				break;
 
 			}
-			refasGraph = new RefasGraph(i + 1, abstractModel);
+			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
 					abstractModel);
-			editor.setGraphEditorFunctions(new RefasGraphEditorFunctions(editor));
+			editor.setGraphEditorFunctions(new PerspEditorFunctions(editor));
 			if (i == 1)
 				modelEditor = editor;
 
@@ -115,7 +115,7 @@ public class MainFrame extends JFrame {
 
 			graphEditors.add(editor);
 
-			editorsMenu.add(new RefasMenuBar(graphEditors.get(i)));
+			editorsMenu.add(new PerspEditorMenuBar(graphEditors.get(i)));
 
 			editor.updateView();
 		}
