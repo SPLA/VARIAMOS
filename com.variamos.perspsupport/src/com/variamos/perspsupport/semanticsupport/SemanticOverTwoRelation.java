@@ -24,7 +24,6 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	 */
 	private static final long serialVersionUID = -6309224856276191013L;
 	private boolean exclusive;
-	private boolean conditionalExpression;
 	public static final String VAR_RELATIONTYPE_IDEN = "relationType",
 			VAR_RELATIONTYPE_NAME = "Relation Type",
 			VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
@@ -44,24 +43,16 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	}
 
 	public SemanticOverTwoRelation(AbstractSemanticVertex parent, String identifier, boolean exclusive,
-			List<IntSemanticRelationType> semanticRelationTypes,
-			boolean conditionalExpression) {
+			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(parent, identifier);
-		this.conditionalExpression= conditionalExpression;
 		this.semanticRelationTypes = semanticRelationTypes;
 		this.exclusive = exclusive;
 		defineSemanticAttributes();
 	}
 	
 	public SemanticOverTwoRelation(AbstractSemanticVertex parent,
-			String identifier, boolean exclusive,
-			List<IntSemanticRelationType> semanticRelationTypes) {
-		this(parent, identifier, exclusive, semanticRelationTypes, false);
-	}
-	
-	public SemanticOverTwoRelation(AbstractSemanticVertex parent,
 			String identifier, List<IntSemanticRelationType> semanticRelationTypes) {
-		this(parent, identifier, false, semanticRelationTypes, false);
+		this(parent, identifier, false, semanticRelationTypes);
 	}
 
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,

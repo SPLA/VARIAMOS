@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.perpseditor.panels.VariamosDashBoardFrame;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
-import com.variamos.perspsupport.perspmodel.RefasModel;
 
 @SuppressWarnings("serial")
 public class StartSimulationAction extends AbstractEditorAction {

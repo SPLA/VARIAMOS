@@ -2,7 +2,6 @@ package com.variamos.gui.perpseditor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +33,6 @@ import javax.swing.border.EmptyBorder;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -42,7 +40,6 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
@@ -617,6 +614,7 @@ public class InstanceExpressionDialog extends JDialog {
 					Object object = instVertex.getInstAttribute(
 							"enumerationType").getValueObject();
 					if (object != null) {
+						@SuppressWarnings("unchecked")
 						Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
 								.getInstAttribute("value")).getValue();
 						for (InstAttribute value : values)

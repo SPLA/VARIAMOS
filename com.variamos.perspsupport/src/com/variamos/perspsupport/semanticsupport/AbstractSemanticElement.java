@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;

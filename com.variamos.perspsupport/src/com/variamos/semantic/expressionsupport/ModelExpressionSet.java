@@ -10,7 +10,6 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;

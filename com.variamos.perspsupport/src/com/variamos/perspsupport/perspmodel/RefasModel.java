@@ -815,13 +815,13 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwRelOCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsOCRel"))
 				.getEditableMetaElement();
-		MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
+		/*MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsOORel"))
 				.getEditableMetaElement();
 
 		MetaPairwiseRelation metaPairwRelCCAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("AssoCCRel"))
-				.getEditableMetaElement();
+				.getEditableMetaElement();*/
 		MetaPairwiseRelation metaPairwRelCOAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("AssoCORel"))
 				.getEditableMetaElement();

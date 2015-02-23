@@ -66,12 +66,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// Configurator table settings
 	private ConfigurationTreeTable table;
 	private ConfigurationNode root;
-	private ConfigurationDataModel dataModel;
+	//private ConfigurationDataModel dataModel;
 	private Configurator configurator;
 
 	private SolutionPanel solutionPanel;
 	private Refas2Hlcl refas2hlcl;
-	private AbstractModel abstractModel;
+//	private AbstractModel abstractModel;
 
 	private JLabel lblStatus;
 	private JPanel controlPanel;

@@ -27,7 +27,7 @@ public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 	public SoftSemanticConceptSatisficing(
 			AbstractSemanticVertex semanticConcept, String name,
 			boolean exclusive, List<IntSemanticRelationType> semanticRelationTypes) {
-		super(semanticConcept, name, exclusive, semanticRelationTypes, true);
+		super(semanticConcept, name, exclusive, semanticRelationTypes);
 	//	if (condExpression)
 	//		conditionalExpression = new ConditionalExpression();
 		//addPanelSpacersAttribute("#" + this.VAR_RELATIONTYPE_IDEN + "#\n\n");

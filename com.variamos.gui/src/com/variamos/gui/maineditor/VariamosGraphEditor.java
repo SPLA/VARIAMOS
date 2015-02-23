@@ -1533,7 +1533,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (result) {
 				List<String> modifiedIdentifiers = compareSolutions(
 						lastConfiguration, currentConfiguration);
-				//System.out.println(modifiedIdentifiers);
+				System.out.println(modifiedIdentifiers);
 			}
 		}
 		lastConfiguration = refas2hlcl.getConfiguration();

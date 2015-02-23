@@ -713,7 +713,7 @@ public class SemanticExpressionDialog extends JDialog {
 			instElements.addAll(element.getSourceRelations());
 			instElements.addAll(element.getTargetRelations());
 			break;
-
+		default:
 		}
 		if (isConcept) {
 			combo.addItem("-- Any Concept --");
