@@ -22,7 +22,7 @@ public class PerspectiveToolBar extends JToolBar {
 	 * 
 	 */
 	private static final long serialVersionUID = -8015443128436394471L;
-	private JButton buttons[] = new JButton[5];
+	private JButton buttons[] = new JButton[6];
 	private MainFrame mainFrame;
 
 	/**
@@ -57,6 +57,11 @@ public class PerspectiveToolBar extends JToolBar {
 		// buttons[2].setEnabled(false);
 		add(buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
+		
+		buttons[5] = new JButton(mxResources.get("configurationPerspButton"));
+		// buttons[2].setEnabled(false);
+		add(buttons[5]);
+		buttons[5].addActionListener(new PerspectiveAction(this));
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
@@ -111,6 +116,11 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[4].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
+		
+		buttons[5] = new JButton(mxResources.get("configurationPerspButton"));
+		buttons[5].setBorder(new EmptyBorder(3, 7, 3, 7));
+		add(buttons[5]);
+		buttons[5].addActionListener(new PerspectiveAction(this));
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
