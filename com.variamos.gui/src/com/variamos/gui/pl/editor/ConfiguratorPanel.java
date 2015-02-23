@@ -3,6 +3,7 @@ package com.variamos.gui.pl.editor;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -55,6 +57,10 @@ import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.ConfigurationTask;
 
+import com.variamos.perspsupport.instancesupport.InstVertex;
+
+
+
 /**
  * @author unknown jcmunoz: commented unused methods
  *
@@ -69,7 +75,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	//private ConfigurationDataModel dataModel;
 	private Configurator configurator;
 
-	private SolutionPanel solutionPanel;
 	private Refas2Hlcl refas2hlcl;
 //	private AbstractModel abstractModel;
 
@@ -78,11 +83,44 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	private JTable tblSolutions;
 
 	private JList<String> additionalConstraints;
+	
+	//Elements
+	JLabel lblAvailableVars;
+    JList lstAvailableVars;
+    JScrollPane lstAvailableVarsScroll;
+    JLabel lblSelectedVar;
+    JTextField txtSelectedVar;
+    JLabel lblValue;
+    JComboBox<String> cmbDomain;
+    JButton cmdSet;
+    JLabel lblAffectedVarsBySelection;
+    JLabel lblAffectedVarsByNonSelection;
+    JList lstAffectedVarsBySelection;
+    JList lstAffectedVarsByNonSelection;
+    JButton cmdBack;
+    JButton cmdNextVar;
+    JLabel lblConfiguredVars;
+    JButton cmdRemoveConfiguredVar;
+    JButton cmdEditConfiguredVar;
+    JTable tblConfiguredVars;
+    JScrollPane tblConfiguredVarsScroll;
+    JLabel lblAdditionalConstraints;
+    JTextField txtAdditionalConstraint;
+    JButton cmdAddConstraint;
+    JButton cmdRemoveConstraint;
+    JButton cmdEditConstraint;
+    JButton cmdCancelActionConstraint;
+    JList lstAdditionalConstraints;	
+    JButton cmdGetSolutions;
+    JButton cmdGetNextSolution;
+	JScrollPane tblSolutionsScroll;
+	
 
 	public ConfiguratorPanel() {
 		// setLayout(new FlowLayout(FlowLayout.LEFT));
 		configurator = new Configurator();
 		initComponents();
+		setConfigPanelVisibility(true);
 	}
 
 	public void setRefas2hlcl(Refas2Hlcl refas2hlcl) {
@@ -92,12 +130,15 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	private void initComponents() {
 
 		JPanel configurationPanel = new JPanel();
+		JPanel solutionPanel=new JPanel();
 		// configurationPanel.setLayout(new GridBagLayout());
-		initConfiturationPaneNB();
+		initConfigurationPane(configurationPanel);
+		initSolutionPane(solutionPanel);
 		configurationPanel.setBorder(BorderFactory
 				.createTitledBorder("Configure"));
+		solutionPanel.setBorder(BorderFactory.createTitledBorder("Solutions"));
 		add(configurationPanel);
-
+		add(solutionPanel);
 		// initSolutionPanel();
 
 		/*
@@ -121,7 +162,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		 * TableColumnAdjuster(table); // tca.adjustColumns();
 		 * 
 		 * JTableHeader header = table.getTableHeader();
-		 * 
+		 *r 
 		 * JPanel panel = new JPanel(); panel.setLayout(new BorderLayout());
 		 * panel.add(header, BorderLayout.NORTH); panel.add(table,
 		 * BorderLayout.CENTER);
@@ -135,506 +176,264 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		 */
 	}
 
-	private void initConfiturationPaneNB() {
-		JLabel lblVariable = new javax.swing.JLabel();
-		JTextField txtVariable = new javax.swing.JTextField();
-		JLabel lblVarDescription = new javax.swing.JLabel();
-		JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-		JTextArea txtVarDescription = new javax.swing.JTextArea();
-		JLabel lblAvailableVariables = new javax.swing.JLabel();
-		JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-		JList lstAvailableVariables = new javax.swing.JList();
-		JLabel lblValue = new javax.swing.JLabel();
-		JLabel lblAffectedVariables = new javax.swing.JLabel();
-		JScrollPane jScrollPane3 = new javax.swing.JScrollPane();
-		JTable tblAffectedVariables = new javax.swing.JTable();
-		JButton cmdSet = new javax.swing.JButton();
-		JScrollPane jScrollPane4 = new javax.swing.JScrollPane();
-		JTable tblConfiguredVariables = new javax.swing.JTable();
-		JLabel lblConfiguredVariables = new javax.swing.JLabel();
-		JButton cmdNext = new javax.swing.JButton();
-		JButton cmdClear = new javax.swing.JButton();
-		JButton cmdRemoveConfiguredVar = new javax.swing.JButton();
-		JButton cmdUndo = new javax.swing.JButton();
-		JLabel lblAdditionalConstraints = new javax.swing.JLabel();
-		JTextField txtAdditionalConstraint = new javax.swing.JTextField();
-		JButton cmdAddConstraint = new javax.swing.JButton();
-		JScrollPane jScrollPane5 = new javax.swing.JScrollPane();
-		JList lstAdditionalConstraints = new javax.swing.JList();
-		JButton cmdRemoveConstraint = new javax.swing.JButton();
-		JButton cmdEditConstraint = new javax.swing.JButton();
-		JButton cmdEditConfiguredVar = new javax.swing.JButton();
-		JScrollPane jScrollPane6 = new javax.swing.JScrollPane();
-		tblSolutions = new javax.swing.JTable();
-		final JButton cmdGetNextSolution = new javax.swing.JButton();
-		JButton cmdGetSolutions = new javax.swing.JButton();
-		JComboBox cmbOperators = new javax.swing.JComboBox();
-		JComboBox cmbVarDomain = new javax.swing.JComboBox();
+	private void initConfigurationPane(JPanel pane) {		
+        
+        pane.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-		lblVariable.setText("Variable:");
+        //restricciones comunes a todos los componentes
+        c.insets=new Insets(5,5,0,0);  //top padding
 
-		txtVariable.setEditable(false);
-		lblVarDescription.setText("Description:");
+        //FILA 0 
+        c.gridy = 0;
 
-		txtVarDescription.setEditable(false);
-		txtVarDescription.setColumns(20);
-		txtVarDescription.setRows(5);
-		jScrollPane1.setViewportView(txtVarDescription);
+        lblAvailableVars = new JLabel("Available Variables:");    
+        c.gridx = 0;
+        c.ipadx=50;
+        pane.add(lblAvailableVars, c);
 
-		lblAvailableVariables.setText("Available variables");
+        lblSelectedVar= new JLabel("Variable:");
+        c.gridx = 1;    
+        c.ipadx=0;
+        pane.add(lblSelectedVar, c);
 
-		lstAvailableVariables.setModel(new javax.swing.AbstractListModel() {
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
-					"Item 5" };
+        txtSelectedVar= new JTextField();
+        txtSelectedVar.setEditable(false);
+        c.gridx = 2;        
+        c.ipadx=150;
+        pane.add(txtSelectedVar, c);
 
-			public int getSize() {
-				return strings.length;
-			}
+        lblValue=new JLabel("Value:");
+        c.gridx = 3;        
+        c.ipadx=0;
+        pane.add(lblValue, c);
 
-			public Object getElementAt(int i) {
-				return strings[i];
+        cmbDomain= new JComboBox<String>();
+        c.gridx = 4;        
+        c.ipadx=100;
+        pane.add(cmbDomain, c);
+
+        cmdSet= new JButton("Set");
+        c.gridx = 5;        
+        c.ipadx=0;
+        pane.add(cmdSet, c);
+        
+        lblConfiguredVars=new JLabel("Configured Variables:");
+        c.gridx = 6;        
+        c.ipadx=0;
+        pane.add(lblConfiguredVars, c);
+               
+        cmdRemoveConfiguredVar = new JButton("Remove");   
+        cmdRemoveConfiguredVar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				initConfigurationProcess();
+				
 			}
 		});
-		lstAvailableVariables
-				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		jScrollPane2.setViewportView(lstAvailableVariables);
+        c.gridx = 7;  
+        pane.add(cmdRemoveConfiguredVar, c);
+        
+        cmdEditConfiguredVar = new JButton("Edit");    
+        c.gridx = 8;  
+        pane.add(cmdEditConfiguredVar, c);
+        
+        lblAdditionalConstraints = new JLabel("Additional Constraints:");    
+        c.gridx = 10;  
+        c.gridwidth=2;
+        pane.add(lblAdditionalConstraints, c);
 
-		lblValue.setText("Value:");
-		lblAffectedVariables.setText("Affected variables:");
-
-		tblAffectedVariables.setModel(new DefaultTableModel(
-				new Object[][] { { null, null }, { null, null },
-						{ null, null }, { null, null } }, new String[] {
-						"Variable", "With value" }));
-		jScrollPane3.setViewportView(tblAffectedVariables);
-
-		cmdSet.setText("Set");
-		tblConfiguredVariables
-				.setModel(new javax.swing.table.DefaultTableModel(
-						new Object[][] { { null, null, null },
-								{ null, null, null }, { null, null, null },
-								{ null, null, null } }, new String[] {
-								"Variable", "Value", "Step" }));
-		jScrollPane4.setViewportView(tblConfiguredVariables);
-
-		lblConfiguredVariables.setText("Configured variables");
-
-		cmdNext.setText("Next");
-
-		cmdClear.setText("Clear");
-
-		cmdRemoveConfiguredVar.setText("Remove");
-
-		cmdUndo.setText("Undo");
-
-		lblAdditionalConstraints.setText("Additional constraints:");
-
-		cmdAddConstraint.setText("Add");
-
-		lstAdditionalConstraints.setModel(new javax.swing.AbstractListModel() {
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
-					"Item 5" };
-
-			public int getSize() {
-				return strings.length;
-			}
-
-			public Object getElementAt(int i) {
-				return strings[i];
-			}
-		});
-		jScrollPane5.setViewportView(lstAdditionalConstraints);
-
-		cmdRemoveConstraint.setText("Remove");
-
-		cmdEditConstraint.setText("Edit");
-
-		cmdEditConfiguredVar.setText("Edit");
-		cmdEditConfiguredVar.setName("cmdEditConfiguredVariable"); // NOI18N
-
-		tblSolutions.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {}, new String[] { "Solution", "Variables" }));
-		
-		tblSolutions.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        //FILA 1
+        c.gridy = 1;
+        
+        lstAvailableVars = new JList();    
+        lstAvailableVars.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				processSelectionOnTable();
-			
-			}
-		});
-		
-		jScrollPane6.setViewportView(tblSolutions);
-		tblSolutions.getColumnModel().getColumn(0).setPreferredWidth(20);
-		tblSolutions.getColumnModel().getColumn(1).setPreferredWidth(40);
-
-		cmdGetNextSolution.setText("Get next solution");
-		cmdGetNextSolution.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				while (refas2hlcl.execute("",Refas2Hlcl.NEXT_SOLUTION, Refas2Hlcl.CONF_EXEC))
-					if (processConfiguration(refas2hlcl.getConfiguration()))
-						break;
+				processAvailableVarSelection(e);
 				
 			}
-
 		});
-		cmdGetNextSolution.setVisible(false);
+        lstAvailableVarsScroll = new JScrollPane();
+        lstAvailableVars.setModel(new DefaultListModel());
+        lstAvailableVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstAvailableVarsScroll.setViewportView(lstAvailableVars);
+        
+        c.ipadx=0;
+        c.ipady = 275;      //make this component tall
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;    
+        c.gridheight=10;
+        c.gridwidth=1;
+        pane.add(lstAvailableVarsScroll, c);
 
-		cmdGetSolutions.setText("Get solutions");
-		cmdGetSolutions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean result = refas2hlcl.execute("",Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
-				if (result) {
-					processConfiguration(refas2hlcl.getConfiguration());
-					cmdGetNextSolution.setVisible(true);
-				}
-			}
+        lblAffectedVarsBySelection = new JLabel("Affected variables by selection");    
+        c.ipady = 0;      
+        c.weightx = 0.0;
+        c.gridx = 1;  
+        c.gridheight=1;
+        c.gridwidth=2;
+        pane.add(lblAffectedVarsBySelection, c);
+        
+        lblAffectedVarsByNonSelection = new JLabel("Affected variables by non selection");    
+        c.ipady = 0;      
+        c.weightx = 0.0;
+        c.gridx = 3;  
+        c.gridwidth=2;
+        pane.add(lblAffectedVarsByNonSelection, c);
+        
+        tblConfiguredVars = new JTable();
+        tblConfiguredVars.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Variable", "Value", "Step"
+            }
+        ));   
+        tblConfiguredVarsScroll=new JScrollPane();
+        tblConfiguredVarsScroll.setPreferredSize(new Dimension(300,400));
+        tblConfiguredVarsScroll.setViewportView(tblConfiguredVars); 
+        c.ipady=0;
+        c.gridx=6;
+        c.gridheight=10;
+        c.gridwidth=4;
+        pane.add(tblConfiguredVarsScroll, c);
+        
+        txtAdditionalConstraint=new JTextField();
+        c.ipadx=200;
+        c.gridx=10;
+        c.gridheight=1;
+        c.gridwidth=2;
+        pane.add(txtAdditionalConstraint,c);
+        
+        cmdEditConstraint=new JButton("Edit");
+        c.gridx=10;
+        c.ipadx=0;
+        c.gridheight=1;
+        c.gridwidth=1;
+        //pane.add(cmdEditConstraint,c);
+        
+        cmdRemoveConstraint=new JButton("Remove");        
+        c.gridx=11;
+        c.ipadx=0;
+        c.gridheight=1;
+        c.gridwidth=1;
+        //pane.add(cmdRemoveConstraint,c);
+        
+        cmdCancelActionConstraint=new JButton("Cancel");
+        c.gridx=12;
+        c.ipadx=0;
+        c.gridheight=1;
+        c.gridwidth=1;
+        //pane.add(cmdCancelActionConstraint,c);
+        
+        cmdAddConstraint=new JButton("Add");
+        c.ipady=0;
+        c.ipadx=0;
+        c.gridx=13;
+        c.gridheight=1;
+        c.gridwidth=1;
+        pane.add(cmdAddConstraint,c);
+        
+        //FILA 2
+        c.gridy = 2;
 
-		});
+        lstAffectedVarsBySelection = new JList();    
+        c.ipady = 350;      //make this component tall
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridx = 1; 
+        c.gridheight=1;
+        c.gridwidth=2;
+        pane.add(lstAffectedVarsBySelection, c);
 
-		cmbOperators.setModel(new javax.swing.DefaultComboBoxModel(
-				new String[] { "=", ">", "<", ">=", "<=", "<>" }));
-		cmbOperators.setName("cmbOperator"); // NOI18N
+        lstAffectedVarsByNonSelection = new JList();    
+        c.ipady = 350;      
+        c.weightx = 0.0;
+        c.gridx = 3;  
+        c.gridwidth=2;
+        pane.add(lstAffectedVarsByNonSelection, c);
+        
+        lstAdditionalConstraints = new JList();    
+        c.ipady = 350;      
+        c.gridx = 10;  
+        c.gridwidth=9;
+        pane.add(lstAdditionalConstraints, c);
+                
+        //FILA 3
+        c.gridy=3;
+        
+        cmdBack = new JButton("Back");  
+        c.ipady=0;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.gridx = 1; 
+        c.gridwidth=1;
+        pane.add(cmdBack, c);
 
-		cmbVarDomain.setModel(new javax.swing.DefaultComboBoxModel(
-				new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-		cmbVarDomain.setName("cmbDomain"); // NOI18N
-
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		this.setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addGap(55, 55, 55)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(
-														jScrollPane2,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														174,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														jScrollPane1,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														174,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														lblAvailableVariables)
-												.addComponent(lblVarDescription)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addComponent(
-																		lblVariable)
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		txtVariable,
-																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																		128,
-																		javax.swing.GroupLayout.PREFERRED_SIZE)))
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										lblValue)
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addComponent(
-																										cmbOperators,
-																										javax.swing.GroupLayout.PREFERRED_SIZE,
-																										javax.swing.GroupLayout.DEFAULT_SIZE,
-																										javax.swing.GroupLayout.PREFERRED_SIZE)
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addComponent(
-																										cmbVarDomain,
-																										javax.swing.GroupLayout.PREFERRED_SIZE,
-																										90,
-																										javax.swing.GroupLayout.PREFERRED_SIZE)
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addComponent(
-																										cmdSet))
-																				.addComponent(
-																						lblAffectedVariables))
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						cmdClear)
-																				.addComponent(
-																						cmdNext)))
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.TRAILING,
-																				false)
-																				.addComponent(
-																						jScrollPane4,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						0,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						jScrollPane3,
-																						javax.swing.GroupLayout.Alignment.LEADING,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						0,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						lblConfiguredVariables,
-																						javax.swing.GroupLayout.Alignment.LEADING,
-																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						230,
-																						Short.MAX_VALUE))
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addComponent(
-																										cmdUndo))
-																				.addGroup(
-																						javax.swing.GroupLayout.Alignment.TRAILING,
-																						layout.createSequentialGroup()
-																								.addGap(4,
-																										4,
-																										4)
-																								.addGroup(
-																										layout.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING,
-																												false)
-																												.addComponent(
-																														cmdRemoveConfiguredVar,
-																														javax.swing.GroupLayout.DEFAULT_SIZE,
-																														javax.swing.GroupLayout.DEFAULT_SIZE,
-																														Short.MAX_VALUE)
-																												.addComponent(
-																														cmdEditConfiguredVar,
-																														javax.swing.GroupLayout.DEFAULT_SIZE,
-																														javax.swing.GroupLayout.DEFAULT_SIZE,
-																														Short.MAX_VALUE))))))
-								.addGap(32, 32, 32)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(
-														jScrollPane5,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														216,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														lblAdditionalConstraints)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addComponent(
-																		txtAdditionalConstraint,
-																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																		152,
-																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		cmdAddConstraint))
-												.addGroup(
-														layout.createSequentialGroup()
-																.addComponent(
-																		cmdRemoveConstraint)
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		cmdEditConstraint)))
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-										22, Short.MAX_VALUE)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addComponent(
-																		cmdGetSolutions)
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																.addComponent(
-																		cmdGetNextSolution))
-												.addComponent(
-														jScrollPane6,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGap(69, 69, 69)));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addGap(35, 35, 35)
-								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.TRAILING)
-												.addGroup(
-														javax.swing.GroupLayout.Alignment.LEADING,
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						cmdGetNextSolution)
-																				.addComponent(
-																						cmdGetSolutions))
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		jScrollPane6,
-																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																		286,
-																		javax.swing.GroupLayout.PREFERRED_SIZE))
-												.addGroup(
-														javax.swing.GroupLayout.Alignment.LEADING,
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						lblAdditionalConstraints)
-																				.addComponent(
-																						lblVariable)
-																				.addComponent(
-																						txtVariable,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						lblValue)
-																				.addComponent(
-																						cmbOperators,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						cmbVarDomain,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						cmdSet)
-																				.addComponent(
-																						cmdNext))
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						txtAdditionalConstraint,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						cmdAddConstraint,
-																						javax.swing.GroupLayout.PREFERRED_SIZE,
-																						23,
-																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						cmdClear)
-																				.addComponent(
-																						lblAffectedVariables)
-																				.addComponent(
-																						lblVarDescription))
-																.addPreferredGap(
-																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addGroup(
-																		layout.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING,
-																				false)
-																				.addGroup(
-																						javax.swing.GroupLayout.Alignment.TRAILING,
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										jScrollPane5)
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addGroup(
-																										layout.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.BASELINE)
-																												.addComponent(
-																														cmdRemoveConstraint)
-																												.addComponent(
-																														cmdEditConstraint)))
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addGroup(
-																										layout.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING)
-																												.addGroup(
-																														layout.createSequentialGroup()
-																																.addComponent(
-																																		jScrollPane1,
-																																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																																		javax.swing.GroupLayout.DEFAULT_SIZE,
-																																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																																.addPreferredGap(
-																																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																																.addComponent(
-																																		lblAvailableVariables))
-																												.addGroup(
-																														layout.createSequentialGroup()
-																																.addComponent(
-																																		jScrollPane3,
-																																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																																		96,
-																																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																																.addPreferredGap(
-																																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																																.addComponent(
-																																		lblConfiguredVariables)))
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addGroup(
-																										layout.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING)
-																												.addComponent(
-																														jScrollPane4,
-																														javax.swing.GroupLayout.PREFERRED_SIZE,
-																														130,
-																														javax.swing.GroupLayout.PREFERRED_SIZE)
-																												.addComponent(
-																														jScrollPane2,
-																														javax.swing.GroupLayout.PREFERRED_SIZE,
-																														javax.swing.GroupLayout.DEFAULT_SIZE,
-																														javax.swing.GroupLayout.PREFERRED_SIZE)))
-																				.addGroup(
-																						layout.createSequentialGroup()
-																								.addComponent(
-																										cmdUndo)
-																								.addGap(104,
-																										104,
-																										104)
-																								.addComponent(
-																										cmdRemoveConfiguredVar)
-																								.addPreferredGap(
-																										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																								.addComponent(
-																										cmdEditConfiguredVar)))))
-								.addGap(117, 117, 117)));
+        cmdNextVar = new JButton("Next Variable");    
+        c.ipady = 0;      
+        c.weightx = 0.0;
+        c.gridx = 2;  
+        c.gridwidth=3;
+        pane.add(cmdNextVar, c);
+        
+        
+	
 	}
 
+	private void initSolutionPane(JPanel pane){
+		pane.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        //restricciones comunes a todos los componentes
+        c.insets=new Insets(5,5,0,0);  //top padding
+
+        //FILA 0 
+        c.gridy = 0;
+        
+        cmdGetSolutions=new JButton("Get Solutions");
+        c.gridx = 0;        
+        pane.add(cmdGetSolutions,c);
+        
+        cmdGetNextSolution=new JButton("Get Next Solution");
+        c.gridx = 1;        
+        pane.add(cmdGetNextSolution,c);
+        
+        //FILA 1
+        c.gridy=1;
+        
+        tblSolutions = new JTable();
+        tblSolutions.setModel(new DefaultTableModel(
+                new Object [][] {
+                    {null, null}
+                },
+                new String [] {
+                    "Solution", "Variables"
+                }
+        ));   
+        tblSolutionsScroll=new JScrollPane();
+        tblSolutionsScroll.setPreferredSize(new Dimension(300,400));
+        tblSolutionsScroll.setViewportView(tblSolutions); 
+        c.ipady=0;
+        c.gridx=0;
+        c.gridheight=10;
+        c.gridwidth=4;
+        pane.add(tblSolutionsScroll, c);
+		
+	}
+	
+	private void processAvailableVarSelection(ListSelectionEvent e){		 
+	    if (!e.getValueIsAdjusting()) {
+	      txtSelectedVar.setText((String)lstAvailableVars.getSelectedValue());
+	      setConfigPanelVisibility(false);;
+	      
+	       
+	    }		
+	}
+	
+	
 	protected void processSelectionOnTable() {
 		DefaultTableModel model=(DefaultTableModel)tblSolutions.getModel();
 		JOptionPane.showMessageDialog(null, model.getValueAt(tblSolutions.getSelectedRow(), 1),"Solution Number: "+model.getValueAt(tblSolutions.getSelectedRow(), 0),JOptionPane.INFORMATION_MESSAGE);
@@ -658,6 +457,8 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 				}
 			}
 		}
+		
+		
 		
 		//sb.deleteCharAt(sb.length()-1);
 		
@@ -688,328 +489,55 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		}
 		
 
+	}	
+	
+	private void initConfigurationProcess(){
+		initValues();
+		setConfigPanelVisibility(true);
+		
 	}
-
-	private void initConfigurationPane(JPanel panel) {
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.insets = new Insets(3, 3, 3, 3);
-
-		// first row
-		JLabel variableName = new JLabel("Variable:");
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(variableName, constraints);
-
-		JTextField txtVariableName = new JTextField();
-		txtVariableName.setEditable(false);
-		constraints.gridx = 1;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-
-		panel.add(txtVariableName, constraints);
-
-		JLabel variableValue = new JLabel("Value:");
-		constraints.gridx = 2;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(variableValue, constraints);
-
-		JTextField txtVariableValue = new JTextField();
-		constraints.gridx = 3;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(txtVariableValue, constraints);
-
-		JButton cmdSet = new JButton("Set");
-		constraints.gridx = 4;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(cmdSet, constraints);
-
-		JButton cmdNext = new JButton("Next");
-		constraints.gridx = 5;
-		constraints.gridy = 0;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(cmdNext, constraints);
-		cmdNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				refas2hlcl.execute("",Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.CONF_EXEC);
-				solutionPanel.addSolution(refas2hlcl.getConfiguration());
+	
+	private void initValues() {
+		Map<String,InstVertex> variables=null;//refas2hlcl.getRefas().getVariabilityVertex();
+		DefaultListModel listModel=(DefaultListModel)lstAvailableVars.getModel();
+		DefaultTableModel tableModel=(DefaultTableModel)tblConfiguredVars.getModel();
+		listModel.clear();
+		tableModel.setRowCount(0);
+		for(String identifier:variables.keySet()){
+			//se evalúa si la variable está libre
+			InstVertex var=variables.get(identifier);
+			System.out.println("hace parte del core "+var.getInstAttribute("Core").getAsBoolean());
+			if(var.getInstAttribute("Core").getAsBoolean()){
+				tableModel.addRow(new Object[] { var.toString(), var.getInstAttribute("Selected").getAsBoolean(),0 });
+				continue;
 			}
-		});
-
-		// second row
-		JLabel variableDescription = new JLabel("Description:");
-		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(variableDescription, constraints);
-
-		JLabel affectedVariables = new JLabel("Affected Variables:");
-		constraints.gridx = 2;
-		constraints.gridy = 1;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(affectedVariables, constraints);
-
-		// third row
-		JTextArea txtVariableDescription = new JTextArea();
-		txtVariableDescription.setEditable(false);
-		constraints.gridx = 0;
-		constraints.gridy = 2;
-		constraints.gridwidth = 2;
-		constraints.gridheight = 1;
-		panel.add(txtVariableDescription, constraints);
-
-		JList lstAffectedVariables = new JList();
-		JScrollPane lstAffectedVariablesScroll = new JScrollPane(
-				lstAffectedVariables);
-		constraints.gridx = 2;
-		constraints.gridy = 2;
-		constraints.gridwidth = 2;
-		constraints.gridheight = 1;
-		panel.add(lstAffectedVariablesScroll, constraints);
-
-		// fourth row
-		JLabel lblAvailableVariables = new JLabel("Available Variables");
-		constraints.gridx = 0;
-		constraints.gridy = 3;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(lblAvailableVariables, constraints);
-
-		JLabel lblConfiguredVariables = new JLabel("Configured Variables");
-		constraints.gridx = 3;
-		constraints.gridy = 3;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		panel.add(lblConfiguredVariables, constraints);
-
-		// fifth row
-		JList<String> lstAvailableVariables = new JList<String>();
-		JScrollPane lstAvailableScroll = new JScrollPane(lstAvailableVariables);
-		constraints.gridx = 0;
-		constraints.gridy = 4;
-		constraints.gridwidth = 3;
-		constraints.gridheight = 3;
-		panel.add(lstAvailableScroll, constraints);
-		DefaultListModel<String> availableVariablesModel = new DefaultListModel<String>();
-		lstAvailableVariables.setModel(availableVariablesModel);
-		availableVariablesModel.addElement("VAR 1");
-		availableVariablesModel.addElement("VAR 2");
-
-		JList<String> lstConfiguredVariables = new JList<String>();
-		JScrollPane lstConfiguredScroll = new JScrollPane(
-				lstConfiguredVariables);
-		constraints.gridx = 3;
-		constraints.gridy = 5;
-		constraints.gridwidth = 3;
-		constraints.gridheight = 3;
-		panel.add(lstConfiguredScroll, constraints);
-		DefaultListModel<String> configuredVariablesModel = new DefaultListModel<String>();
-		lstConfiguredVariables.setModel(configuredVariablesModel);
-		configuredVariablesModel.addElement("VAR3");
-
-		/*
-		 * 
-		 * 
-		 * 
-		 * JButton cmdPrevious=new JButton("Previous"); JButton cmdRestart=new
-		 * JButton("Restart"); configurationControls.add(cmdNext);
-		 * configurationControls.add(cmdPrevious);
-		 * configurationControls.add(cmdRestart);
-		 * 
-		 * 
-		 * valuesManager.add(variableInfo);
-		 * valuesManager.add(variableConfiguration);
-		 * valuesManager.add(configurationControls);
-		 * 
-		 * 
-		 * JPanel variablesManager=new JPanel(); variablesManager.setLayout(new
-		 * GridLayout(2,2,10,10));
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * variablesManager.add(lblAvailableVariables);
-		 * variablesManager.add(lblConfiguredVariables);
-		 * variablesManager.add(lstAvailableScroll);
-		 * variablesManager.add(lstConfiguredScroll);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * //the panels are added to the configuration panel
-		 * panel.add(valuesManager); panel.add(variablesManager);
-		 */
+			
+			if (!var.getInstAttribute("Selected").isEnabled() && !var.getInstAttribute("NextNotSelected").isEnabled()) {				
+				listModel.add(0,variables.get(identifier).toString());				
+			}			
+		}		
 	}
-
-	private void initSolutionPanel() {
-		solutionPanel = new SolutionPanel(root);
-		solutionPanel.setPreferredSize(new Dimension(600, 200));
-		add(solutionPanel);
+	
+	private void setConfigPanelVisibility(boolean availablesVars){
+		lblAvailableVars.setVisible(availablesVars);
+		lstAvailableVarsScroll.setVisible(availablesVars);
+		lblSelectedVar.setVisible(!availablesVars);
+		txtSelectedVar.setVisible(!availablesVars);
+		lblValue.setVisible(!availablesVars);
+		cmbDomain.setVisible(!availablesVars);
+		cmdSet.setVisible(!availablesVars);
+		lblAffectedVarsBySelection.setVisible(!availablesVars);
+		lblAffectedVarsByNonSelection.setVisible(!availablesVars);
+		lstAffectedVarsBySelection.setVisible(!availablesVars);
+		lstAffectedVarsByNonSelection.setVisible(!availablesVars);
+		cmdBack.setVisible(!availablesVars);
+		cmdNextVar.setVisible(!availablesVars);
 	}
-
-	private void initControlPanel() {
-		controlPanel = new JPanel(new BorderLayout());
-
-		JPanel buttonPanels = new JPanel();
-		buttonPanels.setLayout(new SpringLayout());
-
-		final JTextField txtNumConf = new JTextField(3);
-		txtNumConf.setMaximumSize(new Dimension(60, 9));
-		JButton getSolution = new JButton("Get Solutions");
-		getSolution.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Integer num = Integer.parseInt(txtNumConf.getText());
-
-				if (num == null) {
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this,
-							"Invalid Number", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				clearProducts();
-				ConfigurationOptions options = getCurrentOptions();
-				options.setStartFromZero(true);
-				configurator.solve(num, getCurrentConfiguration(), options);
-			}
-		});
-
-		JButton getNextSolution = new JButton("Get Next");
-		getNextSolution.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Integer num = Integer.parseInt(txtNumConf.getText());
-
-				if (num == null) {
-					JOptionPane.showMessageDialog(ConfiguratorPanel.this,
-							"Invalid Number", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				ConfigurationOptions options = getCurrentOptions();
-				options.setStartFromZero(false);
-				configurator.solve(num, getCurrentConfiguration(), options);
-
-			}
-		});
-
-		JButton undo = new JButton("Undo");
-		undo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-
-		JButton reduceDomain = new JButton("Reduce Domain");
-		reduceDomain.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				reduceDomain();
-			}
-		});
-
-		buttonPanels.add(getSolution);
-		buttonPanels.add(txtNumConf);
-		buttonPanels.add(getNextSolution);
-		buttonPanels.add(reduceDomain);
-
-		SpringUtilities.makeCompactGrid(buttonPanels, 2, 2, 4, 4, 4, 4);
-
-		controlPanel.add(buttonPanels, BorderLayout.WEST);
-
-		JPanel additionalPanel = new JPanel(new SpringLayout());
-		additionalPanel.setBorder(BorderFactory
-				.createTitledBorder("Additional Constraints"));
-
-		additionalConstraints = new JList<String>(
-				new DefaultListModel<String>());
-		additionalConstraints.setPreferredSize(new Dimension(200, 100));
-
-		JPanel constraintButtons = new JPanel(new SpringLayout());
-		JButton btnAddConstraint = new JButton("Add Constraint");
-		btnAddConstraint.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String cons = JOptionPane.showInputDialog("New Constraint");
-				((DefaultListModel<String>) additionalConstraints.getModel())
-						.addElement(cons);
-			}
-		});
-
-		JButton btnRemoveConstraint = new JButton("Remove Constraint");
-		btnRemoveConstraint.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int sel = additionalConstraints.getSelectedIndex();
-				if (sel < 0)
-					return;
-
-				((DefaultListModel<String>) additionalConstraints.getModel())
-						.remove(sel);
-			}
-		});
-
-		constraintButtons.add(btnAddConstraint);
-		constraintButtons.add(btnRemoveConstraint);
-		SpringUtilities.makeCompactGrid(constraintButtons, 2, 1, 4, 4, 4, 4);
-
-		additionalPanel.add(additionalConstraints);
-		additionalPanel.add(constraintButtons);
-		SpringUtilities.makeCompactGrid(additionalPanel, 1, 2, 4, 4, 4, 4);
-
-		JPanel center = new JPanel();
-		center.add(additionalPanel);
-
-		controlPanel.add(center);
-	}
-
-	/*
-	 * public void solve(int numSol, ConfigurationOptions options){
-	 * Configuration config = getCurrentConfiguration(); config.debugPrint();
-	 * 
-	 * configurator.solve(config, options); int i = 0;
-	 * 
-	 * if( !solver.hasNextSolution() ){
-	 * System.out.println("No solutions found !!"); return; } while(
-	 * solver.hasNextSolution() && i < numSol){ Configuration sol =
-	 * solver.getSolution(); solutionPanel.addSolution(sol); sol.debugPrint();
-	 * i++; } solutionPanel.expand(); // }
-	 */
-	public ConfigurationOptions getCurrentOptions() {
-		ConfigurationOptions op = new ConfigurationOptions();
-		for (int i = 0; i < ((DefaultListModel<String>) additionalConstraints
-				.getModel()).size(); i++)
-			op.getAdditionalConstraints().add(
-					((DefaultListModel<String>) additionalConstraints
-							.getModel()).elementAt(i));
-		return op;
-	}
+	
+	
+	
+	
+	
 
 	public Configuration getCurrentConfiguration() {
 		Configuration config = new Configuration();
@@ -1028,21 +556,9 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			addToConfiguration(n, conf);
 	}
 
-	public void clearProducts() {
-		solutionPanel.clearSolutions();
-	}
+	
 
-	/*
-	 * private DefaultMutableTreeNode makeNodeFor(Configuration solution){
-	 * DefaultMutableTreeNode solNode = new DefaultMutableTreeNode();
-	 * 
-	 * for( String id : solution.getNotIgnored() ){ if( solution.stateOf(id) ==
-	 * Configuration.BANNED ) continue;
-	 * 
-	 * VariabilityElement ve = productLine.getVariabilityElement(id);
-	 * solNode.add(new DefaultMutableTreeNode(ve.getName())); } return solNode;
-	 * }
-	 */
+	
 	public void addSolution(Configuration solution) {
 		configurator.addSolution(solution);
 	}
@@ -1116,7 +632,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			root.getChildren().add(node);
 		}
 		table.expandRow(0);
-		solutionPanel.expand();
+		
 
 		resizeColumns();
 	}
@@ -1154,13 +670,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		// performConfiguration();
 	}
 
-	public void performConfiguration() {
-		DefaultConfigurationTaskListener listener = new DefaultConfigurationTaskListener(
-				this);
-		Configuration configuration = getCurrentConfiguration();
-		configurator.performConfiguration(configuration, getCurrentOptions(),
-				listener, productLine);
-	}
 
 	public void setValueToVariable(Variable variable, Integer value, int index) {
 		ConfigurationNode node = findConfigurationNodeFor(variable.getName());
@@ -1224,21 +733,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		return table;
 	}
 
-	public void reduceDomain() {
-		Configuration config = getCurrentConfiguration();
-		// config.debugPrint();
-		Map<String, List<Integer>> values = configurator.reduceDomain(config,
-				getCurrentOptions());
-
-		List<ConfigurationNode> allNodes = getAllConfigurationNodes();
-		for (ConfigurationNode c : allNodes) {
-			List<Integer> newValues = values.get(c.getName());
-			if (newValues == null)
-				continue;
-
-			addDomainAnnotations(c, newValues, 0);
-		}
-	}
+	
 
 	private void addDomainAnnotations(ConfigurationNode c,
 			List<Integer> newValues, int step) {
@@ -1280,14 +775,15 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		table.repaint();
 	}
 
-	public ConfigurationDTO getConfigurationDTO() {
-		return configurator.getConfigurationDTO(getCurrentConfiguration(),
-				getCurrentOptions());
+
+
+	@Override
+	public void clearProducts() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public List<Configuration> getSolutions() {
-		return solutionPanel.getAllSolutions();
-	}
+	
 
 	// public OperationMode getOperationMode() {
 	// return operationMode;
