@@ -128,6 +128,7 @@ public class ClassWidget extends WidgetR {
 					|| aClass.getSuperclass().equals(
 							AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
+				System.out.println("ClassW old semanticSyntax");
 				Collection<IntSemanticElement> list = semanticSyntaxObject
 						.getSemanticConcepts().values();
 

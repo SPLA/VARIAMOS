@@ -76,6 +76,7 @@ public class MClassWidget extends WidgetR {
 			Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
 
+			System.out.println("MClassW old semanticSyntax");
 			List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
 
 			for (IntSemanticElement concept : list) {

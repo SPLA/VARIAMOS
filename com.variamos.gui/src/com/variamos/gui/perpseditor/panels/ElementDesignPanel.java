@@ -15,7 +15,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,7 +36,6 @@ import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.Expression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
@@ -68,7 +66,6 @@ public class ElementDesignPanel extends JPanel {
 	private JPanel rootPanel1 = new JPanel(new SpringLayout());
 	private JPanel rootPanel2 = new JPanel(new SpringLayout());
 	private JPanel rootPanel3 = new JPanel(new SpringLayout());
-	private int rootPanels = 1;
 	private int mainPanelWidth = 200;
 
 	public ElementDesignPanel() {
@@ -113,7 +110,6 @@ public class ElementDesignPanel extends JPanel {
 
 	public void editorProperties(VariamosGraphEditor editor, InstCell instCell) {
 		mainPanel.removeAll();
-		rootPanels = 0;
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
@@ -280,7 +276,7 @@ public class ElementDesignPanel extends JPanel {
 													JOptionPane
 															.showMessageDialog(
 																	finalEditor,
-																	"Complete the expression before closing the editor",
+																	"Complete/Correct the expression before closing the editor",
 																	"Expression Error",
 																	JOptionPane.INFORMATION_MESSAGE,
 																	null);
@@ -512,18 +508,15 @@ public class ElementDesignPanel extends JPanel {
 					designPanelElements * 30));
 
 			contentPanel1.setMaximumSize(new Dimension(200, 300));
-			rootPanels++;
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
 			contentPanel1.revalidate();
 			JPanel attPanel = new JPanel(new SpringLayout());
 			// Fill Attributes Panel (Only for VariabilityElements ) in
-			// Properties
-			// Panel
+			// Properties Panel
 			JPanel dummy2 = new JPanel();
 			if (description != null) {
-				rootPanels++;
 				mainPanelWidth += 200;
 				JTextArea ta = new JTextArea();
 				ta.setAutoscrolls(true);
@@ -558,7 +551,6 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm instanceof InstEnumeration) {
-				rootPanels++;
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
@@ -585,7 +577,6 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 
 			} else if (editor.getPerspective() % 2 != 0) {
-				rootPanels++;
 				mainPanelWidth += 350;
 				rootPanel3.setPreferredSize(new Dimension(350, 400));
 				contentPanel3.setPreferredSize(new Dimension(350, 400));

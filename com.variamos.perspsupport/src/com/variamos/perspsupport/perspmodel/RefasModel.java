@@ -815,13 +815,13 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwRelOCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsOCRel"))
 				.getEditableMetaElement();
-		MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
+		/*MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsOORel"))
 				.getEditableMetaElement();
 
 		MetaPairwiseRelation metaPairwRelCCAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("AssoCCRel"))
-				.getEditableMetaElement();
+				.getEditableMetaElement();*/
 		MetaPairwiseRelation metaPairwRelCOAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("AssoCORel"))
 				.getEditableMetaElement();
@@ -1386,7 +1386,7 @@ public class RefasModel extends AbstractModel {
 				semGroupPairwiseRel));
 
 		List<IntSemanticRelationType> nonePairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		nonePairwiseRelList.add(new SemanticRelationType("None", "", "", true,
+		nonePairwiseRelList.add(new SemanticRelationType("Group", "", "", true,
 				true, true, 1, 1, 1, 1));
 
 		SemanticPairwiseRelation nonePairwiseRel = new SemanticPairwiseRelation(
@@ -2500,40 +2500,40 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGV, true);
 		instEdge.setSourceRelation(instView, true);
 
-		MetaConcept syntaxLocalVariable = new MetaConcept(
-				"LocalVariable",
+		MetaConcept syntaxContextVariable = new MetaConcept(
+				"ContextVariable",
 				true,
-				"Local Variable",
+				"Context Variable",
 				"refaslocalcnxt",
-				" A local variable"
-						+ " represents an instance of a component or a variable"
-						+ " with local scope. This variables may have different"
-						+ " values for each user of the system. Local variables"
-						+ " are used mainly for SG with local satisfaction"
-						+ " evaluation", 100, 40,
+				" A context variable"
+						+ " represents an a variable associated with a context group"
+						+ "  This variables may have different"
+						+ " values for each context group instance in the system. Context variables"
+						+ " are used for SG with a context group associated."
+						+ " Context groups are not currently supported.", 150, 40,
 				"/com/variamos/gui/perspeditor/images/localCnxtVar.png", true,
 				Color.BLUE.toString(), 1, true, semVariable);
 
-		syntaxLocalVariable.setParent(syntaxAbsVariable);
+		syntaxContextVariable.setParent(syntaxAbsVariable);
 
-		syntaxMetaView.addConcept(syntaxLocalVariable);
-		InstVertex instVertexLV = new InstConcept("LocalVariable",
-				supportMetaElementConcept, syntaxLocalVariable);
-		variabilityInstVertex.put("LocalVariable", instVertexLV);
-		instView.addInstVertex(instVertexLV);
+		syntaxMetaView.addConcept(syntaxContextVariable);
+		InstVertex instVertexCV = new InstConcept("ContextVariable",
+				supportMetaElementConcept, syntaxContextVariable);
+		variabilityInstVertex.put("ContextVariable", instVertexCV);
+		instView.addInstVertex(instVertexCV);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-lvtoV", instEdge);
 		instEdge.setIdentifier("context-lvtoV");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
 		instEdge.setTargetRelation(instVertexVar, true);
-		instEdge.setSourceRelation(instVertexLV, true);
+		instEdge.setSourceRelation(instVertexCV, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-lv", instEdge);
 		instEdge.setIdentifier("context-lv");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
-		instEdge.setTargetRelation(instVertexLV, true);
+		instEdge.setTargetRelation(instVertexCV, true);
 		instEdge.setSourceRelation(instView, true);
 
 		MetaEnumeration metaEnumeration = new MetaEnumeration("ME", true,
@@ -2578,15 +2578,15 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(childView, true);
 		childView.addInstVertex(instVertexCG);
-		syntaxMetaChildView.addConcept(syntaxLocalVariable);
+		syntaxMetaChildView.addConcept(syntaxContextVariable);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-withoutlv", instEdge);
 		instEdge.setIdentifier("context-withoutlv");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
-		instEdge.setTargetRelation(instVertexLV, true);
+		instEdge.setTargetRelation(instVertexCV, true);
 		instEdge.setSourceRelation(childView, true);
-		childView.addInstVertex(instVertexLV);
+		childView.addInstVertex(instVertexCV);
 		syntaxMetaChildView.addConcept(syntaxGlobalVariable);
 
 		instEdge = new InstPairwiseRelation();
@@ -2605,7 +2605,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaVariableEdge = new MetaPairwiseRelation(
 				"Variable To Context Relation", true,
-				"Variable To Context Relation", "", "Associates a Variable"
+				"Variable To Context Relation", "", "Associates a Context Variable"
 						+ " with the Context Group", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdge);
@@ -2620,7 +2620,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setEditableMetaElement(metaVariableEdge);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCG, true);
-		instEdge.setSourceRelation(instVertexVar, true);
+		instEdge.setSourceRelation(instVertexCV, true);
 
 		MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
 				"Context To Context Relation", true,

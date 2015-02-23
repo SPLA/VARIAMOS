@@ -6,17 +6,15 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
-public class VisualElement implements Comparable {
+public class VisualElement implements Comparable<VisualElement> {
 
 	private InstElement instElement;
 	private IntSemanticConcept semanticElement;
@@ -53,7 +51,7 @@ public class VisualElement implements Comparable {
 	}
 
 	private void updateValues() {
-		boolean newSelected, newNotAvailable, newCompExp;
+		boolean newSelected, newNotAvailable;
 		String newOtherParameters = "";
 		newSelected = instElement.getInstAttribute("Selected").getAsBoolean();
 		newNotAvailable = instElement.getInstAttribute("NotAvailable")
@@ -117,11 +115,6 @@ public class VisualElement implements Comparable {
 		return row;
 	}
 
-	@Override
-	public int compareTo(Object arg0) {
-		return instElement.getIdentifier().compareTo((String) arg0);
-	}
-
 	public int getCols() {
 		if (semanticElement instanceof SemanticVariable)
 			return 1;
@@ -130,6 +123,12 @@ public class VisualElement implements Comparable {
 		if (semanticElement instanceof SoftSemanticConcept)
 			return 1;
 		return 3;
+	}
+
+	@Override
+	public int compareTo(VisualElement arg0) {
+
+		return instElement.getIdentifier().compareTo(arg0.getElementId());
 	}
 
 }

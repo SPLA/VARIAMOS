@@ -1,6 +1,5 @@
 package com.variamos.gui.perpseditor.panels;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +14,7 @@ import javax.swing.SpringLayout;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.RefasModel;
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
-import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
 
 public class VariamosDashBoardFrame extends JFrame {
 	/**

@@ -46,6 +46,15 @@ public abstract class InstElement implements Serializable, EditableElement {
 	private List<IntInstanceExpression> instanceExpressions;
 	private IntSemanticElement editableSemanticElement;
 
+	public List<IntInstanceExpression> getInstanceExpressions() {
+		return instanceExpressions;
+	}
+
+	public void setInstanceExpressions(
+			List<IntInstanceExpression> instanceExpressions) {
+		this.instanceExpressions = instanceExpressions;
+	}
+
 	private MetaElement editableMetaElement;
 
 	/**
@@ -60,8 +69,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 	private boolean optional = false;
 
 	private String supportMetaElementIden;
-	
-	private Map<String,String> volatileDefects;
+
+	private Map<String, String> volatileDefects;
 
 	public Map<String, String> getDefects() {
 		return volatileDefects;
@@ -74,15 +83,15 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public void putDefect(String identifier, String defect) {
 		this.volatileDefects.put(identifier, defect);
 	}
-	
+
 	public void removeDefect(String identifier) {
 		this.volatileDefects.remove(identifier);
 	}
-	
+
 	public InstElement(String identifier) {
 		volatileSourceRelations = new ArrayList<InstElement>();
 		volatileTargetRelations = new ArrayList<InstElement>();
-		volatileDefects = new TreeMap<String,String>() ;
+		volatileDefects = new TreeMap<String, String>();
 		dynamicAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
@@ -226,7 +235,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 	}
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		//System.out.println("InstE"+ this.getIdentifier() + "_"+insAttributeLocalId);
+		// System.out.println("InstE"+ this.getIdentifier() +
+		// "_"+insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
@@ -347,14 +357,22 @@ public abstract class InstElement implements Serializable, EditableElement {
 							if (instAttribute.getEnumType() != null
 									&& instAttribute.getEnumType().equals(
 											InstEnumeration.class
-													.getCanonicalName()))
-								out += (String) instAttribute.getValue(); // TODO
-																			// retrieve
-																			// the
-																			// list
-																			// of
-																			// values
-							else
+													.getCanonicalName())) {
+								out += (String) instAttribute.getValue();
+								if (instAttribute.getValueObject() != null) {
+									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstEnumeration) instAttribute
+											.getValueObject())
+											.getDynamicVariable("InstAttribute");
+									InstAttribute oo = o.get("value");
+									Set<InstAttribute> ooo = (Set<InstAttribute>) oo
+											.getInstAttributeAttribute("Value");
+									out += "{ ";
+									for (InstAttribute i : ooo)
+										out += ((String) i.getValue())
+												.substring(2) + ", ";
+									out += "}";
+								}
+							} else
 								out += instAttribute.toString().trim();
 						}
 				}
@@ -477,8 +495,9 @@ public abstract class InstElement implements Serializable, EditableElement {
 			attribute.clearModelingAttribute();
 		}
 	}
+
 	public void clearDefects() {
 		volatileDefects.clear();
-	
+
 	}
 }
