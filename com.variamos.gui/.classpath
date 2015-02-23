@@ -9,8 +9,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.semantic"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.syntax"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.perspsupport"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.configurator"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="com.variamos.perspsupport.expressionsupport.SemanticExpression" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/SemanticExpression.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="238" width="301" x="368" y="-25"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.variamos.perspsupport.expressionsupport.SemanticExpressionType" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/SemanticExpressionType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="383" width="251" x="427" y="-446"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.variamos.perspsupport.expressionsupport.InstanceExpression" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/InstanceExpression.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="237" width="314" x="-29" y="-448"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.variamos.perspsupport.instancesupport.InstElement" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstElement.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="80" width="249" x="0" y="-35"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.variamos.perspsupport.semanticsupport.AbstractSemanticElement" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/semanticsupport/AbstractSemanticElement.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="80" width="244" x="876" y="-418"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.variamos.perspsupport.expressionsupport.ExpressionAction" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/ExpressionAction.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1072" y="310"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.variamos.perspsupport.expressionsupport.SemExprSet" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/SemExprSet.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="951" y="-192"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.variamos.perspsupport.expressionsupport.SemExprSetSubAction" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/SemExprSetSubAction.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="87" width="190" x="903" y="132"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.variamos.perspsupport.expressionsupport.ExpressionSubAction" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/ExpressionSubAction.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="809" y="323"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="10" language="java" name="com.variamos.perspsupport.semanticinterface.IntInstanceExpression" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/semanticinterface/IntInstanceExpression.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="128" y="-135"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="11" language="java" name="com.variamos.perspsupport.types.ExpressionExecType" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types/ExpressionExecType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="209" x="875" y="-61"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="12" language="java" name="com.variamos.perspsupport.expressionsupport.InstanceExprSubAction" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/InstanceExprSubAction.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="535" y="377"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="13" language="java" name="com.variamos.perspsupport.types.ExpressionVertexType" 
+    project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types/ExpressionVertexType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="147" y="322"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </enumeration>  
+  <association id="14">    
+    <bendpoint x="857" y="242"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="15" name="expressionSubAction">        
+        <position height="0" width="0" x="6" y="-834"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="6" y="-834"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <bendpoint x="556" y="268"/>    
+    <bendpoint x="649" y="268"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="18" name="rightSemanticExpression">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="21" name="expressionType">        
+        <position height="0" width="0" x="36" y="25"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="1">        
+        <position height="0" width="0" x="36" y="25"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <bendpoint x="289" y="-125"/>    
+    <bendpoint x="298" y="-55"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="24" name="volatileRightInstElement">        
+        <position height="0" width="0" x="-95" y="-965"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-95" y="-965"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="27" name="leftInstanceExpression">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <bendpoint x="566" y="-53"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="30" name="semanticExpressionType">        
+        <position height="0" width="0" x="-100" y="-3"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-100" y="-3"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <bendpoint x="344" y="293"/>    
+    <bendpoint x="296" y="-162"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="33" name="instanceExpressions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <bendpoint x="362" y="-278"/>    
+    <bendpoint x="360" y="-334"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="36" name="rightInstanceExpression">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="39" name="instanceExpressions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <bendpoint x="651" y="286"/>    
+    <bendpoint x="801" y="170"/>    
+    <bendpoint x="800" y="-4"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="42" name="expressionType">        
+        <position height="0" width="0" x="36" y="25"/>      
+      </attribute>      
+      <multiplicity id="43" minimum="0" maximum="1">        
+        <position height="0" width="0" x="36" y="25"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <bendpoint x="735" y="163"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="45" name="semanticExpressions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="46" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <bendpoint x="144" y="93"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="48" name="volatileRightExpType">        
+        <position height="0" width="0" x="-5" y="10"/>      
+      </attribute>      
+      <multiplicity id="49" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-5" y="10"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="1100" y="-220"/>    
+    <bendpoint x="1104" y="-315"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="51" name="semanticElements">        
+        <position height="0" width="0" x="-422" y="-571"/>      
+      </attribute>      
+      <multiplicity id="52" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-422" y="-571"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="446" y="280"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="54" name="volatileLeftExpType">        
+        <position height="0" width="0" x="-5" y="10"/>      
+      </attribute>      
+      <multiplicity id="55" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-5" y="10"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <bendpoint x="325" y="-199"/>    
+    <bendpoint x="337" y="72"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="57" name="customSemanticExpression">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="59">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="60">    
+    <bendpoint x="990" y="412"/>    
+    <bendpoint x="1076" y="412"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="61" name="expresionAction">        
+        <position height="0" width="0" x="-278" y="-845"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-278" y="-845"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <bendpoint x="-15" y="-143"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="64" name="volatileLefInsttElement">        
+        <position height="0" width="0" x="-95" y="-965"/>      
+      </attribute>      
+      <multiplicity id="65" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-95" y="-965"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <bendpoint x="723" y="425"/>    
+    <bendpoint x="813" y="425"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="67" name="expressionSubAction">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="68" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <bendpoint x="722" y="54"/>    
+    <bendpoint x="731" y="103"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="70" name="leftSemanticExpression">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="72">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="73">    
+    <bendpoint x="1132" y="-194"/>    
+    <bendpoint x="1132" y="167"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="74" name="expressionSetSubAction">        
+        <position height="0" width="0" x="-340" y="-778"/>      
+      </attribute>      
+      <multiplicity id="75" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-340" y="-778"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <bendpoint x="360" y="-255"/>    
+    <bendpoint x="385" y="-64"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="77" name="volatileSemanticExpression">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </attribute>      
+      <multiplicity id="78" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-156" y="-187"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

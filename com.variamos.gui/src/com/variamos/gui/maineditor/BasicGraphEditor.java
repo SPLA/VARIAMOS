@@ -56,9 +56,8 @@ import com.mxgraph.util.mxUndoManager;
 import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.pl.editor.ProductLineMenuBar;
-import com.variamos.gui.refas.editor.RefasMenuBar;
-import com.variamos.syntax.instancesupport.EditableElement;
+import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.perspsupport.instancesupport.EditableElement;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -164,20 +163,20 @@ public class BasicGraphEditor extends JPanel {
 			upperPart.setDividerLocation(150);
 			graphAndRight.setDividerLocation(400);
 			graphComponent.setBackgroundImage(null);
-			frame.setJMenuBar(new ProductLineMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
 			break;
 		case 1:
 			center.setDividerLocation(0);
 			upperPart.setDividerLocation(0);
 			graphAndRight.setDividerLocation(700);
 			graphComponent.setBackgroundImage(null);
-			frame.setJMenuBar(new ProductLineMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
 			break;
 		case 2:
 			center.setDividerLocation(25);
 			upperPart.setDividerLocation(0);
 			graphAndRight.setDividerLocation(700);
-			frame.setJMenuBar(new RefasMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
 			//frame.setJMenuBar(new ProductLineMenuBar(this));
 			graphComponent.setBackgroundImage(null);
 			break;
@@ -188,16 +187,16 @@ public class BasicGraphEditor extends JPanel {
 			graphComponent
 					.setBackgroundImage(new ImageIcon(
 							BasicGraphEditor.class
-									.getResource("/com/variamos/gui/refas/editor/images/metamodelv4.png")));
+									.getResource("/com/variamos/gui/perspeditor/images/metamodelv4.png")));
 			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new RefasMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
 			break;
 		case 4:
 			center.setDividerLocation(0);
 			upperPart.setDividerLocation(0);
 			graphAndRight.setDividerLocation(700);
 			// frame.setJMenuBar(new RequirementsMenuBar(this));
-			frame.setJMenuBar(new RefasMenuBar(this));
+			frame.setJMenuBar(new PerspEditorMenuBar(this));
 			break;
 		}
 		

@@ -16,6 +16,7 @@ import com.mxgraph.util.mxResources;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.EditorPalette;
 
+@Deprecated
 public class PLPalettesLoader {
 	public static void loadRegularPalette(EditorPalette palette, ProductLineGraph plgraph) {
 		//Load regular palette

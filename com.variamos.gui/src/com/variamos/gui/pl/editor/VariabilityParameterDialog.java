@@ -18,6 +18,7 @@ import javax.swing.SpringLayout;
 
 import com.cfm.productline.Variable;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.pl.editor.widgets.WidgetFactory;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 
