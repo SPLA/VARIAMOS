@@ -103,7 +103,7 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 			try
 			{
 				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-				ConfigurationIO.saveToFile(configurator.getConfigurationDTO(), filename);
+				
 			}
 			catch (Throwable ex)
 			{

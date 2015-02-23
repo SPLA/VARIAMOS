@@ -87,7 +87,7 @@ public class SaveProductsAction extends AbstractEditorAction {
 			try
 			{
 				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-				ConfigurationIO.saveSolutions(configurator.getSolutions(), filename);
+				
 			}
 			catch (Throwable ex)
 			{
