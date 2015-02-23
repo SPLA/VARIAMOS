@@ -602,7 +602,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
 				} else if (type != null
-						&& (type.equals("Group") || type.equals("None"))) {
+						&& (type.equals("Group"))) {
 					InstVertex grouprel = (InstVertex) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {

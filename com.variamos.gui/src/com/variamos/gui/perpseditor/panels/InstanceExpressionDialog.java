@@ -22,8 +22,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
@@ -32,6 +35,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.hlcl.Expression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -59,7 +63,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private RefasModel refasModel;
 	private boolean displayVariableName = false;
 	private int width = 950;
-	private int height = 300;
+	private int height = 400;
 	private boolean multiExpressions;
 	private boolean displayTextExpression;
 
@@ -116,6 +120,39 @@ public class InstanceExpressionDialog extends JDialog {
 						}
 					});
 			panel.add(new JScrollPane(solutionPanel));
+			if (displayTextExpression) {
+				JPanel textExpression = new JPanel();
+				JTextArea textTextualExpression;
+				try {
+					Expression exp = instanceExpression
+							.createSGSExpression(element.getIdentifier());
+					textTextualExpression = new JTextArea(exp.toString());
+				} catch (Exception e) {
+
+					textTextualExpression = new JTextArea(
+							"Expression Incomplete or Invalid");
+
+				}
+				textTextualExpression.setWrapStyleWord(true);
+				textTextualExpression.setPreferredSize(new Dimension(this
+						.getWidth() - 50, this.height/3));
+				textTextualExpression.setEditable(false);
+				textTextualExpression.setAutoscrolls(true);
+				textTextualExpression.setLineWrap(true);
+				textTextualExpression.setRows(4);
+				textExpression.add(textTextualExpression);
+				//JPanel txtPanel = new JPanel();
+				JScrollPane sp = new JScrollPane(textExpression);
+				sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				sp.setPreferredSize(new Dimension(this
+						.getWidth() - 50, 100));
+				//txtPanel.add(textExpression);
+				//txtPanel.setPreferredSize(new Dimension(this
+				//		.getWidth() - 30, 100));
+				panel.add(textExpression);
+			} else
+				panel.add(new JLabel());
+
 		}
 		JPanel options = new JPanel();
 		JCheckBox conceptNamesCheck = new JCheckBox("Display Text Expression ");
@@ -181,7 +218,7 @@ public class InstanceExpressionDialog extends JDialog {
 		}
 		panel.add(options);
 		SpringUtilities.makeCompactGrid(panel,
-				this.instanceExpressions.size() + 1, 1, 4, 4, 4, 4);
+				this.instanceExpressions.size() * 2 + 1, 1, 4, 4, 4, 4);
 
 		add(panel, BorderLayout.CENTER);
 
@@ -354,8 +391,8 @@ public class InstanceExpressionDialog extends JDialog {
 						instanceExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
 				instanceExpression
-				.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
-		}
+						.setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
+			}
 		}
 		if (leftSide.getSelectedItem().equals("Number")) {
 			if (instanceExpression.getLeftExpressionType() != null)
@@ -730,7 +767,7 @@ public class InstanceExpressionDialog extends JDialog {
 							initialize(element, null);
 						}
 					}.start();
-					}
+				}
 			}
 		});
 		return combo;

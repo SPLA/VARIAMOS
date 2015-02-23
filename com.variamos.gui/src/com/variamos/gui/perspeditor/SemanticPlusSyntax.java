@@ -1186,9 +1186,9 @@ public class SemanticPlusSyntax {
 		syntaxElements.put("GlobalVariable", syntaxGlobalVariable);
 
 		MetaConcept syntaxLocalVariable = new MetaConcept(
-				"LocalVariable",
+				"ContextVariable",
 				true,
-				"Local Variable",
+				"Context Variable",
 				"refaslocalcnxt",
 				" A local variable"
 						+ " represents an instance of a component or a variable"
@@ -1203,7 +1203,7 @@ public class SemanticPlusSyntax {
 
 		syntaxMetaChildView.addConcept(syntaxLocalVariable);
 		syntaxMetaView.addConcept(syntaxLocalVariable);
-		syntaxElements.put("LocalVariable", syntaxLocalVariable);
+		syntaxElements.put("ContextVariable", syntaxLocalVariable);
 
 		MetaEnumeration metaEnumeration = new MetaEnumeration("ME", true,
 				"MetaEnumeration", "refasenumeration", "Allows the"

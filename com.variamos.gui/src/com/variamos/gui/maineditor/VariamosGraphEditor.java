@@ -808,7 +808,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									.getIdentifier();
 							// System.out.println(iden);
 							if (iden.equals("CG")
-									|| iden.equals("LocalVariable")
+									|| iden.equals("ContextVariable")
 									|| iden.equals("GlobalVariable")
 									|| iden.equals("ENUM"))
 								editableElementType = "var";
@@ -958,6 +958,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			if (recursiveCall)
 				return;
 			elementDesignPanel.editorProperties(this, instCell);
+	
 			this.extensionTabs.repaint();
 			// elementDesPropPanel.removeAll();
 			elementConfigPropPanel.removeAll();
@@ -1003,7 +1004,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					String iden = ((InstConcept) editElm)
 							.getTransSupportMetaElement().getIdentifier();
 					// System.out.println(iden);
-					if (iden.equals("CG") || iden.equals("LocalVariable")
+					if (iden.equals("CG") || iden.equals("ContextVariable")
 							|| iden.equals("GlobalVariable")
 							|| iden.equals("ENUM"))
 

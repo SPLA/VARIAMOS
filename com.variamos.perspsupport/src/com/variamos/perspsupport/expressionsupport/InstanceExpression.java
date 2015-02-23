@@ -5,7 +5,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -244,68 +242,68 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return null;
 	}
 
-	private Map<String, Identifier> getIdentifiers() {
-		Map<String, Identifier> out = new HashMap<String, Identifier>();
-		if (volatileLefInsttElement != null
-				&& getSemanticExpression().getLeftAttributeName() != null) {
-			// System.out.println(leftVertex.getIdentifier() + " "
-			// + leftAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(volatileLefInsttElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getLeftAttributeName()), getSemanticExpression()
-					.getLeftAttributeName());
-			out.put(volatileLefInsttElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getLeftAttributeName()), identifier);
-			AbstractAttribute attribute = volatileLefInsttElement.getInstAttribute(
-					getSemanticExpression().getLeftAttributeName()).getAttribute();
-			if (attribute.getType().equals("Integer")) {
-				if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-				else {
-					if (attribute.getName().equals("value")) {
-						String domain = (String) volatileLefInsttElement.getInstAttribute(
-								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-						identifier.setDomain(DomainParser.parseDomain(domain));
-					} else
-						identifier.setDomain(new RangeDomain(0, 4));
-				}
-			}
-		}
-		if (volatileRightInstElement != null
-				&& getSemanticExpression().getRightAttributeName() != null) {
-			// System.out
-			// .println(rightVertex.getIdentifier() + rightAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(volatileRightInstElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getRightAttributeName()), getSemanticExpression()
-					.getRightAttributeName());
-
-			out.put(volatileRightInstElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getRightAttributeName()), identifier);
-			AbstractAttribute attribute = volatileRightInstElement.getInstAttribute(
-					getSemanticExpression().getRightAttributeName()).getAttribute();
-			if (attribute.getType().equals("Integer")) {
-				if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-				else if (attribute.getName().equals("value")) {
-					String domain = (String) volatileRightInstElement.getInstAttribute(
-							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-					identifier.setDomain(DomainParser.parseDomain(domain));
-				} else
-					identifier.setDomain(new RangeDomain(0, 4));
-			}
-
-		}
-		if (leftInstanceExpression != null) {
-			out.putAll(leftInstanceExpression.getIdentifiers());
-		}
-		if (rightInstanceExpression != null) {
-			out.putAll(rightInstanceExpression.getIdentifiers());
-		}
-		return out;
-	}
+//	private Map<String, Identifier> getIdentifiers() {
+//		Map<String, Identifier> out = new HashMap<String, Identifier>();
+//		if (volatileLefInsttElement != null
+//				&& getSemanticExpression().getLeftAttributeName() != null) {
+//			// System.out.println(leftVertex.getIdentifier() + " "
+//			// + leftAttributeName);
+//			Identifier identifier = hlclFactory.newIdentifier(volatileLefInsttElement
+//					.getInstAttributeFullIdentifier(getSemanticExpression()
+//							.getLeftAttributeName()), getSemanticExpression()
+//					.getLeftAttributeName());
+//			out.put(volatileLefInsttElement
+//					.getInstAttributeFullIdentifier(getSemanticExpression()
+//							.getLeftAttributeName()), identifier);
+//			AbstractAttribute attribute = volatileLefInsttElement.getInstAttribute(
+//					getSemanticExpression().getLeftAttributeName()).getAttribute();
+//			if (attribute.getType().equals("Integer")) {
+//				if (attribute.getDomain() != null)
+//					identifier.setDomain(attribute.getDomain());
+//				else {
+//					if (attribute.getName().equals("value")) {
+//						String domain = (String) volatileLefInsttElement.getInstAttribute(
+//								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+//						identifier.setDomain(DomainParser.parseDomain(domain));
+//					} else
+//						identifier.setDomain(new RangeDomain(0, 4));
+//				}
+//			}
+//		}
+//		if (volatileRightInstElement != null
+//				&& getSemanticExpression().getRightAttributeName() != null) {
+//			// System.out
+//			// .println(rightVertex.getIdentifier() + rightAttributeName);
+//			Identifier identifier = hlclFactory.newIdentifier(volatileRightInstElement
+//					.getInstAttributeFullIdentifier(getSemanticExpression()
+//							.getRightAttributeName()), getSemanticExpression()
+//					.getRightAttributeName());
+//
+//			out.put(volatileRightInstElement
+//					.getInstAttributeFullIdentifier(getSemanticExpression()
+//							.getRightAttributeName()), identifier);
+//			AbstractAttribute attribute = volatileRightInstElement.getInstAttribute(
+//					getSemanticExpression().getRightAttributeName()).getAttribute();
+//			if (attribute.getType().equals("Integer")) {
+//				if (attribute.getDomain() != null)
+//					identifier.setDomain(attribute.getDomain());
+//				else if (attribute.getName().equals("value")) {
+//					String domain = (String) volatileRightInstElement.getInstAttribute(
+//							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+//					identifier.setDomain(DomainParser.parseDomain(domain));
+//				} else
+//					identifier.setDomain(new RangeDomain(0, 4));
+//			}
+//
+//		}
+//		if (leftInstanceExpression != null) {
+//			out.putAll(leftInstanceExpression.getIdentifiers());
+//		}
+//		if (rightInstanceExpression != null) {
+//			out.putAll(rightInstanceExpression.getIdentifiers());
+//		}
+//		return out;
+//	}
 
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
@@ -739,7 +737,6 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public String expressionStructure() {
 		String out = "";
-		int i = 0;
 		for (ExpressionVertexType expressionVertex : getSemanticExpression()
 				.getExpressionTypes()) {
 			// if (expressionConnectors.size() > i)
@@ -767,10 +764,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				break;
 			default:
 				break;
-
 			}
-			i++;
 		}
 		return out;
+	}
+
+	public List<ExpressionSubAction> getSemExprSubActions() {
+		return SemExprSubActions;
+	}
+
+	public void setSemExprSubActions(List<ExpressionSubAction> semExprSubActions) {
+		SemExprSubActions = semExprSubActions;
 	}
 }

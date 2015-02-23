@@ -23,20 +23,18 @@ public class SemanticVariable extends AbstractSemanticVertex {
 	 */
 	private static final long serialVersionUID = 5538738414024566452L;
 
-	public static final String VAR_SCOPE = "scope",
-			VAR_SCOPENAME = "Scope",
-			VAR_SCOPECLASS = VariationScopeType.class.getCanonicalName(),
-
-			VAR_CONTEXTTYPE = "contextType",
-			VAR_CONTEXTTYPENAME = "Context Type",
-			VAR_CONTEXTTYPECLASS = ContextType.class.getCanonicalName(),
-
-			VAR_NAME = "name",
+	public static final String VAR_NAME = "name",
 			VAR_NAMENAME = "Name",
 
 			VAR_VALUE = "value",
 			VAR_VALUENAME = "Value",
 
+			VAR_EXTVISIBLE = "ExtVisible",
+			VAR_EXTVISIBLENAME = "Externally Visible",
+			
+			VAR_EXTCONTROL = "ExtControl",
+			VAR_EXTCONTROLNAME = "Externally Controlled",
+			
 			VAR_VARIABLETYPE = "variableType",
 			VAR_VARIABLETYPENAME = "Variable Type",
 			VAR_VARIABLETYPECLASS = VariableType.class.getCanonicalName(),
@@ -63,12 +61,12 @@ public class SemanticVariable extends AbstractSemanticVertex {
 
 	private void defineSemanticAttributes() {
 
-		putSemanticAttribute(VAR_SCOPE,
-				new SemanticAttribute(VAR_SCOPE, "Enumeration", false,
-						VAR_SCOPENAME, VAR_SCOPECLASS, "user", ""));
-		putSemanticAttribute(VAR_CONTEXTTYPE, new SemanticAttribute(
-				VAR_CONTEXTTYPE, "Enumeration", false, VAR_CONTEXTTYPENAME,
-				VAR_CONTEXTTYPECLASS, "profiled", ""));
+		// putSemanticAttribute(VAR_SCOPE,
+		// new SemanticAttribute(VAR_SCOPE, "Enumeration", false,
+		// VAR_SCOPENAME, VAR_SCOPECLASS, "user", ""));
+		// putSemanticAttribute(VAR_CONTEXTTYPE, new SemanticAttribute(
+		// VAR_CONTEXTTYPE, "Enumeration", false, VAR_CONTEXTTYPENAME,
+		// VAR_CONTEXTTYPECLASS, "profiled", ""));
 		putSemanticAttribute(VAR_NAME, new SemanticAttribute(VAR_NAME,
 				"String", false, VAR_NAMENAME, ""));
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
@@ -83,13 +81,19 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		// TODO define domain for enumtype
 		putSemanticAttribute(VAR_VALUE, new SimulationStateAttribute(VAR_VALUE,
 				"Integer", false, VAR_VALUENAME, 0));
+		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
+				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false));
+		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
+				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
 
 		this.addPropEditableAttribute("01#" + VAR_NAME);
 		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);
 		this.addPropEditableAttribute("03#" + VAR_VARIABLEDOMAIN);
 		this.addPropEditableAttribute("04#" + VAR_ENUMERATIONTYPE);
-		this.addPropEditableAttribute("05#" + VAR_CONTEXTTYPE);
-		this.addPropEditableAttribute("06#" + VAR_SCOPE);
+		// this.addPropEditableAttribute("05#" + VAR_CONTEXTTYPE);
+		// this.addPropEditableAttribute("06#" + VAR_SCOPE);
+		this.addPropEditableAttribute("08#" + VAR_EXTVISIBLE);
+		this.addPropEditableAttribute("09#" + VAR_EXTCONTROL);
 
 		this.addPropVisibleAttribute("01#" + VAR_NAME);
 		this.addPropVisibleAttribute("02#" + VAR_VARIABLETYPE);
@@ -97,23 +101,29 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				+ VAR_VARIABLETYPE + "#==#" + "Integer");
 		this.addPropVisibleAttribute("04#" + VAR_ENUMERATIONTYPE + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		this.addPropVisibleAttribute("05#" + VAR_CONTEXTTYPE);
-		this.addPropVisibleAttribute("06#" + VAR_SCOPE);
+		// this.addPropVisibleAttribute("05#" + VAR_CONTEXTTYPE);
+		// this.addPropVisibleAttribute("06#" + VAR_SCOPE);
 		this.addPropVisibleAttribute("06#" + VAR_VALUE);
 		this.addPropVisibleAttribute("07#" + VAR_VALUE);
+		this.addPropVisibleAttribute("08#" + VAR_EXTVISIBLE);
+		this.addPropVisibleAttribute("09#" + VAR_EXTCONTROL);
 
 		this.addPanelVisibleAttribute("01#" + VAR_NAME);
 		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE + "#"
 				+ VAR_VARIABLETYPE + "#!=#" + "Enumeration");
 		this.addPanelVisibleAttribute("03#" + VAR_ENUMERATIONTYPE + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		this.addPanelVisibleAttribute("04#" + VAR_CONTEXTTYPE);
-		this.addPanelVisibleAttribute("05#" + VAR_SCOPE);
+		this.addPanelVisibleAttribute("03#" + VAR_VARIABLEDOMAIN + "#"
+				+ VAR_VARIABLETYPE + "#==#" + "Integer");
+		// this.addPanelVisibleAttribute("04#" + VAR_CONTEXTTYPE);
+		// this.addPanelVisibleAttribute("05#" + VAR_SCOPE);
 
 		this.addPanelSpacersAttribute("#" + VAR_NAME + "#\n");
 		this.addPanelSpacersAttribute("{#" + VAR_VARIABLETYPE + "#} ");
-		this.addPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
-		this.addPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
+
+		this.addPanelSpacersAttribute("{#" + VAR_VARIABLEDOMAIN + "#} ");
+		// this.addPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
+		// this.addPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
 
 	}
 

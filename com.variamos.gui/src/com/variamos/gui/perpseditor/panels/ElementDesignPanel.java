@@ -276,7 +276,7 @@ public class ElementDesignPanel extends JPanel {
 													JOptionPane
 															.showMessageDialog(
 																	finalEditor,
-																	"Complete the expression before closing the editor",
+																	"Complete/Correct the expression before closing the editor",
 																	"Expression Error",
 																	JOptionPane.INFORMATION_MESSAGE,
 																	null);
@@ -514,8 +514,7 @@ public class ElementDesignPanel extends JPanel {
 			contentPanel1.revalidate();
 			JPanel attPanel = new JPanel(new SpringLayout());
 			// Fill Attributes Panel (Only for VariabilityElements ) in
-			// Properties
-			// Panel
+			// Properties Panel
 			JPanel dummy2 = new JPanel();
 			if (description != null) {
 				mainPanelWidth += 200;
