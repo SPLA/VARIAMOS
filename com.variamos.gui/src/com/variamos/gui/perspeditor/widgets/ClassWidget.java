@@ -178,9 +178,17 @@ public class ClassWidget extends WidgetR {
 
 					for (InstVertex concept : list) {
 						instVertex.put(concept.getIdentifier(), concept);
-						txtValue.addItem(concept.getInstAttribute("name")
-								.toString());
-					}
+						String out = concept.getInstAttribute("name")
+								.toString();
+						txtValue.addItem(out);
+						if (instAttribute.getValue() != null
+								&& out.equals(instAttribute.getValue()))
+							txtValue.setSelectedItem(out);
+						if (instAttribute.getValue() == null
+								&& instAttribute.getAttributeDefaultValue() != null
+								&& out.equals(instAttribute.getAttributeDefaultValue()))
+							txtValue.setSelectedItem(out);
+					}					
 				}
 			}
 

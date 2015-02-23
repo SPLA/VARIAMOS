@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Collection;
 
 import javax.swing.DefaultListCellRenderer;
@@ -15,6 +17,7 @@ import com.cfm.productline.type.IntegerType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perpseditor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
+import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
@@ -42,6 +45,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 * Reference to the InstEnumeration required to validate Id
 	 */
 	private InstElement element;
+	
+	private InstCell instCell;
 	/**
 	 * 
 	 */
@@ -55,10 +60,12 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public EnumerationAttributeList(VariamosGraphEditor editor, InstElement elm) {
+	public EnumerationAttributeList(final VariamosGraphEditor editor,
+			final InstCell instCell) {
 		this.editor = editor;
-		this.element = elm;
-		InstAttribute o = elm.getInstAttributes().get(
+		this.instCell = instCell;
+		this.element = instCell.getInstElement();
+		InstAttribute o = element.getInstAttributes().get(
 				MetaEnumeration.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
@@ -73,6 +80,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				model.addElement(v);
 
 		model.addElement(spoof);
+		
 
 		// setSize(new Dimension(150, 150));
 		setPreferredSize(new Dimension(100, 180));
@@ -167,8 +175,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				dialog.getParameters();
 
 				InstAttribute v = buffer[0];
-				v.setValue(((Integer) instIdentifier.getValue()).intValue() + "-"
-						+ (String) instName.getValue());
+				v.setValue(((Integer) instIdentifier.getValue()).intValue()
+						+ "-" + (String) instName.getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -194,8 +202,19 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	}
 
 	protected void afterAction() {
-		// DomainRegister reg = editor.getDomainRegister();
-		// reg.unregisterDomain("MetaDomain");
+
+		final InstCell finalInstCell = instCell;
+		new Thread() {
+			public void run() {
+				try {
+					sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				editor.editPropertiesRefas(finalInstCell);
+			}
+		}.start();
 
 		updateUI();
 	}
