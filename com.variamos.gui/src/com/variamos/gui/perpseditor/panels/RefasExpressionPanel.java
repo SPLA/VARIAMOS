@@ -50,14 +50,12 @@ public class RefasExpressionPanel extends JPanel {
 
 	private AbstractExpression selectedExpression;
 
-
 	public RefasExpressionPanel() {
 
 	}
 
-
 	private void initSolutionPanel(int expressionCount) {
-		solutionPanel.setMaximumSize(new Dimension(600,  55 * expressionCount));
+		solutionPanel.setMaximumSize(new Dimension(600, 55 * expressionCount));
 
 		solutionPanel
 				.setPreferredSize(new Dimension(600, 55 * expressionCount));
@@ -72,34 +70,35 @@ public class RefasExpressionPanel extends JPanel {
 		return this.refas;
 	}
 
-	public void configure(AbstractModel am,
-			ElementExpressionSet expressionSet, InstElement element) {
+	public void configure(AbstractModel am, ElementExpressionSet expressionSet,
+			InstElement element) {
 		this.expressionSet = expressionSet;
 		this.refas = (RefasModel) am;
 		initialize(element);
 	}
-	
-	public void initialize(InstElement element)
-	{
+
+	public void initialize(InstElement element) {
 		removeAll();
 		setLayout(new BorderLayout());
 		solutionPanel = new JPanel(new SpringLayout());
-		List<AbstractExpression> expressions = expressionSet
-				.getElementExpressions();
-		for (AbstractExpression expression : expressions) {
-			showExpression(expression, element, solutionPanel, 255);
-		}
+		if (expressionSet != null) {
+			List<AbstractExpression> expressions = expressionSet
+					.getElementExpressions();
+			for (AbstractExpression expression : expressions) {
+				showExpression(expression, element, solutionPanel, 255);
+			}
 
-		initSolutionPanel(expressions.size());
-		this.repaint();
-		this.revalidate();
+			initSolutionPanel(expressions.size());
+			this.repaint();
+			this.revalidate();
+		}
 
 	}
 
 	private void showExpression(AbstractExpression expression,
 			InstElement element, JPanel parentPanel, int color) {
 		final InstElement ele = element;
-		final AbstractExpression exp = expression;		
+		final AbstractExpression exp = expression;
 		if (expression instanceof NumberNumericExpression) {
 			parentPanel.add(new JTextField(""
 					+ ((NumberNumericExpression) expression).getNumber()));
@@ -113,7 +112,7 @@ public class RefasExpressionPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedExpression = exp;
-				//System.out.println(exp.toString()+" selected");
+				// System.out.println(exp.toString()+" selected");
 				initialize(ele);
 			}
 
@@ -177,17 +176,17 @@ public class RefasExpressionPanel extends JPanel {
 		if (selectedExpression == expression) {
 			childPanel.add(rightSide);
 		}
-		if (expression.getRightSubExpression() != null){
+		if (expression.getRightSubExpression() != null) {
 			rightSide.setSelectedItem("SubExp");
 			showExpression(expression.getRightSubExpression(), element,
 					childPanel, color - 20);
 		}
-		if (expression.getRightComparativeExpression() != null){
+		if (expression.getRightComparativeExpression() != null) {
 			rightSide.setSelectedItem("Number");
 			showComparativeExpression(
 					expression.getRightComparativeExpression(), childPanel);
 		}
-		if (expression.getRightNumericExpression() != null){
+		if (expression.getRightNumericExpression() != null) {
 			rightSide.setSelectedItem("Number");
 			showComparativeExpression(expression.getRightNumericExpression(),
 					childPanel);
@@ -199,11 +198,10 @@ public class RefasExpressionPanel extends JPanel {
 					expression.getRight().getIdentifier() + "_"
 							+ expression.getRightAttributeName()));
 		}
-		if (color == 255)
-		{
+		if (color == 255) {
 			JLabel lab = new JLabel("");
-			lab.setPreferredSize(new Dimension(500,10));
-			lab.setMaximumSize(new Dimension(500,10));
+			lab.setPreferredSize(new Dimension(500, 10));
+			lab.setMaximumSize(new Dimension(500, 10));
 			childPanel.add(lab);
 		}
 		parentPanel.add(childPanel);
@@ -229,31 +227,35 @@ public class RefasExpressionPanel extends JPanel {
 		if (element instanceof InstPairwiseRelation) {
 			for (String attributeName : ((InstPairwiseRelation) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element).getSourceRelations().get(0)
-						.getIdentifier() + "_" + attributeName);
+				combo.addItem(((InstPairwiseRelation) element)
+						.getSourceRelations().get(0).getIdentifier()
+						+ "_" + attributeName);
 			for (String attributeName : ((InstPairwiseRelation) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element).getTargetRelations().get(0)
-						.getIdentifier() + "_" + attributeName);
+				combo.addItem(((InstPairwiseRelation) element)
+						.getTargetRelations().get(0).getIdentifier()
+						+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
 		if (element instanceof InstOverTwoRelation) {
 			if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstPairwiseRelation)((InstOverTwoRelation) element)
-						.getTargetRelations().get(0)).getTargetRelations().get(0)
-						.getInstAttributes().keySet())
-					combo.addItem(((InstPairwiseRelation)((InstOverTwoRelation) element)
-							.getTargetRelations().get(0)).getTargetRelations().get(0)
-							.getIdentifier()
+				for (String attributeName : ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+						.getTargetRelations().get(0)).getTargetRelations()
+						.get(0).getInstAttributes().keySet())
+					combo.addItem(((InstPairwiseRelation) ((InstOverTwoRelation) element)
+							.getTargetRelations().get(0)).getTargetRelations()
+							.get(0).getIdentifier()
 							+ "_" + attributeName);
 			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
 					.getSourceRelations())
-				for (String attributeName : ((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
-						.getInstAttributes().keySet())
-					combo.addItem(((InstPairwiseRelation)sourceRelation).getSourceRelations().get(0)
-							.getIdentifier() + "_" + attributeName);
+				for (String attributeName : ((InstPairwiseRelation) sourceRelation)
+						.getSourceRelations().get(0).getInstAttributes()
+						.keySet())
+					combo.addItem(((InstPairwiseRelation) sourceRelation)
+							.getSourceRelations().get(0).getIdentifier()
+							+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
@@ -300,7 +302,6 @@ public class RefasExpressionPanel extends JPanel {
 		combo.setSelectedItem(selectedOperator);
 		return combo;
 	}
-
 
 	public void setRefas(RefasModel refas) {
 		this.refas = refas;

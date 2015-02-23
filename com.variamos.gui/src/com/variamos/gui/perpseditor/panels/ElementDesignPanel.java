@@ -568,7 +568,7 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 
 				EnumerationAttributeList attList = new EnumerationAttributeList(
-						editor, instCell.getInstElement());
+						editor, instCell);
 				attPanel.add(new JScrollPane(attList));
 
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
