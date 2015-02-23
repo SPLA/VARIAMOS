@@ -215,6 +215,7 @@ public class MainFrame extends JFrame {
 		graphEditors.get(perspective - 1).installToolBar(this, perspective);
 		graphEditors.get(perspective - 1).updateObjects();
 		graphEditors.get(perspective - 1).setVisibleModel(0, - 1);
+		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
 		this.revalidate();
 		this.repaint();
