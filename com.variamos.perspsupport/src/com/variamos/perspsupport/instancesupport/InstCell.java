@@ -46,6 +46,11 @@ public class InstCell implements Serializable {
 		else
 			return originalInstElement;
 	}
+	
+	public boolean equals(Object o)
+	{
+		return getInstElement().equals(((InstCell)o).getInstElement());
+	}
 
 	public void setInstElement(InstElement instElement) {
 		if (cloned)

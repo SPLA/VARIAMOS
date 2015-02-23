@@ -93,9 +93,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public PerspEditorGraph(int perspective,
-			RefasModel refasModel) {
-		init();		
+	public PerspEditorGraph(int perspective, RefasModel refasModel) {
+		init();
 		this.perspective = perspective;
 		this.refasModel = refasModel;
 	}
@@ -107,7 +106,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		Collection<InstView> views = refasModel.getSyntaxRefas().getInstViews();
 		int pos = 0;
 		if (views.size() == 0) {
-			//Load Syntax and Semantic
+			// Load Syntax and Semantic
 			for (InstElement instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell(new InstCell(instVertex, false));
 				child.setId(instVertex.getIdentifier());
@@ -122,8 +121,8 @@ public class PerspEditorGraph extends AbstractGraph {
 				child.setVertex(true);
 				mxGraphModel model = (mxGraphModel) getModel();
 				model.getCells().remove(child.getId());
-				model.getCells().put("0"+id, child);
-				child.setId("0"+id);
+				model.getCells().put("0" + id, child);
+				child.setId("0" + id);
 				pos++;
 
 			}
@@ -141,8 +140,8 @@ public class PerspEditorGraph extends AbstractGraph {
 					child.setVertex(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
-					model.getCells().put("0"+id, child);
-					child.setId("0"+id);
+					model.getCells().put("0" + id, child);
+					child.setId("0" + id);
 					pos++;
 				}
 				for (InstView instChildView : instView.getChildViews()) {
@@ -159,8 +158,8 @@ public class PerspEditorGraph extends AbstractGraph {
 					child2.setVertex(true);
 					mxGraphModel model2 = (mxGraphModel) getModel();
 					model2.getCells().remove(child2.getId());
-					model2.getCells().put("0"+id2, child2);
-					child2.setId("0"+id2);
+					model2.getCells().put("0" + id2, child2);
+					child2.setId("0" + id2);
 					pos++;
 
 				}
@@ -174,10 +173,12 @@ public class PerspEditorGraph extends AbstractGraph {
 					mxCell child = new mxCell(new InstCell(instEdge, false));
 					child.setId(instEdge.getIdentifier());
 					addCell(child);
-					mxCell source = this.getCellById(modelViewIndex+instEdge
-							.getSourceRelations().get(0).getIdentifier());
-					mxCell target = this.getCellById(modelViewIndex+instEdge
-							.getTargetRelations().get(0).getIdentifier());
+					mxCell source = this.getCellById(modelViewIndex
+							+ instEdge.getSourceRelations().get(0)
+									.getIdentifier());
+					mxCell target = this.getCellById(modelViewIndex
+							+ instEdge.getTargetRelations().get(0)
+									.getIdentifier());
 					child.setStyle("");
 					MetaElement e = instEdge.getTransSupportMetaElement();
 					if (e != null) {
@@ -196,13 +197,13 @@ public class PerspEditorGraph extends AbstractGraph {
 					child.setEdge(true);
 					mxGraphModel model = (mxGraphModel) getModel();
 					model.getCells().remove(child.getId());
-					model.getCells().put(modelViewIndex+id, child);
-					child.setId(modelViewIndex+id);
+					model.getCells().put(modelViewIndex + id, child);
+					child.setId(modelViewIndex + id);
 				}
 			}
 		}
-		
-		//Load views for System Design and simulation
+
+		// Load views for System Design and simulation
 		int i = 0;
 		for (Object view : views) {
 			mxCell parent = new mxCell(new InstCell(null, false));
@@ -237,7 +238,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
 		return refasModel.getSyntaxRefas().modelElements(modelView,
-					modelSubView);
+				modelSubView);
 	}
 
 	String getResource(String rsc) {
@@ -413,31 +414,30 @@ public class PerspEditorGraph extends AbstractGraph {
 					iTop);
 			InstCell value = (InstCell) topLevelView.getValue();
 			iTop++;
-			if (value!= null && value.getInstElement() != null)
-			{
+			if (value != null && value.getInstElement() != null) {
 				return (InstCell) value;
-			}				
+			}
 			int iMed = 0;
 			while ((instCell == null || instCell.getInstElement() != null)
 					&& iMed < topLevelView.getChildCount()) {
 				mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
 						topLevelView, iMed);
-				InstCell value2 = (InstCell) secondLevelCell.getValue();				
+				InstCell value2 = (InstCell) secondLevelCell.getValue();
 				if (value2 != null && value2.getInstElement() != null) {
 					modelViewIndex = iMed;
 					modelViewSubIndex = -1;
-						return (InstCell) value2;
+					return (InstCell) value2;
 				}
 				iMed++;
 				int iLow = 0;
 				while ((instCell == null || instCell.getInstElement() != null)
 						&& iLow < secondLevelCell.getChildCount()) {
 					InstCell element = (InstCell) ((mxCell) refasGraph
-							.getChildAt(secondLevelCell, iLow)).getValue();					
+							.getChildAt(secondLevelCell, iLow)).getValue();
 					if (element != null && element.getInstElement() != null) {
 						modelViewIndex = iMed;
 						modelViewSubIndex = iLow;
-							return (InstCell) element;
+						return (InstCell) element;
 					}
 					iLow++;
 				}
@@ -486,7 +486,8 @@ public class PerspEditorGraph extends AbstractGraph {
 					// Main Root
 					Object rootCell = refasGraph.getRoot();
 					// Null Root
-					mxCell viewsParent = (mxCell)refasGraph.getChildAt(rootCell, 0);
+					mxCell viewsParent = (mxCell) refasGraph.getChildAt(
+							rootCell, 0);
 					// Top level view
 					Object topLevelView = null;
 					// Parent to add new element
@@ -498,8 +499,8 @@ public class PerspEditorGraph extends AbstractGraph {
 						topLevelView = refasGraph.getChildAt(viewsParent,
 								modelViewIndex);
 						// Child view
-						correctParentCell = (mxCell) refasGraph.getChildAt(topLevelView,
-								modelViewSubIndex);
+						correctParentCell = (mxCell) refasGraph.getChildAt(
+								topLevelView, modelViewSubIndex);
 
 						model.getCells().put(
 								modelViewIndex + id + "-" + modelViewSubIndex,
@@ -508,8 +509,8 @@ public class PerspEditorGraph extends AbstractGraph {
 								+ modelViewSubIndex);
 					} else if (modelViewIndex != -1) {
 						// Top Level view
-						correctParentCell = (mxCell)refasGraph.getChildAt(viewsParent,
-								modelViewIndex);
+						correctParentCell = (mxCell) refasGraph.getChildAt(
+								viewsParent, modelViewIndex);
 						model.getCells().put(modelViewIndex + id, cell);
 						cell.setId(modelViewIndex + id);
 					} else {
@@ -536,7 +537,8 @@ public class PerspEditorGraph extends AbstractGraph {
 							name = c.getSupportMetaOverTwoRelation()
 									.getIdentifier();
 						}
-						viewsParent = (mxCell)refasGraph.getChildAt(rootCell, 0); 
+						viewsParent = (mxCell) refasGraph.getChildAt(rootCell,
+								0);
 						// Null Root
 						for (int i = 0; i < refasGraph
 								.getChildCount(viewsParent); i++) {
@@ -552,7 +554,7 @@ public class PerspEditorGraph extends AbstractGraph {
 											.getChildAt(mv1, j);
 									if (refasModel.getSyntaxRefas()
 											.elementsValidation(name, i, j)
-										&& (i != modelViewIndex || j != modelViewSubIndex)) {
+											&& (i != modelViewIndex || j != modelViewSubIndex)) {
 
 										mxCell c2 = null;
 										try {
@@ -568,9 +570,9 @@ public class PerspEditorGraph extends AbstractGraph {
 														.getInstElement(), true));
 
 										model.add(mv2, c2, mv2.getChildCount());
-									//	getModel().setVisible(c2, false);
+										// getModel().setVisible(c2, false);
 										mv2.setVisible(true);
-									//	getModel().setVisible(c2, true);
+										// getModel().setVisible(c2, true);
 										mv2.setVisible(false);
 										// Add a clone to other models
 									}
@@ -595,8 +597,8 @@ public class PerspEditorGraph extends AbstractGraph {
 									c2.setId(i + id);
 									c2.setValue(new InstCell(((InstCell) cell
 											.getValue()).getInstElement(), true));
-									//getModel().setVisible(c2, false);
-									//getModel().setVisible(c2, true);
+									// getModel().setVisible(c2, false);
+									// getModel().setVisible(c2, true);
 									model.add(mv1, c2, mv1.getChildCount());
 									mv1.setVisible(true);
 									mv1.setVisible(false);
@@ -629,18 +631,15 @@ public class PerspEditorGraph extends AbstractGraph {
 			refasModel.removeElement(instElement);
 	}
 
-	protected void removingss(mxCell cell) {
+	protected void removingClones(mxCell cell) {
 		mxIGraphModel refasGraph = getModel();
 
 		Object o = refasGraph.getRoot(); // Main Root
 		Object o1 = refasGraph.getChildAt(o, 0); // Null Root
 		for (int mvInd = 0; mvInd < refasGraph.getChildCount(o1); mvInd++) {
-			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd); // Root
-																	// model
-																	// view
-																	// mvInd
-			if (refasGraph.getChildCount(mv0) > 0
-					&& mv0.getChildAt(0).getValue().equals(mv0.getValue())) {
+			mxCell mv0 = (mxCell) refasGraph.getChildAt(o1, mvInd);
+			// Root model view mvInd
+			if (refasGraph.getChildCount(mv0) > 0) {
 				for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
 					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
@@ -648,13 +647,12 @@ public class PerspEditorGraph extends AbstractGraph {
 						if (cell.getValue().equals(mv2.getValue()))
 							mv1.remove(j);
 					}
-				}
-			} else
-				for (int i = 0; i < refasGraph.getChildCount(mv0); i++) {
-					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
-					if (cell.getValue().equals(mv1.getValue()))
+					mxCell mv2 = (mxCell) refasGraph.getChildAt(mv0, i);
+					if (cell.getValue().equals(mv2.getValue()))
 						mv0.remove(i);
+
 				}
+			}
 		}
 	}
 
