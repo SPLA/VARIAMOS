@@ -12,7 +12,7 @@ public class ClearConfigurationAction extends AbstractEditorAction {
 
 	public ClearConfigurationAction() {
 
-		this.putValue(SHORT_DESCRIPTION, mxResources.get("resetConfiguration"));
+		this.putValue(SHORT_DESCRIPTION, mxResources.get("restartConfiguration"));
 	}
 
 	/**

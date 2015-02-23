@@ -55,6 +55,12 @@ public class PerspectiveAction extends AbstractEditorAction {
 			mainFrame.setPerspective(4);
 			System.out.println("simulationPerspButton");
 		}
+		if (perspectiveInd != 5
+				&& jb.getText()
+						.equals(mxResources.get("configurationPerspButton"))) {
+			mainFrame.setPerspective(5);
+			System.out.println("configurationPerspButton");
+		}		
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
 		mainFrame.repaint();
