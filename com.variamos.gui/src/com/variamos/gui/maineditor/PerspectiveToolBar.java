@@ -116,11 +116,13 @@ public class PerspectiveToolBar extends JToolBar {
 		buttons[4].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[4]);
 		buttons[4].addActionListener(new PerspectiveAction(this));
-		
+
+		if (mainFrame.isAdvancedPerspective()) {
 		buttons[5] = new JButton(mxResources.get("configurationPerspButton"));
 		buttons[5].setBorder(new EmptyBorder(3, 7, 3, 7));
 		add(buttons[5]);
 		buttons[5].addActionListener(new PerspectiveAction(this));
+		}
 
 		// buttons[0] = new JButton(mxResources.get("plPerspButton"));
 		// add (buttons[0]);
