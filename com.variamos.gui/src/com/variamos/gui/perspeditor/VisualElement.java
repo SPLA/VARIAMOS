@@ -2,12 +2,15 @@ package com.variamos.gui.perspeditor;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
@@ -94,12 +97,41 @@ public class VisualElement implements Comparable<VisualElement> {
 			label = new JLabel(instElement.getIdentifier());
 		row.add(label);
 		if (semanticElement instanceof SemanticVariable) {
-			row.add(new JLabel("Type: "));
-			row.add(new JLabel((String) instElement.getInstAttribute(
-					"variableType").getValue()));
-			row.add(new JLabel("Value: "));
-			row.add(new JLabel(instElement.getInstAttribute("value")
-					.getAsInteger() + ""));
+			row.add(new JLabel(" :"));
+			if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Integer")) {
+				row.add(new JLabel("int"));
+				row.add(new JLabel(" :"));
+				row.add(new JLabel(instElement.getInstAttribute("value")
+						.getAsInteger() + ""));
+			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Enumeration"))
+			{
+				row.add(new JLabel("enum"));
+				row.add(new JLabel(" :"));
+				Object object = instElement.getInstAttribute(
+						"enumerationType").getValueObject();
+				if (object != null) {
+					@SuppressWarnings("unchecked")
+					Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+							.getInstAttribute("value")).getValue();
+					for (InstAttribute value : values) {
+						String[] split = ((String) value.getValue())
+								.split("");
+						String val = ((Integer)instElement.getInstAttribute("value").getValue()).toString();
+						if (split[0].equals(val))
+							row.add(new JLabel(value + ""));
+					}
+				}
+			}else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Boolean")) {
+				row.add(new JLabel("bool"));
+				row.add(new JLabel(" :"));
+				row.add(new JLabel(instElement.getInstAttribute("value")
+						.getAsBoolean() + ""));
+			} else
+				row.add(new JLabel("Other type"));
+
 		} else {
 			if (selected)
 				row.setBackground(green);

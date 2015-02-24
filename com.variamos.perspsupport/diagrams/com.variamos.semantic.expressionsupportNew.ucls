@@ -103,7 +103,7 @@
   <association id="10">    
     <bendpoint x="41" y="900"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="11" name="volatileLefInsttElement">        
+      <attribute id="11" name="volatileLefInstElement">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="12" minimum="0" maximum="1">        

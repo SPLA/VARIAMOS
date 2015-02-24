@@ -29,10 +29,6 @@ public class AbstractSemanticElement implements Serializable,
 	private String identifier;
 	private AbstractSemanticElement parent;
 
-	public AbstractSemanticElement getParent() {
-		return parent;
-	}
-
 	private List<String> propVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> propEditableAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
@@ -64,7 +60,10 @@ public class AbstractSemanticElement implements Serializable,
 		this.propEditableAttributes = propEditableAttributes;
 		this.panelVisibleAttributes = panelVisibleAttributes;
 		this.panelSpacersAttributes = panelSpacersAttributes;
+	}
 
+	public AbstractSemanticElement getParent() {
+		return parent;
 	}
 
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {

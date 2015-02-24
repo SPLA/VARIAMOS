@@ -370,6 +370,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 									for (InstAttribute i : ooo)
 										out += ((String) i.getValue())
 												.substring(2) + ", ";
+
+									out = out.substring(0, out.length()-1);
 									out += "}";
 								}
 							} else
