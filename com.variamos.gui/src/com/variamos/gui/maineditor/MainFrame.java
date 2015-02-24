@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // semantic
 				abstractModel = new RefasModel(metaExpressionTypes,
