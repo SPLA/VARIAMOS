@@ -773,6 +773,5 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 }
