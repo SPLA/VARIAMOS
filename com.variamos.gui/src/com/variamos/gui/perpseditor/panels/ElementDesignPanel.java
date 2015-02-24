@@ -568,7 +568,7 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 
 				EnumerationAttributeList attList = new EnumerationAttributeList(
-						editor, instCell.getInstElement());
+						editor, instCell);
 				attPanel.add(new JScrollPane(attList));
 
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
@@ -605,8 +605,8 @@ public class ElementDesignPanel extends JPanel {
 							.getInstElement().getEditableSemanticElement()
 							.getSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(350, 400));
-				attPanel.setMaximumSize(new Dimension(350, 400));
+				attPanel.setPreferredSize(new Dimension(350, 300));
+				attPanel.setMaximumSize(new Dimension(350, 300));
 				attPanel.add(new JScrollPane(attList));
 				attPanel.add(new JScrollPane(attributeEdition));
 
@@ -616,11 +616,15 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			}
 		}
-		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 400));
+
+		mainPanel.setPreferredSize(new Dimension(mainPanelWidth, 300));
+		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 300));
 
 		// System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
+		this.revalidate();
+		this.repaint();
 		this.revalidate();
 		this.repaint();
 	}

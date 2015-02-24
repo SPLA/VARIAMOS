@@ -176,6 +176,7 @@ public class InstanceExpressionDialog extends JDialog {
 		});
 		JCheckBox varNamesCheck = new JCheckBox(
 				"Display Variable Names (not identifiers)");
+		varNamesCheck.setEnabled(false);
 		if (displayVariableName)
 			varNamesCheck.setSelected(true);
 		options.add(varNamesCheck);

@@ -1125,6 +1125,7 @@ public class BasicGraphEditor extends JPanel {
 	}
 
 	public void setDefaultButton() {
+		if (modelsTabPane.getTabCount()>0)
 		modelsTabPane.setSelectedIndex(0);
 	}
 }
