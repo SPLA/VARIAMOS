@@ -41,8 +41,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private static HlclFactory hlclFactory = new HlclFactory();
 
 	/**
-	 * Associated SemanticExpression: volatile for semantic SemanticExpression; custom
-	 * for variable expressions or InstElement custom expressions
+	 * Associated SemanticExpression: volatile for semantic SemanticExpression;
+	 * custom for variable expressions or InstElement custom expressions
 	 */
 	private SemanticExpression volatileSemanticExpression;
 	private SemanticExpression customSemanticExpression;
@@ -108,30 +108,28 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		customExpression = false;
 	}
 
-	public void loadVolatileElements(Map<String, InstElement>instVertices)
-	{
+	public void loadVolatileElements(Map<String, InstElement> instVertices) {
 		if (leftInstElementId != null)
 			volatileLefInsttElement = instVertices.get(leftInstElementId);
 		if (rightInstElementId != null)
 			volatileRightInstElement = instVertices.get(rightInstElementId);
-		if (leftInstanceExpression!= null)
+		if (leftInstanceExpression != null)
 			leftInstanceExpression.loadVolatileElements(instVertices);
-		if (rightInstanceExpression!= null)
+		if (rightInstanceExpression != null)
 			rightInstanceExpression.loadVolatileElements(instVertices);
 	}
-	
+
 	public InstanceExpression(boolean customExpression, String id, boolean first) {
 		this.customExpression = customExpression;
 		if (customExpression) {
 			customSemanticExpression = new SemanticExpression(id);
 			semanticExpressionId = id;
 		}
-		if (first)
-		{
-		setLeftInstanceExpression(
-				ExpressionVertexType.LEFTSUBEXPRESSION, null, "id");
-		setRightInstanceExpression(
-				ExpressionVertexType.RIGHTSUBEXPRESSION, null, "id");
+		if (first) {
+			setLeftInstanceExpression(ExpressionVertexType.LEFTSUBEXPRESSION,
+					null, "id");
+			setRightInstanceExpression(ExpressionVertexType.RIGHTSUBEXPRESSION,
+					null, "id");
 		}
 		this.setLeftExpressionType(ExpressionVertexType.LEFT);
 		this.setRightExpressionType(ExpressionVertexType.RIGHT);
@@ -146,8 +144,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		}
 	}
 
-	public InstanceExpression(SemanticExpression semanticExpression, InstElement left,
-			InstElement right) {
+	public InstanceExpression(SemanticExpression semanticExpression,
+			InstElement left, InstElement right) {
 		this.volatileSemanticExpression = semanticExpression;
 		this.semanticExpressionId = semanticExpression.getIdentifier();
 		setLeftElement(left);
@@ -177,17 +175,17 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		this.rightInstanceExpression = rightInstanceExpression;
 	}
 
-	public InstanceExpression(SemanticExpression semanticExpression, InstElement vertex) {
+	public InstanceExpression(SemanticExpression semanticExpression,
+			InstElement vertex) {
 		this.volatileSemanticExpression = semanticExpression;
 		this.semanticExpressionId = semanticExpression.getIdentifier();
 		setLeftElement(vertex);
 	}
-	
-	public Expression createSGSExpression(String element)
-	{
+
+	public Expression createSGSExpression(String element) {
 		Expression condition = createExpression();
-		Identifier iden = hlclFactory.newIdentifier(element+"_CompExp");
-		return hlclFactory.doubleImplies(iden, (BooleanExpression)condition);
+		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
+		return hlclFactory.doubleImplies(iden, (BooleanExpression) condition);
 	}
 
 	public Expression createExpression() {
@@ -228,7 +226,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			} else {
 				// For the other expressions
 				factoryMethod = hlclFactoryClass.getMethod(
-						semanticExpressionType.getMethod(), parameter1, parameter2);
+						semanticExpressionType.getMethod(), parameter1,
+						parameter2);
 
 				return (Expression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)),
@@ -242,87 +241,93 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return null;
 	}
 
-//	private Map<String, Identifier> getIdentifiers() {
-//		Map<String, Identifier> out = new HashMap<String, Identifier>();
-//		if (volatileLefInsttElement != null
-//				&& getSemanticExpression().getLeftAttributeName() != null) {
-//			// System.out.println(leftVertex.getIdentifier() + " "
-//			// + leftAttributeName);
-//			Identifier identifier = hlclFactory.newIdentifier(volatileLefInsttElement
-//					.getInstAttributeFullIdentifier(getSemanticExpression()
-//							.getLeftAttributeName()), getSemanticExpression()
-//					.getLeftAttributeName());
-//			out.put(volatileLefInsttElement
-//					.getInstAttributeFullIdentifier(getSemanticExpression()
-//							.getLeftAttributeName()), identifier);
-//			AbstractAttribute attribute = volatileLefInsttElement.getInstAttribute(
-//					getSemanticExpression().getLeftAttributeName()).getAttribute();
-//			if (attribute.getType().equals("Integer")) {
-//				if (attribute.getDomain() != null)
-//					identifier.setDomain(attribute.getDomain());
-//				else {
-//					if (attribute.getName().equals("value")) {
-//						String domain = (String) volatileLefInsttElement.getInstAttribute(
-//								SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-//						identifier.setDomain(DomainParser.parseDomain(domain));
-//					} else
-//						identifier.setDomain(new RangeDomain(0, 4));
-//				}
-//			}
-//		}
-//		if (volatileRightInstElement != null
-//				&& getSemanticExpression().getRightAttributeName() != null) {
-//			// System.out
-//			// .println(rightVertex.getIdentifier() + rightAttributeName);
-//			Identifier identifier = hlclFactory.newIdentifier(volatileRightInstElement
-//					.getInstAttributeFullIdentifier(getSemanticExpression()
-//							.getRightAttributeName()), getSemanticExpression()
-//					.getRightAttributeName());
-//
-//			out.put(volatileRightInstElement
-//					.getInstAttributeFullIdentifier(getSemanticExpression()
-//							.getRightAttributeName()), identifier);
-//			AbstractAttribute attribute = volatileRightInstElement.getInstAttribute(
-//					getSemanticExpression().getRightAttributeName()).getAttribute();
-//			if (attribute.getType().equals("Integer")) {
-//				if (attribute.getDomain() != null)
-//					identifier.setDomain(attribute.getDomain());
-//				else if (attribute.getName().equals("value")) {
-//					String domain = (String) volatileRightInstElement.getInstAttribute(
-//							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-//					identifier.setDomain(DomainParser.parseDomain(domain));
-//				} else
-//					identifier.setDomain(new RangeDomain(0, 4));
-//			}
-//
-//		}
-//		if (leftInstanceExpression != null) {
-//			out.putAll(leftInstanceExpression.getIdentifiers());
-//		}
-//		if (rightInstanceExpression != null) {
-//			out.putAll(rightInstanceExpression.getIdentifiers());
-//		}
-//		return out;
-//	}
+	// private Map<String, Identifier> getIdentifiers() {
+	// Map<String, Identifier> out = new HashMap<String, Identifier>();
+	// if (volatileLefInsttElement != null
+	// && getSemanticExpression().getLeftAttributeName() != null) {
+	// // System.out.println(leftVertex.getIdentifier() + " "
+	// // + leftAttributeName);
+	// Identifier identifier = hlclFactory.newIdentifier(volatileLefInsttElement
+	// .getInstAttributeFullIdentifier(getSemanticExpression()
+	// .getLeftAttributeName()), getSemanticExpression()
+	// .getLeftAttributeName());
+	// out.put(volatileLefInsttElement
+	// .getInstAttributeFullIdentifier(getSemanticExpression()
+	// .getLeftAttributeName()), identifier);
+	// AbstractAttribute attribute = volatileLefInsttElement.getInstAttribute(
+	// getSemanticExpression().getLeftAttributeName()).getAttribute();
+	// if (attribute.getType().equals("Integer")) {
+	// if (attribute.getDomain() != null)
+	// identifier.setDomain(attribute.getDomain());
+	// else {
+	// if (attribute.getName().equals("value")) {
+	// String domain = (String) volatileLefInsttElement.getInstAttribute(
+	// SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+	// identifier.setDomain(DomainParser.parseDomain(domain));
+	// } else
+	// identifier.setDomain(new RangeDomain(0, 4));
+	// }
+	// }
+	// }
+	// if (volatileRightInstElement != null
+	// && getSemanticExpression().getRightAttributeName() != null) {
+	// // System.out
+	// // .println(rightVertex.getIdentifier() + rightAttributeName);
+	// Identifier identifier =
+	// hlclFactory.newIdentifier(volatileRightInstElement
+	// .getInstAttributeFullIdentifier(getSemanticExpression()
+	// .getRightAttributeName()), getSemanticExpression()
+	// .getRightAttributeName());
+	//
+	// out.put(volatileRightInstElement
+	// .getInstAttributeFullIdentifier(getSemanticExpression()
+	// .getRightAttributeName()), identifier);
+	// AbstractAttribute attribute = volatileRightInstElement.getInstAttribute(
+	// getSemanticExpression().getRightAttributeName()).getAttribute();
+	// if (attribute.getType().equals("Integer")) {
+	// if (attribute.getDomain() != null)
+	// identifier.setDomain(attribute.getDomain());
+	// else if (attribute.getName().equals("value")) {
+	// String domain = (String) volatileRightInstElement.getInstAttribute(
+	// SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+	// identifier.setDomain(DomainParser.parseDomain(domain));
+	// } else
+	// identifier.setDomain(new RangeDomain(0, 4));
+	// }
+	//
+	// }
+	// if (leftInstanceExpression != null) {
+	// out.putAll(leftInstanceExpression.getIdentifiers());
+	// }
+	// if (rightInstanceExpression != null) {
+	// out.putAll(rightInstanceExpression.getIdentifiers());
+	// }
+	// return out;
+	// }
 
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
 		if (expressionVertexType.name().equals("LEFT")) {
 			// System.out.println(leftVertex.getIdentifier() + " "
 			// + leftAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(volatileLefInsttElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getLeftAttributeName()), getSemanticExpression()
-					.getLeftAttributeName());
-			AbstractAttribute attribute = volatileLefInsttElement.getInstAttribute(
-					getSemanticExpression().getLeftAttributeName()).getAttribute();
+			Identifier identifier = hlclFactory
+					.newIdentifier(
+							volatileLefInsttElement
+									.getInstAttributeFullIdentifier(getSemanticExpression()
+											.getLeftAttributeName()),
+							getSemanticExpression().getLeftAttributeName());
+			AbstractAttribute attribute = volatileLefInsttElement
+					.getInstAttribute(
+							getSemanticExpression().getLeftAttributeName())
+					.getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getName().equals("value")) {
-					String domain = (String) volatileLefInsttElement.getInstAttribute(
-							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+					String domain = (String) volatileLefInsttElement
+							.getInstAttribute(
+									SemanticVariable.VAR_VARIABLEDOMAIN)
+							.getValue();
 					identifier.setDomain(DomainParser.parseDomain(domain));
-				} else
-				if (attribute.getDomain() != null)
+				} else if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else
 					identifier.setDomain(new RangeDomain(0, 4));
@@ -332,12 +337,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (expressionVertexType.name().equals("RIGHT")) {
 			// System.out
 			// .println(rightVertex.getIdentifier() + rightAttributeName);
-			Identifier identifier = hlclFactory.newIdentifier(volatileRightInstElement
-					.getInstAttributeFullIdentifier(getSemanticExpression()
-							.getRightAttributeName()), getSemanticExpression()
-					.getRightAttributeName());
-			AbstractAttribute attribute = volatileRightInstElement.getInstAttribute(
-					getSemanticExpression().getRightAttributeName()).getAttribute();
+			Identifier identifier = hlclFactory
+					.newIdentifier(
+							volatileRightInstElement
+									.getInstAttributeFullIdentifier(getSemanticExpression()
+											.getRightAttributeName()),
+							getSemanticExpression().getRightAttributeName());
+			AbstractAttribute attribute = volatileRightInstElement
+					.getInstAttribute(
+							getSemanticExpression().getRightAttributeName())
+					.getAttribute();
 			if (attribute.getType().equals("Integer")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
@@ -354,7 +363,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 		List<ExpressionVertexType> expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 
-		ExpressionVertexType left = getSemanticExpression().getLeftExpressionType();
+		ExpressionVertexType left = getSemanticExpression()
+				.getLeftExpressionType();
 		ExpressionVertexType right = getSemanticExpression()
 				.getRightExpressionType();
 		if (left != null)
@@ -409,8 +419,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
-			valueType = (String) this.volatileRightInstElement.getInstAttribute(
-					SemanticVariable.VAR_VARIABLETYPE).getValue();
+			valueType = (String) this.volatileRightInstElement
+					.getInstAttribute(SemanticVariable.VAR_VARIABLETYPE)
+					.getValue();
 
 			break;
 		default:
@@ -424,7 +435,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case "Integer":
 			return Integer.parseInt(value);
 		case "Enumeration":
-			return 0; // TODO
+			String[] split = value.split("-");
+			return Integer.parseInt(split[0]);
 		}
 		return 0;
 	}
@@ -472,7 +484,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setLeftInstanceExpression(ExpressionVertexType type,
 			SemanticExpressionType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION)
-			this.leftInstanceExpression = new InstanceExpression(true, id, false);
+			this.leftInstanceExpression = new InstanceExpression(true, id,
+					false);
 		if (type == ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)
 			this.leftInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));
@@ -480,7 +493,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public void setLeftElement(InstElement instElement, String attribute) {
-		getSemanticExpression().setLeftExpressionType(ExpressionVertexType.LEFT);
+		getSemanticExpression()
+				.setLeftExpressionType(ExpressionVertexType.LEFT);
 		this.volatileLefInsttElement = instElement;
 		getSemanticExpression().setLeftAttributeName(attribute);
 	}
@@ -488,7 +502,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setRightInstanceExpression(ExpressionVertexType type,
 			SemanticExpressionType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
-			this.rightInstanceExpression = new InstanceExpression(true, id, false);
+			this.rightInstanceExpression = new InstanceExpression(true, id,
+					false);
 		if (type == ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)
 			this.rightInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));
@@ -496,7 +511,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public void setRightElement(InstElement instElement, String attribute) {
-		getSemanticExpression().setRightExpressionType(ExpressionVertexType.RIGHT);
+		getSemanticExpression().setRightExpressionType(
+				ExpressionVertexType.RIGHT);
 		this.volatileLefInsttElement = instElement;
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
@@ -509,9 +525,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		getSemanticExpression().setNumber(number);
 	}
 
-	public void setSemanticExpressionType(SemanticExpressionType semanticExpressionType) {
+	public void setSemanticExpressionType(
+			SemanticExpressionType semanticExpressionType) {
 		if (customExpression)
-			customSemanticExpression.setSemanticExpressionType(semanticExpressionType);
+			customSemanticExpression
+					.setSemanticExpressionType(semanticExpressionType);
 		if (semanticExpressionType == null
 				|| semanticExpressionType.isSingleInExpression()) {
 			rightInstanceExpression = null;
@@ -551,7 +569,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	// Required for graph serialization
-	public void setCustomSemanticExpression(SemanticExpression customSemanticExpression) {
+	public void setCustomSemanticExpression(
+			SemanticExpression customSemanticExpression) {
 		this.customSemanticExpression = customSemanticExpression;
 	}
 
@@ -609,12 +628,14 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public String getSideElementIdentifier(
 			ExpressionVertexType expressionVertexType) {
-		if (expressionVertexType == ExpressionVertexType.LEFT || expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE) {
+		if (expressionVertexType == ExpressionVertexType.LEFT
+				|| expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE) {
 			if (getLeftElement() != null)
 				return getLeftElement().getIdentifier();
 			else
 				return leftInstElementId;
-		} else if (expressionVertexType == ExpressionVertexType.RIGHT  || expressionVertexType == ExpressionVertexType.RIGHTVARIABLEVALUE) {
+		} else if (expressionVertexType == ExpressionVertexType.RIGHT
+				|| expressionVertexType == ExpressionVertexType.RIGHTVARIABLEVALUE) {
 			if (getRightElement() != null)
 				return getRightElement().getIdentifier();
 			else
