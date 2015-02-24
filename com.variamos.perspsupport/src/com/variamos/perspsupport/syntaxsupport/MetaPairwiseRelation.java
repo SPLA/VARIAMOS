@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
+import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 
 /**
  * A class to represented edges of the meta model. Extends from MetaElement
@@ -37,7 +39,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	/**
 	 * 
 	 */
-	private IntSemanticPairwiseRelation semanticPairwiseRelation;
+	// private IntSemanticPairwiseRelation semanticPairwiseRelation;
 
 	public static final/**
 						 * CanonicalName of DirectSemanticEdge - no direct reference allowed
@@ -69,11 +71,11 @@ public class MetaPairwiseRelation extends MetaElement {
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke,
-			IntSemanticPairwiseRelation semanticRelation) {
+			InstElement instSemanticElement) {
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
-		this.semanticPairwiseRelation = semanticRelation;
+				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
+				false, TypeOfLine.solid);
+		// this.semanticPairwiseRelation = semanticRelation;
 		createPWModelingAttributes();
 	}
 
@@ -81,19 +83,20 @@ public class MetaPairwiseRelation extends MetaElement {
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke) {
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
+				image, borderStroke, null, 1, 1, 1, 1, "", "",
+				false, TypeOfLine.solid);
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
-			int height, String image, int borderStroke, int iniLowCardinality,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement, int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
 			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke);
+				image, borderStroke, instSemanticElement);
 
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
@@ -109,6 +112,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke,
+			InstElement instSemanticElement,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
@@ -119,9 +123,10 @@ public class MetaPairwiseRelation extends MetaElement {
 			String iniDescription, String endDescription,
 			boolean arrowDirection, TypeOfLine typeOfLine) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, disPropVisibleAttributes,
-				disPropEditableAttributes, disPanelVisibleAttributes,
-				disPanelSpacersAttributes, modelingAttributes);
+				image, borderStroke, instSemanticElement,
+				disPropVisibleAttributes, disPropEditableAttributes,
+				disPanelVisibleAttributes, disPanelSpacersAttributes,
+				modelingAttributes);
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
 		this.endLowCardinality = endLowCardinality;
@@ -166,9 +171,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticPairwiseRelation != null)
-			modelingAttributesNames.addAll(semanticPairwiseRelation
-					.getPropVisibleAttributes());
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement()
+					.getEditableSemanticElement().getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -177,9 +182,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticPairwiseRelation != null)
-			modelingAttributesNames.addAll(semanticPairwiseRelation
-					.getPropEditableAttributes());
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement()
+					.getEditableSemanticElement().getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
 		return modelingAttributesNames;
@@ -188,9 +193,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticPairwiseRelation != null)
-			modelingAttributesNames.addAll(semanticPairwiseRelation
-					.getPanelVisibleAttributes());
+		if (getInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement()
+					.getEditableSemanticElement().getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -199,9 +204,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticPairwiseRelation != null)
-			modelingAttributesNames.addAll(semanticPairwiseRelation
-					.getPanelSpacersAttributes());
+		if (getInstSemanticElement()!= null)
+			modelingAttributesNames.addAll(getInstSemanticElement()
+					.getEditableSemanticElement().getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
 		return modelingAttributesNames;
@@ -217,18 +222,20 @@ public class MetaPairwiseRelation extends MetaElement {
 
 	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (semanticPairwiseRelation != null)
-			modelingAttributesNames.addAll(semanticPairwiseRelation
-					.getSemanticAttributesNames());
+		if (getInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement()
+					.getEditableSemanticElement().getSemanticAttributesNames());
 		return modelingAttributesNames;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return semanticPairwiseRelation.getSemanticAttribute(name);
+		return getInstSemanticElement().getEditableSemanticElement()
+				.getSemanticAttribute(name);
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return semanticPairwiseRelation.getSemanticRelationTypes();
+		return ((SemanticPairwiseRelation) getInstSemanticElement()
+				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 
 	public void setIniLowCardinality(int iniLowCardinality) {

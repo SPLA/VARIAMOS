@@ -4,8 +4,6 @@ import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
 import com.variamos.perspsupport.types.VariableType;
-import com.variamos.semantic.types.ContextType;
-import com.variamos.semantic.types.VariationScopeType;
 
 /**
  * A class to represent the Semantics of Variables. Part of PhD work at

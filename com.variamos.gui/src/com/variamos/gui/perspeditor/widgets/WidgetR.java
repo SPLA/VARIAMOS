@@ -4,7 +4,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 @SuppressWarnings("serial")
@@ -30,7 +29,7 @@ public abstract class WidgetR extends JPanel{
 		return affectProperties;
 	}
 
-	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
+	public void configure(EditableElementAttribute v, mxGraph graph) {
 		affectProperties = v.isAffectProperties();
 		
 	}

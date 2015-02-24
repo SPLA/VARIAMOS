@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.semanticinterface;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,4 +34,12 @@ public interface IntSemanticElement extends Serializable {
 	public Set<String> getSemanticAttributesNames();
 	
 	public List<IntSemanticExpression> getSemanticExpresions();
+
+	Collection<? extends String> getPanelSpacersAttributes();
+
+	Collection<? extends String> getPropVisibleAttributes();
+
+	Collection<? extends String> getPropEditableAttributes();
+
+	Collection<? extends String> getPanelVisibleAttributes();
 }

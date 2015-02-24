@@ -1,8 +1,6 @@
 package com.variamos.perspsupport.semanticsupport;
 
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.semantic.types.ContextType;
-import com.variamos.semantic.types.VariationScopeType;
 
 /**
  * A class to represent the edges at semantic level. Part of PhD work at
@@ -20,11 +18,7 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 	 */
 	private static final long serialVersionUID = 5538738414024566452L;
 
-	private static final String VAR_SCOPE = "scope", VAR_SCOPENAME = "Scope",
-			VAR_SCOPECLASS = VariationScopeType.class.getCanonicalName(),
-			VAR_CONTEXTTYPE = "contextType",
-			VAR_CONTEXTTYPENAME = "Context Type",
-			VAR_CONTEXTTYPECLASS = ContextType.class.getCanonicalName(),
+	private static final String 
 			VAR_VARIABLENAME = "variableName",
 			VAR_VARIABLENAMENAME = "Variable Name",
 

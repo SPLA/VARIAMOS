@@ -7,7 +7,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
@@ -38,17 +37,17 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v,
-			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = EnumerationSingleSelectionType.class.getClassLoader();
+	public void configure(EditableElementAttribute v, mxGraph graph) {
+		super.configure(v, graph);
+		ClassLoader classLoader = EnumerationSingleSelectionType.class
+				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			//System.out.println("aClass.getName() = " + aClass.getName());
+			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -62,13 +61,13 @@ public class EnumerationWidget extends WidgetR {
 			for (int j = 1; j < split.length; j++)
 				out += split[j].toLowerCase() + " ";
 			txtValue.addItem(out.trim());
-			if (instAttribute.getValue()!= null && out.equals(instAttribute.getValue()))
+			if (instAttribute.getValue() != null
+					&& out.equals(instAttribute.getValue()))
 				txtValue.setSelectedItem(out);
 		}
-		if (instAttribute.getValue()== null)
-		{
+		if (instAttribute.getValue() == null) {
 			txtValue.setSelectedIndex(0);
-			instAttribute.setValue((String)txtValue.getSelectedItem());
+			instAttribute.setValue((String) txtValue.getSelectedItem());
 		}
 		revalidate();
 		repaint();

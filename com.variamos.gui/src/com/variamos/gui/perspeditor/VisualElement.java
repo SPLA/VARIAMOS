@@ -11,16 +11,16 @@ import javax.swing.JPanel;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 
 public class VisualElement implements Comparable<VisualElement> {
 
 	private InstElement instElement;
-	private IntSemanticConcept semanticElement;
+	private IntSemanticElement semanticElement;
 	private boolean selected, notAvailable, updated;
 	private Color green, red, yellow;
 	private String otherParameters = "";
@@ -28,7 +28,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	public VisualElement(InstElement instElement) {
 		defineColors();
 		this.instElement = instElement;
-		this.semanticElement = ((MetaVertex) instElement
+		this.semanticElement = ((MetaElement) instElement
 				.getTransSupportMetaElement()).getTransSemanticConcept();
 		updateValues();
 		this.updated = false;

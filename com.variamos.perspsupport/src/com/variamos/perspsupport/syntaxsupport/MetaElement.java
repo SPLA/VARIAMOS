@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
  *         1
@@ -86,33 +90,35 @@ public abstract class MetaElement implements Serializable {
 	 */
 	private List<String> panelSpacersAttributes;
 
+	private InstElement instSemanticElement;
+
 	/**
 	 * 
 	 */
 	public MetaElement() {
 
-		this("", true, "", "", "", 100, 40, "", 1, new ArrayList<String>(),
+		this("", true, "", "", "", 100, 40, "", 1, null,
 				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
 		createModelingAttributes();
 	}
 
 	public MetaElement(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke)
+			String image, int borderStroke, InstElement instSemanticElement)
 
 	{
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, new ArrayList<String>(),
+				image, borderStroke, instSemanticElement,
 				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>(),
+				new ArrayList<String>(), new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
 	}
 
 	public MetaElement(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke,
+			String image, int borderStroke, InstElement instSemanticElement,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
@@ -129,6 +135,7 @@ public abstract class MetaElement implements Serializable {
 		this.height = height;
 		this.image = image;
 		this.borderStroke = borderStroke;
+		this.instSemanticElement = instSemanticElement;
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
@@ -140,12 +147,21 @@ public abstract class MetaElement implements Serializable {
 	public void createModelingAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new ModelingAttribute(
 				VAR_IDENTIFIER, "String", false, "Identifier", null));
-	/*	this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
-				VAR_DESCRIPTION, "String", false, "description", null));
-*/
+		/*
+		 * this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
+		 * VAR_DESCRIPTION, "String", false, "description", null));
+		 */
 		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
 		// this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
 
+	}
+
+	public InstElement getInstSemanticElement() {
+		return instSemanticElement;
+	}
+
+	public void setInstSemanticElement(InstElement instSemanticElement) {
+		this.instSemanticElement = instSemanticElement;
 	}
 
 	public void setIdentifier(String identifier) {
@@ -179,6 +195,10 @@ public abstract class MetaElement implements Serializable {
 	public void setBorderStroke(int borderStroke) {
 		this.borderStroke = borderStroke;
 	}
+	
+	public IntSemanticElement getTransSemanticConcept() {
+		return this.instSemanticElement.getEditableSemanticElement();
+	}
 
 	public int getBorderStroke() {
 		return borderStroke;
@@ -203,9 +223,9 @@ public abstract class MetaElement implements Serializable {
 	public String getImage() {
 		return image;
 	}
-	
-	public abstract Set<String> getAllAttributesNames() ;
-	
+
+	public abstract Set<String> getAllAttributesNames();
+
 	public abstract AbstractAttribute getSemanticAttribute(String name);
 
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {

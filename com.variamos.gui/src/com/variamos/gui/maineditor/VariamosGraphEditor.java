@@ -75,7 +75,6 @@ import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.ModelButtonAction;
 import com.variamos.gui.perspeditor.PerspEditorToolBar;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
@@ -107,7 +106,6 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
 import com.variamos.perspsupport.types.DomainRegister;
@@ -152,7 +150,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected JPanel perspectiveToolBarPanel;
 	// Bottom tabs
 	protected JTabbedPane extensionTabs;
-	protected static SemanticPlusSyntax sematicSyntaxObject;
 
 	protected int mode = 0;
 	private int tabIndex = 0, lastTabIndex = 0;
@@ -485,7 +482,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public static VariamosGraphEditor loader(String appTitle, String file,
 			String perspective) throws FeatureModelException {
 		AbstractModel abstractModel = null;
-		sematicSyntaxObject = new SemanticPlusSyntax();
 
 		int persp = 0;
 		if (perspective.equals("ProductLine")) {
@@ -570,15 +566,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			}
 		}
 		return null;
-	}
-
-	public static SemanticPlusSyntax getSematicSyntaxObject() {
-		return sematicSyntaxObject;
-	}
-
-	public static void setSematicSyntaxObject(
-			SemanticPlusSyntax sematicSyntaxObject) {
-		VariamosGraphEditor.sematicSyntaxObject = sematicSyntaxObject;
 	}
 
 	public void editModel(RefasModel pl) {

@@ -6,7 +6,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
@@ -52,5 +51,5 @@ public class SetWidget extends WidgetR{
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {}
+	public void configure(EditableElementAttribute v, mxGraph graph) {}
 }

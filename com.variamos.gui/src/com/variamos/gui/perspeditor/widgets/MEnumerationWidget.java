@@ -10,14 +10,14 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.EnumerationMultiSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface with multi-selection.
- * Inspired on other widgets from ProductLine. Part of PhD work at University of Paris 1
+ * Inspired on other widgets from ProductLine. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -27,35 +27,36 @@ import com.variamos.perspsupport.types.EnumerationMultiSelectionType;
  */
 @SuppressWarnings("serial")
 public class MEnumerationWidget extends WidgetR {
-	
+
 	private JList<String> txtValue;
 	private Object[] enumeration;
-	
-	public MEnumerationWidget(){
+
+	public MEnumerationWidget() {
 		super();
-		
+
 		setLayout(new BorderLayout());
-		
+
 	}
-	
+
 	@Override
-	public void configure(EditableElementAttribute v, SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-		super.configure(v, semanticSyntaxObject, graph);
-		ClassLoader classLoader = EnumerationMultiSelectionType.class.getClassLoader();
+	public void configure(EditableElementAttribute v, mxGraph graph) {
+		super.configure(v, graph);
+		ClassLoader classLoader = EnumerationMultiSelectionType.class
+				.getClassLoader();
 		@SuppressWarnings("rawtypes")
 		Class aClass = null;
-		InstAttribute instAttribute = (InstAttribute)v;
-	    try {
-	    	aClass = classLoader.loadClass(instAttribute.getAttribute().getClassCanonicalName());
-	        //System.out.println("aClass.getName() = " + aClass.getName());
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
-		enumeration= aClass.getEnumConstants();
+		InstAttribute instAttribute = (InstAttribute) v;
+		try {
+			aClass = classLoader.loadClass(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			// System.out.println("aClass.getName() = " + aClass.getName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		enumeration = aClass.getEnumConstants();
 		String[] out = new String[enumeration.length];
-		for (int i = 0; i< enumeration.length; i++)
-		{
-			out[i] = enumeration[i].toString();	
+		for (int i = 0; i < enumeration.length; i++) {
+			out[i] = enumeration[i].toString();
 		}
 		txtValue = new JList<String>(out);
 		JScrollPane panel = new JScrollPane(txtValue);
@@ -65,11 +66,11 @@ public class MEnumerationWidget extends WidgetR {
 		add(panel, BorderLayout.CENTER);
 		revalidate();
 	}
-	
+
 	@Override
 	protected boolean pushValue(EditableElementAttribute v) {
 		if (v.getValue() instanceof int[])
-			txtValue.setSelectedIndices((int[])v.getValue() );
+			txtValue.setSelectedIndices((int[]) v.getValue());
 		revalidate();
 		repaint();
 		return false;
@@ -81,9 +82,9 @@ public class MEnumerationWidget extends WidgetR {
 		String out = "";
 		List<String> tmp = txtValue.getSelectedValuesList();
 		for (String str : tmp)
-			out += str+";";
+			out += str + ";";
 
-		InstAttribute instAttribute = (InstAttribute)v;
+		InstAttribute instAttribute = (InstAttribute) v;
 		instAttribute.displayValue(out);
 	}
 
@@ -91,6 +92,5 @@ public class MEnumerationWidget extends WidgetR {
 	public JComponent getEditor() {
 		return txtValue;
 	}
-
 
 }
