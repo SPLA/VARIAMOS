@@ -45,6 +45,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private List<IntInstanceExpression> instanceExpressions;
 	private IntSemanticElement editableSemanticElement;
+	
 
 	public List<IntInstanceExpression> getInstanceExpressions() {
 		return instanceExpressions;

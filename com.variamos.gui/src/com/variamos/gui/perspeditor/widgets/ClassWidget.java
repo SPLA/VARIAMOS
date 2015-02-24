@@ -2,7 +2,6 @@ package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import javax.swing.JComponent;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -58,9 +56,8 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v,
-			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-		super.configure(v, semanticSyntaxObject, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph) {
+		super.configure(v, graph);
 		ClassLoader classLoader = ClassSingleSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -129,7 +126,7 @@ public class ClassWidget extends WidgetR {
 							AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
 				System.out.println("ClassW old semanticSyntax");
-				Collection<IntSemanticElement> list = semanticSyntaxObject
+				/*Collection<IntSemanticElement> list = semanticSyntaxObject
 						.getSemanticConcepts().values();
 
 				List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
@@ -150,6 +147,7 @@ public class ClassWidget extends WidgetR {
 						out += split[j].toLowerCase() + " ";
 					txtValue.addItem(out.trim());
 				}
+				*/
 			}
 
 			if (aClass.equals(InstVertex.class)) {

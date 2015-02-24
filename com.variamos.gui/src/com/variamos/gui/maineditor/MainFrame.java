@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.types.PerspectiveType;
@@ -58,8 +57,6 @@ public class MainFrame extends JFrame {
 		RefasModel semanticRefas = null;
 		RefasModel syntaxRefas = null;
 		RefasModel abstractModel = null;
-		SemanticPlusSyntax sematicSyntaxObject = new SemanticPlusSyntax();
-		VariamosGraphEditor.setSematicSyntaxObject(sematicSyntaxObject);
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;

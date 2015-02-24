@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
+import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * A class to represented concepts of the meta model. Extends from MetaVertex
@@ -24,7 +24,7 @@ public class MetaConcept extends MetaVertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 8416609016211900965L;
-	private IntSemanticConcept semanticConcept;
+//	private IntSemanticConcept semanticConcept;
 	private MetaConcept parent;
 
 	public MetaConcept() {
@@ -33,70 +33,68 @@ public class MetaConcept extends MetaVertex {
 
 	public MetaConcept(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke, boolean topConcept,
-			String backgroundColor, boolean resizable,
-			IntSemanticConcept semanticConcept,
+			String image, int borderStroke, InstElement instSemanticElement,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> attributes, MetaConcept parent) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, topConcept, backgroundColor, resizable,
-				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes, attributes);
-		this.semanticConcept = semanticConcept;
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable, propVisibleAttributes,
+				propEditableAttributes, panelVisibleAttributes,
+				panelSparerAttributes, attributes);
 		this.parent = parent;
 	}
 
 	public MetaConcept(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke, boolean topConcept,
-			String backgroundColor, boolean resizable,
-			IntSemanticConcept semanticConcept,
+			String image, int borderStroke, InstElement instSemanticElement,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> attributes) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, topConcept, backgroundColor, resizable,
-				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes, attributes);
-		this.semanticConcept = semanticConcept;
-
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable, propVisibleAttributes,
+				propEditableAttributes, panelVisibleAttributes,
+				panelSparerAttributes, attributes);
 	}
 
 	public MetaConcept(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, boolean resizable,
-			IntSemanticConcept semanticConcept) {
+			int borderStroke, InstElement instSemanticElement, boolean resizable) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, topConcept, backgroundColor, resizable);
-		this.semanticConcept = semanticConcept;
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable);
 	}
 
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
 	 * Emulates the transient attribute modifier
+	 * 
 	 * @return
 	 */
-	public IntSemanticConcept getTransSemanticConcept() {
-		return semanticConcept;
-	}
-	/**
-	 * Name changed from standard to avoid graph serialization of the object
-	 */
-	public void setTransSemanticConcept(IntSemanticConcept semanticConcept) {
-		this.semanticConcept = semanticConcept;
-	}
+//	public IntSemanticConcept getTransSemanticConcept() {
+//		return semanticConcept;
+//	}
+//
+//	/**
+//	 * Name changed from standard to avoid graph serialization of the object
+//	 */
+//	public void setTransSemanticConcept(IntSemanticConcept semanticConcept) {
+//		this.semanticConcept = semanticConcept;
+//	}
 
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticConcept != null)
-			modelingAttributesNames.addAll(semanticConcept
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
 					.getPropVisibleAttributes());
 		if (parent != null) {
 			modelingAttributesNames.addAll(parent.getPropVisibleAttributes());
@@ -109,8 +107,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticConcept != null)
-			modelingAttributesNames.addAll(semanticConcept
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
 					.getPropEditableAttributes());
 
 		if (parent != null) {
@@ -123,8 +121,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticConcept != null)
-			modelingAttributesNames.addAll(semanticConcept
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
 					.getPanelVisibleAttributes());
 
 		if (parent != null) {
@@ -137,8 +135,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (semanticConcept != null)
-			modelingAttributesNames.addAll(semanticConcept
+		if (getInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
 					.getPanelSpacersAttributes());
 
 		if (parent != null) {
@@ -159,7 +157,7 @@ public class MetaConcept extends MetaVertex {
 
 	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(semanticConcept
+		modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
 				.getSemanticAttributesNames());
 		if (parent != null) {
 			modelingAttributesNames.addAll(parent.getModelingAttributesNames());
@@ -180,13 +178,13 @@ public class MetaConcept extends MetaVertex {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return semanticConcept.getSemanticAttribute(name);
+		return getInstSemanticElement().getEditableSemanticElement().getSemanticAttribute(name);
 	}
 
 	public MetaConcept getParent() {
 		return parent;
 	}
-	
+
 	public void setParent(MetaConcept parent) {
 		this.parent = parent;
 	}

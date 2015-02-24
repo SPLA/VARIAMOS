@@ -11,8 +11,9 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 
 /**
- * A class to represented modeling instances of elements as vertex from meta model and
- * semantic model on VariaMos. Part of PhD work at University of Paris 1
+ * A class to represented modeling instances of elements as vertex from meta
+ * model and semantic model on VariaMos. Part of PhD work at University of Paris
+ * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -29,7 +30,7 @@ public class InstConcept extends InstVertex {
 	 * 
 	 */
 
-	public static final String VAR_METACONCEPT_IDEN = "MetaElementId";
+	public static final String VAR_METACONCEPT_IDEN = "MetaElementIde";
 
 	public InstConcept() {
 		super("");
@@ -54,7 +55,8 @@ public class InstConcept extends InstVertex {
 	public InstConcept(String identifier, MetaElement supportMetaElement,
 			IntSemanticElement editableSemanticElement) {
 		super(identifier);
-		setTransSupportMetaElement(supportMetaElement);
+		if (supportMetaElement != null)
+			setTransSupportMetaElement(supportMetaElement);
 		setEditableSemanticElement(editableSemanticElement);
 		createInstAttributes();
 	}
@@ -84,8 +86,8 @@ public class InstConcept extends InstVertex {
 							.getModelingAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getModelingAttribute(name), getTransSupportMetaElement()
-							.getDescription());
+							.getModelingAttribute(name),
+							getTransSupportMetaElement().getDescription());
 				else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name), null);
@@ -100,8 +102,8 @@ public class InstConcept extends InstVertex {
 							.getSemanticAttribute(name), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getSemanticAttribute(name), getTransSupportMetaElement()
-							.getDescription());
+							.getSemanticAttribute(name),
+							getTransSupportMetaElement().getDescription());
 				else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getSemanticAttribute(name), null);
@@ -127,10 +129,11 @@ public class InstConcept extends InstVertex {
 
 	/**
 	 * TODO Delete pending
+	 * 
 	 * @return
 	 */
 	@Deprecated
-	public String toStringOld() { 
+	public String toStringOld() {
 		String out = "";
 		if (getTransSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getTransSupportMetaElement()
@@ -243,28 +246,31 @@ public class InstConcept extends InstVertex {
 		super.setIdentifier(identifier);
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
 		if (supportMetaElement != null)
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
+			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+					supportMetaElement.getDescription());
 	}
 
 	public void setTransSupportMetaElement(MetaElement metaElement) {
 		super.setTransSupportMetaElement(metaElement);
-		
-		//TODO delete
+
+		// TODO delete
 		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElement.getIdentifier());
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaElement.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				metaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void setMetaElementIdentifier(String metaElementIdentifier) {
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
 		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElementIdentifier);
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-	//	supportMetaElement = null;
+		// supportMetaElement = null;
 
 	}
 

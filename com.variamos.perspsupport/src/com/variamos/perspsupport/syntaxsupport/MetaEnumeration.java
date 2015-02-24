@@ -56,7 +56,7 @@ public class MetaEnumeration extends MetaVertex {
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> attributes) {
 		super(identifier, visible, name, style, description, width, height, image,
-				borderStroke, topConcept, backgroundColor, resizable,
+				borderStroke, null, topConcept, backgroundColor, resizable,
 				propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
 		createEnumModelingAttributes();
@@ -67,7 +67,7 @@ public class MetaEnumeration extends MetaVertex {
 			boolean topConcept, String backgroundColor, int borderStroke,
 			boolean resizable) {
 		super(identifier, visible, name, style, description, width, height, image,
-				borderStroke, topConcept, backgroundColor, resizable);
+				borderStroke, null, topConcept, backgroundColor, resizable);
 		createEnumModelingAttributes();
 	}
 

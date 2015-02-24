@@ -49,7 +49,10 @@ public class InstCell implements Serializable {
 	
 	public boolean equals(Object o)
 	{
+		if (getInstElement()!=null && o!= null && ((InstCell)o).getInstElement()!=null)
 		return getInstElement().equals(((InstCell)o).getInstElement());
+		else
+			return false;
 	}
 
 	public void setInstElement(InstElement instElement) {

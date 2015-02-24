@@ -3,7 +3,6 @@ package com.variamos.gui.perspeditor.widgets;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,12 +17,10 @@ import javax.swing.ScrollPaneConstants;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.gui.perspeditor.SemanticPlusSyntax;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
@@ -44,7 +41,6 @@ import com.variamos.perspsupport.types.ClassMultiSelectionType;
 public class MClassWidget extends WidgetR {
 
 	private JList<String> txtValue;
-	private Map<String, IntSemanticElement> semanticConcepts;
 	private Map<String, InstConcept> concepts;
 
 	public MClassWidget() {
@@ -54,9 +50,8 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v,
-			SemanticPlusSyntax semanticSyntaxObject, mxGraph graph) {
-		super.configure(v, semanticSyntaxObject, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph) {
+		super.configure(v, graph);
 		ClassLoader classLoader = ClassMultiSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -72,8 +67,7 @@ public class MClassWidget extends WidgetR {
 		String[] out = null;
 		if (aClass.getSuperclass() != null
 				&& aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
-			semanticConcepts = new HashMap<String, IntSemanticElement>();
-			Collection<IntSemanticElement> list = semanticSyntaxObject
+			/*Collection<IntSemanticElement> list = semanticSyntaxObject
 					.getSemanticConcepts().values();
 
 			System.out.println("MClassW old semanticSyntax");
@@ -91,6 +85,7 @@ public class MClassWidget extends WidgetR {
 					out[i++] = str.toString();
 				}
 			}
+			*/
 		}
 		if (aClass.equals(InstConcept.class)) {
 			concepts = new HashMap<String, InstConcept>();
