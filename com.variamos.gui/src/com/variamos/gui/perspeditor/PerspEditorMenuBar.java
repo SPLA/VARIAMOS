@@ -197,6 +197,32 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 		}
 		if (editor.getPerspective() == 4) {		
+			
+			menu = (JMenu) menu
+					.add(new JMenu(mxResources.get("configuration")));
+			
+			Action a = editor.bind(mxResources.get("startConfiguration"),
+					new ClearConfigurationAction());
+			menu.add(a);
+			
+			a = editor.bind(mxResources.get("restartConfiguration"),
+					new ClearConfigurationAction());
+			menu.add(a);
+			menu.addSeparator();
+			a = editor.bind(mxResources.get("loadConfiguration"),
+					new ClearSimulationAction());
+			a.setEnabled(false);
+			menu.add(a);
+			a = editor.bind(mxResources.get("saveConfiguration"),
+					new ClearSimulationAction());
+			menu.add(a);
+			a.setEnabled(false);
+			a = editor.bind(mxResources.get("saveProducts"),
+					new ClearSimulationAction());
+			menu.add(a);
+			a.setEnabled(false);
+			add(menu);
+			
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
 			menu.add(editor.bind(mxResources.get("resetSimulation"),
@@ -235,34 +261,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu.add(item);
 			add(menu);
 		}
-		if (editor.getPerspective() == 5) {
-
-			menu = (JMenu) menu
-					.add(new JMenu(mxResources.get("configuration")));
-			
-			Action a = editor.bind(mxResources.get("startConfiguration"),
-					new ClearConfigurationAction());
-			menu.add(a);
-			
-			a = editor.bind(mxResources.get("restartConfiguration"),
-					new ClearConfigurationAction());
-			menu.add(a);
-			menu.addSeparator();
-			a = editor.bind(mxResources.get("loadConfiguration"),
-					new ClearSimulationAction());
-			a.setEnabled(false);
-			menu.add(a);
-			a = editor.bind(mxResources.get("saveConfiguration"),
-					new ClearSimulationAction());
-			menu.add(a);
-			a.setEnabled(false);
-			a = editor.bind(mxResources.get("saveProducts"),
-					new ClearSimulationAction());
-			menu.add(a);
-			a.setEnabled(false);
-			add(menu);
-			
-		}
+		
 		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"),
