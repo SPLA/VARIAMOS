@@ -22,8 +22,6 @@ public abstract class MetaVertex extends MetaElement {
 	private boolean topConcept;
 	private String backgroundColor;
 	private boolean resizable;
-	private List<MetaPairwiseRelation> asSourceEdges;
-	private List<MetaPairwiseRelation> asTargetEdges;
 
 	public MetaVertex() {
 		super();
@@ -79,8 +77,6 @@ public abstract class MetaVertex extends MetaElement {
 		this.backgroundColor = backgroundColor;
 		this.topConcept = topConcept;
 		this.resizable = resizable;
-		this.asSourceEdges = asOriginRelations;
-		this.asTargetEdges = asDestinationRelations;
 	}
 
 	public void setTopConcept(boolean topConcept) {
@@ -93,18 +89,6 @@ public abstract class MetaVertex extends MetaElement {
 
 	public void setResizable(boolean resizable) {
 		this.resizable = resizable;
-	}
-
-	public void setAsOriginEdge(List<MetaPairwiseRelation> asOriginEdge) {
-		this.asSourceEdges = asOriginEdge;
-	}
-
-	public void setAsDestinationEdge(List<MetaPairwiseRelation> asDestinationEdge) {
-		this.asTargetEdges = asDestinationEdge;
-	}
-
-	public List<MetaPairwiseRelation> getAsOriginRelations() {
-		return asSourceEdges;
 	}
 
 	public boolean isTopConcept() {
@@ -125,17 +109,6 @@ public abstract class MetaVertex extends MetaElement {
 	
 	public boolean equals(MetaVertex obj) {
 		return getIdentifier().equals(obj.getIdentifier());
-	}
-
-	public void addMetaPairwiseRelAsOrigin(MetaConcept metaConcept, MetaPairwiseRelation metaEdge) {
-		metaConcept.addMetaPairwiseRelAsDestination(metaEdge);
-		asSourceEdges.add(metaEdge);
-
-	}
-
-	public void addMetaPairwiseRelAsDestination(MetaPairwiseRelation metaEdge) {
-		asTargetEdges.add(metaEdge);
-
 	}
 
 	public AbstractAttribute getAbstractAttribute(String attributeName) {

@@ -24,8 +24,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 	private static final long serialVersionUID = -3569174300072453550L;
 
 	private boolean booleanSatisfaction;
-
-	private List<SemanticPairwiseRelation> directRelations = new ArrayList<SemanticPairwiseRelation>();
 	public static final String
 	/**
 	* 
@@ -45,11 +43,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 	public AbstractSemanticVertex(AbstractSemanticVertex parentConcept,
 			String identifier) {
 		super(parentConcept, identifier);
-		if (getParent() != null) {
-			directRelations.addAll(parentConcept.getDirectRelations());
-		} else {
-			directRelations = new ArrayList<SemanticPairwiseRelation>();
-		}
 		createModelingAttributes();
 	}
 
@@ -58,11 +51,7 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 		this(parentConcept, identifier, satisfactionType,
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
-		if (getParent() != null) {
-			directRelations.addAll(parentConcept.getDirectRelations());
-		} else {
-			directRelations = new ArrayList<SemanticPairwiseRelation>();
-		}
+
 	}
 
 	public AbstractSemanticVertex(String name, boolean satisfactionType) {
@@ -81,11 +70,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 				disPropEditableAttributes, disPanelVisibleAttributes,
 				disPanelSpacersAttributes);
 		this.booleanSatisfaction = booleanSatisfaction;
-		if (getParent() != null) {
-			directRelations.addAll(parentConcept.getDirectRelations());
-		} else {
-			directRelations = new ArrayList<SemanticPairwiseRelation>();
-		}
 		createModelingAttributes();
 	}
 
@@ -102,19 +86,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 
 	public void setBooleanSatisfaction(boolean booleanSatisfaction) {
 		this.booleanSatisfaction = booleanSatisfaction;
-	}
-
-	public void setDirectRelations(
-			List<SemanticPairwiseRelation> directRelations) {
-		this.directRelations = directRelations;
-	}
-
-	public List<SemanticPairwiseRelation> getDirectRelations() {
-		return directRelations;
-	}
-
-	public void addDirectRelation(SemanticPairwiseRelation directRelation) {
-		directRelations.add(directRelation);
 	}
 
 	public String toString() {

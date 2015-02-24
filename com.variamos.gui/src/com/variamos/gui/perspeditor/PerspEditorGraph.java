@@ -51,7 +51,6 @@ import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorGraph extends AbstractGraph {
 
@@ -205,31 +204,16 @@ public class PerspEditorGraph extends AbstractGraph {
 
 		// Load views for System Design and simulation
 		int i = 0;
-		for (Object view : views) {
+		for (InstView view : views) {
 			mxCell parent = new mxCell(new InstCell(null, false));
 			parent.setId("mv" + i);
 			addCell(parent);
-			if (refasModel.getSyntaxRefas() == null) {
-				MetaView metaView = (MetaView) view;
-				if (metaView.getChildViews().size() > 0) {
-					mxCell child = new mxCell(new InstCell(null, false));
-					child.setId("mv" + i);
-					addCell(child, parent); // Add the parent as
-											// first child
-					for (int j = 0; j < metaView.getChildViews().size(); j++) {
-						mxCell child2 = new mxCell(new InstCell(null, false));
-						child2.setId("mv" + i + "-" + j);
-						addCell(child2, parent);
-					}
-				}
-			} else {
-				InstView instView = (InstView) view;
-				if (instView.getChildViews().size() > 0) {
-					for (int j = 0; j < instView.getChildViews().size(); j++) {
-						mxCell child2 = new mxCell(new InstCell(null, false));
-						child2.setId("mv" + i + "-" + j);
-						addCell(child2, parent);
-					}
+			InstView instView = (InstView) view;
+			if (instView.getChildViews().size() > 0) {
+				for (int j = 0; j < instView.getChildViews().size(); j++) {
+					mxCell child2 = new mxCell(new InstCell(null, false));
+					child2.setId("mv" + i + "-" + j);
+					addCell(child2, parent);
 				}
 			}
 			i++;

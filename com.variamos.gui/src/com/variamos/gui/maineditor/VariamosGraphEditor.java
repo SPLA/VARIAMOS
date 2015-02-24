@@ -136,8 +136,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	private int modelSubViewIndex = 0;
 	private List<String> validElements = null;
 
-	private List<MetaView> metaViews = null;
-
 	protected DomainRegister domainRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
@@ -178,6 +176,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(RefasModel) getEditedModel());
+	
+	private List<InstView> instViews;
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
@@ -206,8 +206,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		super(appTitle, component, perspective);
 
 		refasModel = (RefasModel) abstractModel;
-
-		metaViews = sematicSyntaxObject.getMetaViews();
+		setInstViews(refasModel.getInstViews());
+	//	metaViews = sematicSyntaxObject.getMetaViews();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 		configurator.setRefas2hlcl(refas2hlcl);
@@ -218,25 +218,25 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		root.insert(new mxCell());
 		PerspEditorGraph refasGraph = (PerspEditorGraph) component.getGraph();
 		refasGraph.getModel().setRoot(root);
-		for (int i = 0; i < metaViews.size(); i++) {
-			mxCell parent = new mxCell("mv" + i);
+		int instViewIndex = 0;
+		for (InstView instView: instViews) {
+			mxCell parent = new mxCell("mv" + instViewIndex);
 			refasGraph.addCell(parent);
-			MetaView metaView = metaViews.get(i);
 			JPanel tabPane = new JPanel();
-			if (metaView.getChildViews().size() > 0) {
-				modelsTabPane.add(metaView.getName(), tabPane);
-				refasGraph.addCell(new mxCell("mv" + i), parent);
+			if (instView.getChildViews().size() > 0) {
+				modelsTabPane.add(instView.getTransSupportMetaElement().getName(), tabPane);
+				refasGraph.addCell(new mxCell("mv" + instViewIndex), parent);
 				// Add the parent as first child
-				for (int j = 0; j < metaView.getChildViews().size(); j++) {
-					refasGraph.addCell(new mxCell("mv" + i + "-" + j), parent);
-					MetaView metaChildView = metaView.getChildViews().get(j);
-					JButton a = new JButton(metaChildView.getName());
+				for (int j = 0; j < instView.getChildViews().size(); j++) {
+					refasGraph.addCell(new mxCell("mv" + instViewIndex + "-" + j), parent);
+					InstView metaChildView = instView.getChildViews().get(j);
+					JButton a = new JButton(metaChildView.getTransSupportMetaElement().getName());
 					tabPane.add(a);
 					a.addActionListener(new ModelButtonAction());
 				}
 				// TODO include recursive calls if more view levels are required
 			} else {
-				modelsTabPane.add(metaView.getName(), tabPane);
+				modelsTabPane.add(instView.getTransSupportMetaElement().getName(), tabPane);
 			}
 			final EditorPalette palette = new EditorPalette();
 			palette.setName("ee");
@@ -247,18 +247,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			modelsTabPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
-					List<MetaView> metaViews = sematicSyntaxObject
-							.getMetaViews();
 					VariamosGraphEditor editor = getEditor();
 					((MainFrame) editor.getFrame()).waitingCursor(true);
 					int modelInd = getModelViewIndex();
-					for (int i = 0; i < metaViews.size(); i++) {
+					for (int i = 0; i < instViews.size(); i++) {
 						if (modelInd != i
 								&& modelsTabPane.getTitleAt(
 										modelsTabPane.getSelectedIndex())
-										.equals(metaViews.get(i).getName())) {
+										.equals(instViews.get(i).getEditableMetaElement().getName())) {
 
-							if (metaViews.get(i).getChildViews().size() > 0) {
+							if (instViews.get(i).getChildViews().size() > 0) {
 								// if (false) //TODO validate the name of the
 								// button with the tab, if true, identify the
 								// subview
@@ -283,6 +281,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					((MainFrame) editor.getFrame()).waitingCursor(false);
 				}
 			});
+			instViewIndex++;
 		}
 		setModified(false);
 	}
@@ -300,12 +299,12 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		defects.add("Core");
 
 		refasModel = (RefasModel) abstractModel;
-		metaViews = new ArrayList<MetaView>();
+		instViews = new ArrayList<InstView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		Collection<InstView> instViews = refasModel.getSyntaxRefas()
+		List<InstView> instViews = refasModel.getSyntaxRefas()
 				.getInstViews();
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent.getGraph());
 		refasGraph.setValidation(false);
@@ -327,38 +326,37 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// mxCell parent = new mxCell(new InstCell(null, false));
 				// parent.setId("mv" + i);
 				// refasGraph.addCell(parent);
-				MetaView metaView = (MetaView) instView
-						.getEditableMetaElement();
-				metaViews.add(metaView);
 				JPanel tabPane = new JPanel();
-				if (metaView.getChildViews().size() > 0) {
-					modelsTabPane.add(metaView.getName(), tabPane);
+				if (instView.getChildViews().size() > 0) {
+					modelsTabPane.add(instView.getEditableMetaElement().getName(), tabPane);
 					// mxCell child = new mxCell(new InstCell(null, false));
 					// child.setId("mv" + i);
 					// refasGraph.addCell(child, parent);
 					// Add the parent as first child
-					for (int j = 0; j < metaView.getChildViews().size(); j++) {
+					for (int j = 0; j < instView.getChildViews().size(); j++) {
 						// mxCell child2 = new mxCell(new InstCell(null,
 						// false));
 						// child2.setId("mv" + i + "-" + j);
 						// refasGraph.addCell(child2,
 						// parent);
-						MetaView metaChildView = metaView.getChildViews()
+						InstView instChildView = instView.getChildViews()
 								.get(j);
-						JButton a = new JButton(metaChildView.getName());
+						JButton a = new JButton(instChildView.getEditableMetaElement().getName());
 						tabPane.add(a);
 						a.addActionListener(new ModelButtonAction());
 					}
 					// TODO include recursive calls if more view levels are
 					// required
 				} else {
-					modelsTabPane.add(metaView.getName(), tabPane);
+					modelsTabPane.add(instView.getEditableMetaElement().getName(), tabPane);
 					tabPane.setMaximumSize(new Dimension(0, 0));
 
 				}
 				final EditorPalette palette = new EditorPalette();
 				palette.setName("ee");
 				final JScrollPane scrollPane = new JScrollPane(palette);
+
+				final List<InstView> finalInstViews = instViews;
 				scrollPane
 						.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollPane
@@ -370,18 +368,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 						// .getSelectedIndex()));
 
 						// TODO change to RefasModel
-						List<MetaView> metaViews = sematicSyntaxObject
-								.getMetaViews();
 						VariamosGraphEditor editor = getEditor();
 						((MainFrame) editor.getFrame()).waitingCursor(true);
 						int modelInd = getModelViewIndex();
-						for (int i = 0; i < metaViews.size(); i++) {
+						for (int i = 0; i < finalInstViews.size(); i++) {
 							if (modelInd != i
 									&& modelsTabPane.getTitleAt(
 											modelsTabPane.getSelectedIndex())
-											.equals(metaViews.get(i).getName())) {
+											.equals(finalInstViews.get(i).getEditableMetaElement().getName())) {
 
-								if (metaViews.get(i).getChildViews().size() > 0) {
+								if (finalInstViews.get(i).getChildViews().size() > 0) {
 									// if (false) //TODO validate the name of
 									// the
 									// button with the tab, if true, identify
@@ -442,10 +438,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public int getModelSubViewIndex() {
 		return modelSubViewIndex;
-	}
-
-	public List<MetaView> getMetaViews() {
-		return metaViews;
 	}
 
 	public void setVisibleModel(int modelIndex, int modelSubIndex) {
@@ -2050,5 +2042,13 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 		System.out.println(string + " " + b);
 
+	}
+
+	public List<InstView> getInstViews() {
+		return instViews;
+	}
+
+	public void setInstViews(List<InstView> instViews) {
+		this.instViews = instViews;
 	}
 }

@@ -26,9 +26,6 @@ public class MetaPairwiseRelation extends MetaElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -2665541567934067387L;
-	private MetaVertex origin;
-	private MetaVertex destination;
-
 	private int iniLowCardinality;
 	private int iniHighCardinality;
 	private int endLowCardinality;
@@ -47,22 +44,22 @@ public class MetaPairwiseRelation extends MetaElement {
 						 */
 	String VAR_SEMANTICPAIRWISEREL_CLASS = IntSemanticPairwiseRelation.class
 			.getCanonicalName(),
-			/**
-			 * Name of the semantic relation attribute
-			 */
-			VAR_SEMANTICPAIRWISEREL_IDEN = "semanticRelation",
-			/**
-			 * Display name of the semantic relation attribute
-			 */
-			VAR_SEMANTICPAIRWISEREL_NAME = "Semantic Relation",
-			/**
+	/**
+	 * Name of the semantic relation attribute
+	 */
+	VAR_SEMANTICPAIRWISEREL_IDEN = "semanticRelation",
+	/**
+	 * Display name of the semantic relation attribute
+	 */
+	VAR_SEMANTICPAIRWISEREL_NAME = "Semantic Relation",
+	/**
 			 * 
 			 */
-			VAR_METAGENERALCONSTRAINT = "generalConstraint",
-			/**
+	VAR_METAGENERALCONSTRAINT = "generalConstraint",
+	/**
 			 * 
 			 */
-			VAR_METAGENERALCONSTRAINTNAME = "Constraint Expression";
+	VAR_METAGENERALCONSTRAINTNAME = "Constraint Expression";
 
 	public MetaPairwiseRelation() {
 
@@ -71,36 +68,32 @@ public class MetaPairwiseRelation extends MetaElement {
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
-			int height, String image, int borderStroke, MetaVertex origin,
-			MetaVertex destination, IntSemanticPairwiseRelation semanticRelation) {
+			int height, String image, int borderStroke,
+			IntSemanticPairwiseRelation semanticRelation) {
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, origin, destination, 1, 1, 1, 1, "", "",
-				false, TypeOfLine.solid);
+				image, borderStroke, 1, 1, 1, 1, "", "", false,
+				TypeOfLine.solid);
 		this.semanticPairwiseRelation = semanticRelation;
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
-			int height, String image, int borderStroke, MetaVertex origin,
-			MetaVertex destination) {
+			int height, String image, int borderStroke) {
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, origin, destination, 1, 1, 1, 1, "", "",
-				false, TypeOfLine.solid);
+				image, borderStroke, 1, 1, 1, 1, "", "", false,
+				TypeOfLine.solid);
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
-			int height, String image, int borderStroke, MetaVertex origin,
-			MetaVertex destination, int iniLowCardinality,
+			int height, String image, int borderStroke, int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
 			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke);
-		this.origin = origin;
-		this.destination = destination;
 
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
@@ -121,16 +114,14 @@ public class MetaPairwiseRelation extends MetaElement {
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes,
 			Map<String, AbstractAttribute> modelingAttributes,
-			MetaVertex origin, MetaVertex destination, int iniLowCardinality,
-			int iniHighCardinality, int endLowCardinality,
-			int endHighCardinality, String iniDescription,
-			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
+			int iniLowCardinality, int iniHighCardinality,
+			int endLowCardinality, int endHighCardinality,
+			String iniDescription, String endDescription,
+			boolean arrowDirection, TypeOfLine typeOfLine) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, disPropVisibleAttributes,
 				disPropEditableAttributes, disPanelVisibleAttributes,
 				disPanelSpacersAttributes, modelingAttributes);
-		this.origin = origin;
-		this.destination = destination;
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
 		this.endLowCardinality = endLowCardinality;
@@ -150,11 +141,12 @@ public class MetaPairwiseRelation extends MetaElement {
 		// VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
 		// VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
 		// "OperGoalOverTwoRel", ""));
-/*		addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
-				VAR_METAPAIRWISERELTYPE, "Enumeration", true,
-				VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
-				"mandatory", ""));
-*/
+		/*
+		 * addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
+		 * VAR_METAPAIRWISERELTYPE, "Enumeration", true,
+		 * VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
+		 * "mandatory", ""));
+		 */
 		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
 				VAR_METAGENERALCONSTRAINT, "String", false,
 				VAR_METAGENERALCONSTRAINTNAME, ""));
@@ -162,13 +154,13 @@ public class MetaPairwiseRelation extends MetaElement {
 		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 
-//		this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
-//		this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
+		// this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
+		// this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
 
-//		this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-//				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
-//		this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-//				+ VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+		// this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
+		// this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
+		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
 	}
 
 	public Set<String> getPropVisibleAttributes() {
@@ -239,22 +231,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		return semanticPairwiseRelation.getSemanticRelationTypes();
 	}
 
-	public void setOrigin(MetaVertex origin) {
-		this.origin = origin;
-	}
-
-	public void setDestination(MetaVertex destination) {
-		this.destination = destination;
-	}
-
-	public MetaVertex getOrigin() {
-		return origin;
-	}
-
-	public MetaVertex getDestination() {
-		return destination;
-	}
-
 	public void setIniLowCardinality(int iniLowCardinality) {
 		this.iniLowCardinality = iniLowCardinality;
 	}
@@ -320,8 +296,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	}
 
 	public String toString() {
-		return "MetaGroupRelation [metaConcept=" + origin + ", dependency="
-				+ destination + "]";
+		return "MetaGroupRelation";
 	}
 
 	public static String getClassId() {

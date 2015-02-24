@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 @SuppressWarnings("serial")
@@ -27,16 +28,16 @@ public class ModelButtonAction extends AbstractEditorAction {
 		if (editor != null) {
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 
-			List<MetaView> metaViews = editor.getMetaViews();
+			List<InstView> metaViews = editor.getInstViews();
 			JButton jb = (JButton) e.getSource();
 			for (int i = 0; i< metaViews.size(); i++)
 			{
-				List<MetaView> childViews =metaViews.get(i).getChildViews();
+				List<InstView> childViews =metaViews.get(i).getChildViews();
 				if (childViews.size()>0)
 				{
 				for (int j = 0; j< childViews.size(); j++)
 				{
-					if (jb.getText().equals(childViews.get(j).getName())) //TODO test
+					if (jb.getText().equals(childViews.get(j).getEditableMetaElement().getName())) //TODO test
 					{
 						editor.setVisibleModel(i,j);
 						editor.updateView();

@@ -38,7 +38,6 @@ import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -47,20 +46,11 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public PerspEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
 		Collection<MetaElement> metaElements = new HashSet<MetaElement>();
-		if (((RefasModel) editor.getEditedModel()).getSyntaxRefas() == null) {
-			for (MetaView metaView : editor.getMetaViews()) {
-				metaElements.addAll(metaView.getElements());
-			}
-		} else {
-			for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
-					.getSyntaxRefas().getVertices()) {
-				metaElements.add(instVertex.getEditableMetaElement());
-			}
-
+		for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
+				.getSyntaxRefas().getVertices()) {
+			metaElements.add(instVertex.getEditableMetaElement());
 		}
-
 		for (MetaElement metaElement : metaElements) {
-
 			paletteElements.add(new PaletteElement(metaElement.getIdentifier(),
 					metaElement.getName(), metaElement.getImage(), metaElement
 							.getStyle(), metaElement.getWidth(), metaElement
