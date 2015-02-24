@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
@@ -14,7 +15,9 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
+import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -50,7 +53,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	/**
 	 * for LEFT
 	 */
-	private InstElement volatileLefInsttElement;
+	private InstElement volatileLefInstElement;
 
 	/**
 	 * for RIGHT
@@ -110,7 +113,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public void loadVolatileElements(Map<String, InstElement> instVertices) {
 		if (leftInstElementId != null)
-			volatileLefInsttElement = instVertices.get(leftInstElementId);
+			volatileLefInstElement = instVertices.get(leftInstElementId);
 		if (rightInstElementId != null)
 			volatileRightInstElement = instVertices.get(rightInstElementId);
 		if (leftInstanceExpression != null)
@@ -312,26 +315,49 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			// + leftAttributeName);
 			Identifier identifier = hlclFactory
 					.newIdentifier(
-							volatileLefInsttElement
+							volatileLefInstElement
 									.getInstAttributeFullIdentifier(getSemanticExpression()
 											.getLeftAttributeName()),
 							getSemanticExpression().getLeftAttributeName());
-			AbstractAttribute attribute = volatileLefInsttElement
+			AbstractAttribute attribute = volatileLefInstElement
 					.getInstAttribute(
 							getSemanticExpression().getLeftAttributeName())
 					.getAttribute();
-			if (attribute.getType().equals("Integer")) {
-				if (attribute.getName().equals("value")) {
-					String domain = (String) volatileLefInsttElement
+			if (attribute.getName().equals("value")) {
+				String type = (String) volatileLefInstElement.getInstAttribute(
+						SemanticVariable.VAR_VARIABLETYPE).getValue();
+				if (type.equals("Integer")) {
+					String domain = (String) volatileLefInstElement
 							.getInstAttribute(
 									SemanticVariable.VAR_VARIABLEDOMAIN)
 							.getValue();
 					identifier.setDomain(DomainParser.parseDomain(domain));
-				} else if (attribute.getDomain() != null)
+				} else if (type.equals("Enumeration")) {
+					Object object = volatileLefInstElement.getInstAttribute(
+							"enumerationType").getValueObject();
+					String domain = "";
+					if (object != null) {
+						@SuppressWarnings("unchecked")
+						Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+								.getInstAttribute("value")).getValue();
+						for (InstAttribute value : values) {
+							String[] split = ((String) value.getValue())
+									.split("");
+							domain += split[0] + ",";
+						}
+					}
+					domain = domain.substring(0, domain.length() - 1);
+					identifier.setDomain(DomainParser.parseDomain(domain));
+				}
+			} else
+
+			if (attribute.getType().equals("Integer")) {
+				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else
 					identifier.setDomain(new RangeDomain(0, 4));
 			}
+
 			return identifier;
 		}
 		if (expressionVertexType.name().equals("RIGHT")) {
@@ -348,7 +374,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 							getSemanticExpression().getRightAttributeName())
 					.getAttribute();
 			if (attribute.getType().equals("Integer")) {
-				if (attribute.getDomain() != null)
+				if (attribute.getName().equals("value")) {
+					String domain = (String) volatileRightInstElement
+							.getInstAttribute(
+									SemanticVariable.VAR_VARIABLEDOMAIN)
+							.getValue();
+					identifier.setDomain(DomainParser.parseDomain(domain));
+				} else if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 				else
 					identifier.setDomain(new RangeDomain(0, 4));
@@ -414,7 +446,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		switch (expressionVertexType) {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
-			valueType = (String) this.volatileLefInsttElement.getInstAttribute(
+			valueType = (String) this.volatileLefInstElement.getInstAttribute(
 					SemanticVariable.VAR_VARIABLETYPE).getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
@@ -442,11 +474,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public InstElement getLeftElement() {
-		return volatileLefInsttElement;
+		return volatileLefInstElement;
 	}
 
 	public void setLeftElement(InstElement leftElement) {
-		this.volatileLefInsttElement = leftElement;
+		this.volatileLefInstElement = leftElement;
 		if (leftElement != null)
 			leftInstElementId = leftElement.getIdentifier();
 		else
@@ -495,7 +527,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setLeftElement(InstElement instElement, String attribute) {
 		getSemanticExpression()
 				.setLeftExpressionType(ExpressionVertexType.LEFT);
-		this.volatileLefInsttElement = instElement;
+		this.volatileLefInstElement = instElement;
 		getSemanticExpression().setLeftAttributeName(attribute);
 	}
 
@@ -513,7 +545,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setRightElement(InstElement instElement, String attribute) {
 		getSemanticExpression().setRightExpressionType(
 				ExpressionVertexType.RIGHT);
-		this.volatileLefInsttElement = instElement;
+		this.volatileLefInstElement = instElement;
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
 

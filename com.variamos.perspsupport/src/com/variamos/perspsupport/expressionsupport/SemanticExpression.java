@@ -88,6 +88,9 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	 */
 	private String rightExpTypeStr;
 
+	public SemanticExpression() {
+	}
+	
 	public SemanticExpression(InstElement instElement) {
 		this.instElement = instElement;
 		this.setLeftSemanticElement(instElement);
