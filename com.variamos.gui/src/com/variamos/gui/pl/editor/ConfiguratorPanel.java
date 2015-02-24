@@ -772,6 +772,5 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	public void clearProducts() {
 		// TODO Auto-generated method stub
 		
-	}
-	
+	}	
 }
