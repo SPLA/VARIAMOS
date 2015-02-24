@@ -9,7 +9,7 @@
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="com.variamos.perspsupport.semanticsupport.SemanticConcept" 
@@ -64,7 +64,7 @@
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="7" language="java" name="com.variamos.perspsupport.semanticsupport.SemanticVariable" 
@@ -86,18 +86,18 @@
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="9" language="java" name="com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation" 
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/semanticsupport/SemanticOverTwoRelation.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="185" width="309" x="623" y="91"/>    
+    <position height="185" width="241" x="662" y="89"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <interface id="10" language="java" name="com.variamos.perspsupport.semanticinterface.IntSemanticRelationType" 
@@ -144,121 +144,107 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="14">    
-    <bendpoint x="330" y="25"/>    
-    <bendpoint x="618" y="26"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="15" name="semanticRelationTypes">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="16" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="18">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="19" name="values">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="20" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="21">    
+  <generalization id="14">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <association id="22">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="23" name="semanticRelationTypes">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="24" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="25">    
-    <bendpoint x="619" y="260"/>    
-    <end type="SOURCE" refId="9"/>    
+  <generalization id="15">    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="26">    
-    <bendpoint x="634" y="487"/>    
-    <bendpoint x="632" y="409"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="27">    
+  <association id="16">    
     <bendpoint x="147" y="531"/>    
     <bendpoint x="247" y="531"/>    
     <bendpoint x="242" y="514"/>    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="28" name="parent">        
+      <attribute id="17" name="parent">        
         <position height="0" width="0" x="-1" y="-127"/>      
       </attribute>      
-      <multiplicity id="29" minimum="0" maximum="1">        
+      <multiplicity id="18" minimum="0" maximum="1">        
         <position height="0" width="0" x="-1" y="-127"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="30">    
+  <association id="19">    
+    <bendpoint x="330" y="25"/>    
+    <bendpoint x="618" y="26"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="20" name="semanticRelationTypes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="22">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <generalization id="31">    
+  <association id="23">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="24" name="values">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="26">    
+    <bendpoint x="619" y="260"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="27">    
     <bendpoint x="331" y="217"/>    
     <bendpoint x="336" y="330"/>    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <realization id="32">    
-    <bendpoint x="621" y="56"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <generalization id="33">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <generalization id="34">    
+  <generalization id="28">    
     <bendpoint x="314" y="662"/>    
     <bendpoint x="317" y="389"/>    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <association id="35">    
-    <bendpoint x="386" y="277"/>    
-    <bendpoint x="310" y="272"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="36" name="directRelations">        
-        <position height="0" width="0" x="-18" y="-15"/>      
-      </attribute>      
-      <multiplicity id="37" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-18" y="-15"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="38">    
-    <end type="SOURCE" refId="7"/>    
+  <generalization id="29">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <realization id="30">    
+    <bendpoint x="621" y="56"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="31">    
+    <bendpoint x="634" y="487"/>    
+    <bendpoint x="632" y="409"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="33">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="34" name="semanticRelationTypes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="false" protected="true" private="true" static="true"/>    

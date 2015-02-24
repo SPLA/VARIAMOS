@@ -523,16 +523,14 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "Extends Relation", "refasextends",
 				"View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				semPairwExtRel);
 
 		MetaPairwiseRelation metaPairwiseRelAso = new MetaPairwiseRelation(
 				"AssociationRelation", false, "Association Relation",
 				"defaultEdge", "View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null,
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				semPairwAsoRel);
-
-		semConcept.addDirectRelation(semPairwExtRel);
 
 		InstPairwiseRelation rel = new InstPairwiseRelation(semPairwExtRel);
 		rel.setEditableMetaElement(metaPairwiseRelExtends);
@@ -771,7 +769,7 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "Extends Relation", "refasextends",
 				"View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null);
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1);
 
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRelation(
 				"ExtendsRelation", metaPairwiseRelExtends));
@@ -779,7 +777,7 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelFromView = new MetaPairwiseRelation(
 				"ViewRelation", false, "View Relation", "refasviewrel",
 				"View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null);
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1);
 
 		constraintInstEdges.put("ViewRelation", new InstPairwiseRelation(
 				"ViewRelation", metaPairwiseRelFromView));
@@ -787,7 +785,7 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelNormal = new MetaPairwiseRelation(
 				"NormalRelation", false, "Normal Relation", "defaultEdge",
 				"View-Concept relation", 50, 50,
-				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null, null);
+				"/com/variamos/gui/pl/editor/images/plnode.png", 1);
 
 		constraintInstEdges.put("NormalRelation", new InstPairwiseRelation(
 				"NormalRelation", metaPairwiseRelNormal));
@@ -815,13 +813,17 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwRelOCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsOCRel"))
 				.getEditableMetaElement();
-		/*MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("ExtendsOORel"))
-				.getEditableMetaElement();
-
-		MetaPairwiseRelation metaPairwRelCCAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("AssoCCRel"))
-				.getEditableMetaElement();*/
+		/*
+		 * MetaPairwiseRelation metaPairwRelOOExt = (MetaPairwiseRelation)
+		 * ((InstPairwiseRelation) this
+		 * .getSyntaxRefas().getConstraintInstEdge("ExtendsOORel"))
+		 * .getEditableMetaElement();
+		 * 
+		 * MetaPairwiseRelation metaPairwRelCCAso = (MetaPairwiseRelation)
+		 * ((InstPairwiseRelation) this
+		 * .getSyntaxRefas().getConstraintInstEdge("AssoCCRel"))
+		 * .getEditableMetaElement();
+		 */
 		MetaPairwiseRelation metaPairwRelCOAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("AssoCORel"))
 				.getEditableMetaElement();
@@ -854,8 +856,6 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("IsRootFeature",
 				new SemanticAttribute("IsRootFeature", "Boolean", true,
 						"Is a Root Feature Concept", false));
-				
-		
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
@@ -875,7 +875,7 @@ public class RefasModel extends AbstractModel {
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new SemanticAttribute("RequiredLevel", "Integer", false,
-						"Required Level", 0, new RangeDomain(0, 4))); 
+						"Required Level", 0, new RangeDomain(0, 4)));
 		// TODO define domain or Enum Level
 
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
@@ -884,18 +884,16 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected",
 				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
-		
-		semGeneralElement.putSemanticAttribute("DashBoardVisible",
-				new SimulationConfigAttribute("DashBoardVisible", "Boolean", true,
-						"Visible on Dashboard", true));
 
+		semGeneralElement.putSemanticAttribute("DashBoardVisible",
+				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
+						true, "Visible on Dashboard", true));
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("03#" + "DashBoardVisible");
-		
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
@@ -1064,8 +1062,8 @@ public class RefasModel extends AbstractModel {
 		SemanticVariable semVariable = new SemanticVariable("Variable");
 
 		semVariable.putSemanticAttribute("DashBoardVisible",
-				new SimulationConfigAttribute("DashBoardVisible", "Boolean", true,
-						"Visible on Dashboard", true));
+				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
+						true, "Visible on Dashboard", true));
 
 		InstVertex instVertexVAR = new InstConcept("SemVariable", metaConcept,
 				semVariable);
@@ -1279,7 +1277,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directHardHardSemanticEdge = new SemanticPairwiseRelation(
 				"HardHardDirectEdge", false, hardSemPairwiseRelList);
-		semHardConcept.addDirectRelation(directHardHardSemanticEdge);
 		constraintInstEdges.put("HardHardDirectEdge", new InstPairwiseRelation(
 				directHardHardSemanticEdge));
 
@@ -1297,13 +1294,11 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directFeatureFeatureVertSemanticEdge = new SemanticPairwiseRelation(
 				"FeatureFeatureDirectEdge", false, featVertSemPairwiseRelList);
-		semFeature.addDirectRelation(directFeatureFeatureVertSemanticEdge);
 		constraintInstEdges.put("FeatureFeatureVertDirectEdge",
 				new InstPairwiseRelation(directFeatureFeatureVertSemanticEdge));
 
 		SemanticPairwiseRelation directFeatureFeatureSideSemanticEdge = new SemanticPairwiseRelation(
 				"FeatureFeatureDirectEdge", false, featSideSemPairwiseRelList);
-		semFeature.addDirectRelation(directFeatureFeatureSideSemanticEdge);
 		constraintInstEdges.put("FeatureFeatureSideDirectEdge",
 				new InstPairwiseRelation(directFeatureFeatureSideSemanticEdge));
 
@@ -1319,7 +1314,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semAssetOperPairwiseRel = new SemanticPairwiseRelation(
 				"varAssetOperPairwiseRel", false, assetoperPairwiseRelList);
-		semOperationalization.addDirectRelation(semAssetOperPairwiseRel);
 		constraintInstEdges.put("varAssetOperPairwiseRel",
 				new InstPairwiseRelation(semAssetOperPairwiseRel));
 
@@ -1331,7 +1325,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semAssetPairwiseRel = new SemanticPairwiseRelation(
 				"varAssetPairwiseRel", false, assetPairwiseRelList);
-		semOperationalization.addDirectRelation(semAssetPairwiseRel);
 		constraintInstEdges.put("varAssetPairwiseRel",
 				new InstPairwiseRelation(semAssetPairwiseRel));
 
@@ -1341,7 +1334,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semvarcntxPairwiseRel = new SemanticPairwiseRelation(
 				"varcntxPairwiseRel", false, vcntxPairwiseRelList);
-		semOperationalization.addDirectRelation(semvarcntxPairwiseRel);
 		constraintInstEdges.put("varcntxPairwiseRel", new InstPairwiseRelation(
 				semvarcntxPairwiseRel));
 
@@ -1351,7 +1343,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semSDPairwiseRel = new SemanticPairwiseRelation(
 				"sdPairwiseRel", false, sdPairwiseRelList);
-		semOperationalization.addDirectRelation(semSDPairwiseRel);
 		constraintInstEdges.put("sdPairwiseRel", new InstPairwiseRelation(
 				semSDPairwiseRel));
 
@@ -1361,7 +1352,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semOperClaimPairwiseRel = new SemanticPairwiseRelation(
 				"operclaimPairwiseRel", false, operclaimPairwiseRelList);
-		semOperationalization.addDirectRelation(semOperClaimPairwiseRel);
 		constraintInstEdges.put("operclaimPairwiseRel",
 				new InstPairwiseRelation(semOperClaimPairwiseRel));
 
@@ -1371,7 +1361,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semClaimSGPairwiseRel = new SemanticPairwiseRelation(
 				"claimSGPairwiseRel", false, claimSGPairwiseRelList);
-		semClaim.addDirectRelation(semClaimSGPairwiseRel);
 		constraintInstEdges.put("claimSGPairwiseRel", new InstPairwiseRelation(
 				semClaimSGPairwiseRel));
 
@@ -1381,7 +1370,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semGroupPairwiseRel = new SemanticPairwiseRelation(
 				"groupPairwiseRel", false, groupPairwiseRelList);
-		semHardConcept.addDirectRelation(semGroupPairwiseRel);
 		constraintInstEdges.put("groupPairwiseRel", new InstPairwiseRelation(
 				semGroupPairwiseRel));
 
@@ -1391,7 +1379,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation nonePairwiseRel = new SemanticPairwiseRelation(
 				"NonePairwiseRel", false, nonePairwiseRelList);
-		semFeature.addDirectRelation(nonePairwiseRel);
 		constraintInstEdges.put("NonePairwiseRel", new InstPairwiseRelation(
 				nonePairwiseRel));
 
@@ -1419,7 +1406,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directGoalGoalSemanticEdge = new SemanticPairwiseRelation(
 				"GoalGoalDirectEdge", false, hardSemPairwiseRelList);
-		semGoal.addDirectRelation(directGoalGoalSemanticEdge);
 		/*
 		 * variabilityInstVertex.put("GoalGoalOverTwoRel", new InstConcept(
 		 * "GoalGoalOverTwoRel", metaOverTwoRelation,
@@ -1445,7 +1431,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directOperOperSemanticEdge = new SemanticPairwiseRelation(
 				"OperOperDirectEdge", false, hardSemPairwiseRelList);
-		semOperationalization.addDirectRelation(directOperOperSemanticEdge);
 		/*
 		 * variabilityInstVertex.put("OperOperOverTwoRel", new InstConcept(
 		 * "OperOperOverTwoRel", metaOverTwoRelation,
@@ -1481,7 +1466,6 @@ public class RefasModel extends AbstractModel {
 		directSGSGSemEdge.addPanelVisibleAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 
-		semSoftgoal.addDirectRelation(directSGSGSemEdge);
 		InstVertex instVertexSGGR = new InstConcept("SGtoSGOverTwoRel",
 				metaOverTwoRelation, semanticSGSGGroupRelation);
 		variabilityInstVertex.put("SGtoSGOverTwoRel", instVertexSGGR);
@@ -1508,7 +1492,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directCVCGSemanticEdge = new SemanticPairwiseRelation(
 				"CVCGDirectRel", false, vcntxPairwiseRelList);
-		semVariable.addDirectRelation(directCVCGSemanticEdge);
 		constraintInstEdges.put("CVCGDirectRel", new InstPairwiseRelation(
 				directCVCGSemanticEdge));
 
@@ -1522,21 +1505,7 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directOperClaimSemanticEdge = new SemanticPairwiseRelation(
 				"OperClaimPairwiseRel", true, operclaimPairwiseRelList);
-		semOperationalization.addDirectRelation(directOperClaimSemanticEdge);
-		/*
-		 * directOperClaimSemanticEdge.putSemanticAttribute(
-		 * SemanticPairwiseRelation.VAR_LEVEL, new SemanticAttribute(
-		 * SemanticPairwiseRelation.VAR_LEVEL, "Enumeration", false,
-		 * SemanticPairwiseRelation.VAR_LEVEL,
-		 * SemanticPairwiseRelation.VAR_LEVELCLASS, "plus plus", ""));
-		 * directOperClaimSemanticEdge.addPropEditableAttribute("08#" +
-		 * SemanticPairwiseRelation.VAR_LEVEL);
-		 * directOperClaimSemanticEdge.addPropVisibleAttribute("08#" +
-		 * SemanticPairwiseRelation.VAR_LEVEL);
-		 * directOperClaimSemanticEdge.addPanelVisibleAttribute("08#" +
-		 * SemanticPairwiseRelation.VAR_LEVEL);
-		 */
-		semClaim.addDirectRelation(directOperClaimSemanticEdge);
+		
 		InstVertex instVertexCLGR = new InstConcept("OpertoClaimOverTwoRel",
 				metaOverTwoRelation, semanticOperClaimGroupRelation);
 		variabilityInstVertex.put("OpertoClaimOverTwoRel", instVertexCLGR);
@@ -1582,7 +1551,6 @@ public class RefasModel extends AbstractModel {
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
-		semClaim.addDirectRelation(directClaimSGSemanticEdge);
 		constraintInstEdges.put("ClaimSGDirectEdge", new InstPairwiseRelation(
 				directClaimSGSemanticEdge));
 
@@ -1610,7 +1578,6 @@ public class RefasModel extends AbstractModel {
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directSDSGSemanticEdge.addPanelVisibleAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
-		semSoftDependency.addDirectRelation(directSDSGSemanticEdge);
 		constraintInstEdges.put("SDSGDirectEdge", new InstPairwiseRelation(
 				directSDSGSemanticEdge));
 
@@ -1624,7 +1591,6 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directAssetOperSemanticEdge = new SemanticPairwiseRelation(
 				"AssetOperDirectEdge", false, assetoperPairwiseRelList);
-		semAsset.addDirectRelation(directAssetOperSemanticEdge);
 		InstVertex instVertexOPERGR = new InstConcept("AssetOperGroupRel",
 				metaOverTwoRelation, semanticAssetOperGroupRelation);
 		variabilityInstVertex.put("AssetOperGroupRel", instVertexOPERGR);
@@ -1736,8 +1702,6 @@ public class RefasModel extends AbstractModel {
 				supportMetaElementConcept, syntaxVariabilityArtifact);
 		variabilityInstVertex.put("VA", instVertexVA);
 
-		syntaxMetaView.addConcept(syntaxVariabilityArtifact);
-
 		MetaConcept syntaxRootFeature = new MetaConcept("RootFeature", true,
 				"RootFeature", "plnode", "Defines a root feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
@@ -1748,7 +1712,6 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexRF = new InstConcept("RootFeature",
 				supportMetaElementConcept, syntaxRootFeature);
 		variabilityInstVertex.put("RootFeature", instVertexRF);
-		syntaxMetaView.addConcept(syntaxRootFeature);
 		instView.addInstVertex(instVertexRF);
 
 		MetaConcept syntaxGeneralFeature = new MetaConcept("GeneralFeature",
@@ -1761,7 +1724,6 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		variabilityInstVertex.put("GeneralFeature", instVertexGF);
-		syntaxMetaView.addConcept(syntaxGeneralFeature);
 		instView.addInstVertex(instVertexGF);
 
 		MetaConcept syntaxVertexLF = new MetaConcept("LeafFeature", true,
@@ -1774,7 +1736,6 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
 		variabilityInstVertex.put("LeafFeature", instVertexLF);
-		syntaxMetaView.addConcept(syntaxVertexLF);
 		instView.addInstVertex(instVertexLF);
 
 		InstPairwiseRelation instEdge = new InstPairwiseRelation();
@@ -1800,7 +1761,6 @@ public class RefasModel extends AbstractModel {
 
 		syntaxGoal.setParent(syntaxVariabilityArtifact);
 
-		syntaxMetaView.addConcept(syntaxGoal);
 		InstVertex instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
 		variabilityInstVertex.put("Goal", instVertexG);
@@ -1815,7 +1775,6 @@ public class RefasModel extends AbstractModel {
 
 		syntaxTopGoal.setParent(syntaxGoal);
 
-		syntaxMetaView.addConcept(syntaxTopGoal);
 		InstVertex instVertexTG = new InstConcept("TopGoal",
 				supportMetaElementConcept, syntaxTopGoal);
 		variabilityInstVertex.put("TopGoal", instVertexTG);
@@ -1843,14 +1802,14 @@ public class RefasModel extends AbstractModel {
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				syntaxFeature, syntaxFeature, semNonePaiwiseRel);
+				semNonePaiwiseRel);
 
 		MetaPairwiseRelation metaGroupPairwiseRel = new MetaPairwiseRelation(
 				"Group Relation", true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				syntaxFeature, syntaxFeature, semGroupPaiwiseRel);
+				semGroupPaiwiseRel);
 
 		IntSemanticPairwiseRelation directFeatureFeatureVertSemanticEdge = (IntSemanticPairwiseRelation) getSemanticRefas()
 				.getConstraintInstEdge("FeatureFeatureVertDirectEdge")
@@ -1866,7 +1825,6 @@ public class RefasModel extends AbstractModel {
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				syntaxFeature, syntaxFeature,
 				directFeatureFeatureVertSemanticEdge);
 
 		MetaPairwiseRelation metaFeatSidePairwiseRel = new MetaPairwiseRelation(
@@ -1875,7 +1833,6 @@ public class RefasModel extends AbstractModel {
 						+ " feature concepts. Defines different types of"
 						+ " relations", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				syntaxFeature, syntaxFeature,
 				directFeatureFeatureSideSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -1931,7 +1888,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticFeatureFeatureGroupRelation);
 
-		syntaxMetaView.addConcept(featureMetaOverTwoRel);
 		instVertex = new InstConcept("FeatOverTwoRel",
 				supportMetaElementOverTwo, featureMetaOverTwoRel);
 		variabilityInstVertex.put("FeatOverTwoRel", instVertex);
@@ -2020,7 +1976,6 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 2, true, semGoal);
 		syntaxGeneralGoal.setParent(syntaxGoal);
 
-		syntaxMetaView.addConcept(syntaxGeneralGoal);
 		InstVertex instVertexGG = new InstConcept("GeneralGoal",
 				supportMetaElementConcept, syntaxGeneralGoal);
 		variabilityInstVertex.put("GeneralGoal", instVertexGG);
@@ -2054,7 +2009,6 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 2, true, semOperationalization);
 		sOperationalization.setParent(syntaxVariabilityArtifact);
 
-		syntaxMetaView.addConcept(sOperationalization);
 		InstVertex instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 		variabilityInstVertex.put("OPER", instVertexOper);
@@ -2086,7 +2040,6 @@ public class RefasModel extends AbstractModel {
 				Color.WHITE.toString(), 1, true, semAssumption);
 		syntaxAssumption.setParent(syntaxVariabilityArtifact);
 
-		syntaxMetaView.addConcept(syntaxAssumption);
 		InstVertex instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
 		variabilityInstVertex.put("Assu", instVertexAssum);
@@ -2118,7 +2071,6 @@ public class RefasModel extends AbstractModel {
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
 
 		MetaPairwiseRelation metaHardPairwiseRel2 = new MetaPairwiseRelation(
@@ -2127,7 +2079,6 @@ public class RefasModel extends AbstractModel {
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxVariabilityArtifact, syntaxVariabilityArtifact,
 				directHardHardSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -2168,7 +2119,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticHardHardGroupRelation);
 
-		syntaxMetaView.addConcept(hardMetaOverTwoRel);
 		instVertex = new InstConcept("HardOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("HardOverTwoRel", instVertex);
@@ -2248,7 +2198,6 @@ public class RefasModel extends AbstractModel {
 		syntaxAbsSoftGoal.addPropEditableAttribute("03#" + "name");
 		syntaxAbsSoftGoal.addPropVisibleAttribute("03#" + "name");
 
-		syntaxMetaView.addConcept(syntaxAbsSoftGoal);
 		InstVertex instVertexASG = new InstConcept("Softgoal",
 				supportMetaElementConcept, syntaxAbsSoftGoal);
 		variabilityInstVertex.put("Softgoal", instVertexASG);
@@ -2279,7 +2228,6 @@ public class RefasModel extends AbstractModel {
 
 		syntaxTopSoftGoal.setParent(syntaxAbsSoftGoal);
 
-		syntaxMetaView.addConcept(syntaxTopSoftGoal);
 		InstVertex instVertexTSG = new InstConcept("TopSoftgoal",
 				supportMetaElementConcept, syntaxTopSoftGoal);
 		variabilityInstVertex.put("TopSoftgoal", instVertexTSG);
@@ -2316,7 +2264,6 @@ public class RefasModel extends AbstractModel {
 				Color.WHITE.toString(), 1, true, semSoftgoal);
 
 		syntaxGeneralSoftGoal.setParent(syntaxAbsSoftGoal);
-		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
 		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
 		variabilityInstVertex.put("GeneralSoftgoal", instVertexGSG);
@@ -2347,9 +2294,7 @@ public class RefasModel extends AbstractModel {
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAbsSoftGoal, syntaxAbsSoftGoal, directSGSGSemEdge);
-		syntaxAbsSoftGoal.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
-				metaSoftEdge);
+				directSGSGSemEdge);
 		// constraintInstEdges.put("Soft Relation", new InstEdge(
 		// MetaEdge, metaSoftEdge));
 
@@ -2375,7 +2320,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticSGSGGroupRelation);
 
-		syntaxMetaView.addConcept(hardMetaOverTwoRel);
 		instVertex = new InstConcept("SoftgoalOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("SoftgoalOverTwoRel", instVertex);
@@ -2431,7 +2375,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, true, semContextGroup);
 
-		syntaxMetaView.addConcept(syntaxContextGroup);
 		InstVertex instVertexCG = new InstConcept("CG",
 				supportMetaElementOverTwo, syntaxContextGroup);
 		variabilityInstVertex.put("CG", instVertexCG);
@@ -2480,7 +2423,6 @@ public class RefasModel extends AbstractModel {
 
 		syntaxGlobalVariable.setParent(syntaxAbsVariable);
 
-		syntaxMetaView.addConcept(syntaxGlobalVariable);
 		InstVertex instVertexGV = new InstConcept("GlobalVariable",
 				supportMetaElementConcept, syntaxGlobalVariable);
 		variabilityInstVertex.put("GlobalVariable", instVertexGV);
@@ -2510,13 +2452,12 @@ public class RefasModel extends AbstractModel {
 						+ "  This variables may have different"
 						+ " values for each context group instance in the system. Context variables"
 						+ " are used for SG with a context group associated."
-						+ " Context groups are not currently supported.", 150, 40,
-				"/com/variamos/gui/perspeditor/images/localCnxtVar.png", true,
-				Color.BLUE.toString(), 1, true, semVariable);
+						+ " Context groups are not currently supported.", 150,
+				40, "/com/variamos/gui/perspeditor/images/localCnxtVar.png",
+				true, Color.BLUE.toString(), 1, true, semVariable);
 
 		syntaxContextVariable.setParent(syntaxAbsVariable);
 
-		syntaxMetaView.addConcept(syntaxContextVariable);
 		InstVertex instVertexCV = new InstConcept("ContextVariable",
 				supportMetaElementConcept, syntaxContextVariable);
 		variabilityInstVertex.put("ContextVariable", instVertexCV);
@@ -2540,16 +2481,13 @@ public class RefasModel extends AbstractModel {
 				"MetaEnumeration", "refasenumeration", "Allows the"
 						+ " creation of user defined enumerations for"
 						+ " variables", 100, 150,
-				"/com/variamos/gui/perspeditor/images/assump.png", true, "",
-				1, true);
+				"/com/variamos/gui/perspeditor/images/assump.png", true, "", 1,
+				true);
 		MetaView syntaxMetaChildView = new MetaView("Context",
 				"Context with Enumerations", "Context Palette", 0);
 		InstView childView = new InstView("Context", metaView,
 				syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
-		syntaxMetaView.addConcept(metaEnumeration);
-		syntaxMetaChildView.addConcept(metaEnumeration);
 		instVertex = new InstConcept("ME", supportMetaElementConcept,
 				metaEnumeration);
 		variabilityInstVertex.put("ME", instVertex);
@@ -2566,10 +2504,8 @@ public class RefasModel extends AbstractModel {
 				"Context without Enumerations", "Context Palette", 1);
 		childView = new InstView("ContandModelEnum", metaView,
 				syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 		// syntaxMetaChildView.addConcept(metaEnumeration);
-		syntaxMetaChildView.addConcept(syntaxContextGroup);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-withoutcg", instEdge);
@@ -2578,7 +2514,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(childView, true);
 		childView.addInstVertex(instVertexCG);
-		syntaxMetaChildView.addConcept(syntaxContextVariable);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-withoutlv", instEdge);
@@ -2587,7 +2522,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexCV, true);
 		instEdge.setSourceRelation(childView, true);
 		childView.addInstVertex(instVertexCV);
-		syntaxMetaChildView.addConcept(syntaxGlobalVariable);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("context-withoutgv", instEdge);
@@ -2605,12 +2539,10 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaVariableEdge = new MetaPairwiseRelation(
 				"Variable To Context Relation", true,
-				"Variable To Context Relation", "", "Associates a Context Variable"
-						+ " with the Context Group", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAbsVariable, syntaxContextGroup, directCVCGSemanticEdge);
-		syntaxAbsVariable.addMetaPairwiseRelAsOrigin(syntaxContextGroup,
-				metaVariableEdge);
+				"Variable To Context Relation", "",
+				"Associates a Context Variable" + " with the Context Group",
+				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				directCVCGSemanticEdge);
 		// constraintInstEdges.put("Variable To Context Relation", new InstEdge(
 		// MetaEdge, metaVariableEdge));
 
@@ -2622,16 +2554,15 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(instVertexCV, true);
 
-		MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
-				"Context To Context Relation", true,
-				"Context To Context Relation", "", "Associates a"
-						+ " Context Group with other Context Group", 50, 50,
-				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxContextGroup, syntaxContextGroup, directCVCGSemanticEdge);
-		syntaxContextGroup.addMetaPairwiseRelAsOrigin(syntaxContextGroup,
-				metaContextEdge);
-		// constraintInstEdges.put("Context To Context Relation", new InstEdge(
-		// MetaEdge, metaVariableEdge));
+		// MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
+		// "Context To Context Relation", true,
+		// "Context To Context Relation", "", "Associates a"
+		// + " Context Group with other Context Group", 50, 50,
+		// "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+		// directCVCGSemanticEdge);
+		// constraintInstEdges.put("Context To Context Relation", new
+		// InstPairwiseRelation(
+		// metaContextEdge, metaVariableEdge));
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-CGCGPR", instEdge);
@@ -2652,7 +2583,6 @@ public class RefasModel extends AbstractModel {
 				syntaxMetaView);
 
 		instViews.add(instView);
-		syntaxMetaView.addConcept(syntaxTopSoftGoal);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-tsg", instEdge);
@@ -2660,7 +2590,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexTSG, true);
 		instEdge.setSourceRelation(instView, true);
-		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-gsg", instEdge);
@@ -2669,9 +2598,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGSG, true);
 		instEdge.setSourceRelation(instView, true);
 
-		syntaxMetaView.addConcept(syntaxVertexLF);
-		syntaxMetaView.addConcept(syntaxGeneralSoftGoal);
-		syntaxMetaView.addConcept(sOperationalization);
 		instView.addInstVertex(instVertexOper);
 
 		instEdge = new InstPairwiseRelation();
@@ -2686,8 +2612,8 @@ public class RefasModel extends AbstractModel {
 				.getSemanticRefas().getVertex("SemClaim"))
 				.getEditableSemanticElement();
 
-		MetaConcept syntaxClaim = new MetaConcept("CL", true,
-				"Claim", "refasclaim", "A claim includes a group of"
+		MetaConcept syntaxClaim = new MetaConcept("CL", true, "Claim",
+				"refasclaim", "A claim includes a group of"
 						+ " operationalizations and a logical condition"
 						+ " to evaluate the claim satisfaction."
 						+ " The claim is activated only when all the"
@@ -2696,19 +2622,17 @@ public class RefasModel extends AbstractModel {
 						+ " includes a relation with a softgoal (SG)", 100, 50,
 				"/com/variamos/gui/perspeditor/images/claim.png", true,
 				Color.BLUE.toString(), 1, true, semClaim);
-		
-		syntaxClaim.addModelingAttribute("name", "String", false,
-				"Name", "");
+
+		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "");
 
 		syntaxClaim.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPropEditableAttribute("03#" + "name");
 
 		syntaxClaim.addPropVisibleAttribute("03#" + "name");
-		
+
 		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
-		
-		syntaxMetaView.addConcept(syntaxClaim);
+
 		InstVertex instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
 		variabilityInstVertex.put("CL", instVertexCL);
@@ -2737,7 +2661,7 @@ public class RefasModel extends AbstractModel {
 						+ " The SD includes a relation with a softgoal (SG)",
 				100, 70, "/com/variamos/gui/perspeditor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, true, semSoftDependency);
-		
+
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "");
 
@@ -2747,7 +2671,6 @@ public class RefasModel extends AbstractModel {
 
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
-		syntaxMetaView.addConcept(syntaxSoftDependency);
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);
 		variabilityInstVertex.put("SoftDependency", instVertexSD);
@@ -2788,9 +2711,8 @@ public class RefasModel extends AbstractModel {
 						+ " an operationalization(s) and a claim. The operationalization(s)"
 						+ " is required to satisfy a claim", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxSoftDependency, syntaxAbsSoftGoal, semClaimPairwiseRel);
+				semClaimPairwiseRel);
 
-		syntaxMetaView.addConcept(hardMetaOverTwoRel);
 		instVertex = new InstConcept("OperClaimOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("OperClaimOverTwoRel", instVertex);
@@ -2844,9 +2766,7 @@ public class RefasModel extends AbstractModel {
 						+ " the SD and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxSoftDependency, syntaxAbsSoftGoal, directSDSGSemanticEdge);
-		syntaxSoftDependency.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
-				metaSDSGEdge);
+				directSDSGSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-SDASGPR", instEdge);
@@ -2872,10 +2792,7 @@ public class RefasModel extends AbstractModel {
 						+ " the Claim and the SG. Represent the level of satisficing"
 						+ " required on the softgoal in case the SD is satisfied",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxClaim, syntaxAbsSoftGoal, directClaimSGSemanticEdge);
-		syntaxClaim.addMetaPairwiseRelAsOrigin(syntaxAbsSoftGoal,
-				metaClaimSGEdge);
-
+				directClaimSGSemanticEdge);
 		/*
 		 * constraintInstEdges .put("Claim-Softgoal Relation", new
 		 * InstPairwiseRelation( metaPairwiseRelation, metaClaimSGEdge));
@@ -2921,14 +2838,8 @@ public class RefasModel extends AbstractModel {
 		syntaxMetaChildView = new MetaView("Assets", "Assets General Model",
 				"Assets Palette", 0);
 		childView = new InstView("Assets", metaView, syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 
-		syntaxMetaChildView.addConcept(syntaxAsset);
-
-		syntaxMetaChildView.addConcept(sOperationalization);
-
-		syntaxMetaChildView.addConcept(syntaxVertexLF);
 		childView.addInstVertex(instVertexOper);
 		childView.addInstVertex(instVertexLF);
 
@@ -2956,7 +2867,6 @@ public class RefasModel extends AbstractModel {
 						+ "of an operationalization by a group of assets", 20,
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticAssetOperGroupRelation);
-		syntaxMetaView.addConcept(hardMetaOverTwoRel);
 		InstVertex instVertexAssetOper = new InstConcept("AssetOperGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("AssetOperGroupDep", instVertexAssetOper);
@@ -2968,7 +2878,6 @@ public class RefasModel extends AbstractModel {
 						+ "of a feautre by a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, false, semanticAssetOperGroupRelation);
-		syntaxMetaView.addConcept(hardMetaOverTwoRel);
 		InstVertex instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("AssetFeatGroupDep", instVertexAssetFeat);
@@ -2980,24 +2889,21 @@ public class RefasModel extends AbstractModel {
 						+ "implementation of an operationzalization by an"
 						+ " asset", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAsset, sOperationalization, directAssetOperSemanticEdge);
-		syntaxMetaView.addConcept(metaOperEdge);
+				directAssetOperSemanticEdge);
 
 		MetaPairwiseRelation metaFeatureEdge = new MetaPairwiseRelation(
 				"Asset To Feature Relation", true, "Asset To Feature Relation",
 				"", "Represents the " + "implementation of an feature by an"
 						+ " asset", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAsset, syntaxVertexLF, directAssetOperSemanticEdge);
-		syntaxMetaView.addConcept(metaFeatureEdge);
+				directAssetOperSemanticEdge);
 
 		MetaPairwiseRelation metaAssetEdge = new MetaPairwiseRelation(
 				"Asset To Asset Relation", true, "Asset To Asset Relation", "",
 				"Represents a " + "type of an operationzalization between "
 						+ " assets", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				syntaxAsset, syntaxAsset, directAssetSemanticEdge);
-		syntaxMetaView.addConcept(metaAssetEdge);
+				directAssetSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset0-assettoOper", instEdge);
@@ -3087,11 +2993,9 @@ public class RefasModel extends AbstractModel {
 				"Functional Assets Relations", "Assets Palette", 1);
 		childView = new InstView("FunctionalAssets", metaView,
 				syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 		// syntaxMetaChildView.addConcept(sOperationalization);
 		// childView.addInstVertex(instVertexOper);
-		syntaxMetaChildView.addConcept(syntaxAsset);
 		childView.addInstVertex(instVertexAsset);
 
 		instEdge = new InstPairwiseRelation();
@@ -3112,12 +3016,10 @@ public class RefasModel extends AbstractModel {
 				"Structural Assets Relations", "Assets Palette", 2);
 		childView = new InstView("StructuralAssets", metaView,
 				syntaxMetaChildView);
-		syntaxMetaView.addChildView(syntaxMetaChildView);
 		instView.addChildView(childView);
 
 		// syntaxMetaChildView.addConcept(sOperationalization);
 		// childView.addInstVertex(instVertexOper);
-		syntaxMetaChildView.addConcept(syntaxAsset);
 		childView.addInstVertex(instVertexAsset);
 
 		// syntaxMetaView.addConcept(syntaxGroupDependency);
