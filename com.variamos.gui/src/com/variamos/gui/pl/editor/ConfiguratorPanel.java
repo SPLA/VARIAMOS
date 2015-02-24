@@ -1,6 +1,5 @@
 package com.variamos.gui.pl.editor;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +16,6 @@ import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,9 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -43,21 +39,16 @@ import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.configurator.io.ConfigurationDTO;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.perspeditor.SpringUtilities;
-import com.variamos.gui.pl.configurator.guiactions.DefaultConfigurationTaskListener;
-import com.variamos.gui.pl.configurator.solution.SolutionPanel;
-import com.variamos.gui.pl.configurator.treetable.ConfigurationDataModel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.ConfigurationTask;
-
-import com.variamos.perspsupport.instancesupport.InstVertex;
 
 
 
@@ -498,14 +489,14 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	}
 	
 	private void initValues() {
-		Map<String,InstVertex> variables=null;//refas2hlcl.getRefas().getVariabilityVertex();
+		Map<String,InstElement> variables=refas2hlcl.getRefas().getVariabilityVertex();
 		DefaultListModel listModel=(DefaultListModel)lstAvailableVars.getModel();
 		DefaultTableModel tableModel=(DefaultTableModel)tblConfiguredVars.getModel();
 		listModel.clear();
 		tableModel.setRowCount(0);
 		for(String identifier:variables.keySet()){
 			//se evalúa si la variable está libre
-			InstVertex var=variables.get(identifier);
+			InstElement var=variables.get(identifier);
 			System.out.println("hace parte del core "+var.getInstAttribute("Core").getAsBoolean());
 			if(var.getInstAttribute("Core").getAsBoolean()){
 				tableModel.addRow(new Object[] { var.toString(), var.getInstAttribute("Selected").getAsBoolean(),0 });
@@ -781,15 +772,5 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	public void clearProducts() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	
-
-	// public OperationMode getOperationMode() {
-	// return operationMode;
-	// }
-	//
-	// public void setOperationMode(OperationMode operationMode) {
-	// this.operationMode = operationMode;
-	// }
+	}	
 }
