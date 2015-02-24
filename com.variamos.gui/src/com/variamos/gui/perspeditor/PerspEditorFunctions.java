@@ -98,15 +98,15 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								// MetaElement metaElement = new MetaConcept();
 								Object o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
-										String.class, MetaConcept.class,
+										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
 									obj = (InstElement) c.newInstance("",
-											(MetaConcept) metaVertex,
+											(MetaElement) metaVertex,
 											new MetaConcept());
 								else
 									obj = (InstElement) c.newInstance("",
-											(MetaConcept) metaVertex, null);
+											(MetaElement) metaVertex, null);
 
 							} else if (metaVertex instanceof MetaOverTwoRelation) {
 								// MetaElement metaElement = ;

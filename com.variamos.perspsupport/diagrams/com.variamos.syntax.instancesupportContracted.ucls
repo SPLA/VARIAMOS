@@ -16,7 +16,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstOverTwoRelation.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="220" width="274" x="466" y="17"/>    
+    <position height="220" width="274" x="460" y="17"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,7 +27,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstVertex.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="96" width="256" x="462" y="326"/>    
+    <position height="96" width="256" x="470" y="326"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -112,7 +112,7 @@
     </display>  
   </class>  
   <generalization id="11">    
-    <bendpoint x="711" y="459"/>    
+    <bendpoint x="715" y="452"/>    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
@@ -149,7 +149,7 @@
     <end type="TARGET" refId="9"/>  
   </generalization>  
   <association id="19">    
-    <bendpoint x="376" y="608"/>    
+    <bendpoint x="375" y="611"/>    
     <bendpoint x="404" y="610"/>    
     <bendpoint x="416" y="599"/>    
     <end type="SOURCE" refId="9" navigable="false">      
@@ -164,7 +164,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <bendpoint x="80" y="703"/>    
+    <bendpoint x="108" y="713"/>    
     <bendpoint x="108" y="601"/>    
     <end type="SOURCE" refId="10" navigable="false">      
       <attribute id="23" name="volatileInstElement">        
@@ -211,10 +211,10 @@
   <association id="31">    
     <end type="SOURCE" refId="7" navigable="false">      
       <attribute id="32" name="instVertices">        
-        <position height="0" width="0" x="-127" y="-1126"/>      
+        <position height="0" width="0" x="-119" y="-1126"/>      
       </attribute>      
       <multiplicity id="33" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-127" y="-1126"/>      
+        <position height="0" width="0" x="-119" y="-1126"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    

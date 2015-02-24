@@ -8,19 +8,17 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
 /**
- * A class to represented modeling instances of concepts from meta model and
+ * A class to represented modeling instances of elements as vertex from meta model and
  * semantic model on VariaMos. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.perspsupport.syntaxsupport.MetaConcept
+ * @see com.variamos.perspsupport.syntaxsupport.MetaElement
  */
 public class InstConcept extends InstVertex {
 	/**
@@ -31,48 +29,47 @@ public class InstConcept extends InstVertex {
 	 * 
 	 */
 
-	public static final String VAR_METACONCEPT_IDEN = "MetaConceptIde";
-	// protected Map<String, MetaConcept> vars = new HashMap<>();
+	public static final String VAR_METACONCEPT_IDEN = "MetaElementId";
 
 	public InstConcept() {
 		super("");
 	}
 
-	public InstConcept(MetaConcept metaConcept) {
+	public InstConcept(MetaElement metaElement) {
 		super("");
-		setTransSupportMetaElement(metaConcept);
+		setTransSupportMetaElement(metaElement);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept supportMetaConcept,
+	public InstConcept(String identifier, MetaElement supportMetaElement,
 			MetaElement editableMetaElement) {
 		super(identifier);
-		if (supportMetaConcept != null)
-			setTransSupportMetaElement(supportMetaConcept);
+		if (supportMetaElement != null)
+			setTransSupportMetaElement(supportMetaElement);
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
 		copyValuesToInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept supportMetaConcept,
+	public InstConcept(String identifier, MetaElement supportMetaElement,
 			IntSemanticElement editableSemanticElement) {
 		super(identifier);
-		setTransSupportMetaElement(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaElement);
 		setEditableSemanticElement(editableSemanticElement);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept supportMetaConcept,
+	public InstConcept(String identifier, MetaElement supportMetaElement,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
-		setTransSupportMetaElement(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes();
 	}
 
-	public InstConcept(String identifier, MetaConcept supportMetaConcept) {
+	public InstConcept(String identifier, MetaElement supportMetaElement) {
 		super(identifier);
-		setTransSupportMetaElement(supportMetaConcept);
+		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes();
 	}
 
@@ -249,18 +246,18 @@ public class InstConcept extends InstVertex {
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 	}
 
-	public void setTransSupportMetaElement(MetaVertex metaConcept) {
-		super.setTransSupportMetaElement(metaConcept);
+	public void setTransSupportMetaElement(MetaElement metaElement) {
+		super.setTransSupportMetaElement(metaElement);
 		
 		//TODO delete
-		setDynamicVariable(VAR_METACONCEPT_IDEN, metaConcept.getIdentifier());
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaConcept.getDescription());
+		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElement.getIdentifier());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaElement.getDescription());
 		// createInstAttributes();
 	}
 
-	public void setMetaElementIdentifier(String metaConceptIdentifier) {
+	public void setMetaElementIdentifier(String metaElementIdentifier) {
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
-		setDynamicVariable(VAR_METACONCEPT_IDEN, metaConceptIdentifier);
+		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElementIdentifier);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
