@@ -49,12 +49,6 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 
 	private void defineSemanticAttributes() {
 
-		// putSemanticAttribute(VAR_SCOPE,
-		// new SemanticAttribute(VAR_SCOPE, "Enumeration", false,
-		// VAR_SCOPENAME, VAR_SCOPECLASS, "user", ""));
-		// putSemanticAttribute(VAR_CONTEXTTYPE, new SemanticAttribute(
-		// VAR_CONTEXTTYPE, "Enumeration", false, VAR_CONTEXTTYPENAME,
-		// VAR_CONTEXTTYPECLASS, "profiled", ""));
 		putSemanticAttribute(VAR_VARIABLENAME, new SemanticAttribute(
 				VAR_VARIABLENAME, "String", false, VAR_VARIABLENAMENAME,
 				"<<new>>"));
@@ -65,31 +59,18 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
 				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
-		// putSemanticAttribute(VAR_DOMAIN, new SemanticAttribute(VAR_DOMAIN,
-		// "String", false, VAR_DOMAINNAME, ""));
 
 		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
-		// this.addPropEditableAttribute("03#" + VAR_CONTEXTTYPE);
-		// this.addPropEditableAttribute("04#" + VAR_SCOPE);
-		// this.addPropEditableAttribute("05#" + VAR_DOMAIN);
-		this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);
+	//	this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);
 		this.addPropEditableAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropEditableAttribute("09#" + VAR_EXTCONTROL);
 
 		this.addPropVisibleAttribute("01#" + VAR_VARIABLENAME);
-		// this.addPropVisibleAttribute("03#" + VAR_CONTEXTTYPE);
-		// this.addPropVisibleAttribute("04#" + VAR_SCOPE);
-		// this.addPropVisibleAttribute("05#" + VAR_DOMAIN);
 		this.addPropVisibleAttribute("07#" + VAR_INSTANCENUMBER);
 		this.addPropVisibleAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropVisibleAttribute("09#" + VAR_EXTCONTROL);
 
 		this.addPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
-		// this.addPanelVisibleAttribute("03#" + VAR_CONTEXTTYPE);
-		// this.addPanelVisibleAttribute("04#" + VAR_SCOPE);
-
-		// this.addPanelSpacersAttribute("{#" + VAR_CONTEXTTYPE + "#} ");
-		// this.addPanelSpacersAttribute("{#" + VAR_SCOPE + "#}");
 
 	}
 

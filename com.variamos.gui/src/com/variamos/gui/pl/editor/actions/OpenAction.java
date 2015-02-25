@@ -21,6 +21,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import fm.FeatureModelException;
 
 @SuppressWarnings("serial")
+@Deprecated
 public class OpenAction extends AbstractEditorAction{
 	/**
 	 * 
