@@ -58,6 +58,7 @@ public class ClassWidget extends WidgetR {
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph) {
 		super.configure(v, graph);
+
 		ClassLoader classLoader = ClassSingleSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -179,13 +180,13 @@ public class ClassWidget extends WidgetR {
 						String out = concept.getInstAttribute("name")
 								.toString();
 						txtValue.addItem(out);
-						if (instAttribute.getValue() != null
-								&& out.equals(instAttribute.getValue()))
-							txtValue.setSelectedItem(out);
-						if (instAttribute.getValue() == null
-								&& instAttribute.getAttributeDefaultValue() != null
-								&& out.equals(instAttribute.getAttributeDefaultValue()))
-							txtValue.setSelectedItem(out);
+//						if (instAttribute.getValue() != null
+//								&& out.equals(instAttribute.getValue()))
+//							txtValue.setSelectedItem(out);
+//						if (instAttribute.getValue() == null
+//								&& instAttribute.getAttributeDefaultValue() != null
+//								&& out.equals(instAttribute.getAttributeDefaultValue()))
+//							txtValue.setSelectedItem(out);
 					}					
 				}
 			}
