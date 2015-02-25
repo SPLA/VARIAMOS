@@ -696,7 +696,7 @@ public class EditorActions {
 								.createHtmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					} else if (ext.equalsIgnoreCase("mxe")
-							|| ext.equalsIgnoreCase("plg")
+							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
 						mxCodec codec = new mxCodec();
 						mxGraph outGraph = SharedActions.beforeGraphOperation(
@@ -1517,7 +1517,7 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, , .plg)") {
+										+ " (.mxe, .png, .vdx, , .vmsm)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1525,7 +1525,7 @@ public class EditorActions {
 								return super.accept(file)
 										|| lcase.endsWith(".png")
 										|| lcase.endsWith(".vdx")
-										|| lcase.endsWith(".plg");
+										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);

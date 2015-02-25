@@ -598,8 +598,8 @@ public class EditorActions
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
-						"PNG+XML " + mxResources.get("file") + " (.png)");
+				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".vmsm",
+						"VariaMos-SystemModel " + mxResources.get("file") + " (.vmsm)");
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;

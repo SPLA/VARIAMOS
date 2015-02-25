@@ -42,6 +42,7 @@ import fm.FeatureModelException;
 import fm.XMLFeatureModel;
 
 @SuppressWarnings("serial")
+@Deprecated
 public class SaveAction extends AbstractEditorAction {
 
 //	@Override

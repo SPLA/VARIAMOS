@@ -756,8 +756,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
-		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 		extensionTabs.addChangeListener(new ChangeListener() {
@@ -839,23 +837,34 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// new JScrollPane(elementExpressionPanel));
 				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 						new JScrollPane(elementSimPropPanel));
+		
 			}
+
 			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(expressionsArea));
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
+			if (perspective ==4)
+			{
+				extensionTabs.addTab(mxResources.get("configurationTab"),
+						new JScrollPane(configurator));
+			}
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
 					new JScrollPane(messagesArea));
 
-			extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-					configuratorProperties.getScrollPane());
-			extensionTabs.addTab(mxResources.get("configurationTab"),
-					new JScrollPane(configurator));
+			if (perspective == 2)
+			{
+				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
+						configuratorProperties.getScrollPane());
+
+			}
+
 		}
+
 	}
 
 	public void bringUpExtension(String name) {
@@ -1504,6 +1513,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		iniSTime = System.currentTimeMillis();
+		try{
 		if (first || lastConfiguration == null) {
 			result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION, type);
 		} else {
@@ -1571,6 +1581,14 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		long endTime = System.currentTimeMillis();
 		lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(frame,
+					"Simulation execution unhandled error, please verify Instance Expressions or report a problem.",
+					"Simulation Error",
+					JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
+		}
 
 	}
 
@@ -1594,7 +1612,17 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					"Solver not correctly configured",
 					"System Configuration Error",
 					JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
+		} catch (Exception e) {
+			JOptionPane
+					.showMessageDialog(frame, "Solver Execution Problem",
+							"Verification Error",
+							JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
 		}
+		
 	}
 
 	public void verify(List<String> defect) {

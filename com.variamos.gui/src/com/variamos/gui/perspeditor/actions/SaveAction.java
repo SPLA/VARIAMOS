@@ -153,8 +153,8 @@ public class SaveAction extends AbstractEditorAction {
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(".plg",
-						mxResources.get("defaultExtension") + " (.plg)");
+				FileFilter defaultFilter = new DefaultFileFilter(".vmg",
+						mxResources.get("defaultExtension") + " (.vmsm)");
 				fc.addChoosableFileFilter(defaultFilter);
 
 				fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
@@ -260,7 +260,7 @@ public class SaveAction extends AbstractEditorAction {
 					// ProductLineGraph plGraph = (ProductLineGraph)graph;
 					// generatePrologFile(plGraph.getProductLine(), filename);
 					generatePrologFile(pl, filename);
-				} else if (ext.equalsIgnoreCase("plg")
+				} else if (ext.equalsIgnoreCase("vmsm")
 						|| ext.equalsIgnoreCase("xml")) {
 					mxGraph outGraph = SharedActions.beforeGraphOperation(
 							graph, true, editor.getModelViewIndex(),

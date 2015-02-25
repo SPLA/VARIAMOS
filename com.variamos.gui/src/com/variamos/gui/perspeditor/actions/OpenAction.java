@@ -91,8 +91,8 @@ public class OpenAction extends AbstractEditorAction{
 
 					// Adds file filter for supported file format
 					DefaultFileFilter defaultFilter = new DefaultFileFilter(
-							".plg", mxResources.get("defaultExtension")
-									+ " (.plg)")
+							".vmsm", mxResources.get("defaultExtension")
+									+ " (.vmsm)")
 					{
 
 						public boolean accept(File file)
@@ -100,7 +100,7 @@ public class OpenAction extends AbstractEditorAction{
 							String lcase = file.getName().toLowerCase();
 
 							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
-							return lcase.endsWith(".plg")
+							return lcase.endsWith(".vmsm")
 									|| lcase.endsWith(".sxfm");
 						}
 					};
