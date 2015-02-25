@@ -251,8 +251,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
-		for (ElementExpressionSet constraintGroup : constraintGroups.values())
-		{
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof SingleElementExpressionSet) {
 				if (((SingleElementExpressionSet) constraintGroup)
 						.getBooleanExpression(element) != null) {
@@ -467,7 +466,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			if (!vertexId.equals("Amodel")) {
 				InstElement vertex = refas.getElement(vertexId);
 				if (attributes == null) {
-					//System.out.println(vertexId + " " + attribute + " " + prologOut.get(identifier));
+					// System.out.println(vertexId + " " + attribute + " " +
+					// prologOut.get(identifier));
 					if (vertex.getInstAttribute(attribute).getAttributeType()
 							.equals("Boolean")) {
 						if (prologOut.get(identifier).intValue() == 1)
@@ -583,10 +583,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstPairwiseRelation elm : refas
 					.getConstraintInstEdgesCollection()) {
-				if(!elm.getMetaPairwiseRelation().getIdentifier().equals("Variable To Context Relation"))
-				constraintGroups.put(elm.getIdentifier(),
-						new PairwiseElementExpressionSet(elm.getIdentifier(),
-								idMap, f, elm, execType));
+				if (elm.getMetaPairwiseRelation() == null
+						|| !elm.getMetaPairwiseRelation().getIdentifier()
+								.equals("Variable To Context Relation"))
+					constraintGroups.put(
+							elm.getIdentifier(),
+							new PairwiseElementExpressionSet(elm
+									.getIdentifier(), idMap, f, elm, execType));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
@@ -617,8 +620,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public String getElementTextConstraints(String identifier, String string,
 			int execType) {
 		String out = "";
-		ElementExpressionSet expressions = getElementConstraintGroup(identifier,
-				string, execType);
+		ElementExpressionSet expressions = getElementConstraintGroup(
+				identifier, string, execType);
 		if (expressions != null)
 			for (Expression expression : expressions.getExpressions())
 				out += expression.toString() + "\n";

@@ -336,7 +336,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				} else if (type.equals("Enumeration")) {
 					Object object = volatileLefInstElement.getInstAttribute(
 							"enumerationType").getValueObject();
-					String domain = "";
+					String domain = ""; 
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
