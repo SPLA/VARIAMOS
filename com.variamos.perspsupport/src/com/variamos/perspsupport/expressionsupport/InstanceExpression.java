@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -338,7 +339,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					String domain = "";
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
 								.getInstAttribute("value")).getValue();
 						for (InstAttribute value : values) {
 							String[] split = ((String) value.getValue())

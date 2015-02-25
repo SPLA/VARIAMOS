@@ -1582,6 +1582,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
 		}catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame,
 					"Simulation execution unhandled error, please verify Instance Expressions or report a problem.",
 					"Simulation Error",
@@ -1615,8 +1616,9 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 			((MainFrame) getFrame()).waitingCursor(false);
 		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane
-					.showMessageDialog(frame, "Solver Execution Problem",
+					.showMessageDialog(frame, "Solver Execution Problem, try again saving and loading the model.",
 							"Verification Error",
 							JOptionPane.INFORMATION_MESSAGE, null);
 
