@@ -583,6 +583,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstPairwiseRelation elm : refas
 					.getConstraintInstEdgesCollection()) {
+				if(!elm.getMetaPairwiseRelation().getIdentifier().equals("Variable To Context Relation"))
 				constraintGroups.put(elm.getIdentifier(),
 						new PairwiseElementExpressionSet(elm.getIdentifier(),
 								idMap, f, elm, execType));
