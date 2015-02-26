@@ -61,7 +61,7 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
 
 		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
-	//	this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);
+		this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);
 		this.addPropEditableAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropEditableAttribute("09#" + VAR_EXTCONTROL);
 
