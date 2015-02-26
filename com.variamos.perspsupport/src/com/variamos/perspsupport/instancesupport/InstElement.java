@@ -365,7 +365,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 											.getValueObject())
 											.getDynamicVariable("InstAttribute");
 									InstAttribute oo = o.get("value");
-									Set<InstAttribute> ooo = (Set<InstAttribute>) oo
+									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									out += "{ ";
 									for (InstAttribute i : ooo)

@@ -756,8 +756,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
 				messagesArea));
-		extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-				configuratorProperties.getScrollPane());
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 		extensionTabs.addChangeListener(new ChangeListener() {
@@ -839,23 +837,34 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// new JScrollPane(elementExpressionPanel));
 				extensionTabs.addTab(mxResources.get("elementSimPropTab"),
 						new JScrollPane(elementSimPropPanel));
+		
 			}
+
 			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 						new JScrollPane(expressionsArea));
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
+			if (perspective ==4)
+			{
+				extensionTabs.addTab(mxResources.get("configurationTab"),
+						new JScrollPane(configurator));
+			}
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
 					new JScrollPane(messagesArea));
 
-			extensionTabs.addTab(mxResources.get("modelConfPropTab"),
-					configuratorProperties.getScrollPane());
-			extensionTabs.addTab(mxResources.get("configurationTab"),
-					new JScrollPane(configurator));
+			if (perspective == 2)
+			{
+				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
+						configuratorProperties.getScrollPane());
+
+			}
+
 		}
+
 	}
 
 	public void bringUpExtension(String name) {
@@ -956,7 +965,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				return;
 			} else {
 				final InstElement finalEditElm = instCell.getInstElement();
-				InstElement editElm = instCell.getInstElement();
 				recursiveCall = true;
 				((MainFrame) getFrame()).waitingCursor(true);
 				if (lastEditableElement != instCell) {
@@ -971,16 +979,16 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				JPanel elementConfPropSubPanel = new JPanel(new SpringLayout());
 				JPanel elementSimPropSubPanel = new JPanel(new SpringLayout());
 
-				List<InstAttribute> editables = editElm.getEditableVariables();
+				List<InstAttribute> editables = finalEditElm.getEditableVariables();
 
-				List<InstAttribute> visible = editElm.getVisibleVariables();
+				List<InstAttribute> visible = finalEditElm.getVisibleVariables();
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 
 				int configurationPanelElements = 0, simulationPanelElements = 1;
 
-				if (editElm instanceof InstConcept) {
-					String iden = ((InstConcept) editElm)
+				if (finalEditElm instanceof InstConcept) {
+					String iden = ((InstConcept) finalEditElm)
 							.getTransSupportMetaElement().getIdentifier();
 					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("ContextVariable")
@@ -992,8 +1000,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 						editableElementType = "vertex";
 				}
-				if (editElm instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) editElm).getSourceRelations()
+				if (finalEditElm instanceof InstPairwiseRelation) {
+					if (((InstPairwiseRelation) finalEditElm).getSourceRelations()
 							.size() == 0) {
 						((MainFrame) getFrame()).waitingCursor(false);
 						// TODO workaround for non supported relations - delete
@@ -1003,24 +1011,24 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 					editableElementType = "edge";
 				}
-				if (editElm instanceof InstOverTwoRelation) {
+				if (finalEditElm instanceof InstOverTwoRelation) {
 					editableElementType = "groupdep";
 				}
 				if (editableElementType != null)
 					if (this.perspective == 2)
 
-						if (refas2hlcl.validateConceptType(editElm,
+						if (refas2hlcl.validateConceptType(finalEditElm,
 								"SemGeneralElement"))
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
-											editElm.getIdentifier(),
+											finalEditElm.getIdentifier(),
 											editableElementType,
 											Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									editElm.getIdentifier(),
+									finalEditElm.getIdentifier(),
 									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
@@ -1030,8 +1038,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				// TODO split in two new classes, one for each panel
 				for (InstAttribute instAttribute : visible) {
 					Map<String, MetaElement> mapElements = null;
-					if (editElm instanceof InstPairwiseRelation) {
-						InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
+					if (finalEditElm instanceof InstPairwiseRelation) {
+						InstPairwiseRelation instPairwise = (InstPairwiseRelation) finalEditElm;
 						mapElements = refasModel.getSyntaxRefas()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
@@ -1042,7 +1050,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 												.getTransSupportMetaElement(),
 										true);
 					}
-					instAttribute.updateValidationList(editElm, mapElements);
+					instAttribute.updateValidationList(finalEditElm, mapElements);
 
 					if (instAttribute.getIdentifier().equals(
 							"ConditionalExpression")) {
@@ -1504,6 +1512,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		iniSTime = System.currentTimeMillis();
+		try{
 		if (first || lastConfiguration == null) {
 			result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION, type);
 		} else {
@@ -1571,6 +1580,15 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		long endTime = System.currentTimeMillis();
 		lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
+		}catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(frame,
+					"Simulation execution unhandled error, please verify Instance Expressions or report a problem.",
+					"Simulation Error",
+					JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
+		}
 
 	}
 
@@ -1594,7 +1612,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					"Solver not correctly configured",
 					"System Configuration Error",
 					JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(frame, "Solver Execution Problem, try again saving and loading the model.",
+							"Verification Error",
+							JOptionPane.INFORMATION_MESSAGE, null);
+
+			((MainFrame) getFrame()).waitingCursor(false);
 		}
+		
 	}
 
 	public void verify(List<String> defect) {

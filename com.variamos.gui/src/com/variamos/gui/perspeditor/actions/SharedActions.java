@@ -1,5 +1,7 @@
 package com.variamos.gui.perspeditor.actions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +25,9 @@ import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
@@ -442,6 +446,33 @@ public class SharedActions {
 							instanceExpression.loadVolatileElements(refas
 									.getVariabilityVertex());
 					}
+					if (ia.getIdentifier().equals(SemanticVariable.VAR_ENUMERATIONTYPE)) {
+						Object instanceExpression =  ia
+								.getValue();
+						if (ia.getAttribute().getType().equals("Class")) {
+							
+						if (instanceExpression != null)
+						{
+						//	instVertex = new HashMap<String, InstVertex>();
+						List<InstVertex> list = getInstElements(ia
+								.getAttribute().getMetaConceptInstanceType(), graph);
+
+						for (InstVertex concept : list) {
+						//	instVertex.put(concept.getIdentifier(), concept);
+							String out = concept.getInstAttribute("name")
+									.toString();
+//							ia.setValueObject(concept);
+							if (ia.getValue() != null
+									&& out.equals(ia.getValue()))
+								ia.setValueObject(concept);
+							if (ia.getValue() == null
+									&& ia.getAttributeDefaultValue() != null
+									&& out.equals(ia.getAttributeDefaultValue()))
+								ia.setValueObject(concept);
+						}
+						}
+						}
+					}
 				} else {
 					instAttributesToDelete.add(ia.getAttributeName());
 					ias.remove();
@@ -597,6 +628,41 @@ public class SharedActions {
 		}
 	}
 
+	public static List<InstVertex> getInstElements(String object, mxGraph graph) {
+		List<InstVertex> out = new ArrayList<InstVertex>();
+		mxIGraphModel refasGraph = graph.getModel();
+		Object o = refasGraph.getRoot(); // Main Root
+		mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
+		for (int i = 0; i < o1.getChildCount(); i++) {
+			mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
+			for (int j = 0; j < mv.getChildCount(); j++) {
+				mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
+				for (int k = 0; k < concept.getChildCount(); k++) {
+					mxCell concept2 = (mxCell) refasGraph
+							.getChildAt(concept, k);
+					InstElement value = ((InstCell) concept2.getValue())
+							.getInstElement();
+					if (value instanceof InstVertex) {
+						InstVertex ic = (InstVertex) value;
+						MetaElement mc = ic.getTransSupportMetaElement();
+						if (mc != null && mc.getIdentifier().equals(object))
+							out.add(ic);
+					}
+				}
+				InstElement value = ((InstCell) concept.getValue())
+						.getInstElement();
+				if (value instanceof InstVertex) {
+					InstVertex ic = (InstVertex) value;
+					MetaElement mc = ic.getTransSupportMetaElement();
+					if (mc != null && mc.getIdentifier().equals(object))
+						out.add(ic);
+				}
+
+			}
+		}
+		return out;
+	}
+	
 	public static boolean validateConceptType(InstElement instElement,
 			String element) {
 		if (instElement == null || !(instElement instanceof InstVertex))

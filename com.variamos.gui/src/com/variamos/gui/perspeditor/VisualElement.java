@@ -2,6 +2,7 @@ package com.variamos.gui.perspeditor;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -113,12 +114,17 @@ public class VisualElement implements Comparable<VisualElement> {
 						"enumerationType").getValueObject();
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
 							.getInstAttribute("value")).getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue())
 								.split("");
-						String val = ((Integer)instElement.getInstAttribute("value").getValue()).toString();
+						String val = null;
+						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
+							val = ((Integer)instElement.getInstAttribute("value").getValue()).toString();
+						else
+
+							val = (String)instElement.getInstAttribute("value").getValue();
 						if (split[0].equals(val))
 							row.add(new JLabel(value + ""));
 					}

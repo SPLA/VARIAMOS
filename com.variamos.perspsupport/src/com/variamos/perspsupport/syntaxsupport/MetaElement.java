@@ -197,7 +197,10 @@ public abstract class MetaElement implements Serializable {
 	}
 	
 	public IntSemanticElement getTransSemanticConcept() {
+		if(instSemanticElement != null)
 		return this.instSemanticElement.getEditableSemanticElement();
+		else
+			return null;
 	}
 
 	public int getBorderStroke() {

@@ -79,6 +79,7 @@ import com.variamos.io.SXFMWriter;
 /**
  *
  */
+@Deprecated
 public class EditorActions {
 	/**
 	 * 
@@ -538,8 +539,8 @@ public class EditorActions {
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".png",
-						"PNG+XML " + mxResources.get("file") + " (.png)");
+				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".vmsm",
+						"VariaMos-SystemModel " + mxResources.get("file") + " (.vmsm)");
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;
@@ -673,7 +674,7 @@ public class EditorActions {
 								.createHtmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					} else if (ext.equalsIgnoreCase("mxe")
-							|| ext.equalsIgnoreCase("plg")
+							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
 						long startTime = System.currentTimeMillis();
 						mxGraph outGraph = SharedActions.beforeGraphOperation(
@@ -1506,7 +1507,7 @@ public class EditorActions {
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
 								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, .plg)") {
+										+ " (.mxe, .png, .vdx, .vmsm)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1516,7 +1517,7 @@ public class EditorActions {
 								return super.accept(file)
 										|| lcase.endsWith(".png")
 										|| lcase.endsWith(".vdx")
-										|| lcase.endsWith(".plg");
+										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1524,9 +1525,9 @@ public class EditorActions {
 						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
 								"mxGraph Editor " + mxResources.get("file")
 										+ " (.mxe)"));
-						fc.addChoosableFileFilter(new DefaultFileFilter(".png",
-								"PNG+XML  " + mxResources.get("file")
-										+ " (.png)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(".vmsm",
+								"VariaMos-SystemModel  " + mxResources.get("file")
+										+ " (.vmsm)"));
 
 						// Adds file filter for VDX import
 						fc.addChoosableFileFilter(new DefaultFileFilter(".vdx",
@@ -1560,7 +1561,7 @@ public class EditorActions {
 													.getAbsolutePath()));
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
-										.toLowerCase().endsWith(".plg")) {
+										.toLowerCase().endsWith(".vmsm")) {
 									((VariamosGraphEditor) editor).resetView();
 									graph = editor.getGraphComponent()
 											.getGraph();

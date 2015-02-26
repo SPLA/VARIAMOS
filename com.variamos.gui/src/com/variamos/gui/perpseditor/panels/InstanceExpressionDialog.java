@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -653,7 +654,7 @@ public class InstanceExpressionDialog extends JDialog {
 							"enumerationType").getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Set<InstAttribute> values = (Set<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
 								.getInstAttribute("value")).getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instVertex.getIdentifier() + "_"
