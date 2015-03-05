@@ -3,8 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/mxgraph.jar"/>
-	<classpathentry kind="lib" path="lib/gson-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/splot_prolog.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
@@ -14,5 +12,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
+	<classpathentry kind="lib" path="/com.variamos.configurator/lib/splot_prolog.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
