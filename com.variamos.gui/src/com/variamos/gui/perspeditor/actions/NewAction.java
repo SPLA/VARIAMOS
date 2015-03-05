@@ -39,7 +39,7 @@ public class NewAction extends AbstractEditorAction
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
 				{
 					((VariamosGraphEditor)editor).resetView();
-					
+					System.runFinalization();
 
 				}
 			}
