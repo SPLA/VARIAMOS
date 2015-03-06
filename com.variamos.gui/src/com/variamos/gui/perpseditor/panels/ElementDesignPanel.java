@@ -271,7 +271,7 @@ public class ElementDesignPanel extends JPanel {
 															.getValue())
 															.createSGSExpression(finalEditElm
 																	.getIdentifier());
-													System.out.println(exp);
+													//System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
 															.showMessageDialog(

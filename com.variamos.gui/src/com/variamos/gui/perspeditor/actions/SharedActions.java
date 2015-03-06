@@ -424,7 +424,6 @@ public class SharedActions {
 						+ instVertex.getSupportMetaElementIdentifier());
 			else
 				instVertex.setTransSupportMetaElement(metaVertex);
-			System.out.println(instVertex.getIdentifier());
 			refas.putVariabilityInstVertex(instVertex);
 			Iterator<InstAttribute> ias = instVertex.getInstAttributes()
 					.values().iterator();
