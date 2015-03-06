@@ -860,7 +860,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
 			if (perspective == 4 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
+					&& getMainFrame().isAdvancedPerspective()
+					) {
 				extensionTabs.addTab(mxResources.get("configurationTab"),
 						new JScrollPane(configurator));
 			}
@@ -870,7 +871,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					new JScrollPane(messagesArea));
 
 			if (perspective == 2 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()) {
+					&& getMainFrame().isAdvancedPerspective()
+					) {
 				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
 						configuratorProperties.getScrollPane());
 

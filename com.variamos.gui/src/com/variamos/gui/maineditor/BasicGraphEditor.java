@@ -317,7 +317,7 @@ public class BasicGraphEditor extends JPanel {
 		setLayout(new BorderLayout());
 		add(everything, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar();
+		installToolBar(null,0);
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -409,7 +409,7 @@ public class BasicGraphEditor extends JPanel {
 		setLayout(new BorderLayout());
 		add(everything, BorderLayout.CENTER);
 		add(statusBar, BorderLayout.SOUTH);
-		installToolBar();
+		installToolBar(mainFrame, perspective);
 
 		// Installs rubberband selection and handling for some special
 		// keystrokes such as F2, Control-C, -V, X, A etc.
@@ -480,7 +480,7 @@ public class BasicGraphEditor extends JPanel {
 	/**
 	 * 
 	 */
-	protected JToolBar installToolBar() {
+	protected JToolBar installToolBar(MainFrame mainFrame, int perspective) {
 		EditorToolBar out = new EditorToolBar(this, JToolBar.HORIZONTAL);
 		add(out, BorderLayout.NORTH);
 		return out;
