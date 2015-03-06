@@ -1402,9 +1402,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public final MainFrame getMainFrame() {
 		Container contairner1 = this.getParent();
-
 		if (contairner1 != null)
-
 		{
 			Container contairner2 = contairner1.getParent();
 			Container contairner3 = contairner2.getParent();

@@ -127,28 +127,26 @@ public class ClassWidget extends WidgetR {
 							AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
 				System.out.println("ClassW old semanticSyntax");
-				/*Collection<IntSemanticElement> list = semanticSyntaxObject
-						.getSemanticConcepts().values();
-
-				List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
-
-				for (IntSemanticElement concept : list) {
-					if (aClass.isInstance(concept))
-						list2.add(concept);
-				}
-
-				for (IntSemanticElement concept : list2) {
-					semanticElements.put(concept.getIdentifier(), concept);
-					String patternString = "([_])";
-					Pattern p = Pattern.compile(patternString);
-
-					String[] split = p.split(concept.getIdentifier());
-					String out = split[0] + " ";
-					for (int j = 1; j < split.length; j++)
-						out += split[j].toLowerCase() + " ";
-					txtValue.addItem(out.trim());
-				}
-				*/
+				/*
+				 * Collection<IntSemanticElement> list = semanticSyntaxObject
+				 * .getSemanticConcepts().values();
+				 * 
+				 * List<IntSemanticElement> list2 = new
+				 * ArrayList<IntSemanticElement>();
+				 * 
+				 * for (IntSemanticElement concept : list) { if
+				 * (aClass.isInstance(concept)) list2.add(concept); }
+				 * 
+				 * for (IntSemanticElement concept : list2) {
+				 * semanticElements.put(concept.getIdentifier(), concept);
+				 * String patternString = "([_])"; Pattern p =
+				 * Pattern.compile(patternString);
+				 * 
+				 * String[] split = p.split(concept.getIdentifier()); String out
+				 * = split[0] + " "; for (int j = 1; j < split.length; j++) out
+				 * += split[j].toLowerCase() + " ";
+				 * txtValue.addItem(out.trim()); }
+				 */
 			}
 
 			if (aClass.equals(InstVertex.class)) {
@@ -180,19 +178,20 @@ public class ClassWidget extends WidgetR {
 						String out = concept.getInstAttribute("name")
 								.toString();
 						txtValue.addItem(out);
-//						if (instAttribute.getValue() != null
-//								&& out.equals(instAttribute.getValue()))
-//							txtValue.setSelectedItem(out);
-//						if (instAttribute.getValue() == null
-//								&& instAttribute.getAttributeDefaultValue() != null
-//								&& out.equals(instAttribute.getAttributeDefaultValue()))
-//							txtValue.setSelectedItem(out);
-					}					
+						if (instAttribute.getValue() != null
+								&& out.equals(instAttribute.getValue()))
+							txtValue.setSelectedItem(out);
+						if (instAttribute.getValue() == null
+								&& instAttribute.getAttributeDefaultValue() != null
+								&& out.equals(instAttribute
+										.getAttributeDefaultValue()))
+							txtValue.setSelectedItem(out);
+					}
 				}
 			}
 
 		}
-		if (instAttribute.getValue() == null && txtValue.getItemCount()>0) {
+		if (instAttribute.getValue() == null && txtValue.getItemCount() > 0) {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue((String) txtValue.getSelectedItem());
 		}
@@ -250,7 +249,8 @@ public class ClassWidget extends WidgetR {
 		if (instVertex != null) {
 			Object set = instVertex.get((String) txtValue.getSelectedItem());
 			if ((instAttribute.getValueObject() == null && set != null)
-					|| (instAttribute.getValueObject() != null && !instAttribute.getValueObject().equals(set))) {
+					|| (instAttribute.getValueObject() != null && !instAttribute
+							.getValueObject().equals(set))) {
 				instAttribute.setValueObject(set);
 				out = true;
 			}
