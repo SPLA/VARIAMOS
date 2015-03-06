@@ -178,7 +178,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
-		
+
 	}
 
 	public void showNames(boolean showNames) {
@@ -192,7 +192,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	public void hideDashBoard() {
 		dashBoardFrame.hideDashBoard();
 	}
-	
+
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
 	}
@@ -293,10 +293,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		setModified(false);
 	}
 
-	public VariamosGraphEditor(MainFrame frame,
+	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
-		super(frame, "", component, perspective);
+		super(frame, perspTitle, component, perspective);
 
 		// Default defects validation
 		defects.add("Root");
@@ -484,10 +484,18 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				getGraphComponent(), modelViewIndex);
 	}
 
+	public void updateTitle() {
+		if (perspective == 4 && modelEditor != null)
+			currentFile = modelEditor.getCurrentFile();
+		super.updateTitle();
+
+	}
+
 	public void updateView() {
 		graphEditorFunctions.updateView(this.validElements,
 				getGraphComponent(), modelViewIndex);
 		this.setInvalidConfigHlclProgram(true);
+		this.updateTitle();
 	}
 
 	/**
@@ -864,8 +872,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
 			if (perspective == 4 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()
-					) {
+					&& getMainFrame().isAdvancedPerspective()) {
 				extensionTabs.addTab(mxResources.get("configurationTab"),
 						new JScrollPane(configurator));
 			}
@@ -875,8 +882,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					new JScrollPane(messagesArea));
 
 			if (perspective == 2 && getMainFrame() != null
-					&& getMainFrame().isAdvancedPerspective()
-					) {
+					&& getMainFrame().isAdvancedPerspective()) {
 				extensionTabs.addTab(mxResources.get("modelConfPropTab"),
 						configuratorProperties.getScrollPane());
 
@@ -1407,8 +1413,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public final MainFrame getMainFrame() {
 		Container contairner1 = this.getParent();
-		if (contairner1 != null)
-		{
+		if (contairner1 != null) {
 			Container contairner2 = contairner1.getParent();
 			Container contairner3 = contairner2.getParent();
 			Container contairner4 = contairner3.getParent();
