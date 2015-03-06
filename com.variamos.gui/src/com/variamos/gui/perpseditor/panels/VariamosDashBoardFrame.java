@@ -110,12 +110,12 @@ public class VariamosDashBoardFrame extends JFrame {
 				typePanel.add(element.showElement(showNames, updated));
 				elements++;				
 			}
-			if(elements%3>0)
+			if(elements%cols>0)
 			{
 				typePanel.add(new JLabel(""));
 				elements++;
 			}
-			if(elements%3>0)
+			if(elements%cols>0)
 			{
 				typePanel.add(new JLabel(""));
 				elements++;
