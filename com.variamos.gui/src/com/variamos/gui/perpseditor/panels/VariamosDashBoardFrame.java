@@ -29,14 +29,25 @@ public class VariamosDashBoardFrame extends JFrame {
 	private Map<String, Map<String, VisualElement>> elements = null;
 	
 	private boolean showNames = true;
+	
+	private boolean display = true;
 
 	public VariamosDashBoardFrame(RefasModel refasModel) {
 		this.refasModel = refasModel;
 		this.setTitle("Simulation DashBoard");
-
+		addWindowListener(new java.awt.event.WindowAdapter() {
+		    public void windowClosing(java.awt.event.WindowEvent evt) {
+		         formWindowClosing(evt);
+		    }
+		});
+	}
+	private void formWindowClosing(java.awt.event.WindowEvent evt) {
+		display = false;
+	    this.setVisible(false);
 	}
 
 	public void showDashBoard(boolean visible) {
+		display = visible;
 		this.setVisible(visible);
 	}
 
@@ -115,7 +126,14 @@ public class VariamosDashBoardFrame extends JFrame {
 		}
 		add(new JScrollPane(solutionPanel));
 		SpringUtilities.makeCompactGrid(solutionPanel, concepts, 1, 4, 4, 4, 4);
+		if (display)
+			this.setVisible(true);
 		revalidate();
 		pack();
+		
+	}
+	public void hideDashBoard() {
+		this.setVisible(false);
+		
 	}
 }

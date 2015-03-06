@@ -178,7 +178,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
-		dashBoardFrame.showDashBoard(true);
+		
 	}
 
 	public void showNames(boolean showNames) {
@@ -189,6 +189,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		dashBoardFrame.showDashBoard(visible);
 	}
 
+	public void hideDashBoard() {
+		dashBoardFrame.hideDashBoard();
+	}
+	
 	public Refas2Hlcl getRefas2hlcl() {
 		return refas2hlcl;
 	}

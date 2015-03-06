@@ -411,16 +411,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
 							false);
 				}
-				for (InstAttribute instAttribute : instVertex
-						.getInstAttributes().values()) {
-					if (instAttribute.getAttributeType().equals("Boolean")) {
-						System.out
-								.print(instAttribute.getAttributeName() + ":");
-						System.out.print(instAttribute.getAsBoolean() + " ");
-					}
-
-				}
-				System.out.println();
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
@@ -444,17 +434,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 											"NextNotPrefSelected")))
 						instAttribute.setValue(false);
 				}
-
-				for (InstAttribute instAttribute : instVertex
-						.getInstAttributes().values()) {
-					if (instAttribute.getAttributeType().equals("Boolean")) {
-						System.out
-								.print(instAttribute.getAttributeName() + ":");
-						System.out.print(instAttribute.getAsBoolean() + " ");
-					}
-				}
-				System.out.println();
-				System.out.println();
 			}
 		}
 	}
@@ -884,10 +863,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
 							element));
-					System.out.println(element.getTargetRelations().get(0)
-							.getIdentifier());
-					InstElement tmp = refas.getVertex(element
-							.getTargetRelations().get(0).getIdentifier());
 					out.addAll(configGraph(element.getTargetRelations().get(0),
 							evaluatedSet, freeIdentifiers));
 				}

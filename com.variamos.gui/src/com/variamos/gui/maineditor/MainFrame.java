@@ -214,6 +214,8 @@ public class MainFrame extends JFrame {
 		graphEditors.get(perspective - 1).setVisibleModel(0, - 1);
 		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
+		if (perspective != 4)
+			graphEditors.get(3).hideDashBoard();
 		this.revalidate();
 		this.repaint();
 	}
