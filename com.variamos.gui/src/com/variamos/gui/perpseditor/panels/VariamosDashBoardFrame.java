@@ -132,7 +132,7 @@ public class VariamosDashBoardFrame extends JFrame {
 		pack();
 		
 	}
-	public void hideDashBoard() {
+	public void hideDashBoard() { 
 		this.setVisible(false);
 		
 	}

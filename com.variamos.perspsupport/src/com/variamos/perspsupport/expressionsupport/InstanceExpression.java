@@ -343,7 +343,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 								.getInstAttribute("value")).getValue();
 						for (InstAttribute value : values) {
 							String[] split = ((String) value.getValue())
-									.split("");
+									.split("-");
 							domain += split[0] + ",";
 						}
 					}
