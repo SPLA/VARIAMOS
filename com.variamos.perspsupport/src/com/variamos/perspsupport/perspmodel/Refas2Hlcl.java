@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -410,6 +411,16 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
 							false);
 				}
+				for (InstAttribute instAttribute : instVertex
+						.getInstAttributes().values()) {
+					if (instAttribute.getAttributeType().equals("Boolean")) {
+						System.out
+								.print(instAttribute.getAttributeName() + ":");
+						System.out.print(instAttribute.getAsBoolean() + " ");
+					}
+
+				}
+				System.out.println();
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
@@ -433,6 +444,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 											"NextNotPrefSelected")))
 						instAttribute.setValue(false);
 				}
+
+				for (InstAttribute instAttribute : instVertex
+						.getInstAttributes().values()) {
+					if (instAttribute.getAttributeType().equals("Boolean")) {
+						System.out
+								.print(instAttribute.getAttributeName() + ":");
+						System.out.print(instAttribute.getAsBoolean() + " ");
+					}
+				}
+				System.out.println();
+				System.out.println();
 			}
 		}
 	}
@@ -836,7 +858,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers) {
 		HlclProgram out = new HlclProgram();
 		if (evaluatedSet.add(target)) {
-			if ((!target.getInstAttribute("Selected").getAsBoolean() && !target
+			if ((!target.getInstAttribute("Selected").getAsBoolean()
+					&& !target.getInstAttribute("Core").getAsBoolean() && !target
 					.getInstAttribute("NotAvailable").getAsBoolean())
 					|| target.getIdentifier().startsWith("FeatOverTwo")
 					|| target.getIdentifier().startsWith("HardOverTwo")
@@ -861,6 +884,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
 							element));
+					System.out.println(element.getTargetRelations().get(0)
+							.getIdentifier());
+					InstElement tmp = refas.getVertex(element
+							.getTargetRelations().get(0).getIdentifier());
 					out.addAll(configGraph(element.getTargetRelations().get(0),
 							evaluatedSet, freeIdentifiers));
 				}

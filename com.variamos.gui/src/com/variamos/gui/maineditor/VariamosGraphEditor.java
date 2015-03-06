@@ -956,7 +956,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void editPropertiesRefas(final InstCell instCell) {
 		try {
-
 			updateVisibleProperties(instCell);
 			if (recursiveCall)
 				return;
@@ -1600,6 +1599,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					+ (endSTime - iniSTime) + "]" + " -- ";
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.messagesArea.setText(e.toString());
 			JOptionPane
 					.showMessageDialog(
 							frame,
