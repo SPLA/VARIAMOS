@@ -2,6 +2,7 @@ package com.variamos.gui.maineditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -254,10 +255,15 @@ public class BasicGraphEditor extends JPanel {
 
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
+		graphOutline.setMinimumSize(new Dimension(0,170));
 
 		// Creates the library pane that contains the tabs with the palettes
 		libraryPane = new JTabbedPane();
 
+		libraryPane.setMinimumSize(new Dimension(0,70));
+
+		libraryPane.setPreferredSize(new Dimension(0,170));
+		libraryPane.setMaximumSize(new Dimension(0,270));
 		// Creates the inner split 1 pane that contains the library with the
 		// palettes and the graph outline on the left side of the window
 

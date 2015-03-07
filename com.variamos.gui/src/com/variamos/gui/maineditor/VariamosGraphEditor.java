@@ -694,6 +694,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
+		extensionTabs.setMinimumSize(new Dimension(30,100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
 			@Override
