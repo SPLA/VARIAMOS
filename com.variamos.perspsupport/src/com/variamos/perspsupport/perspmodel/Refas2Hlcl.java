@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -836,7 +837,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers) {
 		HlclProgram out = new HlclProgram();
 		if (evaluatedSet.add(target)) {
-			if ((!target.getInstAttribute("Selected").getAsBoolean() && !target
+			if ((!target.getInstAttribute("Selected").getAsBoolean()
+					&& !target.getInstAttribute("Core").getAsBoolean() && !target
 					.getInstAttribute("NotAvailable").getAsBoolean())
 					|| target.getIdentifier().startsWith("FeatOverTwo")
 					|| target.getIdentifier().startsWith("HardOverTwo")

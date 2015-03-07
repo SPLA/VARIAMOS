@@ -451,7 +451,7 @@ public class PerspEditorGraph extends AbstractGraph {
 					if (instElement instanceof InstOverTwoRelation)
 						id = pl.addNewInstGroupDependency((InstOverTwoRelation) element);
 					else if (instElement instanceof InstEnumeration)
-						id = pl.addNewOtherInstElement(element);
+						id = pl.addNewVariabilityInstElement(element);
 					else
 						id = pl.addNewVariabilityInstElement(element);
 				} else {

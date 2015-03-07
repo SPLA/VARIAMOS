@@ -60,6 +60,7 @@ public class MainFrame extends JFrame {
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
+		String perspTitle = "";
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
 			case 0: // semantic
@@ -69,6 +70,7 @@ public class MainFrame extends JFrame {
 				syntaxRefas = new RefasModel(PerspectiveType.syntax,
 						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
+				perspTitle = "Semantic - VariaMos";
 				System.out.println("Creating Semantic Perspective...");
 				break;
 
@@ -77,6 +79,7 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
+				perspTitle = "System Model - VariaMos";
 				System.out.println("Creating Modeling Perspective...");
 				break;
 
@@ -84,6 +87,7 @@ public class MainFrame extends JFrame {
 				abstractModel = syntaxRefas;
 
 				bgColor = new Color(255, 255, 245);
+				perspTitle = "Syntax - VariaMos";
 				System.out.println("Creating Syntax Perspective...");
 				break;
 
@@ -91,13 +95,14 @@ public class MainFrame extends JFrame {
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
+				perspTitle = "Simulation - VariaMos";
 				System.out.println("Creating Simulation Perspective...");
 				break;
 
 			}
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
-			VariamosGraphEditor editor = new VariamosGraphEditor(this,
+			VariamosGraphEditor editor = new VariamosGraphEditor(this, perspTitle,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
 					abstractModel);
 			editor.setGraphEditorFunctions(new PerspEditorFunctions(editor));
@@ -214,6 +219,8 @@ public class MainFrame extends JFrame {
 		graphEditors.get(perspective - 1).setVisibleModel(0, - 1);
 		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
+		if (perspective != 4)
+			graphEditors.get(3).hideDashBoard();
 		this.revalidate();
 		this.repaint();
 	}

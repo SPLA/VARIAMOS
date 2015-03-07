@@ -153,7 +153,7 @@ public class SaveAction extends AbstractEditorAction {
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(".vmg",
+				FileFilter defaultFilter = new DefaultFileFilter(".vmsm",
 						mxResources.get("defaultExtension") + " (.vmsm)");
 				fc.addChoosableFileFilter(defaultFilter);
 

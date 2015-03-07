@@ -19,5 +19,6 @@ public class ShowSimulationDashBoardAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);		
 		editor.updateDashBoard(true, false);
+		editor.showDashBoard(true);
 	}
 }

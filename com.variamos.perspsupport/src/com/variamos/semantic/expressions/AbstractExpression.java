@@ -157,7 +157,7 @@ public abstract class AbstractExpression {
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName), identifier);
 			AbstractAttribute attribute = leftVertex.getInstAttribute(leftAttributeName).getAttribute();
-			if(attribute.getType().equals("Integer"))
+			if(attribute.getType().equals("Integer") || attribute.getType().equals("Enumeration"))
 			{
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
@@ -175,7 +175,7 @@ public abstract class AbstractExpression {
 					.getInstAttributeFullIdentifier(rightAttributeName), identifier
 					);
 			AbstractAttribute attribute = rightVertex.getInstAttribute(rightAttributeName).getAttribute();
-			if(attribute.getType().equals("Integer"))
+			if(attribute.getType().equals("Integer") || attribute.getType().equals("Enumeration"))
 			{
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());

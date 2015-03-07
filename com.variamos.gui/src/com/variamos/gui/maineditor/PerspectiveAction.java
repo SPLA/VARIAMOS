@@ -54,7 +54,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 						.equals(mxResources.get("simulationPerspButton"))) {
 			mainFrame.setPerspective(4);
 			System.out.println("simulationPerspButton");
-		}			
+		}	
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();
 		mainFrame.repaint();

@@ -118,7 +118,7 @@ public class VisualElement implements Comparable<VisualElement> {
 							.getInstAttribute("value")).getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue())
-								.split("");
+								.split("-");
 						String val = null;
 						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
 							val = ((Integer)instElement.getInstAttribute("value").getValue()).toString();
