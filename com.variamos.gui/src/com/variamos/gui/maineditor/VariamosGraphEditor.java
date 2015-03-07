@@ -201,98 +201,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return this;
 	}
 
-	public VariamosGraphEditor(String appTitle,
-			VariamosGraphComponent component, int perspective,
-			AbstractModel abstractModel) {
-		super(appTitle, component, perspective);
-
-		refasModel = (RefasModel) abstractModel;
-		setInstViews(refasModel.getInstViews());
-		// metaViews = sematicSyntaxObject.getMetaViews();
-		refas2hlcl = new Refas2Hlcl(refasModel);
-		configurator.setRefas2hlcl(refas2hlcl);
-		configurator.setRefas2hlcl(refas2hlcl);
-
-		registerEvents();
-		((AbstractGraph) graphComponent.getGraph()).setModel(refasModel);
-		mxCell root = new mxCell();
-		root.insert(new mxCell());
-		PerspEditorGraph refasGraph = (PerspEditorGraph) component.getGraph();
-		refasGraph.getModel().setRoot(root);
-		int instViewIndex = 0;
-		for (InstView instView : instViews) {
-			mxCell parent = new mxCell("mv" + instViewIndex);
-			refasGraph.addCell(parent);
-			JPanel tabPane = new JPanel();
-			if (instView.getChildViews().size() > 0) {
-				modelsTabPane.add(instView.getTransSupportMetaElement()
-						.getName(), tabPane);
-				refasGraph.addCell(new mxCell("mv" + instViewIndex), parent);
-				// Add the parent as first child
-				for (int j = 0; j < instView.getChildViews().size(); j++) {
-					refasGraph.addCell(new mxCell("mv" + instViewIndex + "-"
-							+ j), parent);
-					InstView metaChildView = instView.getChildViews().get(j);
-					JButton a = new JButton(metaChildView
-							.getTransSupportMetaElement().getName());
-					tabPane.add(a);
-					a.addActionListener(new ModelButtonAction());
-				}
-				// TODO include recursive calls if more view levels are required
-			} else {
-				modelsTabPane.add(instView.getTransSupportMetaElement()
-						.getName(), tabPane);
-			}
-			final EditorPalette palette = new EditorPalette();
-			palette.setName("ee");
-			final JScrollPane scrollPane = new JScrollPane(palette);
-			scrollPane
-					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollPane
-					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			modelsTabPane.addChangeListener(new ChangeListener() {
-				public void stateChanged(ChangeEvent e) {
-					VariamosGraphEditor editor = getEditor();
-					((MainFrame) editor.getFrame()).waitingCursor(true);
-					int modelInd = getModelViewIndex();
-					for (int i = 0; i < instViews.size(); i++) {
-						if (modelInd != i
-								&& modelsTabPane.getTitleAt(
-										modelsTabPane.getSelectedIndex())
-										.equals(instViews.get(i)
-												.getEditableMetaElement()
-												.getName())) {
-
-							if (instViews.get(i).getChildViews().size() > 0) {
-								// if (false) //TODO validate the name of the
-								// button with the tab, if true, identify the
-								// subview
-								// editor.setVisibleModel(i ,0);
-								// else
-								editor.setVisibleModel(i, 0);
-								editor.updateView();
-								center.setDividerLocation(60);
-								center.setMaximumSize(center.getSize());
-								center.setMinimumSize(center.getSize());
-								center.setResizeWeight(0);
-							} else {
-								editor.setVisibleModel(i, -1);
-								editor.updateView();
-								center.setDividerLocation(25);
-								center.setMaximumSize(center.getSize());
-								center.setMinimumSize(center.getSize());
-								center.setPreferredSize(center.getSize());
-							}
-						}
-					}
-					((MainFrame) editor.getFrame()).waitingCursor(false);
-				}
-			});
-			instViewIndex++;
-		}
-		setModified(false);
-	}
-
 	public VariamosGraphEditor(MainFrame frame, String perspTitle,
 			VariamosGraphComponent component, int perspective,
 			AbstractModel abstractModel) {
@@ -358,8 +266,10 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 					// required
 				} else {
 					modelsTabPane.add(instView.getEditableMetaElement()
-							.getName(), tabPane);
-					tabPane.setMaximumSize(new Dimension(0, 0));
+							.getName(), null);
+					modelsTabPane.setMaximumSize(new Dimension(10, 22));
+					modelsTabPane.setPreferredSize(new Dimension(10, 22));
+					modelsTabPane.setMinimumSize(new Dimension(10, 22));
 
 				}
 				final EditorPalette palette = new EditorPalette();
@@ -411,6 +321,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 									center.setMaximumSize(center.getSize());
 									center.setMinimumSize(center.getSize());
 									center.setPreferredSize(center.getSize());
+									center.setResizeWeight(0);
 								}
 							}
 						}
@@ -504,7 +415,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	 *            New constructor to load directly files and perspectives
 	 * @throws FeatureModelException
 	 */
-	public static VariamosGraphEditor loader(String appTitle, String file,
+	public static VariamosGraphEditor loader(MainFrame frame,String appTitle, String file,
 			String perspective) throws FeatureModelException {
 		AbstractModel abstractModel = null;
 
@@ -519,7 +430,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				abstractModel = new ProductLine();
 			ProductLineGraph plGraph = new ProductLineGraph();
 			// plGraph.add
-			VariamosGraphEditor vge = new VariamosGraphEditor(
+			VariamosGraphEditor vge = new VariamosGraphEditor(frame,
 					"Configurator - VariaMos", new VariamosGraphComponent(
 							plGraph, Color.WHITE), persp, abstractModel);
 			return vge;
@@ -542,7 +453,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				}
 
 				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(
+				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
 						"Configurator - VariaMos", new VariamosGraphComponent(
 								refasGraph, Color.WHITE), persp, abstractModel);
 				vge2.createFrame().setVisible(true);
@@ -575,7 +486,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				}
 
 				// ProductLineGraph plGraph2 = new ProductLineGraph();
-				VariamosGraphEditor vge2 = new VariamosGraphEditor(
+				VariamosGraphEditor vge2 = new VariamosGraphEditor(frame,
 						"Configurator - VariaMos", new VariamosGraphComponent(
 								refasGraph, Color.WHITE), persp, abstractModel);
 				vge2.createFrame().setVisible(true);
