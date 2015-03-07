@@ -1443,6 +1443,22 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void executeSimulation(boolean first, int type) {
 		executeSimulation(first, type, true, "");
 	}
+	
+//	public void executeSimulation(boolean first, int type, boolean update,
+//			String element) {
+//
+//		progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+//				"Executing Simulation", "", 0, 100);
+//		progressMonitor.setMillisToDecideToPopup(5);
+//		progressMonitor.setMillisToPopup(5);
+//		progressMonitor.setProgress(0);
+//		task = new SolverTasks(Refas2Hlcl.SIMUL_EXEC, refas2hlcl,
+//				configHlclProgram, first, type, update, element);
+//		task.addPropertyChangeListener(this);
+//		((MainFrame) getFrame()).waitingCursor(true);
+//		task.execute();
+//
+//	}
 
 	public void executeSimulation(boolean first, int type, boolean update,
 			String element) {
@@ -1559,21 +1575,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled() || task.isDone()) {
 				if (progressMonitor.isCanceled()) {
 					task.cancel(true);
+					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
+					editPropertiesRefas(lastEditableElement);
+					messagesArea.setText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = task.getExecutionTime();
 					switch (task.getExecType()) {
 					case Refas2Hlcl.CONF_EXEC:
-						editPropertiesRefas(lastEditableElement);
 						invalidConfigHlclProgram = task
 								.isInvalidConfigHlclProgram();
-						messagesArea.setText(refas2hlcl.getText());
-						((MainFrame) getFrame()).waitingCursor(false);
-						lastSolverInvocations = task.getExecutionTime();
 						break;
 					case Refas2Hlcl.DESIGN_EXEC:
-						editPropertiesRefas(lastEditableElement);
-						messagesArea.setText(refas2hlcl.getText());
-						((MainFrame) getFrame()).waitingCursor(false);
-						lastSolverInvocations = task.getExecutionTime();
 						if (!task.getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
 									task.getErrorMessage(),
@@ -1583,7 +1596,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 						refresh();
 						break;
+					case Refas2Hlcl.SIMUL_EXEC:
+						refresh();
+						lastConfiguration = task.getLastConfiguration();
+						updateDashBoard(task.isFirst(), task.isUpdate());
+						break;
 					}
+
 				}
 			}
 		}

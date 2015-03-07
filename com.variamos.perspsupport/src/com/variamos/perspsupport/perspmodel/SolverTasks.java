@@ -34,6 +34,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private Refas2Hlcl refas2hlcl;
 	private HlclProgram configHlclProgram;
 	private boolean invalidConfigHlclProgram;
+
 	public String getErrorTitle() {
 		return errorTitle;
 	}
@@ -46,11 +47,15 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private int execType;
 	private long task = 0;
 	private InstElement element;
+	private String stringElement;
+	private boolean first;
+	private int type;
 	private String executionTime = "";
 	private List<String> defects;
 	private Configuration lastConfiguration;
 	private String errorTitle = "";
 	private String errorMessage = "";
+	private boolean update;
 
 	public SolverTasks(int execType, Refas2Hlcl refas2hlcl,
 			HlclProgram configHlclProgram, boolean invalidConfigHlclProgram,
@@ -67,6 +72,32 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.lastConfiguration = lastConfiguration;
 	}
 
+	public boolean isFirst() {
+		return first;
+	}
+
+	public boolean isUpdate() {
+		return update;
+	}
+
+	public SolverTasks(int execType, Refas2Hlcl refas2hlcl,
+			HlclProgram configHlclProgram, boolean first, int type, boolean update,
+			String element,
+			Configuration lastConfiguration) {
+		this.execType = execType;
+		this.refas2hlcl = refas2hlcl;
+		this.configHlclProgram = configHlclProgram;
+		this.first = first;
+		this.type = type;
+		this.update = update;
+		this.stringElement = element;
+		this.lastConfiguration = lastConfiguration;
+	}
+
+	public Configuration getLastConfiguration() {
+		return lastConfiguration;
+	}
+
 	@Override
 	public Void doInBackground() {
 		setProgress(0);
@@ -78,6 +109,10 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				break;
 			case Refas2Hlcl.DESIGN_EXEC:
 				verify(defects);
+				break;
+			case Refas2Hlcl.SIMUL_EXEC:
+				executeSimulation( first,  type, update,
+						stringElement) ;
 				break;
 			}
 		} catch (InterruptedException ignore) {
@@ -251,19 +286,17 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				}
 			if (defect == null || defect.contains("Simul"))
 				executeSimulation(true, Refas2Hlcl.CONF_EXEC, false, "Simul");
-			
+
 			for (String outMessage : outMessageList) {
 				if (outMessage != null) {
 					errorMessage += outMessage + " ";
-						errorTitle=	"Verification Message";
-						errors = true;
+					errorTitle = "Verification Message";
+					errors = true;
 				}
 			}
-			if (!errors)
-			{
+			if (!errors) {
 				errorMessage = "No errors found";
-				errorTitle = 
-						"Verification Message";
+				errorTitle = "Verification Message";
 			}
 
 			task = 100;
@@ -285,6 +318,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		long iniSTime = 0;
 		long endSTime = 0;
 		boolean result = false;
+		setProgress(10);
 		iniSTime = System.currentTimeMillis();
 		try {
 			if (first || lastConfiguration == null) {
@@ -336,6 +370,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		setProgress(100);
 
 	}
 
