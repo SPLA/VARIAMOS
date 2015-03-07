@@ -150,7 +150,8 @@ public class OpenAction extends AbstractEditorAction{
 								 graph = editor.getGraphComponent().getGraph();
 								SharedActions.beforeLoadGraph(graph, variamosEditor);
 								
-								PLGReader.loadPLG(fc.getSelectedFile(), graph);
+								PLGReader.loadPLG(fc.getSelectedFile(), graph,
+										variamosEditor);
 								editor.setCurrentFile(fc
 										.getSelectedFile());
 								SharedActions.afterOpenCloneGraph(graph, variamosEditor);

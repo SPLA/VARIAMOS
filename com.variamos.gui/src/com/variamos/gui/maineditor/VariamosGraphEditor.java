@@ -38,6 +38,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.ProgressMonitor;
 import javax.swing.SpringLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -101,6 +102,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.SolverTasks;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
@@ -121,7 +123,8 @@ import fm.FeatureModelException;
  */
 
 @SuppressWarnings("serial")
-public class VariamosGraphEditor extends BasicGraphEditor {
+public class VariamosGraphEditor extends BasicGraphEditor implements
+		PropertyChangeListener {
 
 	static {
 		try {
@@ -139,6 +142,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
 	private RefasModel refasModel;
+	private ProgressMonitor progressMonitor;
+	private SolverTasks task;
 
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
@@ -415,8 +420,8 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 	 *            New constructor to load directly files and perspectives
 	 * @throws FeatureModelException
 	 */
-	public static VariamosGraphEditor loader(MainFrame frame,String appTitle, String file,
-			String perspective) throws FeatureModelException {
+	public static VariamosGraphEditor loader(MainFrame frame, String appTitle,
+			String file, String perspective) throws FeatureModelException {
 		AbstractModel abstractModel = null;
 
 		int persp = 0;
@@ -694,7 +699,7 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 				messagesArea));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
-		extensionTabs.setMinimumSize(new Dimension(30,100));
+		extensionTabs.setMinimumSize(new Dimension(30, 100));
 		extensionTabs.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -1545,6 +1550,42 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		return out;
 	}
 
+	public void propertyChange(PropertyChangeEvent evt) {
+		if ("progress" == evt.getPropertyName()) {
+			int progress = (Integer) evt.getNewValue();
+			progressMonitor.setProgress(progress);
+			String message = String.format("Completed %d%%.\n", progress);
+			progressMonitor.setNote(message);
+			if (progressMonitor.isCanceled() || task.isDone()) {
+				if (progressMonitor.isCanceled()) {
+					task.cancel(true);
+				} else {
+					editPropertiesRefas(lastEditableElement);
+					invalidConfigHlclProgram = task
+							.isInvalidConfigHlclProgram();
+					messagesArea.setText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = task.getExecutionTime();
+
+				}
+			}
+		}
+	}
+
+	public void configModel(InstElement element, boolean test) {
+
+		progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+				"Executing Element Configuration", "", 0, 100);
+		progressMonitor.setMillisToDecideToPopup(5);
+		progressMonitor.setMillisToPopup(5);
+		progressMonitor.setProgress(0);
+		task = new SolverTasks(refas2hlcl, configHlclProgram,
+				invalidConfigHlclProgram, test, element, lastConfiguration);
+		task.addPropertyChangeListener(this);
+		((MainFrame) getFrame()).waitingCursor(true);
+		task.execute();
+	}
+
 	public void verify() {
 		try {
 			verify(defects);
@@ -1788,99 +1829,6 @@ public class VariamosGraphEditor extends BasicGraphEditor {
 		lastSolverInvocations += element + "Exec: " + (endTime - iniTime) + "["
 				+ (endSTime - iniSTime) + "]" + " -- ";
 		return out;
-	}
-
-	public void configModel(InstElement element, boolean test) {
-		// this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements(Refas2Hlcl.CONF_EXEC);
-		Set<Identifier> freeIdentifiers = null;
-		Set<InstElement> elementSubSet = null;
-		if (invalidConfigHlclProgram && element == null)
-			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-					Refas2Hlcl.CONF_EXEC);
-		else {
-			freeIdentifiers = new HashSet<Identifier>();
-			elementSubSet = new HashSet<InstElement>();
-			configHlclProgram = refas2hlcl.configGraph(element, elementSubSet,
-					freeIdentifiers);
-		}
-
-		invalidConfigHlclProgram = false;
-		long iniTime = System.currentTimeMillis();
-		long iniSTime = 0;
-		long endSTime = 0;
-		iniSTime = System.currentTimeMillis();
-		((MainFrame) getFrame()).waitingCursor(true);
-		TreeMap<String, Integer> configuredIdentNames = refas2hlcl
-				.getConfiguredIdentifier(elementSubSet);
-		Configuration config = new Configuration();
-
-		if (freeIdentifiers == null)
-			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
-
-		config.setConfiguration(configuredIdentNames);
-
-		List<String> requiredConceptsNames = new ArrayList<String>();
-		List<String> deadConceptsNames = new ArrayList<String>();
-		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram, SolverEditorType.SWI_PROLOG);
-		// System.out.println("FREE: " + freeIdentifiers);
-
-		// System.out.println("CONF: " + configuredIdentNames);
-
-		if (freeIdentifiers.size() > 0) {
-			try {
-
-				List<Defect> requiredConcepts = null;
-
-				requiredConcepts = defectVerifier.getFalseOptionalElements(
-						freeIdentifiers, null, config);
-				if (requiredConcepts.size() > 0) {
-					for (Defect conceptVariable : requiredConcepts) {
-						String[] conceptId = conceptVariable.getId().split("_");
-						requiredConceptsNames.add(conceptId[0]);
-
-					}
-				}
-			} catch (FunctionalException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// System.out.println("newSEL: " + requiredConceptsNames);
-		refas2hlcl.updateRequiredConcepts(requiredConceptsNames, test);
-
-		if (freeIdentifiers.size() > 0) {
-			try {
-				List<Defect> deadIndetifiersList = null;
-				deadIndetifiersList = defectVerifier.getDeadElements(
-						freeIdentifiers, null, config);
-				endSTime = System.currentTimeMillis();
-
-				if (deadIndetifiersList.size() > 0) {
-					for (Defect conceptVariable : deadIndetifiersList) {
-						String[] conceptId = conceptVariable.getId().split("_");
-						deadConceptsNames.add(conceptId[0]);
-					}
-				}
-			} catch (FunctionalException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-		System.out.println("newNOTAV: " + deadConceptsNames);
-		refas2hlcl.updateDeadConfigConcepts(deadConceptsNames, test);
-
-		messagesArea.setText(refas2hlcl.getText());
-		// bringUpTab(mxResources.get("elementSimPropTab"));
-		editPropertiesRefas(lastEditableElement);
-
-		// updateObjects();
-		long endTime = System.currentTimeMillis();
-		lastSolverInvocations += "ConfigExec: " + (endTime - iniTime) + "["
-				+ (endSTime - iniSTime) + "]" + " -- ";
-
 	}
 
 	public void setInvalidConfigHlclProgram(boolean invalidConfigHlclProgram) {
