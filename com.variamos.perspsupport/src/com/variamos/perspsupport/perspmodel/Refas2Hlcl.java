@@ -834,7 +834,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public HlclProgram configGraph(InstElement target,
-			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers) {
+			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers, boolean calc) {
 		HlclProgram out = new HlclProgram();
 		if (evaluatedSet.add(target)) {
 			if ((!target.getInstAttribute("Selected").getAsBoolean()
@@ -850,21 +850,23 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						&& !target.getInstAttribute("NotAvailable")
 								.getAsBoolean()
 						&& !target.getIdentifier().startsWith("FeatOverTwo"))
+					if (!calc)
 					freeIdentifiers.add(f.newIdentifier(target.getIdentifier()
 							+ "_Selected"));
 				for (InstElement element : target.getSourceRelations()) {
+					if(calc)
 					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
 							element));
 					InstElement related = element.getSourceRelations().get(0);
 					out.addAll(configGraph(related, evaluatedSet,
-							freeIdentifiers));
+							freeIdentifiers, calc));
 				}
 				for (InstElement element : target.getTargetRelations()) {
-
+					if (calc)
 					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
 							element));
 					out.addAll(configGraph(element.getTargetRelations().get(0),
-							evaluatedSet, freeIdentifiers));
+							evaluatedSet, freeIdentifiers, calc));
 				}
 			}
 			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));

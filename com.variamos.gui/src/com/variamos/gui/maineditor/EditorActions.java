@@ -1570,7 +1570,7 @@ public class EditorActions {
 											variamosEditor);
 
 									PLGReader.loadPLG(fc.getSelectedFile(),
-											graph);
+											graph,variamosEditor);
 									editor.setCurrentFile(fc.getSelectedFile());
 									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
