@@ -1443,22 +1443,22 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void executeSimulation(boolean first, int type) {
 		executeSimulation(first, type, true, "");
 	}
-	
-//	public void executeSimulation(boolean first, int type, boolean update,
-//			String element) {
-//
-//		progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-//				"Executing Simulation", "", 0, 100);
-//		progressMonitor.setMillisToDecideToPopup(5);
-//		progressMonitor.setMillisToPopup(5);
-//		progressMonitor.setProgress(0);
-//		task = new SolverTasks(Refas2Hlcl.SIMUL_EXEC, refas2hlcl,
-//				configHlclProgram, first, type, update, element);
-//		task.addPropertyChangeListener(this);
-//		((MainFrame) getFrame()).waitingCursor(true);
-//		task.execute();
-//
-//	}
+
+	// public void executeSimulation(boolean first, int type, boolean update,
+	// String element) {
+	//
+	// progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+	// "Executing Simulation", "", 0, 100);
+	// progressMonitor.setMillisToDecideToPopup(5);
+	// progressMonitor.setMillisToPopup(5);
+	// progressMonitor.setProgress(0);
+	// task = new SolverTasks(Refas2Hlcl.SIMUL_EXEC, refas2hlcl,
+	// configHlclProgram, first, type, update, element);
+	// task.addPropertyChangeListener(this);
+	// ((MainFrame) getFrame()).waitingCursor(true);
+	// task.execute();
+	//
+	// }
 
 	public void executeSimulation(boolean first, int type, boolean update,
 			String element) {
@@ -1609,18 +1609,20 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void configModel(InstElement element, boolean test) {
+		if (task == null || task.isDone()) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing Element Configuration", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
 
-		progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-				"Executing Element Configuration", "", 0, 100);
-		progressMonitor.setMillisToDecideToPopup(5);
-		progressMonitor.setMillisToPopup(5);
-		progressMonitor.setProgress(0);
-		task = new SolverTasks(Refas2Hlcl.CONF_EXEC, refas2hlcl,
-				configHlclProgram, invalidConfigHlclProgram, test, element,
-				defects, lastConfiguration);
-		task.addPropertyChangeListener(this);
-		((MainFrame) getFrame()).waitingCursor(true);
-		task.execute();
+			task = new SolverTasks(Refas2Hlcl.CONF_EXEC, refas2hlcl,
+					configHlclProgram, invalidConfigHlclProgram, test, element,
+					defects, lastConfiguration);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
 	}
 
 	public void verify() {
@@ -1628,17 +1630,19 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void verify(List<String> defect) {
-		progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-				"System Verification", "", 0, 100);
-		progressMonitor.setMillisToDecideToPopup(5);
-		progressMonitor.setMillisToPopup(5);
-		progressMonitor.setProgress(0);
-		task = new SolverTasks(Refas2Hlcl.DESIGN_EXEC, refas2hlcl,
-				configHlclProgram, invalidConfigHlclProgram, false, null,
-				defect, lastConfiguration);
-		task.addPropertyChangeListener(this);
-		((MainFrame) getFrame()).waitingCursor(true);
-		task.execute();
+		if (task == null || task.isDone()) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"System Verification", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+			task = new SolverTasks(Refas2Hlcl.DESIGN_EXEC, refas2hlcl,
+					configHlclProgram, invalidConfigHlclProgram, false, null,
+					defect, lastConfiguration);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
 	}
 
 	public void setInvalidConfigHlclProgram(boolean invalidConfigHlclProgram) {
