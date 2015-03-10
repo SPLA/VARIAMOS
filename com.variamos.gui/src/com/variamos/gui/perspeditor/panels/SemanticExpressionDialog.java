@@ -1,4 +1,4 @@
-package com.variamos.gui.perpseditor.panels;
+package com.variamos.gui.perspeditor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

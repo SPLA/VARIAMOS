@@ -1,4 +1,4 @@
-package com.variamos.gui.perpseditor.panels;
+package com.variamos.gui.perspeditor.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,9 +26,9 @@ import javax.swing.SpringLayout;
 import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.perpseditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
-import com.variamos.gui.perpseditor.panels.SemanticExpressionDialog.SemanticExpressionButtonAction;
 import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
+import com.variamos.gui.perspeditor.panels.SemanticExpressionDialog.SemanticExpressionButtonAction;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;

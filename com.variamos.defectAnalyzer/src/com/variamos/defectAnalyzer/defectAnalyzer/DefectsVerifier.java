@@ -1,5 +1,6 @@
 package com.variamos.defectAnalyzer.defectAnalyzer;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javax.swing.ProgressMonitor;
 
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.FunctionalException;
@@ -42,12 +45,32 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	private HlclProgram model;
 	// Hlcl program identifiers
 	private Set<Identifier> identifiersList;
+	private Component parentComponent = null;
+	private String progressDisplay = null;
+	private long solverTime = 0;
+	private long totalTime = 0;
 
 	public DefectsVerifier(HlclProgram model, SolverEditorType solverEditorType) {
 		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
 		solver = new SolverOperationsUtil(solverEditorType);
 		this.model = model;
 		identifiersList = HlclUtil.getUsedIdentifiers(model);
+	}
+
+	public DefectsVerifier(HlclProgram model,
+			SolverEditorType solverEditorType, Component parentComponent,
+			String progressDisplay) {
+		verifiedValuesMap = new HashMap<Identifier, Set<Integer>>();
+		solver = new SolverOperationsUtil(solverEditorType);
+		this.model = model;
+		identifiersList = HlclUtil.getUsedIdentifiers(model);
+		this.parentComponent = parentComponent;
+		this.progressDisplay = progressDisplay;
+	}
+
+	public void resetTime() {
+		solverTime = 0;
+		totalTime = 0;
 	}
 
 	@Override
@@ -219,15 +242,18 @@ public class DefectsVerifier implements IntDefectsVerifier {
 				// Se verifica si ya existe en el mapa el identificador con
 				// el valor
 				if (!existValue(identifier, definedDomainValue)) {
-							
-					Configuration copy= new Configuration();
-					TreeMap<String, Integer> configurationValues= new TreeMap<String, Integer>();
-					configurationValues.putAll(configuration.getConfiguration());
-					copy.setConfiguration(configurationValues);	
-					copy.set(identifier.getId(), definedDomainValue);
-					configurationResult = solver.getConfiguration(model,
-							copy, new ConfigurationOptions());
 
+					Configuration copy = new Configuration();
+					TreeMap<String, Integer> configurationValues = new TreeMap<String, Integer>();
+					configurationValues
+							.putAll(configuration.getConfiguration());
+					copy.setConfiguration(configurationValues);
+					copy.set(identifier.getId(), definedDomainValue);
+
+					long initSolver = System.currentTimeMillis();
+					configurationResult = solver.getConfiguration(model, copy,
+							new ConfigurationOptions());
+					solverTime += System.currentTimeMillis() - initSolver;
 					if (configurationResult != null) {
 						// Los valores identificados se actualizan en el
 						// mapa para
@@ -429,15 +455,15 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		// identificador
 		if (!existValue(identifier, 0)) {
 
-			
-			
-			Configuration copy= new Configuration();
-			TreeMap<String, Integer> configurationValues= new TreeMap<String, Integer>();
+			Configuration copy = new Configuration();
+			TreeMap<String, Integer> configurationValues = new TreeMap<String, Integer>();
 			configurationValues.putAll(configuration.getConfiguration());
-			copy.setConfiguration(configurationValues);	
-			copy.ban(identifier.getId());	
+			copy.setConfiguration(configurationValues);
+			copy.ban(identifier.getId());
+			long initSolver = System.currentTimeMillis();
 			Configuration configurationResult = solver.getConfiguration(model,
 					copy, options);
+			solverTime += System.currentTimeMillis() - initSolver;
 
 			if (configurationResult != null) {
 				// Los valores identificados se actualizan en el mapa para
@@ -560,6 +586,17 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
 			ConfigurationOptions options, Configuration configuration)
 			throws FunctionalException {
+		long initTotal = System.currentTimeMillis();
+		ProgressMonitor progressMonitor = null;
+		if (parentComponent != null) {
+			progressMonitor = new ProgressMonitor(parentComponent,
+					progressDisplay + " (Dead Elements)", "", 0,
+					elementsToVerify.size());
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+		}
+		int i = 0;
 		List<Defect> deadElementsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
@@ -568,7 +605,16 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			if (deadElement != null) {
 				deadElementsList.add(deadElement);
 			}
+			i++;
+			if (progressMonitor != null) {
+				progressMonitor.setProgress(i);
+				String message = String.format("Completed %d%%.\n" + "("
+						+ elementsToVerify.size() + ")", i * 100
+						/ elementsToVerify.size());
+				progressMonitor.setNote(message);
+			}
 		}
+		totalTime += System.currentTimeMillis() - initTotal;
 		return deadElementsList;
 	}
 
@@ -583,16 +629,43 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	public List<Defect> getFalseOptionalElements(
 			Set<Identifier> elementsToVerify, ConfigurationOptions options,
 			Configuration configuration) throws FunctionalException {
+		long initTotal = System.currentTimeMillis();
 		List<Defect> falseOptionalList = new ArrayList<Defect>();
-
+		ProgressMonitor progressMonitor = null;
+		if (parentComponent != null) {
+			progressMonitor = new ProgressMonitor(parentComponent,
+					progressDisplay + " (Full mandatory)", "", 0,
+					elementsToVerify.size());
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+		}
+		int i = 0;
 		for (Identifier identifier : elementsToVerify) {
 			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
 					identifier, options, configuration);
 			if (falseOptionalElement != null) {
 				falseOptionalList.add(falseOptionalElement);
 			}
+			i++;
+			if (progressMonitor != null) {
+				progressMonitor.setProgress(i);
+				String message = String.format("Completed %d%%.\n" + "("
+						+ elementsToVerify.size() + ")", i * 100
+						/ elementsToVerify.size());
+				progressMonitor.setNote(message);
+			}
 		}
+		totalTime += System.currentTimeMillis() - initTotal;
 		return falseOptionalList;
+	}
+
+	public long getSolverTime() {
+		return solverTime;
+	}
+
+	public long getTotalTime() {
+		return totalTime;
 	}
 
 	@Override

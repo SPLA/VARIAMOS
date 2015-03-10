@@ -1,4 +1,4 @@
-package com.variamos.gui.perpseditor.panels;
+package com.variamos.gui.perspeditor.panels;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.perpseditor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.StringType;

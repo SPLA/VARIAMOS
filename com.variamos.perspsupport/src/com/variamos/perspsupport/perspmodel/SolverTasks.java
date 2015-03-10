@@ -1,5 +1,6 @@
 package com.variamos.perspsupport.perspmodel;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,10 +57,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
+	private Component parentComponent;
 
-	public SolverTasks(int execType, Refas2Hlcl refas2hlcl,
-			HlclProgram configHlclProgram, boolean invalidConfigHlclProgram,
-			boolean test, InstElement element, List<String> defects,
+	public SolverTasks(Component parentComponent, int execType,
+			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
+			boolean invalidConfigHlclProgram, boolean test,
+			InstElement element, List<String> defects,
 			Configuration lastConfiguration) {
 		super();
 		this.execType = execType;
@@ -70,6 +73,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.element = element;
 		this.defects = defects;
 		this.lastConfiguration = lastConfiguration;
+		this.parentComponent = parentComponent;
 	}
 
 	public boolean isFirst() {
@@ -81,9 +85,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	public SolverTasks(int execType, Refas2Hlcl refas2hlcl,
-			HlclProgram configHlclProgram, boolean first, int type, boolean update,
-			String element,
-			Configuration lastConfiguration) {
+			HlclProgram configHlclProgram, boolean first, int type,
+			boolean update, String element, Configuration lastConfiguration) {
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
 		this.configHlclProgram = configHlclProgram;
@@ -111,8 +114,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				verify(defects);
 				break;
 			case Refas2Hlcl.SIMUL_EXEC:
-				executeSimulation( first,  type, update,
-						stringElement) ;
+				executeSimulation(first, type, update, stringElement);
 				break;
 			}
 		} catch (InterruptedException ignore) {
@@ -157,7 +159,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		List<String> requiredConceptsNames = new ArrayList<String>();
 		List<String> deadConceptsNames = new ArrayList<String>();
 		IntDefectsVerifier defectVerifier = new DefectsVerifier(
-				configHlclProgram, SolverEditorType.SWI_PROLOG);
+				configHlclProgram, SolverEditorType.SWI_PROLOG,
+				parentComponent, "Configuring Selected Elements");
 		// System.out.println("FREE: " + freeIdentifiers);
 
 		// System.out.println("CONF: " + configuredIdentNames);
@@ -170,6 +173,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 				requiredConcepts = defectVerifier.getFalseOptionalElements(
 						freeIdentifiers, null, config);
+				executionTime += "FalseOpt: " + defectVerifier.getTotalTime()
+						+ "[" + defectVerifier.getSolverTime() + "]" + " -- ";
 				if (requiredConcepts.size() > 0) {
 					for (Defect conceptVariable : requiredConcepts) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -188,9 +193,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		if (freeIdentifiers.size() > 0) {
 			try {
 				List<Defect> deadIndetifiersList = null;
+				defectVerifier.resetTime();
 				deadIndetifiersList = defectVerifier.getDeadElements(
 						freeIdentifiers, null, config);
-
+				executionTime += "DeadOpt: " + defectVerifier.getTotalTime()
+						+ "[" + defectVerifier.getSolverTime() + "]" + " -- ";
 				if (deadIndetifiersList.size() > 0) {
 					for (Defect conceptVariable : deadIndetifiersList) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -230,7 +237,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 			verifList.add("Root");
 			verifList.add("Parent");
-			verifList.add("Core");
+			verifList.add("Other");
 
 			actionList.add("Err");
 			actionList.add("Err");
@@ -266,7 +273,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (defect.size() > 0)
 				for (String verifElement : verifList) {
 					if (defect == null || defect.contains(verifElement)
-							|| verifElement.equals("Core")) {
+							|| verifElement.equals("Other")) {
 						String verifMessage = verifMessageList.get(posList);
 						String verifHint = verifMessageList.get(posList);
 						if (actionList.get(posList).equals("Err")) {
@@ -277,7 +284,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 							if (defect == null || defect.contains("Core")
 									|| defect.contains("Dead")
 									|| defect.contains("FalseOpt"))
-								outMessageList.addAll(updateModel(verifElement,
+								outMessageList.addAll(updateModel("Core",
 										verifMessage, verifHint, updateList,
 										defect));
 						}
@@ -294,7 +301,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					errors = true;
 				}
 			}
-			if (!errors) {
+			if (!errors
+					&& (defect == null || (defect.size() != 1 || !defect.get(0)
+							.equals("Core")))) {
 				errorMessage = "No errors found";
 				errorTitle = "Verification Message";
 			}
@@ -426,7 +435,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					IntDefectsVerifier defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram("FalseOpt2",
 									Refas2Hlcl.VAL_UPD_EXEC),
-							SolverEditorType.SWI_PROLOG);
+							SolverEditorType.SWI_PROLOG, parentComponent,
+							"Identifing core/falseoptional/dead Elements");
 
 					List<Defect> falseOptionalList = null;
 
@@ -552,7 +562,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			Set<String> outIdentifiers = new TreeSet<String>();
 			if (voidModel != null) {
 
-				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer();
+				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(
+						parentComponent,verifElement);
 				HlclProgram fixedConstraint = new HlclProgram();
 				fixedConstraint.addAll(verify);
 				fixedConstraint.addAll(fixed);

@@ -1,4 +1,4 @@
-package com.variamos.gui.perpseditor.panels;
+package com.variamos.gui.perspeditor.panels;
 
 import java.awt.Font;
 import java.util.HashMap;
