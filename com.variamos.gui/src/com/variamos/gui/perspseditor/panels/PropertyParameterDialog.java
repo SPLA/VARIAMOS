@@ -1,5 +1,5 @@
 
-package com.variamos.gui.perpseditor.panels;
+package com.variamos.gui.perspseditor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
