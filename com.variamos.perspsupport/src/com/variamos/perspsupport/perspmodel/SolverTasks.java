@@ -81,9 +81,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	public SolverTasks(int execType, Refas2Hlcl refas2hlcl,
-			HlclProgram configHlclProgram, boolean first, int type, boolean update,
-			String element,
-			Configuration lastConfiguration) {
+			HlclProgram configHlclProgram, boolean first, int type,
+			boolean update, String element, Configuration lastConfiguration) {
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
 		this.configHlclProgram = configHlclProgram;
@@ -111,8 +110,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				verify(defects);
 				break;
 			case Refas2Hlcl.SIMUL_EXEC:
-				executeSimulation( first,  type, update,
-						stringElement) ;
+				executeSimulation(first, type, update, stringElement);
 				break;
 			}
 		} catch (InterruptedException ignore) {
@@ -230,7 +228,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 			verifList.add("Root");
 			verifList.add("Parent");
-			verifList.add("Core");
+			verifList.add("Other");
 
 			actionList.add("Err");
 			actionList.add("Err");
@@ -266,7 +264,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (defect.size() > 0)
 				for (String verifElement : verifList) {
 					if (defect == null || defect.contains(verifElement)
-							|| verifElement.equals("Core")) {
+							|| verifElement.equals("Other")) {
 						String verifMessage = verifMessageList.get(posList);
 						String verifHint = verifMessageList.get(posList);
 						if (actionList.get(posList).equals("Err")) {
@@ -277,7 +275,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 							if (defect == null || defect.contains("Core")
 									|| defect.contains("Dead")
 									|| defect.contains("FalseOpt"))
-								outMessageList.addAll(updateModel(verifElement,
+								outMessageList.addAll(updateModel("Core",
 										verifMessage, verifHint, updateList,
 										defect));
 						}
@@ -294,7 +292,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					errors = true;
 				}
 			}
-			if (!errors) {
+			if (!errors
+					&& (defect == null || (defect.size() != 1 || !defect.get(0)
+							.equals("Core")))) {
 				errorMessage = "No errors found";
 				errorTitle = "Verification Message";
 			}

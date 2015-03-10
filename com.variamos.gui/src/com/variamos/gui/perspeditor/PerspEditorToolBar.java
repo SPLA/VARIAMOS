@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.TransferHandler;
 
-
 /*
  * import com.mxgraph.swing.util.mxGraphActions;
  import com.mxgraph.util.mxConstants;
@@ -35,6 +34,7 @@ import com.variamos.gui.perspeditor.actions.NextSimulationAction;
 import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
 import com.variamos.gui.perspeditor.actions.StartSimulationAction;
+import com.variamos.gui.perspeditor.actions.UpdateCoreAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
@@ -101,35 +101,49 @@ public class PerspEditorToolBar extends JToolBar {
 
 		if (variamosGraphEditor.getPerspective() == 2) {
 			addSeparator();
-
-			add(variamosGraphEditor.bind("clearElements", new ClearVerificationAction(),
+			add(variamosGraphEditor
+					.bind("updateCore",
+							new UpdateCoreAction(),
+							"/com/variamos/gui/perspeditor/images/iconarchive.com/Highlightmarker-green-icon.png"));
+			addSeparator();
+			add(variamosGraphEditor.bind("clearElements",
+					new ClearVerificationAction(),
 					"/com/mxgraph/examples/swing/images/pan.gif"));
-			add(variamosGraphEditor.bind("verifOptional", new VerificationAction(),
+			add(variamosGraphEditor.bind("verifOptional",
+					new VerificationAction(),
 					"/com/mxgraph/examples/swing/images/checkmark.gif"));
 			addSeparator();
 			add(variamosGraphEditor.bind("verifyRoot", new RootElementAction(),
 					"/com/mxgraph/examples/swing/images/tree.gif"));
-			add(variamosGraphEditor.bind("verifyParents", new ParentElementAction(),
+			add(variamosGraphEditor.bind("verifyParents",
+					new ParentElementAction(),
 					"/com/mxgraph/examples/swing/images/straight.gif"));
-			add(variamosGraphEditor.bind("verifyDeadElement", new VerifyDeadElementAction(),
-					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/dead.png"));
-			add(variamosGraphEditor.bind("verifyFalseOptionalElements", new VerifyFalseOptElementAction(),
-					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/false.png"));
-	//		add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
-	//				"/com/mxgraph/examples/swing/images/tree.gif"));
+			add(variamosGraphEditor
+					.bind("verifyDeadElement", new VerifyDeadElementAction(),
+							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/dead.png"));
+			add(variamosGraphEditor
+					.bind("verifyFalseOptionalElements",
+							new VerifyFalseOptElementAction(),
+							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/false.png"));
+			// add(variamosGraphEditor.bind("updateCore", new UpdateAction(),
+			// "/com/mxgraph/examples/swing/images/tree.gif"));
 		}
-			
-		if (variamosGraphEditor.getPerspective() == 4) {			
+
+		if (variamosGraphEditor.getPerspective() == 4) {
 			addSeparator();
-			add(variamosGraphEditor.bind("clearconf", new ClearConfigurationAction(),
+			add(variamosGraphEditor.bind("clearconf",
+					new ClearConfigurationAction(),
 					"/com/mxgraph/examples/swing/images/pan.gif"));
 			addSeparator();
-			add(variamosGraphEditor.bind("cleansimul", new ClearSimulationAction(),
-					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/player_stop.png"));
-			add(variamosGraphEditor.bind("first", new StartSimulationAction(),
-					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/direction_right.png"));
-			add(variamosGraphEditor.bind("next", new NextSimulationAction(),
-					"/com/variamos/gui/perspeditor/images/www.iconfinder.com/fastforward.png"));
+			add(variamosGraphEditor
+					.bind("cleansimul", new ClearSimulationAction(),
+							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/player_stop.png"));
+			add(variamosGraphEditor
+					.bind("first", new StartSimulationAction(),
+							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/direction_right.png"));
+			add(variamosGraphEditor
+					.bind("next", new NextSimulationAction(),
+							"/com/variamos/gui/perspeditor/images/www.iconfinder.com/fastforward.png"));
 		}
 
 		// Gets the list of available fonts from the local graphics environment

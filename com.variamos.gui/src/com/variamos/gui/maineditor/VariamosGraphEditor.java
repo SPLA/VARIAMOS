@@ -75,13 +75,13 @@ import com.variamos.gui.perspeditor.PerspEditorToolBar;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.actions.SharedActions;
+import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
+import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
+import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.gui.perspseditor.panels.ElementDesignPanel;
-import com.variamos.gui.perspseditor.panels.RefasExpressionPanel;
-import com.variamos.gui.perspseditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.pl.editor.ConfigurationPropertiesTab;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.ProductLineGraph;
@@ -216,7 +216,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		defects.add("Parent");
 		defects.add("FalseOpt");
 		defects.add("Dead");
-		defects.add("Core");
 
 		refasModel = (RefasModel) abstractModel;
 		instViews = new ArrayList<InstView>();
