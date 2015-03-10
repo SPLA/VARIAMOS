@@ -1615,9 +1615,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(Refas2Hlcl.CONF_EXEC, refas2hlcl,
-					configHlclProgram, invalidConfigHlclProgram, test, element,
-					defects, lastConfiguration);
+			task = new SolverTasks(VariamosGraphEditor.this,
+					Refas2Hlcl.CONF_EXEC, refas2hlcl, configHlclProgram,
+					invalidConfigHlclProgram, test, element, defects,
+					lastConfiguration);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
@@ -1635,9 +1636,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(Refas2Hlcl.DESIGN_EXEC, refas2hlcl,
-					configHlclProgram, invalidConfigHlclProgram, false, null,
-					defect, lastConfiguration);
+			task = new SolverTasks(VariamosGraphEditor.this,
+					Refas2Hlcl.DESIGN_EXEC, refas2hlcl, configHlclProgram,
+					invalidConfigHlclProgram, false, null, defect,
+					lastConfiguration);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();

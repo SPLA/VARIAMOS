@@ -1,8 +1,11 @@
 package com.variamos.defectAnalyzer.defectAnalyzer;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.ProgressMonitor;
 
 import com.cfm.jgprolog.core.PrologException;
 import com.variamos.core.enums.SolverEditorType;
@@ -28,9 +31,20 @@ import com.variamos.solver.ConfigurationOptions;
 public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	private SolverOperationsUtil solver;
+	private Component parentComponent = null;
+	private String progressDisplay = null;
+	private long solverTime = 0;
+	private long totalTime = 0;
+	ProgressMonitor progressMonitor = null;
 
 	public CauCosAnayzer() {
 		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
+	}
+
+	public CauCosAnayzer(Component parentComponent, String progressDisplay) {
+		solver = new SolverOperationsUtil(SolverEditorType.SWI_PROLOG);
+		this.parentComponent = parentComponent;
+		this.progressDisplay = progressDisplay;
 	}
 
 	public CauCosAnayzer(SolverEditorType solverEditorType) {
@@ -54,18 +68,17 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		// Se adiciona a la lista la expression que permite verificar el defecto
 		if (defectToAnalyze.getVerificationExpressions() != null) {
 
-			List<BooleanExpression> modelCopy= new ArrayList<BooleanExpression>();
+			List<BooleanExpression> modelCopy = new ArrayList<BooleanExpression>();
 			modelCopy.addAll(modelExpressions);
-			modelCopy.addAll(defectToAnalyze
-					.getVerificationExpressions());
+			modelCopy.addAll(defectToAnalyze.getVerificationExpressions());
 			if (!fixedExpressions.isEmpty()) {
 				modelCopy.addAll(fixedExpressions);
 			}
 
-			HlclProgram program= new HlclProgram();
+			HlclProgram program = new HlclProgram();
 			program.addAll(modelCopy);
-			boolean isMCS = solver.isSatisfiable(program,
-					new Configuration(), new ConfigurationOptions());
+			boolean isMCS = solver.isSatisfiable(program, new Configuration(),
+					new ConfigurationOptions());
 
 			// Se retorna el resultado
 			return isMCS;
@@ -141,6 +154,10 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 		while (advance) {
 
+			if (progressMonitor != null) {
+				String message = "Building combinations: size " + r;
+				progressMonitor.setNote(message);
+			}
 			System.out.println("Defecto" + defectToAnalyze);
 			System.out.println("McsIdentificados" + allMCSes);
 			System.out.println("Construyendo combinationes tamaño " + r
@@ -606,6 +623,13 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			HlclProgram fixedConstraints, DefectAnalyzerMode mode)
 			throws FunctionalException {
 		long startTime = System.nanoTime();
+		if (parentComponent != null) {
+			progressMonitor = new ProgressMonitor(parentComponent,
+					progressDisplay, "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+		}
 		Diagnosis diagnosis = new Diagnosis(defect);
 		List<List<BooleanExpression>> unsatisfiableSets = new ArrayList<List<BooleanExpression>>();
 
@@ -635,8 +659,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			diagnosis.setCausesProcessingTime(totalTime);
 			System.out.println(" Causes time: " + totalTime);
 			return diagnosis;
-		}else{
-			//Solo se identifican causas y correcciones si el modelo es irresoluble
+		} else {
+			// Solo se identifican causas y correcciones si el modelo es
+			// irresoluble
 			return diagnosis;
 		}
 	}
@@ -657,7 +682,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			HlclProgram fixedConstraints,
 			List<List<BooleanExpression>> unsatisfiableSets,
 			DefectAnalyzerMode mode) throws FunctionalException {
+		long i = 0;
 
+		progressMonitor.setProgress(1);
 		if (defect instanceof Redundancy) {
 			// Se quita de la lista la expresión que se considera
 			// redundante para que pueda ponerse su instrucción de verificación.
@@ -670,6 +697,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				if (!expression.equals(defect.getVerificationExpression())) {
 					modelCopy.add(expression);
 				}
+				i += 1 * 50.0 / model.size();
+
+				if (progressMonitor != null) {
+					progressMonitor.setProgress((int) i);
+				}
 			}
 
 		}
@@ -681,6 +713,11 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		// Se crean tantas correcciones como MCSes se hubieran identificado
 		for (List<BooleanExpression> MCS : allMCSes) {
 			corrections.add(new CauCos(MCS));
+			i += 1 * 50.0 / allMCSes.size();
+
+			if (progressMonitor != null) {
+				progressMonitor.setProgress((int) i);
+			}
 		}
 
 		return corrections;

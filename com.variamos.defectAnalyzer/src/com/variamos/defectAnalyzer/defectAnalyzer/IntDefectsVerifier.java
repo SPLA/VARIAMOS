@@ -56,7 +56,11 @@ public interface IntDefectsVerifier {
 
 	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
 	
+	public long getSolverTime() ;
 
+	public long getTotalTime() ;
+	
+	public void resetTime();
 	/**
 	 * @param model
 	 *            expressed as Hlclprogram
