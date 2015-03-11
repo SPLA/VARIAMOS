@@ -3,7 +3,6 @@ package com.variamos.gui.maineditor;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,20 +10,12 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.TransformerException;
 import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
 import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
-import com.variamos.defectAnalyzer.model.defects.VoidModel;
-import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
-import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
@@ -161,7 +152,7 @@ public class MainFrame extends JFrame {
 		model.add(f.equals(f.number(1), f.number(1)));
 		IntDefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
-		VoidModel isVoid = (VoidModel) verifier.isVoid();
+		verifier.isVoid();
 	}
 
 	private Map<String, SemanticExpressionType> createMetaExpressionTypes() {
@@ -201,14 +192,15 @@ public class MainFrame extends JFrame {
 				"lessThan", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
 				false, false));
-		out.put("LessOrEq", new SemanticExpressionType("LessOrEquals", "#<=",
+		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals", "#<=",
 				"#<=", "lessOrEqualsThan", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
 				false, false));
-		out.put("Literal", new SemanticExpressionType("LiteralBool", "", "",
+/*		out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", SemanticExpressionType.LIT,
 				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
 				true, false));
+				*/
 		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
 				"not", SemanticExpressionType.BOOLEXP,
 				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
