@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import com.variamos.core.enums.SolverEditorType;
@@ -107,11 +106,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		try {
 			Thread.sleep(1);
 			switch (execType) {
-			case Refas2Hlcl.CONF_EXEC:
-				configModel();
-				break;
 			case Refas2Hlcl.DESIGN_EXEC:
 				verify(defects);
+				break;
+			case Refas2Hlcl.CONF_EXEC:
+				configModel();
 				break;
 			case Refas2Hlcl.SIMUL_EXEC:
 				executeSimulation(first, type, update, stringElement);
@@ -196,7 +195,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				defectVerifier.resetTime();
 				deadIndetifiersList = defectVerifier.getDeadElements(
 						freeIdentifiers, null, config);
-				executionTime += "DeadOpt: " + defectVerifier.getTotalTime()
+				executionTime += "Dead: " + defectVerifier.getTotalTime()
 						+ "[" + defectVerifier.getSolverTime() + "]" + " -- ";
 				if (deadIndetifiersList.size() > 0) {
 					for (Defect conceptVariable : deadIndetifiersList) {
@@ -456,26 +455,31 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 							}
 							falseOptIdentifiers.addAll(falseOptIdentOthers);
 						}
+						freeIdentifiers.removeAll(falseOptIdentifiers);
 					}
 					task += 30 / defect.size();
 					setProgress((int) task);
 					endSTime = System.currentTimeMillis();
 
-					freeIdentifiers.removeAll(falseOptIdentifiers);
-
 					Set<Identifier> identDeadElements = new HashSet<Identifier>();
 
-					for (String freeIndentifier : freeIdentifiers) {
-						if (!freeIndentifier.startsWith("FeatOverTwo"))
-							identDeadElements.add(f
-									.newIdentifier(freeIndentifier));
-					}
 
 					List<Defect> deadIndetifiersList = null;
+					if (defect == null || defect.contains("Dead")
+							|| defect.contains("Core"))
+					// Indentify false optional from non structural
+					// relations
+					{
+						for (String freeIndentifier : freeIdentifiers) {
+							if (!freeIndentifier.startsWith("FeatOverTwo"))
+								identDeadElements.add(f
+										.newIdentifier(freeIndentifier));
+						}
 
-					deadIndetifiersList = defectVerifier
-							.getDeadElements(identDeadElements);
 
+						deadIndetifiersList = defectVerifier
+								.getDeadElements(identDeadElements);
+					}
 					task += 30 / defect.size();
 					setProgress((int) task);
 					System.out.println(task);
@@ -563,7 +567,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			if (voidModel != null) {
 
 				IntCauCosAnalyzer cauCosAnalyzer = new CauCosAnayzer(
-						parentComponent,verifElement);
+						parentComponent, verifElement);
 				HlclProgram fixedConstraint = new HlclProgram();
 				fixedConstraint.addAll(verify);
 				fixedConstraint.addAll(fixed);

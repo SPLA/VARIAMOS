@@ -1,7 +1,6 @@
 package com.variamos.gui.perspeditor.actions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -184,6 +183,7 @@ public class SharedActions {
 		mxIGraphModel refasGraph = graph.getModel();
 		instAttributesToDelete = new HashSet<String>();
 		additionAttributes = false;
+		editor.getGraphComponent().zoomActual();
 		if (graph instanceof PerspEditorGraph) {
 			Object o = refasGraph.getRoot(); // Main Root
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0);

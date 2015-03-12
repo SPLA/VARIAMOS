@@ -135,9 +135,10 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											instVertex, instAttribute
 													.getIdentifier(),
 											getHlclFactory().number(1)));
-									rootList.add(new EqualsComparisonExpression(
+									/*rootList.add(new EqualsComparisonExpression(
 											instVertex, "Required",
 											getHlclFactory().number(1)));
+											*/
 									this.getRelaxableExpressions().put("Root",
 											rootList);
 								} else {
@@ -186,6 +187,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								this.getRelaxableExpressions().put("Parent",
 										parentList);
 							}
+							/*
 							if (instAttribute.getIdentifier().equals(
 									"ConfigSelected")) {
 
@@ -205,7 +207,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(0)));
 							}
-
+							*/
 							if (instAttribute.getIdentifier()
 									.equals("Required")) {
 								if (instVertex.getTransSupportMetaElement()
@@ -235,7 +237,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												transformation9));
 							}
 
-							if (instAttribute.getIdentifier()
+							/*if (instAttribute.getIdentifier()
 									.equals("Selected")) {
 
 								coreAndFalseOptList
@@ -256,7 +258,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												instVertex, instAttribute
 														.getIdentifier(),
 												getHlclFactory().number(0)));
-							}
+							}*/
 						}
 
 						// End Validation Only
@@ -415,6 +417,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 						// identifierId_Active #= value for simulation
+						/*
 						if (instAttribute.getIdentifier().equals("Active")) {
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
@@ -422,7 +425,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											getHlclFactory().number(
 													attributeValue)));
 						}
-
+						*/
 						// identifierId_Dead #= value for simulation
 						if (instAttribute.getIdentifier().equals("Dead")) {
 							getElementExpressions().add(
@@ -440,16 +443,17 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											getHlclFactory().number(
 													attributeValue)));
 						}
-
+						/*
 						if (instAttribute.getIdentifier().equals("Required")) {
 							getElementExpressions().add(
 									new EqualsComparisonExpression(instVertex,
 											"Required", getHlclFactory()
 													.number(attributeValue)));
 						}
-
+						*/
 						// identifierId_SimInitialRequiredLevel #=
 						// identifierId_RequiredLevel
+						/*
 						if (instAttribute.getIdentifier().equals(
 								"RequiredLevel")
 								&& (execType != Refas2Hlcl.CORE_EXEC)) {
@@ -463,8 +467,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									new EqualsComparisonExpression(instVertex,
 											instVertex, "InitialRequiredLevel",
 											instAttribute.getIdentifier()));
+											
 						}
-
+						*/
 						if (instAttribute.getIdentifier().equals(
 								"ConfigSelected")) {
 

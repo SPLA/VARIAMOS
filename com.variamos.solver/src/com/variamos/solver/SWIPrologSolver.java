@@ -145,7 +145,7 @@ public class SWIPrologSolver implements Solver {
 
 			// Add all additional configuration options
 			Compound query = addSubQueries(parts);
-			System.out.println(query.toString());
+			//System.out.println(query.toString());
 			qr = new Query(query);
 		} else {
 			qr = new Query(options.programName + "(L)");

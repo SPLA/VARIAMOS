@@ -283,7 +283,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			case "means_ends":
 			case "mandatory":
 				sourcePositiveAttributeNames.add("Selected");
-				sourceNegativeAttributeNames.add("NotAvailable");
+				//sourcePositiveAttributeNames.add("NotAvailable");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),

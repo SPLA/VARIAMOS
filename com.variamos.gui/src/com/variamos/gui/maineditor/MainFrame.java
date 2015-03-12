@@ -8,10 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import com.variamos.core.enums.SolverEditorType;
+import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
+import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.HlclProgram;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.types.PerspectiveType;
@@ -102,7 +108,8 @@ public class MainFrame extends JFrame {
 			}
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
-			VariamosGraphEditor editor = new VariamosGraphEditor(this, perspTitle,
+			VariamosGraphEditor editor = new VariamosGraphEditor(this,
+					perspTitle,
 					new VariamosGraphComponent(refasGraph, bgColor), i + 1,
 					abstractModel);
 			editor.setGraphEditorFunctions(new PerspEditorFunctions(editor));
@@ -126,6 +133,26 @@ public class MainFrame extends JFrame {
 		this.add(graphEditors.get(1));
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
+		try {
+			verifySolver();
+		} catch (UnsatisfiedLinkError e) {
+			e.printStackTrace();
+			JOptionPane
+			.showMessageDialog(
+					this,
+					"Solver not properly configured, visit http://variamos.com and follow the steps",
+					"Solver Error",
+					JOptionPane.INFORMATION_MESSAGE, null);
+		}
+	}
+
+	private void verifySolver() {
+		HlclFactory f = new HlclFactory();
+		HlclProgram model = new HlclProgram();
+		model.add(f.equals(f.number(1), f.number(1)));
+		IntDefectsVerifier verifier = new DefectsVerifier(model,
+				SolverEditorType.SWI_PROLOG);
+		verifier.isVoid();
 	}
 
 	private Map<String, SemanticExpressionType> createMetaExpressionTypes() {
@@ -165,14 +192,15 @@ public class MainFrame extends JFrame {
 				"lessThan", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
 				false, false));
-		out.put("LessOrEq", new SemanticExpressionType("LessOrEquals", "#<=",
+		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals", "#<=",
 				"#<=", "lessOrEqualsThan", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
 				false, false));
-		out.put("Literal", new SemanticExpressionType("LiteralBool", "", "",
+/*		out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "", "",
 				"literalBooleanExpression", SemanticExpressionType.LIT,
 				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
 				true, false));
+				*/
 		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
 				"not", SemanticExpressionType.BOOLEXP,
 				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
@@ -216,7 +244,7 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
 		graphEditors.get(perspective - 1).installToolBar(this, perspective);
 		graphEditors.get(perspective - 1).updateObjects();
-		graphEditors.get(perspective - 1).setVisibleModel(0, - 1);
+		graphEditors.get(perspective - 1).setVisibleModel(0, -1);
 		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
 		if (perspective != 4)
@@ -226,16 +254,14 @@ public class MainFrame extends JFrame {
 	}
 
 	public void setAdvancedPerspective(boolean advancedPerspective) {
-			showPerspectiveButton = advancedPerspective;
-			int i=0;
-			for (VariamosGraphEditor e : graphEditors)
-			{
-				e.installToolBar(this, i++);
-			}
+		showPerspectiveButton = advancedPerspective;
+		int i = 0;
+		for (VariamosGraphEditor e : graphEditors) {
+			e.installToolBar(this, i++);
+		}
 	}
-	
-	public boolean isAdvancedPerspective()
-	{
+
+	public boolean isAdvancedPerspective() {
 		return showPerspectiveButton;
 	}
 }

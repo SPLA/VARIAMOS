@@ -281,7 +281,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		int n = expressionsToTest.size();
 		List<List<BooleanExpression>> MCSes = new ArrayList<List<BooleanExpression>>();
 		List<List<BooleanExpression>> newUnsatisfiableSet = new ArrayList<List<BooleanExpression>>();
-		System.out.println("INICIO IDENTIFICACIÓN NIVEL " + r);
+		//System.out.println("INICIO IDENTIFICACIÓN NIVEL " + r);
 
 		while (advance) {
 
@@ -310,14 +310,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 				// actualizan las cláusulas a bloquear y se veridia si se puede
 				// terminar
 				if (isMCS) {
-					System.out.println("Identificado MCS tamaño " + r);
+					System.out.println("Identifing MCS size " + r);
 					MCSes.add(candidateMCS);
 
 				} else {
 
-					System.out
-							.println("Iniciando bloqueo dicotómico tamaño K: "
-									+ candidateMCS.size());
+				//	System.out
+				//			.println("Iniciando bloqueo dicotómico tamaño K: "
+				//					+ candidateMCS.size());
 					newUnsatisfiableSet.add(blockConstraints(modelExpressions,
 							modelToTest, fixedExpressions, unsatisifableSets,
 							blockedConstraints, r, defect));
@@ -328,12 +328,12 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			}
 
 		}
-		System.out.println("RESUMEN:Elementos ejecutados nivel " + r + ": "
-				+ analyzedSets + " de " + n);
-		System.out.println("Unsatisfiable collection of sets "
-				+ unsatisifableSets.size());
-		System.out.println("ClausesToBlock size: " + blockedConstraints.size());
-		System.out.println("MCS encontrados : " + MCSes);
+		//System.out.println("RESULT: Level " + r + " elements ejecuted: "
+		//		+ analyzedSets + " of " + n);
+		//System.out.println("Unsatisfiable collection of sets "
+		//		+ unsatisifableSets.size());
+		//System.out.println("ClausesToBlock size: " + blockedConstraints.size());
+		//System.out.println("MCS encontrados : " + MCSes);
 		return MCSes;
 
 	}
@@ -503,8 +503,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 					newUnsatisfiableSetComplement, k);
 		}
 
-		System.out.println("Conjunto de restricciones a bloquear: "
-				+ blockedConstraints.size());
+	//	System.out.println("Conjunto de restricciones a bloquear: "
+	//			+ blockedConstraints.size());
 		return newUnsatisfiableSetComplement;
 	}
 
@@ -609,7 +609,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 	public void printResults(Diagnosis diagnostic) {
 		// 3. PRINT RESULTS
-		System.out.println("_________________ RESULTADOS____________________");
+		System.out.println("_________________ RESULTS____________________");
 		System.out.println("_________________ MCS____________________");
 		diagnostic.printCorrections();
 
@@ -658,10 +658,16 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			totalTime = endTime - startTime;
 			diagnosis.setCausesProcessingTime(totalTime);
 			System.out.println(" Causes time: " + totalTime);
+			if (parentComponent != null) {
+				progressMonitor.setProgress(100);
+			}
 			return diagnosis;
 		} else {
 			// Solo se identifican causas y correcciones si el modelo es
 			// irresoluble
+			if (parentComponent != null) {
+				progressMonitor.setProgress(100);
+			}
 			return diagnosis;
 		}
 	}
@@ -684,7 +690,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			DefectAnalyzerMode mode) throws FunctionalException {
 		long i = 0;
 
-		progressMonitor.setProgress(1);
+		if (progressMonitor != null) {
+			progressMonitor.setProgress(1);
+		}
 		if (defect instanceof Redundancy) {
 			// Se quita de la lista la expresión que se considera
 			// redundante para que pueda ponerse su instrucción de verificación.
