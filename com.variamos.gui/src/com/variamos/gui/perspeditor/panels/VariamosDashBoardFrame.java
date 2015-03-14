@@ -15,7 +15,13 @@ import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
-
+/**
+ * A class to draw the dashboard for initial simultaion. Part of PhD work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-03-10
+ */
 public class VariamosDashBoardFrame extends JFrame {
 	/**
 	 * 

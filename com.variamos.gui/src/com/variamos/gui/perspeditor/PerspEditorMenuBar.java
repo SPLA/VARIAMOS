@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.gui.perspeditor.actions.AboutAction;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
@@ -269,9 +270,12 @@ public class PerspEditorMenuBar extends JMenuBar {
 		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
 				new HideAdvancedPerspectiveAction()));
 		menu.addSeparator();
-
 		add(menu);
-
+		
+		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));
+		menu.add(editor.bind(mxResources.get("about"),
+				new AboutAction()));
+		add(menu);
 	}
 
 }

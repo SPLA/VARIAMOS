@@ -45,8 +45,12 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
- * @author unknown
- *
+ * A class to draw the semantic expression editor. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-03-10
  */
 @SuppressWarnings("serial")
 public class SemanticExpressionDialog extends JDialog {

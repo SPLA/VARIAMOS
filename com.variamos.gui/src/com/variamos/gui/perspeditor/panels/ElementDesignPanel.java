@@ -53,6 +53,14 @@ import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.ModelingAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
+/**
+ * A class to draw the first property tab. Part of PhD work at University of
+ * Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-02-28*
+ */
 public class ElementDesignPanel extends JPanel {
 
 	/**
@@ -271,7 +279,7 @@ public class ElementDesignPanel extends JPanel {
 															.getValue())
 															.createSGSExpression(finalEditElm
 																	.getIdentifier());
-													//System.out.println(exp);
+													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
 															.showMessageDialog(
