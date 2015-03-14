@@ -44,6 +44,7 @@ public class RefasWidgetFactory {
 		widgetReg.put(EnumerationMultiSelectionType.IDENTIFIER, MEnumerationWidget.class);
 		widgetReg.put(ClassSingleSelectionType.IDENTIFIER, ClassWidget.class);
 		widgetReg.put(SetType.IDENTIFIER, SetWidget.class);
+		//widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
 		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
 
 	}

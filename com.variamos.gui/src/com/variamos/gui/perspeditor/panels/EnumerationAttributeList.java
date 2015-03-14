@@ -6,12 +6,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -19,6 +23,7 @@ import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonA
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.StringType;
@@ -45,7 +50,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 * Reference to the InstEnumeration required to validate Id
 	 */
 	private InstElement element;
-	
+
 	private InstCell instCell;
 	/**
 	 * 
@@ -80,7 +85,6 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				model.addElement(v);
 
 		model.addElement(spoof);
-		
 
 		// setSize(new Dimension(150, 150));
 		setPreferredSize(new Dimension(100, 180));
@@ -118,11 +122,11 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
-						false, "Enum Value", ""), "");
+						false, "Value Name", ""), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						false, "Enum Integer Id", ""), 0);
+						false, "Value Id(int)", ""), 0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -172,18 +176,58 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			@Override
 			public boolean onAction() {
 				// This calls Pull on each parameter
-				dialog.getParameters();
-
+				try {
+					dialog.getParameters();
+				} catch (NumberFormatException n) {
+					JOptionPane
+							.showMessageDialog(
+									dialog,
+									"Value is not a valid number",
+									"Number Format Error",
+									JOptionPane.ERROR_MESSAGE, null);
+					return false;
+				}
+				if (((Integer) instIdentifier.getValue()).intValue()<0)
+				 {
+					JOptionPane
+							.showMessageDialog(
+									dialog,
+									"Value is not positive number",
+									"Negative Number Error",
+									JOptionPane.ERROR_MESSAGE, null);
+					return false;
+				}
 				InstAttribute v = buffer[0];
 				v.setValue(((Integer) instIdentifier.getValue()).intValue()
 						+ "-" + (String) instName.getValue());
+
+				List<InstAttribute> attributes = ((List<InstAttribute>) element
+						.getInstAttributes()
+						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
-					((Collection<InstAttribute>) element.getInstAttributes()
-							.get(MetaEnumeration.VAR_METAENUMVALUE).getValue())
-							.add(v);
+					attributes.add(v);
 				}
+				Collections.sort(attributes, new EnumerationSort());
+
+				afterAction();
+				return true;
+			}
+		});
+
+		dialog.setOnDelete(new DialogButtonAction() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean onAction() {
+				// This calls Pull on each parameter
+				dialog.getParameters();
+				InstAttribute v = buffer[0];
+				List<InstAttribute> attributes = ((List<InstAttribute>) element
+						.getInstAttributes()
+						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+
+				attributes.remove(v);
 
 				afterAction();
 				return true;

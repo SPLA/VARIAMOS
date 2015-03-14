@@ -27,7 +27,8 @@ import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
-public class InstAttribute implements Serializable, EditableElementAttribute {
+public class InstAttribute implements Serializable, EditableElementAttribute,
+		Comparable<Object> {
 	/**
 	 * 
 	 */
@@ -354,8 +355,8 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 
 			if (this.getAttribute() != null
 					&& getEnumType() != null
-					&& getEnumType()
-							.equals(SemanticRelationType.class.getCanonicalName())) {
+					&& getEnumType().equals(
+							SemanticRelationType.class.getCanonicalName())) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaOverTwoRelation) instElement
 						.getTransSupportMetaElement())
 						.getSemanticRelationTypes();
@@ -365,8 +366,8 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 		if (instElement instanceof InstPairwiseRelation) {
 			if (this.getAttribute() != null
 					&& getEnumType() != null
-					&& getEnumType()
-							.equals(SemanticRelationType.class.getCanonicalName())) {
+					&& getEnumType().equals(
+							SemanticRelationType.class.getCanonicalName())) {
 				List<IntSemanticRelationType> semanticRelationTypes = ((MetaPairwiseRelation) instElement
 						.getTransSupportMetaElement())
 						.getSemanticRelationTypes();
@@ -388,5 +389,16 @@ public class InstAttribute implements Serializable, EditableElementAttribute {
 				setValidationMEList(metaGD);
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int compareTo(Object o) {
+		if (getValue() instanceof Comparable
+				&& ((InstAttribute) o).getValue() instanceof Comparable) {
+			return ((Comparable<Comparable<?>>) getValue())
+					.compareTo((Comparable<?>) ((InstAttribute) o).getValue());
+		}
+		return 0;
 	}
 }
