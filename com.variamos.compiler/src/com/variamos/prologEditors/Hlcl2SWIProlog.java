@@ -7,12 +7,19 @@ import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.compiler.solverSymbols.SWIPrologSymbols;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.hlcl.BooleanOperation;
+import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.IntervalDomain;
 import com.variamos.hlcl.RangeDomain;
+import com.variamos.hlcl.ComposedDomain;
 
+/**
+ * @author Luisa Rincón
+ * Modified by jcmunoz to support composed domains
+ *
+ */
 public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 	@Override
@@ -123,37 +130,34 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 			if (identifier.getDomain() instanceof RangeDomain) {
 				// Sample WidthResolution in 0..1
-				Integer lowerValue = ((RangeDomain) identifier.getDomain())
-						.getLowerValue();
-				Integer upperValue = ((RangeDomain) identifier.getDomain())
-						.getUpperValue();
-				domainString.append(id);
-				domainString.append(IN);
-				domainString.append(lowerValue);
-				domainString.append(DOMAIN_INTERVAL);
-				domainString.append(upperValue);
-
+				// jcmunoz: new method for range domains
+				domainString.append(getRangeDomain(identifier.getDomain(), id));
 			} else if (identifier.getDomain() instanceof IntervalDomain) {
 
 				// Sample WidthResolution in 0 \/ 800 \/ 1024 \/
 				// 1366
-				List<Integer> domains = ((IntervalDomain) identifier
-						.getDomain()).getRangeValues();
+				// jcmunoz: new method for interval domains
+				domainString.append(getIntervalDomain(identifier.getDomain(),
+						id));
 
-				domainString.append(id);
-				domainString.append(IN);
+				// jcmunoz: new condition for composed domains
+			} else if (identifier.getDomain() instanceof ComposedDomain) {
+				for (Domain domain : ((ComposedDomain) identifier.getDomain())
+						.getDomains()) {
+					if (domain instanceof RangeDomain) {
+						// Sample WidthResolution in 0..1
+						domainString.append(getRangeDomain(domain, id));
+					} else if (domain instanceof IntervalDomain) {
 
-				for (int i = 0; i < domains.size(); i++) {
-					Integer domainValue = domains.get(i);
-					domainString.append(Integer.toString(domainValue));
-					if (i < domains.size() - 1) {
-						domainString.append(ORDOMAIN);
-
+						// Sample WidthResolution in 0 \/ 800 \/ 1024 \/
+						// 1366
+						domainString.append(getIntervalDomain(domain, id));
 					}
-
+					// set the id to null to define the variable only one time.
+					id = null;
 				}
-
 			}
+
 			domainString.append(COMMA);
 		}
 		variablesList.append("],");
@@ -167,6 +171,53 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		// TODO implements composed domain transformation
 
 		return dommainAndVariables;
+	}
+
+	/**
+	 * New method to support Range individual or composed domains
+	 * @param domain
+	 * @param id: is null for second and additional domain ranges
+	 * @return
+	 */
+	private StringBuffer getRangeDomain(Domain domain, String id) {
+		StringBuffer domainString = new StringBuffer();
+		Integer lowerValue = ((RangeDomain) domain).getLowerValue();
+		Integer upperValue = ((RangeDomain) domain).getUpperValue();
+		if (id != null) {
+			domainString.append(id);
+			domainString.append(IN);
+		} else
+			domainString.append(ORDOMAIN);
+		domainString.append(lowerValue);
+		domainString.append(DOMAIN_INTERVAL);
+		domainString.append(upperValue);
+		return domainString;
+	}
+	/**
+	 * @author jcmunoz {jcmunoz@gmail.com}
+	 * New method to support Internal individual or composed domains
+	 * @param domain
+	 * @param id: is null for second and additional domain intervals
+	 * @return
+	 */
+	private StringBuffer getIntervalDomain(Domain domain, String id) {
+		StringBuffer domainString = new StringBuffer();
+		List<Integer> domains = ((IntervalDomain) domain).getRangeValues();
+		if (id != null) {
+			domainString.append(id);
+			domainString.append(IN);
+		} else
+			domainString.append(ORDOMAIN);
+		for (int i = 0; i < domains.size(); i++) {
+			Integer domainValue = domains.get(i);
+			domainString.append(Integer.toString(domainValue));
+			if (i < domains.size() - 1) {
+				domainString.append(ORDOMAIN);
+
+			}
+
+		}
+		return domainString;
 	}
 
 	@Override
