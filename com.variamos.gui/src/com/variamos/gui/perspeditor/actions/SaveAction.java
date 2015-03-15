@@ -29,6 +29,7 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
@@ -66,6 +67,19 @@ public class SaveAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
+	protected void resetEditor(VariamosGraphEditor editor) {
+		editor.setVisibleModel(0, -1);
+		editor.setDefaultButton();
+		editor.updateView();
+		editor.setModified(false);
+		editor.getUndoManager().clear();
+		editor.getGraphComponent().zoomAndCenter();
+	}
+
+	/**
+	 * 
+	 */
+
 	public SaveAction(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
@@ -119,12 +133,12 @@ public class SaveAction extends AbstractEditorAction {
 
 		if (editor != null) {
 			final VariamosGraphEditor finalEditor = editor;
-			if (editor.getPerspective()==4)
-			{
-				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-						null);
-				
+			if (editor.getPerspective() == 4) {
+				JOptionPane.showMessageDialog(editor,
+						mxResources.get("saveloadnewerror"),
+						"Operation not supported",
+						JOptionPane.INFORMATION_MESSAGE, null);
+
 				return;
 			}
 			((MainFrame) editor.getFrame()).waitingCursor(true);
@@ -250,7 +264,7 @@ public class SaveAction extends AbstractEditorAction {
 							filename);
 				} else if (ext.equalsIgnoreCase("sxfm")) {
 					SXFMWriter writer = new SXFMWriter();
-					
+
 					mxUtils.writeFile(
 							writer.getSXFMContent(editor.getEditedModel()),
 							filename);
@@ -268,9 +282,9 @@ public class SaveAction extends AbstractEditorAction {
 					mxCodec codec = new mxCodec();
 					String xml = mxXmlUtils.getXml(codec.encode(outGraph
 							.getModel()));
-					SharedActions.afterSaveGraph(outGraph, editor);
 					mxUtils.writeFile(xml, filename);
-
+					SharedActions.afterSaveGraph(graph, editor);
+					editor.updateObjects();
 					editor.setModified(false);
 					editor.setCurrentFile(new File(filename));
 				} else {
