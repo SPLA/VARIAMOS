@@ -1,5 +1,6 @@
 package com.variamos.perspsupport.syntaxsupport;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class MetaEnumeration extends MetaVertex {
 				VAR_METAENUMNAMENAME, "");
 		addModelingAttribute(VAR_METAENUMVALUE, "Set", false,
 				VAR_METAENUMVALUENAME, VAR_METAENUMVALUECLASS,
-				new HashSet<InstAttribute>());	
+				new ArrayList<InstAttribute>());	
 
 		this.addPropEditableAttribute("01#" + VAR_METAENUMNAME);
 		this.addPropEditableAttribute("02#" + VAR_METAENUMVALUE);

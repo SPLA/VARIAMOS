@@ -22,7 +22,9 @@ public class Main {
 		}
 
 		int options = 4; // 0 old way to load product lines
-
-		new MainFrame();
+		if(ar.length>0)
+			new MainFrame(ar[0]);
+		else
+			new MainFrame(null);
 	}
 }

@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 	private List<VariamosGraphEditor> graphEditors;
 	private List<PerspEditorMenuBar> editorsMenu;
 
-	public MainFrame() {
+	public MainFrame(String arg0) {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
@@ -134,6 +134,7 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
 		try {
+			if (arg0 == null || !arg0.equals("nosolver"))
 			verifySolver();
 		} catch (UnsatisfiedLinkError e) {
 			e.printStackTrace();
