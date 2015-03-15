@@ -612,8 +612,15 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	protected void removingRefaElements(mxCell cell) {
 		InstElement instElement = ((InstCell) cell.getValue()).getInstElement();
-		if (instElement != null)
+		if (instElement != null) {
+			for (int ii = 0; ii < cell.getEdgeCount(); ii++) {
+				mxCell edge = (mxCell) cell.getEdgeAt(ii);
+				InstElement instElement2 = ((InstCell) edge.getValue())
+						.getInstElement();
+				refasModel.removeElement(instElement2);
+			}
 			refasModel.removeElement(instElement);
+		}
 	}
 
 	protected void removingClones(mxCell cell) {
@@ -637,7 +644,7 @@ public class PerspEditorGraph extends AbstractGraph {
 								mv1.remove(edge);
 							}
 							removingRefaElements(child);
-							mv1.remove(j);
+							mv1.remove(mv2);
 						}
 					}
 					mxCell mv2 = (mxCell) refasGraph.getChildAt(mv0, i);
@@ -649,7 +656,7 @@ public class PerspEditorGraph extends AbstractGraph {
 							mv0.remove(edge);
 						}
 						removingRefaElements(child);
-						mv0.remove(i);
+						mv0.remove(mv2);
 					}
 
 				}
