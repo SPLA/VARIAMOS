@@ -138,20 +138,19 @@ public class InstanceExpressionDialog extends JDialog {
 				}
 				textTextualExpression.setWrapStyleWord(true);
 				textTextualExpression.setPreferredSize(new Dimension(this
-						.getWidth() - 50, this.height/3));
+						.getWidth() - 50, this.height / 3));
 				textTextualExpression.setEditable(false);
 				textTextualExpression.setAutoscrolls(true);
 				textTextualExpression.setLineWrap(true);
 				textTextualExpression.setRows(4);
 				textExpression.add(textTextualExpression);
-				//JPanel txtPanel = new JPanel();
+				// JPanel txtPanel = new JPanel();
 				JScrollPane sp = new JScrollPane(textExpression);
 				sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-				sp.setPreferredSize(new Dimension(this
-						.getWidth() - 50, 100));
-				//txtPanel.add(textExpression);
-				//txtPanel.setPreferredSize(new Dimension(this
-				//		.getWidth() - 30, 100));
+				sp.setPreferredSize(new Dimension(this.getWidth() - 50, 100));
+				// txtPanel.add(textExpression);
+				// txtPanel.setPreferredSize(new Dimension(this
+				// .getWidth() - 30, 100));
 				panel.add(textExpression);
 			} else
 				panel.add(new JLabel());
@@ -228,6 +227,19 @@ public class InstanceExpressionDialog extends JDialog {
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
+		
+		final JButton btnAccept = new JButton();
+		btnAccept.setText("Accept");
+		btnAccept.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (onAccept != null)
+					if (onAccept.onAction())
+						dispose();
+			}
+		});
+
+		buttonsPanel.add(btnAccept);
 
 		final JButton btnCancel = new JButton();
 		btnCancel.setText("Cancel");
@@ -244,19 +256,6 @@ public class InstanceExpressionDialog extends JDialog {
 		});
 
 		buttonsPanel.add(btnCancel);
-
-		final JButton btnAccept = new JButton();
-		btnAccept.setText("Accept");
-		btnAccept.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (onAccept != null)
-					if (onAccept.onAction())
-						dispose();
-			}
-		});
-
-		buttonsPanel.add(btnAccept);
 
 		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
 
@@ -560,8 +559,14 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstanceExpression instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
-		JTextField textField = new JTextField(""
-				+ (instanceExpression).getNumber());
+		JTextField textField;
+		if (expressionVertexType
+				.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+			textField = new JTextField(""
+					+ (instanceExpression).getLeftNumber());
+		else
+			textField = new JTextField(""
+					+ (instanceExpression).getRightNumber());
 		textField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -572,7 +577,12 @@ public class InstanceExpressionDialog extends JDialog {
 				String item = (String) ((JTextField) event.getSource())
 						.getText();
 				if (item != null) {
-					instanceExpression.setNumber(Integer.parseInt(item));
+					if (expressionVertexType
+							.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+						instanceExpression.setLeftNumber(Integer.parseInt(item));
+					else
+						instanceExpression.setRightNumber(Integer
+								.parseInt(item));
 				}
 			}
 		});
@@ -646,17 +656,20 @@ public class InstanceExpressionDialog extends JDialog {
 					String domain = (String) instVertex.getInstAttribute(
 							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
 
-					Domain dom = (DomainParser.parseDomain( domain));
+					Domain dom = (DomainParser.parseDomain(domain));
 					List<Integer> intValues = dom.getPossibleValues();
 					for (Integer intValue : intValues) {
-						combo.addItem(instVertex.getIdentifier() + "_" + intValue.intValue());
+						combo.addItem(instVertex.getIdentifier() + "_"
+								+ intValue.intValue());
 
 					}
-				/*	String split[] = domain.split(",");
-					for (String dom : split) {
-						combo.addItem(instVertex.getIdentifier() + "_" + dom);
-
-					}*/
+					/*
+					 * String split[] = domain.split(","); for (String dom :
+					 * split) { combo.addItem(instVertex.getIdentifier() + "_" +
+					 * dom);
+					 * 
+					 * }
+					 */
 					break;
 				case "Enumeration":
 					Object object = instVertex.getInstAttribute(

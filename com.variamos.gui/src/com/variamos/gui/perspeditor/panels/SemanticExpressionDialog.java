@@ -187,6 +187,19 @@ public class SemanticExpressionDialog extends JDialog {
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
+		
+		final JButton btnAccept = new JButton();
+		btnAccept.setText("Accept");
+		btnAccept.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (onAccept != null)
+					if (onAccept.onAction())
+						dispose();
+			}
+		});
+
+		buttonsPanel.add(btnAccept);
 
 		final JButton btnCancel = new JButton();
 		btnCancel.setText("Cancel");
@@ -204,18 +217,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 		buttonsPanel.add(btnCancel);
 
-		final JButton btnAccept = new JButton();
-		btnAccept.setText("Accept");
-		btnAccept.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (onAccept != null)
-					if (onAccept.onAction())
-						dispose();
-			}
-		});
 
-		buttonsPanel.add(btnAccept);
 
 		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
 
@@ -601,8 +603,14 @@ public class SemanticExpressionDialog extends JDialog {
 			final SemanticExpression instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
-		JTextField textField = new JTextField(""
-				+ (instanceExpression).getNumber());
+		JTextField textField;
+		if (expressionVertexType
+				.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+			textField = new JTextField(""
+					+ (instanceExpression).getLeftNumber());
+		else
+			textField = new JTextField(""
+					+ (instanceExpression).getRightNumber());
 		textField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -613,7 +621,12 @@ public class SemanticExpressionDialog extends JDialog {
 				String item = (String) ((JTextField) event.getSource())
 						.getText();
 				if (item != null) {
-					instanceExpression.setNumber(Integer.parseInt(item));
+					if (expressionVertexType
+							.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+						instanceExpression.setLeftNumber(Integer.parseInt(item));
+					else
+						instanceExpression.setRightNumber(Integer
+								.parseInt(item));
 				}
 			}
 		});

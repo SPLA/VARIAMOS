@@ -414,10 +414,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				out.add(getIdentifier(expressionType));
 				break;
 			case LEFTNUMERICEXPRESSIONVALUE:
-				out.add(hlclFactory.number(getSemanticExpression().getNumber()));
+				out.add(hlclFactory.number(getSemanticExpression().getLeftNumber()));
 				break;
 			case RIGHTNUMERICEXPRESSIONVALUE:
-				out.add(hlclFactory.number(getSemanticExpression().getNumber()));
+				out.add(hlclFactory.number(getSemanticExpression().getRightNumber()));
 
 				break;
 			case LEFTVARIABLEVALUE:
@@ -550,12 +550,20 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
 
-	public int getNumber() {
-		return getSemanticExpression().getNumber();
+	public int getLeftNumber() {
+		return getSemanticExpression().getLeftNumber();
+	}
+	
+	public int getRightNumber() {
+		return getSemanticExpression().getRightNumber();
 	}
 
-	public void setNumber(int number) {
-		getSemanticExpression().setNumber(number);
+	public void setLeftNumber(int number) {
+		getSemanticExpression().setLeftNumber(number);
+	}
+
+	public void setRightNumber(int number) {
+		getSemanticExpression().setRightNumber(number);
 	}
 
 	public void setSemanticExpressionType(
