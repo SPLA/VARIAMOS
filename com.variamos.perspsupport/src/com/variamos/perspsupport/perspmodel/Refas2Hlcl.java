@@ -60,6 +60,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration = new Configuration();
 	private Solver swiSolver;
+	private long lastExecutionTime;
+
+	public long getLastExecutionTime() {
+		return lastExecutionTime;
+	}
 
 	public Configuration getConfiguration() {
 		return configuration;
@@ -368,6 +373,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
+				lastExecutionTime= swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("No solution");

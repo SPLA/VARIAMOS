@@ -44,6 +44,8 @@ public class GNUPrologSolver implements Solver {
 	private QueryResult qr;
 	private HlclProgram hlclProgram;
 
+	private long lastExecutionTime;
+
 	public GNUPrologSolver(PrologContext ctx) {
 		prolog = ctx.getEngine();
 		ptf = ctx.getTermFactory();
@@ -255,7 +257,9 @@ public class GNUPrologSolver implements Solver {
 
 		CompoundTerm query = addSubQueries(parts, ptf);
 		System.out.println(query.toString());
+		long initTime = System.currentTimeMillis();
 		qr = prolog.runQuery(query);
+		lastExecutionTime = System.currentTimeMillis()- initTime;
 
 	}
 
@@ -415,6 +419,11 @@ public class GNUPrologSolver implements Solver {
 	@Override
 	public boolean hasSolution() {
 		return false; // FIXME
+	}
+
+	@Override
+	public long getLastExecutionTime() {
+		return lastExecutionTime;
 	}
 
 }

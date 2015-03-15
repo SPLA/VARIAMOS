@@ -12,7 +12,7 @@ import com.variamos.solver.Solver;
 public class SolverOperationsUtil {
 
 	private Solver solver;
-	
+
 	public SolverOperationsUtil() {
 		super();
 	}
@@ -39,19 +39,26 @@ public class SolverOperationsUtil {
 		return solver.hasSolution();
 
 	}
-	
-	
-	public boolean isSatisfiable(HlclProgram model, Configuration configuration, ConfigurationOptions configurationOptions) {
+
+	public boolean isSatisfiable(HlclProgram model,
+			Configuration configuration,
+			ConfigurationOptions configurationOptions) {
 		solver.setHLCLProgram(model);
 		solver.solve(configuration, configurationOptions);
 		return solver.hasSolution();
 
 	}
-	
-	public Configuration getConfiguration(HlclProgram model, Configuration configuration, ConfigurationOptions configurationOptions){
+
+	public Configuration getConfiguration(HlclProgram model,
+			Configuration configuration,
+			ConfigurationOptions configurationOptions) {
 		solver.setHLCLProgram(model);
 		solver.solve(configuration, configurationOptions);
 		return solver.getSolution();
+	}
+
+	public long getLastExecutionTime() {
+		return solver.getLastExecutionTime();
 	}
 
 	/**
@@ -62,7 +69,7 @@ public class SolverOperationsUtil {
 	 * @param prologEditorType
 	 * @return
 	 */
-	public boolean isFalseProductLine(HlclProgram model ) {
+	public boolean isFalseProductLine(HlclProgram model) {
 
 		Configuration configuration = new Configuration();
 		int count = 0;
@@ -82,5 +89,4 @@ public class SolverOperationsUtil {
 
 	}
 
-	
 }

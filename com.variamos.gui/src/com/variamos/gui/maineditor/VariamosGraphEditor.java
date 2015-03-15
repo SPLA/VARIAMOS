@@ -1444,11 +1444,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			String element) {
 		boolean wasFirst =false;
 		long iniTime = System.currentTimeMillis();
-		long iniSTime = 0;
-		long endSTime = 0;
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
-		iniSTime = System.currentTimeMillis();
 		try {
 			if (first || lastConfiguration == null) {
 				result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
@@ -1466,7 +1463,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				}
 			}
 			lastConfiguration = refas2hlcl.getConfiguration();
-			endSTime = System.currentTimeMillis();
 			if (result) {
 				if (update) {
 					refas2hlcl.updateGUIElements(null);
@@ -1519,7 +1515,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
-					+ (endSTime - iniSTime) + "]" + " -- ";
+					+ refas2hlcl.getLastExecutionTime()/1000000 + "]" + " -- ";
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.messagesArea.setText(e.toString());

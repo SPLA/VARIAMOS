@@ -107,7 +107,7 @@ public class VariamosDashBoardFrame extends JFrame {
 					JLabel titleLab = new JLabel("***                 "
 							+ element.getMetaElementName() + "s              ***");
 
-					titleLab.setFont(new Font("default", Font.BOLD, 14));
+					titleLab.setFont(new Font("default", Font.BOLD, 15));
 					solutionPanel.add(titleLab);
 					title = true;
 					cols = element.getCols();
