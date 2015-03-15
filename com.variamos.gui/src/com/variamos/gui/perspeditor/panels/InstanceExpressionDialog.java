@@ -33,6 +33,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -102,7 +104,7 @@ public class InstanceExpressionDialog extends JDialog {
 		if (instanceExpressions != null)
 			this.instanceExpressions = instanceExpressions;
 
-		for (InstanceExpression instanceExpression : this.instanceExpressions) {
+		for (final InstanceExpression instanceExpression : this.instanceExpressions) {
 
 			if (instanceExpressions != null)
 				selectedExpression = instanceExpression;
@@ -574,6 +576,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 			@Override
 			public void focusLost(FocusEvent event) {
+				selectedExpression = instanceExpression;
 				String item = (String) ((JTextField) event.getSource())
 						.getText();
 				if (item != null) {
@@ -614,6 +617,7 @@ public class InstanceExpressionDialog extends JDialog {
 		identifiers.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
+				selectedExpression = instanceExpression;
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String item = (String) event.getItem();
 					if (item != null) {
@@ -780,6 +784,7 @@ public class InstanceExpressionDialog extends JDialog {
 		combo.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
+				selectedExpression = instanceExpression;
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String item = (String) event.getItem();
 					if (item != null) {
