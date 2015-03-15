@@ -1440,9 +1440,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	//
 	// }
 
-	public void executeSimulation(boolean first, int type, boolean update,
+	public boolean executeSimulation(boolean first, int type, boolean update,
 			String element) {
-
+		boolean wasFirst =false;
 		long iniTime = System.currentTimeMillis();
 		long iniSTime = 0;
 		long endSTime = 0;
@@ -1453,6 +1453,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (first || lastConfiguration == null) {
 				result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
 						type);
+				wasFirst= true;
 			} else {
 				result = refas2hlcl.execute(element, Refas2Hlcl.NEXT_SOLUTION,
 						type);
@@ -1531,7 +1532,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 			((MainFrame) getFrame()).waitingCursor(false);
 		}
-
+		return wasFirst;
 	}
 
 	private List<String> compareSolutions(Configuration lastConfiguration,
