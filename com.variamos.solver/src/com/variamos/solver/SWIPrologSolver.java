@@ -187,8 +187,10 @@ public class SWIPrologSolver implements Solver {
 	public Configuration getSolution() {
 		if (qr != null) {
 			if (hasNextSolution()) {
+				long initTime = System.nanoTime();
 				Hashtable<Variable, Term> configurationHashSet = qr
 						.nextSolution();
+				lastExecutionTime = System.nanoTime() - initTime;
 				if (configurationHashSet != null) {
 					Configuration configuration = makeConfiguration(configurationHashSet);
 					return configuration;

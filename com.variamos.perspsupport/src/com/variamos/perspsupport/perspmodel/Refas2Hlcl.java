@@ -384,6 +384,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
+				lastExecutionTime= swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return false;
 			}
