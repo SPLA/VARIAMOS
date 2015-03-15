@@ -31,6 +31,7 @@ import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
@@ -628,12 +629,28 @@ public class PerspEditorGraph extends AbstractGraph {
 					mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
 					for (int j = 0; j < refasGraph.getChildCount(mv1); j++) {
 						mxCell mv2 = (mxCell) refasGraph.getChildAt(mv1, j);
-						if (cell.getValue().equals(mv2.getValue()))
+						if (cell.getValue().equals(mv2.getValue())) {
+							mxCell child = (mxCell) mv1.getChildAt(j);
+							for (int ii = 0; ii < child.getEdgeCount(); ii++) {
+								mxCell edge = (mxCell) child.getEdgeAt(ii);
+								removingRefaElements(edge);
+								mv1.remove(edge);
+							}
+							removingRefaElements(child);
 							mv1.remove(j);
+						}
 					}
 					mxCell mv2 = (mxCell) refasGraph.getChildAt(mv0, i);
-					if (cell.getValue().equals(mv2.getValue()))
+					if (cell.getValue().equals(mv2.getValue())) {
+						mxCell child = (mxCell) mv0.getChildAt(i);
+						for (int ii = 0; ii < child.getEdgeCount(); ii++) {
+							mxCell edge = (mxCell) child.getEdgeAt(ii);
+							removingRefaElements(edge);
+							mv0.remove(edge);
+						}
+						removingRefaElements(child);
 						mv0.remove(i);
+					}
 
 				}
 			}

@@ -33,7 +33,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	private String lastLeft = null;
 	private String lastRight = null;
 
-	private int number;
+	private int leftNumber, rightNumber;
 	private boolean recursiveExpression;
 
 	private InstElement instElement;
@@ -90,7 +90,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression() {
 	}
-	
+
 	public SemanticExpression(InstElement instElement) {
 		this.instElement = instElement;
 		this.setLeftSemanticElement(instElement);
@@ -225,8 +225,12 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setLeftNumber(int leftNumber) {
+		this.leftNumber = leftNumber;
+	}
+
+	public void setRightNumber(int rightNumber) {
+		this.rightNumber = rightNumber;
 	}
 
 	public void setLeftSemanticElement(InstElement leftSemanticElement) {
@@ -326,8 +330,12 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		return rightSemanticExpression;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getLeftNumber() {
+		return leftNumber;
+	}
+
+	public int getRightNumber() {
+		return rightNumber;
 	}
 
 	public int getLeftValidExpressions() {
@@ -400,10 +408,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
 		case LEFT:
-				return leftSemanticElement;
+			return leftSemanticElement;
 		case RIGHT:
 		case RIGHTCONCEPTVARIABLE:
-				return rightSemanticElement;
+			return rightSemanticElement;
 		default:
 		}
 		return null;

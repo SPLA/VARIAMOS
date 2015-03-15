@@ -195,8 +195,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				defectVerifier.resetTime();
 				deadIndetifiersList = defectVerifier.getDeadElements(
 						freeIdentifiers, null, config);
-				executionTime += "Dead: " + defectVerifier.getTotalTime()
-						+ "[" + defectVerifier.getSolverTime() + "]" + " -- ";
+				executionTime += "Dead: " + defectVerifier.getTotalTime() + "["
+						+ defectVerifier.getSolverTime() + "]" + " -- ";
 				if (deadIndetifiersList.size() > 0) {
 					for (Defect conceptVariable : deadIndetifiersList) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -463,7 +463,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 					Set<Identifier> identDeadElements = new HashSet<Identifier>();
 
-
 					List<Defect> deadIndetifiersList = null;
 					if (defect == null || defect.contains("Dead")
 							|| defect.contains("Core"))
@@ -475,8 +474,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 								identDeadElements.add(f
 										.newIdentifier(freeIndentifier));
 						}
-
-
 						deadIndetifiersList = defectVerifier
 								.getDeadElements(identDeadElements);
 					}

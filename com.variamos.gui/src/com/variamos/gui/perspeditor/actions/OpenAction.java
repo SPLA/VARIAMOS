@@ -22,7 +22,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import fm.FeatureModelException;
 
 @SuppressWarnings("serial")
-public class OpenAction extends AbstractEditorAction{
+public class OpenAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
@@ -31,59 +31,55 @@ public class OpenAction extends AbstractEditorAction{
 	/**
 	 * 
 	 */
-	protected void resetEditor(VariamosGraphEditor editor)
-	{
-		editor.setVisibleModel(0,-1);
+	protected void resetEditor(VariamosGraphEditor editor) {
+		editor.setVisibleModel(0, -1);
 		editor.setDefaultButton();
 		editor.updateView();
 		editor.setModified(false);
 		editor.getUndoManager().clear();
 		editor.getGraphComponent().zoomAndCenter();
 	}
-	
+
 	@Deprecated
-	protected void openSXFM(BasicGraphEditor editor, File file) throws IOException, FeatureModelException{
-		
-		VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
+	protected void openSXFM(BasicGraphEditor editor, File file)
+			throws IOException, FeatureModelException {
+
+		VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
 		variamosEditor.editModelReset();
-		
-	//	SXFMReader reader = new SXFMReader();
-		//AbstractModel pl = reader.readFile(file.getAbsolutePath());
-		
-	//	variamosEditor.editModel(pl);
-		
+
+		// SXFMReader reader = new SXFMReader();
+		// AbstractModel pl = reader.readFile(file.getAbsolutePath());
+
+		// variamosEditor.editModel(pl);
+
 		editor.setCurrentFile(file);
 		resetEditor(variamosEditor);
 	}
-	
+
 	/**
 	 * 
 	 */
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		BasicGraphEditor editor = getEditor(e);
 
-		if (editor != null)
-		{
-			VariamosGraphEditor variamosEditor = (VariamosGraphEditor)editor;
-			if (variamosEditor.getPerspective()==4)
-			{
-				JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-						"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-						null);
-				
+		if (editor != null) {
+			VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
+			if (variamosEditor.getPerspective() == 4) {
+				JOptionPane.showMessageDialog(editor,
+						mxResources.get("saveloadnewerror"),
+						"Operation not supported",
+						JOptionPane.INFORMATION_MESSAGE, null);
+
 				return;
 			}
 			final BasicGraphEditor finalEditor = editor;
-			((MainFrame)editor.getFrame()).waitingCursor(true);
+			((MainFrame) editor.getFrame()).waitingCursor(true);
 			if (!editor.isModified()
 					|| JOptionPane.showConfirmDialog(editor,
-							mxResources.get("loseChanges")) == JOptionPane.YES_OPTION)
-			{
+							mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
 				mxGraph graph = editor.getGraphComponent().getGraph();
 
-				if (graph != null)
-				{
+				if (graph != null) {
 					String wd = (lastDir != null) ? lastDir : System
 							.getProperty("user.dir");
 
@@ -92,79 +88,72 @@ public class OpenAction extends AbstractEditorAction{
 					// Adds file filter for supported file format
 					DefaultFileFilter defaultFilter = new DefaultFileFilter(
 							".vmsm", mxResources.get("defaultExtension")
-									+ " (.vmsm)")
-					{
+									+ " (.vmsm)") {
 
-						public boolean accept(File file)
-						{
+						public boolean accept(File file) {
 							String lcase = file.getName().toLowerCase();
 
-							((MainFrame) finalEditor.getFrame()).waitingCursor(false);
+							((MainFrame) finalEditor.getFrame())
+									.waitingCursor(false);
 							return lcase.endsWith(".vmsm")
 									|| lcase.endsWith(".sxfm");
 						}
 					};
-					//fc.addChoosableFileFilter(defaultFilter);
+					// fc.addChoosableFileFilter(defaultFilter);
 
 					fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
-							mxResources.get("sxfmExtension")
-									+ " (.sxfm)"));
+							mxResources.get("sxfmExtension") + " (.sxfm)"));
 
 					fc.setFileFilter(defaultFilter);
 
-					int rc = fc.showDialog(null,
-							mxResources.get("openFile"));
+					int rc = fc.showDialog(null, mxResources.get("openFile"));
 
-					if (rc == JFileChooser.APPROVE_OPTION)
-					{
+					if (rc == JFileChooser.APPROVE_OPTION) {
 						lastDir = fc.getSelectedFile().getParent();
 
-						try
-						{
+						try {
 							if (fc.getSelectedFile().getAbsolutePath()
-									.toLowerCase().endsWith(".sxfm"))
-							{
+									.toLowerCase().endsWith(".sxfm")) {
 								openSXFM(editor, fc.getSelectedFile());
 							}
-//							else if (fc.getSelectedFile().getAbsolutePath()
-//									.toLowerCase().endsWith(".txt"))
-//							{
-//								openGD(editor, fc.getSelectedFile(),
-//										mxUtils.readFile(fc
-//												.getSelectedFile()
-//												.getAbsolutePath()));
-//							}
-							else
-							{
-//								Document document = mxXmlUtils
-//										.parseXml(mxUtils.readFile(fc
-//												.getSelectedFile()
-//												.getAbsolutePath()));
-//
-//								mxCodec codec = new mxCodec(document);
-//								codec.decode(
-//										document.getDocumentElement(),
-//										graph.getModel());
-							//	variamosEditor.editModelReset();
+							// else if (fc.getSelectedFile().getAbsolutePath()
+							// .toLowerCase().endsWith(".txt"))
+							// {
+							// openGD(editor, fc.getSelectedFile(),
+							// mxUtils.readFile(fc
+							// .getSelectedFile()
+							// .getAbsolutePath()));
+							// }
+							else {
+								// Document document = mxXmlUtils
+								// .parseXml(mxUtils.readFile(fc
+								// .getSelectedFile()
+								// .getAbsolutePath()));
+								//
+								// mxCodec codec = new mxCodec(document);
+								// codec.decode(
+								// document.getDocumentElement(),
+								// graph.getModel());
+								// variamosEditor.editModelReset();
 								((VariamosGraphEditor) editor).resetView();
-								 graph = editor.getGraphComponent().getGraph();
-								SharedActions.beforeLoadGraph(graph, variamosEditor);
-								
+								graph = editor.getGraphComponent().getGraph();
+								SharedActions.beforeLoadGraph(graph,
+										variamosEditor);
+
 								PLGReader.loadPLG(fc.getSelectedFile(), graph,
 										variamosEditor);
-								editor.setCurrentFile(fc
-										.getSelectedFile());
-								SharedActions.afterOpenCloneGraph(graph, variamosEditor);
-									variamosEditor.populateIndex(((AbstractGraph)graph).getProductLine());
+								editor.setCurrentFile(fc.getSelectedFile());
+								SharedActions.afterOpenCloneGraph(graph,
+										variamosEditor);
+								variamosEditor
+										.populateIndex(((AbstractGraph) graph)
+												.getProductLine());
 								resetEditor(variamosEditor);
 							}
-						}
-						catch (IOException | FeatureModelException ex )
-						{
+						} catch (IOException | FeatureModelException ex) {
 							ex.printStackTrace();
 							JOptionPane.showMessageDialog(
-									editor.getGraphComponent(),
-									ex.toString(),
+									editor.getGraphComponent(), ex.toString(),
 									mxResources.get("error"),
 									JOptionPane.ERROR_MESSAGE);
 						}
@@ -172,7 +161,7 @@ public class OpenAction extends AbstractEditorAction{
 				}
 			}
 			variamosEditor.refresh();
-			((MainFrame)editor.getFrame()).waitingCursor(false);
+			((MainFrame) editor.getFrame()).waitingCursor(false);
 		}
 	}
 

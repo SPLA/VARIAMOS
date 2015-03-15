@@ -700,7 +700,7 @@ public class EditorActions {
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						System.out.println("recover time: " + elapsedTime);
-
+						editor.updateObjects();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					} else if (ext.equalsIgnoreCase("txt")) {
