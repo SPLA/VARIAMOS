@@ -32,6 +32,7 @@ public interface Solver {
 	@Deprecated
 	public Object getProductLine();
 	
+	public long getLastExecutionTime();
 	
 	//Proposed operations
 	

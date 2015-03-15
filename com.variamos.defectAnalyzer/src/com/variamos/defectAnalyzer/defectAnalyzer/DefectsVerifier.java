@@ -250,10 +250,9 @@ public class DefectsVerifier implements IntDefectsVerifier {
 					copy.setConfiguration(configurationValues);
 					copy.set(identifier.getId(), definedDomainValue);
 
-					long initSolver = System.currentTimeMillis();
 					configurationResult = solver.getConfiguration(model, copy,
 							new ConfigurationOptions());
-					solverTime += System.currentTimeMillis() - initSolver;
+					solverTime += solver.getLastExecutionTime();
 					if (configurationResult != null) {
 						// Los valores identificados se actualizan en el
 						// mapa para
@@ -460,10 +459,9 @@ public class DefectsVerifier implements IntDefectsVerifier {
 			configurationValues.putAll(configuration.getConfiguration());
 			copy.setConfiguration(configurationValues);
 			copy.ban(identifier.getId());
-			long initSolver = System.currentTimeMillis();
 			Configuration configurationResult = solver.getConfiguration(model,
 					copy, options);
-			solverTime += System.currentTimeMillis() - initSolver;
+			solverTime += solver.getLastExecutionTime();
 
 			if (configurationResult != null) {
 				// Los valores identificados se actualizan en el mapa para

@@ -118,6 +118,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 		} catch (InterruptedException ignore) {
 		}
+		task = 100;
+		setProgress((int) task);
 		return null;
 	}
 
@@ -128,8 +130,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		Set<InstElement> elementSubSet = null;
 		task = 0;
 		long iniTime = 0;
-		long iniSTime = 0;
-		long endSTime = 0;
 		long endTime = 0;
 		iniTime = System.currentTimeMillis();
 		if (invalidConfigHlclProgram && element == null) {
@@ -164,7 +164,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		// System.out.println("CONF: " + configuredIdentNames);
 
-		iniSTime = System.currentTimeMillis();
 		if (freeIdentifiers.size() > 0) {
 			try {
 
@@ -173,7 +172,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				requiredConcepts = defectVerifier.getFalseOptionalElements(
 						freeIdentifiers, null, config);
 				executionTime += "FalseOpt: " + defectVerifier.getTotalTime()
-						+ "[" + defectVerifier.getSolverTime() + "]" + " -- ";
+						+ "[" + defectVerifier.getSolverTime()/1000000 + "]" + " -- ";
 				if (requiredConcepts.size() > 0) {
 					for (Defect conceptVariable : requiredConcepts) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -185,6 +184,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				e.printStackTrace();
 			}
 		}
+		long falseOTime = defectVerifier.getSolverTime()/1000000;
 		task = 80;
 		setProgress((int) task);
 		// System.out.println("newSEL: " + requiredConceptsNames);
@@ -196,7 +196,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				deadIndetifiersList = defectVerifier.getDeadElements(
 						freeIdentifiers, null, config);
 				executionTime += "Dead: " + defectVerifier.getTotalTime() + "["
-						+ defectVerifier.getSolverTime() + "]" + " -- ";
+						+ defectVerifier.getSolverTime()/1000000 + "]" + " -- ";
 				if (deadIndetifiersList.size() > 0) {
 					for (Defect conceptVariable : deadIndetifiersList) {
 						String[] conceptId = conceptVariable.getId().split("_");
@@ -210,7 +210,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		}
 
-		endSTime = System.currentTimeMillis();
 		task = 100;
 		setProgress((int) task);
 
@@ -219,7 +218,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		endTime = System.currentTimeMillis();
 		executionTime += "ConfigExec: " + (endTime - iniTime) + "["
-				+ (endSTime - iniSTime) + "]" + " -- ";
+				+ (falseOTime + defectVerifier.getSolverTime()/1000000) + "]" + " -- ";
 	}
 
 	public int getExecType() {
@@ -323,11 +322,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			String element) {
 
 		long iniTime = System.currentTimeMillis();
-		long iniSTime = 0;
-		long endSTime = 0;
 		boolean result = false;
 		setProgress(10);
-		iniSTime = System.currentTimeMillis();
 		try {
 			if (first || lastConfiguration == null) {
 				result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
@@ -371,10 +367,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					errorTitle = "Simulation Message";
 				}
 			}
-			endSTime = System.currentTimeMillis();
 			long endTime = System.currentTimeMillis();
 			executionTime += "NormalExec: " + (endTime - iniTime) + "["
-					+ (endSTime - iniSTime) + "]" + " -- ";
+					+ (refas2hlcl.getLastExecutionTime()/1000000) + "]" + " -- ";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -399,13 +394,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		HlclFactory f = new HlclFactory();
 		List<String> out = new ArrayList<String>();
 		long iniTime = System.currentTimeMillis();
-		long iniSTime = 0;
-		long endSTime = 0;
 		boolean result = false;
-		iniSTime = System.currentTimeMillis();
 		result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
 				Refas2Hlcl.VAL_UPD_EXEC);
-		endSTime = System.currentTimeMillis();
+		IntDefectsVerifier defectVerifier = null;
+		long falseOTime = 0;
 		if (result) {
 
 			refas2hlcl.updateGUIElements(attributes);
@@ -431,7 +424,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 							|| defect.contains("FalseOpt") || defect
 								.contains("Core"))) {
 				try {
-					IntDefectsVerifier defectVerifier = new DefectsVerifier(
+					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram("FalseOpt2",
 									Refas2Hlcl.VAL_UPD_EXEC),
 							SolverEditorType.SWI_PROLOG, parentComponent,
@@ -446,6 +439,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					{
 						falseOptionalList = defectVerifier
 								.getFalseOptionalElements(identifiers);
+						falseOTime = defectVerifier.getSolverTime()/1000000;
 						if (falseOptionalList.size() > 0) {
 							List<String> falseOptIdentOthers = new ArrayList<String>();
 							for (Defect conceptVariable : falseOptionalList) {
@@ -459,7 +453,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					}
 					task += 30 / defect.size();
 					setProgress((int) task);
-					endSTime = System.currentTimeMillis();
 
 					Set<Identifier> identDeadElements = new HashSet<Identifier>();
 
@@ -480,7 +473,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					task += 30 / defect.size();
 					setProgress((int) task);
 					System.out.println(task);
-					endSTime = System.currentTimeMillis();
 
 					if (defect == null || defect.contains("Dead"))
 						if (deadIndetifiersList.size() > 0) {
@@ -520,8 +512,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		} else {
 			long endTime = System.currentTimeMillis();
-			executionTime += element + "Exec: " + (endTime - iniTime) + "["
-					+ (endSTime - iniSTime) + "]" + " -- ";
+			executionTime += element
+					+ "Exec: "
+					+ (endTime - iniTime)
+					+ "["
+					+ (refas2hlcl.getLastExecutionTime()/1000000 + falseOTime + defectVerifier
+							.getSolverTime()/1000000) + "]" + " -- ";
 			out.add("Last validated change makes the model inconsistent."
 					+ " \n Please review the restrictions defined and "
 					+ "try again. \nModel visual representation was not updated.");
@@ -529,8 +525,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		// updateObjects();
 		long endTime = System.currentTimeMillis();
-		executionTime += element + "Exec: " + (endTime - iniTime) + "["
-				+ (endSTime - iniSTime) + "]" + " -- ";
+		executionTime += element
+				+ "Exec: "
+				+ (endTime - iniTime)
+				+ "["
+				+ (refas2hlcl.getLastExecutionTime()/1000000 + falseOTime + defectVerifier
+						.getSolverTime()/1000000) + "]" + " -- ";
 		task = 100 / defect.size();
 		setProgress((int) task);
 		return out;

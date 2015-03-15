@@ -36,6 +36,8 @@ public class SWIPrologSolver implements Solver {
 	boolean sucessfullLoad;
 	private Map<String, Variable> vars;
 
+	private long lastExecutionTime;
+
 	public final static String PROGRAM_INVOCATION = "productline(L)";
 
 	public SWIPrologSolver() {
@@ -93,10 +95,10 @@ public class SWIPrologSolver implements Solver {
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		if ((hlclProgram == null || hlclProgram.isEmpty()) && options.getProgramPath() == null) {
+		if ((hlclProgram == null || hlclProgram.isEmpty())
+				&& options.getProgramPath() == null) {
 			throw new TechnicalException("HlclProgram was not initialized");
-		}
-		else if (hlclProgram == null) {
+		} else if (hlclProgram == null) {
 			// A predefined prolog file is charged
 			programPath = options.getProgramPath();
 		} else {
@@ -115,7 +117,9 @@ public class SWIPrologSolver implements Solver {
 				vars.put(id.getId(), new Variable(id.getId()));
 			}
 		}
+		long initTime = System.nanoTime();
 		loadSWIProgram(programPath);
+		lastExecutionTime = System.nanoTime() - initTime;
 	}
 
 	private void consultProgram(Configuration config,
@@ -145,7 +149,7 @@ public class SWIPrologSolver implements Solver {
 
 			// Add all additional configuration options
 			Compound query = addSubQueries(parts);
-			//System.out.println(query.toString());
+			// System.out.println(query.toString());
 			qr = new Query(query);
 		} else {
 			qr = new Query(options.programName + "(L)");
@@ -183,8 +187,10 @@ public class SWIPrologSolver implements Solver {
 	public Configuration getSolution() {
 		if (qr != null) {
 			if (hasNextSolution()) {
+				long initTime = System.nanoTime();
 				Hashtable<Variable, Term> configurationHashSet = qr
 						.nextSolution();
+				lastExecutionTime = System.nanoTime() - initTime;
 				if (configurationHashSet != null) {
 					Configuration configuration = makeConfiguration(configurationHashSet);
 					return configuration;
@@ -371,6 +377,11 @@ public class SWIPrologSolver implements Solver {
 
 	public HlclProgram getHlclProgram() {
 		return hlclProgram;
+	}
+
+	@Override
+	public long getLastExecutionTime() {
+		return lastExecutionTime;
 	}
 
 }

@@ -371,6 +371,10 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		} else
 			// TODO define a cleaner way to deal with group relations with one
 			// element
+			if (constructor1.getDeclaringClass().getSimpleName().equals("SumNumericExpression"))
+				return new SumNumericExpression(((InstPairwiseRelation) left)
+						.getSourceRelations().get(0), sourceName, true, (new HlclFactory()).number(0));
+			else
 			return new AndBooleanExpression(((InstPairwiseRelation) left)
 					.getSourceRelations().get(0), ((InstPairwiseRelation) left)
 					.getSourceRelations().get(0), sourceName, sourceName);

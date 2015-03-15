@@ -146,7 +146,7 @@ public class VisualElement implements Comparable<VisualElement> {
 			if (this.updated) {
 				label.setForeground(yellow);
 				row.setBorder(BorderFactory.createLineBorder(Color.black));
-				label.setFont(new Font("default", Font.BOLD, 12));
+				label.setFont(new Font("default", Font.BOLD, 10));
 			}
 			row.add(new JLabel(otherParameters));
 		}
