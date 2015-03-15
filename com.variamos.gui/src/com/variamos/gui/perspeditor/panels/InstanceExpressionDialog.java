@@ -36,6 +36,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
@@ -643,11 +645,18 @@ public class InstanceExpressionDialog extends JDialog {
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
 							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-					String split[] = domain.split(",");
+
+					Domain dom = (DomainParser.parseDomain( domain));
+					List<Integer> intValues = dom.getPossibleValues();
+					for (Integer intValue : intValues) {
+						combo.addItem(instVertex.getIdentifier() + "_" + intValue.intValue());
+
+					}
+				/*	String split[] = domain.split(",");
 					for (String dom : split) {
 						combo.addItem(instVertex.getIdentifier() + "_" + dom);
 
-					}
+					}*/
 					break;
 				case "Enumeration":
 					Object object = instVertex.getInstAttribute(

@@ -211,7 +211,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				// For negation, literal and number expressions
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1);
-				factoryMethod.invoke(hlclFactory,
+				return (Expression)factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)));
 			} else if (arrayParameters) {
 				// For Sum and Product Expressions
