@@ -118,6 +118,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 		} catch (InterruptedException ignore) {
 		}
+		task=100;
+		setProgress((int) task);
 		return null;
 	}
 

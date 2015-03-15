@@ -24,10 +24,13 @@ import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.AbstractNumericExpression;
+import com.variamos.semantic.expressions.DiffNumericExpression;
 import com.variamos.semantic.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.semantic.expressions.EqualsComparisonExpression;
 import com.variamos.semantic.expressions.ImplicationBooleanExpression;
 import com.variamos.semantic.expressions.LessOrEqualsBooleanExpression;
+import com.variamos.semantic.expressions.NotBooleanExpression;
+import com.variamos.semantic.expressions.NotEqualsBooleanExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressions.OrBooleanExpression;
 import com.variamos.semantic.expressions.ProdNumericExpression;
@@ -399,12 +402,28 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							// Order#<==>
 							if (instAttribute.getIdentifier().equals("Order")
 									&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
+								AbstractNumericExpression transformation49 =null;
+								if(instVertex.getTransSupportMetaElement().getIdentifier().endsWith("Softgoal"))
+								{
+									System.out.println(instVertex.getTransSupportMetaElement().getIdentifier());
+									DiffNumericExpression transformation488 = new DiffNumericExpression(
+											instVertex, "Selected",false,
+											getHlclFactory().number(1));
+									transformation49 = new ProdNumericExpression(
+											transformation488, new NumberNumericExpression(8));
+								}
+								else
+									transformation49 = new NumberNumericExpression(0);
+								
 								AbstractNumericExpression transformation48 = new ProdNumericExpression(
 										instVertex, "NextReqSelected", true,
 										getHlclFactory().number(4));
+								AbstractNumericExpression transformation50 = new SumNumericExpression(
+										transformation49,
+										transformation48);
 								AbstractNumericExpression transformation55 = new SumNumericExpression(
 										instVertex, "NextPrefSelected", true,
-										transformation48);
+										transformation50);
 
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
