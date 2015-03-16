@@ -47,10 +47,6 @@ public class SWIPrologSolver implements Solver {
 		this.hlclProgram = hlclProgram;
 	}
 
-	public int getSolutionsCount() {
-		return 0; // FIXME this method is hard to do in swi prolog
-	}
-
 	@Override
 	public boolean isSatisfiable(String programPath) {
 
@@ -145,6 +141,7 @@ public class SWIPrologSolver implements Solver {
 
 			// Add all additional configuration options
 			Compound query = addSubQueries(parts);
+			Thread.dumpStack();
 			System.out.println(query.toString());
 			qr = new Query(query);
 		} else {
@@ -193,6 +190,27 @@ public class SWIPrologSolver implements Solver {
 
 		}
 		return null;
+	}
+	
+	@Override
+	public List<Configuration> getAllSolutions() {
+		Hashtable<Variable, Term>[] configurationHashSets;
+		List<Configuration> configurations = new ArrayList<Configuration>();
+		if(qr != null) {
+			configurationHashSets = qr.allSolutions();
+			for(Hashtable<Variable, Term> configurationHashSet : configurationHashSets) {
+				if(configurationHashSet != null) {
+					configurations.add(this.makeConfiguration(configurationHashSet));
+				}
+			}
+		}
+		return configurations;
+	}
+	
+	@Override
+	public int getSolutionsCount() {
+		// FIXME: Although this way can become very lengthy, it's the only way to get the solutions count right now
+		return this.getAllSolutions().size();
 	}
 
 	private Configuration makeConfiguration(
@@ -372,5 +390,4 @@ public class SWIPrologSolver implements Solver {
 	public HlclProgram getHlclProgram() {
 		return hlclProgram;
 	}
-
 }

@@ -19,15 +19,14 @@ public interface Solver {
 	
 	public boolean hasNextSolution();
 	
-
 	public Configuration getSolution();
 	
 	public void nextSolution();
 	
 	public boolean hasSolution();
 	
+	public List<Configuration> getAllSolutions();
 	
-	@Deprecated
 	public int getSolutionsCount();
 	@Deprecated
 	public Object getProductLine();

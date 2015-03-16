@@ -417,4 +417,10 @@ public class GNUPrologSolver implements Solver {
 		return false; // FIXME
 	}
 
+	@Override
+	public List<Configuration> getAllSolutions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
