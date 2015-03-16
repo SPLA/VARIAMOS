@@ -707,6 +707,8 @@ public class EditorActions {
 						SharedActions.afterSaveGraph(graph, editor);
 						mxUtils.writeFile(xml, filename);
 						editor.updateObjects();
+						editor.setVisibleModel(0, -1);
+						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					} else if (ext.equalsIgnoreCase("txt")) {

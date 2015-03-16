@@ -285,6 +285,8 @@ public class SaveAction extends AbstractEditorAction {
 					mxUtils.writeFile(xml, filename);
 					SharedActions.afterSaveGraph(graph, editor);
 					editor.updateObjects();
+					editor.setVisibleModel(0, -1);
+					editor.setDefaultButton();
 					editor.setModified(false);
 					editor.setCurrentFile(new File(filename));
 				} else {

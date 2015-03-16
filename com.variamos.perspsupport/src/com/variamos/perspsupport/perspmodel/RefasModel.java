@@ -3157,13 +3157,13 @@ public class RefasModel extends AbstractModel {
 			InstElement instTarget) {
 		List<InstAttribute> visible = elm.getVisibleVariables();
 		InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-		if (instSource == null)
+		if (instSource == null && instPairwise.getSourceRelations().size()>0)
 			instSource = instPairwise.getSourceRelations().get(0);
-		if (instTarget == null)
+		if (instTarget == null && instPairwise.getTargetRelations().size()>0)
 			instTarget = instPairwise.getTargetRelations().get(0);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;
-			if (elm instanceof InstPairwiseRelation) {
+			if (elm instanceof InstPairwiseRelation && instSource != null ) {
 				mapElements = getSyntaxRefas().getValidPairwiseRelations(
 						instSource.getTransSupportMetaElement(),
 						instTarget.getTransSupportMetaElement(), true);

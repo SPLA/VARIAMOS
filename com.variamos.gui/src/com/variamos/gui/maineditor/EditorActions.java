@@ -701,6 +701,8 @@ public class EditorActions {
 						elapsedTime = stopTime - startTime;
 						System.out.println("recover time: " + elapsedTime);
 						editor.updateObjects();
+						editor.setVisibleModel(0, -1);
+						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					} else if (ext.equalsIgnoreCase("txt")) {
