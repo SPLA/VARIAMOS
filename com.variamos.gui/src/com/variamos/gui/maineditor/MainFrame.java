@@ -2,6 +2,12 @@ package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,14 +37,15 @@ public class MainFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 3838729345096823146L;
-	private String perspectiveTitle;
 	/**
 	 * 
 	 */
-	protected String appTitle;
 	private int perspective = 1;
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
+	private String variamosVersionNumber = "1.0.1.5";
+	private String variamosVersionName = "1.0 Beta 5";
+	private String variamosBuild = "20150317 2200";
 
 	public int getPerspective() {
 		return perspective;
@@ -51,9 +58,6 @@ public class MainFrame extends JFrame {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
-		this.appTitle = "VariaMos";
-		this.perspectiveTitle = "Modeling Perspective";
-		this.setTitle(perspectiveTitle + " - " + appTitle);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1070, 740);
 		RefasModel basicSyntaxRefas = new RefasModel(
@@ -76,7 +80,7 @@ public class MainFrame extends JFrame {
 				syntaxRefas = new RefasModel(PerspectiveType.syntax,
 						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
-				perspTitle = "Semantic - VariaMos";
+				perspTitle = "Semantic - VariaMos "+ variamosVersionNumber;
 				System.out.println("Creating Semantic Perspective...");
 				break;
 
@@ -85,7 +89,7 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
-				perspTitle = "System Model - VariaMos";
+				perspTitle = "System Model - VariaMos "+ variamosVersionNumber;
 				System.out.println("Creating Modeling Perspective...");
 				break;
 
@@ -93,7 +97,7 @@ public class MainFrame extends JFrame {
 				abstractModel = syntaxRefas;
 
 				bgColor = new Color(255, 255, 245);
-				perspTitle = "Syntax - VariaMos";
+				perspTitle = "Syntax - VariaMos "+ variamosVersionNumber;
 				System.out.println("Creating Syntax Perspective...");
 				break;
 
@@ -101,11 +105,13 @@ public class MainFrame extends JFrame {
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Simulation - VariaMos";
+				perspTitle = "Simulation - VariaMos "+ variamosVersionNumber;
 				System.out.println("Creating Simulation Perspective...");
 				break;
 
 			}
+
+			this.setTitle(perspTitle);
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
@@ -135,15 +141,41 @@ public class MainFrame extends JFrame {
 		this.setVisible(true);
 		try {
 			if (arg0 == null || !arg0.equals("nosolver"))
-			verifySolver();
+				verifySolver();
+			if (arg0 == null || !arg0.equals("noupdate")) {
+				InputStream input = new URL(
+						"https://dl.dropboxusercontent.com/1/view/a0g91kdcdky3pcb/doctorado/VariaMos/Variamos.txt#Variamos.txt")
+						.openStream();
+				java.util.Scanner s = new java.util.Scanner(input)
+						.useDelimiter(":");
+				String newVersion = s.hasNext() ? s.next() : null;
+				if (newVersion != null
+						&& !variamosVersionNumber.equals(newVersion))
+					JOptionPane.showMessageDialog(this,
+							"Your current version is " + variamosVersionNumber
+									+ ", the new version detected is: "
+									+ newVersion
+									+ ". Please visit variamos.com.",
+							"New VariaMos Version available",
+							JOptionPane.INFORMATION_MESSAGE, null);
+				input = new URL("http://variamos.com/home/?wpdmdl=264")
+						.openStream();
+				s.close();
+			}
 		} catch (UnsatisfiedLinkError e) {
 			e.printStackTrace();
 			JOptionPane
-			.showMessageDialog(
-					this,
-					"Solver not properly configured, visit http://variamos.com and follow the steps",
-					"Solver Error",
-					JOptionPane.INFORMATION_MESSAGE, null);
+					.showMessageDialog(
+							this,
+							"Solver not properly configured, visit http://variamos.com and follow the steps",
+							"Solver Error", JOptionPane.INFORMATION_MESSAGE,
+							null);
+		} catch (java.net.UnknownHostException e) {
+			System.out.println("Could not connect to Variamos.com.");
+		} catch (MalformedURLException e) {
+			System.out.println("Error on updates verification.");
+		} catch (IOException e) {
+			System.out.println("Error on updates verification.");
 		}
 	}
 
@@ -193,15 +225,16 @@ public class MainFrame extends JFrame {
 				"lessThan", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
 				false, false));
-		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals", "#<=",
-				"#<=", "lessOrEqualsThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-/*		out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "", "",
-				"literalBooleanExpression", SemanticExpressionType.LIT,
-				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
-				true, false));
-				*/
+		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals",
+				"#<=", "#<=", "lessOrEqualsThan",
+				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+				SemanticExpressionType.BOOLEXP, false, false));
+		/*
+		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "",
+		 * "", "literalBooleanExpression", SemanticExpressionType.LIT,
+		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,
+		 * false));
+		 */
 		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
 				"not", SemanticExpressionType.BOOLEXP,
 				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
@@ -264,5 +297,17 @@ public class MainFrame extends JFrame {
 
 	public boolean isAdvancedPerspective() {
 		return showPerspectiveButton;
+	}
+
+	public String getVariamosVersionNumber() {
+		return variamosVersionNumber;
+	}
+
+	public String getVariamosVersionName() {
+		return variamosVersionName;
+	}
+
+	public String getVariamosBuild() {
+		return variamosBuild;
 	}
 }
