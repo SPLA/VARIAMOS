@@ -336,6 +336,7 @@ public class SharedActions {
 				.getRefas();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;
+		instCell.setMxCell(source);
 		if (instCell.isCloned()) {
 			instElement = getOriginalInstElement(graph, source);
 			instCell.setInstElement(instElement);

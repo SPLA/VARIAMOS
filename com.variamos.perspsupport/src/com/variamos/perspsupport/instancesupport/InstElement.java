@@ -45,7 +45,6 @@ public abstract class InstElement implements Serializable, EditableElement {
 
 	private List<IntInstanceExpression> instanceExpressions;
 	private IntSemanticElement editableSemanticElement;
-	
 
 	public List<IntInstanceExpression> getInstanceExpressions() {
 		return instanceExpressions;
@@ -142,21 +141,22 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableMetaElement.getHeight());
 				if (instAttribute.getIdentifier().equals("Image"))
 					instAttribute.setValue(editableMetaElement.getImage());
-				if (instAttribute.getIdentifier().equals("TopConcept"))
-					if (editableMetaElement instanceof MetaConcept) {
+
+				if (editableMetaElement instanceof MetaConcept) {
+					if (instAttribute.getIdentifier().equals("TopConcept"))
 						instAttribute
 								.setValue(((MetaConcept) editableMetaElement)
 										.isTopConcept());
-						if (instAttribute.getIdentifier().equals(
-								"BackgroundColor"))
-							instAttribute
-									.setValue(((MetaConcept) editableMetaElement)
-											.getBackgroundColor());
-						if (instAttribute.getIdentifier().equals("Resizable"))
-							instAttribute
-									.setValue(((MetaConcept) editableMetaElement)
-											.isResizable());
-					}
+					if (instAttribute.getIdentifier().equals("BackgroundColor"))
+						instAttribute
+								.setValue(((MetaConcept) editableMetaElement)
+										.getBackgroundColor());
+					if (instAttribute.getIdentifier().equals("Resizable"))
+						instAttribute
+								.setValue(((MetaConcept) editableMetaElement)
+										.isResizable());
+				}
+
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					instAttribute.setValue(editableMetaElement
 							.getBorderStroke());
@@ -368,12 +368,12 @@ public abstract class InstElement implements Serializable, EditableElement {
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									out += "{ ";
-									for (InstAttribute i : ooo)
-									{	
-										String values[] = ((String) i.getValue()).split("-");
+									for (InstAttribute i : ooo) {
+										String values[] = ((String) i
+												.getValue()).split("-");
 										out += values[1] + ", ";
 									}
-									out = out.substring(0, out.length()-2);
+									out = out.substring(0, out.length() - 2);
 									out += " }";
 								}
 							} else
