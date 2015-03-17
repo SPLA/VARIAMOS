@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -526,12 +528,12 @@ public class EditorActions {
 			VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
+				if (editor.getPerspective() == 4) {
+					JOptionPane.showMessageDialog(editor,
+							mxResources.get("saveloadnewerror"),
+							"Operation not supported",
+							JOptionPane.INFORMATION_MESSAGE, null);
+
 					return;
 				}
 				final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
@@ -540,7 +542,8 @@ public class EditorActions {
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
 				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".vmsm",
-						"VariaMos-SystemModel " + mxResources.get("file") + " (.vmsm)");
+						"VariaMos-SystemModel " + mxResources.get("file")
+								+ " (.vmsm)");
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;
@@ -689,6 +692,12 @@ public class EditorActions {
 						String xml = mxXmlUtils.getXml(codec.encode(outGraph
 								.getModel()));
 						mxUtils.writeFile(xml, filename);
+						String file = filename.substring(0,
+								filename.lastIndexOf('.'));
+						file += ".backup."
+								+ new SimpleDateFormat("yyyyMMHHmmss")
+										.format(new Date()) + "." + ext;
+						mxUtils.writeFile(xml, file);
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						System.out
@@ -701,6 +710,8 @@ public class EditorActions {
 						elapsedTime = stopTime - startTime;
 						System.out.println("recover time: " + elapsedTime);
 						editor.updateObjects();
+						editor.setVisibleModel(0, -1);
+						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					} else if (ext.equalsIgnoreCase("txt")) {
@@ -1268,12 +1279,12 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
+				if (editor.getPerspective() == 4) {
+					JOptionPane.showMessageDialog(editor,
+							mxResources.get("saveloadnewerror"),
+							"Operation not supported",
+							JOptionPane.INFORMATION_MESSAGE, null);
+
 					return;
 				}
 				if (!editor.isModified()
@@ -1482,12 +1493,12 @@ public class EditorActions {
 			BasicGraphEditor editor = getEditor(e);
 
 			if (editor != null) {
-				if (editor.getPerspective()==4)
-				{
-					JOptionPane.showMessageDialog(editor, mxResources.get("saveloadnewerror"),
-							"Operation not supported", JOptionPane.INFORMATION_MESSAGE,
-							null);
-					
+				if (editor.getPerspective() == 4) {
+					JOptionPane.showMessageDialog(editor,
+							mxResources.get("saveloadnewerror"),
+							"Operation not supported",
+							JOptionPane.INFORMATION_MESSAGE, null);
+
 					return;
 				}
 				VariamosGraphEditor variamosEditor = (VariamosGraphEditor) editor;
@@ -1525,9 +1536,9 @@ public class EditorActions {
 						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
 								"mxGraph Editor " + mxResources.get("file")
 										+ " (.mxe)"));
-						fc.addChoosableFileFilter(new DefaultFileFilter(".vmsm",
-								"VariaMos-SystemModel  " + mxResources.get("file")
-										+ " (.vmsm)"));
+						fc.addChoosableFileFilter(new DefaultFileFilter(
+								".vmsm", "VariaMos-SystemModel  "
+										+ mxResources.get("file") + " (.vmsm)"));
 
 						// Adds file filter for VDX import
 						fc.addChoosableFileFilter(new DefaultFileFilter(".vdx",
@@ -1570,7 +1581,7 @@ public class EditorActions {
 											variamosEditor);
 
 									PLGReader.loadPLG(fc.getSelectedFile(),
-											graph,variamosEditor);
+											graph, variamosEditor);
 									editor.setCurrentFile(fc.getSelectedFile());
 									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);

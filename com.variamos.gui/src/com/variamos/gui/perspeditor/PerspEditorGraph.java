@@ -323,7 +323,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			refas.updateValidationLists(directRelation, instSource, instTarget);
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
-			if (pwrList.size() == 0) {
+			if (pwrList== null || pwrList.size() == 0) {
 				directRelation.clearMetaPairwiseRelation();
 				return false;
 			}

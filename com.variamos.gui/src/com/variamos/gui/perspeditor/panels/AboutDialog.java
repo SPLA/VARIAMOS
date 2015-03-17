@@ -54,7 +54,7 @@ public class AboutDialog extends JDialog {
 		panel.add(new JLabel("               VariaMos Tool"));
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Version: VariaMos-1.0.1.4 (1.0 Beta 4)"));
-		panel.add(new JLabel("Built time: 20150316 0600"));
+		panel.add(new JLabel("Built time: 20150315 1930"));
 
 		panel.add(new JLabel("Changelog: http://variamos.com/home/1-0-beta-4-changelog/"));
 		panel.add(new JLabel("Libraries: mxgraph, gluegen, gson, interprolog, jpl, "));

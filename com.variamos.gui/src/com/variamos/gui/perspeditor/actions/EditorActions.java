@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -706,7 +708,15 @@ public class EditorActions {
 								.getModel()));
 						SharedActions.afterSaveGraph(graph, editor);
 						mxUtils.writeFile(xml, filename);
+						String file = filename.substring(0,
+								filename.lastIndexOf('.'));
+						file += ".backup."
+								+ new SimpleDateFormat("yyyyMMHHmmss")
+										.format(new Date()) + "." + ext;
+						mxUtils.writeFile(xml, file);
 						editor.updateObjects();
+						editor.setVisibleModel(0, -1);
+						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
 					} else if (ext.equalsIgnoreCase("txt")) {

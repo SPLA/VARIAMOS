@@ -126,7 +126,7 @@ public class ClassWidget extends WidgetR {
 					|| aClass.getSuperclass().equals(
 							AbstractSemanticElement.class)) {
 				semanticElements = new HashMap<String, IntSemanticElement>();
-				System.out.println("ClassW old semanticSyntax");
+				System.out.println("ClassWidget old semanticSyntax");
 				/*
 				 * Collection<IntSemanticElement> list = semanticSyntaxObject
 				 * .getSemanticConcepts().values();
@@ -174,7 +174,7 @@ public class ClassWidget extends WidgetR {
 							.getAttribute().getMetaConceptInstanceType(), graph);
 
 					for (InstVertex concept : list) {
-						instVertex.put(concept.getIdentifier(), concept);
+						instVertex.put(concept.getInstAttribute("name").toString(), concept);
 						String out = concept.getInstAttribute("name")
 								.toString();
 						txtValue.addItem(out);
