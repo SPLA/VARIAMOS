@@ -5,12 +5,12 @@
 		<add as="fontSize" value="11" />
 		<add as="align" value="center" />
 		<add as="verticalAlign" value="middle" />
-		<add as="strokeColor" value="black" />
+		<add as="strokeColor" value="gray" />
 		<add as="fillColor" value="none" />
 	</add>
 	<add as="defaultEdge">
 		<add as="shape" value="connector"/>
-		<add as="labelBackgroundColor" value="white"/>
+		<add as="labelBackgroundColor" value="none"/>		
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
@@ -38,7 +38,7 @@
 	</add>
 	<add as="plgroup">
 		<add as="shape" value="ellipse"/>
-		<add as="labelBackgroundColor" value="white"/>
+		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>

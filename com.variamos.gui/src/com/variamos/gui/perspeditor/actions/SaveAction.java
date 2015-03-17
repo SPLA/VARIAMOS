@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 
 import javax.imageio.ImageIO;
@@ -283,6 +285,10 @@ public class SaveAction extends AbstractEditorAction {
 					String xml = mxXmlUtils.getXml(codec.encode(outGraph
 							.getModel()));
 					mxUtils.writeFile(xml, filename);
+					String file = filename.substring(0,
+							filename.lastIndexOf('.'));
+					file += ".backup."+ new SimpleDateFormat("yyyyMMHHmmss").format(new Date())+"."+ext;
+					mxUtils.writeFile(xml, file);
 					SharedActions.afterSaveGraph(graph, editor);
 					editor.updateObjects();
 					editor.setVisibleModel(0, -1);
