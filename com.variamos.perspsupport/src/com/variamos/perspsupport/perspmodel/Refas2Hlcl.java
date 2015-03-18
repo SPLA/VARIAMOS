@@ -373,7 +373,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				configurationOptions.setLabelingOrder(labelingOrderList);
 				configurationOptions.setOrderExpressions(orderExpressionList);
 				swiSolver.solve(new Configuration(), configurationOptions);
-				lastExecutionTime= swiSolver.getLastExecutionTime();
+				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("No solution");
@@ -384,7 +384,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
-				lastExecutionTime= swiSolver.getLastExecutionTime();
+				lastExecutionTime = swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return false;
 			}
@@ -575,8 +575,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
-			for (InstElement elm : refas.getConstraintVertexCollection()) {
-				if (this.validateConceptType(elm, "SemGeneralElement"))
+			for (InstElement elm : refas.getConstraintVertexCollection()) {			
+			//	if (this.validateConceptType(elm, "SemGeneralElement"))
 					constraintGroups.put(elm.getIdentifier(),
 							new SingleElementExpressionSet(elm.getIdentifier(),
 									idMap, f, elm, execType));
@@ -841,7 +841,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	public HlclProgram configGraph(InstElement target,
-			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers, boolean calc) {
+			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers,
+			boolean calc) {
 		HlclProgram out = new HlclProgram();
 		if (evaluatedSet.add(target)) {
 			if ((!target.getInstAttribute("Selected").getAsBoolean()
@@ -858,20 +859,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 								.getAsBoolean()
 						&& !target.getIdentifier().startsWith("FeatOverTwo"))
 					if (!calc)
-					freeIdentifiers.add(f.newIdentifier(target.getIdentifier()
-							+ "_Selected"));
+						freeIdentifiers.add(f.newIdentifier(target
+								.getIdentifier() + "_Selected"));
 				for (InstElement element : target.getSourceRelations()) {
-					if(calc)
-					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
-							element));
+					if (calc)
+						out.addAll(getHlclProgram("Simul",
+								Refas2Hlcl.CONF_EXEC, element));
 					InstElement related = element.getSourceRelations().get(0);
 					out.addAll(configGraph(related, evaluatedSet,
 							freeIdentifiers, calc));
 				}
 				for (InstElement element : target.getTargetRelations()) {
 					if (calc)
-					out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC,
-							element));
+						out.addAll(getHlclProgram("Simul",
+								Refas2Hlcl.CONF_EXEC, element));
 					out.addAll(configGraph(element.getTargetRelations().get(0),
 							evaluatedSet, freeIdentifiers, calc));
 				}

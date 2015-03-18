@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
@@ -139,7 +141,7 @@ public abstract class AbstractExpression {
 	public AbstractExpression(InstElement vertex, String attributeName) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
-		
+
 		this.leftVertex = vertex;
 		this.leftAttributeName = attributeName;
 		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
@@ -148,39 +150,54 @@ public abstract class AbstractExpression {
 	public Map<String, Identifier> getIdentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {
-		//	System.out.println(leftVertex.getIdentifier() + " "
-		//			+ leftAttributeName);
-			Identifier identifier = f
-					.newIdentifier(leftVertex
-							.getInstAttributeFullIdentifier(leftAttributeName),
-							leftAttributeName);
+			// System.out.println(leftVertex.getIdentifier() + " "
+			// + leftAttributeName);
+			Identifier identifier = f.newIdentifier(leftVertex
+					.getInstAttributeFullIdentifier(leftAttributeName),
+					leftAttributeName);
 			out.put(leftVertex
-					.getInstAttributeFullIdentifier(leftAttributeName), identifier);
-			AbstractAttribute attribute = leftVertex.getInstAttribute(leftAttributeName).getAttribute();
-			if(attribute.getType().equals("Integer") || attribute.getType().equals("Enumeration"))
-			{
+					.getInstAttributeFullIdentifier(leftAttributeName),
+					identifier);
+			AbstractAttribute attribute = leftVertex.getInstAttribute(
+					leftAttributeName).getAttribute();
+			if (attribute.getName().equals(
+					SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+				String configdomain = (String) leftVertex.getInstAttribute(
+						SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
+				if (configdomain != null)
+					identifier
+							.setDomain(DomainParser.parseDomain(configdomain));
+			} else if (attribute.getType().equals("Integer")
+					|| attribute.getType().equals("Enumeration")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 			}
 		}
 		if (rightVertex != null) {
-		//	System.out
-		//			.println(rightVertex.getIdentifier() + rightAttributeName);
-			Identifier identifier= f.newIdentifier(
-					rightVertex
+			// System.out
+			// .println(rightVertex.getIdentifier() + rightAttributeName);
+			Identifier identifier = f.newIdentifier(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
-			rightAttributeName);
-		
+					rightAttributeName);
+
 			out.put(rightVertex
-					.getInstAttributeFullIdentifier(rightAttributeName), identifier
-					);
-			AbstractAttribute attribute = rightVertex.getInstAttribute(rightAttributeName).getAttribute();
-			if(attribute.getType().equals("Integer") || attribute.getType().equals("Enumeration"))
-			{
+					.getInstAttributeFullIdentifier(rightAttributeName),
+					identifier);
+			AbstractAttribute attribute = rightVertex.getInstAttribute(
+					rightAttributeName).getAttribute();
+			if (attribute.getName().equals(
+					SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+				String configdomain = (String) rightVertex.getInstAttribute(
+						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+				if (configdomain != null)
+					identifier
+							.setDomain(DomainParser.parseDomain(configdomain));
+			} else if (attribute.getType().equals("Integer")
+					|| attribute.getType().equals("Enumeration")) {
 				if (attribute.getDomain() != null)
 					identifier.setDomain(attribute.getDomain());
 			}
-				
+
 		}
 		if (leftSubExpression != null) {
 			out.putAll(leftSubExpression.getIdentifiers(f));
@@ -323,8 +340,7 @@ public abstract class AbstractExpression {
 				break;
 			case LEFTSUBEXPRESSION:
 				if (leftSubExpression instanceof AbstractBooleanExpression)
-					out.add(( leftSubExpression)
-							.transform(f, idMap));
+					out.add((leftSubExpression).transform(f, idMap));
 				else if (leftSubExpression instanceof AbstractNumericExpression)
 					out.add(((AbstractNumericExpression) leftSubExpression)
 							.transform(f, idMap));
@@ -394,7 +410,7 @@ public abstract class AbstractExpression {
 				break;
 			case LEFTSUBEXPRESSION:
 				if (negateLeft
-						&& leftSubExpression instanceof AbstractBooleanExpression) 
+						&& leftSubExpression instanceof AbstractBooleanExpression)
 					// TODO special case for assign
 					out.add(((AbstractBooleanExpression) leftSubExpression)
 							.transformNegation(f, idMap, false, false));

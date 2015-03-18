@@ -211,7 +211,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				// For negation, literal and number expressions
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1);
-				return (Expression)factoryMethod.invoke(hlclFactory,
+				return (Expression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)));
 			} else if (arrayParameters) {
 				// For Sum and Product Expressions
@@ -324,9 +324,21 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					.getInstAttribute(
 							getSemanticExpression().getLeftAttributeName())
 					.getAttribute();
-			if (attribute.getName().equals("value")) {
+			// Specifically for Variables
+			if (attribute.getName().equals(
+					SemanticVariable.VAR_VARIABLECONFIGVALUE))
+			{
+				String configdomain = (String) volatileLefInstElement
+						.getInstAttribute(
+								SemanticVariable.VAR_VARIABLEDOMAIN)
+						.getValue();
+				if (configdomain!= null)
+				identifier.setDomain(DomainParser.parseDomain(configdomain));					
+			}
+			if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
 				String type = (String) volatileLefInstElement.getInstAttribute(
 						SemanticVariable.VAR_VARIABLETYPE).getValue();
+				
 				if (type.equals("Integer")) {
 					String domain = (String) volatileLefInstElement
 							.getInstAttribute(
@@ -336,7 +348,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				} else if (type.equals("Enumeration")) {
 					Object object = volatileLefInstElement.getInstAttribute(
 							"enumerationType").getValueObject();
-					String domain = ""; 
+					String domain = "";
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
@@ -414,10 +426,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				out.add(getIdentifier(expressionType));
 				break;
 			case LEFTNUMERICEXPRESSIONVALUE:
-				out.add(hlclFactory.number(getSemanticExpression().getLeftNumber()));
+				out.add(hlclFactory.number(getSemanticExpression()
+						.getLeftNumber()));
 				break;
 			case RIGHTNUMERICEXPRESSIONVALUE:
-				out.add(hlclFactory.number(getSemanticExpression().getRightNumber()));
+				out.add(hlclFactory.number(getSemanticExpression()
+						.getRightNumber()));
 
 				break;
 			case LEFTVARIABLEVALUE:
@@ -553,7 +567,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public int getLeftNumber() {
 		return getSemanticExpression().getLeftNumber();
 	}
-	
+
 	public int getRightNumber() {
 		return getSemanticExpression().getRightNumber();
 	}
