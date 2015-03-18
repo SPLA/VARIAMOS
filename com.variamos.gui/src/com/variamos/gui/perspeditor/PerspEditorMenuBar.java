@@ -3,14 +3,17 @@ package com.variamos.gui.perspeditor;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
@@ -46,10 +49,21 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 	private void init(BasicGraphEditor editor) {
 		JMenu menu = new JMenu("File");
-		menu.add(editor.bind(mxResources.get("new"), new NewAction()));
-		menu.add(editor.bind(mxResources.get("load"), new OpenAction()));
+		menu.setMnemonic('F');
+		Action al;
+		al = editor.bind(mxResources.get("new"), new NewAction());
+		al.putValue(al.ACCELERATOR_KEY,KeyStroke.getKeyStroke(
+                KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		menu.add(al);
+		al = editor.bind(mxResources.get("load"), new OpenAction());
+		al.putValue(al.ACCELERATOR_KEY,KeyStroke.getKeyStroke(
+                KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+		menu.add(al);
 		menu.addSeparator();
-		menu.add(editor.bind(mxResources.get("save"), new SaveAction(false)));
+		al = editor.bind(mxResources.get("save"),new SaveAction(false));		
+		al.putValue(al.ACCELERATOR_KEY,KeyStroke.getKeyStroke(
+                KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		menu.add(al);
 		menu.add(editor.bind(mxResources.get("saveAs"), new SaveAction(true)));
 		menu.addSeparator();
 
@@ -58,7 +72,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		add(menu);
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("layout")));
-
+		menu.setMnemonic('L');
 		menu.add(editor
 				.bind("Toggle Assets", new ToggleAssetVisibilityAction()));
 		menu.add(editor.bind("Toggle Variability Elements",
@@ -98,6 +112,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		if (editor.getPerspective() == 2) {
 			menu = (JMenu) menu
 					.add(new JMenu(mxResources.get("verifyDefects")));
+			menu.setMnemonic('I');
 			// menu.add(editor.bind(mxResources.get("verifyVoidModel"), new
 			// VerifyVoidModelAction()));
 			// menu.add(editor.bind(mxResources.get("verifyFalseProductLine"),
@@ -119,6 +134,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 			menu = (JMenu) menu.add(new JMenu(mxResources
 					.get("verifyDefectsOptions")));
+			menu.setMnemonic('D');
 			JCheckBoxMenuItem item = new JCheckBoxMenuItem(
 					mxResources.get("verifyRoot"));
 			item.setState(true);
@@ -201,7 +217,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			
 			menu = (JMenu) menu
 					.add(new JMenu(mxResources.get("configuration")));
-			
+			menu.setMnemonic('C');
 			Action a = editor.bind(mxResources.get("startConfiguration"),
 					new ClearConfigurationAction());
 			menu.add(a);
@@ -215,9 +231,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a.setEnabled(false);
 			menu.add(a);
 			a = editor.bind(mxResources.get("saveConfiguration"),
-					new ClearSimulationAction());
+					new SaveConfigurationAction(true));
 			menu.add(a);
-			a.setEnabled(false);
 			a = editor.bind(mxResources.get("saveProducts"),
 					new ClearSimulationAction());
 			menu.add(a);
@@ -226,6 +241,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
+			menu.setMnemonic('S');
 			menu.add(editor.bind(mxResources.get("resetSimulation"),
 					new ClearSimulationAction()));
 			menu.add(editor.bind(mxResources.get("startSimulation"),
@@ -265,6 +281,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		
 		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
+		menu.setMnemonic('W');
 		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"),
 				new ShowAdvancedPerspectiveAction()));
 		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
@@ -273,6 +290,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		add(menu);
 		
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));
+		menu.setMnemonic('H');
 		menu.add(editor.bind(mxResources.get("about"),
 				new AboutAction()));
 		add(menu);
