@@ -144,7 +144,7 @@ public class MainFrame extends JFrame {
 				verifySolver();
 			if (arg0 == null || !arg0.equals("noupdate")) {
 				InputStream input = new URL(
-						"https://dl.dropboxusercontent.com/1/view/a0g91kdcdky3pcb/doctorado/VariaMos/Variamos.txt#Variamos.txt")
+						"http://variamos.com/home/Variamos.txt")
 						.openStream();
 				java.util.Scanner s = new java.util.Scanner(input)
 						.useDelimiter(":");
