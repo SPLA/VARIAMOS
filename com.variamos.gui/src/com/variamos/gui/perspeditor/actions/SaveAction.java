@@ -96,7 +96,7 @@ public class SaveAction extends AbstractEditorAction {
 
 		// Creates the image for the PNG file
 		BufferedImage image = mxCellRenderer.createBufferedImage(graph, null,
-				1, bg, graphComponent.isAntiAlias(), null,
+				2, bg, graphComponent.isAntiAlias(), null,
 				graphComponent.getCanvas());
 
 		// Creates the URL-encoded XML data
@@ -310,7 +310,7 @@ public class SaveAction extends AbstractEditorAction {
 						saveXmlPng(editor, filename, bg);
 					} else {
 						BufferedImage image = mxCellRenderer
-								.createBufferedImage(graph, null, 1, bg,
+								.createBufferedImage(graph, null, 2, bg,
 										graphComponent.isAntiAlias(), null,
 										graphComponent.getCanvas());
 

@@ -3,14 +3,17 @@ package com.variamos.gui.perspeditor;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
@@ -46,19 +49,35 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 	private void init(BasicGraphEditor editor) {
 		JMenu menu = new JMenu("File");
-		menu.add(editor.bind(mxResources.get("new"), new NewAction()));
-		menu.add(editor.bind(mxResources.get("load"), new OpenAction()));
+		menu.setMnemonic('F');
+		Action al;
+		al = editor.bind(mxResources.get("new"), new NewAction());
+		al.putValue(al.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		menu.add(al);
+		al = editor.bind(mxResources.get("load"), new OpenAction());
+		al.putValue(al.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+		menu.add(al);
 		menu.addSeparator();
-		menu.add(editor.bind(mxResources.get("save"), new SaveAction(false)));
-		menu.add(editor.bind(mxResources.get("saveAs"), new SaveAction(true)));
+		al = editor.bind(mxResources.get("save"), new SaveAction(false));
+		al.putValue(al.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		menu.add(al);
+		al = editor.bind(mxResources.get("saveAs"), new SaveAction(true));
+		al.putValue(al.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		menu.add(al);
 		menu.addSeparator();
-
-		menu.add(editor.bind(mxResources.get("exit"), new ExitAction()));
+		al = editor.bind(mxResources.get("exit"), new ExitAction());
+		al.putValue(al.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+		menu.add(al);
 
 		add(menu);
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("layout")));
-
+		menu.setMnemonic('L');
 		menu.add(editor
 				.bind("Toggle Assets", new ToggleAssetVisibilityAction()));
 		menu.add(editor.bind("Toggle Variability Elements",
@@ -98,6 +117,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 		if (editor.getPerspective() == 2) {
 			menu = (JMenu) menu
 					.add(new JMenu(mxResources.get("verifyDefects")));
+			menu.setMnemonic('I');
 			// menu.add(editor.bind(mxResources.get("verifyVoidModel"), new
 			// VerifyVoidModelAction()));
 			// menu.add(editor.bind(mxResources.get("verifyFalseProductLine"),
@@ -119,6 +139,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 
 			menu = (JMenu) menu.add(new JMenu(mxResources
 					.get("verifyDefectsOptions")));
+			menu.setMnemonic('D');
 			JCheckBoxMenuItem item = new JCheckBoxMenuItem(
 					mxResources.get("verifyRoot"));
 			item.setState(true);
@@ -192,20 +213,23 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu.addSeparator();
 			menu.add(editor.bind(mxResources.get("clearElements"),
 					new ClearVerificationAction()));
-
-			menu.add(editor.bind(mxResources.get("verifyElements"),
-					new VerificationAction()));
+			al = editor.bind(mxResources.get("verifyElements"),
+					new VerificationAction());			
+			al.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+			menu.add(al);
 			add(menu);
 		}
-		if (editor.getPerspective() == 4) {		
-			
+		if (editor.getPerspective() == 4) {
+
 			menu = (JMenu) menu
 					.add(new JMenu(mxResources.get("configuration")));
-			
+			menu.setMnemonic('C');
 			Action a = editor.bind(mxResources.get("startConfiguration"),
 					new ClearConfigurationAction());
+			a.setEnabled(false);
 			menu.add(a);
-			
+
 			a = editor.bind(mxResources.get("restartConfiguration"),
 					new ClearConfigurationAction());
 			menu.add(a);
@@ -215,26 +239,37 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a.setEnabled(false);
 			menu.add(a);
 			a = editor.bind(mxResources.get("saveConfiguration"),
-					new ClearSimulationAction());
+					new SaveConfigurationAction(true));
 			menu.add(a);
-			a.setEnabled(false);
 			a = editor.bind(mxResources.get("saveProducts"),
 					new ClearSimulationAction());
 			menu.add(a);
 			a.setEnabled(false);
 			add(menu);
-			
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
-			menu.add(editor.bind(mxResources.get("resetSimulation"),
-					new ClearSimulationAction()));
-			menu.add(editor.bind(mxResources.get("startSimulation"),
-					new StartSimulationAction()));
-			menu.add(editor.bind(mxResources.get("nextSimulation"),
-					new NextSimulationAction()));
+			menu.setMnemonic('S');
+			a =editor.bind(mxResources.get("resetSimulation"),
+					new ClearSimulationAction());
+			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+			menu.add(a);
+			a=editor.bind(mxResources.get("startSimulation"),
+					new StartSimulationAction());			
+			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+			menu.add(a);
+			a=editor.bind(mxResources.get("nextSimulation"),
+					new NextSimulationAction());			
+			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+			menu.add(a);
 			menu.addSeparator();
-			menu.add(editor.bind(mxResources.get("showSimulationDashBoard"),
-					new ShowSimulationDashBoardAction()));
+			a=editor.bind(mxResources.get("showSimulationDashBoard"),
+					new ShowSimulationDashBoardAction());
+			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					KeyEvent.VK_B, ActionEvent.CTRL_MASK));
+			menu.add(a);
 			menu.add(editor.bind(mxResources.get("hideSimulationDashBoard"),
 					new HideSimulationDashBoardAction()));
 			JCheckBoxMenuItem item = new JCheckBoxMenuItem(
@@ -247,13 +282,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 					AbstractButton aButton = (AbstractButton) arg0.getSource();
 					boolean selected = aButton.getModel().isSelected();
 
-					if (selected)
-						{
+					if (selected) {
 						finalEditor.showNames(true);
 						finalEditor.updateDashBoard(false, false);
-						}
-					else
-					{
+					} else {
 						finalEditor.showNames(false);
 						finalEditor.updateDashBoard(false, false);
 					}
@@ -262,19 +294,19 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu.add(item);
 			add(menu);
 		}
-		
-		
+
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
+		menu.setMnemonic('W');
 		menu.add(editor.bind(mxResources.get("showAdvancedPerspectives"),
 				new ShowAdvancedPerspectiveAction()));
 		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
 				new HideAdvancedPerspectiveAction()));
 		menu.addSeparator();
 		add(menu);
-		
+
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));
-		menu.add(editor.bind(mxResources.get("about"),
-				new AboutAction()));
+		menu.setMnemonic('H');
+		menu.add(editor.bind(mxResources.get("about"), new AboutAction()));
 		add(menu);
 	}
 

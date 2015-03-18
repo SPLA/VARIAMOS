@@ -58,7 +58,7 @@ public class AboutDialog extends JDialog {
 		panel.add(new JLabel("Version: VariaMos-"+mainFrame.getVariamosVersionNumber()+" (" +mainFrame.getVariamosVersionName()+")"));
 		panel.add(new JLabel("Built time: "+mainFrame.getVariamosBuild()));
 
-		panel.add(new JLabel("Changelog: http://variamos.com/home/1-0-beta-4-changelog/"));
+		panel.add(new JLabel("Changelog: http://variamos.com/home/category/changelog/"));
 		panel.add(new JLabel("Libraries: mxgraph, gluegen, gson, interprolog, jpl, "));
 		panel.add(new JLabel("               splot_prolog, jgprolog, poi, sxmf, junit"));
 

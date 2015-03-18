@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import javax.swing.ProgressMonitor;
+
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
@@ -72,7 +74,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
 			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
-			VAL_UPD_EXEC = 4;
+			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5;
 
 	public Refas2Hlcl(RefasModel refas) {
 		this.refas = refas;
@@ -338,7 +340,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
-	public boolean execute(String element, int solutions, int execType) {
+	public boolean execute(ProgressMonitor progressMonitor, String element,
+			int solutions, int execType) throws InterruptedException {
+		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
@@ -352,7 +356,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				text += exp + "\n";
 			}
 			swiSolver = new SWIPrologSolver(hlclProgram);
-
+			if (progressMonitor != null && progressMonitor.isCanceled())
+				throw (new InterruptedException());
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
 				if ((execType == Refas2Hlcl.SIMUL_EXEC))
@@ -380,11 +385,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				return false;
 			}
 		}
+		if (progressMonitor != null && progressMonitor.isCanceled())
+			return false;
 
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
-				lastExecutionTime = swiSolver.getLastExecutionTime();
+				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
 					return false;
 			}
@@ -575,11 +582,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
-			for (InstElement elm : refas.getConstraintVertexCollection()) {			
-			//	if (this.validateConceptType(elm, "SemGeneralElement"))
-					constraintGroups.put(elm.getIdentifier(),
-							new SingleElementExpressionSet(elm.getIdentifier(),
-									idMap, f, elm, execType));
+			for (InstElement elm : refas.getConstraintVertexCollection()) {
+				// if (this.validateConceptType(elm, "SemGeneralElement"))
+				constraintGroups.put(elm.getIdentifier(),
+						new SingleElementExpressionSet(elm.getIdentifier(),
+								idMap, f, elm, execType));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -840,10 +847,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 	}
 
-	public HlclProgram configGraph(InstElement target,
-			Set<InstElement> evaluatedSet, Set<Identifier> freeIdentifiers,
-			boolean calc) {
+	public HlclProgram configGraph(ProgressMonitor progressMonitor,
+			InstElement target, Set<InstElement> evaluatedSet,
+			Set<Identifier> freeIdentifiers, boolean calc)
+			throws InterruptedException {
 		HlclProgram out = new HlclProgram();
+		if (progressMonitor.isCanceled())
+			throw (new InterruptedException());
 		if (evaluatedSet.add(target)) {
 			if ((!target.getInstAttribute("Selected").getAsBoolean()
 					&& !target.getInstAttribute("Core").getAsBoolean() && !target
@@ -862,23 +872,81 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						freeIdentifiers.add(f.newIdentifier(target
 								.getIdentifier() + "_Selected"));
 				for (InstElement element : target.getSourceRelations()) {
+					if (progressMonitor.isCanceled())
+						throw (new InterruptedException());
 					if (calc)
 						out.addAll(getHlclProgram("Simul",
 								Refas2Hlcl.CONF_EXEC, element));
 					InstElement related = element.getSourceRelations().get(0);
-					out.addAll(configGraph(related, evaluatedSet,
-							freeIdentifiers, calc));
+					out.addAll(configGraph(progressMonitor, related,
+							evaluatedSet, freeIdentifiers, calc));
 				}
 				for (InstElement element : target.getTargetRelations()) {
+					if (progressMonitor.isCanceled())
+						throw (new InterruptedException());
 					if (calc)
 						out.addAll(getHlclProgram("Simul",
 								Refas2Hlcl.CONF_EXEC, element));
-					out.addAll(configGraph(element.getTargetRelations().get(0),
-							evaluatedSet, freeIdentifiers, calc));
+					out.addAll(configGraph(progressMonitor, element
+							.getTargetRelations().get(0), evaluatedSet,
+							freeIdentifiers, calc));
 				}
 			}
 			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));
 		}
 		return out;
+	}
+
+	public Map<String, Map<String, Integer>> execCompleteSimul(
+			ProgressMonitor progressMonitor) throws InterruptedException {
+		int iter = 0;
+		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
+		elements = new HashMap<String, Map<String, Integer>>();
+		String element = "Simul";
+		int type = Refas2Hlcl.SIMUL_EXEC;
+		boolean result = true;
+		boolean first = true;
+		int cont =0;
+		while (result && !progressMonitor.isCanceled()) {
+			progressMonitor.setNote("Solutions processed: " +cont++ + "(total unknown)");
+			if (first) {
+				result = execute(progressMonitor, element,
+						Refas2Hlcl.ONE_SOLUTION, type);
+				first = false;
+			} else
+				result = execute(progressMonitor, element,
+						Refas2Hlcl.NEXT_SOLUTION, type);
+			if (result) {
+				updateGUIElements(null);
+				Map<String, Integer> newMap = new TreeMap<String, Integer>();
+				for (InstElement instVertex : refas
+						.getVariabilityVertexCollection()) {
+					if (instVertex.getInstAttribute("ExportOnConfig") != null
+							&& instVertex.getInstAttribute("ExportOnConfig")
+									.getAsBoolean()) {
+						String metaId = instVertex.getTransSupportMetaElement()
+								.getIdentifier();
+						String instId = instVertex.getIdentifier();
+						if (instVertex.getIdentifier().contains("Variable")) {
+							Integer o = (Integer) instVertex.getInstAttribute(
+									"value").getValue();
+							newMap.put(instId, o);
+						} else {
+							Boolean o = (Boolean) instVertex.getInstAttribute(
+									"Selected").getValue();
+							Integer integer;
+							if (o.booleanValue())
+								integer = 1;
+							else
+								integer = 0;
+							newMap.put(instId, integer);
+						}
+					}
+				}
+				iter++;
+				elements.put(iter + "", newMap);
+			}
+		}
+		return elements;
 	}
 }

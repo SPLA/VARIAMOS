@@ -277,6 +277,12 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		if (val instanceof Boolean)
 			return (Boolean) val;
 
+		if (val instanceof Integer)
+			if (((Integer) val).intValue() == 1)
+				return true;
+			else
+				return false;
+
 		if (val instanceof String) {
 			// Check if it's 0
 			if ("0".equals(val))

@@ -73,6 +73,7 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
+import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
@@ -1440,20 +1441,36 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	//
 	// }
 
+	public void exportConfiguration(String file) {
+		if (task == null || task.isDone()) {
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Exporting Configuration", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+
+			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,
+					refas2hlcl, file);
+			task.addPropertyChangeListener(this);
+			((MainFrame) getFrame()).waitingCursor(true);
+			task.execute();
+		}
+	}
+
 	public boolean executeSimulation(boolean first, int type, boolean update,
 			String element) {
-		boolean wasFirst =false;
+		boolean wasFirst = false;
 		long iniTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
 		try {
 			if (first || lastConfiguration == null) {
-				result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
-						type);
-				wasFirst= true;
+				result = refas2hlcl.execute(null, element,
+						Refas2Hlcl.ONE_SOLUTION, type);
+				wasFirst = true;
 			} else {
-				result = refas2hlcl.execute(element, Refas2Hlcl.NEXT_SOLUTION,
-						type);
+				result = refas2hlcl.execute(null, element,
+						Refas2Hlcl.NEXT_SOLUTION, type);
 				Configuration currentConfiguration = refas2hlcl
 						.getConfiguration();
 				if (result) {
@@ -1515,7 +1532,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
-					+ refas2hlcl.getLastExecutionTime()/1000000 + "]" + " -- ";
+					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
+					+ " -- ";
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.messagesArea.setText(e.toString());
@@ -1552,6 +1570,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (progressMonitor.isCanceled() || task.isDone()) {
 				if (progressMonitor.isCanceled()) {
 					task.cancel(true);
+					if (task.getExecType() == Refas2Hlcl.SIMUL_EXPORT) {
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Execution incomplete, partial solution file saved",
+										"Task Notification",
+										JOptionPane.INFORMATION_MESSAGE, null);
+					}
+					else
+						JOptionPane.showMessageDialog(frame,
+								"Execution cancelled", "Task Notification",
+								JOptionPane.INFORMATION_MESSAGE, null);
 					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
 					editPropertiesRefas(lastEditableElement);
@@ -1593,7 +1623,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(VariamosGraphEditor.this,
+			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
 					Refas2Hlcl.CONF_EXEC, refas2hlcl, configHlclProgram,
 					invalidConfigHlclProgram, test, element, defects,
 					lastConfiguration);
@@ -1614,7 +1644,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(VariamosGraphEditor.this,
+			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
 					Refas2Hlcl.DESIGN_EXEC, refas2hlcl, configHlclProgram,
 					invalidConfigHlclProgram, false, null, defect,
 					lastConfiguration);

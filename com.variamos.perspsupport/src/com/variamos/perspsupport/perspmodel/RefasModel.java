@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
@@ -907,16 +908,22 @@ public class RefasModel extends AbstractModel {
 				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
 						true, "Visible on Dashboard", true));
 
+		semGeneralElement.putSemanticAttribute("ExportOnConfig",
+				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
+						true, "Export on Configuration", true));
+
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
 				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
 		semGeneralElement.addPropEditableAttribute("03#" + "DashBoardVisible");
+		semGeneralElement.addPropEditableAttribute("04#" + "ExportOnConfig");
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Active");
 		semGeneralElement.addPropVisibleAttribute("02#" + "Visibility");
 
 		semGeneralElement.addPropVisibleAttribute("03#" + "DashBoardVisible");
+		semGeneralElement.addPropVisibleAttribute("04#" + "ExportOnConfig");
 		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
 				+ "Core" + "#==#" + "true");
 
@@ -1083,10 +1090,15 @@ public class RefasModel extends AbstractModel {
 				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
 						true, "Visible on Dashboard", true));
 
+		semVariable.putSemanticAttribute("ExportOnConfig",
+				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
+						true, "Export on Configuration", true));
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
+		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
 		semVariable.addPropVisibleAttribute("03#" + "DashBoardVisible");
-		
+		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
+
 		InstVertex instVertexVAR = new InstConcept("SemVariable", metaConcept,
 				semVariable);
 		variabilityInstVertex.put("SemVariable", instVertexVAR);
@@ -2287,7 +2299,7 @@ public class RefasModel extends AbstractModel {
 
 		// Direct Soft relation
 
-		InstPairwiseRelation directSGSGSemEdge =  getSemanticRefas()
+		InstPairwiseRelation directSGSGSemEdge = getSemanticRefas()
 				.getConstraintInstEdge("SGSGDirectEdge");
 
 		MetaPairwiseRelation metaSoftPairWiseRel = new MetaPairwiseRelation(
@@ -2360,8 +2372,8 @@ public class RefasModel extends AbstractModel {
 		instView = new InstView("Context", metaView, syntaxMetaView);
 		instViews.add(instView);
 		// syntaxMetaView.addConcept(syntaxVariable);
-		InstConcept semContextGroup = ((InstConcept) this
-				.getSemanticRefas().getVertex("SemContextGroup"));
+		InstConcept semContextGroup = ((InstConcept) this.getSemanticRefas()
+				.getVertex("SemContextGroup"));
 		MetaConcept syntaxContextGroup = new MetaConcept("CG", true,
 				"Context Group", "refascontextgrp", " A context group"
 						+ " is defined to associate variables with common"
@@ -2388,10 +2400,11 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(instView, true);
 
-		InstConcept semVariable = ((InstConcept) this
-				.getSemanticRefas().getVertex("SemVariable"));
+		InstConcept semVariable = ((InstConcept) this.getSemanticRefas()
+				.getVertex("SemVariable"));
 		MetaConcept syntaxAbsVariable = new MetaConcept("Variable", false,
-				"Variable", "", null, 0, 0, null, true, null, 1, semVariable, true);
+				"Variable", "", null, 0, 0, null, true, null, 1, semVariable,
+				true);
 
 		InstVertex instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
@@ -3161,13 +3174,13 @@ public class RefasModel extends AbstractModel {
 			InstElement instTarget) {
 		List<InstAttribute> visible = elm.getVisibleVariables();
 		InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-		if (instSource == null && instPairwise.getSourceRelations().size()>0)
+		if (instSource == null && instPairwise.getSourceRelations().size() > 0)
 			instSource = instPairwise.getSourceRelations().get(0);
-		if (instTarget == null && instPairwise.getTargetRelations().size()>0)
+		if (instTarget == null && instPairwise.getTargetRelations().size() > 0)
 			instTarget = instPairwise.getTargetRelations().get(0);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;
-			if (elm instanceof InstPairwiseRelation && instSource != null ) {
+			if (elm instanceof InstPairwiseRelation && instSource != null) {
 				mapElements = getSyntaxRefas().getValidPairwiseRelations(
 						instSource.getTransSupportMetaElement(),
 						instTarget.getTransSupportMetaElement(), true);
@@ -3206,7 +3219,5 @@ public class RefasModel extends AbstractModel {
 		this.variabilityInstVertex.clear();
 		this.constraintInstEdges.clear();
 		this.otherInstVertex.clear();
-
 	}
-
 }
