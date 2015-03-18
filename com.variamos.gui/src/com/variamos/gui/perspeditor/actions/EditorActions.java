@@ -740,7 +740,7 @@ public class EditorActions {
 							saveXmlPng(editor, filename, bg);
 						} else {
 							BufferedImage image = mxCellRenderer
-									.createBufferedImage(graph, null, 1, bg,
+									.createBufferedImage(graph, null, 2, bg,
 											graphComponent.isAntiAlias(), null,
 											graphComponent.getCanvas());
 

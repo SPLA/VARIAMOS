@@ -575,11 +575,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	private void createVertexExpressions(String identifier, int execType) {
 		if (identifier == null)
-			for (InstElement elm : refas.getConstraintVertexCollection()) {			
-			//	if (this.validateConceptType(elm, "SemGeneralElement"))
-					constraintGroups.put(elm.getIdentifier(),
-							new SingleElementExpressionSet(elm.getIdentifier(),
-									idMap, f, elm, execType));
+			for (InstElement elm : refas.getConstraintVertexCollection()) {
+				// if (this.validateConceptType(elm, "SemGeneralElement"))
+				constraintGroups.put(elm.getIdentifier(),
+						new SingleElementExpressionSet(elm.getIdentifier(),
+								idMap, f, elm, execType));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -880,5 +880,56 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));
 		}
 		return out;
+	}
+
+	public Map<String, Map<String, Integer>> execCompleteSimul() {
+		int iter = 0;
+		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
+		elements = new HashMap<String, Map<String, Integer>>();
+		String element = "Simul";
+		int type = Refas2Hlcl.SIMUL_EXEC;
+		boolean result = true;
+		boolean first = true;
+		while (result) {
+			if (first) {
+				result = execute(element, Refas2Hlcl.ONE_SOLUTION, type);
+				first = false;
+			} else
+				result = execute(element, Refas2Hlcl.NEXT_SOLUTION, type);
+			if (result) {
+				updateGUIElements(null);
+				Map<String, Integer> newMap = new TreeMap<String, Integer>();
+				for (InstElement instVertex : refas
+						.getVariabilityVertexCollection()) {
+					if (instVertex.getInstAttribute("ExportOnConfig") != null
+							&& instVertex.getInstAttribute("ExportOnConfig")
+									.getAsBoolean()) {
+						String metaId = instVertex.getTransSupportMetaElement()
+								.getIdentifier();
+						String instId = instVertex.getIdentifier();
+						if (instVertex.getIdentifier().contains("Variable"))
+						{
+							Integer o = (Integer) instVertex.getInstAttribute(
+									"value").getValue();							
+							newMap.put(instId, o);	
+						}
+						else
+						{
+						Boolean o = (Boolean) instVertex.getInstAttribute(
+								"Selected").getValue();
+						Integer integer;
+						if (o.booleanValue())
+							integer = 1;
+						else
+							integer = 0;
+						newMap.put(instId, integer);
+						}
+					}
+				}
+				iter++;
+				elements.put(iter + "", newMap);
+			}
+		}
+		return elements;
 	}
 }

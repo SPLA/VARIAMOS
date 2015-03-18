@@ -11,6 +11,7 @@ import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 /**
@@ -50,7 +51,7 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		BasicGraphEditor editor = getEditor(e);
+		VariamosGraphEditor editor = getEditor(e);
 
 		if (editor != null)
 		{
@@ -79,7 +80,7 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 				// Adds the default file format
 				FileFilter defaultFilter = new DefaultFileFilter(
-						".conf", "Configuration Files (.conf)");
+						".xls", "Configuration Files (.xls)");
 
 				fc.setFileFilter(defaultFilter);
 				int rc = fc.showDialog(null, mxResources.get("save"));
@@ -96,13 +97,14 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 				filename = fc.getSelectedFile().getAbsolutePath();
 				
-				if( !filename.endsWith(".conf") )
-					filename += ".conf";
+				if( !filename.endsWith(".xls") )
+					filename += ".xls";
 			}
 
 			try
 			{
-				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				editor.saveConfiguration(filename);
 				
 			}
 			catch (Throwable ex)

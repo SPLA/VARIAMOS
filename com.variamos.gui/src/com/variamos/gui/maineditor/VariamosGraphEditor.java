@@ -73,6 +73,7 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
+import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
@@ -1440,9 +1441,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	//
 	// }
 
+	public boolean saveConfiguration(String file) {
+		Map<String, Map<String, Integer>> elements = refas2hlcl
+				.execCompleteSimul();
+
+		ExportConfiguration export = new ExportConfiguration();
+		export.exportConfiguration(elements, file);
+		return true;
+	}
+
 	public boolean executeSimulation(boolean first, int type, boolean update,
 			String element) {
-		boolean wasFirst =false;
+		boolean wasFirst = false;
 		long iniTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
@@ -1450,7 +1460,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (first || lastConfiguration == null) {
 				result = refas2hlcl.execute(element, Refas2Hlcl.ONE_SOLUTION,
 						type);
-				wasFirst= true;
+				wasFirst = true;
 			} else {
 				result = refas2hlcl.execute(element, Refas2Hlcl.NEXT_SOLUTION,
 						type);
@@ -1515,7 +1525,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
 			lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
-					+ refas2hlcl.getLastExecutionTime()/1000000 + "]" + " -- ";
+					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
+					+ " -- ";
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.messagesArea.setText(e.toString());
