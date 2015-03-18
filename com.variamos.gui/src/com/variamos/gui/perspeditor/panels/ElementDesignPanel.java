@@ -116,12 +116,11 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 
-	public void editorProperties(VariamosGraphEditor editor, InstCell instCell) {
+	public void editorProperties(VariamosGraphEditor editor,final InstCell instCell) {
 		mainPanel.removeAll();
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
 		final VariamosGraphEditor finalEditor = editor;
-		final InstCell finalInstCell = instCell;
 
 		// updateVisibleProperties(elm);
 
@@ -328,17 +327,20 @@ public class ElementDesignPanel extends JPanel {
 														&& !elementAttribute
 																.getIdentifier()
 																.equals("Description"))
+												{
 													elementAttribute
 															.setValue(AbstractElement.multiLine(
 																	elementAttribute
-																			.toString(),
-																	15));
+																			.toString(),(int)
+																	instCell.getWidth()/8));
+													
+												}
 												// Divide lines every 15
 												// characters
 												// (aprox.)
 												onVariableEdited(
 														finalEditor,
-														finalInstCell
+														instCell
 																.getInstElement(),
 														elementAttribute);
 											}
@@ -360,13 +362,13 @@ public class ElementDesignPanel extends JPanel {
 													widget.getInstAttribute();
 													onVariableEdited(
 															finalEditor,
-															finalInstCell
+															instCell
 																	.getInstElement(),
 															widget.getInstAttribute());
 
 													editorProperties(
 															finalEditor,
-															finalInstCell);
+															instCell);
 												}
 											}
 										});
@@ -384,7 +386,7 @@ public class ElementDesignPanel extends JPanel {
 														public void run() {
 															editorProperties(
 																	finalEditor,
-																	finalInstCell);
+																	instCell);
 														}
 													}.start();
 												}
@@ -399,7 +401,7 @@ public class ElementDesignPanel extends JPanel {
 														public void run() {
 															editorProperties(
 																	finalEditor,
-																	finalInstCell);
+																	instCell);
 														}
 													}.start();
 												}
@@ -412,7 +414,7 @@ public class ElementDesignPanel extends JPanel {
 								 * 
 								 * new Thread() { public void run() {
 								 * editorProperties( finalEditor,
-								 * finalInstCell); } }.start(); } });
+								 * instCell); } }.start(); } });
 								 */
 								/*
 								 * if (w.getEditor() instanceof JComboBox)
@@ -474,7 +476,7 @@ public class ElementDesignPanel extends JPanel {
 												finalEditor
 														.clearNotificationBar();
 												editorProperties(finalEditor,
-														finalInstCell);
+														instCell);
 											}
 										});
 										elementDesPropSubPanel.add(button);
@@ -563,12 +565,12 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
-						editorProperties(finalEditor, finalInstCell);
+						editorProperties(finalEditor, instCell);
 					}
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
-						editorProperties(finalEditor, finalInstCell);
+						editorProperties(finalEditor, instCell);
 					}
 				});
 				attPanel.setPreferredSize(new Dimension(150, 80));
@@ -591,12 +593,12 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
-						editorProperties(finalEditor, finalInstCell);
+						editorProperties(finalEditor, instCell);
 					}
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
-						editorProperties(finalEditor, finalInstCell);
+						editorProperties(finalEditor, instCell);
 					}
 				});
 

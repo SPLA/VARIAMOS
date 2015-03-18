@@ -166,7 +166,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										.getResource(paletteElement.getIcon())),
 								paletteElement.getStyle(), paletteElement
 										.getWidth(),
-								paletteElement.getHeight(), new InstCell(obj,
+								paletteElement.getHeight(), new InstCell(null, obj,
 										false));
 					}
 				} catch (InstantiationException | IllegalAccessException e) {

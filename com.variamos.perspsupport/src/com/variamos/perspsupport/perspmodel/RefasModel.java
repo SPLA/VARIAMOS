@@ -1083,6 +1083,10 @@ public class RefasModel extends AbstractModel {
 				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
 						true, "Visible on Dashboard", true));
 
+
+		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
+		semVariable.addPropVisibleAttribute("03#" + "DashBoardVisible");
+		
 		InstVertex instVertexVAR = new InstConcept("SemVariable", metaConcept,
 				semVariable);
 		variabilityInstVertex.put("SemVariable", instVertexVAR);

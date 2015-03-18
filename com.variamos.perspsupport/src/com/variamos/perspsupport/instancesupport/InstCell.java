@@ -2,6 +2,8 @@ package com.variamos.perspsupport.instancesupport;
 
 import java.io.Serializable;
 
+import com.mxgraph.model.mxCell;
+
 /**
  * A class to support clones of instance elements with shared values. Part of
  * PhD work at University of Paris 1
@@ -19,17 +21,22 @@ public class InstCell implements Serializable {
 	private InstElement originalInstElement;
 	private InstElement volatileInstElement;
 	private boolean cloned;
+	private mxCell mxCellinst;
 
 	public InstCell() {
-		this.cloned = false;
 	}
-	
-	public InstCell(InstElement instElement, boolean cloned) {
+
+	public InstCell(mxCell mxCellinst) {
+		this.mxCellinst = mxCellinst;
+	}
+
+	public InstCell(mxCell mxCellinst, InstElement instElement, boolean cloned) {
 		this.cloned = cloned;
 		if (cloned)
 			volatileInstElement = instElement;
 		else
 			originalInstElement = instElement;
+		this.mxCellinst = mxCellinst;
 	}
 
 	public InstElement getOriginalInstElement() {
@@ -46,11 +53,11 @@ public class InstCell implements Serializable {
 		else
 			return originalInstElement;
 	}
-	
-	public boolean equals(Object o)
-	{
-		if (getInstElement()!=null && o!= null && ((InstCell)o).getInstElement()!=null)
-		return getInstElement().equals(((InstCell)o).getInstElement());
+
+	public boolean equals(Object o) {
+		if (getInstElement() != null && o != null
+				&& ((InstCell) o).getInstElement() != null)
+			return getInstElement().equals(((InstCell) o).getInstElement());
 		else
 			return false;
 	}
@@ -75,5 +82,14 @@ public class InstCell implements Serializable {
 			return getInstElement().toString();
 		else
 			return null;
+	}
+
+	public double getWidth() {
+		return mxCellinst.getGeometry().getWidth();
+	}
+
+	public void setMxCell(mxCell cell) {
+		mxCellinst = cell;
+
 	}
 }

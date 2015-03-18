@@ -2,6 +2,7 @@ package com.variamos.perspsupport.semanticsupport;
 
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
 import com.variamos.perspsupport.types.VariableType;
 
@@ -29,10 +30,10 @@ public class SemanticVariable extends AbstractSemanticVertex {
 
 			VAR_EXTVISIBLE = "ExtVisible",
 			VAR_EXTVISIBLENAME = "Externally Visible",
-			
+
 			VAR_EXTCONTROL = "ExtControl",
 			VAR_EXTCONTROLNAME = "Externally Controlled",
-			
+
 			VAR_VARIABLETYPE = "variableType",
 			VAR_VARIABLETYPENAME = "Variable Type",
 			VAR_VARIABLETYPECLASS = VariableType.class.getCanonicalName(),
@@ -42,7 +43,13 @@ public class SemanticVariable extends AbstractSemanticVertex {
 
 			VAR_ENUMERATIONTYPE = "enumerationType",
 			VAR_ENUMERATIONTYPENAME = "Enumeration",
-			VAR_ENUMERATIONTYPECLASS = InstEnumeration.class.getCanonicalName();
+			VAR_ENUMERATIONTYPECLASS = InstEnumeration.class.getCanonicalName(),
+
+			VAR_VARIABLECONFIGVALUE = "variableConfigValue",
+			VAR_VARIABLECONFIGVALUENAME = "Configured Value",
+
+			VAR_VARIABLECONFIGDOMAIN = "variableConfigDomain",
+			VAR_VARIABLECONFIGDOMAINNAME = "Configured Domain";
 
 	public SemanticVariable() {
 		this(null, null);
@@ -84,6 +91,13 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
 				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
 
+		putSemanticAttribute(VAR_VARIABLECONFIGVALUE,
+				new SimulationConfigAttribute(VAR_VARIABLECONFIGVALUE,
+						"Integer", false, VAR_VARIABLECONFIGVALUENAME, 0));
+		putSemanticAttribute(VAR_VARIABLECONFIGDOMAIN,
+				new SimulationConfigAttribute(VAR_VARIABLECONFIGDOMAIN,
+						"String", false, VAR_VARIABLECONFIGDOMAINNAME, ""));
+
 		this.addPropEditableAttribute("01#" + VAR_NAME);
 		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);
 		this.addPropEditableAttribute("03#" + VAR_VARIABLEDOMAIN);
@@ -92,6 +106,8 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		// this.addPropEditableAttribute("06#" + VAR_SCOPE);
 		this.addPropEditableAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropEditableAttribute("09#" + VAR_EXTCONTROL);
+
+		this.addPropEditableAttribute("01#" + VAR_VARIABLECONFIGDOMAIN);
 
 		this.addPropVisibleAttribute("01#" + VAR_NAME);
 		this.addPropVisibleAttribute("02#" + VAR_VARIABLETYPE);
@@ -105,6 +121,13 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		this.addPropVisibleAttribute("07#" + VAR_VALUE);
 		this.addPropVisibleAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropVisibleAttribute("09#" + VAR_EXTCONTROL);
+
+		this.addPropVisibleAttribute("01#" + VAR_VARIABLECONFIGDOMAIN + "#"
+				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		this.addPropVisibleAttribute("01#" + VAR_VARIABLECONFIGDOMAIN + "#"
+				+ VAR_VARIABLETYPE + "#==#" + "Integer");
+		this.addPropVisibleAttribute("01#" + VAR_VARIABLECONFIGDOMAIN + "#"
+				+ VAR_VARIABLETYPE + "#==#" + "Boolean");
 
 		this.addPanelVisibleAttribute("01#" + VAR_NAME);
 		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE + "#"

@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
@@ -53,8 +54,9 @@ public class AboutDialog extends JDialog {
 
 		panel.add(new JLabel("               VariaMos Tool"));
 		panel.add(new JLabel(""));
-		panel.add(new JLabel("Version: VariaMos-1.0.1.4 (1.0 Beta 4)"));
-		panel.add(new JLabel("Built time: 20150315 1930"));
+		MainFrame mainFrame = editor.getMainFrame();
+		panel.add(new JLabel("Version: VariaMos-"+mainFrame.getVariamosVersionNumber()+" (" +mainFrame.getVariamosVersionName()+")"));
+		panel.add(new JLabel("Built time: "+mainFrame.getVariamosBuild()));
 
 		panel.add(new JLabel("Changelog: http://variamos.com/home/1-0-beta-4-changelog/"));
 		panel.add(new JLabel("Libraries: mxgraph, gluegen, gson, interprolog, jpl, "));
