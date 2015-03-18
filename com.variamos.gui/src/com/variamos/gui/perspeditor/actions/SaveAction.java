@@ -287,7 +287,7 @@ public class SaveAction extends AbstractEditorAction {
 					mxUtils.writeFile(xml, filename);
 					String file = filename.substring(0,
 							filename.lastIndexOf('.'));
-					file += ".backup."+ new SimpleDateFormat("yyyyMMHHmmss").format(new Date())+"."+ext;
+					file += ".backup."+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+"."+ext;
 					mxUtils.writeFile(xml, file);
 					SharedActions.afterSaveGraph(graph, editor);
 					editor.updateObjects();

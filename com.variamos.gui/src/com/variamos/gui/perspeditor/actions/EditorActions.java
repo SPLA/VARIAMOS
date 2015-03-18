@@ -711,7 +711,7 @@ public class EditorActions {
 						String file = filename.substring(0,
 								filename.lastIndexOf('.'));
 						file += ".backup."
-								+ new SimpleDateFormat("yyyyMMHHmmss")
+								+ new SimpleDateFormat("yyyyMMddHHmmss")
 										.format(new Date()) + "." + ext;
 						mxUtils.writeFile(xml, file);
 						editor.updateObjects();
