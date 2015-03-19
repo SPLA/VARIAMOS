@@ -95,14 +95,14 @@ public class OpenAction extends AbstractEditorAction {
 
 							((MainFrame) finalEditor.getFrame())
 									.waitingCursor(false);
-							return lcase.endsWith(".vmsm")
-									|| lcase.endsWith(".sxfm");
+							return super.accept(file)
+									|| lcase.endsWith(".vmsm");
 						}
 					};
 					// fc.addChoosableFileFilter(defaultFilter);
 
-					fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
-							mxResources.get("sxfmExtension") + " (.sxfm)"));
+				//	fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
+				//			mxResources.get("sxfmExtension") + " (.sxfm)"));
 
 					fc.setFileFilter(defaultFilter);
 

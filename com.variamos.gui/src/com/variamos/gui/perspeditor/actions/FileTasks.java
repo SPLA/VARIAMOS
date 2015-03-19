@@ -60,6 +60,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			String filename, String ext, VariamosGraphEditor variamosEditor, mxGraph graph) {
 		this.progressMonitor = progressMonitor;
 		this.filename = filename;
+		this.ext = ext;
 		this.execType = execType;
 		this.variamosEditor = variamosEditor;
 		this.graph = graph;

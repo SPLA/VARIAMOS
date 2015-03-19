@@ -1523,8 +1523,8 @@ public class EditorActions {
 
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, .vmsm)") {
+								".vmsm", mxResources.get("defaultExtension")
+										+ " (.vmsm)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1532,14 +1532,14 @@ public class EditorActions {
 								((MainFrame) finalEditor.getFrame())
 										.waitingCursor(false);
 								return super.accept(file)
-										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx")
+									//	|| lcase.endsWith(".png")
+									//	|| lcase.endsWith(".vdx")
 										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
 
-						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+			/*			fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
 								"mxGraph Editor " + mxResources.get("file")
 										+ " (.mxe)"));
 						fc.addChoosableFileFilter(new DefaultFileFilter(
@@ -1555,7 +1555,7 @@ public class EditorActions {
 						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
 								"Graph Drawing  " + mxResources.get("file")
 										+ " (.txt)"));
-
+*/
 						fc.setFileFilter(defaultFilter);
 
 						int rc = fc.showDialog(null,
