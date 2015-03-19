@@ -52,6 +52,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
@@ -681,7 +682,7 @@ public class InstanceExpressionDialog extends JDialog {
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute("value")).getValue();
+								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE)).getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instVertex.getIdentifier() + "_"
 									+ value.getValue());
@@ -709,7 +710,7 @@ public class InstanceExpressionDialog extends JDialog {
 				if (semElement2 != null
 						&& semElement2.getIdentifier().equals("Variable")) {
 
-					combo.addItem(instVertex.getIdentifier() + "_" + "value");
+					combo.addItem(instVertex.getIdentifier() + "_" + SemanticVariable.VAR_VALUE);
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE

@@ -86,6 +86,7 @@ import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
@@ -1270,7 +1271,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals("value"))
+				if (instAttribute.getIdentifier().equals(SemanticVariable.VAR_VALUE))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());

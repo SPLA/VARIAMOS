@@ -22,6 +22,7 @@ import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
@@ -352,7 +353,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute("value")).getValue();
+								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE)).getValue();
 						for (InstAttribute value : values) {
 							String[] split = ((String) value.getValue())
 									.split("-");
@@ -387,7 +388,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 							getSemanticExpression().getRightAttributeName())
 					.getAttribute();
 			if (attribute.getType().equals("Integer")) {
-				if (attribute.getName().equals("value")) {
+				if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
 					String domain = (String) volatileRightInstElement
 							.getInstAttribute(
 									SemanticVariable.VAR_VARIABLEDOMAIN)

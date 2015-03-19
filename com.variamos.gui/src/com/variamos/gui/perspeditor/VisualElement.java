@@ -17,6 +17,7 @@ import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 
 public class VisualElement implements Comparable<VisualElement> {
 
@@ -103,7 +104,7 @@ public class VisualElement implements Comparable<VisualElement> {
 					.equals("Integer")) {
 				row.add(new JLabel("int"));
 				row.add(new JLabel(" :"));
-				row.add(new JLabel(instElement.getInstAttribute("value")
+				row.add(new JLabel(instElement.getInstAttribute(SemanticVariable.VAR_VALUE)
 						.getAsInteger() + ""));
 			} else if (instElement.getInstAttribute("variableType").getValue()
 					.equals("Enumeration"))
@@ -115,16 +116,16 @@ public class VisualElement implements Comparable<VisualElement> {
 				if (object != null) {
 					@SuppressWarnings("unchecked")
 					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-							.getInstAttribute("value")).getValue();
+							.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE)).getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue())
 								.split("-");
 						String val = null;
-						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
-							val = ((Integer)instElement.getInstAttribute("value").getValue()).toString();
+						if (instElement.getInstAttribute(SemanticVariable.VAR_VALUE).getValue() instanceof Integer)
+							val = ((Integer)instElement.getInstAttribute(SemanticVariable.VAR_VALUE).getValue()).toString();
 						else
 
-							val = (String)instElement.getInstAttribute("value").getValue();
+							val = (String)instElement.getInstAttribute(SemanticVariable.VAR_VALUE).getValue();
 						if (split[0].equals(val))
 							row.add(new JLabel(value + ""));
 					}
@@ -133,7 +134,7 @@ public class VisualElement implements Comparable<VisualElement> {
 					.equals("Boolean")) {
 				row.add(new JLabel("bool"));
 				row.add(new JLabel(" :"));
-				row.add(new JLabel(instElement.getInstAttribute("value")
+				row.add(new JLabel(instElement.getInstAttribute(SemanticVariable.VAR_VALUE)
 						.getAsBoolean() + ""));
 			} else
 				row.add(new JLabel("Other type"));

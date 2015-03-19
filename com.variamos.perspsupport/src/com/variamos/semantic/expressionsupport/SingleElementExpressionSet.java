@@ -18,6 +18,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
@@ -311,7 +312,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											new EqualsComparisonExpression(
 													instVertex, instVertex,
 													"variableConfigValue",
-													"value"));
+													SemanticVariable.VAR_VALUE));
 							}
 
 							if (instAttribute.getIdentifier().equals(

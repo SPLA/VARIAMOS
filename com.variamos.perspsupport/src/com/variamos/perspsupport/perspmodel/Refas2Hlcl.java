@@ -30,6 +30,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
 import com.variamos.solver.Configuration;
@@ -929,7 +930,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
 							Integer o = (Integer) instVertex.getInstAttribute(
-									"value").getValue();
+									SemanticVariable.VAR_VALUE).getValue();
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(
