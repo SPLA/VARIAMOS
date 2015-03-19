@@ -576,14 +576,14 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify)
-			throws FunctionalException {
+			throws FunctionalException, InterruptedException {
 		return getDeadElements(elementsToVerify, null, null);
 	}
 
 	@Override
 	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify,
 			ConfigurationOptions options, Configuration configuration)
-			throws FunctionalException {
+			throws FunctionalException, InterruptedException {
 		long initTotal = System.currentTimeMillis();
 		ProgressMonitor progressMonitor = null;
 		if (parentComponent != null) {
@@ -598,6 +598,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		List<Defect> deadElementsList = new ArrayList<Defect>();
 
 		for (Identifier identifier : elementsToVerify) {
+			if (progressMonitor!= null && progressMonitor.isCanceled())
+				throw (new InterruptedException());
 			DeadElement deadElement = (DeadElement) isDeadElement(identifier,
 					options, configuration);
 			if (deadElement != null) {
@@ -618,7 +620,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 
 	@Override
 	public List<Defect> getFalseOptionalElements(
-			Set<Identifier> elementsToVerify) throws FunctionalException {
+			Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException {
 
 		return getFalseOptionalElements(elementsToVerify, null, null);
 	}
@@ -626,7 +628,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public List<Defect> getFalseOptionalElements(
 			Set<Identifier> elementsToVerify, ConfigurationOptions options,
-			Configuration configuration) throws FunctionalException {
+			Configuration configuration) throws FunctionalException, InterruptedException {
 		long initTotal = System.currentTimeMillis();
 		List<Defect> falseOptionalList = new ArrayList<Defect>();
 		ProgressMonitor progressMonitor = null;
@@ -640,6 +642,8 @@ public class DefectsVerifier implements IntDefectsVerifier {
 		}
 		int i = 0;
 		for (Identifier identifier : elementsToVerify) {
+			if (progressMonitor!= null && progressMonitor.isCanceled())
+				throw (new InterruptedException());
 			FalseOptionalElement falseOptionalElement = (FalseOptionalElement) isFalseOptionalElement(
 					identifier, options, configuration);
 			if (falseOptionalElement != null) {
@@ -702,7 +706,7 @@ public class DefectsVerifier implements IntDefectsVerifier {
 	@Override
 	public VerificationResult getDefects(Set<Identifier> optionalElements,
 			Set<Identifier> deadElementsToVerify,
-			List<BooleanExpression> constraintsToVerifyRedundancies) {
+			List<BooleanExpression> constraintsToVerifyRedundancies) throws InterruptedException {
 
 		VerificationResult verificationResult = new VerificationResult();
 		List<Defect> defectsList = new ArrayList<Defect>();
