@@ -1,9 +1,12 @@
 package com.variamos.semantic.expressions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
@@ -11,9 +14,14 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstEnumeration;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
@@ -160,18 +168,8 @@ public abstract class AbstractExpression {
 					identifier);
 			AbstractAttribute attribute = leftVertex.getInstAttribute(
 					leftAttributeName).getAttribute();
-			if (attribute.getName().equals(
-					SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
-				String configdomain = (String) leftVertex.getInstAttribute(
-						SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
-				if (configdomain != null)
-					identifier
-							.setDomain(DomainParser.parseDomain(configdomain));
-			} else if (attribute.getType().equals("Integer")
-					|| attribute.getType().equals("Enumeration")) {
-				if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-			}
+
+			updateDomain(attribute, leftVertex, identifier);
 		}
 		if (rightVertex != null) {
 			// System.out
@@ -185,18 +183,7 @@ public abstract class AbstractExpression {
 					identifier);
 			AbstractAttribute attribute = rightVertex.getInstAttribute(
 					rightAttributeName).getAttribute();
-			if (attribute.getName().equals(
-					SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
-				String configdomain = (String) rightVertex.getInstAttribute(
-						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
-				if (configdomain != null)
-					identifier
-							.setDomain(DomainParser.parseDomain(configdomain));
-			} else if (attribute.getType().equals("Integer")
-					|| attribute.getType().equals("Enumeration")) {
-				if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-			}
+			updateDomain(attribute, rightVertex, identifier);
 
 		}
 		if (leftSubExpression != null) {
@@ -206,6 +193,69 @@ public abstract class AbstractExpression {
 			out.putAll(rightSubExpression.getIdentifiers(f));
 		}
 		return out;
+	}
+	
+	private void updateDomain(AbstractAttribute attribute, InstElement instVertex, Identifier identifier)
+	{
+		if (attribute.getName().equals(
+				"SDReqLevel")|| attribute.getName().equals(
+						"ClaimExpLevel")) {
+			String configdomain = "";
+			Set<Integer> values = new HashSet<Integer>();
+			for (InstElement relation: instVertex.getSourceRelations())
+			{
+				values.add(((InstPairwiseRelation) relation).getInstAttribute(SemanticPairwiseRelation.VAR_LEVEL).getAsInteger());
+			}
+			if (values.size()==0)
+			{
+				values.add(new Integer(0)); //TODO use value according to MAX/MIN/As close as possible type of SG.
+			}
+			for (Integer value: values)
+			{
+				configdomain += value.toString()+",";	
+			} 
+			configdomain = configdomain.substring(0, configdomain.length()-1);
+			identifier
+						.setDomain(DomainParser.parseDomain(configdomain));
+		} else
+		if (attribute.getName().equals(
+				SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+			String configdomain = (String) instVertex.getInstAttribute(
+					SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+			if (configdomain != null)
+				identifier
+						.setDomain(DomainParser.parseDomain(configdomain));
+		} else if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
+			String type = (String) instVertex.getInstAttribute(
+					SemanticVariable.VAR_VARIABLETYPE).getValue();
+
+			if (type.equals("Integer")) {
+				String domain = (String) instVertex.getInstAttribute(
+						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+				identifier.setDomain(DomainParser.parseDomain(domain));
+			} else if (type.equals("Enumeration")) {
+				Object object = instVertex.getInstAttribute(
+						"enumerationType").getValueObject();
+				String domain = "";
+				if (object != null) {
+					@SuppressWarnings("unchecked")
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+							.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+							.getValue();
+					for (InstAttribute value : values) {
+						String[] split = ((String) value.getValue())
+								.split("-");
+						domain += split[0] + ",";
+					}
+				}
+				domain = domain.substring(0, domain.length() - 1);
+				identifier.setDomain(DomainParser.parseDomain(domain));
+			}
+		} else if (attribute.getType().equals("Integer")
+				|| attribute.getType().equals("Enumeration")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
+		}
 	}
 
 	public InstElement getLeft() {

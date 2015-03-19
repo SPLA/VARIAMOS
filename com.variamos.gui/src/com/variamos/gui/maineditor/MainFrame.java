@@ -158,7 +158,7 @@ public class MainFrame extends JFrame {
 									+ ". Please visit variamos.com.",
 							"New VariaMos Version available",
 							JOptionPane.INFORMATION_MESSAGE, null);
-				input = new URL("http://variamos.com/home/?wpdmdl=264")
+				input = new URL("http://variamos.com/home/?wpdmdl=278")
 						.openStream();
 				s.close();
 			}
