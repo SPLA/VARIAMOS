@@ -74,6 +74,7 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
+import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.io.SXFMWriter;
@@ -680,7 +681,11 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
 						long startTime = System.currentTimeMillis();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(
+						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+								(VariamosGraphEditor) editor, graph);
+						/*
+						 mxGraph outGraph = SharedActions.beforeGraphOperation(
+						 
 								graph, true, editor.getModelViewIndex(),
 								editor.getModelSubViewIndex());
 						long stopTime = System.currentTimeMillis();
@@ -714,6 +719,7 @@ public class EditorActions {
 						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
+						*/
 					} else if (ext.equalsIgnoreCase("txt")) {
 						String content = mxGdCodec.encode(graph);
 
@@ -1573,6 +1579,10 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".vmsm")) {
+									FileTasks.openAction(FileTasks.OPEN,
+											fc.getSelectedFile(),
+											(VariamosGraphEditor) editor, graph);
+									/*
 									((VariamosGraphEditor) editor).resetView();
 									graph = editor.getGraphComponent()
 											.getGraph();
@@ -1589,6 +1599,7 @@ public class EditorActions {
 											.populateIndex(((AbstractGraph) graph)
 													.getProductLine());
 									resetEditor(variamosEditor);
+									*/
 
 								} else {
 									Document document = mxXmlUtils

@@ -135,20 +135,27 @@ public class OpenAction extends AbstractEditorAction {
 								// document.getDocumentElement(),
 								// graph.getModel());
 								// variamosEditor.editModelReset();
-								((VariamosGraphEditor) editor).resetView();
-								graph = editor.getGraphComponent().getGraph();
-								SharedActions.beforeLoadGraph(graph,
-										variamosEditor);
 
-								PLGReader.loadPLG(fc.getSelectedFile(), graph,
-										variamosEditor);
-								editor.setCurrentFile(fc.getSelectedFile());
-								SharedActions.afterOpenCloneGraph(graph,
-										variamosEditor);
-								variamosEditor
-										.populateIndex(((AbstractGraph) graph)
-												.getProductLine());
-								resetEditor(variamosEditor);
+								FileTasks.openAction(FileTasks.OPEN,
+										fc.getSelectedFile(),
+										(VariamosGraphEditor) editor, graph);
+
+								/*
+								 * ((VariamosGraphEditor) editor).resetView();
+								 * graph =
+								 * editor.getGraphComponent().getGraph();
+								 * SharedActions.beforeLoadGraph(graph,
+								 * variamosEditor);
+								 * 
+								 * PLGReader.loadPLG(fc.getSelectedFile(),
+								 * graph, variamosEditor);
+								 * editor.setCurrentFile(fc.getSelectedFile());
+								 * SharedActions.afterOpenCloneGraph(graph,
+								 * variamosEditor); variamosEditor
+								 * .populateIndex(((AbstractGraph) graph)
+								 * .getProductLine());
+								 * resetEditor(variamosEditor);
+								 */
 							}
 						} catch (IOException | FeatureModelException ex) {
 							ex.printStackTrace();
@@ -164,5 +171,4 @@ public class OpenAction extends AbstractEditorAction {
 			((MainFrame) editor.getFrame()).waitingCursor(false);
 		}
 	}
-
 }

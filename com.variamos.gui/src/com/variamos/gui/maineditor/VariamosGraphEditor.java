@@ -59,6 +59,7 @@ import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorToolBar;
 import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
 import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
@@ -163,6 +164,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			(RefasModel) getEditedModel());
 
 	private List<InstView> instViews;
+	private FileTasks fileTask;
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
@@ -1566,9 +1568,25 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		if ("progress" == evt.getPropertyName()) {
 			int progress = (Integer) evt.getNewValue();
 			progressMonitor.setProgress(progress);
+			if (task != null)
+			{
 			String message = String.format("Completed %d%%.\n", progress);
 			progressMonitor.setNote(message);
-			if (progressMonitor.isCanceled() || task.isDone()) {
+			}
+			if (progressMonitor.isCanceled() || (fileTask != null && fileTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					task.cancel(true);
+						JOptionPane
+								.showMessageDialog(
+										frame,
+										"Execution incomplete, partial solution file saved",
+										"Task Notification",
+										JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				}
+			}
+			else
+			if (progressMonitor.isCanceled() || (task != null && task.isDone())) {
 				if (progressMonitor.isCanceled()) {
 					task.cancel(true);
 					if (task.getExecType() == Refas2Hlcl.SIMUL_EXPORT) {
@@ -1676,5 +1694,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void setInstViews(List<InstView> instViews) {
 		this.instViews = instViews;
+	}
+
+	public void setProgressMonitor(ProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
+	}
+
+	public void setFileTask(FileTasks fileTask) {
+		this.fileTask = fileTask;
+		task = null;
+		
 	}
 }

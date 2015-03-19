@@ -111,6 +111,8 @@ public class ExportUtil {
 		}
 
 		for (List<String> filaResultados : resultados) {
+			if (filaInicialHoja==65535)
+				break;
 			HSSFRow row = hoja.createRow(filaInicialHoja);
 			// Adiciona una fila a los resultados
 			createRow(row, filaResultados);

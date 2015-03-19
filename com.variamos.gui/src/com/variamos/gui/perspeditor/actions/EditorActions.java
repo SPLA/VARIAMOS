@@ -700,25 +700,9 @@ public class EditorActions {
 					} else if (ext.equalsIgnoreCase("mxe")
 							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
-						mxCodec codec = new mxCodec();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(
-								graph, true, editor.getModelViewIndex(),
-								editor.getModelSubViewIndex());
-						String xml = mxXmlUtils.getXml(codec.encode(outGraph
-								.getModel()));
-						SharedActions.afterSaveGraph(graph, editor);
-						mxUtils.writeFile(xml, filename);
-						String file = filename.substring(0,
-								filename.lastIndexOf('.'));
-						file += ".backup."
-								+ new SimpleDateFormat("yyyyMMddHHmmss")
-										.format(new Date()) + "." + ext;
-						mxUtils.writeFile(xml, file);
-						editor.updateObjects();
-						editor.setVisibleModel(0, -1);
-						editor.setDefaultButton();
-						editor.setModified(false);
-						editor.setCurrentFile(new File(filename));
+						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+								(VariamosGraphEditor) editor, graph);
+
 					} else if (ext.equalsIgnoreCase("txt")) {
 						String content = mxGdCodec.encode(graph);
 
@@ -1578,6 +1562,10 @@ public class EditorActions {
 													.getSelectedFile()
 													.getAbsolutePath()));
 								} else {
+									FileTasks.openAction(FileTasks.OPEN,
+											fc.getSelectedFile(),
+											(VariamosGraphEditor) editor, graph);
+									/*
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
 									Document document = mxXmlUtils
@@ -1592,6 +1580,7 @@ public class EditorActions {
 									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
 									resetEditor((VariamosGraphEditor) editor);
+									*/
 								}
 							} catch (IOException ex) {
 								ex.printStackTrace();
