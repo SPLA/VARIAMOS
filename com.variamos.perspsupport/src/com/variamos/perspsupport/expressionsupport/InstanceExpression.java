@@ -356,7 +356,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (attribute.getName()
 				.equals(SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) volatileLefInstElement
-					.getInstAttribute(SemanticVariable.VAR_VARIABLEDOMAIN)
+					.getInstAttribute(SemanticVariable.VAR_VARIABLECONFIGDOMAIN)
 					.getValue();
 			if (configdomain != null)
 				identifier.setDomain(DomainParser.parseDomain(configdomain));

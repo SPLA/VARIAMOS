@@ -221,7 +221,7 @@ public abstract class AbstractExpression {
 		if (attribute.getName().equals(
 				SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) instVertex.getInstAttribute(
-					SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+					SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
 			if (configdomain != null)
 				identifier
 						.setDomain(DomainParser.parseDomain(configdomain));
