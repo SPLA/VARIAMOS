@@ -117,7 +117,8 @@ public class ElementDesignPanel extends JPanel {
 
 	}
 
-	public void editorProperties(VariamosGraphEditor editor,final InstCell instCell) {
+	public void editorProperties(final VariamosGraphEditor editor,
+			final InstCell instCell) {
 		mainPanel.removeAll();
 		mainPanelWidth = 350;
 		JPanel elementDesPropSubPanel = null;
@@ -245,10 +246,12 @@ public class ElementDesignPanel extends JPanel {
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
 								JButton button = new JButton("Edit Expression");
-								if (editor.getPerspective() == 4)
-									button.setEnabled(false);
+								
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										boolean editable = true;
+										if (editor.getPerspective() == 4)
+											editable = false;
 										List<InstanceExpression> ie = new ArrayList<InstanceExpression>();
 										;
 										if ((InstanceExpression) finalInstAttribute
@@ -260,7 +263,7 @@ public class ElementDesignPanel extends JPanel {
 													"id", true));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
-												false, ie);
+												false, ie, editable);
 										dialog.center();
 										dialog.setOnAccept(new InstanceExpressionButtonAction() {
 											@Override
@@ -327,22 +330,21 @@ public class ElementDesignPanel extends JPanel {
 														.equals("String")
 														&& !elementAttribute
 																.getIdentifier()
-																.equals("Description"))
-												{
+																.equals("Description")) {
 													elementAttribute
 															.setValue(AbstractElement.multiLine(
 																	elementAttribute
-																			.toString(),(int)
-																	instCell.getWidth()/8));
-													
+																			.toString(),
+																	(int) instCell
+																			.getWidth() / 8));
+
 												}
 												// Divide lines every 15
 												// characters
 												// (aprox.)
 												onVariableEdited(
 														finalEditor,
-														instCell
-																.getInstElement(),
+														instCell.getInstElement(),
 														elementAttribute);
 											}
 
@@ -363,8 +365,7 @@ public class ElementDesignPanel extends JPanel {
 													widget.getInstAttribute();
 													onVariableEdited(
 															finalEditor,
-															instCell
-																	.getInstElement(),
+															instCell.getInstElement(),
 															widget.getInstAttribute());
 
 													editorProperties(
@@ -414,8 +415,8 @@ public class ElementDesignPanel extends JPanel {
 								 * public void actionPerformed( ActionEvent e) {
 								 * 
 								 * new Thread() { public void run() {
-								 * editorProperties( finalEditor,
-								 * instCell); } }.start(); } });
+								 * editorProperties( finalEditor, instCell); }
+								 * }.start(); } });
 								 */
 								/*
 								 * if (w.getEditor() instanceof JComboBox)
@@ -685,7 +686,8 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals(SemanticVariable.VAR_VALUE))
+				if (instAttribute.getIdentifier().equals(
+						SemanticVariable.VAR_VALUE))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());

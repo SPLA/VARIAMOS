@@ -72,6 +72,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private int height = 400;
 	private boolean multiExpressions;
 	private boolean displayTextExpression;
+	private boolean editable;
 
 	static interface InstanceExpressionButtonAction {
 		public boolean onAction();
@@ -79,9 +80,10 @@ public class InstanceExpressionDialog extends JDialog {
 
 	public InstanceExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, boolean multiExpression,
-			List<InstanceExpression> instanceExpressions) {
+			List<InstanceExpression> instanceExpressions, boolean editable) {
 		super(editor.getFrame(), "Expressions Editor");
 		this.multiExpressions = multiExpression;
+		this.editable = editable;
 		refasModel = (RefasModel) editor.getEditedModel();
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, instanceExpressions);
@@ -230,7 +232,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
-		
+
 		final JButton btnAccept = new JButton();
 		btnAccept.setText("Accept");
 		btnAccept.addActionListener(new ActionListener() {
@@ -563,6 +565,7 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField;
+
 		if (expressionVertexType
 				.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
 			textField = new JTextField(""
@@ -570,6 +573,8 @@ public class InstanceExpressionDialog extends JDialog {
 		else
 			textField = new JTextField(""
 					+ (instanceExpression).getRightNumber());
+		if (!editable)
+			textField.setEnabled(false);
 		textField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -644,6 +649,8 @@ public class InstanceExpressionDialog extends JDialog {
 	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
 			String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
+		if (!editable)
+			combo.setEnabled(false);
 		for (InstElement instVertex : refasModel
 				.getVariabilityVertexCollection()) {
 			IntSemanticElement semElement2 = ((MetaVertex) instVertex
@@ -682,7 +689,8 @@ public class InstanceExpressionDialog extends JDialog {
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE)).getValue();
+								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+								.getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instVertex.getIdentifier() + "_"
 									+ value.getValue());
@@ -699,7 +707,8 @@ public class InstanceExpressionDialog extends JDialog {
 	private JComboBox<String> createIdentifiersCombo(ExpressionVertexType type,
 			InstElement element, String selectedElement) {
 		JComboBox<String> combo = new JComboBox<String>();
-
+		if (!editable)
+			combo.setEnabled(false);
 		if (type == ExpressionVertexType.LEFT
 				|| type == ExpressionVertexType.RIGHT) {
 			for (InstElement instVertex : refasModel
@@ -710,7 +719,8 @@ public class InstanceExpressionDialog extends JDialog {
 				if (semElement2 != null
 						&& semElement2.getIdentifier().equals("Variable")) {
 
-					combo.addItem(instVertex.getIdentifier() + "_" + SemanticVariable.VAR_VALUE);
+					combo.addItem(instVertex.getIdentifier() + "_"
+							+ SemanticVariable.VAR_VALUE);
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
@@ -773,6 +783,8 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstElement element, String selectedOperator,
 			int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
+		if (!editable)
+			combo.setEnabled(false);
 		List<SemanticExpressionType> semanticExpressionTypes = SemanticExpressionType
 				.getValidSemanticExpressionTypes(refasModel
 						.getSemanticExpressionTypes().values(),
@@ -807,6 +819,8 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstanceExpression instanceExpression,
 			final InstElement element, final boolean left) {
 		JComboBox<String> combo = new JComboBox<String>();
+		if (!editable)
+			combo.setEnabled(false);
 		combo.addItem("Variable");
 		combo.addItem("SubExpression");
 		combo.addItem("Number");
