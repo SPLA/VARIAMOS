@@ -382,8 +382,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 						String[] split = ((String) value.getValue()).split("-");
 						domain += split[0] + ",";
 					}
+					domain = domain.substring(0, domain.length() - 1);
 				}
-				domain = domain.substring(0, domain.length() - 1);
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			}
 		} else
