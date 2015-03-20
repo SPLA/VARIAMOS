@@ -159,7 +159,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 						.format(new Date()) + "." + ext;
 		mxUtils.writeFile(xml, file);
 		variamosEditor.updateObjects();
-		variamosEditor.setVisibleModel(4, 0);
+		variamosEditor.setVisibleModel(0, -1);
 		variamosEditor.setDefaultButton();
 		variamosEditor.setModified(false);
 		variamosEditor.setCurrentFile(new File(filename));
