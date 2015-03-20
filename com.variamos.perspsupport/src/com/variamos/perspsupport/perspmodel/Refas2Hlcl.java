@@ -30,6 +30,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
 import com.variamos.solver.Configuration;
@@ -355,6 +356,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
 				text += exp + "\n";
 			}
+			//if (swiSolver != null)
+			//	swiSolver.close();
 			swiSolver = new SWIPrologSolver(hlclProgram);
 			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
@@ -362,6 +365,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
 				if ((execType == Refas2Hlcl.SIMUL_EXEC))
 					configurationOptions.setOrder(true);
+				configurationOptions.setStartFromZero(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);
@@ -929,7 +933,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
 							Integer o = (Integer) instVertex.getInstAttribute(
-									"value").getValue();
+									SemanticVariable.VAR_VALUE).getValue();
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(

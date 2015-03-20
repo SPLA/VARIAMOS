@@ -278,6 +278,10 @@ public class SaveAction extends AbstractEditorAction {
 					generatePrologFile(pl, filename);
 				} else if (ext.equalsIgnoreCase("vmsm")
 						|| ext.equalsIgnoreCase("xml")) {
+					
+					FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+							(VariamosGraphEditor) editor, graph);
+/*
 					mxGraph outGraph = SharedActions.beforeGraphOperation(
 							graph, true, editor.getModelViewIndex(),
 							editor.getModelSubViewIndex());
@@ -294,7 +298,9 @@ public class SaveAction extends AbstractEditorAction {
 					editor.setVisibleModel(0, -1);
 					editor.setDefaultButton();
 					editor.setModified(false);
+					*/
 					editor.setCurrentFile(new File(filename));
+					
 				} else {
 					Color bg = null;
 

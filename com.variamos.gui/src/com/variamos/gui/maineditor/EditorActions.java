@@ -74,6 +74,7 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
+import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.io.SXFMWriter;
@@ -680,7 +681,11 @@ public class EditorActions {
 							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
 						long startTime = System.currentTimeMillis();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(
+						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+								(VariamosGraphEditor) editor, graph);
+						/*
+						 mxGraph outGraph = SharedActions.beforeGraphOperation(
+						 
 								graph, true, editor.getModelViewIndex(),
 								editor.getModelSubViewIndex());
 						long stopTime = System.currentTimeMillis();
@@ -714,6 +719,7 @@ public class EditorActions {
 						editor.setDefaultButton();
 						editor.setModified(false);
 						editor.setCurrentFile(new File(filename));
+						*/
 					} else if (ext.equalsIgnoreCase("txt")) {
 						String content = mxGdCodec.encode(graph);
 
@@ -1517,8 +1523,8 @@ public class EditorActions {
 
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, .vmsm)") {
+								".vmsm", mxResources.get("defaultExtension")
+										+ " (.vmsm)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1526,14 +1532,14 @@ public class EditorActions {
 								((MainFrame) finalEditor.getFrame())
 										.waitingCursor(false);
 								return super.accept(file)
-										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx")
+									//	|| lcase.endsWith(".png")
+									//	|| lcase.endsWith(".vdx")
 										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
 
-						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+			/*			fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
 								"mxGraph Editor " + mxResources.get("file")
 										+ " (.mxe)"));
 						fc.addChoosableFileFilter(new DefaultFileFilter(
@@ -1549,7 +1555,7 @@ public class EditorActions {
 						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
 								"Graph Drawing  " + mxResources.get("file")
 										+ " (.txt)"));
-
+*/
 						fc.setFileFilter(defaultFilter);
 
 						int rc = fc.showDialog(null,
@@ -1573,6 +1579,10 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".vmsm")) {
+									FileTasks.openAction(FileTasks.OPEN,
+											fc.getSelectedFile(),
+											(VariamosGraphEditor) editor, graph);
+									/*
 									((VariamosGraphEditor) editor).resetView();
 									graph = editor.getGraphComponent()
 											.getGraph();
@@ -1589,6 +1599,7 @@ public class EditorActions {
 											.populateIndex(((AbstractGraph) graph)
 													.getProductLine());
 									resetEditor(variamosEditor);
+									*/
 
 								} else {
 									Document document = mxXmlUtils

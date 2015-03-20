@@ -16,6 +16,7 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 
 /**
  * A class to represented modeling elements from meta model and semantic model
@@ -161,7 +162,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableMetaElement
 							.getBorderStroke());
 
-				if (instAttribute.getIdentifier().equals("value"))
+				if (instAttribute.getIdentifier().equals("value")) // TODO review what to associate
 					instAttribute.setValue(editableMetaElement
 							.getModelingAttributesNames());
 			}
@@ -364,7 +365,7 @@ public abstract class InstElement implements Serializable, EditableElement {
 									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstEnumeration) instAttribute
 											.getValueObject())
 											.getDynamicVariable("InstAttribute");
-									InstAttribute oo = o.get("value");
+									InstAttribute oo = o.get(MetaEnumeration.VAR_METAENUMVALUE);
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									out += "{ ";

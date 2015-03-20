@@ -17,6 +17,7 @@ import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
+import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
@@ -307,6 +308,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));
 		menu.setMnemonic('H');
 		menu.add(editor.bind(mxResources.get("about"), new AboutAction()));
+
+		menu.add(editor.bind(mxResources.get("checkUpdates"), new CheckUpdateAction()));
 		add(menu);
 	}
 

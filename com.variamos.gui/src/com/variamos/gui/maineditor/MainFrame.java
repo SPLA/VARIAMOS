@@ -43,9 +43,9 @@ public class MainFrame extends JFrame {
 	private int perspective = 1;
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
-	private String variamosVersionNumber = "1.0.1.5";
-	private String variamosVersionName = "1.0 Beta 5";
-	private String variamosBuild = "20150318 2200";
+	private String variamosVersionNumber = "1.0.1.7";
+	private String variamosVersionName = "1.0 Beta 7";
+	private String variamosBuild = "20150320 1700";
 
 	public int getPerspective() {
 		return perspective;
@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
 				syntaxRefas = new RefasModel(PerspectiveType.syntax,
 						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
-				perspTitle = "Semantic - VariaMos "+ variamosVersionNumber;
+				perspTitle = "Semantic - VariaMos " + variamosVersionNumber;
 				System.out.println("Creating Semantic Perspective...");
 				break;
 
@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
-				perspTitle = "System Model - VariaMos "+ variamosVersionNumber;
+				perspTitle = "System Model - VariaMos " + variamosVersionNumber;
 				System.out.println("Creating Modeling Perspective...");
 				break;
 
@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
 				abstractModel = syntaxRefas;
 
 				bgColor = new Color(255, 255, 245);
-				perspTitle = "Syntax - VariaMos "+ variamosVersionNumber;
+				perspTitle = "Syntax - VariaMos " + variamosVersionNumber;
 				System.out.println("Creating Syntax Perspective...");
 				break;
 
@@ -105,7 +105,7 @@ public class MainFrame extends JFrame {
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Simulation - VariaMos "+ variamosVersionNumber;
+				perspTitle = "Simulation - VariaMos " + variamosVersionNumber;
 				System.out.println("Creating Simulation Perspective...");
 				break;
 
@@ -143,24 +143,7 @@ public class MainFrame extends JFrame {
 			if (arg0 == null || !arg0.equals("nosolver"))
 				verifySolver();
 			if (arg0 == null || !arg0.equals("noupdate")) {
-				InputStream input = new URL(
-						"http://variamos.com/home/Variamos.txt")
-						.openStream();
-				java.util.Scanner s = new java.util.Scanner(input)
-						.useDelimiter(":");
-				String newVersion = s.hasNext() ? s.next() : null;
-				if (newVersion != null
-						&& !variamosVersionNumber.equals(newVersion))
-					JOptionPane.showMessageDialog(this,
-							"Your current version is " + variamosVersionNumber
-									+ ", the new version detected is: "
-									+ newVersion
-									+ ". Please visit variamos.com.",
-							"New VariaMos Version available",
-							JOptionPane.INFORMATION_MESSAGE, null);
-				input = new URL("http://variamos.com/home/?wpdmdl=264")
-						.openStream();
-				s.close();
+				this.checkUpdates(false);
 			}
 		} catch (UnsatisfiedLinkError e) {
 			e.printStackTrace();
@@ -170,12 +153,6 @@ public class MainFrame extends JFrame {
 							"Solver not properly configured, visit http://variamos.com and follow the steps",
 							"Solver Error", JOptionPane.INFORMATION_MESSAGE,
 							null);
-		} catch (java.net.UnknownHostException e) {
-			System.out.println("Could not connect to Variamos.com.");
-		} catch (MalformedURLException e) {
-			System.out.println("Error on updates verification.");
-		} catch (IOException e) {
-			System.out.println("Error on updates verification.");
 		}
 	}
 
@@ -309,5 +286,40 @@ public class MainFrame extends JFrame {
 
 	public String getVariamosBuild() {
 		return variamosBuild;
+	}
+
+	public void checkUpdates(boolean b) {
+		InputStream input;
+		try {
+			input = new URL("http://variamos.com/home/Variamos.txt")
+					.openStream();
+
+			java.util.Scanner s = new java.util.Scanner(input)
+					.useDelimiter(":");
+			String newVersion = s.hasNext() ? s.next() : null;
+			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+				JOptionPane.showMessageDialog(this, "Your current version is "
+						+ variamosVersionNumber
+						+ ". The latest version is: " + newVersion
+						+ ". Please visit variamos.com.",
+						"New VariaMos Version available",
+						JOptionPane.INFORMATION_MESSAGE, null);
+			else if (b)
+				JOptionPane
+						.showMessageDialog(this, "Your current version of VariaMos "
+								+ variamosVersionNumber
+								+ "  is up to date.",
+								"Update Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			input = new URL("http://variamos.com/home/?wpdmdl=278")
+					.openStream();
+			s.close();
+		} catch (java.net.UnknownHostException e) {
+			System.out.println("Could not connect to Variamos.com.");
+		} catch (MalformedURLException e) {
+			System.out.println("Error on updates verification.");
+		} catch (IOException e) {
+			System.out.println("Error on updates verification.");
+		}
 	}
 }

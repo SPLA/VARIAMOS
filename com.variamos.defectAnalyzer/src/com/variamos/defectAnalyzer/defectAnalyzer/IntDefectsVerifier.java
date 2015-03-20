@@ -47,14 +47,14 @@ public interface IntDefectsVerifier {
 
 	public Defect isRedundant(BooleanExpression expressionToVerify) throws FunctionalException;
 
-	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException;
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException;
 
-	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException;
+	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify) throws FunctionalException, InterruptedException;
 	
 	
-	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+	public List<Defect> getDeadElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException, InterruptedException;
 
-	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException;
+	public List<Defect> getFalseOptionalElements(Set<Identifier> elementsToVerify, ConfigurationOptions options, Configuration configuration) throws FunctionalException, InterruptedException;
 	
 	public long getSolverTime() ;
 
@@ -76,6 +76,6 @@ public interface IntDefectsVerifier {
 
 	public VerificationResult getDefects(
 			Set<Identifier> optionalElements,
-			Set<Identifier> deadElementsToVerify, List<BooleanExpression> constraintsToVerifyRedundancies);
+			Set<Identifier> deadElementsToVerify, List<BooleanExpression> constraintsToVerifyRedundancies) throws InterruptedException;
 
 }

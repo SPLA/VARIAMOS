@@ -20,8 +20,17 @@ public class NextSimulationAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearNotificationBar();
-		boolean wasFirst = editor.executeSimulation(false, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
-		editor.updateDashBoard(wasFirst, true);
+		editor.executeSimulation(false, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
+		//boolean wasFirst = editor.executeSimulation(false, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		editor.updateDashBoard(false, true);
+		editor.editPropertiesRefas();
+		editor.updateSimulResults();
 	}
 
 }

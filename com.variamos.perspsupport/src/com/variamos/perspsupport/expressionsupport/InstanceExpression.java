@@ -22,6 +22,7 @@ import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
@@ -325,51 +326,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 							getSemanticExpression().getLeftAttributeName())
 					.getAttribute();
 			// Specifically for Variables
-			if (attribute.getName().equals(
-					SemanticVariable.VAR_VARIABLECONFIGVALUE))
-			{
-				String configdomain = (String) volatileLefInstElement
-						.getInstAttribute(
-								SemanticVariable.VAR_VARIABLEDOMAIN)
-						.getValue();
-				if (configdomain!= null)
-				identifier.setDomain(DomainParser.parseDomain(configdomain));					
-			}
-			if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
-				String type = (String) volatileLefInstElement.getInstAttribute(
-						SemanticVariable.VAR_VARIABLETYPE).getValue();
-				
-				if (type.equals("Integer")) {
-					String domain = (String) volatileLefInstElement
-							.getInstAttribute(
-									SemanticVariable.VAR_VARIABLEDOMAIN)
-							.getValue();
-					identifier.setDomain(DomainParser.parseDomain(domain));
-				} else if (type.equals("Enumeration")) {
-					Object object = volatileLefInstElement.getInstAttribute(
-							"enumerationType").getValueObject();
-					String domain = "";
-					if (object != null) {
-						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute("value")).getValue();
-						for (InstAttribute value : values) {
-							String[] split = ((String) value.getValue())
-									.split("-");
-							domain += split[0] + ",";
-						}
-					}
-					domain = domain.substring(0, domain.length() - 1);
-					identifier.setDomain(DomainParser.parseDomain(domain));
-				}
-			} else
-
-			if (attribute.getType().equals("Integer")) {
-				if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-				else
-					identifier.setDomain(new RangeDomain(0, 4));
-			}
+			updateDomain(attribute, volatileLefInstElement, identifier);
 
 			return identifier;
 		}
@@ -386,21 +343,57 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					.getInstAttribute(
 							getSemanticExpression().getRightAttributeName())
 					.getAttribute();
-			if (attribute.getType().equals("Integer")) {
-				if (attribute.getName().equals("value")) {
-					String domain = (String) volatileRightInstElement
-							.getInstAttribute(
-									SemanticVariable.VAR_VARIABLEDOMAIN)
-							.getValue();
-					identifier.setDomain(DomainParser.parseDomain(domain));
-				} else if (attribute.getDomain() != null)
-					identifier.setDomain(attribute.getDomain());
-				else
-					identifier.setDomain(new RangeDomain(0, 4));
-			}
+
+			updateDomain(attribute, volatileRightInstElement, identifier);
+
 			return identifier;
 		}
 		return out;
+	}
+
+	private void updateDomain(AbstractAttribute attribute,
+			InstElement instVertex, Identifier identifier) {
+		if (attribute.getName()
+				.equals(SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+			String configdomain = (String) volatileLefInstElement
+					.getInstAttribute(SemanticVariable.VAR_VARIABLECONFIGDOMAIN)
+					.getValue();
+			if (configdomain != null && !configdomain.equals(""))
+				identifier.setDomain(DomainParser.parseDomain(configdomain));
+		}
+		if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
+			String type = (String) instVertex.getInstAttribute(
+					SemanticVariable.VAR_VARIABLETYPE).getValue();
+
+			if (type.equals("Integer")) {
+				String domain = (String) instVertex.getInstAttribute(
+						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+				identifier.setDomain(DomainParser.parseDomain(domain));
+			} else if (type.equals("Enumeration")) {
+				Object object = instVertex.getInstAttribute("enumerationType")
+						.getValueObject();
+				String domain = "";
+				if (object != null) {
+					@SuppressWarnings("unchecked")
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
+							.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+							.getValue();
+					for (InstAttribute value : values) {
+						String[] split = ((String) value.getValue()).split("-");
+						domain += split[0] + ",";
+					}
+					domain = domain.substring(0, domain.length() - 1);
+				}
+				identifier.setDomain(DomainParser.parseDomain(domain));
+			}
+		} else
+
+		if (attribute.getType().equals("Integer")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
+			else
+				identifier.setDomain(new RangeDomain(0, 4));
+		}
 	}
 
 	private List<Expression> expressionTerms() {

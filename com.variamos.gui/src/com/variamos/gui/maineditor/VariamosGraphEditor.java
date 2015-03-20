@@ -59,6 +59,7 @@ import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorToolBar;
 import com.variamos.gui.perspeditor.SpringUtilities;
+import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
 import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
@@ -86,6 +87,7 @@ import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
@@ -162,6 +164,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			(RefasModel) getEditedModel());
 
 	private List<InstView> instViews;
+	private FileTasks fileTask;
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
 		dashBoardFrame.updateDashBoard(refasModel, updateConcepts, updated);
@@ -862,6 +865,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	// jcmunoz: new method for REFAS
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void editPropertiesRefas() {
+		editPropertiesRefas(lastEditableElement);
+	}
 	public void editPropertiesRefas(final InstCell instCell) {
 		try {
 			updateVisibleProperties(instCell);
@@ -1270,7 +1276,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals("value"))
+				if (instAttribute.getIdentifier().equals(
+						SemanticVariable.VAR_VALUE))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());
@@ -1417,6 +1424,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void clearElementState(int execType) {
 
 		refas2hlcl.cleanGUIElements(execType);
+		if (task != null)
+		{
+			task.setTerminated(true);
+			task = null;
+		}
+		
 		this.refresh();
 
 	}
@@ -1425,21 +1438,28 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		executeSimulation(first, type, true, "");
 	}
 
-	// public void executeSimulation(boolean first, int type, boolean update,
-	// String element) {
-	//
-	// progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-	// "Executing Simulation", "", 0, 100);
-	// progressMonitor.setMillisToDecideToPopup(5);
-	// progressMonitor.setMillisToPopup(5);
-	// progressMonitor.setProgress(0);
-	// task = new SolverTasks(Refas2Hlcl.SIMUL_EXEC, refas2hlcl,
-	// configHlclProgram, first, type, update, element);
-	// task.addPropertyChangeListener(this);
-	// ((MainFrame) getFrame()).waitingCursor(true);
-	// task.execute();
-	//
-	// }
+	public void executeSimulation(boolean first, int type, boolean update,
+			String element) {
+
+		if (!first && task != null
+				&& task.getExecType() == Refas2Hlcl.SIMUL_EXEC) {
+			task.setFirst(false);
+			task.setNext(true);
+		} else {
+			if (task != null)
+				task.setTerminated(true);
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing Simulation", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXEC,
+					refas2hlcl, configHlclProgram, first, type, update,
+					element, lastConfiguration);
+			task.addPropertyChangeListener(this);
+			task.execute();
+		}
+	}
 
 	public void exportConfiguration(String file) {
 		if (task == null || task.isDone()) {
@@ -1457,9 +1477,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	public boolean executeSimulation(boolean first, int type, boolean update,
-			String element) {
-		boolean wasFirst = false;
+	public boolean executeSimulation(int type, boolean update, String element) {
+		boolean wasFirst = false, first = false;
 		long iniTime = System.currentTimeMillis();
 		((MainFrame) getFrame()).waitingCursor(true);
 		boolean result = false;
@@ -1565,9 +1584,33 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		if ("progress" == evt.getPropertyName()) {
 			int progress = (Integer) evt.getNewValue();
 			progressMonitor.setProgress(progress);
-			String message = String.format("Completed %d%%.\n", progress);
-			progressMonitor.setNote(message);
-			if (progressMonitor.isCanceled() || task.isDone()) {
+			if (task != null) {
+				String message = String.format("Completed %d%%.\n", progress);
+				progressMonitor.setNote(message);
+				if (task.getExecType()==Refas2Hlcl.SIMUL_EXEC)
+				{
+						refas2hlcl.updateGUIElements(null);
+						updateDashBoard(true, true);
+						messagesArea.setText(refas2hlcl.getText());
+						// bringUpTab(mxResources.get("elementSimPropTab"));
+						editPropertiesRefas(lastEditableElement);
+
+				}
+			}
+			if (progressMonitor.isCanceled()
+					|| (fileTask != null && fileTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					task.cancel(true);
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Execution incomplete, partial solution file saved",
+									"Task Notification",
+									JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				}
+			} else if (progressMonitor.isCanceled()
+					|| (task != null && task.isDone())) {
 				if (progressMonitor.isCanceled()) {
 					task.cancel(true);
 					if (task.getExecType() == Refas2Hlcl.SIMUL_EXPORT) {
@@ -1577,8 +1620,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										"Execution incomplete, partial solution file saved",
 										"Task Notification",
 										JOptionPane.INFORMATION_MESSAGE, null);
-					}
-					else
+					} else
 						JOptionPane.showMessageDialog(frame,
 								"Execution cancelled", "Task Notification",
 								JOptionPane.INFORMATION_MESSAGE, null);
@@ -1612,6 +1654,19 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 			}
+		}
+	}
+	
+	public void updateSimulResults()
+	{
+
+		messagesArea.setText(refas2hlcl.getText());
+		if (!task.getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame,
+					task.getErrorMessage(),
+					task.getErrorTitle(),
+					JOptionPane.INFORMATION_MESSAGE, null);
+
 		}
 	}
 
@@ -1675,5 +1730,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void setInstViews(List<InstView> instViews) {
 		this.instViews = instViews;
+	}
+
+	public void setProgressMonitor(ProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
+	}
+
+	public void setFileTask(FileTasks fileTask) {
+		this.fileTask = fileTask;
+		task = null;
+
 	}
 }

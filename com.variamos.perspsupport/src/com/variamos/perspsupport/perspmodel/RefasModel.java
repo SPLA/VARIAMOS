@@ -1065,11 +1065,11 @@ public class RefasModel extends AbstractModel {
 
 		semSoftgoal.putSemanticAttribute("SDReqLevel",
 				new SimulationStateAttribute("SDReqLevel", "Integer", false,
-						"Required Level by SD", 0, new RangeDomain(0, 5)));
+						"Required Level by SD", 0, new RangeDomain(0, 4)));
 
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel",
 				new SimulationStateAttribute("ClaimExpLevel", "Integer", false,
-						"Expected Level by Claim", 0, new RangeDomain(0, 5)));
+						"Expected Level by Claim", 0, new RangeDomain(0, 4)));
 
 		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
 		semSoftgoal.addPropVisibleAttribute("16#" + "ClaimExpLevel");

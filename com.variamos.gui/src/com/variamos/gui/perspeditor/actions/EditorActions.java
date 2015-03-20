@@ -700,25 +700,9 @@ public class EditorActions {
 					} else if (ext.equalsIgnoreCase("mxe")
 							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
-						mxCodec codec = new mxCodec();
-						mxGraph outGraph = SharedActions.beforeGraphOperation(
-								graph, true, editor.getModelViewIndex(),
-								editor.getModelSubViewIndex());
-						String xml = mxXmlUtils.getXml(codec.encode(outGraph
-								.getModel()));
-						SharedActions.afterSaveGraph(graph, editor);
-						mxUtils.writeFile(xml, filename);
-						String file = filename.substring(0,
-								filename.lastIndexOf('.'));
-						file += ".backup."
-								+ new SimpleDateFormat("yyyyMMddHHmmss")
-										.format(new Date()) + "." + ext;
-						mxUtils.writeFile(xml, file);
-						editor.updateObjects();
-						editor.setVisibleModel(0, -1);
-						editor.setDefaultButton();
-						editor.setModified(false);
-						editor.setCurrentFile(new File(filename));
+						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
+								(VariamosGraphEditor) editor, graph);
+
 					} else if (ext.equalsIgnoreCase("txt")) {
 						String content = mxGdCodec.encode(graph);
 
@@ -1526,21 +1510,19 @@ public class EditorActions {
 
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								".mxe", mxResources.get("allSupportedFormats")
-										+ " (.mxe, .png, .vdx, , .vmsm)") {
+								".vmsm", mxResources.get("defaultExtension")
+										+ " (.vmsm)") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
 
 								return super.accept(file)
-										|| lcase.endsWith(".png")
-										|| lcase.endsWith(".vdx")
 										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
 
-						fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
+					/*	fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
 								"mxGraph Editor " + mxResources.get("file")
 										+ " (.mxe)"));
 						fc.addChoosableFileFilter(new DefaultFileFilter(".png",
@@ -1556,7 +1538,7 @@ public class EditorActions {
 						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
 								"Graph Drawing  " + mxResources.get("file")
 										+ " (.txt)"));
-
+*/
 						fc.setFileFilter(defaultFilter);
 
 						int rc = fc.showDialog(null,
@@ -1578,6 +1560,10 @@ public class EditorActions {
 													.getSelectedFile()
 													.getAbsolutePath()));
 								} else {
+									FileTasks.openAction(FileTasks.OPEN,
+											fc.getSelectedFile(),
+											(VariamosGraphEditor) editor, graph);
+									/*
 									SharedActions.beforeLoadGraph(graph,
 											variamosEditor);
 									Document document = mxXmlUtils
@@ -1592,6 +1578,7 @@ public class EditorActions {
 									SharedActions.afterOpenCloneGraph(graph,
 											variamosEditor);
 									resetEditor((VariamosGraphEditor) editor);
+									*/
 								}
 							} catch (IOException ex) {
 								ex.printStackTrace();
