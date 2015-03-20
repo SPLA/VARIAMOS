@@ -22,7 +22,7 @@ public class StartSimulationAction extends AbstractEditorAction {
 		editor.clearNotificationBar();
 		editor.clearElementState(Refas2Hlcl.SIMUL_EXEC);
 		editor.executeSimulation(true, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
-		editor.updateDashBoard(true, true);
+		//editor.updateDashBoard(true, true);
 		
 	}
 }

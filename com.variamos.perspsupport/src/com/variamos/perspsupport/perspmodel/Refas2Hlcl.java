@@ -356,6 +356,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
 				text += exp + "\n";
 			}
+			//if (swiSolver != null)
+			//	swiSolver.close();
 			swiSolver = new SWIPrologSolver(hlclProgram);
 			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
@@ -363,6 +365,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
 				if ((execType == Refas2Hlcl.SIMUL_EXEC))
 					configurationOptions.setOrder(true);
+				configurationOptions.setStartFromZero(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
 				labelingOrderList.add(LabelingOrder.MIN);

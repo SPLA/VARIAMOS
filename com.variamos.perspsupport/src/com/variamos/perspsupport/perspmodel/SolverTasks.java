@@ -61,6 +61,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private Component parentComponent;
 	private String file;
 	private ProgressMonitor progressMonitor;
+	private boolean next = true;
+	private boolean terminated = false;	
 
 	public SolverTasks(ProgressMonitor progressMonitor,
 			Component parentComponent, int execType, Refas2Hlcl refas2hlcl,
@@ -74,6 +76,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.configHlclProgram = configHlclProgram;
 		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
 		this.test = test;
+		this.first = true;
 		this.element = element;
 		this.defects = defects;
 		this.lastConfiguration = lastConfiguration;
@@ -128,7 +131,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				configModel();
 				break;
 			case Refas2Hlcl.SIMUL_EXEC:
-				executeSimulation(first, type, update, stringElement);
+				executeSimulation(type, update, stringElement);
 				break;
 			case Refas2Hlcl.SIMUL_EXPORT:
 				saveConfiguration(file);
@@ -150,11 +153,12 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public boolean saveConfiguration(String file) throws InterruptedException {
 		setProgress(1);
-		progressMonitor.setNote("Solutions processed: 0");		
+		progressMonitor.setNote("Solutions processed: 0");
 		Map<String, Map<String, Integer>> elements = refas2hlcl
 				.execCompleteSimul(progressMonitor);
 		setProgress(95);
-		progressMonitor.setNote("Total Solutions processed: "+elements.size());
+		progressMonitor
+				.setNote("Total Solutions processed: " + elements.size());
 		ExportConfiguration export = new ExportConfiguration();
 		export.exportConfiguration(elements, file);
 		return true;
@@ -334,7 +338,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		if (progressMonitor.isCanceled())
 			throw (new InterruptedException());
 		if (defect == null || defect.contains("Simul"))
-			executeSimulation(true, Refas2Hlcl.CONF_EXEC, false, "Simul");
+			executeSimulation(Refas2Hlcl.CONF_EXEC, false, "Simul");
 
 		for (String outMessage : outMessageList) {
 			if (outMessage != null) {
@@ -358,64 +362,103 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return true;
 	}
 
-	public void executeSimulation(boolean first, int type, boolean update,
+	public void executeSimulation(int type, boolean update,
 			String element) {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
 		setProgress(10);
-		try {
-			if (first || lastConfiguration == null) {
-				result = refas2hlcl.execute(progressMonitor, element,
-						Refas2Hlcl.ONE_SOLUTION, type);
-			} else {
-				result = refas2hlcl.execute(progressMonitor, element,
-						Refas2Hlcl.NEXT_SOLUTION, type);
-				Configuration currentConfiguration = refas2hlcl
-						.getConfiguration();
-				if (result) {
-					List<String> modifiedIdentifiers = compareSolutions(
-							lastConfiguration, currentConfiguration);
-					System.out.println(modifiedIdentifiers);
+		while (!terminated) {
+			if (!next) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				continue;
 			}
-			lastConfiguration = refas2hlcl.getConfiguration();
-			if (!result) {
-				if (first) {
-					switch (type) {
-					case Refas2Hlcl.DESIGN_EXEC:
-						errorMessage = "Last validated change makes the model inconsistent."
-								+ " \n Please review the restrictions defined and "
-								+ "try again. \nModel visual representation was not updated.";
-						errorTitle = "Simulation Execution Error";
-						break;
-					case Refas2Hlcl.CONF_EXEC:
-						errorMessage = "Last configuration change validated makes the model "
-								+ "\n inconsistent. Please review the selection and "
-								+ "try again. \nAttributes values were not updated.";
-						errorTitle = "Simulation Execution Error";
-						break;
-					case Refas2Hlcl.SIMUL_EXEC:
-						errorMessage = "No solution found for this model configuration."
-								+ " \n Please review the restrictions defined and "
-								+ "try again. \nAttributes values were not updated.";
-						errorTitle = "Simulation Execution Error";
-						break;
-					}
+			next = false;
+			try {
+				if (first || lastConfiguration == null) {
+					result = refas2hlcl.execute(progressMonitor, element,
+							Refas2Hlcl.ONE_SOLUTION, type);
 				} else {
-					errorMessage = "No more solutions found";
-					errorTitle = "Simulation Message";
+					result = refas2hlcl.execute(progressMonitor, element,
+							Refas2Hlcl.NEXT_SOLUTION, type);
+					Configuration currentConfiguration = refas2hlcl
+							.getConfiguration();
+					if (result) {
+						List<String> modifiedIdentifiers = compareSolutions(
+								lastConfiguration, currentConfiguration);
+						System.out.println(modifiedIdentifiers);
+					}
 				}
-			}
-			long endTime = System.currentTimeMillis();
-			executionTime += "NormalExec: " + (endTime - iniTime) + "["
-					+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]"
-					+ " -- ";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setProgress(100);
+				lastConfiguration = refas2hlcl.getConfiguration();
+				if (result) {
+					if (update) {
+						refas2hlcl.updateGUIElements(null);
+						// messagesArea.setText(refas2hlcl.getText());
+						// bringUpTab(mxResources.get("elementSimPropTab"));
+						// editPropertiesRefas(editor.lastEditableElement);
+					}
 
+				} else {
+					if (first) {
+						switch (type) {
+						case Refas2Hlcl.DESIGN_EXEC:
+							errorMessage = "Last validated change makes the model inconsistent."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nModel visual representation was not updated.";
+							errorTitle = "Simulation Execution Error";
+							break;
+						case Refas2Hlcl.CONF_EXEC:
+							errorMessage = "Last configuration change validated makes the model "
+									+ "\n inconsistent. Please review the selection and "
+									+ "try again. \nAttributes values were not updated.";
+							errorTitle = "Simulation Execution Error";
+							break;
+						case Refas2Hlcl.SIMUL_EXEC:
+							errorMessage = "No solution found for this model configuration."
+									+ " \n Please review the restrictions defined and "
+									+ "try again. \nAttributes values were not updated.";
+							errorTitle = "Simulation Execution Error";
+							break;
+						}
+					} else {
+						errorMessage = "No more solutions found";
+						errorTitle = "Simulation Message";
+					}
+				}
+				long endTime = System.currentTimeMillis();
+				executionTime += "NormalExec: " + (endTime - iniTime) + "["
+						+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]"
+						+ " -- ";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (!first && result)
+				this.refas2hlcl.updateGUIElements(null);
+			setProgress(100);
+
+		}
+
+	}
+
+	public void setTerminated(boolean terminated) {
+		this.terminated = terminated;
+	}
+
+	public boolean isNext() {
+		return next;
+	}
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	public void setFirst(boolean first) {
+		this.first = first;
 	}
 
 	private List<String> compareSolutions(Configuration lastConfiguration,
