@@ -62,7 +62,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
-	private boolean terminated = false;	
+	private boolean terminated = false;
 
 	public SolverTasks(ProgressMonitor progressMonitor,
 			Component parentComponent, int execType, Refas2Hlcl refas2hlcl,
@@ -362,8 +362,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return true;
 	}
 
-	public void executeSimulation(int type, boolean update,
-			String element) {
+	public void executeSimulation(int type, boolean update, String element) {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
