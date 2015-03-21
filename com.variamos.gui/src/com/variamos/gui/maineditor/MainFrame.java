@@ -311,7 +311,7 @@ public class MainFrame extends JFrame {
 								+ "  is up to date.",
 								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl=278")
+			input = new URL("http://variamos.com/home/?wpdmdl=289")
 					.openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {

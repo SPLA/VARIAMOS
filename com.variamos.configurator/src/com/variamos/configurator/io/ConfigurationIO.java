@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import com.variamos.solver.Configuration;
 import com.google.gson.Gson;
@@ -21,11 +22,27 @@ public class ConfigurationIO {
 		writer.close();
 	}
 	
+	public static void saveMapToFile(Map<String, Integer> config, String fileAbsPath) throws IOException{
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		FileWriter writer = new FileWriter(fileAbsPath);
+		writer.write( gson.toJson(config) );
+		writer.close();
+	}
+	
+	
 	public static ConfigurationDTO loadFromFile(String fileAbsPath) throws FileNotFoundException{
 		Gson gson = new GsonBuilder().create();
 		
 		FileReader fr = new FileReader(fileAbsPath);
 		return gson.fromJson(fr, ConfigurationDTO.class);		
+	}
+
+	public static Map<String, Integer> loadMapFromFile(String fileAbsPath) throws FileNotFoundException{
+		Gson gson = new GsonBuilder().create();
+		
+		FileReader fr = new FileReader(fileAbsPath);
+		return gson.fromJson(fr, Map.class);		
 	}
 	
 	public static void saveSolutions(List<Configuration> solutions, String fileAbsPath) throws FileNotFoundException{

@@ -11,6 +11,7 @@ import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
+import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 //jcmunoz: removed unused method and imports of the method
@@ -37,7 +38,7 @@ public class SaveProductsAction extends AbstractEditorAction {
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		BasicGraphEditor editor = getEditor(e);
+		VariamosGraphEditor editor = (VariamosGraphEditor)getEditor(e);
 
 		if (editor != null)
 		{
@@ -64,7 +65,7 @@ public class SaveProductsAction extends AbstractEditorAction {
 
 				// Adds the default file format
 				FileFilter defaultFilter = new DefaultFileFilter(
-						".csv", "CVS Files (.csv)");
+						".conf", "CONF Files (.conf)");
 
 				fc.setFileFilter(defaultFilter);
 				int rc = fc.showDialog(null, mxResources.get("save"));
@@ -81,12 +82,15 @@ public class SaveProductsAction extends AbstractEditorAction {
 
 				filename = fc.getSelectedFile().getAbsolutePath();
 				
-				if( !filename.endsWith(".csv") )
-					filename += ".csv";
+				if( !filename.endsWith(".conf") )
+					filename += ".conf";
 
 			try
 			{
-				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
+						.getConfiguration().getConfiguration(), filename);
+				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+			//	ConfigurationIO.saveSolutions(configurator.getSolutions(), filename);
 				
 			}
 			catch (Throwable ex)

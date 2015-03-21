@@ -356,8 +356,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
 				text += exp + "\n";
 			}
-			//if (swiSolver != null)
-			//	swiSolver.close();
+			// if (swiSolver != null)
+			// swiSolver.close();
 			swiSolver = new SWIPrologSolver(hlclProgram);
 			if (progressMonitor != null && progressMonitor.isCanceled())
 				throw (new InterruptedException());
@@ -474,42 +474,121 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
-		// Call the SWIProlog and obtain the result
-		Map<String, Integer> prologOut = configuration.getConfiguration();
+		updateGUIElements(attributes, new ArrayList<String>(), null);
+	}
 
-		int i = 0;
-		for (String identifier : prologOut.keySet()) {
-			String[] split = identifier.split("_");
-			String vertexId = split[0];
-			String attribute = split[1];
-			if (!vertexId.equals("Amodel")) {
-				InstElement vertex = refas.getElement(vertexId);
-				if (attributes == null) {
-					// System.out.println(vertexId + " " + attribute + " " +
-					// prologOut.get(identifier));
-					if (vertex.getInstAttribute(attribute).getAttributeType()
-							.equals("Boolean")) {
-						if (prologOut.get(identifier).intValue() == 1)
-							vertex.getInstAttribute(attribute).setValue(true);
-						else if (prologOut.get(identifier).intValue() == 0)
-							vertex.getInstAttribute(attribute).setValue(false);
-					} else
-						vertex.getInstAttribute(attribute).setValue(
-								prologOut.get(identifier).intValue());
-				} else if (attribute.equals("Selected"))
-					for (String attTarget : attributes) {
-						if (vertex.getInstAttribute(attTarget)
-								.getAttributeType().equals("Boolean"))
-							if (prologOut.get(identifier).intValue() == 1)
-								vertex.getInstAttribute(attTarget).setValue(
+	/**
+	 * Updates the GUI with the configuration
+	 */
+	public void updateGUIElements(List<String> selectedAttributes,
+			List<String> notAvailableAttributes, Map<String, Integer> config) {
+		// Call the SWIProlog and obtain the result
+		if (configuration != null) {
+			Map<String, Integer> prologOut;
+			if (config == null)
+				prologOut = configuration.getConfiguration();
+			else
+				prologOut = config;
+
+			int i = 0;
+			for (String identifier : prologOut.keySet()) {
+				String[] split = identifier.split("_");
+				String vertexId = split[0];
+				String attribute = split[1];
+				if (!vertexId.equals("Amodel")) {
+					InstElement vertex = refas.getElement(vertexId);
+					if (selectedAttributes == null) {
+						// System.out.println(vertexId + " " + attribute + " " +
+						// prologOut.get(identifier));
+						if (vertex.getInstAttribute(attribute) != null
+								&& vertex.getInstAttribute(attribute)
+										.getAttributeType().equals("Boolean")) {
+							//System.out.println(prologOut.get(identifier));
+							int val = (int) Float.parseFloat(prologOut
+									.get(identifier) == null ? "0" : prologOut
+									.get(identifier) + "");
+							if (val == 1)
+								vertex.getInstAttribute(attribute).setValue(
 										true);
-							else if (prologOut.get(identifier).intValue() == 0)
-								vertex.getInstAttribute(attTarget).setValue(
+							else if (val == 0)
+								vertex.getInstAttribute(attribute).setValue(
 										false);
-							else
-								vertex.getInstAttribute(attTarget).setValue(
-										prologOut.get(i));
-					}
+						} else if (vertex.getInstAttribute(attribute) != null)
+							vertex.getInstAttribute(attribute).setValue(
+									(int) Float.parseFloat(prologOut
+											.get(identifier) + ""));
+					} else if (attribute.equals("Selected"))
+						for (String attTarget : selectedAttributes) {
+							if (vertex.getInstAttribute(attTarget) != null
+									&& vertex.getInstAttribute(attTarget)
+											.getAttributeType()
+											.equals("Boolean")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								if (val == 1)
+									vertex.getInstAttribute(attTarget)
+											.setValue(true);
+								else if (val == 0)
+									vertex.getInstAttribute(attTarget)
+											.setValue(false);
+								else
+									vertex.getInstAttribute(attTarget)
+											.setValue(prologOut.get(i));
+							}
+							if (vertex.getInstAttribute(attTarget) != null
+									&& vertex.getInstAttribute(attTarget)
+											.getAttributeType()
+											.equals("Integer")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								vertex.getInstAttribute(attTarget)
+										.setValue(val);
+
+							}
+						}
+					else if (attribute.equals("NotAvailable"))
+						for (String attTarget : notAvailableAttributes) {
+							if (vertex.getInstAttribute(attTarget) != null
+									&& vertex.getInstAttribute(attTarget)
+											.getAttributeType()
+											.equals("Boolean")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								if (val == 1)
+									vertex.getInstAttribute(attTarget)
+											.setValue(true);
+								else if (val == 0)
+									vertex.getInstAttribute(attTarget)
+											.setValue(false);
+								else
+									vertex.getInstAttribute(attTarget)
+											.setValue(prologOut.get(i));
+							}
+							if (vertex.getInstAttribute(attTarget) != null
+									&& vertex.getInstAttribute(attTarget)
+											.getAttributeType()
+											.equals("Integer")) {
+								int val = (int) Float.parseFloat(prologOut
+										.get(identifier) + "");
+								vertex.getInstAttribute(attTarget)
+										.setValue(val);
+
+							}
+						}
+					else if (attribute.equals("value"))
+						// for (String attTarget : selectedAttributes) {
+						// if (attTarget.equals("variableConfigValue")) {
+						if (prologOut.get(identifier) != null) {
+							int val = (int) Float.parseFloat(prologOut
+									.get(identifier) + "");
+							vertex.getInstAttribute("variableConfigDomain")
+									.setValue(val+"");
+						} //else
+						//	vertex.getInstAttribute("variableConfigValue")
+							//		.setValue(null);
+					// }
+					// }
+				}
 			}
 		}
 	}
@@ -910,9 +989,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		int type = Refas2Hlcl.SIMUL_EXEC;
 		boolean result = true;
 		boolean first = true;
-		int cont =0;
+		int cont = 0;
 		while (result && !progressMonitor.isCanceled()) {
-			progressMonitor.setNote("Solutions processed: " +cont++ + "(total unknown)");
+			progressMonitor.setNote("Solutions processed: " + cont++
+					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, element,
 						Refas2Hlcl.ONE_SOLUTION, type);

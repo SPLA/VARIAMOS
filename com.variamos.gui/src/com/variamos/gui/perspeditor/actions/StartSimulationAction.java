@@ -21,7 +21,7 @@ public class StartSimulationAction extends AbstractEditorAction {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearNotificationBar();
 		editor.clearElementState(Refas2Hlcl.SIMUL_EXEC);
-		editor.executeSimulation(true, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
+		editor.executeSimulation(true, true, Refas2Hlcl.SIMUL_EXEC, true, "Simul");
 		//editor.updateDashBoard(true, true);
 		
 	}

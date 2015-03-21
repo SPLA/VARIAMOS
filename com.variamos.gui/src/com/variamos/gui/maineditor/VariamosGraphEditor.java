@@ -728,7 +728,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								.getElementConstraintGroup(lastEditableElement
 										.getInstElement().getIdentifier(),
 										editableElementType,
-										Refas2Hlcl.CONF_EXEC);
+										Refas2Hlcl.SIMUL_EXEC);
 
 						expressions.configure(getEditedModel(),
 								metaExpressionSet,
@@ -868,6 +868,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void editPropertiesRefas() {
 		editPropertiesRefas(lastEditableElement);
 	}
+
 	public void editPropertiesRefas(final InstCell instCell) {
 		try {
 			updateVisibleProperties(instCell);
@@ -1064,7 +1065,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								public void actionPerformed(ActionEvent e) {
 									if (!recursiveCall) {
 										clearNotificationBar();
-										executeSimulation(true,
+										executeSimulation(true, true,
 												Refas2Hlcl.CONF_EXEC);
 										editPropertiesRefas(instCell);
 										updateExpressions = true;
@@ -1424,26 +1425,26 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void clearElementState(int execType) {
 
 		refas2hlcl.cleanGUIElements(execType);
-		if (task != null)
-		{
+		if (task != null) {
 			task.setTerminated(true);
 			task = null;
 		}
-		
+
 		this.refresh();
 
 	}
 
-	public void executeSimulation(boolean first, int type) {
-		executeSimulation(first, type, true, "");
+	public void executeSimulation(boolean firstSimulExecution,
+			boolean reloadDashboard, int type) {
+		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
 	}
 
-	public void executeSimulation(boolean first, int type, boolean update,
-			String element) {
+	public void executeSimulation(boolean firstSimulExecution,
+			boolean reloadDashboard, int type, boolean update, String element) {
 
-		if (!first && task != null
+		if (!firstSimulExecution && task != null
 				&& task.getExecType() == Refas2Hlcl.SIMUL_EXEC) {
-			task.setFirst(false);
+			task.setFirstSimulExec(false);
 			task.setNext(true);
 		} else {
 			if (task != null)
@@ -1454,8 +1455,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXEC,
-					refas2hlcl, configHlclProgram, first, type, update,
-					element, lastConfiguration);
+					refas2hlcl, configHlclProgram, firstSimulExecution,
+					reloadDashboard, type, update, element, lastConfiguration);
 			task.addPropertyChangeListener(this);
 			task.execute();
 		}
@@ -1587,13 +1588,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (task != null) {
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
-				if (task.getExecType()==Refas2Hlcl.SIMUL_EXEC)
-				{
-						refas2hlcl.updateGUIElements(null);
-						updateDashBoard(true, true);
-						messagesArea.setText(refas2hlcl.getText());
-						// bringUpTab(mxResources.get("elementSimPropTab"));
-						editPropertiesRefas(lastEditableElement);
+				if (task.getProgress()==100 && task.getExecType() == Refas2Hlcl.SIMUL_EXEC) {
+					refas2hlcl.updateGUIElements(null);
+					updateDashBoard(task.isReloadDashBoard(),
+							task.isUpdate());
+					messagesArea.setText(refas2hlcl.getText());
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
 
 				}
 			}
@@ -1648,7 +1649,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					case Refas2Hlcl.SIMUL_EXEC:
 						refresh();
 						lastConfiguration = task.getLastConfiguration();
-						updateDashBoard(task.isFirst(), task.isUpdate());
+						updateDashBoard(task.isReloadDashBoard(),
+								task.isUpdate());
 						break;
 					}
 
@@ -1656,16 +1658,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 		}
 	}
-	
-	public void updateSimulResults()
-	{
+
+	public void updateSimulResults() {
 
 		messagesArea.setText(refas2hlcl.getText());
 		if (!task.getErrorTitle().equals("")) {
-			JOptionPane.showMessageDialog(frame,
-					task.getErrorMessage(),
-					task.getErrorTitle(),
-					JOptionPane.INFORMATION_MESSAGE, null);
+			JOptionPane
+					.showMessageDialog(frame, task.getErrorMessage(),
+							task.getErrorTitle(),
+							JOptionPane.INFORMATION_MESSAGE, null);
 
 		}
 	}

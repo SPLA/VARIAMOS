@@ -14,6 +14,7 @@ import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
+import com.variamos.gui.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.actions.AboutAction;
@@ -22,6 +23,7 @@ import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
 import com.variamos.gui.perspeditor.actions.ExitAction;
+import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.HideSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.NewAction;
@@ -243,9 +245,13 @@ public class PerspEditorMenuBar extends JMenuBar {
 					new SaveConfigurationAction(true));
 			menu.add(a);
 			a = editor.bind(mxResources.get("saveProducts"),
-					new ClearSimulationAction());
+					new SaveProductsAction());
 			menu.add(a);
-			a.setEnabled(false);
+			menu.addSeparator();
+			a = editor.bind(mxResources.get("externalContext"),
+					new ExternalContextAction());
+			menu.add(a);
+
 			add(menu);
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));

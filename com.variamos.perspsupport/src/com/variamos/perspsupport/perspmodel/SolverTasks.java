@@ -50,7 +50,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private long task = 0;
 	private InstElement element;
 	private String stringElement;
-	private boolean first;
+	private boolean firstSimulExec;
+	private boolean reloadDashBoard;
 	private int type;
 	private String executionTime = "";
 	private List<String> defects;
@@ -76,15 +77,22 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.configHlclProgram = configHlclProgram;
 		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
 		this.test = test;
-		this.first = true;
 		this.element = element;
 		this.defects = defects;
 		this.lastConfiguration = lastConfiguration;
 		this.parentComponent = parentComponent;
 	}
 
-	public boolean isFirst() {
-		return first;
+	public boolean isFirstSimulExec() {
+		return firstSimulExec;
+	}
+
+	public boolean isReloadDashBoard() {
+		return reloadDashBoard;
+	}
+
+	public void setReloadDashBoard(boolean reloadDashBoard) {
+		this.reloadDashBoard = reloadDashBoard;
 	}
 
 	public boolean isUpdate() {
@@ -93,13 +101,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public SolverTasks(ProgressMonitor progressMonitor, int execType,
 			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
-			boolean first, int type, boolean update, String element,
+			boolean firstSimulExec, boolean reloadDashBoard, int type, boolean update, String element,
 			Configuration lastConfiguration) {
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
 		this.configHlclProgram = configHlclProgram;
-		this.first = first;
+		this.firstSimulExec = firstSimulExec;
+		this.reloadDashBoard = reloadDashBoard;
 		this.type = type;
 		this.update = update;
 		this.stringElement = element;
@@ -379,7 +388,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 			next = false;
 			try {
-				if (first || lastConfiguration == null) {
+				if (firstSimulExec || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, element,
 							Refas2Hlcl.ONE_SOLUTION, type);
 				} else {
@@ -403,7 +412,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					}
 
 				} else {
-					if (first) {
+					if (firstSimulExec) {
 						switch (type) {
 						case Refas2Hlcl.DESIGN_EXEC:
 							errorMessage = "Last validated change makes the model inconsistent."
@@ -436,7 +445,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (!first && result)
+			if (!firstSimulExec && result)
 				this.refas2hlcl.updateGUIElements(null);
 			setProgress(100);
 
@@ -456,8 +465,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.next = next;
 	}
 
-	public void setFirst(boolean first) {
-		this.first = first;
+	public void setFirstSimulExec(boolean first) {
+		this.firstSimulExec = first;
 	}
 
 	private List<String> compareSolutions(Configuration lastConfiguration,
