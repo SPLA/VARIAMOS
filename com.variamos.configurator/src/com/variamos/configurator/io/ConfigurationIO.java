@@ -42,7 +42,13 @@ public class ConfigurationIO {
 		Gson gson = new GsonBuilder().create();
 		
 		FileReader fr = new FileReader(fileAbsPath);
-		return gson.fromJson(fr, Map.class);		
+		Map<String, Integer> out = gson.fromJson(fr, Map.class);
+		try {
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return out;		
 	}
 	
 	public static void saveSolutions(List<Configuration> solutions, String fileAbsPath) throws FileNotFoundException{

@@ -75,7 +75,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public static final int ONE_SOLUTION = 0, NEXT_SOLUTION = 1,
 			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
-			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5;
+			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
 
 	public Refas2Hlcl(RefasModel refas) {
 		this.refas = refas;
@@ -363,8 +363,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				throw (new InterruptedException());
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
-				if ((execType == Refas2Hlcl.SIMUL_EXEC))
+				switch (execType) {
+				case Refas2Hlcl.SIMUL_EXEC:
+				case Refas2Hlcl.SIMUL_EXPORT:
+				case Refas2Hlcl.SIMUL_MAPE:
 					configurationOptions.setOrder(true);
+
+				}
 				configurationOptions.setStartFromZero(true);
 				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
@@ -418,12 +423,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				 * if (instVertex.getInstAttribute("Core").getAsBoolean() ||
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
 				 */
-				if (execType == Refas2Hlcl.SIMUL_EXEC
-						&& (instVertex.getInstAttribute("ConfigSelected")
-								.getAsBoolean() || instVertex.getInstAttribute(
-								"ConfigNotSelected").getAsBoolean()))
-					continue;
-				if (execType == Refas2Hlcl.DESIGN_EXEC) {
+				switch (execType) {
+				case Refas2Hlcl.SIMUL_EXEC:
+				case Refas2Hlcl.SIMUL_EXPORT:
+				case Refas2Hlcl.SIMUL_MAPE:
+					if (instVertex.getInstAttribute("ConfigSelected")
+							.getAsBoolean()
+							|| instVertex.getInstAttribute("ConfigNotSelected")
+									.getAsBoolean())
+						continue;
+					break;
+				case Refas2Hlcl.DESIGN_EXEC:
 					instVertex.getInstAttribute("ConfigSelected").setValue(
 							false);
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
@@ -440,6 +450,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									"HasParent")) {
 						if (execType == Refas2Hlcl.DESIGN_EXEC
 								|| execType == Refas2Hlcl.SIMUL_EXEC
+								|| execType == Refas2Hlcl.SIMUL_EXPORT
+								|| execType == Refas2Hlcl.SIMUL_MAPE
 								|| (!instAttribute.getIdentifier().equals(
 										"Selected") && !instAttribute
 										.getIdentifier().equals("NotAvailable")))
@@ -474,14 +486,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
-		updateGUIElements(attributes, new ArrayList<String>(), null);
+		updateGUIElements(attributes, new ArrayList<String>(), null, null);
 	}
 
 	/**
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
-			List<String> notAvailableAttributes, Map<String, Integer> config) {
+			List<String> notAvailableAttributes, List<String> conceptTypes,
+			Map<String, Integer> config) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
 			Map<String, Integer> prologOut;
@@ -497,13 +510,19 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				String attribute = split[1];
 				if (!vertexId.equals("Amodel")) {
 					InstElement vertex = refas.getElement(vertexId);
+					if (conceptTypes != null
+							&& !conceptTypes.contains(vertex
+									.getTransSupportMetaElement()
+									.getIdentifier()))
+						continue;
+
 					if (selectedAttributes == null) {
 						// System.out.println(vertexId + " " + attribute + " " +
 						// prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute)
 										.getAttributeType().equals("Boolean")) {
-							//System.out.println(prologOut.get(identifier));
+							// System.out.println(prologOut.get(identifier));
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) == null ? "0" : prologOut
 									.get(identifier) + "");
@@ -582,10 +601,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) + "");
 							vertex.getInstAttribute("variableConfigDomain")
-									.setValue(val+"");
-						} //else
-						//	vertex.getInstAttribute("variableConfigValue")
-							//		.setValue(null);
+									.setValue(val + "");
+						} // else
+							// vertex.getInstAttribute("variableConfigValue")
+							// .setValue(null);
 					// }
 					// }
 				}

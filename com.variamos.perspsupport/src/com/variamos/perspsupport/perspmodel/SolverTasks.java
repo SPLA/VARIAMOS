@@ -64,6 +64,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
 	private boolean terminated = false;
+	private boolean correctExecution;
+
+	public boolean isCorrectExecution() {
+		return correctExecution;
+	}
 
 	public SolverTasks(ProgressMonitor progressMonitor,
 			Component parentComponent, int execType, Refas2Hlcl refas2hlcl,
@@ -149,11 +154,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		} catch (java.lang.UnsatisfiedLinkError e) {
 			errorMessage = "Solver not correctly configured";
 			errorTitle = "System Configuration Error";
+			correctExecution=false;
 		} catch (InterruptedException ignore) {
 		} catch (Exception e) {
 			e.printStackTrace();
 			errorMessage = "Solver Execution Problem, try again saving and loading the model.";
 			errorTitle = "Verification Error";
+			correctExecution=false;
 		}
 		task = 100;
 		setProgress((int) task);
@@ -410,7 +417,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						// bringUpTab(mxResources.get("elementSimPropTab"));
 						// editPropertiesRefas(editor.lastEditableElement);
 					}
-
+					correctExecution=true;
 				} else {
 					if (firstSimulExec) {
 						switch (type) {
@@ -419,23 +426,27 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution=false;
 							break;
 						case Refas2Hlcl.CONF_EXEC:
 							errorMessage = "Last configuration change validated makes the model "
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution=false;
 							break;
 						case Refas2Hlcl.SIMUL_EXEC:
 							errorMessage = "No solution found for this model configuration."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nAttributes values were not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution=false;
 							break;
 						}
 					} else {
 						errorMessage = "No more solutions found";
 						errorTitle = "Simulation Message";
+						correctExecution=false;						
 					}
 				}
 				long endTime = System.currentTimeMillis();

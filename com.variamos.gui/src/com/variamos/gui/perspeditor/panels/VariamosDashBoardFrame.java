@@ -94,7 +94,7 @@ public class VariamosDashBoardFrame extends JFrame {
 	public void updateDashBoard(RefasModel refasModel, boolean updateConcepts, boolean updated) {
 		this.refasModel = refasModel;
 		int concepts = 0;
-		if (updateConcepts)
+		if (updateConcepts || elements == null)
 			loadConcepts();
 		this.getContentPane().removeAll();
 		solutionPanel.removeAll();

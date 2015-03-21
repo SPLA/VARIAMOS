@@ -10,6 +10,7 @@ import javax.swing.SwingWorker;
 import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.SolverTasks;
 
 public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private String monitoredDirectory;
@@ -19,6 +20,11 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private boolean firstSolution;
 	private boolean canceled = false;
 	private VariamosGraphEditor editor;
+	private String results="";
+
+	public String getResults() {
+		return results;
+	}
 
 	public MonitoringWorker(VariamosGraphEditor editor,
 			String monitoredDirectory, String outputDirectory, int time,
@@ -46,21 +52,48 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 		while (!canceled && iterative) {
 			File monitoredFile = monitoredFiles[filePosition];
 			if (monitoredFile.exists()) {
-				System.out.println(monitoredFile.getAbsolutePath());
+				results+= "ConfigFile loaded: "+monitoredFile.getAbsolutePath() +"\n";
+				this.firePropertyChange("results", results, results+"ConfigFile loaded: "+monitoredFile.getAbsolutePath() +"\n");
 				Map<String, Integer> config = ConfigurationIO
 						.loadMapFromFile(monitoredFile.getAbsolutePath());
 				List<String> selectedAttributes = new ArrayList<String>();
 				selectedAttributes.add("ConfigSelected");
 				selectedAttributes.add("Selected");
 				List<String> notAvailableAttributes = new ArrayList<String>();
-				notAvailableAttributes.add("ConfigNotSelected");
-				notAvailableAttributes.add("NotAvailable");
+				//notAvailableAttributes.add("ConfigNotSelected");
+				//notAvailableAttributes.add("NotAvailable");
+				List<String> conceptTypes = new ArrayList<String>();
+				conceptTypes.add("OPER");
+				conceptTypes.add("GlobalVariable");//TODO only external variables
+				conceptTypes.add("ContextVariable");
 				editor.getRefas2hlcl().cleanGUIElements(Refas2Hlcl.DESIGN_EXEC);
 				editor.getRefas2hlcl().updateGUIElements(selectedAttributes,
-						notAvailableAttributes, config);
+						notAvailableAttributes,conceptTypes, config);
 				//editor.editPropertiesRefas();				
-				editor.executeSimulation(true, false, Refas2Hlcl.SIMUL_EXEC, true,
-						"Simul");
+				SolverTasks task = editor.executeSimulation(true, false, Refas2Hlcl.SIMUL_EXEC, true,
+						"Simul");			
+				while (task.getProgress()!=100)
+				{
+					Thread.sleep(100);
+				}
+				task.setTerminated(true);
+				if (!task.isCorrectExecution()){
+					results+= "No solution for actual configuration... alternative proposed\n";
+					this.firePropertyChange("results", results, results+"No solution for actual configuration... alternative proposed\n");
+					conceptTypes = new ArrayList<String>();
+					conceptTypes.add("GlobalVariable"); //TODO only external variables
+					conceptTypes.add("ContextVariable");
+					editor.getRefas2hlcl().cleanGUIElements(Refas2Hlcl.DESIGN_EXEC);
+					editor.getRefas2hlcl().updateGUIElements(selectedAttributes,
+							notAvailableAttributes,conceptTypes, config);
+					task = editor.executeSimulation(true, false, Refas2Hlcl.SIMUL_EXEC, true,
+							"Simul");			
+					while (task.getProgress()!=100)
+					{
+						Thread.sleep(100);
+					}
+					task.setTerminated(true);
+				}
 				// ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
 				// .getConfiguration().getConfiguration(), outputDirectoryFile +
 				// "solution"

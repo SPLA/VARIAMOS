@@ -4,19 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 
-public class ExternalContextDialog extends JDialog {
+public class ExternalContextDialog extends JDialog implements
+PropertyChangeListener{
 	/**
 	 * 
 	 */
@@ -30,8 +34,10 @@ public class ExternalContextDialog extends JDialog {
 	private JCheckBox iterate;
 	private JCheckBox firstSolution;
 	private int width = 450;
-	private int height = 200;
+	private int height = 300;
 	private MonitoringWorker monitoringWorker;
+	private JTextArea results;
+	private JTextField state;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -66,9 +72,14 @@ public class ExternalContextDialog extends JDialog {
 		panel.add(firstSolution);
 		firstSolution.setEnabled(false);
 		panel.add(new JLabel("Monitoring state: "));
-		panel.add(new JLabel((monitoringWorker == null || monitoringWorker
-				.isCancelled()) ? "Not running" : "Runnning"));
-		SpringUtilities.makeCompactGrid(panel, 6, 2, 4, 4, 4, 4);
+		state = new JTextField(("Not running"));
+		state.setEnabled(false);
+		panel.add(state);
+		panel.add(new JLabel("Monitoring actions: "));
+		results = new JTextArea("");
+		results.setEditable(false);
+		panel.add(results);
+		SpringUtilities.makeCompactGrid(panel, 7, 2, 4, 4, 4, 4);
 		generalPanel.add(panel, BorderLayout.CENTER);
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
@@ -80,12 +91,20 @@ public class ExternalContextDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// if( onAccept == null )
 				// if (onStart.onAction()) {
-				monitoringWorker = new MonitoringWorker(editor, monitoringDirectory
-						.getText(), outputDirectory.getText(), Integer
-						.parseInt(seconds.getText()), iterate.isSelected(),
-						firstSolution.isSelected());
-				monitoringWorker.execute();
+				if (state.getText().equals("Not running"))
+				{
+					monitoringWorker = new MonitoringWorker(editor, monitoringDirectory
+							.getText(), outputDirectory.getText(), Integer
+							.parseInt(seconds.getText()), iterate.isSelected(),
+							firstSolution.isSelected());
+					monitoringWorker.execute();
+					monitoringWorker.addPropertyChangeListener(ExternalContextDialog.this);
+					state.setText("Running");
+						
+				}
+				
 				// }
+				revalidate();
 				repaint();
 			}
 		});
@@ -98,7 +117,10 @@ public class ExternalContextDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// if( onAccept == null )
-				monitoringWorker.setCanceled(true);
+				if(monitoringWorker !=null)
+					monitoringWorker.setCanceled(true);
+				state.setText("Not running");				
+				revalidate();
 				repaint();
 			}
 		});
@@ -111,6 +133,7 @@ public class ExternalContextDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (onStopAndClose == null) {
 					monitoringWorker.setCanceled(true);
+					state.setText("Not Running");
 					dispose();
 					return;
 				}
@@ -146,5 +169,16 @@ public class ExternalContextDialog extends JDialog {
 	public void center() {
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+//		if (evt.getPropertyName().equals("progress"))
+		{
+			results.setText(monitoringWorker.getResults());
+			revalidate();
+			repaint();
+		}
+		
 	}
 }

@@ -74,7 +74,6 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
-import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
@@ -1433,13 +1432,23 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.refresh();
 
 	}
+	
+	public void endSimulation() {
+		if (task != null) {
+			task.setTerminated(true);
+			task = null;
+		}
+
+		this.refresh();
+
+	}
 
 	public void executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, int type) {
 		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
 	}
 
-	public void executeSimulation(boolean firstSimulExecution,
+	public SolverTasks executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, int type, boolean update, String element) {
 
 		if (!firstSimulExecution && task != null
@@ -1460,6 +1469,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			task.addPropertyChangeListener(this);
 			task.execute();
 		}
+		return task;
 	}
 
 	public void exportConfiguration(String file) {
