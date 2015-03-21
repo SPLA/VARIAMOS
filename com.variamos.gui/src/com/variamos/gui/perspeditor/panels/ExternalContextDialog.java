@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -20,7 +21,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 
 public class ExternalContextDialog extends JDialog implements
-PropertyChangeListener{
+		PropertyChangeListener {
 	/**
 	 * 
 	 */
@@ -30,7 +31,8 @@ PropertyChangeListener{
 	private JPanel panel = null;
 	private JTextField monitoringDirectory;
 	private JTextField outputDirectory;
-	private JTextField seconds;
+	private JTextField waitBetweenExecs;
+	private JTextField waitAfterNoSolution;
 	private JCheckBox iterate;
 	private JCheckBox firstSolution;
 	private int width = 450;
@@ -61,8 +63,11 @@ PropertyChangeListener{
 		outputDirectory = new JTextField("Z:/monitor/output/");
 		panel.add(outputDirectory);
 		panel.add(new JLabel("Monitoring speed (seconds): "));
-		seconds = new JTextField("10");
-		panel.add(seconds);
+		waitBetweenExecs = new JTextField("5");
+		panel.add(waitBetweenExecs);
+		panel.add(new JLabel("Delay after no solution (seconds): "));
+		waitAfterNoSolution = new JTextField("5");
+		panel.add(waitAfterNoSolution);
 		panel.add(new JLabel("Iterate over files (not newest processed): "));
 		iterate = new JCheckBox("FileIter", true);
 		panel.add(iterate);
@@ -75,12 +80,16 @@ PropertyChangeListener{
 		state = new JTextField(("Not running"));
 		state.setEnabled(false);
 		panel.add(state);
-		panel.add(new JLabel("Monitoring actions: "));
+		SpringUtilities.makeCompactGrid(panel, 7, 2, 4, 4, 4, 4);
+		generalPanel.add(panel, BorderLayout.NORTH);
+		JPanel notificationPanel = new JPanel();
+		notificationPanel.setLayout(new SpringLayout());
+		notificationPanel.add(new JLabel("Monitoring actions: "));
 		results = new JTextArea("");
 		results.setEditable(false);
-		panel.add(results);
-		SpringUtilities.makeCompactGrid(panel, 7, 2, 4, 4, 4, 4);
-		generalPanel.add(panel, BorderLayout.CENTER);
+		notificationPanel.add(new JScrollPane(results));
+		SpringUtilities.makeCompactGrid(notificationPanel, 1, 2, 4, 4, 4, 4);
+		generalPanel.add(notificationPanel, BorderLayout.CENTER);
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
 
@@ -91,18 +100,20 @@ PropertyChangeListener{
 			public void actionPerformed(ActionEvent e) {
 				// if( onAccept == null )
 				// if (onStart.onAction()) {
-				if (state.getText().equals("Not running"))
-				{
-					monitoringWorker = new MonitoringWorker(editor, monitoringDirectory
-							.getText(), outputDirectory.getText(), Integer
-							.parseInt(seconds.getText()), iterate.isSelected(),
-							firstSolution.isSelected());
+				if (state.getText().equals("Not running")) {
+					monitoringWorker = new MonitoringWorker(editor,
+							monitoringDirectory.getText(), outputDirectory
+									.getText(), Integer
+									.parseInt(waitBetweenExecs.getText()),
+							Integer.parseInt(waitAfterNoSolution.getText()),
+							iterate.isSelected(), firstSolution.isSelected());
 					monitoringWorker.execute();
-					monitoringWorker.addPropertyChangeListener(ExternalContextDialog.this);
+					monitoringWorker
+							.addPropertyChangeListener(ExternalContextDialog.this);
 					state.setText("Running");
-						
+
 				}
-				
+
 				// }
 				revalidate();
 				repaint();
@@ -117,9 +128,9 @@ PropertyChangeListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// if( onAccept == null )
-				if(monitoringWorker !=null)
+				if (monitoringWorker != null)
 					monitoringWorker.setCanceled(true);
-				state.setText("Not running");				
+				state.setText("Not running");
 				revalidate();
 				repaint();
 			}
@@ -173,12 +184,12 @@ PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-//		if (evt.getPropertyName().equals("progress"))
+		// if (evt.getPropertyName().equals("progress"))
 		{
 			results.setText(monitoringWorker.getResults());
 			revalidate();
 			repaint();
 		}
-		
+
 	}
 }

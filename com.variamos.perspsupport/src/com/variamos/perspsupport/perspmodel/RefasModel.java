@@ -906,11 +906,11 @@ public class RefasModel extends AbstractModel {
 
 		semGeneralElement.putSemanticAttribute("DashBoardVisible",
 				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
-						true, "Visible on Dashboard", true));
+						false, "Visible on Dashboard", true));
 
 		semGeneralElement.putSemanticAttribute("ExportOnConfig",
 				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
-						true, "Export on Configuration", true));
+						false, "Export on Configuration", true));
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
@@ -1088,11 +1088,11 @@ public class RefasModel extends AbstractModel {
 
 		semVariable.putSemanticAttribute("DashBoardVisible",
 				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
-						true, "Visible on Dashboard", true));
+						false, "Visible on Dashboard", true));
 
 		semVariable.putSemanticAttribute("ExportOnConfig",
 				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
-						true, "Export on Configuration", true));
+						false, "Export on Configuration", true));
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");

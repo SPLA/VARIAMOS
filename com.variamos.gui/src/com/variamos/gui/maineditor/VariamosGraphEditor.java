@@ -1432,7 +1432,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.refresh();
 
 	}
-	
+
 	public void endSimulation() {
 		if (task != null) {
 			task.setTerminated(true);
@@ -1463,9 +1463,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXEC,
-					refas2hlcl, configHlclProgram, firstSimulExecution,
-					reloadDashboard, type, update, element, lastConfiguration);
+			task = new SolverTasks(progressMonitor, type, refas2hlcl,
+					configHlclProgram, firstSimulExecution, reloadDashboard,
+					update, element, lastConfiguration);
 			task.addPropertyChangeListener(this);
 			task.execute();
 		}
@@ -1542,6 +1542,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										JOptionPane.INFORMATION_MESSAGE, null);
 						break;
 					case Refas2Hlcl.SIMUL_EXEC:
+					case Refas2Hlcl.SIMUL_EXPORT:
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1598,10 +1599,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (task != null) {
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
-				if (task.getProgress()==100 && task.getExecType() == Refas2Hlcl.SIMUL_EXEC) {
+				if (task.getProgress() == 100
+						&& (task.getExecType() == Refas2Hlcl.SIMUL_EXEC
+						||task.getExecType() == Refas2Hlcl.SIMUL_MAPE)) {
 					refas2hlcl.updateGUIElements(null);
-					updateDashBoard(task.isReloadDashBoard(),
-							task.isUpdate());
+					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
 					messagesArea.setText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
@@ -1657,10 +1659,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						refresh();
 						break;
 					case Refas2Hlcl.SIMUL_EXEC:
+					case Refas2Hlcl.SIMUL_EXPORT:
 						refresh();
 						lastConfiguration = task.getLastConfiguration();
 						updateDashBoard(task.isReloadDashBoard(),
 								task.isUpdate());
+						if (!task.getErrorTitle().equals("")) {
+							JOptionPane.showMessageDialog(frame,
+									task.getErrorMessage(),
+									task.getErrorTitle(),
+									JOptionPane.INFORMATION_MESSAGE, null);
+						}
+
 						break;
 					}
 

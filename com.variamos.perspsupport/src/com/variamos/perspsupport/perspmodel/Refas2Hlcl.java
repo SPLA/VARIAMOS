@@ -602,6 +602,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									.get(identifier) + "");
 							vertex.getInstAttribute("variableConfigDomain")
 									.setValue(val + "");
+							vertex.getInstAttribute("value")
+									.setValue(val + "");
 						} // else
 							// vertex.getInstAttribute("variableConfigValue")
 							// .setValue(null);
