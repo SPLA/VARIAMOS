@@ -57,7 +57,9 @@ public class ModelExpressionSet extends ElementExpressionSet {
 			if (semElement != null && semElement.getIdentifier() != null
 					&& semElement.getIdentifier().equals("SemGeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
-					if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
+					switch (execType) {
+					case Refas2Hlcl.VAL_UPD_EXEC:
+
 						if (rootOutExp == null)
 							rootOutExp = new SumNumericExpression(vertex,
 									"IsRootFeature", true,
@@ -80,8 +82,11 @@ public class ModelExpressionSet extends ElementExpressionSet {
 						else
 							coreOutExp = new SumNumericExpression(vertex,
 									"Selected", true, coreOutExp);
-					}
-					if (execType == Refas2Hlcl.SIMUL_EXEC) {
+
+						break;
+					case Refas2Hlcl.SIMUL_MAPE:
+					case Refas2Hlcl.SIMUL_EXEC:
+					case Refas2Hlcl.SIMUL_EXPORT:
 						if (reqOutExp == null)
 							reqOutExp = new SumNumericExpression(vertex,
 									"NextReqSelected", true,
@@ -99,6 +104,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 									"NextPrefSelected", true, prefOutExp);
 					}
 				}
+
 			List<BooleanExpression> rootList = new ArrayList<BooleanExpression>();
 			List<BooleanExpression> parentList = new ArrayList<BooleanExpression>();
 			List<BooleanExpression> coreList = new ArrayList<BooleanExpression>();

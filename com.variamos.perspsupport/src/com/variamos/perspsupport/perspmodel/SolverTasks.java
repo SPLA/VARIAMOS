@@ -50,8 +50,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private long task = 0;
 	private InstElement element;
 	private String stringElement;
-	private boolean first;
-	private int type;
+	private boolean firstSimulExec;
+	private boolean reloadDashBoard;
 	private String executionTime = "";
 	private List<String> defects;
 	private Configuration lastConfiguration;
@@ -63,6 +63,11 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
 	private boolean terminated = false;
+	private boolean correctExecution;
+
+	public boolean isCorrectExecution() {
+		return correctExecution;
+	}
 
 	public SolverTasks(ProgressMonitor progressMonitor,
 			Component parentComponent, int execType, Refas2Hlcl refas2hlcl,
@@ -76,15 +81,22 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.configHlclProgram = configHlclProgram;
 		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
 		this.test = test;
-		this.first = true;
 		this.element = element;
 		this.defects = defects;
 		this.lastConfiguration = lastConfiguration;
 		this.parentComponent = parentComponent;
 	}
 
-	public boolean isFirst() {
-		return first;
+	public boolean isFirstSimulExec() {
+		return firstSimulExec;
+	}
+
+	public boolean isReloadDashBoard() {
+		return reloadDashBoard;
+	}
+
+	public void setReloadDashBoard(boolean reloadDashBoard) {
+		this.reloadDashBoard = reloadDashBoard;
 	}
 
 	public boolean isUpdate() {
@@ -93,14 +105,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public SolverTasks(ProgressMonitor progressMonitor, int execType,
 			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
-			boolean first, int type, boolean update, String element,
-			Configuration lastConfiguration) {
+			boolean firstSimulExec, boolean reloadDashBoard,
+			boolean update, String element, Configuration lastConfiguration) {
 		this.progressMonitor = progressMonitor;
 		this.execType = execType;
 		this.refas2hlcl = refas2hlcl;
 		this.configHlclProgram = configHlclProgram;
-		this.first = first;
-		this.type = type;
+		this.firstSimulExec = firstSimulExec;
+		this.reloadDashBoard = reloadDashBoard;
 		this.update = update;
 		this.stringElement = element;
 		this.lastConfiguration = lastConfiguration;
@@ -131,7 +143,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				configModel();
 				break;
 			case Refas2Hlcl.SIMUL_EXEC:
-				executeSimulation(type, update, stringElement);
+			case Refas2Hlcl.SIMUL_MAPE:
+				executeSimulation(execType, update, stringElement);
 				break;
 			case Refas2Hlcl.SIMUL_EXPORT:
 				saveConfiguration(file);
@@ -140,11 +153,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		} catch (java.lang.UnsatisfiedLinkError e) {
 			errorMessage = "Solver not correctly configured";
 			errorTitle = "System Configuration Error";
+			correctExecution = false;
 		} catch (InterruptedException ignore) {
 		} catch (Exception e) {
 			e.printStackTrace();
 			errorMessage = "Solver Execution Problem, try again saving and loading the model.";
 			errorTitle = "Verification Error";
+			correctExecution = false;
 		}
 		task = 100;
 		setProgress((int) task);
@@ -379,7 +394,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 			next = false;
 			try {
-				if (first || lastConfiguration == null) {
+				if (firstSimulExec || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, element,
 							Refas2Hlcl.ONE_SOLUTION, type);
 				} else {
@@ -401,32 +416,38 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						// bringUpTab(mxResources.get("elementSimPropTab"));
 						// editPropertiesRefas(editor.lastEditableElement);
 					}
-
+					correctExecution = true;
 				} else {
-					if (first) {
+					if (firstSimulExec) {
 						switch (type) {
 						case Refas2Hlcl.DESIGN_EXEC:
 							errorMessage = "Last validated change makes the model inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution = false;
 							break;
 						case Refas2Hlcl.CONF_EXEC:
 							errorMessage = "Last configuration change validated makes the model "
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution = false;
 							break;
 						case Refas2Hlcl.SIMUL_EXEC:
+						case Refas2Hlcl.SIMUL_MAPE:
+						case Refas2Hlcl.SIMUL_EXPORT:
 							errorMessage = "No solution found for this model configuration."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nAttributes values were not updated.";
 							errorTitle = "Simulation Execution Error";
+							correctExecution = false;
 							break;
 						}
 					} else {
 						errorMessage = "No more solutions found";
 						errorTitle = "Simulation Message";
+						correctExecution = false;
 					}
 				}
 				long endTime = System.currentTimeMillis();
@@ -436,7 +457,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (!first && result)
+			if (!firstSimulExec && result)
 				this.refas2hlcl.updateGUIElements(null);
 			setProgress(100);
 
@@ -456,8 +477,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.next = next;
 	}
 
-	public void setFirst(boolean first) {
-		this.first = first;
+	public void setFirstSimulExec(boolean first) {
+		this.firstSimulExec = first;
 	}
 
 	private List<String> compareSolutions(Configuration lastConfiguration,

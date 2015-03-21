@@ -270,7 +270,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// Init Simulation Only
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-						if (execType == Refas2Hlcl.SIMUL_EXEC) {
+						if (execType == Refas2Hlcl.SIMUL_MAPE
+								||execType == Refas2Hlcl.SIMUL_EXPORT
+								||execType == Refas2Hlcl.SIMUL_EXEC) {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {

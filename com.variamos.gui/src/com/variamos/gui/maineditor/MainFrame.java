@@ -45,7 +45,8 @@ public class MainFrame extends JFrame {
 	private boolean showPerspectiveButton = false;
 	private String variamosVersionNumber = "1.0.1.7";
 	private String variamosVersionName = "1.0 Beta 7";
-	private String variamosBuild = "20150320 1700";
+	private String variamosBuild = "20150321 1245";
+	private String downloadId ="280";
 
 	public int getPerspective() {
 		return perspective;
@@ -311,7 +312,7 @@ public class MainFrame extends JFrame {
 								+ "  is up to date.",
 								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl=278")
+			input = new URL("http://variamos.com/home/?wpdmdl="+downloadId)
 					.openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {
