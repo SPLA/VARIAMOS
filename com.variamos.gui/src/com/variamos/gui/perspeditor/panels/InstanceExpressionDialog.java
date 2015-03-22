@@ -602,7 +602,7 @@ public class InstanceExpressionDialog extends JDialog {
 			final ExpressionVertexType expressionVertexType, int validType) {
 		if (instanceExpression.getSideElement(expressionVertexType) == null) {
 			String id = instanceExpression
-					.getSideElementIdentifier(expressionVertexType);
+					.getSideElementIdentifier(expressionVertexType, false);
 			instanceExpression.setInstElement(refasModel.getVertex(id),
 					expressionVertexType);
 		}
@@ -610,10 +610,10 @@ public class InstanceExpressionDialog extends JDialog {
 		final Map<String, InstElement> identifierTree = new HashMap<String, InstElement>();
 		String varIdentifier = null;
 		varIdentifier = instanceExpression
-				.getElementAttributeIdentifier(expressionVertexType);
+				.getElementAttributeIdentifier(expressionVertexType, displayVariableName);
 		if (varIdentifier == null) {
 			varIdentifier = instanceExpression
-					.getSideElementIdentifier(expressionVertexType);
+					.getSideElementIdentifier(expressionVertexType, false);
 			InstElement instVertex = refasModel.getVertex(varIdentifier);
 			instanceExpression.setInstElement(instVertex, expressionVertexType);
 		}
@@ -624,14 +624,16 @@ public class InstanceExpressionDialog extends JDialog {
 			public void itemStateChanged(ItemEvent event) {
 				selectedExpression = instanceExpression;
 				if (event.getStateChange() == ItemEvent.SELECTED) {
-					String item = identifierTree.get((String) event.getItem())
+					String itemName[] = ((String) event.getItem()).split("_");
+					
+					String item = identifierTree.get(itemName[0])
 							.getIdentifier();
 					if (item != null) {
-						String[] split = item.split("_");
+						//String[] split = item.split("_");
 						instanceExpression.setInstElement(
-								refasModel.getVertex(split[0]),
+								refasModel.getVertex(item),
 								expressionVertexType);
-						instanceExpression.setAttributeName(split[1],
+						instanceExpression.setAttributeName(itemName[1],
 								expressionVertexType);
 						new Thread() {
 							public void run() {
@@ -647,7 +649,7 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createIdentifiersValueCombo(InstElement element,
-			String selectedElement) {
+			String selectedElement, Map<String, InstElement> identifiersList) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
@@ -671,6 +673,7 @@ public class InstanceExpressionDialog extends JDialog {
 				case "Boolean":
 					combo.addItem(instElementId + "_" + "true");
 					combo.addItem(instElementId + "_" + "false");
+					identifiersList.put(instElementId, instVertex);
 					break;
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
@@ -683,6 +686,8 @@ public class InstanceExpressionDialog extends JDialog {
 								+ intValue.intValue());
 
 					}
+
+					identifiersList.put(instElementId, instVertex);
 					/*
 					 * String split[] = domain.split(","); for (String dom :
 					 * split) { combo.addItem(instVertex.getIdentifier() + "_" +
@@ -703,6 +708,7 @@ public class InstanceExpressionDialog extends JDialog {
 							combo.addItem(instElementId + "_"
 									+ value.getValue());
 					}
+					identifiersList.put(instElementId, instVertex);
 					break;
 
 				}
@@ -761,7 +767,7 @@ public class InstanceExpressionDialog extends JDialog {
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
 				|| type == ExpressionVertexType.RIGHTVARIABLEVALUE) {
-			return createIdentifiersValueCombo(element, selectedElement);
+			return createIdentifiersValueCombo(element, selectedElement, identifiersList);
 		} else
 
 		{
@@ -811,7 +817,10 @@ public class InstanceExpressionDialog extends JDialog {
 					combo.addItem(instElementId + "_" + attributeName);
 			}
 		}
-		combo.setSelectedItem(selectedElement);
+		if (displayVariableName)
+			combo.setSelectedItem(selectedElement);
+		else
+			combo.setSelectedItem(selectedElement);
 		return combo;
 	}
 
