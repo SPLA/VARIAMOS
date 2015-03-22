@@ -604,7 +604,18 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									.setValue(val + "");
 							vertex.getInstAttribute("value")
 									.setValue(val + "");
-						} // else
+						}
+				/*	else if (attribute.equals("variableConfigDomain"))
+						// for (String attTarget : selectedAttributes) {
+						// if (attTarget.equals("variableConfigValue")) {
+						if (prologOut.get(identifier) != null) {
+							int val = (int) Float.parseFloat(prologOut
+									.get(identifier) + "");
+							vertex.getInstAttribute("variableConfigDomain")
+									.setValue(val + "");
+							vertex.getInstAttribute("value")
+									.setValue(val + "");
+						} */// else
 							// vertex.getInstAttribute("variableConfigValue")
 							// .setValue(null);
 					// }

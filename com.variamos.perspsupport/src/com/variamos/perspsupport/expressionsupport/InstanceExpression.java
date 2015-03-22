@@ -675,7 +675,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public String getSideElementIdentifier(
-			ExpressionVertexType expressionVertexType) {
+			ExpressionVertexType expressionVertexType,
+			boolean displayVariableName) {
 		if (expressionVertexType == ExpressionVertexType.LEFT
 				|| expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE) {
 			if (getLeftElement() != null)
@@ -725,25 +726,32 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public String getElementAttributeIdentifier(
-			ExpressionVertexType expressionVertexType) {
+			ExpressionVertexType expressionVertexType, boolean displayName) {
 		switch (expressionVertexType) {
 		case LEFT:
 			if (getLeftElement() != null)
-				return getLeftElement().getIdentifier() + "_"
-						+ getLeftAttributeName();
+				return displayName ? (String) getLeftElement()
+						.getInstAttribute("name").getValue() : getLeftElement()
+						.getIdentifier() + "_" + getLeftAttributeName();
 			break;
 		case RIGHT:
 			if (getRightElement() != null)
-				return getRightElement().getIdentifier() + "_"
-						+ getRightAttributeName();
+				return displayName ? (String) getRightElement()
+						.getInstAttribute("name").getValue()
+						: getRightElement().getIdentifier() + "_"
+								+ getRightAttributeName();
 			break;
 		case LEFTVARIABLEVALUE:
 			if (getLeftElement() != null)
-				return getLeftElement().getIdentifier() + "_" + leftValue;
+				return displayName ? (String) getLeftElement()
+						.getInstAttribute("name").getValue() : getLeftElement()
+						.getIdentifier() + "_" + leftValue;
 			break;
 		case RIGHTVARIABLEVALUE:
 			if (getRightElement() != null)
-				return getRightElement().getIdentifier() + "_" + rightValue;
+				return displayName ? (String) getRightElement()
+						.getInstAttribute("name").getValue()
+						: getRightElement().getIdentifier() + "_" + rightValue;
 			break;
 		default:
 			return null;

@@ -247,10 +247,6 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a = editor.bind(mxResources.get("saveProducts"),
 					new SaveProductsAction());
 			menu.add(a);
-			menu.addSeparator();
-			a = editor.bind(mxResources.get("externalContext"),
-					new ExternalContextAction());
-			menu.add(a);
 
 			add(menu);
 
@@ -300,6 +296,11 @@ public class PerspEditorMenuBar extends JMenuBar {
 			});
 			menu.add(item);
 			add(menu);
+			menu.addSeparator();
+			a = editor.bind(mxResources.get("externalContext"),
+					new ExternalContextAction());
+			menu.add(a);
+
 		}
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
