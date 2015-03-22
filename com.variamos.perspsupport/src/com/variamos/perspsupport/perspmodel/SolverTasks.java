@@ -408,8 +408,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						System.out.println(modifiedIdentifiers);
 					}
 				}
-				lastConfiguration = refas2hlcl.getConfiguration();
 				if (result) {
+					lastConfiguration = refas2hlcl.getConfiguration();
 					if (update) {
 						refas2hlcl.updateGUIElements(null);
 						// messagesArea.setText(refas2hlcl.getText());
@@ -418,20 +418,20 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					}
 					correctExecution = true;
 				} else {
-					if (firstSimulExec) {
+					if (firstSimulExec || lastConfiguration== null) {
 						switch (type) {
 						case Refas2Hlcl.DESIGN_EXEC:
-							errorMessage = "Last validated change makes the model inconsistent."
+							errorMessage = "Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.";
-							errorTitle = "Simulation Execution Error";
+							errorTitle = "Model Verification Error";
 							correctExecution = false;
 							break;
 						case Refas2Hlcl.CONF_EXEC:
-							errorMessage = "Last configuration change validated makes the model "
+							errorMessage = "Last change on the configuration makes the model "
 									+ "\n inconsistent. Please review the selection and "
 									+ "try again. \nAttributes values were not updated.";
-							errorTitle = "Simulation Execution Error";
+							errorTitle = "Model Configuration Error";
 							correctExecution = false;
 							break;
 						case Refas2Hlcl.SIMUL_EXEC:
@@ -439,9 +439,10 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 						case Refas2Hlcl.SIMUL_EXPORT:
 							errorMessage = "No solution found for this model configuration."
 									+ " \n Please review the restrictions defined and "
-									+ "try again. \nAttributes values were not updated.";
-							errorTitle = "Simulation Execution Error";
+									+ "try again.";
+							errorTitle = "Model Simulation Error";
 							correctExecution = false;
+							terminated= true;
 							break;
 						}
 					} else {
@@ -459,7 +460,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			}
 			if (!firstSimulExec && result)
 				this.refas2hlcl.updateGUIElements(null);
-			setProgress(100);
+			task = 100;
+			setProgress((int) task);
+			this.setProgress(100);
 
 		}
 
