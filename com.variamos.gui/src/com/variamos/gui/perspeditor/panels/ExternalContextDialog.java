@@ -29,14 +29,17 @@ public class ExternalContextDialog extends JDialog implements
 	private DialogButtonAction onStart, onStop, onStopAndClose;
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
+	private JTextField initialConfigFile;
 	private JTextField monitoringDirectory;
 	private JTextField outputDirectory;
 	private JTextField waitBetweenExecs;
 	private JTextField waitAfterNoSolution;
-	private JCheckBox iterate;
-	private JCheckBox firstSolution;
-	private int width = 450;
-	private int height = 300;
+	private JCheckBox monitorVariables;
+	private JCheckBox mapeAP;
+	private JCheckBox fileIteration;
+	private JCheckBox firstSolutionOnly;
+	private int width = 480;
+	private int height = 400;
 	private MonitoringWorker monitoringWorker;
 	private JTextArea results;
 	private JTextField state;
@@ -48,7 +51,7 @@ public class ExternalContextDialog extends JDialog implements
 	public ExternalContextDialog(final VariamosGraphEditor editor) {
 		super();
 		setPreferredSize(new Dimension(width, height));
-		setTitle("External Monitoring");
+		setTitle("MAPE control");
 		// setVisible(true);
 
 		generalPanel = new JPanel();
@@ -56,11 +59,14 @@ public class ExternalContextDialog extends JDialog implements
 
 		panel = new JPanel();
 		panel.setLayout(new SpringLayout());
+		panel.add(new JLabel("Initial Config File: "));
+		initialConfigFile = new JTextField("Z:/monitor/ini.conf");
+		panel.add(initialConfigFile);
 		panel.add(new JLabel("Monitoring Directory: "));
-		monitoringDirectory = new JTextField("Z:/monitor/context/");
+		monitoringDirectory = new JTextField("Z:/monitor/systemtoobj/");
 		panel.add(monitoringDirectory);
 		panel.add(new JLabel("Executing Directory: "));
-		outputDirectory = new JTextField("Z:/monitor/output/");
+		outputDirectory = new JTextField("Z:/monitor/objtosystem/");
 		panel.add(outputDirectory);
 		panel.add(new JLabel("Monitoring speed (seconds): "));
 		waitBetweenExecs = new JTextField("5");
@@ -68,23 +74,28 @@ public class ExternalContextDialog extends JDialog implements
 		panel.add(new JLabel("Delay after no solution (seconds): "));
 		waitAfterNoSolution = new JTextField("5");
 		panel.add(waitAfterNoSolution);
-		panel.add(new JLabel("Iterate over files (not newest processed): "));
-		iterate = new JCheckBox("FileIter", true);
-		panel.add(iterate);
-		iterate.setEnabled(false);
+		panel.add(new JLabel("Monitor variables: "));
+		monitorVariables = new JCheckBox("monVariables", true);
+		panel.add(monitorVariables);
+		panel.add(new JLabel("Execute Analysis and Planning: "));
+		mapeAP = new JCheckBox("mAPe", true);
+		panel.add(mapeAP);
+		panel.add(new JLabel("Iterate over existing files (not new only): "));
+		fileIteration = new JCheckBox("fileIteration", true);
+		panel.add(fileIteration);
 		panel.add(new JLabel("Auto-selecting first solution: "));
-		firstSolution = new JCheckBox("FirtSol", true);
-		panel.add(firstSolution);
-		firstSolution.setEnabled(false);
+		firstSolutionOnly = new JCheckBox("FirtSol", true);
+		panel.add(firstSolutionOnly);
+		firstSolutionOnly.setEnabled(false);
 		panel.add(new JLabel("Monitoring state: "));
 		state = new JTextField(("Not running"));
 		state.setEnabled(false);
 		panel.add(state);
-		SpringUtilities.makeCompactGrid(panel, 7, 2, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, 10, 2, 4, 4, 4, 4);
 		generalPanel.add(panel, BorderLayout.NORTH);
 		JPanel notificationPanel = new JPanel();
 		notificationPanel.setLayout(new SpringLayout());
-		notificationPanel.add(new JLabel("Monitoring actions: "));
+		notificationPanel.add(new JLabel("MAPE log: "));
 		results = new JTextArea("");
 		results.setEditable(false);
 		notificationPanel.add(new JScrollPane(results));
@@ -102,11 +113,14 @@ public class ExternalContextDialog extends JDialog implements
 				// if (onStart.onAction()) {
 				if (state.getText().equals("Not running")) {
 					monitoringWorker = new MonitoringWorker(editor,
+							initialConfigFile.getText(),
 							monitoringDirectory.getText(), outputDirectory
 									.getText(), Integer
 									.parseInt(waitBetweenExecs.getText()),
 							Integer.parseInt(waitAfterNoSolution.getText()),
-							iterate.isSelected(), firstSolution.isSelected());
+							monitorVariables.isSelected(),
+							mapeAP.isSelected(),
+							fileIteration.isSelected(), firstSolutionOnly.isSelected());
 					monitoringWorker.execute();
 					monitoringWorker
 							.addPropertyChangeListener(ExternalContextDialog.this);
