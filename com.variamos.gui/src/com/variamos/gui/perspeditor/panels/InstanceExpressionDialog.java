@@ -714,6 +714,7 @@ public class InstanceExpressionDialog extends JDialog {
 				}
 			}
 		}
+		System.out.println(selectedElement);
 		combo.setSelectedItem(selectedElement);
 		return combo;
 	}
@@ -817,6 +818,7 @@ public class InstanceExpressionDialog extends JDialog {
 					combo.addItem(instElementId + "_" + attributeName);
 			}
 		}
+		System.out.println(selectedElement);
 		if (displayVariableName)
 			combo.setSelectedItem(selectedElement);
 		else
