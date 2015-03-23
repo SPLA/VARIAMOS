@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 	private boolean showPerspectiveButton = false;
 	private String variamosVersionNumber = "1.0.1.8";
 	private String variamosVersionName = "1.0 Beta 8";
-	private String variamosBuild = "20150322 1245";
+	private String variamosBuild = "20150323 2300";
 	private String downloadId ="297";
 
 	public int getPerspective() {
