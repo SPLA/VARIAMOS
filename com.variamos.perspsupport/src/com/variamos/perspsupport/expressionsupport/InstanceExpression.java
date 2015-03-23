@@ -730,28 +730,28 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		switch (expressionVertexType) {
 		case LEFT:
 			if (getLeftElement() != null)
-				return displayName ? (String) getLeftElement()
+				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier() + "_" + getLeftAttributeName();
+						.getIdentifier()) + "_" + getLeftAttributeName();
 			break;
 		case RIGHT:
 			if (getRightElement() != null)
-				return displayName ? (String) getRightElement()
+				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getIdentifier() + "_"
+						: getRightElement().getIdentifier()) + "_"
 								+ getRightAttributeName();
 			break;
 		case LEFTVARIABLEVALUE:
 			if (getLeftElement() != null)
-				return displayName ? (String) getLeftElement()
+				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier() + "_" + leftValue;
+						.getIdentifier()) + "_" + leftValue;
 			break;
 		case RIGHTVARIABLEVALUE:
 			if (getRightElement() != null)
-				return displayName ? (String) getRightElement()
+				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getIdentifier() + "_" + rightValue;
+						: getRightElement().getIdentifier()) + "_" + rightValue;
 			break;
 		default:
 			return null;
