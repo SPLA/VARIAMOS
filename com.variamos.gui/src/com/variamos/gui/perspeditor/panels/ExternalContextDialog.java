@@ -39,10 +39,12 @@ public class ExternalContextDialog extends JDialog implements
 	private JCheckBox fileIteration;
 	private JCheckBox firstSolutionOnly;
 	private int width = 480;
-	private int height = 400;
+	private int height = 500;
 	private MonitoringWorker monitoringWorker;
 	private JTextArea results;
 	private JTextField state;
+	private JCheckBox adaptoOnInvalid;
+	private JCheckBox monitorOpers;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -59,13 +61,14 @@ public class ExternalContextDialog extends JDialog implements
 
 		panel = new JPanel();
 		panel.setLayout(new SpringLayout());
-		panel.add(new JLabel("Initial Config File: "));
+		panel.add(new JLabel(
+				"Initial Config File (Empty to use current values): "));
 		initialConfigFile = new JTextField("Z:/monitor/ini.conf");
 		panel.add(initialConfigFile);
-		panel.add(new JLabel("Monitoring Directory: "));
+		panel.add(new JLabel("Monitoring Directory (read context & config): "));
 		monitoringDirectory = new JTextField("Z:/monitor/systemtoobj/");
 		panel.add(monitoringDirectory);
-		panel.add(new JLabel("Executing Directory: "));
+		panel.add(new JLabel("Executing Directory (write context & config): "));
 		outputDirectory = new JTextField("Z:/monitor/objtosystem/");
 		panel.add(outputDirectory);
 		panel.add(new JLabel("Monitoring speed (seconds): "));
@@ -74,24 +77,32 @@ public class ExternalContextDialog extends JDialog implements
 		panel.add(new JLabel("Delay after no solution (seconds): "));
 		waitAfterNoSolution = new JTextField("5");
 		panel.add(waitAfterNoSolution);
-		panel.add(new JLabel("Monitor variables: "));
+		panel.add(new JLabel("Include external variables: "));
 		monitorVariables = new JCheckBox("monVariables", true);
 		panel.add(monitorVariables);
+		panel.add(new JLabel("Include external operationalizations: "));
+		monitorOpers = new JCheckBox("monOpers", true);
+		panel.add(monitorOpers);
 		panel.add(new JLabel("Execute Analysis and Planning: "));
 		mapeAP = new JCheckBox("mAPe", true);
 		panel.add(mapeAP);
-		panel.add(new JLabel("Iterate over existing files (not new only): "));
+		mapeAP.setEnabled(false);
+		panel.add(new JLabel("Loop iteration over existing files: "));
 		fileIteration = new JCheckBox("fileIteration", true);
 		panel.add(fileIteration);
 		panel.add(new JLabel("Auto-selecting first solution: "));
-		firstSolutionOnly = new JCheckBox("FirtSol", true);
+		firstSolutionOnly = new JCheckBox("FirstSolOnly", true);
 		panel.add(firstSolutionOnly);
 		firstSolutionOnly.setEnabled(false);
+		panel.add(new JLabel("Adapt only if configuration is invalid: "));
+		adaptoOnInvalid = new JCheckBox("AdaptOnInvalid", true);
+		panel.add(adaptoOnInvalid);
+		adaptoOnInvalid.setEnabled(false);
 		panel.add(new JLabel("Monitoring state: "));
 		state = new JTextField(("Not running"));
 		state.setEnabled(false);
 		panel.add(state);
-		SpringUtilities.makeCompactGrid(panel, 10, 2, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, 12, 2, 4, 4, 4, 4);
 		generalPanel.add(panel, BorderLayout.NORTH);
 		JPanel notificationPanel = new JPanel();
 		notificationPanel.setLayout(new SpringLayout());
@@ -113,14 +124,14 @@ public class ExternalContextDialog extends JDialog implements
 				// if (onStart.onAction()) {
 				if (state.getText().equals("Not running")) {
 					monitoringWorker = new MonitoringWorker(editor,
-							initialConfigFile.getText(),
-							monitoringDirectory.getText(), outputDirectory
-									.getText(), Integer
-									.parseInt(waitBetweenExecs.getText()),
+							initialConfigFile.getText(), monitoringDirectory
+									.getText(), outputDirectory.getText(),
+							Integer.parseInt(waitBetweenExecs.getText()),
 							Integer.parseInt(waitAfterNoSolution.getText()),
-							monitorVariables.isSelected(),
-							mapeAP.isSelected(),
-							fileIteration.isSelected(), firstSolutionOnly.isSelected());
+							monitorVariables.isSelected(), monitorOpers
+									.isSelected(), mapeAP.isSelected(),
+							fileIteration.isSelected(), firstSolutionOnly
+									.isSelected());
 					monitoringWorker.execute();
 					monitoringWorker
 							.addPropertyChangeListener(ExternalContextDialog.this);
@@ -157,7 +168,8 @@ public class ExternalContextDialog extends JDialog implements
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (onStopAndClose == null) {
-					monitoringWorker.setCanceled(true);
+					if (monitoringWorker != null)
+						monitoringWorker.setCanceled(true);
 					state.setText("Not Running");
 					dispose();
 					return;

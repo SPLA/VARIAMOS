@@ -103,8 +103,8 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 			try
 			{
-				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-				editor.exportConfiguration(filename);
+				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				//editor.exportConfiguration(filename);
 				
 			}
 			catch (Throwable ex)
