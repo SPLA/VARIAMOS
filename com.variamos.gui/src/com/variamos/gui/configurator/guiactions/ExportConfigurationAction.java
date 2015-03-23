@@ -24,7 +24,7 @@ import com.variamos.gui.pl.editor.ConfiguratorPanel;
  * @see com.variamos.gui.maineditor.pl.configurator.guiactions.SaveConfigurationAction
  */
 @SuppressWarnings("serial")
-public class SaveConfigurationAction extends AbstractEditorAction {
+public class ExportConfigurationAction extends AbstractEditorAction {
 
 	
 	/**
@@ -40,7 +40,7 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
-	public SaveConfigurationAction(boolean showDialog)
+	public ExportConfigurationAction(boolean showDialog)
 	{
 		this.showDialog = showDialog;
 	}
@@ -103,8 +103,8 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 			try
 			{
-				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-				//editor.exportConfiguration(filename);
+				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				editor.exportConfiguration(filename);
 				
 			}
 			catch (Throwable ex)

@@ -1292,8 +1292,8 @@ public class RefasModel extends AbstractModel {
 				"pref.", "pref.", false, true, true, 1, -1, 1, 1));
 		hardSemPairwiseRelList.add(new SemanticRelationType("implication",
 				"impl.", "Impl.", false, true, true, 1, -1, 1, 1));
-		hardSemPairwiseRelList.add(new SemanticRelationType("required", "req.",
-				"requ.", false, true, true, 1, -1, 1, 1));
+		hardSemPairwiseRelList.add(new SemanticRelationType("require", "req.",
+				"req.", false, true, true, 1, -1, 1, 1));
 
 		List<IntSemanticRelationType> sgPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		sgPairwiseRelList.add(new SemanticRelationType("means_ends",
@@ -1306,8 +1306,8 @@ public class RefasModel extends AbstractModel {
 				"pref.", false, true, true, 1, -1, 1, 1));
 		sgPairwiseRelList.add(new SemanticRelationType("implication", "impl.",
 				"Impl.", false, true, true, 1, -1, 1, 1));
-		sgPairwiseRelList.add(new SemanticRelationType("required", "req.",
-				"requ.", false, true, true, 1, -1, 1, 1));
+		sgPairwiseRelList.add(new SemanticRelationType("require", "req.",
+				"req.", false, true, true, 1, -1, 1, 1));
 
 		SemanticPairwiseRelation directHardHardSemanticEdge = new SemanticPairwiseRelation(
 				"HardHardDirectEdge", false, hardSemPairwiseRelList);
@@ -1315,8 +1315,8 @@ public class RefasModel extends AbstractModel {
 				directHardHardSemanticEdge));
 
 		List<IntSemanticRelationType> featSideSemPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		featSideSemPairwiseRelList.add(new SemanticRelationType("required",
-				"required", "required", false, true, true, 1, -1, 1, 1));
+		featSideSemPairwiseRelList.add(new SemanticRelationType("require",
+				"require", "require", false, true, true, 1, -1, 1, 1));
 		featSideSemPairwiseRelList.add(new SemanticRelationType("conflict",
 				"excl.", "excl.", false, true, true, 1, -1, 1, 1));
 
@@ -1683,9 +1683,9 @@ public class RefasModel extends AbstractModel {
 		// Goals and availability model
 
 		syntaxMetaView = new MetaView("Variability", true,
-				"Goals and Variability Model", "plnode", "Defines a feature",
+				"Variability Model", "plnode", "Defines a feature",
 				100, 80, "/com/variamos/gui/pl/editor/images/plnode.png", 3,
-				"Goals and Variability Palette", 1, null);
+				"Variability Palette", 1, null);
 
 		instView = new InstView("Variability", metaView, syntaxMetaView);
 		instViews.add(instView);
@@ -2587,10 +2587,10 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexCG, true);
 
 		// *************************---------------****************************
-		// SG Satisficing Model
+		// Reasoning Model
 
 		syntaxMetaView = new MetaView("SoftGoalsSatisficing", true,
-				"SG Satisficing Model", "plnode", "Defines a feature", 100, 80,
+				"Reasoning Model", "plnode", "Defines a feature", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Soft Goals Satisficing Palette", 4, null);
 		instView = new InstView("SoftGoalsSatisficing", metaView,
@@ -2613,6 +2613,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instView, true);
 
 		instView.addInstVertex(instVertexOper);
+		instView.addInstVertex(instVertexLF);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-oper", instEdge);
@@ -2621,6 +2622,14 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexOper, true);
 		instEdge.setSourceRelation(instView, true);
 		instView.addInstVertex(instVertexOper);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sgs-feat", instEdge);
+		instEdge.setIdentifier("sgs-feat");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
+		instEdge.setTargetRelation(instVertexLF, true);
+		instEdge.setSourceRelation(instView, true);
+		instView.addInstVertex(instVertexLF);
 
 		InstConcept semClaim = ((InstConcept) this.getSemanticRefas()
 				.getVertex("SemClaim"));
@@ -2739,6 +2748,14 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCL, true);
 		instEdge.setSourceRelation(instVertexOper, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sgs-feaclaim", instEdge);
+		instEdge.setIdentifier("sgs-feaclaim");
+		instEdge.setEditableMetaElement(metaClaimPairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instVertexLF, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-OpertoOT", instEdge);
@@ -2747,6 +2764,15 @@ public class RefasModel extends AbstractModel {
 		instEdge.setEditableMetaElement(metaGroupPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setSourceRelation(instVertexOper, true);
+		
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sgs-featoOT", instEdge);
+		instEdge.setIdentifier("sgs-featoOT");
+		instEdge.setTargetRelation(instVertex, true);
+		instEdge.setEditableMetaElement(metaGroupPairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setSourceRelation(instVertexLF, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgs-OTtoCL", instEdge);

@@ -25,6 +25,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private boolean mapeAP;
 	private boolean iterative;
 	private boolean firstSolution;
+	private boolean includeOpers;
 
 	public String getResults() {
 		return results;
@@ -33,8 +34,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	public MonitoringWorker(VariamosGraphEditor editor,
 			String initialConfigFile, String monitoredDirectory,
 			String outputDirectory, int waitBetweenExecs,
-			int waitAfterNoSolution, boolean includeVariables, boolean mapeAP,
-			boolean iterative, boolean firstSolution) {
+			int waitAfterNoSolution, boolean includeVariables,
+			boolean includeOpers, boolean mapeAP, boolean iterative,
+			boolean firstSolution) {
 		super();
 		this.editor = editor;
 		this.initialConfigFile = initialConfigFile;
@@ -43,6 +45,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 		this.waitBetweenExecs = waitBetweenExecs;
 		this.waitAfterNoSolution = waitAfterNoSolution;
 		this.includeVariables = includeVariables;
+		this.includeOpers = includeOpers;
 		this.mapeAP = mapeAP;
 		this.iterative = iterative;
 		this.firstSolution = firstSolution;
@@ -57,12 +60,13 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 
 		File monitoredDirectoryFile = new File(monitoredDirectory);
 		File outputDirectoryFile = new File(outputDirectory);
-		File initialConfigFileObject =new File(initialConfigFile);
+		File initialConfigFileObject = new File(initialConfigFile);
 		int filePosition = 0, solIndex = 0;
 		File monitoredFiles[] = monitoredDirectoryFile.listFiles();
 		long lastModifiedFile = 0;
 
 		File monitoredFile = initialConfigFileObject;
+		Map<String, Integer> lastConfig = null;
 		while (!canceled) {
 			if (iterative)
 				monitoredFile = monitoredFiles[filePosition];
@@ -83,55 +87,69 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 				// notAvailableAttributes.add("ConfigNotSelected");
 				// notAvailableAttributes.add("NotAvailable");
 				List<String> conceptTypes = new ArrayList<String>();
-				conceptTypes.add("OPER");
-				if (includeVariables) {
+
+				if (includeVariables || lastConfig == null) {
 					conceptTypes.add("GlobalVariable");// TODO only external
 					// variables
 					conceptTypes.add("ContextVariable");
+				}
+				if (includeOpers || lastConfig == null) {
+					conceptTypes.add("OPER");
+					if (lastConfig != null && lastConfig.equals(config))
+						// If no change, not continue
+						continue;
+					else
+						lastConfig = config;
 				}
 				editor.getRefas2hlcl().cleanGUIElements(Refas2Hlcl.DESIGN_EXEC);
 				editor.getRefas2hlcl().updateGUIElements(selectedAttributes,
 						notAvailableAttributes, conceptTypes, config);
 				// editor.editPropertiesRefas();
 				if (mapeAP) {
-					SolverTasks task = editor.executeSimulation(true, false,
-							Refas2Hlcl.SIMUL_MAPE, true, "Simul");
-					while (task.getProgress() != 100) {
-						Thread.sleep(100);
-						if (isCancelled())
-							return null;
-					}
-					task.setTerminated(true);
-					if (!task.isCorrectExecution() && includeVariables) {
-						results += "No solution for actual configuration... alternative proposed\n";
-						this.firePropertyChange(
-								"results",
-								results,
-								results
-										+ "No solution for actual configuration... alternative proposed\n");
-
-						Thread.sleep(waitAfterNoSolution * 1000);
-						if (canceled)
-							return null;
-						conceptTypes = new ArrayList<String>();
-						conceptTypes.add("GlobalVariable"); // TODO only
-															// external
-															// variables
-						conceptTypes.add("ContextVariable");
-						editor.getRefas2hlcl().cleanGUIElements(
-								Refas2Hlcl.DESIGN_EXEC);
-						editor.getRefas2hlcl().updateGUIElements(
-								selectedAttributes, notAvailableAttributes,
-								conceptTypes, config);
-						task = editor.executeSimulation(true, false,
-								Refas2Hlcl.SIMUL_MAPE, true, "Simul");
+					try {
+						SolverTasks task = editor.executeSimulation(true,
+								false, Refas2Hlcl.SIMUL_MAPE, true, "Simul");
 						while (task.getProgress() != 100) {
 							Thread.sleep(100);
-							if (canceled)
+							if (isCancelled())
 								return null;
 						}
+
 						task.setTerminated(true);
+						if (!task.isCorrectExecution() && includeVariables) {
+							results += "No solution for actual configuration... alternative proposed\n";
+							this.firePropertyChange(
+									"results",
+									results,
+									results
+											+ "No solution for actual configuration... alternative proposed\n");
+
+							Thread.sleep(waitAfterNoSolution * 1000);
+							if (canceled)
+								return null;
+							conceptTypes = new ArrayList<String>();
+							conceptTypes.add("GlobalVariable"); // TODO only
+																// external
+																// variables
+							conceptTypes.add("ContextVariable");
+							editor.getRefas2hlcl().cleanGUIElements(
+									Refas2Hlcl.DESIGN_EXEC);
+							editor.getRefas2hlcl().updateGUIElements(
+									selectedAttributes, notAvailableAttributes,
+									conceptTypes, config);
+							task = editor.executeSimulation(true, false,
+									Refas2Hlcl.SIMUL_MAPE, true, "Simul");
+							while (task.getProgress() != 100) {
+								Thread.sleep(100);
+								if (canceled)
+									return null;
+							}
+							task.setTerminated(true);
+						}
+					} catch (Exception e) {
+
 					}
+
 				} else {
 					editor.updateDashBoard(false, true);
 					editor.editPropertiesRefas();
@@ -162,6 +180,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							this.firePropertyChange("results", results, results
 									+ "New context file found...\n");
 						}
+					if (!includeVariables)
+						noNewFile = false;
 					Thread.sleep(100);
 					if (canceled)
 						return null;
