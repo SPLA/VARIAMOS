@@ -8,38 +8,38 @@ import com.variamos.hlcl.Domain;
  *
  *         Definition of semantics for REFAS
  */
-public class SimulationStateAttribute extends SimulationAttribute {
+public class ExecCurrentStateAttribute extends ExecutionAttribute {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7430454253717334119L;
 
 
-	public SimulationStateAttribute()
+	public ExecCurrentStateAttribute()
 	{
 		super();
 	}
 	/**
 	 * 
 	 */
-	public SimulationStateAttribute(String name, String type,
+	public ExecCurrentStateAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		super(name, type, affectProperties, displayName, defaultValue);
 	}
-	public SimulationStateAttribute(String name, String type,
+	public ExecCurrentStateAttribute(String name, String type,
 			boolean affectProperties, String displayName,
 			Object defaultValue, Domain domain) {
 		super(name, type, affectProperties, displayName,
 				defaultValue, domain);
 	}
 
-	public SimulationStateAttribute(String name, String type,
+	public ExecCurrentStateAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue) {
 		super(name, type, affectProperties, displayName, enumType, defaultValue);
 	}
 
-	public SimulationStateAttribute(String name, String type,
+	public ExecCurrentStateAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue, Domain domain) {
 		super(name, type, affectProperties, displayName, 

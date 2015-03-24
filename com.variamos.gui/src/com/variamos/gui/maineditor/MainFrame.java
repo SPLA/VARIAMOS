@@ -91,7 +91,7 @@ public class MainFrame extends JFrame {
 
 				bgColor = new Color(236, 238, 255);
 				perspTitle = "System Model - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Modeling Perspective...");
+				System.out.println("Creating System Model Perspective...");
 				break;
 
 			case 2:// syntax
@@ -99,15 +99,15 @@ public class MainFrame extends JFrame {
 
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Syntax Perspective...");
+				System.out.println("Creating Syntax Model Perspective...");
 				break;
 
 			case 3:// simulation
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Simulation - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Simulation Perspective...");
+				perspTitle = "Execution - VariaMos " + variamosVersionNumber;
+				System.out.println("Creating Configuration and Execution Perspective...");
 				break;
 
 			}

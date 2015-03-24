@@ -14,6 +14,7 @@ import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.configurator.guiactions.ExportConfigurationAction;
+import com.variamos.gui.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveProductsAction;
 import com.variamos.gui.maineditor.BasicGraphEditor;
@@ -272,7 +273,35 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_T, ActionEvent.CTRL_MASK));
 			menu.add(a);
-			menu.addSeparator();
+			
+			add(menu);
+
+			menu.addSeparator();			
+			a = editor.bind(mxResources.get("loadSolution"),
+					new LoadConfigurationAction());
+			menu.add(a);
+			a.setEnabled(false);
+			
+			a = editor.bind(mxResources.get("saveCurrentSolution"),
+					new SaveProductsAction());
+			menu.add(a);
+
+
+			menu.addSeparator();			
+			a = editor.bind(mxResources.get("exportConfiguration"),
+					new ExportConfigurationAction(true));
+			menu.add(a);
+			
+			
+			add(menu);
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("execution")));
+			menu.setMnemonic('U');			a = editor.bind(mxResources.get("externalContext"),
+					new ExternalContextAction());
+			menu.add(a);
+			add(menu);
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("dashboard")));
+			menu.setMnemonic('D');
+
 			a=editor.bind(mxResources.get("showSimulationDashBoard"),
 					new ShowSimulationDashBoardAction());
 			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
@@ -301,15 +330,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 			});
 			menu.add(item);
 			add(menu);
-			menu.addSeparator();			
-			a = editor.bind(mxResources.get("exportConfiguration"),
-					new ExportConfigurationAction(true));
-			menu.add(a);
-			a = editor.bind(mxResources.get("externalContext"),
-					new ExternalContextAction());
-			menu.add(a);
 
 		}
+		
+
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.setMnemonic('W');
@@ -317,7 +341,6 @@ public class PerspEditorMenuBar extends JMenuBar {
 				new ShowAdvancedPerspectiveAction()));
 		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
 				new HideAdvancedPerspectiveAction()));
-		menu.addSeparator();
 		add(menu);
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));

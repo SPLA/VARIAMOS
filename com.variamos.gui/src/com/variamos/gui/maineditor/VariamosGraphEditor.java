@@ -91,8 +91,8 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.types.DomainRegister;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.expressionsupport.ElementExpressionSet;
@@ -451,12 +451,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
 				vge2.updateEditor();
 
-				System.out.println("Modeling perspective initialized.");
+				System.out.println("System Model perspective initialized.");
 				return vge2;
 			}
 		} else if (perspective.equals("metamodeling")) {
 
-			System.out.println("Initializing meta-modeling perspective...");
+			System.out.println("Initializing Syntax Meta-Model perspective...");
 			// todo: change for metamodeling
 			persp = 3;
 			PerspEditorGraph refasGraph = null;
@@ -485,7 +485,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell root = new mxCell();
 				root.insert(new mxCell());
 				refasGraph.getModel().setRoot(root);
-				System.out.println("Meta-Modeling perspective initialized.");
+				System.out.println("Syntax Meta-Model perspective initialized.");
 				return vge2;
 			}
 		}
@@ -1042,7 +1042,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					}
 					// GARA
 					// variablesPanel.add(new JLabel(v.getName() + ":: "));
-					if (instAttribute.getAttribute() instanceof SimulationStateAttribute) {
+					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute) {
 						elementSimPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementSimPropSubPanel.add(w);
@@ -1076,7 +1076,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							elementSimPropSubPanel.add(new JPanel());
 
 						simulationPanelElements++;
-					} else if (instAttribute.getAttribute() instanceof SimulationConfigAttribute) {
+					} else if (instAttribute.getAttribute() instanceof GlobalConfigAttribute) {
 						elementConfPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementConfPropSubPanel.add(w);

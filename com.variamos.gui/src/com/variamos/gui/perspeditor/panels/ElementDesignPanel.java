@@ -51,7 +51,7 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.ModelingAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
 /**
@@ -220,7 +220,7 @@ public class ElementDesignPanel extends JPanel {
 				if (visible != null)
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
-								&& (instAttribute.getAttribute() instanceof ModelingAttribute || instAttribute
+								&& (instAttribute.getAttribute() instanceof SyntaxAttribute || instAttribute
 										.getAttribute() instanceof SemanticAttribute)) {
 							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;

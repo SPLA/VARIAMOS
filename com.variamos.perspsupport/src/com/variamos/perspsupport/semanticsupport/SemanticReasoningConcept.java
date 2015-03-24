@@ -5,7 +5,7 @@ import java.util.List;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 
 /**
- * A class to represent concepts for Soft concepts satisficing. Part of PhD work
+ * A class to represent concepts for resoning. Part of PhD work
  * at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
@@ -13,18 +13,18 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
  * @version 1.1
  * @since 2014-11-23
  */
-public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
+public class SemanticReasoningConcept extends SemanticOverTwoRelation {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 134266317319543125L;
 
-	public SoftSemanticConceptSatisficing() {
+	public SemanticReasoningConcept() {
 		super();
 	}
 	
-	public SoftSemanticConceptSatisficing(
+	public SemanticReasoningConcept(
 			AbstractSemanticVertex semanticConcept, String name,
 			boolean exclusive, List<IntSemanticRelationType> semanticRelationTypes) {
 		super(semanticConcept, name, exclusive, semanticRelationTypes);
@@ -33,7 +33,7 @@ public class SoftSemanticConceptSatisficing extends SemanticOverTwoRelation {
 		//addPanelSpacersAttribute("#" + this.VAR_RELATIONTYPE_IDEN + "#\n\n");
 	}
 
-	public SoftSemanticConceptSatisficing(String name, boolean exclusive,
+	public SemanticReasoningConcept(String name, boolean exclusive,
 			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(name, exclusive, semanticRelationTypes, true);
 	//	if (condExpression)
