@@ -32,7 +32,7 @@ import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
@@ -443,7 +443,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
-					if (instAttribute.getAttribute() instanceof SimulationStateAttribute
+					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute
 							&& instAttribute.getAttributeType().equals(
 									"Boolean")
 							&& !instAttribute.getIdentifier().equals(

@@ -15,7 +15,7 @@ import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
+import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 
@@ -61,7 +61,7 @@ public class VisualElement implements Comparable<VisualElement> {
 		newSelected = instElement.getInstAttribute("Selected").getAsBoolean();
 		newNotAvailable = instElement.getInstAttribute("NotAvailable")
 				.getAsBoolean();
-		if (semanticElement instanceof SoftSemanticConceptSatisficing) {
+		if (semanticElement instanceof SemanticReasoningConcept) {
 			newOtherParameters = "{BoolExp:"
 					+ instElement.getInstAttribute("CompExp").getAsBoolean()
 					+ "}";
@@ -163,7 +163,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	public int getCols() {
 		if (semanticElement instanceof SemanticVariable)
 			return 2;
-		if (semanticElement instanceof SoftSemanticConceptSatisficing)
+		if (semanticElement instanceof SemanticReasoningConcept)
 			return 2;
 		if (semanticElement instanceof SoftSemanticConcept)
 			return 1;

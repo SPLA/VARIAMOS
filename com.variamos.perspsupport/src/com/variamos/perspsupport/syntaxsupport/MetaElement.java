@@ -101,7 +101,7 @@ public abstract class MetaElement implements Serializable {
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
-		createModelingAttributes();
+		createSyntaxAttributes();
 	}
 
 	public MetaElement(String identifier, boolean visible, String name,
@@ -141,14 +141,14 @@ public abstract class MetaElement implements Serializable {
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
 		this.panelSpacersAttributes = disPanelSpacersAttributes;
 		this.modelingAttributes = modelingAttributes;
-		createModelingAttributes();
+		createSyntaxAttributes();
 	}
 
-	public void createModelingAttributes() {
-		this.modelingAttributes.put(VAR_IDENTIFIER, new ModelingAttribute(
+	public void createSyntaxAttributes() {
+		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
 				VAR_IDENTIFIER, "String", false, "Identifier", null));
 		/*
-		 * this.modelingAttributes.put(VAR_DESCRIPTION, new ModelingAttribute(
+		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
 		 */
 		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
@@ -323,7 +323,7 @@ public abstract class MetaElement implements Serializable {
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new ModelingAttribute(name, type,
+			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, defaultValue));
 	}
 
@@ -337,7 +337,7 @@ public abstract class MetaElement implements Serializable {
 			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new ModelingAttribute(name, type,
+			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, enumType, defaultValue));
 	}
 

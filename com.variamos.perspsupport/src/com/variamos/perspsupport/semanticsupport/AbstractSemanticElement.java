@@ -83,9 +83,9 @@ public class AbstractSemanticElement implements Serializable,
 	}
 
 	public List<String> getDeclaredPropVisibleAttributes() {
-		List<String> modelingAttributesNames = new ArrayList<String>();
-		modelingAttributesNames.addAll(propVisibleAttributes);
-		return modelingAttributesNames;
+		List<String> syntaxAttributesNames = new ArrayList<String>();
+		syntaxAttributesNames.addAll(propVisibleAttributes);
+		return syntaxAttributesNames;
 	}
 
 	public List<String> getPropVisibleAttributes() {

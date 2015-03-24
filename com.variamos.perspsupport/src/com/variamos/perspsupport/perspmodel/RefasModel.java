@@ -35,17 +35,17 @@ import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SoftSemanticConceptSatisficing;
+import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.syntaxsupport.ModelingAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.types.ConceptType;
 import com.variamos.perspsupport.types.PerspectiveType;
 
@@ -463,7 +463,7 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSemantic() {
 		SemanticConcept semConcept = new SemanticConcept();
 
-		semConcept.putSemanticAttribute("identifier", new ModelingAttribute(
+		semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", ""));
 		semConcept.addPropEditableAttribute("01#" + "identifier");
 		semConcept.addPropVisibleAttribute("01#" + "identifier");
@@ -592,27 +592,27 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSyntax() {
 		SemanticConcept semView = new SemanticConcept();
 
-		semView.putSemanticAttribute("MetaType", new ModelingAttribute(
+		semView.putSemanticAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaView"));
-		semView.putSemanticAttribute("Identifier", new ModelingAttribute(
+		semView.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", ""));
-		semView.putSemanticAttribute("Visible", new ModelingAttribute(
+		semView.putSemanticAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true));
-		semView.putSemanticAttribute("Name", new ModelingAttribute("Name",
+		semView.putSemanticAttribute("Name", new SyntaxAttribute("Name",
 				"String", false, "Concept Name", ""));
-		semView.putSemanticAttribute("Sytle", new ModelingAttribute("Sytle",
+		semView.putSemanticAttribute("Sytle", new SyntaxAttribute("Sytle",
 				"String", false, "Drawing Style", "refasclaim"));
-		semView.putSemanticAttribute("Description", new ModelingAttribute(
+		semView.putSemanticAttribute("Description", new SyntaxAttribute(
 				"Description", "String", false, "Description", ""));
-		semView.putSemanticAttribute("Width", new ModelingAttribute("Width",
+		semView.putSemanticAttribute("Width", new SyntaxAttribute("Width",
 				"Integer", false, "Initial Width", 100));
-		semView.putSemanticAttribute("Height", new ModelingAttribute("Height",
+		semView.putSemanticAttribute("Height", new SyntaxAttribute("Height",
 				"Integer", false, "Initial Height", 40));
-		semView.putSemanticAttribute("Image", new ModelingAttribute("Image",
+		semView.putSemanticAttribute("Image", new SyntaxAttribute("Image",
 				"String", false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png"));
-		semView.putSemanticAttribute("BorderStroke", new ModelingAttribute(
+		semView.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
 				"BorderStroke", "Integer", false, "Border Stroke", 1));
 
 		semView.addPropVisibleAttribute("00#" + "MetaType");
@@ -649,41 +649,41 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semVertex = new SemanticConcept();
 
-		semVertex.putSemanticAttribute("Name", new ModelingAttribute("Name",
+		semVertex.putSemanticAttribute("Name", new SyntaxAttribute("Name",
 				"String", false, "Concept Name", ""));
-		semVertex.putSemanticAttribute("Description", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Description", new SyntaxAttribute(
 				"Description", "String", false, "Description", ""));
 
-		semVertex.putSemanticAttribute("MetaType", new ModelingAttribute(
+		semVertex.putSemanticAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept"));
-		semVertex.putSemanticAttribute("Identifier", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", ""));
-		semVertex.putSemanticAttribute("Visible", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true));
-		semVertex.putSemanticAttribute("Name", new ModelingAttribute("Name",
+		semVertex.putSemanticAttribute("Name", new SyntaxAttribute("Name",
 				"String", false, "Concept Name", ""));
-		semVertex.putSemanticAttribute("Sytle", new ModelingAttribute("Sytle",
+		semVertex.putSemanticAttribute("Sytle", new SyntaxAttribute("Sytle",
 				"String", false, "Drawing Style", "refasclaim"));
-		semVertex.putSemanticAttribute("Description", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Description", new SyntaxAttribute(
 				"Description", "String", false, "Description", ""));
-		semVertex.putSemanticAttribute("Width", new ModelingAttribute("Width",
+		semVertex.putSemanticAttribute("Width", new SyntaxAttribute("Width",
 				"Integer", false, "Initial Width", 100));
-		semVertex.putSemanticAttribute("Height", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Height", new SyntaxAttribute(
 				"Height", "Integer", false, "Initial Height", 40));
-		semVertex.putSemanticAttribute("Image", new ModelingAttribute("Image",
+		semVertex.putSemanticAttribute("Image", new SyntaxAttribute("Image",
 				"String", false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png"));
-		semVertex.putSemanticAttribute("TopConcept", new ModelingAttribute(
+		semVertex.putSemanticAttribute("TopConcept", new SyntaxAttribute(
 				"TopConcept", "Boolean", false, "Is Top Concept", true));
 		semVertex.putSemanticAttribute("BackgroundColor",
-				new ModelingAttribute("BackgroundColor", "String", false,
+				new SyntaxAttribute("BackgroundColor", "String", false,
 						"Bacground Color", "java.awt.Color[r=0,g=0,b=255]"));
-		semVertex.putSemanticAttribute("BorderStroke", new ModelingAttribute(
+		semVertex.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
 				"BorderStroke", "Integer", false, "Border Stroke", 1));
-		semVertex.putSemanticAttribute("Resizable", new ModelingAttribute(
+		semVertex.putSemanticAttribute("Resizable", new SyntaxAttribute(
 				"Resizable", "Boolean", false, "Is Resizable", true));
-		semVertex.putSemanticAttribute("value", new ModelingAttribute("value",
+		semVertex.putSemanticAttribute("value", new SyntaxAttribute("value",
 				"Set", false, "values", ""));
 
 		semVertex.addPropVisibleAttribute("00#" + "MetaType");
@@ -729,16 +729,16 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semEnum = new SemanticConcept();
 
-		semEnum.putSemanticAttribute("MetaType", new ModelingAttribute(
+		semEnum.putSemanticAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaEnumeration"));
-		semEnum.putSemanticAttribute("Identifier", new ModelingAttribute(
+		semEnum.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", ""));
-		semEnum.putSemanticAttribute("Visible", new ModelingAttribute(
+		semEnum.putSemanticAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true));
-		semEnum.putSemanticAttribute("Name", new ModelingAttribute("Name",
+		semEnum.putSemanticAttribute("Name", new SyntaxAttribute("Name",
 				"String", false, "Concept Name", ""));
-		semEnum.putSemanticAttribute("value", new ModelingAttribute("value",
+		semEnum.putSemanticAttribute("value", new SyntaxAttribute("value",
 				"Set", false, "values", ""));
 
 		semEnum.addPropVisibleAttribute("00#" + "MetaType");
@@ -770,7 +770,7 @@ public class RefasModel extends AbstractModel {
 
 		semOverTwoRelation.putSemanticAttribute(
 				"MetaType",
-				new ModelingAttribute("MetaType", "Enumeration", false,
+				new SyntaxAttribute("MetaType", "Enumeration", false,
 						"MetaConcept Type", ConceptType.class
 								.getCanonicalName(), "MetaOverTwoRelation"));
 
@@ -883,14 +883,14 @@ public class RefasModel extends AbstractModel {
 		// Configuration attributes
 
 		semGeneralElement.putSemanticAttribute("Active",
-				new SimulationConfigAttribute("Active", "Boolean", true,
+				new GlobalConfigAttribute("Active", "Boolean", true,
 						"Is Active", true));
 		semGeneralElement.putSemanticAttribute("Visibility",
-				new SimulationConfigAttribute("Visibility", "Boolean", false,
+				new GlobalConfigAttribute("Visibility", "Boolean", false,
 						"Is Visible", true));
 
 		semGeneralElement.putSemanticAttribute("Allowed",
-				new SimulationConfigAttribute("Allowed", "Boolean", true,
+				new GlobalConfigAttribute("Allowed", "Boolean", true,
 						"Is Allowed", true));
 		semGeneralElement.putSemanticAttribute("RequiredLevel",
 				new SemanticAttribute("RequiredLevel", "Integer", false,
@@ -898,18 +898,18 @@ public class RefasModel extends AbstractModel {
 		// TODO define domain or Enum Level
 
 		semGeneralElement.putSemanticAttribute("ConfigSelected",
-				new SimulationConfigAttribute("ConfigSelected", "Boolean",
+				new GlobalConfigAttribute("ConfigSelected", "Boolean",
 						true, "Configuration Selected", false));
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected",
-				new SimulationConfigAttribute("ConfigNotSelected", "Boolean",
+				new GlobalConfigAttribute("ConfigNotSelected", "Boolean",
 						true, "Configuration Not Selected", false));
 
 		semGeneralElement.putSemanticAttribute("DashBoardVisible",
-				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
+				new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 						false, "Visible on Dashboard", true));
 
 		semGeneralElement.putSemanticAttribute("ExportOnConfig",
-				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
+				new GlobalConfigAttribute("ExportOnConfig", "Boolean",
 						false, "Export on Configuration", true));
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
@@ -935,38 +935,38 @@ public class RefasModel extends AbstractModel {
 		// Simulation attributes
 
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-				new SimulationStateAttribute("InitialRequiredLevel", "Integer",
+				new ExecCurrentStateAttribute("InitialRequiredLevel", "Integer",
 						false, "Initial Required Level", 0, new RangeDomain(0,
 								5)));
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
-				new SimulationStateAttribute("SimRequiredLevel", "Integer",
+				new ExecCurrentStateAttribute("SimRequiredLevel", "Integer",
 						false, "Required Level", 0, new RangeDomain(0, 5)));
 		semGeneralElement.putSemanticAttribute("HasParent",
-				new SimulationStateAttribute("HasParent", "Boolean", false,
+				new ExecCurrentStateAttribute("HasParent", "Boolean", false,
 						"Has Parent", true));
 
 		semGeneralElement.putSemanticAttribute("Opt",
-				new SimulationStateAttribute("Opt", "Integer", false,
+				new ExecCurrentStateAttribute("Opt", "Integer", false,
 						"FilterVariable", 0, new RangeDomain(0, 20)));
 
 		semGeneralElement.putSemanticAttribute("Order",
-				new SimulationStateAttribute("Order", "Integer", false,
+				new ExecCurrentStateAttribute("Order", "Integer", false,
 						"SortVariable", 0, new RangeDomain(0, 40)));
 
 		semGeneralElement.putSemanticAttribute("NextNotSelected",
-				new SimulationStateAttribute("NextNotSelected", "Boolean",
+				new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
 						false, "Not selected(inactive)", false));
 
 		semGeneralElement.putSemanticAttribute("NextPrefSelected",
-				new SimulationStateAttribute("NextPrefSelected", "Boolean",
+				new ExecCurrentStateAttribute("NextPrefSelected", "Boolean",
 						false, "Selected by configuration", false));
 
 		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
-				new SimulationStateAttribute("NextNotPrefSelected", "Boolean",
+				new ExecCurrentStateAttribute("NextNotPrefSelected", "Boolean",
 						false, "Not Selected by configuration", false));
 
 		semGeneralElement.putSemanticAttribute("NextReqSelected",
-				new SimulationStateAttribute("NextReqSelected", "Boolean",
+				new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
 						false, "Selected by simulation", false));
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
@@ -1064,11 +1064,11 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("SemSoftgoal", instVertexSG);
 
 		semSoftgoal.putSemanticAttribute("SDReqLevel",
-				new SimulationStateAttribute("SDReqLevel", "Integer", false,
+				new ExecCurrentStateAttribute("SDReqLevel", "Integer", false,
 						"Required Level by SD", 0, new RangeDomain(0, 4)));
 
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel",
-				new SimulationStateAttribute("ClaimExpLevel", "Integer", false,
+				new ExecCurrentStateAttribute("ClaimExpLevel", "Integer", false,
 						"Expected Level by Claim", 0, new RangeDomain(0, 4)));
 
 		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
@@ -1087,11 +1087,11 @@ public class RefasModel extends AbstractModel {
 		SemanticVariable semVariable = new SemanticVariable("Variable");
 
 		semVariable.putSemanticAttribute("DashBoardVisible",
-				new SimulationConfigAttribute("DashBoardVisible", "Boolean",
+				new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 						false, "Visible on Dashboard", true));
 
 		semVariable.putSemanticAttribute("ExportOnConfig",
-				new SimulationConfigAttribute("ExportOnConfig", "Boolean",
+				new GlobalConfigAttribute("ExportOnConfig", "Boolean",
 						false, "Export on Configuration", true));
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
@@ -1130,7 +1130,7 @@ public class RefasModel extends AbstractModel {
 		claimSemOverTwoRelList.add(new SemanticRelationType("mutex", "Mutex",
 				"Mutex.", false, true, true, 2, -1, 1, 1));
 
-		SoftSemanticConceptSatisficing semClaim = new SoftSemanticConceptSatisficing(
+		SemanticReasoningConcept semClaim = new SemanticReasoningConcept(
 				semGeneralElement, "Claim", true, claimSemOverTwoRelList);
 		InstVertex instVertexCL = new InstConcept("SemClaim",
 				metaOverTwoRelation, semClaim);
@@ -1152,10 +1152,10 @@ public class RefasModel extends AbstractModel {
 				new SemanticAttribute("ConditionalExpression",
 						InstanceExpression.class.getCanonicalName(), false,
 						"Conditional Expression", null));
-		semClaim.putSemanticAttribute("CompExp", new SimulationConfigAttribute(
+		semClaim.putSemanticAttribute("CompExp", new GlobalConfigAttribute(
 				"CompExp", "Boolean", false, "Boolean Comp. Expression", true));
 		semClaim.putSemanticAttribute("ClaimSelected",
-				new SimulationConfigAttribute("ClaimSelected", "Boolean",
+				new GlobalConfigAttribute("ClaimSelected", "Boolean",
 						false, "Claim Selected", false));
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
@@ -1179,7 +1179,7 @@ public class RefasModel extends AbstractModel {
 		// semClaim.addPanelSpacersAttribute("#" + "Operationalizations" +
 		// "#\n#");
 
-		SoftSemanticConceptSatisficing semSoftDependency = new SoftSemanticConceptSatisficing(
+		SemanticReasoningConcept semSoftDependency = new SemanticReasoningConcept(
 				semGeneralElement, "SoftDependency", true, null);
 		InstVertex instVertexSD = new InstConcept("SemSoftDep", metaConcept,
 				semSoftDependency);
@@ -1197,10 +1197,10 @@ public class RefasModel extends AbstractModel {
 						InstanceExpression.class.getCanonicalName(), false,
 						"Conditional Expression", null));
 		semSoftDependency.putSemanticAttribute("CompExp",
-				new SimulationConfigAttribute("CompExp", "Boolean", false,
+				new GlobalConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
 		semSoftDependency.putSemanticAttribute("SDSelected",
-				new SimulationConfigAttribute("SDSelected", "Boolean", false,
+				new GlobalConfigAttribute("SDSelected", "Boolean", false,
 						"SD Selected", false));
 
 		semSoftDependency.addPanelVisibleAttribute("03#"
@@ -2847,7 +2847,7 @@ public class RefasModel extends AbstractModel {
 		// *************************---------------****************************
 		// Assets model
 
-		syntaxMetaView = new MetaView("Assets", true, "Assets General Model",
+		syntaxMetaView = new MetaView("Assets", true, "Assets Model",
 				"plnode", "Defines an Asset", 100, 90,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Assets Palette", 5, null);

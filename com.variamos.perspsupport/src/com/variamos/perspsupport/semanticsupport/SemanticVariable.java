@@ -2,8 +2,8 @@ package com.variamos.perspsupport.semanticsupport;
 
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.perspsupport.syntaxsupport.SimulationConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.SimulationStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.types.VariableType;
 
 /**
@@ -84,7 +84,7 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				VAR_ENUMERATIONTYPE, "Class", false, VAR_ENUMERATIONTYPENAME,
 				VAR_ENUMERATIONTYPECLASS, "ME", "String", ""));
 		// TODO define domain for enumtype
-		putSemanticAttribute(VAR_VALUE, new SimulationStateAttribute(VAR_VALUE,
+		putSemanticAttribute(VAR_VALUE, new ExecCurrentStateAttribute(VAR_VALUE,
 				"Integer", false, VAR_VALUENAME, 0));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
 				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false));
@@ -92,10 +92,10 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
 
 		putSemanticAttribute(VAR_VARIABLECONFIGVALUE,
-				new SimulationConfigAttribute(VAR_VARIABLECONFIGVALUE,
+				new GlobalConfigAttribute(VAR_VARIABLECONFIGVALUE,
 						"Integer", false, VAR_VARIABLECONFIGVALUENAME, 0));
 		putSemanticAttribute(VAR_VARIABLECONFIGDOMAIN,
-				new SimulationConfigAttribute(VAR_VARIABLECONFIGDOMAIN,
+				new GlobalConfigAttribute(VAR_VARIABLECONFIGDOMAIN,
 						"String", false, VAR_VARIABLECONFIGDOMAINNAME, ""));
 
 		this.addPropEditableAttribute("01#" + VAR_NAME);

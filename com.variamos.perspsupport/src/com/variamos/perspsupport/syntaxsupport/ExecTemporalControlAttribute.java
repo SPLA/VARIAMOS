@@ -6,14 +6,14 @@ package com.variamos.perspsupport.syntaxsupport;
  *
  *         Definition of semantics for REFAS
  */
-public class SimulationControlAttribute extends SimulationAttribute {
+public class ExecTemporalControlAttribute extends ExecutionAttribute {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3168115245345796844L;
 
-	public SimulationControlAttribute() {
+	public ExecTemporalControlAttribute() {
 		super();
 	}
 
@@ -21,12 +21,12 @@ public class SimulationControlAttribute extends SimulationAttribute {
 	 * 
 	 */
 
-	public SimulationControlAttribute(String name, String type,
+	public ExecTemporalControlAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
 		super(name, type, affectProperties, displayName, defaultValue);
 	}
 
-	public SimulationControlAttribute(String name, String type,
+	public ExecTemporalControlAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			Object defaultValue) {
 		super(name, type, affectProperties, displayName, enumType, defaultValue);
