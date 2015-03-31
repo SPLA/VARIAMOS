@@ -1428,7 +1428,7 @@ public class EditorActions {
 		 * 
 		 */
 		protected void resetEditor(VariamosGraphEditor editor) {
-			editor.setVisibleModel(0, -1);
+			//editor.setVisibleModel(0, -1);
 			editor.setDefaultButton();
 			editor.updateView();
 			editor.setModified(false);

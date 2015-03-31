@@ -47,17 +47,18 @@ public class FileTasks extends SwingWorker<Void, Void> {
 
 	}
 
-	public FileTasks(ProgressMonitor progressMonitor, int execType,
-			File file, VariamosGraphEditor variamosEditor, mxGraph graph) {
+	public FileTasks(ProgressMonitor progressMonitor, int execType, File file,
+			VariamosGraphEditor variamosEditor, mxGraph graph) {
 		this.progressMonitor = progressMonitor;
 		this.file = file;
 		this.execType = execType;
 		this.variamosEditor = variamosEditor;
 		this.graph = graph;
 	}
-	
+
 	public FileTasks(ProgressMonitor progressMonitor, int execType,
-			String filename, String ext, VariamosGraphEditor variamosEditor, mxGraph graph) {
+			String filename, String ext, VariamosGraphEditor variamosEditor,
+			mxGraph graph) {
 		this.progressMonitor = progressMonitor;
 		this.filename = filename;
 		this.ext = ext;
@@ -99,82 +100,91 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	public boolean openAction(File file) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Preparing for file load");
-		variamosEditor.resetView();		
+		variamosEditor.resetView();
 		graph = variamosEditor.getGraphComponent().getGraph();
 		SharedActions.beforeLoadGraph(graph, variamosEditor);
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());
 		}
 		setProgress(30);
-		progressMonitor.setNote("File loading...");
+		progressMonitor.setNote("Loading File...");
 		PLGReader.loadPLG(file, graph, variamosEditor);
 		variamosEditor.setCurrentFile(file);
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());
 		}
 		setProgress(70);
-		progressMonitor.setNote("DataModel update...");
+		progressMonitor.setNote("Updating DataModel...");
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 		variamosEditor.populateIndex(((AbstractGraph) graph).getProductLine());
 		setProgress(90);
 		progressMonitor.setNote("Load completed.");
 		resetEditor(variamosEditor);
-		
-		
+
 		return true;
 	}
 
 	public boolean saveAction(String filename) throws InterruptedException {
 		setProgress(1);
-		progressMonitor.setNote("Preparing for file save");
+		int modelViewIndex =variamosEditor.getModelViewIndex();
+		int modelSubViewIndex =variamosEditor.getModelSubViewIndex();
+		progressMonitor.setNote("Preparing to save file");
 		mxCodec codec = new mxCodec();
-		mxGraph outGraph = SharedActions.beforeGraphOperation(
-				graph, true, variamosEditor.getModelViewIndex(),
+		mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true,
+				variamosEditor.getModelViewIndex(),
 				variamosEditor.getModelSubViewIndex());
 		progressMonitor.setNote("Coding graph...");
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());
 		}
 		setProgress(10);
-		String xml = mxXmlUtils.getXml(codec.encode(outGraph
-				.getModel()));
+		String xml = mxXmlUtils.getXml(codec.encode(outGraph.getModel()));
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());
 		}
-		setProgress(80);
+		setProgress(70);
 		progressMonitor.setNote("DataModel update...");
 		SharedActions.afterSaveGraph(graph, variamosEditor);
-		setProgress(90);
+		setProgress(80);
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());
 		}
 		progressMonitor.setNote("Writing file...");
 		try {
 			mxUtils.writeFile(xml, filename);
-	
-		String file = filename.substring(0,
-				filename.lastIndexOf('.'));
-		file += ".backup."
-				+ new SimpleDateFormat("yyyyMMddHHmmss")
-						.format(new Date()) + "." + ext;
-		mxUtils.writeFile(xml, file);
-		variamosEditor.updateObjects();
-		variamosEditor.setVisibleModel(0, -1);
-		variamosEditor.setDefaultButton();
-		variamosEditor.setModified(false);
-		variamosEditor.setCurrentFile(new File(filename));
-		setProgress(95);
-		progressMonitor.setNote("Save Completed");
+
+			String file = filename.substring(0, filename.lastIndexOf('.'));
+			file += ".backup."
+					+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+					+ "." + ext;
+			setProgress(87);
+			progressMonitor.setNote("Saving backup");
+			mxUtils.writeFile(xml, file);
+
+			setProgress(90);
+			progressMonitor.setNote("Updating DataModel");
+			variamosEditor.updateObjects();
+			// variamosEditor.setVisibleModel(0, -1);
+			variamosEditor.setDefaultButton();
+			variamosEditor.setModified(false);
+			variamosEditor.setCurrentFile(new File(filename));
+			setProgress(95);
+			progressMonitor.setNote("Save Completed");
+			variamosEditor.setVisibleModel(modelViewIndex,
+					modelSubViewIndex);
+			variamosEditor.setSelectedTab(modelViewIndex);
+			variamosEditor.updateView();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
 	}
-	
-	
+
 	protected void resetEditor(VariamosGraphEditor editor) {
-		editor.setVisibleModel(0, -1);
+		editor.setVisibleModel(editor.getModelViewIndex(),
+				editor.getModelSubViewIndex());
 		editor.setDefaultButton();
 		editor.updateView();
 		editor.setModified(false);
@@ -193,10 +203,9 @@ public class FileTasks extends SwingWorker<Void, Void> {
 	@Override
 	public void done() {
 	}
-	
-	public static void openAction ( int execType,
-			File file, VariamosGraphEditor variamosEditor, mxGraph graph)
-	{
+
+	public static void openAction(int execType, File file,
+			VariamosGraphEditor variamosEditor, mxGraph graph) {
 		ProgressMonitor progressMonitor = new ProgressMonitor(variamosEditor,
 				"File opening", "", 0, 100);
 		variamosEditor.setProgressMonitor(progressMonitor);
@@ -204,17 +213,16 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		progressMonitor.setMillisToPopup(5);
 		progressMonitor.setProgress(0);
 
-		FileTasks task = new FileTasks(progressMonitor, execType,
-				 file,  variamosEditor,  graph);
+		FileTasks task = new FileTasks(progressMonitor, execType, file,
+				variamosEditor, graph);
 		variamosEditor.setFileTask(task);
 		task.addPropertyChangeListener(variamosEditor);
 		((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
 		task.execute();
 	}
-	
-	public static void saveAction ( int execType,
-			String file, String ext, VariamosGraphEditor variamosEditor, mxGraph graph)
-	{
+
+	public static void saveAction(int execType, String file, String ext,
+			VariamosGraphEditor variamosEditor, mxGraph graph) {
 		ProgressMonitor progressMonitor = new ProgressMonitor(variamosEditor,
 				"File saving", "", 0, 100);
 		variamosEditor.setProgressMonitor(progressMonitor);
@@ -222,8 +230,8 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		progressMonitor.setMillisToPopup(5);
 		progressMonitor.setProgress(0);
 
-		FileTasks task = new FileTasks(progressMonitor, execType,
-				 file, ext, variamosEditor,  graph);
+		FileTasks task = new FileTasks(progressMonitor, execType, file, ext,
+				variamosEditor, graph);
 		variamosEditor.setFileTask(task);
 		task.addPropertyChangeListener(variamosEditor);
 		((MainFrame) variamosEditor.getFrame()).waitingCursor(true);
