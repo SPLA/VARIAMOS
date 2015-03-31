@@ -1042,4 +1042,8 @@ public class BasicGraphEditor extends JPanel {
 		if (modelsTabPane.getTabCount() > 0)
 			modelsTabPane.setSelectedIndex(0);
 	}
+	public void setSelectedTab(int selected) {
+		if (modelsTabPane.getTabCount() > selected)
+			modelsTabPane.setSelectedIndex(selected);
+	}
 }
