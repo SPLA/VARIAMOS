@@ -485,7 +485,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell root = new mxCell();
 				root.insert(new mxCell());
 				refasGraph.getModel().setRoot(root);
-				System.out.println("Syntax Meta-Model perspective initialized.");
+				System.out
+						.println("Syntax Meta-Model perspective initialized.");
 				return vge2;
 			}
 		}
@@ -1600,8 +1601,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
 				if (task.getProgress() == 100
-						&& (task.getExecType() == Refas2Hlcl.SIMUL_EXEC
-						||task.getExecType() == Refas2Hlcl.SIMUL_MAPE)) {
+						&& (task.getExecType() == Refas2Hlcl.SIMUL_EXEC || task
+								.getExecType() == Refas2Hlcl.SIMUL_MAPE)) {
 					refas2hlcl.updateGUIElements(null);
 					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
 					messagesArea.setText(refas2hlcl.getText());
@@ -1760,6 +1761,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void setFileTask(FileTasks fileTask) {
 		this.fileTask = fileTask;
 		task = null;
+
+	}
+
+	public void recoverClones() {
+		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),this);
 
 	}
 }

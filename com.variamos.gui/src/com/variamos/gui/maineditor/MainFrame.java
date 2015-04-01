@@ -43,10 +43,10 @@ public class MainFrame extends JFrame {
 	private int perspective = 1;
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
-	private String variamosVersionNumber = "1.0.1.8";
-	private String variamosVersionName = "1.0 Beta 8";
-	private String variamosBuild = "20150323 2300";
-	private String downloadId ="297";
+	private String variamosVersionNumber = "1.0.1.9";
+	private String variamosVersionName = "1.0 Beta 9";
+	private String variamosBuild = "20150331 1600";
+	private String downloadId ="314";
 
 	public int getPerspective() {
 		return perspective;
@@ -256,7 +256,7 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
 		graphEditors.get(perspective - 1).installToolBar(this, perspective);
 		graphEditors.get(perspective - 1).updateObjects();
-		graphEditors.get(perspective - 1).setVisibleModel(0, -1);
+		//graphEditors.get(perspective - 1).setVisibleModel(0, -1);
 		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
 		if (perspective != 4)

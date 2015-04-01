@@ -1158,6 +1158,9 @@ public class RefasModel extends AbstractModel {
 		semClaim.putSemanticAttribute("ClaimSelected",
 				new GlobalConfigAttribute("ClaimSelected", "Boolean", false,
 						"Claim Selected", false));
+		semClaim.putSemanticAttribute("ClaimExpression",
+				new SemanticAttribute("ClaimExpression", "String", false,
+						"Claim Expression Text", ""));
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
@@ -1168,14 +1171,19 @@ public class RefasModel extends AbstractModel {
 
 		// semClaim.addPropEditableAttribute("01#" + "Operationalizations");
 		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
+		semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
 
 		// semClaim.addPropVisibleAttribute("01#" + "Operationalizations");
+
 		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
+		semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
 
 		semClaim.addPropEditableAttribute("01#" + "CompExp");
 		semClaim.addPropVisibleAttribute("01#" + "CompExp");
 
 		semClaim.addPropVisibleAttribute("02#" + "ClaimSelected");
+
+		semClaim.addPanelVisibleAttribute("10#" + "ClaimExpression");
 
 		// semClaim.addPanelSpacersAttribute("#" + "Operationalizations" +
 		// "#\n#");
@@ -1197,6 +1205,9 @@ public class RefasModel extends AbstractModel {
 				new SemanticAttribute("ConditionalExpression",
 						InstanceExpression.class.getCanonicalName(), false,
 						"Conditional Expression", null));
+		semSoftDependency.putSemanticAttribute("SDExpression",
+				new SemanticAttribute("SDExpression", "String", false,
+						"SD Expression Text", ""));
 		semSoftDependency.putSemanticAttribute("CompExp",
 				new GlobalConfigAttribute("CompExp", "Boolean", false,
 						"Boolean Comp. Expression", true));
@@ -1206,10 +1217,16 @@ public class RefasModel extends AbstractModel {
 
 		semSoftDependency.addPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
+		
+		semSoftDependency.addPanelVisibleAttribute("10#" + "SDExpression");
+
 		semSoftDependency.addPropEditableAttribute("03#"
 				+ "ConditionalExpression");
+		semSoftDependency.addPropEditableAttribute("04#" + "SDExpression");
+
 		semSoftDependency.addPropVisibleAttribute("03#"
 				+ "ConditionalExpression");
+		semSoftDependency.addPropVisibleAttribute("04#" + "SDExpression");
 
 		semSoftDependency.addPropEditableAttribute("01#" + "CompExp");
 		semSoftDependency.addPropVisibleAttribute("01#" + "CompExp");
@@ -1301,8 +1318,8 @@ public class RefasModel extends AbstractModel {
 				"impl.", "Impl.", false, true, true, 1, -1, 1, 1));
 		hardSemPairwiseRelList.add(new SemanticRelationType("require", "req.",
 				"req.", false, true, true, 1, -1, 1, 1));
-		hardSemPairwiseRelList.add(new SemanticRelationType("condition", "cond.",
-				"cond.", false, true, true, 1, -1, 1, 1));
+		hardSemPairwiseRelList.add(new SemanticRelationType("condition",
+				"cond.", "cond.", false, true, true, 1, -1, 1, 1));
 
 		List<IntSemanticRelationType> sgPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		sgPairwiseRelList.add(new SemanticRelationType("means_ends",
@@ -1361,8 +1378,8 @@ public class RefasModel extends AbstractModel {
 				new InstPairwiseRelation(semAssetOperPairwiseRel));
 
 		List<IntSemanticRelationType> assetPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		assetPairwiseRelList.add(new SemanticRelationType("Delegation",
-				"Delegation", "deleg.", true, true, true, 1, 1, 1, 1));
+		assetPairwiseRelList.add(new SemanticRelationType("delegation",
+				"delegation", "deleg.", true, true, true, 1, 1, 1, 1));
 		assetPairwiseRelList.add(new SemanticRelationType("Assembly",
 				"Assembly", "asssembly", true, true, true, 1, 1, 1, 1));
 
@@ -1624,22 +1641,21 @@ public class RefasModel extends AbstractModel {
 		constraintInstEdges.put("SDSGDirectEdge", new InstPairwiseRelation(
 				directSDSGSemanticEdge));
 
-		//Asset to Asset
-		
+		// Asset to Asset
+
 		SemanticOverTwoRelation semanticAssetAssetOvertwoRel = new SemanticOverTwoRelation(
 				semGeneralElement, "AssetOperGroupRel", hardSemOverTwoRelList);
-		
+
 		InstVertex instVertexASSETGR = new InstConcept("AssetAssetOvertwoRel",
 				metaOverTwoRelation, semanticAssetAssetOvertwoRel);
 		variabilityInstVertex.put("AssetAssetOvertwoRel", instVertexASSETGR);
-		
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ASSETGRtoasset", instEdge);
 		instEdge.setIdentifier("ASSETGRtoasset");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCAso);
 		instEdge.setTargetRelation(instVertexAsset, true);
 		instEdge.setSourceRelation(instVertexASSETGR, true);
-		
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("assettoAssetGR", instEdge);
@@ -1647,7 +1663,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCOAso);
 		instEdge.setTargetRelation(instVertexASSETGR, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
-		
+
 		// Asset to Oper
 		// TODO use list of possible relations
 		SemanticOverTwoRelation semanticAssetOperGroupRelation = new SemanticOverTwoRelation(
@@ -2724,6 +2740,8 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
+		
+		syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);
@@ -2924,7 +2942,7 @@ public class RefasModel extends AbstractModel {
 
 		InstPairwiseRelation directAssetOperSemanticEdge = getSemanticRefas()
 				.getConstraintInstEdge("AssetOperDirectEdge");
-		
+
 		InstConcept semanticAssetAssetGroupRelation = ((InstConcept) this
 				.getSemanticRefas().getVertex("AssetAssetOvertwoRel"));
 
@@ -2952,15 +2970,16 @@ public class RefasModel extends AbstractModel {
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		variabilityInstVertex.put("AssetFeatGroupDep", instVertexAssetFeat);
 		instView.addInstVertex(instVertexAssetFeat);
-		
-		hardMetaOverTwoRel = new MetaOverTwoRelation("AssetAssetOvertwoRel", true,
-				"AssetAssetOvertwoRel", "plgroup",
+
+		hardMetaOverTwoRel = new MetaOverTwoRelation("AssetAssetOvertwoRel",
+				true, "AssetAssetOvertwoRel", "plgroup",
 				"Represents the relation "
 						+ "of an asset with a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetAssetGroupRelation, false);
-		InstVertex instVertexAssetAsset = new InstConcept("AssetAssetOvertwoRel",
-				supportMetaElementOverTwo, hardMetaOverTwoRel);
+		InstVertex instVertexAssetAsset = new InstConcept(
+				"AssetAssetOvertwoRel", supportMetaElementOverTwo,
+				hardMetaOverTwoRel);
 		variabilityInstVertex.put("AssetAssetOvertwoRel", instVertexAssetAsset);
 		instView.addInstVertex(instVertexAssetAsset);
 
@@ -3048,7 +3067,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexOper, true);
 		instEdge.setSourceRelation(instVertexAssetOper, true);
-		
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset0-assettoOTAsset", instEdge);
 		instEdge.setIdentifier("asset0-assettoOTAsset");
@@ -3056,7 +3075,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexAssetAsset, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
-		
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset0-OTGtoAsset", instEdge);
 		instEdge.setIdentifier("asset0-OTGtoAsset");
@@ -3064,7 +3083,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexAsset, true);
 		instEdge.setSourceRelation(instVertexAssetAsset, true);
-		
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("asset0-OTGtoFeat", instEdge);
 		instEdge.setIdentifier("asset0-OTGtoFeat");

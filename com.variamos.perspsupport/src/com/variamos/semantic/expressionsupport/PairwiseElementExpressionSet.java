@@ -135,7 +135,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				getElementExpressions().add(transformation3);
 				allList.add(transformation3);
 				break;
-			case "required":
+			case "require":
 				sourcePositiveAttributeNames.add("Selected");
 				// sourceNegativeAttributeNames.add("NotAvailable");
 				// sourceAttributeNames.add("Core");
@@ -281,6 +281,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 			case "implementation":
 			case "means_ends":
+			case "delegation":
 			case "mandatory":
 				sourcePositiveAttributeNames.add("Selected");
 				//sourcePositiveAttributeNames.add("NotAvailable");
@@ -300,6 +301,26 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				getElementExpressions().add(out54);
 				// structureList.add(out54);
 				allList.add(out54);
+				break;
+			case "condition":
+				sourcePositiveAttributeNames.add("Selected");
+				//sourcePositiveAttributeNames.add("NotAvailable");
+				// SourceId_Selected #= targetId_Selected
+				EqualsComparisonExpression out58 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"Selected", "Selected");
+				getElementExpressions().add(out58);
+				//structureList.add(out56);
+				allList.add(out58);
+
+				EqualsComparisonExpression out57 = new EqualsComparisonExpression(
+						instPairwiseRelation.getSourceRelations().get(0),
+						instPairwiseRelation.getTargetRelations().get(0),
+						"NotAvailable", "NotAvailable");
+				getElementExpressions().add(out57);
+				// structureList.add(out54);
+				allList.add(out57);
 				break;
 			case "optional":
 				sourcePositiveAttributeNames.add("Selected");

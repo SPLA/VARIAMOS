@@ -10,6 +10,8 @@ import java.util.Set;
 
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
@@ -135,13 +137,13 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public String getSemanticPairwiseRelType() {
-		if (getInstAttribute("relationType") != null && getInstAttribute(
-				"relationType").getValue() != null)
-			if( (semanticPairwiseRelType != null
-						&& !semanticPairwiseRelType.equals(getInstAttribute(
-								"relationType").getValue()) || semanticPairwiseRelType == null))
-			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
-					.getValue()).trim();
+		if (getInstAttribute("relationType") != null
+				&& getInstAttribute("relationType").getValue() != null)
+			if ((semanticPairwiseRelType != null
+					&& !semanticPairwiseRelType.equals(getInstAttribute(
+							"relationType").getValue()) || semanticPairwiseRelType == null))
+				semanticPairwiseRelType = ((String) getInstAttribute(
+						"relationType").getValue()).trim();
 		return semanticPairwiseRelType;
 	}
 
@@ -158,8 +160,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public SemanticAttribute getSemanticAttribute() {
 		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
-				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
-				"");
+				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null, "");
 
 	}
 
@@ -274,7 +275,8 @@ public class InstPairwiseRelation extends InstElement {
 					null);
 		} else {
 			editableInstAttributes = new ArrayList<InstAttribute>();
-			editableInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
+			editableInstAttributes
+					.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
 		}
 		return editableInstAttributes;
 	}
@@ -290,7 +292,8 @@ public class InstPairwiseRelation extends InstElement {
 					null);
 		} else {
 			visibleInstAttributes = new ArrayList<InstAttribute>();
-			visibleInstAttributes.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
+			visibleInstAttributes
+					.add(getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN));
 			;
 		}
 		return visibleInstAttributes;
@@ -492,8 +495,17 @@ public class InstPairwiseRelation extends InstElement {
 								int sp2 = spacer.indexOf("#", sp1 + 1);
 
 								out += spacer.substring(0, sp1);
-								out += getInstAttributes().get(name).toString()
-										.trim();
+								if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
+										&& getInstAttributes().get(name)
+												.getValueObject() != null) {
+									InstAttribute i = getInstAttributes().get(
+											name);
+									out = ((SemanticRelationType) getInstAttributes()
+											.get(name).getValueObject())
+											.getDiplayName();
+								} else
+									out += getInstAttributes().get(name)
+											.toString().trim();
 								while (sp2 != spacer.length()) {
 									int sp3 = spacer.indexOf("#", sp2 + 1);
 									if (sp3 == -1) {

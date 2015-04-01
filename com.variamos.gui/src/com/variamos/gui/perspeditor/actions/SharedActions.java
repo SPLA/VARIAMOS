@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -16,7 +18,9 @@ import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
+import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
@@ -58,8 +62,9 @@ public class SharedActions {
 
 		long startTime = System.currentTimeMillis();
 		((PerspEditorGraph) graph).setValidation(false);
-		mxGraph outGraph = cloneGraph(graph, null, modelViewIndex,
-				modelViewSubIndex);
+		mxGraph outGraph = graph; 
+				//cloneGraph(graph, null, modelViewIndex,
+				//modelViewSubIndex);
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
 		System.out.println("clone clean: " + elapsedTime);
@@ -127,34 +132,26 @@ public class SharedActions {
 	}
 
 	private static void updateIdAndObjects(Object value, boolean beforeSave) {
-		if (value instanceof InstOverTwoRelation) {
-			InstOverTwoRelation ic = (InstOverTwoRelation) value;
-			String str = null;// (String) ic.getSemanticOverTwoRelationIden();
-			ic.setSemanticOverTwoRelationIden(str);
-			str = (String) ic.getSupportMetaElementIdentifier();
-			ic.setMetaOverTwoRelationIden(str);
-			if (beforeSave) {
-				ic.clearEditableMetaVertex();
-				ic.clearInstAttributesObjects();
+		if (value instanceof InstElement) {
+			InstElement instElement = (InstElement) value;
+			if (value instanceof InstOverTwoRelation) {
+				InstOverTwoRelation ic = (InstOverTwoRelation) value;
+				String str = null;
+				ic.setSemanticOverTwoRelationIden(str);
+				str = (String) ic.getSupportMetaElementIdentifier();
+				ic.setMetaOverTwoRelationIden(str);
+			} 
+			if (value instanceof InstPairwiseRelation) {
+				((InstPairwiseRelation) instElement).updateIdentifiers();
+				if (beforeSave) {
+					((InstPairwiseRelation)instElement).clearMetaPairwiseRelation();
+				}
 			}
-		} else if (value instanceof InstVertex && beforeSave) {
-			InstVertex instVertex = (InstVertex) value;
-			instVertex.clearEditableMetaVertex();
-			instVertex.clearInstAttributesObjects();
-		}
-
-		if (value instanceof InstPairwiseRelation) {
-			InstPairwiseRelation ic = (InstPairwiseRelation) value;
-			ic.updateIdentifiers();
 			if (beforeSave) {
-				ic.clearMetaPairwiseRelation();
-				ic.clearEditableMetaVertex();
-				// ic.clearRelations();
-				ic.clearInstAttributesObjects();
+				instElement.clearEditableMetaVertex();
+				instElement.clearInstAttributesObjects();
 			}
-
 		}
-
 	}
 
 	public static void beforeLoadGraph(mxGraph graph, VariamosGraphEditor editor) {
@@ -237,7 +234,7 @@ public class SharedActions {
 			((PerspEditorGraph) graph).setValidation(true);
 		}
 
-		setVisibleViews(graph.getModel(), false, 0, -1);
+		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(), editor.getModelSubViewIndex());
 		if (instAttributesToDelete.size() > 0)
 			JOptionPane
 					.showMessageDialog(
@@ -258,6 +255,82 @@ public class SharedActions {
 									+ "\n with older versions of the tool.",
 							"Incompatible Model Message",
 							JOptionPane.INFORMATION_MESSAGE, null);
+		return graph;
+	}
+
+	public static mxGraph recoverClonedElements(mxGraph graph,
+			VariamosGraphEditor editor) {
+
+		setVisibleViews(graph.getModel(), true, 0, 0);
+		mxIGraphModel refasGraph = graph.getModel();
+		// editor.getGraphComponent().zoomActual();
+		if (graph instanceof PerspEditorGraph) {
+			Object o = refasGraph.getRoot(); // Main Root
+			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0);
+			Object[] all0Cells = getSortedCells(graph, o1);
+			for (Object any0Cell : all0Cells) {
+				// Root model view mvInd
+				mxCell mv0 = (mxCell) any0Cell;
+
+				if (refasGraph.getChildCount(mv0) > 0) {
+					// First vertices and after edges
+					Object[] all1Cells = getSortedCells(graph, mv0);
+
+					for (Object any1Cell : all1Cells) {
+						// for (int i = 0; i < refasGraph.getChildCount(mv0);
+						// i++) {
+						// mxCell mv1 = (mxCell) refasGraph.getChildAt(mv0, i);
+						mxCell mv1 = (mxCell) any1Cell;
+						if (refasGraph.getChildCount(mv1) > 0
+						// && mv0.getChildAt(0).getValue()
+						// .equals(mv0.getValue())
+						) {
+							Object[] all2Cells = getSortedCells(graph, mv1);
+							for (Object any2Cell : all2Cells) {
+								mxCell mv2 = (mxCell) any2Cell;
+								try {
+									if (!((InstCell) mv2.getValue()).isCloned()) {
+										// System.out.println(mv2.getValue());
+										createClone(editor, mv2.getValue(),
+												mv2, graph);
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+									System.err.println(mv2.getValue()
+											.toString());
+								}
+							}
+						} else
+							try {
+
+								if (!((InstCell) mv1.getValue()).isCloned()) {
+									// System.out.println(mv1.getValue());
+									createClone(editor, mv1.getValue(), mv1,
+											graph);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								System.err.println(mv1.getValue().toString());
+							}
+					}
+				} else
+					try {
+
+						if (!((InstCell) mv0.getValue()).isCloned()) {
+							// System.out.println(mv0.getValue());
+							createClone(editor, mv0.getValue(), mv0, graph);
+
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.err.println(mv0.getValue().toString());
+					}
+			}
+			((PerspEditorGraph) graph).setValidation(true);
+		}
+
+		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(),
+				editor.getModelSubViewIndex());
 		return graph;
 	}
 
@@ -330,15 +403,99 @@ public class SharedActions {
 		return allCells;
 	}
 
+	private static void createClone(VariamosGraphEditor editor, Object value,
+			mxCell cell, mxGraph graph) {
+
+		InstElement instElement = ((InstCell) value).getInstElement();
+		String id = instElement.getIdentifier();
+		String elementIdentifier = null;
+		int modelViewSubIndex = editor.getModelSubViewIndex();
+		int modelViewIndex = editor.getModelViewIndex();
+		// Move new element to the current View - clone if
+		// necessary in multiple views
+		mxGraphModel refasGraph = (mxGraphModel) graph.getModel();
+		// Main Root
+		Object rootCell = refasGraph.getRoot();
+		// Null Root
+		mxCell viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
+		// Top level view
+		Object topLevelView = null;
+		// Parent to add new element
+		mxCell correctParentCell = null;
+		mxGraphModel model = refasGraph;
+		// model.getCells().remove(cell.getId());
+		if (modelViewSubIndex != -1) {
+			// Top Level View
+			topLevelView = refasGraph.getChildAt(viewsParent, modelViewIndex);
+			// Child view
+			correctParentCell = (mxCell) refasGraph.getChildAt(topLevelView,
+					modelViewSubIndex);
+		} else if (modelViewIndex != -1) {
+			// Top Level view
+			correctParentCell = (mxCell) refasGraph.getChildAt(viewsParent,
+					modelViewIndex);
+		} else {
+			// Graph without Views
+			// Add to the view Parent
+			correctParentCell = viewsParent;
+		}
+		// Remove from original position
+		// parent.remove(index);
+		if (instElement instanceof InstVertex) {
+			String name = null;
+			if (instElement instanceof InstConcept) {
+				InstConcept c = (InstConcept) instElement;
+				name = c.getTransSupportMetaElement().getIdentifier();
+			}
+			if (instElement instanceof InstOverTwoRelation) {
+				InstOverTwoRelation c = (InstOverTwoRelation) instElement;
+				name = c.getSupportMetaOverTwoRelation().getIdentifier();
+			}
+			viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
+			// Null Root
+			if (((RefasModel) editor.getEditedModel())
+					.getSyntaxRefas()
+					.elementsValidation(name, modelViewIndex, modelViewSubIndex)) {
+				if ((refasGraph.getCell(modelViewIndex + id + "-"
+						+ modelViewSubIndex) == null && modelViewSubIndex != -1)
+						|| refasGraph.getCell(modelViewIndex + id) == null) {
+					System.out.println("clone recovered" + id);
+					mxCell c2 = null;
+					try {
+						c2 = (mxCell) cell.clone();
+					} catch (CloneNotSupportedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (modelViewSubIndex != -1)
+						c2.setId(modelViewIndex + id + "-" + modelViewSubIndex);
+					else
+						c2.setId(modelViewIndex + id);
+
+					c2.setValue(new InstCell(c2, ((InstCell) cell.getValue())
+							.getInstElement(), true));
+
+					model.add(correctParentCell, c2,
+							correctParentCell.getChildCount());
+				}
+			}
+			correctParentCell.setVisible(false);
+			correctParentCell.setVisible(true);
+		}
+	}
+
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
-		RefasModel refas = ((PerspEditorGraph) editor.getGraphComponent().getGraph())
-				.getRefas();
+		RefasModel refas = ((PerspEditorGraph) editor.getGraphComponent()
+				.getGraph()).getRefas();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;
 		instCell.setMxCell(source);
 		if (instCell.isCloned()) {
 			instElement = getOriginalInstElement(graph, source);
+			if (instElement == null) {
+				System.out.println("Unable to load clone:" + source.getId());
+			}
 			instCell.setInstElement(instElement);
 		} else
 			instElement = instCell.getInstElement();
@@ -447,31 +604,34 @@ public class SharedActions {
 							instanceExpression.loadVolatileElements(refas
 									.getVariabilityVertex());
 					}
-					if (ia.getIdentifier().equals(SemanticVariable.VAR_ENUMERATIONTYPE)) {
-						Object instanceExpression =  ia
-								.getValue();
+					if (ia.getIdentifier().equals(
+							SemanticVariable.VAR_ENUMERATIONTYPE)) {
+						Object instanceExpression = ia.getValue();
 						if (ia.getAttribute().getType().equals("Class")) {
-							
-						if (instanceExpression != null)
-						{
-						//	instVertex = new HashMap<String, InstVertex>();
-						List<InstVertex> list = getInstElements(ia
-								.getAttribute().getMetaConceptInstanceType(), graph);
 
-						for (InstVertex concept : list) {
-						//	instVertex.put(concept.getIdentifier(), concept);
-							String out = concept.getInstAttribute("name")
-									.toString();
-//							ia.setValueObject(concept);
-							if (ia.getValue() != null
-									&& out.equals(ia.getValue()))
-								ia.setValueObject(concept);
-							if (ia.getValue() == null
-									&& ia.getAttributeDefaultValue() != null
-									&& out.equals(ia.getAttributeDefaultValue()))
-								ia.setValueObject(concept);
-						}
-						}
+							if (instanceExpression != null) {
+								// instVertex = new HashMap<String,
+								// InstVertex>();
+								List<InstVertex> list = getInstElements(ia
+										.getAttribute()
+										.getMetaConceptInstanceType(), graph);
+
+								for (InstVertex concept : list) {
+									// instVertex.put(concept.getIdentifier(),
+									// concept);
+									String out = concept.getInstAttribute(
+											"name").toString();
+									// ia.setValueObject(concept);
+									if (ia.getValue() != null
+											&& out.equals(ia.getValue()))
+										ia.setValueObject(concept);
+									if (ia.getValue() == null
+											&& ia.getAttributeDefaultValue() != null
+											&& out.equals(ia
+													.getAttributeDefaultValue()))
+										ia.setValueObject(concept);
+								}
+							}
 						}
 					}
 				} else {
@@ -663,7 +823,7 @@ public class SharedActions {
 		}
 		return out;
 	}
-	
+
 	public static boolean validateConceptType(InstElement instElement,
 			String element) {
 		if (instElement == null || !(instElement instanceof InstVertex))
