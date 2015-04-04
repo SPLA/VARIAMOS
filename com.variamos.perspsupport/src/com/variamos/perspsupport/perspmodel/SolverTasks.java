@@ -59,6 +59,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 	private String errorMessage = "";
 	private boolean update;
 	private Component parentComponent;
+	private RefasModel refasModel;
 	private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
@@ -87,6 +88,30 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.parentComponent = parentComponent;
 	}
 
+	public SolverTasks(ProgressMonitor progressMonitor, int execType,
+			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
+			boolean firstSimulExec, boolean reloadDashBoard, boolean update,
+			String element, Configuration lastConfiguration) {
+		this.progressMonitor = progressMonitor;
+		this.execType = execType;
+		this.refas2hlcl = refas2hlcl;
+		this.configHlclProgram = configHlclProgram;
+		this.firstSimulExec = firstSimulExec;
+		this.reloadDashBoard = reloadDashBoard;
+		this.update = update;
+		this.stringElement = element;
+		this.lastConfiguration = lastConfiguration;
+	}
+
+	public SolverTasks(ProgressMonitor progressMonitor, int execType,
+			RefasModel refasModel, Refas2Hlcl refas2hlcl, String file) {
+		this.progressMonitor = progressMonitor;
+		this.refasModel = refasModel;
+		this.execType = execType;
+		this.refas2hlcl = refas2hlcl;
+		this.file = file;
+	}
+
 	public boolean isFirstSimulExec() {
 		return firstSimulExec;
 	}
@@ -101,29 +126,6 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 	public boolean isUpdate() {
 		return update;
-	}
-
-	public SolverTasks(ProgressMonitor progressMonitor, int execType,
-			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
-			boolean firstSimulExec, boolean reloadDashBoard,
-			boolean update, String element, Configuration lastConfiguration) {
-		this.progressMonitor = progressMonitor;
-		this.execType = execType;
-		this.refas2hlcl = refas2hlcl;
-		this.configHlclProgram = configHlclProgram;
-		this.firstSimulExec = firstSimulExec;
-		this.reloadDashBoard = reloadDashBoard;
-		this.update = update;
-		this.stringElement = element;
-		this.lastConfiguration = lastConfiguration;
-	}
-
-	public SolverTasks(ProgressMonitor progressMonitor, int execType,
-			Refas2Hlcl refas2hlcl, String file) {
-		this.progressMonitor = progressMonitor;
-		this.execType = execType;
-		this.refas2hlcl = refas2hlcl;
-		this.file = file;
 	}
 
 	public Configuration getLastConfiguration() {
@@ -174,8 +176,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		setProgress(95);
 		progressMonitor
 				.setNote("Total Solutions processed: " + elements.size());
+		List<String> names = new ArrayList<String>();
+		for (String element : elements.get("1").keySet()) {
+			if (refasModel.getElement(element) != null)
+				names.add((String) refasModel.getElement(element)
+						.getInstAttribute("name").getValue());
+		}
 		ExportConfiguration export = new ExportConfiguration();
-		export.exportConfiguration(elements, file);
+		export.exportConfiguration(elements, names, file);
 		return true;
 	}
 
@@ -382,7 +390,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
 		setProgress(10);
-		while (!terminated) {
+		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
 				try {
 					Thread.sleep(50);
@@ -418,7 +426,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					}
 					correctExecution = true;
 				} else {
-					if (firstSimulExec || lastConfiguration== null) {
+					if (firstSimulExec || lastConfiguration == null) {
 						switch (type) {
 						case Refas2Hlcl.DESIGN_EXEC:
 							errorMessage = "Last changes on the model makes it inconsistent."
@@ -442,9 +450,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 									+ "try again.";
 							errorTitle = "Model Simulation Error";
 							correctExecution = false;
-							terminated= true;
 							break;
 						}
+						terminated = true;
 					} else {
 						errorMessage = "No more solutions found";
 						errorTitle = "Simulation Message";
@@ -455,10 +463,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				executionTime += "NormalExec: " + (endTime - iniTime) + "["
 						+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]"
 						+ " -- ";
+				System.out.println(executionTime);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			if (!firstSimulExec && result)
+				// Update GUI after first execution, editor not notify because
+				// the task is at 100%
 				this.refas2hlcl.updateGUIElements(null);
 			task = 100;
 			setProgress((int) task);

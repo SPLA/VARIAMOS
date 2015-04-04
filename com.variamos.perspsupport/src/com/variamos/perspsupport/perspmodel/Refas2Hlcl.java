@@ -1044,8 +1044,21 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 								.getIdentifier();
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
-							Integer o = (Integer) instVertex.getInstAttribute(
+							Object oo = instVertex.getInstAttribute(
 									SemanticVariable.VAR_VALUE).getValue();
+							Integer o = null;
+							if (oo instanceof Integer)
+							{
+							o = (Integer) instVertex.getInstAttribute(
+									SemanticVariable.VAR_VALUE).getValue();
+							
+							}
+							else
+							{
+								o = Integer.valueOf((String)instVertex.getInstAttribute(
+										SemanticVariable.VAR_VALUE).getValue());
+							}
+								
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(

@@ -80,7 +80,7 @@ public class ExportConfigurationAction extends AbstractEditorAction {
 
 				// Adds the default file format
 				FileFilter defaultFilter = new DefaultFileFilter(
-						".xls", "Configuration Files (.xls)");
+						".xls", "Excel File Format (.xls)");
 
 				fc.setFileFilter(defaultFilter);
 				int rc = fc.showDialog(null, mxResources.get("save"));
