@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.mxgraph.util.mxResources;
@@ -268,9 +269,8 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", true, out43);
 				getElementExpressions().add(out46);
-				//structureList.add(out46);
+				// structureList.add(out46);
 				allList.add(out46);
-
 				EqualsComparisonExpression out44 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
@@ -284,7 +284,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			case "delegation":
 			case "mandatory":
 				sourcePositiveAttributeNames.add("Selected");
-				//sourcePositiveAttributeNames.add("NotAvailable");
+				// sourcePositiveAttributeNames.add("NotAvailable");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
@@ -304,14 +304,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 			case "condition":
 				sourcePositiveAttributeNames.add("Selected");
-				//sourcePositiveAttributeNames.add("NotAvailable");
+				// sourcePositiveAttributeNames.add("NotAvailable");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out58 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
 						"Selected", "Selected");
 				getElementExpressions().add(out58);
-				//structureList.add(out56);
+				// structureList.add(out56);
 				allList.add(out58);
 
 				EqualsComparisonExpression out57 = new EqualsComparisonExpression(
@@ -352,13 +352,34 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				EqualsComparisonExpression out21 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
 								(Integer) instPairwiseRelation
-										.getInstAttribute("level").getAsInteger()));
+										.getInstAttribute("level")
+										.getAsInteger()));
 				getElementExpressions().add(out21);
 				allList.add(out21);
+				InstElement softgoal = instPairwiseRelation
+						.getTargetRelations().get(0);
+
+				AbstractExpression out22 = null;
+
+				String satisficingType = (String) softgoal.getInstAttribute(
+						"satisficingType").getValue();
+
 				// SourceId_Selected #==> TargetId_ClaimExpLevel #= relId_Level
-				EqualsComparisonExpression out22 = new EqualsComparisonExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						instPairwiseRelation, "ClaimExpLevel", "level");
+				if (satisficingType.contains("low")) {
+
+					out22 = new GreaterOrEqualsBooleanExpression(
+							instPairwiseRelation.getTargetRelations().get(0),
+							instPairwiseRelation, "ClaimExpLevel", "level");
+				} else if (satisficingType.contains("high")) {
+
+					out22 = new LessOrEqualsBooleanExpression(
+							instPairwiseRelation.getTargetRelations().get(0),
+							instPairwiseRelation, "ClaimExpLevel", "level");
+				} else {
+					out22 = new EqualsComparisonExpression(instPairwiseRelation
+							.getTargetRelations().get(0), instPairwiseRelation,
+							"ClaimExpLevel", "level");
+				}
 				AbstractBooleanExpression out23 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, out22);
@@ -373,19 +394,39 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
 								(Integer) instPairwiseRelation
-										.getInstAttribute("level").getAsInteger()));
+										.getInstAttribute("level")
+										.getAsInteger()));
 				getElementExpressions().add(out24);
 				allList.add(out24);
 				// SourceId_ClaimExpLevel #= SourceId_Level
-				EqualsComparisonExpression out25 = new EqualsComparisonExpression(
-						instPairwiseRelation.getTargetRelations().get(0),
-						instPairwiseRelation, "SDReqLevel", "level");
+				InstElement softgoalSD = instPairwiseRelation
+						.getTargetRelations().get(0);
+
+				AbstractExpression out25 = null;
+
+				String satisficingTypeSD = (String) softgoalSD
+						.getInstAttribute("satisficingType").getValue();
+
+				if (satisficingTypeSD.contains("high")) {
+					out25 = new GreaterOrEqualsBooleanExpression(
+							instPairwiseRelation.getTargetRelations().get(0),
+							instPairwiseRelation, "SDReqLevel", "level");
+				} else if (satisficingTypeSD.contains("low")) {
+					out25 = new LessOrEqualsBooleanExpression(
+							instPairwiseRelation.getTargetRelations().get(0),
+							instPairwiseRelation, "SDReqLevel", "level");
+				} else// (satisficingTypeSD.contains("close"))
+				{
+					out25 = new EqualsComparisonExpression(instPairwiseRelation
+							.getTargetRelations().get(0), instPairwiseRelation,
+							"SDReqLevel", "level");
+				}
 				ImplicationBooleanExpression out26 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						"Selected", true, out25);
-				getElementExpressions().add(out26);				
+				getElementExpressions().add(out26);
 				allList.add(out26);
-				
+
 				DoubleImplicationBooleanExpression out27 = new DoubleImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getSourceRelations().get(0),

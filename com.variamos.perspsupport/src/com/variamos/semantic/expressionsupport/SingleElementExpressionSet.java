@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.mxgraph.util.mxResources;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -28,10 +28,9 @@ import com.variamos.semantic.expressions.AbstractNumericExpression;
 import com.variamos.semantic.expressions.DiffNumericExpression;
 import com.variamos.semantic.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.semantic.expressions.EqualsComparisonExpression;
+import com.variamos.semantic.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.semantic.expressions.ImplicationBooleanExpression;
 import com.variamos.semantic.expressions.LessOrEqualsBooleanExpression;
-import com.variamos.semantic.expressions.NotBooleanExpression;
-import com.variamos.semantic.expressions.NotEqualsBooleanExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressions.OrBooleanExpression;
 import com.variamos.semantic.expressions.ProdNumericExpression;
@@ -112,8 +111,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 					for (InstAttribute instAttribute : ((InstVertex) instVertex)
 							.getInstAttributesCollection()) {
-						//System.out.println(instVertex.getIdentifier() + " "
-							//	+ instAttribute.getIdentifier());
+						// System.out.println(instVertex.getIdentifier() + " "
+						// + instAttribute.getIdentifier());
 						int attributeValue = 0;
 						String type = (String) instAttribute.getAttributeType();
 						if (type.equals("Integer") || type.equals("Boolean")) {
@@ -271,8 +270,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 						if (execType == Refas2Hlcl.SIMUL_MAPE
-								||execType == Refas2Hlcl.SIMUL_EXPORT
-								||execType == Refas2Hlcl.SIMUL_EXEC) {
+								|| execType == Refas2Hlcl.SIMUL_EXPORT
+								|| execType == Refas2Hlcl.SIMUL_EXEC) {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
@@ -310,8 +309,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									"variableConfigDomain")) {
 								if (!((String) instAttribute.getValue())
 										.equals(""))
-									getElementExpressions().add(
-											new EqualsComparisonExpression(
+									getElementExpressions()
+											.add(new EqualsComparisonExpression(
 													instVertex, instVertex,
 													"variableConfigValue",
 													SemanticVariable.VAR_VALUE));
@@ -338,9 +337,25 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"SDReqLevel")) {
-								EqualsComparisonExpression transformation50 = new EqualsComparisonExpression(
-										instVertex, instVertex, "SDReqLevel",
-										"ClaimExpLevel");
+
+								AbstractExpression transformation50 = null;
+
+								String satisficingType = (String) instVertex
+										.getInstAttribute("satisficingType")
+										.getValue();
+
+								if (satisficingType.contains("high")) {
+									transformation50 = new LessOrEqualsBooleanExpression(
+											instVertex, instVertex,
+											"SDReqLevel", "ClaimExpLevel");
+								} else if (satisficingType.contains("low")) {
+									transformation50 = new GreaterOrEqualsBooleanExpression(
+											instVertex, instVertex,
+											"SDReqLevel", "ClaimExpLevel");
+								} else// (satisficingType.contains("close"))
+									transformation50 = new EqualsComparisonExpression(
+											instVertex, instVertex,
+											"SDReqLevel", "ClaimExpLevel");
 
 								getElementExpressions().add(
 										new DoubleImplicationBooleanExpression(
@@ -415,9 +430,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								AbstractNumericExpression transformation49 = null;
 								if (instVertex.getTransSupportMetaElement()
 										.getIdentifier().endsWith("Softgoal")) {
-									//System.out.println(instVertex
-									//		.getTransSupportMetaElement()
-									//		.getIdentifier());
+									// System.out.println(instVertex
+									// .getTransSupportMetaElement()
+									// .getIdentifier());
 									DiffNumericExpression transformation488 = new DiffNumericExpression(
 											instVertex, "Selected", false,
 											getHlclFactory().number(1));

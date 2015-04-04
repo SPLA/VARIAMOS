@@ -1464,7 +1464,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(progressMonitor, type, refas2hlcl,
+			task = new SolverTasks(progressMonitor, type ,refas2hlcl,
 					configHlclProgram, firstSimulExecution, reloadDashboard,
 					update, element, lastConfiguration);
 			task.addPropertyChangeListener(this);
@@ -1474,14 +1474,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void exportConfiguration(String file) {
-		if (task == null || task.isDone()) {
+		if (task == null || task.isDone() || task.getProgress()==100) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
-					"Exporting Configuration", "", 0, 100);
+					"Exporting Solutions", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,
+			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,this.refasModel,
 					refas2hlcl, file);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
@@ -1660,11 +1660,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						refresh();
 						break;
 					case Refas2Hlcl.SIMUL_EXEC:
-					case Refas2Hlcl.SIMUL_EXPORT:
-						refresh();
-						lastConfiguration = task.getLastConfiguration();
 						updateDashBoard(task.isReloadDashBoard(),
 								task.isUpdate());
+					case Refas2Hlcl.SIMUL_EXPORT:
+						refresh();
+						lastConfiguration = task.getLastConfiguration();						
 						if (!task.getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
 									task.getErrorMessage(),
