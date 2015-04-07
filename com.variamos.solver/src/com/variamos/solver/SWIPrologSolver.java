@@ -150,9 +150,13 @@ public class SWIPrologSolver implements Solver {
 			// Add all additional configuration options
 			Compound query = addSubQueries(parts);
 			// System.out.println(query.toString());
+			long initTime = System.nanoTime();
 			qr = new Query(query);
+			lastExecutionTime += System.nanoTime() - initTime;
 		} else {
+			long initTime = System.nanoTime();
 			qr = new Query(options.programName + "(L)");
+			lastExecutionTime += System.nanoTime() - initTime;
 		}
 	}
 
