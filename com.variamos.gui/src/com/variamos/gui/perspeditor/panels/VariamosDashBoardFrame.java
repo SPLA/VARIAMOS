@@ -15,8 +15,10 @@ import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
+
 /**
- * A class to draw the dashboard for initial simultaion. Part of PhD work at University of Paris 1
+ * A class to draw the dashboard for initial simultaion. Part of PhD work at
+ * University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0
@@ -33,23 +35,24 @@ public class VariamosDashBoardFrame extends JFrame {
 	private JPanel solutionPanel = new JPanel(new SpringLayout());
 
 	private Map<String, Map<String, VisualElement>> elements = null;
-	
+
 	private boolean showNames = true;
-	
+
 	private boolean display = true;
 
 	public VariamosDashBoardFrame(RefasModel refasModel) {
 		this.refasModel = refasModel;
 		this.setTitle("Simulation DashBoard");
 		addWindowListener(new java.awt.event.WindowAdapter() {
-		    public void windowClosing(java.awt.event.WindowEvent evt) {
-		         formWindowClosing(evt);
-		    }
+			public void windowClosing(java.awt.event.WindowEvent evt) {
+				formWindowClosing(evt);
+			}
 		});
 	}
+
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {
 		display = false;
-	    this.setVisible(false);
+		this.setVisible(false);
 	}
 
 	public void showDashBoard(boolean visible) {
@@ -79,19 +82,20 @@ public class VariamosDashBoardFrame extends JFrame {
 					elements.put(metaId, new TreeMap<String, VisualElement>());
 				VisualElement visualElement = new VisualElement(instVertex);
 				elements.get(metaId).put(instId, visualElement);
-			//	solutionPanel.add(visualElement.showElement(showNames, true));
+				// solutionPanel.add(visualElement.showElement(showNames,
+				// true));
 				out++;
 			}
 		}
 		return out;
 	}
 
-	public void setShowNames(boolean showNames)
-	{
+	public void setShowNames(boolean showNames) {
 		this.showNames = showNames;
 	}
-	
-	public void updateDashBoard(RefasModel refasModel, boolean updateConcepts, boolean updated) {
+
+	public void updateDashBoard(RefasModel refasModel, boolean updateConcepts,
+			boolean updated) {
 		this.refasModel = refasModel;
 		int concepts = 0;
 		if (updateConcepts || elements == null)
@@ -104,8 +108,18 @@ public class VariamosDashBoardFrame extends JFrame {
 			int elements = 0, cols = 3;
 			for (VisualElement element : groupElement.values()) {
 				if (!title) {
-					JLabel titleLab = new JLabel("***                 "
-							+ element.getMetaElementName() + "s              ***");
+					JLabel titleLab = null;
+					if (element.getMetaElementName().equals("OPER")) {
+						titleLab = new JLabel(
+								"***                 Operationalizations              ***");
+					} else if (element.getMetaElementName().equals(
+							"Soft Dependency")) {
+						titleLab = new JLabel(
+								"***                 Soft Dependencies              ***");
+					} else
+						titleLab = new JLabel("***                 "
+								+ element.getMetaElementName()
+								+ "s              ***");
 
 					titleLab.setFont(new Font("default", Font.BOLD, 15));
 					solutionPanel.add(titleLab);
@@ -114,19 +128,18 @@ public class VariamosDashBoardFrame extends JFrame {
 					concepts++;
 				}
 				typePanel.add(element.showElement(showNames, updated));
-				elements++;				
+				elements++;
 			}
-			if(elements%cols>0)
-			{
+			if (elements % cols > 0) {
 				typePanel.add(new JLabel(""));
 				elements++;
 			}
-			if(elements%cols>0)
-			{
+			if (elements % cols > 0) {
 				typePanel.add(new JLabel(""));
 				elements++;
 			}
-			SpringUtilities.makeCompactGrid(typePanel, elements/cols, cols, 4, 4, 4, 4);
+			SpringUtilities.makeCompactGrid(typePanel, elements / cols, cols,
+					4, 4, 4, 4);
 			solutionPanel.add(typePanel);
 			concepts++;
 		}
@@ -136,10 +149,11 @@ public class VariamosDashBoardFrame extends JFrame {
 			this.setVisible(true);
 		revalidate();
 		pack();
-		
+
 	}
-	public void hideDashBoard() { 
+
+	public void hideDashBoard() {
 		this.setVisible(false);
-		
+
 	}
 }
