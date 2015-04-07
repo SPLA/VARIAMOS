@@ -67,9 +67,9 @@ public class ExportUtil {
 	 * @param tiempoAnalisis
 	 * @param cantidadModelos
 	 */
-	public static void adicionarInfoHoja(List<String> encabezadosList,
-			 HSSFSheet hoja, List<List<String>> resultados,
-			long tiempoAnalisis) {
+	public static void adicionarInfoHoja(List<String> encabezados1List,
+			List<String> encabezados2List, HSSFSheet hoja,
+			List<List<String>> resultados, long tiempoAnalisis) {
 
 		int contadorCelda = 0;
 		int filaInicialHoja = 0;
@@ -97,21 +97,30 @@ public class ExportUtil {
 
 			int seconds = (int) ((tiempoAnalisis / 1000) % 60);
 			int minutes = (int) ((tiempoAnalisis / 1000) / 60);
-			timerCellValue.setCellValue("minutes " + minutes + "seg" + seconds + " mils "+ " tiempo total (ms): " +tiempoAnalisis);
-			
+			timerCellValue.setCellValue("minutes " + minutes + "seg" + seconds
+					+ " mils " + " tiempo total (ms): " + tiempoAnalisis);
+
 			filaInicialHoja++;
 		}
 
 		HSSFRow titulo = hoja.createRow(filaInicialHoja);
 		filaInicialHoja++;
-		for (String encabezado : encabezadosList) {
+		for (String encabezado : encabezados1List) {
 			HSSFCell tituloCell = titulo.createCell(contadorCelda);
 			tituloCell.setCellValue(encabezado);
 			contadorCelda++;
 		}
+		contadorCelda = 0;
+		HSSFRow names = hoja.createRow(filaInicialHoja);
+		filaInicialHoja++;
+		for (String encabezado : encabezados2List) {
+			HSSFCell nameCell = names.createCell(contadorCelda);
+			nameCell.setCellValue(encabezado);
+			contadorCelda++;
+		}
 
 		for (List<String> filaResultados : resultados) {
-			if (filaInicialHoja==65535)
+			if (filaInicialHoja == 65535)
 				break;
 			HSSFRow row = hoja.createRow(filaInicialHoja);
 			// Adiciona una fila a los resultados

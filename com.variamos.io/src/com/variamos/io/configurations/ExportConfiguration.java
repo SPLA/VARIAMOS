@@ -26,28 +26,29 @@ public class ExportConfiguration {
 
 	}
 
-	public void exportConfiguration(Map<String, Map<String, Integer>> elements, String file) {
+	public void exportConfiguration(Map<String, Map<String, Integer>> elements,
+			List<String> names, String file) {
 		boolean title = false;
 		List<List<String>> results = new ArrayList<List<String>>();
-		List<String> titles = new ArrayList<String>();
-		for (Map<String, Integer> groupElement : elements.values()) {			
+		List<String> titlesIds = new ArrayList<String>();
+		for (Map<String, Integer> groupElement : elements.values()) {
 			if (!title) {
-				
+
 				for (String element : groupElement.keySet()) {
-					titles.add(element);
+					titlesIds.add(element);
 				}
+
 				title = true;
 			}
 			List<String> row = new ArrayList<String>();
 			for (String element : groupElement.keySet()) {
-				row.add(groupElement.get(element)+"");
+				row.add(groupElement.get(element) + "");
 			}
 			results.add(row);
 		}
 		HSSFWorkbook resultadosLibro = new HSSFWorkbook();
 		HSSFSheet hoja = resultadosLibro.createSheet();
-		ExportUtil.adicionarInfoHoja(titles, hoja,
-				results, 0);
+		ExportUtil.adicionarInfoHoja(titlesIds, names, hoja, results, 0);
 		ExportUtil.guardarXls(resultadosLibro, file);
 	}
 
