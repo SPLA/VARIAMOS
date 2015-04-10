@@ -49,8 +49,10 @@ public class SWIPrologSolver implements Solver {
 		this.hlclProgram = hlclProgram;
 	}
 
+	@Override
 	public int getSolutionsCount() {
-		return 0; // FIXME this method is hard to do in swi prolog
+		// FIXME: Although this way can become very lengthy, it's the only way to get the solutions count right now
+		return this.getAllSolutions().size();
 	}
 
 	@Override
@@ -386,6 +388,21 @@ public class SWIPrologSolver implements Solver {
 	@Override
 	public long getLastExecutionTime() {
 		return lastExecutionTime;
+	}
+
+	@Override
+	public List<Configuration> getAllSolutions() {
+		Hashtable<Variable, Term>[] configurationHashSets;
+		List<Configuration> configurations = new ArrayList<Configuration>();
+		if(qr != null) {
+			configurationHashSets = qr.allSolutions();
+			for(Hashtable<Variable, Term> configurationHashSet : configurationHashSets) {
+				if(configurationHashSet != null) {
+					configurations.add(this.makeConfiguration(configurationHashSet));
+				}
+			}
+		}
+		return configurations;
 	}
 
 }
