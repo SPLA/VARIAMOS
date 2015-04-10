@@ -101,6 +101,7 @@ public class GNUPrologSolver implements Solver {
 
 	@Override
 	public int getSolutionsCount() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -424,6 +425,12 @@ public class GNUPrologSolver implements Solver {
 	@Override
 	public long getLastExecutionTime() {
 		return lastExecutionTime;
+	}
+
+	@Override
+	public List<Configuration> getAllSolutions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
