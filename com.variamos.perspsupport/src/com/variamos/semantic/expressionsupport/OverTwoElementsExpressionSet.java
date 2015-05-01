@@ -22,6 +22,7 @@ import com.variamos.semantic.expressions.DoubleImplicationBooleanExpression;
 import com.variamos.semantic.expressions.EqualsComparisonExpression;
 import com.variamos.semantic.expressions.GreaterOrEqualsBooleanExpression;
 import com.variamos.semantic.expressions.LessOrEqualsBooleanExpression;
+import com.variamos.semantic.expressions.NotBooleanExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressions.OrBooleanExpression;
 import com.variamos.semantic.expressions.SumNumericExpression;
@@ -154,6 +155,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						}
 						switch (relationType) {
 						case "and":
+						case "none":
 							abstractTransformation = new AndBooleanExpression();
 							break;
 						case "or":
@@ -215,6 +217,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						switch (relationType) {
 
 						case "and":
+						case "none":
 							// B_Satisfied #<=> ( ( A1_"attribute" #/\
 							// A2_"attribute" ) #/\ ... )
 						case "or":
@@ -222,9 +225,18 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 							// A2_"attribute" ) #\/ ... )
 							recursiveExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
-							AbstractBooleanExpression out = new DoubleImplicationBooleanExpression(
+							AbstractBooleanExpression out = null;
+							if (!relationType.equals("none"))
+							out = new DoubleImplicationBooleanExpression(
 									instOverTwoRelation, sourceName, true,
 									recursiveExpression1);
+							else
+							{	AbstractBooleanExpression negation = new NotBooleanExpression(instOverTwoRelation, sourceName);
+								out = new DoubleImplicationBooleanExpression(
+										negation,
+										recursiveExpression1);
+							}
+									
 							getElementExpressions().add(out);
 							if (relationType.equals("and"))
 								coreList.add(out);

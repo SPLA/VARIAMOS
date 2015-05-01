@@ -433,6 +433,18 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									// System.out.println(instVertex
 									// .getTransSupportMetaElement()
 									// .getIdentifier());
+									
+//									DiffNumericExpression transformation488 = new DiffNumericExpression(
+//											instVertex, "Selected", false,
+//											getHlclFactory().number(1));
+//									DiffNumericExpression transformation489 = new DiffNumericExpression(new NumberNumericExpression(1),new EqualsComparisonExpression(
+//											instVertex,instVertex, "SDReqLevel","ClaimExpLevel" ));
+//									AbstractNumericExpression transformation490 = new ProdNumericExpression(
+//											transformation488,
+//											new NumberNumericExpression(8));
+//									 transformation49=new SumNumericExpression(
+//											transformation488, transformation490);
+									 
 									DiffNumericExpression transformation488 = new DiffNumericExpression(
 											instVertex, "Selected", false,
 											getHlclFactory().number(1));

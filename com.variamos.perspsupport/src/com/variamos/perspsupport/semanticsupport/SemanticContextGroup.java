@@ -19,8 +19,8 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 	private static final long serialVersionUID = 5538738414024566452L;
 
 	private static final String 
-			VAR_VARIABLENAME = "variableName",
-			VAR_VARIABLENAMENAME = "Variable Name",
+			VAR_VARIABLENAME = "name",
+			VAR_VARIABLENAMENAME = "Group Name",
 
 			VAR_INSTANCENUMBER = "instances",
 			VAR_INSTANCENUMBERNAME = "Number of Instances",

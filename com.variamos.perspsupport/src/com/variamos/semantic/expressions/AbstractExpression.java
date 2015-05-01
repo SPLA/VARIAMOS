@@ -67,23 +67,25 @@ public abstract class AbstractExpression {
 			boolean replaceTarget, AbstractExpression subExpression) {
 		expressionVertexTypes = new ArrayList<ExpressionVertexType>();
 		expressionConnectors = new ArrayList<String>();
-
 		if (replaceTarget) {
-			this.leftVertex = vertex;
-			this.leftAttributeName = attributeName;
-			this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+			if (vertex != null) {
+				this.leftVertex = vertex;
+				this.leftAttributeName = attributeName;
+				this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
 			this.rightSubExpression = subExpression;
 		} else {
-			this.rightVertex = vertex;
-			this.rightAttributeName = attributeName;
+			if (vertex != null) {
+				this.rightVertex = vertex;
+				this.rightAttributeName = attributeName;
+				this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
-			this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
 			this.leftSubExpression = subExpression;
 		}
-
 	}
 
 	public AbstractExpression(InstElement vertex, String attributeName,
@@ -194,37 +196,33 @@ public abstract class AbstractExpression {
 		}
 		return out;
 	}
-	
-	private void updateDomain(AbstractAttribute attribute, InstElement instVertex, Identifier identifier)
-	{
-		if (attribute.getName().equals(
-				"SDReqLevel")|| attribute.getName().equals(
-						"ClaimExpLevel")) {
+
+	private void updateDomain(AbstractAttribute attribute,
+			InstElement instVertex, Identifier identifier) {
+		if (attribute.getName().equals("SDReqLevel")
+				|| attribute.getName().equals("ClaimExpLevel")) {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
-			for (InstElement relation: instVertex.getSourceRelations())
-			{
-				values.add(((InstPairwiseRelation) relation).getInstAttribute(SemanticPairwiseRelation.VAR_LEVEL).getAsInteger());
+			for (InstElement relation : instVertex.getSourceRelations()) {
+				values.add(((InstPairwiseRelation) relation).getInstAttribute(
+						SemanticPairwiseRelation.VAR_LEVEL).getAsInteger());
 			}
-			if (values.size()==0)
-			{
-				values.add(new Integer(0)); //TODO use value according to MAX/MIN/As close as possible type of SG.
+			if (values.size() == 0) {
+				values.add(new Integer(0)); // TODO use value according to
+											// MAX/MIN/As close as possible type
+											// of SG.
 			}
-			for (Integer value: values)
-			{
-				configdomain += value.toString()+",";	
-			} 
-			configdomain = configdomain.substring(0, configdomain.length()-1);
-			identifier
-						.setDomain(DomainParser.parseDomain(configdomain));
-		} else
-		if (attribute.getName().equals(
+			for (Integer value : values) {
+				configdomain += value.toString() + ",";
+			}
+			configdomain = configdomain.substring(0, configdomain.length() - 1);
+			identifier.setDomain(DomainParser.parseDomain(configdomain));
+		} else if (attribute.getName().equals(
 				SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) instVertex.getInstAttribute(
 					SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
 			if (configdomain != null && !configdomain.equals(""))
-				identifier
-						.setDomain(DomainParser.parseDomain(configdomain));
+				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		} else if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
 			String type = (String) instVertex.getInstAttribute(
 					SemanticVariable.VAR_VARIABLETYPE).getValue();
@@ -234,8 +232,8 @@ public abstract class AbstractExpression {
 						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			} else if (type.equals("Enumeration")) {
-				Object object = instVertex.getInstAttribute(
-						"enumerationType").getValueObject();
+				Object object = instVertex.getInstAttribute("enumerationType")
+						.getValueObject();
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
@@ -243,8 +241,7 @@ public abstract class AbstractExpression {
 							.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
-						String[] split = ((String) value.getValue())
-								.split("-");
+						String[] split = ((String) value.getValue()).split("-");
 						domain += split[0] + ",";
 					}
 				}
