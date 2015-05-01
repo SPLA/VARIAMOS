@@ -26,9 +26,6 @@ public interface Solver {
 	
 	public boolean hasSolution();
 	
-	
-	@Deprecated
-	public int getSolutionsCount();
 	@Deprecated
 	public Object getProductLine();
 	
@@ -36,6 +33,9 @@ public interface Solver {
 	
 	//Proposed operations
 	
+	public int getSolutionsCount();
+	
+	public List<Configuration> getAllSolutions();
 	
 	/**
 	 * @param programPath
