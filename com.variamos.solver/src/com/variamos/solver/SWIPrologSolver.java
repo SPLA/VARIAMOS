@@ -152,7 +152,7 @@ public class SWIPrologSolver implements Solver {
 			// System.out.println(query.toString());
 			long initTime = System.nanoTime();
 			qr = new Query(query);
-			lastExecutionTime += System.nanoTime() - initTime;
+			lastExecutionTime += System.nanoTime() - initTime;			
 		} else {
 			long initTime = System.nanoTime();
 			qr = new Query(options.programName + "(L)");

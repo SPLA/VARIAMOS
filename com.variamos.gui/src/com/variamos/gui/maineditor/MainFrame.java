@@ -45,8 +45,8 @@ public class MainFrame extends JFrame {
 	private boolean showPerspectiveButton = false;
 	private String variamosVersionNumber = "1.0.1.9";
 	private String variamosVersionName = "1.0 Beta 9";
-	private String variamosBuild = "20150331 1600";
-	private String downloadId ="314";
+	private String variamosBuild = "20150427 0000";
+	private String downloadId = "314";
 
 	public int getPerspective() {
 		return perspective;
@@ -90,8 +90,10 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
-				perspTitle = "System Model - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating System Model Perspective...");
+				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
+				System.out
+						.println("Creating Rerquirements Model Perspective...");
+				this.setTitle("New Diagram - "+perspTitle);
 				break;
 
 			case 2:// syntax
@@ -106,13 +108,13 @@ public class MainFrame extends JFrame {
 				abstractModel = new RefasModel(PerspectiveType.simulation,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Execution - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Configuration and Execution Perspective...");
+				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;
+				System.out
+						.println("Creating Configuration and Simulation Perspective...");
 				break;
 
 			}
 
-			this.setTitle(perspTitle);
 			refasGraph = new PerspEditorGraph(i + 1, abstractModel);
 
 			VariamosGraphEditor editor = new VariamosGraphEditor(this,
@@ -256,7 +258,7 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(perspective - 1));
 		graphEditors.get(perspective - 1).installToolBar(this, perspective);
 		graphEditors.get(perspective - 1).updateObjects();
-		//graphEditors.get(perspective - 1).setVisibleModel(0, -1);
+		// graphEditors.get(perspective - 1).setVisibleModel(0, -1);
 		graphEditors.get(perspective - 1).setDefaultButton();
 		graphEditors.get(perspective - 1).updateView();
 		if (perspective != 4)
@@ -300,19 +302,18 @@ public class MainFrame extends JFrame {
 			String newVersion = s.hasNext() ? s.next() : null;
 			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
 				JOptionPane.showMessageDialog(this, "Your current version is "
-						+ variamosVersionNumber
-						+ ". The latest version is: " + newVersion
-						+ ". Please visit variamos.com.",
+						+ variamosVersionNumber + ". The latest version is: "
+						+ newVersion + ". Please visit variamos.com.",
 						"New VariaMos Version available",
 						JOptionPane.INFORMATION_MESSAGE, null);
 			else if (b)
 				JOptionPane
-						.showMessageDialog(this, "Your current version of VariaMos "
-								+ variamosVersionNumber
-								+ "  is up to date.",
-								"Update Message",
+						.showMessageDialog(this,
+								"Your current version of VariaMos "
+										+ variamosVersionNumber
+										+ "  is up to date.", "Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
-			input = new URL("http://variamos.com/home/?wpdmdl="+downloadId)
+			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
 					.openStream();
 			s.close();
 		} catch (java.net.UnknownHostException e) {
