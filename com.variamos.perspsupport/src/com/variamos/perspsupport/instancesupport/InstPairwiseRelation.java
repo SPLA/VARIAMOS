@@ -161,7 +161,6 @@ public class InstPairwiseRelation extends InstElement {
 	public SemanticAttribute getSemanticAttribute() {
 		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
 				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null, "");
-
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
@@ -500,7 +499,7 @@ public class InstPairwiseRelation extends InstElement {
 												.getValueObject() != null) {
 									InstAttribute i = getInstAttributes().get(
 											name);
-									out = ((SemanticRelationType) getInstAttributes()
+									out += ((SemanticRelationType) getInstAttributes()
 											.get(name).getValueObject())
 											.getDiplayName();
 								} else

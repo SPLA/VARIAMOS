@@ -152,9 +152,9 @@ public class MetaPairwiseRelation extends MetaElement {
 		 * VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
 		 * "mandatory", ""));
 		 */
-		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
-				VAR_METAGENERALCONSTRAINT, "String", false,
-				VAR_METAGENERALCONSTRAINTNAME, ""));
+//		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
+//				VAR_METAGENERALCONSTRAINT, "String", false,
+//				VAR_METAGENERALCONSTRAINTNAME, ""));
 
 		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);

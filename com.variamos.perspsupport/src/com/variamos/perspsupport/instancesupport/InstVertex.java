@@ -161,7 +161,7 @@ public abstract class InstVertex extends InstElement {
 						getInstAttributes().get(name).setValue(
 								createValue(type, defvalue));
 					continue;
-				} else if (varValue.getValue().toString().trim().equals(value)) {
+				} else if (varValue.getValue().toString().trim().equals(value.toString())) {
 					if (condition.equals("!=")) {
 						if (valueEnd != -1)
 							getInstAttributes().get(name).setValue(

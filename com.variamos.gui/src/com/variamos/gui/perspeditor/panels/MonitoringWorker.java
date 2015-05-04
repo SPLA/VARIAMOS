@@ -92,6 +92,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					conceptTypes.add("GlobalVariable");// TODO only external
 					// variables
 					conceptTypes.add("ContextVariable");
+					conceptTypes.add("Variable");
 				}
 				if (includeOpers || lastConfig == null) {
 					conceptTypes.add("OPER");
@@ -132,6 +133,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 																// external
 																// variables
 							conceptTypes.add("ContextVariable");
+							conceptTypes.add("Variable");
 							editor.getRefas2hlcl().cleanGUIElements(
 									Refas2Hlcl.DESIGN_EXEC);
 							editor.getRefas2hlcl().updateGUIElements(

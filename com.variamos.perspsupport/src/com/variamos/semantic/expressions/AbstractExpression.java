@@ -205,7 +205,7 @@ public abstract class AbstractExpression {
 			Set<Integer> values = new HashSet<Integer>();
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				values.add(((InstPairwiseRelation) relation).getInstAttribute(
-						SemanticPairwiseRelation.VAR_LEVEL).getAsInteger());
+						SemanticPairwiseRelation.VAR_SOURCE_LEVEL).getAsInteger());
 			}
 			if (values.size() == 0) {
 				values.add(new Integer(0)); // TODO use value according to

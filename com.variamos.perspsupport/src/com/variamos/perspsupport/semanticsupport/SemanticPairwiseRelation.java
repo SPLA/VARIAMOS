@@ -25,50 +25,65 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 	 */
 	private static final long serialVersionUID = 7976788205587295216L;
 	private List<IntSemanticRelationType> semanticRelationTypes;
-	//private boolean toSoftSemanticConcept;
+	// private boolean toSoftSemanticConcept;
 	public static final String
 	/**
 	* 
 	*/
+	VAR_SOURCE_LEVEL = "sourceLevel",
+	/**
+			* 
+			*/
+	VAR_TARGET_LEVEL = "targetLevel",
+	/**
+			* 
+			*/
 	VAR_LEVEL = "level",
-			/**
+	/**
 	 * 
 	 */
-			VAR_LEVELNAME = "Level",
-			/**
+	VAR_SOURCE_LEVELNAME = "Source Level",
+	/**
+					 * 
+					 */
+	VAR_TARGET_LEVELNAME = "Target Level",
+	/**
+			 * 
+			 */
+	VAR_LEVELNAME = "Level",
+	/**
 	* 
 	*/
-			VAR_LEVELCLASS = LevelType.class.getCanonicalName(),
-			/**
+	VAR_LEVELCLASS = LevelType.class.getCanonicalName(),
+	/**
 	 * 
 	*/
-			VAR_SATISFICINGTYPE = "satisficingType",
-			/**
+	VAR_SATISFICINGTYPE = "satisficingType",
+	/**
 	 * 
 	*/
-			VAR_SATISFICINGTYPENAME = "Satisficing Level",
-			/**
+	VAR_SATISFICINGTYPENAME = "Satisficing Level",
+	/**
 	* 
 	*/
-			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
-			
-					VAR_RELATIONTYPE_IDEN = "relationType",
-					VAR_RELATIONTYPE_NAME = "Relation Type",
-					VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
-							.getCanonicalName();
+	VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
 
+	VAR_RELATIONTYPE_IDEN = "relationType",
+			VAR_RELATIONTYPE_NAME = "Relation Type",
+			VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
+					.getCanonicalName();
 
 	public SemanticPairwiseRelation() {
 		super(null);
 		defineSemanticAttributes();
 	}
 
-
-	public SemanticPairwiseRelation(String identifier, boolean toSoftSemanticConcept,
+	public SemanticPairwiseRelation(String identifier,
+			boolean toSoftSemanticConcept,
 			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
-		//this.toSoftSemanticConcept = toSoftSemanticConcept;
+		// this.toSoftSemanticConcept = toSoftSemanticConcept;
 		defineSemanticAttributes();
 	}
 
@@ -81,8 +96,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	private void defineSemanticAttributes()
-	{
+	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
 				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
 				VAR_RELATIONTYPE_CLASS, null, ""));
