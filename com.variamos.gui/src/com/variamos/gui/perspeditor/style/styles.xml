@@ -15,6 +15,7 @@
 		<add as="fontSize" value="10"/>
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
+		<add as="dashed" value="2"/>
 		<add as="strokeColor" value="black"/>
 	</add>
  	<add as="plnode">
@@ -46,7 +47,7 @@
 		<add as="strokeColor" value="black"/>		
 		<add as="fillColor" value="white"/>
 		<add as="verticalLabelPosition" value="top"/>
-		<add as="editable" value="false"/>
+		<add as="editable" value="true"/>
 	</add>
 	
 	<add as="plasset">
@@ -91,7 +92,7 @@
 		<add as="endFill" value="false"/>
 		<add as="fillColor" value="white" />
 		<add as="targetPerimeterSpacing" value="4" />
-		<add as="editable" value="false"/>
+		<add as="editable" value="true"/>
 	</add>
 	
 	<add as="refasviewrel">
@@ -129,10 +130,11 @@
 		<add as="shape" value="refas-view"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
-		<add as="fontSize" value="10"/>		
+		<add as="fontSize" value="10"/>
+		<add as="fontColor" value="white"/>				
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>		
-		<add as="fillColor" value="white"/>
+		<add as="fillColor" value="gray"/>
 		<add as="strokeColor" value="black"/>
 	</add>
 	<add as="refasassump">
@@ -179,6 +181,16 @@
 	</add>
 		<add as="refasenumeration">
 		<add as="shape" value="enum"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="top"/>
+		<add as="fillColor" value="white"/>		
+		<add as="strokeColor" value="black"/>
+	</add>	
+		<add as="refasminiclass">
+		<add as="shape" value="miniclass"/>
 		<add as="labelBackgroundColor" value="none"/>
 		<add as="endArrow" value="classic"/>
 		<add as="fontSize" value="10"/>

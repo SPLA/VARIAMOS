@@ -459,72 +459,68 @@ public class InstPairwiseRelation extends InstElement {
 				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
 
 				String name = visibleAttribute.substring(3);
-				if (getInstAttributes().get(name) != null) {
-					if (nameEnd != -1) {
-						name = visibleAttribute.substring(3, nameEnd);
-						String variable = null;
-						String condition = null;
-						String value = null;
-						variable = visibleAttribute.substring(nameEnd + 1,
-								varEnd);
-						condition = visibleAttribute.substring(varEnd + 1,
-								condEnd);
-						value = visibleAttribute.substring(condEnd + 1);
-						InstAttribute varValue = getInstAttributes().get(
-								variable);
-						if (varValue == null)
+				// if (getInstAttributes().get(name) != null) {
+				if (nameEnd != -1) {
+					name = visibleAttribute.substring(3, nameEnd);
+					String variable = null;
+					String condition = null;
+					String value = null;
+					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
+					condition = visibleAttribute.substring(varEnd + 1, condEnd);
+					value = visibleAttribute.substring(condEnd + 1);
+					InstAttribute varValue = getInstAttributes().get(variable);
+					if (varValue == null)
+						validCondition = false;
+					else if (varValue.getValue().toString().trim()
+							.equals(value)) {
+						if (condition.equals("!="))
 							validCondition = false;
-						else if (varValue.getValue().toString().trim()
-								.equals(value)) {
-							if (condition.equals("!="))
-								validCondition = false;
-						} else {
-							if (condition.equals("=="))
-								validCondition = false;
-						}
+					} else {
+						if (condition.equals("=="))
+							validCondition = false;
 					}
-					boolean nvar = false;
-					if (name != null && validCondition) {
-						Iterator<String> spacers = spacersAttributes.iterator();
-						while (spacers.hasNext()) {
-							String spacer = spacers.next();
-							if (spacer.indexOf("#" + name + "#") != -1) {
-								nvar = true;
-								int sp1 = spacer.indexOf("#");
-								int sp2 = spacer.indexOf("#", sp1 + 1);
-
-								out += spacer.substring(0, sp1);
-								if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
-										&& getInstAttributes().get(name)
-												.getValueObject() != null) {
-									InstAttribute i = getInstAttributes().get(
-											name);
-									out += ((SemanticRelationType) getInstAttributes()
-											.get(name).getValueObject())
-											.getDiplayName();
-								} else
-									out += getInstAttributes().get(name)
-											.toString().trim();
-								while (sp2 != spacer.length()) {
-									int sp3 = spacer.indexOf("#", sp2 + 1);
-									if (sp3 == -1) {
-
-										out += spacer.substring(sp2 + 1);
-										break;
-									}
-									out += spacer.substring(sp2 + 1, sp3);
-
-									sp2 = sp3;
-								}
-							}
-
-						}
-						if (!nvar)
-							out += getInstAttributes().get(name);
-					}
-				} else {
-					System.err.println(name + " attribute is null");
 				}
+				boolean nvar = false;
+				if (name != null && validCondition) {
+					Iterator<String> spacers = spacersAttributes.iterator();
+					while (spacers.hasNext()) {
+						String spacer = spacers.next();
+						if (spacer.indexOf("#" + name + "#") != -1) {
+							nvar = true;
+							int sp1 = spacer.indexOf("#");
+							int sp2 = spacer.indexOf("#", sp1 + 1);
+
+							out += spacer.substring(0, sp1);
+							if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
+									&& getInstAttributes().get(name)
+											.getValueObject() != null) {
+								InstAttribute i = getInstAttributes().get(name);
+								out += ((SemanticRelationType) getInstAttributes()
+										.get(name).getValueObject())
+										.getDiplayName();
+							} else
+								out += getInstAttributes().get(name).toString()
+										.trim();
+							while (sp2 != spacer.length()) {
+								int sp3 = spacer.indexOf("#", sp2 + 1);
+								if (sp3 == -1) {
+
+									out += spacer.substring(sp2 + 1);
+									break;
+								}
+								out += spacer.substring(sp2 + 1, sp3);
+
+								sp2 = sp3;
+							}
+						}
+
+					}
+					if (!nvar)
+						out += getInstAttributes().get(name);
+				}
+				// } else {
+				// System.err.println(name + " attribute is null");
+				// }
 			}
 		}
 		return out;

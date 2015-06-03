@@ -162,7 +162,10 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableMetaElement
 							.getBorderStroke());
 
-				if (instAttribute.getIdentifier().equals("value")) // TODO review what to associate
+				if (instAttribute.getIdentifier().equals("value")) // TODO
+																	// review
+																	// what to
+																	// associate
 					instAttribute.setValue(editableMetaElement
 							.getModelingAttributesNames());
 			}
@@ -258,8 +261,15 @@ public abstract class InstElement implements Serializable, EditableElement {
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals("identifier")
-						&& !attributeName.equals("Description"))
-					out2 += attributeName + "\n";
+						&& !attributeName.equals("Description")) {
+					AbstractAttribute i = getEditableMetaElement()
+							.getModelingAttribute(attributeName);
+					String v = "";
+					if (i != null)
+						v = ":" + i.getType();
+					// System.out.println(attributeName);
+					out2 += attributeName + v + "\n";
+				}
 			}
 		}
 		if (getEditableSemanticElement() != null) {
@@ -272,8 +282,11 @@ public abstract class InstElement implements Serializable, EditableElement {
 					out2 += attributeName + "\n";
 			}
 		}
-
-		if (getTransSupportMetaElement() != null) {
+		// TODO: Remove when Claim is no longer a OverTwoRelation
+		if (this.getInstAttribute("Name") != null
+				&& this.getInstAttribute("Name").getValue().equals("Claim"))
+			out = "<<MetaConcept>>\nClaim\n\n";
+		else if (getTransSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getTransSupportMetaElement()
 					.getPanelVisibleAttributes();
 			List<String> listVisibleAttributes = new ArrayList<String>();
@@ -327,8 +340,10 @@ public abstract class InstElement implements Serializable, EditableElement {
 							else {
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
-								if (instAttribute.getAttributeType().equals(
-										"Set"))
+								// System.out.println(this.getIdentifier());
+								if (instAttribute.getAttributeType() != null
+										&& instAttribute.getAttributeType()
+												.equals("Set"))
 									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 											.getValue())
 										out += e.toString().trim() + "\n";
@@ -365,7 +380,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstEnumeration) instAttribute
 											.getValueObject())
 											.getDynamicVariable("InstAttribute");
-									InstAttribute oo = o.get(MetaEnumeration.VAR_METAENUMVALUE);
+									InstAttribute oo = o
+											.get(MetaEnumeration.VAR_METAENUMVALUE);
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									out += "{ ";

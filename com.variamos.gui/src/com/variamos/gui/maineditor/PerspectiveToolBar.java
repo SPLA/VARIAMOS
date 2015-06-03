@@ -10,11 +10,15 @@ import javax.swing.border.EmptyBorder;
 
 import com.mxgraph.util.mxResources;
 
-/*
- * import com.mxgraph.swing.util.mxGraphActions;
- import com.mxgraph.util.mxConstants;
+/**
+ * A class to support perspectives buttons on mainframe. Part of PhD work
+ * at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2015-02-03
  */
-//import com.mxgraph.view.mxGraph;
 
 public class PerspectiveToolBar extends JToolBar {
 

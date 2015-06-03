@@ -20,6 +20,16 @@ import javax.swing.SpringLayout;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 
+/**
+ * A class to support the dialog to control simulation of configurations. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2015-03-20
+ * @see com.variamos.gui.pl.editor.VariabilityAttributeList
+ */
 public class ExternalContextDialog extends JDialog implements
 		PropertyChangeListener {
 	/**

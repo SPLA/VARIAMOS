@@ -715,7 +715,8 @@ public class RefasModel extends AbstractModel {
 		semVertex.addPropVisibleAttribute("14#" + "value");
 
 		semVertex.addPanelVisibleAttribute("01#" + "Name");
-		semVertex.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
+		semVertex.addPanelSpacersAttribute("<<MetaConcept>>\n#" + "Name"
+				+ "#\n\n");
 
 		InstConcept instSemVertex = new InstConcept("Concept", null, semVertex);
 
@@ -727,35 +728,38 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("Concept", new InstConcept("Concept", null,
 				concept));
 
-		SemanticConcept semEnum = new SemanticConcept();
+		SemanticConcept semElement = new SemanticConcept();
 
-		semEnum.putSemanticAttribute("MetaType", new SyntaxAttribute(
+		semElement.putSemanticAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaEnumeration"));
-		semEnum.putSemanticAttribute("Identifier", new SyntaxAttribute(
+		semElement.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", ""));
-		semEnum.putSemanticAttribute("Visible", new SyntaxAttribute("Visible",
-				"Boolean", false, "Visible", true));
-		semEnum.putSemanticAttribute("Name", new SyntaxAttribute("Name",
+		semElement.putSemanticAttribute("Visible", new SyntaxAttribute(
+				"Visible", "Boolean", false, "Visible", true));
+		semElement.putSemanticAttribute("Name", new SyntaxAttribute("Name",
 				"String", false, "Concept Name", ""));
-		semEnum.putSemanticAttribute("value", new SyntaxAttribute("value",
+		semElement.putSemanticAttribute("value", new SyntaxAttribute("value",
 				"Set", false, "values", ""));
+		semElement.putSemanticAttribute("dummy", new SyntaxAttribute("dummy",
+				"String", false, "dummy", ""));
 
-		semEnum.addPropVisibleAttribute("00#" + "MetaType");
-		semEnum.addPropEditableAttribute("01#" + "Identifier");
-		semEnum.addPropVisibleAttribute("01#" + "Identifier");
-		semEnum.addPropEditableAttribute("02#" + "Visible");
-		semEnum.addPropVisibleAttribute("02#" + "Visible");
-		semEnum.addPropEditableAttribute("03#" + "Name");
-		semEnum.addPropVisibleAttribute("03#" + "Name");
-		semEnum.addPropEditableAttribute("06#" + "value");
-		semEnum.addPropVisibleAttribute("06#" + "value");
+		semElement.addPropVisibleAttribute("00#" + "MetaType");
+		semElement.addPropEditableAttribute("01#" + "Identifier");
+		semElement.addPropVisibleAttribute("01#" + "Identifier");
+		semElement.addPropEditableAttribute("02#" + "Visible");
+		semElement.addPropVisibleAttribute("02#" + "Visible");
+		semElement.addPropEditableAttribute("03#" + "Name");
+		semElement.addPropVisibleAttribute("03#" + "Name");
+		semElement.addPropEditableAttribute("06#" + "value");
+		semElement.addPropVisibleAttribute("06#" + "value");
 
-		semEnum.addPanelVisibleAttribute("01#" + "Name");
-		semEnum.addPanelSpacersAttribute("#" + "Name" + "#");
-		semEnum.addPanelSpacersAttribute("#" + "value" + "#\n\n");
+		// semElement.addPanelVisibleAttribute("01#" + "Name");
+		// semElement.addPanelSpacersAttribute("#" + "Name" + "#");
+		semElement.addPanelSpacersAttribute("#" + "value" + "#\n\n");
 
-		InstConcept instSemEnum = new InstConcept("Enumeration", null, semEnum);
+		InstConcept instSemEnum = new InstConcept("Enumeration", null,
+				semElement);
 
 		MetaConcept enumeration = new MetaConcept("Enumeration", true,
 				"Enumeration", "refasenumeration", "MetaEnumeration", 100, 150,
@@ -765,7 +769,7 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("Enumeration", new InstConcept("Enumeration",
 				null, enumeration));
 
-		SemanticConcept semOverTwoRelation = new SemanticConcept(semEnum,
+		SemanticConcept semOverTwoRelation = new SemanticConcept(semElement,
 				"OverTwoRelation");
 
 		semOverTwoRelation.putSemanticAttribute(
@@ -786,13 +790,36 @@ public class RefasModel extends AbstractModel {
 				true, Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
 		overTwoRelation.addModelingAttribute("Type", new SyntaxAttribute(
-				"Type", "Type", false, "Relation Type", "String", ""));
+				"Type", "String", false, "Relation Type", ""));
+		overTwoRelation.addPanelVisibleAttribute("01#" + "dummy");
+		overTwoRelation.addPanelSpacersAttribute("<<MetaOverTwoAssociation>>#"
+				+ "dummy" + "#");
 
 		overTwoRelation.addPropVisibleAttribute("03#" + "Type");
 		overTwoRelation.addPropEditableAttribute("03#" + "Type");
 		overTwoRelation.addPanelVisibleAttribute("03#" + "Type" + "#" + "Type"
 				+ "#!=#" + "" + "#" + "");
 		overTwoRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
+
+		variabilityInstVertex.put("OverTwoRelation", new InstConcept(
+				"OverTwoRelation", null, overTwoRelation));
+
+		SemanticConcept semExtendRelation = new SemanticConcept(semElement,
+				"OverTwoRelation");
+
+		InstConcept instSemExtendRelation = new InstConcept("ExtendRelation",
+				null, semExtendRelation);
+
+		MetaConcept extendRelation = new MetaConcept("ExtendRelation", false,
+				"Extend Relation", "refasminiclass", "Extend relation", 50, 50,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, instSemExtendRelation, true);
+		extendRelation.addPanelVisibleAttribute("01#dummy");
+		extendRelation
+				.addPanelSpacersAttribute("<<MetaExtendsAssociation>>#dummy#\n\n");
+
+		variabilityInstVertex.put("ExtendRelation", new InstConcept(
+				"ExtendRelation", null, extendRelation));
 
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "Extends Relation", "refasextends",
@@ -818,10 +845,7 @@ public class RefasModel extends AbstractModel {
 		constraintInstEdges.put("NormalRelation", new InstPairwiseRelation(
 				"NormalRelation", metaPairwiseRelNormal));
 
-		variabilityInstVertex.put("OverTwoRelation", new InstConcept(
-				"OverTwoRelation", null, overTwoRelation));
-
-		SemanticConcept semPairwiseRelation = new SemanticConcept(semEnum,
+		SemanticConcept semPairwiseRelation = new SemanticConcept(semElement,
 				"PairwiseRelation");
 
 		InstConcept instSemPairwiseRelationn = new InstConcept(
@@ -834,7 +858,11 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 3, instSemPairwiseRelationn, true);
 
 		pairwiseRelation.addModelingAttribute("Type", new SyntaxAttribute(
-				"Type", "Type", false, "Relation Type", "String", ""));
+				"Type", "String", false, "Relation Type", ""));
+		pairwiseRelation.addPanelVisibleAttribute("01#" + "dummy");
+		pairwiseRelation
+				.addPanelSpacersAttribute("<<MetaPairwiseAssociation>>#"
+						+ "dummy" + "#");
 
 		pairwiseRelation.addPropEditableAttribute("03#" + "Type");
 		pairwiseRelation.addPropVisibleAttribute("03#" + "Type");
@@ -843,7 +871,7 @@ public class RefasModel extends AbstractModel {
 		pairwiseRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
 
 		pairwiseRelation.addModelingAttribute("SourceCardinality",
-				new SyntaxAttribute("SourceCardinality", "SourceCardinality",
+				new SyntaxAttribute("SourceCardinality", "String",
 						false, "Source Cardinality", "String", "[]"));
 
 		pairwiseRelation.addPropEditableAttribute("04#" + "SourceCardinality");
@@ -854,7 +882,7 @@ public class RefasModel extends AbstractModel {
 				+ "#");
 
 		pairwiseRelation.addModelingAttribute("TargetCardinality",
-				new SyntaxAttribute("TargetCardinality", "TargetCardinality",
+				new SyntaxAttribute("TargetCardinality", "String",
 						false, "Target Cardinality", "String", "[]"));
 
 		pairwiseRelation.addPropEditableAttribute("05#" + "TargetCardinality");
@@ -862,7 +890,7 @@ public class RefasModel extends AbstractModel {
 		pairwiseRelation.addPanelVisibleAttribute("05#" + "TargetCardinality"
 				+ "#" + "Type" + "#!=#" + "" + "#" + "");
 		pairwiseRelation.addPanelSpacersAttribute(" #" + "TargetCardinality"
-				+ "#");
+				+ "#\n");
 
 		variabilityInstVertex.put("PairwiseRelation", new InstConcept(
 				"PairwiseRelation", null, pairwiseRelation));
@@ -1422,8 +1450,8 @@ public class RefasModel extends AbstractModel {
 				"cond.", "cond.", false, true, true, 1, -1, 1, 1));
 
 		List<IntSemanticRelationType> sgPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		sgPairwiseRelList.add(new SemanticRelationType("satisficing",
-				"satisficing", "satisficing", true, true, true, 1, -1, 1, 1));
+		sgPairwiseRelList.add(new SemanticRelationType("contribution",
+				"contribution", "contribution", true, true, true, 1, -1, 1, 1));
 		sgPairwiseRelList.add(new SemanticRelationType("conflict", "conflict",
 				"conflict", false, true, true, 1, -1, 1, 1));
 		sgPairwiseRelList.add(new SemanticRelationType("alternative",
@@ -1537,15 +1565,33 @@ public class RefasModel extends AbstractModel {
 				"groupPairwiseRel", false, groupPairwiseRelList);
 		constraintInstEdges.put("groupPairwiseRel", new InstPairwiseRelation(
 				semGroupPairwiseRel));
-		semGroupPairwiseRel.putSemanticAttribute("Aggregation",
-				new SemanticAttribute("Aggregation", "String", false,
-						"Aggregation", ""));
+		semGroupPairwiseRel.putSemanticAttribute("AggregationLow1",
+				new SemanticAttribute("AggregationLow1", "Integer", false,
+						"Aggregation Low1", 0));
 
-		semGroupPairwiseRel.addPanelVisibleAttribute("03#" + "Aggregation");
+//		semGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow1");
 
-		semGroupPairwiseRel.addPropEditableAttribute("03#" + "Aggregation");
+//		semGroupPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow1"
+//				+ "#..");
 
-		semGroupPairwiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+//		semGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
+
+//		semGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow1"
+//				+"#"+ "AggregationHigh1" + "#!=#" + "0");
+
+		semGroupPairwiseRel.putSemanticAttribute("AggregationHigh1",
+				new SemanticAttribute("AggregationHigh1", "Integer", false,
+						"Aggregation High1", 0));
+
+//		semGroupPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh1"
+//				+"#"+ "AggregationHigh1" + "#!=#" + "0");
+
+//		semGroupPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh1"
+//				+ "#]");
+
+//		semGroupPairwiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
+
+//		semGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh1");
 
 		List<IntSemanticRelationType> nonePairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		nonePairwiseRelList.add(new SemanticRelationType("Group", "", "", true,
@@ -1555,6 +1601,11 @@ public class RefasModel extends AbstractModel {
 				"NonePairwiseRel", false, nonePairwiseRelList);
 		constraintInstEdges.put("NonePairwiseRel", new InstPairwiseRelation(
 				nonePairwiseRel));
+
+		SemanticPairwiseRelation extendsPairwiseRel = new SemanticPairwiseRelation(
+				"NonePairwiseRel", false, nonePairwiseRelList);
+		constraintInstEdges.put("extendsDirectEdge", new InstPairwiseRelation(
+				extendsPairwiseRel));
 
 		List<IntSemanticRelationType> genconsPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		genconsPairwiseRelList.add(new SemanticRelationType(
@@ -1639,17 +1690,31 @@ public class RefasModel extends AbstractModel {
 						SemanticPairwiseRelation.VAR_TARGET_LEVEL, "Integer",
 						false, SemanticPairwiseRelation.VAR_TARGET_LEVELNAME,
 						0, new RangeDomain(0, 5)));
-		directSGSGSemEdge.putSemanticAttribute("Aggregation",
-				new SemanticAttribute("Aggregation", "String", false,
-						"Aggregation", ""));
+		directSGSGSemEdge.putSemanticAttribute("AggregationLow",
+				new SemanticAttribute("AggregationLow", "Integer", false,
+						"Aggregation Low", 0));
 
-		directSGSGSemEdge.addPanelVisibleAttribute("07#" + "Aggregation");
+		directSGSGSemEdge.addPanelVisibleAttribute("07#" + "AggregationLow");
 
-		directSGSGSemEdge.addPanelSpacersAttribute("#" + "Aggregation" + "#\n");
+		directSGSGSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
 
-		directSGSGSemEdge.addPropEditableAttribute("07#" + "Aggregation");
+		directSGSGSemEdge.addPropEditableAttribute("07#" + "AggregationLow");
 
-		directSGSGSemEdge.addPropVisibleAttribute("07#" + "Aggregation");
+		directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
+
+		directSGSGSemEdge.putSemanticAttribute("AggregationHigh",
+				new SemanticAttribute("AggregationHigh", "Integer", false,
+						"AggregationHigh", 0));
+
+		directSGSGSemEdge.addPanelVisibleAttribute("08#" + "AggregationHigh");
+
+		directSGSGSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
+
+		directSGSGSemEdge.addPropEditableAttribute("08#" + "AggregationHigh");
+
+		directSGSGSemEdge.addPropVisibleAttribute("08#" + "AggregationHigh");
 
 		// directSGSGSemEdge.putSemanticAttribute(
 		// SemanticPairwiseRelation.VAR_LEVEL, new SemanticAttribute(
@@ -1867,6 +1932,9 @@ public class RefasModel extends AbstractModel {
 		MetaConcept supportMetaElementPairwise = (MetaConcept) getSyntaxRefas()
 				.getVertex("PairwiseRelation").getEditableMetaElement();
 
+		MetaConcept supportMetaExtendsPairwise = (MetaConcept) getSyntaxRefas()
+				.getVertex("ExtendRelation").getEditableMetaElement();
+
 		MetaPairwiseRelation metaPairwiseRelFromView = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ViewRelation"))
 				.getEditableMetaElement();
@@ -1886,6 +1954,17 @@ public class RefasModel extends AbstractModel {
 				"plnode", "Defines a feature", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Variability Palette", 1, null);
+
+		InstPairwiseRelation directExtendsSemanticEdge = getSemanticRefas()
+				.getConstraintInstEdge("extendsDirectEdge");
+
+		MetaPairwiseRelation metaExtendsRel = new MetaPairwiseRelation(
+				"ExtendsRelation", true, "ExtendsRelation", "",
+				"Extends relation between two"
+						+ " hard concepts. Extends syntatic and semanatic"
+						+ "attributes", 50, 50,
+				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				directExtendsSemanticEdge);
 
 		instView = new InstView("Variability", metaView, syntaxMetaView);
 		instViews.add(instView);
@@ -1911,6 +1990,9 @@ public class RefasModel extends AbstractModel {
 		syntaxFeature.addPropEditableAttribute("03#" + "name");
 
 		syntaxFeature.addPropVisibleAttribute("03#" + "name");
+		
+		syntaxFeature.addModelingAttribute("scope", "ContextGroup", false,
+				"scope", "");
 
 		InstVertex instVertexF = new InstConcept("Feature",
 				supportMetaElementConcept, syntaxFeature);
@@ -1936,6 +2018,9 @@ public class RefasModel extends AbstractModel {
 		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
 
 		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
+		
+		syntaxVariabilityArtifact.addModelingAttribute("scope", "ContextGroup", false,
+				"scope", "");
 
 		InstVertex instVertexVA = new InstConcept("VA",
 				supportMetaElementConcept, syntaxVariabilityArtifact);
@@ -2026,6 +2111,26 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setSourceRelation(instView, true);
 
+		InstConcept instLFExtendsPairWiseRel = new InstConcept(
+				"LF Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("LF Extends Relation",
+				instLFExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extlf-fext", instEdge);
+		instEdge.setIdentifier("variab-extlf-fext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instLFExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexLF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extlfext-f", instEdge);
+		instEdge.setIdentifier("variab-extlfext-f");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instLFExtendsPairWiseRel, true);
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extlf-f", instEdge);
 		instEdge.setIdentifier("variab-extlf-f");
@@ -2033,12 +2138,52 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexF, true);
 		instEdge.setSourceRelation(instVertexLF, true);
 
+		InstConcept instGFExtendsPairWiseRel = new InstConcept(
+				"GF Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("GF Extends Relation",
+				instGFExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extgf-fext", instEdge);
+		instEdge.setIdentifier("variab-extgf-fext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGFExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexGF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extgfext-f", instEdge);
+		instEdge.setIdentifier("variab-extgfext-f");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instGFExtendsPairWiseRel, true);
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extgf-f", instEdge);
 		instEdge.setIdentifier("variab-extgf-f");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelExtends);
 		instEdge.setTargetRelation(instVertexF, true);
 		instEdge.setSourceRelation(instVertexGF, true);
+
+		InstConcept instRFExtendsPairWiseRel = new InstConcept(
+				"RF Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("RF Extends Relation",
+				instRFExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extrf-fext", instEdge);
+		instEdge.setIdentifier("variab-extrf-fext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instRFExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexRF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extrfext-f", instEdge);
+		instEdge.setIdentifier("variab-extrfext-f");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instRFExtendsPairWiseRel, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extrf-f", instEdge);
@@ -2061,10 +2206,25 @@ public class RefasModel extends AbstractModel {
 
 		InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 				supportMetaElementPairwise, metaGroupPairwiseRel);
+		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
+				false, "Aggregation Low", 1);
+		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
+		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
+		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaGroupPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
+
+		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
+				false, "Aggregation High", 1);
 		metaGroupPairwiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+				.addPropEditableAttribute("04#" + "AggregationHigh");
+		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
+		metaGroupPairwiseRel
+				.addPanelVisibleAttribute("04#" + "AggregationHigh"
+						+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaGroupPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
 
 		instGroupPairWiseRel.setInstAttribute("Type", "Default");
 		this.variabilityInstVertex.put("Group Relation", instGroupPairWiseRel);
@@ -2206,6 +2366,26 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instView, true);
 
+		InstConcept instGExtendsPairWiseRel = new InstConcept(
+				"G Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("G Extends Relation",
+				instGExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvatgext", instEdge);
+		instEdge.setIdentifier("variab-extvatgext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVA, true);
+		instEdge.setSourceRelation(instGExtendsPairWiseRel, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvatextg", instEdge);
+		instEdge.setIdentifier("variab-extvatextg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexG, true);
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvatg", instEdge);
 		instEdge.setIdentifier("variab-extvatg");
@@ -2279,12 +2459,33 @@ public class RefasModel extends AbstractModel {
 						+ " associated will be also satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
+
 		sOperationalization.setParent(syntaxVariabilityArtifact);
 
 		InstVertex instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 		variabilityInstVertex.put("OPER", instVertexOper);
 		instView.addInstVertex(instVertexOper);
+
+		InstConcept instOExtendsPairWiseRel = new InstConcept(
+				"O Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("O Extends Relation",
+				instOExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvaextoper", instEdge);
+		instEdge.setIdentifier("variab-extvaextoper");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instOExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexOper, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvaoperext", instEdge);
+		instEdge.setIdentifier("variab-extvaoperext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVA, true);
+		instEdge.setSourceRelation(instOExtendsPairWiseRel, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvaoper", instEdge);
@@ -2309,6 +2510,7 @@ public class RefasModel extends AbstractModel {
 						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
+
 		syntaxAssumption.setParent(syntaxVariabilityArtifact);
 
 		InstVertex instVertexAssum = new InstConcept("Assu",
@@ -2322,6 +2524,26 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelFromView);
 		instEdge.setTargetRelation(instVertexAssum, true);
 		instEdge.setSourceRelation(instView, true);
+
+		InstConcept instAExtendsPairWiseRel = new InstConcept(
+				"A Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("A Extends Relation",
+				instAExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvaextassu", instEdge);
+		instEdge.setIdentifier("variab-extvaextassu");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instAExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexAssum, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvaassuext", instEdge);
+		instEdge.setIdentifier("variab-extvaassuext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVA, true);
+		instEdge.setSourceRelation(instAExtendsPairWiseRel, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-extvaassu", instEdge);
@@ -2354,7 +2576,7 @@ public class RefasModel extends AbstractModel {
 				.setInstAttribute("TargetCardinality", "[0..1]");
 		this.variabilityInstVertex.put("GrpMeansEndsRelation",
 				instGrpMeansEndsRelation);
-		
+
 		MetaPairwiseRelation metaDirStructHardPairwiseRel = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
@@ -2363,20 +2585,43 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
-		metaDirStructHardPairwiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+		metaDirStructHardPairwiseRel.addModelingAttribute("Aggregation",
+				"String", false, "Aggregation", "");
+		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
+				+ "Aggregation");
+		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
+				+ "Aggregation");
+		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#" + "Aggregation");
 		
+		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
+				"Integer", false, "Aggregation Low", 1);
+		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirStructHardPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
+
+		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
+				"Integer", false, "Aggregation High", 1);
+		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirStructHardPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
+
 		// TODO create another meta element
 		InstConcept instDirMeansEndsRelation = new InstConcept(
 				"DirMeansEndsRelation", supportMetaElementPairwise,
 				metaDirStructHardPairwiseRel);
 		instDirMeansEndsRelation.setInstAttribute("Type", "MeansEnds");
-		instDirMeansEndsRelation
-				.setInstAttribute("SourceCardinality", "[0..1]");
-		instDirMeansEndsRelation
-				.setInstAttribute("TargetCardinality", "[0..1]");
+		instDirMeansEndsRelation.getInstAttribute("SourceCardinality").setValue("[0..1]");
+		instDirMeansEndsRelation.getInstAttribute("TargetCardinality").setValue("[0..1]");
 		this.variabilityInstVertex.put("DirMeansEndsRelation",
 				instDirMeansEndsRelation);
 
@@ -2410,11 +2655,28 @@ public class RefasModel extends AbstractModel {
 						+ " relations and cardinalities", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
+
+		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
+				"Integer", false, "Aggregation Low", 0);
+		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
+				+ "AggregationLow");
+		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
+				+ "AggregationLow");
+		metaDirSideHardPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirSideHardPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
 		
-		metaDirSideHardPairwiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
+				"Integer", false, "Aggregation High", 0);
+		metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
+				+ "AggregationHigh");
+		metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
+				+ "AggregationHigh");
+		metaDirSideHardPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh" + "#"
+				+ "AggregationHigh" + "#!=#" + "0");
+		metaDirSideHardPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
 		
 		// TODO create another
 		InstConcept instDirSideHardHardPairWiseRel = new InstConcept(
@@ -2454,7 +2716,7 @@ public class RefasModel extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-vaPRsi", instEdge);
 		instEdge.setIdentifier("variab-vaPRsi");
-		instEdge.setEditableMetaElement(metaSideHardPairwiseRel);
+		instEdge.setEditableMetaElement(metaDirSideHardPairwiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexVA, true);
@@ -2495,7 +2757,7 @@ public class RefasModel extends AbstractModel {
 
 		instVertex = new InstConcept("HardOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		instVertex.setInstAttribute("Type", "Group");
+		instVertex.getInstAttribute("Type").setValue( "Group");
 		variabilityInstVertex.put("HardOverTwoRel", instVertex);
 		instView.addInstVertex(instVertex);
 
@@ -2526,20 +2788,19 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instGrpSideHardHardPairWiseRel, true);
-		
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sidevariab-otr-pwrd", instEdge);
-		instEdge.setIdentifier("sidevariab-otr-pwrd");
+		this.constraintInstEdges.put("sidevariab-va-pwrd", instEdge);
+		instEdge.setIdentifier("sidevariab-va-pwrd");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instDirSideHardHardPairWiseRel, true);
-		instEdge.setSourceRelation(instVertex, true);
+		instEdge.setSourceRelation(instVertexVA, true);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sidevariab-pwrd-va", instEdge);
 		instEdge.setIdentifier("sidevariab-pwrd-va");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instVertex, true);
+		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instDirSideHardHardPairWiseRel, true);
 
 		instEdge = new InstPairwiseRelation();
@@ -2622,6 +2883,9 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
 		syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
 
+		syntaxSoftGoal.addModelingAttribute("scope", "ContextGroup", false,
+				"scope", "");
+		
 		InstVertex instVertexSG = new InstConcept("Softgoal",
 				supportMetaElementConcept, syntaxSoftGoal);
 		variabilityInstVertex.put("Softgoal", instVertexSG);
@@ -2718,17 +2982,17 @@ public class RefasModel extends AbstractModel {
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSGSGSemEdge);
-		
-		metaSoftPairWiseRel
-		.addModelingAttribute("SourceLevel", "Integer", false, "Source Level", 0);
+
+		metaSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
+				false, "Source Level", 0);
 		metaSoftPairWiseRel.addPropEditableAttribute("04#" + "SourceLevel");
 		metaSoftPairWiseRel.addPropVisibleAttribute("04#" + "SourceLevel");
-		
-		metaSoftPairWiseRel
-		.addModelingAttribute("TargetLevel", "Integer", false, "Target Level", 0);
+
+		metaSoftPairWiseRel.addModelingAttribute("TargetLevel", "Integer",
+				false, "Target Level", 0);
 		metaSoftPairWiseRel.addPropEditableAttribute("05#" + "TargetLevel");
 		metaSoftPairWiseRel.addPropVisibleAttribute("05#" + "TargetLevel");
-		
+
 		InstConcept instGrpSoftPairWiseRel = new InstConcept(
 				"Group Soft Relation", supportMetaElementPairwise,
 				metaSoftPairWiseRel);
@@ -2745,20 +3009,34 @@ public class RefasModel extends AbstractModel {
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSGSGSemEdge);
-		metaDirSoftPairWiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaDirSoftPairWiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+
+		metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
+				false, "Aggregation Low", 1);
+		metaDirSoftPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
+		metaDirSoftPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
+		metaDirSoftPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirSoftPairWiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
 		
-		metaDirSoftPairWiseRel
-		.addModelingAttribute("SourceLevel", "Integer", false, "Source Level", 0);
-		metaDirSoftPairWiseRel.addPropEditableAttribute("04#" + "SourceLevel");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("04#" + "SourceLevel");
+		metaDirSoftPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
+				false, "Aggregation High", 1);
+		metaDirSoftPairWiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
+		metaDirSoftPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
+		metaDirSoftPairWiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirSoftPairWiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
 		
-		metaDirSoftPairWiseRel
-		.addModelingAttribute("TargetLevel", "Integer", false, "Target Level", 0);
-		metaDirSoftPairWiseRel.addPropEditableAttribute("05#" + "TargetLevel");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("05#" + "TargetLevel");
+		metaDirSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
+				false, "Source Level", 0);
+		metaDirSoftPairWiseRel.addPropEditableAttribute("05#" + "SourceLevel");
+		metaDirSoftPairWiseRel.addPropVisibleAttribute("05#" + "SourceLevel");
+
+		metaDirSoftPairWiseRel.addModelingAttribute("TargetLevel", "Integer",
+				false, "Target Level", 0);
+		metaDirSoftPairWiseRel.addPropEditableAttribute("06#" + "TargetLevel");
+		metaDirSoftPairWiseRel.addPropVisibleAttribute("06#" + "TargetLevel");
 
 		InstConcept instDirSoftPairWiseRel = new InstConcept(
 				"Direct Soft Relation", supportMetaElementPairwise,
@@ -2822,7 +3100,7 @@ public class RefasModel extends AbstractModel {
 
 		instVertex = new InstConcept("SoftgoalOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		instVertex.setInstAttribute("Type", "Group");
+		instVertex.getInstAttribute("Type").setValue( "Group");
 		variabilityInstVertex.put("SoftgoalOverTwoRel", instVertex);
 		instView.addInstVertex(instVertex);
 
@@ -2890,7 +3168,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept semContextGroup = ((InstConcept) this.getSemanticRefas()
 				.getVertex("SemContextGroup"));
 		MetaConcept syntaxContextGroup = new MetaConcept("CG", true,
-				"Context Group", "refascontextgrp", " A context group"
+				"ContextGroup", "refascontextgrp", " A context group"
 						+ " is defined to associate variables with common"
 						+ " characteristics. The type defines if variables"
 						+ " are sensed or profiled, in the first case they"
@@ -2902,6 +3180,9 @@ public class RefasModel extends AbstractModel {
 						+ " between all the users.", 150, 40,
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, semContextGroup, true);
+
+		syntaxContextGroup.addModelingAttribute("name", "String", false,
+				"Name", "");
 
 		InstVertex instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
@@ -2931,6 +3212,17 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
+		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
+				"");
+		syntaxAbsVariable.addModelingAttribute("type", "String", false, "Type",
+				"");
+		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
+				"Domain", "");
+		syntaxAbsVariable.addModelingAttribute("enumeration", "MetaEnumeration", false,
+				"Enumeration", "");
+		syntaxAbsVariable.addModelingAttribute("scope", "ContextGroup", false,
+				"scope", "");
+		
 		InstVertex instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
 		variabilityInstVertex.put("Variable", instVertexVar);
@@ -3087,6 +3379,11 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directCVCGSemanticEdge);
 
+		metaContextEdge.addModelingAttribute("cardinality", "String", false, "cardinality","");
+		metaContextEdge.addPanelVisibleAttribute("01#cardinality");
+		metaContextEdge.addPropEditableAttribute("01#cardinality");
+		metaContextEdge.addPropVisibleAttribute("01#cardinality");
+		
 		InstConcept instVariablePairWiseRel = new InstConcept(
 				"Variable To Context Relation", supportMetaElementPairwise,
 				metaVariableEdge);
@@ -3156,7 +3453,7 @@ public class RefasModel extends AbstractModel {
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("variab-CGCGPR", instEdge);
 		instEdge.setIdentifier("variab-CGCGPR");
-		instEdge.setEditableMetaElement(metaVariableEdge);
+		instEdge.setEditableMetaElement(metaContextEdge);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexCG, true);
 		instEdge.setSourceRelation(instVertexCG, true);
@@ -3263,9 +3560,9 @@ public class RefasModel extends AbstractModel {
 		syntaxClaim.addPropVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
-		
-		syntaxClaim
-		.addModelingAttribute("ConditionalExpression", "String", false, "ConditionalExpression", "");
+
+		syntaxClaim.addModelingAttribute("ConditionalExpression", "String",
+				false, "ConditionalExpression", "");
 		syntaxClaim.addPropEditableAttribute("05#" + "ConditionalExpression");
 		syntaxClaim.addPropVisibleAttribute("05#" + "ConditionalExpression");
 
@@ -3307,12 +3604,13 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
-		
-		
-		syntaxSoftDependency
-		.addModelingAttribute("ConditionalExpression", "String", false, "ConditionalExpression", "");
-		syntaxSoftDependency.addPropEditableAttribute("05#" + "ConditionalExpression");
-		syntaxSoftDependency.addPropVisibleAttribute("05#" + "ConditionalExpression");
+
+		syntaxSoftDependency.addModelingAttribute("ConditionalExpression",
+				"String", false, "ConditionalExpression", "");
+		syntaxSoftDependency.addPropEditableAttribute("05#"
+				+ "ConditionalExpression");
+		syntaxSoftDependency.addPropVisibleAttribute("05#"
+				+ "ConditionalExpression");
 
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);
@@ -3374,11 +3672,24 @@ public class RefasModel extends AbstractModel {
 						+ " is required to satisfy a claim", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
-		metaDirClaimPairwiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaDirClaimPairwiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
+				false, "Aggregation Low", 1);
+		metaDirClaimPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
+		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
+		metaDirClaimPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirClaimPairwiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
 		
+		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
+				false, "Aggregation High", 1);
+		metaDirClaimPairwiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
+		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
+		metaDirClaimPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaDirClaimPairwiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
+
 		InstConcept instDirClaimPairWiseRel = new InstConcept(
 				"DirClaimRelation", supportMetaElementPairwise,
 				metaDirClaimPairwiseRel);
@@ -3391,7 +3702,7 @@ public class RefasModel extends AbstractModel {
 
 		instVertex = new InstConcept("OperClaimOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		instVertex.setInstAttribute("Type", "Group");
+		instVertex.getInstAttribute("Type").setValue("Group");
 
 		variabilityInstVertex.put("OperClaimOverTwoRel", instVertex);
 		instView.addInstVertex(instVertex);
@@ -3607,6 +3918,8 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "");
+		syntaxAsset.addModelingAttribute("scope", "ContextGroup", false,
+				"scope", "");
 
 		// Create another meta element
 		InstConcept instGroupAssetPairWiseRel = new InstConcept(
@@ -3660,7 +3973,7 @@ public class RefasModel extends AbstractModel {
 				"white", 1, semanticAssetOperGroupRelation, false);
 		InstVertex instVertexAssetOper = new InstConcept("AssetOperGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		instVertexAssetOper.setInstAttribute("Type", "Group");
+		instVertexAssetOper.getInstAttribute("Type").setValue("Group");
 		variabilityInstVertex.put("AssetOperGroupDep", instVertexAssetOper);
 		instView.addInstVertex(instVertexAssetOper);
 
@@ -3672,7 +3985,7 @@ public class RefasModel extends AbstractModel {
 				"white", 1, semanticAssetOperGroupRelation, false);
 		InstVertex instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
-		instVertexAssetFeat.setInstAttribute("Type", "Group");
+		instVertexAssetFeat.getInstAttribute("Type").setValue("Group");
 		variabilityInstVertex.put("AssetFeatGroupDep", instVertexAssetFeat);
 		instView.addInstVertex(instVertexAssetFeat);
 
@@ -3685,7 +3998,7 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexAssetAsset = new InstConcept(
 				"AssetAssetOvertwoRel", supportMetaElementOverTwo,
 				hardMetaOverTwoRel);
-		instVertexAssetAsset.setInstAttribute("Type", "Group");
+		instVertexAssetAsset.getInstAttribute("Type").setValue("Group");
 		variabilityInstVertex.put("AssetAssetOvertwoRel", instVertexAssetAsset);
 		instView.addInstVertex(instVertexAssetAsset);
 
@@ -3736,11 +4049,24 @@ public class RefasModel extends AbstractModel {
 						+ " assets", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
-		metaAssetPairWiseRel
-		.addModelingAttribute("Aggregation", "String", false, "Aggregation", "[]");
-		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "Aggregation");
-		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "Aggregation");
+		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
+				false, "Aggregation Low", 1);
+		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
+		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
+		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaAssetPairWiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
+				+ "#..");
 
+		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
+				false, "AggregationHigh", 1);
+		metaAssetPairWiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
+		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
+		metaAssetPairWiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
+				+"#"+ "AggregationHigh" + "#!=#" + "0");
+		metaAssetPairWiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
+				+ "#]\n");
+		
 		InstConcept instDirAssetPairWiseRel = new InstConcept(
 				"Dir Asset To Asset Relation", supportMetaElementPairwise,
 				metaAssetPairWiseRel);
@@ -3757,7 +4083,7 @@ public class RefasModel extends AbstractModel {
 						+ " assets", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
-		
+
 		InstConcept instGrpAssetPairWiseRel = new InstConcept(
 				"Group Asset To Asset Relation", supportMetaElementPairwise,
 				metaGrpAssetPairWiseRel);

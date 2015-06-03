@@ -12,6 +12,16 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 
+/**
+ * A class to support the thread for simulation of configurations. Part of PhD
+ * work at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2015-03-20
+ * @see com.variamos.gui.pl.editor.VariabilityAttributeList
+ */
 public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private String initialConfigFile;
 	private String monitoredDirectory;

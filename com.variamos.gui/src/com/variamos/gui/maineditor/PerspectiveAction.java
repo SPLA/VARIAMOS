@@ -6,6 +6,16 @@ import javax.swing.JButton;
 
 import com.mxgraph.util.mxResources;
 
+/**
+ * A class to support perspectives button actions on mainframe. Part of PhD work
+ * at University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.1
+ * @since 2015-02-03
+ */
+
 @SuppressWarnings("serial")
 public class PerspectiveAction extends AbstractEditorAction {
 
