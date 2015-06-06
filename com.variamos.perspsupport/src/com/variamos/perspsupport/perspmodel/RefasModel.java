@@ -951,9 +951,9 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("Scope", new SemanticAttribute(
 				"Scope", "Boolean", true, "Global Scope", true));
 
-		semGeneralElement.putSemanticAttribute("ContextGroup",
-				new SemanticAttribute("ContextGroup", "Class", false,
-						"Context Group", InstConcept.class.getCanonicalName(),
+		semGeneralElement.putSemanticAttribute("ConcernLevel",
+				new SemanticAttribute("ConcernLevel", "Class", false,
+						"Concern Level", InstConcept.class.getCanonicalName(),
 						"CG", null, ""));
 
 		semGeneralElement.putSemanticAttribute("Core", new SemanticAttribute(
@@ -968,18 +968,18 @@ public class RefasModel extends AbstractModel {
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropEditableAttribute("05#" + "Scope");
-		semGeneralElement.addPropEditableAttribute("06#" + "ContextGroup" + "#"
+		semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
-		semGeneralElement.addPropVisibleAttribute("06#" + "ContextGroup" + "#"
+		semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
 		semGeneralElement.addPropVisibleAttribute("07#" + "Core");
 		semGeneralElement.addPropVisibleAttribute("08#" + "Dead");
 
-		semGeneralElement.addPanelVisibleAttribute("00#" + "ContextGroup" + "#"
+		semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false");
-		semGeneralElement.addPanelSpacersAttribute("<<#" + "ContextGroup"
+		semGeneralElement.addPanelSpacersAttribute("<<#" + "ConcernLevel"
 				+ "#>>\n");
 		// Configuration attributes
 
@@ -1199,8 +1199,8 @@ public class RefasModel extends AbstractModel {
 		semVariable.putSemanticAttribute("Scope", new SemanticAttribute(
 				"Scope", "Boolean", true, "Global Scope", true));
 
-		semVariable.putSemanticAttribute("ContextGroup", new SemanticAttribute(
-				"ContextGroup", "Class", false, "Context Group",
+		semVariable.putSemanticAttribute("ConcernLevel", new SemanticAttribute(
+				"ConcernLevel", "Class", false, "Concern Level",
 				InstConcept.class.getCanonicalName(), "CG", null, ""));
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
@@ -1209,26 +1209,26 @@ public class RefasModel extends AbstractModel {
 		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
 
 		semVariable.addPropEditableAttribute("05#" + "Scope");
-		semVariable.addPropEditableAttribute("06#" + "ContextGroup" + "#"
+		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
 
 		semVariable.addPropVisibleAttribute("05#" + "Scope");
-		semVariable.addPropVisibleAttribute("06#" + "ContextGroup" + "#"
+		semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
 
-		semVariable.addPanelVisibleAttribute("00#" + "ContextGroup" + "#"
+		semVariable.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false");
-		semVariable.addPanelSpacersAttribute("<<#" + "ContextGroup" + "#>>\n");
+		semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" + "#>>\n");
 
 		InstVertex instVertexVAR = new InstConcept("SemVariable", metaConcept,
 				semVariable);
 		variabilityInstVertex.put("SemVariable", instVertexVAR);
 
 		SemanticContextGroup semContextGroup = new SemanticContextGroup(
-				"ContextGroup");
-		InstVertex instVertexCG = new InstConcept("SemContextGroup",
+				"ConcernLevel");
+		InstVertex instVertexCG = new InstConcept("SemConcernLevel",
 				metaConcept, semContextGroup);
-		variabilityInstVertex.put("SemContextGroup", instVertexCG);
+		variabilityInstVertex.put("SemConcernLevel", instVertexCG);
 
 		SemanticConcept semAsset = new SemanticConcept(semGeneralElement,
 				"SemAsset");
@@ -1338,7 +1338,7 @@ public class RefasModel extends AbstractModel {
 		semSoftDependency.addPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
 
-		semSoftDependency.addPanelVisibleAttribute("10#" + "SDExpression");
+	//	semSoftDependency.addPanelVisibleAttribute("10#" + "SDExpression");
 
 		semSoftDependency.addPropEditableAttribute("03#"
 				+ "ConditionalExpression");
@@ -1807,10 +1807,10 @@ public class RefasModel extends AbstractModel {
 		SemanticPairwiseRelation directClaimSGSemanticEdge = new SemanticPairwiseRelation(
 				"ClaimSGDirectEdge", true, claimSGPairwiseRelList);
 		directClaimSGSemanticEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_SOURCE_LEVEL,
+				SemanticPairwiseRelation.VAR_LEVEL,
 				new SemanticAttribute(
-						SemanticPairwiseRelation.VAR_SOURCE_LEVEL, "Integer",
-						false, SemanticPairwiseRelation.VAR_SOURCE_LEVEL, 2,
+						SemanticPairwiseRelation.VAR_LEVEL, "Integer",
+						false, SemanticPairwiseRelation.VAR_LEVEL, 2,
 						new RangeDomain(0, 5)));
 		// directClaimSGSemanticEdge.putSemanticAttribute(
 		// SemanticPairwiseRelation.VAR_LEVEL, new SemanticAttribute(
@@ -1819,11 +1819,11 @@ public class RefasModel extends AbstractModel {
 		// SemanticPairwiseRelation.VAR_LEVELCLASS, "plus plus",
 		// ""));
 		directClaimSGSemanticEdge.addPropEditableAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directClaimSGSemanticEdge.addPropVisibleAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				+ SemanticPairwiseRelation.VAR_LEVEL);
 		constraintInstEdges.put("ClaimSGDirectEdge", new InstPairwiseRelation(
 				directClaimSGSemanticEdge));
 
@@ -1991,8 +1991,8 @@ public class RefasModel extends AbstractModel {
 
 		syntaxFeature.addPropVisibleAttribute("03#" + "name");
 		
-		syntaxFeature.addModelingAttribute("scope", "ContextGroup", false,
-				"scope", "");
+		syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 
 		InstVertex instVertexF = new InstConcept("Feature",
 				supportMetaElementConcept, syntaxFeature);
@@ -2019,8 +2019,8 @@ public class RefasModel extends AbstractModel {
 
 		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 		
-		syntaxVariabilityArtifact.addModelingAttribute("scope", "ContextGroup", false,
-				"scope", "");
+		syntaxVariabilityArtifact.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 
 		InstVertex instVertexVA = new InstConcept("VA",
 				supportMetaElementConcept, syntaxVariabilityArtifact);
@@ -2207,7 +2207,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 				supportMetaElementPairwise, metaGroupPairwiseRel);
 		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 1);
+				false, "Aggregation Low", 0);
 		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -2216,7 +2216,7 @@ public class RefasModel extends AbstractModel {
 				+ "#..");
 
 		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", 1);
+				false, "Aggregation High", 0);
 		metaGroupPairwiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
@@ -2594,7 +2594,7 @@ public class RefasModel extends AbstractModel {
 		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#" + "Aggregation");
 		
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", 1);
+				"Integer", false, "Aggregation Low", 0);
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -2605,7 +2605,7 @@ public class RefasModel extends AbstractModel {
 				+ "#..");
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", 1);
+				"Integer", false, "Aggregation High", 0);
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -2883,8 +2883,8 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
 		syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
 
-		syntaxSoftGoal.addModelingAttribute("scope", "ContextGroup", false,
-				"scope", "");
+		syntaxSoftGoal.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 		
 		InstVertex instVertexSG = new InstConcept("Softgoal",
 				supportMetaElementConcept, syntaxSoftGoal);
@@ -3011,7 +3011,7 @@ public class RefasModel extends AbstractModel {
 				directSGSGSemEdge);
 
 		metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 1);
+				false, "Aggregation Low", 0);
 		metaDirSoftPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaDirSoftPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaDirSoftPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -3020,7 +3020,7 @@ public class RefasModel extends AbstractModel {
 				+ "#..");
 		
 		metaDirSoftPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", 1);
+				false, "Aggregation High", 0);
 		metaDirSoftPairWiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaDirSoftPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
 		metaDirSoftPairWiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
@@ -3166,9 +3166,9 @@ public class RefasModel extends AbstractModel {
 		instViews.add(instView);
 		// syntaxMetaView.addConcept(syntaxVariable);
 		InstConcept semContextGroup = ((InstConcept) this.getSemanticRefas()
-				.getVertex("SemContextGroup"));
+				.getVertex("SemConcernLevel"));
 		MetaConcept syntaxContextGroup = new MetaConcept("CG", true,
-				"ContextGroup", "refascontextgrp", " A context group"
+				"ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
 						+ " characteristics. The type defines if variables"
 						+ " are sensed or profiled, in the first case they"
@@ -3220,8 +3220,8 @@ public class RefasModel extends AbstractModel {
 				"Domain", "");
 		syntaxAbsVariable.addModelingAttribute("enumeration", "MetaEnumeration", false,
 				"Enumeration", "");
-		syntaxAbsVariable.addModelingAttribute("scope", "ContextGroup", false,
-				"scope", "");
+		syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 		
 		InstVertex instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
@@ -3240,13 +3240,7 @@ public class RefasModel extends AbstractModel {
 				false,
 				"Global Variable",
 				"refasglobcnxt",
-				"A global variable"
-						+ " is an abstraction of a variable or component of the"
-						+ " system or the environment that are relevant the system."
-						+ " The relevance applies to the system in general."
-						+ " The variable values should be"
-						+ " simplified as much as possible considering the modeling"
-						+ " requirements", 150, 40,
+				"Old Concept, replaced by Variable Concept", 150, 40,
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
@@ -3276,12 +3270,7 @@ public class RefasModel extends AbstractModel {
 				false,
 				"Context Variable",
 				"refaslocalcnxt",
-				" A context variable"
-						+ " represents an a variable associated with a context group"
-						+ "  This variables may have different"
-						+ " values for each context group instance in the system. Context variables"
-						+ " are used for SG with a context group associated."
-						+ " Context groups are not currently supported.", 150,
+				" Old concept, replaced by Variable", 150,
 				40, "/com/variamos/gui/perspeditor/images/localCnxtVar.png",
 				true, Color.BLUE.toString(), 1, semVariable, true);
 
@@ -3553,6 +3542,13 @@ public class RefasModel extends AbstractModel {
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "");
 
+		syntaxClaim.addModelingAttribute("conditionalExpression",
+				new SemanticAttribute("conditionalExpression", "String", false,
+						"Cond. Expression Text", ""));
+		
+		syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
+		
 		syntaxClaim.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPropEditableAttribute("03#" + "name");
@@ -3560,11 +3556,17 @@ public class RefasModel extends AbstractModel {
 		syntaxClaim.addPropVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		
+		syntaxClaim.addPanelVisibleAttribute("10#" + "conditionalExpression");
 
-		syntaxClaim.addModelingAttribute("ConditionalExpression", "String",
-				false, "ConditionalExpression", "");
-		syntaxClaim.addPropEditableAttribute("05#" + "ConditionalExpression");
-		syntaxClaim.addPropVisibleAttribute("05#" + "ConditionalExpression");
+		syntaxClaim.addPropEditableAttribute("10#" + "conditionalExpression");
+
+		syntaxClaim.addPropVisibleAttribute("10#" + "conditionalExpression");
+
+	//	syntaxClaim.addModelingAttribute("ConditionalExpression", "String",
+	//			false, "ConditionalExpression", "");
+	//	syntaxClaim.addPropEditableAttribute("05#" + "ConditionalExpression");
+	//	syntaxClaim.addPropVisibleAttribute("05#" + "ConditionalExpression");
 
 		InstVertex instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
@@ -3596,6 +3598,13 @@ public class RefasModel extends AbstractModel {
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "");
+		
+		syntaxSoftDependency.addModelingAttribute("conditionalExpression",
+				new SemanticAttribute("conditionalExpression", "String", false,
+						"Cond. Expression Text", ""));
+		
+		syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 
 		syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
 
@@ -3604,13 +3613,19 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		
+		syntaxSoftDependency.addPanelVisibleAttribute("10#" + "conditionalExpression");
 
-		syntaxSoftDependency.addModelingAttribute("ConditionalExpression",
-				"String", false, "ConditionalExpression", "");
-		syntaxSoftDependency.addPropEditableAttribute("05#"
-				+ "ConditionalExpression");
-		syntaxSoftDependency.addPropVisibleAttribute("05#"
-				+ "ConditionalExpression");
+		syntaxSoftDependency.addPropEditableAttribute("10#" + "conditionalExpression");
+
+		syntaxSoftDependency.addPropVisibleAttribute("10#" + "conditionalExpression");
+
+	//	syntaxSoftDependency.addModelingAttribute("ConditionalExpression",
+	//			"String", false, "ConditionalExpression", "");
+	//	syntaxSoftDependency.addPropEditableAttribute("05#"
+	//			+ "ConditionalExpression");
+	//	syntaxSoftDependency.addPropVisibleAttribute("05#"
+	//			+ "ConditionalExpression");
 
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);
@@ -3673,7 +3688,7 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 1);
+				false, "Aggregation Low", 0);
 		metaDirClaimPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaDirClaimPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -3682,7 +3697,7 @@ public class RefasModel extends AbstractModel {
 				+ "#..");
 		
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", 1);
+				false, "Aggregation High", 0);
 		metaDirClaimPairwiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
 		metaDirClaimPairwiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"
@@ -3918,8 +3933,8 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "");
-		syntaxAsset.addModelingAttribute("scope", "ContextGroup", false,
-				"scope", "");
+		syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
+				"Concern Level", "");
 
 		// Create another meta element
 		InstConcept instGroupAssetPairWiseRel = new InstConcept(
@@ -4050,7 +4065,7 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 1);
+				false, "Aggregation Low", 0);
 		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -4059,7 +4074,7 @@ public class RefasModel extends AbstractModel {
 				+ "#..");
 
 		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "AggregationHigh", 1);
+				false, "AggregationHigh", 0);
 		metaAssetPairWiseRel.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
 		metaAssetPairWiseRel.addPanelVisibleAttribute("04#" + "AggregationHigh"

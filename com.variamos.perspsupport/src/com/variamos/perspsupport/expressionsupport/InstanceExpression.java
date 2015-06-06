@@ -188,6 +188,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public Expression createSGSExpression(String element) {
+		System.out.println(element);
 		Expression condition = createExpression();
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
 		return hlclFactory.doubleImplies(iden, (BooleanExpression) condition);
@@ -312,9 +313,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
-		if (expressionVertexType.name().equals("LEFT")) {
-			// System.out.println(leftVertex.getIdentifier() + " "
-			// + leftAttributeName);
+		if (expressionVertexType.name().equals("LEFT")) {			
+			 System.out.println(volatileLefInstElement.getIdentifier() + " "
+			 + getSemanticExpression()
+				.getLeftAttributeName());
 			Identifier identifier = hlclFactory
 					.newIdentifier(
 							volatileLefInstElement

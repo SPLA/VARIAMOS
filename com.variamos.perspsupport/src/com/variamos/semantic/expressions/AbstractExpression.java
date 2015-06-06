@@ -204,8 +204,12 @@ public abstract class AbstractExpression {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
 			for (InstElement relation : instVertex.getSourceRelations()) {
-				values.add(((InstPairwiseRelation) relation).getInstAttribute(
-						SemanticPairwiseRelation.VAR_SOURCE_LEVEL).getAsInteger());
+				if (((InstPairwiseRelation) relation)
+						.getInstAttribute(SemanticPairwiseRelation.VAR_LEVEL) != null)
+					values.add(((InstPairwiseRelation) relation)
+							.getInstAttribute(
+									SemanticPairwiseRelation.VAR_LEVEL)
+							.getAsInteger());
 			}
 			if (values.size() == 0) {
 				values.add(new Integer(0)); // TODO use value according to
