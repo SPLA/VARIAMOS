@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor.actions;
 
 import java.awt.event.ActionEvent;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class AboutAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 
 		VariamosGraphEditor editor = getEditor(e);
-		new AboutDialog(editor);
+		try {
+			new AboutDialog(editor);
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

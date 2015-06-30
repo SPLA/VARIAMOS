@@ -1,11 +1,17 @@
 package com.variamos.gui.perspeditor.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -40,34 +47,71 @@ public class AboutDialog extends JDialog {
 		public boolean onAction();
 	}
 
-	public AboutDialog(VariamosGraphEditor editor,
-			EditableElementAttribute... arguments) {
-		super(editor.getFrame(), "About VariaMos");
+	private static void open(URI uri) {
+		if (Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().browse(uri);
+			} catch (IOException e) { /* TODO: error handling */
+			}
+		}
+	}
 
+	public AboutDialog(VariamosGraphEditor editor,
+			EditableElementAttribute... arguments) throws URISyntaxException {
+		super(editor.getFrame(), "About VariaMos", true);
+
+		setBounds(300, 300, 300, 300);
 		setLayout(new BorderLayout());
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
-		setPreferredSize(new Dimension(330, 200));
+		setPreferredSize(new Dimension(330, 300));
 
-
-		panel.add(new JLabel("               VariaMos Tool"));
+		panel.add(newButton("                 VariaMos Tool - ",
+				"http://variamos.com/", "http://variamos.com/"));
 		panel.add(new JLabel(""));
 		MainFrame mainFrame = editor.getMainFrame();
-		panel.add(new JLabel("Version: VariaMos-"+mainFrame.getVariamosVersionNumber()+" (" +mainFrame.getVariamosVersionName()+")"));
-		panel.add(new JLabel("Built time: "+mainFrame.getVariamosBuild()));
+		panel.add(new JLabel("Version: VariaMos-"
+				+ mainFrame.getVariamosVersionNumber() + " ("
+				+ mainFrame.getVariamosVersionName() + ")"));
+		panel.add(new JLabel("Built time: " + mainFrame.getVariamosBuild()));
 
-		panel.add(new JLabel("Changelog: http://variamos.com/home/category/changelog/"));
-		panel.add(new JLabel("Libraries: mxgraph, gluegen, gson, interprolog, jpl, "));
-		panel.add(new JLabel("               splot_prolog, jgprolog, poi, sxmf, junit"));
+		panel.add(newButton("Changelog: ",
+				"http://variamos.com/home/category/changelog/",
+				"http://variamos.com/home/category/changelog/"));
+		panel.add(new JLabel("Used Libraries: "));
 
-		panel.add(new JLabel("Some icons art from ..."));
-		
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(new SpringLayout());
 
-		SpringUtilities.makeCompactGrid(panel,8, 1, 4, 4, 4, 4);
+		panel2.add(newButton("", "Gluegen",
+				"http://jogamp.org/git/?p=gluegen.git;a=blob;f=LICENSE.txt"));
+		panel2.add(newButton("", "JGraphX",
+				"https://github.com/jgraph/jgraphx/blob/master/license.txt"));
+		panel2.add(newButton("", "Junit", "http://junit.org/license.html"));
+		panel2.add(newButton("", "JPL",
+				"http://www.swi-prolog.org/packages/jpl/java_api/"));
 
-		add(panel, BorderLayout.CENTER); 
+		panel2.add(newButton("", "sxfm",
+				"http://gsd.uwaterloo.ca:8088/SPLOT/sxfm.html#"));
+		panel2.add(newButton("", "jgprolog",
+				"https://code.google.com/p/jgprolog/"));
+		panel2.add(newButton("", "poi", "https://poi.apache.org/"));
+		panel2.add(newButton("", "Gson",
+				"https://code.google.com/p/google-gson/"));
+
+		SpringUtilities.makeCompactGrid(panel2, 2, 4, 4, 4, 4, 4);
+
+		panel.add(panel2);
+		panel.add(new JLabel("Some icons art from:"));
+		panel.add(newButton("(Highlightmarker) ", "Icon Archive",
+				"https://iconarchive.com"));
+		panel.add(newButton("(player, dead and false) ", "Icon Finder",
+				"https://www.iconfinder.com"));
+		SpringUtilities.makeCompactGrid(panel, 10, 1, 4, 4, 4, 4);
+
+		add(panel, BorderLayout.CENTER);
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
@@ -77,7 +121,7 @@ public class AboutDialog extends JDialog {
 		btnAccept.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-							dispose();
+				dispose();
 			}
 		});
 
@@ -99,6 +143,31 @@ public class AboutDialog extends JDialog {
 		}, KeyStroke.getKeyStroke("ESCAPE"), JComponent.WHEN_IN_FOCUSED_WINDOW);
 		setVisible(true);
 		pack();
+	}
+
+	private JButton newButton(String label, String name, String link)
+			throws URISyntaxException {
+		final URI uri = new URI(link);
+
+		class OpenUrlAction implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				open(uri);
+			}
+		}
+		JButton button = new JButton();
+		button.setText("<HTML>" + label + "<FONT color=\"#000099\"><U>" + name
+				+ "</U></FONT>" + "</HTML>");
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
+		button.setContentAreaFilled(false);
+		button.setOpaque(false);
+		button.setMargin(new Insets(0, 0, 0, 0));
+		button.setBackground(Color.WHITE);
+		button.setToolTipText(link);
+		button.addActionListener(new OpenUrlAction());
+		return button;
 	}
 
 	/**
