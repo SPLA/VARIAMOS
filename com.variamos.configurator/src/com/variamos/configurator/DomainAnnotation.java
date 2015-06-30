@@ -31,10 +31,7 @@ public class DomainAnnotation {
 	public void setStep(int step) {
 		this.step = step;
 	}
-
 	public boolean notAvailable() {
 		return choice == Choice.CROSS;
 	}
-	
-	
 }
