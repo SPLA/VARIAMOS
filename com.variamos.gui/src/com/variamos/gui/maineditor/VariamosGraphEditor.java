@@ -855,7 +855,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public AbstractModel getEditedModel() {
+	public RefasModel getEditedModel() {
 		return refasModel;
 		/*
 		 * if (perspective == 0) return ((AbstractGraph)

@@ -17,6 +17,10 @@ public class MetaView extends MetaElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -3876870066100742969L;
 	private String paletteName;
+	public String getPaletteName() {
+		return paletteName;
+	}
+
 	private int index;
 
 	public MetaView() {
@@ -29,6 +33,7 @@ public class MetaView extends MetaElement implements Serializable {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, instSemanticElement);
 		this.index = index;
+		this.paletteName = paletteName;
 	}
 
 	public MetaView(String shortName, String name, String paletteName,
@@ -37,10 +42,6 @@ public class MetaView extends MetaElement implements Serializable {
 				instSemanticElement);
 		this.index = index;
 		this.paletteName = paletteName;
-	}
-
-	public String getDescription() {
-		return paletteName;
 	}
 
 	public int getIndex() {
