@@ -171,7 +171,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
+		if (getInstSemanticElement() != null && getInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 
@@ -182,7 +182,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
+		if (getInstSemanticElement()!= null && getInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
