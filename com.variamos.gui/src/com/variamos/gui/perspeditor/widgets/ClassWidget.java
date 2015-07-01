@@ -15,6 +15,7 @@ import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
+import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstVertex;
@@ -167,14 +168,16 @@ public class ClassWidget extends WidgetR {
 					txtValue.addItem(out.trim());
 				}
 			}
-			if (aClass.equals(InstEnumeration.class)) {
+			if (aClass.equals(InstEnumeration.class)
+					|| aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstVertex>();
 					List<InstVertex> list = getInstElements(instAttribute
 							.getAttribute().getMetaConceptInstanceType(), graph);
 
 					for (InstVertex concept : list) {
-						instVertex.put(concept.getInstAttribute("name").toString(), concept);
+						instVertex.put(concept.getInstAttribute("identifier")
+								.toString(), concept);
 						String out = concept.getInstAttribute("name")
 								.toString();
 						txtValue.addItem(out);
@@ -215,7 +218,7 @@ public class ClassWidget extends WidgetR {
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
 						MetaElement mc = ic.getTransSupportMetaElement();
-						if (mc.getIdentifier().equals(object))
+						if (mc.getIdentifier().equals(object) && !out.contains(ic))
 							out.add(ic);
 					}
 				}

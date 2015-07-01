@@ -305,6 +305,8 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
+	//	if (perspective == 3)
+	//		return true;
 		if (perspective == 4)
 			return false;
 		if (validation) {

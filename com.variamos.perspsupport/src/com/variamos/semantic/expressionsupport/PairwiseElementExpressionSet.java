@@ -89,12 +89,22 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		// .get(0).setOptional(false);
 		MetaPairwiseRelation metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
-		boolean sourceActiveAttribute = (boolean) instPairwiseRelation
-				.getSourceRelations().get(0).getInstAttribute("Active")
-				.getValue();
-		boolean targetActiveAttribute = (boolean) instPairwiseRelation
-				.getTargetRelations().get(0).getInstAttribute("Active")
-				.getValue();
+		boolean sourceActiveAttribute = true;
+		if (instPairwiseRelation
+				.getSourceRelations().get(0).getInstAttribute("Active") != null)
+		{
+			sourceActiveAttribute = (boolean) instPairwiseRelation
+						.getSourceRelations().get(0).getInstAttribute("Active")
+						.getValue();
+		}
+		boolean targetActiveAttribute = true;
+		if (instPairwiseRelation
+				.getTargetRelations().get(0).getInstAttribute("Active") != null)
+		{
+			targetActiveAttribute = (boolean) instPairwiseRelation
+					.getTargetRelations().get(0).getInstAttribute("Active")
+					.getValue();	
+		}		
 		boolean activeVertex = false;
 		instPairwiseRelation.setOptional(false);
 		if (sourceActiveAttribute && targetActiveAttribute)

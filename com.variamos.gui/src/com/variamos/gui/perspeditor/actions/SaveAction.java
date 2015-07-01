@@ -38,8 +38,6 @@ import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.io.SXFMWriter;
 
-import edu.unal.model.enums.PrologEditorType;
-import edu.unal.tranformer.FeatureModelSPLOTransformer;
 import fm.FeatureModel;
 import fm.FeatureModelException;
 import fm.XMLFeatureModel;
@@ -349,9 +347,9 @@ public class SaveAction extends AbstractEditorAction {
 				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
 		featureModel.loadModel();
 
-		FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
+	/*	FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
 		mxUtils.writeFile(transformer.getPrologString(featureModel,
-				PrologEditorType.GNU_PROLOG), filename);
+				PrologEditorType.GNU_PROLOG), filename);*/
 	}
 
 }

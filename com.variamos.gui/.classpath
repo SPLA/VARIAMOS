@@ -12,6 +12,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
-	<classpathentry kind="lib" path="/com.variamos.configurator/lib/splot_prolog.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

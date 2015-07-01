@@ -438,6 +438,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							false);
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
 							false);
+					instVertex.getInstAttribute("Dead").setValue(
+							false);
 				}
 
 				for (InstAttribute instAttribute : instVertex
@@ -475,6 +477,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// Call the SWIProlog and obtain the result
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			instVertex.clearDefects();
+			if (instVertex.getInstAttribute("Dead")!= null)
+			instVertex.getInstAttribute("Dead").setValue(
+					false);
+			if (instVertex.getInstAttribute("Core")!= null)
+			instVertex.getInstAttribute("Core").setValue(
+					false);
 		}
 	}
 

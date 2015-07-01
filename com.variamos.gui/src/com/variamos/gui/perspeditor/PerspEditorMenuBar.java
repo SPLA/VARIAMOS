@@ -285,16 +285,13 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a = editor.bind(mxResources.get("saveCurrentSolution"),
 					new SaveProductsAction());
 			menu.add(a);
-
-
-			menu.addSeparator();			
+		
 			a = editor.bind(mxResources.get("exportConfiguration"),
 					new ExportConfigurationAction(true));
 			menu.add(a);
 			
+			menu.addSeparator();
 			
-			add(menu);
-			menu = (JMenu) menu.add(new JMenu(mxResources.get("execution")));
 			menu.setMnemonic('U');			a = editor.bind(mxResources.get("externalContext"),
 					new ExternalContextAction());
 			menu.add(a);

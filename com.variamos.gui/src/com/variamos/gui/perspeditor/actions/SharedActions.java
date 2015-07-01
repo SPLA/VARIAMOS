@@ -737,7 +737,7 @@ public class SharedActions {
 							}
 
 						} catch (Exception e) {
-							System.err.println("Contained exception");
+							System.err.println("Contained exception PWRel load");
 							e.printStackTrace();
 						}
 					}
@@ -783,7 +783,7 @@ public class SharedActions {
 
 				editor.refreshElement(instPairwiseRelation);
 			} catch (Exception e) {
-				System.err.println("Contained exception");
+				System.err.println("Contained exception GenPW Rel");
 				e.printStackTrace();
 			}
 		}

@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.ProgressMonitorInputStream;
 
 import org.w3c.dom.Document;

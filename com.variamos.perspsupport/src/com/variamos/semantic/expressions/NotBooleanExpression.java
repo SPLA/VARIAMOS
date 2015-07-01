@@ -36,7 +36,7 @@ public class NotBooleanExpression extends AbstractBooleanExpression {
 	public BooleanExpression transform(HlclFactory f,
 			Map<String, Identifier> idMap) {
 		List<Expression> expressionTerms = expressionTerms(f, idMap);
-		return f.not((Identifier) expressionTerms.get(0));
+		return f.not((BooleanExpression) expressionTerms.get(0));
 	}
 
 	@Override

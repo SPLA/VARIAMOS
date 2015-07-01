@@ -713,6 +713,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							if (iden.equals("CG")
 									|| iden.equals("ContextVariable")
 									|| iden.equals("GlobalVariable")
+									|| iden.equals("GlobalVariable")
+									|| iden.equals("Variable")
 									|| iden.equals("ENUM"))
 								editableElementType = "var";
 							else
@@ -923,7 +925,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							.getTransSupportMetaElement().getIdentifier();
 					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("ContextVariable")
-							|| iden.equals("GlobalVariable")
+							|| iden.equals("GlobalVariable")							
+							|| iden.equals("Variable")
 							|| iden.equals("ENUM"))
 
 						editableElementType = "var";
@@ -992,7 +995,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 					if (w == null) {
 						recursiveCall = false;
-						System.err.print("VGE: No Widget found for "
+						System.err.print(" VGE: No Widget found for "
 								+ instAttribute);
 						continue;
 					}

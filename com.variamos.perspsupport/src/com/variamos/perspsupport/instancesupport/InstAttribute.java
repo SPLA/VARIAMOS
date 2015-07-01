@@ -225,7 +225,9 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 	}
 
 	public String getAttributeType() {
+		if (volatileAttribute != null)
 		return volatileAttribute.getType();
+		else return null;
 	}
 
 	public Object getEnumType() {
