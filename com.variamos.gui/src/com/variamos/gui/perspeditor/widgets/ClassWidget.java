@@ -90,10 +90,13 @@ public class ClassWidget extends WidgetR {
 					.getValidationMEList();
 
 			for (MetaPairwiseRelation groupDependency : list) {
-				syntaxElements.put(groupDependency.getIdentifier(),
-						(MetaPairwiseRelation) groupDependency);
-				String out = groupDependency.getIdentifier();
-				txtValue.addItem(out);
+				if (groupDependency != null)
+				{
+					syntaxElements.put(groupDependency.getIdentifier(),
+							(MetaPairwiseRelation) groupDependency);
+					String out = groupDependency.getIdentifier();
+					txtValue.addItem(out);
+				}
 				// if (instAttribute.getValue()!= null &&
 				// out.equals(instAttribute.getValue()))
 				// txtValue.setSelectedItem(out);

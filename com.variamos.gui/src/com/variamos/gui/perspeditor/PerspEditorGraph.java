@@ -191,7 +191,9 @@ public class PerspEditorGraph extends AbstractGraph {
 					child.setTarget(target);
 					mxGeometry geo = new mxGeometry();
 					String id = instEdge.getIdentifier();
+					if (source != null)
 					source.insertEdge(child, true);
+					if (target != null)
 					target.insertEdge(child, false);
 					child.setGeometry(geo);
 					child.setVisible(true);
