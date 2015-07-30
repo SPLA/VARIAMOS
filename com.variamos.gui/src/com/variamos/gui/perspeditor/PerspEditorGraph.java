@@ -109,7 +109,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			// Load Syntax and Semantic
 			for (InstElement instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell();
-				child.setValue(new InstCell(child,instVertex, false));
+				child.setValue(new InstCell(child, instVertex, false));
 				child.setId(instVertex.getIdentifier());
 				addCell(child);
 				String id = instVertex.getIdentifier();
@@ -192,9 +192,9 @@ public class PerspEditorGraph extends AbstractGraph {
 					mxGeometry geo = new mxGeometry();
 					String id = instEdge.getIdentifier();
 					if (source != null)
-					source.insertEdge(child, true);
+						source.insertEdge(child, true);
 					if (target != null)
-					target.insertEdge(child, false);
+						target.insertEdge(child, false);
 					child.setGeometry(geo);
 					child.setVisible(true);
 					child.setVertex(false);
@@ -307,8 +307,8 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	@Override
 	public boolean isValidConnection(Object source, Object target) {
-	//	if (perspective == 3)
-	//		return true;
+		// if (perspective == 3)
+		// return true;
 		if (perspective == 4)
 			return false;
 		if (validation) {
@@ -878,8 +878,10 @@ public class PerspEditorGraph extends AbstractGraph {
 		else
 			cell = getCellById(modelViewIndex + instElement.getIdentifier()
 					+ "-" + modelViewSubIndex);
-		getModel().setValue(cell, instCell);
-		this.fireEvent(new mxEventObject(PL_EVT_NODE_CHANGE, "cell", cell,
-				"element", instCell));
+		if (cell != null) {
+			getModel().setValue(cell, instCell);
+			this.fireEvent(new mxEventObject(PL_EVT_NODE_CHANGE, "cell", cell,
+					"element", instCell));
+		}
 	}
 }

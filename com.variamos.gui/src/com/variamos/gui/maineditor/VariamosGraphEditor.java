@@ -1216,12 +1216,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			Map<String, MetaElement> mapElements = null;
 			if (elm instanceof InstPairwiseRelation) {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+				try{
 				mapElements = refasModel.getSyntaxRefas()
 						.getValidPairwiseRelations(
 								instPairwise.getSourceRelations().get(0)
 										.getTransSupportMetaElement(),
 								instPairwise.getTargetRelations().get(0)
 										.getTransSupportMetaElement(), true);
+				}catch(Exception e)
+				{
+					//FIXME
+					e.printStackTrace();
+				}
 			}
 			v.updateValidationList((InstElement) elm, mapElements);
 			final WidgetR w = factory.getWidgetFor(v);

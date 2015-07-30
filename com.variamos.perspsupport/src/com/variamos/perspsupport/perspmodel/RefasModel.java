@@ -2418,7 +2418,7 @@ public class RefasModel extends AbstractModel {
 		 * instEdge.setSourceRelation(instVertexRF, true);
 		 */
 		// Feature direct relations
-
+	
 		InstPairwiseRelation semGroupPaiwiseRel = getSemanticRefas()
 				.getConstraintInstEdge("groupPairwiseRel");
 
@@ -2486,6 +2486,131 @@ public class RefasModel extends AbstractModel {
 				metaFeatSidePairwiseRel);
 		this.variabilityInstVertex.put("Feature Side Relation",
 				instFeatSidePairWiseRel);
+		
+		InstConcept instDirSideRelation = new InstConcept(
+				"DirSideRelation", supportMetaElementPairwise,
+				metaFeatSidePairwiseRel);
+		instDirSideRelation.setInstAttribute("Type", "Structure");
+		instDirSideRelation.getInstAttribute("SourceCardinality")
+				.setValue("[0..1]");
+		instDirSideRelation.getInstAttribute("TargetCardinality")
+				.setValue("[0..1]");
+		this.variabilityInstVertex.put("DirSideRelation",
+				instDirSideRelation);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-fPRst-pwrf", instEdge);
+		instEdge.setIdentifier("variab-fPRstpwrf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirSideRelation, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-pwrf-fPRst", instEdge);
+		instEdge.setIdentifier("variab-pwrf-fPRst");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instDirSideRelation, true);
+		
+		InstConcept instDirStructureRFRelation = new InstConcept(
+				"DirStructureRFRelation", supportMetaElementPairwise,
+				metaFeatVertPairwiseRel);
+		instDirStructureRFRelation.setInstAttribute("Type", "Structure");
+		instDirStructureRFRelation.getInstAttribute("SourceCardinality")
+				.setValue("[0..1]");
+		instDirStructureRFRelation.getInstAttribute("TargetCardinality")
+				.setValue("[0..1]");
+		this.variabilityInstVertex.put("DirStructureRFRelation",
+				instDirStructureRFRelation);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-gfPRst-pwrrf", instEdge);
+		instEdge.setIdentifier("variab-gfPRstpwrrf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirStructureRFRelation, true);
+		instEdge.setSourceRelation(instVertexGF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-pwrgf-rfPRst", instEdge);
+		instEdge.setIdentifier("variab-pwrgf-rfPRst");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexRF, true);
+		instEdge.setSourceRelation(instDirStructureRFRelation, true);
+		
+		InstConcept instDirStructureLFRFRelation = new InstConcept(
+				"DirStructureLFRFRelation", supportMetaElementPairwise,
+				metaFeatVertPairwiseRel);
+		instDirStructureLFRFRelation.setInstAttribute("Type", "Structure");
+		instDirStructureLFRFRelation.getInstAttribute("SourceCardinality")
+				.setValue("[0..1]");
+		instDirStructureLFRFRelation.getInstAttribute("TargetCardinality")
+				.setValue("[0..1]");
+		this.variabilityInstVertex.put("DirStructureLFRFRelation",
+				instDirStructureLFRFRelation);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-lfPRst-pwrlrf", instEdge);
+		instEdge.setIdentifier("variab-lfPRstpwrlrf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirStructureLFRFRelation, true);
+		instEdge.setSourceRelation(instVertexLF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-pwrlrf-rfPRst", instEdge);
+		instEdge.setIdentifier("variab-pwrlrf-rfPRst");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexRF, true);
+		instEdge.setSourceRelation(instDirStructureLFRFRelation, true);
+		
+		InstConcept instDirStructureLFGRRelation = new InstConcept(
+				"DirStructureLFGRRelation", supportMetaElementPairwise,
+				metaFeatVertPairwiseRel);
+		instDirStructureLFGRRelation.setInstAttribute("Type", "Structure");
+		instDirStructureLFGRRelation.getInstAttribute("SourceCardinality")
+				.setValue("[0..1]");
+		instDirStructureLFGRRelation.getInstAttribute("TargetCardinality")
+				.setValue("[0..1]");
+		this.variabilityInstVertex.put("DirStructureLFGRRelation",
+				instDirStructureLFGRRelation);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-lfPRst-pwrlgf", instEdge);
+		instEdge.setIdentifier("variab-lfPRstpwrlgf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirStructureLFGRRelation, true);
+		instEdge.setSourceRelation(instVertexLF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-pwrlgf-gfPRst", instEdge);
+		instEdge.setIdentifier("variab-pwrlgf-gfPRst");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexGF, true);
+		instEdge.setSourceRelation(instDirStructureLFGRRelation, true);
+		
+		InstConcept instDirStructureGFRelation = new InstConcept(
+				"DirStructureGFRelation", supportMetaElementPairwise,
+				metaFeatVertPairwiseRel);
+		instDirStructureGFRelation.setInstAttribute("Type", "Structure");
+		instDirStructureGFRelation.getInstAttribute("SourceCardinality")
+				.setValue("[0..1]");
+		instDirStructureGFRelation.getInstAttribute("TargetCardinality")
+				.setValue("[0..1]");
+		this.variabilityInstVertex.put("DirStructureGFRelation",
+				instDirStructureGFRelation);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-gfPRst-pwrgf", instEdge);
+		instEdge.setIdentifier("variab-gfPRstpwrgf");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirStructureGFRelation, true);
+		instEdge.setSourceRelation(instVertexGF, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-pwrgf-gfPRst", instEdge);
+		instEdge.setIdentifier("variab-pwrgf-gfPRst");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexGF, true);
+		instEdge.setSourceRelation(instDirStructureGFRelation, true);
 		/*
 		 * instEdge = new InstPairwiseRelation();
 		 * this.constraintInstEdges.put("variab-featPR", instEdge);
@@ -2568,7 +2693,59 @@ public class RefasModel extends AbstractModel {
 		instEdge.setIdentifier("variab-featGD");
 		instEdge.setTargetRelation(instVertexFOTR, true);
 		instEdge.setSourceRelation(instView, true);
+		
+		InstConcept instGrpVertRelation = new InstConcept(
+				"GrpVertRelation", supportMetaElementPairwise,
+				metaFeatVertPairwiseRel);
 
+		instGrpVertRelation.setInstAttribute("Type", "Structural");
+		instGrpVertRelation
+				.setInstAttribute("SourceCardinality", "[1..1]");
+		instGrpVertRelation
+				.setInstAttribute("TargetCardinality", "[0..1]");
+		this.variabilityInstVertex.put("GrpVertRelation",
+				instGrpVertRelation);
+				
+		InstConcept instGrpSideFeatPairWiseRel = new InstConcept(
+				"GrpSideFeatRelation", supportMetaElementPairwise,
+				metaFeatSidePairwiseRel);
+		instGrpSideFeatPairWiseRel
+				.setInstAttribute("Type", "SideRelations");
+		instGrpSideFeatPairWiseRel.setInstAttribute("SourceCardinality",
+				"[0..*]");
+		instGrpSideFeatPairWiseRel.setInstAttribute("TargetCardinality",
+				"[0..*]");
+		this.variabilityInstVertex.put("GrpSideFeatRelation",
+				instGrpSideFeatPairWiseRel);
+				
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("strvariab-otr-pwrme", instEdge);
+		instEdge.setIdentifier("strvariab-otr-pwrme");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGrpVertRelation, true);
+		instEdge.setSourceRelation(instVertexFOTR, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("strfeat-pwrme-va", instEdge);
+		instEdge.setIdentifier("strfeat-pwrme-va");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instGrpVertRelation, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sidefeat-otr-pwrme", instEdge);
+		instEdge.setIdentifier("sidefeat-otr-pwrme");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGrpSideFeatPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexFOTR, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sidefeat-pwrme-f", instEdge);
+		instEdge.setIdentifier("sidefeat-pwrme-f");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexF, true);
+		instEdge.setSourceRelation(instGrpSideFeatPairWiseRel, true);
+		
 		/*
 		 * instEdge = new InstPairwiseRelation();
 		 * this.constraintInstEdges.put("variab-GDtoRF", instEdge);
@@ -3174,6 +3351,13 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexHOTR, true);
 		instEdge.setSourceRelation(instGroupHardPairWiseRel, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-va-pwrg-otr", instEdge);
+		instEdge.setIdentifier("variab-va-pwrg-otr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGroupHardPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexVA, true);
 		/*
 		 * instEdge = new InstPairwiseRelation();
 		 * this.constraintInstEdges.put("variab-VAtoHOT", instEdge);
@@ -5196,7 +5380,7 @@ public class RefasModel extends AbstractModel {
 		return out;
 	}
 
-	public MetaPairwiseRelation getValidMetaPairwiseRelation(
+	public MetaElement getValidMetaPairwiseRelation(
 			MetaElement instElement, MetaElement instElement2,
 			String metaPairwiseIden, boolean first) {
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
@@ -5218,9 +5402,31 @@ public class RefasModel extends AbstractModel {
 					return (MetaPairwiseRelation) pwr.getEditableMetaElement();
 			}
 		}
+		MetaElement out2 = null;
+		for (InstElement pwr : this.variabilityInstVertex.values()) {
+			if (pwr.getSourceRelations().size() > 0
+					&& pwr.getTargetRelations().size() > 0) {
+				MetaElement sourceMetaElement = pwr.getSourceRelations().get(0)
+						.getSourceRelations().get(0).getEditableMetaElement();
+				MetaElement targetMetaElement = pwr.getTargetRelations().get(0)
+						.getTargetRelations().get(0).getEditableMetaElement();
+				// if (!(instElement instanceof MetaOverTwoRelation)
+				// && !(instElement2 instanceof MetaOverTwoRelation))
+				if (sourceMetaElement.getIdentifier().equals(
+						instElement.getIdentifier())
+						&& targetMetaElement.getIdentifier().equals(
+								instElement2.getIdentifier()))
+					out2 =  pwr.getEditableMetaElement();
+				// TODO validate the other end when the OTR type has
+				// exclusive connections
+				if (out2 != null)
+					return out2;
+			}
+		}
+		
 		if (instElement2 instanceof MetaConcept
 				&& ((MetaConcept) instElement2).getParent() != null) {
-			MetaPairwiseRelation out = (getValidMetaPairwiseRelation(
+			MetaElement out = (getValidMetaPairwiseRelation(
 					instElement, ((MetaConcept) instElement2).getParent(),
 					metaPairwiseIden, false));
 			if (out != null)
@@ -5245,7 +5451,7 @@ public class RefasModel extends AbstractModel {
 			instTarget = instPairwise.getTargetRelations().get(0);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;
-			if (elm instanceof InstPairwiseRelation && instSource != null) {
+			if (elm instanceof InstPairwiseRelation && instSource != null && instSource.getTransSupportMetaElement() != null) {
 				mapElements = getSyntaxRefas().getValidPairwiseRelations(
 						instSource.getTransSupportMetaElement(),
 						instTarget.getTransSupportMetaElement(), true);

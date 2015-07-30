@@ -24,6 +24,9 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 	 * 
 	 */
 	private static final long serialVersionUID = 7976788205587295216L;
+	/**
+	 * 
+	 */	
 	private List<IntSemanticRelationType> semanticRelationTypes;
 	// private boolean toSoftSemanticConcept;
 	public static final String

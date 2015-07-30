@@ -371,7 +371,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 				setValidationRelationTypes(semanticRelationTypes);
 			}
 		}
-//		if (instElement instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstPairwiseRelation) {
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
@@ -397,7 +397,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 					}
 					setValidationMEList(metaGD);
 				}
-//			}
+			}
 		}
 	}
 

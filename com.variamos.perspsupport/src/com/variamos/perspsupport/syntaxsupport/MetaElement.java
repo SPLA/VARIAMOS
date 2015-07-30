@@ -319,6 +319,14 @@ public abstract class MetaElement implements Serializable {
 			return modelingAttributes.get(name).getName();
 		return null;
 	}
+	
+	public AbstractAttribute getAbstractAttribute(String attributeName) {
+		AbstractAttribute out = getSemanticAttribute(attributeName);
+		if (out == null)
+			return getModelingAttribute(attributeName);
+		else
+			return out;
+	}
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue) {
