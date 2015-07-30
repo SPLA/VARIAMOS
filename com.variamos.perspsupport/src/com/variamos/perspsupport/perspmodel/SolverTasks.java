@@ -644,12 +644,14 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 
 		// updateObjects();
 		long endTime = System.currentTimeMillis();
+		long defectVerifTime = defectVerifier == null ? 0 : (defectVerifier
+				.getSolverTime() / 1000000);
 		executionTime += element
 				+ "Exec: "
 				+ (endTime - iniTime)
 				+ "["
-				+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + defectVerifier
-						.getSolverTime() / 1000000) + "]" + " -- ";
+				+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + defectVerifTime)
+				+ "]" + " -- ";
 		task = 100 / defect.size();
 		setProgress((int) task);
 		return out;
