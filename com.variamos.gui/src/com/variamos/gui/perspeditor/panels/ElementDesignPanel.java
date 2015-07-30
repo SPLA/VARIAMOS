@@ -148,7 +148,7 @@ public class ElementDesignPanel extends JPanel {
 					return;
 			}
 			if (editElm instanceof InstElement) {
-				if (((InstElement) editElm).getEditableMetaElement() != null)
+				if (((InstElement) editElm).getTransSupportMetaElement() != null)
 					description = ((InstElement) editElm)
 							.getTransSupportMetaElement().getDescription();
 			}
@@ -296,6 +296,14 @@ public class ElementDesignPanel extends JPanel {
 												}
 
 												// afterAction();
+												return true;
+											}
+										});
+										dialog.setOnDelete(new InstanceExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												finalInstAttribute
+														.setValue(null);
 												return true;
 											}
 										});

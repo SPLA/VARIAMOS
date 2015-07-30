@@ -61,7 +61,7 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
 @SuppressWarnings("serial")
 public class InstanceExpressionDialog extends JDialog {
 	private List<InstanceExpression> instanceExpressions;
-	private InstanceExpressionButtonAction onAccept, onCancel;
+	private InstanceExpressionButtonAction onAccept, onCancel, onDelete;
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
@@ -260,7 +260,24 @@ public class InstanceExpressionDialog extends JDialog {
 
 		buttonsPanel.add(btnCancel);
 
-		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
+
+		final JButton btnDelete = new JButton();
+		btnDelete.setText("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (onDelete == null) {
+					dispose();
+					return;
+				}
+				if (onDelete.onAction())
+					dispose();
+			}
+		});
+
+		buttonsPanel.add(btnDelete);
+		
+		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 3, 4, 4, 4, 4);
 
 		add(buttonsPanel, BorderLayout.SOUTH);
 
@@ -944,8 +961,8 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onAccept = onAccept;
 	}
 
-	public void setOnCancel(InstanceExpressionButtonAction onCancel) {
-		this.onCancel = onCancel;
+	public void setOnDelete(InstanceExpressionButtonAction onDelete) {
+		this.onDelete = onDelete;
 	}
 
 }
