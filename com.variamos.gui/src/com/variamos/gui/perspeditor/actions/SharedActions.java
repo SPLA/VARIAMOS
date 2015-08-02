@@ -62,9 +62,9 @@ public class SharedActions {
 
 		long startTime = System.currentTimeMillis();
 		((PerspEditorGraph) graph).setValidation(false);
-		mxGraph outGraph = graph; 
-				//cloneGraph(graph, null, modelViewIndex,
-				//modelViewSubIndex);
+		mxGraph outGraph = graph;
+		// cloneGraph(graph, null, modelViewIndex,
+		// modelViewSubIndex);
 		long stopTime = System.currentTimeMillis();
 		long elapsedTime = stopTime - startTime;
 		System.out.println("clone clean: " + elapsedTime);
@@ -140,11 +140,12 @@ public class SharedActions {
 				ic.setSemanticOverTwoRelationIden(str);
 				str = (String) ic.getSupportMetaElementIdentifier();
 				ic.setMetaOverTwoRelationIden(str);
-			} 
+			}
 			if (value instanceof InstPairwiseRelation) {
 				((InstPairwiseRelation) instElement).updateIdentifiers();
 				if (beforeSave) {
-					((InstPairwiseRelation)instElement).clearMetaPairwiseRelation();
+					((InstPairwiseRelation) instElement)
+							.clearMetaPairwiseRelation();
 				}
 			}
 			if (beforeSave) {
@@ -234,7 +235,8 @@ public class SharedActions {
 			((PerspEditorGraph) graph).setValidation(true);
 		}
 
-		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(), editor.getModelSubViewIndex());
+		setVisibleViews(graph.getModel(), false, editor.getModelViewIndex(),
+				editor.getModelSubViewIndex());
 		if (instAttributesToDelete.size() > 0)
 			JOptionPane
 					.showMessageDialog(
@@ -670,20 +672,28 @@ public class SharedActions {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
 				// instPairwiseRelation
 				// .createAttributes(new HashMap<String, InstAttribute>());
-				InstVertex sourceVertex = (InstVertex) ((InstCell) source
+				InstElement sourceVertex = (InstElement) ((InstCell) source
 						.getSource().getValue()).getInstElement();
-				InstVertex targetVertex = (InstVertex) ((InstCell) source
+				InstElement targetVertex = (InstElement) ((InstCell) source
 						.getTarget().getValue()).getInstElement();
 				if (sourceVertex == null || targetVertex == null) {
 					System.out.println("Error load" + source.getId());
 					return;
 				}
-				MetaPairwiseRelation metaPairwiseRelation = refas
-						.getSyntaxRefas().getValidMetaPairwiseRelation(
-								sourceVertex.getTransSupportMetaElement(),
-								targetVertex.getTransSupportMetaElement(),
-								instPairwiseRelation
-										.getSupportMetaPairwiseRelIden(), true);
+				MetaElement metaPairwiseRelation = null;
+				try {
+					metaPairwiseRelation = refas.getSyntaxRefas()
+							.getValidMetaPairwiseRelation(
+									sourceVertex.getTransSupportMetaElement(),
+									targetVertex.getTransSupportMetaElement(),
+									instPairwiseRelation
+											.getSupportMetaPairwiseRelIden(),
+									true);
+				} catch (Exception e) {
+					e.printStackTrace();
+					// FIXME
+				}
+
 				instPairwiseRelation.setSourceRelation(sourceVertex, true);
 				instPairwiseRelation.setTargetRelation(targetVertex, true);
 				if (metaPairwiseRelation != null) {
@@ -726,10 +736,17 @@ public class SharedActions {
 										.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN))
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
-								List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
-										.getTransSupportMetaElement())
-										.getSemanticRelationTypes();
-								instAttribute.setValidationRelationTypes(semGD);
+								try {
+									List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
+											.getTransSupportMetaElement())
+											.getSemanticRelationTypes();
+									instAttribute
+											.setValidationRelationTypes(semGD);
+								} catch (Exception e) {
+									e.printStackTrace();
+									// FIXME
+
+								}
 							} else {
 								instAttributesToDelete.add(instAttribute
 										.getAttributeName());
@@ -737,7 +754,8 @@ public class SharedActions {
 							}
 
 						} catch (Exception e) {
-							System.err.println("Contained exception PWRel load");
+							System.err
+									.println("Contained exception PWRel load");
 							e.printStackTrace();
 						}
 					}

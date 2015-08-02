@@ -69,8 +69,10 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.clearPalettes();
-		EditorPalette palette = editor.insertPalette(mxResources
-				.get("modelViewPalette" + modelViewIndex));
+		EditorPalette palette = editor.insertPalette(editor.getEditedModel()
+				.getInstViewName(modelViewIndex, -1)
+		// getmxResources.get("modelViewPalette" + modelViewIndex)
+				);
 		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
 		loadPalette(palette, validElements, refasGraph);
 		editor.refreshPalette();
@@ -166,8 +168,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										.getResource(paletteElement.getIcon())),
 								paletteElement.getStyle(), paletteElement
 										.getWidth(),
-								paletteElement.getHeight(), new InstCell(null, obj,
-										false));
+								paletteElement.getHeight(), new InstCell(null,
+										obj, false));
 					}
 				} catch (InstantiationException | IllegalAccessException e) {
 					// TODO Auto-generated catch block

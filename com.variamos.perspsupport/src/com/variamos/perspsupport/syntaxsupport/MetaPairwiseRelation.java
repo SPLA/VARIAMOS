@@ -212,14 +212,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		return modelingAttributesNames;
 	}
 
-	public AbstractAttribute getAbstractAttribute(String attributeName) {
-		AbstractAttribute out = getSemanticAttribute(attributeName);
-		if (out == null)
-			return getModelingAttribute(attributeName);
-		else
-			return out;
-	}
-
 	public Set<String> getAllAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getInstSemanticElement() != null)
@@ -229,8 +221,11 @@ public class MetaPairwiseRelation extends MetaElement {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
+		//FIXME 
+		if (getInstSemanticElement() != null)
 		return getInstSemanticElement().getEditableSemanticElement()
 				.getSemanticAttribute(name);
+		return null;
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
