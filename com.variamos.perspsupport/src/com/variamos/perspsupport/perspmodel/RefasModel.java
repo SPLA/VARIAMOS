@@ -1938,6 +1938,39 @@ public class RefasModel extends AbstractModel {
 		 */
 		constraintInstEdges.put("OperClaimPairwiseRel",
 				new InstPairwiseRelation(directOperClaimSemanticEdge));
+		
+		// LFeat to Claim
+		SemanticOverTwoRelation semanticLFClaimGroupRelation = new SemanticOverTwoRelation(
+				semGeneralElement, "LFtoClaimOverTwoRel",
+				hardSemOverTwoRelList);
+
+		semanticVertices = new ArrayList<AbstractSemanticVertex>();
+		semanticVertices.add(semClaim);
+
+		SemanticPairwiseRelation directLFClaimSemanticEdge = new SemanticPairwiseRelation(
+				"LFClaimPairwiseRel", true, operclaimPairwiseRelList);
+
+		InstVertex instVertexLFCLGR = new InstConcept("LFtoClaimOverTwoRel",
+				metaOverTwoRelation, semanticLFClaimGroupRelation);
+		variabilityInstVertex.put("LFtoClaimOverTwoRel", instVertexLFCLGR);
+
+		/*
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("opertoCLGR", instEdge);
+		 * instEdge.setIdentifier("opertoCLGR");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelCOAso);
+		 * instEdge.setTargetRelation(instVertexCLGR, true);
+		 * instEdge.setSourceRelation(instVertexOper, true);
+		 * 
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("CLGRtoclaim", instEdge);
+		 * instEdge.setIdentifier("CLGRtoclaim");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCAso);
+		 * instEdge.setTargetRelation(instVertexCL, true);
+		 * instEdge.setSourceRelation(instVertexCLGR, true);
+		 */
+		constraintInstEdges.put("LFClaimPairwiseRel",
+				new InstPairwiseRelation(directLFClaimSemanticEdge));
 
 		// Claim to SG
 
@@ -4295,7 +4328,7 @@ public class RefasModel extends AbstractModel {
 				"[0..*]");
 		instGroupOperClaimPairWiseRel.setInstAttribute("TargetCardinality",
 				"[0..*]");
-		this.variabilityInstVertex.put("Claim Group Relation",
+		this.variabilityInstVertex.put("OperClaim Group Relation",
 				instGroupOperClaimPairWiseRel);
 		
 		InstConcept instGroupLFClaimPairWiseRel = new InstConcept(
@@ -4307,7 +4340,7 @@ public class RefasModel extends AbstractModel {
 				"[0..*]");
 		instGroupLFClaimPairWiseRel.setInstAttribute("TargetCardinality",
 				"[0..*]");
-		this.variabilityInstVertex.put("Claim Group Relation",
+		this.variabilityInstVertex.put("LFClaim Group Relation",
 				instGroupLFClaimPairWiseRel);
 
 		instViews.add(instView);
@@ -4634,13 +4667,13 @@ public class RefasModel extends AbstractModel {
 				instGrpOperClaimPairWiseRel);
 		
 		InstConcept instGrpLFClaimPairWiseRel = new InstConcept(
-				"GrpOperClaimRelation", supportMetaElementPairwise,
+				"GrpLFClaimRelation", supportMetaElementPairwise,
 				metaClaimPairwiseRel);
 
 		instGrpLFClaimPairWiseRel.setInstAttribute("Type", "LF-CL");
 		instGrpLFClaimPairWiseRel.setInstAttribute("SourceCardinality", "[0..*]");
 		instGrpLFClaimPairWiseRel.setInstAttribute("TargetCardinality", "[0..*]");
-		this.variabilityInstVertex.put("GrpOperClaimRelation",
+		this.variabilityInstVertex.put("GrpLFClaimRelation",
 				instGrpLFClaimPairWiseRel);
 
 		MetaPairwiseRelation metaDirClaimPairwiseRel = new MetaPairwiseRelation(
@@ -4720,6 +4753,21 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instViewOCOTR, true);
 		instEdge.setSourceRelation(instView, true);
 		
+		
+		InstConcept semanticLFClaimGroupRelation = ((InstConcept) this
+				.getSemanticRefas().getVertex("LFtoClaimOverTwoRel"));
+
+		hardMetaOverTwoRel = new MetaOverTwoRelation(
+				"LFClaimOverTwoRel",
+				true,
+				"LFClaimOverTwoRel",
+				"plgroup",
+				"Express the relation between"
+						+ " the Claim and the SG. Represent the level of satisficing"
+						+ " expected on the softgoal in case the Claim is satisfied",
+				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
+				false, "white", 1, semanticLFClaimGroupRelation, false);
+
 
 		InstVertex instVertexFCOTR = new InstConcept("LFClaimOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
@@ -4865,6 +4913,21 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instGrpOperClaimPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexOCOTR, true);
+		
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sgs-pwr-LFCL", instEdge);
+		instEdge.setIdentifier("sgs-pwr-LFCL");
+		instEdge.setEditableMetaElement(metaClaimPairwiseRel);
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexCL, true);
+		instEdge.setSourceRelation(instGrpLFClaimPairWiseRel, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sgs-lfclaimgp-pwr", instEdge);
+		instEdge.setIdentifier("sgs-lfclaimgp-pwr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGrpLFClaimPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexFCOTR, true);
 
 		InstPairwiseRelation directSDSGSemanticEdge = getSemanticRefas()
 				.getConstraintInstEdge("SDSGDirectEdge");
@@ -5361,16 +5424,16 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instGrpLFPairWiseRel, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("asset0-assetgp-pwro", instEdge);
-		instEdge.setIdentifier("asset0-assetgp-pwro");
+		this.constraintInstEdges.put("asset0-assetgp-fpwro", instEdge);
+		instEdge.setIdentifier("asset0-assetgp-fpwro");
 		instEdge.setEditableMetaElement(metaOperPairWiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instGrpLFPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexAssetFeat, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("asset0-asset-pwrg", instEdge);
-		instEdge.setIdentifier("asset0-asset-pwrg");
+		this.constraintInstEdges.put("asset0-asset-fpwrg", instEdge);
+		instEdge.setIdentifier("asset0-asset-fpwrg");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instGrpAssetAssetPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexAsset, true);
