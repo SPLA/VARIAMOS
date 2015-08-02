@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
@@ -250,6 +252,18 @@ public abstract class MetaElement implements Serializable {
 	public void setModelingAttributes(
 			Map<String, AbstractAttribute> modelingAttributes) {
 		this.modelingAttributes = modelingAttributes;
+	}
+	
+	public void setModelingAttributes(
+			HashSet<AbstractAttribute> modelingAttributes) {
+		this.modelingAttributes = new TreeMap<String, AbstractAttribute>();
+		Iterator <AbstractAttribute>iter = modelingAttributes.iterator();
+		while (iter.hasNext())
+		{
+			AbstractAttribute att = iter.next();
+			this.modelingAttributes.put(att.getName(), att) ;
+		}
+		
 	}
 
 	public Set<String> getPropVisibleAttributes() {

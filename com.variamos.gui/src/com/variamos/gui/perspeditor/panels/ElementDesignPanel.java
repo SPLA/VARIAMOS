@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -246,7 +247,7 @@ public class ElementDesignPanel extends JPanel {
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
 								JButton button = new JButton("Edit Expression");
-								
+
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										boolean editable = true;
@@ -697,7 +698,7 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals(
 						SemanticVariable.VAR_VALUE))
 					editableMetaElement
-							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
+							.setModelingAttributes((HashSet<AbstractAttribute>) instAttribute
 									.getValue());
 			}
 			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
