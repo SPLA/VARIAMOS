@@ -103,7 +103,10 @@ public class PerspEditorGraph extends AbstractGraph {
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		getModel().setRoot(root);
-		Collection<InstView> views = refasModel.getSyntaxRefas().getInstViews();
+		// Collection<InstView> views =
+		// refasModel.getSyntaxRefas().getInstViews();
+		List<InstView> views = refasModel.getSyntaxRefas()
+				.getVariabilityVertex("View");
 		int pos = 0;
 		if (views.size() == 0) {
 			// Load Syntax and Semantic
@@ -127,7 +130,7 @@ public class PerspEditorGraph extends AbstractGraph {
 				pos++;
 
 			}
-			for (InstView instView : refasModel.getInstViews()) {
+		/*	for (InstView instView : refasModel.getVariabilityVertex("View")) {
 				if (instView.getChildViews().size() == 0) {
 					mxCell child = new mxCell(instView.getIdentifier());
 					child.setValue(new InstCell(child, instView, false));
@@ -165,7 +168,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 				}
 			}
-
+*/
 			for (InstPairwiseRelation instEdge : refasModel
 					.getConstraintInstEdgesCollection()) {
 				if (instEdge.getSourceRelations().size() != 0

@@ -17,6 +17,7 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 /**
  * A class to represented modeling elements from meta model and semantic model
@@ -156,6 +157,12 @@ public abstract class InstElement implements Serializable, EditableElement {
 						instAttribute
 								.setValue(((MetaConcept) editableMetaElement)
 										.isResizable());
+				}
+				if (editableMetaElement instanceof MetaView) {
+					if (instAttribute.getIdentifier().equals("Index"))
+						instAttribute
+								.setValue(((MetaView) editableMetaElement)
+										.getIndex());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))

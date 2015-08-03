@@ -207,7 +207,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		List<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
+		//List<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
+		List<InstView> instViews = refasModel.getSyntaxRefas().getVariabilityVertex("View");
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		refasGraph.setValidation(false);
