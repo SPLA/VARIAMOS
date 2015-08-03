@@ -433,4 +433,10 @@ public class GNUPrologSolver implements Solver {
 		return null;
 	}
 
+	@Override
+	public void clearQueryMonitor() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

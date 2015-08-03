@@ -20,6 +20,7 @@ public class ClearSimulationAction extends AbstractEditorAction {
 		 */
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
+		editor.clearQueryMonitor();
 		editor.clearElementState(Refas2Hlcl.SIMUL_EXEC);
 	}
 }
