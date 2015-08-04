@@ -69,12 +69,12 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.clearPalettes();
-		EditorPalette palette = editor.insertPalette(editor.getEditedModel()
+		EditorPalette[] palettes = editor.insertPalettes(editor.getEditedModel()
 				.getInstViewName(modelViewIndex, -1)
 		// getmxResources.get("modelViewPalette" + modelViewIndex)
 				);
 		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
-		loadPalette(palette, validElements, refasGraph);
+		loadPalette(palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
 
@@ -83,7 +83,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	 * @param validElements
 	 * @param plgraph
 	 */
-	public void loadPalette(EditorPalette palette, List<String> validElements,
+	public void loadPalette(EditorPalette[] palettes, List<String> validElements,
 			AbstractGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
@@ -161,6 +161,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							 * c.newInstance(paletteElement.getId()); }
 							 */
 						}
+						for (EditorPalette palette : palettes)
+						{
 						palette.addTemplate(
 								// mxResources.get(
 								paletteElement.getElementTitle(),
@@ -170,6 +172,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										.getWidth(),
 								paletteElement.getHeight(), new InstCell(null,
 										obj, false));
+						}
 					}
 				} catch (InstantiationException | IllegalAccessException e) {
 					// TODO Auto-generated catch block
@@ -191,6 +194,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 		final AbstractGraph graph = plgraph;
 
+		for (EditorPalette palette : palettes)
+		{
 		palette.addListener(mxEvent.SELECT, new mxIEventListener() {
 			public void invoke(Object sender, mxEventObject evt) {
 				Object tmp = evt.getProperty("transferable");
@@ -208,6 +213,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				}
 			}
 		});
+		}
 
 	}
 

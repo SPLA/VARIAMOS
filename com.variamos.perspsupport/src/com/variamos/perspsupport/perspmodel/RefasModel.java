@@ -2065,7 +2065,7 @@ public class RefasModel extends AbstractModel {
 		syntaxMetaView = new MetaView("Variability", true, "Variability View",
 				"plnode", "Defines a feature", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
-				"Goals Palette", 1, null);
+				"Goals Palette;Feature Palette", 1, null);
 
 		InstPairwiseRelation directExtendsSemanticEdge = getSemanticRefas()
 				.getConstraintInstEdge("extendsDirectEdge");
