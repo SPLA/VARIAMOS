@@ -519,6 +519,8 @@ public class ElementDesignPanel extends JPanel {
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
+			
+			System.out.println(designPanelElements+"s");
 			SpringUtilities.makeCompactGrid(elementDesPropSubPanel,
 					designPanelElements, 3, 4, 4, 4, 4);
 
@@ -528,7 +530,7 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 30));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 300));
+			contentPanel1.setMaximumSize(new Dimension(200, 350));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -641,7 +643,7 @@ public class ElementDesignPanel extends JPanel {
 		mainPanel.setPreferredSize(new Dimension(mainPanelWidth, 300));
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 300));
 
-		// System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
+//		 System.out.println(mainPanel.getComponentCount() + " " );
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();

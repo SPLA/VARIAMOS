@@ -759,16 +759,16 @@ public class RefasModel extends AbstractModel {
 		semVertex.addPropVisibleAttribute("07#" + "Height");
 		semVertex.addPropEditableAttribute("08#" + "Image");
 		semVertex.addPropVisibleAttribute("08#" + "Image");
-		semVertex.addPropEditableAttribute("09#" + "TopConcept");
-		semVertex.addPropVisibleAttribute("09#" + "TopConcept");
+//		semVertex.addPropEditableAttribute("09#" + "TopConcept");
+//		semVertex.addPropVisibleAttribute("09#" + "TopConcept");
 		// semVertex.addDisPropEditableAttribute("10#" + "BackgroundColor");
-		semVertex.addPropVisibleAttribute("10#" + "BackgroundColor");
+//		semVertex.addPropVisibleAttribute("10#" + "BackgroundColor");
 		// semVertex.addDisPropEditableAttribute("11#" + "BorderStroke");
-		semVertex.addPropVisibleAttribute("11#" + "BorderStroke");
+//		semVertex.addPropVisibleAttribute("11#" + "BorderStroke");
 		// semVertex.addDisPropEditableAttribute("12#" + "Resizable");
-		semVertex.addPropVisibleAttribute("12#" + "Resizable");
-		semVertex.addPropEditableAttribute("14#" + "value");
-		semVertex.addPropVisibleAttribute("14#" + "value");
+//		semVertex.addPropVisibleAttribute("12#" + "Resizable");
+//		semVertex.addPropEditableAttribute("14#" + "value");
+//		semVertex.addPropVisibleAttribute("14#" + "value");
 
 		semVertex.addPanelVisibleAttribute("01#" + "Name");
 		semVertex.addPanelSpacersAttribute("<<MetaConcept>>\n#" + "Name"
@@ -1109,16 +1109,23 @@ public class RefasModel extends AbstractModel {
 				new SemanticAttribute("IsRootFeature", "Boolean", true,
 						"Is a Root Feature Concept", false));
 
+		semGeneralElement.putSemanticAttribute("IgnoreForSimulation",
+				new SemanticAttribute("IgnoreForSimulation", "Boolean", true,
+						"Ignore for Simulation", false));
+
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropEditableAttribute("05#" + "Scope");
 		semGeneralElement.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
+
+		semGeneralElement.addPropEditableAttribute("08#" + "IgnoreForSimulation");
 		semGeneralElement.addPropVisibleAttribute("04#" + "Required");
 		semGeneralElement.addPropVisibleAttribute("05#" + "Scope");
 		semGeneralElement.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false" + "#" + "");
 		semGeneralElement.addPropVisibleAttribute("07#" + "Core");
 		semGeneralElement.addPropVisibleAttribute("08#" + "Dead");
+		semGeneralElement.addPropVisibleAttribute("08#" + "IgnoreForSimulation");
 
 		semGeneralElement.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
 				+ "Scope" + "#==#" + "false");
@@ -1413,6 +1420,9 @@ public class RefasModel extends AbstractModel {
 						"Conditional Expression", null));
 		semClaim.putSemanticAttribute("CompExp", new GlobalConfigAttribute(
 				"CompExp", "Boolean", false, "Boolean Comp. Expression", true));
+		semClaim.putSemanticAttribute("ConfidenceLevel", new SemanticAttribute(
+				"ConfidenceLevel", "Integer", false, "Confidence Level", 1,new RangeDomain(1,
+						5)));
 		semClaim.putSemanticAttribute("ClaimSelected",
 				new GlobalConfigAttribute("ClaimSelected", "Boolean", false,
 						"Claim Selected", false));
@@ -1430,11 +1440,13 @@ public class RefasModel extends AbstractModel {
 		// semClaim.addPropEditableAttribute("01#" + "Operationalizations");
 		semClaim.addPropEditableAttribute("03#" + "ConditionalExpression");
 		semClaim.addPropEditableAttribute("04#" + "ClaimExpression");
+		semClaim.addPropEditableAttribute("05#" + "ConfidenceLevel");
 
 		// semClaim.addPropVisibleAttribute("01#" + "Operationalizations");
 
 		semClaim.addPropVisibleAttribute("03#" + "ConditionalExpression");
 		semClaim.addPropVisibleAttribute("04#" + "ClaimExpression");
+		semClaim.addPropVisibleAttribute("05#" + "ConfidenceLevel");
 
 		semClaim.addPropEditableAttribute("01#" + "CompExp");
 		semClaim.addPropVisibleAttribute("01#" + "CompExp");
