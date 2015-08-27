@@ -516,9 +516,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				if (!vertexId.equals("Amodel")) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (conceptTypes != null
-							&& !conceptTypes.contains(vertex
+							&& (vertex == null || !conceptTypes.contains(vertex
 									.getTransSupportMetaElement()
-									.getIdentifier()))
+									.getIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {

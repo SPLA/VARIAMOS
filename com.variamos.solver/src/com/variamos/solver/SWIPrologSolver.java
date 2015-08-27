@@ -136,7 +136,7 @@ public class SWIPrologSolver implements Solver {
 	private void consultProgram(Configuration config,
 			ConfigurationOptions options) {
 
-		synchronized (monitor) {
+//		synchronized (monitor) {
 			if (options.getProgramName() == null) {
 				List<Compound> parts = new ArrayList<>();
 				Term[] varTermsArray = new Term[vars.size()];
@@ -171,7 +171,7 @@ public class SWIPrologSolver implements Solver {
 				qr = new Query(options.programName + "(L)");
 				lastExecutionTime += System.nanoTime() - initTime;
 			}
-		}
+//		}
 	}
 
 	private static Compound addSubQueries(List<Compound> parts) {
@@ -429,6 +429,17 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public void clearQueryMonitor() {
+		if (qr != null && qr.isOpen()) {
+
+			try {
+				qr.rewind();// Cierra las consultas que no se hayan
+							// explorado
+				qr.close();
+			} catch (Exception e) {
+			}
+
+		}
+		qr = null;
 		monitor = new Object();
 		
 	}
