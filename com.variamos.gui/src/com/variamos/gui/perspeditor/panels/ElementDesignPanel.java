@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -73,7 +74,7 @@ public class ElementDesignPanel extends JPanel {
 	private JPanel contentPanel1 = new JPanel(new SpringLayout());
 	private JPanel contentPanel2 = new JPanel(new SpringLayout());
 	private JPanel contentPanel3 = new JPanel(new SpringLayout());
-	private JPanel rootPanel1 = new JPanel(new SpringLayout());
+	private JPanel rootPanel1 = new JPanel();
 	private JPanel rootPanel2 = new JPanel(new SpringLayout());
 	private JPanel rootPanel3 = new JPanel(new SpringLayout());
 	private int mainPanelWidth = 200;
@@ -84,8 +85,8 @@ public class ElementDesignPanel extends JPanel {
 		JPanel dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
-		rootPanel1.add(dummyP);
-		SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
+		// rootPanel1.add(dummyP);
+		// SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
@@ -130,7 +131,7 @@ public class ElementDesignPanel extends JPanel {
 		contentPanel1.removeAll();
 		contentPanel2.removeAll();
 		contentPanel3.removeAll();
-
+		int designPanelElements = 0;
 		if (instCell == null || instCell.getInstElement() == null) {
 			return;
 		} else {
@@ -138,7 +139,7 @@ public class ElementDesignPanel extends JPanel {
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
-			int designPanelElements = 0;
+
 			String description = null;
 
 			if (editElm instanceof InstPairwiseRelation) {
@@ -362,7 +363,7 @@ public class ElementDesignPanel extends JPanel {
 													FocusEvent arg0) {
 											}
 										});
-								
+
 								widget.getGroup().addFocusListener(
 										new FocusListener() {
 											@Override
@@ -399,7 +400,6 @@ public class ElementDesignPanel extends JPanel {
 													FocusEvent arg0) {
 											}
 										});
-
 
 								widget.getEditor().addPropertyChangeListener(
 										new PropertyChangeListener() {
@@ -476,19 +476,19 @@ public class ElementDesignPanel extends JPanel {
 												}
 											});
 								((JTextField) widget.getGroup())
-								.addActionListener(new ActionListener() {
-									public void actionPerformed(
-											ActionEvent e) {
+										.addActionListener(new ActionListener() {
+											public void actionPerformed(
+													ActionEvent e) {
 
-										new Thread() {
-											public void run() {
-												editorProperties(
-														finalEditor,
-														instCell);
+												new Thread() {
+													public void run() {
+														editorProperties(
+																finalEditor,
+																instCell);
+													}
+												}.start();
 											}
-										}.start();
-									}
-								});
+										});
 								/*
 								 * if (widget.getEditor() instanceof JComboBox)
 								 * ((JComboBox) widget.getEditor())
@@ -591,11 +591,13 @@ public class ElementDesignPanel extends JPanel {
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
-			
-			System.out.println(designPanelElements+"s");
+
+			System.out.println(designPanelElements + "s");
 			SpringUtilities.makeCompactGrid(elementDesPropSubPanel,
 					designPanelElements, 3, 4, 4, 4, 4);
-
+			// JFrame e = new JFrame();
+			// e.add(contentPanel1);
+			// e.setVisible(true);
 			contentPanel1.add(elementDesPropSubPanel);
 			elementDesPropSubPanel.setPreferredSize(new Dimension(350,
 					designPanelElements * 30));
@@ -612,7 +614,7 @@ public class ElementDesignPanel extends JPanel {
 			// Properties Panel
 			JPanel dummy2 = new JPanel();
 			if (description != null) {
-				mainPanelWidth += 200;
+				mainPanelWidth += 100;
 				JTextArea ta = new JTextArea();
 				ta.setAutoscrolls(true);
 				ta.setText(description);
@@ -633,8 +635,8 @@ public class ElementDesignPanel extends JPanel {
 				// dummy2.setMaximumSize(new Dimension(300, 150));
 				// contentPanel2.add(dummy2);
 				//
-				// contentPanel2.setPreferredSize(new Dimension(300, 150));
-				// contentPanel2.setMaximumSize(new Dimension(300, 150));
+				 contentPanel2.setPreferredSize(new Dimension(300, 150));
+				 contentPanel2.setMaximumSize(new Dimension(300, 150));
 				mainPanel.add(rootPanel2);
 
 				SpringUtilities
@@ -710,12 +712,26 @@ public class ElementDesignPanel extends JPanel {
 				contentPanel3.add(attPanel);
 				mainPanel.add(rootPanel3);
 			}
+			else
+			{
+				JPanel dummy3 = new JPanel();
+				dummy3.setMinimumSize(new Dimension(0, 0));
+				dummy3.setPreferredSize(new Dimension(500, 20));
+				dummy3.setMaximumSize(new Dimension(600, 200));
+				mainPanel.add(dummy3);
+
+			}
 		}
+		int mainPanelHeight = 350;
+		if (designPanelElements > 13)
+			mainPanelHeight = designPanelElements * 32;
 
-		mainPanel.setPreferredSize(new Dimension(mainPanelWidth, 300));
-		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 300));
+			
+		mainPanel.setPreferredSize(new Dimension(mainPanelWidth,
+				mainPanelHeight));
+		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 600));
 
-//		 System.out.println(mainPanel.getComponentCount() + " " );
+		// System.out.println(mainPanel.getComponentCount() + " " );
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();

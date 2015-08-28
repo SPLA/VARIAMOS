@@ -62,6 +62,7 @@ import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
+import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
 import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
 import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
@@ -158,6 +159,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private boolean invalidConfigHlclProgram = true;
 
 	private boolean updateTabs = false;
+	
+	private ExternalContextDialog ecd = new ExternalContextDialog(this);
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(RefasModel) getEditedModel());
@@ -1821,5 +1824,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
 				this);
 
+	}
+
+	public void showExternalContextDialog() {
+
+		ecd.center();
 	}
 }

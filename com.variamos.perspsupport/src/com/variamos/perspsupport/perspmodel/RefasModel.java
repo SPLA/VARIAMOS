@@ -714,6 +714,9 @@ public class RefasModel extends AbstractModel {
 		semVertex.putSemanticAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0));
+		semVertex.putSemanticAttribute("SemanticType", new SyntaxAttribute(
+				"SemanticType", "Enumeration", false, "Semantic Type",
+				SemanticConcept.class.getCanonicalName(), "SemanticType", 0));
 		semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", "", 0));
 		semVertex.putSemanticAttribute("Visible", new SyntaxAttribute(
@@ -744,6 +747,8 @@ public class RefasModel extends AbstractModel {
 				"Set", false, "values", "", 0));
 
 		semVertex.addPropVisibleAttribute("00#" + "MetaType");
+//		semVertex.addPropEditableAttribute("00#" + "SemanticType");
+//		semVertex.addPropVisibleAttribute("00#" + "SemanticType");
 		semVertex.addPropEditableAttribute("01#" + "Identifier");
 		semVertex.addPropVisibleAttribute("01#" + "Identifier");
 		semVertex.addPropEditableAttribute("02#" + "Visible");
@@ -760,16 +765,16 @@ public class RefasModel extends AbstractModel {
 		semVertex.addPropVisibleAttribute("07#" + "Height");
 		semVertex.addPropEditableAttribute("08#" + "Image");
 		semVertex.addPropVisibleAttribute("08#" + "Image");
-		// semVertex.addPropEditableAttribute("09#" + "TopConcept");
-		// semVertex.addPropVisibleAttribute("09#" + "TopConcept");
-		// semVertex.addDisPropEditableAttribute("10#" + "BackgroundColor");
-		// semVertex.addPropVisibleAttribute("10#" + "BackgroundColor");
-		// semVertex.addDisPropEditableAttribute("11#" + "BorderStroke");
-		// semVertex.addPropVisibleAttribute("11#" + "BorderStroke");
-		// semVertex.addDisPropEditableAttribute("12#" + "Resizable");
-		// semVertex.addPropVisibleAttribute("12#" + "Resizable");
-		// semVertex.addPropEditableAttribute("14#" + "value");
-		// semVertex.addPropVisibleAttribute("14#" + "value");
+		semVertex.addPropEditableAttribute("09#" + "TopConcept");
+		semVertex.addPropVisibleAttribute("09#" + "TopConcept");
+		semVertex.addPropEditableAttribute("10#" + "BackgroundColor");
+		semVertex.addPropVisibleAttribute("10#" + "BackgroundColor");
+		semVertex.addPropEditableAttribute("11#" + "BorderStroke");
+		semVertex.addPropVisibleAttribute("11#" + "BorderStroke");
+		semVertex.addPropEditableAttribute("12#" + "Resizable");
+		semVertex.addPropVisibleAttribute("12#" + "Resizable");
+		semVertex.addPropEditableAttribute("14#" + "value");
+		semVertex.addPropVisibleAttribute("14#" + "value");
 
 		semVertex.addPanelVisibleAttribute("01#" + "Name");
 		semVertex.addPanelSpacersAttribute("<<MetaConcept>>\n#" + "Name"
