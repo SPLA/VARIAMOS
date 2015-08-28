@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.model.mxCell;
@@ -50,8 +51,9 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph) {
-		super.configure(v, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph,
+			boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, showSimulationCustomizationBox);
 		ClassLoader classLoader = ClassMultiSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -67,25 +69,21 @@ public class MClassWidget extends WidgetR {
 		String[] out = null;
 		if (aClass.getSuperclass() != null
 				&& aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
-			/*Collection<IntSemanticElement> list = semanticSyntaxObject
-					.getSemanticConcepts().values();
-
-			System.out.println("MClassW old semanticSyntax");
-			List<IntSemanticElement> list2 = new ArrayList<IntSemanticElement>();
-
-			for (IntSemanticElement concept : list) {
-				if (aClass.isInstance(concept))
-					list2.add(concept);
-			}
-			out = new String[list2.size()];
-			int i = 0;
-			for (IntSemanticElement concept : list2) {
-				if (semanticConcepts.put(concept.getIdentifier(), concept) == null) {
-					String str = concept.getIdentifier();
-					out[i++] = str.toString();
-				}
-			}
-			*/
+			/*
+			 * Collection<IntSemanticElement> list = semanticSyntaxObject
+			 * .getSemanticConcepts().values();
+			 * 
+			 * System.out.println("MClassW old semanticSyntax");
+			 * List<IntSemanticElement> list2 = new
+			 * ArrayList<IntSemanticElement>();
+			 * 
+			 * for (IntSemanticElement concept : list) { if
+			 * (aClass.isInstance(concept)) list2.add(concept); } out = new
+			 * String[list2.size()]; int i = 0; for (IntSemanticElement concept
+			 * : list2) { if (semanticConcepts.put(concept.getIdentifier(),
+			 * concept) == null) { String str = concept.getIdentifier();
+			 * out[i++] = str.toString(); } }
+			 */
 		}
 		if (aClass.equals(InstConcept.class)) {
 			concepts = new HashMap<String, InstConcept>();
@@ -147,6 +145,7 @@ public class MClassWidget extends WidgetR {
 				valuesArray[i++] = value;
 			txtValue.setSelectedIndices(valuesArray);
 		}
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return false;
@@ -161,6 +160,7 @@ public class MClassWidget extends WidgetR {
 		v.setValue(values);
 		String out = "";
 		List<String> tmp = txtValue.getSelectedValuesList();
+		v.setGroup(group.getText());
 		for (String str : tmp)
 			out += str + ";";
 		InstAttribute instAttribute = (InstAttribute) v;
@@ -172,4 +172,8 @@ public class MClassWidget extends WidgetR {
 		return txtValue;
 	}
 
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 }

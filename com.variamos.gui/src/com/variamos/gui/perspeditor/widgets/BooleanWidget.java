@@ -1,11 +1,13 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
@@ -38,7 +40,6 @@ public class BooleanWidget extends WidgetR {
 						!chkValue.isSelected(), chkValue.isSelected());
 			}
 		});
-
 		add(chkValue, BorderLayout.CENTER);
 		revalidate();
 	}
@@ -47,7 +48,7 @@ public class BooleanWidget extends WidgetR {
 	protected boolean pushValue(EditableElementAttribute v) {
 		chkValue.setText(String.valueOf(v.getIdentifier()));
 		chkValue.setSelected(v.getAsBoolean());
-
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return false;
@@ -56,10 +57,16 @@ public class BooleanWidget extends WidgetR {
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
 		v.setValue(chkValue.isSelected());
+		v.setGroup(group.getText());
 	}
 
 	@Override
 	public JComponent getEditor() {
 		return chkValue;
+	}
+	
+	@Override
+	public JComponent getGroup() {
+		return group;
 	}
 }

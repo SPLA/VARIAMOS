@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
@@ -39,8 +40,9 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph) {
-		super.configure(v, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph,
+			boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationMultiSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -93,4 +95,8 @@ public class MEnumerationWidget extends WidgetR {
 		return txtValue;
 	}
 
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 }

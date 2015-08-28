@@ -362,8 +362,66 @@ public class ElementDesignPanel extends JPanel {
 													FocusEvent arg0) {
 											}
 										});
+								
+								widget.getGroup().addFocusListener(
+										new FocusListener() {
+											@Override
+											public void focusLost(
+													FocusEvent arg0) {
+												// Makes it pull the values.
+												EditableElementAttribute elementAttribute = widget
+														.getInstAttribute();
+												if (elementAttribute
+														.getAttributeType()
+														.equals("String")
+														&& !elementAttribute
+																.getIdentifier()
+																.equals("Description")) {
+													elementAttribute
+															.setValue(AbstractElement.multiLine(
+																	elementAttribute
+																			.toString(),
+																	(int) instCell
+																			.getWidth() / 8));
+
+												}
+												// Divide lines every 15
+												// characters
+												// (aprox.)
+												onVariableEdited(
+														finalEditor,
+														instCell.getInstElement(),
+														elementAttribute);
+											}
+
+											@Override
+											public void focusGained(
+													FocusEvent arg0) {
+											}
+										});
+
 
 								widget.getEditor().addPropertyChangeListener(
+										new PropertyChangeListener() {
+
+											@Override
+											public void propertyChange(
+													PropertyChangeEvent evt) {
+												if (WidgetPL.PROPERTY_VALUE.equals(evt
+														.getPropertyName())) {
+													widget.getInstAttribute();
+													onVariableEdited(
+															finalEditor,
+															instCell.getInstElement(),
+															widget.getInstAttribute());
+
+													editorProperties(
+															finalEditor,
+															instCell);
+												}
+											}
+										});
+								widget.getGroup().addPropertyChangeListener(
 										new PropertyChangeListener() {
 
 											@Override
@@ -417,6 +475,20 @@ public class ElementDesignPanel extends JPanel {
 													}.start();
 												}
 											});
+								((JTextField) widget.getGroup())
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(
+											ActionEvent e) {
+
+										new Thread() {
+											public void run() {
+												editorProperties(
+														finalEditor,
+														instCell);
+											}
+										}.start();
+									}
+								});
 								/*
 								 * if (widget.getEditor() instanceof JComboBox)
 								 * ((JComboBox) widget.getEditor())

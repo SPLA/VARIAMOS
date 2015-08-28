@@ -1,16 +1,18 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
- * A class to support set widgets on the interface. Copied from SetWidget
- * from ProductLine. Part of PhD work at University of Paris 1
+ * A class to support set widgets on the interface. Copied from SetWidget from
+ * ProductLine. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -19,30 +21,30 @@ import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
  * @see com.variamos.gui.pl.editor.widgets.SetWidget
  */
 @SuppressWarnings("serial")
-public class SetWidget extends WidgetR{
-	
+public class SetWidget extends WidgetR {
+
 	private JComboBox<String> comboBox;
-		
-	public SetWidget(){
-		
+
+	public SetWidget() {
+
 		comboBox = new JComboBox<>();
-//		comboBox.setPreferredSize(new Dimension(100, 50));
+		// comboBox.setPreferredSize(new Dimension(100, 50));
 		setLayout(new BorderLayout());
 		add(comboBox, BorderLayout.CENTER);
 		revalidate();
 
-		//comboBox.setEditable(false);
+		// comboBox.setEditable(false);
 	}
-	
+
 	@Override
 	protected boolean pushValue(EditableElementAttribute v) {
-		comboBox.setSelectedItem( v.getValue() );
+		comboBox.setSelectedItem(v.getValue());
 		return false;
 	}
 
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
-		v.setType( (String)comboBox.getSelectedItem() );
+		v.setType((String) comboBox.getSelectedItem());
 	}
 
 	@Override
@@ -51,5 +53,12 @@ public class SetWidget extends WidgetR{
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph) {}
+	public void configure(EditableElementAttribute v, mxGraph graph,
+			boolean showSimulationCustomizationBox) {
+	}
+
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 }

@@ -43,6 +43,7 @@ public class MainFrame extends JFrame {
 	private int perspective = 1;
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
+	private boolean showSimulationCustomizationBox = false;
 	private String variamosVersionNumber = "1.0.1.11";
 	private String variamosVersionName = "1.0 Beta 11";
 	private String variamosBuild = "201508022 2000";
@@ -279,6 +280,14 @@ public class MainFrame extends JFrame {
 		return showPerspectiveButton;
 	}
 
+	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
+		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
+	}
+
+	public boolean isShowSimulationCustomizationBox() {
+		return showSimulationCustomizationBox;
+	}
+	
 	public String getVariamosVersionNumber() {
 		return variamosVersionNumber;
 	}

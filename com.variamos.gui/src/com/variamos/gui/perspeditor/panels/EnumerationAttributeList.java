@@ -57,7 +57,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
 			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add ...", ""), "Add ...");
+					"Add ...", "", 1), "Add ...");
 
 	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,11 +122,11 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
-						false, "Value Name", ""), "");
+						false, "Value Name", "", 1), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						false, "Value Id(int)", ""), 0);
+						false, "Value Id(int)", "", 1), 0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -146,7 +146,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-							false, "Enumeration Value", ""), "");
+							false, "Enumeration Value", "", 1), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);
@@ -179,22 +179,17 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				try {
 					dialog.getParameters();
 				} catch (NumberFormatException n) {
-					JOptionPane
-							.showMessageDialog(
-									dialog,
-									"Value is not a valid number",
-									"Number Format Error",
-									JOptionPane.ERROR_MESSAGE, null);
+					JOptionPane.showMessageDialog(dialog,
+							"Value is not a valid number",
+							"Number Format Error", JOptionPane.ERROR_MESSAGE,
+							null);
 					return false;
 				}
-				if (((Integer) instIdentifier.getValue()).intValue()<0)
-				 {
-					JOptionPane
-							.showMessageDialog(
-									dialog,
-									"Value is not positive number",
-									"Negative Number Error",
-									JOptionPane.ERROR_MESSAGE, null);
+				if (((Integer) instIdentifier.getValue()).intValue() < 0) {
+					JOptionPane.showMessageDialog(dialog,
+							"Value is not positive number",
+							"Negative Number Error", JOptionPane.ERROR_MESSAGE,
+							null);
 					return false;
 				}
 				InstAttribute v = buffer[0];

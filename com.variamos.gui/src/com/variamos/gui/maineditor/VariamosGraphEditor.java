@@ -349,6 +349,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.installToolBar(getMainFrame(), perspective);
 	}
 
+	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
+		getMainFrame().setShowSimulationCustomizationBox(showSimulationCustomizationBox);
+
+	}
+	
+	public boolean isShowSimulationCustomizationBox() {
+		return getMainFrame().isShowSimulationCustomizationBox();
+	}
+	
 	public int getModelSubViewIndex() {
 		return modelSubViewIndex;
 	}
@@ -1017,8 +1026,40 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						public void focusGained(FocusEvent arg0) {
 						}
 					});
+					
+					w.getGroup().addFocusListener(new FocusListener() {
+						@Override
+						public void focusLost(FocusEvent arg0) {
+							// Makes it pull the values.
+							EditableElementAttribute v = w.getInstAttribute();
+							if (v.getAttributeType().equals("String"))
+								v.setValue(AbstractElement.multiLine(
+										v.toString(), 15));
+							// Divide lines every 15 characters (aprox.)
+							onVariableEdited(finalEditElm, v);
+						}
+
+						@Override
+						public void focusGained(FocusEvent arg0) {
+						}
+					});
 
 					w.getEditor().addPropertyChangeListener(
+							new PropertyChangeListener() {
+
+								@Override
+								public void propertyChange(
+										PropertyChangeEvent evt) {
+									if (WidgetPL.PROPERTY_VALUE.equals(evt
+											.getPropertyName())) {
+										w.getInstAttribute();
+										updateExpressions = true;
+										onVariableEdited(finalEditElm,
+												w.getInstAttribute());
+									}
+								}
+							});
+					w.getGroup().addPropertyChangeListener(
 							new PropertyChangeListener() {
 
 								@Override
