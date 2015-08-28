@@ -1,10 +1,12 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -37,8 +39,9 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph) {
-		super.configure(v, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph,
+			boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationSingleSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")
@@ -76,6 +79,7 @@ public class EnumerationWidget extends WidgetR {
 	@Override
 	protected boolean pushValue(EditableElementAttribute v) {
 		txtValue.setSelectedItem((String) v.getValue());
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return false;
@@ -84,6 +88,7 @@ public class EnumerationWidget extends WidgetR {
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
 		v.setValue((String) txtValue.getSelectedItem());
+		v.setGroup(group.getText());
 	}
 
 	@Override
@@ -91,4 +96,8 @@ public class EnumerationWidget extends WidgetR {
 		return txtValue;
 	}
 
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 }

@@ -26,7 +26,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 	private static final long serialVersionUID = 7976788205587295216L;
 	/**
 	 * 
-	 */	
+	 */
 	private List<IntSemanticRelationType> semanticRelationTypes;
 	// private boolean toSoftSemanticConcept;
 	public static final String
@@ -102,7 +102,7 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
 				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
-				VAR_RELATIONTYPE_CLASS, null, ""));
+				VAR_RELATIONTYPE_CLASS, null, "", 0));
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);

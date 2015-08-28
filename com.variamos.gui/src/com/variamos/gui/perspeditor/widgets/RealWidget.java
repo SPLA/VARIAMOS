@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -52,5 +53,10 @@ public class RealWidget extends WidgetR {
 	@Override
 	public JComponent getEditor() {
 		return txtValue;
+	}
+	
+	@Override
+	public JComponent getGroup() {
+		return group;
 	}
 }

@@ -433,6 +433,38 @@ public class BasicGraphEditor extends JPanel {
 					}
 				});
 	}
+	
+	/**
+	 * 
+	 */
+	public EditorPalette[] insertPalettes(String title) {
+		String[] paletteNames = title.split(";");
+		EditorPalette[] out = new EditorPalette[paletteNames.length];
+		for (int i = 0; i < paletteNames.length; i++) {
+			final EditorPalette palette = new EditorPalette();
+			palette.setName(paletteNames[i]);
+			final JScrollPane scrollPane = new JScrollPane(palette);
+			scrollPane
+					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollPane
+					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		libraryPane.add(paletteNames[i], scrollPane);
+			// Updates the widths of the palette if the container size changes
+			libraryPane.addComponentListener(new ComponentAdapter() {
+				/**
+			 * 
+			 */
+				public void componentResized(ComponentEvent e) {
+					int w = scrollPane.getWidth()
+							- scrollPane.getVerticalScrollBar().getWidth();
+					palette.setPreferredWidth(w);
+				}
+
+			});
+			out[i] = palette;
+		}
+		return out;
+	}
 
 	/**
 	 * 
@@ -446,7 +478,7 @@ public class BasicGraphEditor extends JPanel {
 		scrollPane
 				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		libraryPane.add(title, scrollPane);
-
+	//	libraryPane.add("2", scrollPane2);
 		// Updates the widths of the palettes if the container size changes
 		libraryPane.addComponentListener(new ComponentAdapter() {
 			/**

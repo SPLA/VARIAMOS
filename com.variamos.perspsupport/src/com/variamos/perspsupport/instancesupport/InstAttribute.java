@@ -84,10 +84,11 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 	/**
 	 * Initially for List to support MetaEnumerations
 	 */
-	VAR_METAEDGE_LIST_VALIDATION = "ValidMEList";
+	VAR_METAEDGE_LIST_VALIDATION = "ValidMEList",
 	/**
 	 * Dynamic storage of attributes
 	 */
+	VAR_GROUP = "Group";
 	protected Map<String, Object> instAttributeAttributes = new HashMap<>();
 
 	public InstAttribute() {
@@ -211,6 +212,11 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		// return value;
 	}
 
+	public Object getGroup() {
+		return getInstAttributeAttribute(VAR_GROUP);
+		// return value;
+	}
+	
 	public Object getDisplayValue() {
 		if (getInstAttributeAttribute(VAR_DISPLAYVALUE) == null)
 			return getInstAttributeAttribute(VAR_VALUE);
@@ -224,6 +230,11 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		// this.value = value;
 	}
 
+	public void setGroup(Object value) {
+		setInstAttributeAttribute(VAR_GROUP, value);
+		// this.value = value;
+	}
+	
 	public String getAttributeType() {
 		if (volatileAttribute != null)
 		return volatileAttribute.getType();

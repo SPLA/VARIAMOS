@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
@@ -57,8 +59,8 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph) {
-		super.configure(v, graph);
+	public void configure(EditableElementAttribute v, mxGraph graph, boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, showSimulationCustomizationBox);
 
 		ClassLoader classLoader = ClassSingleSelectionType.class
 				.getClassLoader();
@@ -285,6 +287,7 @@ public class ClassWidget extends WidgetR {
 			}
 		}
 
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return out;
@@ -310,11 +313,17 @@ public class ClassWidget extends WidgetR {
 				instAttribute.setValueObject(syntaxElements.get(s));
 			}
 		}
+
+		v.setGroup(group.getText());
 	}
 
 	@Override
 	public JComponent getEditor() {
 		return txtValue;
 	}
-
+	
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 }

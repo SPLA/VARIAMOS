@@ -207,7 +207,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		List<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
+		//List<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
+		List<InstView> instViews = refasModel.getSyntaxRefas().getVariabilityVertex("View");
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		refasGraph.setValidation(false);
@@ -348,6 +349,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.installToolBar(getMainFrame(), perspective);
 	}
 
+	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
+		getMainFrame().setShowSimulationCustomizationBox(showSimulationCustomizationBox);
+
+	}
+	
+	public boolean isShowSimulationCustomizationBox() {
+		return getMainFrame().isShowSimulationCustomizationBox();
+	}
+	
 	public int getModelSubViewIndex() {
 		return modelSubViewIndex;
 	}
@@ -925,9 +935,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							.getTransSupportMetaElement().getIdentifier();
 					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("ContextVariable")
-							|| iden.equals("GlobalVariable")							
-							|| iden.equals("Variable")
-							|| iden.equals("ENUM"))
+							|| iden.equals("GlobalVariable")
+							|| iden.equals("Variable") || iden.equals("ENUM"))
 
 						editableElementType = "var";
 					else
@@ -1017,8 +1026,40 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						public void focusGained(FocusEvent arg0) {
 						}
 					});
+					
+					w.getGroup().addFocusListener(new FocusListener() {
+						@Override
+						public void focusLost(FocusEvent arg0) {
+							// Makes it pull the values.
+							EditableElementAttribute v = w.getInstAttribute();
+							if (v.getAttributeType().equals("String"))
+								v.setValue(AbstractElement.multiLine(
+										v.toString(), 15));
+							// Divide lines every 15 characters (aprox.)
+							onVariableEdited(finalEditElm, v);
+						}
+
+						@Override
+						public void focusGained(FocusEvent arg0) {
+						}
+					});
 
 					w.getEditor().addPropertyChangeListener(
+							new PropertyChangeListener() {
+
+								@Override
+								public void propertyChange(
+										PropertyChangeEvent evt) {
+									if (WidgetPL.PROPERTY_VALUE.equals(evt
+											.getPropertyName())) {
+										w.getInstAttribute();
+										updateExpressions = true;
+										onVariableEdited(finalEditElm,
+												w.getInstAttribute());
+									}
+								}
+							});
+					w.getGroup().addPropertyChangeListener(
 							new PropertyChangeListener() {
 
 								@Override
@@ -1216,16 +1257,16 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			Map<String, MetaElement> mapElements = null;
 			if (elm instanceof InstPairwiseRelation) {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
-				try{
-				mapElements = refasModel.getSyntaxRefas()
-						.getValidPairwiseRelations(
-								instPairwise.getSourceRelations().get(0)
-										.getTransSupportMetaElement(),
-								instPairwise.getTargetRelations().get(0)
-										.getTransSupportMetaElement(), true);
-				}catch(Exception e)
-				{
-					//FIXME
+				try {
+					mapElements = refasModel
+							.getSyntaxRefas()
+							.getValidPairwiseRelations(
+									instPairwise.getSourceRelations().get(0)
+											.getTransSupportMetaElement(),
+									instPairwise.getTargetRelations().get(0)
+											.getTransSupportMetaElement(), true);
+				} catch (Exception e) {
+					// FIXME
 					e.printStackTrace();
 				}
 			}
@@ -1431,8 +1472,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.refresh();
 	}
 
-	public void clearElementState(int execType) {
+	public void clearQueryMonitor() {
+		refas2hlcl.clearQueryMonitor();
+	}
 
+	public void clearElementState(int execType) {
 		refas2hlcl.cleanGUIElements(execType);
 		if (task != null) {
 			task.setTerminated(true);
@@ -1473,7 +1517,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			task = new SolverTasks(progressMonitor, type ,refas2hlcl,
+			task = new SolverTasks(progressMonitor, type, refas2hlcl,
 					configHlclProgram, firstSimulExecution, reloadDashboard,
 					update, element, lastConfiguration);
 			task.addPropertyChangeListener(this);
@@ -1483,15 +1527,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void exportConfiguration(String file) {
-		if (task == null || task.isDone() || task.getProgress()==100) {
+		if (task == null || task.isDone() || task.getProgress() == 100) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"Exporting Solutions", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,this.refasModel,
-					refas2hlcl, file);
+			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,
+					this.refasModel, refas2hlcl, file);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
@@ -1673,7 +1717,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								task.isUpdate());
 					case Refas2Hlcl.SIMUL_EXPORT:
 						refresh();
-						lastConfiguration = task.getLastConfiguration();						
+						lastConfiguration = task.getLastConfiguration();
 						if (!task.getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
 									task.getErrorMessage(),
@@ -1774,7 +1818,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void recoverClones() {
-		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),this);
+		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
+				this);
 
 	}
 }

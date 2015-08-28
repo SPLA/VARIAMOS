@@ -362,8 +362,66 @@ public class ElementDesignPanel extends JPanel {
 													FocusEvent arg0) {
 											}
 										});
+								
+								widget.getGroup().addFocusListener(
+										new FocusListener() {
+											@Override
+											public void focusLost(
+													FocusEvent arg0) {
+												// Makes it pull the values.
+												EditableElementAttribute elementAttribute = widget
+														.getInstAttribute();
+												if (elementAttribute
+														.getAttributeType()
+														.equals("String")
+														&& !elementAttribute
+																.getIdentifier()
+																.equals("Description")) {
+													elementAttribute
+															.setValue(AbstractElement.multiLine(
+																	elementAttribute
+																			.toString(),
+																	(int) instCell
+																			.getWidth() / 8));
+
+												}
+												// Divide lines every 15
+												// characters
+												// (aprox.)
+												onVariableEdited(
+														finalEditor,
+														instCell.getInstElement(),
+														elementAttribute);
+											}
+
+											@Override
+											public void focusGained(
+													FocusEvent arg0) {
+											}
+										});
+
 
 								widget.getEditor().addPropertyChangeListener(
+										new PropertyChangeListener() {
+
+											@Override
+											public void propertyChange(
+													PropertyChangeEvent evt) {
+												if (WidgetPL.PROPERTY_VALUE.equals(evt
+														.getPropertyName())) {
+													widget.getInstAttribute();
+													onVariableEdited(
+															finalEditor,
+															instCell.getInstElement(),
+															widget.getInstAttribute());
+
+													editorProperties(
+															finalEditor,
+															instCell);
+												}
+											}
+										});
+								widget.getGroup().addPropertyChangeListener(
 										new PropertyChangeListener() {
 
 											@Override
@@ -417,6 +475,20 @@ public class ElementDesignPanel extends JPanel {
 													}.start();
 												}
 											});
+								((JTextField) widget.getGroup())
+								.addActionListener(new ActionListener() {
+									public void actionPerformed(
+											ActionEvent e) {
+
+										new Thread() {
+											public void run() {
+												editorProperties(
+														finalEditor,
+														instCell);
+											}
+										}.start();
+									}
+								});
 								/*
 								 * if (widget.getEditor() instanceof JComboBox)
 								 * ((JComboBox) widget.getEditor())
@@ -519,6 +591,8 @@ public class ElementDesignPanel extends JPanel {
 			dummy.setPreferredSize(new Dimension(100, 20));
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
+			
+			System.out.println(designPanelElements+"s");
 			SpringUtilities.makeCompactGrid(elementDesPropSubPanel,
 					designPanelElements, 3, 4, 4, 4, 4);
 
@@ -528,7 +602,7 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 30));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 300));
+			contentPanel1.setMaximumSize(new Dimension(200, 350));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -641,7 +715,7 @@ public class ElementDesignPanel extends JPanel {
 		mainPanel.setPreferredSize(new Dimension(mainPanelWidth, 300));
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 300));
 
-		// System.out.println(mainPanel.getComponentCount() + " " + rootPanels);
+//		 System.out.println(mainPanel.getComponentCount() + " " );
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
 				mainPanel.getComponentCount(), 4, 4, 4, 4);
 		this.revalidate();

@@ -18,8 +18,7 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 	 */
 	private static final long serialVersionUID = 5538738414024566452L;
 
-	private static final String 
-			VAR_VARIABLENAME = "name",
+	private static final String VAR_VARIABLENAME = "name",
 			VAR_VARIABLENAMENAME = "Group Name",
 
 			VAR_INSTANCENUMBER = "instances",
@@ -51,14 +50,14 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 
 		putSemanticAttribute(VAR_VARIABLENAME, new SemanticAttribute(
 				VAR_VARIABLENAME, "String", false, VAR_VARIABLENAMENAME,
-				"<<new>>"));
+				"<<new>>", 0));
 		putSemanticAttribute(VAR_INSTANCENUMBER, new SemanticAttribute(
 				VAR_INSTANCENUMBER, "Integer", false, VAR_INSTANCENUMBERNAME,
-				"1"));
+				"1", 0));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
-				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false));
+				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false, 0));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
-				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
+				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false, 0));
 
 		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
 		this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);

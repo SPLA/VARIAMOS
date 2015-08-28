@@ -154,8 +154,8 @@ public class ExternalContextDialog extends JDialog implements
 					monitoringWorker = new MonitoringWorker(editor,
 							initialConfigFile.getText(), monitoringDirectory
 									.getText(), outputDirectory.getText(),
-							Integer.parseInt(waitBetweenExecs.getText()),
-							Integer.parseInt(waitAfterNoSolution.getText()),
+							Float.parseFloat(waitBetweenExecs.getText()),
+							Float.parseFloat(waitAfterNoSolution.getText()),
 							monitorVariables.isSelected(), monitorOpers
 									.isSelected(), mapeAP.isSelected(),
 							fileIteration.isSelected(), firstSolutionOnly

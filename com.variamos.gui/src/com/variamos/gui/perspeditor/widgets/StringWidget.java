@@ -24,19 +24,20 @@ import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 public class StringWidget extends WidgetR {
 
 	private JTextField txtValue;
-	
+
+
 	public StringWidget() {
 		super();
 		setLayout(new BorderLayout());
 		txtValue = new JTextField();
 		txtValue.setMaximumSize(new Dimension(200, 30));
 		add(txtValue, BorderLayout.CENTER);
-		revalidate();
 	}
 
 	@Override
 	protected boolean pushValue(EditableElementAttribute v) {
-		txtValue.setText( (String) v.getValue() );
+		txtValue.setText((String) v.getValue());
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return false;
@@ -45,10 +46,16 @@ public class StringWidget extends WidgetR {
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
 		v.setValue(txtValue.getText());
+		v.setGroup(group.getText());
 	}
 
 	@Override
 	public JComponent getEditor() {
 		return txtValue;
+	}
+	
+	@Override
+	public JComponent getGroup() {
+		return group;
 	}
 }

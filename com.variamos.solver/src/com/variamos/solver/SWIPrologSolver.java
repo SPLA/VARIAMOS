@@ -29,6 +29,7 @@ import com.variamos.prologEditors.PrologTransformParameters;
 public class SWIPrologSolver implements Solver {
 
 	private boolean loaded;
+	private static Object monitor = new Object();
 
 	private HlclProgram hlclProgram;
 	private String programPath = null;
@@ -51,7 +52,8 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public int getSolutionsCount() {
-		// FIXME: Although this way can become very lengthy, it's the only way to get the solutions count right now
+		// FIXME: Although this way can become very lengthy, it's the only way
+		// to get the solutions count right now
 		return this.getAllSolutions().size();
 	}
 
@@ -81,18 +83,26 @@ public class SWIPrologSolver implements Solver {
 	public void solve(Configuration config, ConfigurationOptions options) {
 
 		// Reinicia el solver
-		if (options.isStartFromZero()) {
-			if (qr != null && qr.isOpen()) {
-				qr.rewind();// Cierra las consultas que no se hayan explorado
-				qr.close();
+		synchronized (monitor) {
+			if (options.isStartFromZero()) {
+				if (qr != null && qr.isOpen()) {
 
+					try {
+						qr.rewind();// Cierra las consultas que no se hayan
+									// explorado
+						qr.close();
+						Thread.sleep(10); //To make safer the new call, reduce FATAL ERROR
+					} catch (Exception e) {
+					}
+
+				}
+				qr = null;
+				vars = new TreeMap<>();
+				doQuery(config, options);
 			}
-			qr = null;
-			vars = new TreeMap<>();
-			doQuery(config, options);
+			// Creates the query
+			consultProgram(config, options);
 		}
-		// Creates the query
-		consultProgram(config, options);
 	}
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
@@ -126,40 +136,43 @@ public class SWIPrologSolver implements Solver {
 
 	private void consultProgram(Configuration config,
 			ConfigurationOptions options) {
-		if (options.getProgramName() == null) {
-			List<Compound> parts = new ArrayList<>();
-			Term[] varTermsArray = new Term[vars.size()];
-			int count = 0;
-			for (String id : vars.keySet()) {
-				varTermsArray[count] = vars.get(id);
-				count++;
+
+//		synchronized (monitor) {
+			if (options.getProgramName() == null) {
+				List<Compound> parts = new ArrayList<>();
+				Term[] varTermsArray = new Term[vars.size()];
+				int count = 0;
+				for (String id : vars.keySet()) {
+					varTermsArray[count] = vars.get(id);
+					count++;
+				}
+				// Generate the list of variables Ejm L={A,B,C}
+				Term L = Util.termArrayToList(varTermsArray);
+
+				// Generate the assigns for the not ignored variables
+				for (String id : config.getNotIgnored()) {
+					// Create the atom
+					jpl.Integer i = new jpl.Integer(config.stateOf(id));
+					// Create the compound for the assign.
+					Compound assign = new Compound("=", new Term[] {
+							vars.get(id), i });
+					parts.add(assign);
+				}
+
+				parts.add(new Compound("productline", new Term[] { L }));
+
+				// Add all additional configuration options
+				Compound query = addSubQueries(parts);
+				// System.out.println(query.toString());
+				long initTime = System.nanoTime();
+				qr = new Query(query);
+				lastExecutionTime += System.nanoTime() - initTime;
+			} else {
+				long initTime = System.nanoTime();
+				qr = new Query(options.programName + "(L)");
+				lastExecutionTime += System.nanoTime() - initTime;
 			}
-			// Generate the list of variables Ejm L={A,B,C}
-			Term L = Util.termArrayToList(varTermsArray);
-
-			// Generate the assigns for the not ignored variables
-			for (String id : config.getNotIgnored()) {
-				// Create the atom
-				jpl.Integer i = new jpl.Integer(config.stateOf(id));
-				// Create the compound for the assign.
-				Compound assign = new Compound("=", new Term[] { vars.get(id),
-						i });
-				parts.add(assign);
-			}
-
-			parts.add(new Compound("productline", new Term[] { L }));
-
-			// Add all additional configuration options
-			Compound query = addSubQueries(parts);
-			// System.out.println(query.toString());
-			long initTime = System.nanoTime();
-			qr = new Query(query);
-			lastExecutionTime += System.nanoTime() - initTime;			
-		} else {
-			long initTime = System.nanoTime();
-			qr = new Query(options.programName + "(L)");
-			lastExecutionTime += System.nanoTime() - initTime;
-		}
+//		}
 	}
 
 	private static Compound addSubQueries(List<Compound> parts) {
@@ -182,24 +195,29 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public boolean hasNextSolution() {
+
 		if (qr == null) {
 			throw new TechnicalException("Solve method was not invoked");
 		}
-		boolean result = qr.hasMoreElements();
-		return result;
+		synchronized (monitor) {
+			boolean result = qr.hasMoreElements();
+			return result;
+		}
 	}
 
 	@Override
 	public Configuration getSolution() {
 		if (qr != null) {
-			if (hasNextSolution()) {
-				long initTime = System.nanoTime();
-				Hashtable<Variable, Term> configurationHashSet = qr
-						.nextSolution();
-				lastExecutionTime = System.nanoTime() - initTime;
-				if (configurationHashSet != null) {
-					Configuration configuration = makeConfiguration(configurationHashSet);
-					return configuration;
+			synchronized (monitor) {
+				if (hasNextSolution()) {
+					long initTime = System.nanoTime();
+					Hashtable<Variable, Term> configurationHashSet = qr
+							.nextSolution();
+					lastExecutionTime = System.nanoTime() - initTime;
+					if (configurationHashSet != null) {
+						Configuration configuration = makeConfiguration(configurationHashSet);
+						return configuration;
+					}
 				}
 			}
 
@@ -374,7 +392,9 @@ public class SWIPrologSolver implements Solver {
 	@Override
 	public boolean hasSolution() {
 		if (qr != null) {
-			return qr.hasSolution();
+			synchronized (monitor) {
+				return qr.hasSolution();
+			}
 		} else {
 			throw new TechnicalException("Solve method was not invoked");
 		}
@@ -394,15 +414,35 @@ public class SWIPrologSolver implements Solver {
 	public List<Configuration> getAllSolutions() {
 		Hashtable<Variable, Term>[] configurationHashSets;
 		List<Configuration> configurations = new ArrayList<Configuration>();
-		if(qr != null) {
-			configurationHashSets = qr.allSolutions();
-			for(Hashtable<Variable, Term> configurationHashSet : configurationHashSets) {
-				if(configurationHashSet != null) {
-					configurations.add(this.makeConfiguration(configurationHashSet));
+		if (qr != null) {
+			synchronized (monitor) {
+				configurationHashSets = qr.allSolutions();
+				for (Hashtable<Variable, Term> configurationHashSet : configurationHashSets) {
+					if (configurationHashSet != null) {
+						configurations.add(this
+								.makeConfiguration(configurationHashSet));
+					}
 				}
 			}
 		}
 		return configurations;
+	}
+
+	@Override
+	public void clearQueryMonitor() {
+		if (qr != null && qr.isOpen()) {
+
+			try {
+				qr.rewind();// Cierra las consultas que no se hayan
+							// explorado
+				qr.close();
+			} catch (Exception e) {
+			}
+
+		}
+		qr = null;
+		monitor = new Object();
+		
 	}
 
 }

@@ -38,6 +38,9 @@ public class SemanticVariable extends AbstractSemanticVertex {
 			VAR_VARIABLETYPENAME = "Variable Type",
 			VAR_VARIABLETYPECLASS = VariableType.class.getCanonicalName(),
 
+			VAR_CONTEXT = "isContext",
+			VAR_CONTEXTNAME = "Context Defined",
+
 			VAR_VARIABLEDOMAIN = "variableDomain",
 			VAR_VARIABLEDOMAINNAME = "Variable Domain",
 
@@ -73,36 +76,38 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		// VAR_CONTEXTTYPE, "Enumeration", false, VAR_CONTEXTTYPENAME,
 		// VAR_CONTEXTTYPECLASS, "profiled", ""));
 		putSemanticAttribute(VAR_NAME, new SemanticAttribute(VAR_NAME,
-				"String", false, VAR_NAMENAME, ""));
+				"String", false, VAR_NAMENAME, "",0));
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
 				VAR_VARIABLETYPE, "Enumeration", true, VAR_VARIABLETYPENAME,
-				VAR_VARIABLETYPECLASS, "String", ""));
+				VAR_VARIABLETYPECLASS, "String", "",0));
 		putSemanticAttribute(VAR_VARIABLEDOMAIN, new SemanticAttribute(
 				VAR_VARIABLEDOMAIN, "String", false, VAR_VARIABLEDOMAINNAME,
-				"0,1"));
+				"0,1",0));
 		putSemanticAttribute(VAR_ENUMERATIONTYPE, new SemanticAttribute(
 				VAR_ENUMERATIONTYPE, "Class", false, VAR_ENUMERATIONTYPENAME,
-				VAR_ENUMERATIONTYPECLASS, "ME", "String", ""));
+				VAR_ENUMERATIONTYPECLASS, "ME", "String", "",0));
 		// TODO define domain for enumtype
-		putSemanticAttribute(VAR_VALUE, new ExecCurrentStateAttribute(VAR_VALUE,
-				"Integer", false, VAR_VALUENAME, 0));
+		putSemanticAttribute(VAR_VALUE, new ExecCurrentStateAttribute(
+				VAR_VALUE, "Integer", false, VAR_VALUENAME, 0,1));
+		putSemanticAttribute(VAR_CONTEXT, new SemanticAttribute(
+				VAR_CONTEXT, "Boolean", false, VAR_CONTEXTNAME, false,0));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
-				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false));
+				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false,0));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
-				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false));
+				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false,0));
 
 		putSemanticAttribute(VAR_VARIABLECONFIGVALUE,
-				new GlobalConfigAttribute(VAR_VARIABLECONFIGVALUE,
-						"Integer", false, VAR_VARIABLECONFIGVALUENAME, 0));
+				new GlobalConfigAttribute(VAR_VARIABLECONFIGVALUE, "Integer",
+						false, VAR_VARIABLECONFIGVALUENAME, 0,0));
 		putSemanticAttribute(VAR_VARIABLECONFIGDOMAIN,
-				new GlobalConfigAttribute(VAR_VARIABLECONFIGDOMAIN,
-						"String", false, VAR_VARIABLECONFIGDOMAINNAME, ""));
+				new GlobalConfigAttribute(VAR_VARIABLECONFIGDOMAIN, "String",
+						false, VAR_VARIABLECONFIGDOMAINNAME, "",0));
 
 		this.addPropEditableAttribute("01#" + VAR_NAME);
 		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);
 		this.addPropEditableAttribute("03#" + VAR_VARIABLEDOMAIN);
 		this.addPropEditableAttribute("04#" + VAR_ENUMERATIONTYPE);
-		// this.addPropEditableAttribute("05#" + VAR_CONTEXTTYPE);
+		this.addPropEditableAttribute("05#" + VAR_CONTEXT);
 		// this.addPropEditableAttribute("06#" + VAR_SCOPE);
 		this.addPropEditableAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropEditableAttribute("09#" + VAR_EXTCONTROL);
@@ -115,7 +120,7 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				+ VAR_VARIABLETYPE + "#==#" + "Integer");
 		this.addPropVisibleAttribute("04#" + VAR_ENUMERATIONTYPE + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		// this.addPropVisibleAttribute("05#" + VAR_CONTEXTTYPE);
+		this.addPropVisibleAttribute("05#" + VAR_CONTEXT);
 		// this.addPropVisibleAttribute("06#" + VAR_SCOPE);
 		this.addPropVisibleAttribute("06#" + VAR_VALUE);
 		this.addPropVisibleAttribute("07#" + VAR_VALUE);

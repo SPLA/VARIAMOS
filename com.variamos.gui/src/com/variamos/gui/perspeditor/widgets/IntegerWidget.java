@@ -1,6 +1,7 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -34,6 +35,7 @@ public class IntegerWidget extends WidgetR {
 	@Override
 	protected boolean pushValue(EditableElementAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsInteger() ));
+		group.setText((String) v.getGroup());
 		revalidate();
 		repaint();
 		return false;
@@ -45,7 +47,8 @@ public class IntegerWidget extends WidgetR {
 		
 		if( !txtValue.getText().isEmpty() )
 			val = Integer.parseInt(txtValue.getText());
-		
+
+		v.setGroup(group.getText());
 		v.setValue(val);
 	}
 
@@ -53,6 +56,10 @@ public class IntegerWidget extends WidgetR {
 	public JComponent getEditor() {
 		return txtValue;
 	}
-
+	
+	@Override
+	public JComponent getGroup() {
+		return group;
+	}
 
 }

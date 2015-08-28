@@ -45,4 +45,6 @@ public interface Solver {
 	public boolean isSatisfiable(String programPath);
 	@Deprecated
 	public Map<String, List<Integer>> reduceDomain(Configuration config, ConfigurationOptions params);
+
+	public void clearQueryMonitor();
 }

@@ -28,6 +28,7 @@ import com.variamos.gui.perspeditor.actions.ExitAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
 import com.variamos.gui.perspeditor.actions.HideSimulationDashBoardAction;
+import com.variamos.gui.perspeditor.actions.HideSimulationsCustomizationBox;
 import com.variamos.gui.perspeditor.actions.NewAction;
 import com.variamos.gui.perspeditor.actions.NextSimulationAction;
 import com.variamos.gui.perspeditor.actions.OpenAction;
@@ -35,6 +36,7 @@ import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
 import com.variamos.gui.perspeditor.actions.SaveAction;
 import com.variamos.gui.perspeditor.actions.ShowAdvancedPerspectiveAction;
+import com.variamos.gui.perspeditor.actions.ShowSimulationCustomizationBox;
 import com.variamos.gui.perspeditor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.StartSimulationAction;
 import com.variamos.gui.perspeditor.actions.ToggleAssetVisibilityAction;
@@ -338,6 +340,10 @@ public class PerspEditorMenuBar extends JMenuBar {
 				new ShowAdvancedPerspectiveAction()));
 		menu.add(editor.bind(mxResources.get("hideAdvancedPerspectives"),
 				new HideAdvancedPerspectiveAction()));
+		menu.add(editor.bind(mxResources.get("showSimulationCustomizationBox"),
+				new ShowSimulationCustomizationBox()));
+		menu.add(editor.bind(mxResources.get("hideSimulationCustomizationBox"),
+				new HideSimulationsCustomizationBox()));
 		add(menu);
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("help")));

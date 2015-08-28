@@ -10,7 +10,7 @@ import java.util.Set;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 
-public class InstView extends InstElement {
+public class InstView extends InstElement implements Comparable<InstView> {
 
 	/**
 	 * 
@@ -22,11 +22,12 @@ public class InstView extends InstElement {
 	private List<InstVertex> instVertices;
 
 	private MetaConcept supportMetaConcept;
-	
+
 	public InstView(String identifier) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
-		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
+				new HashMap<String, InstAttribute>());
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		createInstAttributes();
@@ -37,7 +38,8 @@ public class InstView extends InstElement {
 			MetaElement editableMetaElement) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
-		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, new HashMap<String, InstAttribute>());
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
+				new HashMap<String, InstAttribute>());
 		this.supportMetaConcept = supportMetaConcept;
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
@@ -45,9 +47,8 @@ public class InstView extends InstElement {
 		createInstAttributes();
 		copyValuesToInstAttributes();
 	}
-	
-	public InstView()
-	{
+
+	public InstView() {
 		super("");
 		instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
@@ -63,7 +64,7 @@ public class InstView extends InstElement {
 	public List<InstVertex> getInstVertices() {
 		return instVertices;
 	}
-	
+
 	public void setInstVertices(List<InstVertex> instVertexs) {
 		this.instVertices = instVertexs;
 	}
@@ -75,8 +76,6 @@ public class InstView extends InstElement {
 	public void setChildViews(List<InstView> childViews) {
 		this.childViews = childViews;
 	}
-
-
 
 	@Override
 	public String getIdentifier() {
@@ -129,8 +128,7 @@ public class InstView extends InstElement {
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name)
-							.getAttributeType();
+					type = getInstAttributes().get(name).getAttributeType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);
@@ -181,7 +179,6 @@ public class InstView extends InstElement {
 		this.supportMetaConcept = supportMetaConcept;
 	}
 
-
 	@Override
 	public MetaElement getTransSupportMetaElement() {
 		return supportMetaConcept;
@@ -198,6 +195,15 @@ public class InstView extends InstElement {
 	@Override
 	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
 		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
-		this.supportMetaConcept = (MetaConcept)supportMetaElement;
+		this.supportMetaConcept = (MetaConcept) supportMetaElement;
+	}
+
+	@Override
+	public int compareTo(InstView view) {
+		String index = this.getInstAttribute("Index").getValue()
+				+ view.getIdentifier();
+		String other = view.getInstAttribute("Index").getValue()
+				+ view.getIdentifier();
+		return index.compareTo(other);
 	}
 }

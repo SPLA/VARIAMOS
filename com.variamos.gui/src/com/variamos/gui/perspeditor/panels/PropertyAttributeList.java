@@ -38,12 +38,12 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 	/**
 	 * Reference to the InstEnumeration required to validate Id
 	 */
-	private Map<String,AbstractAttribute> attributes;
+	private Map<String, AbstractAttribute> attributes;
 	/**
 	 * 
 	 */
 	private AbstractAttribute spoof = new AbstractAttribute("Add ...",
-			StringType.IDENTIFIER, false, "Add ...", "");
+			StringType.IDENTIFIER, false, "Add ...", "", 1);
 
 	private AttributeEditionPanel attributeEdition;
 
@@ -52,7 +52,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		init(null);
 	}
 
-	public PropertyAttributeList(VariamosGraphEditor editor, Map<String,AbstractAttribute> attributes,
+	public PropertyAttributeList(VariamosGraphEditor editor,
+			Map<String, AbstractAttribute> attributes,
 			AttributeEditionPanel attributeEdition) {
 		this.editor = editor;
 		this.attributes = attributes;
@@ -61,7 +62,6 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 
 	}
 
-	
 	private void init(Map<String, AbstractAttribute> varAttributes) {
 		setModel(new DefaultListModel<AbstractAttribute>());
 		final DefaultListModel<AbstractAttribute> model = (DefaultListModel<AbstractAttribute>) getModel();
@@ -112,14 +112,15 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			// Name
 			var = new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-					false, "Enumeration Value", "");
+					false, "Enumeration Value", "", 1);
 
 		}
 
 		// HACK for accesing a non-final variable inside of an inner class
 		final AbstractAttribute[] buffer = { var };
-		Map<String,EditableElementAttribute> att = var.getEditableElementAttributes();
-		
+		Map<String, EditableElementAttribute> att = var
+				.getEditableElementAttributes();
+
 		final EditableElementAttribute name = att.get("Name");
 		final EditableElementAttribute type = att.get("Type");
 		final EditableElementAttribute ClassCanName = att.get("ClassCanName");
@@ -128,9 +129,6 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		final EditableElementAttribute defaultValue = att.get("DefaultValue");
 		final EditableElementAttribute domain = att.get("Domain");
 		final EditableElementAttribute hint = att.get("Hint");
-		
-		
-		
 
 		// SetDomain metaDomain = new SetDomain();
 		// metaDomain.setIdentifier("MetaDomain");
@@ -143,8 +141,9 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		// String domainRepresentation = "0, 1";
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
-		
-		attributeEdition.loadElementAttributes(editor, name, displayName, type,ClassCanName,MetaCInstType, defaultValue, domain, hint);	
+
+		attributeEdition.loadElementAttributes(editor, name, displayName, type,
+				ClassCanName, MetaCInstType, defaultValue, domain, hint);
 		attributeEdition.revalidate();
 		attributeEdition.repaint();
 		attributeEdition.setOnAccept(new DialogButtonAction() {
@@ -155,14 +154,14 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 
 				AbstractAttribute v = buffer[0];
 				v.setName((String) name.getValue());
-				v.setDisplayName((String)displayName.getValue());
-			//	v.setDomain((Domain)domain.getValue());
+				v.setDisplayName((String) displayName.getValue());
+				// v.setDomain((Domain)domain.getValue());
 				v.setHint((String) hint.getValue());
 				v.setType((String) type.getAttributeType());
-				v.setClassCanonicalName((String)ClassCanName.getValue());
-				v.setMetaConceptInstanceType((String)MetaCInstType.getValue());
-				v.setDefaultValue((String)defaultValue.getValue());
-				//v.setDisplayName((String) name.getDisplayName());
+				v.setClassCanonicalName((String) ClassCanName.getValue());
+				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
+				v.setDefaultValue((String) defaultValue.getValue());
+				// v.setDisplayName((String) name.getDisplayName());
 				if (insert) {
 					((DefaultListModel<AbstractAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);

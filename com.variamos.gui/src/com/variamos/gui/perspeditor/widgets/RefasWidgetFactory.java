@@ -29,12 +29,14 @@ import com.variamos.perspsupport.types.StringType;
 public class RefasWidgetFactory {
 	// private DomainRegister register;
 	mxGraph graph;
+	boolean showSimulationCustomizationBox;
 
 	private Map<String, Class<? extends WidgetR>> widgetReg;
 
 	public RefasWidgetFactory(VariamosGraphEditor editor) {
 		// this.register = editor.getDomainRegister();
 		this.graph = editor.getGraphComponent().getGraph();
+		this.showSimulationCustomizationBox = editor.isShowSimulationCustomizationBox();
 
 		widgetReg = new HashMap<String, Class<? extends WidgetR>>();
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
@@ -73,7 +75,7 @@ public class RefasWidgetFactory {
 		WidgetR w = null;
 		try {
 			w = c.newInstance();
-			w.configure(v, graph);
+			w.configure(v, graph, showSimulationCustomizationBox);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

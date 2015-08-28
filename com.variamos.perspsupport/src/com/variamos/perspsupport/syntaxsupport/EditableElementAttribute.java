@@ -23,4 +23,8 @@ public interface EditableElementAttribute {
 	public String getDisplayName();
 
 	public String getName();
+	
+	public Object getGroup();
+	
+	public void setGroup(Object o);
 }

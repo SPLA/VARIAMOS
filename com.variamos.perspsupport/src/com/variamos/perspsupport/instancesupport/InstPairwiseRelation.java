@@ -160,7 +160,8 @@ public class InstPairwiseRelation extends InstElement {
 
 	public SemanticAttribute getSemanticAttribute() {
 		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
-				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null, "");
+				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
+				"", 0);
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {

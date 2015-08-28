@@ -438,8 +438,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							false);
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
 							false);
-					instVertex.getInstAttribute("Dead").setValue(
-							false);
+					instVertex.getInstAttribute("Dead").setValue(false);
 				}
 
 				for (InstAttribute instAttribute : instVertex
@@ -477,12 +476,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// Call the SWIProlog and obtain the result
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			instVertex.clearDefects();
-			if (instVertex.getInstAttribute("Dead")!= null)
-			instVertex.getInstAttribute("Dead").setValue(
-					false);
-			if (instVertex.getInstAttribute("Core")!= null)
-			instVertex.getInstAttribute("Core").setValue(
-					false);
+			if (instVertex.getInstAttribute("Dead") != null)
+				instVertex.getInstAttribute("Dead").setValue(false);
+			if (instVertex.getInstAttribute("Core") != null)
+				instVertex.getInstAttribute("Core").setValue(false);
 		}
 	}
 
@@ -519,9 +516,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				if (!vertexId.equals("Amodel")) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (conceptTypes != null
-							&& !conceptTypes.contains(vertex
+							&& (vertex == null || !conceptTypes.contains(vertex
 									.getTransSupportMetaElement()
-									.getIdentifier()))
+									.getIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {
@@ -610,22 +607,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									.get(identifier) + "");
 							vertex.getInstAttribute("variableConfigDomain")
 									.setValue(val + "");
-							vertex.getInstAttribute("value")
-									.setValue(val + "");
+							vertex.getInstAttribute("value").setValue(val + "");
 						}
-				/*	else if (attribute.equals("variableConfigDomain"))
-						// for (String attTarget : selectedAttributes) {
-						// if (attTarget.equals("variableConfigValue")) {
-						if (prologOut.get(identifier) != null) {
-							int val = (int) Float.parseFloat(prologOut
-									.get(identifier) + "");
-							vertex.getInstAttribute("variableConfigDomain")
-									.setValue(val + "");
-							vertex.getInstAttribute("value")
-									.setValue(val + "");
-						} */// else
-							// vertex.getInstAttribute("variableConfigValue")
-							// .setValue(null);
+					/*
+					 * else if (attribute.equals("variableConfigDomain")) // for
+					 * (String attTarget : selectedAttributes) { // if
+					 * (attTarget.equals("variableConfigValue")) { if
+					 * (prologOut.get(identifier) != null) { int val = (int)
+					 * Float.parseFloat(prologOut .get(identifier) + "");
+					 * vertex.getInstAttribute("variableConfigDomain")
+					 * .setValue(val + ""); vertex.getInstAttribute("value")
+					 * .setValue(val + ""); }
+					 */// else
+						// vertex.getInstAttribute("variableConfigValue")
+						// .setValue(null);
 					// }
 					// }
 				}
@@ -1055,18 +1050,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							Object oo = instVertex.getInstAttribute(
 									SemanticVariable.VAR_VALUE).getValue();
 							Integer o = null;
-							if (oo instanceof Integer)
-							{
-							o = (Integer) instVertex.getInstAttribute(
-									SemanticVariable.VAR_VALUE).getValue();
-							
+							if (oo instanceof Integer) {
+								o = (Integer) instVertex.getInstAttribute(
+										SemanticVariable.VAR_VALUE).getValue();
+
+							} else {
+								o = Integer.valueOf((String) instVertex
+										.getInstAttribute(
+												SemanticVariable.VAR_VALUE)
+										.getValue());
 							}
-							else
-							{
-								o = Integer.valueOf((String)instVertex.getInstAttribute(
-										SemanticVariable.VAR_VALUE).getValue());
-							}
-								
+
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(
@@ -1085,5 +1079,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 		}
 		return elements;
+	}
+
+	public void clearQueryMonitor() {
+		if (swiSolver != null)
+			swiSolver.clearQueryMonitor();
+
 	}
 }
