@@ -63,7 +63,7 @@ public class ExternalContextDialog extends JDialog implements
 	public ExternalContextDialog(final VariamosGraphEditor editor) {
 		super();
 		setPreferredSize(new Dimension(width, height));
-		setTitle("MAPE control");
+		setTitle("Simulation Control Dialog");
 		// setVisible(true);
 
 		generalPanel = new JPanel();
