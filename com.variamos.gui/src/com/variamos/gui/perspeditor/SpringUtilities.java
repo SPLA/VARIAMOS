@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *
@@ -31,11 +32,9 @@
  
 package com.variamos.gui.perspeditor;
  
-import java.awt.Component;
-import java.awt.Container;
-
-import javax.swing.Spring;
+import javax.swing.*;
 import javax.swing.SpringLayout;
+import java.awt.*;
  
 /**
  * A 1.4 file that provides utility methods for
@@ -91,7 +90,7 @@ public class SpringUtilities {
         Spring maxWidthSpring = layout.getConstraints(parent.getComponent(0)).
                                     getWidth();
         Spring maxHeightSpring = layout.getConstraints(parent.getComponent(0)).
-                                    getWidth();
+                                    getHeight();
         for (int i = 1; i < max; i++) {
             SpringLayout.Constraints cons = layout.getConstraints(
                                             parent.getComponent(i));
