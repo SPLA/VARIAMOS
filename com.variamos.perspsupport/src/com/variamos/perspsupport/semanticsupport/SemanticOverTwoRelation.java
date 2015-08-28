@@ -29,7 +29,7 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 			VAR_RELATIONTYPE_CLASS = SemanticRelationType.class
 					.getCanonicalName();
 
-//	private ConditionalExpression conditionalExpression;
+	// private ConditionalExpression conditionalExpression;
 	private List<IntSemanticRelationType> semanticRelationTypes;
 
 	public SemanticOverTwoRelation() {
@@ -42,16 +42,18 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		defineSemanticAttributes();
 	}
 
-	public SemanticOverTwoRelation(AbstractSemanticVertex parent, String identifier, boolean exclusive,
+	public SemanticOverTwoRelation(AbstractSemanticVertex parent,
+			String identifier, boolean exclusive,
 			List<IntSemanticRelationType> semanticRelationTypes) {
 		super(parent, identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
 		this.exclusive = exclusive;
 		defineSemanticAttributes();
 	}
-	
+
 	public SemanticOverTwoRelation(AbstractSemanticVertex parent,
-			String identifier, List<IntSemanticRelationType> semanticRelationTypes) {
+			String identifier,
+			List<IntSemanticRelationType> semanticRelationTypes) {
 		this(parent, identifier, false, semanticRelationTypes);
 	}
 
@@ -60,7 +62,7 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		this(identifier, exclusive, semanticRelationTypes, false);
 		defineSemanticAttributes();
 	}
-	
+
 	public SemanticOverTwoRelation(String identifier, boolean exclusive,
 			boolean conditionalExpression) {
 		this(identifier, exclusive, null, conditionalExpression);
@@ -73,14 +75,14 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		super(identifier, true);
 		this.exclusive = exclusive;
 		this.semanticRelationTypes = semanticRelationTypes;
-	//	this.conditionalExpression = conditionalExpression;
+		// this.conditionalExpression = conditionalExpression;
 		defineSemanticAttributes();
 	}
 
 	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
 				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
-				VAR_RELATIONTYPE_CLASS, null, null));
+				VAR_RELATIONTYPE_CLASS, null, null, 0));
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
@@ -95,14 +97,14 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		this.exclusive = exclusive;
 	}
 
-//	public ConditionalExpression getConditionalExpression() {
-//		return conditionalExpression;
-//	}
+	// public ConditionalExpression getConditionalExpression() {
+	// return conditionalExpression;
+	// }
 
-//	public void setConditionalExpression(
-//			ConditionalExpression conditionalExpression) {
-//		this.conditionalExpression = conditionalExpression;
-//	}
+	// public void setConditionalExpression(
+	// ConditionalExpression conditionalExpression) {
+	// this.conditionalExpression = conditionalExpression;
+	// }
 
 	public AbstractAttribute getVariable(String name) {
 		return getSemanticAttribute(name);

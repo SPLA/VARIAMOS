@@ -38,6 +38,8 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 	 * InstElement - from JList or JComboBox
 	 */
 	private Object valueObject;
+	
+	private Object group;
 
 	public AttributeElement() {
 
@@ -129,6 +131,14 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 		return val.toString();
 	}
 
+	public void setGroup(Object valueObject) {
+		this.group = valueObject;
+	}
+
+	public Object getGroup() {
+		return group;
+	}
+	
 	public void setValue(Object valueObject) {
 		this.valueObject = valueObject;
 	}

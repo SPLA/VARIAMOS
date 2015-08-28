@@ -19,40 +19,40 @@ public class SemanticAttribute extends AbstractAttribute {
 	}
 
 	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue) {
-		super(name, type, affectProperties, displayName, defaultValue);
+			boolean affectProperties, String displayName, Object defaultValue, int defaultGroup) {
+		super(name, type, affectProperties, displayName, defaultValue, defaultGroup);
 	}
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue) {
-		super(name, type, affectProperties, displayName, enumType, defaultValue);
+			Object defaultValue, int defaultGroup) {
+		super(name, type, affectProperties, displayName, enumType, defaultValue, defaultGroup);
 	}
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain) {
-		super(name, type, affectProperties, displayName, defaultValue, domain);
+			Domain domain, int defaultGroup) {
+		super(name, type, affectProperties, displayName, defaultValue, domain, defaultGroup);
 	}
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			String hint) {
-		super(name, type, affectProperties, displayName, defaultValue, hint);
+			String hint, int defaultGroup) {
+		super(name, type, affectProperties, displayName, defaultValue, hint, defaultGroup);
 	}
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint) {
+			Object defaultValue, String hint, int defaultGroup) {
 		super(name, type, affectProperties, displayName, enumType,
-				defaultValue, hint);
+				defaultValue, hint, defaultGroup);
 	}
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			String object, Object defaultValue, String hint) {
+			String object, Object defaultValue, String hint, int defaultGroup) {
 		super(name, type, affectProperties, displayName, enumType, object,
-				defaultValue, hint);
+				defaultValue, hint, defaultGroup);
 	}
 
 }

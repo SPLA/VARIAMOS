@@ -22,14 +22,17 @@ public class ExecTemporalControlAttribute extends ExecutionAttribute {
 	 */
 
 	public ExecTemporalControlAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue) {
-		super(name, type, affectProperties, displayName, defaultValue);
+			boolean affectProperties, String displayName, Object defaultValue,
+			int defaultGroup) {
+		super(name, type, affectProperties, displayName, defaultValue,
+				defaultGroup);
 	}
 
 	public ExecTemporalControlAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue) {
-		super(name, type, affectProperties, displayName, enumType, defaultValue);
+			Object defaultValue, int defaultGroup) {
+		super(name, type, affectProperties, displayName, enumType,
+				defaultValue, defaultGroup);
 	}
 
 }

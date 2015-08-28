@@ -148,7 +148,7 @@ public abstract class MetaElement implements Serializable {
 
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
-				VAR_IDENTIFIER, "String", false, "Identifier", null));
+				VAR_IDENTIFIER, "String", false, "Identifier", null, 0));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -197,10 +197,10 @@ public abstract class MetaElement implements Serializable {
 	public void setBorderStroke(int borderStroke) {
 		this.borderStroke = borderStroke;
 	}
-	
+
 	public IntSemanticElement getTransSemanticConcept() {
-		if(instSemanticElement != null)
-		return this.instSemanticElement.getEditableSemanticElement();
+		if (instSemanticElement != null)
+			return this.instSemanticElement.getEditableSemanticElement();
 		else
 			return null;
 	}
@@ -253,17 +253,16 @@ public abstract class MetaElement implements Serializable {
 			Map<String, AbstractAttribute> modelingAttributes) {
 		this.modelingAttributes = modelingAttributes;
 	}
-	
+
 	public void setModelingAttributes(
 			HashSet<AbstractAttribute> modelingAttributes) {
 		this.modelingAttributes = new TreeMap<String, AbstractAttribute>();
-		Iterator <AbstractAttribute>iter = modelingAttributes.iterator();
-		while (iter.hasNext())
-		{
+		Iterator<AbstractAttribute> iter = modelingAttributes.iterator();
+		while (iter.hasNext()) {
 			AbstractAttribute att = iter.next();
-			this.modelingAttributes.put(att.getName(), att) ;
+			this.modelingAttributes.put(att.getName(), att);
 		}
-		
+
 	}
 
 	public Set<String> getPropVisibleAttributes() {
@@ -333,7 +332,7 @@ public abstract class MetaElement implements Serializable {
 			return modelingAttributes.get(name).getName();
 		return null;
 	}
-	
+
 	public AbstractAttribute getAbstractAttribute(String attributeName) {
 		AbstractAttribute out = getSemanticAttribute(attributeName);
 		if (out == null)
@@ -343,10 +342,11 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public void addModelingAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue) {
+			boolean affectProperties, String displayName, Object defaultValue,
+			int defaultGroup) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, defaultValue));
+					affectProperties, displayName, defaultValue, defaultGroup));
 	}
 
 	public void addModelingAttribute(String name,
@@ -357,10 +357,11 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue) {
+			Object defaultValue, int defaultGroup) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, enumType, defaultValue));
+					affectProperties, displayName, enumType, defaultValue,
+					defaultGroup));
 	}
 
 	public boolean getVisible() {

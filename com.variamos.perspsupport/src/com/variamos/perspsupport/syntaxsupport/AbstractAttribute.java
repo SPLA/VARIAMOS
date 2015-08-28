@@ -85,6 +85,10 @@ public class AbstractAttribute implements Serializable {
 	 */
 	// TODO use on properties
 	private String hint;
+	/**
+	 * defaultGroup for the attribute - for simulation multi-labeling
+	 */
+	private int defaultGroup;
 
 	public static final String
 	/**
@@ -142,7 +146,12 @@ public class AbstractAttribute implements Serializable {
 	/**
 	 * Name of element hint
 	 */
-	VAR_HINT = "Hint";
+	VAR_HINT = "Hint",
+	/**
+	 * Name of element defaultGroup
+	 */
+	VAR_defaultGroup = "defaultGroup";
+
 	public Map<String, EditableElementAttribute> getEditableElementAttributes() {
 		return dynamicAttributeComponentsMap;
 	}
@@ -184,11 +193,13 @@ public class AbstractAttribute implements Serializable {
 	 *            Identifier of the type of instance concept. Examples: OPER
 	 * @param defaultValue
 	 *            Default value for the attribute
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue) {
+			boolean affectProperties, String displayName, Object defaultValue, int defaultGroup) {
 		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, null);
+				defaultValue, null, null, defaultGroup);
 	}
 
 	/**
@@ -208,12 +219,14 @@ public class AbstractAttribute implements Serializable {
 	 * @param hint
 	 *            Hint to display on the property tab (not currently
 	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			String hint) {
+			String hint, int defaultGroup) {
 		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, hint);
+				defaultValue, null, hint, defaultGroup);
 	}
 
 	/**
@@ -233,12 +246,14 @@ public class AbstractAttribute implements Serializable {
 	 *            Enumeration, MEnumeration)
 	 * @param defaultValue
 	 *            Default value for the attribute
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue) {
+			Object defaultValue, int defaultGroup) {
 		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, null);
+				defaultValue, null, null, defaultGroup);
 	}
 
 	/**
@@ -260,12 +275,14 @@ public class AbstractAttribute implements Serializable {
 	 *            Identifier of the type of instance concept. Examples: OPER
 	 * @param defaultValue
 	 *            Default value for the attribute
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue) {
+			String metaConceptInstanceType, Object defaultValue, int defaultGroup) {
 		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, null);
+				metaConceptInstanceType, defaultValue, null, null, defaultGroup);
 	}
 
 	/**
@@ -290,12 +307,14 @@ public class AbstractAttribute implements Serializable {
 	 * @param hint
 	 *            Hint to display on the property tab (not currently
 	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint) {
+			Object defaultValue, String hint, int defaultGroup) {
 		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, hint);
+				defaultValue, null, hint, defaultGroup);
 	}
 
 	/**
@@ -320,12 +339,14 @@ public class AbstractAttribute implements Serializable {
 	 * @param hint
 	 *            Hint to display on the property tab (not currently
 	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, String hint) {
+			String metaConceptInstanceType, Object defaultValue, String hint, int defaultGroup) {
 		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, hint);
+				metaConceptInstanceType, defaultValue, null, hint, defaultGroup);
 	}
 
 	/**
@@ -344,13 +365,15 @@ public class AbstractAttribute implements Serializable {
 	 *            Default value for the attribute
 	 * @param domain
 	 *            Domain of the attribute (not tested)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain) {
+			Domain domain, int defaultGroup) {
 		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, null);
+				defaultValue, domain, null, defaultGroup);
 	}
 
 	/**
@@ -372,12 +395,14 @@ public class AbstractAttribute implements Serializable {
 	 * @param hint
 	 *            Hint to display on the property tab (not currently
 	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, String hint) {
+			Domain domain, String hint, int defaultGroup) {
 		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, hint);
+				defaultValue, domain, hint, defaultGroup);
 	}
 
 	/**
@@ -404,12 +429,14 @@ public class AbstractAttribute implements Serializable {
 	 * @param hint
 	 *            Hint to display on the property tab (not currently
 	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
 	 */
 
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, Domain domain,
-			String hint) {
+			String hint, int defaultGroup) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -420,29 +447,37 @@ public class AbstractAttribute implements Serializable {
 		this.defaultValue = defaultValue;
 		this.domain = domain;
 		this.hint = hint;
+		this.defaultGroup = defaultGroup;
 
-		if (type.equals("Class")||type.equals("MClass")||type.equals("Enum")||type.equals("MEnum"))
+		if (type.equals("Class") || type.equals("MClass")
+				|| type.equals("Enum") || type.equals("MEnum"))
 			type = "String";
-		dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
-				name));
-		dynamicAttributeComponentsMap.put(VAR_TYPE, new AttributeElement(VAR_TYPE, "String", VAR_TYPE,
-				type));
-		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
-				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
-		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
-				"String", VAR_DISPLAYNAMENAME, displayName));
-		dynamicAttributeComponentsMap.put(VAR_CLASSCANONICALNAME, new AttributeElement(
-				VAR_CLASSCANONICALNAME, "String", VAR_CLASSCANONICALNAMENAME,
-				enumType));
-		dynamicAttributeComponentsMap.put(VAR_METACONCEPTINSTTYPE, new AttributeElement(
-				VAR_METACONCEPTINSTTYPE, "String", VAR_METACONCEPTINSTTYPENAME,
-				metaConceptInstanceType));
-		dynamicAttributeComponentsMap.put(VAR_DEFAULTVALUE, new AttributeElement(VAR_DEFAULTVALUE,
-				type, VAR_DEFAULTVALUENAME, defaultValue));
-		dynamicAttributeComponentsMap.put(VAR_DOMAIN, new AttributeElement(VAR_DOMAIN, "String",
-				VAR_DOMAIN, domain)); //TODO Change String to Domain
-		dynamicAttributeComponentsMap.put(VAR_HINT, new AttributeElement(VAR_HINT, "String", VAR_HINT,
-				hint));
+		dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(
+				VAR_NAME, "String", VAR_NAME, name));
+		dynamicAttributeComponentsMap.put(VAR_TYPE, new AttributeElement(
+				VAR_TYPE, "String", VAR_TYPE, type));
+		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS,
+				new AttributeElement(VAR_AFFECTPROPS, "Boolean",
+						VAR_AFFECTPROPSNAME, affectProperties));
+		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME,
+				new AttributeElement(VAR_DISPLAYNAME, "String",
+						VAR_DISPLAYNAMENAME, displayName));
+		dynamicAttributeComponentsMap.put(VAR_CLASSCANONICALNAME,
+				new AttributeElement(VAR_CLASSCANONICALNAME, "String",
+						VAR_CLASSCANONICALNAMENAME, enumType));
+		dynamicAttributeComponentsMap.put(VAR_METACONCEPTINSTTYPE,
+				new AttributeElement(VAR_METACONCEPTINSTTYPE, "String",
+						VAR_METACONCEPTINSTTYPENAME, metaConceptInstanceType));
+		dynamicAttributeComponentsMap.put(VAR_DEFAULTVALUE,
+				new AttributeElement(VAR_DEFAULTVALUE, type,
+						VAR_DEFAULTVALUENAME, defaultValue));
+		dynamicAttributeComponentsMap.put(VAR_DOMAIN, new AttributeElement(
+				VAR_DOMAIN, "String", VAR_DOMAIN, domain)); // TODO Change
+															// String to Domain
+		dynamicAttributeComponentsMap.put(VAR_HINT, new AttributeElement(
+				VAR_HINT, "String", VAR_HINT, hint));
+		dynamicAttributeComponentsMap.put(VAR_defaultGroup, new AttributeElement(
+				VAR_defaultGroup, "Integer", VAR_defaultGroup, defaultGroup));
 	}
 
 	public String getDisplayName() {
@@ -451,8 +486,9 @@ public class AbstractAttribute implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME, new AttributeElement(VAR_DISPLAYNAME,
-				"String", VAR_DISPLAYNAMENAME, displayName));
+		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME,
+				new AttributeElement(VAR_DISPLAYNAME, "String",
+						VAR_DISPLAYNAMENAME, displayName));
 
 	}
 
@@ -483,22 +519,27 @@ public class AbstractAttribute implements Serializable {
 	public String getHint() {
 		return hint;
 	}
-
+	
+	public int getDefaultGroup() {
+		return defaultGroup;
+	}
+	
 	public boolean isAffectProperties() {
 		return affectProperties;
 	}
 
 	public void setAffectProperties(boolean affectProperties) {
 		this.affectProperties = affectProperties;
-		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS, new AttributeElement(VAR_AFFECTPROPS,
-				"Boolean", VAR_AFFECTPROPSNAME, affectProperties));
+		dynamicAttributeComponentsMap.put(VAR_AFFECTPROPS,
+				new AttributeElement(VAR_AFFECTPROPS, "Boolean",
+						VAR_AFFECTPROPSNAME, affectProperties));
 
 	}
 
 	public void setName(String name) {
-	this.name = name;	
-	dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(VAR_NAME, "String", VAR_NAME,
-			name));
+		this.name = name;
+		dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(
+				VAR_NAME, "String", VAR_NAME, name));
 
 	}
 }
