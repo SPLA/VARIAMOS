@@ -91,6 +91,7 @@ public class SWIPrologSolver implements Solver {
 						qr.rewind();// Cierra las consultas que no se hayan
 									// explorado
 						qr.close();
+						Thread.sleep(10); //To make safer the new call, reduce FATAL ERROR
 					} catch (Exception e) {
 					}
 
