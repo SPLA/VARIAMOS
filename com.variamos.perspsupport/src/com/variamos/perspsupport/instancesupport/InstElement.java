@@ -128,6 +128,10 @@ public abstract class InstElement implements Serializable, EditableElement {
 					instAttribute.setValue(editableMetaElement.getParent());
 				if (instAttribute.getIdentifier().equals("Identifier"))
 					instAttribute.setValue(editableMetaElement.getIdentifier());
+				if (instAttribute.getIdentifier().equals("SemanticType")
+						&& editableMetaElement.getInstSemanticElement() != null)
+					instAttribute.setValue(editableMetaElement
+							.getInstSemanticElement().getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
 					instAttribute.setValue(editableMetaElement.getVisible());
 				if (instAttribute.getIdentifier().equals("Name"))
@@ -160,9 +164,8 @@ public abstract class InstElement implements Serializable, EditableElement {
 				}
 				if (editableMetaElement instanceof MetaView) {
 					if (instAttribute.getIdentifier().equals("Index"))
-						instAttribute
-								.setValue(((MetaView) editableMetaElement)
-										.getIndex());
+						instAttribute.setValue(((MetaView) editableMetaElement)
+								.getIndex());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))

@@ -715,8 +715,8 @@ public class RefasModel extends AbstractModel {
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0));
 		semVertex.putSemanticAttribute("SemanticType", new SyntaxAttribute(
-				"SemanticType", "Enumeration", false, "Semantic Type",
-				SemanticConcept.class.getCanonicalName(), "SemanticType", 0));
+				"SemanticType", "Class", false, "Semantic Type",
+				SemanticConcept.class.getCanonicalName(), "", 0));
 		semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
 				"Identifier", "String", false, "Concept Identifier", "", 0));
 		semVertex.putSemanticAttribute("Visible", new SyntaxAttribute(
@@ -747,8 +747,8 @@ public class RefasModel extends AbstractModel {
 				"Set", false, "values", "", 0));
 
 		semVertex.addPropVisibleAttribute("00#" + "MetaType");
-//		semVertex.addPropEditableAttribute("00#" + "SemanticType");
-//		semVertex.addPropVisibleAttribute("00#" + "SemanticType");
+		semVertex.addPropEditableAttribute("00#" + "SemanticType");
+		semVertex.addPropVisibleAttribute("00#" + "SemanticType");
 		semVertex.addPropEditableAttribute("01#" + "Identifier");
 		semVertex.addPropVisibleAttribute("01#" + "Identifier");
 		semVertex.addPropEditableAttribute("02#" + "Visible");
@@ -839,8 +839,14 @@ public class RefasModel extends AbstractModel {
 				new SyntaxAttribute("MetaType", "Enumeration", false,
 						"MetaConcept Type", ConceptType.class
 								.getCanonicalName(), "MetaOverTwoRelation", 0));
+		semOverTwoRelation.putSemanticAttribute("SemanticType", new SyntaxAttribute(
+				"SemanticType", "Class", false, "Semantic Type",
+				SemanticConcept.class.getCanonicalName(), "", 0));
+		
 
 		semOverTwoRelation.addPropVisibleAttribute("00#" + "MetaType");
+		semOverTwoRelation.addPropVisibleAttribute("00#" + "SemanticType");
+		semOverTwoRelation.addPropEditableAttribute("00#" + "SemanticType");
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
 
 		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassMultiSelectionType;
@@ -29,6 +30,7 @@ import com.variamos.perspsupport.types.StringType;
 public class RefasWidgetFactory {
 	// private DomainRegister register;
 	mxGraph graph;
+	RefasModel semanticModel;
 	boolean showSimulationCustomizationBox;
 
 	private Map<String, Class<? extends WidgetR>> widgetReg;
@@ -36,6 +38,7 @@ public class RefasWidgetFactory {
 	public RefasWidgetFactory(VariamosGraphEditor editor) {
 		// this.register = editor.getDomainRegister();
 		this.graph = editor.getGraphComponent().getGraph();
+		this.semanticModel = editor.getEditedModel().getSemanticRefas();
 		this.showSimulationCustomizationBox = editor.isShowSimulationCustomizationBox();
 
 		widgetReg = new HashMap<String, Class<? extends WidgetR>>();
@@ -75,7 +78,7 @@ public class RefasWidgetFactory {
 		WidgetR w = null;
 		try {
 			w = c.newInstance();
-			w.configure(v, graph, showSimulationCustomizationBox);
+			w.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

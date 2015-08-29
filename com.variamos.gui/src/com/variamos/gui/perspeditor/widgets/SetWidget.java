@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
@@ -54,7 +55,7 @@ public class SetWidget extends WidgetR {
 
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			boolean showSimulationCustomizationBox) {
+			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
 	}
 
 	@Override

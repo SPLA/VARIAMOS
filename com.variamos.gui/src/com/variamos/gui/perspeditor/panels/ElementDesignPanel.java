@@ -635,8 +635,8 @@ public class ElementDesignPanel extends JPanel {
 				// dummy2.setMaximumSize(new Dimension(300, 150));
 				// contentPanel2.add(dummy2);
 				//
-				 contentPanel2.setPreferredSize(new Dimension(300, 150));
-				 contentPanel2.setMaximumSize(new Dimension(300, 150));
+				contentPanel2.setPreferredSize(new Dimension(300, 150));
+				contentPanel2.setMaximumSize(new Dimension(300, 150));
 				mainPanel.add(rootPanel2);
 
 				SpringUtilities
@@ -711,9 +711,7 @@ public class ElementDesignPanel extends JPanel {
 
 				contentPanel3.add(attPanel);
 				mainPanel.add(rootPanel3);
-			}
-			else
-			{
+			} else {
 				JPanel dummy3 = new JPanel();
 				dummy3.setMinimumSize(new Dimension(0, 0));
 				dummy3.setPreferredSize(new Dimension(500, 20));
@@ -726,7 +724,6 @@ public class ElementDesignPanel extends JPanel {
 		if (designPanelElements > 13)
 			mainPanelHeight = designPanelElements * 32;
 
-			
 		mainPanel.setPreferredSize(new Dimension(mainPanelWidth,
 				mainPanelHeight));
 		mainPanel.setMaximumSize(new Dimension(mainPanelWidth, 600));
@@ -751,6 +748,12 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Identifier"))
 					editableMetaElement.setIdentifier((String) instAttribute
 							.getValue());
+				if (instAttribute.getIdentifier().equals("SemanticType"))
+					editableMetaElement
+							.setInstSemanticElement((InstElement) ((RefasModel) editor
+									.getEditedModel()).getSemanticRefas()
+									.getElement(
+											(String) instAttribute.getValue()));
 				if (instAttribute.getIdentifier().equals("Visible"))
 					editableMetaElement.setVisible((boolean) instAttribute
 							.getValue());
