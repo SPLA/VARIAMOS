@@ -28,8 +28,8 @@ public class ExternalContextAction extends AbstractEditorAction {
 		 * 
 		 */
 	public void actionPerformed(ActionEvent e) {
+		VariamosGraphEditor editor = getEditor(e);
+		editor.showExternalContextDialog();
 
-		ExternalContextDialog ecd = new ExternalContextDialog(getEditor(e));
-		ecd.center();
 	}
 }

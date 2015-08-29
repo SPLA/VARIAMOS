@@ -62,6 +62,7 @@ import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
+import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
 import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
 import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
@@ -159,6 +160,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	private boolean updateTabs = false;
 
+	private ExternalContextDialog ecd = new ExternalContextDialog(this);
+
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(RefasModel) getEditedModel());
 
@@ -207,8 +210,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
-		//List<InstView> instViews = refasModel.getSyntaxRefas().getInstViews();
-		List<InstView> instViews = refasModel.getSyntaxRefas().getVariabilityVertex("View");
+		// List<InstView> instViews =
+		// refasModel.getSyntaxRefas().getInstViews();
+		List<InstView> instViews = refasModel.getSyntaxRefas()
+				.getVariabilityVertex("View");
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		refasGraph.setValidation(false);
@@ -349,15 +354,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		this.installToolBar(getMainFrame(), perspective);
 	}
 
-	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
-		getMainFrame().setShowSimulationCustomizationBox(showSimulationCustomizationBox);
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
+		getMainFrame().setShowSimulationCustomizationBox(
+				showSimulationCustomizationBox);
 
 	}
-	
+
 	public boolean isShowSimulationCustomizationBox() {
 		return getMainFrame().isShowSimulationCustomizationBox();
 	}
-	
+
 	public int getModelSubViewIndex() {
 		return modelSubViewIndex;
 	}
@@ -1026,7 +1033,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						public void focusGained(FocusEvent arg0) {
 						}
 					});
-					
+
 					w.getGroup().addFocusListener(new FocusListener() {
 						@Override
 						public void focusLost(FocusEvent arg0) {
@@ -1293,6 +1300,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Identifier"))
 					editableMetaElement.setIdentifier((String) instAttribute
 							.getValue());
+				if (instAttribute.getIdentifier().equals("SemanticType"))
+					editableMetaElement
+							.setInstSemanticElement((InstElement) this.refasModel
+									.getSemanticRefas().getElement(
+											(String) instAttribute.getValue()));
 				if (instAttribute.getIdentifier().equals("Visible"))
 					editableMetaElement.setVisible((boolean) instAttribute
 							.getValue());
@@ -1821,5 +1833,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		SharedActions.recoverClonedElements(getGraphComponent().getGraph(),
 				this);
 
+	}
+
+	public void showExternalContextDialog() {
+
+		ecd.center();
 	}
 }

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 @SuppressWarnings("serial")
@@ -43,7 +44,7 @@ public abstract class WidgetR extends JPanel {
 	}
 
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			boolean showSimulationCustomizationBox) {
+			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
 		affectProperties = v.isAffectProperties();
 		if (showSimulationCustomizationBox)
 			add(group, BorderLayout.EAST);

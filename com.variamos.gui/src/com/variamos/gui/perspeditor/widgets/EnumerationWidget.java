@@ -1,15 +1,14 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
 
@@ -40,8 +39,8 @@ public class EnumerationWidget extends WidgetR {
 
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			boolean showSimulationCustomizationBox) {
-		super.configure(v, graph, showSimulationCustomizationBox);
+			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationSingleSelectionType.class
 				.getClassLoader();
 		@SuppressWarnings("rawtypes")

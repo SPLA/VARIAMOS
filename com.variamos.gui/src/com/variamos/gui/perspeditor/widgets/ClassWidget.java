@@ -3,6 +3,7 @@ package com.variamos.gui.perspeditor.widgets;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +22,12 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstVertex;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
@@ -47,7 +50,7 @@ public class ClassWidget extends WidgetR {
 	private JComboBox<String> txtValue;
 	private Map<String, IntSemanticElement> semanticElements;
 	private Map<String, MetaElement> syntaxElements;
-	private Map<String, InstVertex> instVertex;
+	private Map<String, InstElement> instVertex;
 
 	public ClassWidget() {
 		super();
@@ -59,8 +62,9 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph, boolean showSimulationCustomizationBox) {
-		super.configure(v, graph, showSimulationCustomizationBox);
+	public void configure(EditableElementAttribute v, mxGraph graph,
+			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
+		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 
 		ClassLoader classLoader = ClassSingleSelectionType.class
 				.getClassLoader();
@@ -92,8 +96,7 @@ public class ClassWidget extends WidgetR {
 					.getValidationMEList();
 
 			for (MetaPairwiseRelation groupDependency : list) {
-				if (groupDependency != null)
-				{
+				if (groupDependency != null) {
 					syntaxElements.put(groupDependency.getIdentifier(),
 							(MetaPairwiseRelation) groupDependency);
 					String out = groupDependency.getIdentifier();
@@ -156,7 +159,7 @@ public class ClassWidget extends WidgetR {
 			}
 
 			if (aClass.equals(InstVertex.class)) {
-				instVertex = new HashMap<String, InstVertex>();
+				instVertex = new HashMap<String, InstElement>();
 				List<InstVertex> list = getInstElements(instAttribute
 						.getAttribute().getMetaConceptInstanceType(), graph);
 
@@ -176,7 +179,7 @@ public class ClassWidget extends WidgetR {
 			if (aClass.equals(InstEnumeration.class)
 					|| aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
-					instVertex = new HashMap<String, InstVertex>();
+					instVertex = new HashMap<String, InstElement>();
 					List<InstVertex> list = getInstElements(instAttribute
 							.getAttribute().getMetaConceptInstanceType(), graph);
 
@@ -184,6 +187,28 @@ public class ClassWidget extends WidgetR {
 						instVertex.put(concept.getInstAttribute("identifier")
 								.toString(), concept);
 						String out = concept.getInstAttribute("name")
+								.toString();
+						txtValue.addItem(out);
+						if (instAttribute.getValue() != null
+								&& out.equals(instAttribute.getValue()))
+							txtValue.setSelectedItem(out);
+						if (instAttribute.getValue() == null
+								&& instAttribute.getAttributeDefaultValue() != null
+								&& out.equals(instAttribute
+										.getAttributeDefaultValue()))
+							txtValue.setSelectedItem(out);
+					}
+				}
+			}
+			if (aClass.equals(SemanticConcept.class)) {
+				if (instAttribute.getAttribute().getType().equals("Class")) {
+					instVertex = new HashMap<String, InstElement>();
+					Collection<InstElement> list =semanticModel.getVariabilityVertexCollection();
+
+					for (InstElement concept : list) {
+						instVertex.put(concept.getInstAttribute("identifier")
+								.toString(), concept);
+						String out = concept.getInstAttribute("identifier")
 								.toString();
 						txtValue.addItem(out);
 						if (instAttribute.getValue() != null
@@ -223,7 +248,8 @@ public class ClassWidget extends WidgetR {
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
 						MetaElement mc = ic.getTransSupportMetaElement();
-						if (mc.getIdentifier().equals(object) && !out.contains(ic))
+						if (mc.getIdentifier().equals(object)
+								&& !out.contains(ic))
 							out.add(ic);
 					}
 				}
@@ -321,7 +347,7 @@ public class ClassWidget extends WidgetR {
 	public JComponent getEditor() {
 		return txtValue;
 	}
-	
+
 	@Override
 	public JComponent getGroup() {
 		return group;
