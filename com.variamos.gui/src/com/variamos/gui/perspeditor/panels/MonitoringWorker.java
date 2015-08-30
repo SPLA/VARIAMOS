@@ -36,6 +36,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private boolean iterative;
 	private boolean firstSolution;
 	private boolean includeOpers;
+	private boolean includeAssets;
 
 	public String getResults() {
 		return results;
@@ -45,8 +46,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 			String initialConfigFile, String monitoredDirectory,
 			String outputDirectory, float waitBetweenExecs,
 			float waitAfterNoSolution, boolean includeVariables,
-			boolean includeOpers, boolean mapeAP, boolean iterative,
-			boolean firstSolution) {
+			boolean includeOpers, boolean includeAssets, boolean mapeAP,
+			boolean iterative, boolean firstSolution) {
 		super();
 		this.editor = editor;
 		this.initialConfigFile = initialConfigFile;
@@ -56,6 +57,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 		this.waitAfterNoSolution = waitAfterNoSolution;
 		this.includeVariables = includeVariables;
 		this.includeOpers = includeOpers;
+		this.includeAssets = includeAssets;
 		this.mapeAP = mapeAP;
 		this.iterative = iterative;
 		this.firstSolution = firstSolution;
@@ -106,12 +108,16 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					}
 					if (includeOpers || lastConfig == null) {
 						conceptTypes.add("OPER");
-						if (lastConfig != null && lastConfig.equals(config))
-							// If no change, not continue
-							continue;
-						else
-							lastConfig = config;
+						conceptTypes.add("LeafFeature");
 					}
+					if (includeAssets || lastConfig == null) {
+						conceptTypes.add("Assets");
+					}
+					if (lastConfig != null && lastConfig.equals(config))
+						// If no change, not continue
+						continue;
+					else
+						lastConfig = config;
 					editor.getRefas2hlcl().cleanGUIElements(
 							Refas2Hlcl.DESIGN_EXEC);
 					editor.getRefas2hlcl().updateGUIElements(
@@ -139,7 +145,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 										results
 												+ "No solution for actual configuration... alternative proposed\n");
 
-								Thread.sleep((int)(waitAfterNoSolution * 1000)+10);
+								Thread.sleep((int) (waitAfterNoSolution * 1000) + 10);
 								if (canceled)
 									return null;
 								conceptTypes = new ArrayList<String>();
@@ -208,7 +214,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 
 				if (filePosition >= monitoredFiles.length)
 					filePosition = 0;
-				Thread.sleep((int)(waitBetweenExecs * 1000)+10);
+				Thread.sleep((int) (waitBetweenExecs * 1000) + 10);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
