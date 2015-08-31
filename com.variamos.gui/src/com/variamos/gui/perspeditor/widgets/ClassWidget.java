@@ -167,7 +167,6 @@ public class ClassWidget extends WidgetR {
 					instVertex.put(concept.getIdentifier(), concept);
 					String patternString = "([_])";
 					Pattern p = Pattern.compile(patternString);
-
 					String[] split = p.split(concept.getInstAttribute("name")
 							.toString());
 					String out = split[0] + " ";
@@ -203,7 +202,8 @@ public class ClassWidget extends WidgetR {
 			if (aClass.equals(SemanticConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
-					Collection<InstElement> list =semanticModel.getVariabilityVertexCollection();
+					Collection<InstElement> list = semanticModel
+							.getVariabilityVertexCollection();
 
 					for (InstElement concept : list) {
 						instVertex.put(concept.getInstAttribute("identifier")
@@ -263,6 +263,16 @@ public class ClassWidget extends WidgetR {
 				}
 
 			}
+			if (mv.getValue() != null && mv.getValue() instanceof InstCell) {
+				InstElement value = ((InstCell) mv.getValue()).getInstElement();
+				if (value instanceof InstVertex) {
+					InstVertex ic = (InstVertex) value;
+					MetaElement mc = ic.getTransSupportMetaElement();
+					if (mc.getIdentifier().equals(object))
+						out.add(ic);
+				}
+			}
+
 		}
 		return out;
 	}
@@ -289,7 +299,6 @@ public class ClassWidget extends WidgetR {
 				out = true;
 			}
 		}
-
 		if (semanticElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();

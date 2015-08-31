@@ -249,9 +249,9 @@ public class InstPairwiseRelation extends InstElement {
 		this.identifier = identifier;
 	}
 
-	public MetaPairwiseRelation getMetaPairwiseRelation() {
+	public MetaElement getMetaPairwiseRelation() {
 		if (getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN) != null)
-			return (MetaPairwiseRelation) (getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN)
+			return (MetaElement) (getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN)
 					.getValueObject());
 		return null;
 	}
@@ -493,6 +493,7 @@ public class InstPairwiseRelation extends InstElement {
 
 							out += spacer.substring(0, sp1);
 							if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
+									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
 											.getValueObject() != null) {
 								InstAttribute i = getInstAttributes().get(name);
