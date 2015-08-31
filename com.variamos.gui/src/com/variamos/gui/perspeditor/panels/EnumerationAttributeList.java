@@ -169,7 +169,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
 
-		final PropertyParameterDialog dialog = new PropertyParameterDialog(
+		final PropertyParameterDialog dialog = new PropertyParameterDialog(130,
 				editor, instIdentifier, instName);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")

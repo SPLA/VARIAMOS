@@ -663,11 +663,18 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 80));
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-
+				if (((InstEnumeration) editElm).getSupportMetaElementIden().equals("ME"))
+				{
 				EnumerationAttributeList attList = new EnumerationAttributeList(
 						editor, instCell);
 				attPanel.add(new JScrollPane(attList));
-
+				}
+				else
+				{
+					EnumerationTypeAttributeList attList = new EnumerationTypeAttributeList(
+							editor, instCell);
+					attPanel.add(new JScrollPane(attList));
+					}
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
 				contentPanel3.setPreferredSize(new Dimension(200, 200));
 				contentPanel3.add(attPanel);

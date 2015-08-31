@@ -36,7 +36,7 @@ public class PropertyParameterDialog extends JDialog {
 		public boolean onAction();
 	}
 
-	public PropertyParameterDialog(VariamosGraphEditor editor,
+	public PropertyParameterDialog(int height, VariamosGraphEditor editor,
 			EditableElementAttribute... arguments) {
 		super(editor.getFrame(), "Enumeration Value");
 
@@ -45,7 +45,7 @@ public class PropertyParameterDialog extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
-		setPreferredSize(new Dimension(250, 130));
+		setPreferredSize(new Dimension(250, height));
 
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 
