@@ -9,16 +9,16 @@ import org.junit.Test;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TransformerException;
-import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
-import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.defectAnalyzer.dto.VMAnalyzerInDTO;
-import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
-import com.variamos.defectAnalyzer.model.defects.VoidModel;
-import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
-import com.variamos.defectAnalyzer.util.ConstraintRepresentationUtil;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclProgram;
+import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.dto.VMAnalyzerInDTO;
+import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
+import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
+import com.variamos.reasoning.transformer.VariabilityModelTransformer;
+import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 
 public class VerificationOperationsTest {
 

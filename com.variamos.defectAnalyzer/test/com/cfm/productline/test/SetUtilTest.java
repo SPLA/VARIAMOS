@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.variamos.defectAnalyzer.util.SetUtil;
+import com.variamos.reasoning.util.SetUtil;
 
 public class SetUtilTest {
 
