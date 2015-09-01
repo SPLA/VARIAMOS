@@ -9,10 +9,10 @@ import com.cfm.productline.ProductLine;
 import com.variamos.core.enums.NotationType;
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.core.exceptions.TransformerException;
-import com.variamos.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.defectAnalyzer.model.VariabilityModel;
-import com.variamos.defectAnalyzer.transformer.VariabilityModelTransformer;
 import com.variamos.io.SXFMReader;
+import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
+import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
+import com.variamos.reasoning.transformer.VariabilityModelTransformer;
 
 import fm.FeatureModelException;
 
