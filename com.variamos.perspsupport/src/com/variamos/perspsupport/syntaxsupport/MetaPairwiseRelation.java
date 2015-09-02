@@ -36,6 +36,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	private String endDescription;
 	private boolean arrowDirection;
 	private TypeOfLine typeOfLine;
+	private String palette="";
 	/**
 	 * 
 	 */
@@ -63,6 +64,14 @@ public class MetaPairwiseRelation extends MetaElement {
 			 */
 	VAR_METAGENERALCONSTRAINTNAME = "Constraint Expression";
 
+	public String getPalette() {
+		return palette;
+	}
+
+	public void setPalette(String palette) {
+		this.palette = palette;
+	}
+
 	public MetaPairwiseRelation() {
 
 		createPWModelingAttributes();
@@ -76,6 +85,17 @@ public class MetaPairwiseRelation extends MetaElement {
 				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
 				false, TypeOfLine.solid);
 		// this.semanticPairwiseRelation = semanticRelation;
+		createPWModelingAttributes();
+	}
+	
+	public MetaPairwiseRelation(String identifier, boolean visible,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement, String palette) {
+		this(identifier, visible, name, style, description, width, height,
+				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
+				false, TypeOfLine.solid);
+		 this.palette = palette;
 		createPWModelingAttributes();
 	}
 

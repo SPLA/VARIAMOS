@@ -384,4 +384,8 @@ public abstract class MetaElement implements Serializable {
 	public Object getParent() {
 		return null;
 	}
+
+	public String getPalette() {
+		return "";
+	}
 }

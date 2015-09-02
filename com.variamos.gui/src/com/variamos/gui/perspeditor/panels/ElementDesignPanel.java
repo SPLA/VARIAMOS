@@ -53,6 +53,7 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
@@ -795,6 +796,9 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
+				if (instAttribute.getIdentifier().equals("Palette"))
+					((MetaPairwiseRelation) editableMetaElement)
+							.setPalette((String) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals(
 						SemanticVariable.VAR_VALUE))
 					editableMetaElement

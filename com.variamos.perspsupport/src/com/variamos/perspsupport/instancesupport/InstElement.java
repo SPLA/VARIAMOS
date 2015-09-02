@@ -17,6 +17,7 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
+import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 /**
@@ -168,11 +169,17 @@ public abstract class InstElement implements Serializable, EditableElement {
 								.getIndex());
 				}
 
+				if (editableMetaElement instanceof MetaPairwiseRelation) {
+					if (instAttribute.getIdentifier().equals("Palette"))
+						instAttribute.setValue(((MetaPairwiseRelation) editableMetaElement)
+								.getPalette());
+				}
+
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					instAttribute.setValue(editableMetaElement
 							.getBorderStroke());
 
-				if (instAttribute.getIdentifier().equals("value")) // TODO
+				if (instAttribute.getIdentifier().equals("value"))  // TODO
 																	// review
 																	// what to
 																	// associate
