@@ -2,8 +2,6 @@ package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -18,7 +16,6 @@ import javax.swing.JOptionPane;
 
 import com.variamos.core.enums.SolverEditorType;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
