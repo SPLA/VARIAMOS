@@ -76,32 +76,45 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		// VAR_CONTEXTTYPE, "Enumeration", false, VAR_CONTEXTTYPENAME,
 		// VAR_CONTEXTTYPECLASS, "profiled", ""));
 		putSemanticAttribute(VAR_NAME, new SemanticAttribute(VAR_NAME,
-				"String", false, VAR_NAMENAME, "",0));
+				"String", false, VAR_NAMENAME, "", 0, 1, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
 				VAR_VARIABLETYPE, "Enumeration", true, VAR_VARIABLETYPENAME,
-				VAR_VARIABLETYPECLASS, "String", "",0));
+				VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "", -1, "", VAR_VARIABLETYPE
+				+ "#!=#" + "Enumeration"));
 		putSemanticAttribute(VAR_VARIABLEDOMAIN, new SemanticAttribute(
 				VAR_VARIABLEDOMAIN, "String", false, VAR_VARIABLEDOMAINNAME,
-				"0,1",0));
+				"0,1", 0, 3, VAR_VARIABLETYPE + "#==#" + "Integer",
+				VAR_VARIABLETYPE + "#==#" + "Integer", -1, "", ""));
 		putSemanticAttribute(VAR_ENUMERATIONTYPE, new SemanticAttribute(
 				VAR_ENUMERATIONTYPE, "Class", false, VAR_ENUMERATIONTYPENAME,
-				VAR_ENUMERATIONTYPECLASS, "ME", "String", "",0));
+				VAR_ENUMERATIONTYPECLASS, "ME", "String", "", 0, 4,
+				VAR_VARIABLETYPE + "#==#" + "Enumeration", VAR_VARIABLETYPE
+						+ "#==#" + "Enumeration", -1, "", ""));
 		// TODO define domain for enumtype
 		putSemanticAttribute(VAR_VALUE, new ExecCurrentStateAttribute(
-				VAR_VALUE, "Integer", false, VAR_VALUENAME, 0,1));
-		putSemanticAttribute(VAR_CONTEXT, new SemanticAttribute(
-				VAR_CONTEXT, "Boolean", false, VAR_CONTEXTNAME, false,0));
+				VAR_VALUE, "Integer", false, VAR_VALUENAME, 0, 1, -1, "", "",
+				-1, "", ""));
+		putSemanticAttribute(VAR_CONTEXT, new SemanticAttribute(VAR_CONTEXT,
+				"Boolean", false, VAR_CONTEXTNAME, false, 0, 5, "", "", -1, "",
+				""));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
-				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false,0));
+				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false, 0,
+				8, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
-				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false,0));
+				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false, 0,
+				9, "", "", -1, "", ""));
 
 		putSemanticAttribute(VAR_VARIABLECONFIGVALUE,
 				new GlobalConfigAttribute(VAR_VARIABLECONFIGVALUE, "Integer",
-						false, VAR_VARIABLECONFIGVALUENAME, 0,0));
+						false, VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "",
+						-1, "", ""));
 		putSemanticAttribute(VAR_VARIABLECONFIGDOMAIN,
 				new GlobalConfigAttribute(VAR_VARIABLECONFIGDOMAIN, "String",
-						false, VAR_VARIABLECONFIGDOMAINNAME, "",0));
+						false, VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
+						VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
+								+ VAR_VARIABLETYPE + "#==#" + "Enumeration"
+								+ "||" + VAR_VARIABLETYPE + "#==#" + "Boolean",
+						"", -1, "", ""));
 
 		this.addPropEditableAttribute("01#" + VAR_NAME);
 		this.addPropEditableAttribute("02#" + VAR_VARIABLETYPE);

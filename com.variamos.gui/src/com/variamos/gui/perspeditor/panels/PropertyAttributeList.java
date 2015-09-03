@@ -43,7 +43,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 	 * 
 	 */
 	private AbstractAttribute spoof = new AbstractAttribute("Add ...",
-			StringType.IDENTIFIER, false, "Add ...", "", 1);
+			StringType.IDENTIFIER, false, "Add ...", "", 1, -1, "", "", -1, "",
+			"");
 
 	private AttributeEditionPanel attributeEdition;
 
@@ -73,8 +74,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(100, 80));
-		setMaximumSize(new Dimension(100, 80));
+		setPreferredSize(new Dimension(100, 120));
+		setMaximumSize(new Dimension(100, 120));
 
 		addMouseListener(new MouseAdapter() {
 
@@ -112,14 +113,16 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			// Name
 			var = new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-					false, "Enumeration Value", "", 1);
+					false, "Enumeration Value", "", 1, -1, "", "", -1, "", "");
 
 		}
 
 		// HACK for accesing a non-final variable inside of an inner class
 		final AbstractAttribute[] buffer = { var };
 		Map<String, EditableElementAttribute> att = var
-				.getEditableElementAttributes();
+				.getDynamicAttributeComponentsMap();
+
+		// TODO manage dynamically
 
 		final EditableElementAttribute name = att.get("Name");
 		final EditableElementAttribute type = att.get("Type");
@@ -129,6 +132,19 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		final EditableElementAttribute defaultValue = att.get("DefaultValue");
 		final EditableElementAttribute domain = att.get("Domain");
 		final EditableElementAttribute hint = att.get("Hint");
+
+		final EditableElementAttribute propTabPosition = att
+				.get("propTabPosition");
+		final EditableElementAttribute propTabEditionCondition = att
+				.get("propTabEditionCondition");
+		final EditableElementAttribute propTabVisualCondition = att
+				.get("propTabVisualCondition");
+		final EditableElementAttribute elementDisplayPosition = att
+				.get("elementDisplayPosition");
+		final EditableElementAttribute elementDisplaySpacers = att
+				.get("elementDisplaySpacers");
+		final EditableElementAttribute elementDisplayCondition = att
+				.get("elementDisplayCondition");
 
 		// SetDomain metaDomain = new SetDomain();
 		// metaDomain.setIdentifier("MetaDomain");
@@ -143,7 +159,10 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		attributeEdition.loadElementAttributes(editor, name, displayName, type,
-				ClassCanName, MetaCInstType, defaultValue, domain, hint);
+				ClassCanName, MetaCInstType, defaultValue, domain, hint,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers,elementDisplayCondition);
 		attributeEdition.revalidate();
 		attributeEdition.repaint();
 		attributeEdition.setOnAccept(new DialogButtonAction() {
@@ -157,6 +176,16 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 				v.setDisplayName((String) displayName.getValue());
 				// v.setDomain((Domain)domain.getValue());
 				v.setHint((String) hint.getValue());
+				v.setPropTabPosition((int) propTabPosition.getValue());
+				v.setPropTabEditionCondition((String) propTabEditionCondition
+						.getValue());
+				v.setPropTabVisualCondition((String) propTabVisualCondition
+						.getValue());
+				v.setElementDisplayPosition((int) elementDisplayPosition
+						.getValue());
+				v.setElementDisplaySpacers((String) elementDisplaySpacers
+						.getValue());
+				v.setElementDisplayCondition((String)elementDisplayCondition.getValue());
 				v.setType((String) type.getAttributeType());
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());

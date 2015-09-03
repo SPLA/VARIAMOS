@@ -57,7 +57,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
 			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add ...", "", 1), "Add ...");
+					"Add ...", "", 1, -1, "", "", -1, "", ""), "Add ...");
 
 	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,11 +122,12 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
-						false, "Value Name", "", 1), "");
+						false, "Value Name", "", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						false, "Value Id(int)", "", 1), 0);
+						false, "Value Id(int)", "", 1, -1, "", "", -1, "", ""),
+				0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -146,7 +147,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-							false, "Enumeration Value", "", 1), "");
+							false, "Enumeration Value", "", 1, -1, "", "", -1,
+							"", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);

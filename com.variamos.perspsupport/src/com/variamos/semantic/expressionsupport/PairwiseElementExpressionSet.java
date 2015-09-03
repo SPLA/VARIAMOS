@@ -356,7 +356,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				allList.add(out13);
 
 				break;
-			case "ClaimToSG":
+			case "ClaimToSG": 
 
 				sourcePositiveAttributeNames.add("Selected");
 				// relId_level #= <<level>>

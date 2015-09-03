@@ -15,23 +15,38 @@ public class ConfigurationAttribute extends AbstractAttribute {
 
 	public ConfigurationAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup) {
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		super(name, type, affectProperties, displayName, defaultValue,
-				defaultGroup);
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	public ConfigurationAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, int defaultGroup) {
+			Domain domain, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		super(name, type, affectProperties, displayName, defaultValue, domain,
-				defaultGroup);
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	public ConfigurationAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup) {
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		super(name, type, affectProperties, displayName, defaultValue,
-				defaultGroup);
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 }

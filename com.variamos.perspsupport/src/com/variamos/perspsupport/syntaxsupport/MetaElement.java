@@ -148,7 +148,8 @@ public abstract class MetaElement implements Serializable {
 
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
-				VAR_IDENTIFIER, "String", false, "Identifier", null, 0));
+				VAR_IDENTIFIER, "String", false, "Identifier", null, 0, -1, "",
+				"", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -343,10 +344,16 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup) {
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, defaultValue, defaultGroup));
+					affectProperties, displayName, defaultValue, defaultGroup,
+					propTabPosition, propTabEditionCondition,
+					propTabVisualCondition, elementDisplayPosition,
+					elementDisplaySpacers, elementDisplayCondition));
 	}
 
 	public void addModelingAttribute(String name,
@@ -357,11 +364,16 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup) {
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, enumType, defaultValue,
-					defaultGroup));
+					defaultGroup, propTabPosition, propTabEditionCondition,
+					propTabVisualCondition, elementDisplayPosition,
+					elementDisplaySpacers, elementDisplayCondition));
 	}
 
 	public boolean getVisible() {

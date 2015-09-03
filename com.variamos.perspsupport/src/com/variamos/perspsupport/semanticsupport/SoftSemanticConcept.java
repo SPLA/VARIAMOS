@@ -6,8 +6,8 @@ import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;
 
 /**
- * A class to represent soft semantic concepts. Part of PhD work at
- * University of Paris 1
+ * A class to represent soft semantic concepts. Part of PhD work at University
+ * of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -31,30 +31,32 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 		super();
 		defineSemanticAttributes();
 	}
-	
+
 	public SoftSemanticConcept(String name) {
 		super(name, false);
 		defineSemanticAttributes();
 	}
-	
+
 	public SoftSemanticConcept(AbstractSemanticVertex semanticConcept,
 			String name) {
 		super(semanticConcept, name, false);
 		defineSemanticAttributes();
 	}
-	
-	private void defineSemanticAttributes()
-	{
+
+	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_SATISFICINGTYPE, new SemanticAttribute(
-				VAR_SATISFICINGTYPE, "Enumeration", false, VAR_CONFREQLEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
-				"Achieve as close as possible", "",0));
+				VAR_SATISFICINGTYPE, "Enumeration", false,
+				VAR_CONFREQLEVELTYPENAME, VAR_SATISFICINGTYPECLASS,
+				"Achieve as close as possible", "", 0, 10, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_CONFREQLEVELTYPE, new SemanticAttribute(
-				VAR_CONFREQLEVELTYPE, "Integer", false, VAR_CONFREQLEVELTYPENAME, 0, new RangeDomain(0, 5),0));
+				VAR_CONFREQLEVELTYPE, "Integer", false,
+				VAR_CONFREQLEVELTYPENAME, 0, new RangeDomain(0, 5), 0, 5,
+				"Required" + "#==#" + "true" + "#" + "0","", -1, "", ""));
 
 		this.addPropEditableAttribute("10#" + VAR_SATISFICINGTYPE);
-		this.addPropEditableAttribute("05#" + VAR_CONFREQLEVELTYPE
-				+ "#" + "Required" + "#==#" + "true" + "#" + "0");
-		
+		this.addPropEditableAttribute("05#" + VAR_CONFREQLEVELTYPE + "#"
+				+ "Required" + "#==#" + "true" + "#" + "0");
+
 		this.addPropVisibleAttribute("10#" + VAR_SATISFICINGTYPE);
 		this.addPropVisibleAttribute("05#" + VAR_CONFREQLEVELTYPE);
 

@@ -97,11 +97,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 			IntSemanticElement semElement = metaElement
 					.getTransSemanticConcept();
 			while (semElement != null && semElement.getIdentifier() != null
-					&& !semElement.getIdentifier().equals("SemGeneralElement"))
+					&& !semElement.getIdentifier().equals("GeneralElement"))
 				semElement = semElement.getParent();
 
 			if ((semElement != null && semElement.getIdentifier() != null && semElement
-					.getIdentifier().equals("SemGeneralElement"))
+					.getIdentifier().equals("GeneralElement"))
 					|| instVertex.getIdentifier().contains("Variable")) {
 				InstAttribute validAttribute = instVertex
 						.getInstAttribute("Active");

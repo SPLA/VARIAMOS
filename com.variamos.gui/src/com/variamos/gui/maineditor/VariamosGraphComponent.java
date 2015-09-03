@@ -113,14 +113,14 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							InstElement child2Value = ((InstCell) child2Cell
 									.getValue()).getInstElement();
 							if (SharedActions.validateConceptType(child2Value,
-									"SemGeneralElement")) {
+									"GeneralElement")) {
 								drawStatusBar(child2Cell, parentCell);
 								drawErrorIcons(child2Cell, child2Value, redx);
 							}
 						}
 					else {
 						if (SharedActions.validateConceptType(childValue,
-								"SemGeneralElement")) {
+								"GeneralElement")) {
 							drawStatusBar(childCell, parentCell);
 							drawErrorIcons(childCell, childValue, redx);
 						}
@@ -159,13 +159,13 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				while (semElement != null
 						&& semElement.getIdentifier() != null
 						&& !semElement.getIdentifier().equals(
-								"SemGeneralElement"))
+								"GeneralElement"))
 					semElement = semElement.getParent();
 
 				if (semElement != null
 						&& semElement.getIdentifier() != null
 						&& semElement.getIdentifier().equals(
-								"SemGeneralElement")) {
+								"GeneralElement")) {
 					InstElement val = ((InstCell) childCell.getValue())
 							.getInstElement();
 

@@ -58,7 +58,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
 			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add ...", "", 1), "Add ...");
+					"Add ...", "", 1, -1, "", "", -1, "", ""), "Add ...");
 
 	public EnumerationTypeAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -123,52 +123,60 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new AbstractAttribute("EnumIdValue", StringType.IDENTIFIER,
-						false, "Identifier", "", 1), "");
+						false, "Identifier", "", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute(
 				"enumDisplayName", new AbstractAttribute(
 						"EnumDisplayNameValue", StringType.IDENTIFIER, false,
-						"Display Name", "", 1), "");
+						"Display Name", "", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instPanelName = new InstAttribute("enumPanelName",
 				new AbstractAttribute("EnumPanelNameValue",
-						StringType.IDENTIFIER, false, "Panel Name", "", 1), "");
+						StringType.IDENTIFIER, false, "Panel Name", "", 1, -1,
+						"", "", -1, "", ""), "");
 
 		final InstAttribute instRelationExclusive = new InstAttribute(
-				"enumRelExclusive", new AbstractAttribute(
-						"EnumRelExclusiveValue", BooleanType.IDENTIFIER, false,
-						"Relation Exclusive", false, 1), false);
+				"enumRelExclusive",
+				new AbstractAttribute("EnumRelExclusiveValue",
+						BooleanType.IDENTIFIER, false, "Relation Exclusive",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
 				"enumSourceExclusive", new AbstractAttribute(
 						"EnumSourceExclusiveValue", BooleanType.IDENTIFIER,
-						false, "Source Exclusive", false, 1), false);
+						false, "Source Exclusive", false, 1, -1, "", "", -1,
+						"", ""), false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
 				"enumTargetExclusive", new AbstractAttribute(
 						"EnumTargetExclusiveValue", BooleanType.IDENTIFIER,
-						false, "Target Exclusive", false, 1), false);
+						false, "Target Exclusive", false, 1, -1, "", "", -1,
+						"", ""), false);
 
 		final InstAttribute instMinSourceCardinality = new InstAttribute(
 				"enumMinSourceCardinality", new AbstractAttribute(
 						"EnumMinSourceCardinalityValue",
 						IntegerType.IDENTIFIER, false,
-						"Min Source Cardinality(int)", "", 1), 1);
+						"Min Source Cardinality(int)", "", 1, -1, "", "", -1,
+						"", ""), 1);
 		final InstAttribute instSourceCardinality = new InstAttribute(
-				"enumMaxSourceCardinality", new AbstractAttribute(
-						"EnumMaxSourceCardinalityValue",
+				"enumMaxSourceCardinality",
+				new AbstractAttribute("EnumMaxSourceCardinalityValue",
 						IntegerType.IDENTIFIER, false,
-						"Max Source Cardinality", "", 1), 1);
+						"Max Source Cardinality", "", 1, -1, "", "", -1, "", ""),
+				1);
 		final InstAttribute instMinTargetCardinality = new InstAttribute(
-				"enumMinTargetCardinality", new AbstractAttribute(
-						"EnumMinTargetCardinalityValue",
+				"enumMinTargetCardinality",
+				new AbstractAttribute("EnumMinTargetCardinalityValue",
 						IntegerType.IDENTIFIER, false,
-						"Min Target Cardinality", "", 1), 1);
+						"Min Target Cardinality", "", 1, -1, "", "", -1, "", ""),
+				1);
 		final InstAttribute instTargetCardinality = new InstAttribute(
-				"enumMaxTargetCardinality", new AbstractAttribute(
-						"EnumMaxTargetCardinalityValue",
+				"enumMaxTargetCardinality",
+				new AbstractAttribute("EnumMaxTargetCardinalityValue",
 						IntegerType.IDENTIFIER, false,
-						"Max Target Cardinality", "", 1), 1);
+						"Max Target Cardinality", "", 1, -1, "", "", -1, "", ""),
+				1);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -188,7 +196,8 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-							false, "Enumeration Value", "", 1), "");
+							false, "Enumeration Value", "", 1, -1, "", "", -1,
+							"", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);

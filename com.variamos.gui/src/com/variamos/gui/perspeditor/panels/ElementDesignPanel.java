@@ -683,8 +683,8 @@ public class ElementDesignPanel extends JPanel {
 
 			} else if (editor.getPerspective() % 2 != 0) {
 				mainPanelWidth += 350;
-				rootPanel3.setPreferredSize(new Dimension(350, 400));
-				contentPanel3.setPreferredSize(new Dimension(350, 400));
+				rootPanel3.setPreferredSize(new Dimension(350, 450));
+				contentPanel3.setPreferredSize(new Dimension(350, 450));
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
@@ -710,8 +710,8 @@ public class ElementDesignPanel extends JPanel {
 							.getInstElement().getEditableSemanticElement()
 							.getSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(350, 300));
-				attPanel.setMaximumSize(new Dimension(350, 300));
+				attPanel.setPreferredSize(new Dimension(350, 350));
+				attPanel.setMaximumSize(new Dimension(350, 350));
 				attPanel.add(new JScrollPane(attList));
 				attPanel.add(new JScrollPane(attributeEdition));
 
