@@ -50,7 +50,10 @@ public class PerspectiveAction extends AbstractEditorAction {
 		if (perspectiveInd != 2
 				&& jb.getText().equals(mxResources.get("modelingPerspButton"))) {
 			mainFrame.setPerspective(2);
-
+			VariamosGraphEditor ed = mainFrame.getEditor(2);
+			ed.updateEditor();
+			ed.setVisibleModel(0, -1);
+			ed.defineViewTabs();
 			System.out.println("modelingPerspButton");
 		}
 		if (perspectiveInd != 3

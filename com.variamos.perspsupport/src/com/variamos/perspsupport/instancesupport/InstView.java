@@ -10,7 +10,7 @@ import java.util.Set;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 
-public class InstView extends InstElement implements Comparable<InstView> {
+public class InstView extends InstElement {
 
 	/**
 	 * 
@@ -19,29 +19,29 @@ public class InstView extends InstElement implements Comparable<InstView> {
 
 	private List<InstView> childViews;
 
-	private List<InstVertex> instVertices;
+	//private List<InstVertex> instVertices;
 
-	private MetaConcept supportMetaConcept;
+	private MetaElement supportMetaConcept;
 
 	public InstView(String identifier) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
 				new HashMap<String, InstAttribute>());
-		instVertices = new ArrayList<InstVertex>();
+		//instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		createInstAttributes();
 		copyValuesToInstAttributes();
 	}
 
-	public InstView(String identifier, MetaConcept supportMetaConcept,
+	public InstView(String identifier, MetaElement supportMetaConcept,
 			MetaElement editableMetaElement) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
 				new HashMap<String, InstAttribute>());
 		this.supportMetaConcept = supportMetaConcept;
-		instVertices = new ArrayList<InstVertex>();
+		//instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		setEditableMetaElement(editableMetaElement);
 		createInstAttributes();
@@ -50,23 +50,19 @@ public class InstView extends InstElement implements Comparable<InstView> {
 
 	public InstView() {
 		super("");
-		instVertices = new ArrayList<InstVertex>();
+		//instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 	}
 
 	public InstView(MetaConcept metaConcept) {
 		super("");
 		this.supportMetaConcept = metaConcept;
-		instVertices = new ArrayList<InstVertex>();
+		//instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 	}
 
-	public List<InstVertex> getInstVertices() {
-		return instVertices;
-	}
-
 	public void setInstVertices(List<InstVertex> instVertexs) {
-		this.instVertices = instVertexs;
+		//this.instVertices = instVertexs;
 	}
 
 	public List<InstView> getChildViews() {
@@ -185,7 +181,7 @@ public class InstView extends InstElement implements Comparable<InstView> {
 	}
 
 	public void addInstVertex(InstVertex instVertex) {
-		instVertices.add(instVertex);
+		//instVertices.add(instVertex);
 	}
 
 	public void addChildView(InstView instView) {
@@ -198,12 +194,4 @@ public class InstView extends InstElement implements Comparable<InstView> {
 		this.supportMetaConcept = (MetaConcept) supportMetaElement;
 	}
 
-	@Override
-	public int compareTo(InstView view) {
-		String index = this.getInstAttribute("Index").getValue()
-				+ view.getIdentifier();
-		String other = view.getInstAttribute("Index").getValue()
-				+ view.getIdentifier();
-		return index.compareTo(other);
-	}
 }

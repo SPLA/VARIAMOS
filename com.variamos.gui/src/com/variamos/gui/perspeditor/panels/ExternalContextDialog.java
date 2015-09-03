@@ -55,6 +55,7 @@ public class ExternalContextDialog extends JDialog implements
 	private JTextField state;
 	private JCheckBox adaptoOnInvalid;
 	private JCheckBox monitorOpers;
+	private JCheckBox monitorAssets;
 
 	static interface DialogButtonAction {
 		public boolean onAction();
@@ -103,10 +104,15 @@ public class ExternalContextDialog extends JDialog implements
 		monitorVariables = new JCheckBox("monVariables", true);
 		panel.add(monitorVariables);
 		lab = new JLabel("Include external operationalizations: ");
-		lab.setToolTipText("Defines if the operationalizations/features selection are considered from the input files");
+		lab.setToolTipText("Defines if the operationalizations/leaf features selection are considered from the input files");
 		panel.add(lab);
 		monitorOpers = new JCheckBox("monOpers", true);
 		panel.add(monitorOpers);
+		lab = new JLabel("Include assets: ");
+		lab.setToolTipText("Defines if the assets selection are considered from the input files");
+		panel.add(lab);
+		monitorAssets = new JCheckBox("monAssets", true);
+		panel.add(monitorAssets);
 		lab = new JLabel("Execute Analysis and Planning: ");
 		lab.setToolTipText("Defines if the adaptation is perfomed. If not, the configuration is accepted");
 		panel.add(lab);
@@ -130,7 +136,7 @@ public class ExternalContextDialog extends JDialog implements
 		state = new JTextField(("Not running"));
 		state.setEnabled(false);
 		panel.add(state);
-		SpringUtilities.makeCompactGrid(panel, 12, 2, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, 13, 2, 4, 4, 4, 4);
 		generalPanel.add(panel, BorderLayout.NORTH);
 		JPanel notificationPanel = new JPanel();
 		notificationPanel.setLayout(new SpringLayout());
@@ -157,7 +163,8 @@ public class ExternalContextDialog extends JDialog implements
 							Float.parseFloat(waitBetweenExecs.getText()),
 							Float.parseFloat(waitAfterNoSolution.getText()),
 							monitorVariables.isSelected(), monitorOpers
-									.isSelected(), mapeAP.isSelected(),
+							.isSelected(),monitorAssets
+							.isSelected(), mapeAP.isSelected(),
 							fileIteration.isSelected(), firstSolutionOnly
 									.isSelected());
 					monitoringWorker.execute();

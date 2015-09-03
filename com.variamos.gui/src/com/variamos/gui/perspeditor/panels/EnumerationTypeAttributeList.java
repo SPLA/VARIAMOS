@@ -26,21 +26,22 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
+import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.StringType;
 
 /**
- * A class to support the property list for instance enumerations on modeling.
- * Initially copied from VariabilityAttributeList on pl.editor. Part of PhD work
- * at University of Paris 1
+ * A class to support the property list for instance enumerations type on
+ * semantic model. Initially copied from EnumerationeAttributeList. Part of PhD
+ * work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
- * @since 2014-12-10
- * @see com.variamos.gui.pl.editor.VariabilityAttributeList
+ * @since 2015-08-31
+ * @see com.variamos.gui.perspeditor.panels.EnumerationeAttributeList
  */
 @SuppressWarnings("serial")
-public class EnumerationAttributeList extends JList<InstAttribute> {
+public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 	/**
 	 * Reference to the editor required for Dialog
@@ -59,13 +60,13 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
 					"Add ...", "", 1), "Add ...");
 
-	public EnumerationAttributeList(VariamosGraphEditor editor) {
+	public EnumerationTypeAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
 		init(null);
 	}
 
 	@SuppressWarnings("unchecked")
-	public EnumerationAttributeList(final VariamosGraphEditor editor,
+	public EnumerationTypeAttributeList(final VariamosGraphEditor editor,
 			final InstCell instCell) {
 		this.editor = editor;
 		this.instCell = instCell;
@@ -120,13 +121,54 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	protected void editItem(InstAttribute instAttribute) {
 		final boolean insert = (instAttribute == null);
 
-		final InstAttribute instName = new InstAttribute("enumName",
-				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
-						false, "Value Name", "", 1), "");
-
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
-				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						false, "Value Id(int)", "", 1), 0);
+				new AbstractAttribute("EnumIdValue", StringType.IDENTIFIER,
+						false, "Identifier", "", 1), "");
+
+		final InstAttribute instDisplayName = new InstAttribute(
+				"enumDisplayName", new AbstractAttribute(
+						"EnumDisplayNameValue", StringType.IDENTIFIER, false,
+						"Display Name", "", 1), "");
+
+		final InstAttribute instPanelName = new InstAttribute("enumPanelName",
+				new AbstractAttribute("EnumPanelNameValue",
+						StringType.IDENTIFIER, false, "Panel Name", "", 1), "");
+
+		final InstAttribute instRelationExclusive = new InstAttribute(
+				"enumRelExclusive", new AbstractAttribute(
+						"EnumRelExclusiveValue", BooleanType.IDENTIFIER, false,
+						"Relation Exclusive", false, 1), false);
+
+		final InstAttribute instSourceExclusive = new InstAttribute(
+				"enumSourceExclusive", new AbstractAttribute(
+						"EnumSourceExclusiveValue", BooleanType.IDENTIFIER,
+						false, "Source Exclusive", false, 1), false);
+
+		final InstAttribute instTargetExclusive = new InstAttribute(
+				"enumTargetExclusive", new AbstractAttribute(
+						"EnumTargetExclusiveValue", BooleanType.IDENTIFIER,
+						false, "Target Exclusive", false, 1), false);
+
+		final InstAttribute instMinSourceCardinality = new InstAttribute(
+				"enumMinSourceCardinality", new AbstractAttribute(
+						"EnumMinSourceCardinalityValue",
+						IntegerType.IDENTIFIER, false,
+						"Min Source Cardinality(int)", "", 1), 1);
+		final InstAttribute instSourceCardinality = new InstAttribute(
+				"enumMaxSourceCardinality", new AbstractAttribute(
+						"EnumMaxSourceCardinalityValue",
+						IntegerType.IDENTIFIER, false,
+						"Max Source Cardinality", "", 1), 1);
+		final InstAttribute instMinTargetCardinality = new InstAttribute(
+				"enumMinTargetCardinality", new AbstractAttribute(
+						"EnumMinTargetCardinalityValue",
+						IntegerType.IDENTIFIER, false,
+						"Min Target Cardinality", "", 1), 1);
+		final InstAttribute instTargetCardinality = new InstAttribute(
+				"enumMaxTargetCardinality", new AbstractAttribute(
+						"EnumMaxTargetCardinalityValue",
+						IntegerType.IDENTIFIER, false,
+						"Max Target Cardinality", "", 1), 1);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -150,7 +192,15 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);
-			instName.setValue(split[1]);
+			instDisplayName.setValue(split[1]);
+			instPanelName.setValue(split[2]);
+			instRelationExclusive.setValue(split[3]);
+			instSourceExclusive.setValue(split[4]);
+			instTargetExclusive.setValue(split[5]);
+			instMinSourceCardinality.setValue(split[6]);
+			instSourceCardinality.setValue(split[7]);
+			instMinTargetCardinality.setValue(split[8]);
+			instTargetCardinality.setValue(split[9]);
 		}
 		final InstAttribute finalInstAttribute = instAttribute;
 
@@ -169,8 +219,12 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
 
-		final PropertyParameterDialog dialog = new PropertyParameterDialog(130,
-				editor, instIdentifier, instName);
+		final PropertyParameterDialog dialog = new PropertyParameterDialog(350,
+				editor, instIdentifier, instDisplayName, instPanelName,
+				instRelationExclusive, instSourceExclusive,
+				instTargetExclusive, instMinSourceCardinality,
+				instSourceCardinality, instMinTargetCardinality,
+				instTargetCardinality);
 		dialog.setOnAccept(new DialogButtonAction() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -185,16 +239,48 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 							null);
 					return false;
 				}
-				if (((Integer) instIdentifier.getValue()).intValue() < 0) {
-					JOptionPane.showMessageDialog(dialog,
-							"Value is not positive number",
-							"Negative Number Error", JOptionPane.ERROR_MESSAGE,
-							null);
+				if (((Integer) instSourceCardinality.getValue()).intValue() < -1) {
+					JOptionPane
+							.showMessageDialog(
+									dialog,
+									"Source Cardinality is not positive number (or -1)",
+									"Negative Number Error",
+									JOptionPane.ERROR_MESSAGE, null);
+					return false;
+				}
+				if (((Integer) instTargetCardinality.getValue()).intValue() < -1) {
+					JOptionPane
+							.showMessageDialog(
+									dialog,
+									"Target Cardinality is not positive number (or -1)",
+									"Negative Number Error",
+									JOptionPane.ERROR_MESSAGE, null);
 					return false;
 				}
 				InstAttribute v = buffer[0];
-				v.setValue(((Integer) instIdentifier.getValue()).intValue()
-						+ "-" + (String) instName.getValue());
+				v.setValue(instIdentifier.getValue()
+						+ "-"
+						+ (String) instDisplayName.getValue()
+						+ "-"
+						+ (String) instPanelName.getValue()
+						+ "-"
+						+ (Boolean) instRelationExclusive.getValue()
+						+ "-"
+						+ (Boolean) instSourceExclusive.getValue()
+						+ "-"
+						+ (Boolean) instTargetExclusive.getValue()
+						+ "-"
+						+ ((Integer) instMinSourceCardinality.getValue())
+								.intValue()
+						+ "-"
+						+ ((Integer) instSourceCardinality.getValue())
+								.intValue()
+						+ "-"
+						+ ((Integer) instMinTargetCardinality.getValue())
+								.intValue()
+						+ "-"
+						+ ((Integer) instTargetCardinality.getValue())
+								.intValue());
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()

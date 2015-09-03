@@ -17,8 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.defectAnalyzer.defectAnalyzer.DefectsVerifier;
-import com.variamos.defectAnalyzer.defectAnalyzer.IntDefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
+import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
@@ -164,7 +164,7 @@ public class MainFrame extends JFrame {
 		HlclFactory f = new HlclFactory();
 		HlclProgram model = new HlclProgram();
 		model.add(f.equals(f.number(1), f.number(1)));
-		IntDefectsVerifier verifier = new DefectsVerifier(model,
+		DefectsVerifier verifier = new DefectsVerifier(model,
 				SolverEditorType.SWI_PROLOG);
 		verifier.isVoid();
 	}
@@ -266,6 +266,11 @@ public class MainFrame extends JFrame {
 			graphEditors.get(3).hideDashBoard();
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public VariamosGraphEditor getEditor(int perspective)
+	{
+		return graphEditors.get(perspective - 1);
 	}
 
 	public void setAdvancedPerspective(boolean advancedPerspective) {

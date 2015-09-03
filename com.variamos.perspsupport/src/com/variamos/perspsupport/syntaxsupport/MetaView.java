@@ -16,7 +16,8 @@ public class MetaView extends MetaElement implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3876870066100742969L;
-	private String paletteName;
+	private String paletteName = "";
+
 	public String getPaletteName() {
 		return paletteName;
 	}

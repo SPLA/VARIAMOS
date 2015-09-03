@@ -32,12 +32,15 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
+import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -45,16 +48,17 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public PerspEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
-		Collection<MetaElement> metaElements = new HashSet<MetaElement>();
+		Collection<InstElement> instElements = new HashSet<InstElement>();
 		for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
 				.getSyntaxRefas().getVertices()) {
-			metaElements.add(instVertex.getEditableMetaElement());
+			instElements.add(instVertex);
 		}
-		for (MetaElement metaElement : metaElements) {
+		for (InstElement instElement : instElements) {
+			MetaElement metaElement = instElement.getEditableMetaElement();
 			paletteElements.add(new PaletteElement(metaElement.getIdentifier(),
 					metaElement.getName(), metaElement.getImage(), metaElement
 							.getStyle(), metaElement.getWidth(), metaElement
-							.getHeight(), null, metaElement));
+							.getHeight(), null, metaElement, instElement));
 		}
 	}
 
@@ -69,22 +73,25 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.clearPalettes();
-		EditorPalette[] palettes = editor.insertPalettes(editor.getEditedModel()
-				.getInstViewName(modelViewIndex, -1)
+		EditorPalette[] palettes = editor.insertPalettes(editor
+				.getEditedModel().getInstViewPalettesName(modelViewIndex, -1)
 		// getmxResources.get("modelViewPalette" + modelViewIndex)
 				);
+		String viewName = editor.getEditedModel().getInstViewName(
+				modelViewIndex, -1);
 		AbstractGraph refasGraph = (AbstractGraph) graphComponent.getGraph();
-		loadPalette(palettes, validElements, refasGraph);
+		loadPalette(viewName, palettes, validElements, refasGraph);
 		editor.refreshPalette();
 	}
 
 	/**
+	 * @param viewName
 	 * @param palette
 	 * @param validElements
 	 * @param plgraph
 	 */
-	public void loadPalette(EditorPalette[] palettes, List<String> validElements,
-			AbstractGraph plgraph) {
+	public void loadPalette(String viewName, EditorPalette[] palettes,
+			List<String> validElements, AbstractGraph plgraph) {
 		// Load regular palette
 		if (validElements != null) {
 			for (int i = 0; i < paletteElements.size(); i++)
@@ -95,17 +102,22 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 						if (paletteElement.getMetaElement() != null) {
 							MetaElement metaVertex = paletteElement
 									.getMetaElement();
-
 							if (metaVertex instanceof MetaConcept) {
 								// MetaElement metaElement = new MetaConcept();
-								Object o = new InstConcept();
+								Object o;
+									o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
+									if (((MetaConcept) metaVertex).getType() != 'V')
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex,
 											new MetaConcept());
+									else
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaView());
 								else
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex, null);
@@ -161,17 +173,77 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							 * c.newInstance(paletteElement.getId()); }
 							 */
 						}
-						for (EditorPalette palette : palettes)
-						{
-						palette.addTemplate(
-								// mxResources.get(
-								paletteElement.getElementTitle(),
-								new ImageIcon(GraphEditor.class
-										.getResource(paletteElement.getIcon())),
-								paletteElement.getStyle(), paletteElement
-										.getWidth(),
-								paletteElement.getHeight(), new InstCell(null,
-										obj, false));
+						if (paletteElement.getIcon() == null) {
+							System.out.println("No icon for concept");
+							continue;
+						}
+						for (EditorPalette palette : palettes) {
+
+							List<InstElement> relations = paletteElement
+									.getInstElement().getSourceRelations();
+							if (editor.getPerspective() == 2)
+								search: for (InstElement relation : relations) {
+									InstConcept pairwiseRelation = (InstConcept) relation
+											.getSourceRelations().get(0);
+									if (pairwiseRelation
+											.getSupportMetaElementIden() == null
+											|| !pairwiseRelation
+													.getSupportMetaElementIden()
+													.equals("ViewConceptAsso")
+											|| pairwiseRelation
+													.getSourceRelations()
+													.size() == 0
+											|| pairwiseRelation
+													.getSourceRelations()
+													.get(0)
+													.getSourceRelations()
+													.size() == 0
+									/*
+									 * || !pairwiseRelation
+									 * .getSourceRelations() .get(0)
+									 * .getSourceRelations()
+									 * .get(0).getIdentifier() .equals(viewName)
+									 */)
+										continue;
+									String n = pairwiseRelation
+											.getSourceRelations().get(0)
+											.getSourceRelations().get(0)
+											.getIdentifier();
+									String paletteName = (String) pairwiseRelation
+											.getInstAttribute("Palette")
+											.getValue();
+
+									if ((paletteName.equals("") && palettes[0] == palette)
+											|| paletteName.equals(palette
+													.getName())) {
+										palette.addTemplate(
+												// mxResources.get(
+												paletteElement
+														.getElementTitle(),
+												new ImageIcon(
+														GraphEditor.class
+																.getResource(paletteElement
+																		.getIcon())),
+												paletteElement.getStyle(),
+												paletteElement.getWidth(),
+												paletteElement.getHeight(),
+												new InstCell(null, obj, false));
+										break search;
+									}
+								}
+							else {
+								palette.addTemplate(
+										// mxResources.get(
+										paletteElement.getElementTitle(),
+										new ImageIcon(GraphEditor.class
+												.getResource(paletteElement
+														.getIcon())),
+										paletteElement.getStyle(),
+										paletteElement.getWidth(),
+										paletteElement.getHeight(),
+										new InstCell(null, obj, false));
+
+							}
 						}
 					}
 				} catch (InstantiationException | IllegalAccessException e) {
@@ -194,25 +266,25 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 		final AbstractGraph graph = plgraph;
 
-		for (EditorPalette palette : palettes)
-		{
-		palette.addListener(mxEvent.SELECT, new mxIEventListener() {
-			public void invoke(Object sender, mxEventObject evt) {
-				Object tmp = evt.getProperty("transferable");
-				graph.setConsMode(ConstraintMode.None);
+		for (EditorPalette palette : palettes) {
+			palette.addListener(mxEvent.SELECT, new mxIEventListener() {
+				public void invoke(Object sender, mxEventObject evt) {
+					Object tmp = evt.getProperty("transferable");
+					graph.setConsMode(ConstraintMode.None);
 
-				if (tmp instanceof mxGraphTransferable) {
-					mxGraphTransferable t = (mxGraphTransferable) tmp;
-					Object obj = t.getCells()[0];
+					if (tmp instanceof mxGraphTransferable) {
+						mxGraphTransferable t = (mxGraphTransferable) tmp;
+						Object obj = t.getCells()[0];
 
-					if (graph.getModel().isEdge(obj)) {
-						mxCell cell = (mxCell) obj;
-						((ProductLineGraph) graph)
-								.setConsMode((ConstraintMode) cell.getValue());
+						if (graph.getModel().isEdge(obj)) {
+							mxCell cell = (mxCell) obj;
+							((ProductLineGraph) graph)
+									.setConsMode((ConstraintMode) cell
+											.getValue());
+						}
 					}
 				}
-			}
-		});
+			});
 		}
 
 	}

@@ -14,6 +14,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
@@ -87,7 +88,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 	private void defineTransformations(int execType) {
 		// instPairwiseRelation.getSourceRelations()
 		// .get(0).setOptional(false);
-		MetaPairwiseRelation metaPairwiseRelation = instPairwiseRelation
+		MetaElement metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
 		boolean sourceActiveAttribute = true;
 		if (instPairwiseRelation

@@ -26,12 +26,13 @@ public class MetaConcept extends MetaVertex {
 	private static final long serialVersionUID = 8416609016211900965L;
 //	private IntSemanticConcept semanticConcept;
 	private MetaConcept parent;
+	private char type;
 
 	public MetaConcept() {
 		super();
 	}
 
-	public MetaConcept(String identifier, boolean visible, String name,
+	public MetaConcept(char type, String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, int borderStroke, InstElement instSemanticElement,
 			boolean topConcept, String backgroundColor, boolean resizable,
@@ -46,9 +47,10 @@ public class MetaConcept extends MetaVertex {
 				propEditableAttributes, panelVisibleAttributes,
 				panelSparerAttributes, attributes);
 		this.parent = parent;
+		this.type = type;
 	}
 
-	public MetaConcept(String identifier, boolean visible, String name,
+	public MetaConcept(char type,String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, int borderStroke, InstElement instSemanticElement,
 			boolean topConcept, String backgroundColor, boolean resizable,
@@ -62,15 +64,21 @@ public class MetaConcept extends MetaVertex {
 				backgroundColor, resizable, propVisibleAttributes,
 				propEditableAttributes, panelVisibleAttributes,
 				panelSparerAttributes, attributes);
+		this.type = type;
 	}
 
-	public MetaConcept(String identifier, boolean visible, String name,
+	public MetaConcept(char type, String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, boolean topConcept, String backgroundColor,
 			int borderStroke, InstElement instSemanticElement, boolean resizable) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable);
+		this.type = type;
+	}
+
+	public char getType() {
+		return type;
 	}
 
 	/**

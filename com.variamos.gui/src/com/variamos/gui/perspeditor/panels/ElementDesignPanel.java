@@ -53,6 +53,7 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
@@ -663,11 +664,18 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 80));
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-
+				if (((InstEnumeration) editElm).getSupportMetaElementIden().equals("ME"))
+				{
 				EnumerationAttributeList attList = new EnumerationAttributeList(
 						editor, instCell);
 				attPanel.add(new JScrollPane(attList));
-
+				}
+				else
+				{
+					EnumerationTypeAttributeList attList = new EnumerationTypeAttributeList(
+							editor, instCell);
+					attPanel.add(new JScrollPane(attList));
+					}
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
 				contentPanel3.setPreferredSize(new Dimension(200, 200));
 				contentPanel3.add(attPanel);
@@ -788,6 +796,9 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
+				if (instAttribute.getIdentifier().equals("Palette"))
+					((MetaPairwiseRelation) editableMetaElement)
+							.setPalette((String) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals(
 						SemanticVariable.VAR_VALUE))
 					editableMetaElement

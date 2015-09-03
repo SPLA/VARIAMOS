@@ -743,7 +743,8 @@ public class SharedActions {
 									instAttribute
 											.setValidationRelationTypes(semGD);
 								} catch (Exception e) {
-									e.printStackTrace();
+									System.out.println("SharedActions: relation without semantic type "+ instPairwiseRelation.getIdentifier());
+									//e.printStackTrace();
 									// FIXME
 
 								}
