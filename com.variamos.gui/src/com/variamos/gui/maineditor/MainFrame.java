@@ -267,6 +267,11 @@ public class MainFrame extends JFrame {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	public VariamosGraphEditor getEditor(int perspective)
+	{
+		return graphEditors.get(perspective - 1);
+	}
 
 	public void setAdvancedPerspective(boolean advancedPerspective) {
 		showPerspectiveButton = advancedPerspective;

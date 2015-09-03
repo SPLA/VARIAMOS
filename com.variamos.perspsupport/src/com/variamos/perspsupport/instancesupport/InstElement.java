@@ -31,7 +31,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
  * @see com.variamos.syntaxsupport.metamodel.InsVertex
  * @see com.variamos.syntaxsupport.metamodel.InsEdge
  */
-public abstract class InstElement implements Serializable, EditableElement {
+public abstract class InstElement implements Serializable, EditableElement, Comparable<InstElement> {
 	/**
 	 * 
 	 */
@@ -537,5 +537,14 @@ public abstract class InstElement implements Serializable, EditableElement {
 	public void clearDefects() {
 		volatileDefects.clear();
 
+	}
+
+	@Override
+	public int compareTo(InstElement view) {
+		String index = this.getInstAttribute("Index").getValue()
+				+ view.getIdentifier();
+		String other = view.getInstAttribute("Index").getValue()
+				+ view.getIdentifier();
+		return index.compareTo(other);
 	}
 }

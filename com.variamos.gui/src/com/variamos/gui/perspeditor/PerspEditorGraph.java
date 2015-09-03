@@ -105,7 +105,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		getModel().setRoot(root);
 		// Collection<InstView> views =
 		// refasModel.getSyntaxRefas().getInstViews();
-		List<InstView> views = refasModel.getSyntaxRefas()
+		List<InstElement> views = refasModel.getSyntaxRefas()
 				.getVariabilityVertex("View");
 		int pos = 0;
 		if (views.size() == 0) {
@@ -130,45 +130,33 @@ public class PerspEditorGraph extends AbstractGraph {
 				pos++;
 
 			}
-		/*	for (InstView instView : refasModel.getVariabilityVertex("View")) {
-				if (instView.getChildViews().size() == 0) {
-					mxCell child = new mxCell(instView.getIdentifier());
-					child.setValue(new InstCell(child, instView, false));
-					addCell(child);
-					String id = instView.getIdentifier();
-					child.setVisible(true);
-					child.setStyle(instView.getTransSupportMetaElement()
-							.getStyle());
-					child.setGeometry(new mxGeometry(50 + pos * 3,
-							50 + pos * 3, 120, 40));
-					child.setVertex(true);
-					mxGraphModel model = (mxGraphModel) getModel();
-					model.getCells().remove(child.getId());
-					model.getCells().put("0" + id, child);
-					child.setId("0" + id);
-					pos++;
-				}
-				for (InstView instChildView : instView.getChildViews()) {
-					mxCell child2 = new mxCell();
-					child2.setValue(new InstCell(child2, instChildView, false));
-					child2.setId(instChildView.getIdentifier());
-					addCell(child2);
-					String id2 = instChildView.getIdentifier();
-					child2.setVisible(true);
-					child2.setStyle(instChildView.getTransSupportMetaElement()
-							.getStyle());
-					child2.setGeometry(new mxGeometry(50 + pos * 3,
-							50 + pos * 3, 120, 40));
-					child2.setVertex(true);
-					mxGraphModel model2 = (mxGraphModel) getModel();
-					model2.getCells().remove(child2.getId());
-					model2.getCells().put("0" + id2, child2);
-					child2.setId("0" + id2);
-					pos++;
-
-				}
-			}
-*/
+			/*
+			 * for (InstView instView : refasModel.getVariabilityVertex("View"))
+			 * { if (instView.getChildViews().size() == 0) { mxCell child = new
+			 * mxCell(instView.getIdentifier()); child.setValue(new
+			 * InstCell(child, instView, false)); addCell(child); String id =
+			 * instView.getIdentifier(); child.setVisible(true);
+			 * child.setStyle(instView.getTransSupportMetaElement()
+			 * .getStyle()); child.setGeometry(new mxGeometry(50 + pos * 3, 50 +
+			 * pos * 3, 120, 40)); child.setVertex(true); mxGraphModel model =
+			 * (mxGraphModel) getModel();
+			 * model.getCells().remove(child.getId()); model.getCells().put("0"
+			 * + id, child); child.setId("0" + id); pos++; } for (InstView
+			 * instChildView : instView.getChildViews()) { mxCell child2 = new
+			 * mxCell(); child2.setValue(new InstCell(child2, instChildView,
+			 * false)); child2.setId(instChildView.getIdentifier());
+			 * addCell(child2); String id2 = instChildView.getIdentifier();
+			 * child2.setVisible(true);
+			 * child2.setStyle(instChildView.getTransSupportMetaElement()
+			 * .getStyle()); child2.setGeometry(new mxGeometry(50 + pos * 3, 50
+			 * + pos * 3, 120, 40)); child2.setVertex(true); mxGraphModel model2
+			 * = (mxGraphModel) getModel();
+			 * model2.getCells().remove(child2.getId());
+			 * model2.getCells().put("0" + id2, child2); child2.setId("0" +
+			 * id2); pos++;
+			 * 
+			 * } }
+			 */
 			for (InstPairwiseRelation instEdge : refasModel
 					.getConstraintInstEdgesCollection()) {
 				if (instEdge.getSourceRelations().size() != 0
@@ -212,18 +200,20 @@ public class PerspEditorGraph extends AbstractGraph {
 
 		// Load views for System Design and simulation
 		int i = 0;
-		for (InstView view : views) {
+		for (InstElement view : views) {
 			mxCell parent = new mxCell();
 			parent.setValue(new InstCell(parent, null, false));
 			parent.setId("mv" + i);
 			addCell(parent);
-			InstView instView = (InstView) view;
-			if (instView.getChildViews().size() > 0) {
-				for (int j = 0; j < instView.getChildViews().size(); j++) {
-					mxCell child2 = new mxCell();
-					child2.setValue(new InstCell(child2, null, false));
-					child2.setId("mv" + i + "-" + j);
-					addCell(child2, parent);
+			if (view instanceof InstView) {
+				InstView instView = (InstView) view;
+				if (instView.getChildViews().size() > 0) {
+					for (int j = 0; j < instView.getChildViews().size(); j++) {
+						mxCell child2 = new mxCell();
+						child2.setValue(new InstCell(child2, null, false));
+						child2.setId("mv" + i + "-" + j);
+						addCell(child2, parent);
+					}
 				}
 			}
 			i++;

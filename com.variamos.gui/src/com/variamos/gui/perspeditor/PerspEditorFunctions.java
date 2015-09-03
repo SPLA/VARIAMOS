@@ -33,12 +33,14 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
+import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -102,15 +104,20 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									.getMetaElement();
 							if (metaVertex instanceof MetaConcept) {
 								// MetaElement metaElement = new MetaConcept();
-
-								Object o = new InstConcept();
+								Object o;
+									o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
+									if (((MetaConcept) metaVertex).getType() != 'V')
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex,
 											new MetaConcept());
+									else
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaView());
 								else
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex, null);
@@ -166,6 +173,10 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							 * c.newInstance(paletteElement.getId()); }
 							 */
 						}
+						if (paletteElement.getIcon() == null) {
+							System.out.println("No icon for concept");
+							continue;
+						}
 						for (EditorPalette palette : palettes) {
 
 							List<InstElement> relations = paletteElement
@@ -179,18 +190,25 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											|| !pairwiseRelation
 													.getSupportMetaElementIden()
 													.equals("ViewConceptAsso")
-											/*|| !pairwiseRelation
+											|| pairwiseRelation
+													.getSourceRelations()
+													.size() == 0
+											|| pairwiseRelation
 													.getSourceRelations()
 													.get(0)
 													.getSourceRelations()
-													.get(0).getIdentifier()
-													.equals(viewName)*/)
+													.size() == 0
+									/*
+									 * || !pairwiseRelation
+									 * .getSourceRelations() .get(0)
+									 * .getSourceRelations()
+									 * .get(0).getIdentifier() .equals(viewName)
+									 */)
 										continue;
 									String n = pairwiseRelation
-											.getSourceRelations()
-											.get(0)
-											.getSourceRelations()
-											.get(0).getIdentifier();
+											.getSourceRelations().get(0)
+											.getSourceRelations().get(0)
+											.getIdentifier();
 									String paletteName = (String) pairwiseRelation
 											.getInstAttribute("Palette")
 											.getValue();
