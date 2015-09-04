@@ -230,18 +230,14 @@ public class ElementDesignPanel extends JPanel {
 							if (editElm instanceof InstPairwiseRelation) {
 								InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
 								mapElements = ((RefasModel) editor
-										.getEditedModel())
-										.getSyntaxRefas()
+										.getEditedModel()).getSyntaxRefas()
 										.getValidPairwiseRelations(
 												instPairwise
 														.getSourceRelations()
-														.get(0)
-														.getTransSupportMetaElement(),
+														.get(0),
 												instPairwise
 														.getTargetRelations()
-														.get(0)
-														.getTransSupportMetaElement(),
-												true);
+														.get(0));
 							}
 							instAttribute.updateValidationList(
 									((InstElement) editElm), mapElements);
@@ -664,18 +660,16 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 80));
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (((InstEnumeration) editElm).getSupportMetaElementIden().equals("ME"))
-				{
-				EnumerationAttributeList attList = new EnumerationAttributeList(
-						editor, instCell);
-				attPanel.add(new JScrollPane(attList));
-				}
-				else
-				{
+				if (((InstEnumeration) editElm).getSupportMetaElementIden()
+						.equals("ME")) {
+					EnumerationAttributeList attList = new EnumerationAttributeList(
+							editor, instCell);
+					attPanel.add(new JScrollPane(attList));
+				} else {
 					EnumerationTypeAttributeList attList = new EnumerationTypeAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
-					}
+				}
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
 				contentPanel3.setPreferredSize(new Dimension(200, 200));
 				contentPanel3.add(attPanel);
@@ -754,8 +748,9 @@ public class ElementDesignPanel extends JPanel {
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableMetaElement.setUserIdentifier((String) instAttribute
-							.getValue());
+					editableMetaElement
+							.setUserIdentifier((String) instAttribute
+									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
 							.setInstSemanticElement((InstElement) ((RefasModel) editor

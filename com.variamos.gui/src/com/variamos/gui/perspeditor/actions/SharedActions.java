@@ -507,10 +507,9 @@ public class SharedActions {
 			InstElement instVertex = refas.getSyntaxRefas().getVertex(
 					instOverTwoRelation.getSupportMetaElementUserIdentifier());
 			if (instVertex == null) {
-				System.err
-						.println("OverTwoRel Null"
-								+ instOverTwoRelation
-										.getSupportMetaElementUserIdentifier());
+				System.err.println("OverTwoRel Null"
+						+ instOverTwoRelation
+								.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
 				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instVertex
@@ -579,8 +578,7 @@ public class SharedActions {
 			MetaVertex metaVertex = null;
 			if (refas.getSyntaxRefas().getVertex(
 					instVertex.getSupportMetaElementIden()) != null)
-				metaVertex = (MetaVertex) refas
-						.getSyntaxRefas()
+				metaVertex = (MetaVertex) refas.getSyntaxRefas()
 						.getVertex(instVertex.getSupportMetaElementIden())
 						.getEditableMetaElement();
 			if (metaVertex == null)
@@ -690,11 +688,10 @@ public class SharedActions {
 				try {
 					metaPairwiseRelation = refas.getSyntaxRefas()
 							.getValidMetaPairwiseRelation(
-									sourceVertex.getTransSupportMetaElement(),
-									targetVertex.getTransSupportMetaElement(),
+									sourceVertex,
+									targetVertex,
 									instPairwiseRelation
-											.getSupportMetaPairwiseRelIden(),
-									true);
+											.getSupportMetaPairwiseRelIden());
 				} catch (Exception e) {
 					e.printStackTrace();
 					// FIXME
