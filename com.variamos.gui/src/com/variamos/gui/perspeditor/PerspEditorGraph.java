@@ -517,12 +517,12 @@ public class PerspEditorGraph extends AbstractGraph {
 						if (instElement instanceof InstConcept) {
 							InstConcept c = (InstConcept) instElement;
 							name = c.getTransSupportMetaElement()
-									.getIdentifier();
+									.getAutoIdentifier();
 						}
 						if (instElement instanceof InstOverTwoRelation) {
 							InstOverTwoRelation c = (InstOverTwoRelation) instElement;
 							name = c.getSupportMetaOverTwoRelation()
-									.getIdentifier();
+									.getAutoIdentifier();
 						}
 						viewsParent = (mxCell) refasGraph.getChildAt(rootCell,
 								0);

@@ -138,7 +138,7 @@ public class SharedActions {
 				InstOverTwoRelation ic = (InstOverTwoRelation) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
-				str = (String) ic.getSupportMetaElementIdentifier();
+				str = (String) ic.getSupportMetaElementUserIdentifier();
 				ic.setMetaOverTwoRelationIden(str);
 			}
 			if (value instanceof InstPairwiseRelation) {
@@ -447,11 +447,11 @@ public class SharedActions {
 			String name = null;
 			if (instElement instanceof InstConcept) {
 				InstConcept c = (InstConcept) instElement;
-				name = c.getTransSupportMetaElement().getIdentifier();
+				name = c.getTransSupportMetaElement().getAutoIdentifier();
 			}
 			if (instElement instanceof InstOverTwoRelation) {
 				InstOverTwoRelation c = (InstOverTwoRelation) instElement;
-				name = c.getSupportMetaOverTwoRelation().getIdentifier();
+				name = c.getSupportMetaOverTwoRelation().getAutoIdentifier();
 			}
 			viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
 			// Null Root
@@ -505,12 +505,12 @@ public class SharedActions {
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
 			InstElement instVertex = refas.getSyntaxRefas().getVertex(
-					instOverTwoRelation.getSupportMetaElementIdentifier());
+					instOverTwoRelation.getSupportMetaElementUserIdentifier());
 			if (instVertex == null) {
 				System.err
 						.println("OverTwoRel Null"
 								+ instOverTwoRelation
-										.getSupportMetaElementIdentifier());
+										.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
 				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instVertex
@@ -576,69 +576,75 @@ public class SharedActions {
 			editor.refreshElement(instOverTwoRelation);
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
-			MetaVertex metaVertex = (MetaVertex) refas.getSyntaxRefas()
-					.getVertex(instVertex.getSupportMetaElementIdentifier())
-					.getEditableMetaElement();
+			MetaVertex metaVertex = null;
+			if (refas.getSyntaxRefas().getVertex(
+					instVertex.getSupportMetaElementIden()) != null)
+				metaVertex = (MetaVertex) refas
+						.getSyntaxRefas()
+						.getVertex(instVertex.getSupportMetaElementIden())
+						.getEditableMetaElement();
 			if (metaVertex == null)
-				System.err.println("Concept Null"
-						+ instVertex.getSupportMetaElementIdentifier());
-			else
+				System.err.println("Concept w "
+						+ instVertex.getSupportMetaElementIden());
+			else {
 				instVertex.setTransSupportMetaElement(metaVertex);
-			refas.putVariabilityInstVertex(instVertex);
-			Iterator<InstAttribute> ias = instVertex.getInstAttributes()
-					.values().iterator();
-			while (ias.hasNext()) {
-				InstAttribute ia = (InstAttribute) ias.next();
-				AbstractAttribute attribute = metaVertex
-						.getAbstractAttribute(ia.getAttributeName());
-				if (attribute != null) {
-					ia.setAttribute(attribute);
-					if (ia.getAttributeType().equals("Boolean")
-							&& ia.getValue() instanceof String)
-						if (((String) ia.getValue()).equals("0"))
-							ia.setValue(false);
-						else
-							ia.setValue(true);
-					if (ia.getIdentifier().equals("ConditionalExpression")) {
-						InstanceExpression instanceExpression = (InstanceExpression) ia
-								.getValue();
-						if (instanceExpression != null)
-							instanceExpression.loadVolatileElements(refas
-									.getVariabilityVertex());
-					}
-					if (ia.getIdentifier().equals(
-							SemanticVariable.VAR_ENUMERATIONTYPE)) {
-						Object instanceExpression = ia.getValue();
-						if (ia.getAttribute().getType().equals("Class")) {
+				refas.putVariabilityInstVertex(instVertex);
+				Iterator<InstAttribute> ias = instVertex.getInstAttributes()
+						.values().iterator();
+				while (ias.hasNext()) {
+					InstAttribute ia = (InstAttribute) ias.next();
+					AbstractAttribute attribute = metaVertex
+							.getAbstractAttribute(ia.getAttributeName());
+					if (attribute != null) {
+						ia.setAttribute(attribute);
+						if (ia.getAttributeType().equals("Boolean")
+								&& ia.getValue() instanceof String)
+							if (((String) ia.getValue()).equals("0"))
+								ia.setValue(false);
+							else
+								ia.setValue(true);
+						if (ia.getIdentifier().equals("ConditionalExpression")) {
+							InstanceExpression instanceExpression = (InstanceExpression) ia
+									.getValue();
+							if (instanceExpression != null)
+								instanceExpression.loadVolatileElements(refas
+										.getVariabilityVertex());
+						}
+						if (ia.getIdentifier().equals(
+								SemanticVariable.VAR_ENUMERATIONTYPE)) {
+							Object instanceExpression = ia.getValue();
+							if (ia.getAttribute().getType().equals("Class")) {
 
-							if (instanceExpression != null) {
-								// instVertex = new HashMap<String,
-								// InstVertex>();
-								List<InstVertex> list = getInstElements(ia
-										.getAttribute()
-										.getMetaConceptInstanceType(), graph);
+								if (instanceExpression != null) {
+									// instVertex = new HashMap<String,
+									// InstVertex>();
+									List<InstVertex> list = getInstElements(ia
+											.getAttribute()
+											.getMetaConceptInstanceType(),
+											graph);
 
-								for (InstVertex concept : list) {
-									// instVertex.put(concept.getIdentifier(),
-									// concept);
-									String out = concept.getInstAttribute(
-											"name").toString();
-									// ia.setValueObject(concept);
-									if (ia.getValue() != null
-											&& out.equals(ia.getValue()))
-										ia.setValueObject(concept);
-									if (ia.getValue() == null
-											&& ia.getAttributeDefaultValue() != null
-											&& out.equals(ia
-													.getAttributeDefaultValue()))
-										ia.setValueObject(concept);
+									for (InstVertex concept : list) {
+										// instVertex.put(concept.getIdentifier(),
+										// concept);
+										String out = concept.getInstAttribute(
+												"name").toString();
+										// ia.setValueObject(concept);
+										if (ia.getValue() != null
+												&& out.equals(ia.getValue()))
+											ia.setValueObject(concept);
+										if (ia.getValue() == null
+												&& ia.getAttributeDefaultValue() != null
+												&& out.equals(ia
+														.getAttributeDefaultValue()))
+											ia.setValueObject(concept);
+									}
 								}
 							}
 						}
+					} else {
+						instAttributesToDelete.add(ia.getAttributeName());
+						ias.remove();
 					}
-				} else {
-					instAttributesToDelete.add(ia.getAttributeName());
-					ias.remove();
 				}
 			}
 			int semAtt = 0;
@@ -743,8 +749,11 @@ public class SharedActions {
 									instAttribute
 											.setValidationRelationTypes(semGD);
 								} catch (Exception e) {
-									System.out.println("SharedActions: relation without semantic type "+ instPairwiseRelation.getIdentifier());
-									//e.printStackTrace();
+									System.out
+											.println("SharedActions: relation without semantic type "
+													+ instPairwiseRelation
+															.getIdentifier());
+									// e.printStackTrace();
 									// FIXME
 
 								}
@@ -825,7 +834,7 @@ public class SharedActions {
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
 						MetaElement mc = ic.getTransSupportMetaElement();
-						if (mc != null && mc.getIdentifier().equals(object))
+						if (mc != null && mc.getAutoIdentifier().equals(object))
 							out.add(ic);
 					}
 				}
@@ -834,7 +843,7 @@ public class SharedActions {
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
 					MetaElement mc = ic.getTransSupportMetaElement();
-					if (mc != null && mc.getIdentifier().equals(object))
+					if (mc != null && mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
 

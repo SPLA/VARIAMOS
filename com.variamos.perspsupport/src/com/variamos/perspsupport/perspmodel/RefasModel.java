@@ -27,7 +27,6 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.perspsupport.semanticsupport.AbstractSemanticVertex;
 import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticContextGroup;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
@@ -69,11 +68,6 @@ public class RefasModel extends AbstractModel {
 	 * 
 	 */
 	private Map<String, InstElement> variabilityInstVertex;
-	// TODO Move variables and enums to otherElements
-	/**
-	 * 
-	 */
-	private Map<String, InstVertex> otherInstVertex;
 
 	/**
 	 * 
@@ -90,8 +84,6 @@ public class RefasModel extends AbstractModel {
 	protected String name;
 
 	private PerspectiveType perspectiveType;
-
-	private List<InstView> instViews;
 
 	public RefasModel(PerspectiveType perspectiveType,
 			Map<String, SemanticExpressionType> metaExpressionTypes) {
@@ -112,9 +104,7 @@ public class RefasModel extends AbstractModel {
 		this.semanticRefas = semanticRefas;
 		variabilityInstVertex = new HashMap<String, InstElement>();
 		instGroupDependencies = new HashMap<String, InstOverTwoRelation>();
-		otherInstVertex = new HashMap<String, InstVertex>();
 		constraintInstEdges = new HashMap<String, InstPairwiseRelation>();
-		instViews = new ArrayList<InstView>();
 		name = "";
 
 		switch (perspectiveType) {
@@ -150,12 +140,12 @@ public class RefasModel extends AbstractModel {
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
 				return ((MetaView) instViews.get(0).getEditableMetaElement())
-						.getIdentifier();
+						.getAutoIdentifier();
 			else
 				return "";
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1)
 			return ((MetaView) instViews.get(modelViewInd)
-					.getEditableMetaElement()).getIdentifier();
+					.getEditableMetaElement()).getAutoIdentifier();
 
 		if (modelViewInd != -1 && modelViewInd < instViews.size()
 				&& modelViewSubInd != -1)
@@ -215,6 +205,7 @@ public class RefasModel extends AbstractModel {
 		return constraintInstEdges.values();
 	}
 
+	@Deprecated
 	public Collection<Constraint> getConstraints() {
 		return null;
 	}
@@ -223,16 +214,13 @@ public class RefasModel extends AbstractModel {
 
 	}
 
+	@Deprecated
 	public Collection<VariabilityElement> getVariabilityElements() {
 		return null;
 	}
 
 	public void putVariabilityInstVertex(InstVertex element) {
 		variabilityInstVertex.put(element.getIdentifier(), element);
-	}
-
-	public void putOtherInstVertex(InstVertex element) {
-		otherInstVertex.put(element.getIdentifier(), element);
 	}
 
 	public void putInstGroupDependency(InstOverTwoRelation groupDep) {
@@ -249,15 +237,6 @@ public class RefasModel extends AbstractModel {
 		varElement.setIdentifier(id);
 		varElement.setInstAttribute("name", id);
 		variabilityInstVertex.put(id, element);
-		return id;
-	}
-
-	public String addNewOtherInstElement(InstVertex element) {
-		String id = getNextOtherInstVertexId(element);
-		InstVertex varElement = (InstVertex) element;
-		varElement.setIdentifier(id);
-		varElement.setInstAttribute("name", id);
-		otherInstVertex.put(id, element);
 		return id;
 	}
 
@@ -286,35 +265,17 @@ public class RefasModel extends AbstractModel {
 		int id = 1;
 		String classId = null;
 		if (element instanceof InstConcept)
-			classId = ((InstConcept) element).getSupportMetaElementIdentifier();
+			classId = ((InstConcept) element)
+					.getSupportMetaElementUserIdentifier();
 		else {
 			if (element instanceof InstEnumeration)
 				classId = ((InstEnumeration) element)
-						.getSupportMetaElementIdentifier();
+						.getSupportMetaElementUserIdentifier();
 			else
 				classId = ((InstOverTwoRelation) element)
-						.getSupportMetaElementIdentifier();
+						.getSupportMetaElementUserIdentifier();
 		}
 		while (variabilityInstVertex.containsKey(classId + id)) {
-			id++;
-		}
-		return classId + id;
-	}
-
-	private String getNextOtherInstVertexId(InstVertex element) {
-		int id = 1;
-		String classId = null;
-		if (element instanceof InstConcept)
-			classId = ((InstConcept) element).getSupportMetaElementIdentifier();
-		else {
-			if (element instanceof InstEnumeration)
-				classId = ((InstEnumeration) element)
-						.getSupportMetaElementIdentifier();
-			else
-				classId = ((InstOverTwoRelation) element)
-						.getSupportMetaElementIdentifier();
-		}
-		while (otherInstVertex.containsKey(classId + id)) {
 			id++;
 		}
 		return classId + id;
@@ -323,7 +284,7 @@ public class RefasModel extends AbstractModel {
 	private String getNextInstGroupDependencyId(InstOverTwoRelation grouDep) {
 
 		int id = 1;
-		String classId = grouDep.getSupportMetaElementIdentifier();
+		String classId = grouDep.getSupportMetaElementUserIdentifier();
 
 		while (instGroupDependencies.containsKey(classId + id)) {
 			id++;
@@ -365,7 +326,7 @@ public class RefasModel extends AbstractModel {
 		while (iter.hasNext()) {
 			InstElement element = iter.next();
 			if (element.getTransSupportMetaElement() != null
-					&& element.getTransSupportMetaElement().getIdentifier()
+					&& element.getTransSupportMetaElement().getAutoIdentifier()
 							.equals(stereotype))
 				out.add((InstElement) element);
 		}
@@ -379,18 +340,6 @@ public class RefasModel extends AbstractModel {
 
 	public void setVariabilityVertex(Map<String, InstElement> elements) {
 		this.variabilityInstVertex = elements;
-	}
-
-	public Map<String, InstVertex> getOtherVertex() {
-		return otherInstVertex;
-	}
-
-	public void setOtherVertex(Map<String, InstVertex> elements) {
-		this.otherInstVertex = elements;
-	}
-
-	public VariabilityElement getVariabilityElement(String string) {
-		return null;
 	}
 
 	@Override
@@ -429,7 +378,6 @@ public class RefasModel extends AbstractModel {
 		Set<InstElement> out = new HashSet<InstElement>();
 		out.addAll(variabilityInstVertex.values());
 		out.addAll(instGroupDependencies.values());
-		out.addAll(otherInstVertex.values());
 		return out;
 	}
 
@@ -489,12 +437,7 @@ public class RefasModel extends AbstractModel {
 			for (InstElement instVertex : variabilityInstVertex.values()) {
 				if (instVertex.getEditableMetaElement().getVisible())
 					elements.add(instVertex.getEditableMetaElement()
-							.getIdentifier());
-			}
-			for (InstVertex instVertex : otherInstVertex.values()) {
-				if (instVertex.getEditableMetaElement().getVisible())
-					elements.add(instVertex.getEditableMetaElement()
-							.getIdentifier());
+							.getAutoIdentifier());
 			}
 		} else if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)
@@ -505,7 +448,7 @@ public class RefasModel extends AbstractModel {
 				if (instVertex.getEditableMetaElement() != null
 						&& instVertex.getEditableMetaElement().getVisible())
 					elements.add(instVertex.getEditableMetaElement()
-							.getIdentifier());
+							.getAutoIdentifier());
 			}
 		}
 		if (modelViewInd != -1
@@ -521,7 +464,7 @@ public class RefasModel extends AbstractModel {
 				if (instVertex.getEditableMetaElement() != null
 						&& instVertex.getEditableMetaElement().getVisible())
 					elements.add(instVertex.getEditableMetaElement()
-							.getIdentifier());
+							.getAutoIdentifier());
 			}
 		}
 		return elements;
@@ -5594,10 +5537,10 @@ public class RefasModel extends AbstractModel {
 						.getEditableMetaElement();
 				// if (!(instElement instanceof MetaOverTwoRelation)
 				// && !(instElement2 instanceof MetaOverTwoRelation))
-				if (sourceMetaElement.getIdentifier().equals(
-						instElement.getIdentifier())
-						&& targetMetaElement.getIdentifier().equals(
-								instElement2.getIdentifier()))
+				if (sourceMetaElement.getAutoIdentifier().equals(
+						instElement.getAutoIdentifier())
+						&& targetMetaElement.getAutoIdentifier().equals(
+								instElement2.getAutoIdentifier()))
 					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -5623,10 +5566,10 @@ public class RefasModel extends AbstractModel {
 						.getTargetRelations().get(0).getEditableMetaElement();
 				// if (!(instElement instanceof MetaOverTwoRelation)
 				// && !(instElement2 instanceof MetaOverTwoRelation))
-				if (sourceMetaElement.getIdentifier().equals(
-						instElement.getIdentifier())
-						&& targetMetaElement.getIdentifier().equals(
-								instElement2.getIdentifier()))
+				if (sourceMetaElement.getAutoIdentifier().equals(
+						instElement.getAutoIdentifier())
+						&& targetMetaElement.getAutoIdentifier().equals(
+								instElement2.getAutoIdentifier()))
 					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -5658,11 +5601,11 @@ public class RefasModel extends AbstractModel {
 						.getEditableMetaElement();
 				// if (!(instElement instanceof MetaOverTwoRelation)
 				// && !(instElement2 instanceof MetaOverTwoRelation))
-				if (sourceMetaElement.getIdentifier().equals(
-						instElement.getIdentifier())
-						&& targetMetaElement.getIdentifier().equals(
-								instElement2.getIdentifier())
-						&& pwr.getEditableMetaElement().getIdentifier()
+				if (sourceMetaElement.getAutoIdentifier().equals(
+						instElement.getAutoIdentifier())
+						&& targetMetaElement.getAutoIdentifier().equals(
+								instElement2.getAutoIdentifier())
+						&& pwr.getEditableMetaElement().getAutoIdentifier()
 								.equals(metaPairwiseIden))
 					return (MetaPairwiseRelation) pwr.getEditableMetaElement();
 			}
@@ -5677,10 +5620,10 @@ public class RefasModel extends AbstractModel {
 						.getTargetRelations().get(0).getEditableMetaElement();
 				// if (!(instElement instanceof MetaOverTwoRelation)
 				// && !(instElement2 instanceof MetaOverTwoRelation))
-				if (sourceMetaElement.getIdentifier().equals(
-						instElement.getIdentifier())
-						&& targetMetaElement.getIdentifier().equals(
-								instElement2.getIdentifier()))
+				if (sourceMetaElement.getAutoIdentifier().equals(
+						instElement.getAutoIdentifier())
+						&& targetMetaElement.getAutoIdentifier().equals(
+								instElement2.getAutoIdentifier()))
 					out2 = pwr.getEditableMetaElement();
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -5740,7 +5683,7 @@ public class RefasModel extends AbstractModel {
 					return true;
 			}
 		}
-		if (modelViewInd < instViews.size()
+		/*if (modelViewInd < instViews.size()
 				&& modelViewSubInd != -1
 				&& modelViewSubInd < instViews.get(modelViewInd)
 						.getChildViews().size()) {
@@ -5753,15 +5696,14 @@ public class RefasModel extends AbstractModel {
 						.get(0).getIdentifier().equals(element))
 					return true;
 			}
-		}
+			
+		}*/
 		return false;
 	}
 
 	public void clear() {
-		this.instViews.clear();
 		this.instGroupDependencies.clear();
 		this.variabilityInstVertex.clear();
 		this.constraintInstEdges.clear();
-		this.otherInstVertex.clear();
 	}
 }

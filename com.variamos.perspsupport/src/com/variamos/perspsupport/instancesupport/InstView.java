@@ -190,7 +190,7 @@ public class InstView extends InstElement {
 
 	@Override
 	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
-		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
 		this.supportMetaConcept = (MetaConcept) supportMetaElement;
 	}
 

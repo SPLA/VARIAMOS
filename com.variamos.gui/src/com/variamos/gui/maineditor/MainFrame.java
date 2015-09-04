@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.12";
-	private String variamosVersionName = "1.0 Beta 12";
-	private String variamosBuild = "20150828 1200";
+	private String variamosVersionNumber = "1.0.1.13";
+	private String variamosVersionName = "1.0 Beta 13";
+	private String variamosBuild = "201509004 1200";
 	private String downloadId = "366";
 
 	public int getPerspective() {
@@ -59,6 +59,8 @@ public class MainFrame extends JFrame {
 		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1070, 740);
+
+		System.out.println("Loading Basic Semantic and Syntax...");
 		RefasModel basicSyntaxRefas = new RefasModel(
 				PerspectiveType.basicSyntax, metaExpressionTypes);
 		RefasModel basicSemanticRefas = new RefasModel(

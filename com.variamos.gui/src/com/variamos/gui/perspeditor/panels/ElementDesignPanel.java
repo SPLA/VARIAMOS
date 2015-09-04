@@ -754,7 +754,7 @@ public class ElementDesignPanel extends JPanel {
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableMetaElement.setIdentifier((String) instAttribute
+					editableMetaElement.setUserIdentifier((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement

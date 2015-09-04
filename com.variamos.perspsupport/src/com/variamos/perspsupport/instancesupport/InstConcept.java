@@ -122,7 +122,7 @@ public class InstConcept extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaElementIdentifier() {
+	public String getSupportMetaElementUserIdentifier() {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METACONCEPT_IDEN);
 	}
@@ -254,7 +254,7 @@ public class InstConcept extends InstVertex {
 		super.setTransSupportMetaElement(metaElement);
 
 		// TODO delete
-		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElement.getIdentifier());
+		setDynamicVariable(VAR_METACONCEPT_IDEN, metaElement.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaElement.getDescription());
 		// createInstAttributes();

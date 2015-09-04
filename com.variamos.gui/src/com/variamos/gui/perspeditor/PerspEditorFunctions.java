@@ -44,10 +44,15 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
-	private ArrayList<PaletteElement> paletteElements = new ArrayList<PaletteElement>();
+	private ArrayList<PaletteElement> paletteElements = null;
 
 	public PerspEditorFunctions(VariamosGraphEditor editor) {
 		super(editor);
+		loadPaletteElements();
+	}
+
+	private void loadPaletteElements() {
+		 paletteElements = new ArrayList<PaletteElement>();
 		Collection<InstElement> instElements = new HashSet<InstElement>();
 		for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
 				.getSyntaxRefas().getVertices()) {
@@ -55,7 +60,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 		for (InstElement instElement : instElements) {
 			MetaElement metaElement = instElement.getEditableMetaElement();
-			paletteElements.add(new PaletteElement(metaElement.getIdentifier(),
+			paletteElements.add(new PaletteElement(metaElement.getAutoIdentifier(),
 					metaElement.getName(), metaElement.getImage(), metaElement
 							.getStyle(), metaElement.getWidth(), metaElement
 							.getHeight(), null, metaElement, instElement));
@@ -73,6 +78,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
 		editor.clearPalettes();
+		loadPaletteElements();
 		EditorPalette[] palettes = editor.insertPalettes(editor
 				.getEditedModel().getInstViewPalettesName(modelViewIndex, -1)
 		// getmxResources.get("modelViewPalette" + modelViewIndex)
@@ -105,15 +111,15 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							if (metaVertex instanceof MetaConcept) {
 								// MetaElement metaElement = new MetaConcept();
 								Object o;
-									o = new InstConcept();
+								o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
 									if (((MetaConcept) metaVertex).getType() != 'V')
-									obj = (InstElement) c.newInstance("",
-											(MetaElement) metaVertex,
-											new MetaConcept());
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaConcept());
 									else
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,

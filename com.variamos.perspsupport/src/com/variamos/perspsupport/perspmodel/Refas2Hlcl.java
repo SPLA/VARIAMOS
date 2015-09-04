@@ -518,7 +518,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					if (conceptTypes != null
 							&& (vertex == null || !conceptTypes.contains(vertex
 									.getTransSupportMetaElement()
-									.getIdentifier())))
+									.getAutoIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {
@@ -717,7 +717,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			for (InstPairwiseRelation elm : refas
 					.getConstraintInstEdgesCollection()) {
 				if (elm.getMetaPairwiseRelation() == null
-						|| !elm.getMetaPairwiseRelation().getIdentifier()
+						|| !elm.getMetaPairwiseRelation().getAutoIdentifier()
 								.equals("Variable To Context Relation"))
 					constraintGroups.put(
 							elm.getIdentifier(),
@@ -1044,7 +1044,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							&& instVertex.getInstAttribute("ExportOnConfig")
 									.getAsBoolean()) {
 						String metaId = instVertex.getTransSupportMetaElement()
-								.getIdentifier();
+								.getAutoIdentifier();
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
 							Object oo = instVertex.getInstAttribute(

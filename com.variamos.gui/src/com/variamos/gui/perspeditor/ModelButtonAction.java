@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstView;
 
 @SuppressWarnings("serial")
@@ -27,11 +28,11 @@ public class ModelButtonAction extends AbstractEditorAction {
 		if (editor != null) {
 			((MainFrame)editor.getFrame()).waitingCursor(true);
 
-			List<InstView> metaViews = editor.getInstViews();
+			List<InstElement> metaViews = editor.getInstViews();
 			JButton jb = (JButton) e.getSource();
 			for (int i = 0; i< metaViews.size(); i++)
 			{
-				List<InstView> childViews =metaViews.get(i).getChildViews();
+				/*List<InstView> childViews =metaViews.get(i).getChildViews();
 				if (childViews.size()>0)
 				{
 				for (int j = 0; j< childViews.size(); j++)
@@ -43,7 +44,7 @@ public class ModelButtonAction extends AbstractEditorAction {
 						System.out.println("view" + i +" "+j);
 					}
 				}
-				}
+				}*/
 			}
 			updateButtons((JPanel) jb.getParent(), jb);
 			((MainFrame)editor.getFrame()).waitingCursor(false);
