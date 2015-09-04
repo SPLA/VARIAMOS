@@ -79,7 +79,7 @@ public class InstOverTwoRelation extends InstVertex {
 		super("");
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
-				metaOverTwoRelation.getIdentifier());
+				metaOverTwoRelation.getAutoIdentifier());
 		setTransSupportMetaElement(metaOverTwoRelation);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaOverTwoRelation.getDescription());
@@ -97,7 +97,7 @@ public class InstOverTwoRelation extends InstVertex {
 		setEditableMetaElement(editableMetaElement);
 		if (supportMetaOvetTwoRelation != null) {
 			dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
-					supportMetaOvetTwoRelation.getIdentifier());
+					supportMetaOvetTwoRelation.getAutoIdentifier());
 			setTransSupportMetaElement(supportMetaOvetTwoRelation);
 			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 					supportMetaOvetTwoRelation.getDescription());
@@ -114,7 +114,7 @@ public class InstOverTwoRelation extends InstVertex {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEditableSemanticElement(semanticElement);
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
-				supportMetaOvetTwoRelation.getIdentifier());
+				supportMetaOvetTwoRelation.getAutoIdentifier());
 		setTransSupportMetaElement(supportMetaOvetTwoRelation);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaOvetTwoRelation.getDescription());
@@ -129,7 +129,7 @@ public class InstOverTwoRelation extends InstVertex {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
-				supportMetaOvetTwoRelation.getIdentifier());
+				supportMetaOvetTwoRelation.getAutoIdentifier());
 		setTransSupportMetaElement(supportMetaOvetTwoRelation);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaOvetTwoRelation.getDescription());
@@ -213,7 +213,7 @@ public class InstOverTwoRelation extends InstVertex {
 		return getTransSupportMetaElement();
 	}
 
-	public String getSupportMetaElementIdentifier() {
+	public String getSupportMetaElementUserIdentifier() {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAOVERTWOREL_IDEN);
 	}
@@ -255,7 +255,7 @@ public class InstOverTwoRelation extends InstVertex {
 	public void setTransSupportMetaElement(MetaVertex supportMetaOvetTwoRelation) {
 		super.setTransSupportMetaElement(supportMetaOvetTwoRelation);
 		setDynamicVariable(VAR_METAOVERTWOREL_IDEN,
-				supportMetaOvetTwoRelation.getIdentifier());
+				supportMetaOvetTwoRelation.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaOvetTwoRelation.getDescription());
 

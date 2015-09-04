@@ -165,7 +165,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(RefasModel) getEditedModel());
 
-	private List<InstView> instViews;
 	private FileTasks fileTask;
 
 	public void updateDashBoard(boolean updateConcepts, boolean updated) {
@@ -205,7 +204,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		defects.add("Dead");
 
 		refasModel = (RefasModel) abstractModel;
-		instViews = new ArrayList<InstView>();
 		refas2hlcl = new Refas2Hlcl(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 
@@ -409,6 +407,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void updateEditor() {
+		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
+				.getValidElements(modelViewIndex, modelSubViewIndex);
 		dashBoardFrame = new VariamosDashBoardFrame(
 				(RefasModel) getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
@@ -423,6 +423,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void updateView() {
+		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
+				.getValidElements(modelViewIndex, modelSubViewIndex);
 		graphEditorFunctions.updateView(this.validElements,
 				getGraphComponent(), modelViewIndex);
 		this.setInvalidConfigHlclProgram(true);
@@ -435,6 +437,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	 *            New constructor to load directly files and perspectives
 	 * @throws FeatureModelException
 	 */
+	@Deprecated
 	public static VariamosGraphEditor loader(MainFrame frame, String appTitle,
 			String file, String perspective) throws FeatureModelException {
 		AbstractModel abstractModel = null;
@@ -549,9 +552,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		mxCell root = new mxCell();
 		root.insert(new mxCell());
 		graph.getModel().setRoot(root);
+		refasModel.clear();
 		if (perspective == 2) {
 			setGraphEditorFunctions(new PerspEditorFunctions(this));
-			refasModel.clear();
 			((PerspEditorGraph) graph).defineInitialGraph();
 			System.out.println("");
 		}
@@ -740,7 +743,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						if (elm instanceof InstConcept) {
 							String iden = ((InstConcept) elm)
 									.getTransSupportMetaElement()
-									.getIdentifier();
+									.getAutoIdentifier();
 							// System.out.println(iden);
 							if (iden.equals("CG")
 									|| iden.equals("ContextVariable")
@@ -954,7 +957,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				if (finalEditElm instanceof InstConcept) {
 					String iden = ((InstConcept) finalEditElm)
-							.getTransSupportMetaElement().getIdentifier();
+							.getTransSupportMetaElement().getAutoIdentifier();
 					// System.out.println(iden);
 					if (iden.equals("CG") || iden.equals("ContextVariable")
 							|| iden.equals("GlobalVariable")
@@ -983,7 +986,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					if (this.perspective == 2)
 
 						if (refas2hlcl.validateConceptType(finalEditElm,
-								"SemGeneralElement"))
+								"GeneralElement"))
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
@@ -1008,12 +1011,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						mapElements = refasModel.getSyntaxRefas()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
-												.get(0)
-												.getTransSupportMetaElement(),
+												.get(0),
 										instPairwise.getTargetRelations()
-												.get(0)
-												.getTransSupportMetaElement(),
-										true);
+												.get(0));
 					}
 					instAttribute.updateValidationList(finalEditElm,
 							mapElements);
@@ -1280,13 +1280,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (elm instanceof InstPairwiseRelation) {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 				try {
-					mapElements = refasModel
-							.getSyntaxRefas()
+					mapElements = refasModel.getSyntaxRefas()
 							.getValidPairwiseRelations(
-									instPairwise.getSourceRelations().get(0)
-											.getTransSupportMetaElement(),
-									instPairwise.getTargetRelations().get(0)
-											.getTransSupportMetaElement(), true);
+									instPairwise.getSourceRelations().get(0),
+									instPairwise.getTargetRelations().get(0));
 				} catch (Exception e) {
 					// FIXME
 					e.printStackTrace();
@@ -1313,8 +1310,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableMetaElement.setIdentifier((String) instAttribute
-							.getValue());
+					editableMetaElement
+							.setUserIdentifier((String) instAttribute
+									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
 							.setInstSemanticElement((InstElement) this.refasModel
@@ -1826,12 +1824,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public List<InstView> getInstViews() {
-		return instViews;
-	}
-
-	public void setInstViews(List<InstView> instViews) {
-		this.instViews = instViews;
+	public List<InstElement> getInstViews() {
+		return refasModel.getSyntaxRefas().getVariabilityVertex("View");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {

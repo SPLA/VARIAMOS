@@ -21,6 +21,30 @@ public class AbstractAttribute implements Serializable {
 		this.type = type;
 	}
 
+	public void setDefaultGroup(int defaultGroup) {
+		this.defaultGroup = defaultGroup;
+	}
+
+	public void setPropTabPosition(int propTabPosition) {
+		this.propTabPosition = propTabPosition;
+	}
+
+	public void setElementDisplayPosition(int elementDisplayPosition) {
+		this.elementDisplayPosition = elementDisplayPosition;
+	}
+
+	public void setElementDisplaySpacers(String elementDisplaySpacers) {
+		this.elementDisplaySpacers = elementDisplaySpacers;
+	}
+
+	public void setPropTabEditionCondition(String propTabEditionCondition) {
+		this.propTabEditionCondition = propTabEditionCondition;
+	}
+
+	public void setPropTabVisualCondition(String propTabVisualCondition) {
+		this.propTabVisualCondition = propTabVisualCondition;
+	}
+
 	public void setClassCanonicalName(String classCanonicalName) {
 		this.classCanonicalName = classCanonicalName;
 	}
@@ -89,7 +113,34 @@ public class AbstractAttribute implements Serializable {
 	 * defaultGroup for the attribute - for simulation multi-labeling
 	 */
 	private int defaultGroup;
-
+	/**
+	 * Position of the attribute in the property tab panel - -1 to hide
+	 */
+	private int propTabPosition;
+	/**
+	 * Position of the attribute in the element representation - -1 to hide
+	 */
+	private int elementDisplayPosition;
+	/**
+	 * Spacer for the attribute in the element representation (before and after
+	 * separated by #-#
+	 */
+	private String elementDisplaySpacers;
+	/**
+	 * Condition to enable edition of the attribute in the property tab - Empty
+	 * always edits
+	 */
+	private String propTabEditionCondition;
+	/**
+	 * Condition to enable visualization of the attribute in the property tab-
+	 * Empty always displays
+	 */
+	private String propTabVisualCondition;
+	/**
+	 * Condition to enable visualization of the attribute in the graph Empty
+	 * always displays
+	 */
+	private String elementDisplayCondition;
 	public static final String
 	/**
 	 * Name of element name
@@ -150,10 +201,72 @@ public class AbstractAttribute implements Serializable {
 	/**
 	 * Name of element defaultGroup
 	 */
-	VAR_defaultGroup = "defaultGroup";
+	VAR_defaultGroup = "Default Group",
+	/**
+	 * Position of the attribute in the property tab panel - -1 to hide
+	 */
+	VAR_PROPTABPOSITION = "propTabPosition",
+	/**
+	 * Name of the position of the attribute in the property tab panel - -1 to
+	 * hide
+	 */
+	VAR_PROPTABPOSITION_NAME = "Prop. Tab Position",
+	/**
+	 * Position of the attribute in the element representation - -1 to hide
+	 */
+	VAR_ELEMENTDISPLAYPOSITION = "elementDisplayPosition",
+	/**
+	 * Name of the position of the attribute in the element representation - -1
+	 * to hide
+	 */
+	VAR_ELEMENTDISPLAYPOSITION_NAME = "Element Disp. Position",
+	/**
+	 * Spacer for the attribute in the element representation (before and after
+	 * separated by #-#
+	 */
+	VAR_ELEMENTDISPLAYSPACERS = "elementDisplaySpacers",
+	/**
+	 * Name of the spacer for the attribute in the element representation
+	 * (before and after separated by #-#
+	 */
+	VAR_ELEMENTDISPLAYSPACERS_NAME = "Element Disp. Spacers",
+	/**
+	 * Condition to enable edition of the attribute in the property tab - Empty
+	 * always edits
+	 */
+	VAR_PROPTABEDITIONCOND = "propTabEditionCondition",
+	/**
+	 * Name of the Condition to enable edition of the attribute in the property
+	 * tab - Empty always edits
+	 */
+	VAR_PROPTABEDITIONCOND_NAME = "Prop. Tab Edition Cond.",
+	/**
+	 * Condition to enable visualization of the attribute in the property tab-
+	 * Empty always displays
+	 */
+	VAR_PROPTABVISUALCOND = "propTabVisualCondition",
+	/**
+	 * Name of the Condition to enable visualization of the attribute in the
+	 * property tab- Empty always displays
+	 */
+	VAR_PROPTABVISUALCOND_NAME = "Prop. Tab Visual Cond.",
+	/**
+	 * Condition to enable visualization of the attribute in the property tab-
+	 * Empty always displays
+	 */
+	VAR_ELEMENTDISPLAYCONDITION = "elementDisplayCondition",
+	/**
+	 * Name of the Condition to enable visualization of the attribute in the
+	 * property tab- Empty always displays
+	 */
+	VAR_ELEMENTDISPLAYCONDITION_NAME = "Graph Visual Cond.";
 
-	public Map<String, EditableElementAttribute> getEditableElementAttributes() {
-		return dynamicAttributeComponentsMap;
+	public String getElementDisplayCondition() {
+		return elementDisplayCondition;
+	}
+
+	public void setElementDisplayCondition(String elementDisplayCondition) {
+		this.elementDisplayCondition = elementDisplayCondition;
 	}
 
 	/**
@@ -197,9 +310,16 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue, int defaultGroup) {
+			boolean affectProperties, String displayName, Object defaultValue,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, null, defaultGroup);
+				defaultValue, null, null, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
 	}
 
 	/**
@@ -224,185 +344,265 @@ public class AbstractAttribute implements Serializable {
 	 */
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
+			String hint, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, null, null,
+				defaultValue, null, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param enumType
+	 *            Complete class in referenced attributes (Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, enumType, null,
+				defaultValue, null, null, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param enumType
+	 *            Complete class in referenced attributes (Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param metaConceptInstanceType
+	 *            Identifier of the type of instance concept. Examples: OPER
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
+			String metaConceptInstanceType, Object defaultValue,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, enumType,
+				metaConceptInstanceType, defaultValue, null, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param enumType
+	 *            Complete class in referenced attributes (Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param metaConceptInstanceType
+	 *            Identifier of the type of instance concept. Examples: OPER
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param hint
+	 *            Hint to display on the property tab (not currently
+	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
+			Object defaultValue, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, enumType, null,
+				defaultValue, null, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param enumType
+	 *            Complete class in referenced attributes (Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param metaConceptInstanceType
+	 *            Identifier of the type of instance concept. Examples: OPER
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param hint
+	 *            Hint to display on the property tab (not currently
+	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
+			String metaConceptInstanceType, Object defaultValue, String hint,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, enumType,
+				metaConceptInstanceType, defaultValue, null, hint,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param domain
+	 *            Domain of the attribute (not tested)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, Object defaultValue,
+			Domain domain, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, null, null,
+				defaultValue, domain, null, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	/**
+	 * set local attributes not received with null
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param domain
+	 *            Domain of the attribute (not tested)
+	 * @param hint
+	 *            Hint to display on the property tab (not currently
+	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, Object defaultValue,
+			Domain domain, String hint, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, affectProperties, displayName, null, null,
+				defaultValue, domain, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	/**
+	 * constructor, set all local attributes without visual control
+	 * 
+	 * @param name
+	 *            local identifier of the attribute
+	 * @param type
+	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param affectProperties
+	 *            Name to display on properties JLabel
+	 * @param displayName
+	 *            Name to display on properties JLabel
+	 * @param enumType
+	 *            Complete class in referenced attributes (Class, MClass,
+	 *            Enumeration, MEnumeration)
+	 * @param metaConceptInstanceType
+	 *            Identifier of the type of instance concept. Examples: OPER
+	 * @param defaultValue
+	 *            Default value for the attribute
+	 * @param domain
+	 *            Domain of the attribute (not tested)
+	 * @param hint
+	 *            Hint to display on the property tab (not currently
+	 *            implemented)
+	 * @param defaultGroup
+	 *            Default defaultGroup for the attribute
+	 */
+	public AbstractAttribute(String name, String type,
+			boolean affectProperties, String displayName, String enumType,
+			String metaConceptInstanceType, Object defaultValue, Domain domain,
 			String hint, int defaultGroup) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, hint, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param enumType
-	 *            Complete class in referenced attributes (Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup) {
-		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, null, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param enumType
-	 *            Complete class in referenced attributes (Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param metaConceptInstanceType
-	 *            Identifier of the type of instance concept. Examples: OPER
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, int defaultGroup) {
 		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, null, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param enumType
-	 *            Complete class in referenced attributes (Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param metaConceptInstanceType
-	 *            Identifier of the type of instance concept. Examples: OPER
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param hint
-	 *            Hint to display on the property tab (not currently
-	 *            implemented)
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint, int defaultGroup) {
-		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, hint, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param enumType
-	 *            Complete class in referenced attributes (Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param metaConceptInstanceType
-	 *            Identifier of the type of instance concept. Examples: OPER
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param hint
-	 *            Hint to display on the property tab (not currently
-	 *            implemented)
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, String hint, int defaultGroup) {
-		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, hint, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param domain
-	 *            Domain of the attribute (not tested)
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, int defaultGroup) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, null, defaultGroup);
-	}
-
-	/**
-	 * set local attributes not received with null
-	 * 
-	 * @param name
-	 *            local identifier of the attribute
-	 * @param type
-	 *            Attribute type (String, Integer, Boolean, Set, Class, MClass,
-	 *            Enumeration, MEnumeration)
-	 * @param affectProperties
-	 *            Name to display on properties JLabel
-	 * @param displayName
-	 *            Name to display on properties JLabel
-	 * @param defaultValue
-	 *            Default value for the attribute
-	 * @param domain
-	 *            Domain of the attribute (not tested)
-	 * @param hint
-	 *            Hint to display on the property tab (not currently
-	 *            implemented)
-	 * @param defaultGroup
-	 *            Default defaultGroup for the attribute
-	 */
-	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, String hint, int defaultGroup) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, hint, defaultGroup);
+				metaConceptInstanceType, defaultValue, domain, hint,
+				defaultGroup, -1, "", "", -1, "", "");
 	}
 
 	/**
@@ -436,7 +636,10 @@ public class AbstractAttribute implements Serializable {
 	public AbstractAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, Domain domain,
-			String hint, int defaultGroup) {
+			String hint, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -448,6 +651,12 @@ public class AbstractAttribute implements Serializable {
 		this.domain = domain;
 		this.hint = hint;
 		this.defaultGroup = defaultGroup;
+		this.propTabPosition = propTabPosition;
+		this.propTabEditionCondition = propTabEditionCondition;
+		this.propTabVisualCondition = propTabVisualCondition;
+		this.elementDisplayPosition = elementDisplayPosition;
+		this.elementDisplaySpacers = elementDisplaySpacers;
+		this.elementDisplayCondition = elementDisplayCondition;
 
 		if (type.equals("Class") || type.equals("MClass")
 				|| type.equals("Enum") || type.equals("MEnum"))
@@ -476,8 +685,47 @@ public class AbstractAttribute implements Serializable {
 															// String to Domain
 		dynamicAttributeComponentsMap.put(VAR_HINT, new AttributeElement(
 				VAR_HINT, "String", VAR_HINT, hint));
-		dynamicAttributeComponentsMap.put(VAR_defaultGroup, new AttributeElement(
-				VAR_defaultGroup, "Integer", VAR_defaultGroup, defaultGroup));
+		dynamicAttributeComponentsMap.put(VAR_defaultGroup,
+				new AttributeElement(VAR_defaultGroup, "Integer",
+						VAR_defaultGroup, defaultGroup));
+		dynamicAttributeComponentsMap.put(VAR_PROPTABPOSITION,
+				new AttributeElement(VAR_PROPTABPOSITION, "Integer",
+						VAR_PROPTABPOSITION_NAME, propTabPosition));
+		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYPOSITION,
+				new AttributeElement(VAR_ELEMENTDISPLAYPOSITION, "Integer",
+						VAR_ELEMENTDISPLAYPOSITION_NAME, elementDisplayPosition));
+		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYSPACERS,
+				new AttributeElement(VAR_ELEMENTDISPLAYSPACERS, "String",
+						VAR_ELEMENTDISPLAYSPACERS_NAME, elementDisplaySpacers));
+		dynamicAttributeComponentsMap.put(VAR_PROPTABEDITIONCOND,
+				new AttributeElement(VAR_PROPTABEDITIONCOND, "String",
+						VAR_PROPTABEDITIONCOND_NAME, propTabEditionCondition));
+		dynamicAttributeComponentsMap.put(VAR_PROPTABVISUALCOND,
+				new AttributeElement(VAR_PROPTABVISUALCOND, "String",
+						VAR_PROPTABVISUALCOND_NAME, propTabVisualCondition));
+		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYCONDITION,
+				new AttributeElement(VAR_ELEMENTDISPLAYCONDITION, "String",
+						VAR_ELEMENTDISPLAYCONDITION_NAME, elementDisplayCondition));
+	}
+
+	public int getPropTabPosition() {
+		return propTabPosition;
+	}
+
+	public int getElementDisplayPosition() {
+		return elementDisplayPosition;
+	}
+
+	public String getElementDisplaySpacers() {
+		return elementDisplaySpacers;
+	}
+
+	public String getPropTabEditionCondition() {
+		return propTabEditionCondition;
+	}
+
+	public String getPropTabVisualCondition() {
+		return propTabVisualCondition;
 	}
 
 	public String getDisplayName() {
@@ -489,7 +737,6 @@ public class AbstractAttribute implements Serializable {
 		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME,
 				new AttributeElement(VAR_DISPLAYNAME, "String",
 						VAR_DISPLAYNAMENAME, displayName));
-
 	}
 
 	public Object getDefaultValue() {
@@ -519,11 +766,11 @@ public class AbstractAttribute implements Serializable {
 	public String getHint() {
 		return hint;
 	}
-	
+
 	public int getDefaultGroup() {
 		return defaultGroup;
 	}
-	
+
 	public boolean isAffectProperties() {
 		return affectProperties;
 	}

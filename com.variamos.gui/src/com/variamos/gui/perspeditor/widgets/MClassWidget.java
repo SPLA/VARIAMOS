@@ -126,7 +126,7 @@ public class MClassWidget extends WidgetR {
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
 					MetaVertex mc = ic.getTransSupportMetaElement();
-					if (mc.getIdentifier().equals(object))
+					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
 

@@ -38,7 +38,11 @@ public abstract class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	private String identifier;
+	private String autoIdentifier;	
+	/**
+	 * 
+	 */
+	private String userIdentifier;
 	/**
 	 * 
 	 */
@@ -118,7 +122,7 @@ public abstract class MetaElement implements Serializable {
 				new HashMap<String, AbstractAttribute>());
 	}
 
-	public MetaElement(String identifier, boolean visible, String name,
+	public MetaElement(String autoIdentifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, int borderStroke, InstElement instSemanticElement,
 			List<String> disPropVisibleAttributes,
@@ -128,7 +132,7 @@ public abstract class MetaElement implements Serializable {
 			Map<String, AbstractAttribute> modelingAttributes)
 
 	{
-		this.identifier = identifier;
+		this.autoIdentifier = autoIdentifier;
 		this.visible = visible;
 		this.name = name;
 		this.style = style;
@@ -148,7 +152,8 @@ public abstract class MetaElement implements Serializable {
 
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
-				VAR_IDENTIFIER, "String", false, "Identifier", null, 0));
+				VAR_IDENTIFIER, "String", false, "AutoIdentifier", null, 0, 1, "",
+				"", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -166,12 +171,20 @@ public abstract class MetaElement implements Serializable {
 		this.instSemanticElement = instSemanticElement;
 	}
 
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+	public void setAutoIdentifier(String autoIdentifier) {
+		this.autoIdentifier = autoIdentifier;
 	}
 
-	public String getIdentifier() {
-		return identifier;
+	public String getAutoIdentifier() {
+		return autoIdentifier;
+	}
+
+	public void setUserIdentifier(String userIdentifier) {
+		this.userIdentifier = userIdentifier;
+	}
+
+	public String getUserIdentifier() {
+		return userIdentifier;
 	}
 
 	public void setName(String name) {
@@ -343,25 +356,36 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup) {
-		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, defaultValue, defaultGroup));
+					affectProperties, displayName, defaultValue, defaultGroup,
+					propTabPosition, propTabEditionCondition,
+					propTabVisualCondition, elementDisplayPosition,
+					elementDisplaySpacers, elementDisplayCondition));
 	}
 
 	public void addModelingAttribute(String name,
 			AbstractAttribute abstractAttribute) {
-		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
+		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, abstractAttribute);
 	}
 
 	public void addModelingAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup) {
-		if (!name.equals("identifier") && modelingAttributes.get(name) == null)
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, enumType, defaultValue,
-					defaultGroup));
+					defaultGroup, propTabPosition, propTabEditionCondition,
+					propTabVisualCondition, elementDisplayPosition,
+					elementDisplaySpacers, elementDisplayCondition));
 	}
 
 	public boolean getVisible() {

@@ -52,10 +52,10 @@ public class ModelExpressionSet extends ElementExpressionSet {
 			IntSemanticElement semElement = metaElement
 					.getTransSemanticConcept();
 			while (semElement != null && semElement.getIdentifier() != null
-					&& !semElement.getIdentifier().equals("SemGeneralElement"))
+					&& !semElement.getIdentifier().equals("GeneralElement"))
 				semElement = semElement.getParent();
 			if (semElement != null && semElement.getIdentifier() != null
-					&& semElement.getIdentifier().equals("SemGeneralElement"))
+					&& semElement.getIdentifier().equals("GeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
 					switch (execType) {
 					case Refas2Hlcl.VAL_UPD_EXEC:

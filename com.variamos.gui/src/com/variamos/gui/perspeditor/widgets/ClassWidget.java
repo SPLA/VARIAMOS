@@ -97,9 +97,9 @@ public class ClassWidget extends WidgetR {
 
 			for (MetaPairwiseRelation groupDependency : list) {
 				if (groupDependency != null) {
-					syntaxElements.put(groupDependency.getIdentifier(),
+					syntaxElements.put(groupDependency.getAutoIdentifier(),
 							(MetaPairwiseRelation) groupDependency);
-					String out = groupDependency.getIdentifier();
+					String out = groupDependency.getAutoIdentifier();
 					txtValue.addItem(out);
 				}
 				// if (instAttribute.getValue()!= null &&
@@ -248,7 +248,7 @@ public class ClassWidget extends WidgetR {
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
 						MetaElement mc = ic.getTransSupportMetaElement();
-						if (mc.getIdentifier().equals(object)
+						if (mc.getAutoIdentifier().equals(object)
 								&& !out.contains(ic))
 							out.add(ic);
 					}
@@ -258,7 +258,7 @@ public class ClassWidget extends WidgetR {
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
 					MetaElement mc = ic.getTransSupportMetaElement();
-					if (mc.getIdentifier().equals(object))
+					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
 
@@ -268,7 +268,7 @@ public class ClassWidget extends WidgetR {
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
 					MetaElement mc = ic.getTransSupportMetaElement();
-					if (mc.getIdentifier().equals(object))
+					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
 			}
@@ -288,7 +288,7 @@ public class ClassWidget extends WidgetR {
 						.getValueObject()).getIdentifier());
 			else if (instAttribute.getValueObject() instanceof MetaPairwiseRelation)
 				txtValue.setSelectedItem((String) ((MetaPairwiseRelation) instAttribute
-						.getValueObject()).getIdentifier());
+						.getValueObject()).getAutoIdentifier());
 		}
 		if (instVertex != null) {
 			Object set = instVertex.get((String) txtValue.getSelectedItem());

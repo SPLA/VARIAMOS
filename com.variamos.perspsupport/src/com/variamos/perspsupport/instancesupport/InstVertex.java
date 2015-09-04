@@ -68,7 +68,7 @@ public abstract class InstVertex extends InstElement {
 
 	@Override	
 	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
-		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
 		this.supportMetaElement = (MetaVertex)supportMetaElement;
 	}
 
@@ -198,7 +198,7 @@ public abstract class InstVertex extends InstElement {
 
 	}
 
-	public abstract String getSupportMetaElementIdentifier();
+	public abstract String getSupportMetaElementUserIdentifier();
 
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {

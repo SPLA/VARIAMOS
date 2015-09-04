@@ -161,7 +161,7 @@ public class InstPairwiseRelation extends InstElement {
 	public SemanticAttribute getSemanticAttribute() {
 		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
 				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
-				"", 0);
+				"", 0, -1, "", "", -1, "","");
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
@@ -178,10 +178,10 @@ public class InstPairwiseRelation extends InstElement {
 
 	public void setSupportMetaPairwiseRelation(MetaElement metaEdge) {
 		getInstAttribute(VAR_METAPAIRWISE_OBJ_IDEN).setValueObject(metaEdge);
-		supportMetaPairwiseRelIden = metaEdge.getIdentifier();
+		supportMetaPairwiseRelIden = metaEdge.getAutoIdentifier();
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
-		setDynamicVariable("relationType", metaEdge.getIdentifier());
+		setDynamicVariable("relationType", metaEdge.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
 		createInstAttributes();
@@ -559,7 +559,7 @@ public class InstPairwiseRelation extends InstElement {
 				.getValueObject();
 		if (metaEdge != null) {
 			supportMetaPairwiseRelIden = ((MetaPairwiseRelation) metaEdge)
-					.getIdentifier();
+					.getAutoIdentifier();
 		}
 		if (getInstAttribute("relationType") != null)
 			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
@@ -596,7 +596,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	@Override
 	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
-		this.setSupportMetaElementIden(supportMetaElement.getIdentifier());
+		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
 		setSupportMetaPairwiseRelation(supportMetaElement);
 	}
 

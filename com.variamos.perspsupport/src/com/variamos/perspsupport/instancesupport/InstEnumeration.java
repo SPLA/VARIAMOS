@@ -102,7 +102,7 @@ public class InstEnumeration extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaElementIdentifier() {
+	public String getSupportMetaElementUserIdentifier() {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
 	}
@@ -210,7 +210,7 @@ public class InstEnumeration extends InstVertex {
 
 	public void setTransSupportMetaElement(MetaVertex metaEnumeration) {
 		super.setTransSupportMetaElement(metaEnumeration);
-		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumeration.getIdentifier());
+		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumeration.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
@@ -218,7 +218,7 @@ public class InstEnumeration extends InstVertex {
 		// createInstAttributes();
 	}
 
-	public void setMetaEnumerationIdentifier(String metaEnumerationIdentifier) {
+	public void setMetaEnumerationUserIdentifier(String metaEnumerationIdentifier) {
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
 		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());

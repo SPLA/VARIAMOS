@@ -79,10 +79,10 @@ public class MetaEnumeration extends MetaVertex {
 
 	private void createEnumModelingAttributes() {
 		addModelingAttribute(VAR_METAENUMNAME, "String", false,
-				VAR_METAENUMNAMENAME, "",0);
+				VAR_METAENUMNAMENAME, "",0, 1, "", "", 1, "#-#\n\n","");
 		addModelingAttribute(VAR_METAENUMVALUE, "Set", false,
 				VAR_METAENUMVALUENAME, VAR_METAENUMVALUECLASS,
-				new ArrayList<InstAttribute>(),0);	
+				new ArrayList<InstAttribute>(),0, 2, "", "", 2, "#\n","");	
 
 		this.addPropEditableAttribute("01#" + VAR_METAENUMNAME);
 		this.addPropEditableAttribute("02#" + VAR_METAENUMVALUE);

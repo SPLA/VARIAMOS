@@ -1287,7 +1287,7 @@ public class EditorActions {
 			if (editor != null) {
 				if (editor.getPerspective() == 4) {
 					JOptionPane.showMessageDialog(editor,
-							mxResources.get("saveloadnewerror"),
+							mxResources.get("loadnewerror"),
 							"Operation not supported",
 							JOptionPane.INFORMATION_MESSAGE, null);
 

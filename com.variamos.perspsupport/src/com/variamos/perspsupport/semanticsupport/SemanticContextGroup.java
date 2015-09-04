@@ -50,14 +50,16 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 
 		putSemanticAttribute(VAR_VARIABLENAME, new SemanticAttribute(
 				VAR_VARIABLENAME, "String", false, VAR_VARIABLENAMENAME,
-				"<<new>>", 0));
+				"<<new>>", 0, 1, "", "", 1, "", ""));
 		putSemanticAttribute(VAR_INSTANCENUMBER, new SemanticAttribute(
 				VAR_INSTANCENUMBER, "Integer", false, VAR_INSTANCENUMBERNAME,
-				"1", 0));
+				"1", 0, 7, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
-				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false, 0));
+				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false, 0,
+				8, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
-				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false, 0));
+				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false, 0,
+				9, "", "", -1, "", ""));
 
 		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
 		this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);

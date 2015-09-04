@@ -71,8 +71,8 @@ public abstract class InstElement implements Serializable, EditableElement, Comp
 
 	private boolean optional = false;
 
-	private String supportMetaElementIden;
-
+	private String supportMetaElementIden; //AutoIdentifier
+	
 	private Map<String, String> volatileDefects;
 
 	public Map<String, String> getDefects() {
@@ -128,7 +128,7 @@ public abstract class InstElement implements Serializable, EditableElement, Comp
 				if (instAttribute.getIdentifier().equals("Parent"))
 					instAttribute.setValue(editableMetaElement.getParent());
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					instAttribute.setValue(editableMetaElement.getIdentifier());
+					instAttribute.setValue(editableMetaElement.getAutoIdentifier());
 				if (instAttribute.getIdentifier().equals("SemanticType")
 						&& editableMetaElement.getInstSemanticElement() != null)
 					instAttribute.setValue(editableMetaElement
@@ -224,7 +224,7 @@ public abstract class InstElement implements Serializable, EditableElement, Comp
 	public void setSupportMetaElementIden(String supportMetaElementIden) {
 		this.supportMetaElementIden = supportMetaElementIden;
 	}
-
+	
 	public abstract MetaElement getTransSupportMetaElement();
 
 	public abstract void setTransSupportMetaElement(

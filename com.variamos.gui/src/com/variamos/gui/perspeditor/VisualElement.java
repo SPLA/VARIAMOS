@@ -42,7 +42,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	}
 
 	public String getMetaElementId() {
-		return instElement.getTransSupportMetaElement().getIdentifier();
+		return instElement.getTransSupportMetaElement().getAutoIdentifier();
 	}
 
 	public String getMetaElementName() {

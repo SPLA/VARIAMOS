@@ -109,7 +109,7 @@ public abstract class MetaVertex extends MetaElement {
 
 
 	public boolean equals(MetaVertex obj) {
-		return getIdentifier().equals(obj.getIdentifier());
+		return getAutoIdentifier().equals(obj.getAutoIdentifier());
 	}
 
 	public AbstractAttribute getAbstractAttribute(String attributeName) {

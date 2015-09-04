@@ -75,10 +75,11 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 
 	private void createModelingAttributes() {
 		putSemanticAttribute("Selected", new ExecCurrentStateAttribute(
-				"Selected", "Boolean", false, "***Selected***", false, 2));
+				"Selected", "Boolean", false, "***Selected***", false, 2, -1,
+				"", "", -1, "", ""));
 		putSemanticAttribute("NotAvailable", new ExecCurrentStateAttribute(
 				"NotAvailable", "Boolean", false, "***Not Avaliable***", false,
-				2));
+				2, -1, "", "", -1, "", ""));
 	}
 
 	public boolean isBooleanSatisfaction() {

@@ -97,11 +97,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 			IntSemanticElement semElement = metaElement
 					.getTransSemanticConcept();
 			while (semElement != null && semElement.getIdentifier() != null
-					&& !semElement.getIdentifier().equals("SemGeneralElement"))
+					&& !semElement.getIdentifier().equals("GeneralElement"))
 				semElement = semElement.getParent();
 
 			if ((semElement != null && semElement.getIdentifier() != null && semElement
-					.getIdentifier().equals("SemGeneralElement"))
+					.getIdentifier().equals("GeneralElement"))
 					|| instVertex.getIdentifier().contains("Variable")) {
 				InstAttribute validAttribute = instVertex
 						.getInstAttribute("Active");
@@ -137,7 +137,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								List<AbstractExpression> rootList = new ArrayList<AbstractExpression>();
 								String id = instVertex
 										.getTransSupportMetaElement()
-										.getIdentifier();
+										.getAutoIdentifier();
 								if (id.equals("RootFeature")) {
 									rootList.add(new EqualsComparisonExpression(
 											instVertex, instAttribute
@@ -167,9 +167,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 										.getTransSupportMetaElement();
 
 								List<AbstractExpression> parentList = new ArrayList<AbstractExpression>();
-								if (element.getIdentifier().equals(
+								if (element.getAutoIdentifier().equals(
 										"LeafFeature")
-										|| element.getIdentifier().equals(
+										|| element.getAutoIdentifier().equals(
 												"GeneralFeature")) {
 									if (oneParent(instVertex))
 										parentList
@@ -216,7 +216,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							if (instAttribute.getIdentifier()
 									.equals("Required")) {
 								if (instVertex.getTransSupportMetaElement()
-										.getIdentifier().equals("RootFeature")) {
+										.getAutoIdentifier().equals("RootFeature")) {
 									coreAndFalseOptList
 											.add(new EqualsComparisonExpression(
 													instVertex, instAttribute
@@ -429,7 +429,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
 								AbstractNumericExpression transformation49 = null;
 								if (instVertex.getTransSupportMetaElement()
-										.getIdentifier().endsWith("Softgoal")) {
+										.getAutoIdentifier().endsWith("Softgoal")) {
 									// System.out.println(instVertex
 									// .getTransSupportMetaElement()
 									// .getIdentifier());
