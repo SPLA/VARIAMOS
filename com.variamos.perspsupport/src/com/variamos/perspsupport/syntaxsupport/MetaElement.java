@@ -38,7 +38,7 @@ public abstract class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	private String autoIdentifier;	
+	private String autoIdentifier;
 	/**
 	 * 
 	 */
@@ -152,8 +152,8 @@ public abstract class MetaElement implements Serializable {
 
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
-				VAR_IDENTIFIER, "String", false, "AutoIdentifier", null, 0, 1, "",
-				"", -1, "", ""));
+				VAR_IDENTIFIER, "String", false, "AutoIdentifier", null, 0, 1,
+				"", "", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -242,7 +242,7 @@ public abstract class MetaElement implements Serializable {
 		return image;
 	}
 
-	public abstract Set<String> getAllAttributesNames();
+	public abstract Set<String> getAllAttributesNames(List<InstElement> parents);
 
 	public abstract AbstractAttribute getSemanticAttribute(String name);
 
@@ -278,27 +278,39 @@ public abstract class MetaElement implements Serializable {
 
 	}
 
-	public Set<String> getPropVisibleAttributes() {
+	protected Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propVisibleAttributes);
 		return modelingAttributesNames;
+	}
+
+	public Set<String> getPropVisibleAttributes(List<InstElement> parents) {
+		return getPropVisibleAttributes();
 	}
 
 	public void addPropVisibleAttribute(String visibleAttribute) {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	public Set<String> getPropEditableAttributes() {
+	protected Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propEditableAttributes);
 		return modelingAttributesNames;
+	}
+
+	public Set<String> getPropEditableAttributes(List<InstElement> parents) {
+		return getPropEditableAttributes();
 	}
 
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
 	}
 
-	public Set<String> getPanelVisibleAttributes() {
+	public Set<String> getPanelVisibleAttributes(List<InstElement> parents) {
+		return getPanelVisibleAttributes();
+	}
+
+	protected Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelVisibleAttributes);
 		return modelingAttributesNames;
@@ -308,7 +320,11 @@ public abstract class MetaElement implements Serializable {
 		panelVisibleAttributes.add(visibleAttribute);
 	}
 
-	public Set<String> getPanelSpacersAttributes() {
+	public Set<String> getPanelSpacersAttributes(List<InstElement> parents) {
+		return getPanelSpacersAttributes();
+	}
+
+	protected Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelSpacersAttributes);
 		return modelingAttributesNames;
@@ -322,7 +338,11 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributes.keySet();
 	}
 
-	public Set<String> getModelingAttributesNames() {
+	public Set<String> getModelingAttributesNames(List<InstElement> parents) {
+		return getModelingAttributesNames();
+	}
+
+	protected Set<String> getModelingAttributesNames() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(modelingAttributes.keySet());
 		return modelingAttributesNames;
@@ -336,7 +356,12 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributes.get(name);
 	}
 
-	public AbstractAttribute getModelingAttribute(String name) {
+	public AbstractAttribute getModelingAttribute(String name,
+			List<InstElement> parents) {
+		return modelingAttributes.get(name);
+	}
+
+	protected AbstractAttribute getModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}
 
@@ -346,10 +371,10 @@ public abstract class MetaElement implements Serializable {
 		return null;
 	}
 
-	public AbstractAttribute getAbstractAttribute(String attributeName) {
+	public AbstractAttribute getAbstractAttribute(String attributeName, List<InstElement> parents) {
 		AbstractAttribute out = getSemanticAttribute(attributeName);
 		if (out == null)
-			return getModelingAttribute(attributeName);
+			return getModelingAttribute(attributeName, parents);
 		else
 			return out;
 	}
@@ -360,7 +385,8 @@ public abstract class MetaElement implements Serializable {
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
+		if (!name.equals(VAR_IDENTIFIER)
+				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, defaultValue, defaultGroup,
 					propTabPosition, propTabEditionCondition,
@@ -370,7 +396,8 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name,
 			AbstractAttribute abstractAttribute) {
-		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
+		if (!name.equals(VAR_IDENTIFIER)
+				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, abstractAttribute);
 	}
 
@@ -380,7 +407,8 @@ public abstract class MetaElement implements Serializable {
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		if (!name.equals(VAR_IDENTIFIER) && modelingAttributes.get(name) == null)
+		if (!name.equals(VAR_IDENTIFIER)
+				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, enumType, defaultValue,
 					defaultGroup, propTabPosition, propTabEditionCondition,

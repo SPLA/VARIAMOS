@@ -501,6 +501,11 @@ public class SharedActions {
 			instCell.setInstElement(instElement);
 		} else
 			instElement = instCell.getInstElement();
+		List<InstElement> parents = null;
+		if (instElement != null) {
+			parents = refas.getParentSyntaxConcept(instElement);
+			instElement.createInstAttributes(parents);
+		}
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
@@ -547,9 +552,10 @@ public class SharedActions {
 					.getTransSupportMetaElement().getModelingAttributes()
 					.size()
 					+ instOverTwoRelation.getTransSupportMetaElement()
-							.getAllAttributesNames().size()) {
+							.getAllAttributesNames(null).size()) {
 				for (String attributeName : instOverTwoRelation
-						.getTransSupportMetaElement().getAllAttributesNames()) {
+						.getTransSupportMetaElement().getAllAttributesNames(
+								null)) {
 					if (instOverTwoRelation.getInstAttribute(attributeName) == null
 							&& instOverTwoRelation.getTransSupportMetaElement()
 									.getSemanticAttribute(attributeName) != null) {
@@ -562,11 +568,12 @@ public class SharedActions {
 						additionAttributes = true;
 					} else if (instOverTwoRelation
 							.getInstAttribute(attributeName) == null) {
-						instOverTwoRelation.addInstAttribute(attributeName,
+						instOverTwoRelation.addInstAttribute(
+								attributeName,
 								instOverTwoRelation
 										.getTransSupportMetaElement()
-										.getModelingAttribute(attributeName),
-								null);
+										.getModelingAttribute(attributeName,
+												null), null);
 						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
@@ -592,7 +599,7 @@ public class SharedActions {
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
 					AbstractAttribute attribute = metaVertex
-							.getAbstractAttribute(ia.getAttributeName());
+							.getAbstractAttribute(ia.getAttributeName(), parents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getAttributeType().equals("Boolean")
@@ -646,13 +653,15 @@ public class SharedActions {
 				}
 			}
 			int semAtt = 0;
-			if (instVertex.getTransSupportMetaElement().getAllAttributesNames() != null)
+			if (instVertex.getTransSupportMetaElement().getAllAttributesNames(
+					parents) != null)
 				semAtt = instVertex.getTransSupportMetaElement()
-						.getAllAttributesNames().size();
+						.getAllAttributesNames(parents).size();
 			if (instVertex.getInstAttributes().size() < semAtt) {
 				// TODO modify to support syntax attributes changes
 				for (String attributeName : instVertex
-						.getTransSupportMetaElement().getAllAttributesNames()) {
+						.getTransSupportMetaElement().getAllAttributesNames(
+								parents)) {
 					if (instVertex.getInstAttribute(attributeName) == null
 							&& instVertex.getTransSupportMetaElement()
 									.getSemanticAttribute(attributeName) != null) {
@@ -664,7 +673,8 @@ public class SharedActions {
 					} else if (instVertex.getInstAttribute(attributeName) == null) {
 						instVertex.addInstAttribute(attributeName, instVertex
 								.getTransSupportMetaElement()
-								.getModelingAttribute(attributeName), null);
+								.getModelingAttribute(attributeName, parents),
+								null);
 						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
@@ -716,7 +726,7 @@ public class SharedActions {
 
 							AbstractAttribute absAttribute = metaPairwiseRelation
 									.getAbstractAttribute(instAttribute
-											.getAttributeName());
+											.getAttributeName(), parents);
 							if (absAttribute == null)
 								absAttribute = instPairwiseRelation
 										.getSemanticAttribute();
@@ -768,12 +778,12 @@ public class SharedActions {
 					}
 					if (instPairwiseRelation.getInstAttributes().size() < instPairwiseRelation
 							.getTransSupportMetaElement()
-							.getAllAttributesNames().size()
+							.getAllAttributesNames(null).size()
 							+ instPairwiseRelation.getTransSupportMetaElement()
 									.getModelingAttributes().size()) {
 						for (String attributeName : instPairwiseRelation
 								.getTransSupportMetaElement()
-								.getAllAttributesNames()) {
+								.getAllAttributesNames(null)) {
 							if (instPairwiseRelation
 									.getInstAttribute(attributeName) == null
 									&& instPairwiseRelation
@@ -794,7 +804,8 @@ public class SharedActions {
 										instPairwiseRelation
 												.getTransSupportMetaElement()
 												.getModelingAttribute(
-														attributeName), null);
+														attributeName, null),
+										null);
 								// System.out.println("create" + attributeName);
 								additionAttributes = true;
 							}

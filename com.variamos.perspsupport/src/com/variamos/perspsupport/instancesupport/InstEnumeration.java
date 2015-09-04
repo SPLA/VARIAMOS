@@ -72,133 +72,39 @@ public class InstEnumeration extends InstVertex {
 
 	protected void createInstAttributes() {
 		Iterator<String> modelingAttributes = getTransSupportMetaElement()
-				.getModelingAttributesNames().iterator();
+				.getModelingAttributesNames(null).iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
 			if (name.equals(MetaElement.VAR_IDENTIFIER))
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name), getIdentifier());
+						.getModelingAttribute(name,null), getIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name), getTransSupportMetaElement()
+						.getModelingAttribute(name,null), getTransSupportMetaElement()
 						.getDescription());
 			else
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name), null);
+						.getModelingAttribute(name,null), null);
 		}
 	}
 
-	public List<InstAttribute> getEditableVariables() { // TODO move to
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents) { // TODO move to
 														// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributes();
+				.getPropEditableAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public List<InstAttribute> getVisibleVariables() { // TODO move to
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO move to
 														// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributes();
+				.getPropVisibleAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
 	public String getSupportMetaElementUserIdentifier() {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
-	}
-
-	@SuppressWarnings("unchecked")
-	public String toStringOld() { // TODO move partially to superclass
-		String out = "";
-		if (getTransSupportMetaElement() != null) {
-			Set<String> visibleAttributesNames = getTransSupportMetaElement()
-					.getPanelVisibleAttributes();
-			List<String> listVisibleAttributes = new ArrayList<String>();
-			listVisibleAttributes.addAll(visibleAttributesNames);
-			Collections.sort(listVisibleAttributes);
-			Set<String> spacersAttributes = getTransSupportMetaElement()
-					.getPanelSpacersAttributes();
-			for (String visibleAttribute : listVisibleAttributes) {
-				boolean validCondition = true;
-
-				int nameEnd = visibleAttribute.indexOf("#", 3);
-				int varEnd = visibleAttribute.indexOf("#", nameEnd + 1);
-				int condEnd = visibleAttribute.indexOf("#", varEnd + 1);
-
-				String name = visibleAttribute.substring(3);
-				if (nameEnd != -1) {
-					name = visibleAttribute.substring(3, nameEnd);
-					String variable = null;
-					String condition = null;
-					String value = null;
-					variable = visibleAttribute.substring(nameEnd + 1, varEnd);
-					condition = visibleAttribute.substring(varEnd + 1, condEnd);
-					value = visibleAttribute.substring(condEnd + 1);
-					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null)
-						validCondition = false;
-					else if (varValue.getValue().toString().trim()
-							.equals(value)) {
-						if (condition.equals("!="))
-							validCondition = false;
-					} else {
-						if (condition.equals("=="))
-							validCondition = false;
-					}
-				}
-				boolean nvar = false;
-				if (name != null && validCondition) {
-					Iterator<String> spacers = spacersAttributes.iterator();
-					while (spacers.hasNext()) {
-						String spacer = spacers.next();
-						if (spacer.indexOf("#" + name + "#") != -1) {
-							nvar = true;
-							int sp1 = spacer.indexOf("#");
-							int sp2 = spacer.indexOf("#", sp1 + 1);
-
-							out += spacer.substring(0, sp1);
-							if (name.equals("name")
-									&& getInstAttributes().get(name).toString()
-											.trim().equals(""))
-								out += "<<NoName>>";
-							else {
-								InstAttribute instAttribute = getInstAttributes()
-										.get(name);
-								if (instAttribute.getAttributeType().equals(
-										"Set"))
-									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-											.getValue())
-										out += e.toString().trim() + "\n";
-								else
-									out += instAttribute.toString().trim();
-							}
-							while (sp2 != spacer.length()) {
-								int sp3 = spacer.indexOf("#", sp2 + 1);
-								if (sp3 == -1) {
-
-									out += spacer.substring(sp2 + 1);
-									break;
-								}
-								out += spacer.substring(sp2 + 1, sp3);
-
-								sp2 = sp3;
-							}
-						}
-
-					}
-					if (!nvar)
-						if (name.equals("name")
-								&& getInstAttributes().get(name).toString()
-										.trim().equals(""))
-							out += "<<NoName>>";
-						else
-							out += getInstAttributes().get(name);
-				}
-			}
-			if (out.equals(""))
-				out = "No display attributes defined";
-		}
-		return out;
 	}
 
 	public void setIdentifier(String identifier) {

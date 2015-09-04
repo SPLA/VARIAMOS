@@ -161,7 +161,7 @@ public class InstPairwiseRelation extends InstElement {
 	public SemanticAttribute getSemanticAttribute() {
 		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
 				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
-				"", 0, -1, "", "", -1, "","");
+				"", 0, -1, "", "", -1, "", "");
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
@@ -190,25 +190,25 @@ public class InstPairwiseRelation extends InstElement {
 	public void createInstAttributes() {
 		if (getMetaPairwiseRelation() != null) {
 			Iterator<String> modelingAttributes = getMetaPairwiseRelation()
-					.getModelingAttributesNames().iterator();
+					.getModelingAttributesNames(null).iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name), getIdentifier());
+							.getModelingAttribute(name, null), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name),
+							.getModelingAttribute(name, null),
 							getMetaPairwiseRelation().getDescription());
 				else if (getInstAttribute(name) == null
 						|| getInstAttribute(name).getValue() == null)
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name),
+							.getModelingAttribute(name, null),
 							semanticPairwiseRelType);
 			}
 
 			Iterator<String> semanticAttributes = getMetaPairwiseRelation()
-					.getAllAttributesNames().iterator();
+					.getAllAttributesNames(null).iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
 				if (name.equals("identifier"))
@@ -265,12 +265,12 @@ public class InstPairwiseRelation extends InstElement {
 	// }
 
 	@Override
-	public List<InstAttribute> getEditableVariables() {
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
 		createInstAttributes();
 		// return new InstAttribute[0];
 		List<InstAttribute> editableInstAttributes = null;
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> attributesNames = getDisPropEditableAttributes();
+			Set<String> attributesNames = getDisPropEditableAttributes(parents);
 			editableInstAttributes = getFilteredInstAttributes(attributesNames,
 					null);
 		} else {
@@ -282,12 +282,12 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getVisibleVariables() {
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) {
 		createInstAttributes();
 		// return new InstAttribute[0];
 		List<InstAttribute> visibleInstAttributes = null;
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> attributesNames = getDisPropVisibleAttributes();
+			Set<String> attributesNames = getDisPropVisibleAttributes(parents);
 			visibleInstAttributes = getFilteredInstAttributes(attributesNames,
 					null);
 		} else {
@@ -353,9 +353,9 @@ public class InstPairwiseRelation extends InstElement {
 		// return instAttributes.get(name);
 	}
 
-	public Set<String> getDisPropEditableAttributes() {
+	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropEditableAttributes();
+				.getPropEditableAttributes(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -385,9 +385,9 @@ public class InstPairwiseRelation extends InstElement {
 		return null;
 	}
 
-	public Set<String> getDisPropVisibleAttributes() {
+	public Set<String> getDisPropVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropVisibleAttributes();
+				.getPropVisibleAttributes(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -405,9 +405,9 @@ public class InstPairwiseRelation extends InstElement {
 		return editableAttributes;
 	}
 
-	public Set<String> getDisPanelVisibleAttributes() {
+	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelVisibleAttributes();
+				.getPanelVisibleAttributes(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -422,9 +422,9 @@ public class InstPairwiseRelation extends InstElement {
 		return editableAttributes;
 	}
 
-	public Set<String> getDisPanelSpacersAttributes() {
+	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelSpacersAttributes();
+				.getPanelSpacersAttributes(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -444,14 +444,14 @@ public class InstPairwiseRelation extends InstElement {
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes();
+			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(null);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 
 			// List<String> spacersAttributes = metaConcept
 			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getDisPanelSpacersAttributes();
+			Set<String> spacersAttributes = getDisPanelSpacersAttributes(null);
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -537,7 +537,8 @@ public class InstPairwiseRelation extends InstElement {
 
 				AbstractAttribute m = getMetaPairwiseRelation()
 						.getModelingAttribute(
-								InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ);
+								InstOverTwoRelation.VAR_SEMANTICOVERTWOREL_OBJ,
+								null);
 				ia.setAttribute(m);
 				/*
 				 * List<IntSemanticGroupDependency> semGD =
@@ -548,7 +549,7 @@ public class InstPairwiseRelation extends InstElement {
 				 */
 			} else {
 				ia.setAttribute(this.getMetaPairwiseRelation()
-						.getModelingAttribute(ia.getAttributeName()));
+						.getModelingAttribute(ia.getAttributeName(), null));
 			}
 		}
 		createInstAttributes();

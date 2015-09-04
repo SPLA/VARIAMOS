@@ -19,7 +19,7 @@ public class InstView extends InstElement {
 
 	private List<InstView> childViews;
 
-	//private List<InstVertex> instVertices;
+	// private List<InstVertex> instVertices;
 
 	private MetaElement supportMetaConcept;
 
@@ -28,10 +28,10 @@ public class InstView extends InstElement {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
 				new HashMap<String, InstAttribute>());
-		//instVertices = new ArrayList<InstVertex>();
+		// instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
-		createInstAttributes();
-		copyValuesToInstAttributes();
+		createInstAttributes(null);
+		copyValuesToInstAttributes(null);
 	}
 
 	public InstView(String identifier, MetaElement supportMetaConcept,
@@ -41,28 +41,28 @@ public class InstView extends InstElement {
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES,
 				new HashMap<String, InstAttribute>());
 		this.supportMetaConcept = supportMetaConcept;
-		//instVertices = new ArrayList<InstVertex>();
+		// instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 		setEditableMetaElement(editableMetaElement);
-		createInstAttributes();
-		copyValuesToInstAttributes();
+		createInstAttributes(null);
+		copyValuesToInstAttributes(null);
 	}
 
 	public InstView() {
 		super("");
-		//instVertices = new ArrayList<InstVertex>();
+		// instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 	}
 
 	public InstView(MetaConcept metaConcept) {
 		super("");
 		this.supportMetaConcept = metaConcept;
-		//instVertices = new ArrayList<InstVertex>();
+		// instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
 	}
 
 	public void setInstVertices(List<InstVertex> instVertexs) {
-		//this.instVertices = instVertexs;
+		// this.instVertices = instVertexs;
 	}
 
 	public List<InstView> getChildViews() {
@@ -80,10 +80,10 @@ public class InstView extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getEditableVariables() {
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributes();
+				.getPropEditableAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -94,9 +94,9 @@ public class InstView extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getVisibleVariables() {
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) {
 		Set<String> attributesNames = this.getTransSupportMetaElement()
-				.getPropVisibleAttributes();
+				.getPropVisibleAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -181,7 +181,7 @@ public class InstView extends InstElement {
 	}
 
 	public void addInstVertex(InstVertex instVertex) {
-		//instVertices.add(instVertex);
+		// instVertices.add(instVertex);
 	}
 
 	public void addChildView(InstView instView) {

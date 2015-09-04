@@ -137,6 +137,8 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			EditableElement editElm = instCell.getInstElement();
+			List<InstElement> parent = ((RefasModel) editor.getEditedModel())
+					.getParentSyntaxConcept((InstElement) editElm);
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
@@ -165,7 +167,7 @@ public class ElementDesignPanel extends JPanel {
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
-						.getVisibleVariables();
+						.getVisibleVariables(parent);
 				if (((InstElement) editElm).getEditableSemanticElement() != null) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
@@ -526,7 +528,7 @@ public class ElementDesignPanel extends JPanel {
 									count = 0;
 
 								List<InstAttribute> editables = editElm
-										.getEditableVariables();
+										.getEditableVariables(parent);
 
 								if (!editables.contains(instAttribute)
 										|| editor.getPerspective() == 4)

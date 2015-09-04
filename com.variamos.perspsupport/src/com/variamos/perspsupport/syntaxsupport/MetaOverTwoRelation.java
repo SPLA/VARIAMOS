@@ -164,7 +164,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getAllAttributesNames() {
+	@Override
+	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()

@@ -36,7 +36,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	private String endDescription;
 	private boolean arrowDirection;
 	private TypeOfLine typeOfLine;
-	private String palette="";
+	private String palette = "";
 	/**
 	 * 
 	 */
@@ -87,7 +87,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		// this.semanticPairwiseRelation = semanticRelation;
 		createPWModelingAttributes();
 	}
-	
+
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke,
@@ -95,7 +95,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		this(identifier, visible, name, style, description, width, height,
 				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
 				false, TypeOfLine.solid);
-		 this.palette = palette;
+		this.palette = palette;
 		createPWModelingAttributes();
 	}
 
@@ -103,8 +103,8 @@ public class MetaPairwiseRelation extends MetaElement {
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke) {
 		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, 1, 1, 1, 1, "", "",
-				false, TypeOfLine.solid);
+				image, borderStroke, null, 1, 1, 1, 1, "", "", false,
+				TypeOfLine.solid);
 		createPWModelingAttributes();
 	}
 
@@ -172,9 +172,10 @@ public class MetaPairwiseRelation extends MetaElement {
 		 * VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
 		 * "mandatory", ""));
 		 */
-//		addModelingAttribute(VAR_METAGENERALCONSTRAINT, new SemanticAttribute(
-//				VAR_METAGENERALCONSTRAINT, "String", false,
-//				VAR_METAGENERALCONSTRAINTNAME, ""));
+		// addModelingAttribute(VAR_METAGENERALCONSTRAINT, new
+		// SemanticAttribute(
+		// VAR_METAGENERALCONSTRAINT, "String", false,
+		// VAR_METAGENERALCONSTRAINTNAME, ""));
 
 		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
 		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
@@ -191,7 +192,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement() != null && getInstSemanticElement().getEditableSemanticElement() != null)
+		if (getInstSemanticElement() != null
+				&& getInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 
@@ -202,7 +204,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement()!= null && getInstSemanticElement().getEditableSemanticElement() != null)
+		if (getInstSemanticElement() != null
+				&& getInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
@@ -224,7 +227,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement()!= null)
+		if (getInstSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
 					.getEditableSemanticElement().getPanelSpacersAttributes());
 
@@ -232,7 +235,8 @@ public class MetaPairwiseRelation extends MetaElement {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getAllAttributesNames() {
+	@Override
+	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getInstSemanticElement() != null)
 			modelingAttributesNames.addAll(getInstSemanticElement()
@@ -241,10 +245,10 @@ public class MetaPairwiseRelation extends MetaElement {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		//FIXME 
+		// FIXME
 		if (getInstSemanticElement() != null)
-		return getInstSemanticElement().getEditableSemanticElement()
-				.getSemanticAttribute(name);
+			return getInstSemanticElement().getEditableSemanticElement()
+					.getSemanticAttribute(name);
 		return null;
 	}
 

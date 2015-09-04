@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface EditableElement {
 	public String getIdentifier();
-	public List<InstAttribute> getEditableVariables();
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents);
 	public Map<String, InstAttribute> getInstAttributes() ;
-	public List<InstAttribute> getVisibleVariables();
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents);
 }

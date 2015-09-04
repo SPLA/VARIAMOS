@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.syntaxsupport;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -50,7 +51,7 @@ public class MetaView extends MetaElement implements Serializable {
 	}
 
 	@Override
-	public Set<String> getAllAttributesNames() {
+	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		return null;
 	}
 
