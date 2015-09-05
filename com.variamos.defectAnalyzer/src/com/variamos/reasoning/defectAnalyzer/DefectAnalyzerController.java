@@ -1,28 +1,17 @@
 package com.variamos.reasoning.defectAnalyzer;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.core.util.FileUtils;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerControllerInDTO;
-import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
 import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerResult;
 import com.variamos.reasoning.defectAnalyzer.dto.VMAnalyzerInDTO;
 import com.variamos.reasoning.defectAnalyzer.dto.VMCauseAnalyzerInDTO;
 import com.variamos.reasoning.defectAnalyzer.dto.VerificationResult;
-import com.variamos.reasoning.defectAnalyzer.model.ClassifiableDiagnosis;
-import com.variamos.reasoning.defectAnalyzer.model.ClassifiedElement;
-import com.variamos.reasoning.defectAnalyzer.model.Dependency;
 import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
-import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationType;
-import com.variamos.reasoning.util.ExportUtil;
 
 public class DefectAnalyzerController {
 

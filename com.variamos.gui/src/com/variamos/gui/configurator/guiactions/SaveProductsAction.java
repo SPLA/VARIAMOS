@@ -9,17 +9,14 @@ import javax.swing.filechooser.FileFilter;
 import com.mxgraph.util.mxResources;
 import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 //jcmunoz: removed unused method and imports of the method
 
 @SuppressWarnings("serial")
 public class SaveProductsAction extends AbstractEditorAction {
 
-	
 	/**
 	 * 
 	 */
@@ -28,104 +25,88 @@ public class SaveProductsAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
-	public SaveProductsAction()
-	{
+	public SaveProductsAction() {
 	}
-
 
 	/**
 	 * 
 	 */
-	public void actionPerformed(ActionEvent e)
-	{
-		VariamosGraphEditor editor = (VariamosGraphEditor)getEditor(e);
+	public void actionPerformed(ActionEvent e) {
+		VariamosGraphEditor editor = (VariamosGraphEditor) getEditor(e);
 
-		if (editor != null)
-		{
-		//	FileFilter selectedFilter = null;
+		if (editor != null) {
+			// FileFilter selectedFilter = null;
 			String filename = null;
-		//	boolean dialogShown = false;
+			// boolean dialogShown = false;
 
-				String wd;
+			String wd;
 
-				if (lastDir != null)
-				{
-					wd = lastDir;
-				}
-				else if (editor.getCurrentFile() != null)
-				{
-					wd = editor.getCurrentFile().getParent();
-				}
-				else
-				{
-					wd = System.getProperty("user.dir");
-				}
+			if (lastDir != null) {
+				wd = lastDir;
+			} else if (editor.getCurrentFile() != null) {
+				wd = editor.getCurrentFile().getParent();
+			} else {
+				wd = System.getProperty("user.dir");
+			}
 
-				JFileChooser fc = new JFileChooser(wd);
+			JFileChooser fc = new JFileChooser(wd);
 
-				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(
-						".conf", "CONF Files (.conf)");
+			// Adds the default file format
+			FileFilter defaultFilter = new DefaultFileFilter(".conf",
+					"CONF Files (.conf)");
 
-				fc.setFileFilter(defaultFilter);
-				int rc = fc.showDialog(null, mxResources.get("save"));
-			//	dialogShown = true;
+			fc.setFileFilter(defaultFilter);
+			int rc = fc.showDialog(null, mxResources.get("save"));
+			// dialogShown = true;
 
-				if (rc != JFileChooser.APPROVE_OPTION)
-				{
-					return;
-				}
-				else
-				{
-					lastDir = fc.getSelectedFile().getParent();
-				}
+			if (rc != JFileChooser.APPROVE_OPTION) {
+				return;
+			} else {
+				lastDir = fc.getSelectedFile().getParent();
+			}
 
-				filename = fc.getSelectedFile().getAbsolutePath();
-				
-				if( !filename.endsWith(".conf") )
-					filename += ".conf";
+			filename = fc.getSelectedFile().getAbsolutePath();
 
-			try
-			{
+			if (!filename.endsWith(".conf"))
+				filename += ".conf";
+
+			try {
 				ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
 						.getConfiguration().getConfiguration(), filename);
-				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
-			//	ConfigurationIO.saveSolutions(configurator.getSolutions(), filename);
-				
-			}
-			catch (Throwable ex)
-			{
+				// ConfiguratorPanel configurator =
+				// getEditor(e).getConfigurator();
+				// ConfigurationIO.saveSolutions(configurator.getSolutions(),
+				// filename);
+
+			} catch (Throwable ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						ex.toString(), mxResources.get("error"),
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, ex.toString(),
+						mxResources.get("error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
- 	/**
- 	 * @param pl
- 	 * @param filename
- 	 * @throws IOException
- 	 * @throws FeatureModelException
- 	 * 
- 	 * jcmunoz: Commented unused method and imports of the method
- 	 */
+	/**
+	 * @param pl
+	 * @param filename
+	 * @throws IOException
+	 * @throws FeatureModelException
+	 * 
+	 *             jcmunoz: Commented unused method and imports of the method
+	 */
 	/*
-	private void generatePrologFile(ProductLine pl, String filename) throws IOException, FeatureModelException {
-		SXFMWriter writer = new SXFMWriter();
-		System.out.println(writer.getSXFMContent(pl));
-		
-		File f = File.createTempFile("test", "tmp");
-		writer.writeSXFM(pl, f);
-		
-		FeatureModel featureModel = new XMLFeatureModel(
-				f.getAbsolutePath(),
-				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
-		featureModel.loadModel();
-		
-		FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
-		mxUtils.writeFile(transformer.getPrologString(featureModel, PrologEditorType.GNU_PROLOG), filename);
-	}
-*/
+	 * private void generatePrologFile(ProductLine pl, String filename) throws
+	 * IOException, FeatureModelException { SXFMWriter writer = new
+	 * SXFMWriter(); System.out.println(writer.getSXFMContent(pl));
+	 * 
+	 * File f = File.createTempFile("test", "tmp"); writer.writeSXFM(pl, f);
+	 * 
+	 * FeatureModel featureModel = new XMLFeatureModel( f.getAbsolutePath(),
+	 * XMLFeatureModel.USE_VARIABLE_NAME_AS_ID); featureModel.loadModel();
+	 * 
+	 * FeatureModelSPLOTransformer transformer = new
+	 * FeatureModelSPLOTransformer();
+	 * mxUtils.writeFile(transformer.getPrologString(featureModel,
+	 * PrologEditorType.GNU_PROLOG), filename); }
+	 */
 }

@@ -496,7 +496,6 @@ public class InstPairwiseRelation extends InstElement {
 									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
 											.getValueObject() != null) {
-								InstAttribute i = getInstAttributes().get(name);
 								out += ((SemanticRelationType) getInstAttributes()
 										.get(name).getValueObject())
 										.getDiplayName();

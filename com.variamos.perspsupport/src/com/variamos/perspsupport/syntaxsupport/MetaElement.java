@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 
 /**

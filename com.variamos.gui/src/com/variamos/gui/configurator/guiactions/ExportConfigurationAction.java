@@ -7,15 +7,13 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 /**
- * To document. Copied from configurator actions. Part of PhD work at University of Paris 1
+ * To document. Copied from configurator actions. Part of PhD work at University
+ * of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -26,7 +24,6 @@ import com.variamos.gui.pl.editor.ConfiguratorPanel;
 @SuppressWarnings("serial")
 public class ExportConfigurationAction extends AbstractEditorAction {
 
-	
 	/**
 	 * 
 	 */
@@ -40,106 +37,88 @@ public class ExportConfigurationAction extends AbstractEditorAction {
 	/**
 	 * 
 	 */
-	public ExportConfigurationAction(boolean showDialog)
-	{
+	public ExportConfigurationAction(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
-
 
 	/**
 	 * 
 	 */
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 
-		if (editor != null)
-		{
-		//	FileFilter selectedFilter = null;
+		if (editor != null) {
+			// FileFilter selectedFilter = null;
 			String filename = null;
-		//	boolean dialogShown = false;
+			// boolean dialogShown = false;
 
-			if (showDialog || editor.getCurrentFile() == null)
-			{
+			if (showDialog || editor.getCurrentFile() == null) {
 				String wd;
 
-				if (lastDir != null)
-				{
+				if (lastDir != null) {
 					wd = lastDir;
-				}
-				else if (editor.getCurrentFile() != null)
-				{
+				} else if (editor.getCurrentFile() != null) {
 					wd = editor.getCurrentFile().getParent();
-				}
-				else
-				{
+				} else {
 					wd = System.getProperty("user.dir");
 				}
 
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(
-						".xls", "Excel File Format (.xls)");
+				FileFilter defaultFilter = new DefaultFileFilter(".xls",
+						"Excel File Format (.xls)");
 
 				fc.setFileFilter(defaultFilter);
 				int rc = fc.showDialog(null, mxResources.get("save"));
-		//		dialogShown = true;
+				// dialogShown = true;
 
-				if (rc != JFileChooser.APPROVE_OPTION)
-				{
+				if (rc != JFileChooser.APPROVE_OPTION) {
 					return;
-				}
-				else
-				{
+				} else {
 					lastDir = fc.getSelectedFile().getParent();
 				}
 
 				filename = fc.getSelectedFile().getAbsolutePath();
-				
-				if( !filename.endsWith(".xls") )
+
+				if (!filename.endsWith(".xls"))
 					filename += ".xls";
 			}
 
-			try
-			{
-				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+			try {
+				// ConfiguratorPanel configurator =
+				// getEditor(e).getConfigurator();
 				editor.exportConfiguration(filename);
-				
-			}
-			catch (Throwable ex)
-			{
+
+			} catch (Throwable ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null,
-						ex.toString(), mxResources.get("error"),
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, ex.toString(),
+						mxResources.get("error"), JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
-
- 	/**
- 	 * @param pl
- 	 * @param filename
- 	 * @throws IOException
- 	 * @throws FeatureModelException
- 	 * 
- 	 * jcmunoz: Commented unused method and imports of the method
- 	 */
-/* 	private void generatePrologFile(ProductLine pl, String filename) throws IOException, FeatureModelException {
-		SXFMWriter writer = new SXFMWriter();
-		System.out.println(writer.getSXFMContent(pl));
-		
-		File f = File.createTempFile("test", "tmp");
-		writer.writeSXFM(pl, f);
-		
-		FeatureModel featureModel = new XMLFeatureModel(
-				f.getAbsolutePath(),
-				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
-		featureModel.loadModel();
-		
-		FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
-		mxUtils.writeFile(transformer.getPrologString(featureModel, PrologEditorType.GNU_PROLOG), filename);
-	}
-*/
+	/**
+	 * @param pl
+	 * @param filename
+	 * @throws IOException
+	 * @throws FeatureModelException
+	 * 
+	 *             jcmunoz: Commented unused method and imports of the method
+	 */
+	/*
+	 * private void generatePrologFile(ProductLine pl, String filename) throws
+	 * IOException, FeatureModelException { SXFMWriter writer = new
+	 * SXFMWriter(); System.out.println(writer.getSXFMContent(pl));
+	 * 
+	 * File f = File.createTempFile("test", "tmp"); writer.writeSXFM(pl, f);
+	 * 
+	 * FeatureModel featureModel = new XMLFeatureModel( f.getAbsolutePath(),
+	 * XMLFeatureModel.USE_VARIABLE_NAME_AS_ID); featureModel.loadModel();
+	 * 
+	 * FeatureModelSPLOTransformer transformer = new
+	 * FeatureModelSPLOTransformer();
+	 * mxUtils.writeFile(transformer.getPrologString(featureModel,
+	 * PrologEditorType.GNU_PROLOG), filename); }
+	 */
 }

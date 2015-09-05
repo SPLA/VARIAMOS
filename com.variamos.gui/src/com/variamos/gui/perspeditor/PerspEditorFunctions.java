@@ -19,7 +19,6 @@ import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
-import com.mxgraph.util.mxResources;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
@@ -32,8 +31,6 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
@@ -52,7 +49,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	}
 
 	private void loadPaletteElements() {
-		 paletteElements = new ArrayList<PaletteElement>();
+		paletteElements = new ArrayList<PaletteElement>();
 		Collection<InstElement> instElements = new HashSet<InstElement>();
 		for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
 				.getSyntaxRefas().getVertices()) {
@@ -60,10 +57,11 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 		}
 		for (InstElement instElement : instElements) {
 			MetaElement metaElement = instElement.getEditableMetaElement();
-			paletteElements.add(new PaletteElement(metaElement.getAutoIdentifier(),
-					metaElement.getName(), metaElement.getImage(), metaElement
-							.getStyle(), metaElement.getWidth(), metaElement
-							.getHeight(), null, metaElement, instElement));
+			paletteElements.add(new PaletteElement(metaElement
+					.getAutoIdentifier(), metaElement.getName(), metaElement
+					.getImage(), metaElement.getStyle(),
+					metaElement.getWidth(), metaElement.getHeight(), null,
+					metaElement, instElement));
 		}
 	}
 
@@ -211,10 +209,6 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									 * .get(0).getIdentifier() .equals(viewName)
 									 */)
 										continue;
-									String n = pairwiseRelation
-											.getSourceRelations().get(0)
-											.getSourceRelations().get(0)
-											.getIdentifier();
 									String paletteName = (String) pairwiseRelation
 											.getInstAttribute("Palette")
 											.getValue();

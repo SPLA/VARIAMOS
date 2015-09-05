@@ -1,22 +1,22 @@
 package com.variamos.reasoning.util;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
-import com.variamos.core.exceptions.FunctionalException;
-import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
-import com.variamos.reasoning.defectAnalyzer.model.Dependency;
-import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
-import com.variamos.reasoning.defectAnalyzer.model.defects.DeadElement;
-import com.variamos.reasoning.defectAnalyzer.model.defects.FalseOptionalElement;
-import com.variamos.reasoning.defectAnalyzer.model.defects.FalseProductLine;
-import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
-import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
+//import java.io.File;
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.List;
+//
+//import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//
+//import com.variamos.core.exceptions.FunctionalException;
+//import com.variamos.reasoning.defectAnalyzer.dto.DefectAnalyzerControllerOutDTO;
+//import com.variamos.reasoning.defectAnalyzer.model.Dependency;
+//import com.variamos.reasoning.defectAnalyzer.model.Diagnosis;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.DeadElement;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.FalseOptionalElement;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.FalseProductLine;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
 
 
 public class ExportDefectAnalyzer {

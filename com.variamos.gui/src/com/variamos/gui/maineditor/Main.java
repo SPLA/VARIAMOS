@@ -1,14 +1,7 @@
 package com.variamos.gui.maineditor;
 
-import java.awt.Color;
 import java.io.IOException;
-
 import javax.swing.UIManager;
-
-import com.cfm.productline.ProductLine;
-//import com.cfm.productline.io.SXFMReader;
-import com.variamos.gui.pl.editor.ProductLineGraph;
-
 import fm.FeatureModelException;
 
 public class Main {
@@ -20,9 +13,7 @@ public class Main {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
-		int options = 4; // 0 old way to load product lines
-		if(ar.length>0)
+		if (ar.length > 0)
 			new MainFrame(ar[0]);
 		else
 			new MainFrame(null);

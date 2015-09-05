@@ -267,7 +267,6 @@ public abstract class InstElement implements Serializable, EditableElement,
 		// return identifier;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String toString() {
 		return getText(null);
 	}
@@ -442,7 +441,6 @@ public abstract class InstElement implements Serializable, EditableElement,
 					.getModelingAttributesNames(parents);
 			names.addAll(getTransSupportMetaElement().getAllAttributesNames(
 					parents));
-			Set<String> names2 = getInstAttributes().keySet();
 			if (getInstAttributes().keySet().equals(names))
 				return;
 			names = getTransSupportMetaElement().getModelingAttributesNames(

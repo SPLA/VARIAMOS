@@ -14,7 +14,7 @@
   </class>  
   <class id="2" language="java" name="com.variamos.perspsupport.expressionsupport.SemanticExpressionType" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/expressionsupport/SemanticExpressionType.java" 
+    file="/com.variamos.perspsupport.expressionsupport/src/com/variamos/perspsupport/expressionsupport/SemanticExpressionType.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="382" width="293" x="427" y="-446"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 

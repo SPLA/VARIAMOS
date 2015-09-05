@@ -2424,14 +2424,6 @@ public class RefasModel extends AbstractModel {
 		MetaConcept supportMetaViewPairwise = (MetaConcept) getSyntaxRefas()
 				.getVertex("ViewConceptAsso").getEditableMetaElement();
 
-		MetaPairwiseRelation metaPairwiseRelFromView = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("ViewRelation"))
-				.getEditableMetaElement();
-
-		MetaPairwiseRelation metaPairwiseRelExtends = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("ExtendsRelation"))
-				.getEditableMetaElement();
-
 		MetaPairwiseRelation metaPairwiseRelNormal = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("NormalRelation"))
 				.getEditableMetaElement();
@@ -2529,7 +2521,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept('C', "VA",
 				false, "VariabilityArtifact", null, "", 0, 0, null, true, null,
-				3, semFeature, true);
+				3, semHardConcept, true);
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
@@ -5551,8 +5543,6 @@ public class RefasModel extends AbstractModel {
 		if (metaElement2 instanceof MetaConcept) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
-				MetaElement m = element.getTargetRelations().get(0)
-						.getTransSupportMetaElement();
 				if (element.getTargetRelations().get(0)
 						.getSupportMetaElementIden() != null
 						&& element.getTargetRelations().get(0)
@@ -5674,8 +5664,6 @@ public class RefasModel extends AbstractModel {
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = instElement.getTargetRelations();
 		for (InstElement element : rel) {
-			MetaElement m = element.getTargetRelations().get(0)
-					.getTransSupportMetaElement();
 			if (element.getTargetRelations().get(0).getSupportMetaElementIden() != null
 					&& element.getTargetRelations().get(0)
 							.getSupportMetaElementIden()
@@ -5683,7 +5671,7 @@ public class RefasModel extends AbstractModel {
 				InstElement parent = element.getTargetRelations().get(0)
 						.getTargetRelations().get(0).getTargetRelations()
 						.get(0);
-				//parent.createInstAttributes(parents);
+				// parent.createInstAttributes(parents);
 				out.add(parent);
 				out.addAll(getRecursiveParentSyntaxConcept(element
 						.getTargetRelations().get(0).getTargetRelations()

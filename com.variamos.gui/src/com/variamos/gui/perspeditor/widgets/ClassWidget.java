@@ -1,7 +1,6 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;

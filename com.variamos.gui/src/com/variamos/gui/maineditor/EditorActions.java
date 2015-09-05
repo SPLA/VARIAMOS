@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -73,9 +71,7 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
-import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.perspeditor.actions.FileTasks;
-import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.io.SXFMWriter;
 
@@ -680,46 +676,39 @@ public class EditorActions {
 					} else if (ext.equalsIgnoreCase("mxe")
 							|| ext.equalsIgnoreCase("vmsm")
 							|| ext.equalsIgnoreCase("xml")) {
-						long startTime = System.currentTimeMillis();
 						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
 								(VariamosGraphEditor) editor, graph);
 						/*
-						 mxGraph outGraph = SharedActions.beforeGraphOperation(
-						 
-								graph, true, editor.getModelViewIndex(),
-								editor.getModelSubViewIndex());
-						long stopTime = System.currentTimeMillis();
-						long elapsedTime = stopTime - startTime;
-						System.out.println("beforeSaveGraph time : "
-								+ elapsedTime);
-						startTime = System.currentTimeMillis();
-						mxCodec codec = new mxCodec();
-						String xml = mxXmlUtils.getXml(codec.encode(outGraph
-								.getModel()));
-						mxUtils.writeFile(xml, filename);
-						String file = filename.substring(0,
-								filename.lastIndexOf('.'));
-						file += ".backup."
-								+ new SimpleDateFormat("yyyyMMddHHmmss")
-										.format(new Date()) + "." + ext;
-						mxUtils.writeFile(xml, file);
-						stopTime = System.currentTimeMillis();
-						elapsedTime = stopTime - startTime;
-						System.out
-								.println("serialization time: " + elapsedTime);
-						startTime = System.currentTimeMillis();
-						if (editor instanceof VariamosGraphEditor)
-							SharedActions.afterSaveGraph(graph,
-									(VariamosGraphEditor) editor);
-						stopTime = System.currentTimeMillis();
-						elapsedTime = stopTime - startTime;
-						System.out.println("recover time: " + elapsedTime);
-						editor.updateObjects();
-						editor.setVisibleModel(0, -1);
-						editor.setDefaultButton();
-						editor.setModified(false);
-						editor.setCurrentFile(new File(filename));
-						*/
+						 * mxGraph outGraph =
+						 * SharedActions.beforeGraphOperation(
+						 * 
+						 * graph, true, editor.getModelViewIndex(),
+						 * editor.getModelSubViewIndex()); long stopTime =
+						 * System.currentTimeMillis(); long elapsedTime =
+						 * stopTime - startTime;
+						 * System.out.println("beforeSaveGraph time : " +
+						 * elapsedTime); startTime = System.currentTimeMillis();
+						 * mxCodec codec = new mxCodec(); String xml =
+						 * mxXmlUtils.getXml(codec.encode(outGraph
+						 * .getModel())); mxUtils.writeFile(xml, filename);
+						 * String file = filename.substring(0,
+						 * filename.lastIndexOf('.')); file += ".backup." + new
+						 * SimpleDateFormat("yyyyMMddHHmmss") .format(new
+						 * Date()) + "." + ext; mxUtils.writeFile(xml, file);
+						 * stopTime = System.currentTimeMillis(); elapsedTime =
+						 * stopTime - startTime; System.out
+						 * .println("serialization time: " + elapsedTime);
+						 * startTime = System.currentTimeMillis(); if (editor
+						 * instanceof VariamosGraphEditor)
+						 * SharedActions.afterSaveGraph(graph,
+						 * (VariamosGraphEditor) editor); stopTime =
+						 * System.currentTimeMillis(); elapsedTime = stopTime -
+						 * startTime; System.out.println("recover time: " +
+						 * elapsedTime); editor.updateObjects();
+						 * editor.setVisibleModel(0, -1);
+						 * editor.setDefaultButton(); editor.setModified(false);
+						 * editor.setCurrentFile(new File(filename));
+						 */
 					} else if (ext.equalsIgnoreCase("txt")) {
 						String content = mxGdCodec.encode(graph);
 
@@ -1532,30 +1521,31 @@ public class EditorActions {
 								((MainFrame) finalEditor.getFrame())
 										.waitingCursor(false);
 								return super.accept(file)
-									//	|| lcase.endsWith(".png")
-									//	|| lcase.endsWith(".vdx")
+								// || lcase.endsWith(".png")
+								// || lcase.endsWith(".vdx")
 										|| lcase.endsWith(".vmsm");
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
 
-			/*			fc.addChoosableFileFilter(new DefaultFileFilter(".mxe",
-								"mxGraph Editor " + mxResources.get("file")
-										+ " (.mxe)"));
-						fc.addChoosableFileFilter(new DefaultFileFilter(
-								".vmsm", "VariaMos-SystemModel  "
-										+ mxResources.get("file") + " (.vmsm)"));
-
-						// Adds file filter for VDX import
-						fc.addChoosableFileFilter(new DefaultFileFilter(".vdx",
-								"XML Drawing  " + mxResources.get("file")
-										+ " (.vdx)"));
-
-						// Adds file filter for GD import
-						fc.addChoosableFileFilter(new DefaultFileFilter(".txt",
-								"Graph Drawing  " + mxResources.get("file")
-										+ " (.txt)"));
-*/
+						/*
+						 * fc.addChoosableFileFilter(new
+						 * DefaultFileFilter(".mxe", "mxGraph Editor " +
+						 * mxResources.get("file") + " (.mxe)"));
+						 * fc.addChoosableFileFilter(new DefaultFileFilter(
+						 * ".vmsm", "VariaMos-SystemModel  " +
+						 * mxResources.get("file") + " (.vmsm)"));
+						 * 
+						 * // Adds file filter for VDX import
+						 * fc.addChoosableFileFilter(new
+						 * DefaultFileFilter(".vdx", "XML Drawing  " +
+						 * mxResources.get("file") + " (.vdx)"));
+						 * 
+						 * // Adds file filter for GD import
+						 * fc.addChoosableFileFilter(new
+						 * DefaultFileFilter(".txt", "Graph Drawing  " +
+						 * mxResources.get("file") + " (.txt)"));
+						 */
 						fc.setFileFilter(defaultFilter);
 
 						int rc = fc.showDialog(null,
@@ -1579,27 +1569,30 @@ public class EditorActions {
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
 										.toLowerCase().endsWith(".vmsm")) {
-									FileTasks.openAction(FileTasks.OPEN,
-											fc.getSelectedFile(),
-											(VariamosGraphEditor) editor, graph);
+									FileTasks
+											.openAction(
+													FileTasks.OPEN,
+													fc.getSelectedFile(),
+													(VariamosGraphEditor) editor,
+													graph);
 									/*
-									((VariamosGraphEditor) editor).resetView();
-									graph = editor.getGraphComponent()
-											.getGraph();
-									// variamosEditor.editModelReset();
-									SharedActions.beforeLoadGraph(graph,
-											variamosEditor);
-
-									PLGReader.loadPLG(fc.getSelectedFile(),
-											graph, variamosEditor);
-									editor.setCurrentFile(fc.getSelectedFile());
-									SharedActions.afterOpenCloneGraph(graph,
-											variamosEditor);
-									variamosEditor
-											.populateIndex(((AbstractGraph) graph)
-													.getProductLine());
-									resetEditor(variamosEditor);
-									*/
+									 * ((VariamosGraphEditor)
+									 * editor).resetView(); graph =
+									 * editor.getGraphComponent() .getGraph();
+									 * // variamosEditor.editModelReset();
+									 * SharedActions.beforeLoadGraph(graph,
+									 * variamosEditor);
+									 * 
+									 * PLGReader.loadPLG(fc.getSelectedFile(),
+									 * graph, variamosEditor);
+									 * editor.setCurrentFile
+									 * (fc.getSelectedFile());
+									 * SharedActions.afterOpenCloneGraph(graph,
+									 * variamosEditor); variamosEditor
+									 * .populateIndex(((AbstractGraph) graph)
+									 * .getProductLine());
+									 * resetEditor(variamosEditor);
+									 */
 
 								} else {
 									Document document = mxXmlUtils

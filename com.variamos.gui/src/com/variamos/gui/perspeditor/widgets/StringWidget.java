@@ -2,9 +2,6 @@ package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 

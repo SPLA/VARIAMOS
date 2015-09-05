@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
@@ -20,7 +19,6 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
@@ -410,7 +408,6 @@ public class SharedActions {
 
 		InstElement instElement = ((InstCell) value).getInstElement();
 		String id = instElement.getIdentifier();
-		String elementIdentifier = null;
 		int modelViewSubIndex = editor.getModelSubViewIndex();
 		int modelViewIndex = editor.getModelViewIndex();
 		// Move new element to the current View - clone if

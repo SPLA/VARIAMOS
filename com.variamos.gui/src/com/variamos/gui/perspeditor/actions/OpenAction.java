@@ -11,9 +11,7 @@ import javax.swing.JOptionPane;
 //import com.cfm.productline.io.SXFMReader;
 import com.mxgraph.util.mxResources;
 import com.mxgraph.view.mxGraph;
-import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
@@ -101,8 +99,8 @@ public class OpenAction extends AbstractEditorAction {
 					};
 					// fc.addChoosableFileFilter(defaultFilter);
 
-				//	fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
-				//			mxResources.get("sxfmExtension") + " (.sxfm)"));
+					// fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
+					// mxResources.get("sxfmExtension") + " (.sxfm)"));
 
 					fc.setFileFilter(defaultFilter);
 

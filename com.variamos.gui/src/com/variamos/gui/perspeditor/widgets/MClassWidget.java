@@ -12,7 +12,6 @@ import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.model.mxCell;

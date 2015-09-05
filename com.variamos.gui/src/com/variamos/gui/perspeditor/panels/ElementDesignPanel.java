@@ -16,7 +16,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,7 +35,6 @@ import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.hlcl.Expression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -279,7 +277,7 @@ public class ElementDesignPanel extends JPanel {
 												// attributes.put(name.getName(),
 												// v);
 												try {
-													Expression exp = ((InstanceExpression) finalInstAttribute
+													((InstanceExpression) finalInstAttribute
 															.getValue())
 															.createSGSExpression(finalEditElm
 																	.getIdentifier());

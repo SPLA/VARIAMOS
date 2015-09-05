@@ -1,27 +1,27 @@
 package com.cfm.productline.test;
 
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
+//import java.util.Collection;
 
-import org.junit.Test;
+//import org.junit.Test;
 
-import com.variamos.core.enums.NotationType;
-import com.variamos.core.enums.SolverEditorType;
-import com.variamos.core.exceptions.TransformerException;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
-import com.variamos.reasoning.defectAnalyzer.dto.VMAnalyzerInDTO;
-import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
-import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
-import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
-import com.variamos.reasoning.transformer.VariabilityModelTransformer;
-import com.variamos.reasoning.util.ConstraintRepresentationUtil;
+//import com.variamos.core.enums.NotationType;
+//import com.variamos.core.enums.SolverEditorType;
+//import com.variamos.core.exceptions.TransformerException;
+//import com.variamos.hlcl.BooleanExpression;
+//import com.variamos.hlcl.HlclProgram;
+//import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
+//import com.variamos.reasoning.defectAnalyzer.IntDefectsVerifier;
+//import com.variamos.reasoning.defectAnalyzer.dto.VMAnalyzerInDTO;
+//import com.variamos.reasoning.defectAnalyzer.dto.VMTransformerInDTO;
+//import com.variamos.reasoning.defectAnalyzer.model.VariabilityModel;
+//import com.variamos.reasoning.defectAnalyzer.model.defects.VoidModel;
+//import com.variamos.reasoning.transformer.VariabilityModelTransformer;
+
+//import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 
 public class VerificationOperationsTest {
-
 
 	// public void testVerifyDefectsModel() {
 	//
@@ -669,27 +669,28 @@ public class VerificationOperationsTest {
 	//
 	// }
 
-	private VariabilityModel transformFeatureModel(String modelInputPath) {
-		// Se instancia el transformador
-		VMTransformerInDTO transformerInDTO = new VMTransformerInDTO();
-		transformerInDTO.setNotationType(NotationType.FEATURES_MODELS);
-		transformerInDTO.setPathToTransform(modelInputPath);
-
-		VariabilityModel variabilityModel = null;
-		VariabilityModelTransformer transformer = new VariabilityModelTransformer(
-				transformerInDTO);
-		try {
-			variabilityModel = transformer.transformToVariabilityModel();
-			assertTrue(variabilityModel != null);
-			System.out.println("The FM was correctly transformed \n");
-			return variabilityModel;
-		} catch (TransformerException e) {
-			e.printStackTrace();
-
-		}
-
-		return null;
-	}
+	// private VariabilityModel transformFeatureModel(String modelInputPath) {
+	// // Se instancia el transformador
+	// VMTransformerInDTO transformerInDTO = new VMTransformerInDTO();
+	// transformerInDTO.setNotationType(NotationType.FEATURES_MODELS);
+	// transformerInDTO.setPathToTransform(modelInputPath);
+	//
+	// VariabilityModel variabilityModel = null;
+	// VariabilityModelTransformer transformer = new
+	// VariabilityModelTransformer(
+	// transformerInDTO);
+	// try {
+	// variabilityModel = transformer.transformToVariabilityModel();
+	// assertTrue(variabilityModel != null);
+	// System.out.println("The FM was correctly transformed \n");
+	// return variabilityModel;
+	// } catch (TransformerException e) {
+	// e.printStackTrace();
+	//
+	// }
+	//
+	// return null;
+	// }
 
 	// private VariabilityModel transformProductLine(String modelInputPath) {
 	// // Variable del modelo a analizar
