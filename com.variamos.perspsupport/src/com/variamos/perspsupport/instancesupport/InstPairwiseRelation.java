@@ -439,7 +439,11 @@ public class InstPairwiseRelation extends InstElement {
 		return editableAttributes;
 	}
 
-	public String toString() { // TODO move to superclass
+	public String toString() {
+		return getText(null);
+	}
+
+	public String getText(List<InstElement> parents) {// TODO move to superclass
 		String out = "";
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();

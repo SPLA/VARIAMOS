@@ -94,6 +94,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.types.DomainRegister;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.expressionsupport.ElementExpressionSet;
@@ -1330,6 +1331,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
+				if (editableMetaElement instanceof MetaView) {
+					if (instAttribute.getIdentifier().equals("PaletteName"))
+						((MetaView) editableMetaElement)
+								.setPaletteName((String) instAttribute
+										.getValue());
+				}
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());

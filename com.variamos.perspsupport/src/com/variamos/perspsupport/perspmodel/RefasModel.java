@@ -734,7 +734,16 @@ public class RefasModel extends AbstractModel {
 		semView.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
 				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
 				"", "", -1, "", ""));
+		semView.putSemanticAttribute("PaletteNames", new SyntaxAttribute(
+				"PaletteNames", "String", false, "Palette Name", "", 0, -1, "", "",
+				-1, "", ""));
 
+		semView.addPropEditableAttribute("03#" + "PaletteNames");
+		semView.addPropVisibleAttribute("03#" + "PaletteNames");
+		semView.addPanelVisibleAttribute("03#" + "PaletteNames" + "#"
+				+ "PaletteNames" + "#!=#" + "" + "#" + "");
+		semView.addPanelSpacersAttribute("\n{Palettes:#" + "PaletteNames"
+				+ "#}\n\n");
 		semView.addPropVisibleAttribute("00#" + "MetaType");
 		semView.addPropEditableAttribute("01#" + "Identifier");
 		semView.addPropVisibleAttribute("01#" + "Identifier");

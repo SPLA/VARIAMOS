@@ -18,4 +18,22 @@ public class ExpressionSubAction {
 	private int position;
 	private String 	description;
 	private ExpressionAction expresionAction;
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public ExpressionAction getExpresionAction() {
+		return expresionAction;
+	}
+	public void setExpresionAction(ExpressionAction expresionAction) {
+		this.expresionAction = expresionAction;
+	}
 }

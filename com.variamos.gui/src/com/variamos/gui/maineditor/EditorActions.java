@@ -78,7 +78,6 @@ import com.variamos.io.SXFMWriter;
 /**
  *
  */
-@Deprecated
 public class EditorActions {
 	/**
 	 * 

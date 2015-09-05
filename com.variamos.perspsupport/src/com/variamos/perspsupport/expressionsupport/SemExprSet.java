@@ -19,6 +19,55 @@ public class SemExprSet {
 	private boolean userSelectable;
 	private int priority;
 	private int responseAction;
+	public String getIdentifier() {
+		return identifier;
+	}
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public boolean isUserSelectable() {
+		return userSelectable;
+	}
+	public void setUserSelectable(boolean userSelectable) {
+		this.userSelectable = userSelectable;
+	}
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	public int getResponseAction() {
+		return responseAction;
+	}
+	public void setResponseAction(int responseAction) {
+		this.responseAction = responseAction;
+	}
+	public String getErrorDescription() {
+		return errorDescription;
+	}
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
+	}
+	public List<AbstractSemanticElement> getSemanticElements() {
+		return semanticElements;
+	}
+	public void setSemanticElements(List<AbstractSemanticElement> semanticElements) {
+		this.semanticElements = semanticElements;
+	}
+	public List<SemExprSetSubAction> getExpressionSetSubAction() {
+		return expressionSetSubAction;
+	}
+	public void setExpressionSetSubAction(
+			List<SemExprSetSubAction> expressionSetSubAction) {
+		this.expressionSetSubAction = expressionSetSubAction;
+	}
 	private String errorDescription;
 	private List<AbstractSemanticElement> semanticElements;
 	private List<SemExprSetSubAction> expressionSetSubAction;

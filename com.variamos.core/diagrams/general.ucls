@@ -51,52 +51,52 @@
     <position height="-1" width="-1" x="2124" y="809"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="11" language="java" name="com.variamos.defectAnalyzer.model.defects" 
+  <package id="11" language="java" name="com.variamos.reasoning.defectAnalyzer.model.defects" 
     project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/model/defects" binary="false" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/model/defects" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3360" y="891"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="12" language="java" name="com.variamos.defectAnalyzer.transformer" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/transformer" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="12" language="java" name="com.variamos.reasoning.transformer" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/transformer" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2495" y="517"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="13" language="java" name="com.variamos.defectAnalyzer.util" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/util" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="13" language="java" name="com.variamos.reasoning.util" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/util" binary="false" corner="BOTTOM_RIGHT">    
     <position height="55" width="255" x="2433" y="607"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="14" language="java" name="com.variamos.defectAnalyzer.constants" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/constants" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="14" language="java" name="com.variamos.reasoning.defectAnalyzer.constants" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/constants" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1996" y="729"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="15" language="java" name="com.variamos.defectAnalyzer.defectAnalyzer" 
+  <package id="15" language="java" name="com.variamos.reasoning.defectAnalyzer" 
     project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/defectAnalyzer" binary="false" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2864" y="520"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="16" language="java" name="com.variamos.defectAnalyzer.model.enums" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/model/enums" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="16" language="java" name="com.variamos.reasoning.defectAnalyzer.model.enums" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/model/enums" binary="false" corner="BOTTOM_RIGHT">    
     <position height="55" width="327" x="3538" y="987"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="17" language="java" name="com.variamos.defectAnalyzer.model" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/model" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="17" language="java" name="com.variamos.reasoning.defectAnalyzer.model" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/model" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3001" y="814"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="18" language="java" name="com.variamos.defectAnalyzer.main" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/main" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="18" language="java" name="com.variamos.reasoning.defectAnalyzer.main" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/main" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="150" y="1044"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="19" language="java" name="com.variamos.defectAnalyzer.dto" project="com.variamos.defectAnalyzer" 
-    file="/com.variamos.defectAnalyzer/src/com/variamos/defectAnalyzer/dto" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="19" language="java" name="com.variamos.reasoning.defectAnalyzer.dto" project="com.variamos.defectAnalyzer" 
+    file="/com.variamos.defectAnalyzer/src/com/variamos/reasoning/defectAnalyzer/dto" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3211" y="695"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  

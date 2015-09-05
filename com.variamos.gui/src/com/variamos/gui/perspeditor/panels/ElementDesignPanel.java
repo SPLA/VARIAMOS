@@ -52,6 +52,7 @@ import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
@@ -766,6 +767,12 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
+				if (editableMetaElement instanceof MetaView) {
+					if (instAttribute.getIdentifier().equals("PaletteNames"))
+						((MetaView) editableMetaElement)
+								.setPaletteName((String) instAttribute
+										.getValue());
+				}
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());

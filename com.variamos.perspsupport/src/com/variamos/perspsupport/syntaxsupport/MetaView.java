@@ -23,6 +23,10 @@ public class MetaView extends MetaElement implements Serializable {
 		return paletteName;
 	}
 
+	public void setPaletteName(String paletteName) {
+		this.paletteName = paletteName;
+	}
+
 	private int index;
 
 	public MetaView() {

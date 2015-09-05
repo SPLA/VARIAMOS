@@ -167,6 +167,9 @@ public abstract class InstElement implements Serializable, EditableElement,
 					if (instAttribute.getIdentifier().equals("Index"))
 						instAttribute.setValue(((MetaView) editableMetaElement)
 								.getIndex());
+					if (instAttribute.getIdentifier().equals("PaletteNames"))
+						instAttribute.setValue(((MetaView) editableMetaElement)
+								.getPaletteName());
 				}
 
 				if (editableMetaElement instanceof MetaPairwiseRelation) {
