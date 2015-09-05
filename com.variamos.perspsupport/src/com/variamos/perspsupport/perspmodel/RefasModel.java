@@ -5659,6 +5659,8 @@ public class RefasModel extends AbstractModel {
 	}
 
 	public List<InstElement> getParentSyntaxConcept(InstElement instElement) {
+		if (instElement == null)
+			return null;
 		InstElement instSyntaxElement = this.getSyntaxRefas().getVertex(
 				instElement.getSupportMetaElementIden());
 		if (instSyntaxElement != null)
