@@ -51,32 +51,12 @@ public class InstConcept extends InstVertex {
 	}
 
 	public InstConcept(String identifier, MetaElement supportMetaElement,
-			MetaElement editableMetaElement, List<InstElement> parents) {
-		super(identifier);
-		if (supportMetaElement != null)
-			setTransSupportMetaElement(supportMetaElement);
-		setEditableMetaElement(editableMetaElement);
-		createInstAttributes(parents);
-		copyValuesToInstAttributes(parents);
-	}
-
-	public InstConcept(String identifier, MetaElement supportMetaElement,
 			IntSemanticElement editableSemanticElement) {
 		super(identifier);
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);
 		setEditableSemanticElement(editableSemanticElement);
 		createInstAttributes(null);
-	}
-
-	public InstConcept(String identifier, MetaElement supportMetaElement,
-			IntSemanticElement editableSemanticElement,
-			List<InstElement> parents) {
-		super(identifier);
-		if (supportMetaElement != null)
-			setTransSupportMetaElement(supportMetaElement);
-		setEditableSemanticElement(editableSemanticElement);
-		createInstAttributes(parents);
 	}
 
 	public InstConcept(String identifier, MetaElement supportMetaElement,
@@ -88,13 +68,6 @@ public class InstConcept extends InstVertex {
 	}
 
 	public InstConcept(String identifier, MetaElement supportMetaElement) {
-		super(identifier);
-		setTransSupportMetaElement(supportMetaElement);
-		createInstAttributes(null);
-	}
-
-	public InstConcept(String identifier, MetaElement supportMetaElement,
-			List<InstElement> parents) {
 		super(identifier);
 		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes(null);

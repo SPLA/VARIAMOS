@@ -79,7 +79,8 @@ public abstract class InstVertex extends InstElement {
 	public void setIdentifier(String identifier) {
 		setDynamicVariable(VAR_IDENTIFIER, identifier);
 		setInstAttribute(VAR_IDENTIFIER, identifier);
-		// this.identifier = identifier;
+		if (getEditableMetaElement() != null)
+			getEditableMetaElement().setAutoIdentifier(identifier);
 	}
 
 	@SuppressWarnings("unchecked")

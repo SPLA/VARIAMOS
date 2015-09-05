@@ -126,7 +126,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 	public void copyValuesToInstAttributes(List<InstElement> parents) {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
+				if (instAttribute.getIdentifier().equals("AutoIdentifier"))
 					instAttribute.setValue(editableMetaElement
 							.getAutoIdentifier());
 				if (instAttribute.getIdentifier().equals("SemanticType")

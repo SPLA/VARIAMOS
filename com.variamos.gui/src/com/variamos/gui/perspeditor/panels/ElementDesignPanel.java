@@ -752,6 +752,10 @@ public class ElementDesignPanel extends JPanel {
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
+				if (instAttribute.getIdentifier().equals("AutoIdentifier"))
+					editableMetaElement
+							.setAutoIdentifier((String) instAttribute
+									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
 							.setInstSemanticElement((InstElement) ((RefasModel) editor

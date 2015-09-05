@@ -31,11 +31,13 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
+import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 
@@ -107,21 +109,36 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							MetaElement metaVertex = paletteElement
 									.getMetaElement();
 							if (metaVertex instanceof MetaConcept) {
-								// MetaElement metaElement = new MetaConcept();
 								Object o;
 								o = new InstConcept();
 								Constructor<?> c = o.getClass().getConstructor(
 										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
-									if (((MetaConcept) metaVertex).getType() != 'V')
-										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaConcept());
-									else
+									switch (((MetaConcept) metaVertex)
+											.getType()) {
+									case 'V':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
 												new MetaView());
+										break;
+									case 'P':
+									case 'I':
+									case 'E':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaPairwiseRelation());
+										break;
+									case 'O':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaOverTwoRelation());
+										break;
+									case 'C':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaConcept('C'));
+									}
 								else
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex, null);
@@ -142,6 +159,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									obj = (InstElement) c.newInstance("",
 											(MetaOverTwoRelation) metaVertex,
 											null);
+							} else if (metaVertex instanceof MetaPairwiseRelation) {
+								//Not shown on palette
 							} else if (metaVertex instanceof MetaEnumeration) {
 								// MetaElement metaElement = new
 								// MetaEnumeration();

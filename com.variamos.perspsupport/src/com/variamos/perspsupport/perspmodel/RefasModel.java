@@ -442,13 +442,15 @@ public class RefasModel extends AbstractModel {
 		} else if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)
 					.getTargetRelations()) {
-				InstElement instVertex = instElement.getTargetRelations()
-						.get(0).getTargetRelations().get(0)
-						.getTargetRelations().get(0);
-				if (instVertex.getEditableMetaElement() != null
-						&& instVertex.getEditableMetaElement().getVisible())
-					elements.add(instVertex.getEditableMetaElement()
-							.getAutoIdentifier());
+		//		if (instElement instanceof InstVertex ||instElement instanceof InstView) {
+					InstElement instVertex = instElement.getTargetRelations()
+							.get(0).getTargetRelations().get(0)
+							.getTargetRelations().get(0);
+					if (instVertex.getEditableMetaElement() != null
+							&& instVertex.getEditableMetaElement().getVisible())
+						elements.add(instVertex.getEditableMetaElement()
+								.getAutoIdentifier());
+			//	}
 			}
 		}
 		if (modelViewInd != -1
@@ -488,7 +490,7 @@ public class RefasModel extends AbstractModel {
 		semConcept.addPanelSpacersAttribute("#" + "identifier" + "#\n\n");
 
 		InstConcept instSemConcept = new InstConcept("Concept", null,
-				semConcept, null);
+				semConcept);
 
 		MetaConcept metaConcept = new MetaConcept(
 				'C',
@@ -514,7 +516,7 @@ public class RefasModel extends AbstractModel {
 		semPairwiseRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
 		InstConcept instSemPairwiseRelation = new InstConcept(
-				"PairWiseRelation", null, semPairwiseRelation, null);
+				"PairWiseRelation", null, semPairwiseRelation);
 
 		MetaConcept metaPairWiseRelation = new MetaConcept(
 				'P',
@@ -567,7 +569,7 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
 		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",
-				null, semOverTwoRelation, null);
+				null, semOverTwoRelation);
 
 		MetaConcept overTwoRelation = new MetaConcept('O', "OverTwoRelation",
 				true, "OverTwoRelation", "refasminiclass", "Over Two Relation",
@@ -586,28 +588,27 @@ public class RefasModel extends AbstractModel {
 				"ExtRel", false, semPairwExtRelList);
 
 		InstConcept instSemPairwExtRel = new InstConcept("ExtendsRelation",
-				null, semPairwExtRel, null);
+				null, semPairwExtRel);
 
 		SemanticPairwiseRelation semPairwAsoRel = new SemanticPairwiseRelation(
 				"AsoRel", false, semPairwAsoRelList);
 
 		InstConcept instSemPairwAsoRel = new InstConcept("AssociationRelation",
-				null, semPairwAsoRel, null);
+				null, semPairwAsoRel);
 
-		InstConcept instConcept = new InstConcept("Concept", null, metaConcept,
-				null);
+		InstConcept instConcept = new InstConcept("Concept", null, metaConcept);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
 		variabilityInstVertex.put("Concept", instConcept);
 
 		InstConcept instPairWiseRelation = new InstConcept("PairWiseRelation",
-				null, metaPairWiseRelation, null);
+				null, metaPairWiseRelation);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
 		variabilityInstVertex.put("PairWiseRelation", instPairWiseRelation);
 
 		variabilityInstVertex.put("Enumeration", new InstConcept("Enumeration",
-				null, enumeration, null));
+				null, enumeration));
 		InstConcept instOverTwo = new InstConcept("OverTwoRelation", null,
-				overTwoRelation, null);
+				overTwoRelation);
 		variabilityInstVertex.put("OverTwoRelation", instOverTwo);
 
 		MetaPairwiseRelation metaPairwiseRelAso = new MetaPairwiseRelation(
@@ -735,8 +736,8 @@ public class RefasModel extends AbstractModel {
 				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
 				"", "", -1, "", ""));
 		semView.putSemanticAttribute("PaletteNames", new SyntaxAttribute(
-				"PaletteNames", "String", false, "Palette Name", "", 0, -1, "", "",
-				-1, "", ""));
+				"PaletteNames", "String", false, "Palette Name", "", 0, -1, "",
+				"", -1, "", ""));
 
 		semView.addPropEditableAttribute("03#" + "PaletteNames");
 		semView.addPropVisibleAttribute("03#" + "PaletteNames");
@@ -771,14 +772,14 @@ public class RefasModel extends AbstractModel {
 		semView.addPanelVisibleAttribute("01#" + "Name");
 		semView.addPanelSpacersAttribute("#" + "Name" + "#");
 
-		InstConcept instSemView = new InstConcept("View", null, semView, null);
+		InstConcept instSemView = new InstConcept("View", null, semView);
 
 		MetaConcept view = new MetaConcept('V', "View", true, "View",
 				"refasview", "View/SubView Concept", 100, 30,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 3, instSemView, true);
 
-		InstConcept instView = new InstConcept("View", null, view, null);
+		InstConcept instView = new InstConcept("View", null, view);
 		variabilityInstVertex.put("View", instView);
 
 		SemanticConcept semVertex = new SemanticConcept();
@@ -942,8 +943,7 @@ public class RefasModel extends AbstractModel {
 		semPWAsso.addPropEditableAttribute("14#" + "value");
 		semPWAsso.addPropVisibleAttribute("14#" + "value");
 
-		InstConcept instSemVertex = new InstConcept("Concept", null, semVertex,
-				null);
+		InstConcept instSemVertex = new InstConcept("Concept", null, semVertex);
 
 		MetaConcept concept = new MetaConcept('C', "Concept", true, "Concept",
 				"refasminiclass", "Meta Concept", 150, 180,
@@ -956,8 +956,7 @@ public class RefasModel extends AbstractModel {
 		concept.addPanelVisibleAttribute("01#" + "Name");
 		concept.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
-		InstConcept instConcept = new InstConcept("Concept", null, concept,
-				null);
+		InstConcept instConcept = new InstConcept("Concept", null, concept);
 		variabilityInstVertex.put("Concept", instConcept);
 
 		SemanticConcept semElementNoSyntax = new SemanticConcept();
@@ -999,7 +998,7 @@ public class RefasModel extends AbstractModel {
 		semElementNoSyntax.addPanelSpacersAttribute("#" + "value" + "#\n\n");
 
 		InstConcept instSemEnum = new InstConcept("Enumeration", null,
-				semElementNoSyntax, null);
+				semElementNoSyntax);
 
 		MetaConcept enumeration = new MetaConcept('E', "Enumeration", true,
 				"Enumeration", "refasenumeration", "MetaEnumeration", 100, 150,
@@ -1007,7 +1006,7 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 3, instSemEnum, true);
 
 		variabilityInstVertex.put("Enumeration", new InstConcept("Enumeration",
-				null, enumeration, null));
+				null, enumeration));
 
 		SemanticConcept semOverTwoRelation = new SemanticConcept(semVertex,
 				"OverTwoRelation");
@@ -1038,7 +1037,7 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
 
 		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",
-				null, semOverTwoRelation, null);
+				null, semOverTwoRelation);
 
 		MetaConcept overTwoRelation = new MetaConcept('O', "OverTwoRelation",
 				true, "OverTwoRelation", "refasminiclass",
@@ -1058,7 +1057,7 @@ public class RefasModel extends AbstractModel {
 		// overTwoRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
 
 		InstConcept instOverTwoRelation = new InstConcept("OverTwoRelation",
-				null, overTwoRelation, null);
+				null, overTwoRelation);
 		variabilityInstVertex.put("OverTwoRelation", instOverTwoRelation);
 
 		MetaPairwiseRelation metaPairwiseRelNormal = new MetaPairwiseRelation(
@@ -1073,7 +1072,7 @@ public class RefasModel extends AbstractModel {
 				semElementNoSyntax, "ExtendRelation");
 
 		InstConcept instSemExtendRelation = new InstConcept("ExtendRelation",
-				null, semExtendRelation, null);
+				null, semExtendRelation);
 
 		MetaConcept extendRelation = new MetaConcept('E', "ExtendRelation",
 				true, "ExtendRelation", "refasminiclass", "Extend relation",
@@ -1084,7 +1083,7 @@ public class RefasModel extends AbstractModel {
 				.addPanelSpacersAttribute("<<MetaExtendsAsso>>\n#Name#\n\n");
 
 		InstConcept instExtendRelation = new InstConcept("ExtendRelation",
-				null, extendRelation, null);
+				null, extendRelation);
 
 		variabilityInstVertex.put("ExtendRelation", instExtendRelation);
 
@@ -1114,7 +1113,7 @@ public class RefasModel extends AbstractModel {
 				semElementNoSyntax, "ViewConceptAsso");
 
 		InstConcept instSemViewConceptAsso = new InstConcept("ExtendRelation",
-				null, semViewConceptAsso, null);
+				null, semViewConceptAsso);
 
 		MetaConcept viewConceptAsso = new MetaConcept('I', "ViewConceptAsso",
 				true, "ViewConceptAsso", "refasminiclass",
@@ -1136,7 +1135,7 @@ public class RefasModel extends AbstractModel {
 				+ "#}\n\n");
 
 		InstConcept instViewConceptAsso = new InstConcept("ViewConceptAsso",
-				null, viewConceptAsso, null);
+				null, viewConceptAsso);
 		variabilityInstVertex.put("ViewConceptAsso", instViewConceptAsso);
 
 		instEdge = new InstPairwiseRelation();
@@ -1189,7 +1188,7 @@ public class RefasModel extends AbstractModel {
 		semPairwiseRelation.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
 		InstConcept instSemPairwiseRelationn = new InstConcept(
-				"PairwiseRelation", null, semPairwiseRelation, null);
+				"PairwiseRelation", null, semPairwiseRelation);
 
 		MetaConcept pairwiseRelation = new MetaConcept('P', "PairwiseRelation",
 				true, "PairwiseRelation", "refasminiclass",
@@ -1233,7 +1232,7 @@ public class RefasModel extends AbstractModel {
 				+ "TargetCardinality" + "#}\n");
 
 		InstConcept instPairwiseRelation = new InstConcept("PairwiseRelation",
-				null, pairwiseRelation, null);
+				null, pairwiseRelation);
 		variabilityInstVertex.put("PairwiseRelation", instPairwiseRelation);
 
 		instEdge = new InstPairwiseRelation();
@@ -1297,7 +1296,7 @@ public class RefasModel extends AbstractModel {
 				"GeneralElement"); // From this name depends all the operations,
 									// do not change it
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
-				metaConcept, semGeneralElement, null);
+				metaConcept, semGeneralElement);
 		variabilityInstVertex.put("GeneralElement", instVertexGE);
 
 		// Design attributes: Do not change identifiers

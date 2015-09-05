@@ -30,6 +30,11 @@ public class MetaConcept extends MetaVertex {
 		super();
 	}
 
+	public MetaConcept(char type) {
+		super();
+		this.type = type;
+	}
+
 	public MetaConcept(char type, String identifier, boolean visible,
 			String name, String style, String description, int width,
 			int height, String image, int borderStroke,
@@ -212,7 +217,8 @@ public class MetaConcept extends MetaVertex {
 				modelingAttributesNames.addAll(parentConcept
 						.getModelingAttributesNames(parents));
 			}
-		modelingAttributesNames.addAll(this.getModelingAttributesNames(parents));
+		modelingAttributesNames
+				.addAll(this.getModelingAttributesNames(parents));
 		return modelingAttributesNames;
 	}
 
@@ -241,7 +247,8 @@ public class MetaConcept extends MetaVertex {
 	}
 
 	@Override
-	public AbstractAttribute getAbstractAttribute(String attributeName, List<InstElement> parents) {
+	public AbstractAttribute getAbstractAttribute(String attributeName,
+			List<InstElement> parents) {
 		AbstractAttribute out = getSemanticAttribute(attributeName);
 		if (out == null)
 			return getModelingAttribute(attributeName, parents);
