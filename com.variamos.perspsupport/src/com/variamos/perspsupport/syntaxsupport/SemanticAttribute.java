@@ -82,15 +82,16 @@ public class SemanticAttribute extends AbstractAttribute {
 
 	public SemanticAttribute(String name, String type,
 			boolean affectProperties, String displayName, String enumType,
-			String object, Object defaultValue, String hint, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, enumType, object,
-				defaultValue, hint, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+			String metaConceptInstanceType, Object defaultValue, String hint,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		super(name, type, affectProperties, displayName, enumType,
+				metaConceptInstanceType, defaultValue, hint, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 }
