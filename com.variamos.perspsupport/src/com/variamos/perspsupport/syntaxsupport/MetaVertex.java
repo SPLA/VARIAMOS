@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -107,16 +106,16 @@ public abstract class MetaVertex extends MetaElement {
 		return resizable;
 	}
 
-
 	public boolean equals(MetaVertex obj) {
 		return getAutoIdentifier().equals(obj.getAutoIdentifier());
 	}
 
-	public AbstractAttribute getAbstractAttribute(String attributeName) {
-		return this.getModelingAttribute(attributeName);
+	@Override
+	public AbstractAttribute getAbstractAttribute(String attributeName, List<InstElement> parents) {
+		return this.getModelingAttribute(attributeName, parents);
 	}
 
-	public abstract Set<String> getAllAttributesNames();
+	public abstract Set<String> getAllAttributesNames(List<InstElement> parents);
 
 	public abstract AbstractAttribute getSemanticAttribute(String name);
 }

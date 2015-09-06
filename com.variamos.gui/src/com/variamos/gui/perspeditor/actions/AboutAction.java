@@ -2,9 +2,6 @@ package com.variamos.gui.perspeditor.actions;
 
 import java.awt.event.ActionEvent;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;

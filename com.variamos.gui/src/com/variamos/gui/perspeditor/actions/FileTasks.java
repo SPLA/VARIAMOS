@@ -16,8 +16,6 @@ import com.variamos.configurator.io.PLGReader;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
-import com.variamos.perspsupport.perspmodel.SolverTasks;
 
 public class FileTasks extends SwingWorker<Void, Void> {
 	public String getErrorTitle() {

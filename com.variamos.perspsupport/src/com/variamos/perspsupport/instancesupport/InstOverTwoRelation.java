@@ -57,7 +57,7 @@ public class InstOverTwoRelation extends InstVertex {
 	 * for MultiElementExpressionSet
 	 */
 	private Set<String> sourcePositiveAttributeNames;
-	
+
 	private Set<String> sourceNegativeAttributeNames;
 
 	/**
@@ -142,21 +142,21 @@ public class InstOverTwoRelation extends InstVertex {
 	protected void createInstAttributes() {
 		if (getSupportMetaOverTwoRelation() != null) {
 			for (String name : getSupportMetaOverTwoRelation()
-					.getModelingAttributesNames()) {
+					.getModelingAttributesNames(null)) {
 				if (name.equals(MetaElement.VAR_IDENTIFIER))
 					addInstAttribute(name, getSupportMetaOverTwoRelation()
-							.getModelingAttribute(name), getIdentifier());
+							.getModelingAttribute(name, null), getIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getSupportMetaOverTwoRelation()
-							.getModelingAttribute(name),
+							.getModelingAttribute(name, null),
 							getSupportMetaOverTwoRelation().getDescription());
 				else
 					addInstAttribute(name, getSupportMetaOverTwoRelation()
-							.getModelingAttribute(name), null);
+							.getModelingAttribute(name, null), null);
 			}
 
 			Iterator<String> semanticAttributes = this
-					.getTransSupportMetaElement().getAllAttributesNames()
+					.getTransSupportMetaElement().getAllAttributesNames(null)
 					.iterator();
 			while (semanticAttributes.hasNext()) {
 				String name = semanticAttributes.next();
@@ -177,7 +177,7 @@ public class InstOverTwoRelation extends InstVertex {
 	public Set<String> getSourceNegativeAttributeNames() {
 		return sourceNegativeAttributeNames;
 	}
-	
+
 	/**
 	 * Add the name of the attributes for MultiElementExpressionSet
 	 * 
@@ -208,7 +208,6 @@ public class InstOverTwoRelation extends InstVertex {
 		this.sourceNegativeAttributeNames.clear();
 	}
 
-	
 	public MetaVertex getSupportMetaOverTwoRelation() {
 		return getTransSupportMetaElement();
 	}
@@ -299,7 +298,7 @@ public class InstOverTwoRelation extends InstVertex {
 		;
 	}
 
-	public Set<String> getDisPropVisibleAttributes() {
+	public Set<String> getDisPropVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null)
@@ -309,11 +308,11 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropVisibleAttributes());
+				.getPropVisibleAttributes(parents));
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getDisPropEditableAttributes() {
+	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
@@ -325,11 +324,11 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropEditableAttributes());
+				.getPropEditableAttributes(parents));
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getDisPanelVisibleAttributes() {
+	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
@@ -341,11 +340,11 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelVisibleAttributes());
+				.getPanelVisibleAttributes(parents));
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getDisPanelSpacersAttributes() {
+	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
@@ -357,7 +356,7 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelSpacersAttributes());
+				.getPanelSpacersAttributes(parents));
 		return modelingAttributesNames;
 	}
 
@@ -370,14 +369,13 @@ public class InstOverTwoRelation extends InstVertex {
 		{
 			IntSemanticOverTwoRelation tmp = (IntSemanticOverTwoRelation) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject();
-			modelingAttributesNames
-					.addAll(tmp.getSemanticAttributesNames());
+			modelingAttributesNames.addAll(tmp.getSemanticAttributesNames());
 		}
 		return modelingAttributesNames;
 	}
 
 	@Override
-	public List<InstAttribute> getEditableVariables() {
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
@@ -393,28 +391,7 @@ public class InstOverTwoRelation extends InstVertex {
 				createInstAttributes();
 			}
 		}
-		Set<String> attributesNames = getDisPropEditableAttributes();
-		return getFilteredInstAttributes(attributesNames, null);
-
-	}
-
-	public List<InstAttribute> getVisibleVariablesOld() {
-
-		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
-				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-						.getValueObject() != null) {
-			IntSemanticOverTwoRelation o = (IntSemanticOverTwoRelation)getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
-					.getValueObject();
-			String semGroupDep = (String) o.getIdentifier();
-
-			if (!semGroupDepOld.equals(semGroupDep)) {
-				semGroupDepOld = semGroupDep;
-				setInstAttribute(VAR_SEMANTICOVERTWOREL_IDEN, semGroupDep);
-				createInstAttributes();
-			}
-		}
-		Set<String> attributesNames = getDisPropVisibleAttributes();
-
+		Set<String> attributesNames = getDisPropEditableAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 
 	}
@@ -424,14 +401,14 @@ public class InstOverTwoRelation extends InstVertex {
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();
 		if (getSupportMetaOverTwoRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes();
+			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(null);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 
 			// List<String> spacersAttributes = metaConcept
 			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getDisPanelSpacersAttributes();
+			Set<String> spacersAttributes = getDisPanelSpacersAttributes(null);
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -508,7 +485,7 @@ public class InstOverTwoRelation extends InstVertex {
 				.getSemanticAttribute(attributeName);
 		if (out == null)
 			return getSupportMetaOverTwoRelation().getModelingAttribute(
-					attributeName);
+					attributeName, null);
 		else
 			return out;
 	}

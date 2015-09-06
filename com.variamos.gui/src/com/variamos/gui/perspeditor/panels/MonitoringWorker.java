@@ -34,7 +34,6 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 	private boolean includeVariables;
 	private boolean mapeAP;
 	private boolean iterative;
-	private boolean firstSolution;
 	private boolean includeOpers;
 	private boolean includeAssets;
 
@@ -60,7 +59,6 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 		this.includeAssets = includeAssets;
 		this.mapeAP = mapeAP;
 		this.iterative = iterative;
-		this.firstSolution = firstSolution;
 	}
 
 	public void setCanceled(boolean canceled) {

@@ -13,7 +13,6 @@ import java.util.TreeSet;
 
 import javax.swing.ProgressMonitor;
 
-import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -1043,8 +1042,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					if (instVertex.getInstAttribute("ExportOnConfig") != null
 							&& instVertex.getInstAttribute("ExportOnConfig")
 									.getAsBoolean()) {
-						String metaId = instVertex.getTransSupportMetaElement()
-								.getAutoIdentifier();
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
 							Object oo = instVertex.getInstAttribute(

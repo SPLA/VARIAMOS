@@ -59,25 +59,25 @@ public class PerspEditorMenuBar extends JMenuBar {
 		menu.setMnemonic('F');
 		Action al;
 		al = editor.bind(mxResources.get("new"), new NewAction());
-		al.putValue(al.ACCELERATOR_KEY,
+		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		menu.add(al);
 		al = editor.bind(mxResources.get("load"), new OpenAction());
-		al.putValue(al.ACCELERATOR_KEY,
+		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
 		menu.add(al);
 		menu.addSeparator();
 		al = editor.bind(mxResources.get("save"), new SaveAction(false));
-		al.putValue(al.ACCELERATOR_KEY,
+		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		menu.add(al);
 		al = editor.bind(mxResources.get("saveAs"), new SaveAction(true));
-		al.putValue(al.ACCELERATOR_KEY,
+		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		menu.add(al);
 		menu.addSeparator();
 		al = editor.bind(mxResources.get("exit"), new ExitAction());
-		al.putValue(al.ACCELERATOR_KEY,
+		al.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 		menu.add(al);
 
@@ -221,8 +221,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu.add(editor.bind(mxResources.get("clearElements"),
 					new ClearVerificationAction()));
 			al = editor.bind(mxResources.get("verifyElements"),
-					new VerificationAction());			
-			al.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+					new VerificationAction());
+			al.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 			menu.add(al);
 			add(menu);
@@ -255,55 +255,55 @@ public class PerspEditorMenuBar extends JMenuBar {
 			a.setEnabled(false);
 			menu.addSeparator();
 
-
 			add(menu);
 
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("simulation")));
 			menu.setMnemonic('S');
-			a =editor.bind(mxResources.get("resetSimulation"),
+			a = editor.bind(mxResources.get("resetSimulation"),
 					new ClearSimulationAction());
-			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 			menu.add(a);
-			a=editor.bind(mxResources.get("startSimulation"),
-					new StartSimulationAction());			
-			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			a = editor.bind(mxResources.get("startSimulation"),
+					new StartSimulationAction());
+			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 			menu.add(a);
-			a=editor.bind(mxResources.get("nextSimulation"),
-					new NextSimulationAction());			
-			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			a = editor.bind(mxResources.get("nextSimulation"),
+					new NextSimulationAction());
+			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_T, ActionEvent.CTRL_MASK));
 			menu.add(a);
-			
+
 			add(menu);
 
-			menu.addSeparator();			
+			menu.addSeparator();
 			a = editor.bind(mxResources.get("loadSolution"),
 					new LoadConfigurationAction());
 			menu.add(a);
 			a.setEnabled(false);
-			
+
 			a = editor.bind(mxResources.get("saveCurrentSolution"),
 					new SaveProductsAction());
 			menu.add(a);
-		
+
 			a = editor.bind(mxResources.get("exportConfiguration"),
 					new ExportConfigurationAction(true));
 			menu.add(a);
-			
+
 			menu.addSeparator();
-			
-			menu.setMnemonic('U');			a = editor.bind(mxResources.get("externalContext"),
+
+			menu.setMnemonic('U');
+			a = editor.bind(mxResources.get("externalContext"),
 					new ExternalContextAction());
 			menu.add(a);
 			add(menu);
 			menu = (JMenu) menu.add(new JMenu(mxResources.get("dashboard")));
 			menu.setMnemonic('D');
 
-			a=editor.bind(mxResources.get("showSimulationDashBoard"),
+			a = editor.bind(mxResources.get("showSimulationDashBoard"),
 					new ShowSimulationDashBoardAction());
-			a.putValue(al.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_B, ActionEvent.CTRL_MASK));
 			menu.add(a);
 			menu.add(editor.bind(mxResources.get("hideSimulationDashBoard"),
@@ -331,8 +331,6 @@ public class PerspEditorMenuBar extends JMenuBar {
 			add(menu);
 
 		}
-		
-
 
 		menu = (JMenu) menu.add(new JMenu(mxResources.get("window")));
 		menu.setMnemonic('W');
@@ -350,7 +348,8 @@ public class PerspEditorMenuBar extends JMenuBar {
 		menu.setMnemonic('H');
 		menu.add(editor.bind(mxResources.get("about"), new AboutAction()));
 
-		menu.add(editor.bind(mxResources.get("checkUpdates"), new CheckUpdateAction()));
+		menu.add(editor.bind(mxResources.get("checkUpdates"),
+				new CheckUpdateAction()));
 		add(menu);
 	}
 

@@ -635,8 +635,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					+ "Exec: "
 					+ (endTime - iniTime)
 					+ "["
-					+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + defectVerifier
-							.getSolverTime() / 1000000) + "]" + " -- ";
+					+ (refas2hlcl.getLastExecutionTime() / 1000000 + falseOTime + ((defectVerifier==null)?0:defectVerifier
+							.getSolverTime() / 1000000)) + "]" + " -- ";
 			out.add("Last validated change makes the model inconsistent."
 					+ " \n Please review the restrictions defined and "
 					+ "try again. \nModel visual representation was not updated.");

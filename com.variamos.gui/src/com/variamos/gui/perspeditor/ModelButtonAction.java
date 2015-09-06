@@ -11,7 +11,6 @@ import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstView;
 
 @SuppressWarnings("serial")
 public class ModelButtonAction extends AbstractEditorAction {

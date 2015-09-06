@@ -54,28 +54,33 @@ public abstract class InstVertex extends InstElement {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 	}
+
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
+	 * 
 	 * @return
 	 */
 	public MetaVertex getTransSupportMetaElement() {
 		return supportMetaElement;
 	}
+
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
+	 * 
 	 * @return
 	 */
 
-	@Override	
+	@Override
 	public void setTransSupportMetaElement(MetaElement supportMetaElement) {
 		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
-		this.supportMetaElement = (MetaVertex)supportMetaElement;
+		this.supportMetaElement = (MetaVertex) supportMetaElement;
 	}
 
 	public void setIdentifier(String identifier) {
 		setDynamicVariable(VAR_IDENTIFIER, identifier);
 		setInstAttribute(VAR_IDENTIFIER, identifier);
-		// this.identifier = identifier;
+		if (getEditableMetaElement() != null)
+			getEditableMetaElement().setAutoIdentifier(identifier);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -118,12 +123,15 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
-	public List<InstAttribute> getVisibleVariables() { // TODO move to
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO
+																				// move
+																				// to
 		// superclass
+		createInstAttributes(parents);
 		if (getTransSupportMetaElement() == null)
 			return null;
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributes();
+				.getPropVisibleAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -161,7 +169,8 @@ public abstract class InstVertex extends InstElement {
 						getInstAttributes().get(name).setValue(
 								createValue(type, defvalue));
 					continue;
-				} else if (varValue.getValue().toString().trim().equals(value.toString())) {
+				} else if (varValue.getValue().toString().trim()
+						.equals(value.toString())) {
 					if (condition.equals("!=")) {
 						if (valueEnd != -1)
 							getInstAttributes().get(name).setValue(
@@ -200,9 +209,9 @@ public abstract class InstVertex extends InstElement {
 
 	public abstract String getSupportMetaElementUserIdentifier();
 
-
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		//System.out.println("InstV:"+this.getIdentifier() + insAttributeLocalId);
+		// System.out.println("InstV:"+this.getIdentifier() +
+		// insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}

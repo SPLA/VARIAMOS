@@ -1,11 +1,8 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.perspmodel.RefasModel;

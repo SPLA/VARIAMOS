@@ -21,7 +21,6 @@ import com.variamos.reasoning.defectAnalyzer.model.defects.Defect;
 import com.variamos.reasoning.defectAnalyzer.model.defects.Redundancy;
 import com.variamos.reasoning.defectAnalyzer.model.enums.ClassificationType;
 import com.variamos.reasoning.defectAnalyzer.model.enums.DefectAnalyzerMode;
-import com.variamos.reasoning.util.ConstraintRepresentationUtil;
 import com.variamos.reasoning.util.PowerSetUtil;
 import com.variamos.reasoning.util.SetUtil;
 import com.variamos.reasoning.util.SolverOperationsUtil;

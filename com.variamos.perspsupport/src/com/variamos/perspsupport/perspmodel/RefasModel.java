@@ -442,13 +442,15 @@ public class RefasModel extends AbstractModel {
 		} else if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)
 					.getTargetRelations()) {
-				InstElement instVertex = instElement.getTargetRelations()
-						.get(0).getTargetRelations().get(0)
-						.getTargetRelations().get(0);
-				if (instVertex.getEditableMetaElement() != null
-						&& instVertex.getEditableMetaElement().getVisible())
-					elements.add(instVertex.getEditableMetaElement()
-							.getAutoIdentifier());
+		//		if (instElement instanceof InstVertex ||instElement instanceof InstView) {
+					InstElement instVertex = instElement.getTargetRelations()
+							.get(0).getTargetRelations().get(0)
+							.getTargetRelations().get(0);
+					if (instVertex.getEditableMetaElement() != null
+							&& instVertex.getEditableMetaElement().getVisible())
+						elements.add(instVertex.getEditableMetaElement()
+								.getAutoIdentifier());
+			//	}
 			}
 		}
 		if (modelViewInd != -1
@@ -733,7 +735,16 @@ public class RefasModel extends AbstractModel {
 		semView.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
 				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
 				"", "", -1, "", ""));
+		semView.putSemanticAttribute("PaletteNames", new SyntaxAttribute(
+				"PaletteNames", "String", false, "Palette Name", "", 0, -1, "",
+				"", -1, "", ""));
 
+		semView.addPropEditableAttribute("03#" + "PaletteNames");
+		semView.addPropVisibleAttribute("03#" + "PaletteNames");
+		semView.addPanelVisibleAttribute("03#" + "PaletteNames" + "#"
+				+ "PaletteNames" + "#!=#" + "" + "#" + "");
+		semView.addPanelSpacersAttribute("\n{Palettes:#" + "PaletteNames"
+				+ "#}\n\n");
 		semView.addPropVisibleAttribute("00#" + "MetaType");
 		semView.addPropEditableAttribute("01#" + "Identifier");
 		semView.addPropVisibleAttribute("01#" + "Identifier");
@@ -2402,7 +2413,7 @@ public class RefasModel extends AbstractModel {
 	 */
 	private void createSyntax() {
 
-		MetaView syntaxMetaView = null;		
+		MetaView syntaxMetaView = null;
 
 		MetaConcept metaView = (MetaConcept) getSyntaxRefas().getVertex("View")
 				.getEditableMetaElement();
@@ -2420,14 +2431,6 @@ public class RefasModel extends AbstractModel {
 
 		MetaConcept supportMetaViewPairwise = (MetaConcept) getSyntaxRefas()
 				.getVertex("ViewConceptAsso").getEditableMetaElement();
-
-		MetaPairwiseRelation metaPairwiseRelFromView = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("ViewRelation"))
-				.getEditableMetaElement();
-
-		MetaPairwiseRelation metaPairwiseRelExtends = (MetaPairwiseRelation) ((InstPairwiseRelation) this
-				.getSyntaxRefas().getConstraintInstEdge("ExtendsRelation"))
-				.getEditableMetaElement();
 
 		MetaPairwiseRelation metaPairwiseRelNormal = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("NormalRelation"))
@@ -2463,7 +2466,7 @@ public class RefasModel extends AbstractModel {
 
 		InstConcept instViewC = new InstConcept("Variability", metaView,
 				syntaxMetaView);
-		
+
 		variabilityInstVertex.put("Variability", instViewC);
 
 		InstConcept semFeature = ((InstConcept) getSemanticRefas().getVertex(
@@ -2495,7 +2498,7 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexF = new InstConcept("Feature",
 				supportMetaElementConcept, syntaxFeature);
 		variabilityInstVertex.put("Feature", instVertexF);
-		// syntaxMetaView.addConcept(syntaxFeature);		
+		// syntaxMetaView.addConcept(syntaxFeature);
 
 		MetaPairwiseRelation metaViewF = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
@@ -2526,7 +2529,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept('C', "VA",
 				false, "VariabilityArtifact", null, "", 0, 0, null, true, null,
-				3, semFeature, true);
+				3, semHardConcept, true);
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
@@ -2549,35 +2552,29 @@ public class RefasModel extends AbstractModel {
 				50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		syntaxRootFeature.setParent(syntaxFeature);
-
 		InstVertex instVertexRF = new InstConcept("RootFeature",
 				supportMetaElementConcept, syntaxRootFeature);
 		variabilityInstVertex.put("RootFeature", instVertexRF);
-		
+
 		MetaConcept syntaxGeneralFeature = new MetaConcept('C',
 				"GeneralFeature", true, "GeneralFeature", "plnode",
 				"Defines a general feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		syntaxGeneralFeature.setParent(syntaxFeature);
-
 		InstVertex instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		variabilityInstVertex.put("GeneralFeature", instVertexGF);
-		
+
 		MetaConcept syntaxVertexLF = new MetaConcept('C', "LeafFeature", true,
 				"LeafFeature", "plnode", "Defines a leaf feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		syntaxVertexLF.setParent(syntaxFeature);
-
 		InstVertex instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
 		variabilityInstVertex.put("LeafFeature", instVertexLF);
-		
+
 		MetaPairwiseRelation metaViewRF = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 50, 50,
@@ -2638,11 +2635,9 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
 
-		syntaxGoal.setParent(syntaxVariabilityArtifact);
-
 		InstVertex instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
-		variabilityInstVertex.put("Goal", instVertexG);		
+		variabilityInstVertex.put("Goal", instVertexG);
 
 		MetaConcept syntaxTopGoal = new MetaConcept('C', "TopGoal", false,
 				"Top Goal", "refasgoal", "Defines a top goal of the system"
@@ -2650,8 +2645,6 @@ public class RefasModel extends AbstractModel {
 						+ " satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
-
-		syntaxTopGoal.setParent(syntaxGoal);
 
 		InstVertex instVertexTG = new InstConcept("TopGoal",
 				supportMetaElementConcept, syntaxTopGoal);
@@ -3132,7 +3125,6 @@ public class RefasModel extends AbstractModel {
 						+ " be satisfied with a clear cut condition", 120, 60,
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 2, semGoal, true);
-		syntaxGeneralGoal.setParent(syntaxGoal);
 
 		InstVertex instVertexGG = new InstConcept("GeneralGoal",
 				supportMetaElementConcept, syntaxGeneralGoal);
@@ -3167,8 +3159,6 @@ public class RefasModel extends AbstractModel {
 						+ " associated will be also satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
-
-		sOperationalization.setParent(syntaxVariabilityArtifact);
 
 		InstVertex instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -3221,8 +3211,6 @@ public class RefasModel extends AbstractModel {
 						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
-
-		syntaxAssumption.setParent(syntaxVariabilityArtifact);
 
 		InstVertex instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -3620,8 +3608,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
 
-		syntaxTopSoftGoal.setParent(syntaxSoftGoal);
-
 		InstVertex instVertexTSG = new InstConcept("TopSoftgoal",
 				supportMetaElementConcept, syntaxTopSoftGoal);
 		variabilityInstVertex.put("TopSoftgoal", instVertexTSG);
@@ -3661,7 +3647,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 1, semSoftgoal, true);
 
-		syntaxGeneralSoftGoal.setParent(syntaxSoftGoal);
 		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
 		variabilityInstVertex.put("GeneralSoftgoal", instVertexGSG);
@@ -3969,8 +3954,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
-		syntaxGlobalVariable.setParent(syntaxAbsVariable);
-
 		InstVertex instVertexGV = new InstConcept("GlobalVariable",
 				supportMetaElementConcept, syntaxGlobalVariable);
 		variabilityInstVertex.put("GlobalVariable", instVertexGV);
@@ -3998,8 +3981,6 @@ public class RefasModel extends AbstractModel {
 				" Old concept, replaced by Variable", 150, 40,
 				"/com/variamos/gui/perspeditor/images/localCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
-
-		syntaxContextVariable.setParent(syntaxAbsVariable);
 
 		InstVertex instVertexCV = new InstConcept("ContextVariable",
 				supportMetaElementConcept, syntaxContextVariable);
@@ -4826,7 +4807,6 @@ public class RefasModel extends AbstractModel {
 		// syntaxMetaView.addConcept(sOperationalization);
 		// syntaxMetaView.addConcept(syntaxVertexLF);
 
-
 		InstConcept semAsset = ((InstConcept) this.getSemanticRefas()
 				.getVertex("Asset"));
 		MetaConcept syntaxAsset = new MetaConcept('C', "Asset", true, "Asset",
@@ -5558,7 +5538,10 @@ public class RefasModel extends AbstractModel {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0)
-						.getSupportMetaElementIden().equals("ExtendRelation")) {
+						.getSupportMetaElementIden() != null
+						&& element.getTargetRelations().get(0)
+								.getSupportMetaElementIden()
+								.equals("ExtendRelation")) {
 					out.putAll(getValidPairwiseRelations(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -5568,10 +5551,11 @@ public class RefasModel extends AbstractModel {
 		if (metaElement2 instanceof MetaConcept) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
-				MetaElement m = element.getTargetRelations().get(0)
-						.getTransSupportMetaElement();
 				if (element.getTargetRelations().get(0)
-						.getSupportMetaElementIden().equals("ExtendRelation")) {
+						.getSupportMetaElementIden() != null
+						&& element.getTargetRelations().get(0)
+								.getSupportMetaElementIden()
+								.equals("ExtendRelation")) {
 					out.putAll(getValidPairwiseRelations(instElement, element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), false));
@@ -5640,10 +5624,11 @@ public class RefasModel extends AbstractModel {
 		if (metaElement2 instanceof MetaConcept) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
-				MetaElement m = element.getTargetRelations().get(0)
-						.getTransSupportMetaElement();
 				if (element.getTargetRelations().get(0)
-						.getSupportMetaElementIden().equals("ExtendRelation")) {
+						.getSupportMetaElementIden() != null
+						&& element.getTargetRelations().get(0)
+								.getSupportMetaElementIden()
+								.equals("ExtendRelation")) {
 					MetaElement out = (getValidMetaPairwiseRelation(
 							instElement, element.getTargetRelations().get(0)
 									.getTargetRelations().get(0)
@@ -5658,7 +5643,10 @@ public class RefasModel extends AbstractModel {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0)
-						.getSupportMetaElementIden().equals("ExtendRelation")) {
+						.getSupportMetaElementIden() != null
+						&& element.getTargetRelations().get(0)
+								.getSupportMetaElementIden()
+								.equals("ExtendRelation")) {
 					return (getValidMetaPairwiseRelation(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -5668,9 +5656,42 @@ public class RefasModel extends AbstractModel {
 		return null;
 	}
 
+	public List<InstElement> getParentSyntaxConcept(InstElement instElement) {
+		if (instElement == null)
+			return null;
+		InstElement instSyntaxElement = this.getSyntaxRefas().getVertex(
+				instElement.getSupportMetaElementIden());
+		if (instSyntaxElement != null)
+			return getRecursiveParentSyntaxConcept(instSyntaxElement);
+		else
+			return null;
+	}
+
+	private List<InstElement> getRecursiveParentSyntaxConcept(
+			InstElement instElement) {
+		List<InstElement> out = new ArrayList<InstElement>();
+		List<InstElement> rel = instElement.getTargetRelations();
+		for (InstElement element : rel) {
+			if (element.getTargetRelations().get(0).getSupportMetaElementIden() != null
+					&& element.getTargetRelations().get(0)
+							.getSupportMetaElementIden()
+							.equals("ExtendRelation")) {
+				InstElement parent = element.getTargetRelations().get(0)
+						.getTargetRelations().get(0).getTargetRelations()
+						.get(0);
+				// parent.createInstAttributes(parents);
+				out.add(parent);
+				out.addAll(getRecursiveParentSyntaxConcept(element
+						.getTargetRelations().get(0).getTargetRelations()
+						.get(0).getTargetRelations().get(0)));
+			}
+		}
+		return out;
+	}
+
 	public void updateValidationLists(InstElement elm, InstElement instSource,
-			InstElement instTarget) {
-		List<InstAttribute> visible = elm.getVisibleVariables();
+			InstElement instTarget, List<InstElement> parents) {
+		List<InstAttribute> visible = elm.getVisibleVariables(parents);
 		InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 		if (instSource == null && instPairwise.getSourceRelations().size() > 0)
 			instSource = instPairwise.getSourceRelations().get(0);
@@ -5696,8 +5717,11 @@ public class RefasModel extends AbstractModel {
 			for (InstElement instElement : views.get(modelViewInd)
 					.getTargetRelations()) {
 				if (instElement.getTargetRelations().get(0)
-						.getTargetRelations().get(0).getTargetRelations()
-						.get(0).getIdentifier().equals(element))
+						.getSupportMetaElementIden() != null
+						&& instElement.getTargetRelations().get(0)
+								.getTargetRelations().get(0)
+								.getTargetRelations().get(0).getIdentifier()
+								.equals(element))
 					return true;
 			}
 		}

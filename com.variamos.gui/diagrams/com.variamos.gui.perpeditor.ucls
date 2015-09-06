@@ -21,17 +21,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.variamos.gui.perspeditor.SemanticPlusSyntax" project="com.variamos.gui" 
-    file="/com.variamos.gui/src/com/variamos/gui/perspeditor/SemanticPlusSyntax.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1350" y="1133"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="com.variamos.gui.perspeditor.PerspEditorToolBar" project="com.variamos.gui" 
+ <class id="4" language="java" name="com.variamos.gui.perspeditor.PerspEditorToolBar" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorToolBar.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="254" x="1211" y="1301"/>    

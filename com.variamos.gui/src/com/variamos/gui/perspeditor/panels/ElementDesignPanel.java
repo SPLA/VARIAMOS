@@ -16,7 +16,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,7 +35,6 @@ import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
-import com.variamos.hlcl.Expression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -54,6 +52,7 @@ import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
+import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 
@@ -137,6 +136,8 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			EditableElement editElm = instCell.getInstElement();
+			List<InstElement> parent = ((RefasModel) editor.getEditedModel())
+					.getParentSyntaxConcept((InstElement) editElm);
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
@@ -165,7 +166,7 @@ public class ElementDesignPanel extends JPanel {
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
-						.getVisibleVariables();
+						.getVisibleVariables(parent);
 				if (((InstElement) editElm).getEditableSemanticElement() != null) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
@@ -277,7 +278,7 @@ public class ElementDesignPanel extends JPanel {
 												// attributes.put(name.getName(),
 												// v);
 												try {
-													Expression exp = ((InstanceExpression) finalInstAttribute
+													((InstanceExpression) finalInstAttribute
 															.getValue())
 															.createSGSExpression(finalEditElm
 																	.getIdentifier());
@@ -526,7 +527,7 @@ public class ElementDesignPanel extends JPanel {
 									count = 0;
 
 								List<InstAttribute> editables = editElm
-										.getEditableVariables();
+										.getEditableVariables(parent);
 
 								if (!editables.contains(instAttribute)
 										|| editor.getPerspective() == 4)
@@ -751,6 +752,10 @@ public class ElementDesignPanel extends JPanel {
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
+				if (instAttribute.getIdentifier().equals("AutoIdentifier"))
+					editableMetaElement
+							.setAutoIdentifier((String) instAttribute
+									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
 							.setInstSemanticElement((InstElement) ((RefasModel) editor
@@ -766,6 +771,12 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
+				if (editableMetaElement instanceof MetaView) {
+					if (instAttribute.getIdentifier().equals("PaletteNames"))
+						((MetaView) editableMetaElement)
+								.setPaletteName((String) instAttribute
+										.getValue());
+				}
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());

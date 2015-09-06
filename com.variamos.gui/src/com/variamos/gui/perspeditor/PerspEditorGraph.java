@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -31,7 +30,6 @@ import com.mxgraph.layout.mxOrganicLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
-import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
@@ -321,7 +319,8 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
 					null);
 			RefasModel refas = getRefas();
-			refas.updateValidationLists(directRelation, instSource, instTarget);
+			refas.updateValidationLists(directRelation, instSource, instTarget,
+					refas.getParentSyntaxConcept(directRelation));
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 			if (pwrList == null || pwrList.size() == 0) {
@@ -359,7 +358,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		cell.setValue(new InstCell(cell, directRelation, false));
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
-		refas.updateValidationLists(directRelation, source, target);
+		refas.updateValidationLists(directRelation, source, target,
+				refas.getParentSyntaxConcept(directRelation));
 		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
@@ -851,7 +851,17 @@ public class PerspEditorGraph extends AbstractGraph {
 
 		if (cell.getValue() instanceof GenericConstraint)
 			return ((GenericConstraint) cell.getValue()).getText();
-
+		if (cell.getValue() instanceof InstCell) {
+			InstCell instCell = (InstCell) cell.getValue();
+			InstElement element = instCell.getInstElement();
+			List<InstElement> parents = refasModel
+					.getParentSyntaxConcept(element);
+			if (element != null)
+			{
+			element.createInstAttributes(parents);
+			return element.getText(parents);
+			}
+		}
 		return super.convertValueToString(obj);
 	}
 

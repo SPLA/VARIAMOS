@@ -1,13 +1,9 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
-import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
@@ -28,7 +24,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	private SemanticExpressionType semanticExpressionType;
 
 	// TODO change to a new class for type (normal, relax)
-	private List<ExpressionSubAction> expressionSubActions;
+	//private List<ExpressionSubAction> expressionSubActions;
 
 	private String lastLeft = null;
 	private String lastRight = null;

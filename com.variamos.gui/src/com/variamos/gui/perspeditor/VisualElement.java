@@ -3,7 +3,6 @@ package com.variamos.gui.perspeditor;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Collection;
-import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;

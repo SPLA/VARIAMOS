@@ -7,12 +7,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.AbstractEditorAction;
-import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.gui.pl.editor.ConfiguratorPanel;
 
 /**
  * To document. Copied from configurator actions. Part of PhD work at University of Paris 1
@@ -103,7 +100,7 @@ public class SaveConfigurationAction extends AbstractEditorAction {
 
 			try
 			{
-				ConfiguratorPanel configurator = getEditor(e).getConfigurator();
+				//ConfiguratorPanel configurator = getEditor(e).getConfigurator();
 				//editor.exportConfiguration(filename);
 				
 			}
