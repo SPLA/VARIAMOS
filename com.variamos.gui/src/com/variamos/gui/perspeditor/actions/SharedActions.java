@@ -596,7 +596,8 @@ public class SharedActions {
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
 					AbstractAttribute attribute = metaVertex
-							.getAbstractAttribute(ia.getAttributeName(), parents);
+							.getAbstractAttribute(ia.getAttributeName(),
+									parents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getAttributeType().equals("Boolean")
@@ -683,6 +684,8 @@ public class SharedActions {
 				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
 				// instPairwiseRelation
 				// .createAttributes(new HashMap<String, InstAttribute>());
+				if (source.getSource() == null)
+					source.getSource().toString();
 				InstElement sourceVertex = (InstElement) ((InstCell) source
 						.getSource().getValue()).getInstElement();
 				InstElement targetVertex = (InstElement) ((InstCell) source
@@ -722,8 +725,9 @@ public class SharedActions {
 									.next();
 
 							AbstractAttribute absAttribute = metaPairwiseRelation
-									.getAbstractAttribute(instAttribute
-											.getAttributeName(), parents);
+									.getAbstractAttribute(
+											instAttribute.getAttributeName(),
+											parents);
 							if (absAttribute == null)
 								absAttribute = instPairwiseRelation
 										.getSemanticAttribute();
