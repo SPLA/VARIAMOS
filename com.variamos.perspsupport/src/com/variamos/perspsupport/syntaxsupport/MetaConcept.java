@@ -89,17 +89,17 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPropVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 		if (parents != null)
 			for (InstElement parent : parents) {
 				MetaConcept parentConcept = (MetaConcept) parent
 						.getEditableMetaElement();
-				if (parentConcept.getInstSemanticElement()
+				if (parentConcept.getTransInstSemanticElement()
 						.getEditableSemanticElement() != null)
 					modelingAttributesNames.addAll(parentConcept
-							.getInstSemanticElement()
+							.getTransInstSemanticElement()
 							.getEditableSemanticElement()
 							.getPropVisibleAttributes());
 				modelingAttributesNames.addAll(parentConcept
@@ -114,18 +114,18 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPropEditableAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				MetaConcept parentConcept = (MetaConcept) parent
 						.getEditableMetaElement();
-				if (parentConcept.getInstSemanticElement()
+				if (parentConcept.getTransInstSemanticElement()
 						.getEditableSemanticElement() != null)
 					modelingAttributesNames.addAll(parentConcept
-							.getInstSemanticElement()
+							.getTransInstSemanticElement()
 							.getEditableSemanticElement()
 							.getPropEditableAttributes());
 				modelingAttributesNames.addAll(parentConcept
@@ -139,18 +139,18 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelVisibleAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				MetaConcept parentConcept = (MetaConcept) parent
 						.getEditableMetaElement();
-				if (parentConcept.getInstSemanticElement()
+				if (parentConcept.getTransInstSemanticElement()
 						.getEditableSemanticElement() != null)
 					modelingAttributesNames.addAll(parentConcept
-							.getInstSemanticElement()
+							.getTransInstSemanticElement()
 							.getEditableSemanticElement()
 							.getPanelVisibleAttributes());
 				modelingAttributesNames.addAll(parentConcept
@@ -165,18 +165,18 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelSpacersAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				MetaConcept parentConcept = (MetaConcept) parent
 						.getEditableMetaElement();
-				if (parentConcept.getInstSemanticElement()
+				if (parentConcept.getTransInstSemanticElement()
 						.getEditableSemanticElement() != null)
 					modelingAttributesNames.addAll(parentConcept
-							.getInstSemanticElement()
+							.getTransInstSemanticElement()
 							.getEditableSemanticElement()
 							.getPanelSpacersAttributes());
 
@@ -205,14 +205,16 @@ public class MetaConcept extends MetaVertex {
 	@Override
 	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		modelingAttributesNames.addAll(getInstSemanticElement()
-				.getEditableSemanticElement().getSemanticAttributesNames());
+		if (getTransInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getSemanticAttributesNames());
 		if (parents != null)
 			for (InstElement parent : parents) {
 				MetaConcept parentConcept = (MetaConcept) parent
 						.getEditableMetaElement();
 				modelingAttributesNames.addAll(parentConcept
-						.getInstSemanticElement().getEditableSemanticElement()
+						.getTransInstSemanticElement()
+						.getEditableSemanticElement()
 						.getSemanticAttributesNames());
 				modelingAttributesNames.addAll(parentConcept
 						.getModelingAttributesNames(parents));
@@ -242,7 +244,7 @@ public class MetaConcept extends MetaVertex {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return getInstSemanticElement().getEditableSemanticElement()
+		return getTransInstSemanticElement().getEditableSemanticElement()
 				.getSemanticAttribute(name);
 	}
 

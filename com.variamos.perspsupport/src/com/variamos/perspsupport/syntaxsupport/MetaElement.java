@@ -97,6 +97,8 @@ public abstract class MetaElement implements Serializable {
 
 	private InstElement instSemanticElement;
 
+	private String instSemanticElementId;
+
 	/**
 	 * 
 	 */
@@ -141,6 +143,8 @@ public abstract class MetaElement implements Serializable {
 		this.image = image;
 		this.borderStroke = borderStroke;
 		this.instSemanticElement = instSemanticElement;
+		if (instSemanticElement != null)
+			this.instSemanticElementId = instSemanticElement.getIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
@@ -162,12 +166,21 @@ public abstract class MetaElement implements Serializable {
 
 	}
 
-	public InstElement getInstSemanticElement() {
+	public InstElement getTransInstSemanticElement() {
 		return instSemanticElement;
 	}
 
-	public void setInstSemanticElement(InstElement instSemanticElement) {
+	public void setTransInstSemanticElement(InstElement instSemanticElement) {
+		instSemanticElementId = instSemanticElement.getIdentifier();
 		this.instSemanticElement = instSemanticElement;
+	}
+
+	public String getInstSemanticElementId() {
+		return instSemanticElementId;
+	}
+
+	public void setInstSemanticElementId(String instSemanticElementId) {
+		this.instSemanticElementId = instSemanticElementId;
 	}
 
 	public void setAutoIdentifier(String autoIdentifier) {
@@ -370,7 +383,8 @@ public abstract class MetaElement implements Serializable {
 		return null;
 	}
 
-	public AbstractAttribute getAbstractAttribute(String attributeName, List<InstElement> parents) {
+	public AbstractAttribute getAbstractAttribute(String attributeName,
+			List<InstElement> parents) {
 		AbstractAttribute out = getSemanticAttribute(attributeName);
 		if (out == null)
 			return getModelingAttribute(attributeName, parents);
@@ -427,10 +441,9 @@ public abstract class MetaElement implements Serializable {
 		this.description = description;
 	}
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-
-	}
+//	public void setVisible(boolean visible) {
+//		this.visible = visible;
+//	}
 
 	public Object getParent() {
 		return null;

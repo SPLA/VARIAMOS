@@ -192,9 +192,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement() != null
-				&& getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
@@ -204,9 +204,9 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement() != null
-				&& getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
@@ -216,8 +216,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
@@ -227,8 +227,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
@@ -238,22 +238,24 @@ public class MetaPairwiseRelation extends MetaElement {
 	@Override
 	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (getInstSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement()
+		if (getTransInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getSemanticAttributesNames());
 		return modelingAttributesNames;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
 		// FIXME
-		if (getInstSemanticElement() != null)
-			return getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement() != null)
+			return getTransInstSemanticElement().getEditableSemanticElement()
 					.getSemanticAttribute(name);
 		return null;
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return ((SemanticPairwiseRelation) getInstSemanticElement()
+		if (getTransInstSemanticElement() == null)
+			return null;
+		return ((SemanticPairwiseRelation) getTransInstSemanticElement()
 				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 

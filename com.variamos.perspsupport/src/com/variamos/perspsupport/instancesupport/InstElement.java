@@ -123,6 +123,12 @@ public abstract class InstElement implements Serializable, EditableElement,
 			source.addTargetRelation(this, false);
 	}
 
+	public Object getInstAttributeValue(String attributeName) {
+		if (this.getInstAttribute(attributeName) != null)
+			return this.getInstAttribute(attributeName).getValue();
+		return null;
+	}
+
 	public void copyValuesToInstAttributes(List<InstElement> parents) {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (editableMetaElement != null) {
@@ -130,9 +136,9 @@ public abstract class InstElement implements Serializable, EditableElement,
 					instAttribute.setValue(editableMetaElement
 							.getAutoIdentifier());
 				if (instAttribute.getIdentifier().equals("SemanticType")
-						&& editableMetaElement.getInstSemanticElement() != null)
+						&& editableMetaElement.getTransInstSemanticElement() != null)
 					instAttribute.setValue(editableMetaElement
-							.getInstSemanticElement().getIdentifier());
+							.getTransInstSemanticElement().getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
 					instAttribute.setValue(editableMetaElement.getVisible());
 				if (instAttribute.getIdentifier().equals("Name"))
@@ -464,7 +470,9 @@ public abstract class InstElement implements Serializable, EditableElement,
 							.getModelingAttribute(name, parents), null);
 			}
 
-			if (getTransSupportMetaElement() instanceof MetaConcept) {
+			if (getTransSupportMetaElement() instanceof MetaConcept
+					&& getTransSupportMetaElement()
+							.getTransInstSemanticElement() != null) {
 				MetaConcept metaConcept = (MetaConcept) getTransSupportMetaElement();
 				Iterator<String> semanticAttributes = metaConcept
 						.getAllAttributesNames(parents).iterator();

@@ -502,19 +502,28 @@ public class SharedActions {
 		if (instElement != null) {
 			parents = refas.getParentSyntaxConcept(instElement);
 			instElement.createInstAttributes(parents);
+
+			MetaElement metaElement = instElement.getEditableMetaElement();
+			if (metaElement != null
+					&& metaElement.getInstSemanticElementId() != null) {
+				String t = metaElement.getInstSemanticElementId();
+				InstElement rr = refas.getSemanticRefas().getVertex(
+						metaElement.getInstSemanticElementId());
+				metaElement.setTransInstSemanticElement(rr);
+			}
 		}
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
-			InstElement instVertex = refas.getSyntaxRefas().getVertex(
+			InstElement instSupportElement = refas.getSyntaxRefas().getVertex(
 					instOverTwoRelation.getSupportMetaElementUserIdentifier());
-			if (instVertex == null) {
+			if (instSupportElement == null) {
 				System.err.println("OverTwoRel Null"
 						+ instOverTwoRelation
 								.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
-				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instVertex
+				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instSupportElement
 						.getEditableMetaElement();
 				instOverTwoRelation
 						.setTransSupportMetaElement(metaOverTwoRelation);
@@ -752,7 +761,7 @@ public class SharedActions {
 											.getSemanticPairwiseRelType());
 								try {
 									List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
-											.getTransSupportMetaElement())
+											.getMetaPairwiseRelation())
 											.getSemanticRelationTypes();
 									instAttribute
 											.setValidationRelationTypes(semGD);
