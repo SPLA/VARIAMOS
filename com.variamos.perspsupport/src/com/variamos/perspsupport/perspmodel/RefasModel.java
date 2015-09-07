@@ -656,8 +656,7 @@ public class RefasModel extends AbstractModel {
 				metaBasicConcept, semPairwAsoRel);
 
 		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept, metaConcept);
-		//instConcept.copyValuesToInstAttributes(null);
-		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
+
 		variabilityInstVertex.put("Concept", instConcept);
 
 		InstConcept instPairWiseRelation = new InstConcept("PairWiseRelation",
@@ -3534,7 +3533,7 @@ public class RefasModel extends AbstractModel {
 				.getSemanticRefas().getVertex("GoalOTAsso"));
 
 		MetaOverTwoRelation hardMetaOverTwoRel = new MetaOverTwoRelation(
-				"HardOTAsso", true, "HardOTAsso", "plgroup",
+				"HardOverTwoRel", true, "HardOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 20, 20,
@@ -3554,10 +3553,10 @@ public class RefasModel extends AbstractModel {
 		this.variabilityInstVertex.put("Hard Group Relation",
 				instGroupHardPairWiseRel);
 
-		InstVertex instVertexHOTR = new InstConcept("HardOTAsso",
+		InstVertex instVertexHOTR = new InstConcept("HardOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexHOTR.getInstAttribute("Type").setValue("Group");
-		variabilityInstVertex.put("HardOTAsso", instVertexHOTR);
+		variabilityInstVertex.put("HardOverTwoRel", instVertexHOTR);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("strvariab-otr-pwrme", instEdge);
@@ -4565,9 +4564,9 @@ public class RefasModel extends AbstractModel {
 				.getSemanticRefas().getVertex("OperCLOTAsso"));
 
 		hardMetaOverTwoRel = new MetaOverTwoRelation(
-				"OperClaimOTAsso",
+				"OperClaimOverTwoRel",
 				true,
-				"OperClaimOTAsso",
+				"OperClaimOverTwoRel",
 				"plgroup",
 				"Express the relation between"
 						+ " the Claim and the SG. Represent the level of satisficing"
@@ -4671,11 +4670,11 @@ public class RefasModel extends AbstractModel {
 		this.variabilityInstVertex.put("DirLFClaimRelation",
 				instDirLFClaimPairWiseRel);
 
-		InstVertex instVertexOCOTR = new InstConcept("OperClaimOTAsso",
+		InstVertex instVertexOCOTR = new InstConcept("OperClaimOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexOCOTR.getInstAttribute("Type").setValue("Group");
 
-		variabilityInstVertex.put("OperClaimOTAsso", instVertexOCOTR);
+		variabilityInstVertex.put("OperClaimOverTwoRel", instVertexOCOTR);
 
 		InstConcept instViewOCOTR = new InstConcept("View OC Group Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -5596,6 +5595,10 @@ public class RefasModel extends AbstractModel {
 	private Map<String, MetaElement> getValidPairwiseRelations(
 			InstElement instElement, InstElement instElement2, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
+		if (instElement2 == null)
+		{
+			System.out.println("error");
+		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
 		Map<String, MetaElement> out = new HashMap<String, MetaElement>();
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
@@ -5691,6 +5694,10 @@ public class RefasModel extends AbstractModel {
 	private MetaElement getValidMetaPairwiseRelation(InstElement instElement,
 			InstElement instElement2, String metaPairwiseIden, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
+		if (instElement2 == null)
+		{
+			System.out.println("error");
+		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
 			if (pwr.getSourceRelations().size() > 0
