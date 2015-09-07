@@ -1319,12 +1319,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
-							.setInstSemanticElement((InstElement) this.refasModel
+							.setTransInstSemanticElement((InstElement) this.refasModel
 									.getSemanticRefas().getElement(
 											(String) instAttribute.getValue()));
-				if (instAttribute.getIdentifier().equals("Visible"))
-					editableMetaElement.setVisible((boolean) instAttribute
-							.getValue());
+		//		if (instAttribute.getIdentifier().equals("Visible"))
+		//			editableMetaElement.setVisible((boolean) instAttribute
+		//					.getValue());
 				if (instAttribute.getIdentifier().equals("Name"))
 					editableMetaElement.setName((String) instAttribute
 							.getValue());

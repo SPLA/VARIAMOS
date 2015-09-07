@@ -758,13 +758,13 @@ public class ElementDesignPanel extends JPanel {
 									.getValue());
 				if (instAttribute.getIdentifier().equals("SemanticType"))
 					editableMetaElement
-							.setInstSemanticElement((InstElement) ((RefasModel) editor
+							.setTransInstSemanticElement((InstElement) ((RefasModel) editor
 									.getEditedModel()).getSemanticRefas()
 									.getElement(
 											(String) instAttribute.getValue()));
-				if (instAttribute.getIdentifier().equals("Visible"))
-					editableMetaElement.setVisible((boolean) instAttribute
-							.getValue());
+		//		if (instAttribute.getIdentifier().equals("Visible"))
+		//			editableMetaElement.setVisible((boolean) instAttribute
+		//					.getValue());
 				if (instAttribute.getIdentifier().equals("Name"))
 					editableMetaElement.setName((String) instAttribute
 							.getValue());

@@ -123,8 +123,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPropVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
 					.getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
@@ -134,8 +134,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPropEditableAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
 					.getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
@@ -145,8 +145,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
 					.getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
@@ -156,8 +156,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
 					.getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
@@ -167,19 +167,19 @@ public class MetaOverTwoRelation extends MetaVertex {
 	@Override
 	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
-		if (getInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getInstSemanticElement().getEditableSemanticElement()
+		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
 					.getSemanticAttributesNames());
 		modelingAttributesNames.addAll(this.getModelingAttributesNames());
 		return modelingAttributesNames;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return getInstSemanticElement().getEditableSemanticElement().getSemanticAttribute(name);
+		return getTransInstSemanticElement().getEditableSemanticElement().getSemanticAttribute(name);
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return ((SemanticOverTwoRelation)getInstSemanticElement().getEditableSemanticElement()).getSemanticRelationTypes();
+		return ((SemanticOverTwoRelation)getTransInstSemanticElement().getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
@@ -187,6 +187,6 @@ public class MetaOverTwoRelation extends MetaVertex {
 	 * @return
 	 */
 	public IntSemanticConcept getTransSemanticConcept() {
-		return (IntSemanticConcept) getInstSemanticElement().getEditableSemanticElement();
+		return (IntSemanticConcept) getTransInstSemanticElement().getEditableSemanticElement();
 	}
 }
