@@ -453,7 +453,7 @@ public class RefasModel extends AbstractModel {
 							.getTargetRelations().get(0);
 					if (instVertex.getEditableMetaElement() != null
 							&& instVertex.getInstAttributeValue("Visible") != null
-									&& (boolean) instVertex
+							&& (boolean) instVertex
 									.getInstAttributeValue("Visible"))
 						elements.add(instVertex.getEditableMetaElement()
 								.getAutoIdentifier());
@@ -473,7 +473,7 @@ public class RefasModel extends AbstractModel {
 						.getTargetRelations().get(0);
 				if (instVertex.getEditableMetaElement() != null
 						&& instVertex.getInstAttributeValue("Visible") != null
-								&& (boolean) instVertex
+						&& (boolean) instVertex
 								.getInstAttributeValue("Visible"))
 					elements.add(instVertex.getEditableMetaElement()
 							.getAutoIdentifier());
@@ -490,53 +490,53 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSemantic() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
-		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
-		metaBasicConcept.addModelingAttribute("Description", new SyntaxAttribute(
-				"Description", "String", false, "Description", "", 0, -1, "",
-				"", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
+				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
+				"", ""));
+		metaBasicConcept.addModelingAttribute("Description",
+				new SyntaxAttribute("Description", "String", false,
+						"Description", "", 0, -1, "", "", -1, "", ""));
 
 		metaBasicConcept.addModelingAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("Identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "Concept Identifier", "", 0, -1,
-				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Identifier",
+				new SyntaxAttribute("Identifier", "String", false,
+						"Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
-		metaBasicConcept
-				.addModelingAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
-		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute("Style",
-				"String", false, "Drawing Style", "refasclaim", 0, -1, "", "",
+		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
+				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
+				"", ""));
+		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute(
+				"Style", "String", false, "Drawing Style", "refasclaim", 0, -1,
+				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute(
+				"Width", "Integer", false, "Initial Width", 100, 0, -1, "", "",
 				-1, "", ""));
-		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute("Width",
-				"Integer", false, "Initial Width", 100, 0, -1, "", "", -1, "",
-				""));
-		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute("Height",
-				"Integer", false, "Initial Height", 40, 0, -1, "", "", -1, "",
-				""));
-		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute("Image",
-				"String", false, "Image File",
+		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute(
+				"Height", "Integer", false, "Initial Height", 40, 0, -1, "",
+				"", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute(
+				"Image", "String", false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("TopConcept", new SyntaxAttribute(
-				"TopConcept", "Boolean", false, "Is Top Concept", true, 0, -1,
-				"", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BackgroundColor", new SyntaxAttribute(
-				"BackgroundColor", "String", false, "Background Color",
-				"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BorderStroke", new SyntaxAttribute(
-				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
-				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("TopConcept",
+				new SyntaxAttribute("TopConcept", "Boolean", false,
+						"Is Top Concept", true, 0, -1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BackgroundColor",
+				new SyntaxAttribute("BackgroundColor", "String", false,
+						"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0,
+						-1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BorderStroke",
+				new SyntaxAttribute("BorderStroke", "Integer", false,
+						"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Resizable", new SyntaxAttribute(
 				"Resizable", "Boolean", false, "Is Resizable", true, 0, -1, "",
 				"", -1, "", ""));
-		
+
 		SemanticConcept semConcept = new SemanticConcept();
 
 		semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
@@ -655,7 +655,8 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemPairwAsoRel = new InstConcept("AssociationRelation",
 				metaBasicConcept, semPairwAsoRel);
 
-		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept, metaConcept);
+		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept,
+				metaConcept);
 
 		variabilityInstVertex.put("Concept", instConcept);
 
@@ -666,8 +667,8 @@ public class RefasModel extends AbstractModel {
 
 		variabilityInstVertex.put("Enumeration", new InstConcept("Enumeration",
 				metaBasicConcept, enumeration));
-		InstConcept instOverTwo = new InstConcept("OverTwoRelation", metaBasicConcept,
-				overTwoRelation);
+		InstConcept instOverTwo = new InstConcept("OverTwoRelation",
+				metaBasicConcept, overTwoRelation);
 		variabilityInstVertex.put("OverTwoRelation", instOverTwo);
 
 		MetaPairwiseRelation metaPairwiseRelAso = new MetaPairwiseRelation(
@@ -760,53 +761,53 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSyntax() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
-		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
-		metaBasicConcept.addModelingAttribute("Description", new SyntaxAttribute(
-				"Description", "String", false, "Description", "", 0, -1, "",
-				"", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
+				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
+				"", ""));
+		metaBasicConcept.addModelingAttribute("Description",
+				new SyntaxAttribute("Description", "String", false,
+						"Description", "", 0, -1, "", "", -1, "", ""));
 
 		metaBasicConcept.addModelingAttribute("MetaType", new SyntaxAttribute(
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("Identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "Concept Identifier", "", 0, -1,
-				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Identifier",
+				new SyntaxAttribute("Identifier", "String", false,
+						"Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
-		metaBasicConcept
-				.addModelingAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
-		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute("Style",
-				"String", false, "Drawing Style", "refasclaim", 0, -1, "", "",
+		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
+				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
+				"", ""));
+		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute(
+				"Style", "String", false, "Drawing Style", "refasclaim", 0, -1,
+				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute(
+				"Width", "Integer", false, "Initial Width", 100, 0, -1, "", "",
 				-1, "", ""));
-		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute("Width",
-				"Integer", false, "Initial Width", 100, 0, -1, "", "", -1, "",
-				""));
-		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute("Height",
-				"Integer", false, "Initial Height", 40, 0, -1, "", "", -1, "",
-				""));
-		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute("Image",
-				"String", false, "Image File",
+		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute(
+				"Height", "Integer", false, "Initial Height", 40, 0, -1, "",
+				"", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute(
+				"Image", "String", false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("TopConcept", new SyntaxAttribute(
-				"TopConcept", "Boolean", false, "Is Top Concept", true, 0, -1,
-				"", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BackgroundColor", new SyntaxAttribute(
-				"BackgroundColor", "String", false, "Background Color",
-				"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BorderStroke", new SyntaxAttribute(
-				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
-				"", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("TopConcept",
+				new SyntaxAttribute("TopConcept", "Boolean", false,
+						"Is Top Concept", true, 0, -1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BackgroundColor",
+				new SyntaxAttribute("BackgroundColor", "String", false,
+						"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0,
+						-1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BorderStroke",
+				new SyntaxAttribute("BorderStroke", "Integer", false,
+						"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Resizable", new SyntaxAttribute(
 				"Resizable", "Boolean", false, "Is Resizable", true, 0, -1, "",
 				"", -1, "", ""));
-		
+
 		SemanticConcept semView = new SemanticConcept();
 
 		semView.putSemanticAttribute("MetaType", new SyntaxAttribute(
@@ -1066,7 +1067,8 @@ public class RefasModel extends AbstractModel {
 		concept.addPanelVisibleAttribute("01#" + "Name");
 		concept.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
-		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept, concept);
+		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept,
+				concept);
 		variabilityInstVertex.put("Concept", instConcept);
 
 		SemanticConcept semElementNoSyntax = new SemanticConcept();
@@ -1647,6 +1649,13 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
+
+		semOperationalization.putSemanticAttribute("value",
+				new SyntaxAttribute("value", "Set", false, "values", "", 0, -1,
+						"", "", -1, "", ""));
+		semOperationalization.addPropVisibleAttribute("06#" + "value");
+		semOperationalization.addPropEditableAttribute("06#" + "value");
+
 		InstVertex instVertexOper = new InstConcept("Operationalization",
 				metaConcept, semOperationalization);
 		variabilityInstVertex.put("Operationalization", instVertexOper);
@@ -3195,6 +3204,26 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instGExtendsPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexG, true);
 
+		InstConcept instTGExtendsPairWiseRel = new InstConcept(
+				"TG Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("TG Extends Relation",
+				instTGExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvattgext", instEdge);
+		instEdge.setIdentifier("variab-extvattgext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexG, true);
+		instEdge.setSourceRelation(instTGExtendsPairWiseRel, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvatexttg", instEdge);
+		instEdge.setIdentifier("variab-extvatexttg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instTGExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexTG, true);
+
 		InstConcept instViewG = new InstConcept("View G Relation",
 				supportMetaViewPairwise, metaViewRel);
 		this.variabilityInstVertex.put("View G Relation", instViewG);
@@ -3261,6 +3290,26 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instViewGG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
+		InstConcept instGGExtendsPairWiseRel = new InstConcept(
+				"GG Extends Relation", supportMetaExtendsPairwise,
+				metaExtendsRel);
+		this.variabilityInstVertex.put("GG Extends Relation",
+				instGGExtendsPairWiseRel);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvatggext", instEdge);
+		instEdge.setIdentifier("variab-extvatggext");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexG, true);
+		instEdge.setSourceRelation(instGGExtendsPairWiseRel, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("variab-extvatextgg", instEdge);
+		instEdge.setIdentifier("variab-extvatextgg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGGExtendsPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexGG, true);
+
 		InstConcept semOperationalization = ((InstConcept) this
 				.getSemanticRefas().getVertex("Operationalization"));
 		MetaConcept sOperationalization = new MetaConcept('C', "OPER", true,
@@ -3275,6 +3324,7 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
+
 		variabilityInstVertex.put("OPER", instVertexOper);
 
 		InstConcept instOExtendsPairWiseRel = new InstConcept(
@@ -3720,10 +3770,27 @@ public class RefasModel extends AbstractModel {
 						+ " on the SG", 100, 60,
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
-
 		InstVertex instVertexTSG = new InstConcept("TopSoftgoal",
 				supportMetaElementConcept, syntaxTopSoftGoal);
 		variabilityInstVertex.put("TopSoftgoal", instVertexTSG);
+
+		InstConcept instExtTSG = new InstConcept("TSG Ext Relation",
+				supportMetaExtendsPairwise, metaViewRel);
+		this.variabilityInstVertex.put("TSG Ext Relation", instExtTSG);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("exttsg-sggr", instEdge);
+		instEdge.setIdentifier("exttsg-sggr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instExtTSG, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgrtsg-sg", instEdge);
+		instEdge.setIdentifier("extgrtsg-sg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instExtTSG, true);
+		instEdge.setSourceRelation(instVertexTSG, true);
 
 		InstConcept instViewTSG = new InstConcept("View TSG Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -3763,6 +3830,24 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
 		variabilityInstVertex.put("GeneralSoftgoal", instVertexGSG);
+
+		InstConcept instExtGSG = new InstConcept("GSG Ext Relation",
+				supportMetaExtendsPairwise, metaViewRel);
+		this.variabilityInstVertex.put("GSG Ext Relation", instExtGSG);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgsg-sggr", instEdge);
+		instEdge.setIdentifier("extgsg-sggr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexSG, true);
+		instEdge.setSourceRelation(instExtGSG, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgrgsg-sg", instEdge);
+		instEdge.setIdentifier("extgrgsg-sg");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instExtGSG, true);
+		instEdge.setSourceRelation(instVertexGSG, true);
 
 		InstConcept instViewGSG = new InstConcept("View GSG Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -4070,6 +4155,24 @@ public class RefasModel extends AbstractModel {
 				supportMetaElementConcept, syntaxGlobalVariable);
 		variabilityInstVertex.put("GlobalVariable", instVertexGV);
 
+		InstConcept instExtGV = new InstConcept("GVar Ext Relation",
+				supportMetaExtendsPairwise, metaViewRel);
+		this.variabilityInstVertex.put("GVar Ext Relation", instExtGV);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgvar-vargr", instEdge);
+		instEdge.setIdentifier("extgvar-vargr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVar, true);
+		instEdge.setSourceRelation(instExtGV, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgrgvar-var", instEdge);
+		instEdge.setIdentifier("extgrgvar-var");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instExtGV, true);
+		instEdge.setSourceRelation(instVertexGV, true);
+
 		InstConcept instViewGV = new InstConcept("View GVar Relation",
 				supportMetaViewPairwise, metaViewRel);
 		this.variabilityInstVertex.put("View GVar Relation", instViewGV);
@@ -4097,6 +4200,24 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexCV = new InstConcept("ContextVariable",
 				supportMetaElementConcept, syntaxContextVariable);
 		variabilityInstVertex.put("ContextVariable", instVertexCV);
+
+		InstConcept instExtCV = new InstConcept("CVar Ext Relation",
+				supportMetaExtendsPairwise, metaViewRel);
+		this.variabilityInstVertex.put("CVar Ext Relation", instExtCV);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extcvar-vargr", instEdge);
+		instEdge.setIdentifier("extcvar-vargr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVar, true);
+		instEdge.setSourceRelation(instExtCV, true);
+
+		instEdge = new InstPairwiseRelation();
+		this.constraintInstEdges.put("extgrcvar-var", instEdge);
+		instEdge.setIdentifier("extgrcvar-var");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instExtCV, true);
+		instEdge.setSourceRelation(instVertexGV, true);
 
 		InstConcept instViewCV = new InstConcept("View CVar Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -5595,8 +5716,7 @@ public class RefasModel extends AbstractModel {
 	private Map<String, MetaElement> getValidPairwiseRelations(
 			InstElement instElement, InstElement instElement2, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
-		if (instElement2 == null)
-		{
+		if (instElement2 == null) {
 			System.out.println("error");
 		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
@@ -5694,8 +5814,7 @@ public class RefasModel extends AbstractModel {
 	private MetaElement getValidMetaPairwiseRelation(InstElement instElement,
 			InstElement instElement2, String metaPairwiseIden, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
-		if (instElement2 == null)
-		{
+		if (instElement2 == null) {
 			System.out.println("error");
 		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
