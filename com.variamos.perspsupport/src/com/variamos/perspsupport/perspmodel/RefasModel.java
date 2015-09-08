@@ -220,15 +220,15 @@ public class RefasModel extends AbstractModel {
 	}
 
 	public void putVariabilityInstVertex(InstVertex element) {
-		variabilityInstVertex.put(element.getIdentifier(), element);
+		variabilityInstVertex.put(element.getAutoIdentifier(), element);
 	}
 
 	public void putInstGroupDependency(InstOverTwoRelation groupDep) {
-		instGroupDependencies.put(groupDep.getIdentifier(), groupDep);
+		instGroupDependencies.put(groupDep.getAutoIdentifier(), groupDep);
 	}
 
 	public void putConstraintInstEdge(InstPairwiseRelation element) {
-		constraintInstEdges.put(element.getIdentifier(), element);
+		constraintInstEdges.put(element.getAutoIdentifier(), element);
 	}
 
 	public String addNewVariabilityInstElement(InstVertex element) {
@@ -255,26 +255,48 @@ public class RefasModel extends AbstractModel {
 		return id;
 	}
 
-	public String addNewOtherInstEdge(InstPairwiseRelation directRelation) {
-		String id = getNextOtherInstEdgeId(directRelation);
-		directRelation.setIdentifier(id);
-		return id;
-	}
-
 	private String getNextVariabilityInstVertextId(InstVertex element) {
 		int id = 1;
 		String classId = null;
-		if (element instanceof InstConcept)
-			classId = ((InstConcept) element)
-					.getSupportMetaElementUserIdentifier();
-		else {
-			if (element instanceof InstEnumeration)
-				classId = ((InstEnumeration) element)
-						.getSupportMetaElementUserIdentifier();
+		if (element instanceof InstVertex)
+			if (((InstVertex) element).getTransSupportMetaElement()
+					.getUserIdentifier() == null)
+				classId = ((InstVertex) element).getTransSupportMetaElement()
+						.getAutoIdentifier();
 			else
-				classId = ((InstOverTwoRelation) element)
-						.getSupportMetaElementUserIdentifier();
-		}
+				classId = ((InstVertex) element).getTransSupportMetaElement()
+						.getUserIdentifier();
+
+		// if (element instanceof InstConcept)
+		// if (((InstConcept) element).getTransSupportMetaElement()
+		// .getUserIdentifier() == null)
+		// classId = ((InstConcept) element).getTransSupportMetaElement()
+		// .getAutoIdentifier();
+		// else
+		// classId = ((InstConcept) element).getTransSupportMetaElement()
+		// .getUserIdentifier();
+		// // .getSupportMetaElementUserIdentifier();
+		// else {
+		// if (element instanceof InstEnumeration)
+		// if (((InstEnumeration) element).getTransSupportMetaElement()
+		// .getUserIdentifier() == null)
+		// classId = ((InstEnumeration) element)
+		// .getTransSupportMetaElement().getAutoIdentifier();
+		// else
+		// classId = ((InstEnumeration) element)
+		// .getTransSupportMetaElement().getUserIdentifier();
+		// // .getSupportMetaElementUserIdentifier();
+		// else if (((InstOverTwoRelation) element)
+		// .getTransSupportMetaElement().getUserIdentifier() == null)
+		// classId = ((InstOverTwoRelation) element)
+		// .getTransSupportMetaElement().getAutoIdentifier();
+		// else
+		// classId = ((InstOverTwoRelation) element)
+		// .getTransSupportMetaElement().getUserIdentifier();
+		// // .getSupportMetaElementUserIdentifier();
+		//
+		// }
+
 		while (variabilityInstVertex.containsKey(classId + id)) {
 			id++;
 		}
@@ -302,18 +324,6 @@ public class RefasModel extends AbstractModel {
 			id++;
 		}
 		return classId + id;
-	}
-
-	private String getNextOtherInstEdgeId(InstPairwiseRelation element) {
-
-		int id = 1;
-		String classId = null;
-		classId = MetaPairwiseRelation.getClassId();
-
-		while (constraintInstEdges.containsKey(classId + id)) {
-			id++;
-		}
-		return classId + "O" + id;
 	}
 
 	public Map<String, InstElement> getVariabilityVertex() {
@@ -398,18 +408,18 @@ public class RefasModel extends AbstractModel {
 		if (obj instanceof InstConcept) {
 			InstConcept concept = (InstConcept) obj;
 
-			variabilityInstVertex.remove(concept.getIdentifier());
+			variabilityInstVertex.remove(concept.getAutoIdentifier());
 		}
 		if (obj instanceof InstEnumeration) {
 			InstEnumeration concept = (InstEnumeration) obj;
-			variabilityInstVertex.remove(concept.getIdentifier());
+			variabilityInstVertex.remove(concept.getAutoIdentifier());
 		}
 		if (obj instanceof InstOverTwoRelation) {
 			InstOverTwoRelation overtwo = (InstOverTwoRelation) obj;
-			instGroupDependencies.remove(overtwo.getIdentifier());
+			instGroupDependencies.remove(overtwo.getAutoIdentifier());
 		} else if (obj instanceof InstPairwiseRelation)
 			constraintInstEdges.remove(((InstPairwiseRelation) obj)
-					.getIdentifier());
+					.getAutoIdentifier());
 	}
 
 	/**
@@ -539,14 +549,14 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semConcept = new SemanticConcept();
 
-		semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "Concept Identifier", "", 0, -1,
-				"", "", -1, "", ""));
-		semConcept.addPropEditableAttribute("01#" + "identifier");
-		semConcept.addPropVisibleAttribute("01#" + "identifier");
+	//	semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
+	//			"Identifier", "String", false, "Concept Identifier", "", 0, -1,
+	//			"", "", -1, "", ""));
+		// semConcept.addPropEditableAttribute("01#" + "identifier");
+	//	semConcept.addPropVisibleAttribute("01#" + "identifier");
 
-		semConcept.addPanelVisibleAttribute("01#" + "identifier");
-		semConcept.addPanelSpacersAttribute("#" + "identifier" + "#\n\n");
+	//	semConcept.addPanelVisibleAttribute("01#" + "identifier");
+	//	semConcept.addPanelSpacersAttribute("#" + "identifier" + "#\n\n");
 
 		InstConcept instSemConcept = new InstConcept("Concept", null,
 				semConcept);
@@ -850,9 +860,9 @@ public class RefasModel extends AbstractModel {
 
 		semView.addPropEditableAttribute("03#" + "PaletteNames");
 		semView.addPropVisibleAttribute("03#" + "PaletteNames");
-		semView.addPanelVisibleAttribute("03#" + "PaletteNames" + "#"
+		semView.addPanelVisibleAttribute("05#" + "PaletteNames" + "#"
 				+ "PaletteNames" + "#!=#" + "" + "#" + "");
-		semView.addPanelSpacersAttribute("\n{Palettes:#" + "PaletteNames"
+		semView.addPanelSpacersAttribute("{Palettes:#" + "PaletteNames"
 				+ "#}\n\n");
 		semView.addPropVisibleAttribute("00#" + "MetaType");
 		semView.addPropEditableAttribute("01#" + "Identifier");
@@ -878,8 +888,8 @@ public class RefasModel extends AbstractModel {
 		// semView.addDisPropEditableAttribute("11#" + "BorderStroke");
 		semView.addPropVisibleAttribute("11#" + "BorderStroke");
 
-		semView.addPanelVisibleAttribute("01#" + "Name");
-		semView.addPanelSpacersAttribute("#" + "Name" + "#");
+	//	semView.addPanelVisibleAttribute("01#" + "Name");
+	//	semView.addPanelSpacersAttribute("#" + "Name" + "#");
 
 		InstConcept instSemView = new InstConcept("View", null, semView);
 
@@ -1064,8 +1074,8 @@ public class RefasModel extends AbstractModel {
 		concept.addPanelVisibleAttribute("00#" + "SemanticType");
 		concept.addPanelSpacersAttribute("<<MetaConcept>>\n{SemType:\"#"
 				+ "SemanticType" + "#\"}\n");
-		concept.addPanelVisibleAttribute("01#" + "Name");
-		concept.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
+	//	concept.addPanelVisibleAttribute("01#" + "Name");
+	//	concept.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
 		InstConcept instConcept = new InstConcept("Concept", metaBasicConcept,
 				concept);
@@ -1234,17 +1244,17 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 3, instSemViewConceptAsso, true);
 		viewConceptAsso.addPanelVisibleAttribute("01#dummy");
 		viewConceptAsso
-				.addPanelSpacersAttribute("<<MetaViewConceptAsso>>#dummy#");
+				.addPanelSpacersAttribute("<<MetaViewConceptAsso>>#dummy#\n");
 		viewConceptAsso.addModelingAttribute("Palette", new SyntaxAttribute(
 				"Palette", "String", false, "Palette Name", "", 0, -1, "", "",
 				-1, "", ""));
 
-		viewConceptAsso.addPropEditableAttribute("03#" + "Palette");
-		viewConceptAsso.addPropVisibleAttribute("03#" + "Palette");
-		viewConceptAsso.addPanelVisibleAttribute("03#" + "Palette" + "#"
+		viewConceptAsso.addPropEditableAttribute("02#" + "Palette");
+		viewConceptAsso.addPropVisibleAttribute("02#" + "Palette");
+		viewConceptAsso.addPanelVisibleAttribute("02#" + "Palette" + "#"
 				+ "Palette" + "#!=#" + "" + "#" + "");
-		viewConceptAsso.addPanelSpacersAttribute("\n{Palette:#" + "Palette"
-				+ "#}\n\n");
+		viewConceptAsso.addPanelSpacersAttribute("{Palette:#" + "Palette"
+				+ "#}\n");
 
 		InstConcept instViewConceptAsso = new InstConcept("ViewConceptAsso",
 				metaBasicConcept, viewConceptAsso);
@@ -1298,8 +1308,8 @@ public class RefasModel extends AbstractModel {
 		semPairwiseRelation
 				.addPanelSpacersAttribute("<<MetaPairwiseAsso>>\n{SemType:\"#"
 						+ "SemanticType" + "#\",\n");
-		semPairwiseRelation.addPanelVisibleAttribute("10#" + "Name");
-		semPairwiseRelation.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
+	//	semPairwiseRelation.addPanelVisibleAttribute("10#" + "Name");
+	//	semPairwiseRelation.addPanelSpacersAttribute("#" + "Name" + "#\n\n");
 
 		InstConcept instSemPairwiseRelationn = new InstConcept(
 				"PairwiseRelation", null, semPairwiseRelation);
@@ -1328,7 +1338,7 @@ public class RefasModel extends AbstractModel {
 
 		pairwiseRelation.addPropEditableAttribute("04#" + "SourceCardinality");
 		pairwiseRelation.addPropVisibleAttribute("04#" + "SourceCardinality");
-		pairwiseRelation.addPanelVisibleAttribute("04#" + "SourceCardinality"
+		pairwiseRelation.addPanelVisibleAttribute("01#" + "SourceCardinality"
 				+ "#" + "Type" + "#!=#" + "" + "#" + "");
 		pairwiseRelation.addPanelSpacersAttribute("SourCard:#"
 				+ "SourceCardinality" + "#,");
@@ -1340,7 +1350,7 @@ public class RefasModel extends AbstractModel {
 
 		pairwiseRelation.addPropEditableAttribute("05#" + "TargetCardinality");
 		pairwiseRelation.addPropVisibleAttribute("05#" + "TargetCardinality");
-		pairwiseRelation.addPanelVisibleAttribute("05#" + "TargetCardinality"
+		pairwiseRelation.addPanelVisibleAttribute("02#" + "TargetCardinality"
 				+ "#" + "Type" + "#!=#" + "" + "#" + "");
 		pairwiseRelation.addPanelSpacersAttribute("TargCard:#"
 				+ "TargetCardinality" + "#}\n");
@@ -2608,7 +2618,7 @@ public class RefasModel extends AbstractModel {
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
 				0, 3, "", "", 3, "", "");
 
-		syntaxFeature.addPanelVisibleAttribute("03#" + "name");
+	//	syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxFeature.addPropEditableAttribute("03#" + "name");
 
@@ -2655,7 +2665,7 @@ public class RefasModel extends AbstractModel {
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
-		syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
+	//	syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxVariabilityArtifact.addPropEditableAttribute("03#" + "name");
 
@@ -5734,7 +5744,8 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
+					out.put(pwr.getAutoIdentifier(),
+							pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 
@@ -5763,7 +5774,8 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
+					out.put(pwr.getAutoIdentifier(),
+							pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 			}
@@ -5958,8 +5970,8 @@ public class RefasModel extends AbstractModel {
 						.getSupportMetaElementIden() != null
 						&& instElement.getTargetRelations().get(0)
 								.getTargetRelations().get(0)
-								.getTargetRelations().get(0).getIdentifier()
-								.equals(element))
+								.getTargetRelations().get(0)
+								.getAutoIdentifier().equals(element))
 					return true;
 			}
 		}

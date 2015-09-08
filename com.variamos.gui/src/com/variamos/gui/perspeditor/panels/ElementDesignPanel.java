@@ -281,7 +281,7 @@ public class ElementDesignPanel extends JPanel {
 													((InstanceExpression) finalInstAttribute
 															.getValue())
 															.createSGSExpression(finalEditElm
-																	.getIdentifier());
+																	.getAutoIdentifier());
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane

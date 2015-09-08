@@ -764,7 +764,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 						ElementExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(lastEditableElement
-										.getInstElement().getIdentifier(),
+										.getInstElement().getAutoIdentifier(),
 										editableElementType,
 										Refas2Hlcl.SIMUL_EXEC);
 
@@ -992,14 +992,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								"GeneralElement"))
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
-											finalEditElm.getIdentifier(),
+											finalEditElm.getAutoIdentifier(),
 											editableElementType,
 											Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									finalEditElm.getIdentifier(),
+									finalEditElm.getAutoIdentifier(),
 									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),

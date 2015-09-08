@@ -95,7 +95,7 @@ public class MClassWidget extends WidgetR {
 			out = new String[set.size()];
 			int i = 0;
 			for (InstConcept concept : set) {
-				concepts.put(concept.getIdentifier(), concept);
+				concepts.put(concept.getAutoIdentifier(), concept);
 				String str = concept.getInstAttribute("name").toString();
 				out[i++] = str.toString();
 			}
