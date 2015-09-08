@@ -407,7 +407,7 @@ public class SharedActions {
 			mxCell cell, mxGraph graph) {
 
 		InstElement instElement = ((InstCell) value).getInstElement();
-		String id = instElement.getIdentifier();
+		String id = instElement.getAutoIdentifier();
 		int modelViewSubIndex = editor.getModelSubViewIndex();
 		int modelViewIndex = editor.getModelViewIndex();
 		// Move new element to the current View - clone if
@@ -769,7 +769,7 @@ public class SharedActions {
 									System.out
 											.println("SharedActions: relation without semantic type "
 													+ instPairwiseRelation
-															.getIdentifier());
+															.getAutoIdentifier());
 									// e.printStackTrace();
 									// FIXME
 

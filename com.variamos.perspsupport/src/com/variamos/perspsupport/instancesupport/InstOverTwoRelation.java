@@ -143,9 +143,9 @@ public class InstOverTwoRelation extends InstVertex {
 		if (getSupportMetaOverTwoRelation() != null) {
 			for (String name : getSupportMetaOverTwoRelation()
 					.getModelingAttributesNames(null)) {
-				if (name.equals(MetaElement.VAR_IDENTIFIER))
+				if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 					addInstAttribute(name, getSupportMetaOverTwoRelation()
-							.getModelingAttribute(name, null), getIdentifier());
+							.getModelingAttribute(name, null), getAutoIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getSupportMetaOverTwoRelation()
 							.getModelingAttribute(name, null),
@@ -162,7 +162,7 @@ public class InstOverTwoRelation extends InstVertex {
 				String name = semanticAttributes.next();
 				if (name.equals("identifier"))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getSemanticAttribute(name), getIdentifier());
+							.getSemanticAttribute(name), getAutoIdentifier());
 				else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getSemanticAttribute(name), null);

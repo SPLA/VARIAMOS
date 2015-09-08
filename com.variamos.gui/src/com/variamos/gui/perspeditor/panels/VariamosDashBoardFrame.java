@@ -77,7 +77,7 @@ public class VariamosDashBoardFrame extends JFrame {
 							.getAsBoolean()) {
 				String metaId = instVertex.getTransSupportMetaElement()
 						.getAutoIdentifier();
-				String instId = instVertex.getIdentifier();
+				String instId = instVertex.getAutoIdentifier();
 				if (elements.get(metaId) == null)
 					elements.put(metaId, new TreeMap<String, VisualElement>());
 				VisualElement visualElement = new VisualElement(instVertex);

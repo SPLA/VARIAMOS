@@ -281,7 +281,7 @@ public class ElementDesignPanel extends JPanel {
 													((InstanceExpression) finalInstAttribute
 															.getValue())
 															.createSGSExpression(finalEditElm
-																	.getIdentifier());
+																	.getAutoIdentifier());
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
@@ -645,7 +645,10 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setPreferredSize(new Dimension(200, 100));
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
-			if (editElm instanceof InstEnumeration) {
+			if (editElm instanceof InstEnumeration
+					//|| ((InstElement) editElm).getSupportMetaElementIden()
+					//		.equals("OPER")
+					) {
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
@@ -661,8 +664,10 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 80));
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (((InstEnumeration) editElm).getSupportMetaElementIden()
-						.equals("ME")) {
+				if (((InstElement) editElm).getSupportMetaElementIden()
+						.equals("ME")//||((InstElement) editElm).getSupportMetaElementIden()
+						//.equals("OPER")
+						) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
@@ -762,9 +767,9 @@ public class ElementDesignPanel extends JPanel {
 									.getEditedModel()).getSemanticRefas()
 									.getElement(
 											(String) instAttribute.getValue()));
-		//		if (instAttribute.getIdentifier().equals("Visible"))
-		//			editableMetaElement.setVisible((boolean) instAttribute
-		//					.getValue());
+				// if (instAttribute.getIdentifier().equals("Visible"))
+				// editableMetaElement.setVisible((boolean) instAttribute
+				// .getValue());
 				if (instAttribute.getIdentifier().equals("Name"))
 					editableMetaElement.setName((String) instAttribute
 							.getValue());

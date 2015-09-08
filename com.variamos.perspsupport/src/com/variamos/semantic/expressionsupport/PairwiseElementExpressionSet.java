@@ -64,11 +64,11 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		super(identifier, mxResources.get("defect-pairrelations1")
 				+ " "
 				+ instPairwiseRelation.getSourceRelations().get(0)
-						.getIdentifier()
+						.getAutoIdentifier()
 				+ mxResources.get("defect-pairrelations1")
 				+ " "
 				+ instPairwiseRelation.getTargetRelations().get(0)
-						.getIdentifier()
+						.getAutoIdentifier()
 				+ mxResources.get("defect-pairrelations1") + " ", idMap,
 				hlclFactory);
 		this.instPairwiseRelation = instPairwiseRelation;

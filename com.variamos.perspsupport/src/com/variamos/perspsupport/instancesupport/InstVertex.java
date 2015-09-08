@@ -77,8 +77,12 @@ public abstract class InstVertex extends InstElement {
 	}
 
 	public void setIdentifier(String identifier) {
-		setDynamicVariable(VAR_IDENTIFIER, identifier);
-		setInstAttribute(VAR_IDENTIFIER, identifier);
+		if (getDynamicVariable(VAR_USERIDENTIFIER).equals("")) {
+			setDynamicVariable(VAR_USERIDENTIFIER, identifier);
+			setInstAttribute(VAR_USERIDENTIFIER, identifier);
+		}
+		setDynamicVariable(VAR_AUTOIDENTIFIER, identifier);
+		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
 		if (getEditableMetaElement() != null)
 			getEditableMetaElement().setAutoIdentifier(identifier);
 	}
@@ -212,7 +216,7 @@ public abstract class InstVertex extends InstElement {
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstV:"+this.getIdentifier() +
 		// insAttributeLocalId);
-		return this.getIdentifier() + "_"
+		return this.getAutoIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 

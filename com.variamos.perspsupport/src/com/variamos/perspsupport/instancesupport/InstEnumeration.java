@@ -72,9 +72,9 @@ public class InstEnumeration extends InstVertex {
 				.getModelingAttributesNames(null).iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
+			if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name,null), getIdentifier());
+						.getModelingAttribute(name,null), getAutoIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
 				addInstAttribute(name, getTransSupportMetaElement()
 						.getModelingAttribute(name,null), getTransSupportMetaElement()
