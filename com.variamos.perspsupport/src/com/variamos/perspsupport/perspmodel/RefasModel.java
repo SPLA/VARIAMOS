@@ -638,18 +638,18 @@ public class RefasModel extends AbstractModel {
 		metaPairWiseRelation.addPanelSpacersAttribute("#"
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		// SemanticConcept semEnumeration = new SemanticConcept(semConcept,
-		// "Enumeration");
-		// semEnumeration.setSemanticAttribute("value",
-		// new SemanticAttribute("value", "Set", false, "value",
-		// InstAttribute.class.getCanonicalName(),
-		// new ArrayList<InstAttribute>(), "", 0));
-		// semEnumeration.addPropEditableAttribute("01#" + "value");
-		// semEnumeration.addPropVisibleAttribute("01#" + "value");
-		//
-		// InstConcept instSemEnumeration = new InstConcept("Enumeration", null,
-		// semEnumeration);
-
+		/*
+		 * SemanticConcept semEnumeration = new SemanticConcept(semConcept,
+		 * "Enumeration"); semEnumeration.setSemanticAttribute("value", new
+		 * SemanticAttribute("value", "Set", false, "value",
+		 * InstAttribute.class.getCanonicalName(), new
+		 * ArrayList<InstAttribute>(), 0, 1, "", "", -1, "", ""));
+		 * semEnumeration.addPropEditableAttribute("01#" + "value");
+		 * semEnumeration.addPropVisibleAttribute("01#" + "value");
+		 * 
+		 * InstConcept instSemEnumeration = new InstConcept("Enumeration", null,
+		 * semEnumeration);
+		 */
 		MetaEnumeration enumeration = new MetaEnumeration(
 				"TypeEnumeration",
 				true,
@@ -742,8 +742,8 @@ public class RefasModel extends AbstractModel {
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
 		variabilityInstVertex.put("PairWiseRelation", instPairWiseRelation);
 
-		variabilityInstVertex.put("Enumeration", new InstConcept("Enumeration",
-				metaBasicConcept, enumeration));
+		variabilityInstVertex.put("TypeEnumeration", new InstConcept(
+				"TypeEnumeration", metaBasicConcept, enumeration));
 		InstConcept instOverTwo = new InstConcept("OverTwoRelation",
 				metaBasicConcept, overTwoRelation);
 		variabilityInstVertex.put("OverTwoRelation", instOverTwo);
@@ -1343,7 +1343,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemExtendRelation = new InstConcept("ExtendRelation",
 				null, semExtendRelation);
 
-		MetaConcept extendRelation = new MetaConcept('E', "ExtendRelation",
+		MetaConcept extendRelation = new MetaConcept('X', "ExtendRelation",
 				true, "ExtendRelation", "refasminiclass", "Extend relation",
 				150, 70, "/com/variamos/gui/perspeditor/images/concept.png",
 				true, Color.BLUE.toString(), 3, instSemExtendRelation, true);
@@ -1546,6 +1546,9 @@ public class RefasModel extends AbstractModel {
 		MetaConcept metaConcept = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("Concept"))
 				.getEditableMetaElement();
+		MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept) this
+				.getSyntaxRefas().getVertex("TypeEnumeration"))
+				.getEditableMetaElement();
 		MetaConcept metaPairwiseRelation = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("PairWiseRelation"))
 				.getEditableMetaElement();
@@ -1563,6 +1566,18 @@ public class RefasModel extends AbstractModel {
 				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
+		// do not change it
+		InstEnumeration instVertexHSME = new InstEnumeration(
+				"HardStructEnumeration", metaEnumeration);
+		variabilityInstVertex.put("HardStructEnumeration", instVertexHSME);
+
+		// @SuppressWarnings("unchecked")
+		// ArrayList<InstAttribute> c = ((ArrayList<InstAttribute>)
+		// ((InstAttribute) ((InstAttribute) instVertexHSME
+		// .getInstAttribute("value")).getValue())
+		// .getInstAttributeAttribute("Value"));
+		// c.add(new InstAttribute("test"));
+		// c.add(new InstAttribute("test1"));
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From this name depends all the operations,
 									// do not change it
@@ -4839,6 +4854,21 @@ public class RefasModel extends AbstractModel {
 						+ " variables", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true, "", 1,
 				true);
+
+		metaEnumeration.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		metaEnumeration.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaEnumeration.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		metaEnumeration.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaEnumeration.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		MetaView syntaxMetaChildView = new MetaView("FullContext",
 				"Context with Enumerations", "Context Palette", 0, null);
 		InstView childView = new InstView("FullContext", metaView,

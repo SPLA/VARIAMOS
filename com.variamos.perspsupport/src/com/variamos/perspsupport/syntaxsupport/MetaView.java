@@ -65,4 +65,7 @@ public class MetaView extends MetaElement implements Serializable {
 		return null;
 	}
 
+	public char getType() {
+		return 'V';
+	};
 }
