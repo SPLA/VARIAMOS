@@ -1313,7 +1313,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			MetaElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
+				if (instAttribute.getIdentifier().equals("userIdentifier"))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1370,11 +1370,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
 					.getEditableSemanticElement();
-			if (editableSemanticElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableSemanticElement
-							.setIdentifier((String) instAttribute.getValue());
-			}
+	//		if (editableSemanticElement != null) {
+	//			if (instAttribute.getIdentifier().equals("Identifier"))
+	//				editableSemanticElement
+	//						.setIdentifier((String) instAttribute.getValue());
+	//		}
 		}
 		refresh();
 	}

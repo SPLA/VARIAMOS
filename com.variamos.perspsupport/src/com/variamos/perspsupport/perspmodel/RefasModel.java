@@ -500,6 +500,20 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSemantic() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
+		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		metaBasicConcept.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaBasicConcept.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		metaBasicConcept.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaBasicConcept.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
 				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
 				"", ""));
@@ -511,9 +525,9 @@ public class RefasModel extends AbstractModel {
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("Identifier",
-				new SyntaxAttribute("Identifier", "String", false,
-						"Concept Identifier", "", 0, -1, "", "", -1, "", ""));
+		// metaBasicConcept.addModelingAttribute("Identifier",
+		// new SyntaxAttribute("Identifier", "String", false,
+		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
@@ -771,6 +785,20 @@ public class RefasModel extends AbstractModel {
 	private void createBasicSyntax() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
+		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		metaBasicConcept.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaBasicConcept.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		metaBasicConcept.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaBasicConcept.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
 				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
 				"", ""));
@@ -782,9 +810,9 @@ public class RefasModel extends AbstractModel {
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
 				"", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("Identifier",
-				new SyntaxAttribute("Identifier", "String", false,
-						"Concept Identifier", "", 0, -1, "", "", -1, "", ""));
+		// metaBasicConcept.addModelingAttribute("Identifier",
+		// new SyntaxAttribute("Identifier", "String", false,
+		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
@@ -865,8 +893,8 @@ public class RefasModel extends AbstractModel {
 		semView.addPanelSpacersAttribute("{Palettes:#" + "PaletteNames"
 				+ "#}\n\n");
 		semView.addPropVisibleAttribute("00#" + "MetaType");
-		semView.addPropEditableAttribute("01#" + "Identifier");
-		semView.addPropVisibleAttribute("01#" + "Identifier");
+		// semView.addPropEditableAttribute("01#" + "Identifier");
+		// semView.addPropVisibleAttribute("01#" + "Identifier");
 		// semView.addPropEditableAttribute("02#" + "Index");
 		// semView.addPropVisibleAttribute("02#" + "Index");
 		semView.addPropEditableAttribute("03#" + "Visible");
@@ -898,6 +926,17 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 3, instSemView, true);
 
+		view.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		view.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+		view.addPropEditableAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+
+		view.addPanelVisibleAttribute("04#" + MetaConcept.VAR_USERIDENTIFIER);
+		view.addPanelSpacersAttribute("#" + MetaConcept.VAR_USERIDENTIFIER
+				+ "#\n\n");
+
 		InstConcept instView = new InstConcept("View", metaBasicConcept, view);
 		variabilityInstVertex.put("View", instView);
 
@@ -915,9 +954,9 @@ public class RefasModel extends AbstractModel {
 				"MetaType", "Enumeration", false, "MetaConcept Type",
 				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
 				"", -1, "", ""));
-		semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "Concept Identifier", "", 0, -1,
-				"", "", -1, "", ""));
+		// semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
+		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
+		// "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
@@ -954,8 +993,8 @@ public class RefasModel extends AbstractModel {
 				"Set", false, "values", "", 0, -1, "", "", -1, "", ""));
 
 		semVertex.addPropVisibleAttribute("00#" + "MetaType");
-		semVertex.addPropEditableAttribute("01#" + "Identifier");
-		semVertex.addPropVisibleAttribute("01#" + "Identifier");
+		// semVertex.addPropEditableAttribute("01#" + "Identifier");
+		// semVertex.addPropVisibleAttribute("01#" + "Identifier");
 		semVertex.addPropEditableAttribute("02#" + "Visible");
 		semVertex.addPropVisibleAttribute("02#" + "Visible");
 		semVertex.addPropEditableAttribute("03#" + "Name");
@@ -1031,8 +1070,8 @@ public class RefasModel extends AbstractModel {
 				"Set", false, "values", "", 0, -1, "", "", -1, "", ""));
 
 		semPWAsso.addPropVisibleAttribute("00#" + "MetaType");
-		semPWAsso.addPropEditableAttribute("01#" + "Identifier");
-		semPWAsso.addPropVisibleAttribute("01#" + "Identifier");
+		// semPWAsso.addPropEditableAttribute("01#" + "Identifier");
+		// semPWAsso.addPropVisibleAttribute("01#" + "Identifier");
 		semPWAsso.addPropEditableAttribute("02#" + "Visible");
 		semPWAsso.addPropVisibleAttribute("02#" + "Visible");
 		semPWAsso.addPropEditableAttribute("03#" + "Name");
@@ -1071,6 +1110,17 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemVertex, true);
 
+		concept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		concept.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+		concept.addPropEditableAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+
+		concept.addPanelVisibleAttribute("04#" + MetaConcept.VAR_USERIDENTIFIER);
+		concept.addPanelSpacersAttribute("#" + MetaConcept.VAR_USERIDENTIFIER
+				+ "#\n\n");
+
 		concept.addPanelVisibleAttribute("00#" + "SemanticType");
 		concept.addPanelSpacersAttribute("<<MetaConcept>>\n{SemType:\"#"
 				+ "SemanticType" + "#\"}\n");
@@ -1089,9 +1139,9 @@ public class RefasModel extends AbstractModel {
 						"MetaConcept Type", ConceptType.class
 								.getCanonicalName(), "MetaEnumeration", 0, -1,
 						"", "", -1, "", ""));
-		semElementNoSyntax.putSemanticAttribute("Identifier",
-				new SyntaxAttribute("Identifier", "String", false,
-						"Concept Identifier", "", 0, -1, "", "", -1, "", ""));
+		// semElementNoSyntax.putSemanticAttribute("Identifier",
+		// new SyntaxAttribute("Identifier", "String", false,
+		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		semElementNoSyntax.putSemanticAttribute("Visible", new SyntaxAttribute(
 				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
 				-1, "", ""));
@@ -1106,8 +1156,8 @@ public class RefasModel extends AbstractModel {
 				""));
 
 		semElementNoSyntax.addPropVisibleAttribute("00#" + "MetaType");
-		semElementNoSyntax.addPropEditableAttribute("01#" + "Identifier");
-		semElementNoSyntax.addPropVisibleAttribute("01#" + "Identifier");
+		// semElementNoSyntax.addPropEditableAttribute("01#" + "Identifier");
+		// semElementNoSyntax.addPropVisibleAttribute("01#" + "Identifier");
 		semElementNoSyntax.addPropEditableAttribute("02#" + "Visible");
 		semElementNoSyntax.addPropVisibleAttribute("02#" + "Visible");
 		semElementNoSyntax.addPropEditableAttribute("03#" + "Name");
@@ -1155,8 +1205,8 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation
 				.addPanelSpacersAttribute("<<MetaOverTwoAsso>>\n{SemType:\"#"
 						+ "SemanticType" + "#\"}\n");
-		semOverTwoRelation.addPanelVisibleAttribute("01#" + "Name");
-		semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
+	//	semOverTwoRelation.addPanelVisibleAttribute("01#" + "Name");
+	//	semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
 
 		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",
 				null, semOverTwoRelation);
@@ -1166,6 +1216,15 @@ public class RefasModel extends AbstractModel {
 				"MetaOverTwoRelation", 180, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
+
+		overTwoRelation.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		overTwoRelation.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		overTwoRelation.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		overTwoRelation.addModelingAttribute("Type", new SyntaxAttribute(
 				"Type", "String", false, "Relation Type", "", 0, -1, "", "",
@@ -1186,6 +1245,15 @@ public class RefasModel extends AbstractModel {
 				"NormalRelation", false, "Normal Relation", "defaultAsso",
 				"View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
+
+		metaPairwiseRelNormal.addModelingAttribute(
+				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
+						MetaConcept.VAR_USERIDENTIFIER, "String", false,
+						"User Identifier", null, 0, 1, "", "", -1, "", ""));
+		metaPairwiseRelNormal.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaPairwiseRelNormal.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		constraintInstEdges.put("NormalRelation", new InstPairwiseRelation(
 				"NormalRelation", metaPairwiseRelNormal));
@@ -2256,26 +2324,28 @@ public class RefasModel extends AbstractModel {
 		claimSGPairwiseRelList.add(new SemanticRelationType("ClaimToSG", "",
 				"", true, true, true, 1, 1, 1, 1));
 
-/*		SemanticPairwiseRelation semClaimSGPairwiseRel = new SemanticPairwiseRelation(
-				"claimSGPWAsso", false, claimSGPairwiseRelList);
-		InstConcept instSemCLSGPWAsso = new InstConcept("claimSGPWAsso",
-				metaPairwiseRelation, semClaimSGPairwiseRel);
-		variabilityInstVertex.put("claimSGPWAsso", instSemCLSGPWAsso);
-
-		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("CLSGPWAsso-GR", instEdge);
-		instEdge.setIdentifier("CLSGPWAsso-GR");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdge.setTargetRelation(instSemCLSGPWAsso, true);
-		instEdge.setSourceRelation(instVertexCL, true);
-
-		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("CLSGPW-GR-Asso", instEdge);
-		instEdge.setIdentifier("CLSGPW-GR-Asso");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdge.setTargetRelation(instVertexSG, true);
-		instEdge.setSourceRelation(instSemCLSGPWAsso, true);
-*/
+		/*
+		 * SemanticPairwiseRelation semClaimSGPairwiseRel = new
+		 * SemanticPairwiseRelation( "claimSGPWAsso", false,
+		 * claimSGPairwiseRelList); InstConcept instSemCLSGPWAsso = new
+		 * InstConcept("claimSGPWAsso", metaPairwiseRelation,
+		 * semClaimSGPairwiseRel); variabilityInstVertex.put("claimSGPWAsso",
+		 * instSemCLSGPWAsso);
+		 * 
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("CLSGPWAsso-GR", instEdge);
+		 * instEdge.setIdentifier("CLSGPWAsso-GR");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		 * instEdge.setTargetRelation(instSemCLSGPWAsso, true);
+		 * instEdge.setSourceRelation(instVertexCL, true);
+		 * 
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("CLSGPW-GR-Asso", instEdge);
+		 * instEdge.setIdentifier("CLSGPW-GR-Asso");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		 * instEdge.setTargetRelation(instVertexSG, true);
+		 * instEdge.setSourceRelation(instSemCLSGPWAsso, true);
+		 */
 		List<IntSemanticRelationType> groupPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		groupPairwiseRelList.add(new SemanticRelationType("Group", "", "",
 				true, true, true, 1, 1, 1, 1));
@@ -2523,7 +2593,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirCVCGSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexVAR, true);
-		
+
 		// Oper to Claim
 		SemanticOverTwoRelation semanticOperClaimGroupRelation = new SemanticOverTwoRelation(
 				semGeneralElement, "OperCLOTAsso", hardSemOverTwoRelList);
@@ -2556,7 +2626,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirOperClaimSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexOper, true);
-		
+
 		// LFeat to Claim
 		SemanticOverTwoRelation semanticLFClaimGroupRelation = new SemanticOverTwoRelation(
 				semGeneralElement, "LFtoClaimOTAsso", hardSemOverTwoRelList);
@@ -2588,7 +2658,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirLFClaimSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexCL, true);
-		
+
 		// Claim to SG
 
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
@@ -2607,7 +2677,7 @@ public class RefasModel extends AbstractModel {
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
-		InstConcept instDirClaimSGSemanticEdge= new InstConcept(
+		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
 				"ClaimSGPWAsso", metaPairwiseRelation,
 				directClaimSGSemanticEdge);
 		variabilityInstVertex.put("ClaimSGPWAsso", instDirClaimSGSemanticEdge);
@@ -2645,7 +2715,7 @@ public class RefasModel extends AbstractModel {
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 		directSDSGSemanticEdge.addPanelVisibleAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
-		InstConcept instDirSDSGSemanticEdge= new InstConcept("SDSGPWAsso",
+		InstConcept instDirSDSGSemanticEdge = new InstConcept("SDSGPWAsso",
 				metaPairwiseRelation, directSDSGSemanticEdge);
 		variabilityInstVertex.put("SDSGPWAsso", instDirSDSGSemanticEdge);
 
@@ -2662,7 +2732,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirSDSGSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexSD, true);
-		
+
 		// Asset to Asset
 
 		SemanticOverTwoRelation semanticAssetAssetOvertwoRel = new SemanticOverTwoRelation(
@@ -2859,6 +2929,20 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
+		syntaxFeature.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxFeature.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxFeature.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxFeature.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxFeature.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
 				0, 3, "", "", 3, "", "");
 
@@ -2906,6 +2990,21 @@ public class RefasModel extends AbstractModel {
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept('C', "VA",
 				false, "VariabilityArtifact", null, "", 0, 0, null, true, null,
 				3, semHardConcept, true);
+
+		syntaxVariabilityArtifact.addModelingAttribute(
+				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
+						MetaConcept.VAR_USERIDENTIFIER, "String", false,
+						"User Identifier", null, 0, 1, "", "", -1, "", ""));
+		syntaxVariabilityArtifact.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxVariabilityArtifact.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
@@ -3576,6 +3675,20 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
 
+		sOperationalization.addModelingAttribute(
+				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
+						MetaConcept.VAR_USERIDENTIFIER, "String", false,
+						"User Identifier", null, 0, 1, "", "", -1, "", ""));
+		sOperationalization.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		sOperationalization.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		sOperationalization.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		sOperationalization.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		InstVertex instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 
@@ -3628,6 +3741,20 @@ public class RefasModel extends AbstractModel {
 						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
+
+		syntaxAssumption.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxAssumption.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAssumption.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxAssumption.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAssumption.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstVertex instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -3976,9 +4103,23 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
 
+		syntaxSoftGoal.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxSoftGoal.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxSoftGoal.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxSoftGoal.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxSoftGoal.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
 				"", 0, -1, "", "", -1, "", "");
-		syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
+	//	syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
 		syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
@@ -4323,6 +4464,20 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, semContextGroup, true);
 
+		syntaxContextGroup.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxContextGroup.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxContextGroup.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxContextGroup.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxContextGroup.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
@@ -4364,6 +4519,20 @@ public class RefasModel extends AbstractModel {
 						+ " requirements", 150, 40,
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
+
+		syntaxAbsVariable.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxAbsVariable.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAbsVariable.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxAbsVariable.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAbsVariable.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", 0, -1, "", "", -1, "", "");
@@ -4819,6 +4988,20 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/claim.png", true,
 				Color.BLUE.toString(), 1, semClaim, true);
 
+		syntaxClaim.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxClaim.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxClaim.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxClaim.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxClaim.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
 				0, -1, "", "", -1, "", "");
 
@@ -4831,13 +5014,13 @@ public class RefasModel extends AbstractModel {
 		syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 				"Concern Level", "", 0, -1, "", "", -1, "", "");
 
-		syntaxClaim.addPanelVisibleAttribute("03#" + "name");
+	//	syntaxClaim.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPropEditableAttribute("03#" + "name");
 
 		syntaxClaim.addPropVisibleAttribute("03#" + "name");
 
-		syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
+	//	syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		syntaxClaim.addPanelVisibleAttribute("10#" + "conditionalExpression");
 
@@ -4884,6 +5067,20 @@ public class RefasModel extends AbstractModel {
 				100, 70, "/com/variamos/gui/perspeditor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, semSoftDependency, true);
 
+		syntaxSoftDependency.addModelingAttribute(
+				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
+						MetaConcept.VAR_USERIDENTIFIER, "String", false,
+						"User Identifier", null, 0, 1, "", "", -1, "", ""));
+		syntaxSoftDependency.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxSoftDependency.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxSoftDependency.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxSoftDependency.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n");
+
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
@@ -4896,13 +5093,13 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
 				false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-		syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
+	//	syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
-		syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
+	//	syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		syntaxSoftDependency.addPanelVisibleAttribute("10#"
 				+ "conditionalExpression");
@@ -5302,6 +5499,21 @@ public class RefasModel extends AbstractModel {
 						+ " can implement operationalizations", 100, 40,
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
+
+		syntaxAsset.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+						false, "User Identifier", null, 0, 1, "", "", -1, "",
+						""));
+		syntaxAsset.addPropVisibleAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAsset.addPropEditableAttribute("01#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+
+		syntaxAsset.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		syntaxAsset.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
 				0, -1, "", "", -1, "", "");
 		syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
