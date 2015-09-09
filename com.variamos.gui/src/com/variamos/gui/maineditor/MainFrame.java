@@ -43,8 +43,8 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private String variamosVersionNumber = "1.0.1.13";
 	private String variamosVersionName = "1.0 Beta 13";
-	private String variamosBuild = "201509004 1200";
-	private String downloadId = "366";
+	private String variamosBuild = "20150909 1200";
+	private String downloadId = "[wpdm_package id='376']";
 
 	public int getPerspective() {
 		return perspective;

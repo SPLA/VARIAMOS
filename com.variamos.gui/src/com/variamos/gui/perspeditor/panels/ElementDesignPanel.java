@@ -226,6 +226,10 @@ public class ElementDesignPanel extends JPanel {
 						if (instAttribute != null
 								&& (instAttribute.getAttribute() instanceof SyntaxAttribute || instAttribute
 										.getAttribute() instanceof SemanticAttribute)) {
+							if (instAttribute.getIdentifier().equals("userIdentifier") && instAttribute.getValue()==null)
+							{
+								instAttribute.setValue(editElm.getInstAttributes().get("name").getValue());
+							}
 							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;
 							if (editElm instanceof InstPairwiseRelation) {
@@ -753,11 +757,11 @@ public class ElementDesignPanel extends JPanel {
 			MetaElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
+				if (instAttribute.getIdentifier().equals("userIdentifier"))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
-				if (instAttribute.getIdentifier().equals("AutoIdentifier"))
+				if (instAttribute.getIdentifier().equals("identifier"))
 					editableMetaElement
 							.setAutoIdentifier((String) instAttribute
 									.getValue());
