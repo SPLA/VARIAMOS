@@ -162,7 +162,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 				ClassCanName, MetaCInstType, defaultValue, domain, hint,
 				propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers,elementDisplayCondition);
+				elementDisplaySpacers, elementDisplayCondition);
 		attributeEdition.revalidate();
 		attributeEdition.repaint();
 		attributeEdition.setOnAccept(new DialogButtonAction() {
@@ -185,11 +185,12 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 						.getValue());
 				v.setElementDisplaySpacers((String) elementDisplaySpacers
 						.getValue());
-				v.setElementDisplayCondition((String)elementDisplayCondition.getValue());
+				v.setElementDisplayCondition((String) elementDisplayCondition
+						.getValue());
 				v.setType((String) type.getAttributeType());
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
-				v.setDefaultValue((String) defaultValue.getValue());
+				v.setDefaultValue(defaultValue.getValue());
 				// v.setDisplayName((String) name.getDisplayName());
 				if (insert) {
 					((DefaultListModel<AbstractAttribute>) getModel())

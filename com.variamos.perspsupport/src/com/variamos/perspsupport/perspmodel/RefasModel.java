@@ -31,20 +31,20 @@ import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticContextGroup;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
 import com.variamos.perspsupport.types.PerspectiveType;
 
@@ -1205,8 +1205,8 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation
 				.addPanelSpacersAttribute("<<MetaOverTwoAsso>>\n{SemType:\"#"
 						+ "SemanticType" + "#\"}\n");
-	//	semOverTwoRelation.addPanelVisibleAttribute("01#" + "Name");
-	//	semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
+		// semOverTwoRelation.addPanelVisibleAttribute("01#" + "Name");
+		// semOverTwoRelation.addPanelSpacersAttribute("#" + "Name" + "#");
 
 		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",
 				null, semOverTwoRelation);
@@ -2952,8 +2952,8 @@ public class RefasModel extends AbstractModel {
 
 		syntaxFeature.addPropVisibleAttribute("03#" + "name");
 
-		syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
-				"Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
+		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		InstVertex instVertexF = new InstConcept("Feature",
 				supportMetaElementConcept, syntaxFeature);
@@ -3014,9 +3014,9 @@ public class RefasModel extends AbstractModel {
 
 		syntaxVariabilityArtifact.addPropVisibleAttribute("03#" + "name");
 
-		syntaxVariabilityArtifact.addModelingAttribute("concern",
-				"ConcernLevel", false, "Concern Level", "", 0, -1, "", "", -1,
-				"", "");
+		// syntaxVariabilityArtifact.addModelingAttribute("concern",
+		// "ConcernLevel", false, "Concern Level", "", 0, -1, "", "", -1,
+		// "", "");
 
 		InstVertex instVertexVA = new InstConcept("VA",
 				supportMetaElementConcept, syntaxVariabilityArtifact);
@@ -4119,13 +4119,13 @@ public class RefasModel extends AbstractModel {
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
 				"", 0, -1, "", "", -1, "", "");
-	//	syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
+		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
 		syntaxSoftGoal.addPropVisibleAttribute("03#" + "name");
 
-		syntaxSoftGoal.addModelingAttribute("concern", "ConcernLevel", false,
-				"Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxSoftGoal.addModelingAttribute("concern", "ConcernLevel", false,
+		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		InstVertex instVertexSG = new InstConcept("Softgoal",
 				supportMetaElementConcept, syntaxSoftGoal);
@@ -4543,8 +4543,8 @@ public class RefasModel extends AbstractModel {
 		syntaxAbsVariable.addModelingAttribute("enumeration",
 				"MetaEnumeration", false, "Enumeration", "", 0, -1, "", "", -1,
 				"", "");
-		syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
-				false, "Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
+		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		InstVertex instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
@@ -4640,7 +4640,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setIdentifier("extgrcvar-var");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instExtCV, true);
-		instEdge.setSourceRelation(instVertexGV, true);
+		instEdge.setSourceRelation(instVertexCV, true);
 
 		InstConcept instViewCV = new InstConcept("View CVar Relation",
 				supportMetaViewPairwise, metaViewRel);
@@ -5011,16 +5011,16 @@ public class RefasModel extends AbstractModel {
 								"String", false, "Cond. Expression Text", "",
 								0, -1, "", "", -1, "", ""));
 
-		syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
-				"Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
+		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-	//	syntaxClaim.addPanelVisibleAttribute("03#" + "name");
+		// syntaxClaim.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxClaim.addPropEditableAttribute("03#" + "name");
 
 		syntaxClaim.addPropVisibleAttribute("03#" + "name");
 
-	//	syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		// syntaxClaim.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		syntaxClaim.addPanelVisibleAttribute("10#" + "conditionalExpression");
 
@@ -5090,16 +5090,16 @@ public class RefasModel extends AbstractModel {
 								"String", false, "Cond. Expression Text", "",
 								0, -1, "", "", -1, "", ""));
 
-		syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
-				false, "Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
+		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-	//	syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
+		// syntaxSoftDependency.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPropEditableAttribute("03#" + "name");
 
 		syntaxSoftDependency.addPropVisibleAttribute("03#" + "name");
 
-	//	syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
+		// syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
 		syntaxSoftDependency.addPanelVisibleAttribute("10#"
 				+ "conditionalExpression");
@@ -5516,8 +5516,8 @@ public class RefasModel extends AbstractModel {
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
 				0, -1, "", "", -1, "", "");
-		syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
-				"Concern Level", "", 0, -1, "", "", -1, "", "");
+		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
+		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
 		// Create another meta element
 		InstConcept instGroupAssetPairWiseRel = new InstConcept(
@@ -5823,8 +5823,8 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexAssetOper, true);
 
 		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("asset0-pwro-oper", instEdge);
-		instEdge.setIdentifier("asset0-pwro-oper");
+		this.constraintInstEdges.put("asset0-fpwro-oper", instEdge);
+		instEdge.setIdentifier("asset0-fpwro-oper");
 		instEdge.setEditableMetaElement(metaOperPairWiseRel);
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexLF, true);
@@ -5883,10 +5883,12 @@ public class RefasModel extends AbstractModel {
 		 * instEdge.setTargetRelation(instViewAsset4, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		InstConcept instViewAOper3 = new InstConcept("ViewA Oper3 Relation",
-				supportMetaViewPairwise, metaViewRel);
-		this.variabilityInstVertex.put("ViewA Oper3 Relation", instViewAOper3);
 		/*
+		 * InstConcept instViewAOper3 = new InstConcept("ViewA Oper3 Relation",
+		 * supportMetaViewPairwise, metaViewRel);
+		 * this.variabilityInstVertex.put("ViewA Oper3 Relation",
+		 * instViewAOper3);
+		 * 
 		 * instEdge = new InstPairwiseRelation();
 		 * this.constraintInstEdges.put("vaoper3-tooper", instEdge);
 		 * instEdge.setIdentifier("vaoper3-tooper");
@@ -5908,10 +5910,11 @@ public class RefasModel extends AbstractModel {
 				directViewSemanticEdge);
 		metaViewLF2.setPalette("Assets Palette - Features");
 
-		InstConcept instViewLF2 = new InstConcept("View LF2 Relation",
-				supportMetaViewPairwise, metaViewLF2);
-		this.variabilityInstVertex.put("View LF2 Relation", instViewLF2);
-
+		/*
+		 * InstConcept instViewLF2 = new InstConcept("View LF2 Relation",
+		 * supportMetaViewPairwise, metaViewLF2);
+		 * this.variabilityInstVertex.put("View LF2 Relation", instViewLF2);
+		 */
 		MetaPairwiseRelation metaViewLF3 = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 50, 50,
@@ -6002,11 +6005,12 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instViewAssetLF, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept instViewAssOper = new InstConcept("View AssOper Relation",
-				supportMetaViewPairwise, metaViewRel);
-		this.variabilityInstVertex
-				.put("View AssOper Relation", instViewAssOper);
-
+		/*
+		 * InstConcept instViewAssOper = new
+		 * InstConcept("View AssOper Relation", supportMetaViewPairwise,
+		 * metaViewRel); this.variabilityInstVertex
+		 * .put("View AssOper Relation", instViewAssOper);
+		 */
 		InstConcept instViewAssOper2 = new InstConcept(
 				"View AssOper2 Relation", supportMetaViewPairwise, metaViewRel);
 		this.variabilityInstVertex.put("View AssOper2 Relation",
