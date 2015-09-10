@@ -1566,18 +1566,70 @@ public class RefasModel extends AbstractModel {
 				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
-		// do not change it
-		InstEnumeration instVertexHSME = new InstEnumeration(
+		InstEnumeration instVertexHStrME = new InstEnumeration(
 				"HardStructEnumeration", metaEnumeration);
-		variabilityInstVertex.put("HardStructEnumeration", instVertexHSME);
+		variabilityInstVertex.put("HardStructEnumeration", instVertexHStrME);
 
-		// @SuppressWarnings("unchecked")
-		// ArrayList<InstAttribute> c = ((ArrayList<InstAttribute>)
-		// ((InstAttribute) ((InstAttribute) instVertexHSME
-		// .getInstAttribute("value")).getValue())
-		// .getInstAttributeAttribute("Value"));
-		// c.add(new InstAttribute("test"));
-		// c.add(new InstAttribute("test1"));
+		@SuppressWarnings("unchecked")
+		ArrayList<InstAttribute> c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHStrME
+				.getInstAttribute("value")).getInstAttributeAttribute("Value");
+		InstAttribute a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-means_ends-means_ends-true-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-impl.-Impl.-true-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+
+		InstEnumeration instVertexHSideME = new InstEnumeration(
+				"HardSideEnumeration", metaEnumeration);
+		variabilityInstVertex.put("HardSideEnumeration", instVertexHSideME);
+
+		c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHSideME
+				.getInstAttribute("value")).getInstAttributeAttribute("Value");
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-conflict-conflict-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-altern.-altern.-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-preferred-pref.-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-req.-req..-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-cond.-cond.-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum1");
+		c.add(a);
+
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From this name depends all the operations,
 									// do not change it
