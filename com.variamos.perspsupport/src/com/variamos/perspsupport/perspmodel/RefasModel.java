@@ -1575,17 +1575,17 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("value")).getInstAttributeAttribute("Value");
 		InstAttribute a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-means_ends-means_ends-true-true-true-1-1-1-1");
+				"1-means_ends-means_ends-true-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-impl.-Impl.-true-true-true-1-1-1-1");
+				"2-impl.-Impl.-true-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
+		a.setInstAttributeAttribute("Identifier", "enum2");
 		c.add(a);
 
 		InstEnumeration instVertexHSideME = new InstEnumeration(
@@ -1596,38 +1596,65 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("value")).getInstAttributeAttribute("Value");
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-conflict-conflict-false-true-true-1-1-1-1");
+				"1-conflict-conflict-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-altern.-altern.-false-true-true-1-1-1-1");
+				"2-altern.-altern.-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
+		a.setInstAttributeAttribute("Identifier", "enum2");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"3-preferred-pref.-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
+		a.setInstAttributeAttribute("Identifier", "enum3");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-req.-req..-false-true-true-1-1-1-1");
+				"4-req.-req..-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum4");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"5-cond.-cond.-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum5");
+		c.add(a);
+
+		InstEnumeration instClaimSemOTAsso = new InstEnumeration(
+				"ClaimSemOTAsso", metaEnumeration);
+		variabilityInstVertex.put("ClaimSemOTAsso", instClaimSemOTAsso);
+
+		c = (ArrayList<InstAttribute>) ((InstAttribute) instClaimSemOTAsso
+				.getInstAttribute("value")).getInstAttributeAttribute("Value");
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"1-And-And-false-false-false-2-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
 		c.add(a);
 		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"3-cond.-cond.-false-true-true-1-1-1-1");
+		a.setInstAttributeAttribute("Value", "2-Or-Or-false-true-true-2-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
+		a.setInstAttributeAttribute("Identifier", "enum2");
+		c.add(a);
+		a = new InstAttribute();
+		a.setInstAttributeAttribute("Value",
+				"3-mutex-mutex-false-true-true-2-1-1-1");
+		a.setInstAttributeAttribute("DisplayValue", null);
+		a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		a.setInstAttributeAttribute("Identifier", "enum3");
 		c.add(a);
 
 		SemanticConcept semGeneralElement = new SemanticConcept(
