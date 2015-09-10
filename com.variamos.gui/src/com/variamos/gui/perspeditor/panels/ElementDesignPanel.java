@@ -53,8 +53,8 @@ import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
@@ -226,9 +226,12 @@ public class ElementDesignPanel extends JPanel {
 						if (instAttribute != null
 								&& (instAttribute.getAttribute() instanceof SyntaxAttribute || instAttribute
 										.getAttribute() instanceof SemanticAttribute)) {
-							if (instAttribute.getIdentifier().equals("userIdentifier") && instAttribute.getValue()==null)
-							{
-								instAttribute.setValue(editElm.getInstAttributes().get("name").getValue());
+							if (instAttribute.getIdentifier().equals(
+									"userIdentifier")
+									&& instAttribute.getValue() == null) {
+								instAttribute.setValue(editElm
+										.getInstAttributes().get("name")
+										.getValue());
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;
@@ -594,7 +597,7 @@ public class ElementDesignPanel extends JPanel {
 			dummy.setMaximumSize(new Dimension(350, 200));
 			elementDesPropSubPanel.add(dummy);
 
-			System.out.println(designPanelElements + "s");
+			// System.out.println(designPanelElements + "s");
 			SpringUtilities.makeCompactGrid(elementDesPropSubPanel,
 					designPanelElements, 3, 4, 4, 4, 4);
 			// JFrame e = new JFrame();
@@ -650,9 +653,9 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm instanceof InstEnumeration
-					//|| ((InstElement) editElm).getSupportMetaElementIden()
-					//		.equals("OPER")
-					) {
+			// || ((InstElement) editElm).getSupportMetaElementIden()
+			// .equals("OPER")
+			) {
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
@@ -668,10 +671,11 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 80));
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (((InstElement) editElm).getSupportMetaElementIden()
-						.equals("ME")//||((InstElement) editElm).getSupportMetaElementIden()
-						//.equals("OPER")
-						) {
+				if (((InstElement) editElm).getSupportMetaElementIden().equals(
+						"ME")// ||((InstElement)
+								// editElm).getSupportMetaElementIden()
+				// .equals("OPER")
+				) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));

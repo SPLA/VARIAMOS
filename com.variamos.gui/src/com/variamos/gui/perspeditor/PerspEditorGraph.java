@@ -856,10 +856,9 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstElement element = instCell.getInstElement();
 			List<InstElement> parents = refasModel
 					.getParentSyntaxConcept(element);
-			if (element != null)
-			{
-			element.createInstAttributes(parents);
-			return element.getText(parents);
+			if (element != null) {
+				element.createInstAttributes(parents);
+				return element.getText(parents);
 			}
 		}
 		return super.convertValueToString(obj);

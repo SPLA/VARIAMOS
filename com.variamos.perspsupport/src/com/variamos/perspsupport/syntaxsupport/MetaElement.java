@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -148,7 +148,8 @@ public abstract class MetaElement implements Serializable {
 		this.borderStroke = borderStroke;
 		this.instSemanticElement = instSemanticElement;
 		if (instSemanticElement != null)
-			this.instSemanticElementId = instSemanticElement.getAutoIdentifier();
+			this.instSemanticElementId = instSemanticElement
+					.getAutoIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
@@ -435,6 +436,8 @@ public abstract class MetaElement implements Serializable {
 	public boolean getVisible() {
 		return visible;
 	}
+
+	public abstract char getType();
 
 	public String getDescription() {
 		return description;

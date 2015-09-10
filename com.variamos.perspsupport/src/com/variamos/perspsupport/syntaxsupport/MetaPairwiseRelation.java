@@ -334,4 +334,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	public SemanticAttribute getSemanticRelation() {
 		return (SemanticAttribute) getModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN);
 	}
+
+	public char getType() {
+		return 'P';
+	};
 }
