@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -29,7 +29,11 @@ public abstract class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
-	VAR_IDENTIFIER = "identifier",
+	VAR_AUTOIDENTIFIER = "identifier",
+	/**
+			 * 
+			 */
+	VAR_USERIDENTIFIER = "userIdentifier",
 	/**
 			 * 
 			 */
@@ -144,7 +148,8 @@ public abstract class MetaElement implements Serializable {
 		this.borderStroke = borderStroke;
 		this.instSemanticElement = instSemanticElement;
 		if (instSemanticElement != null)
-			this.instSemanticElementId = instSemanticElement.getIdentifier();
+			this.instSemanticElementId = instSemanticElement
+					.getAutoIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
@@ -154,15 +159,14 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public void createSyntaxAttributes() {
-		this.modelingAttributes.put(VAR_IDENTIFIER, new SyntaxAttribute(
-				VAR_IDENTIFIER, "String", false, "AutoIdentifier", null, 0, 1,
-				"", "", -1, "", ""));
+		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new SyntaxAttribute(
+				VAR_AUTOIDENTIFIER, "String", false, "Auto Identifier", null,
+				0, 1, "", "", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
 		 */
-		this.propVisibleAttributes.add("01#" + VAR_IDENTIFIER);
-		// this.disPropVisibleAttributes.add("91#" + VAR_DESCRIPTION);
+		this.propVisibleAttributes.add("01#" + VAR_AUTOIDENTIFIER);
 
 	}
 
@@ -171,7 +175,7 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public void setTransInstSemanticElement(InstElement instSemanticElement) {
-		instSemanticElementId = instSemanticElement.getIdentifier();
+		instSemanticElementId = instSemanticElement.getAutoIdentifier();
 		this.instSemanticElement = instSemanticElement;
 	}
 
@@ -398,7 +402,7 @@ public abstract class MetaElement implements Serializable {
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		if (!name.equals(VAR_IDENTIFIER)
+		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, defaultValue, defaultGroup,
@@ -409,7 +413,7 @@ public abstract class MetaElement implements Serializable {
 
 	public void addModelingAttribute(String name,
 			AbstractAttribute abstractAttribute) {
-		if (!name.equals(VAR_IDENTIFIER)
+		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, abstractAttribute);
 	}
@@ -420,7 +424,7 @@ public abstract class MetaElement implements Serializable {
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		if (!name.equals(VAR_IDENTIFIER)
+		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
 					affectProperties, displayName, enumType, defaultValue,
@@ -433,20 +437,14 @@ public abstract class MetaElement implements Serializable {
 		return visible;
 	}
 
+	public abstract char getType();
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-//	public void setVisible(boolean visible) {
-//		this.visible = visible;
-//	}
-
-	public Object getParent() {
-		return null;
 	}
 
 	public String getPalette() {

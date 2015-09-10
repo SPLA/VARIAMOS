@@ -31,7 +31,6 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
@@ -115,7 +114,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										String.class, MetaElement.class,
 										MetaElement.class);
 								if (editor.getPerspective() != 2)
-									switch (((MetaConcept) metaVertex)
+									switch (((MetaElement) metaVertex)
 											.getType()) {
 									case 'V':
 										obj = (InstElement) c.newInstance("",
@@ -124,10 +123,19 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										break;
 									case 'P':
 									case 'I':
-									case 'E':
+									case 'X':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
 												new MetaPairwiseRelation());
+										break;
+									case 'E':
+										o = new InstEnumeration();
+										c = o.getClass().getConstructor(
+												String.class, MetaVertex.class,
+												MetaElement.class);
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new MetaEnumeration());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
@@ -160,7 +168,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											(MetaOverTwoRelation) metaVertex,
 											null);
 							} else if (metaVertex instanceof MetaPairwiseRelation) {
-								//Not shown on palette
+								// Not shown on palette
 							} else if (metaVertex instanceof MetaEnumeration) {
 								// MetaElement metaElement = new
 								// MetaEnumeration();

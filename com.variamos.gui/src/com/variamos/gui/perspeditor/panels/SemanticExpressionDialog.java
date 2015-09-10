@@ -740,7 +740,7 @@ public class SemanticExpressionDialog extends JDialog {
 					combo.addItem((String) instVertex.getInstAttribute("name")
 							.getValue());
 				else
-					combo.addItem(instVertex.getIdentifier());
+					combo.addItem(instVertex.getAutoIdentifier());
 			}
 		} else {
 			if (instElement != null)

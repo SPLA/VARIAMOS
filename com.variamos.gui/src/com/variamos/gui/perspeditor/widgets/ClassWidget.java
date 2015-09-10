@@ -28,7 +28,6 @@ import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.types.ClassSingleSelectionType;
@@ -163,7 +162,7 @@ public class ClassWidget extends WidgetR {
 						.getAttribute().getMetaConceptInstanceType(), graph);
 
 				for (InstVertex concept : list) {
-					instVertex.put(concept.getIdentifier(), concept);
+					instVertex.put(concept.getAutoIdentifier(), concept);
 					String patternString = "([_])";
 					Pattern p = Pattern.compile(patternString);
 					String[] split = p.split(concept.getInstAttribute("name")
@@ -205,10 +204,13 @@ public class ClassWidget extends WidgetR {
 							.getVariabilityVertexCollection();
 
 					for (InstElement concept : list) {
-						if (instAttribute.getAttribute()
+						if (instAttribute
+								.getAttribute()
 								.getMetaConceptInstanceType()
-								.equals(""+((MetaConcept)concept.getTransSupportMetaElement()).getType()))
-						{
+								.equals(""
+										+ ((MetaElement) concept
+												.getTransSupportMetaElement())
+												.getType())) {
 							instVertex.put(
 									concept.getInstAttribute("identifier")
 											.toString(), concept);

@@ -72,28 +72,35 @@ public class InstEnumeration extends InstVertex {
 				.getModelingAttributesNames(null).iterator();
 		while (modelingAttributes.hasNext()) {
 			String name = modelingAttributes.next();
-			if (name.equals(MetaElement.VAR_IDENTIFIER))
+			if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name,null), getIdentifier());
+						.getModelingAttribute(name, null), getAutoIdentifier());
+			else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
+				addInstAttribute(name, getTransSupportMetaElement()
+						.getModelingAttribute(name, null), getUserIdentifier());
 			else if (name.equals(MetaElement.VAR_DESCRIPTION))
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name,null), getTransSupportMetaElement()
-						.getDescription());
+						.getModelingAttribute(name, null),
+						getTransSupportMetaElement().getDescription());
 			else
 				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name,null), null);
+						.getModelingAttribute(name, null), null);
 		}
 	}
 
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) { // TODO move to
-														// superclass
+	public List<InstAttribute> getEditableVariables(List<InstElement> parents) { // TODO
+																					// move
+																					// to
+		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO move to
-														// superclass
+	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO
+																				// move
+																				// to
+		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropVisibleAttributes(parents);
 		return getFilteredInstAttributes(attributesNames, null);
@@ -113,24 +120,28 @@ public class InstEnumeration extends InstVertex {
 
 	public void setTransSupportMetaElement(MetaVertex metaEnumeration) {
 		super.setTransSupportMetaElement(metaEnumeration);
-		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumeration.getAutoIdentifier());
+		setDynamicVariable(VAR_METAENUM_IDEN,
+				metaEnumeration.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEnumeration.getDescription());
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, metaEnumeration.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				metaEnumeration.getDescription());
 
 		// createInstAttributes();
 	}
 
-	public void setMetaEnumerationUserIdentifier(String metaEnumerationIdentifier) {
+	public void setMetaEnumerationUserIdentifier(
+			String metaEnumerationIdentifier) {
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
 		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION, supportMetaElement.getDescription());
+		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+				supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
 
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
-	//	supportMetaElement = null;
+		// supportMetaElement = null;
 	}
 
 }

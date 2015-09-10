@@ -24,7 +24,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 	 */
 	private static final long serialVersionUID = 2544731646206260777L;
 	// new
-//	private IntSemanticOverTwoRelation semanticOverTwoRelation;
+	// private IntSemanticOverTwoRelation semanticOverTwoRelation;
 
 	public static final String
 	/**
@@ -52,25 +52,25 @@ public class MetaOverTwoRelation extends MetaVertex {
 
 	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement, boolean topConcept,
-			String backgroundColor, boolean resizable,
+			String image, int borderStroke, InstElement instSemanticElement,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> modelingAttributes) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept, backgroundColor, resizable,
-				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes,
-				modelingAttributes);
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable, propVisibleAttributes,
+				propEditableAttributes, panelVisibleAttributes,
+				panelSparerAttributes, modelingAttributes);
 		createGroupDepModelingAttributes();
 	}
 
 	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement, boolean topConcept,
-			String backgroundColor, boolean resizable,
+			String image, int borderStroke, InstElement instSemanticElement,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
@@ -79,10 +79,11 @@ public class MetaOverTwoRelation extends MetaVertex {
 			List<MetaPairwiseRelation> asOriginRelations,
 			List<MetaPairwiseRelation> asDestinationRelations) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept, backgroundColor, resizable,
-				propVisibleAttributes, propEditableAttributes,
-				panelVisibleAttributes, panelSparerAttributes,
-				modelingAttributes, asOriginRelations, asOriginRelations);
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable, propVisibleAttributes,
+				propEditableAttributes, panelVisibleAttributes,
+				panelSparerAttributes, modelingAttributes, asOriginRelations,
+				asOriginRelations);
 		createGroupDepModelingAttributes();
 	}
 
@@ -91,7 +92,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 			String image, boolean topConcept, String backgroundColor,
 			int borderStroke, InstElement instSemanticElement, boolean resizable) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept, backgroundColor, resizable);
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable);
 		createGroupDepModelingAttributes();
 	}
 
@@ -99,11 +101,13 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public MetaOverTwoRelation(String identifier, boolean visible, String name,
 			String style, String description, int width, int height,
 			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, InstElement instSemanticElement, boolean resizable,
+			int borderStroke, InstElement instSemanticElement,
+			boolean resizable,
 			IntSemanticOverTwoRelation intSemanticOverTwoRelation) {
 		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept, backgroundColor, resizable);
-//		this.semanticOverTwoRelation = intSemanticOverTwoRelation;
+				image, borderStroke, instSemanticElement, topConcept,
+				backgroundColor, resizable);
+		// this.semanticOverTwoRelation = intSemanticOverTwoRelation;
 		createGroupDepModelingAttributes();
 	}
 
@@ -124,8 +128,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
-					.getPropVisibleAttributes());
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -135,8 +139,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
-					.getPropEditableAttributes());
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(super.getPropEditableAttributes());
 		return modelingAttributesNames;
@@ -146,8 +150,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
-					.getPanelVisibleAttributes());
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -157,8 +161,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
-					.getPanelSpacersAttributes());
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
 		return modelingAttributesNames;
@@ -168,25 +172,34 @@ public class MetaOverTwoRelation extends MetaVertex {
 	public Set<String> getAllAttributesNames(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
-			modelingAttributesNames.addAll(getTransInstSemanticElement().getEditableSemanticElement()
-					.getSemanticAttributesNames());
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getEditableSemanticElement().getSemanticAttributesNames());
 		modelingAttributesNames.addAll(this.getModelingAttributesNames());
 		return modelingAttributesNames;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return getTransInstSemanticElement().getEditableSemanticElement().getSemanticAttribute(name);
+		return getTransInstSemanticElement().getEditableSemanticElement()
+				.getSemanticAttribute(name);
 	}
 
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return ((SemanticOverTwoRelation)getTransInstSemanticElement().getEditableSemanticElement()).getSemanticRelationTypes();
+		return ((SemanticOverTwoRelation) getTransInstSemanticElement()
+				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
+
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
 	 * Emulates the transient attribute modifier
+	 * 
 	 * @return
 	 */
 	public IntSemanticConcept getTransSemanticConcept() {
-		return (IntSemanticConcept) getTransInstSemanticElement().getEditableSemanticElement();
+		return (IntSemanticConcept) getTransInstSemanticElement()
+				.getEditableSemanticElement();
 	}
+
+	public char getType() {
+		return 'O';
+	};
 }

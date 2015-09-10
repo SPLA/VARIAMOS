@@ -764,7 +764,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 						ElementExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(lastEditableElement
-										.getInstElement().getIdentifier(),
+										.getInstElement().getAutoIdentifier(),
 										editableElementType,
 										Refas2Hlcl.SIMUL_EXEC);
 
@@ -992,14 +992,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								"GeneralElement"))
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
-											finalEditElm.getIdentifier(),
+											finalEditElm.getAutoIdentifier(),
 											editableElementType,
 											Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									finalEditElm.getIdentifier(),
+									finalEditElm.getAutoIdentifier(),
 									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
@@ -1313,7 +1313,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			MetaElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
+				if (instAttribute.getIdentifier().equals("userIdentifier"))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1370,11 +1370,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
 					.getEditableSemanticElement();
-			if (editableSemanticElement != null) {
-				if (instAttribute.getIdentifier().equals("Identifier"))
-					editableSemanticElement
-							.setIdentifier((String) instAttribute.getValue());
-			}
+	//		if (editableSemanticElement != null) {
+	//			if (instAttribute.getIdentifier().equals("Identifier"))
+	//				editableSemanticElement
+	//						.setIdentifier((String) instAttribute.getValue());
+	//		}
 		}
 		refresh();
 	}
