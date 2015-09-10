@@ -46,5 +46,6 @@ public interface Solver {
 	@Deprecated
 	public Map<String, List<Integer>> reduceDomain(Configuration config, ConfigurationOptions params);
 
+	//Esto para qué sirve?
 	public void clearQueryMonitor();
 }
