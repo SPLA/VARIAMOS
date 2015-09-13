@@ -90,10 +90,10 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.types.DomainRegister;
 import com.variamos.perspsupport.types.PerspectiveType;
@@ -122,7 +122,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private int modelSubViewIndex = 0;
 	private List<String> validElements = null;
 
-	protected DomainRegister domainRegister = new DomainRegister();
+	protected DomainRegister domasinRegister = new DomainRegister();
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
@@ -764,7 +764,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 						ElementExpressionSet metaExpressionSet = refas2hlcl
 								.getElementConstraintGroup(lastEditableElement
-										.getInstElement().getAutoIdentifier(),
+										.getInstElement().getIdentifier(),
 										editableElementType,
 										Refas2Hlcl.SIMUL_EXEC);
 
@@ -992,14 +992,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								"GeneralElement"))
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
-											finalEditElm.getAutoIdentifier(),
+											finalEditElm.getIdentifier(),
 											editableElementType,
 											Refas2Hlcl.CONF_EXEC));
 				if (this.perspective == 4)
 
 					expressionsArea
 							.setText(refas2hlcl.getElementTextConstraints(
-									finalEditElm.getAutoIdentifier(),
+									finalEditElm.getIdentifier(),
 									editableElementType, Refas2Hlcl.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
@@ -1313,7 +1313,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			MetaElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("userIdentifier"))
+				if (instAttribute.getIdentifier().equals(
+						MetaConcept.VAR_USERIDENTIFIER))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1322,9 +1323,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							.setTransInstSemanticElement((InstElement) this.refasModel
 									.getSemanticRefas().getElement(
 											(String) instAttribute.getValue()));
-		//		if (instAttribute.getIdentifier().equals("Visible"))
-		//			editableMetaElement.setVisible((boolean) instAttribute
-		//					.getValue());
+				// if (instAttribute.getIdentifier().equals("Visible"))
+				// editableMetaElement.setVisible((boolean) instAttribute
+				// .getValue());
 				if (instAttribute.getIdentifier().equals("Name"))
 					editableMetaElement.setName((String) instAttribute
 							.getValue());
@@ -1370,11 +1371,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			}
 			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
 					.getEditableSemanticElement();
-	//		if (editableSemanticElement != null) {
-	//			if (instAttribute.getIdentifier().equals("Identifier"))
-	//				editableSemanticElement
-	//						.setIdentifier((String) instAttribute.getValue());
-	//		}
+			// if (editableSemanticElement != null) {
+			// if (instAttribute.getIdentifier().equals("Identifier"))
+			// editableSemanticElement
+			// .setIdentifier((String) instAttribute.getValue());
+			// }
 		}
 		refresh();
 	}

@@ -167,7 +167,7 @@ public class RefasExpressionPanel extends JPanel {
 				leftSide.setSelectedItem("Identif");
 				childPanel.add(createIdentifiersCombo(
 						element,
-						expression.getLeft().getAutoIdentifier() + "_"
+						expression.getLeft().getIdentifier() + "_"
 								+ expression.getLeftAttributeName()));
 			}
 		}
@@ -195,7 +195,7 @@ public class RefasExpressionPanel extends JPanel {
 			rightSide.setSelectedItem("Identif");
 			childPanel.add(createIdentifiersCombo(
 					element,
-					expression.getRight().getAutoIdentifier() + "_"
+					expression.getRight().getIdentifier() + "_"
 							+ expression.getRightAttributeName()));
 		}
 		if (color == 255) {
@@ -223,20 +223,20 @@ public class RefasExpressionPanel extends JPanel {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (element instanceof InstConcept)
 			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getAutoIdentifier() + "_" + attributeName);
+				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		if (element instanceof InstPairwiseRelation) {
 			for (String attributeName : ((InstPairwiseRelation) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
 				combo.addItem(((InstPairwiseRelation) element)
-						.getSourceRelations().get(0).getAutoIdentifier()
+						.getSourceRelations().get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : ((InstPairwiseRelation) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
 				combo.addItem(((InstPairwiseRelation) element)
-						.getTargetRelations().get(0).getAutoIdentifier()
+						.getTargetRelations().get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getAutoIdentifier() + "_" + attributeName);
+				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
 		if (element instanceof InstOverTwoRelation) {
@@ -246,7 +246,7 @@ public class RefasExpressionPanel extends JPanel {
 						.get(0).getInstAttributes().keySet())
 					combo.addItem(((InstPairwiseRelation) ((InstOverTwoRelation) element)
 							.getTargetRelations().get(0)).getTargetRelations()
-							.get(0).getAutoIdentifier()
+							.get(0).getIdentifier()
 							+ "_" + attributeName);
 			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
 					.getSourceRelations())
@@ -254,10 +254,10 @@ public class RefasExpressionPanel extends JPanel {
 						.getSourceRelations().get(0).getInstAttributes()
 						.keySet())
 					combo.addItem(((InstPairwiseRelation) sourceRelation)
-							.getSourceRelations().get(0).getAutoIdentifier()
+							.getSourceRelations().get(0).getIdentifier()
 							+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
-				combo.addItem(element.getAutoIdentifier() + "_" + attributeName);
+				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
 		combo.setSelectedItem(selectedElement);

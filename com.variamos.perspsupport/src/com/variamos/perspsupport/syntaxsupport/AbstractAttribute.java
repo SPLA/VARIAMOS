@@ -681,7 +681,7 @@ public class AbstractAttribute implements Serializable {
 				new AttributeElement(VAR_DEFAULTVALUE, type,
 						VAR_DEFAULTVALUENAME, defaultValue));
 		dynamicAttributeComponentsMap.put(VAR_DOMAIN, new AttributeElement(
-				VAR_DOMAIN, "String", VAR_DOMAIN, domain)); // TODO Change
+				VAR_DOMAIN, "Domain", VAR_DOMAIN, domain)); // TODO Change
 															// String to Domain
 		dynamicAttributeComponentsMap.put(VAR_HINT, new AttributeElement(
 				VAR_HINT, "String", VAR_HINT, hint));
@@ -691,9 +691,11 @@ public class AbstractAttribute implements Serializable {
 		dynamicAttributeComponentsMap.put(VAR_PROPTABPOSITION,
 				new AttributeElement(VAR_PROPTABPOSITION, "Integer",
 						VAR_PROPTABPOSITION_NAME, propTabPosition));
-		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYPOSITION,
-				new AttributeElement(VAR_ELEMENTDISPLAYPOSITION, "Integer",
-						VAR_ELEMENTDISPLAYPOSITION_NAME, elementDisplayPosition));
+		dynamicAttributeComponentsMap
+				.put(VAR_ELEMENTDISPLAYPOSITION,
+						new AttributeElement(VAR_ELEMENTDISPLAYPOSITION,
+								"Integer", VAR_ELEMENTDISPLAYPOSITION_NAME,
+								elementDisplayPosition));
 		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYSPACERS,
 				new AttributeElement(VAR_ELEMENTDISPLAYSPACERS, "String",
 						VAR_ELEMENTDISPLAYSPACERS_NAME, elementDisplaySpacers));
@@ -705,7 +707,8 @@ public class AbstractAttribute implements Serializable {
 						VAR_PROPTABVISUALCOND_NAME, propTabVisualCondition));
 		dynamicAttributeComponentsMap.put(VAR_ELEMENTDISPLAYCONDITION,
 				new AttributeElement(VAR_ELEMENTDISPLAYCONDITION, "String",
-						VAR_ELEMENTDISPLAYCONDITION_NAME, elementDisplayCondition));
+						VAR_ELEMENTDISPLAYCONDITION_NAME,
+						elementDisplayCondition));
 	}
 
 	public int getPropTabPosition() {

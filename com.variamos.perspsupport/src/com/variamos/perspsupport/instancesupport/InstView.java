@@ -74,8 +74,8 @@ public class InstView extends InstElement {
 	}
 
 	@Override
-	public String getAutoIdentifier() {
-		return super.getAutoIdentifier();
+	public String getIdentifier() {
+		return super.getIdentifier();
 
 	}
 

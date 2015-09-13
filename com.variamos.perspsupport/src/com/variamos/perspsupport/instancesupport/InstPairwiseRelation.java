@@ -195,7 +195,12 @@ public class InstPairwiseRelation extends InstElement {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name, null), getAutoIdentifier());
+							.getModelingAttribute(name, null),
+							getIdentifier());
+				else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
+					addInstAttribute(name, getMetaPairwiseRelation()
+							.getModelingAttribute(name, null),
+							getUserIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getMetaPairwiseRelation()
 							.getModelingAttribute(name, null),
@@ -213,7 +218,7 @@ public class InstPairwiseRelation extends InstElement {
 				String name = semanticAttributes.next();
 				if (name.equals("identifier"))
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getSemanticAttribute(name), getAutoIdentifier());
+							.getSemanticAttribute(name), getIdentifier());
 				else
 					addInstAttribute(name, getMetaPairwiseRelation()
 							.getSemanticAttribute(name), null);
@@ -230,7 +235,7 @@ public class InstPairwiseRelation extends InstElement {
 		super.setTargetRelation(targetRelation, firstCall);
 	}
 
-	public String getAutoIdentifier() {
+	public String getIdentifier() {
 		return identifier;
 	}
 
@@ -579,14 +584,14 @@ public class InstPairwiseRelation extends InstElement {
 
 	public String getSourceInstAttributeIdentifier(String insAttributeId) {
 
-		return getSourceRelations().get(0).getAutoIdentifier()
+		return getSourceRelations().get(0).getIdentifier()
 				+ "_"
 				+ getSourceRelations().get(0).getInstAttribute(insAttributeId)
 						.getIdentifier();
 	}
 
 	public String getTargetInstAttributeIdentifier(String insAttributeId) {
-		return getTargetRelations().get(0).getAutoIdentifier()
+		return getTargetRelations().get(0).getIdentifier()
 				+ "_"
 				+ getTargetRelations().get(0).getInstAttribute(insAttributeId)
 						.getIdentifier();

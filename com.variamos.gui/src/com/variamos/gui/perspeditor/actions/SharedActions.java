@@ -136,7 +136,7 @@ public class SharedActions {
 				InstOverTwoRelation ic = (InstOverTwoRelation) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
-				str = (String) ic.getSupportMetaElementUserIdentifier();
+				str = (String) ic.getSupportMetaElementIden();
 				ic.setMetaOverTwoRelationIden(str);
 			}
 			if (value instanceof InstPairwiseRelation) {
@@ -407,7 +407,7 @@ public class SharedActions {
 			mxCell cell, mxGraph graph) {
 
 		InstElement instElement = ((InstCell) value).getInstElement();
-		String id = instElement.getAutoIdentifier();
+		String id = instElement.getIdentifier();
 		int modelViewSubIndex = editor.getModelSubViewIndex();
 		int modelViewIndex = editor.getModelViewIndex();
 		// Move new element to the current View - clone if
@@ -769,7 +769,7 @@ public class SharedActions {
 									System.out
 											.println("SharedActions: relation without semantic type "
 													+ instPairwiseRelation
-															.getAutoIdentifier());
+															.getIdentifier());
 									// e.printStackTrace();
 									// FIXME
 

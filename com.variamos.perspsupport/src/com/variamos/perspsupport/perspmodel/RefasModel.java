@@ -220,15 +220,15 @@ public class RefasModel extends AbstractModel {
 	}
 
 	public void putVariabilityInstVertex(InstVertex element) {
-		variabilityInstVertex.put(element.getAutoIdentifier(), element);
+		variabilityInstVertex.put(element.getIdentifier(), element);
 	}
 
 	public void putInstGroupDependency(InstOverTwoRelation groupDep) {
-		instGroupDependencies.put(groupDep.getAutoIdentifier(), groupDep);
+		instGroupDependencies.put(groupDep.getIdentifier(), groupDep);
 	}
 
 	public void putConstraintInstEdge(InstPairwiseRelation element) {
-		constraintInstEdges.put(element.getAutoIdentifier(), element);
+		constraintInstEdges.put(element.getIdentifier(), element);
 	}
 
 	public String addNewVariabilityInstElement(InstVertex element) {
@@ -408,18 +408,18 @@ public class RefasModel extends AbstractModel {
 		if (obj instanceof InstConcept) {
 			InstConcept concept = (InstConcept) obj;
 
-			variabilityInstVertex.remove(concept.getAutoIdentifier());
+			variabilityInstVertex.remove(concept.getIdentifier());
 		}
 		if (obj instanceof InstEnumeration) {
 			InstEnumeration concept = (InstEnumeration) obj;
-			variabilityInstVertex.remove(concept.getAutoIdentifier());
+			variabilityInstVertex.remove(concept.getIdentifier());
 		}
 		if (obj instanceof InstOverTwoRelation) {
 			InstOverTwoRelation overtwo = (InstOverTwoRelation) obj;
-			instGroupDependencies.remove(overtwo.getAutoIdentifier());
+			instGroupDependencies.remove(overtwo.getIdentifier());
 		} else if (obj instanceof InstPairwiseRelation)
 			constraintInstEdges.remove(((InstPairwiseRelation) obj)
-					.getAutoIdentifier());
+					.getIdentifier());
 	}
 
 	/**
@@ -1096,8 +1096,8 @@ public class RefasModel extends AbstractModel {
 		semVertex.addPropVisibleAttribute("11#" + "BorderStroke");
 		semVertex.addPropEditableAttribute("12#" + "Resizable");
 		semVertex.addPropVisibleAttribute("12#" + "Resizable");
-		semVertex.addPropEditableAttribute("14#" + "value");
-		semVertex.addPropVisibleAttribute("14#" + "value");
+		// semVertex.addPropEditableAttribute("14#" + "value");
+		// semVertex.addPropVisibleAttribute("14#" + "value");
 
 		SemanticConcept semPWAsso = new SemanticConcept();
 
@@ -1578,14 +1578,14 @@ public class RefasModel extends AbstractModel {
 				"1-means_ends-means_ends-true-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
+		a.setInstAttributeAttribute("Identifier", "enum11");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"2-impl.-Impl.-true-true-true-1-1-1-1");
+				"12-impl.-Impl.-true-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum2");
+		a.setInstAttributeAttribute("Identifier", "enum12");
 		c.add(a);
 
 		InstEnumeration instVertexHSideME = new InstEnumeration(
@@ -1901,12 +1901,12 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 
-		semOperationalization.putSemanticAttribute("value",
-				new SyntaxAttribute("value", "Set", false, "values", "", 0, -1,
-						"", "", -1, "", ""));
-		semOperationalization.addPropVisibleAttribute("06#" + "value");
-		semOperationalization.addPropEditableAttribute("06#" + "value");
-
+		  semOperationalization.putSemanticAttribute("value", new
+		  SyntaxAttribute("value", "Set", false, "values",
+		  InstAttribute.class.getCanonicalName(), 0, -1, "", "", -1, "", ""));
+		 semOperationalization.addPropVisibleAttribute("06#" + "value");
+		  semOperationalization.addPropEditableAttribute("06#" + "value");
+		 
 		InstVertex instVertexOper = new InstConcept("Operationalization",
 				metaConcept, semOperationalization);
 		variabilityInstVertex.put("Operationalization", instVertexOper);
@@ -3154,7 +3154,7 @@ public class RefasModel extends AbstractModel {
 		// Goals and Variability model
 
 		syntaxMetaView = new MetaView("Variability", true, "Variability View",
-				"plnode", "Defines a feature", 100, 80,
+				"plnode", "Defines a feature", 130, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Goals Palette;Feature Palette", 1, null);
 
@@ -3167,13 +3167,13 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaExtendsRel = new MetaPairwiseRelation(
 				"ExtendsRelation", true, "ExtendsRelation", "",
 				"Extends relation between two hard concepts. Extends syntatic and semantic"
-						+ "attributes", 50, 50,
+						+ "attributes", 50, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directExtendsSemanticEdge);
 
 		MetaPairwiseRelation metaViewRel = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
@@ -3229,7 +3229,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewF = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewF.setPalette("Feature Palette");
@@ -3346,7 +3346,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewGF = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
@@ -3394,7 +3394,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewLF = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
@@ -3487,7 +3487,7 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaGroupPairwiseRel = new MetaPairwiseRelation(
 				"Group Relation", true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
-						+ " No additional type defined", 50, 50,
+						+ " No additional type defined", 60, 40,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				semGroupPaiwiseRel);
 
@@ -3540,7 +3540,7 @@ public class RefasModel extends AbstractModel {
 				"Feature Side Relation", true, "Feature Side Relation", "",
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
-						+ " relations", 50, 50,
+						+ " relations", 70, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				directFeatFeatSideSemEdge);
 
@@ -3692,7 +3692,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewFG = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 
@@ -4074,7 +4074,7 @@ public class RefasModel extends AbstractModel {
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cardinalities", 50, 50,
+						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
@@ -4094,7 +4094,7 @@ public class RefasModel extends AbstractModel {
 				"HardRelation", true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cardinalities", 50, 50,
+						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
@@ -4150,7 +4150,7 @@ public class RefasModel extends AbstractModel {
 				"SideHardRelation", true, "SideHardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cardinalities", 50, 50,
+						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
 
@@ -4170,7 +4170,7 @@ public class RefasModel extends AbstractModel {
 				"SideHardRelation", true, "SideHardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
-						+ " relations and cardinalities", 50, 50,
+						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
 
@@ -4799,7 +4799,7 @@ public class RefasModel extends AbstractModel {
 		syntaxAbsVariable.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		syntaxAbsVariable.addPanelSpacersAttribute("#"
-				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", 0, -1, "", "", -1, "", "");
@@ -5052,13 +5052,13 @@ public class RefasModel extends AbstractModel {
 				"Variable To Context Relation", true,
 				"Variable To Context Relation", "",
 				"Associates a Context Variable" + " with the Context Group",
-				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
+				60, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directCVCGSemanticEdge);
 
 		MetaPairwiseRelation metaContextEdge = new MetaPairwiseRelation(
 				"Context To Context Relation", true,
 				"Context To Context Relation", "", "Associates a Context Group"
-						+ " with other Context Group", 50, 50,
+						+ " with other Context Group", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directCVCGSemanticEdge);
 
@@ -5233,7 +5233,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewLFsg = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFsg.setPalette("SG Satisficing Palette - Features");
@@ -5438,7 +5438,7 @@ public class RefasModel extends AbstractModel {
 				"",
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
-						+ " is required to satisfy a claim", 50, 50,
+						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 
@@ -5473,7 +5473,7 @@ public class RefasModel extends AbstractModel {
 				"",
 				"Represent the relation between"
 						+ " an operationalization(s) and a claim. The operationalization(s)"
-						+ " is required to satisfy a claim", 50, 50,
+						+ " is required to satisfy a claim", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
@@ -5570,7 +5570,7 @@ public class RefasModel extends AbstractModel {
 
 		MetaPairwiseRelation metaViewLFCL = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLFCL.setPalette("SG Satisficing Palette - Features");
@@ -6187,7 +6187,7 @@ public class RefasModel extends AbstractModel {
 		 */
 		MetaPairwiseRelation metaViewLF2 = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLF2.setPalette("Assets Palette - Features");
@@ -6199,7 +6199,7 @@ public class RefasModel extends AbstractModel {
 		 */
 		MetaPairwiseRelation metaViewLF3 = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewLF3.setPalette("Assets Palette - Features");
@@ -6238,7 +6238,7 @@ public class RefasModel extends AbstractModel {
 		 */
 		MetaPairwiseRelation metaViewAsFG2 = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewAsFG2.setPalette("Assets Palette - Features");
@@ -6263,7 +6263,7 @@ public class RefasModel extends AbstractModel {
 		 */
 		MetaPairwiseRelation metaViewAsFG = new MetaPairwiseRelation(
 				"ViewRelation", true, "ViewRelation", "",
-				"View relation between a view and a concepts.", 50, 50,
+				"View relation between a view and a concepts.", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
 		metaViewAsFG.setPalette("Assets Palette - Features");
@@ -6486,7 +6486,7 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getAutoIdentifier(),
+					out.put(pwr.getIdentifier(),
 							pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -6516,7 +6516,7 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getAutoIdentifier(),
+					out.put(pwr.getIdentifier(),
 							pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -6713,7 +6713,7 @@ public class RefasModel extends AbstractModel {
 						&& instElement.getTargetRelations().get(0)
 								.getTargetRelations().get(0)
 								.getTargetRelations().get(0)
-								.getAutoIdentifier().equals(element))
+								.getIdentifier().equals(element))
 					return true;
 			}
 		}

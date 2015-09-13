@@ -102,7 +102,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 			if ((semElement != null && semElement.getIdentifier() != null && semElement
 					.getIdentifier().equals("GeneralElement"))
-					|| instVertex.getAutoIdentifier().contains("Variable")) {
+					|| instVertex.getIdentifier().contains("Variable")) {
 				InstAttribute validAttribute = instVertex
 						.getInstAttribute("Active");
 				if (validAttribute == null
@@ -282,7 +282,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 											.put("Simul",
 													(BooleanExpression) (instanceExpression)
 															.createSGSExpression(instVertex
-																	.getAutoIdentifier()));
+																	.getIdentifier()));
 								} else
 									booleanExpressions
 											.put("Simul",
@@ -290,7 +290,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 															.equals(getHlclFactory()
 																	.newIdentifier(
 																			instVertex
-																					.getAutoIdentifier()
+																					.getIdentifier()
 																					+ "_CompExp"),
 																	getHlclFactory()
 																			.number(1)));

@@ -313,7 +313,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
 		if (expressionVertexType.name().equals("LEFT")) {			
-			 System.out.println(volatileLefInstElement.getAutoIdentifier() + " "
+			 System.out.println(volatileLefInstElement.getIdentifier() + " "
 			 + getSemanticExpression()
 				.getLeftAttributeName());
 			Identifier identifier = hlclFactory
@@ -489,7 +489,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setLeftElement(InstElement leftElement) {
 		this.volatileLefInstElement = leftElement;
 		if (leftElement != null)
-			leftInstElementId = leftElement.getAutoIdentifier();
+			leftInstElementId = leftElement.getIdentifier();
 		else
 			leftInstElementId = null;
 	}
@@ -501,7 +501,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setRightElement(InstElement rightElement) {
 		this.volatileRightInstElement = rightElement;
 		if (rightElement != null)
-			rightInstElementId = rightElement.getAutoIdentifier();
+			rightInstElementId = rightElement.getIdentifier();
 		else
 			rightInstElementId = null;
 	}
@@ -681,13 +681,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (expressionVertexType == ExpressionVertexType.LEFT
 				|| expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE) {
 			if (getLeftElement() != null)
-				return getLeftElement().getAutoIdentifier();
+				return getLeftElement().getIdentifier();
 			else
 				return leftInstElementId;
 		} else if (expressionVertexType == ExpressionVertexType.RIGHT
 				|| expressionVertexType == ExpressionVertexType.RIGHTVARIABLEVALUE) {
 			if (getRightElement() != null)
-				return getRightElement().getAutoIdentifier();
+				return getRightElement().getIdentifier();
 			else
 				return rightInstElementId;
 		}
@@ -733,26 +733,26 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getAutoIdentifier()) + "_" + getLeftAttributeName();
+						.getIdentifier()) + "_" + getLeftAttributeName();
 			break;
 		case RIGHT:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getAutoIdentifier()) + "_"
+						: getRightElement().getIdentifier()) + "_"
 								+ getRightAttributeName();
 			break;
 		case LEFTVARIABLEVALUE:
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getAutoIdentifier()) + "_" + leftValue;
+						.getIdentifier()) + "_" + leftValue;
 			break;
 		case RIGHTVARIABLEVALUE:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getAutoIdentifier()) + "_" + rightValue;
+						: getRightElement().getIdentifier()) + "_" + rightValue;
 			break;
 		default:
 			return null;

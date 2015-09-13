@@ -384,12 +384,12 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
 			if (leftSemanticElement != null)
-				return leftSemanticElement.getAutoIdentifier();
+				return leftSemanticElement.getIdentifier();
 			break;
 		case RIGHT:
 		case RIGHTCONCEPTVARIABLE:
 			if (rightSemanticElement != null)
-				return rightSemanticElement.getAutoIdentifier();
+				return rightSemanticElement.getIdentifier();
 			break;
 		default:
 		}
@@ -442,13 +442,13 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
 			if (leftSemanticElement != null) {
-				concept = leftSemanticElement.getAutoIdentifier();
+				concept = leftSemanticElement.getIdentifier();
 				variable = getLeftAttributeName();
 			}
 			break;
 		case RIGHTCONCEPTVARIABLE:
 			if (rightSemanticElement != null) {
-				concept = rightSemanticElement.getAutoIdentifier();
+				concept = rightSemanticElement.getIdentifier();
 				variable = getRightAttributeName();
 			}
 			break;

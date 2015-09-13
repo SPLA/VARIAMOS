@@ -227,11 +227,18 @@ public class ElementDesignPanel extends JPanel {
 								&& (instAttribute.getAttribute() instanceof SyntaxAttribute || instAttribute
 										.getAttribute() instanceof SemanticAttribute)) {
 							if (instAttribute.getIdentifier().equals(
-									"userIdentifier")
+									MetaConcept.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
-								instAttribute.setValue(editElm
-										.getInstAttributes().get("name")
-										.getValue());
+								if (editElm instanceof InstPairwiseRelation)
+									instAttribute
+											.setValue(editElm
+													.getInstAttributes()
+													.get(MetaConcept.VAR_AUTOIDENTIFIER)
+													.getValue());
+								else
+									instAttribute.setValue(editElm
+											.getInstAttributes().get("name")
+											.getValue());
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;
@@ -288,7 +295,7 @@ public class ElementDesignPanel extends JPanel {
 													((InstanceExpression) finalInstAttribute
 															.getValue())
 															.createSGSExpression(finalEditElm
-																	.getAutoIdentifier());
+																	.getIdentifier());
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
@@ -672,8 +679,8 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (((InstElement) editElm).getSupportMetaElementIden().equals(
-						"ME")// ||((InstElement)
-								// editElm).getSupportMetaElementIden()
+						"ME")
+				// || ((InstElement) editElm).getSupportMetaElementIden()
 				// .equals("OPER")
 				) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
