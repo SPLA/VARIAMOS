@@ -162,7 +162,7 @@ public class ClassWidget extends WidgetR {
 						.getAttribute().getMetaConceptInstanceType(), graph);
 
 				for (InstVertex concept : list) {
-					instVertex.put(concept.getAutoIdentifier(), concept);
+					instVertex.put(concept.getIdentifier(), concept);
 					String patternString = "([_])";
 					Pattern p = Pattern.compile(patternString);
 					String[] split = p.split(concept.getInstAttribute("name")

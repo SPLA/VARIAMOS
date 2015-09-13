@@ -1,9 +1,9 @@
 package com.variamos.perspsupport.semanticsupport;
 
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
+import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
+import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.types.VariableType;
 
 /**
@@ -79,8 +79,8 @@ public class SemanticVariable extends AbstractSemanticVertex {
 				"String", false, VAR_NAMENAME, "", 0, 1, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_VARIABLETYPE, new SemanticAttribute(
 				VAR_VARIABLETYPE, "Enumeration", true, VAR_VARIABLETYPENAME,
-				VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "", -1, "", VAR_VARIABLETYPE
-				+ "#!=#" + "Enumeration"));
+				VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "", -1, "",
+				VAR_VARIABLETYPE + "#!=#" + "Enumeration"));
 		putSemanticAttribute(VAR_VARIABLEDOMAIN, new SemanticAttribute(
 				VAR_VARIABLEDOMAIN, "String", false, VAR_VARIABLEDOMAINNAME,
 				"0,1", 0, 3, VAR_VARIABLETYPE + "#==#" + "Integer",
@@ -147,17 +147,17 @@ public class SemanticVariable extends AbstractSemanticVertex {
 		this.addPropVisibleAttribute("01#" + VAR_VARIABLECONFIGDOMAIN + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Boolean");
 
-		this.addPanelVisibleAttribute("01#" + VAR_NAME);
-		this.addPanelVisibleAttribute("02#" + VAR_VARIABLETYPE + "#"
+		// this.addPanelVisibleAttribute("01#" + VAR_NAME);
+		this.addPanelVisibleAttribute("05#" + VAR_VARIABLETYPE + "#"
 				+ VAR_VARIABLETYPE + "#!=#" + "Enumeration");
-		this.addPanelVisibleAttribute("03#" + VAR_ENUMERATIONTYPE + "#"
+		this.addPanelVisibleAttribute("06#" + VAR_ENUMERATIONTYPE + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		this.addPanelVisibleAttribute("03#" + VAR_VARIABLEDOMAIN + "#"
+		this.addPanelVisibleAttribute("07#" + VAR_VARIABLEDOMAIN + "#"
 				+ VAR_VARIABLETYPE + "#==#" + "Integer");
 		// this.addPanelVisibleAttribute("04#" + VAR_CONTEXTTYPE);
 		// this.addPanelVisibleAttribute("05#" + VAR_SCOPE);
 
-		this.addPanelSpacersAttribute("#" + VAR_NAME + "#\n");
+		// this.addPanelSpacersAttribute("#" + VAR_NAME + "#\n");
 		this.addPanelSpacersAttribute("{#" + VAR_VARIABLETYPE + "#} ");
 
 		this.addPanelSpacersAttribute("{#" + VAR_VARIABLEDOMAIN + "#} ");

@@ -43,7 +43,6 @@ public abstract class InstElement implements Serializable, EditableElement,
 	 * instances
 	 */
 	public static final String VAR_AUTOIDENTIFIER = "identifier",
-			VAR_USERIDENTIFIER = "userIdentifier",
 			VAR_INSTATTRIBUTES = "InstAttribute";
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
@@ -98,7 +97,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 		volatileTargetRelations = new ArrayList<InstElement>();
 		volatileDefects = new TreeMap<String, String>();
 		dynamicAttributes.put(VAR_AUTOIDENTIFIER, identifier);
-		dynamicAttributes.put(VAR_USERIDENTIFIER, identifier);
+		dynamicAttributes.put(MetaConcept.VAR_USERIDENTIFIER, identifier);
 	}
 
 	public boolean isOptional() {
@@ -134,16 +133,18 @@ public abstract class InstElement implements Serializable, EditableElement,
 	public void copyValuesToInstAttributes(List<InstElement> parents) {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (editableMetaElement != null) {
-				if (instAttribute.getIdentifier().equals("AutoIdentifier"))
+				if (instAttribute.getIdentifier().equals(
+						MetaConcept.VAR_AUTOIDENTIFIER))
 					instAttribute.setValue(editableMetaElement
 							.getAutoIdentifier());
-				if (instAttribute.getIdentifier().equals("UserIdentifier"))
+				if (instAttribute.getIdentifier().equals(
+						MetaConcept.VAR_USERIDENTIFIER))
 					instAttribute.setValue(editableMetaElement
 							.getUserIdentifier());
 				if (instAttribute.getIdentifier().equals("SemanticType")
 						&& editableMetaElement.getTransInstSemanticElement() != null)
 					instAttribute.setValue(editableMetaElement
-							.getTransInstSemanticElement().getAutoIdentifier());
+							.getTransInstSemanticElement().getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
 					instAttribute.setValue(editableMetaElement.getVisible());
 				if (instAttribute.getIdentifier().equals("Name"))
@@ -272,17 +273,17 @@ public abstract class InstElement implements Serializable, EditableElement,
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstE"+ this.getIdentifier() +
 		// "_"+insAttributeLocalId);
-		return this.getAutoIdentifier() + "_"
+		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 
-	public String getAutoIdentifier() {
+	public String getIdentifier() {
 		return (String) getDynamicVariable(VAR_AUTOIDENTIFIER);
 		// return identifier;
 	}
 
 	public String getUserIdentifier() {
-		return (String) getDynamicVariable(VAR_USERIDENTIFIER);
+		return (String) getDynamicVariable(MetaConcept.VAR_USERIDENTIFIER);
 		// return identifier;
 	}
 
@@ -298,7 +299,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 			Set<String> modelingAttributes = getEditableMetaElement()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals("userIdentifier")
+				if (!attributeName.equals(MetaConcept.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description")) {
 					AbstractAttribute i = getEditableMetaElement()
@@ -316,7 +317,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 			Set<String> modelingAttributes = getEditableSemanticElement()
 					.getDeclaredSemanticAttributes();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals("userIdentifier")
+				if (!attributeName.equals(MetaConcept.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
@@ -472,7 +473,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 				if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, parents),
-							getAutoIdentifier());
+							getIdentifier());
 				else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, parents),
@@ -497,7 +498,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 					if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
-								getAutoIdentifier());
+								getIdentifier());
 					else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
@@ -584,9 +585,9 @@ public abstract class InstElement implements Serializable, EditableElement,
 	@Override
 	public int compareTo(InstElement view) {
 		String index = this.getInstAttribute("Index").getValue()
-				+ view.getAutoIdentifier();
+				+ view.getIdentifier();
 		String other = view.getInstAttribute("Index").getValue()
-				+ view.getAutoIdentifier();
+				+ view.getIdentifier();
 		return index.compareTo(other);
 	}
 }

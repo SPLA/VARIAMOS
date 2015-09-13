@@ -111,9 +111,9 @@ public class PerspEditorGraph extends AbstractGraph {
 			for (InstElement instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell();
 				child.setValue(new InstCell(child, instVertex, false));
-				child.setId(instVertex.getAutoIdentifier());
+				child.setId(instVertex.getIdentifier());
 				addCell(child);
-				String id = instVertex.getAutoIdentifier();
+				String id = instVertex.getIdentifier();
 
 				child.setVisible(true);
 				child.setStyle(instVertex.getTransSupportMetaElement()
@@ -158,18 +158,18 @@ public class PerspEditorGraph extends AbstractGraph {
 			for (InstPairwiseRelation instEdge : refasModel
 					.getConstraintInstEdgesCollection()) {
 				if (instEdge.getSourceRelations().size() != 0
-						&& instEdge.getAutoIdentifier() != null
-						&& !instEdge.getAutoIdentifier().equals("")) {
+						&& instEdge.getIdentifier() != null
+						&& !instEdge.getIdentifier().equals("")) {
 					mxCell child = new mxCell();
 					child.setValue(new InstCell(child, instEdge, false));
-					child.setId(instEdge.getAutoIdentifier());
+					child.setId(instEdge.getIdentifier());
 					addCell(child);
 					mxCell source = this.getCellById(modelViewIndex
 							+ instEdge.getSourceRelations().get(0)
-									.getAutoIdentifier());
+									.getIdentifier());
 					mxCell target = this.getCellById(modelViewIndex
 							+ instEdge.getTargetRelations().get(0)
-									.getAutoIdentifier());
+									.getIdentifier());
 					child.setStyle("");
 					MetaElement e = instEdge.getTransSupportMetaElement();
 					if (e != null) {
@@ -179,7 +179,7 @@ public class PerspEditorGraph extends AbstractGraph {
 					child.setSource(source);
 					child.setTarget(target);
 					mxGeometry geo = new mxGeometry();
-					String id = instEdge.getAutoIdentifier();
+					String id = instEdge.getIdentifier();
 					if (source != null)
 						source.insertEdge(child, true);
 					if (target != null)
@@ -346,7 +346,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstPairwiseRelation element = (InstPairwiseRelation) ((InstCell) value)
 					.getInstElement();
 
-			String elementIdentifier = element.getAutoIdentifier();
+			String elementIdentifier = element.getIdentifier();
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
@@ -447,7 +447,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			if (cell.getGeometry() != null) {
 				if (instElement instanceof InstVertex) {
 					InstVertex element = (InstVertex) instElement;
-					elementIdentifier = element.getAutoIdentifier();
+					elementIdentifier = element.getIdentifier();
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
 						return false;
@@ -874,11 +874,11 @@ public class PerspEditorGraph extends AbstractGraph {
 		mxCell cell = null;
 		InstElement instElement = instCell.getInstElement();
 		if (modelViewIndex == -1)
-			cell = getCellById(instElement.getAutoIdentifier());
+			cell = getCellById(instElement.getIdentifier());
 		else if (modelViewSubIndex == -1)
-			cell = getCellById(modelViewIndex + instElement.getAutoIdentifier());
+			cell = getCellById(modelViewIndex + instElement.getIdentifier());
 		else
-			cell = getCellById(modelViewIndex + instElement.getAutoIdentifier()
+			cell = getCellById(modelViewIndex + instElement.getIdentifier()
 					+ "-" + modelViewSubIndex);
 		if (cell != null) {
 			getModel().setValue(cell, instCell);

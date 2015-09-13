@@ -37,7 +37,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	}
 
 	public String getElementId() {
-		return instElement.getAutoIdentifier();
+		return instElement.getIdentifier();
 	}
 
 	public String getMetaElementId() {
@@ -142,7 +142,7 @@ public class VisualElement implements Comparable<VisualElement> {
 			label = new JLabel((String) instElement.getInstAttribute("name")
 					.getValue());
 		else
-			label = new JLabel(instElement.getAutoIdentifier());
+			label = new JLabel(instElement.getIdentifier());
 		row.add(label);
 
 		if (selected)
@@ -172,7 +172,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	@Override
 	public int compareTo(VisualElement arg0) {
 
-		return instElement.getAutoIdentifier().compareTo(arg0.getElementId());
+		return instElement.getIdentifier().compareTo(arg0.getElementId());
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
@@ -77,9 +78,9 @@ public abstract class InstVertex extends InstElement {
 	}
 
 	public void setIdentifier(String identifier) {
-		if (getDynamicVariable(VAR_USERIDENTIFIER).equals("")) {
-			setDynamicVariable(VAR_USERIDENTIFIER, identifier);
-			setInstAttribute(VAR_USERIDENTIFIER, identifier);
+		if (getDynamicVariable(MetaConcept.VAR_USERIDENTIFIER).equals("")) {
+			setDynamicVariable(MetaConcept.VAR_USERIDENTIFIER, identifier);
+			setInstAttribute(MetaConcept.VAR_USERIDENTIFIER, identifier);
 		}
 		setDynamicVariable(VAR_AUTOIDENTIFIER, identifier);
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
@@ -216,7 +217,7 @@ public abstract class InstVertex extends InstElement {
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstV:"+this.getIdentifier() +
 		// insAttributeLocalId);
-		return this.getAutoIdentifier() + "_"
+		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 

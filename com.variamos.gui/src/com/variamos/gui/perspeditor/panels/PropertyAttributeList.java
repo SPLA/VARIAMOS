@@ -13,6 +13,7 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.hlcl.Domain;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.StringType;
@@ -191,6 +192,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
 				v.setDefaultValue(defaultValue.getValue());
+		//		v.setDomain((Domain) domain.getValue());
 				// v.setDisplayName((String) name.getDisplayName());
 				if (insert) {
 					((DefaultListModel<AbstractAttribute>) getModel())

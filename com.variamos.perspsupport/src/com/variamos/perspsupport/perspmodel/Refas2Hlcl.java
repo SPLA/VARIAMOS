@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 import javax.swing.ProgressMonitor;
 
+import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -20,7 +21,6 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -30,12 +30,8 @@ import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
-import com.variamos.solver.Configuration;
-import com.variamos.solver.ConfigurationOptions;
-import com.variamos.solver.SWIPrologSolver;
-import com.variamos.solver.Solver;
+import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -44,6 +40,10 @@ import com.variamos.semantic.expressionsupport.ModelExpressionSet;
 import com.variamos.semantic.expressionsupport.OverTwoElementsExpressionSet;
 import com.variamos.semantic.expressionsupport.PairwiseElementExpressionSet;
 import com.variamos.semantic.expressionsupport.SingleElementExpressionSet;
+import com.variamos.solver.Configuration;
+import com.variamos.solver.ConfigurationOptions;
+import com.variamos.solver.SWIPrologSolver;
+import com.variamos.solver.Solver;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
@@ -244,7 +244,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (instElement == null)
 			createModelExpressions(execType);
 		else
-			elementIdentifier = instElement.getAutoIdentifier();
+			elementIdentifier = instElement.getIdentifier();
 		if (instElement == null || instElement instanceof InstConcept
 				|| instElement instanceof InstOverTwoRelation)
 			createVertexExpressions(elementIdentifier, execType);
@@ -327,14 +327,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					&& this.validateConceptType(last, "GeneralElement")
 					&& last.getInstAttribute("Active").getAsBoolean() == true)
 				return f.sum(
-						f.newIdentifier(last.getAutoIdentifier() + "_"
+						f.newIdentifier(last.getIdentifier() + "_"
 								+ attributeName),
 						getSumExpression(instVertex, iterVertex, attributeName));
 			else
 				return getSumExpression(instVertex, iterVertex, attributeName);
 		} else if (this.validateConceptType(last, "GeneralElement")
 				&& last.getInstAttribute("Active").getAsBoolean() == true)
-			return f.newIdentifier(last.getAutoIdentifier() + "_" + attributeName);
+			return f.newIdentifier(last.getIdentifier() + "_"
+					+ attributeName);
 		else
 			return f.number(0);
 
@@ -514,15 +515,16 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				String attribute = split[1];
 				if (!vertexId.equals("Amodel")) {
 					InstElement vertex = refas.getElement(vertexId);
-					if (conceptTypes != null
-							&& (vertex == null || !conceptTypes.contains(vertex
-									.getTransSupportMetaElement()
-									.getAutoIdentifier())))
+					if (vertex == null
+							|| (conceptTypes != null && !conceptTypes
+									.contains(vertex
+											.getTransSupportMetaElement()
+											.getAutoIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {
-						// System.out.println(vertexId + " " + attribute + " " +
-						// prologOut.get(identifier));
+						System.out.println(vertexId + " " + attribute + " "
+								+ prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute)
 										.getAttributeType().equals("Boolean")) {
@@ -638,7 +640,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					.getInstAttribute("VerificationError");
 			// System.out.println(vertexId + " " + attribute);
 			if (identifiers != null
-					&& identifiers.contains(instVertex.getAutoIdentifier()))
+					&& identifiers.contains(instVertex.getIdentifier()))
 				instAttribute.setValue(true);
 			else
 				instAttribute.setValue(false);
@@ -656,7 +658,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 
 			if (identifiers != null
-					&& identifiers.contains(instVertex.getAutoIdentifier()))
+					&& identifiers.contains(instVertex.getIdentifier()))
 				instVertex.putDefect(defectId, defectDescription);
 			else
 				instVertex.removeDefect(defectId);
@@ -701,8 +703,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstElement elm : refas.getConstraintVertexCollection()) {
 				// if (this.validateConceptType(elm, "GeneralElement"))
-				constraintGroups.put(elm.getAutoIdentifier(),
-						new SingleElementExpressionSet(elm.getAutoIdentifier(),
+				constraintGroups.put(elm.getIdentifier(),
+						new SingleElementExpressionSet(elm.getIdentifier(),
 								idMap, f, elm, execType));
 			}
 		else
@@ -719,9 +721,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						|| !elm.getMetaPairwiseRelation().getAutoIdentifier()
 								.equals("Variable To Context Relation"))
 					constraintGroups.put(
-							elm.getAutoIdentifier(),
+							elm.getIdentifier(),
 							new PairwiseElementExpressionSet(elm
-									.getAutoIdentifier(), idMap, f, elm, execType));
+									.getIdentifier(), idMap, f, elm,
+									execType));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
@@ -737,9 +740,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
-				constraintGroups.put(elm.getAutoIdentifier(),
-						new OverTwoElementsExpressionSet(elm.getAutoIdentifier(),
-								idMap, f, elm, execType, element));
+				constraintGroups.put(
+						elm.getIdentifier(),
+						new OverTwoElementsExpressionSet(elm
+								.getIdentifier(), idMap, f, elm, execType,
+								element));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -783,7 +788,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			InstAttribute instAttribute = instVertex.getInstAttribute("Core");
 			// System.out.println(vertexId + " " + attribute);
 			if (outIdentifiers != null
-					&& outIdentifiers.contains(instVertex.getAutoIdentifier()))
+					&& outIdentifiers.contains(instVertex.getIdentifier()))
 				instAttribute.setValue(true);
 			else {
 				if (all)
@@ -803,7 +808,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex.getAutoIdentifier())
+				if (requiredConceptsNames.contains(instVertex
+						.getIdentifier())
 						|| instVertex.getInstAttribute("ConfigSelected")
 								.getAsBoolean()) {
 					if (test) {
@@ -844,7 +850,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigNotSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex.getAutoIdentifier())) {
+				if (requiredConceptsNames.contains(instVertex
+						.getIdentifier())) {
 					if (test) {
 						instAttributeTest.setValue(true);
 					} else {
@@ -882,19 +889,19 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				InstAttribute instAttribute = instVertex
 						.getInstAttribute("ConfigSelected");
 				if (instAttribute.getAsBoolean())
-					out.put(instVertex.getAutoIdentifier() + "_"
+					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 1);
 				else
 
-					out.put(instVertex.getAutoIdentifier() + "_"
+					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 0);
 				instAttribute = instVertex
 						.getInstAttribute("ConfigNotSelected");
 				if (instAttribute.getAsBoolean())
-					out.put(instVertex.getAutoIdentifier() + "_"
+					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 1);
 				else
-					out.put(instVertex.getAutoIdentifier() + "_"
+					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 0);
 			}
 		}
@@ -917,8 +924,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						&& !instAttribute2.getAsBoolean()
 						&& !instAttribute3.getAsBoolean()
 						&& !instAttribute4.getAsBoolean())
-					out.add(f.newIdentifier(instVertex.getAutoIdentifier() + "_"
-							+ "Selected"));
+					out.add(f.newIdentifier(instVertex.getIdentifier()
+							+ "_" + "Selected"));
 			}
 		}
 		return out;
@@ -951,7 +958,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("NotAvailable");
 				// System.out.println(vertexId + " " + attribute);
 				if (deadIdentifiers != null
-						&& deadIdentifiers.contains(instVertex.getAutoIdentifier())) {
+						&& deadIdentifiers.contains(instVertex
+								.getIdentifier())) {
 					instAttributeDead.setValue(true);
 					instAttributeNotAva.setValue(true);
 				}
@@ -975,19 +983,23 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			if ((!target.getInstAttribute("Selected").getAsBoolean()
 					&& !target.getInstAttribute("Core").getAsBoolean() && !target
 					.getInstAttribute("NotAvailable").getAsBoolean())
-					|| target.getAutoIdentifier().startsWith("FeatOverTwo")
-					|| target.getAutoIdentifier().startsWith("HardOverTwo")
-					|| target.getAutoIdentifier().startsWith("SoftgoalOverTwo")
-					|| target.getAutoIdentifier().startsWith("OperClaimOverTwo")
-					|| target.getAutoIdentifier().startsWith("AssetOperGroupDep")
-					|| target.getAutoIdentifier().startsWith("AssetFeatGroupDep")) {
+					|| target.getIdentifier().startsWith("FeatOverTwo")
+					|| target.getIdentifier().startsWith("HardOverTwo")
+					|| target.getIdentifier().startsWith("SoftgoalOverTwo")
+					|| target.getIdentifier()
+							.startsWith("OperClaimOverTwo")
+					|| target.getIdentifier().startsWith(
+							"AssetOperGroupDep")
+					|| target.getIdentifier().startsWith(
+							"AssetFeatGroupDep")) {
 				if (!target.getInstAttribute("Selected").getAsBoolean()
 						&& !target.getInstAttribute("NotAvailable")
 								.getAsBoolean()
-						&& !target.getAutoIdentifier().startsWith("FeatOverTwo"))
+						&& !target.getIdentifier()
+								.startsWith("FeatOverTwo"))
 					if (!calc)
 						freeIdentifiers.add(f.newIdentifier(target
-								.getAutoIdentifier() + "_Selected"));
+								.getIdentifier() + "_Selected"));
 				for (InstElement element : target.getSourceRelations()) {
 					if (progressMonitor.isCanceled())
 						throw (new InterruptedException());
@@ -1042,8 +1054,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					if (instVertex.getInstAttribute("ExportOnConfig") != null
 							&& instVertex.getInstAttribute("ExportOnConfig")
 									.getAsBoolean()) {
-						String instId = instVertex.getAutoIdentifier();
-						if (instVertex.getAutoIdentifier().contains("Variable")) {
+						String instId = instVertex.getIdentifier();
+						if (instVertex.getIdentifier().contains("Variable")) {
 							Object oo = instVertex.getInstAttribute(
 									SemanticVariable.VAR_VALUE).getValue();
 							Integer o = null;

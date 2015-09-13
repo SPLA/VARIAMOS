@@ -131,7 +131,7 @@ public class InstanceExpressionDialog extends JDialog {
 				JTextArea textTextualExpression;
 				try {
 					Expression exp = instanceExpression
-							.createSGSExpression(element.getAutoIdentifier());
+							.createSGSExpression(element.getIdentifier());
 					textTextualExpression = new JTextArea(exp.toString());
 				} catch (Exception e) {
 
@@ -644,7 +644,7 @@ public class InstanceExpressionDialog extends JDialog {
 					String itemName[] = ((String) event.getItem()).split("_");
 					
 					String item = identifierTree.get(itemName[0])
-							.getAutoIdentifier();
+							.getIdentifier();
 					if (item != null) {
 						//String[] split = item.split("_");
 						instanceExpression.setInstElement(
@@ -676,7 +676,7 @@ public class InstanceExpressionDialog extends JDialog {
 			if (displayVariableName) {
 				instElementId = instVertex.getInstAttribute("name").toString();
 			} else {
-				instElementId = instVertex.getAutoIdentifier();
+				instElementId = instVertex.getIdentifier();
 
 			}
 
@@ -751,14 +751,14 @@ public class InstanceExpressionDialog extends JDialog {
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttribute("name").toString();
 		} else {
-			instElementId = element.getAutoIdentifier();
+			instElementId = element.getIdentifier();
 			if (element instanceof InstPairwiseRelation)
 				instRelElementId = ((InstPairwiseRelation) element)
-						.getSourceRelations().get(0).getAutoIdentifier();
+						.getSourceRelations().get(0).getIdentifier();
 			if (element instanceof InstOverTwoRelation)
 				instRelElementId = ((InstPairwiseRelation) ((InstOverTwoRelation) element)
 						.getTargetRelations().get(0)).getTargetRelations()
-						.get(0).getAutoIdentifier();
+						.get(0).getIdentifier();
 		}
 		if (!editable)
 			combo.setEnabled(false);
@@ -776,7 +776,7 @@ public class InstanceExpressionDialog extends JDialog {
 						instVertexId = instVertex.getInstAttribute("name")
 								.toString();
 					else
-						instVertexId = instVertex.getAutoIdentifier();
+						instVertexId = instVertex.getIdentifier();
 					identifiersList.put(instVertexId, instVertex);
 					combo.addItem(instVertexId + "_"
 							+ SemanticVariable.VAR_VALUE);
@@ -826,7 +826,7 @@ public class InstanceExpressionDialog extends JDialog {
 						else
 							combo.addItem(((InstPairwiseRelation) sourceRelation)
 									.getSourceRelations().get(0)
-									.getAutoIdentifier()
+									.getIdentifier()
 									+ "_" + attributeName);
 
 				for (String attributeName : element.getInstAttributes()

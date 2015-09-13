@@ -149,7 +149,7 @@ public abstract class MetaElement implements Serializable {
 		this.instSemanticElement = instSemanticElement;
 		if (instSemanticElement != null)
 			this.instSemanticElementId = instSemanticElement
-					.getAutoIdentifier();
+					.getIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;
@@ -175,7 +175,7 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public void setTransInstSemanticElement(InstElement instSemanticElement) {
-		instSemanticElementId = instSemanticElement.getAutoIdentifier();
+		instSemanticElementId = instSemanticElement.getIdentifier();
 		this.instSemanticElement = instSemanticElement;
 	}
 
