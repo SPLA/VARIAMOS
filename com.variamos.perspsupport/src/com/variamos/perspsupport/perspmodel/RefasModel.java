@@ -1638,20 +1638,20 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("value")).getInstAttributeAttribute("Value");
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"1-And-And-false-false-false-2-1-1-1");
+				"1#And#And#false#false#false#2#1#1#1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
 		c.add(a);
 		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value", "2-Or-Or-false-true-true-2-1-1-1");
+		a.setInstAttributeAttribute("Value", "2#Or#Or#false#true#true#2#1#1#1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum2");
 		c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
-				"3-mutex-mutex-false-true-true-2-1-1-1");
+				"3#mutex#mutex#false#true#true#2#1#1#1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum3");
@@ -1901,13 +1901,14 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 
-		semOperationalization.putSemanticAttribute("value",
-				new SyntaxAttribute("value", "Set", false, "values",
+		semOperationalization.putSemanticAttribute("attributeValue",
+				new SyntaxAttribute("attributeValue", "Set", false, "values",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
-		semOperationalization.addPropVisibleAttribute("06#" + "value");
-		semOperationalization.addPropEditableAttribute("06#" + "value");
+		semOperationalization.addPropVisibleAttribute("06#" + "attributeValue");
+		semOperationalization
+				.addPropEditableAttribute("06#" + "attributeValue");
 
 		InstVertex instVertexOper = new InstConcept("Operationalization",
 				metaConcept, semOperationalization);

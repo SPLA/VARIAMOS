@@ -23,7 +23,6 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassSingleSelectionType;
 import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
@@ -71,8 +70,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
-		InstAttribute o = element.getInstAttributes().get(
-				MetaEnumeration.VAR_METAENUMVALUE);
+		InstAttribute o = element.getInstAttributes().get("attributeValue");
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -191,8 +189,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
-					.getValue();
+					.getInstAttributes().get("attributeValue").getValue();
 			int i = 1;
 			/*
 			 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -209,7 +206,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 							false, "Enumeration Value", "", 1, -1, "", "", -1,
 							"", ""), "");
 		} else {
-			String split[] = ((String) instAttribute.getValue()).split("-");
+			String split[] = ((String) instAttribute.getValue()).split("#");
 			instName.setValue(split[0]);
 			instValue.setValue(split[1]);
 			instExtVisible.setValue(split[2]);
@@ -279,28 +276,27 @@ public class VariableAttributeList extends JList<InstAttribute> {
 				// }
 				InstAttribute v = buffer[0];
 				v.setValue(instName.getValue()
-						+ "-"
+						+ "#"
 						+ ((Integer) instValue.getValue()).intValue()
-						+ "-"
+						+ "#"
 						+ (Boolean) instExtVisible.getValue()
-						+ "-"
+						+ "#"
 						+ (Boolean) instExtControl.getValue()
-						+ "-"
+						+ "#"
 						+ (String) instVariableType.getValue()
-						+ "-"
+						+ "#"
 						+ (Boolean) instContext.getValue()
-						+ "-"
+						+ "#"
 						+ (String) instVariableDomain.getValue()
-						+ "-"
+						+ "#"
 						+ (String) instEnumerationType.getValue()
-						+ "-"
+						+ "#"
 						+ ((Integer) instVariableConfigValue.getValue())
 								.intValue() + "-"
 						+ (String) instVariableConfigDomain.getValue());
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.getInstAttributes().get("attributeValue").getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -321,8 +317,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 				dialog.getParameters();
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.getInstAttributes().get("attributeValue").getValue());
 
 				attributes.remove(v);
 

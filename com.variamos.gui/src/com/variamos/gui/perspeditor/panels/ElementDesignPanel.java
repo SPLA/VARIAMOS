@@ -660,8 +660,8 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm instanceof InstEnumeration
-					|| ((InstElement) editElm).getSupportMetaElementIden()
-							.equals("OPER")) {
+					|| (((InstElement) editElm).getSupportMetaElementIden() != null && ((InstElement) editElm)
+							.getSupportMetaElementIden().equals("OPER"))) {
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
