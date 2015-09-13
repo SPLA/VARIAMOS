@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.variamos.core.enums.SolverEditorType;
-import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
@@ -24,6 +23,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.types.PerspectiveType;
+import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
 public class MainFrame extends JFrame {
 	public List<VariamosGraphEditor> getGraphEditors() {
@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.13";
-	private String variamosVersionName = "1.0 Beta 13";
-	private String variamosBuild = "20150909 1200";
+	private String variamosVersionNumber = "1.0.1.14";
+	private String variamosVersionName = "1.0 Beta 14";
+	private String variamosBuild = "20150913 1700";
 	private String downloadId = "[wpdm_package id='376']";
 
 	public int getPerspective() {
@@ -93,7 +93,7 @@ public class MainFrame extends JFrame {
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
 				System.out
 						.println("Creating Rerquirements Model Perspective...");
-				this.setTitle("New Diagram - "+perspTitle);
+				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
 			case 2:// syntax
@@ -266,9 +266,8 @@ public class MainFrame extends JFrame {
 		this.revalidate();
 		this.repaint();
 	}
-	
-	public VariamosGraphEditor getEditor(int perspective)
-	{
+
+	public VariamosGraphEditor getEditor(int perspective) {
 		return graphEditors.get(perspective - 1);
 	}
 
@@ -284,14 +283,15 @@ public class MainFrame extends JFrame {
 		return showPerspectiveButton;
 	}
 
-	public void setShowSimulationCustomizationBox(boolean showSimulationCustomizationBox) {
+	public void setShowSimulationCustomizationBox(
+			boolean showSimulationCustomizationBox) {
 		this.showSimulationCustomizationBox = showSimulationCustomizationBox;
 	}
 
 	public boolean isShowSimulationCustomizationBox() {
 		return showSimulationCustomizationBox;
 	}
-	
+
 	public String getVariamosVersionNumber() {
 		return variamosVersionNumber;
 	}
