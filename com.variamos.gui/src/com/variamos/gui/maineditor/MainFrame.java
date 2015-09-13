@@ -310,6 +310,7 @@ public class MainFrame extends JFrame {
 			input = new URL("http://variamos.com/home/Variamos.txt")
 					.openStream();
 
+			@SuppressWarnings("resource")
 			java.util.Scanner s = new java.util.Scanner(input)
 					.useDelimiter(":");
 			String newVersion = s.hasNext() ? s.next() : null;

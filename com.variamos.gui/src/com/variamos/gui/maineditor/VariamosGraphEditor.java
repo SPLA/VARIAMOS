@@ -86,7 +86,6 @@ import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
@@ -1369,8 +1368,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());
 			}
-			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
-					.getEditableSemanticElement();
+			// IntSemanticElement editableSemanticElement = ((InstConcept)
+			// editableElement)
+			// .getEditableSemanticElement();
 			// if (editableSemanticElement != null) {
 			// if (instAttribute.getIdentifier().equals("Identifier"))
 			// editableSemanticElement

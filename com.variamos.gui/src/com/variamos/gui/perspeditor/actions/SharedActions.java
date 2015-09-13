@@ -506,7 +506,6 @@ public class SharedActions {
 			MetaElement metaElement = instElement.getEditableMetaElement();
 			if (metaElement != null
 					&& metaElement.getInstSemanticElementId() != null) {
-				String t = metaElement.getInstSemanticElementId();
 				InstElement rr = refas.getSemanticRefas().getVertex(
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);

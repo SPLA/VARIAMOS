@@ -1542,6 +1542,7 @@ public class RefasModel extends AbstractModel {
 	 * perspectiv) and defines the semantic for elements on the syntax
 	 * perspective (associated to concepts).
 	 */
+	@SuppressWarnings("unchecked")
 	public void createSemantic() {
 		MetaConcept metaConcept = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("Concept"))
@@ -1570,7 +1571,6 @@ public class RefasModel extends AbstractModel {
 				"HardStructEnumeration", metaEnumeration);
 		variabilityInstVertex.put("HardStructEnumeration", instVertexHStrME);
 
-		@SuppressWarnings("unchecked")
 		ArrayList<InstAttribute> c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHStrME
 				.getInstAttribute("value")).getInstAttributeAttribute("Value");
 		InstAttribute a = new InstAttribute();
@@ -4986,8 +4986,8 @@ public class RefasModel extends AbstractModel {
 		// variabilityInstVertex.put("VariabContext", childView);
 		// syntaxMetaChildView.addConcept(metaEnumeration);
 
-		InstConcept instViewCG2 = new InstConcept("View CG2 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewCG2 = new InstConcept("View CG2 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("View CG2 Relation", instViewCG2);
 		/*
 		 * instEdge = new InstPairwiseRelation();
@@ -5006,8 +5006,8 @@ public class RefasModel extends AbstractModel {
 		 */
 		childView.addInstVertex(instVertexCG);
 
-		InstConcept instViewCV2 = new InstConcept("View CVar2 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewCV2 = new InstConcept("View CVar2 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("View CVar2 Relation", instViewCV2);
 		/*
 		 * instEdge = new InstPairwiseRelation();
@@ -5026,8 +5026,8 @@ public class RefasModel extends AbstractModel {
 		 */
 		childView.addInstVertex(instVertexCV);
 
-		InstConcept instViewGV2 = new InstConcept("View GVar2 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewGV2 = new InstConcept("View GVar2 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("View GVar2 Relation", instViewGV2);
 		/*
 		 * instEdge = new InstPairwiseRelation();
@@ -6357,8 +6357,8 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instViewAsset, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept instViewAsset2 = new InstConcept("View Asset2 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewAsset2 = new InstConcept("View Asset2 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("View Asset2 Relation",
 		// instViewAsset2);
 		/*
@@ -6394,8 +6394,8 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instViewAOper, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept instViewAOper2 = new InstConcept("ViewA Oper2 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewAOper2 = new InstConcept("ViewA Oper2 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("ViewA Oper2 Relation",
 		// instViewAOper2);
 		/*
@@ -6427,8 +6427,8 @@ public class RefasModel extends AbstractModel {
 		// syntaxMetaView.addConcept(syntaxGroupDependency);
 		// syntaxMetaChildView.addConcept(syntaxGroupDependency);
 
-		InstConcept instViewAsset3 = new InstConcept("View Asset3 Relation",
-				supportMetaViewPairwise, metaViewRel);
+		// InstConcept instViewAsset3 = new InstConcept("View Asset3 Relation",
+		// supportMetaViewPairwise, metaViewRel);
 		// this.variabilityInstVertex.put("View Asset3 Relation",
 		// instViewAsset3);
 

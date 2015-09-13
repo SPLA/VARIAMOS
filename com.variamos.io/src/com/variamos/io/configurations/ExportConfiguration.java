@@ -19,6 +19,7 @@ public class ExportConfiguration {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1719783068334097524L;
 
 	public ExportConfiguration() {
