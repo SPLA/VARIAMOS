@@ -1901,12 +1901,14 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 
-		  semOperationalization.putSemanticAttribute("value", new
-		  SyntaxAttribute("value", "Set", false, "values",
-		  InstAttribute.class.getCanonicalName(), 0, -1, "", "", -1, "", ""));
-		 semOperationalization.addPropVisibleAttribute("06#" + "value");
-		  semOperationalization.addPropEditableAttribute("06#" + "value");
-		 
+		semOperationalization.putSemanticAttribute("value",
+				new SyntaxAttribute("value", "Set", false, "values",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+		semOperationalization.addPropVisibleAttribute("06#" + "value");
+		semOperationalization.addPropEditableAttribute("06#" + "value");
+
 		InstVertex instVertexOper = new InstConcept("Operationalization",
 				metaConcept, semOperationalization);
 		variabilityInstVertex.put("Operationalization", instVertexOper);
@@ -6486,8 +6488,7 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getIdentifier(),
-							pwr.getEditableMetaElement());
+					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 
@@ -6516,8 +6517,7 @@ public class RefasModel extends AbstractModel {
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier()))
-					out.put(pwr.getIdentifier(),
-							pwr.getEditableMetaElement());
+					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 			}
@@ -6712,8 +6712,8 @@ public class RefasModel extends AbstractModel {
 						.getSupportMetaElementIden() != null
 						&& instElement.getTargetRelations().get(0)
 								.getTargetRelations().get(0)
-								.getTargetRelations().get(0)
-								.getIdentifier().equals(element))
+								.getTargetRelations().get(0).getIdentifier()
+								.equals(element))
 					return true;
 			}
 		}
