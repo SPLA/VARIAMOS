@@ -21,8 +21,8 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 
 /**
- * A class to support the dialog to control simulation of configurations. Part of PhD
- * work at University of Paris 1
+ * A class to support the dialog to control simulation of configurations. Part
+ * of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -36,6 +36,7 @@ public class ExternalContextDialog extends JDialog implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1478873242908074197L;
+	@SuppressWarnings("unused")
 	private DialogButtonAction onStart, onStop, onStopAndClose;
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
@@ -72,8 +73,7 @@ public class ExternalContextDialog extends JDialog implements
 
 		panel = new JPanel();
 		panel.setLayout(new SpringLayout());
-		JLabel lab = new JLabel(
-				"Initial Config File (Optional): ");
+		JLabel lab = new JLabel("Initial Config File (Optional): ");
 		lab.setToolTipText("Initial JSON config file. Leave empty to use the configuration on graph");
 		panel.add(lab);
 		initialConfigFile = new JTextField("Z:/monitor/ini.conf");
@@ -89,7 +89,7 @@ public class ExternalContextDialog extends JDialog implements
 		outputDirectory = new JTextField("Z:/monitor/objtosystem/");
 		panel.add(outputDirectory);
 		lab = new JLabel("Loop speed (seconds): ");
-		lab.setToolTipText("Waiting time (seconds) to iterate over input files"); 
+		lab.setToolTipText("Waiting time (seconds) to iterate over input files");
 		panel.add(lab);
 		waitBetweenExecs = new JTextField("5");
 		panel.add(waitBetweenExecs);
@@ -160,13 +160,12 @@ public class ExternalContextDialog extends JDialog implements
 					monitoringWorker = new MonitoringWorker(editor,
 							initialConfigFile.getText(), monitoringDirectory
 									.getText(), outputDirectory.getText(),
-							Float.parseFloat(waitBetweenExecs.getText()),
-							Float.parseFloat(waitAfterNoSolution.getText()),
+							Float.parseFloat(waitBetweenExecs.getText()), Float
+									.parseFloat(waitAfterNoSolution.getText()),
 							monitorVariables.isSelected(), monitorOpers
-							.isSelected(),monitorAssets
-							.isSelected(), mapeAP.isSelected(),
-							fileIteration.isSelected(), firstSolutionOnly
-									.isSelected());
+									.isSelected(), monitorAssets.isSelected(),
+							mapeAP.isSelected(), fileIteration.isSelected(),
+							firstSolutionOnly.isSelected());
 					monitoringWorker.execute();
 					monitoringWorker
 							.addPropertyChangeListener(ExternalContextDialog.this);

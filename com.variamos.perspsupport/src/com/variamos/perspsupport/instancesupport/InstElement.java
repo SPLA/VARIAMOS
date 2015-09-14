@@ -291,6 +291,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 		return getText(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	public String getText(List<InstElement> parents) {
 		String out = "";
 		String out2 = "";

@@ -660,9 +660,8 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm instanceof InstEnumeration
-			// || ((InstElement) editElm).getSupportMetaElementIden()
-			// .equals("OPER")
-			) {
+					|| (((InstElement) editElm).getSupportMetaElementIden() != null && ((InstElement) editElm)
+							.getSupportMetaElementIden().equals("OPER"))) {
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
@@ -679,11 +678,13 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setMaximumSize(new Dimension(150, 80));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (((InstElement) editElm).getSupportMetaElementIden().equals(
-						"ME")
-				// || ((InstElement) editElm).getSupportMetaElementIden()
-				// .equals("OPER")
-				) {
+						"ME")) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
+							editor, instCell);
+					attPanel.add(new JScrollPane(attList));
+				} else if (((InstElement) editElm).getSupportMetaElementIden()
+						.equals("OPER")) {
+					VariableAttributeList attList = new VariableAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
 				} else {

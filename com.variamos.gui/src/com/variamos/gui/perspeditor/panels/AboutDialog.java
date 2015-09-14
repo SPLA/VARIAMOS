@@ -38,6 +38,7 @@ import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 @SuppressWarnings("serial")
 public class AboutDialog extends JDialog {
 	private HashMap<String, WidgetR> widgets;
+	@SuppressWarnings("unused")
 	private DialogButtonAction onAccept;
 
 	static interface DialogButtonAction {
