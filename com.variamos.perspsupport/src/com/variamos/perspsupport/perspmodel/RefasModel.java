@@ -2709,6 +2709,10 @@ public class RefasModel extends AbstractModel {
 		directSGSGSemEdge.addPanelVisibleAttribute("09#"
 				+ SemanticPairwiseRelation.VAR_TARGET_LEVEL);
 
+		InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
+				metaPairwiseRelation, directSGSGSemEdge);
+		variabilityInstVertex.put("SgSgPWAsso", instDirSGSGSemanticEdge);
+
 		InstVertex instVertexSGGR = new InstConcept("SgSgOTAsso",
 				metaOverTwoRelation, semanticSGSGGroupRelation);
 		variabilityInstVertex.put("SgSgOTAsso", instVertexSGGR);
@@ -5819,7 +5823,7 @@ public class RefasModel extends AbstractModel {
 
 		// syntaxMetaView.addConcept(syntaxAsset);
 
-		syntaxAsset.addPanelVisibleAttribute("03#" + "name");
+		// syntaxAsset.addPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addPropEditableAttribute("03#" + "name");
 		syntaxAsset.addPropVisibleAttribute("03#" + "name");
 		syntaxMetaChildView = new MetaView("Assets", "Assets General View",
@@ -6471,11 +6475,12 @@ public class RefasModel extends AbstractModel {
 	private Map<String, MetaElement> getValidPairwiseRelations(
 			InstElement instElement, InstElement instElement2, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
+		Map<String, MetaElement> out = new HashMap<String, MetaElement>();
 		if (instElement2 == null) {
 			System.out.println("error");
+			return out;
 		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
-		Map<String, MetaElement> out = new HashMap<String, MetaElement>();
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
 			if (pwr.getSourceRelations().size() > 0
 					&& pwr.getTargetRelations().size() > 0) {

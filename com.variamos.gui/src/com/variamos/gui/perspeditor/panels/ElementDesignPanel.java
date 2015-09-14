@@ -235,10 +235,14 @@ public class ElementDesignPanel extends JPanel {
 													.getInstAttributes()
 													.get(MetaConcept.VAR_AUTOIDENTIFIER)
 													.getValue());
-								else
-									instAttribute.setValue(editElm
-											.getInstAttributes().get("name")
-											.getValue());
+								else {
+									InstAttribute name = editElm
+											.getInstAttributes().get("name");
+									if (name == null)
+										name = editElm.getInstAttributes().get(
+												"Name");
+									instAttribute.setValue(name.getValue());
+								}
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
 							Map<String, MetaElement> mapElements = null;
