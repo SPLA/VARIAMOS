@@ -2126,6 +2126,8 @@ public class RefasModel extends AbstractModel {
 
 		semSoftDependency.addPropVisibleAttribute("02#" + "SDSelected");
 
+		semSoftDependency.addPanelVisibleAttribute("10#" + "SDExpression");
+
 		// Elements Lists
 		// List<AbstractSemanticVertex> semAssumptionElements = new
 		// ArrayList<AbstractSemanticVertex>();
@@ -5300,7 +5302,7 @@ public class RefasModel extends AbstractModel {
 		syntaxClaim.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		syntaxClaim.addPanelSpacersAttribute("#"
-				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
 				0, -1, "", "", -1, "", "");
