@@ -71,7 +71,7 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 		this.addPropVisibleAttribute("08#" + VAR_EXTVISIBLE);
 		this.addPropVisibleAttribute("09#" + VAR_EXTCONTROL);
 
-		this.addPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
+		// this.addPanelVisibleAttribute("01#" + VAR_VARIABLENAME);
 
 	}
 
