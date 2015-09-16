@@ -121,18 +121,20 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getRelaxableExpressionList(element) != null)
-				transformations.addAll(constraintGroup
-						.getRelaxableExpressionList(element));
+			List<AbstractExpression> relaxableExpressions = constraintGroup
+					.getRelaxableExpressionList(element);
+			if (relaxableExpressions != null)
+				transformations.addAll(relaxableExpressions);
 		}
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element);
 
 		List<AbstractExpression> transformations2 = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getRelaxableExpressionList(element) != null)
-				transformations2.addAll(constraintGroup
-						.getRelaxableExpressionList(element));
+			List<AbstractExpression> relaxableExpressions = constraintGroup
+					.getRelaxableExpressionList(element);
+			if (relaxableExpressions != null)
+				transformations2.addAll(relaxableExpressions);
 		}
 
 		for (AbstractExpression transformation : transformations) {
@@ -159,26 +161,29 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getCompulsoryExpressionList(element) != null)
-				transformations.addAll(constraintGroup
-						.getCompulsoryExpressionList(element));
+			List<AbstractExpression> compulsoryExpressions = constraintGroup
+					.getCompulsoryExpressionList(element);
+			if (compulsoryExpressions != null)
+				transformations.addAll(compulsoryExpressions);
 		}
 
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createEdgeExpressions(null, 4);
 
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getCompulsoryExpressionList(element) != null)
-				transformations.addAll(constraintGroup
-						.getCompulsoryExpressionList(element));
+			List<AbstractExpression> compulsoryExpressions = constraintGroup
+					.getCompulsoryExpressionList(element);
+			if (compulsoryExpressions != null)
+				transformations.addAll(compulsoryExpressions);
 		}
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		createGroupExpressions(null, 4, element);
 
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getCompulsoryExpressionList(element) != null)
-				transformations.addAll(constraintGroup
-						.getCompulsoryExpressionList(element));
+			List<AbstractExpression> compulsoryExpressions = constraintGroup
+					.getCompulsoryExpressionList(element);
+			if (compulsoryExpressions != null)
+				transformations.addAll(compulsoryExpressions);
 		}
 
 		for (AbstractExpression transformation : transformations) {
@@ -205,9 +210,10 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
-			if (constraintGroup.getRelaxableExpressionList("Root") != null)
-				transformations.addAll(constraintGroup
-						.getRelaxableExpressionList("Root"));
+			List<AbstractExpression> relaxableExpressions = constraintGroup
+					.getRelaxableExpressionList("Root");
+			if (relaxableExpressions != null)
+				transformations.addAll(relaxableExpressions);
 		}
 
 		for (AbstractExpression transformation : transformations) {
@@ -334,8 +340,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				return getSumExpression(instVertex, iterVertex, attributeName);
 		} else if (this.validateConceptType(last, "GeneralElement")
 				&& last.getInstAttribute("Active").getAsBoolean() == true)
-			return f.newIdentifier(last.getIdentifier() + "_"
-					+ attributeName);
+			return f.newIdentifier(last.getIdentifier() + "_" + attributeName);
 		else
 			return f.number(0);
 
@@ -723,8 +728,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					constraintGroups.put(
 							elm.getIdentifier(),
 							new PairwiseElementExpressionSet(elm
-									.getIdentifier(), idMap, f, elm,
-									execType));
+									.getIdentifier(), idMap, f, elm, execType));
 			}
 		else if (refas.getConstraintInstEdges().get(identifier) != null)
 			constraintGroups.put(identifier,
@@ -740,11 +744,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (identifier == null)
 			for (InstOverTwoRelation elm : refas
 					.getInstGroupDependenciesCollection()) {
-				constraintGroups.put(
-						elm.getIdentifier(),
-						new OverTwoElementsExpressionSet(elm
-								.getIdentifier(), idMap, f, elm, execType,
-								element));
+				constraintGroups.put(elm.getIdentifier(),
+						new OverTwoElementsExpressionSet(elm.getIdentifier(),
+								idMap, f, elm, execType, element));
 			}
 		else
 			constraintGroups.put(identifier,
@@ -808,8 +810,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex
-						.getIdentifier())
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())
 						|| instVertex.getInstAttribute("ConfigSelected")
 								.getAsBoolean()) {
 					if (test) {
@@ -850,8 +851,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("ConfigNotSelected");
 
 				// System.out.println(vertexId + " " + attribute);
-				if (requiredConceptsNames.contains(instVertex
-						.getIdentifier())) {
+				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
 					if (test) {
 						instAttributeTest.setValue(true);
 					} else {
@@ -924,8 +924,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						&& !instAttribute2.getAsBoolean()
 						&& !instAttribute3.getAsBoolean()
 						&& !instAttribute4.getAsBoolean())
-					out.add(f.newIdentifier(instVertex.getIdentifier()
-							+ "_" + "Selected"));
+					out.add(f.newIdentifier(instVertex.getIdentifier() + "_"
+							+ "Selected"));
 			}
 		}
 		return out;
@@ -958,8 +958,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttribute("NotAvailable");
 				// System.out.println(vertexId + " " + attribute);
 				if (deadIdentifiers != null
-						&& deadIdentifiers.contains(instVertex
-								.getIdentifier())) {
+						&& deadIdentifiers.contains(instVertex.getIdentifier())) {
 					instAttributeDead.setValue(true);
 					instAttributeNotAva.setValue(true);
 				}
@@ -986,17 +985,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					|| target.getIdentifier().startsWith("FeatOverTwo")
 					|| target.getIdentifier().startsWith("HardOverTwo")
 					|| target.getIdentifier().startsWith("SoftgoalOverTwo")
-					|| target.getIdentifier()
-							.startsWith("OperClaimOverTwo")
-					|| target.getIdentifier().startsWith(
-							"AssetOperGroupDep")
-					|| target.getIdentifier().startsWith(
-							"AssetFeatGroupDep")) {
+					|| target.getIdentifier().startsWith("OperClaimOverTwo")
+					|| target.getIdentifier().startsWith("AssetOperGroupDep")
+					|| target.getIdentifier().startsWith("AssetFeatGroupDep")) {
 				if (!target.getInstAttribute("Selected").getAsBoolean()
 						&& !target.getInstAttribute("NotAvailable")
 								.getAsBoolean()
-						&& !target.getIdentifier()
-								.startsWith("FeatOverTwo"))
+						&& !target.getIdentifier().startsWith("FeatOverTwo"))
 					if (!calc)
 						freeIdentifiers.add(f.newIdentifier(target
 								.getIdentifier() + "_Selected"));
