@@ -216,7 +216,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							if (instAttribute.getIdentifier()
 									.equals("Required")) {
 								if (instVertex.getTransSupportMetaElement()
-										.getAutoIdentifier().equals("RootFeature")) {
+										.getAutoIdentifier()
+										.equals("RootFeature")) {
 									coreAndFalseOptList
 											.add(new EqualsComparisonExpression(
 													instVertex, instAttribute
@@ -352,7 +353,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									transformation50 = new GreaterOrEqualsBooleanExpression(
 											instVertex, instVertex,
 											"SDReqLevel", "ClaimExpLevel");
-								} else// (satisficingType.contains("close"))
+								} else
+									// (satisficingType.contains("close"))
 									transformation50 = new EqualsComparisonExpression(
 											instVertex, instVertex,
 											"SDReqLevel", "ClaimExpLevel");
@@ -429,22 +431,31 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
 								AbstractNumericExpression transformation49 = null;
 								if (instVertex.getTransSupportMetaElement()
-										.getAutoIdentifier().endsWith("Softgoal")) {
+										.getAutoIdentifier()
+										.endsWith("Softgoal")) {
 									// System.out.println(instVertex
 									// .getTransSupportMetaElement()
 									// .getIdentifier());
-									
-//									DiffNumericExpression transformation488 = new DiffNumericExpression(
-//											instVertex, "Selected", false,
-//											getHlclFactory().number(1));
-//									DiffNumericExpression transformation489 = new DiffNumericExpression(new NumberNumericExpression(1),new EqualsComparisonExpression(
-//											instVertex,instVertex, "SDReqLevel","ClaimExpLevel" ));
-//									AbstractNumericExpression transformation490 = new ProdNumericExpression(
-//											transformation488,
-//											new NumberNumericExpression(8));
-//									 transformation49=new SumNumericExpression(
-//											transformation488, transformation490);
-									 
+
+									// DiffNumericExpression transformation488 =
+									// new DiffNumericExpression(
+									// instVertex, "Selected", false,
+									// getHlclFactory().number(1));
+									// DiffNumericExpression transformation489 =
+									// new DiffNumericExpression(new
+									// NumberNumericExpression(1),new
+									// EqualsComparisonExpression(
+									// instVertex,instVertex,
+									// "SDReqLevel","ClaimExpLevel" ));
+									// AbstractNumericExpression
+									// transformation490 = new
+									// ProdNumericExpression(
+									// transformation488,
+									// new NumberNumericExpression(8));
+									// transformation49=new
+									// SumNumericExpression(
+									// transformation488, transformation490);
+
 									DiffNumericExpression transformation488 = new DiffNumericExpression(
 											instVertex, "Selected", false,
 											getHlclFactory().number(1));
@@ -659,7 +670,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 					if (target.getTargetRelations().get(0)
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
-				} else if (type != null && (type.equals("Group"))) {
+				} else if (type == null || (type.equals("Group"))) {
 					InstVertex grouprel = (InstVertex) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {

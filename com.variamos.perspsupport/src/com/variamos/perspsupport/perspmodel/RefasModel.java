@@ -6481,6 +6481,10 @@ public class RefasModel extends AbstractModel {
 				.getSupportMetaElementIden());
 		InstElement instSyntaxElement2 = this.getVertex(instElement2
 				.getSupportMetaElementIden());
+		if (instSyntaxElement2 == null) {
+			System.out.println("getValidPairwiseRelations error - "
+					+ instElement2.getIdentifier());
+		}
 		return getValidPairwiseRelations(instSyntaxElement, instSyntaxElement2,
 				true);
 	}
@@ -6490,7 +6494,6 @@ public class RefasModel extends AbstractModel {
 		MetaElement metaElement = instElement.getEditableMetaElement();
 		Map<String, MetaElement> out = new HashMap<String, MetaElement>();
 		if (instElement2 == null) {
-			System.out.println("error");
 			return out;
 		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
@@ -6588,7 +6591,7 @@ public class RefasModel extends AbstractModel {
 			InstElement instElement2, String metaPairwiseIden, boolean first) {
 		MetaElement metaElement = instElement.getEditableMetaElement();
 		if (instElement2 == null) {
-			System.out.println("error");
+			System.out.println("getValidMetaPairwiseRelation error");
 		}
 		MetaElement metaElement2 = instElement2.getEditableMetaElement();
 		for (InstPairwiseRelation pwr : constraintInstEdges.values()) {
