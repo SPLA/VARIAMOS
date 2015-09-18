@@ -988,8 +988,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (editableElementType != null)
 					if (this.perspective == 2)
 
-						if (refas2hlcl.validateConceptType(finalEditElm,
-								"GeneralElement"))
+						if (finalEditElm instanceof InstElement
+								//refas2hlcl.validateConceptType(finalEditElm, "GeneralElement")
+								)
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
