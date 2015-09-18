@@ -5386,11 +5386,11 @@ public class RefasModel extends AbstractModel {
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
-		syntaxSoftDependency
-				.addModelingAttribute("conditionalExpression",
-						new SemanticAttribute("conditionalExpression",
-								"String", false, "Cond. Expression Text", "",
-								0, -1, "", "", -1, "", ""));
+		// syntaxSoftDependency
+		// .addModelingAttribute("conditionalExpression",
+		// new SemanticAttribute("conditionalExpression",
+		// "String", false, "Cond. Expression Text", "",
+		// 0, -1, "", "", -1, "", ""));
 
 		// syntaxSoftDependency.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -5403,14 +5403,14 @@ public class RefasModel extends AbstractModel {
 
 		// syntaxSoftDependency.addPanelSpacersAttribute("#" + "name" + "#:\n");
 
-		syntaxSoftDependency.addPanelVisibleAttribute("10#"
-				+ "conditionalExpression");
+		// syntaxSoftDependency.addPanelVisibleAttribute("10#"
+		// + "conditionalExpression");
 
-		syntaxSoftDependency.addPropEditableAttribute("10#"
-				+ "conditionalExpression");
+		// syntaxSoftDependency.addPropEditableAttribute("10#"
+		// + "conditionalExpression");
 
-		syntaxSoftDependency.addPropVisibleAttribute("10#"
-				+ "conditionalExpression");
+		// syntaxSoftDependency.addPropVisibleAttribute("10#"
+		// + "conditionalExpression");
 
 		InstVertex instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);

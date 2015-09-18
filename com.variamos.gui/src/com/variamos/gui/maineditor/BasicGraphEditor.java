@@ -58,7 +58,6 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
-import com.variamos.perspsupport.instancesupport.EditableElement;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -231,7 +230,6 @@ public class BasicGraphEditor extends JPanel {
 
 	}
 
-
 	/**
 	 * Constructor for all perspectives
 	 * 
@@ -255,15 +253,15 @@ public class BasicGraphEditor extends JPanel {
 
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
-		graphOutline.setMinimumSize(new Dimension(0,170));
+		graphOutline.setMinimumSize(new Dimension(0, 170));
 
 		// Creates the library pane that contains the tabs with the palettes
 		libraryPane = new JTabbedPane();
 
-		libraryPane.setMinimumSize(new Dimension(0,70));
+		libraryPane.setMinimumSize(new Dimension(0, 70));
 
-		libraryPane.setPreferredSize(new Dimension(0,170));
-		libraryPane.setMaximumSize(new Dimension(0,270));
+		libraryPane.setPreferredSize(new Dimension(0, 170));
+		libraryPane.setMaximumSize(new Dimension(0, 270));
 		// Creates the inner split 1 pane that contains the library with the
 		// palettes and the graph outline on the left side of the window
 
@@ -307,7 +305,7 @@ public class BasicGraphEditor extends JPanel {
 		upperPart.setBorder(null);
 
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				upperPart, getExtensionsTab(null));
+				upperPart, getExtensionsTab());
 		everything.setOneTouchExpandable(false);
 		everything.setDividerLocation(400);
 		everything.setResizeWeight(1);
@@ -372,7 +370,7 @@ public class BasicGraphEditor extends JPanel {
 		return new JPanel();
 	}
 
-	protected Component getExtensionsTab(final EditableElement elm) {
+	protected Component getExtensionsTab() {
 		return new JPanel();
 	}
 
@@ -433,7 +431,7 @@ public class BasicGraphEditor extends JPanel {
 					}
 				});
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -448,7 +446,7 @@ public class BasicGraphEditor extends JPanel {
 					.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane
 					.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		libraryPane.add(paletteNames[i], scrollPane);
+			libraryPane.add(paletteNames[i], scrollPane);
 			// Updates the widths of the palette if the container size changes
 			libraryPane.addComponentListener(new ComponentAdapter() {
 				/**
@@ -478,7 +476,7 @@ public class BasicGraphEditor extends JPanel {
 		scrollPane
 				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		libraryPane.add(title, scrollPane);
-	//	libraryPane.add("2", scrollPane2);
+		// libraryPane.add("2", scrollPane2);
 		// Updates the widths of the palettes if the container size changes
 		libraryPane.addComponentListener(new ComponentAdapter() {
 			/**
@@ -1074,6 +1072,7 @@ public class BasicGraphEditor extends JPanel {
 		if (modelsTabPane.getTabCount() > 0)
 			modelsTabPane.setSelectedIndex(0);
 	}
+
 	public void setSelectedTab(int selected) {
 		if (modelsTabPane.getTabCount() > selected)
 			modelsTabPane.setSelectedIndex(selected);
