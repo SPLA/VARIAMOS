@@ -674,7 +674,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	@Override
-	public Component getExtensionsTab(final EditableElement elm) {
+	public Component getExtensionsTab() {
 		if (extensionTabs != null)
 			return extensionTabs;
 
@@ -740,6 +740,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							&& editableElementType != null
 							&& (perspective == 2 || perspective == 4)
 							&& updateExpressions) {
+						InstElement elm = lastEditableElement.getInstElement();
 						if (elm instanceof InstConcept) {
 							String iden = ((InstConcept) elm)
 									.getTransSupportMetaElement()
