@@ -989,8 +989,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					if (this.perspective == 2)
 
 						if (finalEditElm instanceof InstElement
-								//refas2hlcl.validateConceptType(finalEditElm, "GeneralElement")
-								)
+						// refas2hlcl.validateConceptType(finalEditElm,
+						// "GeneralElement")
+						)
 							expressionsArea.setText(refas2hlcl
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
@@ -1598,7 +1599,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (result) {
 					List<String> modifiedIdentifiers = compareSolutions(
 							lastConfiguration, currentConfiguration);
-					System.out.println(modifiedIdentifiers);
+					// System.out.println(modifiedIdentifiers);
 				}
 			}
 			lastConfiguration = refas2hlcl.getConfiguration();
@@ -1833,7 +1834,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		} else
 			defects.remove(string);
 
-		System.out.println(string + " " + b);
+		// System.out.println(string + " " + b);
 
 	}
 

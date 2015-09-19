@@ -46,7 +46,7 @@ public class PerspectiveAction extends AbstractEditorAction {
 		JButton jb = (JButton) e.getSource();
 		if (perspectiveInd != 1
 				&& jb.getText().equals(mxResources.get("semanticPerspButton"))) {
-			System.out.println("semanticPerspButton");
+			// System.out.println("semanticPerspButton");
 			mainFrame.setPerspective(1);
 		}
 		if (perspectiveInd != 2
@@ -65,20 +65,20 @@ public class PerspectiveAction extends AbstractEditorAction {
 				ed.updateEditor();
 				ed.setVisibleModel(0, -1);
 				ed.defineViewTabs();
-				System.out.println("modelingPerspButton");
+				// System.out.println("modelingPerspButton");
 			}
 		}
 		if (perspectiveInd != 3
 				&& jb.getText().equals(mxResources.get("syntaxPerspButton"))) {
 			mainFrame.setPerspective(3);
-			System.out.println("syntaxPerspButton");
+			// System.out.println("syntaxPerspButton");
 		}
 
 		if (perspectiveInd != 4
 				&& jb.getText()
 						.equals(mxResources.get("simulationPerspButton"))) {
 			mainFrame.setPerspective(4);
-			System.out.println("simulationPerspButton");
+			// System.out.println("simulationPerspButton");
 		}
 		perspective.updatePerspective(mainFrame.getPerspective());
 		mainFrame.validate();

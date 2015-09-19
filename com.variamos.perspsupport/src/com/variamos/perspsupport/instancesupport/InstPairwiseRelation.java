@@ -195,8 +195,7 @@ public class InstPairwiseRelation extends InstElement {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 					addInstAttribute(name, getMetaPairwiseRelation()
-							.getModelingAttribute(name, null),
-							getIdentifier());
+							.getModelingAttribute(name, null), getIdentifier());
 				else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
 					addInstAttribute(name, getMetaPairwiseRelation()
 							.getModelingAttribute(name, null),
@@ -504,7 +503,9 @@ public class InstPairwiseRelation extends InstElement {
 							if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
 									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
-											.getValueObject() != null) {
+											.getValueObject() != null
+									&& getInstAttributes().get(name)
+											.getValueObject() instanceof SemanticRelationType) {
 								out += ((SemanticRelationType) getInstAttributes()
 										.get(name).getValueObject())
 										.getDiplayName();
