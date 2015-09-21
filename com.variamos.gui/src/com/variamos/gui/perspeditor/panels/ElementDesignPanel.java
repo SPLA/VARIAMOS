@@ -535,6 +535,7 @@ public class ElementDesignPanel extends JPanel {
 										|| widget instanceof MEnumerationWidget) {
 									widget.getEditor().setPreferredSize(
 											new Dimension(200, 100));
+
 								} else {
 									widget.getEditor().setPreferredSize(
 											new Dimension(200, 20));
@@ -544,6 +545,12 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.editVariable(instAttribute))
 									count = 0;
 
+								if (editor.getPerspective() == 2) {
+									widget.getInstAttribute();
+									onVariableEdited(finalEditor,
+											instCell.getInstElement(),
+											widget.getInstAttribute());
+								}
 								List<InstAttribute> editables = editElm
 										.getEditableVariables(parent);
 

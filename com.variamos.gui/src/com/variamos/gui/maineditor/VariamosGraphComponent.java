@@ -156,16 +156,12 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						.getTransSupportMetaElement());
 				IntSemanticElement semElement = metaElement == null ? null
 						: metaElement.getTransSemanticConcept();
-				while (semElement != null
-						&& semElement.getIdentifier() != null
-						&& !semElement.getIdentifier().equals(
-								"GeneralElement"))
+				while (semElement != null && semElement.getIdentifier() != null
+						&& !semElement.getIdentifier().equals("GeneralElement"))
 					semElement = semElement.getParent();
 
-				if (semElement != null
-						&& semElement.getIdentifier() != null
-						&& semElement.getIdentifier().equals(
-								"GeneralElement")) {
+				if (semElement != null && semElement.getIdentifier() != null
+						&& semElement.getIdentifier().equals("GeneralElement")) {
 					InstElement val = ((InstCell) childCell.getValue())
 							.getInstElement();
 
@@ -364,7 +360,9 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				 * over3.setAlign(mxConstants.ALIGN_RIGHT); addCellOverlay(tmp,
 				 * over3); }
 				 */
-				if (!instConcept.getInstAttribute("HasParent").getAsBoolean()) {
+				if (instConcept.getInstAttribute("HasParent") != null
+						&& !instConcept.getInstAttribute("HasParent")
+								.getAsBoolean()) {
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(error)),
 							"This element must have a parent");

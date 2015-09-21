@@ -138,6 +138,7 @@ public abstract class MetaElement implements Serializable {
 
 	{
 		this.autoIdentifier = autoIdentifier;
+		this.userIdentifier = autoIdentifier;
 		this.visible = visible;
 		this.name = name;
 		this.style = style;
@@ -148,8 +149,7 @@ public abstract class MetaElement implements Serializable {
 		this.borderStroke = borderStroke;
 		this.instSemanticElement = instSemanticElement;
 		if (instSemanticElement != null)
-			this.instSemanticElementId = instSemanticElement
-					.getIdentifier();
+			this.instSemanticElementId = instSemanticElement.getIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;
 		this.propEditableAttributes = disPropEditableAttributes;
 		this.panelVisibleAttributes = disPanelVisibleAttributes;

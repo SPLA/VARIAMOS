@@ -121,8 +121,7 @@ public abstract class InstVertex extends InstElement {
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
-					modelingAttribute,
-					value == null ? modelingAttribute.getDefaultValue() : value);
+					modelingAttribute, value == null ?  modelingAttribute.getDefaultValue() : value);
 			getInstAttributes().put(name, instAttribute);
 			// instAttributes.put(name, instAttribute);
 		}

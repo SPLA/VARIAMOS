@@ -383,14 +383,16 @@ public abstract class InstElement implements Serializable, EditableElement,
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
 								// System.out.println(this.getIdentifier());
-								if (instAttribute.getAttributeType() != null
-										&& instAttribute.getAttributeType()
-												.equals("Set"))
-									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-											.getValue())
-										out += e.toString().trim() + "\n";
-								else
-									out += instAttribute.toString().trim();
+								//if (instAttribute != null) {
+									if (instAttribute.getAttributeType() != null
+											&& instAttribute.getAttributeType()
+													.equals("Set"))
+										for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+												.getValue())
+											out += e.toString().trim() + "\n";
+									else
+										out += instAttribute.toString().trim();
+								//}
 							}
 							while (sp2 != spacer.length()) {
 								int sp3 = spacer.indexOf("#", sp2 + 1);

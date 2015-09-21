@@ -89,7 +89,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPropVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 		if (parents != null)
@@ -114,7 +115,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPropEditableAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
@@ -139,7 +141,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelVisibleAttributes());
 
@@ -165,7 +168,8 @@ public class MetaConcept extends MetaVertex {
 	public Set<String> getPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
-		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelSpacersAttributes());
 

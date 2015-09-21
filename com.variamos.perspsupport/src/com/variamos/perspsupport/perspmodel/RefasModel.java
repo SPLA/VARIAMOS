@@ -1579,14 +1579,14 @@ public class RefasModel extends AbstractModel {
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum11");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"12-impl.-Impl.-true-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum12");
-		c.add(a);
+		// c.add(a);
 
 		InstEnumeration instVertexHSideME = new InstEnumeration(
 				"HardSideEnumeration", metaEnumeration);
@@ -1600,35 +1600,35 @@ public class RefasModel extends AbstractModel {
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"2-altern.-altern.-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum2");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"3-preferred-pref.-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum3");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"4-req.-req..-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum4");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"5-cond.-cond.-false-true-true-1-1-1-1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum5");
-		c.add(a);
+		// c.add(a);
 
 		InstEnumeration instClaimSemOTAsso = new InstEnumeration(
 				"ClaimSemOTAsso", metaEnumeration);
@@ -1642,20 +1642,20 @@ public class RefasModel extends AbstractModel {
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum1");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value", "2#Or#Or#false#true#true#2#1#1#1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum2");
-		c.add(a);
+		// c.add(a);
 		a = new InstAttribute();
 		a.setInstAttributeAttribute("Value",
 				"3#mutex#mutex#false#true#true#2#1#1#1");
 		a.setInstAttributeAttribute("DisplayValue", null);
 		a.setInstAttributeAttribute("attributeIden", "EnumValue");
 		a.setInstAttributeAttribute("Identifier", "enum3");
-		c.add(a);
+		// c.add(a);
 
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From this name depends all the operations,
@@ -3174,14 +3174,14 @@ public class RefasModel extends AbstractModel {
 				.getConstraintInstEdge("viewPWAsso");
 
 		MetaPairwiseRelation metaExtendsRel = new MetaPairwiseRelation(
-				"ExtendsRelation", true, "ExtendsRelation", "",
+				"ExtendsRelation", false, "ExtendsRelation", "",
 				"Extends relation between two hard concepts. Extends syntatic and semantic"
 						+ "attributes", 50, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directExtendsSemanticEdge);
 
 		MetaPairwiseRelation metaViewRel = new MetaPairwiseRelation(
-				"ViewRelation", true, "ViewRelation", "",
+				"ViewRelation", false, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -3545,7 +3545,7 @@ public class RefasModel extends AbstractModel {
 		// instFeatVertPairWiseRel);
 
 		MetaPairwiseRelation metaFeatSidePairwiseRel = new MetaPairwiseRelation(
-				"Feature Side Relation", true, "Feature Side Relation", "",
+				"DirSideRelation", true, "Feature Side Relation", "",
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
 						+ " relations", 70, 50,
@@ -3560,7 +3560,7 @@ public class RefasModel extends AbstractModel {
 
 		InstConcept instDirSideRelation = new InstConcept("DirSideRelation",
 				supportMetaElementPairwise, metaFeatSidePairwiseRel);
-		instDirSideRelation.setInstAttribute("Type", "Structure");
+		instDirSideRelation.setInstAttribute("Type", "DirSideRelation");
 		instDirSideRelation.getInstAttribute("SourceCardinality").setValue(
 				"[0..1]");
 		instDirSideRelation.getInstAttribute("TargetCardinality").setValue(
@@ -6509,7 +6509,9 @@ public class RefasModel extends AbstractModel {
 				if (sourceMetaElement.getAutoIdentifier().equals(
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
-								metaElement2.getAutoIdentifier()))
+								metaElement2.getAutoIdentifier())
+				// && pwr.getEditableMetaElement().getVisible()
+				)
 					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -6538,7 +6540,8 @@ public class RefasModel extends AbstractModel {
 				if (sourceMetaElement.getAutoIdentifier().equals(
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
-								metaElement2.getAutoIdentifier()))
+								metaElement2.getAutoIdentifier())
+						&& pwr.getEditableMetaElement().getVisible())
 					out.put(pwr.getIdentifier(), pwr.getEditableMetaElement());
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
@@ -6626,7 +6629,9 @@ public class RefasModel extends AbstractModel {
 				if (sourceMetaElement.getAutoIdentifier().equals(
 						metaElement.getAutoIdentifier())
 						&& targetMetaElement.getAutoIdentifier().equals(
-								metaElement2.getAutoIdentifier()))
+								metaElement2.getAutoIdentifier())
+						&& pwr.getEditableMetaElement().getAutoIdentifier()
+								.equals(metaPairwiseIden))
 					out2 = pwr.getEditableMetaElement();
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
