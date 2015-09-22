@@ -3,6 +3,7 @@ package com.variamos.gui.maineditor;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -13,6 +14,7 @@ import com.cfm.productline.constraints.MandatoryConstraint;
 import com.cfm.productline.constraints.OptionalConstraint;
 import com.cfm.productline.constraints.RequiresConstraint;
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.swing.util.mxCellOverlay;
@@ -50,9 +52,19 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		// Installs automatic validation
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
 			public void invoke(Object sender, mxEventObject evt) {
-				clearCellOverlays();
-				validateGraph();
-				drawCellIcons(finalGraph.getModel().getRoot());
+				ArrayList list = ((ArrayList) evt.getProperty("changes"));
+				if (list != null && list.size() <= 3
+						&& list.get(0) instanceof mxGraphModel.mxValueChange) {
+					mxCell value = (mxCell) ((mxGraphModel.mxValueChange) list
+							.get(0)).getCell();
+					clearCellOverlays(value);
+					validateGraph(value, new Hashtable<Object, Object>());
+					drawCellIcons(finalGraph.getModel().getRoot());
+				} else {
+					clearCellOverlays();
+					validateGraph();
+					drawCellIcons(finalGraph.getModel().getRoot());
+				}
 			}
 
 		});

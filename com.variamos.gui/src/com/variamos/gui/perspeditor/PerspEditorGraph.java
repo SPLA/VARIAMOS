@@ -410,8 +410,8 @@ public class PerspEditorGraph extends AbstractGraph {
 						topLevelView, iMed);
 				InstCell value2 = (InstCell) secondLevelCell.getValue();
 				if (value2 != null && value2.getInstElement() != null) {
-					modelViewIndex = iMed;
-					modelViewSubIndex = -1;
+					// modelViewIndex = iMed;
+					// modelViewSubIndex = -1;
 					return (InstCell) value2;
 				}
 				iMed++;
