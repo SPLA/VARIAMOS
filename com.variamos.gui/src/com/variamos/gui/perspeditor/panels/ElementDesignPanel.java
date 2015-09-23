@@ -688,8 +688,8 @@ public class ElementDesignPanel extends JPanel {
 						editorProperties(finalEditor, instCell);
 					}
 				});
-				attPanel.setPreferredSize(new Dimension(150, 80));
-				attPanel.setMaximumSize(new Dimension(150, 80));
+				attPanel.setPreferredSize(new Dimension(150, 150));
+				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (((InstElement) editElm).getSupportMetaElementIden().equals(
 						"ME")) {

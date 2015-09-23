@@ -83,9 +83,9 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			for (InstAttribute v : varAttributes)
 				model.addElement(v);
 
-		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(100, 180));
-		setMaximumSize(new Dimension(100, 180));
+		setSize(new Dimension(150, 550));
+		setPreferredSize(new Dimension(100, 580));
+		setMaximumSize(new Dimension(100, 580));
 
 		addMouseListener(new MouseAdapter() {
 
