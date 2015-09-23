@@ -41,10 +41,10 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.14";
-	private String variamosVersionName = "1.0 Beta 14";
-	private String variamosBuild = "20150913 1700";
-	private String downloadId = "[wpdm_package id='385']";
+	private String variamosVersionNumber = "1.0.1.15";
+	private String variamosVersionName = "1.0 Beta 15";
+	private String variamosBuild = "20150923 2300";
+	private String downloadId = "[wpdm_package id='395']";
 
 	public int getPerspective() {
 		return perspective;
@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1070, 740);
+		this.setSize(1166, 768);
 
 		System.out.println("Loading Basic Semantic and Syntax...");
 		RefasModel basicSyntaxRefas = new RefasModel(
@@ -92,7 +92,7 @@ public class MainFrame extends JFrame {
 				bgColor = new Color(236, 238, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
 				System.out
-						.println("Creating Rerquirements Model Perspective...");
+						.println("Creating Requirements Model Perspective...");
 				this.setTitle("New Diagram - " + perspTitle);
 				break;
 
