@@ -52,9 +52,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	/**
 	 * 
 	 */
-	private InstAttribute spoof = new InstAttribute("Add ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add ...", "", 1, -1, "", "", -1, "", ""), "Add ...");
+	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
+			new AbstractAttribute("New Enum Type ...", StringType.IDENTIFIER,
+					false, "New Enum Type ...", "", 1, -1, "", "", -1, "", ""),
+			"New Enum Type ...");
 
 	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -76,12 +77,11 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	private void init(Collection<InstAttribute> varAttributes) {
 		setModel(new DefaultListModel<InstAttribute>());
 		final DefaultListModel<InstAttribute> model = (DefaultListModel<InstAttribute>) getModel();
+		model.addElement(spoof);
 
 		if (varAttributes != null)
 			for (InstAttribute v : varAttributes)
 				model.addElement(v);
-
-		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
 		setPreferredSize(new Dimension(100, 180));
@@ -94,7 +94,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 					int index = locationToIndex(evt.getPoint());
 					InstAttribute v = null;
 
-					if (index != model.getSize() - 1)
+					if (index != 0)
 						v = getModel().getElementAt(index);
 
 					editItem(v);
