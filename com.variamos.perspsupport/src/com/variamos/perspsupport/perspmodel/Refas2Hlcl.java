@@ -528,8 +528,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						continue;
 
 					if (selectedAttributes == null) {
-						System.out.println(vertexId + " " + attribute + " "
-								+ prologOut.get(identifier));
+						// System.out.println(vertexId + " " + attribute + " "
+						// + prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute)
 										.getAttributeType().equals("Boolean")) {

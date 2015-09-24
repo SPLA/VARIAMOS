@@ -467,6 +467,10 @@ public class ElementDesignPanel extends JPanel {
 													// finalEditor.identifyCoreConcepts();
 													// finalEditor.executeSimulation(true,
 													// Refas2Hlcl.DESIGN_EXEC);
+													onVariableEdited(
+															finalEditor,
+															instCell.getInstElement(),
+															widget.getInstAttribute());
 													new Thread() {
 														public void run() {
 															editorProperties(
@@ -481,7 +485,10 @@ public class ElementDesignPanel extends JPanel {
 											.addActionListener(new ActionListener() {
 												public void actionPerformed(
 														ActionEvent e) {
-
+													onVariableEdited(
+															finalEditor,
+															instCell.getInstElement(),
+															widget.getInstAttribute());
 													new Thread() {
 														public void run() {
 															editorProperties(
@@ -495,7 +502,10 @@ public class ElementDesignPanel extends JPanel {
 										.addActionListener(new ActionListener() {
 											public void actionPerformed(
 													ActionEvent e) {
-
+												onVariableEdited(
+														finalEditor,
+														instCell.getInstElement(),
+														widget.getInstAttribute());
 												new Thread() {
 													public void run() {
 														editorProperties(
@@ -544,13 +554,6 @@ public class ElementDesignPanel extends JPanel {
 								}
 								if (widget.editVariable(instAttribute))
 									count = 0;
-
-								if (editor.getPerspective() == 2) {
-									widget.getInstAttribute();
-									onVariableEdited(finalEditor,
-											instCell.getInstElement(),
-											widget.getInstAttribute());
-								}
 								List<InstAttribute> editables = editElm
 										.getEditableVariables(parent);
 
@@ -685,8 +688,8 @@ public class ElementDesignPanel extends JPanel {
 						editorProperties(finalEditor, instCell);
 					}
 				});
-				attPanel.setPreferredSize(new Dimension(150, 80));
-				attPanel.setMaximumSize(new Dimension(150, 80));
+				attPanel.setPreferredSize(new Dimension(150, 150));
+				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
 				if (((InstElement) editElm).getSupportMetaElementIden().equals(
 						"ME")) {

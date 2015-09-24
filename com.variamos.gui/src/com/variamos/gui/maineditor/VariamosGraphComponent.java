@@ -50,14 +50,25 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		// Installs automatic validation
 		graph.getModel().addListener(mxEvent.CHANGE, new mxIEventListener() {
 			public void invoke(Object sender, mxEventObject evt) {
-				clearCellOverlays();
-				validateGraph();
-				drawCellIcons(finalGraph.getModel().getRoot());
+				// ArrayList list = ((ArrayList) evt.getProperty("changes"));
+				/*
+				 * if (list != null && list.size() <= 3 && list.get(0)
+				 * instanceof mxGraphModel.mxValueChange) { mxCell value =
+				 * (mxCell) ((mxGraphModel.mxValueChange) list
+				 * .get(0)).getCell(); clearCellOverlays(value);
+				 * validateGraph(value, new Hashtable<Object, Object>());
+				 * drawCellIcons(finalGraph.getModel().getRoot()); } else
+				 */{
+					clearCellOverlays();
+					validateGraph();
+					drawCellIcons(finalGraph.getModel().getRoot());
+				}
 			}
 
 		});
 	}
 
+	@Deprecated
 	public void updateGraph(mxGraph graph) {
 		setGraph(graph);
 		configureConnectionHandler();
@@ -85,7 +96,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				});
 	}
 
-	public void drawCellIcons(Object cell) {
+	private void drawCellIcons(Object cell) {
 		mxIGraphModel model = graph.getModel();
 		mxCell parentCell = (mxCell) model.getChildAt(cell, 0);
 		List<String> redx = new ArrayList<String>();

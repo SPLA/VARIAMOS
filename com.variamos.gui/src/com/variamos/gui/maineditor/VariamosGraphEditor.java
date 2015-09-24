@@ -528,6 +528,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return null;
 	}
 
+	@Deprecated
 	public void editModel(RefasModel pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
@@ -1259,6 +1260,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void refresh() {
+
 		try {
 			((PerspEditorGraph) getGraphComponent().getGraph())
 					.refreshVariable(lastEditableElement);
@@ -1594,13 +1596,13 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			} else {
 				result = refas2hlcl.execute(null, element,
 						Refas2Hlcl.NEXT_SOLUTION, type);
-				Configuration currentConfiguration = refas2hlcl
-						.getConfiguration();
-				if (result) {
-					List<String> modifiedIdentifiers = compareSolutions(
-							lastConfiguration, currentConfiguration);
-					// System.out.println(modifiedIdentifiers);
-				}
+				/*
+				 * Configuration currentConfiguration = refas2hlcl
+				 * .getConfiguration(); if (result) { List<String>
+				 * modifiedIdentifiers = compareSolutions( lastConfiguration,
+				 * currentConfiguration);
+				 * System.out.println(modifiedIdentifiers); }
+				 */
 			}
 			lastConfiguration = refas2hlcl.getConfiguration();
 			if (result) {
@@ -1673,18 +1675,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return wasFirst;
 	}
 
-	private List<String> compareSolutions(Configuration lastConfiguration,
-			Configuration currentConfiguration) {
-		List<String> out = new ArrayList<String>();
-		Map<String, Integer> lastConfig = lastConfiguration.getConfiguration();
-		Map<String, Integer> currentConfig = currentConfiguration
-				.getConfiguration();
-		for (String solution : lastConfig.keySet())
-			if (lastConfig.get(solution) != currentConfig.get(solution))
-				out.add(solution);
-		return out;
-	}
-
+	/*
+	 * private List<String> compareSolutions(Configuration lastConfiguration,
+	 * Configuration currentConfiguration) { List<String> out = new
+	 * ArrayList<String>(); Map<String, Integer> lastConfig =
+	 * lastConfiguration.getConfiguration(); Map<String, Integer> currentConfig
+	 * = currentConfiguration .getConfiguration(); for (String solution :
+	 * lastConfig.keySet()) if (lastConfig.get(solution) !=
+	 * currentConfig.get(solution)) out.add(solution); return out; }
+	 */
 	public void propertyChange(PropertyChangeEvent evt) {
 		if ("progress" == evt.getPropertyName()) {
 			int progress = (Integer) evt.getNewValue();

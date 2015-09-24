@@ -253,7 +253,7 @@ public class BasicGraphEditor extends JPanel {
 
 		// Creates the graph outline component
 		graphOutline = new mxGraphOutline(graphComponent);
-		graphOutline.setMinimumSize(new Dimension(0, 170));
+		graphOutline.setMinimumSize(new Dimension(0, 70));
 
 		// Creates the library pane that contains the tabs with the palettes
 		libraryPane = new JTabbedPane();
@@ -291,7 +291,7 @@ public class BasicGraphEditor extends JPanel {
 			graphAndRight = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, center,
 					right);
 		graphAndRight.setOneTouchExpandable(true);
-		graphAndRight.setDividerLocation(500);
+		graphAndRight.setDividerLocation(800);
 		graphAndRight.setResizeWeight(1);
 		graphAndRight.setDividerSize(6);
 		graphAndRight.setBorder(null);
@@ -300,14 +300,14 @@ public class BasicGraphEditor extends JPanel {
 		upperPart = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				getLeftComponent(), graphAndRight);
 		upperPart.setOneTouchExpandable(false);
-		upperPart.setDividerLocation(150);
+		upperPart.setDividerLocation(650);
 		upperPart.setDividerSize(6);
 		upperPart.setBorder(null);
 
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				upperPart, getExtensionsTab());
 		everything.setOneTouchExpandable(false);
-		everything.setDividerLocation(400);
+		everything.setDividerLocation(500);
 		everything.setResizeWeight(1);
 		everything.setDividerSize(6);
 		everything.setBorder(null);

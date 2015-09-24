@@ -409,9 +409,10 @@ public class PerspEditorGraph extends AbstractGraph {
 				mxCell secondLevelCell = (mxCell) refasGraph.getChildAt(
 						topLevelView, iMed);
 				InstCell value2 = (InstCell) secondLevelCell.getValue();
-				if (value2 != null && value2.getInstElement() != null) {
-					modelViewIndex = iMed;
-					modelViewSubIndex = -1;
+				if (value2 != null && value2.getInstElement() != null
+						&& iMed == modelViewIndex) {
+					// modelViewIndex = iMed;
+					// modelViewSubIndex = -1;
 					return (InstCell) value2;
 				}
 				iMed++;
@@ -420,9 +421,11 @@ public class PerspEditorGraph extends AbstractGraph {
 						&& iLow < secondLevelCell.getChildCount()) {
 					InstCell element = (InstCell) ((mxCell) refasGraph
 							.getChildAt(secondLevelCell, iLow)).getValue();
-					if (element != null && element.getInstElement() != null) {
-						modelViewIndex = iMed;
-						modelViewSubIndex = iLow;
+					if (element != null && element.getInstElement() != null
+							&& iMed == modelViewIndex
+							&& iLow == modelViewSubIndex) {
+						// modelViewIndex = iMed;
+						// modelViewSubIndex = iLow;
 						return (InstCell) element;
 					}
 					iLow++;
