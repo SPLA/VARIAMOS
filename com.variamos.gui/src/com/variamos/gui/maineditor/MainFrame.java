@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	private String variamosVersionNumber = "1.0.1.15";
 	private String variamosVersionName = "1.0 Beta 15";
 	private String variamosBuild = "20150923 2300";
-	private String downloadId = "[wpdm_package id='395']";
+	private String downloadId = "395";
 
 	public int getPerspective() {
 		return perspective;
