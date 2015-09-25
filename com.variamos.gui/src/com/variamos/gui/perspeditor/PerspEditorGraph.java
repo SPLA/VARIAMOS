@@ -103,10 +103,11 @@ public class PerspEditorGraph extends AbstractGraph {
 		getModel().setRoot(root);
 		// Collection<InstView> views =
 		// refasModel.getSyntaxRefas().getInstViews();
-		List<InstElement> views = refasModel.getSyntaxRefas()
-				.getVariabilityVertex("View");
+		List<InstElement> views = null;
+		if (refasModel.getSyntaxRefas() != null)
+			views = refasModel.getSyntaxRefas().getVariabilityVertex("View");
 		int pos = 0;
-		if (views.size() == 0) {
+		if (views != null && views.size() == 0) {
 			// Load Syntax and Semantic
 			for (InstElement instVertex : refasModel.getVertices()) {
 				mxCell child = new mxCell();
@@ -198,27 +199,30 @@ public class PerspEditorGraph extends AbstractGraph {
 
 		// Load views for System Design and simulation
 		int i = 0;
-		for (InstElement view : views) {
-			mxCell parent = new mxCell();
-			parent.setValue(new InstCell(parent, null, false));
-			parent.setId("mv" + i);
-			addCell(parent);
-			if (view instanceof InstView) {
-				InstView instView = (InstView) view;
-				if (instView.getChildViews().size() > 0) {
-					for (int j = 0; j < instView.getChildViews().size(); j++) {
-						mxCell child2 = new mxCell();
-						child2.setValue(new InstCell(child2, null, false));
-						child2.setId("mv" + i + "-" + j);
-						addCell(child2, parent);
+		if (views != null)
+			for (InstElement view : views) {
+				mxCell parent = new mxCell();
+				parent.setValue(new InstCell(parent, null, false));
+				parent.setId("mv" + i);
+				addCell(parent);
+				if (view instanceof InstView) {
+					InstView instView = (InstView) view;
+					if (instView.getChildViews().size() > 0) {
+						for (int j = 0; j < instView.getChildViews().size(); j++) {
+							mxCell child2 = new mxCell();
+							child2.setValue(new InstCell(child2, null, false));
+							child2.setId("mv" + i + "-" + j);
+							addCell(child2, parent);
+						}
 					}
 				}
+				i++;
 			}
-			i++;
-		}
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
+		if (refasModel.getSyntaxRefas() == null)
+			return null;
 		return refasModel.getSyntaxRefas().modelElements(modelView,
 				modelSubView);
 	}

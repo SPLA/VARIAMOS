@@ -52,10 +52,11 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	private void loadPaletteElements() {
 		paletteElements = new ArrayList<PaletteElement>();
 		Collection<InstElement> instElements = new HashSet<InstElement>();
-		for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
-				.getSyntaxRefas().getVertices()) {
-			instElements.add(instVertex);
-		}
+		if (((RefasModel) editor.getEditedModel()).getSyntaxRefas() != null)
+			for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
+					.getSyntaxRefas().getVertices()) {
+				instElements.add(instVertex);
+			}
 		for (InstElement instElement : instElements) {
 			MetaElement metaElement = instElement.getEditableMetaElement();
 			paletteElements.add(new PaletteElement(metaElement
