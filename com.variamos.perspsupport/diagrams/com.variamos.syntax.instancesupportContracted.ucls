@@ -5,7 +5,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstEnumeration.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="94" width="251" x="125" y="174"/>    
+    <position height="94" width="251" x="108" y="31"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -16,7 +16,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstOverTwoRelation.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="220" width="274" x="460" y="17"/>    
+    <position height="220" width="274" x="430" y="140"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,18 +27,18 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstVertex.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="96" width="256" x="470" y="326"/>    
+    <position height="96" width="256" x="105" y="154"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="com.variamos.perspsupport.instancesupport.InstAttribute" 
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="277" width="274" x="768" y="516"/>    
+    <position height="277" width="274" x="751" y="385"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstPairwiseRelation.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="238" width="279" x="764" y="238"/>    
+    <position height="238" width="279" x="746" y="115"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -60,7 +60,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/EditableElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="606" y="718"/>    
+    <position height="-1" width="-1" x="571" y="596"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -71,7 +71,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstView.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="94" width="259" x="468" y="505"/>    
+    <position height="94" width="259" x="439" y="407"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,7 +82,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstConcept.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="93" width="242" x="130" y="36"/>    
+    <position height="93" width="242" x="446" y="30"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="247" width="282" x="109" y="328"/>    
+    <position height="247" width="282" x="92" y="279"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -104,115 +104,116 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instancesupport/InstCell.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="94" width="216" x="142" y="665"/>    
+    <position height="116" width="221" x="120" y="557"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <realization id="11">    
-    <bendpoint x="411" y="712"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <association id="12">    
-    <bendpoint x="705" y="475"/>    
-    <bendpoint x="732" y="472"/>    
-    <bendpoint x="750" y="498"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="13" name="childViews">        
-        <position height="0" width="0" x="344" y="-581"/>      
+  <association id="11">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="12" name="originalInstElement">        
+        <position height="18" width="96" x="136" y="532"/>      
       </attribute>      
-      <multiplicity id="14" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="344" y="-581"/>      
+      <multiplicity id="13" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2" y="-1296"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="14">    
+    <bendpoint x="726" y="374"/>    
+    <bendpoint x="428" y="374"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="15">    
+    <bendpoint x="72" y="563"/>    
+    <bendpoint x="73" y="420"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="16" name="volatileInstElement">        
+        <position height="18" width="95" x="36" y="532"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="2" y="-1296"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="19">    
+    <bendpoint x="403" y="76"/>    
+    <bendpoint x="403" y="181"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="20">    
+    <bendpoint x="698" y="387"/>    
+    <bendpoint x="724" y="387"/>    
+    <bendpoint x="724" y="412"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="21" name="childViews">        
+        <position height="18" width="62" x="623" y="381"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="315" y="-679"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="15">    
+  <association id="23">    
+    <bendpoint x="78" y="333"/>    
+    <bendpoint x="78" y="287"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="24" name="volatileSourceRelations">        
+        <position height="18" width="120" x="53" y="256"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-139" y="-1926"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="26">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="16">    
-    <bendpoint x="375" y="611"/>    
-    <bendpoint x="404" y="610"/>    
-    <bendpoint x="416" y="599"/>    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="17" name="volatileTargetRelations">        
-        <position height="0" width="0" x="-122" y="-1877"/>      
-      </attribute>      
-      <multiplicity id="18" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-122" y="-1877"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="19">    
-    <bendpoint x="108" y="713"/>    
-    <bendpoint x="108" y="601"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="20" name="volatileInstElement">        
-        <position height="0" width="0" x="19" y="-1247"/>      
-      </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
-        <position height="0" width="0" x="19" y="-1247"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="22">    
-    <bendpoint x="418" y="373"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <generalization id="23">    
-    <bendpoint x="440" y="83"/>    
-    <bendpoint x="440" y="252"/>    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="24">    
-    <bendpoint x="70" y="355"/>    
-    <bendpoint x="76" y="315"/>    
-    <bendpoint x="127" y="314"/>    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="25" name="volatileSourceRelations">        
-        <position height="0" width="0" x="-122" y="-1877"/>      
-      </attribute>      
-      <multiplicity id="26" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-122" y="-1877"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <generalization id="27">    
+    <bendpoint x="404" y="202"/>    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <generalization id="28">    
-    <bendpoint x="715" y="452"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
+  <realization id="28">    
+    <bendpoint x="337" y="539"/>    
+    <bendpoint x="365" y="589"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
   <association id="29">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="30" name="originalInstElement">        
-        <position height="0" width="0" x="19" y="-1247"/>      
+    <bendpoint x="363" y="545"/>    
+    <bendpoint x="403" y="545"/>    
+    <bendpoint x="403" y="516"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="30" name="volatileTargetRelations">        
+        <position height="18" width="115" x="402" y="507"/>      
       </attribute>      
-      <multiplicity id="31" minimum="0" maximum="1">        
-        <position height="0" width="0" x="19" y="-1247"/>      
+      <multiplicity id="31" minimum="0" maximum="2147483647">        
+        <position height="16" width="21" x="379" y="523"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="32">    
-    <bendpoint x="422" y="552"/>    
+    <bendpoint x="404" y="419"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
