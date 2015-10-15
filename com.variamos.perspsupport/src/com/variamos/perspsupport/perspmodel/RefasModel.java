@@ -4574,41 +4574,41 @@ public class RefasModel extends AbstractModel {
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSGSGSemEdge);
-
-		metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "",
-				"");
-		metaDirSoftPairWiseRel.addPropEditableAttribute("03#"
-				+ "AggregationLow");
-		metaDirSoftPairWiseRel
-				.addPropVisibleAttribute("03#" + "AggregationLow");
-		metaDirSoftPairWiseRel.addPanelVisibleAttribute("03#"
-				+ "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirSoftPairWiseRel.addPanelSpacersAttribute("[#" + "AggregationLow"
-				+ "#..");
-
-		metaDirSoftPairWiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", 0, 0, -1, "", "", -1, "",
-				"");
-		metaDirSoftPairWiseRel.addPropEditableAttribute("04#"
-				+ "AggregationHigh");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("04#"
-				+ "AggregationHigh");
-		metaDirSoftPairWiseRel.addPanelVisibleAttribute("04#"
-				+ "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
-		metaDirSoftPairWiseRel.addPanelSpacersAttribute("#" + "AggregationHigh"
-				+ "#]\n");
-
-		metaDirSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
-				false, "Source Level", 0, 0, -1, "", "", -1, "", "");
-		metaDirSoftPairWiseRel.addPropEditableAttribute("05#" + "SourceLevel");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("05#" + "SourceLevel");
-
-		metaDirSoftPairWiseRel.addModelingAttribute("TargetLevel", "Integer",
-				false, "Target Level", 0, 0, -1, "", "", -1, "", "");
-		metaDirSoftPairWiseRel.addPropEditableAttribute("06#" + "TargetLevel");
-		metaDirSoftPairWiseRel.addPropVisibleAttribute("06#" + "TargetLevel");
-
+		/*
+		 * metaDirSoftPairWiseRel.addModelingAttribute("AggregationLow",
+		 * "Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "", "");
+		 * metaDirSoftPairWiseRel.addPropEditableAttribute("03#" +
+		 * "AggregationLow"); metaDirSoftPairWiseRel
+		 * .addPropVisibleAttribute("03#" + "AggregationLow");
+		 * metaDirSoftPairWiseRel.addPanelVisibleAttribute("03#" +
+		 * "AggregationLow" + "#" + "AggregationHigh" + "#!=#" + "0");
+		 * metaDirSoftPairWiseRel.addPanelSpacersAttribute("[#" +
+		 * "AggregationLow" + "#..");
+		 * 
+		 * metaDirSoftPairWiseRel.addModelingAttribute("AggregationHigh",
+		 * "Integer", false, "Aggregation High", 0, 0, -1, "", "", -1, "", "");
+		 * metaDirSoftPairWiseRel.addPropEditableAttribute("04#" +
+		 * "AggregationHigh");
+		 * metaDirSoftPairWiseRel.addPropVisibleAttribute("04#" +
+		 * "AggregationHigh");
+		 * metaDirSoftPairWiseRel.addPanelVisibleAttribute("04#" +
+		 * "AggregationHigh" + "#" + "AggregationHigh" + "#!=#" + "0");
+		 * metaDirSoftPairWiseRel.addPanelSpacersAttribute("#" +
+		 * "AggregationHigh" + "#]\n");
+		 */
+		/*
+		 * metaDirSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
+		 * false, "Source Levelx", 0, 0, -1, "", "", -1, "", "");
+		 * metaDirSoftPairWiseRel.addPropEditableAttribute("05#" +
+		 * "SourceLevel"); metaDirSoftPairWiseRel.addPropVisibleAttribute("05#"
+		 * + "SourceLevel");
+		 * 
+		 * metaDirSoftPairWiseRel.addModelingAttribute("TargetLevel", "Integer",
+		 * false, "Target Level", 0, 0, -1, "", "", -1, "", "");
+		 * metaDirSoftPairWiseRel.addPropEditableAttribute("06#" +
+		 * "TargetLevel"); metaDirSoftPairWiseRel.addPropVisibleAttribute("06#"
+		 * + "TargetLevel");
+		 */
 		InstConcept instDirSoftPairWiseRel = new InstConcept(
 				"Direct Soft Relation", supportMetaElementPairwise,
 				metaDirSoftPairWiseRel);
