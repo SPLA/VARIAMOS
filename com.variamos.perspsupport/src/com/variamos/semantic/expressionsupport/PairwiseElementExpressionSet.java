@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.mxgraph.util.mxResources;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
@@ -89,21 +89,19 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		MetaElement metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
 		boolean sourceActiveAttribute = true;
-		if (instPairwiseRelation
-				.getSourceRelations().get(0).getInstAttribute("Active") != null)
-		{
+		if (instPairwiseRelation.getSourceRelations().get(0)
+				.getInstAttribute("Active") != null) {
 			sourceActiveAttribute = (boolean) instPairwiseRelation
-						.getSourceRelations().get(0).getInstAttribute("Active")
-						.getValue();
+					.getSourceRelations().get(0).getInstAttribute("Active")
+					.getValue();
 		}
 		boolean targetActiveAttribute = true;
-		if (instPairwiseRelation
-				.getTargetRelations().get(0).getInstAttribute("Active") != null)
-		{
+		if (instPairwiseRelation.getTargetRelations().get(0)
+				.getInstAttribute("Active") != null) {
 			targetActiveAttribute = (boolean) instPairwiseRelation
 					.getTargetRelations().get(0).getInstAttribute("Active")
-					.getValue();	
-		}		
+					.getValue();
+		}
 		boolean activeVertex = false;
 		instPairwiseRelation.setOptional(false);
 		if (sourceActiveAttribute && targetActiveAttribute)
@@ -354,7 +352,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				allList.add(out13);
 
 				break;
-			case "ClaimToSG": 
+			case "ClaimToSG":
 
 				sourcePositiveAttributeNames.add("Selected");
 				// relId_level #= <<level>>
@@ -394,6 +392,89 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						"Selected", true, out22);
 				getElementExpressions().add(out23);
 				allList.add(out23);
+
+				break;
+			case "contribution":
+
+				sourcePositiveAttributeNames.add("Selected");
+				// relId_Sourcelevel #= <<Sourcelevel>>
+				EqualsComparisonExpression out21p = new EqualsComparisonExpression(
+						instPairwiseRelation,
+						SemanticPairwiseRelation.VAR_SOURCE_LEVEL,
+						getHlclFactory()
+								.number((Integer) instPairwiseRelation
+										.getInstAttribute(
+												SemanticPairwiseRelation.VAR_SOURCE_LEVEL)
+										.getAsInteger()));
+				getElementExpressions().add(out21p);
+				allList.add(out21p);
+
+				InstElement sourceSoftgoal = instPairwiseRelation
+						.getSourceRelations().get(0);
+				AbstractExpression out21a = null;
+
+				String sourceSatisficingType = (String) sourceSoftgoal
+						.getInstAttribute("satisficingType").getValue();
+
+				// TargetId_SDReqLevel #= relId_SourceLevel
+				if (sourceSatisficingType.contains("low")) {
+
+					out21a = new LessOrEqualsBooleanExpression(sourceSoftgoal,
+							instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				} else if (sourceSatisficingType.contains("high")) {
+
+					out21a = new GreaterOrEqualsBooleanExpression(
+							sourceSoftgoal, instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				} else {
+					out21a = new EqualsComparisonExpression(sourceSoftgoal,
+							instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_SOURCE_LEVEL);
+				}
+				// getElementExpressions().add(out21a);
+				// allList.add(out21a);
+
+				// relId_Targetlevel #= <<Targetlevel>>
+				EqualsComparisonExpression out22p = new EqualsComparisonExpression(
+						instPairwiseRelation,
+						SemanticPairwiseRelation.VAR_TARGET_LEVEL,
+						getHlclFactory()
+								.number((Integer) instPairwiseRelation
+										.getInstAttribute(
+												SemanticPairwiseRelation.VAR_TARGET_LEVEL)
+										.getAsInteger()));
+				getElementExpressions().add(out22p);
+				allList.add(out22p);
+
+				InstElement targetSoftgoal = instPairwiseRelation
+						.getTargetRelations().get(0);
+				AbstractExpression out22a = null;
+
+				String targetSatisficingType = (String) targetSoftgoal
+						.getInstAttribute("satisficingType").getValue();
+
+				// TargetId_SDReqLevel #= relId_TargetLevel
+				if (targetSatisficingType.contains("low")) {
+
+					out22a = new LessOrEqualsBooleanExpression(targetSoftgoal,
+							instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+				} else if (targetSatisficingType.contains("high")) {
+
+					out22a = new GreaterOrEqualsBooleanExpression(
+							targetSoftgoal, instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+				} else {
+					out22a = new EqualsComparisonExpression(targetSoftgoal,
+							instPairwiseRelation, "SDReqLevel",
+							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+				}
+
+				AbstractBooleanExpression out23a = new ImplicationBooleanExpression(
+						out21a, out22a);
+				getElementExpressions().add(out23a);
+				allList.add(out23a);
 
 				break;
 			case "SD":
