@@ -65,11 +65,11 @@ public class InstanceExpressionDialog extends JDialog {
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
 	private RefasModel refasModel;
-	private boolean displayVariableName = false;
+	private boolean displayVariableName = true;
 	private int width = 950;
 	private int height = 400;
 	private boolean multiExpressions;
-	private boolean displayTextExpression;
+	private boolean displayTextExpression = false;
 	private boolean editable;
 
 	static interface InstanceExpressionButtonAction {
@@ -260,7 +260,6 @@ public class InstanceExpressionDialog extends JDialog {
 
 		buttonsPanel.add(btnCancel);
 
-
 		final JButton btnDelete = new JButton();
 		btnDelete.setText("Delete");
 		btnDelete.addActionListener(new ActionListener() {
@@ -276,7 +275,7 @@ public class InstanceExpressionDialog extends JDialog {
 		});
 
 		buttonsPanel.add(btnDelete);
-		
+
 		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 3, 4, 4, 4, 4);
 
 		add(buttonsPanel, BorderLayout.SOUTH);
@@ -618,19 +617,19 @@ public class InstanceExpressionDialog extends JDialog {
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
 		if (instanceExpression.getSideElement(expressionVertexType) == null) {
-			String id = instanceExpression
-					.getSideElementIdentifier(expressionVertexType, false);
+			String id = instanceExpression.getSideElementIdentifier(
+					expressionVertexType, false);
 			instanceExpression.setInstElement(refasModel.getVertex(id),
 					expressionVertexType);
 		}
 		JComboBox<String> identifierList = null;
 		final Map<String, InstElement> identifierTree = new HashMap<String, InstElement>();
 		String varIdentifier = null;
-		varIdentifier = instanceExpression
-				.getElementAttributeIdentifier(expressionVertexType, displayVariableName);
+		varIdentifier = instanceExpression.getElementAttributeIdentifier(
+				expressionVertexType, displayVariableName);
 		if (varIdentifier == null) {
-			varIdentifier = instanceExpression
-					.getSideElementIdentifier(expressionVertexType, false);
+			varIdentifier = instanceExpression.getSideElementIdentifier(
+					expressionVertexType, false);
 			InstElement instVertex = refasModel.getVertex(varIdentifier);
 			instanceExpression.setInstElement(instVertex, expressionVertexType);
 		}
@@ -642,11 +641,11 @@ public class InstanceExpressionDialog extends JDialog {
 				selectedExpression = instanceExpression;
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					String itemName[] = ((String) event.getItem()).split("_");
-					
+
 					String item = identifierTree.get(itemName[0])
 							.getIdentifier();
 					if (item != null) {
-						//String[] split = item.split("_");
+						// String[] split = item.split("_");
 						instanceExpression.setInstElement(
 								refasModel.getVertex(item),
 								expressionVertexType);
@@ -699,8 +698,7 @@ public class InstanceExpressionDialog extends JDialog {
 					Domain dom = (DomainParser.parseDomain(domain));
 					List<Integer> intValues = dom.getPossibleValues();
 					for (Integer intValue : intValues) {
-						combo.addItem(instElementId + "_"
-								+ intValue.intValue());
+						combo.addItem(instElementId + "_" + intValue.intValue());
 
 					}
 
@@ -784,7 +782,8 @@ public class InstanceExpressionDialog extends JDialog {
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE
 				|| type == ExpressionVertexType.RIGHTVARIABLEVALUE) {
-			return createIdentifiersValueCombo(element, selectedElement, identifiersList);
+			return createIdentifiersValueCombo(element, selectedElement,
+					identifiersList);
 		} else
 
 		{
