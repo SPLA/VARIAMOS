@@ -193,12 +193,11 @@ public class ElementDesignPanel extends JPanel {
 									// attributes.put(name.getName(),
 									// v);
 									try {
-										// Expression exp =
-										// ((InstanceExpression)
-										// finalInstAttribute
-										// .getValue())
-										// .createSGSExpression(finalEditElm.getIdentifier());
-										// System.out.println(exp);
+										finalEditElm
+												.getEditableSemanticElement()
+												.setSemanticExpresions(
+														dialog.getExpressions());
+
 									} catch (Exception e) {
 										JOptionPane
 												.showMessageDialog(

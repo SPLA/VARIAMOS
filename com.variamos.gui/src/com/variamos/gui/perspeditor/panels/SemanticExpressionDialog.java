@@ -187,7 +187,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
-		
+
 		final JButton btnAccept = new JButton();
 		btnAccept.setText("Accept");
 		btnAccept.addActionListener(new ActionListener() {
@@ -216,8 +216,6 @@ public class SemanticExpressionDialog extends JDialog {
 		});
 
 		buttonsPanel.add(btnCancel);
-
-
 
 		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 2, 4, 4, 4, 4);
 
@@ -416,11 +414,13 @@ public class SemanticExpressionDialog extends JDialog {
 									ExpressionVertexType.LEFTINCOMRELVARIABLE,
 									semanticExpression
 											.getLeftValidExpressions(), true));
+
 					leftPanel
 							.add(createCombo(semanticExpression, element,
 									ExpressionVertexType.LEFTINCOMRELVARIABLE,
 									semanticExpression
 											.getLeftValidExpressions(), false));
+
 					semanticExpression
 							.setLeftExpressionType(ExpressionVertexType.LEFTINCOMRELVARIABLE);
 				}
@@ -643,9 +643,19 @@ public class SemanticExpressionDialog extends JDialog {
 		String selectedElement = null;
 		selectedElement = semanticExpression.getSelectedElement(
 				expressionVertexType, isConcept);
+		if (isConcept)
+			identifiers = fillCombo(semanticExpression, expressionVertexType,
+					element, selectedElement, isConcept);
+		else {
+			InstElement relationElement = semanticExpression
+					.getSelectedElement(expressionVertexType);
+			if (relationElement == null)
+				relationElement = element;
+			identifiers = fillCombo(semanticExpression, expressionVertexType,
+					relationElement, selectedElement, isConcept);
 
-		identifiers = fillCombo(semanticExpression, expressionVertexType,
-				element, selectedElement, isConcept);
+		}
+
 		identifiers.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
@@ -721,7 +731,9 @@ public class SemanticExpressionDialog extends JDialog {
 			instElements = refasModel.getVariabilityVertexCollection();
 			break;
 		case LEFTINCOMRELVARIABLE:
-			instElements = element.getSourceRelations();
+			for (InstElement sourceRelation : element.getSourceRelations())
+				instElements.add(sourceRelation.getSourceRelations().get(0));
+			// instElements = element.getSourceRelations();
 			break;
 		case LEFTOUTGRELVARIABLE:
 			instElements = element.getTargetRelations();
@@ -753,7 +765,18 @@ public class SemanticExpressionDialog extends JDialog {
 						combo.addItem(attribute.getDisplayName());
 					else
 						combo.addItem(attribute.getName());
+			if (instElements != null)
+				for (InstElement instElementT : instElements)
+					if (instElementT.getEditableSemanticElement() != null)
+						for (AbstractAttribute attribute : instElementT
+								.getEditableSemanticElement()
+								.getSemanticAttributes().values())
 
+							if (displayVariableName)
+
+								combo.addItem(attribute.getDisplayName());
+							else
+								combo.addItem(attribute.getName());
 		}
 		combo.setSelectedItem(selectedElement);
 		return combo;

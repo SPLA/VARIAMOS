@@ -20,24 +20,32 @@ import com.variamos.perspsupport.types.ExpressionExecType;
  */
 public class InstanceExprSubAction {
 	private ExpressionSubAction expressionSubAction;
+	private List<InstanceExpression> instanceExpressions;
+	private ExpressionExecType expressionType;
+
 	public ExpressionSubAction getExpressionSubAction() {
 		return expressionSubAction;
 	}
+
 	public void setExpressionSubAction(ExpressionSubAction expressionSubAction) {
 		this.expressionSubAction = expressionSubAction;
 	}
+
 	public List<InstanceExpression> getInstanceExpressions() {
 		return instanceExpressions;
 	}
-	public void setInstanceExpressions(List<InstanceExpression> instanceExpressions) {
+
+	public void setInstanceExpressions(
+			List<InstanceExpression> instanceExpressions) {
 		this.instanceExpressions = instanceExpressions;
 	}
+
 	public ExpressionExecType getExpressionType() {
 		return expressionType;
 	}
+
 	public void setExpressionType(ExpressionExecType expressionType) {
 		this.expressionType = expressionType;
 	}
-	private List<InstanceExpression> instanceExpressions;
-	private ExpressionExecType expressionType;
+
 }

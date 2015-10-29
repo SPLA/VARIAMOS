@@ -24,7 +24,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	private SemanticExpressionType semanticExpressionType;
 
 	// TODO change to a new class for type (normal, relax)
-	//private List<ExpressionSubAction> expressionSubActions;
+	// private List<ExpressionSubAction> expressionSubActions;
 
 	private String lastLeft = null;
 	private String lastRight = null;
@@ -460,6 +460,33 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			return concept;
 		else
 			return variable;
+	}
+
+	public InstElement getSelectedElement(
+			ExpressionVertexType expressionVertexType) {
+		InstElement concept = null;
+		switch (expressionVertexType) {
+
+		case LEFTINCOMRELVARIABLE:
+		case LEFTOUTGRELVARIABLE:
+		case LEFTANYRELVARIABLE:
+
+		case LEFTCONCEPTVARIABLE:
+		case LEFTCONCEPTTYPEVARIABLE:
+			if (leftSemanticElement != null) {
+				concept = leftSemanticElement;
+			}
+			break;
+		case RIGHTCONCEPTVARIABLE:
+			if (rightSemanticElement != null) {
+				concept = rightSemanticElement;
+			}
+			break;
+
+		default:
+			return null;
+		}
+		return concept;
 	}
 
 	public void setInstElement(InstElement intSemanticElement,
