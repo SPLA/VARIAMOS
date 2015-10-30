@@ -15,6 +15,23 @@ package com.variamos.perspsupport.expressionsupport;
  *
  */
 public class ExpressionAction {
-	// private int position;
-	// private String description;
+	private int position;
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	private String description;
 }

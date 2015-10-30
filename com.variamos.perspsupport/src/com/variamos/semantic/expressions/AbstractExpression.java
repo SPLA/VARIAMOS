@@ -210,6 +210,12 @@ public abstract class AbstractExpression {
 							.getInstAttribute(
 									SemanticPairwiseRelation.VAR_LEVEL)
 							.getAsInteger());
+				if (((InstPairwiseRelation) relation)
+						.getInstAttribute(SemanticPairwiseRelation.VAR_TARGET_LEVEL) != null)
+					values.add(((InstPairwiseRelation) relation)
+							.getInstAttribute(
+									SemanticPairwiseRelation.VAR_TARGET_LEVEL)
+							.getAsInteger());
 			}
 			if (values.size() == 0) {
 				values.add(new Integer(0)); // TODO use value according to

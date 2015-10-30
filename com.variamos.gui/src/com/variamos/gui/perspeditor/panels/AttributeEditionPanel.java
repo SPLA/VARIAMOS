@@ -82,8 +82,13 @@ public class AttributeEditionPanel extends JPanel {
 		int contEd = 0;
 		for (EditableElementAttribute p : editableElementAttributes) {
 			if (p != null) {
-				contEd++;
 				WidgetR w = factory.getWidgetFor(p);
+				if (w == null) {
+					System.out.println("Error on AttributeEditorPanel" + p);
+					continue;
+				}
+
+				contEd++;
 				w.editVariable(p);
 
 				w.addPropertyChangeListener("value",
@@ -95,16 +100,15 @@ public class AttributeEditionPanel extends JPanel {
 								// pack();
 							}
 						});
-			
-			widgets.put(p.getName(), w);
 
-			panel.add(new JLabel(p.getDisplayName() + ": "));
-			panel.add(w);
+				widgets.put(p.getName(), w);
+
+				panel.add(new JLabel(p.getDisplayName() + ": "));
+				panel.add(w);
 			}
 		}
 		this.setEnabled(false);
-		SpringUtilities.makeCompactGrid(panel,
-				contEd, 2, 4, 4, 4, 4);
+		SpringUtilities.makeCompactGrid(panel, contEd, 2, 4, 4, 4, 4);
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
 

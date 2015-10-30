@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.cfm.productline.AbstractElement;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -383,16 +384,16 @@ public abstract class InstElement implements Serializable, EditableElement,
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
 								// System.out.println(this.getIdentifier());
-								//if (instAttribute != null) {
-									if (instAttribute.getAttributeType() != null
-											&& instAttribute.getAttributeType()
-													.equals("Set"))
-										for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-												.getValue())
-											out += e.toString().trim() + "\n";
-									else
-										out += instAttribute.toString().trim();
-								//}
+								// if (instAttribute != null) {
+								if (instAttribute.getAttributeType() != null
+										&& instAttribute.getAttributeType()
+												.equals("Set"))
+									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+											.getValue())
+										out += e.toString().trim() + "\n";
+								else
+									out += instAttribute.toString().trim();
+								// }
 							}
 							while (sp2 != spacer.length()) {
 								int sp3 = spacer.indexOf("#", sp2 + 1);
@@ -429,14 +430,15 @@ public abstract class InstElement implements Serializable, EditableElement,
 											.get(MetaEnumeration.VAR_METAENUMVALUE);
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
-									out += "{ ";
+									String outt = "{ ";
 									for (InstAttribute i : ooo) {
 										String values[] = ((String) i
 												.getValue()).split("-");
-										out += values[1] + ", ";
+										outt += values[1] + ", ";
 									}
-									out = out.substring(0, out.length() - 2);
-									out += " }";
+									outt = outt.substring(0, outt.length() - 2);
+									outt += " }";
+									out += AbstractElement.multiLine(outt, 40);
 								}
 							} else
 								out += instAttribute.toString().trim();
