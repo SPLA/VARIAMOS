@@ -459,81 +459,37 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			}
 		}
-		if (leftSide.getSelectedItem().equals("Incomming Relation Variable")) {
-			{
-				if (semanticExpression.getSemanticExpressionType() != null) {
+		ExpressionVertexType recursiveType = null;
+		if (leftSide.getSelectedItem().equals("Incomming Relation Variable"))
+			recursiveType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
+		if (leftSide.getSelectedItem().equals("Outgoing Relation Variable"))
+			recursiveType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
+		if (leftSide.getSelectedItem().equals("In/Out Relation Variable"))
+			recursiveType = ExpressionVertexType.LEFTANYRELVARIABLE;
+		if (recursiveType != null)
+			if (semanticExpression.getSemanticExpressionType() != null) {
 
-					if (semanticExpression.getLeftSemanticExpression() == null)
-						semanticExpression.setLeftSemanticExpression(
-								ExpressionVertexType.LEFTINCOMRELVARIABLE,
-								null, "id");
-					JComboBox<String> conceptCombo = createCombo(
-							semanticExpression, element,
-							ExpressionVertexType.LEFTINCOMRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(), true,
-							'C');
-					leftPanel.add(conceptCombo);
-					InstElement recElement = refasModel.getVertex(conceptCombo
-							.getSelectedItem().toString());
-					conceptCombo = createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTINCOMRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(), true,
-							'P');
-					leftPanel.add(conceptCombo);
-					InstElement recRelElement = refasModel
-							.getVertex((String) conceptCombo.getSelectedItem());
-					showExpression(
-							semanticExpression.getLeftSemanticExpression(),
-							element, recElement, recRelElement, leftPanel,
-							semanticExpression.getLeftValidExpressions(),
-							color > 20 ? color - 20 : color > 5 ? color - 5
-									: color);
-					semanticExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTINCOMRELVARIABLE);
-					/*
-					 * leftPanel .add(createCombo(semanticExpression, element,
-					 * ExpressionVertexType.LEFTINCOMRELVARIABLE,
-					 * semanticExpression .getLeftValidExpressions(), false));
-					 * 
-					 * semanticExpression
-					 * .setLeftExpressionType(ExpressionVertexType
-					 * .LEFTINCOMRELVARIABLE);
-					 */
-				}
+				if (semanticExpression.getLeftSemanticExpression() == null)
+					semanticExpression.setLeftSemanticExpression(recursiveType,
+							null, "id");
+				JComboBox<String> conceptCombo = createCombo(
+						semanticExpression, element, recursiveType,
+						semanticExpression.getLeftValidExpressions(), true, 'C');
+				leftPanel.add(conceptCombo);
+				InstElement recElement = refasModel.getVertex(conceptCombo
+						.getSelectedItem().toString());
+				conceptCombo = createCombo(semanticExpression, element,
+						recursiveType,
+						semanticExpression.getLeftValidExpressions(), true, 'P');
+				leftPanel.add(conceptCombo);
+				InstElement recRelElement = refasModel
+						.getVertex((String) conceptCombo.getSelectedItem());
+				showExpression(semanticExpression.getLeftSemanticExpression(),
+						element, recElement, recRelElement, leftPanel,
+						semanticExpression.getLeftValidExpressions(),
+						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
+				semanticExpression.setLeftExpressionType(recursiveType);
 			}
-		}
-		if (leftSide.getSelectedItem().equals("Outgoing Relation Variable")) {
-			{
-				if (semanticExpression.getSemanticExpressionType() != null) {
-					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTOUTGRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(), true,
-							'C'));
-					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTOUTGRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(),
-							false, 'C'));
-					semanticExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTOUTGRELVARIABLE);
-				}
-			}
-		}
-		if (leftSide.getSelectedItem().equals("In/Out Relation Variable")) {
-			{
-				if (semanticExpression.getSemanticExpressionType() != null) {
-					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTANYRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(), true,
-							'C'));
-					leftPanel.add(createCombo(semanticExpression, element,
-							ExpressionVertexType.LEFTANYRELVARIABLE,
-							semanticExpression.getLeftValidExpressions(),
-							false, 'C'));
-					semanticExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFTANYRELVARIABLE);
-				}
-			}
-		}
 		basePanel.add(leftPanel);
 		JPanel centerPanel = new JPanel();
 		centerPanel.setBackground(new Color(color, color, color));
@@ -869,22 +825,15 @@ public class SemanticExpressionDialog extends JDialog {
 			instElements = refasModel.getVariabilityVertexCollection();
 			break;
 		case LEFTINCOMRELVARIABLE:
+		case LEFTOUTGRELVARIABLE:
+		case LEFTANYRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				// element.getSourceRelations())
 				if ((sourceRelation.getSupportMetaElementIden().equals(
 						"Concept") && elementType == 'C')
 						|| (sourceRelation.getSupportMetaElementIden().equals(
 								"PairWiseRelation") && elementType == 'P'))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
-			// instElements = element.getSourceRelations();
-			break;
-		case LEFTOUTGRELVARIABLE:
-			instElements = element.getTargetRelations();
-			break;
-		case LEFTANYRELVARIABLE:
-			instElements.addAll(element.getSourceRelations());
-			instElements.addAll(element.getTargetRelations());
 			break;
 		default:
 		}
