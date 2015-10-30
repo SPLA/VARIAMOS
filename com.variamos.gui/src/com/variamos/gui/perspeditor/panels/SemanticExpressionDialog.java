@@ -321,6 +321,10 @@ public class SemanticExpressionDialog extends JDialog {
 			case LEFTNUMERICEXPRESSIONVALUE:
 				leftSide.setSelectedItem("Number");
 				break;
+			case LEFTSTRINGVALUE:
+				leftSide.setSelectedItem("String");
+				break;
+
 			case LEFTCONCEPTTYPEVARIABLE:
 				leftSide.setSelectedItem("A Concept Type Variable");
 				break;
@@ -347,6 +351,9 @@ public class SemanticExpressionDialog extends JDialog {
 			case RIGHTNUMERICEXPRESSIONVALUE:
 				rightSide.setSelectedItem("Number");
 				break;
+			case RIGHTSTRINGVALUE:
+				rightSide.setSelectedItem("String");
+				break;
 			default:
 			}
 		if (leftSide.getSelectedItem().equals("SubExpression")) {
@@ -368,6 +375,14 @@ public class SemanticExpressionDialog extends JDialog {
 						ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)) {
 					basePanel.add(createTextField(semanticExpression, element,
 							ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE));
+				}
+		}
+		if (leftSide.getSelectedItem().equals("String")) {
+			if (semanticExpression.getLeftExpressionType() != null)
+				if (semanticExpression.getLeftExpressionType().equals(
+						ExpressionVertexType.LEFTSTRINGVALUE)) {
+					basePanel.add(createTextField(semanticExpression, element,
+							ExpressionVertexType.LEFTSTRINGVALUE));
 				}
 		}
 		if (leftSide.getSelectedItem().equals("This Concept Variable")) {
@@ -561,6 +576,16 @@ public class SemanticExpressionDialog extends JDialog {
 										ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE));
 					}
 			}
+			if (rightSide.getSelectedItem().equals("String")) {
+				if (semanticExpression.getRightExpressionType() != null)
+					if (semanticExpression.getRightExpressionType().equals(
+							ExpressionVertexType.RIGHTSTRINGVALUE)) {
+						rightPanel
+								.add(createTextField(semanticExpression,
+										element,
+										ExpressionVertexType.RIGHTSTRINGVALUE));
+					}
+			}
 			if (rightSide.getSelectedItem().equals("This Concept Variable")) {
 				if (semanticExpression.getSemanticExpressionType() != null) {
 					rightPanel.add(createCombo(semanticExpression, element,
@@ -603,14 +628,27 @@ public class SemanticExpressionDialog extends JDialog {
 			final SemanticExpression instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
-		JTextField textField;
-		if (expressionVertexType
-				.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+		JTextField textField = null;
+		switch (expressionVertexType) {
+		case LEFTNUMERICEXPRESSIONVALUE:
+
 			textField = new JTextField(""
 					+ (instanceExpression).getLeftNumber());
-		else
+			break;
+		case RIGHTNUMERICEXPRESSIONVALUE:
 			textField = new JTextField(""
 					+ (instanceExpression).getRightNumber());
+			break;
+		case LEFTSTRINGVALUE:
+
+			textField = new JTextField((instanceExpression).getLeftString());
+			break;
+		case RIGHTSTRINGVALUE:
+			textField = new JTextField((instanceExpression).getRightString());
+			break;
+		default:
+			break;
+		}
 		textField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -621,12 +659,25 @@ public class SemanticExpressionDialog extends JDialog {
 				String item = (String) ((JTextField) event.getSource())
 						.getText();
 				if (item != null) {
-					if (expressionVertexType
-							.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+					switch (expressionVertexType) {
+					case LEFTNUMERICEXPRESSIONVALUE:
 						instanceExpression.setLeftNumber(Integer.parseInt(item));
-					else
+						break;
+					case RIGHTNUMERICEXPRESSIONVALUE:
 						instanceExpression.setRightNumber(Integer
 								.parseInt(item));
+						break;
+					case LEFTSTRINGVALUE:
+						instanceExpression.setLeftString(item);
+
+						break;
+					case RIGHTSTRINGVALUE:
+
+						instanceExpression.setRightString(item);
+						break;
+					default:
+						break;
+					}
 				}
 			}
 		});
@@ -755,16 +806,24 @@ public class SemanticExpressionDialog extends JDialog {
 					combo.addItem(instVertex.getIdentifier());
 			}
 		} else {
-			if (instElement != null)
+			if (instElement != null) {
 				for (AbstractAttribute attribute : instElement
 						.getEditableSemanticElement().getSemanticAttributes()
 						.values())
-
 					if (displayVariableName)
 
 						combo.addItem(attribute.getDisplayName());
 					else
 						combo.addItem(attribute.getName());
+				for (AbstractAttribute attribute : instElement
+						.getTransSupportMetaElement().getModelingAttributes()
+						.values())
+					if (displayVariableName)
+
+						combo.addItem(attribute.getDisplayName());
+					else
+						combo.addItem(attribute.getName());
+			}
 			if (instElements != null)
 				for (InstElement instElementT : instElements)
 					if (instElementT.getEditableSemanticElement() != null)
@@ -827,6 +886,7 @@ public class SemanticExpressionDialog extends JDialog {
 		combo.addItem("This Concept Variable");
 		combo.addItem("SubExpression");
 		combo.addItem("Number");
+		combo.addItem("String");
 		if (left) {
 			combo.addItem("A Concept Type Variable");
 			combo.addItem("Any Incomming Relation Variable");
@@ -869,6 +929,14 @@ public class SemanticExpressionDialog extends JDialog {
 							else
 								semanticExpression
 										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+							break;
+						case "String":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTSTRINGVALUE);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 							break;
 						case "A Concept Type Variable":
 							semanticExpression

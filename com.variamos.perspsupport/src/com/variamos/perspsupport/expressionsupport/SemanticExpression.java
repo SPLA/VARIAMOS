@@ -30,6 +30,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	private String lastRight = null;
 
 	private int leftNumber, rightNumber;
+	private String leftString, rightString;
 	private boolean recursiveExpression;
 
 	private InstElement instElement;
@@ -135,6 +136,19 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
+			InstElement leftSemanticElement, String leftAttributeName,
+			int rightNumber) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticElement = leftSemanticElement;
+		this.leftAttributeName = leftAttributeName;
+		this.rightNumber = rightNumber;
+		setLeftExpressionType(ExpressionVertexType.LEFT);
+		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
+	}
+
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			InstElement semanticElement, String attributeName,
 			boolean replaceTarget, SemanticExpression semanticExpression) {
 		this.identifier = identifier;
@@ -163,7 +177,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		this.leftSemanticExpression = leftSemanticExpression;
 		this.rightSemanticExpression = rightSemanticExpression;
 		setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
-		setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
 	}
 
 	public SemanticExpression(String identifier,
@@ -227,6 +241,14 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public void setRightNumber(int rightNumber) {
 		this.rightNumber = rightNumber;
+	}
+
+	public void setLeftString(String leftString) {
+		this.leftString = leftString;
+	}
+
+	public void setRightString(String rightString) {
+		this.rightString = rightString;
 	}
 
 	public void setLeftSemanticElement(InstElement leftSemanticElement) {
@@ -332,6 +354,14 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public int getRightNumber() {
 		return rightNumber;
+	}
+
+	public String getLeftString() {
+		return leftString;
+	}
+
+	public String getRightString() {
+		return rightString;
 	}
 
 	public int getLeftValidExpressions() {

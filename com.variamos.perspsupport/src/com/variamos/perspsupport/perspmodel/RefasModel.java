@@ -17,6 +17,7 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -26,6 +27,7 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
+import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticContextGroup;
@@ -1660,8 +1662,37 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From this name depends all the operations,
 									// do not change it
+		List<IntSemanticExpression> semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semGeneralElement.setSemanticExpresions(semanticExpressions);
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
+
+		SemanticExpression t1 = new SemanticExpression("1", this
+				.getSemanticExpressionTypes().get("Sum"), instVertexGE,
+				instVertexGE, "NextReqSelected", "ConfigSelected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextPrefSelected", true, t1);
+
+		SemanticExpression t3 = new SemanticExpression("3", this
+				.getSemanticExpressionTypes().get("Product"), instVertexGE,
+				instVertexGE, "NextPrefSelected", "ConfigSelected");
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, t3);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Opt", true, t1);
+
+		semanticExpressions.add(t1);
+
+		SemanticExpression t2 = new SemanticExpression("1", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Opt", 0);
+
+		semanticExpressions.add(t2);
+
 		variabilityInstVertex.put("GeneralElement", instVertexGE);
 
 		// Design attributes: Do not change identifiers
