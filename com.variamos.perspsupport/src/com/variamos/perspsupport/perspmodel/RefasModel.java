@@ -94,7 +94,7 @@ public class RefasModel extends AbstractModel {
 
 	public RefasModel(Map<String, SemanticExpressionType> metaExpressionTypes,
 			RefasModel syntaxRefas) {
-		this(PerspectiveType.semantic, metaExpressionTypes, syntaxRefas, null);
+		this(PerspectiveType.SEMANTIC, metaExpressionTypes, syntaxRefas, null);
 	}
 
 	public RefasModel(PerspectiveType perspectiveType,
@@ -110,21 +110,21 @@ public class RefasModel extends AbstractModel {
 		name = "";
 
 		switch (perspectiveType) {
-		case basicSemantic:
-			createBasicSemantic();
+		case CORESEMANTIC:
+			createCoreSemantic();
 			break;
-		case basicSyntax:
-			createBasicSyntax();
+		case CORESYNTAX:
+			createCoreSyntax();
 			break;
-		case modeling:
+		case MODELING:
 			break;
-		case semantic:
-			createSemantic();
+		case SEMANTIC:
+			createDefaultSemantic();
 			break;
-		case simulation:
+		case CONFIG_SIMULATION:
 			break;
-		case syntax:
-			createSyntax();
+		case SYNTAX:
+			createDefaultSyntax();
 			break;
 		default:
 			break;
@@ -499,7 +499,7 @@ public class RefasModel extends AbstractModel {
 	 * are displayed in the palette of the semantic perspective (PWAssociations
 	 * can be used)
 	 */
-	private void createBasicSemantic() {
+	private void createCoreSemantic() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
 		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
@@ -602,7 +602,7 @@ public class RefasModel extends AbstractModel {
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		SemanticConcept semPairwiseRelation = new SemanticConcept(semConcept,
-				"PairWiseRelation");
+				"CSPairWiseRelation");
 
 		semPairwiseRelation.putSemanticAttribute("enumerationType",
 				new SemanticAttribute("enumerationType", "Class", false,
@@ -614,14 +614,29 @@ public class RefasModel extends AbstractModel {
 		semPairwiseRelation.addPropEditableAttribute("03#" + "enumerationType");
 		semPairwiseRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
+		semPairwiseRelation.putSemanticAttribute("relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set", false,
+						"relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		semPairwiseRelation.putSemanticAttribute(
+				"relationTypesSemExpressions",
+				new SyntaxAttribute("relationTypesSemExpressions", "Set",
+						false, "semanticExpressions", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
 		InstConcept instSemPairwiseRelation = new InstConcept(
-				"PairWiseRelation", null, semPairwiseRelation);
+				"CSPairWiseRelation", null, semPairwiseRelation);
 
 		MetaConcept metaPairWiseRelation = new MetaConcept(
 				'P',
-				"PairWiseRelation",
+				"CSPairWiseRelation",
 				true,
-				"PairWiseRelation",
+				"CSPairWiseRelation",
 				"refasenumeration",
 				"Semantic PairWise Relation: Defines a direct relation for the semantic operations",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
@@ -681,7 +696,7 @@ public class RefasModel extends AbstractModel {
 		enumeration.addPropVisibleAttribute("01#" + "value");
 
 		SemanticConcept semOverTwoRelation = new SemanticConcept(semConcept,
-				"OverTwoRelation");
+				"CSOverTwoRelation");
 
 		semOverTwoRelation.putSemanticAttribute("enumerationType",
 				new SemanticAttribute("enumerationType", "Class", false,
@@ -693,13 +708,29 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation.addPropEditableAttribute("03#" + "enumerationType");
 		semOverTwoRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
-		InstConcept instSemOverTwoRelation = new InstConcept("OverTwoRelation",
-				null, semOverTwoRelation);
+		semOverTwoRelation.putSemanticAttribute("relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set", false,
+						"relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
 
-		MetaConcept overTwoRelation = new MetaConcept('O', "OverTwoRelation",
-				true, "OverTwoRelation", "refasminiclass", "Over Two Relation",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
+		semOverTwoRelation.putSemanticAttribute(
+				"relationTypesSemExpressions",
+				new SyntaxAttribute("relationTypesSemExpressions", "Set",
+						false, "semanticExpressions", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		InstConcept instSemOverTwoRelation = new InstConcept(
+				"CSOverTwoRelation", null, semOverTwoRelation);
+
+		MetaConcept overTwoRelation = new MetaConcept('O', "CSOverTwoRelation",
+				true, "CSOverTwoRelation", "refasminiclass",
+				"Over Two Relation", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
 		overTwoRelation.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
 				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
@@ -739,16 +770,16 @@ public class RefasModel extends AbstractModel {
 
 		variabilityInstVertex.put("Concept", instConcept);
 
-		InstConcept instPairWiseRelation = new InstConcept("PairWiseRelation",
-				metaBasicConcept, metaPairWiseRelation);
+		InstConcept instPairWiseRelation = new InstConcept(
+				"CSPairWiseRelation", metaBasicConcept, metaPairWiseRelation);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
-		variabilityInstVertex.put("PairWiseRelation", instPairWiseRelation);
+		variabilityInstVertex.put("CSPairWiseRelation", instPairWiseRelation);
 
 		variabilityInstVertex.put("TypeEnumeration", new InstConcept(
 				"TypeEnumeration", metaBasicConcept, enumeration));
-		InstConcept instOverTwo = new InstConcept("OverTwoRelation",
+		InstConcept instOverTwo = new InstConcept("CSOverTwoRelation",
 				metaBasicConcept, overTwoRelation);
-		variabilityInstVertex.put("OverTwoRelation", instOverTwo);
+		variabilityInstVertex.put("CSOverTwoRelation", instOverTwo);
 
 		MetaPairwiseRelation metaPairwiseRelAso = new MetaPairwiseRelation(
 				"AssociationRelation", false, "Association Relation",
@@ -760,6 +791,7 @@ public class RefasModel extends AbstractModel {
 				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
 						false, "User Identifier", null, 0, 1, "", "", -1, "",
 						""));
+
 		metaPairwiseRelAso.addPropVisibleAttribute("01#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairwiseRelAso.addPropEditableAttribute("01#"
@@ -863,7 +895,7 @@ public class RefasModel extends AbstractModel {
 	 * are displayed in the palette of the syntax perspective. (PWAssociations
 	 * can be used)
 	 */
-	private void createBasicSyntax() {
+	private void createCoreSyntax() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
 		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
@@ -1545,7 +1577,7 @@ public class RefasModel extends AbstractModel {
 	 * perspective (associated to concepts).
 	 */
 	@SuppressWarnings("unchecked")
-	public void createSemantic() {
+	public void createDefaultSemantic() {
 		MetaConcept metaConcept = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("Concept"))
 				.getEditableMetaElement();
@@ -1553,10 +1585,10 @@ public class RefasModel extends AbstractModel {
 				.getSyntaxRefas().getVertex("TypeEnumeration"))
 				.getEditableMetaElement();
 		MetaConcept metaPairwiseRelation = (MetaConcept) ((InstConcept) this
-				.getSyntaxRefas().getVertex("PairWiseRelation"))
+				.getSyntaxRefas().getVertex("CSPairWiseRelation"))
 				.getEditableMetaElement();
 		MetaConcept metaOverTwoRelation = (MetaConcept) ((InstConcept) this
-				.getSyntaxRefas().getVertex("OverTwoRelation"))
+				.getSyntaxRefas().getVertex("CSOverTwoRelation"))
 				.getEditableMetaElement();
 		MetaPairwiseRelation metaPairwRelCCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("ExtendsCCRel"))
@@ -1669,15 +1701,90 @@ public class RefasModel extends AbstractModel {
 				metaConcept, semGeneralElement);
 
 		SemanticExpression t1 = new SemanticExpression("1", this
-				.getSemanticExpressionTypes().get("Sum"), instVertexGE,
-				instVertexGE, "NextReqSelected", "ConfigSelected");
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"IsRootFeature", 0);
+
+		SemanticExpression t3 = new SemanticExpression("3", this
+				.getSemanticExpressionTypes().get("NotEquals"), instVertexGE,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "IsRootFeature", 1);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "sysRequired", 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "IsRootFeature", 0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, instVertexGE, "Required",
+				"sysRequired");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "IsRootFeature", 1);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Selected", 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "NextPrefSelected", 0);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "NextNotPrefSelected", 0);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "HasParent", 1);
+
+		SemanticExpression t2 = new SemanticExpression("2", this
+				.getSemanticExpressionTypes().get("NotEquals"), instVertexGE,
+				"userIdentifier", "GeneralFeature");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexGE, "userIdentifier", "LeafFeature");
+
+		t3 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"And"), t2, t3);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, instVertexGE, "NextReqSelected",
+				"ConfigSelected");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
 				"Product"), instVertexGE, "NextPrefSelected", true, t1);
 
-		SemanticExpression t3 = new SemanticExpression("3", this
-				.getSemanticExpressionTypes().get("Product"), instVertexGE,
-				instVertexGE, "NextPrefSelected", "ConfigSelected");
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, instVertexGE, "NextPrefSelected",
+				"ConfigSelected");
 
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
 				"Sum"), t1, t3);
@@ -1687,11 +1794,84 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions.add(t1);
 
-		SemanticExpression t2 = new SemanticExpression("1", this
-				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"Opt", 0);
+		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Opt", 0);
 
 		semanticExpressions.add(t2);
+
+		t2 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexGE, "userIdentifier", "SoftGoal");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Subtraction"), instVertexGE, "Selected", 1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Product"), 8, true, t1);
+
+		t3 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Product"), t1, t3);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "Order", true, t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Implies"), t2, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, instVertexGE, "ConfigSelected",
+				"NextReqSelected");
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "Core", true, t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"LessOrEquals"), 1, false, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Or"), instVertexGE, instVertexGE, "ConfigNotSelected",
+				"NextNotPrefSelected");
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Or"), instVertexGE, "Dead", true, t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexGE, "NotAvailable", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Or"), instVertexGE, instVertexGE, "NextReqSelected",
+				"NextPrefSelected");
+
+		t2 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Or"), instVertexGE, instVertexGE, "Core", "ConfigSelected");
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Or"), t1, t2);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexGE, "Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, instVertexGE, "Selected",
+				"NotAvailable");
+
+		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
+				"Equals"), 0, false, t1);
+
+		semanticExpressions.add(t1);
 
 		variabilityInstVertex.put("GeneralElement", instVertexGE);
 
@@ -1892,6 +2072,36 @@ public class RefasModel extends AbstractModel {
 				"Feature");
 		InstVertex instVertexF = new InstConcept("Feature", metaConcept,
 				semFeature);
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semFeature.setSemanticExpresions(semanticExpressions);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "IsRootFeature", 1);
+
+		SemanticExpression t2_1 = new SemanticExpression("2-1", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"userIdentifier", "mandatory");
+
+		SemanticExpression t2_2 = new SemanticExpression("2-2", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"userIdentifier", "optional");
+
+		t2 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Or"), t2_1, t2_2);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"And"), 0, true, t2);
+
+		t3 = new SemanticExpression("3-", this.getSemanticExpressionTypes()
+				.get("Equals"), 0, false, t3);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
 		variabilityInstVertex.put("Feature", instVertexF);
 
 		instEdge = new InstPairwiseRelation();
@@ -1954,8 +2164,59 @@ public class RefasModel extends AbstractModel {
 
 		SoftSemanticConcept semSoftgoal = new SoftSemanticConcept(
 				semGeneralElement, "SoftGoal");
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semGeneralElement.setSemanticExpresions(semanticExpressions);
+
 		InstVertex instVertexSG = new InstConcept("Softgoal", metaConcept,
 				semSoftgoal);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"LessOrEquals"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexSG, "satisficingType", "high");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"GreaterOrEquals"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexSG, "satisficingType", "low");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexSG, instVertexSG, "SDReqLevel",
+				"ClaimExpLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexSG, "satisficingType", "close");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
 		variabilityInstVertex.put("Softgoal", instVertexSG);
 
 		semSoftgoal.putSemanticAttribute("SDReqLevel",
@@ -1982,6 +2243,25 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instVertexSG, true);
 
 		SemanticVariable semVariable = new SemanticVariable("Variable");
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semGeneralElement.setSemanticExpresions(semanticExpressions);
+
+		InstVertex instVertexVAR = new InstConcept("Variable", metaConcept,
+				semVariable);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexVAR, instVertexVAR, "variableConfigValue",
+				"value");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexVAR, "variableConfigDomain", "");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
 
 		semVariable
 				.putSemanticAttribute("DashBoardVisible",
@@ -2020,8 +2300,6 @@ public class RefasModel extends AbstractModel {
 				+ "Scope" + "#==#" + "false");
 		semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" + "#>>\n");
 
-		InstVertex instVertexVAR = new InstConcept("Variable", metaConcept,
-				semVariable);
 		variabilityInstVertex.put("Variable", instVertexVAR);
 
 		SemanticContextGroup semContextGroup = new SemanticContextGroup(
@@ -2485,26 +2763,27 @@ public class RefasModel extends AbstractModel {
 		sdPairwiseRelList.add(new SemanticRelationType("SD", "", "", true,
 				true, true, 1, 1, 1, 1));
 
-		SemanticPairwiseRelation semSDPairwiseRel = new SemanticPairwiseRelation(
-				"sdPWAsso", false, sdPairwiseRelList);
-		InstConcept instSemSDPairwiseRel = new InstConcept("sdPWAsso",
-				metaPairwiseRelation, semSDPairwiseRel);
-		variabilityInstVertex.put("sdPWAsso", instSemSDPairwiseRel);
-
-		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sdPWAsso-GR", instEdge);
-		instEdge.setIdentifier("sdPWAsso-GR");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdge.setTargetRelation(instSemSDPairwiseRel, true);
-		instEdge.setSourceRelation(instVertexSD, true);
-
-		instEdge = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sdPW-GR-Asso", instEdge);
-		instEdge.setIdentifier("sdPW-GR-Asso");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdge.setTargetRelation(instVertexSG, true);
-		instEdge.setSourceRelation(instSemSDPairwiseRel, true);
-
+		/*
+		 * SemanticPairwiseRelation semSDPairwiseRel = new
+		 * SemanticPairwiseRelation( "sdPWAsso", false, sdPairwiseRelList);
+		 * InstConcept instSemSDPairwiseRel = new InstConcept("sdPWAsso",
+		 * metaPairwiseRelation, semSDPairwiseRel);
+		 * variabilityInstVertex.put("sdPWAsso", instSemSDPairwiseRel);
+		 * 
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("sdPWAsso-GR", instEdge);
+		 * instEdge.setIdentifier("sdPWAsso-GR");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		 * instEdge.setTargetRelation(instSemSDPairwiseRel, true);
+		 * instEdge.setSourceRelation(instVertexSD, true);
+		 * 
+		 * instEdge = new InstPairwiseRelation();
+		 * this.constraintInstEdges.put("sdPW-GR-Asso", instEdge);
+		 * instEdge.setIdentifier("sdPW-GR-Asso");
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		 * instEdge.setTargetRelation(instVertexSG, true);
+		 * instEdge.setSourceRelation(instSemSDPairwiseRel, true);
+		 */
 		List<IntSemanticRelationType> operclaimPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		operclaimPairwiseRelList.add(new SemanticRelationType("OperToClaim",
 				"", "", true, true, true, 1, 1, 1, 1));
@@ -3164,7 +3443,7 @@ public class RefasModel extends AbstractModel {
 	 * be edited on the Syntax perspective and are the support elements for the
 	 * modeling perspective displayed in the views (palettes)
 	 */
-	private void createSyntax() {
+	private void createDefaultSyntax() {
 
 		MetaView syntaxMetaView = null;
 

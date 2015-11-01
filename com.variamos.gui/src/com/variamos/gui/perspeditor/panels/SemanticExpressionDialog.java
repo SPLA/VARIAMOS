@@ -63,6 +63,7 @@ public class SemanticExpressionDialog extends JDialog {
 	private boolean displayVariableName = false;
 	private int width = 950;
 	private int height = 300;
+	boolean initializing = false;
 
 	static interface SemanticExpressionButtonAction {
 		public boolean onAction();
@@ -81,6 +82,9 @@ public class SemanticExpressionDialog extends JDialog {
 
 	public void initialize(final InstElement element,
 			final List<IntSemanticExpression> semanticExpressions) {
+		if (initializing)
+			return;
+		initializing = true;
 		if (this.getWidth() != 0)
 			width = this.getWidth();
 		if (this.getHeight() != 0)
@@ -233,6 +237,8 @@ public class SemanticExpressionDialog extends JDialog {
 		pack();
 		revalidate();
 		repaint();
+
+		initializing = false;
 	}
 
 	private void showExpression(final SemanticExpression semanticExpression,
@@ -476,8 +482,8 @@ public class SemanticExpressionDialog extends JDialog {
 						semanticExpression, element, recursiveType,
 						semanticExpression.getLeftValidExpressions(), true, 'C');
 				leftPanel.add(conceptCombo);
-				InstElement recElement = refasModel.getVertex(conceptCombo
-						.getSelectedItem().toString());
+				InstElement recElement = refasModel
+						.getVertex((String) conceptCombo.getSelectedItem());
 				conceptCombo = createCombo(semanticExpression, element,
 						recursiveType,
 						semanticExpression.getLeftValidExpressions(), true, 'P');

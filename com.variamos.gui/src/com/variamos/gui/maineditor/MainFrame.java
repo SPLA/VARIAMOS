@@ -62,9 +62,9 @@ public class MainFrame extends JFrame {
 
 		System.out.println("Loading Basic Semantic and Syntax...");
 		RefasModel basicSyntaxRefas = new RefasModel(
-				PerspectiveType.basicSyntax, metaExpressionTypes);
+				PerspectiveType.CORESYNTAX, metaExpressionTypes);
 		RefasModel basicSemanticRefas = new RefasModel(
-				PerspectiveType.basicSemantic, metaExpressionTypes);
+				PerspectiveType.CORESEMANTIC, metaExpressionTypes);
 		RefasModel semanticRefas = null;
 		RefasModel syntaxRefas = null;
 		RefasModel abstractModel = null;
@@ -78,7 +78,7 @@ public class MainFrame extends JFrame {
 				abstractModel = new RefasModel(metaExpressionTypes,
 						basicSemanticRefas);
 				semanticRefas = abstractModel;
-				syntaxRefas = new RefasModel(PerspectiveType.syntax,
+				syntaxRefas = new RefasModel(PerspectiveType.SYNTAX,
 						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
 				bgColor = new Color(252, 233, 252);
 				perspTitle = "Semantic - VariaMos " + variamosVersionNumber;
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 1:// modeling
-				abstractModel = new RefasModel(PerspectiveType.modeling,
+				abstractModel = new RefasModel(PerspectiveType.MODELING,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 
 				bgColor = new Color(236, 238, 255);
@@ -105,7 +105,7 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 3:// simulation
-				abstractModel = new RefasModel(PerspectiveType.simulation,
+				abstractModel = new RefasModel(PerspectiveType.CONFIG_SIMULATION,
 						metaExpressionTypes, syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
 				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;

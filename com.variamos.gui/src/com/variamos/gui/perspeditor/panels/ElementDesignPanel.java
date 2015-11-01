@@ -74,9 +74,11 @@ public class ElementDesignPanel extends JPanel {
 	private JPanel contentPanel1 = new JPanel(new SpringLayout());
 	private JPanel contentPanel2 = new JPanel(new SpringLayout());
 	private JPanel contentPanel3 = new JPanel(new SpringLayout());
+	private JPanel contentPanel4 = new JPanel(new SpringLayout());
 	private JPanel rootPanel1 = new JPanel();
 	private JPanel rootPanel2 = new JPanel(new SpringLayout());
 	private JPanel rootPanel3 = new JPanel(new SpringLayout());
+	private JPanel rootPanel4 = new JPanel(new SpringLayout());
 	private int mainPanelWidth = 200;
 
 	public ElementDesignPanel() {
@@ -101,6 +103,13 @@ public class ElementDesignPanel extends JPanel {
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel3, 2, 1, 4, 4, 4, 4);
+
+		rootPanel4.add(contentPanel4);
+		dummyP = new JPanel();
+		dummyP.setMinimumSize(new Dimension(0, 0));
+		dummyP.setMaximumSize(new Dimension(500, 300));
+		rootPanel4.add(dummyP);
+		SpringUtilities.makeCompactGrid(rootPanel4, 2, 1, 4, 4, 4, 4);
 
 		mainPanel.setBackground(Color.WHITE);
 		setLayout(new SpringLayout());
@@ -131,6 +140,7 @@ public class ElementDesignPanel extends JPanel {
 		contentPanel1.removeAll();
 		contentPanel2.removeAll();
 		contentPanel3.removeAll();
+		contentPanel4.removeAll();
 		int designPanelElements = 0;
 		if (instCell == null || instCell.getInstElement() == null) {
 			return;
@@ -634,7 +644,6 @@ public class ElementDesignPanel extends JPanel {
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
 			contentPanel1.revalidate();
-			JPanel attPanel = new JPanel(new SpringLayout());
 			// Fill Attributes Panel (Only for VariabilityElements ) in
 			// Properties Panel
 			JPanel dummy2 = new JPanel();
@@ -673,8 +682,11 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
 			if (editElm instanceof InstEnumeration
-					|| (((InstElement) editElm).getSupportMetaElementIden() != null && ((InstElement) editElm)
-							.getSupportMetaElementIden().equals("OPER"))) {
+					|| ((InstElement) editElm).getSupportMetaElementIden() != null
+					&& (((InstElement) editElm).getSupportMetaElementIden()
+							.equals("OPER"))) {
+
+				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
 				attPanel.addFocusListener(new FocusListener() {
 					@Override
@@ -711,6 +723,8 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 
 			} else if (editor.getPerspective() % 2 != 0) {
+
+				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 350;
 				rootPanel3.setPreferredSize(new Dimension(350, 450));
 				contentPanel3.setPreferredSize(new Dimension(350, 450));
@@ -748,6 +762,45 @@ public class ElementDesignPanel extends JPanel {
 
 				contentPanel3.add(attPanel);
 				mainPanel.add(rootPanel3);
+			} else {
+				JPanel dummy3 = new JPanel();
+				dummy3.setMinimumSize(new Dimension(0, 0));
+				dummy3.setPreferredSize(new Dimension(500, 20));
+				dummy3.setMaximumSize(new Dimension(600, 200));
+				mainPanel.add(dummy3);
+
+			}
+			if (((InstElement) editElm).getSupportMetaElementIden() != null
+					&& (((InstElement) editElm).getSupportMetaElementIden()
+							.equals("CSPairWiseRelation") || ((InstElement) editElm)
+							.getSupportMetaElementIden().equals(
+									"CSOverTwoRelation"))) {
+
+				JPanel attPanel = new JPanel(new SpringLayout());
+				mainPanelWidth += 200;
+				attPanel.addFocusListener(new FocusListener() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						editorProperties(finalEditor, instCell);
+					}
+
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						editorProperties(finalEditor, instCell);
+					}
+				});
+				attPanel.setPreferredSize(new Dimension(150, 150));
+				attPanel.setMaximumSize(new Dimension(150, 180));
+				attPanel.add(new JLabel(mxResources.get("relationTypesPanel")));
+
+				RelationTypesList attList = new RelationTypesList(editor,
+						instCell);
+				attPanel.add(new JScrollPane(attList));
+				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
+				contentPanel4.setPreferredSize(new Dimension(200, 200));
+				contentPanel4.add(attPanel);
+				mainPanel.add(rootPanel4);
+
 			} else {
 				JPanel dummy3 = new JPanel();
 				dummy3.setMinimumSize(new Dimension(0, 0));

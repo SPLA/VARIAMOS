@@ -7,9 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -164,7 +167,7 @@ public class AbstractSemanticElement implements Serializable,
 
 	public Map<String, AbstractAttribute> getSemanticAttributes() {
 
-		Map<String, AbstractAttribute> abstractAttributes= new HashMap<String, AbstractAttribute>();
+		Map<String, AbstractAttribute> abstractAttributes = new HashMap<String, AbstractAttribute>();
 		abstractAttributes.putAll(semanticAttributes);
 		if (parent != null)
 			abstractAttributes.putAll(parent.getSemanticAttributes());
@@ -215,8 +218,26 @@ public class AbstractSemanticElement implements Serializable,
 		return semanticExpresions;
 	}
 
-	public void setSemanticExpresions(List<IntSemanticExpression> semanticExpresions) {
+	public void setSemanticExpresions(
+			List<IntSemanticExpression> semanticExpresions) {
 		this.semanticExpresions = semanticExpresions;
+	}
+
+	public Set<String> getAllAttributesNames(List<InstElement> parents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		modelingAttributesNames.addAll(getSemanticAttributesNames());
+		if (parents != null)
+			for (InstElement parent : parents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				modelingAttributesNames.addAll(parentConcept
+						.getTransInstSemanticElement()
+						.getEditableSemanticElement()
+						.getSemanticAttributesNames());
+				modelingAttributesNames.addAll(parentConcept
+						.getModelingAttributesNames(parents));
+			}
+		return modelingAttributesNames;
 	}
 
 }

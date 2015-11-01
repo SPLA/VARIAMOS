@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 /**
@@ -32,6 +33,8 @@ public interface IntSemanticElement extends Serializable {
 	IntSemanticElement getParent();
 
 	public Set<String> getSemanticAttributesNames();
+
+	public Set<String> getAllAttributesNames(List<InstElement> parents);
 
 	public List<IntSemanticExpression> getSemanticExpresions();
 
