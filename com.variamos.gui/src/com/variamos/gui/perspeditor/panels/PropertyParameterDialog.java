@@ -70,7 +70,7 @@ public class PropertyParameterDialog extends JDialog {
 						List<IntSemanticExpression> ie = new ArrayList<IntSemanticExpression>();
 						;
 						if (elementAttribute.getValue() != null)
-							ie.add((SemanticExpression) elementAttribute
+							ie.addAll((List<IntSemanticExpression>) elementAttribute
 									.getValue());
 
 						final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
