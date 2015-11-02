@@ -838,7 +838,7 @@ public class SemanticExpressionDialog extends JDialog {
 				if ((sourceRelation.getSupportMetaElementIden().equals(
 						"Concept") && elementType == 'C')
 						|| (sourceRelation.getSupportMetaElementIden().equals(
-								"PairWiseRelation") && elementType == 'P'))
+								"CSPairWiseRelation") && elementType == 'P'))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
