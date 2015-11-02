@@ -156,6 +156,31 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
+			ExpressionVertexType leftExpressionVertexType,
+			ExpressionVertexType rightExpressionVertexType,
+			String leftAttributeName, String rightAttributeName) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		if (semanticExpressionType
+				.equals(ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE)
+				|| semanticExpressionType
+						.equals(ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE))
+			this.leftRelAttributeName = leftAttributeName;
+		else
+			this.leftAttributeName = leftAttributeName;
+		if (semanticExpressionType
+				.equals(ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE)
+				|| semanticExpressionType
+						.equals(ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE))
+			this.rightRelAttributeName = rightAttributeName;
+		else
+			this.rightAttributeName = rightAttributeName;
+		setLeftExpressionType(leftExpressionVertexType);
+		setRightExpressionType(rightExpressionVertexType);
+	}
+
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			InstElement leftSemanticElement, String leftAttributeName,
 			int rightNumber) {
 		this.identifier = identifier;
@@ -503,13 +528,22 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
 			if (leftSemanticElement != null)
 				return leftSemanticElement.getIdentifier();
 			break;
+
 		case RIGHT:
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
 			if (rightSemanticElement != null)
 				return rightSemanticElement.getIdentifier();
 			break;
@@ -528,11 +562,19 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFT:
 		case LEFTRELATEDCONCEPT:
 		case LEFTRELATIONCONCEPT:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
 			return leftSemanticElement;
 		case RIGHT:
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
 			return rightSemanticElement;
 		default:
 		}
@@ -560,6 +602,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		String concept = null;
 		String concept2 = null;
 		String variable = null;
+		String variable2 = null;
 		switch (expressionVertexType) {
 
 		case LEFTINCOMRELVARIABLE:
@@ -570,24 +613,36 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
 			if (leftSemanticElement != null) {
 				concept = leftSemanticElement.getIdentifier();
 				variable = getLeftAttributeName();
 			}
-			if (leftSemanticRelElement != null)
+			if (leftSemanticRelElement != null) {
 				concept2 = leftSemanticRelElement.getIdentifier();
+				variable2 = getLeftRelAttributeName();
+			}
+
 			break;
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
 			if (rightSemanticElement != null) {
 				concept = rightSemanticElement.getIdentifier();
 				variable = getRightAttributeName();
 			}
-			if (rightSemanticRelElement != null)
+			if (rightSemanticRelElement != null) {
 				concept2 = rightSemanticRelElement.getIdentifier();
+				variable2 = getRightRelAttributeName();
+			}
 			break;
-
 		default:
 			return null;
 		}
@@ -595,7 +650,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			if (isConcept)
 				return concept2;
 			else
-				return variable;
+				return variable2;
 		} else {
 			if (isConcept)
 				return concept;
@@ -605,7 +660,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	}
 
 	public InstElement getSelectedElement(
-			ExpressionVertexType expressionVertexType) {
+			ExpressionVertexType expressionVertexType, char elementType) {
 		InstElement concept = null;
 		switch (expressionVertexType) {
 
@@ -615,16 +670,29 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
 			if (leftSemanticElement != null) {
-				concept = leftSemanticElement;
+				if (elementType == 'C')
+					concept = leftSemanticElement;
+				if (elementType == 'P')
+					concept = leftSemanticRelElement;
 			}
 			break;
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
 			if (rightSemanticElement != null) {
-				concept = rightSemanticElement;
+				if (elementType == 'C')
+					concept = rightSemanticElement;
+				if (elementType == 'P')
+					concept = rightSemanticElement;
 			}
 			break;
-
 		default:
 			return null;
 		}
@@ -641,7 +709,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFTINCOMRELVARIABLE:
 		case LEFTOUTGRELVARIABLE:
 		case LEFTANYRELVARIABLE:
-
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
 			if (elementType == 'C')
@@ -653,6 +724,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
 		case RIGHTVARIABLEVALUE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
 			if (elementType == 'C')
 				this.rightSemanticElement = intSemanticElement;
 			if (elementType == 'P')
@@ -672,6 +747,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case LEFTANYRELVARIABLE:
 		case LEFTCONCEPTVARIABLE:
 		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
 			if (elementType == 'C')
 				this.setLeftAttributeName(attributeName);
 			if (elementType == 'P')
@@ -681,6 +760,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
 		case RIGHTCONCEPTVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
 			if (elementType == 'C')
 				this.setRightAttributeName(attributeName);
 			if (elementType == 'P')

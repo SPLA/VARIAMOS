@@ -37,6 +37,7 @@ import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
@@ -48,7 +49,9 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
+import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.PerspectiveType;
+import com.variamos.perspsupport.types.StringType;
 
 /**
  * A class to represent the model with vertex and edges. Maintains the
@@ -2601,9 +2604,160 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directStructHardHardSemanticEdge = new SemanticPairwiseRelation(
 				"structHardHardPWAsso", false, structHardSemPairwiseRelList);
+
 		InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
 				"structHardHardPWAsso", metaPairwiseRelation,
 				directStructHardHardSemanticEdge);
+
+		InstAttribute ia = instDirStructHardHardSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
+				"means_ends", StringType.IDENTIFIER, false, "means_ends", "",
+				1, -1, "", "", -1, "", ""),
+				"means_ends#means-ends#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
+				"alternative", StringType.IDENTIFIER, false, "alternative", "",
+				1, -1, "", "", -1, "", ""),
+				"altern.#altern.#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
+				-1, "", "", -1, "", ""),
+				"preferred#preferred#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
+				"", ""), "require#require#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute(
+				"condition", StringType.IDENTIFIER, false, "condition", "", 1,
+				-1, "", "", -1, "", ""),
+				"condition#condition#false#true#true#1#-1#1#1"));
+
+		ia = instDirStructHardHardSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instDirStructHardHardSemanticEdge, "IsRootFeature",
+				0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
+				"means_ends", StringType.IDENTIFIER, false, "means_ends", "",
+				1, -1, "", "", -1, "", ""), t1));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE, "NotAvailable",
+				"NotAvailable");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Equals"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), t1));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instDirStructHardHardSemanticEdge, "IsRootFeature",
+				0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
+				"alternative", StringType.IDENTIFIER, false, "alternative", "",
+				1, -1, "", "", -1, "", ""), t1));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instDirStructHardHardSemanticEdge, "IsRootFeature",
+				0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
+				-1, "", "", -1, "", ""), t1));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instDirStructHardHardSemanticEdge, "IsRootFeature",
+				0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "condition", "", 1, -1, "", "",
+				-1, "", ""), t1));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instDirStructHardHardSemanticEdge, "IsRootFeature",
+				0);
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instDirStructHardHardSemanticEdge,
+				"userIdentifier", "Feature");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute(
+				"condition", StringType.IDENTIFIER, false, "condition", "", 1,
+				-1, "", "", -1, "", ""), t1));
 		variabilityInstVertex.put("structHardHardPWAsso",
 				instDirStructHardHardSemanticEdge);
 
