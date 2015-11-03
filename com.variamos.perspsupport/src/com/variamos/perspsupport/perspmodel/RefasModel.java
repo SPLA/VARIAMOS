@@ -2747,8 +2747,6 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
-
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
@@ -2817,6 +2815,63 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
 				"FeatFeatParentPWAsso", metaPairwiseRelation,
 				directFeaFeatVertSemEdge);
+
+		ia = instDirFeaFeatVertSemEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
+				-1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
+				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
+				-1, "", ""), "optional#optional#false#true#true#1#-1#1#1"));
+
+		ia = instDirFeaFeatVertSemEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Selected", "Selected");
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
+				-1, "", "", -1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Selected", "Selected");
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
+				instVertexF, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
+				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
+				-1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("FeatFeatParentPWAsso",
 				instDirFeaFeatVertSemEdge);
 
@@ -2839,6 +2894,54 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirFeatFeatSideSemEdge = new InstConcept(
 				"FeatFeatSidePWAsso", metaPairwiseRelation,
 				directFeatFeatSideSemEdge);
+
+		ia = instDirFeatFeatSideSemEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
+				"", ""), "require#require#false#true#true#1#-1#1#1"));
+
+		ia = instDirFeatFeatSideSemEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "Selected", "Selected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), 1, false, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexF, "Selected", false, 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), 1, false, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "condition", "", 1, -1, "", "",
+				-1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("FeatFeatSidePWAsso",
 				instDirFeatFeatSideSemEdge);
 
@@ -2871,6 +2974,43 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemAssetOperPairwiseRel = new InstConcept(
 				"varAssetOperPWAsso", metaPairwiseRelation,
 				semAssetOperPairwiseRel);
+
+		ia = instDirStructHardHardSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
+				"implementation", StringType.IDENTIFIER, false,
+				"implementation", "", 1, -1, "", "", -1, "", ""),
+				"implementation#implementation#false#true#true#1#-1#1#1"));
+
+		ia = instDirStructHardHardSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexHC, "Selected", "Selected");
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexHC, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
+				"implementation", StringType.IDENTIFIER, false,
+				"implementation", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
+
 		variabilityInstVertex.put("varAssetOperPWAsso",
 				instSemAssetOperPairwiseRel);
 
@@ -2891,13 +3031,72 @@ public class RefasModel extends AbstractModel {
 		List<IntSemanticRelationType> assetPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		assetPairwiseRelList.add(new SemanticRelationType("delegation",
 				"delegation", "deleg.", true, true, true, 1, 1, 1, 1));
-		assetPairwiseRelList.add(new SemanticRelationType("Assembly",
-				"Assembly", "asssembly", true, true, true, 1, 1, 1, 1));
+		assetPairwiseRelList.add(new SemanticRelationType("assembly",
+				"assembly", "assembly", true, true, true, 1, 1, 1, 1));
 
 		SemanticPairwiseRelation semAssetPairwiseRel = new SemanticPairwiseRelation(
 				"varAssetPWAsso", false, assetPairwiseRelList);
 		InstConcept instSemAssetPairwiseRel = new InstConcept("varAssetPWAsso",
 				metaPairwiseRelation, semAssetPairwiseRel);
+
+		ia = instSemAssetPairwiseRel
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
+				-1, "", "", -1, "", ""),
+				"mandatory#mandatory#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
+				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
+				-1, "", ""), "optional#optional#false#true#true#1#-1#1#1"));
+
+		ia = instSemAssetPairwiseRel
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "Selected", "Selected");
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "NotAvailable",
+				"NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("delegation", new AbstractAttribute(
+				"delegation", StringType.IDENTIFIER, false, "delegation", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+				instVertexAsset, instVertexAsset, "Selected", "Selected");
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
+				instVertexF, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("assembly", new AbstractAttribute("assembly",
+				StringType.IDENTIFIER, false, "assembly", "", 1, -1, "", "",
+				-1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("varAssetPWAsso", instSemAssetPairwiseRel);
 
 		instEdge = new InstPairwiseRelation();
@@ -2920,8 +3119,30 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semvarcntxPairwiseRel = new SemanticPairwiseRelation(
 				"varcntxPWAsso", false, vcntxPairwiseRelList);
+
 		InstConcept instSemvarcntxPairwiseRel = new InstConcept(
 				"varcntxPWAsso", metaPairwiseRelation, semvarcntxPairwiseRel);
+
+		ia = instSemvarcntxPairwiseRel
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
+				"Variable Context", StringType.IDENTIFIER, false, "", "", 1,
+				-1, "", "", -1, "", ""),
+				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
+
+		ia = instSemvarcntxPairwiseRel
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
+				"Variable Context", StringType.IDENTIFIER, false,
+				"Variable Context", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
+
 		variabilityInstVertex.put("varcntxPWAsso", instSemvarcntxPairwiseRel);
 
 		instEdge = new InstPairwiseRelation();
@@ -2969,8 +3190,45 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation semOperClaimPairwiseRel = new SemanticPairwiseRelation(
 				"operclaimPWAsso", false, operclaimPairwiseRelList);
+
 		InstConcept instSemCLPWAsso = new InstConcept("operclaimPWAsso",
 				metaPairwiseRelation, semOperClaimPairwiseRel);
+
+		ia = instSemCLPWAsso.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instSemCLPWAsso.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Selected", "CompExp");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("operclaimPWAsso", instSemCLPWAsso);
 
 		instEdge = new InstPairwiseRelation();
@@ -3202,6 +3460,197 @@ public class RefasModel extends AbstractModel {
 
 		InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
 				metaPairwiseRelation, directSGSGSemEdge);
+
+		ia = instDirSGSGSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("contribution", new AbstractAttribute(
+				"contribution", StringType.IDENTIFIER, false, "contribution",
+				"", 1, -1, "", "", -1, "", ""),
+				"contribution#contribution#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
+				"alternative", StringType.IDENTIFIER, false, "alternative", "",
+				1, -1, "", "", -1, "", ""),
+				"altern.#altern.#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
+				-1, "", "", -1, "", ""),
+				"preferred#preferred#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
+				"", ""), "require#require#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
+				"implication", StringType.IDENTIFIER, false, "implication", "",
+				1, -1, "", "", -1, "", ""),
+				"implication#implication#false#true#true#1#-1#1#1"));
+
+		ia = instDirSGSGSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "satisficingType", "low");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "satisficingType", "high");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t1, t3);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "satisficingType", "close");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("contribution", new AbstractAttribute(
+				"contribution", StringType.IDENTIFIER, false, "contribution",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
+				instVertexSG, "Selected", "Selected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), 1, false, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
+				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
+				-1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Selected", true, 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
+				"alternative", StringType.IDENTIFIER, false, "alternative", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
+				instVertexSG, "Selected", "Selected");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Selected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"And"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
+				-1, "", "", -1, "", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Selected", false, 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), 1, false, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
+				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
+				"", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "Selected", true, 1);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSG, "Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
+				"implication", StringType.IDENTIFIER, false, "implication", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("SgSgPWAsso", instDirSGSGSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -3459,6 +3908,83 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
 				"ClaimSGPWAsso", metaPairwiseRelation,
 				directClaimSGSemanticEdge);
+
+		ia = instDirClaimSGSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
+				"ClaimToSG", StringType.IDENTIFIER, false, "ClaimToSG", "", 1,
+				-1, "", "", -1, "", ""),
+				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
+
+		ia = instDirClaimSGSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "satisficingType", "low");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "satisficingType", "high");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexCL, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				instVertexSG, "satisficingType", "close");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
+				"ClaimToSG", StringType.IDENTIFIER, false, "ClaimToSG", "", 1,
+				-1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("ClaimSGPWAsso", instDirClaimSGSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -3496,6 +4022,85 @@ public class RefasModel extends AbstractModel {
 				+ SemanticPairwiseRelation.VAR_LEVEL);
 		InstConcept instDirSDSGSemanticEdge = new InstConcept("SDSGPWAsso",
 				metaPairwiseRelation, directSDSGSemanticEdge);
+
+		ia = instDirSDSGSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
+				StringType.IDENTIFIER, false, "SD", "", 1, -1, "", "", -1, "",
+				""), "SD#SD#true#true#true#1#-1#1#1"));
+
+		ia = instDirSDSGSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "satisficingType", "low");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "satisficingType", "high");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHT, instVertexSG,
+				instDirClaimSGSemanticEdge, "SDReqLevel", "level");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "Selected", true, t1);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexSD, "satisficingType", "close");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexSD,
+				instVertexSD, "Selected", "CompExp");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
+				StringType.IDENTIFIER, false, "SD", "", 1, -1, "", "", -1, "",
+				""), semanticExpressions));
+
 		variabilityInstVertex.put("SDSGPWAsso", instDirSDSGSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -3599,14 +4204,12 @@ public class RefasModel extends AbstractModel {
 		ia = instAssetOperGRAO.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false, "means_ends",
-				"", 1, -1, "", "", -1, "", ""),
+				"implementation", StringType.IDENTIFIER, false,
+				"implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
 		ia = instAssetOperGRAO.getInstAttribute("relationTypesSemExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
-
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3656,15 +4259,13 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false, "means_ends",
-				"", 1, -1, "", "", -1, "", ""),
+				"implementation", StringType.IDENTIFIER, false,
+				"implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
 		ia = instDirAssetOperSemanticEdge
 				.getInstAttribute("relationTypesSemExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
-
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 

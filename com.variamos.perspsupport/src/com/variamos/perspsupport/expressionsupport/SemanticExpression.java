@@ -251,6 +251,20 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	}
 
 	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
+			ExpressionVertexType leftExpressionVertexType,
+			InstElement leftSemanticElement, String leftAttributeName,
+			String rightString) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticElement = leftSemanticElement;
+		this.leftAttributeName = leftAttributeName;
+		this.rightString = rightString;
+		setLeftExpressionType(leftExpressionVertexType);
+		setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
+	}
+
+	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType, String string,
 			boolean replaceTarget, SemanticExpression semanticExpression) {
 		this.identifier = identifier;
