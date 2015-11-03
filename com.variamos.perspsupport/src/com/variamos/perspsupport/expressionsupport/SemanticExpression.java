@@ -158,6 +158,7 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			SemanticExpressionType semanticExpressionType,
 			ExpressionVertexType leftExpressionVertexType,
 			ExpressionVertexType rightExpressionVertexType,
+			InstElement leftSemanticElement, InstElement rightSemanticElement,
 			String leftAttributeName, String rightAttributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
@@ -175,6 +176,9 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			this.rightRelAttributeName = rightAttributeName;
 		else
 			this.rightAttributeName = rightAttributeName;
+
+		this.leftSemanticElement = leftSemanticElement;
+		this.rightSemanticElement = rightSemanticElement;
 		setLeftExpressionType(leftExpressionVertexType);
 		setRightExpressionType(rightExpressionVertexType);
 	}
@@ -194,16 +198,19 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
-			ExpressionVertexType expressionVertexType, String attributeName,
+			ExpressionVertexType expressionVertexType,
+			InstElement semanticElement, String attributeName,
 			boolean replaceRight, int number) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceRight) {
-			this.leftAttributeName = leftAttributeName;
+			this.leftSemanticElement = semanticElement;
+			this.leftAttributeName = attributeName;
 			this.rightNumber = number;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
 		} else {
+			this.rightSemanticElement = semanticElement;
 			this.rightAttributeName = attributeName;
 			this.leftNumber = number;
 			setRightExpressionType(expressionVertexType);
@@ -263,16 +270,20 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
-			ExpressionVertexType expressionVertexType, String attributeName,
+			ExpressionVertexType expressionVertexType,
+			InstElement semanticElement, String attributeName,
 			boolean replaceTarget, SemanticExpression semanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceTarget) {
+
+			this.leftSemanticElement = semanticElement;
 			this.leftAttributeName = attributeName;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 			this.rightSemanticExpression = semanticExpression;
 		} else {
+			this.rightSemanticElement = semanticElement;
 			this.rightAttributeName = attributeName;
 			setLeftExpressionType(ExpressionVertexType.LEFTSUBEXPRESSION);
 			setRightExpressionType(expressionVertexType);
@@ -326,9 +337,11 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
 
-			ExpressionVertexType leftExpressionVertexType, String attributeName) {
+			ExpressionVertexType leftExpressionVertexType,
+			InstElement leftSemanticElement, String attributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticElement = leftSemanticElement;
 		this.leftAttributeName = attributeName;
 		setLeftExpressionType(leftExpressionVertexType);
 	}
