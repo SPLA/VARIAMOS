@@ -2979,7 +2979,7 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("implication", new AbstractAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, false,
 				"implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#false#true#true#1#-1#1#1"));
@@ -3361,9 +3361,6 @@ public class RefasModel extends AbstractModel {
 
 		// SG to SG
 
-		SemanticOverTwoRelation semanticSGSGGroupRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "SgSgOTAsso", hardSemOverTwoRelList);
-
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semSoftgoal);
 
@@ -3632,12 +3629,16 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexSG, true);
 		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
+		SemanticOverTwoRelation semanticSGSGGroupRelation = new SemanticOverTwoRelation(
+				semGeneralElement, "SgSgOTAsso", hardSemOverTwoRelList);
+
 		InstVertex instVertexSGGR = new InstConcept("SgSgOTAsso",
 				metaOverTwoRelation, semanticSGSGGroupRelation);
 		variabilityInstVertex.put("SgSgOTAsso", instVertexSGGR);
 
 		InstConcept instSgsgSGR = new InstConcept("sgsgOTAssoFromPWAsso",
 				metaPairwiseRelation);
+
 		variabilityInstVertex.put("sgsgOTAssoFromPWAsso", instSgsgSGR);
 
 		instEdge = new InstPairwiseRelation();
@@ -3656,6 +3657,7 @@ public class RefasModel extends AbstractModel {
 
 		InstConcept instSgsgGRSG = new InstConcept("sgsgOTAssoToPWAsso",
 				metaPairwiseRelation);
+
 		variabilityInstVertex.put("sgsgOTAssoToPWAsso", instSgsgGRSG);
 
 		instEdge = new InstPairwiseRelation();
@@ -3680,6 +3682,27 @@ public class RefasModel extends AbstractModel {
 				"CVCGPWAsso", false, vcntxPairwiseRelList);
 		InstConcept instDirCVCGSemanticEdge = new InstConcept("CVCGPWAsso",
 				metaPairwiseRelation, directCVCGSemanticEdge);
+
+		ia = instDirCVCGSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
+				"Variable Context", StringType.IDENTIFIER, false, "", "", 1,
+				-1, "", "", -1, "", ""),
+				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
+
+		ia = instDirCVCGSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
+				"Variable Context", StringType.IDENTIFIER, false,
+				"Variable Context", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
+
 		variabilityInstVertex.put("CVCGPWAsso", instDirCVCGSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
@@ -3705,6 +3728,7 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexCLGR = new InstConcept("OperCLOTAsso",
 				metaOverTwoRelation, semanticOperClaimGroupRelation);
+
 		variabilityInstVertex.put("OperCLOTAsso", instVertexCLGR);
 
 		SemanticPairwiseRelation directOperClaimToSemanticEdge = new SemanticPairwiseRelation(
@@ -3713,6 +3737,44 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirOperClaimToSemanticEdge = new InstConcept(
 				"OperClaimToPWAsso", metaPairwiseRelation,
 				directOperClaimToSemanticEdge);
+
+		ia = instDirOperClaimToSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
+				1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instDirOperClaimToSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Selected", "CompExp");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("OperClaimToPWAsso",
 				instDirOperClaimToSemanticEdge);
 
@@ -3764,7 +3826,7 @@ public class RefasModel extends AbstractModel {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
 				1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
@@ -3794,7 +3856,7 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions.add(t1);
 
 		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
 				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		variabilityInstVertex.put("OperClaimPWAsso",
@@ -3820,6 +3882,7 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
 				metaOverTwoRelation, semanticLFClaimGroupRelation);
+
 		variabilityInstVertex.put("LFtoClaimOTAsso", instVertexLFCLGR);
 
 		SemanticPairwiseRelation directFClaimToSemanticEdge = new SemanticPairwiseRelation(
@@ -3828,6 +3891,44 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirFClaimToSemanticEdge = new InstConcept(
 				"FClaimToPWAsso", metaPairwiseRelation,
 				directFClaimToSemanticEdge);
+
+		ia = instDirFClaimToSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
+				1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instDirFClaimToSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Selected", "CompExp");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex
 				.put("FClaimToPWAsso", instDirFClaimToSemanticEdge);
 
@@ -4127,6 +4228,7 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
 				metaOverTwoRelation, semanticAssetAssetOvertwoRel);
+
 		variabilityInstVertex.put("AssetAssetOTAsso", instVertexASSETGR);
 
 		InstConcept instAssetassetASGR = new InstConcept(
@@ -4177,6 +4279,7 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexOPERGR = new InstConcept("AssetOperOTAsso",
 				metaOverTwoRelation, semanticAssetOperGroupRelation);
+
 		variabilityInstVertex.put("AssetOperOTAsso", instVertexOPERGR);
 
 		InstConcept instAssetOperAOGR = new InstConcept(
