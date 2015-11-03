@@ -2855,14 +2855,14 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3194,42 +3194,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemCLPWAsso = new InstConcept("operclaimPWAsso",
 				metaPairwiseRelation, semOperClaimPairwiseRel);
 
-		ia = instSemCLPWAsso.getInstAttribute("relationTypesAttributes");
-		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
-				1, -1, "", "", -1, "", ""),
-				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
-
-		ia = instSemCLPWAsso.getInstAttribute("relationTypesSemExpressions");
-		ias = (List<InstAttribute>) ia.getValue();
-
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
-
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instVertexCL, "Selected", "CompExp");
-
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
-				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
-				"Selected", true, t1);
-
-		semanticExpressions.add(t1);
-
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instVertexCL, "NotAvailable", "NotAvailable");
-
-		semanticExpressions.add(t1);
-
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
-
-		variabilityInstVertex.put("operclaimPWAsso", instSemCLPWAsso);
+		// variabilityInstVertex.put("operclaimPWAsso", instSemCLPWAsso);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("operclaimPWAsso-GR", instEdge);
@@ -3499,12 +3464,12 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHT, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHT, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
 
@@ -3794,6 +3759,44 @@ public class RefasModel extends AbstractModel {
 		InstConcept instDirOperClaimSemanticEdge = new InstConcept(
 				"OperClaimPWAsso", metaPairwiseRelation,
 				directOperClaimSemanticEdge);
+
+		ia = instDirOperClaimSemanticEdge
+				.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				1, -1, "", "", -1, "", ""),
+				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
+
+		ia = instDirOperClaimSemanticEdge
+				.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "Selected", "CompExp");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
+				"Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
+				instVertexCL, "NotAvailable", "NotAvailable");
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
+				"OperToClaim", StringType.IDENTIFIER, false, "ClaimToSG", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
+
 		variabilityInstVertex.put("OperClaimPWAsso",
 				instDirOperClaimSemanticEdge);
 
@@ -3944,7 +3947,7 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHT, instVertexSG,
 				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
 
@@ -4055,7 +4058,7 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHT, instVertexSG,
 				instDirClaimSGSemanticEdge, "SDReqLevel", "level");
 
