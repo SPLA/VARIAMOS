@@ -328,6 +328,41 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
+			InstElement semanticElement, InstElement semanticRelElement,
+			SemanticExpression semanticExpression, int rightNumber) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticElement = semanticElement;
+		this.leftSemanticRelElement = semanticRelElement;
+		this.leftSemanticExpression = semanticExpression;
+		setLeftExpressionType(ExpressionVertexType.LEFTINCOMRELVARIABLE);
+		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+		this.rightNumber = rightNumber;
+
+	}
+
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
+			ExpressionVertexType leftExpressionType,
+			InstElement leftSemanticElement,
+			InstElement leftSemanticRelElement,
+			SemanticExpression semanticExpression,
+			ExpressionVertexType rightExpressionType,
+			InstElement rightSemanticElement, String rightAttribute) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		this.leftSemanticElement = leftSemanticElement;
+		this.leftSemanticRelElement = leftSemanticRelElement;
+		this.leftSemanticExpression = semanticExpression;
+		setLeftExpressionType(leftExpressionType);
+		setRightExpressionType(rightExpressionType);
+		this.rightSemanticElement = rightSemanticElement;
+		this.rightAttributeName = rightAttribute;
+
+	}
+
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
 			SemanticExpression leftSemanticExpression,
 			SemanticExpression rightSemanticExpression) {
 		this.identifier = identifier;

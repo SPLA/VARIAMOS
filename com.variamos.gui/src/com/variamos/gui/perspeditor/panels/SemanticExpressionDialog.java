@@ -577,30 +577,30 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			}
 		}
-		ExpressionVertexType recursiveType = null;
+		ExpressionVertexType iterativeType = null;
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables (Concept/Relation)"))
-			recursiveType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
+			iterativeType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables (Concept/Relation)"))
-			recursiveType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
+			iterativeType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Concept/Relation)"))
-			recursiveType = ExpressionVertexType.LEFTANYRELVARIABLE;
-		if (recursiveType != null)
+			iterativeType = ExpressionVertexType.LEFTANYRELVARIABLE;
+		if (iterativeType != null)
 			if (semanticExpression.getSemanticExpressionType() != null) {
 
 				if (semanticExpression.getLeftSemanticExpression() == null)
-					semanticExpression.setLeftSemanticExpression(recursiveType,
+					semanticExpression.setLeftSemanticExpression(iterativeType,
 							null, "id");
 				JComboBox<String> conceptCombo = createCombo(
-						semanticExpression, element, recursiveType,
+						semanticExpression, element, iterativeType,
 						semanticExpression.getLeftValidExpressions(), true, 'C');
 				leftPanel.add(conceptCombo);
 				InstElement recElement = refasModel
 						.getVertex((String) conceptCombo.getSelectedItem());
 				conceptCombo = createCombo(semanticExpression, element,
-						recursiveType,
+						iterativeType,
 						semanticExpression.getLeftValidExpressions(), true, 'P');
 				leftPanel.add(conceptCombo);
 				InstElement recRelElement = refasModel
@@ -609,7 +609,7 @@ public class SemanticExpressionDialog extends JDialog {
 						element, recElement, recRelElement, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
-				semanticExpression.setLeftExpressionType(recursiveType);
+				semanticExpression.setLeftExpressionType(iterativeType);
 			}
 		basePanel.add(leftPanel);
 		JPanel centerPanel = new JPanel();
@@ -1046,8 +1046,10 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if ((sourceRelation.getSupportMetaElementIden().equals(
-						"Concept") && elementType == 'C')
+				if (((sourceRelation.getSupportMetaElementIden().equals(
+						"Concept") || sourceRelation
+						.getSupportMetaElementIden()
+						.equals("CSOverTwoRelation")) && elementType == 'C')
 						|| (sourceRelation.getSupportMetaElementIden().equals(
 								"CSPairWiseRelation") && elementType == 'P'))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));

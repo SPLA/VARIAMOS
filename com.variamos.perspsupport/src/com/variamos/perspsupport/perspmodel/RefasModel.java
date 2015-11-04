@@ -2336,6 +2336,106 @@ public class RefasModel extends AbstractModel {
 				semGeneralElement, "Claim", true, claimSemOverTwoRelList);
 		InstVertex instVertexCL = new InstConcept("Claim", metaOverTwoRelation,
 				semClaim);
+
+		List<IntSemanticRelationType> operclaimPairwiseRelList = new ArrayList<IntSemanticRelationType>();
+		operclaimPairwiseRelList.add(new SemanticRelationType("OperToClaim",
+				"", "", true, true, true, 1, 1, 1, 1));
+
+		SemanticPairwiseRelation directOperClaimSemanticEdge = new SemanticPairwiseRelation(
+				"OperClaimPWAsso", true, operclaimPairwiseRelList);
+
+		InstConcept instDirOperClaimSemanticEdge = new InstConcept(
+				"OperClaimPWAsso", metaPairwiseRelation,
+				directOperClaimSemanticEdge);
+
+		InstAttribute ia = instVertexCL
+				.getInstAttribute("relationTypesAttributes");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
+				""), "and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
+				""), "or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
+				"", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ia = instVertexCL.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Sum"), ExpressionVertexType.LEFTRELATIONCONCEPT,
+				instDirOperClaimSemanticEdge, "Selected", true, 0);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"GreaterOrEq"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
+				instVertexCL, instDirOperClaimSemanticEdge, t2,
+				ExpressionVertexType.RIGHTRELATIONCONCEPT,
+				instDirOperClaimSemanticEdge, "lowCardinality");
+
+		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Sum"), ExpressionVertexType.LEFTRELATIONCONCEPT,
+				instDirOperClaimSemanticEdge, "Selected", true, 0);
+
+		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"LessOrEquals"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
+				instVertexCL, instDirOperClaimSemanticEdge, t2,
+				ExpressionVertexType.RIGHTRELATIONCONCEPT, instVertexCL,
+				"highCardinality");
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"And"), t1, t3);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"DoubleImplies"), instVertexCL, "Selected", true, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
+				""), semanticExpressions));
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Selected", "Selected");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "Selected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"And"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
+				""), semanticExpressions));
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
+				instVertexHC, "Selected", "Selected");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+				instVertexHC, "Selected");
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"And"), t3, t1);
+
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
+				"", ""), semanticExpressions));
+
 		variabilityInstVertex.put("Claim", instVertexCL);
 
 		instEdge = new InstPairwiseRelation();
@@ -2586,9 +2686,9 @@ public class RefasModel extends AbstractModel {
 				"GoalGoalSidePWAsso", metaPairwiseRelation,
 				directHardHardSemanticEdge);
 
-		InstAttribute ia = instDirHardHardSemanticEdge
+		ia = instDirHardHardSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
-		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
@@ -3184,9 +3284,6 @@ public class RefasModel extends AbstractModel {
 		 * instEdge.setTargetRelation(instVertexSG, true);
 		 * instEdge.setSourceRelation(instSemSDPairwiseRel, true);
 		 */
-		List<IntSemanticRelationType> operclaimPairwiseRelList = new ArrayList<IntSemanticRelationType>();
-		operclaimPairwiseRelList.add(new SemanticRelationType("OperToClaim",
-				"", "", true, true, true, 1, 1, 1, 1));
 
 		SemanticPairwiseRelation semOperClaimPairwiseRel = new SemanticPairwiseRelation(
 				"operclaimPWAsso", false, operclaimPairwiseRelList);
@@ -3814,13 +3911,6 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirOperClaimFromSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexOper, true);
-
-		SemanticPairwiseRelation directOperClaimSemanticEdge = new SemanticPairwiseRelation(
-				"OperClaimPWAsso", true, operclaimPairwiseRelList);
-
-		InstConcept instDirOperClaimSemanticEdge = new InstConcept(
-				"OperClaimPWAsso", metaPairwiseRelation,
-				directOperClaimSemanticEdge);
 
 		ia = instDirOperClaimSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
