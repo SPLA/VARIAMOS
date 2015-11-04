@@ -63,6 +63,7 @@ public class SemanticExpressionDialog extends JDialog {
 	private boolean displayVariableName = false;
 	private int width = 950;
 	private int height = 300;
+	boolean initializing = false;
 
 	static interface SemanticExpressionButtonAction {
 		public boolean onAction();
@@ -81,6 +82,9 @@ public class SemanticExpressionDialog extends JDialog {
 
 	public void initialize(final InstElement element,
 			final List<IntSemanticExpression> semanticExpressions) {
+		if (initializing)
+			return;
+		initializing = true;
 		if (this.getWidth() != 0)
 			width = this.getWidth();
 		if (this.getHeight() != 0)
@@ -233,6 +237,8 @@ public class SemanticExpressionDialog extends JDialog {
 		pack();
 		revalidate();
 		repaint();
+
+		initializing = false;
 	}
 
 	private void showExpression(final SemanticExpression semanticExpression,
@@ -343,13 +349,25 @@ public class SemanticExpressionDialog extends JDialog {
 				leftSide.setSelectedItem("A Concept Type Variable");
 				break;
 			case LEFTINCOMRELVARIABLE:
-				leftSide.setSelectedItem("Incomming Relation Variable");
+				leftSide.setSelectedItem("Source Variables (Concept/Relation)");
 				break;
 			case LEFTOUTGRELVARIABLE:
-				leftSide.setSelectedItem("Outgoing Relation Variable");
+				leftSide.setSelectedItem("Target Variables (Concept/Relation)");
 				break;
 			case LEFTANYRELVARIABLE:
-				leftSide.setSelectedItem("In/Out Relation Variable");
+				leftSide.setSelectedItem("Source/Target Variables (Concept/Relation)");
+				break;
+			case LEFTUNIQUEINCCONVARIABLE:
+				leftSide.setSelectedItem("Source Variable - Unique Rel. (Concept)");
+				break;
+			case LEFTUNIQUEOUTCONVARIABLE:
+				leftSide.setSelectedItem("Target Variable - Unique Rel. (Concept)");
+				break;
+			case LEFTUNIQUEINCRELVARIABLE:
+				leftSide.setSelectedItem("Source Variable - Unique Rel. (Relation)");
+				break;
+			case LEFTUNIQUEOUTRELVARIABLE:
+				leftSide.setSelectedItem("Target Variable - Unique Rel. (Relation)");
 				break;
 			default:
 			}
@@ -373,6 +391,22 @@ public class SemanticExpressionDialog extends JDialog {
 				break;
 			case RIGHTSTRINGVALUE:
 				rightSide.setSelectedItem("String");
+				break;
+			case RIGHTUNIQUEINCCONVARIABLE:
+				rightSide
+						.setSelectedItem("Source Variable - Unique Rel. (Concept)");
+				break;
+			case RIGHTUNIQUEOUTCONVARIABLE:
+				rightSide
+						.setSelectedItem("Target Variable - Unique Rel. (Concept)");
+				break;
+			case RIGHTUNIQUEINCRELVARIABLE:
+				rightSide
+						.setSelectedItem("Source Variable - Unique Rel. (Relation)");
+				break;
+			case RIGHTUNIQUEOUTRELVARIABLE:
+				rightSide
+						.setSelectedItem("Target Variable - Unique Rel. (Relation)");
 				break;
 			default:
 			}
@@ -459,27 +493,114 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			}
 		}
-		ExpressionVertexType recursiveType = null;
-		if (leftSide.getSelectedItem().equals("Incomming Relation Variable"))
-			recursiveType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
-		if (leftSide.getSelectedItem().equals("Outgoing Relation Variable"))
-			recursiveType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
-		if (leftSide.getSelectedItem().equals("In/Out Relation Variable"))
-			recursiveType = ExpressionVertexType.LEFTANYRELVARIABLE;
-		if (recursiveType != null)
+		if (leftSide.getSelectedItem().equals(
+				"Source Variable - Unique Rel. (Concept)")) {
+			{
+				if (semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element,
+							ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+							semanticExpression.getLeftValidExpressions(), true,
+							'C');
+					leftPanel.add(conceptCombo);
+					InstElement recElement = refasModel
+							.getVertex((String) conceptCombo.getSelectedItem());
+					leftPanel.add(createCombo(semanticExpression, recElement,
+							ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'C'));
+					semanticExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE);
+				}
+			}
+		}
+		if (leftSide.getSelectedItem().equals(
+				"Target Variable - Unique Rel. (Concept)")) {
+			{
+				if (semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element,
+							ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+							semanticExpression.getLeftValidExpressions(), true,
+							'C');
+					leftPanel.add(conceptCombo);
+					InstElement recElement = refasModel
+							.getVertex((String) conceptCombo.getSelectedItem());
+					leftPanel.add(createCombo(semanticExpression, recElement,
+							ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'C'));
+					semanticExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE);
+				}
+			}
+		}
+		if (leftSide.getSelectedItem().equals(
+				"Source Variable - Unique Rel. (Relation)")) {
+			{
+				if (semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element,
+							ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
+							semanticExpression.getLeftValidExpressions(), true,
+							'P');
+					leftPanel.add(conceptCombo);
+					InstElement recElement = refasModel
+							.getVertex((String) conceptCombo.getSelectedItem());
+					leftPanel.add(createCombo(semanticExpression, recElement,
+							ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'P'));
+					semanticExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE);
+				}
+			}
+		}
+		if (leftSide.getSelectedItem().equals(
+				"Target Variable - Unique Rel. (Relation)")) {
+			{
+				if (semanticExpression.getSemanticExpressionType() != null) {
+					JComboBox<String> conceptCombo = createCombo(
+							semanticExpression, element,
+							ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
+							semanticExpression.getLeftValidExpressions(), true,
+							'P');
+					leftPanel.add(conceptCombo);
+					InstElement recElement = refasModel
+							.getVertex((String) conceptCombo.getSelectedItem());
+					leftPanel.add(createCombo(semanticExpression, recElement,
+							ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
+							semanticExpression.getLeftValidExpressions(),
+							false, 'P'));
+					semanticExpression
+							.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE);
+				}
+			}
+		}
+		ExpressionVertexType iterativeType = null;
+		if (leftSide.getSelectedItem().equals(
+				"Source Variables (Concept/Relation)"))
+			iterativeType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
+		if (leftSide.getSelectedItem().equals(
+				"Target Variables (Concept/Relation)"))
+			iterativeType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
+		if (leftSide.getSelectedItem().equals(
+				"Source/Target Variables (Concept/Relation)"))
+			iterativeType = ExpressionVertexType.LEFTANYRELVARIABLE;
+		if (iterativeType != null)
 			if (semanticExpression.getSemanticExpressionType() != null) {
 
 				if (semanticExpression.getLeftSemanticExpression() == null)
-					semanticExpression.setLeftSemanticExpression(recursiveType,
+					semanticExpression.setLeftSemanticExpression(iterativeType,
 							null, "id");
 				JComboBox<String> conceptCombo = createCombo(
-						semanticExpression, element, recursiveType,
+						semanticExpression, element, iterativeType,
 						semanticExpression.getLeftValidExpressions(), true, 'C');
 				leftPanel.add(conceptCombo);
-				InstElement recElement = refasModel.getVertex(conceptCombo
-						.getSelectedItem().toString());
+				InstElement recElement = refasModel
+						.getVertex((String) conceptCombo.getSelectedItem());
 				conceptCombo = createCombo(semanticExpression, element,
-						recursiveType,
+						iterativeType,
 						semanticExpression.getLeftValidExpressions(), true, 'P');
 				leftPanel.add(conceptCombo);
 				InstElement recRelElement = refasModel
@@ -488,7 +609,7 @@ public class SemanticExpressionDialog extends JDialog {
 						element, recElement, recRelElement, leftPanel,
 						semanticExpression.getLeftValidExpressions(),
 						color > 20 ? color - 20 : color > 5 ? color - 5 : color);
-				semanticExpression.setLeftExpressionType(recursiveType);
+				semanticExpression.setLeftExpressionType(iterativeType);
 			}
 		basePanel.add(leftPanel);
 		JPanel centerPanel = new JPanel();
@@ -631,6 +752,98 @@ public class SemanticExpressionDialog extends JDialog {
 							.setRightExpressionType(ExpressionVertexType.RIGHTRELATEDCONCEPT);
 				}
 			}
+			if (rightSide.getSelectedItem().equals(
+					"Source Variable - Unique Rel. (Concept)")) {
+				{
+					if (semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								true, 'C');
+						rightPanel.add(conceptCombo);
+						InstElement recElement = refasModel
+								.getVertex((String) conceptCombo
+										.getSelectedItem());
+						rightPanel.add(createCombo(semanticExpression,
+								recElement,
+								ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								false, 'C'));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE);
+					}
+				}
+			}
+			if (rightSide.getSelectedItem().equals(
+					"Target Variable - Unique Rel. (Concept)")) {
+				{
+					if (semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								true, 'C');
+						rightPanel.add(conceptCombo);
+						InstElement recElement = refasModel
+								.getVertex((String) conceptCombo
+										.getSelectedItem());
+						rightPanel.add(createCombo(semanticExpression,
+								recElement,
+								ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								false, 'C'));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE);
+					}
+				}
+			}
+			if (rightSide.getSelectedItem().equals(
+					"Source Variable - Unique Rel. (Relation)")) {
+				{
+					if (semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								true, 'P');
+						rightPanel.add(conceptCombo);
+						InstElement recElement = refasModel
+								.getVertex((String) conceptCombo
+										.getSelectedItem());
+						rightPanel.add(createCombo(semanticExpression,
+								recElement,
+								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								false, 'P'));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE);
+					}
+				}
+			}
+			if (rightSide.getSelectedItem().equals(
+					"Target Variable - Unique Rel. (Relation)")) {
+				{
+					if (semanticExpression.getSemanticExpressionType() != null) {
+						JComboBox<String> conceptCombo = createCombo(
+								semanticExpression, element,
+								ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								true, 'P');
+						rightPanel.add(conceptCombo);
+						InstElement recElement = refasModel
+								.getVertex((String) conceptCombo
+										.getSelectedItem());
+						rightPanel.add(createCombo(semanticExpression,
+								recElement,
+								ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
+								semanticExpression.getRightValidExpressions(),
+								false, 'P'));
+						semanticExpression
+								.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE);
+					}
+				}
+			}
 		}
 
 		basePanel.add(rightPanel);
@@ -733,16 +946,10 @@ public class SemanticExpressionDialog extends JDialog {
 		if (elementType == 'C')
 			comboElement = element;
 		if (elementType == 'P')
-			comboElement = semanticExpression
-					.getSelectedElement(expressionVertexType);
-		if (showConceptName)
-			identifiers = fillCombo(semanticExpression, expressionVertexType,
-					comboElement, selectedElement, showConceptName, elementType);
-		else {
-			identifiers = fillCombo(semanticExpression, expressionVertexType,
-					comboElement, selectedElement, showConceptName, elementType);
-
-		}
+			comboElement = semanticExpression.getSelectedElement(
+					expressionVertexType, elementType);
+		identifiers = fillCombo(semanticExpression, expressionVertexType,
+				comboElement, selectedElement, showConceptName, elementType);
 
 		identifiers.addItemListener(new ItemListener() {
 			@Override
@@ -784,14 +991,16 @@ public class SemanticExpressionDialog extends JDialog {
 		instElements = new ArrayList<InstElement>();
 		InstElement instElement = semanticExpression.getLeftSemanticElement();
 		switch (type) {
-		case LEFT:
 		case RIGHT:
-		case LEFTCONCEPTVARIABLE:
-		case RIGHTCONCEPTVARIABLE:
-		case LEFTRELATEDCONCEPT:
-		case LEFTRELATIONCONCEPT:
 		case RIGHTRELATEDCONCEPT:
 		case RIGHTRELATIONCONCEPT:
+		case RIGHTCONCEPTVARIABLE:
+			instElement = semanticExpression.getRightSemanticElement();
+			break;
+		case LEFT:
+		case LEFTCONCEPTVARIABLE:
+		case LEFTRELATEDCONCEPT:
+		case LEFTRELATIONCONCEPT:
 			instElement = element;
 			if (element instanceof InstConcept)
 				instElements.add(element);
@@ -827,12 +1036,22 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTINCOMRELVARIABLE:
 		case LEFTOUTGRELVARIABLE:
 		case LEFTANYRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if ((sourceRelation.getSupportMetaElementIden().equals(
-						"Concept") && elementType == 'C')
+				if (((sourceRelation.getSupportMetaElementIden().equals(
+						"Concept") || sourceRelation
+						.getSupportMetaElementIden()
+						.equals("CSOverTwoRelation")) && elementType == 'C')
 						|| (sourceRelation.getSupportMetaElementIden().equals(
-								"PairWiseRelation") && elementType == 'P'))
+								"CSPairWiseRelation") && elementType == 'P'))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
@@ -936,10 +1155,14 @@ public class SemanticExpressionDialog extends JDialog {
 		combo.addItem("String");
 		if (left) {
 			combo.addItem("A Concept Type Variable");
-			combo.addItem("Incomming Relation Variable");
-			combo.addItem("Outgoing Relation Variable");
-			combo.addItem("In/Out Relation Variable");
+			combo.addItem("Source Variables (Concept/Relation)");
+			combo.addItem("Target Variables (Concept/Relation)");
+			combo.addItem("Source/Target Variables (Concept/Relation)");
 		}
+		combo.addItem("Source Variable - Unique Rel. (Concept)");
+		combo.addItem("Target Variable - Unique Rel. (Concept)");
+		combo.addItem("Source Variable - Unique Rel. (Relation)");
+		combo.addItem("Target Variable - Unique Rel. (Relation)");
 		combo.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
@@ -1006,17 +1229,50 @@ public class SemanticExpressionDialog extends JDialog {
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE);
 							break;
-						case "Incomming Relation Variable":
+						case "Source Variables (Concept/Relation)":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTINCOMRELVARIABLE);
 							break;
-						case "Outgoing Relation Variable":
+						case "Target Variables (Concept/Relation)":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTOUTGRELVARIABLE);
 							break;
-						case "In/Out Relation Variable":
+						case "Source/Target Variables (Concept/Relation)":
 							semanticExpression
 									.setLeftExpressionType(ExpressionVertexType.LEFTANYRELVARIABLE);
+							break;
+
+						case "Source Variable - Unique Rel. (Concept)":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE);
+							break;
+						case "Target Variable - Unique Rel. (Concept)":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE);
+							break;
+						case "Source Variable - Unique Rel. (Relation)":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE);
+							break;
+						case "Target Variable - Unique Rel. (Relation)":
+							if (left)
+								semanticExpression
+										.setLeftExpressionType(ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE);
+							else
+								semanticExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE);
 							break;
 						}
 						new Thread() {

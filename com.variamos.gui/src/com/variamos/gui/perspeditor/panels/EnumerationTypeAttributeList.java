@@ -226,8 +226,8 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		final PropertyParameterDialog dialog = new PropertyParameterDialog(350,
-				editor, instIdentifier, instDisplayName, instPanelName,
-				instRelationExclusive, instSourceExclusive,
+				300, editor, element, instIdentifier, instDisplayName,
+				instPanelName, instRelationExclusive, instSourceExclusive,
 				instTargetExclusive, instMinSourceCardinality,
 				instSourceCardinality, instMinTargetCardinality,
 				instTargetCardinality);

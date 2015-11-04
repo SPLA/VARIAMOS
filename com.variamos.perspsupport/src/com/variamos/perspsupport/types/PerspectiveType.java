@@ -1,5 +1,5 @@
 package com.variamos.perspsupport.types;
 
 public enum PerspectiveType {
-modeling, syntax, semantic, simulation, basicSyntax, basicSemantic
+MODELING, SYNTAX, SEMANTIC, CONFIG_SIMULATION, CORESYNTAX, CORESEMANTIC
 }

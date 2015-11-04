@@ -354,7 +354,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				center.setDividerLocation(25);
 				upperPart.setDividerLocation(0);
 				if (refasModel.getPerspectiveType().equals(
-						PerspectiveType.simulation))
+						PerspectiveType.CONFIG_SIMULATION))
 					graphAndRight.setDividerLocation(1100);
 				else
 					graphAndRight.setDividerLocation(700);
@@ -480,11 +480,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
-						PerspectiveType.modeling, null));
+						PerspectiveType.MODELING, null));
 				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling,
+					abstractModel = new RefasModel(PerspectiveType.MODELING,
 							null);
 					refasGraph = new PerspEditorGraph(persp);
 
@@ -513,11 +513,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
 				abstractModel = reader.readRefasFile(file, new RefasModel(
-						PerspectiveType.modeling, null));
+						PerspectiveType.MODELING, null));
 				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.modeling,
+					abstractModel = new RefasModel(PerspectiveType.MODELING,
 							null);
 					refasGraph = new PerspEditorGraph(persp);
 
@@ -621,9 +621,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// // getGraphComponent().scrollCellToVisible(cell, true);
 				// }
 				InstCell value = (InstCell) cell.getValue();
-				// if (value instanceof InstCell) {
-				// EditableElement elm = (EditableElement) value;
-				editPropertiesRefas(value);
+				if (value != null)
+					// EditableElement elm = (EditableElement) value;
+					editPropertiesRefas(value);
 				// getGraphComponent().scrollCellToVisible(cell, true);
 			}
 		});

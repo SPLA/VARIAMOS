@@ -492,14 +492,22 @@ public abstract class InstElement implements Serializable, EditableElement,
 							.getModelingAttribute(name, parents), null);
 			}
 
-			if (getTransSupportMetaElement() instanceof MetaConcept
+			if (getTransSupportMetaElement() instanceof MetaElement
 					&& getTransSupportMetaElement()
 							.getTransInstSemanticElement() != null) {
-				MetaConcept metaConcept = (MetaConcept) getTransSupportMetaElement();
-				Iterator<String> semanticAttributes = metaConcept
-						.getAllAttributesNames(parents).iterator();
+				InstElement instElement = (InstElement) getTransSupportMetaElement()
+						.getTransInstSemanticElement();
+				IntSemanticElement metaConcept = instElement
+						.getEditableSemanticElement();
+				Iterator<String> semanticAttributes = instElement
+						.getEditableSemanticElement()
+						.getAllAttributesNames(parents).iterator(); // TODO get
+																	// parents
+																	// attributes
+																	// too.
 				while (semanticAttributes.hasNext()) {
 					String name = semanticAttributes.next();
+					// System.out.println(name + "\n");
 					if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
@@ -512,7 +520,12 @@ public abstract class InstElement implements Serializable, EditableElement,
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
 								getTransSupportMetaElement().getDescription());
-					else
+					else if (name.equals("relationTypesAttributes")
+							|| name.equals("relationTypesSemExpressions")) {
+						addInstAttribute(name,
+								metaConcept.getSemanticAttribute(name),
+								new ArrayList());
+					} else
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name), null);
 				}
