@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.configurator.treetable;
+package com.variamos.gui.perspeditor.model;
 
 import java.awt.Component;
 import java.util.EnumMap;
@@ -17,15 +17,26 @@ import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 
+/**
+ * A class to render the icons of the tree for the Concepts expression
+ * associations. Part of PhD work at University of Paris 1. Initially copied
+ * from com.variamos.gui.pl.configuration.treetable.
+ * ConfigurationVariableCellRenderer
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-11-06
+ * @see com.variamos.gui.pl.configuration.treetable.ConfigurationVariableCellRenderer
+ */
 @SuppressWarnings({ "serial", "rawtypes" })
-public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
+public class SemanticExpressionCellRenderer extends TreeTableCellRenderer
 		implements ListCellRenderer {
 
 	private JLabel lbl;
 
 	private static EnumMap<Choice, ImageIcon> map;
 
-	public ConfigurationVariableCellRenderer(ConfigurationTreeTable treeTable,
+	public SemanticExpressionCellRenderer(ConceptOperTreeTable treeTable,
 			TreeModel model) {
 		super(treeTable, model);
 		lbl = new JLabel();
@@ -34,15 +45,15 @@ public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
 
 		map.put(Choice.CHECK,
 				new ImageIcon(
-						ConfigurationVariableCellRenderer.class
+						SemanticExpressionCellRenderer.class
 								.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
 		map.put(Choice.CROSS,
 				new ImageIcon(
-						ConfigurationVariableCellRenderer.class
+						SemanticExpressionCellRenderer.class
 								.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
 		map.put(Choice.QUESTION_MARK,
 				new ImageIcon(
-						ConfigurationVariableCellRenderer.class
+						SemanticExpressionCellRenderer.class
 								.getResource("/com/mxgraph/examples/swing/images/question.gif")));
 	}
 

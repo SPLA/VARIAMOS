@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.configurator.treetable;
+package com.variamos.gui.perspeditor.model;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -20,15 +20,26 @@ import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
 
+/**
+ * A class to support the tree table for the visual representation of the
+ * association between semantic expressions and operations. Part of PhD work at
+ * University of Paris 1. Initially copied from
+ * com.variamos.gui.pl.configuration.treetable.ConfigurationTreeTable
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-11-06
+ * @see com.variamos.gui.pl.configuration.treetable.ConfigurationTreeTable
+ */
 @SuppressWarnings("serial")
-public class ConfigurationTreeTable extends JTable {
+public class ConceptOperTreeTable extends JTable {
 
 	private TreeTableCellRenderer tree;
 
-	public ConfigurationTreeTable(AbstractTreeTableModel treeTableModel) {
+	public ConceptOperTreeTable(AbstractTreeTableModel treeTableModel) {
 		super();
 
-		ConfigurationVariableCellRenderer choiceRenderer = new ConfigurationVariableCellRenderer(
+		SemanticExpressionCellRenderer choiceRenderer = new SemanticExpressionCellRenderer(
 				this, treeTableModel);
 		tree = new TreeTableCellRenderer(this, treeTableModel);
 		super.setModel(new TreeTableModelAdapter(treeTableModel, tree));
@@ -86,7 +97,7 @@ public class ConfigurationTreeTable extends JTable {
 
 	@SuppressWarnings("unchecked")
 	public TableCellEditor getChoiceEditor(
-			ConfigurationVariableCellRenderer renderer) {
+			SemanticExpressionCellRenderer renderer) {
 		JComboBox<Choice> choiceEditor = new JComboBox<>(Choice.values());
 		// choiceEditor.setRenderer(new ListCellRenderer<Choice>() {
 		// private JLabel lbl = new JLabel();

@@ -24,6 +24,7 @@ import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
+import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.ExitAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
@@ -225,6 +226,16 @@ public class PerspEditorMenuBar extends JMenuBar {
 			al.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 			menu.add(al);
+			add(menu);
+		}
+		if (editor.getPerspective() == 1) {
+			menu = (JMenu) menu.add(new JMenu(mxResources
+					.get("translationConfiguration")));
+			menu.setMnemonic('C');
+			Action a = editor.bind(
+					mxResources.get("elementOperationAssociation"),
+					new ElementOperationAssociationAction());
+			menu.add(a);
 			add(menu);
 		}
 		if (editor.getPerspective() == 4) {
