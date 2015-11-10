@@ -1,4 +1,4 @@
-package com.variamos.gui.pl.configurator.treetable;
+package com.variamos.gui.perspeditor.model;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,12 +7,12 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableCellEditor;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
@@ -20,15 +20,26 @@ import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
 
+/**
+ * A class to support the tree table for the visual representation of the
+ * association between semantic expressions and operations. Part of PhD work at
+ * University of Paris 1. Initially copied from
+ * com.variamos.gui.pl.configuration.treetable.ConfigurationTreeTable
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * @version 1.0
+ * @since 2015-11-06
+ * @see com.variamos.gui.pl.configuration.treetable.ConfigurationTreeTable
+ */
 @SuppressWarnings("serial")
-public class ConfigurationTreeTable extends JTable {
+public class AssociationTreeTable extends JTable {
 
 	private TreeTableCellRenderer tree;
 
-	public ConfigurationTreeTable(AbstractTreeTableModel treeTableModel) {
+	public AssociationTreeTable(AbstractTreeTableModel treeTableModel) {
 		super();
 
-		ConfigurationVariableCellRenderer choiceRenderer = new ConfigurationVariableCellRenderer(
+		AssociationCellRenderer choiceRenderer = new AssociationCellRenderer(
 				this, treeTableModel);
 		tree = new TreeTableCellRenderer(this, treeTableModel);
 		super.setModel(new TreeTableModelAdapter(treeTableModel, tree));
@@ -43,14 +54,21 @@ public class ConfigurationTreeTable extends JTable {
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor(tree,
 				this));
 		// setDefaultEditor(Choice.class, getChoiceEditor(choiceRenderer));
-		setDefaultEditor(Variable.class, getIntegerEditor());
+		setDefaultEditor(Variable.class, this.getChoiceEditor(choiceRenderer));
+
+		setDefaultEditor(Boolean.class, this.getChoiceEditor(choiceRenderer));
 
 		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		getColumnModel().getColumn(0).setMinWidth(100);
-		getColumnModel().getColumn(1).setMinWidth(40);
-		getColumnModel().getColumn(2).setMinWidth(35);
+		for (int i = 1; i < getColumnModel().getColumnCount(); i++) {
+			getColumnModel().getColumn(i).setMinWidth(40);
+		}
+		this.setAutoscrolls(true);
 
 		setShowGrid(false);
+		JTableHeader tableHeader = getTableHeader();
+		tableHeader.setName("name");
+		tableHeader.setVisible(true);
 
 		setIntercellSpacing(new Dimension(0, 0));
 	}
@@ -65,7 +83,7 @@ public class ConfigurationTreeTable extends JTable {
 			TableColumn col = colModel.getColumn(i);
 			int width = 0;
 
-			TableCellRenderer renderer = col.getCellRenderer();// getHeaderRenderer();
+			TableCellRenderer renderer = col.getHeaderRenderer();
 			for (int r = 0; r < getRowCount(); r++) {
 				renderer = getCellRenderer(r, i);
 				Component comp = renderer.getTableCellRendererComponent(this,
@@ -85,9 +103,9 @@ public class ConfigurationTreeTable extends JTable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public TableCellEditor getChoiceEditor(
-			ConfigurationVariableCellRenderer renderer) {
-		JComboBox<Choice> choiceEditor = new JComboBox<>(Choice.values());
+	public TableCellEditor getChoiceEditor(AssociationCellRenderer renderer) {
+		JComboBox<ChoiceBoolean> choiceEditor = new JComboBox<>(
+				ChoiceBoolean.values());
 		// choiceEditor.setRenderer(new ListCellRenderer<Choice>() {
 		// private JLabel lbl = new JLabel();
 		//

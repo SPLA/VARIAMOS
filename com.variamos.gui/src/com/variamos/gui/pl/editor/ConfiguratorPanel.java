@@ -49,8 +49,6 @@ import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
 
-
-
 /**
  * @author unknown jcmunoz: commented unused methods
  *
@@ -62,49 +60,48 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// Configurator table settings
 	private ConfigurationTreeTable table;
 	private ConfigurationNode root;
-	//private ConfigurationDataModel dataModel;
+	// private ConfigurationDataModel dataModel;
 	private Configurator configurator;
 
 	private Refas2Hlcl refas2hlcl;
-//	private AbstractModel abstractModel;
+	// private AbstractModel abstractModel;
 
 	private JLabel lblStatus;
 	private JPanel controlPanel;
 	private JTable tblSolutions;
 
 	private JList<String> additionalConstraints;
-	
-	//Elements
+
+	// Elements
 	JLabel lblAvailableVars;
-    JList lstAvailableVars;
-    JScrollPane lstAvailableVarsScroll;
-    JLabel lblSelectedVar;
-    JTextField txtSelectedVar;
-    JLabel lblValue;
-    JComboBox<String> cmbDomain;
-    JButton cmdSet;
-    JLabel lblAffectedVarsBySelection;
-    JLabel lblAffectedVarsByNonSelection;
-    JList lstAffectedVarsBySelection;
-    JList lstAffectedVarsByNonSelection;
-    JButton cmdBack;
-    JButton cmdNextVar;
-    JLabel lblConfiguredVars;
-    JButton cmdRemoveConfiguredVar;
-    JButton cmdEditConfiguredVar;
-    JTable tblConfiguredVars;
-    JScrollPane tblConfiguredVarsScroll;
-    JLabel lblAdditionalConstraints;
-    JTextField txtAdditionalConstraint;
-    JButton cmdAddConstraint;
-    JButton cmdRemoveConstraint;
-    JButton cmdEditConstraint;
-    JButton cmdCancelActionConstraint;
-    JList lstAdditionalConstraints;	
-    JButton cmdGetSolutions;
-    JButton cmdGetNextSolution;
+	JList lstAvailableVars;
+	JScrollPane lstAvailableVarsScroll;
+	JLabel lblSelectedVar;
+	JTextField txtSelectedVar;
+	JLabel lblValue;
+	JComboBox<String> cmbDomain;
+	JButton cmdSet;
+	JLabel lblAffectedVarsBySelection;
+	JLabel lblAffectedVarsByNonSelection;
+	JList lstAffectedVarsBySelection;
+	JList lstAffectedVarsByNonSelection;
+	JButton cmdBack;
+	JButton cmdNextVar;
+	JLabel lblConfiguredVars;
+	JButton cmdRemoveConfiguredVar;
+	JButton cmdEditConfiguredVar;
+	JTable tblConfiguredVars;
+	JScrollPane tblConfiguredVarsScroll;
+	JLabel lblAdditionalConstraints;
+	JTextField txtAdditionalConstraint;
+	JButton cmdAddConstraint;
+	JButton cmdRemoveConstraint;
+	JButton cmdEditConstraint;
+	JButton cmdCancelActionConstraint;
+	JList lstAdditionalConstraints;
+	JButton cmdGetSolutions;
+	JButton cmdGetNextSolution;
 	JScrollPane tblSolutionsScroll;
-	
 
 	public ConfiguratorPanel() {
 		// setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -120,7 +117,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	private void initComponents() {
 
 		JPanel configurationPanel = new JPanel();
-		JPanel solutionPanel=new JPanel();
+		JPanel solutionPanel = new JPanel();
 		// configurationPanel.setLayout(new GridBagLayout());
 		initConfigurationPane(configurationPanel);
 		initSolutionPane(solutionPanel);
@@ -151,11 +148,9 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		 * table.resizeColumns(); // TableColumnAdjuster tca = new
 		 * TableColumnAdjuster(table); // tca.adjustColumns();
 		 * 
-		 * JTableHeader header = table.getTableHeader();
-		 *r 
-		 * JPanel panel = new JPanel(); panel.setLayout(new BorderLayout());
-		 * panel.add(header, BorderLayout.NORTH); panel.add(table,
-		 * BorderLayout.CENTER);
+		 * JTableHeader header = table.getTableHeader();r JPanel panel = new
+		 * JPanel(); panel.setLayout(new BorderLayout()); panel.add(header,
+		 * BorderLayout.NORTH); panel.add(table, BorderLayout.CENTER);
 		 * panel.setBorder(BorderFactory.createTitledBorder("Configuration"));
 		 * add(panel, BorderLayout.WEST);
 		 * 
@@ -166,268 +161,263 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		 */
 	}
 
-	private void initConfigurationPane(JPanel pane) {		
-        
-        pane.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+	private void initConfigurationPane(JPanel pane) {
 
-        //restricciones comunes a todos los componentes
-        c.insets=new Insets(5,5,0,0);  //top padding
+		pane.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 
-        //FILA 0 
-        c.gridy = 0;
+		// restricciones comunes a todos los componentes
+		c.insets = new Insets(5, 5, 0, 0); // top padding
 
-        lblAvailableVars = new JLabel("Available Variables:");    
-        c.gridx = 0;
-        c.ipadx=50;
-        pane.add(lblAvailableVars, c);
+		// FILA 0
+		c.gridy = 0;
 
-        lblSelectedVar= new JLabel("Variable:");
-        c.gridx = 1;    
-        c.ipadx=0;
-        pane.add(lblSelectedVar, c);
+		lblAvailableVars = new JLabel("Available Variables:");
+		c.gridx = 0;
+		c.ipadx = 50;
+		pane.add(lblAvailableVars, c);
 
-        txtSelectedVar= new JTextField();
-        txtSelectedVar.setEditable(false);
-        c.gridx = 2;        
-        c.ipadx=150;
-        pane.add(txtSelectedVar, c);
+		lblSelectedVar = new JLabel("Variable:");
+		c.gridx = 1;
+		c.ipadx = 0;
+		pane.add(lblSelectedVar, c);
 
-        lblValue=new JLabel("Value:");
-        c.gridx = 3;        
-        c.ipadx=0;
-        pane.add(lblValue, c);
+		txtSelectedVar = new JTextField();
+		txtSelectedVar.setEditable(false);
+		c.gridx = 2;
+		c.ipadx = 150;
+		pane.add(txtSelectedVar, c);
 
-        cmbDomain= new JComboBox<String>();
-        c.gridx = 4;        
-        c.ipadx=100;
-        pane.add(cmbDomain, c);
+		lblValue = new JLabel("Value:");
+		c.gridx = 3;
+		c.ipadx = 0;
+		pane.add(lblValue, c);
 
-        cmdSet= new JButton("Set");
-        c.gridx = 5;        
-        c.ipadx=0;
-        pane.add(cmdSet, c);
-        
-        lblConfiguredVars=new JLabel("Configured Variables:");
-        c.gridx = 6;        
-        c.ipadx=0;
-        pane.add(lblConfiguredVars, c);
-               
-        cmdRemoveConfiguredVar = new JButton("Remove");   
-        cmdRemoveConfiguredVar.addActionListener(new ActionListener() {
-			
+		cmbDomain = new JComboBox<String>();
+		c.gridx = 4;
+		c.ipadx = 100;
+		pane.add(cmbDomain, c);
+
+		cmdSet = new JButton("Set");
+		c.gridx = 5;
+		c.ipadx = 0;
+		pane.add(cmdSet, c);
+
+		lblConfiguredVars = new JLabel("Configured Variables:");
+		c.gridx = 6;
+		c.ipadx = 0;
+		pane.add(lblConfiguredVars, c);
+
+		cmdRemoveConfiguredVar = new JButton("Remove");
+		cmdRemoveConfiguredVar.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				initConfigurationProcess();
-				
+
 			}
 		});
-        c.gridx = 7;  
-        pane.add(cmdRemoveConfiguredVar, c);
-        
-        cmdEditConfiguredVar = new JButton("Edit");    
-        c.gridx = 8;  
-        pane.add(cmdEditConfiguredVar, c);
-        
-        lblAdditionalConstraints = new JLabel("Additional Constraints:");    
-        c.gridx = 10;  
-        c.gridwidth=2;
-        pane.add(lblAdditionalConstraints, c);
+		c.gridx = 7;
+		pane.add(cmdRemoveConfiguredVar, c);
 
-        //FILA 1
-        c.gridy = 1;
-        
-        lstAvailableVars = new JList();    
-        lstAvailableVars.addListSelectionListener(new ListSelectionListener() {
-			
+		cmdEditConfiguredVar = new JButton("Edit");
+		c.gridx = 8;
+		pane.add(cmdEditConfiguredVar, c);
+
+		lblAdditionalConstraints = new JLabel("Additional Constraints:");
+		c.gridx = 10;
+		c.gridwidth = 2;
+		pane.add(lblAdditionalConstraints, c);
+
+		// FILA 1
+		c.gridy = 1;
+
+		lstAvailableVars = new JList();
+		lstAvailableVars.addListSelectionListener(new ListSelectionListener() {
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				processAvailableVarSelection(e);
-				
+
 			}
 		});
-        lstAvailableVarsScroll = new JScrollPane();
-        lstAvailableVars.setModel(new DefaultListModel());
-        lstAvailableVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstAvailableVarsScroll.setViewportView(lstAvailableVars);
-        
-        c.ipadx=0;
-        c.ipady = 275;      //make this component tall
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;    
-        c.gridheight=10;
-        c.gridwidth=1;
-        pane.add(lstAvailableVarsScroll, c);
+		lstAvailableVarsScroll = new JScrollPane();
+		lstAvailableVars.setModel(new DefaultListModel());
+		lstAvailableVars
+				.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		lstAvailableVarsScroll.setViewportView(lstAvailableVars);
 
-        lblAffectedVarsBySelection = new JLabel("Affected variables by selection");    
-        c.ipady = 0;      
-        c.weightx = 0.0;
-        c.gridx = 1;  
-        c.gridheight=1;
-        c.gridwidth=2;
-        pane.add(lblAffectedVarsBySelection, c);
-        
-        lblAffectedVarsByNonSelection = new JLabel("Affected variables by non selection");    
-        c.ipady = 0;      
-        c.weightx = 0.0;
-        c.gridx = 3;  
-        c.gridwidth=2;
-        pane.add(lblAffectedVarsByNonSelection, c);
-        
-        tblConfiguredVars = new JTable();
-        tblConfiguredVars.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null}
-            },
-            new String [] {
-                "Variable", "Value", "Step"
-            }
-        ));   
-        tblConfiguredVarsScroll=new JScrollPane();
-        tblConfiguredVarsScroll.setPreferredSize(new Dimension(300,400));
-        tblConfiguredVarsScroll.setViewportView(tblConfiguredVars); 
-        c.ipady=0;
-        c.gridx=6;
-        c.gridheight=10;
-        c.gridwidth=4;
-        pane.add(tblConfiguredVarsScroll, c);
-        
-        txtAdditionalConstraint=new JTextField();
-        c.ipadx=200;
-        c.gridx=10;
-        c.gridheight=1;
-        c.gridwidth=2;
-        pane.add(txtAdditionalConstraint,c);
-        
-        cmdEditConstraint=new JButton("Edit");
-        c.gridx=10;
-        c.ipadx=0;
-        c.gridheight=1;
-        c.gridwidth=1;
-        //pane.add(cmdEditConstraint,c);
-        
-        cmdRemoveConstraint=new JButton("Remove");        
-        c.gridx=11;
-        c.ipadx=0;
-        c.gridheight=1;
-        c.gridwidth=1;
-        //pane.add(cmdRemoveConstraint,c);
-        
-        cmdCancelActionConstraint=new JButton("Cancel");
-        c.gridx=12;
-        c.ipadx=0;
-        c.gridheight=1;
-        c.gridwidth=1;
-        //pane.add(cmdCancelActionConstraint,c);
-        
-        cmdAddConstraint=new JButton("Add");
-        c.ipady=0;
-        c.ipadx=0;
-        c.gridx=13;
-        c.gridheight=1;
-        c.gridwidth=1;
-        pane.add(cmdAddConstraint,c);
-        
-        //FILA 2
-        c.gridy = 2;
+		c.ipadx = 0;
+		c.ipady = 275; // make this component tall
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridheight = 10;
+		c.gridwidth = 1;
+		pane.add(lstAvailableVarsScroll, c);
 
-        lstAffectedVarsBySelection = new JList();    
-        c.ipady = 350;      //make this component tall
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridx = 1; 
-        c.gridheight=1;
-        c.gridwidth=2;
-        pane.add(lstAffectedVarsBySelection, c);
+		lblAffectedVarsBySelection = new JLabel(
+				"Affected variables by selection");
+		c.ipady = 0;
+		c.weightx = 0.0;
+		c.gridx = 1;
+		c.gridheight = 1;
+		c.gridwidth = 2;
+		pane.add(lblAffectedVarsBySelection, c);
 
-        lstAffectedVarsByNonSelection = new JList();    
-        c.ipady = 350;      
-        c.weightx = 0.0;
-        c.gridx = 3;  
-        c.gridwidth=2;
-        pane.add(lstAffectedVarsByNonSelection, c);
-        
-        lstAdditionalConstraints = new JList();    
-        c.ipady = 350;      
-        c.gridx = 10;  
-        c.gridwidth=9;
-        pane.add(lstAdditionalConstraints, c);
-                
-        //FILA 3
-        c.gridy=3;
-        
-        cmdBack = new JButton("Back");  
-        c.ipady=0;
-        c.fill=GridBagConstraints.HORIZONTAL;
-        c.gridx = 1; 
-        c.gridwidth=1;
-        pane.add(cmdBack, c);
+		lblAffectedVarsByNonSelection = new JLabel(
+				"Affected variables by non selection");
+		c.ipady = 0;
+		c.weightx = 0.0;
+		c.gridx = 3;
+		c.gridwidth = 2;
+		pane.add(lblAffectedVarsByNonSelection, c);
 
-        cmdNextVar = new JButton("Next Variable");    
-        c.ipady = 0;      
-        c.weightx = 0.0;
-        c.gridx = 2;  
-        c.gridwidth=3;
-        pane.add(cmdNextVar, c);
-        
-        
-	
+		tblConfiguredVars = new JTable();
+		tblConfiguredVars.setModel(new DefaultTableModel(new Object[][] { {
+				null, null, null } }, new String[] { "Variable", "Value",
+				"Step" }));
+		tblConfiguredVarsScroll = new JScrollPane();
+		tblConfiguredVarsScroll.setPreferredSize(new Dimension(300, 400));
+		tblConfiguredVarsScroll.setViewportView(tblConfiguredVars);
+		c.ipady = 0;
+		c.gridx = 6;
+		c.gridheight = 10;
+		c.gridwidth = 4;
+		pane.add(tblConfiguredVarsScroll, c);
+
+		txtAdditionalConstraint = new JTextField();
+		c.ipadx = 200;
+		c.gridx = 10;
+		c.gridheight = 1;
+		c.gridwidth = 2;
+		pane.add(txtAdditionalConstraint, c);
+
+		cmdEditConstraint = new JButton("Edit");
+		c.gridx = 10;
+		c.ipadx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		// pane.add(cmdEditConstraint,c);
+
+		cmdRemoveConstraint = new JButton("Remove");
+		c.gridx = 11;
+		c.ipadx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		// pane.add(cmdRemoveConstraint,c);
+
+		cmdCancelActionConstraint = new JButton("Cancel");
+		c.gridx = 12;
+		c.ipadx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		// pane.add(cmdCancelActionConstraint,c);
+
+		cmdAddConstraint = new JButton("Add");
+		c.ipady = 0;
+		c.ipadx = 0;
+		c.gridx = 13;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		pane.add(cmdAddConstraint, c);
+
+		// FILA 2
+		c.gridy = 2;
+
+		lstAffectedVarsBySelection = new JList();
+		c.ipady = 350; // make this component tall
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridheight = 1;
+		c.gridwidth = 2;
+		pane.add(lstAffectedVarsBySelection, c);
+
+		lstAffectedVarsByNonSelection = new JList();
+		c.ipady = 350;
+		c.weightx = 0.0;
+		c.gridx = 3;
+		c.gridwidth = 2;
+		pane.add(lstAffectedVarsByNonSelection, c);
+
+		lstAdditionalConstraints = new JList();
+		c.ipady = 350;
+		c.gridx = 10;
+		c.gridwidth = 9;
+		pane.add(lstAdditionalConstraints, c);
+
+		// FILA 3
+		c.gridy = 3;
+
+		cmdBack = new JButton("Back");
+		c.ipady = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridwidth = 1;
+		pane.add(cmdBack, c);
+
+		cmdNextVar = new JButton("Next Variable");
+		c.ipady = 0;
+		c.weightx = 0.0;
+		c.gridx = 2;
+		c.gridwidth = 3;
+		pane.add(cmdNextVar, c);
+
 	}
 
-	private void initSolutionPane(JPanel pane){
+	private void initSolutionPane(JPanel pane) {
 		pane.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+		GridBagConstraints c = new GridBagConstraints();
 
-        //restricciones comunes a todos los componentes
-        c.insets=new Insets(5,5,0,0);  //top padding
+		// restricciones comunes a todos los componentes
+		c.insets = new Insets(5, 5, 0, 0); // top padding
 
-        //FILA 0 
-        c.gridy = 0;
-        
-        cmdGetSolutions=new JButton("Get Solutions");
-        c.gridx = 0;        
-        pane.add(cmdGetSolutions,c);
-        
-        cmdGetNextSolution=new JButton("Get Next Solution");
-        c.gridx = 1;        
-        pane.add(cmdGetNextSolution,c);
-        
-        //FILA 1
-        c.gridy=1;
-        
-        tblSolutions = new JTable();
-        tblSolutions.setModel(new DefaultTableModel(
-                new Object [][] {
-                    {null, null}
-                },
-                new String [] {
-                    "Solution", "Variables"
-                }
-        ));   
-        tblSolutionsScroll=new JScrollPane();
-        tblSolutionsScroll.setPreferredSize(new Dimension(300,400));
-        tblSolutionsScroll.setViewportView(tblSolutions); 
-        c.ipady=0;
-        c.gridx=0;
-        c.gridheight=10;
-        c.gridwidth=4;
-        pane.add(tblSolutionsScroll, c);
-		
+		// FILA 0
+		c.gridy = 0;
+
+		cmdGetSolutions = new JButton("Get Solutions");
+		c.gridx = 0;
+		pane.add(cmdGetSolutions, c);
+
+		cmdGetNextSolution = new JButton("Get Next Solution");
+		c.gridx = 1;
+		pane.add(cmdGetNextSolution, c);
+
+		// FILA 1
+		c.gridy = 1;
+
+		tblSolutions = new JTable();
+		tblSolutions.setModel(new DefaultTableModel(new Object[][] { { null,
+				null } }, new String[] { "Solution", "Variables" }));
+		tblSolutionsScroll = new JScrollPane();
+		tblSolutionsScroll.setPreferredSize(new Dimension(300, 400));
+		tblSolutionsScroll.setViewportView(tblSolutions);
+		c.ipady = 0;
+		c.gridx = 0;
+		c.gridheight = 10;
+		c.gridwidth = 4;
+		pane.add(tblSolutionsScroll, c);
+
 	}
-	
-	private void processAvailableVarSelection(ListSelectionEvent e){		 
-	    if (!e.getValueIsAdjusting()) {
-	      txtSelectedVar.setText((String)lstAvailableVars.getSelectedValue());
-	      setConfigPanelVisibility(false);;
-	      
-	       
-	    }		
+
+	private void processAvailableVarSelection(ListSelectionEvent e) {
+		if (!e.getValueIsAdjusting()) {
+			txtSelectedVar
+					.setText((String) lstAvailableVars.getSelectedValue());
+			setConfigPanelVisibility(false);
+			;
+
+		}
 	}
-	
-	
+
 	protected void processSelectionOnTable() {
-		DefaultTableModel model=(DefaultTableModel)tblSolutions.getModel();
-		JOptionPane.showMessageDialog(null, model.getValueAt(tblSolutions.getSelectedRow(), 1),"Solution Number: "+model.getValueAt(tblSolutions.getSelectedRow(), 0),JOptionPane.INFORMATION_MESSAGE);
-		
+		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();
+		JOptionPane.showMessageDialog(
+				null,
+				model.getValueAt(tblSolutions.getSelectedRow(), 1),
+				"Solution Number: "
+						+ model.getValueAt(tblSolutions.getSelectedRow(), 0),
+				JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	private boolean processConfiguration(Configuration configuration) {
@@ -439,19 +429,19 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			String attribute = split[1];
 			if ("Selected".equals(attribute)) {
 				if (configSet.get(identifier) == 1) {// variable seleccionada
-					String var=refas2hlcl.getRefas().getVertex(vertexId).toString();
-					if(!var.contains("mutex") && !var.contains("and") && !var.contains("or"))
-					sb.append(" "+ var + " "); // create object Solution and
-												// save all the info of the
-												// solution
+					String var = refas2hlcl.getRefas().getVertex(vertexId)
+							.toString();
+					if (!var.contains("mutex") && !var.contains("and")
+							&& !var.contains("or"))
+						sb.append(" " + var + " "); // create object Solution
+													// and
+													// save all the info of the
+													// solution
 				}
 			}
 		}
-		
-		
-		
-		//sb.deleteCharAt(sb.length()-1);
-		
+
+		// sb.deleteCharAt(sb.length()-1);
 
 		DefaultTableModel model = (DefaultTableModel) tblSolutions.getModel();// must
 																				// configure
@@ -462,53 +452,58 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			model.addRow(new Object[] { model.getRowCount() + 1, sb.toString() });
 			return true;
 		} else {
-			boolean existe=false;
+			boolean existe = false;
 			for (int i = 0; i < model.getRowCount(); i++) {
-				String lastConf = (String) model.getValueAt(
-						i, 1);				
+				String lastConf = (String) model.getValueAt(i, 1);
 				if (lastConf.equals(sb.toString())) {
-					existe=true;
+					existe = true;
 					break;
-				} 
+				}
 			}
-			if(!existe){
-				model.addRow(new Object[] { model.getRowCount() + 1,	sb.toString() });
+			if (!existe) {
+				model.addRow(new Object[] { model.getRowCount() + 1,
+						sb.toString() });
 				return true;
 			}
 			return false;
 		}
-		
 
-	}	
-	
-	private void initConfigurationProcess(){
+	}
+
+	private void initConfigurationProcess() {
 		initValues();
 		setConfigPanelVisibility(true);
-		
+
 	}
-	
+
 	private void initValues() {
-		Map<String,InstElement> variables=refas2hlcl.getRefas().getVariabilityVertex();
-		DefaultListModel listModel=(DefaultListModel)lstAvailableVars.getModel();
-		DefaultTableModel tableModel=(DefaultTableModel)tblConfiguredVars.getModel();
+		Map<String, InstElement> variables = refas2hlcl.getRefas()
+				.getVariabilityVertex();
+		DefaultListModel listModel = (DefaultListModel) lstAvailableVars
+				.getModel();
+		DefaultTableModel tableModel = (DefaultTableModel) tblConfiguredVars
+				.getModel();
 		listModel.clear();
 		tableModel.setRowCount(0);
-		for(String identifier:variables.keySet()){
-			//se evalúa si la variable está libre
-			InstElement var=variables.get(identifier);
-			System.out.println("hace parte del core "+var.getInstAttribute("Core").getAsBoolean());
-			if(var.getInstAttribute("Core").getAsBoolean()){
-				tableModel.addRow(new Object[] { var.toString(), var.getInstAttribute("Selected").getAsBoolean(),0 });
+		for (String identifier : variables.keySet()) {
+			// se evalúa si la variable está libre
+			InstElement var = variables.get(identifier);
+			System.out.println("hace parte del core "
+					+ var.getInstAttribute("Core").getAsBoolean());
+			if (var.getInstAttribute("Core").getAsBoolean()) {
+				tableModel.addRow(new Object[] { var.toString(),
+						var.getInstAttribute("Selected").getAsBoolean(), 0 });
 				continue;
 			}
-			
-			if (!var.getInstAttribute("Selected").isEnabled() && !var.getInstAttribute("NextNotSelected").isEnabled()) {				
-				listModel.add(0,variables.get(identifier).toString());				
-			}			
-		}		
+
+			if (!var.getInstAttribute("Selected").isEnabled()
+					&& !var.getInstAttribute("NextNotSelected").isEnabled()) {
+				listModel.add(0, variables.get(identifier).toString());
+			}
+		}
 	}
-	
-	private void setConfigPanelVisibility(boolean availablesVars){
+
+	private void setConfigPanelVisibility(boolean availablesVars) {
 		lblAvailableVars.setVisible(availablesVars);
 		lstAvailableVarsScroll.setVisible(availablesVars);
 		lblSelectedVar.setVisible(!availablesVars);
@@ -523,11 +518,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		cmdBack.setVisible(!availablesVars);
 		cmdNextVar.setVisible(!availablesVars);
 	}
-	
-	
-	
-	
-	
 
 	public Configuration getCurrentConfiguration() {
 		Configuration config = new Configuration();
@@ -546,9 +536,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			addToConfiguration(n, conf);
 	}
 
-	
-
-	
 	public void addSolution(Configuration solution) {
 		configurator.addSolution(solution);
 	}
@@ -622,7 +609,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			root.getChildren().add(node);
 		}
 		table.expandRow(0);
-		
 
 		resizeColumns();
 	}
@@ -659,7 +645,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		// if( getOperationMode() == OperationMode.AUTOMATIC )
 		// performConfiguration();
 	}
-
 
 	public void setValueToVariable(Variable variable, Integer value, int index) {
 		ConfigurationNode node = findConfigurationNodeFor(variable.getName());
@@ -723,8 +708,6 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		return table;
 	}
 
-	
-
 	private void addDomainAnnotations(ConfigurationNode c,
 			List<Integer> newValues, int step) {
 		List<Integer> oldValues = c.getVariable().getDomain()
@@ -765,11 +748,9 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		table.repaint();
 	}
 
-
-
 	@Override
 	public void clearProducts() {
 		// TODO Auto-generated method stub
-		
-	}	
+
+	}
 }

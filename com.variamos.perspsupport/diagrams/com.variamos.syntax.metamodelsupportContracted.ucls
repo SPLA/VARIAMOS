@@ -5,11 +5,11 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/EditableElementAttribute.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-228" y="586"/>    
+    <position height="-1" width="-1" x="-231" y="445"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
   <enumeration id="2" language="java" name="com.variamos.perspsupport.syntaxsupport.TypeOfLine" 
@@ -38,7 +38,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/SyntaxAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="56" width="190" x="226" y="602"/>    
+    <position height="56" width="190" x="231" y="562"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -49,10 +49,10 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/ExecutionAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="76" width="206" x="218" y="358"/>    
+    <position height="59" width="206" x="219" y="351"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
@@ -71,10 +71,10 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaOverTwoRelation.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="74" width="194" x="-329" y="351"/>    
+    <position height="54" width="194" x="-329" y="351"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
@@ -82,7 +82,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/SemanticAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="57" width="190" x="226" y="669"/>    
+    <position height="57" width="190" x="-63" y="582"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -104,7 +104,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/ExecTemporalControlAttribute.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="57" width="210" x="215" y="463"/>    
+    <position height="57" width="210" x="217" y="437"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -137,7 +137,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/AttributeElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="149" width="197" x="-47" y="578"/>    
+    <position height="149" width="197" x="-329" y="492"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="false"/>      
@@ -159,7 +159,7 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/AbstractAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="381" width="203" x="504" y="311"/>    
+    <position height="381" width="203" x="500" y="219"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="false"/>      
@@ -203,105 +203,105 @@
     project="com.variamos.perspsupport" 
     file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/ConfigurationAttribute.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="319" y="564"/>    
+    <position height="-1" width="-1" x="326" y="528"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <realization id="20">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <generalization id="21">    
-    <bendpoint x="14" y="130"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="22">    
-    <bendpoint x="473" y="648"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <generalization id="23">    
+  <generalization id="20">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <generalization id="24">    
+  <generalization id="21">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="22">    
+    <bendpoint x="461" y="404"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="23">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="17"/>  
   </generalization>  
-  <generalization id="25">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="26">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <generalization id="27">    
-    <bendpoint x="167" y="531"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <generalization id="28">    
+  <generalization id="24">    
     <bendpoint x="467" y="145"/>    
     <bendpoint x="14" y="144"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <association id="29">    
+  <generalization id="25">    
+    <bendpoint x="167" y="531"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <association id="26">    
     <bendpoint x="-28" y="330"/>    
     <bendpoint x="463" y="330"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="30" name="modelingAttributes">        
-        <position height="18" width="97" x="369" y="331"/>      
+      <attribute id="27" name="modelingAttributes">        
+        <position height="18" width="97" x="365" y="239"/>      
       </attribute>      
-      <multiplicity id="31" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-403" y="-1731"/>      
+      <multiplicity id="28" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-407" y="-1823"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="32">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="33">    
-    <bendpoint x="461" y="404"/>    
-    <end type="SOURCE" refId="5"/>    
+  <generalization id="29">    
+    <bendpoint x="462" y="567"/>    
+    <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <generalization id="34">    
+  <realization id="30">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="33">    
     <bendpoint x="-92" y="386"/>    
     <bendpoint x="-91" y="227"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="17"/>  
   </generalization>  
-  <generalization id="35">    
-    <bendpoint x="462" y="567"/>    
-    <end type="SOURCE" refId="19"/>    
+  <generalization id="34">    
+    <bendpoint x="474" y="605"/>    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <generalization id="36">    
-    <bendpoint x="460" y="709"/>    
+  <generalization id="35">    
+    <bendpoint x="570" y="635"/>    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <association id="37">    
+  <association id="36">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="38" name="typeOfLine">        
+      <attribute id="37" name="typeOfLine">        
         <position height="0" width="0" x="-857" y="-189"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
+      <multiplicity id="38" minimum="0" maximum="1">        
         <position height="0" width="0" x="-857" y="-189"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="39">    
+    <bendpoint x="14" y="130"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
   <generalization id="40">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="6"/>  

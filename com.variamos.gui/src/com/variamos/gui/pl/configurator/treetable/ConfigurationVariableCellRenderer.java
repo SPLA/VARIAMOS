@@ -18,85 +18,96 @@ import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 
 @SuppressWarnings({ "serial", "rawtypes" })
-public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer implements ListCellRenderer{
-	
+public class ConfigurationVariableCellRenderer extends TreeTableCellRenderer
+		implements ListCellRenderer {
+
 	private JLabel lbl;
-	
+
 	private static EnumMap<Choice, ImageIcon> map;
-	
-	public ConfigurationVariableCellRenderer(ConfigurationTreeTable treeTable, TreeModel model) {
+
+	public ConfigurationVariableCellRenderer(ConfigurationTreeTable treeTable,
+			TreeModel model) {
 		super(treeTable, model);
 		lbl = new JLabel();
-		
+
 		map = new EnumMap<>(Choice.class);
-		
-		map.put(Choice.CHECK, new ImageIcon(ConfigurationVariableCellRenderer.class.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
-		map.put(Choice.CROSS, new ImageIcon(ConfigurationVariableCellRenderer.class.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
-		map.put(Choice.QUESTION_MARK, new ImageIcon(ConfigurationVariableCellRenderer.class.getResource("/com/mxgraph/examples/swing/images/question.gif")));
+
+		map.put(Choice.CHECK,
+				new ImageIcon(
+						ConfigurationVariableCellRenderer.class
+								.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
+		map.put(Choice.CROSS,
+				new ImageIcon(
+						ConfigurationVariableCellRenderer.class
+								.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
+		map.put(Choice.QUESTION_MARK,
+				new ImageIcon(
+						ConfigurationVariableCellRenderer.class
+								.getResource("/com/mxgraph/examples/swing/images/question.gif")));
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
-		
+
 		ConfigurationNode node = getConfigurationNode(table, row);
-		
+
 		lbl.setIcon(null);
 		lbl.setText("");
-		
-		if( node == null )
+
+		if (node == null)
 			return lbl;
-		
+
 		Variable var = node.getVariable();
-		
-		if( var == null )
+
+		if (var == null)
 			return lbl;
-		
-		Integer intVal = (Integer)var.getValue();
-		if( intVal == null ){
+
+		Integer intVal = (Integer) var.getValue();
+		if (intVal == null) {
 			lbl.setIcon(map.get(Choice.QUESTION_MARK));
 			return lbl;
 		}
-		
+
 		Domain domain = var.getDomain();
-		if( domain == null )
+		if (domain == null)
 			return lbl;
-		
-		if( domain instanceof BinaryDomain ){
-			if( intVal == 0 )
+
+		if (domain instanceof BinaryDomain) {
+			if (intVal == 0)
 				lbl.setIcon(map.get(Choice.CROSS));
 			else
 				lbl.setIcon(map.get(Choice.CHECK));
-		}else{
-			//It should be a number here.
+		} else {
+			// It should be a number here.
 			lbl.setText(intVal + "");
 		}
-		
+
 		return lbl;
 	}
-	
-	public static ConfigurationNode getConfigurationNode(JTable table, int row){
-		TreeTableModelAdapter model = (TreeTableModelAdapter)table.getModel();
-		return (ConfigurationNode)model.nodeForRow(row);
+
+	public static ConfigurationNode getConfigurationNode(JTable table, int row) {
+		TreeTableModelAdapter model = (TreeTableModelAdapter) table.getModel();
+		return (ConfigurationNode) model.nodeForRow(row);
 	}
 
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value,
 			int index, boolean isSelected, boolean cellHasFocus) {
-		
-		if( value != null ){
-			if( !(value instanceof Choice) )
-				return  null;
-			
+
+		if (value != null) {
+			if (!(value instanceof Choice))
+				return null;
+
 			if (isSelected)
-	            setBackground(treeTable.getSelectionBackground());
-	        else
-	            setBackground(treeTable.getBackground());
-			
-			lbl.setIcon(map.get((Choice)value));
+				setBackground(treeTable.getSelectionBackground());
+			else
+				setBackground(treeTable.getBackground());
+
+			lbl.setIcon(map.get((Choice) value));
 		}
-		
+
 		return lbl;
 	}
-	
+
 }

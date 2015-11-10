@@ -24,6 +24,7 @@ import com.variamos.gui.perspeditor.actions.CheckUpdateAction;
 import com.variamos.gui.perspeditor.actions.ClearConfigurationAction;
 import com.variamos.gui.perspeditor.actions.ClearSimulationAction;
 import com.variamos.gui.perspeditor.actions.ClearVerificationAction;
+import com.variamos.gui.perspeditor.actions.ElementOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.ExitAction;
 import com.variamos.gui.perspeditor.actions.ExternalContextAction;
 import com.variamos.gui.perspeditor.actions.HideAdvancedPerspectiveAction;
@@ -41,6 +42,8 @@ import com.variamos.gui.perspeditor.actions.ShowSimulationDashBoardAction;
 import com.variamos.gui.perspeditor.actions.StartSimulationAction;
 import com.variamos.gui.perspeditor.actions.ToggleAssetVisibilityAction;
 import com.variamos.gui.perspeditor.actions.TogglePLVisibilityAction;
+import com.variamos.gui.perspeditor.actions.VariableLabelingAssociationAction;
+import com.variamos.gui.perspeditor.actions.VariableOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
@@ -225,6 +228,22 @@ public class PerspEditorMenuBar extends JMenuBar {
 			al.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
 					KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 			menu.add(al);
+			add(menu);
+		}
+		if (editor.getPerspective() == 1) {
+			menu = (JMenu) menu.add(new JMenu(mxResources
+					.get("translationConfiguration")));
+			menu.setMnemonic('C');
+			Action a = editor.bind(
+					mxResources.get("elementOperationAssociation"),
+					new ElementOperationAssociationAction());
+			menu.add(a);
+			a = editor.bind(mxResources.get("variableOperationAssociation"),
+					new VariableOperationAssociationAction());
+			menu.add(a);
+			a = editor.bind(mxResources.get("variableLabelingAssociation"),
+					new VariableLabelingAssociationAction());
+			menu.add(a);
 			add(menu);
 		}
 		if (editor.getPerspective() == 4) {
