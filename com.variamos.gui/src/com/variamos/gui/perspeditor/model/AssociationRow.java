@@ -24,28 +24,25 @@ public class AssociationRow {
 	private List<Variable> values;
 	private String name;
 	private int stepEdited;
+	private boolean leaf;
 	private List<DomainAnnotation> domainAnnotations = new ArrayList<>();
 
 	protected List<AssociationRow> children;
 
-	public AssociationRow(String name) {
+	public AssociationRow(String name, int size, boolean leaf) {
+		this.leaf = leaf;
 		children = new ArrayList<>();
 		values = new ArrayList<Variable>();
-		Variable var = new Variable(name, 0, Integer.class.getTypeName());
-		var.setDomain(BinaryDomain.INSTANCE);
-		values.add(var);
-		var = new Variable(name, 0, Integer.class.getTypeName());
-		var.setDomain(BinaryDomain.INSTANCE);
-		values.add(var);
-		var = new Variable(name, 0, Integer.class.getTypeName());
-		var.setDomain(BinaryDomain.INSTANCE);
-		values.add(var);
-		var = new Variable(name, 0, Integer.class.getTypeName());
-		var.setDomain(BinaryDomain.INSTANCE);
-		values.add(var);
-		var = new Variable(name, 0, Integer.class.getTypeName());
-		var.setDomain(BinaryDomain.INSTANCE);
-		values.add(var);
+		for (int i = 0; i < size; i++) {
+			Object defaultValue = null;
+			if (leaf)
+				defaultValue = 0;
+			Variable var = new Variable(name, defaultValue,
+					Integer.class.getTypeName());
+			var.setDomain(BinaryDomain.INSTANCE);
+			values.add(var);
+		}
+
 		this.name = name;
 		// DomainAnnotation def = new DomainAnnotation(0, Choice.CROSS, 5);
 		// domainAnnotations.add(def);
@@ -56,7 +53,7 @@ public class AssociationRow {
 	}
 
 	public Variable getValue(int column) {
-		return values.get(column);
+		return values.get(column - 1);
 	}
 
 	public List<Variable> getValues() {
@@ -85,7 +82,7 @@ public class AssociationRow {
 	//
 
 	public void setValue(Integer value, int column) {
-		values.get(column).setValue(value);
+		values.get(column - 1).setValue(value);
 	}
 
 	@Override
@@ -111,6 +108,10 @@ public class AssociationRow {
 				return dm;
 		}
 		return null;
+	}
+
+	public boolean isLeaf() {
+		return leaf;
 	}
 
 	// public Domain getDomain(){

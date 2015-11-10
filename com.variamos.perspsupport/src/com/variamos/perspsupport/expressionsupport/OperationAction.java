@@ -53,4 +53,21 @@ public class OperationAction {
 		expressionSubActions.add(operationSubAction);
 	}
 
+	public List<String> getOperColumns() {
+
+		List<String> out = new ArrayList<String>();
+		for (OperationSubAction subAction : expressionSubActions) {
+			out.addAll(subAction.getOperationSubActionExpTypesNames());
+		}
+		return out;
+	}
+
+	public List<String> getOperLabels() {
+		List<String> out = new ArrayList<String>();
+		for (OperationSubAction subAction : expressionSubActions) {
+			out.addAll(subAction.getOperLabels());
+		}
+		return out;
+	}
+
 }

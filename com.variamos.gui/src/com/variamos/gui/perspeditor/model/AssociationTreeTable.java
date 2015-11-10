@@ -60,8 +60,9 @@ public class AssociationTreeTable extends JTable {
 
 		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		getColumnModel().getColumn(0).setMinWidth(100);
-		getColumnModel().getColumn(1).setMinWidth(40);
-		getColumnModel().getColumn(2).setMinWidth(35);
+		for (int i = 1; i < getColumnModel().getColumnCount(); i++) {
+			getColumnModel().getColumn(i).setMinWidth(40);
+		}
 		this.setAutoscrolls(true);
 
 		setShowGrid(false);
@@ -102,8 +103,7 @@ public class AssociationTreeTable extends JTable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public TableCellEditor getChoiceEditor(
-			AssociationCellRenderer renderer) {
+	public TableCellEditor getChoiceEditor(AssociationCellRenderer renderer) {
 		JComboBox<ChoiceBoolean> choiceEditor = new JComboBox<>(
 				ChoiceBoolean.values());
 		// choiceEditor.setRenderer(new ListCellRenderer<Choice>() {

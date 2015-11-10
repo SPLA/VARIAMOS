@@ -1880,8 +1880,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		ecd.center();
 	}
 
-	public void showElementOperationAssociationDialog() {
-		eoad = new ElementsOperationAssociationDialog(this);
+	public void showElementOperationAssociationDialog(int dialog) {
+		eoad = new ElementsOperationAssociationDialog(this, dialog);
 		eoad.center();
 	}
 }

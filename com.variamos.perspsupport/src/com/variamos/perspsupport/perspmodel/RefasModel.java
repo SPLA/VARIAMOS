@@ -18,6 +18,7 @@ import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.OperationAction;
+import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubAction;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
@@ -74,9 +75,9 @@ public class RefasModel extends AbstractModel {
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
 	private Map<String, SemanticExpressionType> semanticExpressionTypes;
-	private List<OperationAction> operationActions;
+	private Map<String, OperationAction> operationActions;
 
-	public List<OperationAction> getOperationActions() {
+	public Map<String, OperationAction> getOperationActions() {
 		return operationActions;
 	}
 
@@ -1609,13 +1610,15 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
 
 	public void createSemanticOperations() {
-		operationActions = new ArrayList<OperationAction>();
+		operationActions = new HashMap<String, OperationAction>();
 
 		OperationAction operationAction = new OperationAction(1, "Simulation");
-		operationActions.add(operationAction);
+		operationActions.put("Simulation", operationAction);
 
 		OperationSubAction operationSubAction = new OperationSubAction(1,
 				"Pre-Validacion", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1625,6 +1628,8 @@ public class RefasModel extends AbstractModel {
 
 		operationSubAction = new OperationSubAction(2, "Pre-Update",
 				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1634,6 +1639,8 @@ public class RefasModel extends AbstractModel {
 
 		operationSubAction = new OperationSubAction(3, "Execution",
 				OperationSubActionType.ITERATIVEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1643,6 +1650,8 @@ public class RefasModel extends AbstractModel {
 
 		operationSubAction = new OperationSubAction(4, "Post-Validacion",
 				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1652,6 +1661,68 @@ public class RefasModel extends AbstractModel {
 
 		operationSubAction = new OperationSubAction(5, "Post-Update",
 				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		operationAction.addExpressionSubAction(operationSubAction);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationAction = new OperationAction(1, "SimulationScenarios");
+		operationActions.put("SimulationScenarios", operationAction);
+
+		operationSubAction = new OperationSubAction(1, "Pre-Validacion",
+				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		operationAction.addExpressionSubAction(operationSubAction);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationSubAction = new OperationSubAction(2, "Pre-Update",
+				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		operationAction.addExpressionSubAction(operationSubAction);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationSubAction = new OperationSubAction(3, "Execution",
+				OperationSubActionType.ITERATIVEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("all",
+				"ff", 1, false));
+		operationSubAction.addOperationLabeling(new OperationLabeling("once",
+				"ff", 2, true));
+		operationAction.addExpressionSubAction(operationSubAction);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationSubAction = new OperationSubAction(4, "Post-Validacion",
+				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		operationAction.addExpressionSubAction(operationSubAction);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationSubAction = new OperationSubAction(5, "Post-Update",
+				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1660,10 +1731,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "UpdateCore");
-		operationActions.add(operationAction);
+		operationActions.put("UpdateCore", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "Update Core",
 				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		updateCoreOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1672,10 +1745,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "ConfigureTemporal");
-		operationActions.add(operationAction);
+		operationActions.put("ConfigureTemporal", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "Configure Temporal",
 				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1684,10 +1759,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "ConfigurePermanent");
-		operationActions.add(operationAction);
+		operationActions.put("ConfigurePermanent", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "Configure Permanent",
 				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1696,10 +1773,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "VerifyDeadElements");
-		operationActions.add(operationAction);
+		operationActions.put("VerifyDeadElements", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyDeadElements",
 				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		verifDeadElemOperSubActionNormal = new OperationSubActionExpType(
@@ -1718,10 +1797,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
 
 		operationAction = new OperationAction(2, "VerifyParents");
-		operationActions.add(operationAction);
+		operationActions.put("VerifyParents", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyParents",
 				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		verifParentsOperSubActionNormal = new OperationSubActionExpType(
@@ -1740,10 +1821,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
 
 		operationAction = new OperationAction(3, "VerifyRoots");
-		operationActions.add(operationAction);
+		operationActions.put("VerifyRoots", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyRoots",
 				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		verifRootOperSubActionNormal = new OperationSubActionExpType(
@@ -1762,10 +1845,12 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(verifRootOperSubActionVerification);
 
 		operationAction = new OperationAction(4, "VerifyFalseOperations");
-		operationActions.add(operationAction);
+		operationActions.put("VerifyFalseOperations", operationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyFalseOperations",
 				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		verifFalseOptOperSubActionNormal = new OperationSubActionExpType(
@@ -4081,8 +4166,8 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
+		ias.add(new InstAttribute("operToClaim", new AbstractAttribute(
+				"operToClaim", StringType.IDENTIFIER, false, "operToClaim", "",
 				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		variabilityInstVertex.put("OperClaimToPWAsso",
@@ -4388,8 +4473,8 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
-				"ClaimToSG", StringType.IDENTIFIER, false, "ClaimToSG", "", 1,
+		ias.add(new InstAttribute("claimToSG", new AbstractAttribute(
+				"claimToSG", StringType.IDENTIFIER, false, "claimToSG", "", 1,
 				-1, "", "", -1, "", ""), semanticExpressions));
 
 		variabilityInstVertex.put("ClaimSGPWAsso", instDirClaimSGSemanticEdge);

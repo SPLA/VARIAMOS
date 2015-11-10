@@ -1,6 +1,8 @@
 package com.variamos.gui.perspeditor.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -26,10 +28,8 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 	// static protected String[] captions = { "Variable", "Step", "Choice",
 	// "Value", "Extra" };
-	static protected String[] captions = { "Concept/RelationType/Expresssion",
-			"Compulsory", "Relaxable", "Verification", "oth" };
-	static protected Class<?>[] types = { TreeTableModel.class, Variable.class,
-			Variable.class, Variable.class, Variable.class };
+	protected List<String> captions = null;
+	protected List<Class<?>> types = null;
 
 	private int steps;
 	private ElementsOperationAssociationPanel configurator;
@@ -39,8 +39,19 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 	private LinkedList<AssociationAction> actions = new LinkedList<>();
 
 	public AssociationDataModel(Object root,
-			ElementsOperationAssociationPanel configurator) {
+			ElementsOperationAssociationPanel configurator, List<String> names) {
 		super(root);
+		captions = new ArrayList<String>();
+		captions.add("Concept/Variable/Expression");
+		captions.addAll(names);
+
+		types = new ArrayList<Class<?>>();
+		types.add(TreeTableModel.class);
+		for (int i = 0; i < names.size(); i++) {
+
+			types.add(Variable.class);
+		}
+
 		steps = 0;
 		this.configurator = configurator;
 
@@ -72,17 +83,17 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return types.length;
+		return types.size();
 	}
 
 	@Override
 	public String getColumnName(int column) {
-		return captions[column];
+		return captions.get(column);
 	}
 
 	@Override
 	public Class<?> getColumnClass(int column) {
-		return types[column];
+		return types.get(column);
 	}
 
 	@Override
@@ -112,12 +123,10 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 
 	@Override
 	public boolean isCellEditable(Object node, int column) {
-		switch (column) {
-		case COLUMN_NAME:
-		case COLUMN_VALUE:
+		if (((AssociationRow) node).isLeaf() || column == 0)
 			return true;
-		}
-		return true;
+		else
+			return false;
 	}
 
 	@Override

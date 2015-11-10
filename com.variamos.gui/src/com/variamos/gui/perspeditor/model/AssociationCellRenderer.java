@@ -28,8 +28,8 @@ import com.variamos.hlcl.Domain;
  * @see com.variamos.gui.pl.configuration.treetable.ConfigurationVariableCellRenderer
  */
 @SuppressWarnings({ "serial", "rawtypes" })
-public class AssociationCellRenderer extends TreeTableCellRenderer
-		implements ListCellRenderer {
+public class AssociationCellRenderer extends TreeTableCellRenderer implements
+		ListCellRenderer {
 
 	private JLabel lbl;
 
@@ -61,17 +61,18 @@ public class AssociationCellRenderer extends TreeTableCellRenderer
 		lbl.setIcon(null);
 		lbl.setText("");
 
-		if (node == null)
+		if (node == null) {
 			return lbl;
+		}
 
 		Variable var = node.getValue(column);
 
-		if (var == null)
+		if (var == null) {
 			return lbl;
+		}
 		if (var.getValue() instanceof Integer) {
 			Integer intVal = (Integer) var.getValue();
 			if (intVal == null) {
-				lbl.setIcon(map.get(ChoiceBoolean.CROSS));
 				return lbl;
 			}
 
@@ -88,7 +89,6 @@ public class AssociationCellRenderer extends TreeTableCellRenderer
 				// It should be a number here.
 				lbl.setText(intVal + "");
 			}
-
 		}
 		return lbl;
 
