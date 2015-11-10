@@ -6,8 +6,8 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.perspeditor.model.actions.SetValueAction;
+import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
 
@@ -20,25 +20,26 @@ import com.variamos.gui.treetable.core.TreeTableModel;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
- * @see com.variamos.gui.pl.configuration.treetable.ConfigurationDataModel
+ * @see com.variamos.gui.pl.AssociationDataModel.treetable.ConfigurationDataModel
  */
-public class ConfigurationDataModel extends AbstractTreeTableModel {
+public class AssociationDataModel extends AbstractTreeTableModel {
 
 	// static protected String[] captions = { "Variable", "Step", "Choice",
 	// "Value", "Extra" };
-	static protected String[] captions = { "Variable", "Value", "Step", "" };
+	static protected String[] captions = { "Concept/RelationType/Expresssion",
+			"Compulsory", "Relaxable", "Verification", "oth" };
 	static protected Class<?>[] types = { TreeTableModel.class, Variable.class,
-			Integer.class, String.class };
+			Variable.class, Variable.class, Variable.class };
 
 	private int steps;
-	private AbstractConfigurationPanel configurator;
+	private ElementsOperationAssociationPanel configurator;
 
 	public static final int COLUMN_NAME = 0, COLUMN_VALUE = 1, COLUMN_STEP = 2;
 
-	private LinkedList<ConfigurationAction> actions = new LinkedList<>();
+	private LinkedList<AssociationAction> actions = new LinkedList<>();
 
-	public ConfigurationDataModel(Object root,
-			AbstractConfigurationPanel configurator) {
+	public AssociationDataModel(Object root,
+			ElementsOperationAssociationPanel configurator) {
 		super(root);
 		steps = 0;
 		this.configurator = configurator;
@@ -47,24 +48,24 @@ public class ConfigurationDataModel extends AbstractTreeTableModel {
 
 			@Override
 			public void treeStructureChanged(TreeModelEvent arg0) {
-				ConfigurationDataModel.this.configurator.resizeColumns();
+				AssociationDataModel.this.configurator.resizeColumns();
 			}
 
 			@Override
 			public void treeNodesRemoved(TreeModelEvent arg0) {
-				ConfigurationDataModel.this.configurator.resizeColumns();
+				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesInserted(TreeModelEvent arg0) {
-				ConfigurationDataModel.this.configurator.resizeColumns();
+				AssociationDataModel.this.configurator.resizeColumns();
 
 			}
 
 			@Override
 			public void treeNodesChanged(TreeModelEvent arg0) {
-				ConfigurationDataModel.this.configurator.resizeColumns();
+				AssociationDataModel.this.configurator.resizeColumns();
 			}
 		});
 	}
@@ -87,26 +88,26 @@ public class ConfigurationDataModel extends AbstractTreeTableModel {
 	@Override
 	public Object getValueAt(Object node, int column) {
 
-		if (!(node instanceof ConfigurationNode))
+		if (!(node instanceof AssociationRow))
 			return "";
 
-		ConfigurationNode n = (ConfigurationNode) node;
+		AssociationRow n = (AssociationRow) node;
 
-		switch (column) {
-		case COLUMN_NAME:
+		if (column == 0)
 			return n.getName();
+		else
+			return n.getValue(column);
 
-		case COLUMN_VALUE:
-			return n.getVariable();
-
-		case COLUMN_STEP:
-			if (n.getVariable() == null)
-				return "";
-
-			return n.getStepEdited();
-		}
-
-		return "";
+		/*
+		 * switch (column) { case COLUMN_NAME: return n.getName();
+		 * 
+		 * case COLUMN_VALUE: return n.getVariable();
+		 * 
+		 * case COLUMN_STEP: if (n.getVariable() == null) return "";
+		 * 
+		 * return n.getStepEdited(); }
+		 */
+		// return "";
 	}
 
 	@Override
@@ -116,51 +117,49 @@ public class ConfigurationDataModel extends AbstractTreeTableModel {
 		case COLUMN_VALUE:
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	@Override
 	public void setValueAt(Object aValue, Object node, int column) {
-		ConfigurationNode n = (ConfigurationNode) node;
+		AssociationRow n = (AssociationRow) node;
 
-		switch (column) {
-		case COLUMN_VALUE:
-			// n.getVariable().setValue((Integer) aValue);
-			ConfigurationAction ca = newSetAction(n.getVariable(),
-					(Integer) aValue);
-			ca.execute(configurator);
+		// n.getVariable().setValue((Integer) aValue);
+		AssociationAction ca = null;
+		if (aValue instanceof Integer)
+			ca = newSetAction(n.getValue(column), (Integer) aValue, column);
+		if (aValue instanceof ChoiceBoolean)
+			ca = newSetAction(n.getValue(column),
+					((ChoiceBoolean) aValue).ordinal(), column);
+		ca.execute(configurator);
 
-			break;
-		case COLUMN_STEP:
-			n.setStepEdited((Integer) aValue);
-			break;
-		}
 	}
 
 	@Override
 	public Object getChild(Object node, int childNo) {
-		if (!(node instanceof ConfigurationNode))
+		if (!(node instanceof AssociationRow))
 			return null;
 
-		ConfigurationNode n = (ConfigurationNode) node;
+		AssociationRow n = (AssociationRow) node;
 
 		return n.getChildren().get(childNo);
 	}
 
 	@Override
 	public int getChildCount(Object node) {
-		if (!(node instanceof ConfigurationNode))
+		if (!(node instanceof AssociationRow))
 			return 0;
 
-		ConfigurationNode n = (ConfigurationNode) node;
+		AssociationRow n = (AssociationRow) node;
 
 		return n.getChildren().size();
 	}
 
-	public ConfigurationAction newSetAction(Variable var, Integer newValue) {
-		steps++;
-		SetValueAction sva = new SetValueAction(var, steps, newValue);
-		actions.addLast(sva);
+	public AssociationAction newSetAction(Variable var, Integer newValue,
+			int column) {
+		// steps++;
+		SetValueAction sva = new SetValueAction(var, newValue, column);
+		// actions.addLast(sva);
 		return sva;
 	}
 

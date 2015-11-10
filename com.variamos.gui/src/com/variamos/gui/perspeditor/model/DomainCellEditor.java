@@ -69,8 +69,8 @@ public class DomainCellEditor extends AbstractCellEditor implements
 		return null;
 	}
 
-	public static ConfigurationNode getConfigurationNode(JTable table, int row) {
+	public static AssociationRow getConfigurationNode(JTable table, int row) {
 		TreeTableModelAdapter model = (TreeTableModelAdapter) table.getModel();
-		return (ConfigurationNode) model.nodeForRow(row);
+		return (AssociationRow) model.nodeForRow(row);
 	}
 }

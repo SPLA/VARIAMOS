@@ -7,12 +7,12 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableCellEditor;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
@@ -32,14 +32,14 @@ import com.variamos.gui.treetable.core.TreeTableSelectionModel;
  * @see com.variamos.gui.pl.configuration.treetable.ConfigurationTreeTable
  */
 @SuppressWarnings("serial")
-public class ConceptOperTreeTable extends JTable {
+public class AssociationTreeTable extends JTable {
 
 	private TreeTableCellRenderer tree;
 
-	public ConceptOperTreeTable(AbstractTreeTableModel treeTableModel) {
+	public AssociationTreeTable(AbstractTreeTableModel treeTableModel) {
 		super();
 
-		SemanticExpressionCellRenderer choiceRenderer = new SemanticExpressionCellRenderer(
+		AssociationCellRenderer choiceRenderer = new AssociationCellRenderer(
 				this, treeTableModel);
 		tree = new TreeTableCellRenderer(this, treeTableModel);
 		super.setModel(new TreeTableModelAdapter(treeTableModel, tree));
@@ -54,14 +54,20 @@ public class ConceptOperTreeTable extends JTable {
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor(tree,
 				this));
 		// setDefaultEditor(Choice.class, getChoiceEditor(choiceRenderer));
-		setDefaultEditor(Variable.class, getIntegerEditor());
+		setDefaultEditor(Variable.class, this.getChoiceEditor(choiceRenderer));
+
+		setDefaultEditor(Boolean.class, this.getChoiceEditor(choiceRenderer));
 
 		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		getColumnModel().getColumn(0).setMinWidth(100);
 		getColumnModel().getColumn(1).setMinWidth(40);
 		getColumnModel().getColumn(2).setMinWidth(35);
+		this.setAutoscrolls(true);
 
 		setShowGrid(false);
+		JTableHeader tableHeader = getTableHeader();
+		tableHeader.setName("name");
+		tableHeader.setVisible(true);
 
 		setIntercellSpacing(new Dimension(0, 0));
 	}
@@ -76,7 +82,7 @@ public class ConceptOperTreeTable extends JTable {
 			TableColumn col = colModel.getColumn(i);
 			int width = 0;
 
-			TableCellRenderer renderer = col.getCellRenderer();// getHeaderRenderer();
+			TableCellRenderer renderer = col.getHeaderRenderer();
 			for (int r = 0; r < getRowCount(); r++) {
 				renderer = getCellRenderer(r, i);
 				Component comp = renderer.getTableCellRendererComponent(this,
@@ -97,8 +103,9 @@ public class ConceptOperTreeTable extends JTable {
 
 	@SuppressWarnings("unchecked")
 	public TableCellEditor getChoiceEditor(
-			SemanticExpressionCellRenderer renderer) {
-		JComboBox<Choice> choiceEditor = new JComboBox<>(Choice.values());
+			AssociationCellRenderer renderer) {
+		JComboBox<ChoiceBoolean> choiceEditor = new JComboBox<>(
+				ChoiceBoolean.values());
 		// choiceEditor.setRenderer(new ListCellRenderer<Choice>() {
 		// private JLabel lbl = new JLabel();
 		//

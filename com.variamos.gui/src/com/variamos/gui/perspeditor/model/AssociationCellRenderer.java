@@ -11,7 +11,6 @@ import javax.swing.ListCellRenderer;
 import javax.swing.tree.TreeModel;
 
 import com.cfm.productline.Variable;
-import com.variamos.configurator.Choice;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
@@ -29,39 +28,35 @@ import com.variamos.hlcl.Domain;
  * @see com.variamos.gui.pl.configuration.treetable.ConfigurationVariableCellRenderer
  */
 @SuppressWarnings({ "serial", "rawtypes" })
-public class SemanticExpressionCellRenderer extends TreeTableCellRenderer
+public class AssociationCellRenderer extends TreeTableCellRenderer
 		implements ListCellRenderer {
 
 	private JLabel lbl;
 
-	private static EnumMap<Choice, ImageIcon> map;
+	private static EnumMap<ChoiceBoolean, ImageIcon> map;
 
-	public SemanticExpressionCellRenderer(ConceptOperTreeTable treeTable,
+	public AssociationCellRenderer(AssociationTreeTable treeTable,
 			TreeModel model) {
 		super(treeTable, model);
 		lbl = new JLabel();
 
-		map = new EnumMap<>(Choice.class);
+		map = new EnumMap<>(ChoiceBoolean.class);
 
-		map.put(Choice.CHECK,
+		map.put(ChoiceBoolean.CHECK,
 				new ImageIcon(
-						SemanticExpressionCellRenderer.class
+						AssociationCellRenderer.class
 								.getResource("/com/mxgraph/examples/swing/images/checkmark.gif")));
-		map.put(Choice.CROSS,
+		map.put(ChoiceBoolean.CROSS,
 				new ImageIcon(
-						SemanticExpressionCellRenderer.class
+						AssociationCellRenderer.class
 								.getResource("/com/mxgraph/examples/swing/images/x-red.gif")));
-		map.put(Choice.QUESTION_MARK,
-				new ImageIcon(
-						SemanticExpressionCellRenderer.class
-								.getResource("/com/mxgraph/examples/swing/images/question.gif")));
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
 
-		ConfigurationNode node = getConfigurationNode(table, row);
+		AssociationRow node = getConfigurationNode(table, row);
 
 		lbl.setIcon(null);
 		lbl.setText("");
@@ -69,37 +64,39 @@ public class SemanticExpressionCellRenderer extends TreeTableCellRenderer
 		if (node == null)
 			return lbl;
 
-		Variable var = node.getVariable();
+		Variable var = node.getValue(column);
 
 		if (var == null)
 			return lbl;
+		if (var.getValue() instanceof Integer) {
+			Integer intVal = (Integer) var.getValue();
+			if (intVal == null) {
+				lbl.setIcon(map.get(ChoiceBoolean.CROSS));
+				return lbl;
+			}
 
-		Integer intVal = (Integer) var.getValue();
-		if (intVal == null) {
-			lbl.setIcon(map.get(Choice.QUESTION_MARK));
-			return lbl;
+			Domain domain = var.getDomain();
+			if (domain == null)
+				return lbl;
+
+			if (domain instanceof BinaryDomain) {
+				if (intVal == 0)
+					lbl.setIcon(map.get(ChoiceBoolean.CROSS));
+				else
+					lbl.setIcon(map.get(ChoiceBoolean.CHECK));
+			} else {
+				// It should be a number here.
+				lbl.setText(intVal + "");
+			}
+
 		}
-
-		Domain domain = var.getDomain();
-		if (domain == null)
-			return lbl;
-
-		if (domain instanceof BinaryDomain) {
-			if (intVal == 0)
-				lbl.setIcon(map.get(Choice.CROSS));
-			else
-				lbl.setIcon(map.get(Choice.CHECK));
-		} else {
-			// It should be a number here.
-			lbl.setText(intVal + "");
-		}
-
 		return lbl;
+
 	}
 
-	public static ConfigurationNode getConfigurationNode(JTable table, int row) {
+	public static AssociationRow getConfigurationNode(JTable table, int row) {
 		TreeTableModelAdapter model = (TreeTableModelAdapter) table.getModel();
-		return (ConfigurationNode) model.nodeForRow(row);
+		return (AssociationRow) model.nodeForRow(row);
 	}
 
 	@Override
@@ -107,7 +104,7 @@ public class SemanticExpressionCellRenderer extends TreeTableCellRenderer
 			int index, boolean isSelected, boolean cellHasFocus) {
 
 		if (value != null) {
-			if (!(value instanceof Choice))
+			if (!(value instanceof ChoiceBoolean))
 				return null;
 
 			if (isSelected)
@@ -115,7 +112,7 @@ public class SemanticExpressionCellRenderer extends TreeTableCellRenderer
 			else
 				setBackground(treeTable.getBackground());
 
-			lbl.setIcon(map.get((Choice) value));
+			lbl.setIcon(map.get((ChoiceBoolean) value));
 		}
 
 		return lbl;

@@ -1,8 +1,8 @@
 package com.variamos.gui.perspeditor.model.actions;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
-import com.variamos.gui.perspeditor.model.ConfigurationAction;
+import com.variamos.gui.perspeditor.model.AssociationAction;
+import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 
 /**
  * A class to support the change action for the visual representation of the
@@ -15,26 +15,26 @@ import com.variamos.gui.perspeditor.model.ConfigurationAction;
  * @since 2015-11-06
  * @see com.variamos.gui.pl.configuration.treetable.actions.ChangeAction
  */
-public abstract class ChangeAction<T> extends ConfigurationAction {
+public abstract class ChangeAction<T> extends AssociationAction {
 	protected T oldValue, newValue;
 
-	public ChangeAction(Variable variable, int index, T value) {
-		super(variable, index);
+	public ChangeAction(Variable variable, T value, int column) {
+		super(variable, column);
 		newValue = value;
 	}
 
 	@Override
-	public void undo(AbstractConfigurationPanel configurator) {
-		executeSetValue(configurator, oldValue);
+	public void undo(ElementsOperationAssociationPanel configurator) {
+		executeSetValue(configurator, oldValue, column);
 	}
 
 	protected abstract void executeSetValue(
-			AbstractConfigurationPanel configurator, T value);
+			ElementsOperationAssociationPanel configurator, T value, int column);
 
 	@Override
-	public void execute(AbstractConfigurationPanel configurator) {
+	public void execute(ElementsOperationAssociationPanel configurator) {
 		// oldValue = (T)variable.getValue();
-		executeSetValue(configurator, newValue);
+		executeSetValue(configurator, newValue, column);
 	}
 
 }

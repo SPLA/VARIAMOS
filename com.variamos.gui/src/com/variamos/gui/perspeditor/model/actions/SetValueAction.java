@@ -1,7 +1,7 @@
 package com.variamos.gui.perspeditor.model.actions;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
+import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 
 /**
  * A class to support the change action for the visual representation of the
@@ -16,14 +16,14 @@ import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
  */
 public class SetValueAction extends ChangeAction<Integer> {
 
-	public SetValueAction(Variable variable, int index, Integer value) {
-		super(variable, index, value);
+	public SetValueAction(Variable variable, Integer value, int column) {
+		super(variable, value, column);
 	}
 
 	@Override
-	protected void executeSetValue(AbstractConfigurationPanel configurator,
-			Integer value) {
-		configurator.setValueToVariable(variable, value, getIndex());
+	protected void executeSetValue(
+			ElementsOperationAssociationPanel configurator, Integer value,
+			int column) {
+		configurator.setValueToVariable(variable, value, column);
 	}
-
 }

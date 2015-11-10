@@ -2,7 +2,7 @@ package com.variamos.perspsupport.expressionsupport;
 
 import java.util.List;
 
-import com.variamos.perspsupport.types.ExpressionExecType;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 
 /**
  * TODO
@@ -19,15 +19,15 @@ import com.variamos.perspsupport.types.ExpressionExecType;
  *
  */
 public class InstanceExprSubAction {
-	private ExpressionSubAction expressionSubAction;
+	private OperationSubAction expressionSubAction;
 	private List<InstanceExpression> instanceExpressions;
-	private ExpressionExecType expressionType;
+	private OperationSubActionExecType expressionType;
 
-	public ExpressionSubAction getExpressionSubAction() {
+	public OperationSubAction getExpressionSubAction() {
 		return expressionSubAction;
 	}
 
-	public void setExpressionSubAction(ExpressionSubAction expressionSubAction) {
+	public void setExpressionSubAction(OperationSubAction expressionSubAction) {
 		this.expressionSubAction = expressionSubAction;
 	}
 
@@ -40,11 +40,11 @@ public class InstanceExprSubAction {
 		this.instanceExpressions = instanceExpressions;
 	}
 
-	public ExpressionExecType getExpressionType() {
+	public OperationSubActionExecType getExpressionType() {
 		return expressionType;
 	}
 
-	public void setExpressionType(ExpressionExecType expressionType) {
+	public void setExpressionType(OperationSubActionExecType expressionType) {
 		this.expressionType = expressionType;
 	}
 

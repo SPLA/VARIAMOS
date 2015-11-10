@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
+import com.variamos.hlcl.BinaryDomain;
 
 /**
  * A class to support the creation of nodes for the visual representation of the
@@ -15,37 +16,58 @@ import com.variamos.configurator.DomainAnnotation;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
- * @see com.variamos.gui.pl.configuration.treetable.ConfigurationNode
+ * @see com.variamos.gui.pl.AssociationRow.treetable.ConfigurationNode
  */
-public class ConfigurationNode {
+public class AssociationRow {
 
-	private Variable variable;
+	// private Variable variable;
+	private List<Variable> values;
+	private String name;
 	private int stepEdited;
 	private List<DomainAnnotation> domainAnnotations = new ArrayList<>();
 
-	protected List<ConfigurationNode> children;
+	protected List<AssociationRow> children;
 
-	public ConfigurationNode() {
+	public AssociationRow(String name) {
 		children = new ArrayList<>();
+		values = new ArrayList<Variable>();
+		Variable var = new Variable(name, 0, Integer.class.getTypeName());
+		var.setDomain(BinaryDomain.INSTANCE);
+		values.add(var);
+		var = new Variable(name, 0, Integer.class.getTypeName());
+		var.setDomain(BinaryDomain.INSTANCE);
+		values.add(var);
+		var = new Variable(name, 0, Integer.class.getTypeName());
+		var.setDomain(BinaryDomain.INSTANCE);
+		values.add(var);
+		var = new Variable(name, 0, Integer.class.getTypeName());
+		var.setDomain(BinaryDomain.INSTANCE);
+		values.add(var);
+		var = new Variable(name, 0, Integer.class.getTypeName());
+		var.setDomain(BinaryDomain.INSTANCE);
+		values.add(var);
+		this.name = name;
 		// DomainAnnotation def = new DomainAnnotation(0, Choice.CROSS, 5);
 		// domainAnnotations.add(def);
 	}
 
 	public String getName() {
-		if (variable == null)
-			return "";
-
-		return variable.getName();
+		return name;
 	}
 
-	public Variable getVariable() {
-		return variable;
+	public Variable getValue(int column) {
+		return values.get(column);
 	}
 
-	public void setVariable(Variable variable) {
-		this.variable = variable;
+	public List<Variable> getValues() {
+		return values;
 	}
 
+	/*
+	 * public Variable getVariable() { return variable; }
+	 * 
+	 * public void setVariable(Variable variable) { this.variable = variable; }
+	 */
 	public int getStepEdited() {
 		return stepEdited;
 	}
@@ -62,23 +84,20 @@ public class ConfigurationNode {
 	// }
 	//
 
-	public void setValue(Integer value) {
-		if (variable != null)
-			variable.setValue(value);
+	public void setValue(Integer value, int column) {
+		values.get(column).setValue(value);
 	}
 
 	@Override
 	public String toString() {
-		if (variable == null)
-			return "";
-		return variable.getName();
+		return getName();
 	}
 
-	public List<ConfigurationNode> getChildren() {
+	public List<AssociationRow> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<ConfigurationNode> children) {
+	public void setChildren(List<AssociationRow> children) {
 		this.children = children;
 	}
 

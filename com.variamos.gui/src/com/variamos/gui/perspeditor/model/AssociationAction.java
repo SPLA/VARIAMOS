@@ -1,7 +1,7 @@
 package com.variamos.gui.perspeditor.model;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
+import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 
 /**
  * A class to support the configuration actions for the visual representation of
@@ -12,28 +12,28 @@ import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
- * @see com.variamos.gui.pl.configuration.treetable.ConfigurationAction
+ * @see com.variamos.gui.pl.AssociationAction.treetable.ConfigurationAction
  */
-public abstract class ConfigurationAction {
+public abstract class AssociationAction {
 	protected Variable variable;
-	protected int index;
+	protected int column;
 
-	public ConfigurationAction(Variable variable, int index) {
+	public AssociationAction(Variable variable, int column) {
 		super();
 		this.variable = variable;
-		this.index = index;
+		this.column = column;
 	}
 
 	public Variable getVariable() {
 		return variable;
 	}
 
-	public int getIndex() {
-		return index;
+	public int getColumn() {
+		return column;
 	}
 
-	public abstract void undo(AbstractConfigurationPanel configurator);
+	public abstract void undo(ElementsOperationAssociationPanel configurator);
 
-	public abstract void execute(AbstractConfigurationPanel configurator);
+	public abstract void execute(ElementsOperationAssociationPanel configurator);
 
 }

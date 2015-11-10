@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
+import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.hlcl.Domain;
 
@@ -139,18 +140,19 @@ public class ListDomainEditor extends JPanel {
 
 	}
 
-	public ListDomainEditor(ConfigurationNode node) {
+	public ListDomainEditor(AssociationRow node) {
 		setLayout(new BorderLayout());
-		setupFor(node);
+		for (Variable var : node.getValues())
+			setupFor(node, var);
 	}
 
-	public void setupFor(ConfigurationNode node) {
+	public void setupFor(AssociationRow node, Variable var) {
 		if (list != null) {
 			remove(list);
 			remove(disabled);
 		}
 
-		Domain domain = node.getVariable().getDomain();
+		Domain domain = var.getDomain();
 		List<Integer> values = domain.getPossibleValues();
 		List<Integer> disabledValues = new ArrayList<>();
 
