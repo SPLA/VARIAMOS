@@ -204,7 +204,7 @@ public class PerspEditorGraph extends AbstractGraph {
 				mxCell parent = new mxCell();
 				parent.setValue(new InstCell(parent, null, false));
 				parent.setId("mv" + i);
-				addCell(parent);
+				// addCell(parent);
 				if (view instanceof InstView) {
 					InstView instView = (InstView) view;
 					if (instView.getChildViews().size() > 0) {
@@ -212,7 +212,7 @@ public class PerspEditorGraph extends AbstractGraph {
 							mxCell child2 = new mxCell();
 							child2.setValue(new InstCell(child2, null, false));
 							child2.setId("mv" + i + "-" + j);
-							addCell(child2, parent);
+							// addCell(child2, parent);
 						}
 					}
 				}

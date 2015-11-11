@@ -1024,8 +1024,8 @@ public class RefasModel extends AbstractModel {
 		semView.addPropVisibleAttribute("00#" + "MetaType");
 		// semView.addPropEditableAttribute("01#" + "Identifier");
 		// semView.addPropVisibleAttribute("01#" + "Identifier");
-		// semView.addPropEditableAttribute("02#" + "Index");
-		// semView.addPropVisibleAttribute("02#" + "Index");
+		semView.addPropEditableAttribute("02#" + "Index");
+		semView.addPropVisibleAttribute("02#" + "Index");
 		semView.addPropEditableAttribute("03#" + "Visible");
 		semView.addPropVisibleAttribute("03#" + "Visible");
 		// semView.addPropEditableAttribute("04#" + "Parent");

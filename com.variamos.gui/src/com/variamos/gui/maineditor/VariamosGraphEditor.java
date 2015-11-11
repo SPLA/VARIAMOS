@@ -235,7 +235,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void defineViewTabs() {
 		while (modelsTabPane.getTabCount() > 0)
 			modelsTabPane.removeTabAt(0);
-
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
+				.getGraph());
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxRefas() != null)
 			instViews = refasModel.getSyntaxRefas()
@@ -248,16 +249,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				setVisibleModel(-1, -1);
 				updateView();
 			} else {
+				int i = 0;
+				mxCell root = (mxCell) refasGraph.getModel().getRoot();
+				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
-					// mxCell parent = new mxCell(new InstCell(null, false));
-					// parent.setId("mv" + i);
-					// refasGraph.addCell(parent);
+
 					JPanel tabPane = new JPanel();
 					if (instElement instanceof InstView) {
 						InstView instView = (InstView) instElement;
 						if (instView.getChildViews().size() > 0) {
 							modelsTabPane.add(instView.getEditableMetaElement()
 									.getName(), tabPane);
+							if (parent.getChildCount() <= i) {
+								mxCell child = new mxCell(new InstCell(null,
+										null, false));
+								parent.setId("mv" + i);
+								refasGraph.addCell(parent, child);
+							}
+							i++;
 							// mxCell child = new mxCell(new InstCell(null,
 							// false));
 							// child.setId("mv" + i);
