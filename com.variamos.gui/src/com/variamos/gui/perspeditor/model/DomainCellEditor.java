@@ -25,7 +25,7 @@ import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 public class DomainCellEditor extends AbstractCellEditor implements
 		TableCellEditor {
 
-	private Integer editedValue;
+	private String editedValue;
 
 	private ListDomainEditor listEditor;
 
@@ -34,7 +34,7 @@ public class DomainCellEditor extends AbstractCellEditor implements
 	}
 
 	@Override
-	public Integer getCellEditorValue() {
+	public String getCellEditorValue() {
 		return editedValue;
 	}
 

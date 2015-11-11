@@ -8,10 +8,15 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import com.cfm.productline.Variable;
-import com.variamos.gui.perspeditor.model.actions.SetValueAction;
+import com.variamos.gui.perspeditor.model.actions.SetIntegerValueAction;
+import com.variamos.gui.perspeditor.model.actions.SetStringValueAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
+import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.Domain;
+import com.variamos.perspsupport.expressionsupport.ElementVariable;
+import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
 /**
  * A class to support the data model for the visual representation of the
@@ -39,7 +44,8 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 	private LinkedList<AssociationAction> actions = new LinkedList<>();
 
 	public AssociationDataModel(Object root,
-			ElementsOperationAssociationPanel configurator, List<String> names) {
+			ElementsOperationAssociationPanel configurator, List<String> names,
+			List<Domain> domains) {
 		super(root);
 		captions = new ArrayList<String>();
 		captions.add("Concept/Variable/Expression");
@@ -48,8 +54,13 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		types = new ArrayList<Class<?>>();
 		types.add(TreeTableModel.class);
 		for (int i = 0; i < names.size(); i++) {
-
-			types.add(Variable.class);
+			if (domains.get(i) == null) {
+				types.add(IntegerVariable.class);
+			} else if (domains.get(i) instanceof BinaryDomain) {
+				types.add(Variable.class);
+			} else {
+				types.add(ElementVariable.class);
+			}
 		}
 
 		steps = 0;
@@ -136,9 +147,12 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		// n.getVariable().setValue((Integer) aValue);
 		AssociationAction ca = null;
 		if (aValue instanceof Integer)
-			ca = newSetAction(n.getValue(column), (Integer) aValue, column);
+			ca = newSetIntegerAction(n.getValue(column), (Integer) aValue,
+					column);
+		if (aValue instanceof String)
+			ca = newSetStringAction(n.getValue(column), (String) aValue, column);
 		if (aValue instanceof ChoiceBoolean)
-			ca = newSetAction(n.getValue(column),
+			ca = newSetIntegerAction(n.getValue(column),
 					((ChoiceBoolean) aValue).ordinal(), column);
 		ca.execute(configurator);
 
@@ -164,10 +178,20 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		return n.getChildren().size();
 	}
 
-	public AssociationAction newSetAction(Variable var, Integer newValue,
+	public AssociationAction newSetIntegerAction(Variable var,
+			Integer newValue, int column) {
+		// steps++;
+		SetIntegerValueAction sva = new SetIntegerValueAction(var, newValue,
+				column);
+		// actions.addLast(sva);
+		return sva;
+	}
+
+	public AssociationAction newSetStringAction(Variable var, String newValue,
 			int column) {
 		// steps++;
-		SetValueAction sva = new SetValueAction(var, newValue, column);
+		SetStringValueAction sva = new SetStringValueAction(var, newValue,
+				column);
 		// actions.addLast(sva);
 		return sva;
 	}

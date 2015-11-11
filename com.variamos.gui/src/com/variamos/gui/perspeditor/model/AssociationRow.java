@@ -6,6 +6,9 @@ import java.util.List;
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.hlcl.BinaryDomain;
+import com.variamos.hlcl.Domain;
+import com.variamos.perspsupport.expressionsupport.ElementVariable;
+import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
 /**
  * A class to support the creation of nodes for the visual representation of the
@@ -29,7 +32,8 @@ public class AssociationRow {
 
 	protected List<AssociationRow> children;
 
-	public AssociationRow(String name, int size, boolean leaf) {
+	public AssociationRow(String name, int size, boolean leaf,
+			List<Domain> domains) {
 		this.leaf = leaf;
 		children = new ArrayList<>();
 		values = new ArrayList<Variable>();
@@ -37,9 +41,21 @@ public class AssociationRow {
 			Object defaultValue = null;
 			if (leaf)
 				defaultValue = 0;
-			Variable var = new Variable(name, defaultValue,
-					Integer.class.getTypeName());
-			var.setDomain(BinaryDomain.INSTANCE);
+			Variable var = null;
+			if (domains.get(i) == null) {
+				var = new IntegerVariable(name, defaultValue,
+						Integer.class.getTypeName());
+				// var.setDomain(domains.get(i));
+			} else if (domains.get(i) instanceof BinaryDomain) {
+				var = new Variable(name, defaultValue,
+						Integer.class.getTypeName());
+				var.setDomain(domains.get(i));
+			} else {
+				var = new ElementVariable(name, defaultValue,
+						String.class.getTypeName());
+				var.setDomain(domains.get(i));
+			}
+
 			values.add(var);
 		}
 
@@ -81,7 +97,7 @@ public class AssociationRow {
 	// }
 	//
 
-	public void setValue(Integer value, int column) {
+	public void setValue(Object value, int column) {
 		values.get(column - 1).setValue(value);
 	}
 
@@ -102,9 +118,9 @@ public class AssociationRow {
 		return domainAnnotations;
 	}
 
-	public DomainAnnotation getAnnotationFor(Integer i) {
+	public DomainAnnotation getAnnotationFor(String i) {
 		for (DomainAnnotation dm : domainAnnotations) {
-			if (dm.getValue() == i)
+			if (i.equals(dm.getValue()))
 				return dm;
 		}
 		return null;

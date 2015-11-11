@@ -103,8 +103,13 @@ import com.variamos.solver.Configuration;
 import fm.FeatureModelException;
 
 /**
- * @author jcmunoz
- *
+ * A class to represented the editor for each perspective. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.0
+ * @since 2014 *
  */
 
 @SuppressWarnings("serial")

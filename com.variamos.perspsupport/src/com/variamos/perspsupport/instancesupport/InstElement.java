@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
+import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -524,7 +525,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 							|| name.equals("relationTypesSemExpressions")) {
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
-								new ArrayList());
+								new ArrayList<SemanticExpression>());
 					} else
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name), null);
