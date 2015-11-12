@@ -99,10 +99,9 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	public void defineInitialGraph() {
 		mxCell root = new mxCell();
-		root.insert(new mxCell());
+		mxCell parent = new mxCell();
+		root.insert(parent);
 		getModel().setRoot(root);
-		// Collection<InstView> views =
-		// refasModel.getSyntaxRefas().getInstViews();
 		List<InstElement> views = null;
 		if (refasModel.getSyntaxRefas() != null)
 			views = refasModel.getSyntaxRefas().getVariabilityVertex("View");
@@ -199,12 +198,12 @@ public class PerspEditorGraph extends AbstractGraph {
 
 		// Load views for System Design and simulation
 		int i = 0;
-		if (views != null)
+		if (views != null) {
 			for (InstElement view : views) {
-				mxCell parent = new mxCell();
-				parent.setValue(new InstCell(parent, null, false));
-				parent.setId("mv" + i);
-				// addCell(parent);
+				mxCell child = new mxCell();
+				child.setValue(new InstCell(null, null, false));
+				child.setId("mv" + i);
+				addCell(child, parent);
 				if (view instanceof InstView) {
 					InstView instView = (InstView) view;
 					if (instView.getChildViews().size() > 0) {
@@ -212,12 +211,13 @@ public class PerspEditorGraph extends AbstractGraph {
 							mxCell child2 = new mxCell();
 							child2.setValue(new InstCell(child2, null, false));
 							child2.setId("mv" + i + "-" + j);
-							// addCell(child2, parent);
+							addCell(child2, child);
 						}
 					}
 				}
 				i++;
 			}
+		}
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {

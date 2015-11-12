@@ -255,18 +255,24 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				for (InstElement instElement : instViews) {
 
 					JPanel tabPane = new JPanel();
+					if (instElement.getSupportMetaElementIden().equals("View")) {
+						if (parent.getChildCount() <= i
+								&& parent.getId().equals("1")) {
+							mxCell child = new mxCell(new InstCell(null, null,
+									false));
+							child.setId("mv" + i);
+							refasGraph.addCell(child, parent);
+						}
+					}
+					i++;
+					// TODO: Modify to work with relations. No more instView
+					// concepts
 					if (instElement instanceof InstView) {
 						InstView instView = (InstView) instElement;
 						if (instView.getChildViews().size() > 0) {
 							modelsTabPane.add(instView.getEditableMetaElement()
 									.getName(), tabPane);
-							if (parent.getChildCount() <= i) {
-								mxCell child = new mxCell(new InstCell(null,
-										null, false));
-								parent.setId("mv" + i);
-								refasGraph.addCell(parent, child);
-							}
-							i++;
+
 							// mxCell child = new mxCell(new InstCell(null,
 							// false));
 							// child.setId("mv" + i);
