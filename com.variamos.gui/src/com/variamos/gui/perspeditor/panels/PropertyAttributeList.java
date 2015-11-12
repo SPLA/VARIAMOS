@@ -74,8 +74,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(100, 120));
-		setMaximumSize(new Dimension(100, 120));
+		setPreferredSize(new Dimension(150, 120));
+		setMaximumSize(new Dimension(200, 120));
 
 		addMouseListener(new MouseAdapter() {
 
@@ -187,7 +187,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 						.getValue());
 				v.setElementDisplayCondition((String) elementDisplayCondition
 						.getValue());
-				v.setType((String) type.getAttributeType());
+				v.setType((String) type.getValue());
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
 				v.setDefaultValue(defaultValue.getValue());
@@ -196,7 +196,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 				if (insert) {
 					((DefaultListModel<AbstractAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
-					attributes.put(name.getName(), v);
+					attributes.put((String) name.getValue(), v);
 				}
 
 				afterAction();

@@ -162,11 +162,16 @@ public abstract class MetaElement implements Serializable {
 		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new SyntaxAttribute(
 				VAR_AUTOIDENTIFIER, "String", false, "Auto Identifier", null,
 				0, 1, "", "", -1, "", ""));
+		this.modelingAttributes.put(VAR_USERIDENTIFIER, new SyntaxAttribute(
+				VAR_USERIDENTIFIER, "String", false, "UserIdentifier", null, 0,
+				1, "", "", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
 		 */
 		this.propVisibleAttributes.add("01#" + VAR_AUTOIDENTIFIER);
+		this.propVisibleAttributes.add("02#" + VAR_USERIDENTIFIER);
+		this.propEditableAttributes.add("02#" + VAR_USERIDENTIFIER);
 
 	}
 
