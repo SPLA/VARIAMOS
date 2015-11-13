@@ -747,13 +747,16 @@ public class ElementDesignPanel extends JPanel {
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
 				PropertyAttributeList attList = null;
 				if (instCell.getInstElement().getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor, instCell
-							.getInstElement().getEditableMetaElement()
-							.getModelingAttributes(), attributeEdition);
+					attList = new PropertyAttributeList(editor,
+							instCell.getInstElement(), instCell
+									.getInstElement().getEditableMetaElement()
+									.getModelingAttributes(), attributeEdition);
 				if (instCell.getInstElement().getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor, instCell
-							.getInstElement().getEditableSemanticElement()
-							.getSemanticAttributes(), attributeEdition);
+					attList = new PropertyAttributeList(editor,
+							instCell.getInstElement(), instCell
+									.getInstElement()
+									.getEditableSemanticElement()
+									.getSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(450, 450));
 				attPanel.setMaximumSize(new Dimension(550, 450));

@@ -248,8 +248,10 @@ public class MetaConcept extends MetaVertex {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		return getTransInstSemanticElement().getEditableSemanticElement()
-				.getSemanticAttribute(name);
+		if (getTransInstSemanticElement() != null)
+			return getTransInstSemanticElement().getEditableSemanticElement()
+					.getSemanticAttribute(name);
+		return null;
 	}
 
 	@Override
