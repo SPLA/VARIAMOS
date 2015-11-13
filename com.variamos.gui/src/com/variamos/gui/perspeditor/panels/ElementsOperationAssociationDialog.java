@@ -30,8 +30,7 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1478873242908074197L;
-	@SuppressWarnings("unused")
-	private DialogButtonAction onStart, onStop, onStopAndClose;
+	private DialogButtonAction onClose;
 	private JPanel generalPanel = null;
 	private JPanel panel = null;
 	private int width = 900;
@@ -77,16 +76,15 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// if( onAccept == null )
-				// if (onStart.onAction()) {
 
-				// }
+				dispose();
+
 				revalidate();
 				repaint();
 			}
 		});
 
 		buttonsPanel.add(btnStart);
-
 		final JButton btnStop = new JButton();
 		btnStop.setText("Cancel");
 		btnStop.addActionListener(new ActionListener() {
@@ -122,16 +120,8 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		repaint();
 	}
 
-	public void setOnStart(DialogButtonAction onStart) {
-		this.onStart = onStart;
-	}
-
-	public void setOnStop(DialogButtonAction onStop) {
-		this.onStop = onStop;
-	}
-
-	public void setOnStopAndClose(DialogButtonAction onStopAndClose) {
-		this.onStopAndClose = onStopAndClose;
+	public void setOnClose(DialogButtonAction onClose) {
+		this.onClose = onClose;
 	}
 
 	public void center() {

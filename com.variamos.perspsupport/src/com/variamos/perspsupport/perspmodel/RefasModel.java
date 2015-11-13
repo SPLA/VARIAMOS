@@ -518,15 +518,6 @@ public class RefasModel extends AbstractModel {
 	private void createCoreSemantic() {
 		MetaConcept metaBasicConcept = new MetaConcept();
 
-		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		metaBasicConcept.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaBasicConcept.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		metaBasicConcept.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaBasicConcept.addPanelSpacersAttribute("#"
@@ -603,15 +594,6 @@ public class RefasModel extends AbstractModel {
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemConcept, true);
 
-		metaConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		metaConcept.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaConcept.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		metaConcept.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaConcept.addPanelSpacersAttribute("#"
@@ -658,14 +640,6 @@ public class RefasModel extends AbstractModel {
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemPairwiseRelation, true);
 
-		metaPairWiseRelation.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		metaPairWiseRelation.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaPairWiseRelation.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairWiseRelation.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairWiseRelation.addPanelSpacersAttribute("#"
@@ -692,14 +666,6 @@ public class RefasModel extends AbstractModel {
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, true);
 
-		enumeration.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		enumeration.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		enumeration.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 		enumeration.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		enumeration.addPanelSpacersAttribute("#"
@@ -748,14 +714,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
-		overTwoRelation.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		overTwoRelation.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		overTwoRelation.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 		overTwoRelation.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		overTwoRelation.addPanelSpacersAttribute("#"
@@ -803,15 +761,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instSemPairwAsoRel);
 
-		metaPairwiseRelAso.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-
-		metaPairwiseRelAso.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaPairwiseRelAso.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairwiseRelAso.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairwiseRelAso.addPanelSpacersAttribute("#"
@@ -829,14 +778,6 @@ public class RefasModel extends AbstractModel {
 				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instSemPairwExtRel);
 
-		metaPairwiseRelExtends.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		metaPairwiseRelExtends.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaPairwiseRelExtends.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairwiseRelExtends.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		metaPairwiseRelExtends.addPanelSpacersAttribute("#"
@@ -913,15 +854,6 @@ public class RefasModel extends AbstractModel {
 	 */
 	private void createCoreSyntax() {
 		MetaConcept metaBasicConcept = new MetaConcept();
-
-		metaBasicConcept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		metaBasicConcept.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaBasicConcept.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		metaBasicConcept.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1024,8 +956,8 @@ public class RefasModel extends AbstractModel {
 		semView.addPropVisibleAttribute("00#" + "MetaType");
 		// semView.addPropEditableAttribute("01#" + "Identifier");
 		// semView.addPropVisibleAttribute("01#" + "Identifier");
-		// semView.addPropEditableAttribute("02#" + "Index");
-		// semView.addPropVisibleAttribute("02#" + "Index");
+		semView.addPropEditableAttribute("02#" + "Index");
+		semView.addPropVisibleAttribute("02#" + "Index");
 		semView.addPropEditableAttribute("03#" + "Visible");
 		semView.addPropVisibleAttribute("03#" + "Visible");
 		// semView.addPropEditableAttribute("04#" + "Parent");
@@ -1054,13 +986,6 @@ public class RefasModel extends AbstractModel {
 				"refasview", "View/SubView Concept", 100, 30,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 3, instSemView, true);
-
-		view.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		view.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
-		view.addPropEditableAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
 
 		view.addPanelVisibleAttribute("04#" + MetaConcept.VAR_USERIDENTIFIER);
 		view.addPanelSpacersAttribute("#" + MetaConcept.VAR_USERIDENTIFIER
@@ -1239,13 +1164,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemVertex, true);
 
-		concept.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		concept.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
-		concept.addPropEditableAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
-
 		concept.addPanelVisibleAttribute("04#" + MetaConcept.VAR_USERIDENTIFIER);
 		concept.addPanelSpacersAttribute("#" + MetaConcept.VAR_USERIDENTIFIER
 				+ "#\n\n");
@@ -1346,15 +1264,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
-		overTwoRelation.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		overTwoRelation.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		overTwoRelation.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		overTwoRelation.addModelingAttribute("Type", new SyntaxAttribute(
 				"Type", "String", false, "Relation Type", "", 0, -1, "", "",
 				-1, "", ""));
@@ -1374,15 +1283,6 @@ public class RefasModel extends AbstractModel {
 				"NormalRelation", false, "Normal Relation", "defaultAsso",
 				"View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
-
-		metaPairwiseRelNormal.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		metaPairwiseRelNormal.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaPairwiseRelNormal.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		constraintInstEdges.put("NormalRelation", new InstPairwiseRelation(
 				"NormalRelation", metaPairwiseRelNormal));
@@ -4877,15 +4777,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		syntaxFeature.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxFeature.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxFeature.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		syntaxFeature.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		syntaxFeature.addPanelSpacersAttribute("#"
@@ -4938,15 +4829,6 @@ public class RefasModel extends AbstractModel {
 		MetaConcept syntaxVariabilityArtifact = new MetaConcept('C', "VA",
 				false, "VariabilityArtifact", null, "", 0, 0, null, true, null,
 				3, semHardConcept, true);
-
-		syntaxVariabilityArtifact.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		syntaxVariabilityArtifact.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxVariabilityArtifact.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -5622,15 +5504,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/operational.png", true,
 				Color.BLUE.toString(), 2, semOperationalization, true);
 
-		sOperationalization.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		sOperationalization.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		sOperationalization.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		sOperationalization.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		sOperationalization.addPanelSpacersAttribute("#"
@@ -5688,15 +5561,6 @@ public class RefasModel extends AbstractModel {
 						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 1, semAssumption, true);
-
-		syntaxAssumption.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxAssumption.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxAssumption.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxAssumption.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -6049,15 +5913,6 @@ public class RefasModel extends AbstractModel {
 						+ " on the SG", 100, 60,
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
-
-		syntaxSoftGoal.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxSoftGoal.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxSoftGoal.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxSoftGoal.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -6423,15 +6278,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/contextgrp.png", true,
 				Color.BLUE.toString(), 1, semContextGroup, true);
 
-		syntaxContextGroup.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxContextGroup.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxContextGroup.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		syntaxContextGroup.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		syntaxContextGroup.addPanelSpacersAttribute("#"
@@ -6478,15 +6324,6 @@ public class RefasModel extends AbstractModel {
 						+ " requirements", 150, 40,
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
-
-		syntaxAbsVariable.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxAbsVariable.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxAbsVariable.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxAbsVariable.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -6625,15 +6462,6 @@ public class RefasModel extends AbstractModel {
 						+ " variables", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true, "", 1,
 				true);
-
-		metaEnumeration.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		metaEnumeration.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		metaEnumeration.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		metaEnumeration.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -6962,15 +6790,6 @@ public class RefasModel extends AbstractModel {
 				"/com/variamos/gui/perspeditor/images/claim.png", true,
 				Color.BLUE.toString(), 1, semClaim, true);
 
-		syntaxClaim.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxClaim.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxClaim.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-
 		syntaxClaim.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
 		syntaxClaim.addPanelSpacersAttribute("#"
@@ -7040,15 +6859,6 @@ public class RefasModel extends AbstractModel {
 						+ " The SD includes a relation with a softgoal (SG)",
 				100, 70, "/com/variamos/gui/perspeditor/images/softdep.png",
 				true, Color.BLUE.toString(), 1, semSoftDependency, true);
-
-		syntaxSoftDependency.addModelingAttribute(
-				MetaConcept.VAR_USERIDENTIFIER, new SyntaxAttribute(
-						MetaConcept.VAR_USERIDENTIFIER, "String", false,
-						"User Identifier", null, 0, 1, "", "", -1, "", ""));
-		syntaxSoftDependency.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxSoftDependency.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxSoftDependency.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -7473,15 +7283,6 @@ public class RefasModel extends AbstractModel {
 						+ " can implement operationalizations", 100, 40,
 				"/com/variamos/gui/perspeditor/images/component.png", true,
 				Color.WHITE.toString(), 1, semAsset, true);
-
-		syntaxAsset.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		syntaxAsset.addPropVisibleAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
-		syntaxAsset.addPropEditableAttribute("01#"
-				+ MetaConcept.VAR_USERIDENTIFIER);
 
 		syntaxAsset.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);

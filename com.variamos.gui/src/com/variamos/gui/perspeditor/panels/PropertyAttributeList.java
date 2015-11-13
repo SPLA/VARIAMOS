@@ -13,8 +13,13 @@ import javax.swing.JList;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaConcept;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.StringType;
 
 /**
@@ -48,15 +53,18 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 
 	private AttributeEditionPanel attributeEdition;
 
+	private InstElement instElement;
+
 	public PropertyAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
 		init(null);
 	}
 
 	public PropertyAttributeList(VariamosGraphEditor editor,
-			Map<String, AbstractAttribute> attributes,
+			InstElement instElement, Map<String, AbstractAttribute> attributes,
 			AttributeEditionPanel attributeEdition) {
 		this.editor = editor;
+		this.instElement = instElement;
 		this.attributes = attributes;
 		this.attributeEdition = attributeEdition;
 		init(attributes);
@@ -74,8 +82,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(100, 120));
-		setMaximumSize(new Dimension(100, 120));
+		setPreferredSize(new Dimension(150, 120));
+		setMaximumSize(new Dimension(200, 120));
 
 		addMouseListener(new MouseAdapter() {
 
@@ -112,7 +120,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			// Name
-			var = new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+			var = new SyntaxAttribute("EnumValue", StringType.IDENTIFIER,
 					false, "Enumeration Value", "", 1, -1, "", "", -1, "", "");
 
 		}
@@ -187,7 +195,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 						.getValue());
 				v.setElementDisplayCondition((String) elementDisplayCondition
 						.getValue());
-				v.setType((String) type.getAttributeType());
+				v.setType((String) type.getValue());
 				v.setClassCanonicalName((String) ClassCanName.getValue());
 				v.setMetaConceptInstanceType((String) MetaCInstType.getValue());
 				v.setDefaultValue(defaultValue.getValue());
@@ -196,7 +204,28 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 				if (insert) {
 					((DefaultListModel<AbstractAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
-					attributes.put(name.getName(), v);
+					attributes.put((String) name.getValue(), v);
+					if (instElement.getEditableMetaElement() != null) {
+						MetaElement me = instElement.getEditableMetaElement();
+						me.addModelingAttribute((String) name.getValue(), v);
+						me.addPanelVisibleAttribute("99#"
+								+ MetaConcept.VAR_USERIDENTIFIER);
+						me.addPropVisibleAttribute("99#"
+								+ (String) name.getValue());
+						me.addPropEditableAttribute("99#"
+								+ (String) name.getValue());
+					}
+					if (instElement.getEditableSemanticElement() != null) {
+						SemanticConcept sc = ((SemanticConcept) instElement
+								.getEditableSemanticElement());
+						sc.putSemanticAttribute((String) name.getValue(), v);
+						sc.addPanelVisibleAttribute("99#"
+								+ MetaConcept.VAR_USERIDENTIFIER);
+						sc.addPropVisibleAttribute("19#"
+								+ (String) name.getValue());
+						sc.addPropEditableAttribute("19#"
+								+ (String) name.getValue());
+					}
 				}
 
 				afterAction();

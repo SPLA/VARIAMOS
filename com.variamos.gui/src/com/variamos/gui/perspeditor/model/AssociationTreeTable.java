@@ -19,6 +19,8 @@ import com.variamos.gui.treetable.core.TreeTableCellRenderer;
 import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.gui.treetable.core.TreeTableSelectionModel;
+import com.variamos.perspsupport.expressionsupport.ElementVariable;
+import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
 /**
  * A class to support the tree table for the visual representation of the
@@ -51,10 +53,15 @@ public class AssociationTreeTable extends JTable {
 		setDefaultRenderer(TreeTableModel.class, tree);
 		setDefaultRenderer(Variable.class, choiceRenderer);
 
+		setDefaultRenderer(IntegerVariable.class, null);
+		setDefaultRenderer(ElementVariable.class, null);
+
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor(tree,
 				this));
 		// setDefaultEditor(Choice.class, getChoiceEditor(choiceRenderer));
 		setDefaultEditor(Variable.class, this.getChoiceEditor(choiceRenderer));
+		setDefaultEditor(IntegerVariable.class, getIntegerEditor());
+		setDefaultEditor(ElementVariable.class, getIntegerEditor());
 
 		setDefaultEditor(Boolean.class, this.getChoiceEditor(choiceRenderer));
 

@@ -12,11 +12,11 @@ import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * @version 1.0
  * @since 2015-11-06
- * @see com.variamos.gui.pl.configuration.treetable.actions.SetValueAction
+ * @see com.variamos.gui.pl.SetIntegerValueAction.treetable.actions.SetValueAction
  */
-public class SetValueAction extends ChangeAction<Integer> {
+public class SetIntegerValueAction extends ChangeAction<Integer> {
 
-	public SetValueAction(Variable variable, Integer value, int column) {
+	public SetIntegerValueAction(Variable variable, Integer value, int column) {
 		super(variable, value, column);
 	}
 

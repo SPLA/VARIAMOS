@@ -103,8 +103,13 @@ import com.variamos.solver.Configuration;
 import fm.FeatureModelException;
 
 /**
- * @author jcmunoz
- *
+ * A class to represented the editor for each perspective. Part of PhD work at
+ * University of Paris 1
+ * 
+ * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
+ * 
+ * @version 1.0
+ * @since 2014 *
  */
 
 @SuppressWarnings("serial")
@@ -230,7 +235,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void defineViewTabs() {
 		while (modelsTabPane.getTabCount() > 0)
 			modelsTabPane.removeTabAt(0);
-
+		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
+				.getGraph());
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxRefas() != null)
 			instViews = refasModel.getSyntaxRefas()
@@ -243,16 +249,30 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				setVisibleModel(-1, -1);
 				updateView();
 			} else {
+				int i = 0;
+				mxCell root = (mxCell) refasGraph.getModel().getRoot();
+				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
-					// mxCell parent = new mxCell(new InstCell(null, false));
-					// parent.setId("mv" + i);
-					// refasGraph.addCell(parent);
+
 					JPanel tabPane = new JPanel();
+					if (instElement.getSupportMetaElementIden().equals("View")) {
+						if (parent.getChildCount() <= i
+								&& parent.getId().equals("1")) {
+							mxCell child = new mxCell(new InstCell(null, null,
+									false));
+							child.setId("mv" + i);
+							refasGraph.addCell(child, parent);
+						}
+					}
+					i++;
+					// TODO: Modify to work with relations. No more instView
+					// concepts
 					if (instElement instanceof InstView) {
 						InstView instView = (InstView) instElement;
 						if (instView.getChildViews().size() > 0) {
 							modelsTabPane.add(instView.getEditableMetaElement()
 									.getName(), tabPane);
+
 							// mxCell child = new mxCell(new InstCell(null,
 							// false));
 							// child.setId("mv" + i);

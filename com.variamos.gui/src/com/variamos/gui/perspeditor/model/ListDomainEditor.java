@@ -1,7 +1,6 @@
 package com.variamos.gui.perspeditor.model;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -33,18 +32,18 @@ import com.variamos.hlcl.Domain;
 @SuppressWarnings("serial")
 public class ListDomainEditor extends JPanel {
 
-	private JList<Integer> list;
-	private JList<Integer> disabled;
+	private JList<String> list;
+	private JList<String> disabled;
 
-	static class IntegerListModel extends AbstractListModel<Integer> {
-		private List<Integer> values;
+	static class IntegerListModel extends AbstractListModel<String> {
+		private List<String> values;
 
-		public IntegerListModel(List<Integer> values) {
+		public IntegerListModel(List<String> values) {
 			this.values = values;
 		}
 
 		@Override
-		public Integer getElementAt(int arg0) {
+		public String getElementAt(int arg0) {
 			return values.get(arg0);
 		}
 
@@ -53,7 +52,7 @@ public class ListDomainEditor extends JPanel {
 			return values.size();
 		}
 
-		public void addElement(int elm) {
+		public void addElement(String elm) {
 			values.add(elm);
 			this.fireContentsChanged(this, 0, values.size());
 		}
@@ -63,25 +62,25 @@ public class ListDomainEditor extends JPanel {
 			this.fireContentsChanged(this, 0, values.size());
 		}
 
-		public void addAll(List<Integer> values) {
+		public void addAll(List<String> values) {
 			this.values.addAll(values);
 			this.fireContentsChanged(this, 0, values.size());
 		}
 
 	}
 
-	static class DomainListModel extends AbstractListModel<Integer> {
-		private List<Integer> values;
+	static class DomainListModel extends AbstractListModel<String> {
+		private List<String> values;
 		private List<DomainAnnotation> domainAnnotations;
 
-		public DomainListModel(List<Integer> values,
+		public DomainListModel(List<String> values,
 				List<DomainAnnotation> domainAnnotations) {
 			this.values = values;
 			this.domainAnnotations = domainAnnotations;
 		}
 
 		@Override
-		public Integer getElementAt(int arg0) {
+		public String getElementAt(int arg0) {
 			return values.get(arg0);
 		}
 
@@ -90,7 +89,7 @@ public class ListDomainEditor extends JPanel {
 			return values.size();
 		}
 
-		public void addElement(int elm) {
+		public void addElement(String elm) {
 			values.add(elm);
 			this.fireContentsChanged(this, 0, values.size());
 		}
@@ -100,7 +99,7 @@ public class ListDomainEditor extends JPanel {
 			this.fireContentsChanged(this, 0, values.size());
 		}
 
-		public void addAll(List<Integer> values) {
+		public void addAll(List<String> values) {
 			this.values.addAll(values);
 			this.fireContentsChanged(this, 0, values.size());
 		}
@@ -125,15 +124,15 @@ public class ListDomainEditor extends JPanel {
 					value, index, isSelected, cellHasFocus);
 
 			DomainListModel model = (DomainListModel) list.getModel();
-			DomainAnnotation da = model.getAnnotationFor((Integer) value);
-			if (da != null && da.notAvailable()) {
-				lbl.setForeground(Color.LIGHT_GRAY);
-				lbl.setEnabled(false);
+			// DomainAnnotation da = model.getAnnotationFor((Integer) value);
+			// if (da != null && da.notAvailable()) {
+			// lbl.setForeground(Color.LIGHT_GRAY);
+			// lbl.setEnabled(false);
 
-				// String txt = lbl.getText();
-				// txt += " (" + da.getStep() + ")";
-				// lbl.setText(txt);
-			}
+			// String txt = lbl.getText();
+			// txt += " (" + da.getStep() + ")";
+			// lbl.setText(txt);
+			// }
 
 			return lbl;
 		}
@@ -153,12 +152,12 @@ public class ListDomainEditor extends JPanel {
 		}
 
 		Domain domain = var.getDomain();
-		List<Integer> values = domain.getPossibleValues();
-		List<Integer> disabledValues = new ArrayList<>();
+		List<String> values = domain.getPossibleStringValues();
+		List<String> disabledValues = new ArrayList<>();
 
 		for (DomainAnnotation da : node.getDomainAnnotations()) {
 			values.remove((Object) da.getValue());
-			disabledValues.add(da.getValue());
+			disabledValues.add(String.valueOf(da.getValue()));
 		}
 
 		list = new JList<>(new DomainListModel(values,
@@ -182,7 +181,7 @@ public class ListDomainEditor extends JPanel {
 		add(right, BorderLayout.EAST);
 	}
 
-	public Integer getSelectedValue() {
+	public String getSelectedValue() {
 		return list.getSelectedValue();
 	}
 

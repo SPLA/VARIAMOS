@@ -142,6 +142,8 @@ public class ElementDesignPanel extends JPanel {
 		contentPanel3.removeAll();
 		contentPanel4.removeAll();
 		int designPanelElements = 0;
+
+		int extra = 0;
 		if (instCell == null || instCell.getInstElement() == null) {
 			return;
 		} else {
@@ -745,16 +747,19 @@ public class ElementDesignPanel extends JPanel {
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
 				PropertyAttributeList attList = null;
 				if (instCell.getInstElement().getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor, instCell
-							.getInstElement().getEditableMetaElement()
-							.getModelingAttributes(), attributeEdition);
+					attList = new PropertyAttributeList(editor,
+							instCell.getInstElement(), instCell
+									.getInstElement().getEditableMetaElement()
+									.getModelingAttributes(), attributeEdition);
 				if (instCell.getInstElement().getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor, instCell
-							.getInstElement().getEditableSemanticElement()
-							.getSemanticAttributes(), attributeEdition);
+					attList = new PropertyAttributeList(editor,
+							instCell.getInstElement(), instCell
+									.getInstElement()
+									.getEditableSemanticElement()
+									.getSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(350, 350));
-				attPanel.setMaximumSize(new Dimension(350, 350));
+				attPanel.setPreferredSize(new Dimension(450, 450));
+				attPanel.setMaximumSize(new Dimension(550, 450));
 				attPanel.add(new JScrollPane(attList));
 				attPanel.add(new JScrollPane(attributeEdition));
 
@@ -764,9 +769,9 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(rootPanel3);
 			} else {
 				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(0, 0));
-				dummy3.setPreferredSize(new Dimension(500, 20));
-				dummy3.setMaximumSize(new Dimension(600, 200));
+				dummy3.setMinimumSize(new Dimension(300, 250));
+				dummy3.setPreferredSize(new Dimension(500, 250));
+				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);
 
 			}
@@ -797,17 +802,17 @@ public class ElementDesignPanel extends JPanel {
 						instCell);
 				attPanel.add(new JScrollPane(attList));
 				SpringUtilities.makeCompactGrid(attPanel, 2, 1, 4, 4, 4, 4);
-				contentPanel4.setPreferredSize(new Dimension(200, 200));
+				contentPanel4.setPreferredSize(new Dimension(100, 200));
 				contentPanel4.add(attPanel);
 				mainPanel.add(rootPanel4);
-
+				extra++;
 			} else {
-				JPanel dummy3 = new JPanel();
-				dummy3.setMinimumSize(new Dimension(0, 0));
-				dummy3.setPreferredSize(new Dimension(500, 20));
-				dummy3.setMaximumSize(new Dimension(600, 200));
-				mainPanel.add(dummy3);
-
+				/*
+				 * JPanel dummy3 = new JPanel(); dummy3.setMinimumSize(new
+				 * Dimension(0, 0)); dummy3.setPreferredSize(new Dimension(500,
+				 * 20)); dummy3.setMaximumSize(new Dimension(600, 200));
+				 * mainPanel.add(dummy3);
+				 */
 			}
 		}
 		int mainPanelHeight = 350;
@@ -820,7 +825,7 @@ public class ElementDesignPanel extends JPanel {
 
 		// System.out.println(mainPanel.getComponentCount() + " " );
 		SpringUtilities.makeCompactGrid(mainPanel, 1,
-				mainPanel.getComponentCount(), 4, 4, 4, 4);
+				mainPanel.getComponentCount(), 3 + extra, 4, 4, 4);
 		this.revalidate();
 		this.repaint();
 		this.revalidate();

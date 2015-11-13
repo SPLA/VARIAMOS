@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RangeDomain implements Domain, Serializable {
 
 	/**
@@ -56,7 +55,9 @@ public class RangeDomain implements Domain, Serializable {
 		this.upperValue = upperValue;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -68,7 +69,9 @@ public class RangeDomain implements Domain, Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -100,12 +103,21 @@ public class RangeDomain implements Domain, Serializable {
 	@Override
 	public List<Integer> getPossibleValues() {
 		List<Integer> list = new ArrayList<>();
-		
-		for(int i = 0; i < size(); i++)
+
+		for (int i = 0; i < size(); i++)
 			list.add(lowerValue + i);
-		
+
 		return list;
 	}
-	
-	
+
+	@Override
+	public List<String> getPossibleStringValues() {
+		List<String> list = new ArrayList<>();
+
+		for (int i = 0; i < size(); i++)
+			list.add(String.valueOf(lowerValue + i));
+
+		return list;
+	}
+
 }

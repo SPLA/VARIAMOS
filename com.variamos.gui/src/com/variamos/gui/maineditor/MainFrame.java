@@ -41,10 +41,10 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.15";
-	private String variamosVersionName = "1.0 Beta 15";
-	private String variamosBuild = "20150923 2300";
-	private String downloadId = "395";
+	private String variamosVersionNumber = "1.0.1.16";
+	private String variamosVersionName = "1.0 Beta 16";
+	private String variamosBuild = "20151110 2330";
+	private String downloadId = "433";
 
 	public int getPerspective() {
 		return perspective;
@@ -105,8 +105,9 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 3:// simulation
-				abstractModel = new RefasModel(PerspectiveType.CONFIG_SIMULATION,
-						metaExpressionTypes, syntaxRefas, semanticRefas);
+				abstractModel = new RefasModel(
+						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
+						syntaxRefas, semanticRefas);
 				bgColor = new Color(236, 252, 255);
 				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;
 				System.out
