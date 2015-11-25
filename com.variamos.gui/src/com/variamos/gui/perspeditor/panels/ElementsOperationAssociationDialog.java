@@ -2,6 +2,8 @@ package com.variamos.gui.perspeditor.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -59,13 +61,19 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		setVisible(true);
 
 		generalPanel = new JPanel();
-		generalPanel.setLayout(new BorderLayout());
 
-		panel = new JPanel();
-		panel.setLayout(new SpringLayout());
-		panel.add(new ElementsOperationAssociationPanel(editor, dialog));
+		generalPanel.setLayout(new GridBagLayout());
 
-		generalPanel.add(panel, BorderLayout.CENTER);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+
+		generalPanel.add(new ElementsOperationAssociationPanel(editor, dialog),
+				gbc);
 
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setLayout(new SpringLayout());
@@ -85,37 +93,18 @@ public class ElementsOperationAssociationDialog extends JDialog implements
 		});
 
 		buttonsPanel.add(btnStart);
-		final JButton btnStop = new JButton();
-		btnStop.setText("Cancel");
-		btnStop.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// if( onAccept == null )
-				revalidate();
-				repaint();
-			}
-		});
-
-		// buttonsPanel.add(btnStop);
-		final JButton btnCancel = new JButton();
-		btnCancel.setText("Refresh");
-		btnCancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// if( onCancel.onAction() )
-				// dispose();
-			}
-		});
-
 		// buttonsPanel.add(btnCancel);
 
 		SpringUtilities.makeCompactGrid(buttonsPanel, 1, 1, 4, 4, 4, 4);
 
-		generalPanel.add(buttonsPanel, BorderLayout.SOUTH);
-		add(generalPanel);
+		gbc.weighty = 0;
+		gbc.gridy = 1;
+		generalPanel.add(buttonsPanel, gbc);
 
-		// pack();
+		setLayout(new BorderLayout());
+		add(generalPanel, BorderLayout.CENTER);
+
+		pack();
 		revalidate();
 		repaint();
 	}

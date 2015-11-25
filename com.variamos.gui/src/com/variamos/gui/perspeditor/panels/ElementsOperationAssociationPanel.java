@@ -66,7 +66,7 @@ public class ElementsOperationAssociationPanel extends
 			int dialog) {
 		super();
 		this.dialog = dialog;
-		setPreferredSize(new Dimension(width, height));
+		setMaximumSize(new Dimension(width, height));
 		// setTitle("Simulation Control Dialog");
 		// setVisible(true);
 
@@ -213,7 +213,7 @@ public class ElementsOperationAssociationPanel extends
 				}
 			if (dialog == 1 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getSemanticAttributesNames()) {
+						.getDeclaredSemanticAttributes()) {
 					AssociationRow attNode = new AssociationRow(v, 5, true,
 							domainOperIO);
 					node.getChildren().add(attNode);
@@ -221,7 +221,7 @@ public class ElementsOperationAssociationPanel extends
 
 			if (dialog == 2 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getSemanticAttributesNames()) {
+						.getDeclaredSemanticAttributes()) {
 					AssociationRow attNode = new AssociationRow(v,
 							operLabels.size(), true, domainOperLabels);
 					node.getChildren().add(attNode);

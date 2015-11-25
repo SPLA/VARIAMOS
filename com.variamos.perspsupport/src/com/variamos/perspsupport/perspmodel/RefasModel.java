@@ -2045,8 +2045,9 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
 				"Or"), instVertexGE, "Dead", true, t1);
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexGE, "NotAvailable", true, t1);
+		t1 = new SemanticExpression("NotAvail (Dead Or NotSelec)", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "NotAvailable", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2060,8 +2061,9 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
 				"Or"), t1, t2);
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexGE, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected (Core, NextReqSel, NextPrefSel)",
+				this.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2069,14 +2071,23 @@ public class RefasModel extends AbstractModel {
 				"Product"), instVertexGE, instVertexGE, "Selected",
 				"NotAvailable");
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"Equals"), 0, false, t1);
+		t1 = new SemanticExpression("Selected+NotAvail <=1", this
+				.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
 
 		semanticExpressions.add(t1);
 
 		variabilityInstVertex.put("GeneralElement", instVertexGE);
 
 		// Design attributes: Do not change identifiers
+
+		semGeneralElement.putSemanticAttribute("Selected",
+				new ExecCurrentStateAttribute("Selected", "Boolean", false,
+						"***Selected***", false, 2, -1, "", "", -1, "", ""));
+		semGeneralElement
+				.putSemanticAttribute("NotAvailable",
+						new ExecCurrentStateAttribute("NotAvailable",
+								"Boolean", false, "***Not Avaliable***", false,
+								2, -1, "", "", -1, "", ""));
 
 		semGeneralElement.putSemanticAttribute("Description",
 				new SemanticAttribute("Description", "String", false,
@@ -2298,8 +2309,8 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("3-", this.getSemanticExpressionTypes()
 				.get("Equals"), 0, false, t3);
 
-		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("IsRootFeature=...", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2383,8 +2394,8 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel<=ClaimExpLevel...", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2398,8 +2409,8 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel>=ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2413,8 +2424,8 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel=ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2459,8 +2470,8 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexVAR, "variableConfigDomain", "");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("varConfigVal=value=varConfigDomain", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2589,8 +2600,9 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"And"), t1, t3);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexCL, "Selected", true, t1);
+		t1 = new SemanticExpression("lowCardinality", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexCL, "Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2607,8 +2619,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2625,8 +2637,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2922,8 +2934,8 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2937,9 +2949,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexHC,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2958,8 +2971,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2973,8 +2986,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2984,15 +2997,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "NotAvailable", "NotAvailable");
 
@@ -3069,9 +3084,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexHC,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3132,15 +3148,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3152,15 +3170,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3211,13 +3231,13 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3231,8 +3251,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexF, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3290,15 +3310,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected1", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexHC, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexHC, "NotAvailable", "NotAvailable");
 
@@ -3375,15 +3397,17 @@ public class RefasModel extends AbstractModel {
 				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexAsset, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3772,8 +3796,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3794,8 +3818,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3816,8 +3840,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3832,8 +3856,8 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
 				instVertexSG, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3847,9 +3871,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexSG,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3868,8 +3893,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3883,8 +3908,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3898,9 +3923,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexSG,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4052,15 +4078,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4129,15 +4156,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4199,15 +4227,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4324,9 +4353,10 @@ public class RefasModel extends AbstractModel {
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexCL, "Selected", true, t1);
 
-		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexSG, "satisficingType", "low");
+		t3 = new SemanticExpression("low: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexSG,
+				"satisficingType", "low");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
 				"Implies"), t3, t1);
@@ -4348,8 +4378,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4368,8 +4398,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4441,8 +4471,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4459,8 +4489,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4477,8 +4507,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4607,15 +4637,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "NotAvailable", "NotAvailable");
 
@@ -4663,15 +4695,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "NotAvailable", "NotAvailable");
 
