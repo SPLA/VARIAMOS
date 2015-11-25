@@ -132,7 +132,7 @@ public class ElementsOperationAssociationPanel extends
 
 		List<String> operLabels = operAction.getOperLabels();
 		List<Domain> domainOperLabels = new ArrayList<Domain>();
-		for (String s : operColumns)
+		for (String s : operLabels)
 			domainOperLabels.add(BinaryDomain.INSTANCE);
 
 		List<String> operIO = new ArrayList<String>();
