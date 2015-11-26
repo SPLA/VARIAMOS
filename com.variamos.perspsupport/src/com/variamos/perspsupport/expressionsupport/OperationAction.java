@@ -71,12 +71,19 @@ public class OperationAction {
 		return out;
 	}
 
-	public List<String> getOperLabels() {
+	public List<String> getOperLabelNames() {
 		List<String> out = new ArrayList<String>();
+		for (OperationSubAction subAction : expressionSubActions) {
+			out.addAll(subAction.getOperLabelNames());
+		}
+		return out;
+	}
+
+	public List<OperationLabeling> getOperLabels() {
+		List<OperationLabeling> out = new ArrayList<OperationLabeling>();
 		for (OperationSubAction subAction : expressionSubActions) {
 			out.addAll(subAction.getOperLabels());
 		}
 		return out;
 	}
-
 }

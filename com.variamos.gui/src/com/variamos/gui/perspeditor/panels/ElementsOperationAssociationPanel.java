@@ -27,6 +27,7 @@ import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.perspsupport.expressionsupport.OperationAction;
+import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -133,10 +134,12 @@ public class ElementsOperationAssociationPanel extends
 		for (String s : operColumnsNames)
 			domainOperColumns.add(BinaryDomain.INSTANCE);
 
-		List<String> operLabels = operAction.getOperLabels();
+		List<String> operLabelNames = operAction.getOperLabelNames();
+		List<OperationLabeling> operLabels = operAction.getOperLabels();
+
 		List<Domain> domainOperLabels = new ArrayList<Domain>();
 		List<Boolean> valuesOperLabels = new ArrayList<Boolean>();
-		for (String s : operLabels)
+		for (String s : operLabelNames)
 			domainOperLabels.add(BinaryDomain.INSTANCE);
 
 		List<String> operIO = new ArrayList<String>();
@@ -158,7 +161,7 @@ public class ElementsOperationAssociationPanel extends
 			root = new AssociationRow("", operIO.size(), false, domainOperIO,
 					null);
 		if (dialog == 2)
-			root = new AssociationRow("", operLabels.size(), false,
+			root = new AssociationRow("", operLabelNames.size(), false,
 					domainOperLabels, null);
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
@@ -171,7 +174,7 @@ public class ElementsOperationAssociationPanel extends
 						false, domainOperIO, null);
 			if (dialog == 2)
 				node = new AssociationRow(el.getIdentifier(),
-						operLabels.size(), false, domainOperLabels, null);
+						operLabelNames.size(), false, domainOperLabels, null);
 			// node.setVariable(var);
 
 			// Add Attributes
@@ -234,8 +237,16 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 2 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
 						.getDeclaredSemanticAttributes()) {
+					List<Integer> valuesVarColums = new ArrayList<Integer>();
+
+					for (OperationLabeling operColumn : operLabels)
+						if (operColumn.hasAttribute(v))
+							valuesVarColums.add(1);
+						else
+							valuesVarColums.add(0);
 					AssociationRow attNode = new AssociationRow(v,
-							operLabels.size(), true, domainOperLabels, null);
+							operLabelNames.size(), true, domainOperLabels,
+							valuesVarColums);
 					node.getChildren().add(attNode);
 				}
 
@@ -250,7 +261,7 @@ public class ElementsOperationAssociationPanel extends
 			dataModel = new AssociationDataModel(root, this, operIO,
 					domainOperIO);
 		if (dialog == 2)
-			dataModel = new AssociationDataModel(root, this, operLabels,
+			dataModel = new AssociationDataModel(root, this, operLabelNames,
 					domainOperLabels);
 		table = new AssociationTreeTable(dataModel);
 

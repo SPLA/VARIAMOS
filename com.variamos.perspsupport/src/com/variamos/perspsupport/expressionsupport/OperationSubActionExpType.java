@@ -6,14 +6,15 @@ import java.util.List;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 
 public class OperationSubActionExpType {
+
+	private List<SemanticExpression> semanticExpressions;
+	private OperationSubActionExecType expressionType;
+
 	public OperationSubActionExpType(OperationSubActionExecType expressionType) {
 		super();
 		this.expressionType = expressionType;
 		semanticExpressions = new ArrayList<SemanticExpression>();
 	}
-
-	private List<SemanticExpression> semanticExpressions;
-	private OperationSubActionExecType expressionType;
 
 	public List<SemanticExpression> getSemanticExpressions() {
 		return semanticExpressions;
