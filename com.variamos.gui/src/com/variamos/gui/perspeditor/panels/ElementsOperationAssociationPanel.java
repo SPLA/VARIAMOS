@@ -229,8 +229,18 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 1 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
 						.getDeclaredSemanticAttributes()) {
+
+					List<Integer> valuesVarColumns = new ArrayList<Integer>();
+					if (operAction.hasInVariable(v))
+						valuesVarColumns.add(1);
+					else
+						valuesVarColumns.add(0);
+					if (operAction.hasOutVariable(v))
+						valuesVarColumns.add(1);
+					else
+						valuesVarColumns.add(0);
 					AssociationRow attNode = new AssociationRow(v,
-							operIO.size(), true, domainOperIO, null);
+							operIO.size(), true, domainOperIO, valuesVarColumns);
 					node.getChildren().add(attNode);
 				}
 

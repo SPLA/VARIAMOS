@@ -1486,20 +1486,29 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instOverTwoRelation, true);
 	}
 
+	OperationAction verifDeadElemOperationAction = null;
 	OperationSubActionExpType verifDeadElemOperSubActionNormal = null;
 	OperationSubActionExpType verifDeadElemOperSubActionRelaxable = null;
 	OperationSubActionExpType verifDeadElemOperSubActionVerification = null;
+
+	OperationAction verifParentsOperationAction = null;
 	OperationSubActionExpType verifParentsOperSubActionNormal = null;
 	OperationSubActionExpType verifParentsOperSubActionRelaxable = null;
 	OperationSubActionExpType verifParentsOperSubActionVerification = null;
+
+	OperationAction verifRootOperationAction = null;
 	OperationSubActionExpType verifRootOperSubActionNormal = null;
 	OperationSubActionExpType verifRootOperSubActionRelaxable = null;
 	OperationSubActionExpType verifRootOperSubActionVerification = null;
+
+	OperationAction verifFalseOptOperationAction = null;
 	OperationSubActionExpType verifFalseOptOperSubActionNormal = null;
 	OperationSubActionExpType verifFalseOptOperSubActionRelaxable = null;
 	OperationSubActionExpType verifFalseOptOperSubActionVerification = null;
 
 	OperationLabeling simulationExecOperUniqueLabeling = null;
+
+	OperationAction simulationOperationAction = null;
 
 	OperationSubActionExpType simulationExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPreValOptOperSubActionNormal = null;
@@ -1507,27 +1516,37 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulationPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPostUpdOptOperSubActionNormal = null;
 
+	OperationAction simulScenOperationAction = null;
+
 	OperationSubActionExpType simulScenExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPreValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPreUpdOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPostUpdOptOperSubActionNormal = null;
 
+	OperationAction configTemporalOperationAction = null;
+
 	OperationSubActionExpType configTemporalOptOperSubActionNormal = null;
+
+	OperationAction configPermanentOperationAction = null;
+
 	OperationSubActionExpType configPermanentOptOperSubActionNormal = null;
+
+	OperationAction updateCoreOperationAction = null;
+
 	OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
 
 	public void createSemanticOperations() {
 		operationActions = new HashMap<String, OperationAction>();
 
-		OperationAction operationAction = new OperationAction(1, "Simulation");
-		operationActions.put("Simulation", operationAction);
+		simulationOperationAction = new OperationAction(1, "Simulation");
+		operationActions.put("Simulation", simulationOperationAction);
 
 		OperationSubAction operationSubAction = new OperationSubAction(1,
 				"Pre-Validacion", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulationPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1538,7 +1557,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulationPreUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1552,7 +1571,7 @@ public class RefasModel extends AbstractModel {
 
 		operationSubAction
 				.addOperationLabeling(simulationExecOperUniqueLabeling);
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1563,7 +1582,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulationPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1574,21 +1593,21 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulationPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
-		operationAction = new OperationAction(1, "SimulationScenarios");
-		operationActions.put("SimulationScenarios", operationAction);
+		simulScenOperationAction = new OperationAction(1, "SimulationScenarios");
+		operationActions.put("SimulationScenarios", simulScenOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Pre-Validacion",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1599,7 +1618,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1612,7 +1631,7 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationSubAction.addOperationLabeling(new OperationLabeling("once",
 				"ff", 2, true));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulScenExecOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1623,7 +1642,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulScenPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1634,63 +1653,71 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		simulScenPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
-		operationAction = new OperationAction(1, "UpdateCore");
-		operationActions.put("UpdateCore", operationAction);
+		updateCoreOperationAction = new OperationAction(1, "UpdateCore");
+		operationActions.put("UpdateCore", updateCoreOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Update Core",
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
 		updateCoreOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
 
-		operationAction = new OperationAction(1, "ConfigureTemporal");
-		operationActions.put("ConfigureTemporal", operationAction);
+		configTemporalOperationAction = new OperationAction(1,
+				"ConfigureTemporal");
+		operationActions
+				.put("ConfigureTemporal", configTemporalOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Configure Temporal",
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		configTemporalOperationAction
+				.addExpressionSubAction(operationSubAction);
 
 		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
 
-		operationAction = new OperationAction(1, "ConfigurePermanent");
-		operationActions.put("ConfigurePermanent", operationAction);
+		configPermanentOperationAction = new OperationAction(1,
+				"ConfigurePermanent");
+		operationActions.put("ConfigurePermanent",
+				configPermanentOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Configure Permanent",
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		configPermanentOperationAction
+				.addExpressionSubAction(operationSubAction);
 
 		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
-		operationAction = new OperationAction(1, "VerifyDeadElements");
-		operationActions.put("VerifyDeadElements", operationAction);
+		verifDeadElemOperationAction = new OperationAction(1,
+				"VerifyDeadElements");
+		operationActions
+				.put("VerifyDeadElements", verifDeadElemOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyDeadElements",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 		verifDeadElemOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1707,14 +1734,14 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
 
-		operationAction = new OperationAction(2, "VerifyParents");
-		operationActions.put("VerifyParents", operationAction);
+		verifParentsOperationAction = new OperationAction(2, "VerifyParents");
+		operationActions.put("VerifyParents", verifParentsOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyParents",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 		verifParentsOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1731,14 +1758,14 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
 
-		operationAction = new OperationAction(3, "VerifyRoots");
-		operationActions.put("VerifyRoots", operationAction);
+		verifRootOperationAction = new OperationAction(3, "VerifyRoots");
+		operationActions.put("VerifyRoots", verifRootOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyRoots",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 		verifRootOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -1755,14 +1782,16 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifRootOperSubActionVerification);
 
-		operationAction = new OperationAction(4, "VerifyFalseOperations");
-		operationActions.put("VerifyFalseOperations", operationAction);
+		verifFalseOptOperationAction = new OperationAction(4,
+				"VerifyFalseOperations");
+		operationActions.put("VerifyFalseOperations",
+				verifFalseOptOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyFalseOperations",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		operationAction.addExpressionSubAction(operationSubAction);
+		verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
 
 		verifFalseOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
@@ -2122,52 +2151,61 @@ public class RefasModel extends AbstractModel {
 		AbstractAttribute attribute = new ExecCurrentStateAttribute("Selected",
 				"Boolean", false, "***Selected***", false, 2, -1, "", "", -1,
 				"", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Selected", attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
 				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("Description", "String", false,
 				"Description", "", 0, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Description", attribute);
 
 		attribute = new SemanticAttribute("Required", "Boolean", true,
 				"Is Required", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Required", attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Scope", "Boolean", true,
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
 				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
 				null, "", 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Core", "Boolean", false,
 				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Core", attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("Dead", "Boolean", false,
 				"Is a Dead Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
 				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("IsRootFeature", attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("IgnoreForSimulation", "Boolean",
 				true, "Ignore for Simulation", false, 0, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement
 				.putSemanticAttribute("IgnoreForSimulation", attribute);
 
@@ -2198,22 +2236,25 @@ public class RefasModel extends AbstractModel {
 				"Is Active", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Active", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
 				"Is Visible", true, 0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("Visibility", attribute);
+		// semGeneralElement.putSemanticAttribute("Visibility", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
 				"Is Allowed", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Allowed", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("RequiredLevel", "Integer", false,
 				"Required Level", 0, new RangeDomain(0, 4), 0, -1, "", "", -1,
 				"", "");
 		semGeneralElement.putSemanticAttribute("RequiredLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addOutVariable(attribute);
 		// TODO define domain or Enum Level
 
 		attribute = new GlobalConfigAttribute("ConfigSelected", "Boolean",
@@ -2221,22 +2262,25 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("ConfigSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ConfigNotSelected", "Boolean",
 				true, "Configuration Not Selected", false, 2, -1, "", "", -1,
 				"", "");
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("DashBoardVisible", attribute);
+		// semGeneralElement.putSemanticAttribute("DashBoardVisible",
+		// attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
 				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
 				"");
-		semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
+		// semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
@@ -2264,20 +2308,23 @@ public class RefasModel extends AbstractModel {
 		attribute = new ExecCurrentStateAttribute("InitialRequiredLevel",
 				"Integer", false, "Initial Required Level", 0, new RangeDomain(
 						0, 5), 0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-				attribute);
+		// semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
+		// attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationOperationAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("SimRequiredLevel",
 				"Integer", false, "Required Level", 0, new RangeDomain(0, 5),
 				0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("SimRequiredLevel", attribute);
+		// semGeneralElement.putSemanticAttribute("SimRequiredLevel",
+		// attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ExecCurrentStateAttribute("HasParent", "Boolean",
 				false, "Has Parent", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("HasParent", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Opt", "Integer", false,
 				"FilterVariable", 0, new RangeDomain(0, 20), 0, -1, "", "", -1,
@@ -2315,6 +2362,7 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addOutVariable(attribute);
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
@@ -2574,12 +2622,14 @@ public class RefasModel extends AbstractModel {
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
 				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
 				null, "", 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute(semVariable.VAR_NAME, "String",
 				false, semVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "", "");
@@ -2887,6 +2937,7 @@ public class RefasModel extends AbstractModel {
 				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
 				"Boolean Comp. Expression", true, 0, -1, "", "", -1, "", "");
@@ -2898,6 +2949,7 @@ public class RefasModel extends AbstractModel {
 				-1, "", "");
 		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ClaimSelected", "Boolean",
 				false, "Claim Selected", false, 0, -1, "", "", -1, "", "");
@@ -2908,6 +2960,7 @@ public class RefasModel extends AbstractModel {
 				"Claim Expression Text", "", 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ClaimExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
@@ -2956,11 +3009,12 @@ public class RefasModel extends AbstractModel {
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SDExpression", "String", false,
 				"SD Expression Text", "", 2, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("SDExpression", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
 				"Boolean Comp. Expression", true, 2, -1, "", "", -1, "", "");
@@ -3427,10 +3481,10 @@ public class RefasModel extends AbstractModel {
 				instVertexF, "NotAvailable", "NotAvailable");
 
 		semanticExpressions.add(t1);
-
-		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
-				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		attribute = new AbstractAttribute("optional", StringType.IDENTIFIER,
+				false, "optional", "", 1, -1, "", "", -1, "", "");
+		ias.add(new InstAttribute("optional", attribute, semanticExpressions));
+		simulationOperationAction.addInVariable(attribute);
 
 		variabilityInstVertex.put("FeatFeatParentPWAsso",
 				instDirFeaFeatVertSemEdge);
