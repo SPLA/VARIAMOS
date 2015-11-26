@@ -88,10 +88,18 @@ public class OperationSubAction {
 
 	}
 
-	public Collection<? extends String> getOperLabels() {
+	public Collection<? extends String> getOperLabelNames() {
 		List<String> out = new ArrayList<String>();
 		for (OperationLabeling oper : operationLabelings) {
 			out.add(this.getDescription() + "-" + oper.getName());
+		}
+		return out;
+	}
+
+	public Collection<OperationLabeling> getOperLabels() {
+		List<OperationLabeling> out = new ArrayList<OperationLabeling>();
+		for (OperationLabeling oper : operationLabelings) {
+			out.add(oper);
 		}
 		return out;
 	}

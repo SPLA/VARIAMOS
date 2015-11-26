@@ -1499,11 +1499,19 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType verifFalseOptOperSubActionRelaxable = null;
 	OperationSubActionExpType verifFalseOptOperSubActionVerification = null;
 
+	OperationLabeling simulationExecOperUniqueLabeling = null;
+
 	OperationSubActionExpType simulationExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPreValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPreUpdOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPostUpdOptOperSubActionNormal = null;
+
+	OperationSubActionExpType simulScenExecOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPreValOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPreUpdOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPosValOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPostUpdOptOperSubActionNormal = null;
 
 	OperationSubActionExpType configTemporalOptOperSubActionNormal = null;
 	OperationSubActionExpType configPermanentOptOperSubActionNormal = null;
@@ -1521,10 +1529,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(2, "Pre-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1532,15 +1540,18 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPreUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(3, "Execution",
 				OperationSubActionType.ITERATIVEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
+		simulationExecOperUniqueLabeling = new OperationLabeling("unique",
+				"ff", 1, false);
+
+		operationSubAction
+				.addOperationLabeling(simulationExecOperUniqueLabeling);
 		operationAction.addExpressionSubAction(operationSubAction);
 
 		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
@@ -1554,10 +1565,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(5, "Post-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1565,10 +1576,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "SimulationScenarios");
 		operationActions.put("SimulationScenarios", operationAction);
@@ -1579,10 +1590,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(2, "Pre-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1590,10 +1601,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(3, "Execution",
 				OperationSubActionType.ITERATIVEUPDATE);
@@ -1603,10 +1614,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 2, true));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenExecOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(4, "Post-Validacion",
 				OperationSubActionType.VERIFICATION);
@@ -1614,10 +1625,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(5, "Post-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1625,10 +1636,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "UpdateCore");
 		operationActions.put("UpdateCore", operationAction);
@@ -1910,6 +1921,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Not Feat Implies NoRoot", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -1920,6 +1933,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("Root Implies Req", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
+
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1933,6 +1948,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("NoRoot Implies UserReq", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -1944,17 +1961,23 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Root Implies Selected", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("NextPrefSel = 0", this
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
 				"NextPrefSelected", 0);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("NextNotPrefSel = 0", this
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
 				"NextNotPrefSelected", 0);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1973,6 +1996,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("NoLFet & NoGFet Implies hasParent", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1993,10 +2018,14 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Opt", this.getSemanticExpressionTypes()
 				.get("Equals"), instVertexGE, "Opt...", true, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t2 = new SemanticExpression("Opt =0", this.getSemanticExpressionTypes()
 				.get("Equals"), instVertexGE, "Opt", 0);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
 
 		semanticExpressions.add(t2);
 
@@ -2024,6 +2053,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Order...", this
 				.getSemanticExpressionTypes().get("Implies"), t2, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
@@ -2036,6 +2067,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Core+ConfigSel+NextReqSel <=1", this
 				.getSemanticExpressionTypes().get("LessOrEquals"), 1, false, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
@@ -2045,8 +2078,11 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
 				"Or"), instVertexGE, "Dead", true, t1);
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexGE, "NotAvailable", true, t1);
+		t1 = new SemanticExpression("NotAvail (Dead Or NotSelec)", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "NotAvailable", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2060,8 +2096,11 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
 				"Or"), t1, t2);
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexGE, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected (Core, NextReqSel, NextPrefSel)",
+				this.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexGE, "Selected", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2069,8 +2108,10 @@ public class RefasModel extends AbstractModel {
 				"Product"), instVertexGE, instVertexGE, "Selected",
 				"NotAvailable");
 
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"Equals"), 0, false, t1);
+		t1 = new SemanticExpression("Selected+NotAvail <=1", this
+				.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2078,40 +2119,57 @@ public class RefasModel extends AbstractModel {
 
 		// Design attributes: Do not change identifiers
 
-		semGeneralElement.putSemanticAttribute("Description",
-				new SemanticAttribute("Description", "String", false,
-						"Description", "", 0, -1, "", "", -1, "", ""));
+		AbstractAttribute attribute = new ExecCurrentStateAttribute("Selected",
+				"Boolean", false, "***Selected***", false, 2, -1, "", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("Selected", attribute);
 
-		semGeneralElement.putSemanticAttribute("Required",
-				new SemanticAttribute("Required", "Boolean", true,
-						"Is Required", false, 2, -1, "", "", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
+				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
 
-		semGeneralElement.putSemanticAttribute("Scope", new SemanticAttribute(
-				"Scope", "Boolean", true, "Global Scope", true, 0, -1, "", "",
-				-1, "", ""));
+		attribute = new SemanticAttribute("Description", "String", false,
+				"Description", "", 0, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("Description", attribute);
 
-		semGeneralElement.putSemanticAttribute("ConcernLevel",
-				new SemanticAttribute("ConcernLevel", "Class", false,
-						"Concern Level", InstConcept.class.getCanonicalName(),
-						"CG", null, "", 2, -1, "", "", -1, "", ""));
+		attribute = new SemanticAttribute("Required", "Boolean", true,
+				"Is Required", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("Required", attribute);
 
-		semGeneralElement.putSemanticAttribute("Core", new SemanticAttribute(
-				"Core", "Boolean", false, "Is a Core Concept", false, 2, -1,
-				"", "", -1, "", ""));
+		attribute = new SemanticAttribute("Scope", "Boolean", true,
+				"Global Scope", true, 0, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("Scope", attribute);
 
-		semGeneralElement.putSemanticAttribute("Dead", new SemanticAttribute(
-				"Dead", "Boolean", false, "Is a Dead Concept", false, 2, -1,
-				"", "", -1, "", ""));
+		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
+				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
+				null, "", 2, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("IsRootFeature",
-				new SemanticAttribute("IsRootFeature", "Boolean", true,
-						"Is a Root Feature Concept", false, 2, -1, "", "", -1,
-						"", ""));
+		attribute = new SemanticAttribute("Core", "Boolean", false,
+				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("Core", attribute);
 
-		semGeneralElement.putSemanticAttribute("IgnoreForSimulation",
-				new SemanticAttribute("IgnoreForSimulation", "Boolean", true,
-						"Ignore for Simulation", false, 0, -1, "", "", -1, "",
-						""));
+		attribute = new SemanticAttribute("Dead", "Boolean", false,
+				"Is a Dead Concept", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("Dead", attribute);
+
+		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
+				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement.putSemanticAttribute("IsRootFeature", attribute);
+
+		attribute = new SemanticAttribute("IgnoreForSimulation", "Boolean",
+				true, "Ignore for Simulation", false, 0, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralElement
+				.putSemanticAttribute("IgnoreForSimulation", attribute);
 
 		semGeneralElement.addPropEditableAttribute("04#" + "Required");
 		semGeneralElement.addPropEditableAttribute("05#" + "Scope");
@@ -2136,41 +2194,50 @@ public class RefasModel extends AbstractModel {
 
 		// Configuration attributes: do no change identifiers
 
-		semGeneralElement.putSemanticAttribute("Active",
-				new GlobalConfigAttribute("Active", "Boolean", true,
-						"Is Active", true, 0, -1, "", "", -1, "", ""));
-		semGeneralElement.putSemanticAttribute("Visibility",
-				new GlobalConfigAttribute("Visibility", "Boolean", false,
-						"Is Visible", true, 0, -1, "", "", -1, "", ""));
+		attribute = new GlobalConfigAttribute("Active", "Boolean", true,
+				"Is Active", true, 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("Active", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("Allowed",
-				new GlobalConfigAttribute("Allowed", "Boolean", true,
-						"Is Allowed", true, 0, -1, "", "", -1, "", ""));
-		semGeneralElement.putSemanticAttribute("RequiredLevel",
-				new SemanticAttribute("RequiredLevel", "Integer", false,
-						"Required Level", 0, new RangeDomain(0, 4), 0, -1, "",
-						"", -1, "", ""));
+		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
+				"Is Visible", true, 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("Visibility", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
+				"Is Allowed", true, 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("Allowed", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("RequiredLevel", "Integer", false,
+				"Required Level", 0, new RangeDomain(0, 4), 0, -1, "", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("RequiredLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// TODO define domain or Enum Level
 
-		semGeneralElement.putSemanticAttribute("ConfigSelected",
-				new GlobalConfigAttribute("ConfigSelected", "Boolean", true,
-						"Configuration Selected", false, 2, -1, "", "", -1, "",
-						""));
-		semGeneralElement.putSemanticAttribute("ConfigNotSelected",
-				new GlobalConfigAttribute("ConfigNotSelected", "Boolean", true,
-						"Configuration Not Selected", false, 2, -1, "", "", -1,
-						"", ""));
+		attribute = new GlobalConfigAttribute("ConfigSelected", "Boolean",
+				true, "Configuration Selected", false, 2, -1, "", "", -1, "",
+				"");
+		semGeneralElement.putSemanticAttribute("ConfigSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement
-				.putSemanticAttribute("DashBoardVisible",
-						new GlobalConfigAttribute("DashBoardVisible",
-								"Boolean", false, "Visible on Dashboard", true,
-								0, -1, "", "", -1, "", ""));
+		attribute = new GlobalConfigAttribute("ConfigNotSelected", "Boolean",
+				true, "Configuration Not Selected", false, 2, -1, "", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("ConfigNotSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("ExportOnConfig",
-				new GlobalConfigAttribute("ExportOnConfig", "Boolean", false,
-						"Export on Configuration", true, 0, -1, "", "", -1, "",
-						""));
+		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
+				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("DashBoardVisible", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
+				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
+				"");
+		semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");
@@ -2194,47 +2261,60 @@ public class RefasModel extends AbstractModel {
 
 		// Simulation attributes: do not modify identifiers
 
+		attribute = new ExecCurrentStateAttribute("InitialRequiredLevel",
+				"Integer", false, "Initial Required Level", 0, new RangeDomain(
+						0, 5), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-				new ExecCurrentStateAttribute("InitialRequiredLevel",
-						"Integer", false, "Initial Required Level", 0,
-						new RangeDomain(0, 5), 0, -1, "", "", -1, "", ""));
-		semGeneralElement.putSemanticAttribute("SimRequiredLevel",
-				new ExecCurrentStateAttribute("SimRequiredLevel", "Integer",
-						false, "Required Level", 0, new RangeDomain(0, 5), 0,
-						-1, "", "", -1, "", ""));
-		semGeneralElement.putSemanticAttribute("HasParent",
-				new ExecCurrentStateAttribute("HasParent", "Boolean", false,
-						"Has Parent", true, 0, -1, "", "", -1, "", ""));
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("Opt",
-				new ExecCurrentStateAttribute("Opt", "Integer", false,
-						"FilterVariable", 0, new RangeDomain(0, 20), 0, -1, "",
-						"", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("SimRequiredLevel",
+				"Integer", false, "Required Level", 0, new RangeDomain(0, 5),
+				0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("SimRequiredLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("Order",
-				new ExecCurrentStateAttribute("Order", "Integer", false,
-						"SortVariable", 0, new RangeDomain(0, 40), 0, -1, "",
-						"", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("HasParent", "Boolean",
+				false, "Has Parent", true, 0, -1, "", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("HasParent", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("NextNotSelected",
-				new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
-						false, "Not selected(inactive)", false, 0, -1, "", "",
-						-1, "", ""));
+		attribute = new ExecCurrentStateAttribute("Opt", "Integer", false,
+				"FilterVariable", 0, new RangeDomain(0, 20), 0, -1, "", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("Opt", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("NextPrefSelected",
-				new ExecCurrentStateAttribute("NextPrefSelected", "Boolean",
-						false, "Selected by configuration", false, 0, -1, "",
-						"", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("Order", "Integer", false,
+				"SortVariable", 0, new RangeDomain(0, 40), 0, -1, "", "", -1,
+				"", "");
+		semGeneralElement.putSemanticAttribute("Order", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("NextNotPrefSelected",
-				new ExecCurrentStateAttribute("NextNotPrefSelected", "Boolean",
-						false, "Not Selected by configuration", false, 0, -1,
-						"", "", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
+				false, "Not selected(inactive)", false, 0, -1, "", "", -1, "",
+				"");
+		semGeneralElement.putSemanticAttribute("NextNotSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semGeneralElement.putSemanticAttribute("NextReqSelected",
-				new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
-						false, "Selected by simulation", false, 0, -1, "", "",
-						-1, "", ""));
+		attribute = new ExecCurrentStateAttribute("NextPrefSelected",
+				"Boolean", false, "Selected by configuration", false, 0, -1,
+				"", "", -1, "", "");
+		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ExecCurrentStateAttribute("NextNotPrefSelected",
+				"Boolean", false, "Not Selected by configuration", false, 0,
+				-1, "", "", -1, "", "");
+		semGeneralElement
+				.putSemanticAttribute("NextNotPrefSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
+				false, "Selected by simulation", false, 0, -1, "", "", -1, "",
+				"");
+		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
@@ -2248,11 +2328,13 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semHardConcept = new SemanticConcept(semGeneralElement,
 				"semHardConcept");
 
-		semHardConcept.putSemanticAttribute("satisfactionType",
-				new SemanticAttribute("satisfactionType", "Enumeration", false,
-						"satisfactionType",
-						"com.variamos.semantic.types.SatisfactionType",
-						"achieve", "", 0, -1, "", "", -1, "", ""));
+		attribute = new SemanticAttribute("satisfactionType", "Enumeration",
+				false, "satisfactionType",
+				"com.variamos.semantic.types.SatisfactionType", "achieve", "",
+				0, -1, "", "", -1, "", "");
+		semHardConcept.putSemanticAttribute("satisfactionType", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
 		semHardConcept.addPropEditableAttribute("01#" + "satisfactionType");
 		semHardConcept.addPropVisibleAttribute("01#" + "satisfactionType");
 
@@ -2298,8 +2380,10 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("3-", this.getSemanticExpressionTypes()
 				.get("Equals"), 0, false, t3);
 
-		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("IsRootFeature=...", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2343,11 +2427,12 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 
-		semOperationalization.putSemanticAttribute("attributeValue",
-				new SyntaxAttribute("attributeValue", "Set", false, "values",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		attribute = new SyntaxAttribute("attributeValue", "Set", false,
+				"values", InstAttribute.class.getCanonicalName(),
+				new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
+		semOperationalization.putSemanticAttribute("attributeValue", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
 		semOperationalization.addPropVisibleAttribute("06#" + "attributeValue");
 		semOperationalization
 				.addPropEditableAttribute("06#" + "attributeValue");
@@ -2383,8 +2468,10 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel<=ClaimExpLevel...", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2398,8 +2485,10 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel>=ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2413,22 +2502,26 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel=ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
 		variabilityInstVertex.put("Softgoal", instVertexSG);
 
-		semSoftgoal.putSemanticAttribute("SDReqLevel",
-				new ExecCurrentStateAttribute("SDReqLevel", "Integer", false,
-						"Required Level by SD", 0, new RangeDomain(0, 4), 2,
-						-1, "", "", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("SDReqLevel", "Integer",
+				false, "Required Level by SD", 0, new RangeDomain(0, 4), 2, -1,
+				"", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semSoftgoal.putSemanticAttribute("ClaimExpLevel",
-				new ExecCurrentStateAttribute("ClaimExpLevel", "Integer",
-						false, "Expected Level by Claim", 0, new RangeDomain(0,
-								4), 2, -1, "", "", -1, "", ""));
+		attribute = new ExecCurrentStateAttribute("ClaimExpLevel", "Integer",
+				false, "Expected Level by Claim", 0, new RangeDomain(0, 4), 2,
+				-1, "", "", -1, "", "");
+		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
 		semSoftgoal.addPropVisibleAttribute("16#" + "ClaimExpLevel");
@@ -2459,30 +2552,167 @@ public class RefasModel extends AbstractModel {
 		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexVAR, "variableConfigDomain", "");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("varConfigVal=value=varConfigDomain", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
+				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("DashBoardVisible", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
+				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
+				"");
+		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("Scope", "Boolean", true,
+				"Global Scope", true, 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("Scope", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
+				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
+				null, "", 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("ConcernLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_NAME, "String",
+				false, semVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_NAME, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_VARIABLETYPE,
+				"Enumeration", true, semVariable.VAR_VARIABLETYPENAME,
+				semVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "",
+				-1, "", semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
+		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLETYPE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
+				"String", false, semVariable.VAR_VARIABLEDOMAINNAME, "0,1", 0,
+				3, semVariable.VAR_VARIABLETYPE + "#==#" + "Integer",
+				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer", -1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
+				"Class", false, semVariable.VAR_ENUMERATIONTYPENAME,
+				semVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "", 0, 4,
+				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration",
+				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration", -1, "",
+				"");
+		semVariable.putSemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		// TODO define domain for enumtype
+		attribute = new ExecCurrentStateAttribute(semVariable.VAR_VALUE,
+				"Integer", false, semVariable.VAR_VALUENAME, 0, 1, -1, "", "",
+				-1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_VALUE, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_CONTEXT, "Boolean",
+				false, semVariable.VAR_CONTEXTNAME, false, 0, 5, "", "", -1,
+				"", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_CONTEXT, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_EXTVISIBLE,
+				"Boolean", false, semVariable.VAR_EXTVISIBLENAME, false, 0, 8,
+				"", "", -1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_EXTVISIBLE, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(semVariable.VAR_EXTCONTROL,
+				"Boolean", false, semVariable.VAR_EXTCONTROLNAME, false, 0, 9,
+				"", "", -1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_EXTCONTROL, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute(
+				semVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
+				semVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "", -1,
+				"", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGVALUE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute(
+				semVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
+				semVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
+				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
+						+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration"
+						+ "||" + semVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Boolean", "", -1, "", "");
+		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGDOMAIN,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		semVariable.addPropEditableAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropEditableAttribute("02#"
+				+ semVariable.VAR_VARIABLETYPE);
+		semVariable.addPropEditableAttribute("03#"
+				+ semVariable.VAR_VARIABLEDOMAIN);
+		semVariable.addPropEditableAttribute("04#"
+				+ semVariable.VAR_ENUMERATIONTYPE);
+		semVariable.addPropEditableAttribute("05#" + semVariable.VAR_CONTEXT);
+
 		semVariable
-				.putSemanticAttribute("DashBoardVisible",
-						new GlobalConfigAttribute("DashBoardVisible",
-								"Boolean", false, "Visible on Dashboard", true,
-								0, -1, "", "", -1, "", ""));
+				.addPropEditableAttribute("08#" + semVariable.VAR_EXTVISIBLE);
+		semVariable
+				.addPropEditableAttribute("09#" + semVariable.VAR_EXTCONTROL);
 
-		semVariable.putSemanticAttribute("ExportOnConfig",
-				new GlobalConfigAttribute("ExportOnConfig", "Boolean", false,
-						"Export on Configuration", true, 0, -1, "", "", -1, "",
-						""));
+		semVariable.addPropEditableAttribute("01#"
+				+ semVariable.VAR_VARIABLECONFIGDOMAIN);
 
-		semVariable.putSemanticAttribute("Scope", new SemanticAttribute(
-				"Scope", "Boolean", true, "Global Scope", true, 0, -1, "", "",
-				-1, "", ""));
+		semVariable.addPropVisibleAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropVisibleAttribute("02#"
+				+ semVariable.VAR_VARIABLETYPE);
+		semVariable.addPropVisibleAttribute("03#"
+				+ semVariable.VAR_VARIABLEDOMAIN + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("04#"
+				+ semVariable.VAR_ENUMERATIONTYPE + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("05#" + semVariable.VAR_CONTEXT);
 
-		semVariable.putSemanticAttribute("ConcernLevel", new SemanticAttribute(
-				"ConcernLevel", "Class", false, "Concern Level",
-				InstConcept.class.getCanonicalName(), "CG", null, "", 0, -1,
-				"", "", -1, "", ""));
+		semVariable.addPropVisibleAttribute("06#" + semVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("07#" + semVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("08#" + semVariable.VAR_EXTVISIBLE);
+		semVariable.addPropVisibleAttribute("09#" + semVariable.VAR_EXTCONTROL);
+
+		semVariable.addPropVisibleAttribute("01#"
+				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("01#"
+				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("01#"
+				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Boolean");
+
+		semVariable.addPanelVisibleAttribute("05#"
+				+ semVariable.VAR_VARIABLETYPE + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
+		semVariable.addPanelVisibleAttribute("06#"
+				+ semVariable.VAR_ENUMERATIONTYPE + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		semVariable.addPanelVisibleAttribute("07#"
+				+ semVariable.VAR_VARIABLEDOMAIN + "#"
+				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+		semVariable.addPanelSpacersAttribute("{#"
+				+ semVariable.VAR_VARIABLETYPE + "#} ");
+
+		semVariable.addPanelSpacersAttribute("{#"
+				+ semVariable.VAR_VARIABLEDOMAIN + "#} ");
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
@@ -2589,8 +2819,13 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"And"), t1, t3);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexCL, "Selected", true, t1);
+		t1 = new SemanticExpression("lowCardinality", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexCL, "Selected", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		this.updateCoreOptOperSubActionNormal.addSemanticExpression(t1); // FIX
+																			// condition
 
 		semanticExpressions.add(t1);
 
@@ -2607,9 +2842,11 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		this.updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
 		ias.add(new InstAttribute("or", new AbstractAttribute("or",
@@ -2625,8 +2862,10 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2643,23 +2882,32 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGE, true);
 		instEdge.setSourceRelation(instVertexCL, true);
 
-		semClaim.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression",
-						InstanceExpression.class.getCanonicalName(), false,
-						"Conditional Expression", null, 0, -1, "", "", -1, "",
-						""));
-		semClaim.putSemanticAttribute("CompExp", new GlobalConfigAttribute(
-				"CompExp", "Boolean", false, "Boolean Comp. Expression", true,
-				0, -1, "", "", -1, "", ""));
-		semClaim.putSemanticAttribute("ConfidenceLevel", new SemanticAttribute(
-				"ConfidenceLevel", "Integer", false, "Confidence Level", 1,
-				new RangeDomain(1, 5), 0, -1, "", "", -1, "", ""));
-		semClaim.putSemanticAttribute("ClaimSelected",
-				new GlobalConfigAttribute("ClaimSelected", "Boolean", false,
-						"Claim Selected", false, 0, -1, "", "", -1, "", ""));
-		semClaim.putSemanticAttribute("ClaimExpression", new SemanticAttribute(
-				"ClaimExpression", "String", false, "Claim Expression Text",
-				"", 0, -1, "", "", -1, "", ""));
+		attribute = new SemanticAttribute("ConditionalExpression",
+				InstanceExpression.class.getCanonicalName(), false,
+				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
+				"Boolean Comp. Expression", true, 0, -1, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("CompExp", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("ConfidenceLevel", "Integer", false,
+				"Confidence Level", 1, new RangeDomain(1, 5), 0, -1, "", "",
+				-1, "", "");
+		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("ClaimSelected", "Boolean",
+				false, "Claim Selected", false, 0, -1, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("ClaimSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("ClaimExpression", "String", false,
+				"Claim Expression Text", "", 0, -1, "", "", -1, "", "");
+		semClaim.putSemanticAttribute("ClaimExpression", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
@@ -2702,21 +2950,27 @@ public class RefasModel extends AbstractModel {
 		instEdge.setTargetRelation(instVertexGE, true);
 		instEdge.setSourceRelation(instVertexSD, true);
 
+		attribute = new SemanticAttribute("ConditionalExpression",
+				InstanceExpression.class.getCanonicalName(), false,
+				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
-				new SemanticAttribute("ConditionalExpression",
-						InstanceExpression.class.getCanonicalName(), false,
-						"Conditional Expression", null, 0, -1, "", "", -1, "",
-						""));
-		semSoftDependency.putSemanticAttribute("SDExpression",
-				new SemanticAttribute("SDExpression", "String", false,
-						"SD Expression Text", "", 2, -1, "", "", -1, "", ""));
-		semSoftDependency.putSemanticAttribute("CompExp",
-				new GlobalConfigAttribute("CompExp", "Boolean", false,
-						"Boolean Comp. Expression", true, 2, -1, "", "", -1,
-						"", ""));
-		semSoftDependency.putSemanticAttribute("SDSelected",
-				new GlobalConfigAttribute("SDSelected", "Boolean", false,
-						"SD Selected", false, 2, -1, "", "", -1, "", ""));
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("SDExpression", "String", false,
+				"SD Expression Text", "", 2, -1, "", "", -1, "", "");
+		semSoftDependency.putSemanticAttribute("SDExpression", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
+				"Boolean Comp. Expression", true, 2, -1, "", "", -1, "", "");
+		semSoftDependency.putSemanticAttribute("CompExp", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute("SDSelected", "Boolean", false,
+				"SD Selected", false, 2, -1, "", "", -1, "", "");
+		semSoftDependency.putSemanticAttribute("SDSelected", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semSoftDependency.addPanelVisibleAttribute("03#"
 				+ "ConditionalExpression");
@@ -2922,8 +3176,8 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2937,9 +3191,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexHC,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2958,8 +3213,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexHC, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2973,8 +3228,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -2984,15 +3239,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
 				instVertexHC, "NotAvailable", "NotAvailable");
 
@@ -3069,9 +3326,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexHC, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexHC,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3132,15 +3390,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3152,15 +3412,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3211,13 +3473,13 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3231,8 +3493,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexF, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3290,15 +3552,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected1", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexHC, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexHC, "NotAvailable", "NotAvailable");
 
@@ -3375,15 +3639,17 @@ public class RefasModel extends AbstractModel {
 				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexAsset, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
 				instVertexF, "NotAvailable", "NotAvailable");
 
@@ -3661,21 +3927,26 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directSGSGSemEdge = new SemanticPairwiseRelation(
 				"SgSgPWAsso", true, sgPairwiseRelList);
+		attribute = new SemanticAttribute(
+				SemanticPairwiseRelation.VAR_SOURCE_LEVEL, "Integer", false,
+				SemanticPairwiseRelation.VAR_SOURCE_LEVELNAME, 0,
+				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_SOURCE_LEVEL,
-				new SemanticAttribute(
-						SemanticPairwiseRelation.VAR_SOURCE_LEVEL, "Integer",
-						false, SemanticPairwiseRelation.VAR_SOURCE_LEVELNAME,
-						0, new RangeDomain(0, 5), 0, -1, "", "", -1, "", ""));
+				SemanticPairwiseRelation.VAR_SOURCE_LEVEL, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(
+				SemanticPairwiseRelation.VAR_TARGET_LEVEL, "Integer", false,
+				SemanticPairwiseRelation.VAR_TARGET_LEVELNAME, 0,
+				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_TARGET_LEVEL,
-				new SemanticAttribute(
-						SemanticPairwiseRelation.VAR_TARGET_LEVEL, "Integer",
-						false, SemanticPairwiseRelation.VAR_TARGET_LEVELNAME,
-						0, new RangeDomain(0, 5), 0, -1, "", "", -1, "", ""));
-		directSGSGSemEdge.putSemanticAttribute("AggregationLow",
-				new SemanticAttribute("AggregationLow", "Integer", false,
-						"Aggregation Low", 0, 0, -1, "", "", -1, "", ""));
+				SemanticPairwiseRelation.VAR_TARGET_LEVEL, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute("AggregationLow", "Integer", false,
+				"Aggregation Low", 0, 0, -1, "", "", -1, "", "");
+		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		directSGSGSemEdge.addPanelVisibleAttribute("07#" + "AggregationLow");
 
@@ -3686,9 +3957,10 @@ public class RefasModel extends AbstractModel {
 
 		directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
 
-		directSGSGSemEdge.putSemanticAttribute("AggregationHigh",
-				new SemanticAttribute("AggregationHigh", "Integer", false,
-						"AggregationHigh", 0, 0, -1, "", "", -1, "", ""));
+		attribute = new SemanticAttribute("AggregationHigh", "Integer", false,
+				"AggregationHigh", 0, 0, -1, "", "", -1, "", "");
+		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		directSGSGSemEdge.addPanelVisibleAttribute("08#" + "AggregationHigh");
 
@@ -3772,8 +4044,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3794,8 +4066,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3816,8 +4088,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3832,8 +4104,8 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
 				instVertexSG, "Selected", "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3847,9 +4119,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexSG,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3868,8 +4141,8 @@ public class RefasModel extends AbstractModel {
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSG, "Selected");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"And"), t3, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("And"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3883,8 +4156,8 @@ public class RefasModel extends AbstractModel {
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", false, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), 1, false, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false, t1);
 
 		semanticExpressions.add(t1);
 
@@ -3898,9 +4171,10 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "Selected", true, 1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Implies"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE, instVertexSG,
+				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4052,15 +4326,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4129,15 +4404,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4199,15 +4475,16 @@ public class RefasModel extends AbstractModel {
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "Selected", "CompExp");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"DoubleImplies"),
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
 				"Selected", true, t1);
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
 				instVertexCL, "NotAvailable", "NotAvailable");
 
@@ -4285,11 +4562,12 @@ public class RefasModel extends AbstractModel {
 		// semanticVertices.add(semSoftgoal);
 		SemanticPairwiseRelation directClaimSGSemanticEdge = new SemanticPairwiseRelation(
 				"ClaimSGPWAsso", true, claimSGPairwiseRelList);
+		attribute = new SemanticAttribute(SemanticPairwiseRelation.VAR_LEVEL,
+				"Integer", false, SemanticPairwiseRelation.VAR_LEVEL, 2,
+				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directClaimSGSemanticEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_LEVEL, new SemanticAttribute(
-						SemanticPairwiseRelation.VAR_LEVEL, "Integer", false,
-						SemanticPairwiseRelation.VAR_LEVEL, 2, new RangeDomain(
-								0, 5), 0, -1, "", "", -1, "", ""));
+				SemanticPairwiseRelation.VAR_LEVEL, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		directClaimSGSemanticEdge.addPropEditableAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
@@ -4324,9 +4602,10 @@ public class RefasModel extends AbstractModel {
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexCL, "Selected", true, t1);
 
-		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexSG, "satisficingType", "low");
+		t3 = new SemanticExpression("low: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexSG,
+				"satisficingType", "low");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
 				"Implies"), t3, t1);
@@ -4348,8 +4627,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4368,8 +4647,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				instVertexSG, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: ClaimExpLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4400,11 +4679,12 @@ public class RefasModel extends AbstractModel {
 
 		SemanticPairwiseRelation directSDSGSemanticEdge = new SemanticPairwiseRelation(
 				"SDSGPWAsso", true, sdPairwiseRelList);
+		attribute = new SemanticAttribute(SemanticPairwiseRelation.VAR_LEVEL,
+				"Integer", false, SemanticPairwiseRelation.VAR_LEVELNAME, 0,
+				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSDSGSemanticEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_LEVEL, new SemanticAttribute(
-						SemanticPairwiseRelation.VAR_LEVEL, "Integer", false,
-						SemanticPairwiseRelation.VAR_LEVELNAME, 0,
-						new RangeDomain(0, 5), 0, -1, "", "", -1, "", ""));
+				SemanticPairwiseRelation.VAR_LEVEL, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		directSDSGSemanticEdge.addPropEditableAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
@@ -4441,8 +4721,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "low");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("low: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4459,8 +4739,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "high");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("high: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4477,8 +4757,8 @@ public class RefasModel extends AbstractModel {
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				instVertexSD, "satisficingType", "close");
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Implies"), t3, t1);
+		t1 = new SemanticExpression("close: SDReqLevel", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
 
@@ -4607,15 +4887,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "NotAvailable", "NotAvailable");
 
@@ -4663,15 +4945,17 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("Selected", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "Selected", "Selected");
 
 		semanticExpressions.add(t1);
 
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+		t1 = new SemanticExpression("NotAvailable", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 				instVertexAsset, instVertexOper, "NotAvailable", "NotAvailable");
 

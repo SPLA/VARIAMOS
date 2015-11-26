@@ -15,6 +15,7 @@ import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.IntervalDomain;
 import com.variamos.perspsupport.expressionsupport.ElementVariable;
 import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
@@ -54,15 +55,14 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 		types = new ArrayList<Class<?>>();
 		types.add(TreeTableModel.class);
 		for (int i = 0; i < names.size(); i++) {
-			if (domains.get(i) == null) {
-				types.add(IntegerVariable.class);
-			} else if (domains.get(i) instanceof BinaryDomain) {
+			if (domains.get(i) instanceof BinaryDomain) {
 				types.add(Variable.class);
+			} else if (domains.get(i) instanceof IntervalDomain) {
+				types.add(IntegerVariable.class);
 			} else {
 				types.add(ElementVariable.class);
 			}
 		}
-
 		steps = 0;
 		this.configurator = configurator;
 
