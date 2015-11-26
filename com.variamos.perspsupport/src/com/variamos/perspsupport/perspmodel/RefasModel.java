@@ -1505,6 +1505,12 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulationPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPostUpdOptOperSubActionNormal = null;
 
+	OperationSubActionExpType simulScenExecOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPreValOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPreUpdOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPosValOptOperSubActionNormal = null;
+	OperationSubActionExpType simulScenPostUpdOptOperSubActionNormal = null;
+
 	OperationSubActionExpType configTemporalOptOperSubActionNormal = null;
 	OperationSubActionExpType configPermanentOptOperSubActionNormal = null;
 	OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
@@ -1521,10 +1527,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(2, "Pre-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1532,10 +1538,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPreUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(3, "Execution",
 				OperationSubActionType.ITERATIVEUPDATE);
@@ -1554,10 +1560,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(5, "Post-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1565,10 +1571,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulationPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "SimulationScenarios");
 		operationActions.put("SimulationScenarios", operationAction);
@@ -1579,10 +1585,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(2, "Pre-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1590,10 +1596,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(3, "Execution",
 				OperationSubActionType.ITERATIVEUPDATE);
@@ -1603,10 +1609,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 2, true));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenExecOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(4, "Post-Validacion",
 				OperationSubActionType.VERIFICATION);
@@ -1614,10 +1620,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPosValOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
 
 		operationSubAction = new OperationSubAction(5, "Post-Update",
 				OperationSubActionType.SINGLEUPDATE);
@@ -1625,10 +1631,10 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationAction.addExpressionSubAction(operationSubAction);
 
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+		simulScenPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
 		operationAction = new OperationAction(1, "UpdateCore");
 		operationActions.put("UpdateCore", operationAction);
@@ -1910,6 +1916,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Not Feat Implies NoRoot", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -1920,6 +1928,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("Root Implies Req", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
+
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1933,6 +1943,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("NoRoot Implies UserReq", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -1944,17 +1956,23 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Root Implies Selected", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("NextPrefSel = 0", this
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
 				"NextPrefSelected", 0);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("NextNotPrefSel = 0", this
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
 				"NextNotPrefSelected", 0);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1973,6 +1991,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("NoLFet & NoGFet Implies hasParent", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -1993,10 +2013,14 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Opt", this.getSemanticExpressionTypes()
 				.get("Equals"), instVertexGE, "Opt...", true, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t2 = new SemanticExpression("Opt =0", this.getSemanticExpressionTypes()
 				.get("Equals"), instVertexGE, "Opt", 0);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
 
 		semanticExpressions.add(t2);
 
@@ -2024,6 +2048,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Order...", this
 				.getSemanticExpressionTypes().get("Implies"), t2, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
@@ -2035,6 +2061,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("Core+ConfigSel+NextReqSel <=1", this
 				.getSemanticExpressionTypes().get("LessOrEquals"), 1, false, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2048,6 +2076,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("NotAvail (Dead Or NotSelec)", this
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, "NotAvailable", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2065,6 +2095,8 @@ public class RefasModel extends AbstractModel {
 				this.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, "Selected", true, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
@@ -2073,6 +2105,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("Selected+NotAvail <=1", this
 				.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2312,6 +2346,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("IsRootFeature=...", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		variabilityInstVertex.put("Feature", instVertexF);
@@ -2397,6 +2433,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("high: SDReqLevel<=ClaimExpLevel...", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
@@ -2412,6 +2450,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("low: SDReqLevel>=ClaimExpLevel", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
@@ -2426,6 +2466,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("close: SDReqLevel=ClaimExpLevel", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
@@ -2474,6 +2516,8 @@ public class RefasModel extends AbstractModel {
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
 
 		semanticExpressions.add(t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semVariable
 				.putSemanticAttribute("DashBoardVisible",
@@ -2604,6 +2648,10 @@ public class RefasModel extends AbstractModel {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCL, "Selected", true, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		this.updateCoreOptOperSubActionNormal.addSemanticExpression(t1); // FIX
+																			// condition
+
 		semanticExpressions.add(t1);
 
 		ias.add(new InstAttribute("and", new AbstractAttribute("and",
@@ -2622,6 +2670,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("Selected", this
 				.getSemanticExpressionTypes().get("And"), t3, t1);
 
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		this.updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
 		ias.add(new InstAttribute("or", new AbstractAttribute("or",
@@ -2639,6 +2689,8 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("Selected", this
 				.getSemanticExpressionTypes().get("And"), t3, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 

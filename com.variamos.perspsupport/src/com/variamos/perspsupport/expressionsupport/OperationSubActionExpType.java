@@ -24,12 +24,23 @@ public class OperationSubActionExpType {
 		this.semanticExpressions = semanticExpressions;
 	}
 
+	public void addSemanticExpression(SemanticExpression semanticExpression) {
+		semanticExpressions.add(semanticExpression);
+	}
+
 	public OperationSubActionExecType getExpressionType() {
 		return expressionType;
 	}
 
 	public void setExpressionType(OperationSubActionExecType expressionType) {
 		this.expressionType = expressionType;
+	}
+
+	public boolean hasSemanticExpression(String identifier) {
+		for (SemanticExpression s : semanticExpressions)
+			if (s.getIdentifier().equals(identifier))
+				return true;
+		return false;
 	}
 
 }

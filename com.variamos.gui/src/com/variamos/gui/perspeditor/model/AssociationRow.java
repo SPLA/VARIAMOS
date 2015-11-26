@@ -7,6 +7,7 @@ import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
+import com.variamos.hlcl.IntervalDomain;
 import com.variamos.perspsupport.expressionsupport.ElementVariable;
 import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
@@ -24,7 +25,7 @@ import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 public class AssociationRow {
 
 	// private Variable variable;
-	private List<Variable> values;
+	private List<Variable> variables;
 	private String name;
 	private int stepEdited;
 	private boolean leaf;
@@ -33,21 +34,21 @@ public class AssociationRow {
 	protected List<AssociationRow> children;
 
 	public AssociationRow(String name, int size, boolean leaf,
-			List<Domain> domains) {
+			List<Domain> domains, List<Integer> values) {
 		this.leaf = leaf;
 		children = new ArrayList<>();
-		values = new ArrayList<Variable>();
+		variables = new ArrayList<Variable>();
 		for (int i = 0; i < size; i++) {
 			Object defaultValue = null;
 			if (leaf)
 				defaultValue = 0;
 			Variable var = null;
-			if (domains.get(i) == null) {
-				var = new IntegerVariable(name, defaultValue,
-						Integer.class.getTypeName());
-				// var.setDomain(domains.get(i));
-			} else if (domains.get(i) instanceof BinaryDomain) {
+			if (domains.get(i) instanceof BinaryDomain) {
 				var = new Variable(name, defaultValue,
+						Integer.class.getTypeName());
+				var.setDomain(domains.get(i));
+			} else if (domains.get(i) instanceof IntervalDomain) {
+				var = new IntegerVariable(name, defaultValue,
 						Integer.class.getTypeName());
 				var.setDomain(domains.get(i));
 			} else {
@@ -55,8 +56,9 @@ public class AssociationRow {
 						String.class.getTypeName());
 				var.setDomain(domains.get(i));
 			}
-
-			values.add(var);
+			if (values != null)
+				var.setValue(values.get(i));
+			variables.add(var);
 		}
 
 		this.name = name;
@@ -69,11 +71,11 @@ public class AssociationRow {
 	}
 
 	public Variable getValue(int column) {
-		return values.get(column - 1);
+		return variables.get(column - 1);
 	}
 
 	public List<Variable> getValues() {
-		return values;
+		return variables;
 	}
 
 	/*
@@ -98,7 +100,7 @@ public class AssociationRow {
 	//
 
 	public void setValue(Object value, int column) {
-		values.get(column - 1).setValue(value);
+		variables.get(column - 1).setValue(value);
 	}
 
 	@Override

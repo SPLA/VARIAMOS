@@ -53,14 +53,15 @@ public class AssociationTreeTable extends JTable {
 		setDefaultRenderer(TreeTableModel.class, tree);
 		setDefaultRenderer(Variable.class, choiceRenderer);
 
-		setDefaultRenderer(IntegerVariable.class, null);
+		setDefaultRenderer(IntegerVariable.class, choiceRenderer);
 		setDefaultRenderer(ElementVariable.class, null);
 
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor(tree,
 				this));
 		// setDefaultEditor(Choice.class, getChoiceEditor(choiceRenderer));
 		setDefaultEditor(Variable.class, this.getChoiceEditor(choiceRenderer));
-		setDefaultEditor(IntegerVariable.class, getIntegerEditor());
+		setDefaultEditor(IntegerVariable.class,
+				this.getChoiceEditor(choiceRenderer));
 		setDefaultEditor(ElementVariable.class, getIntegerEditor());
 
 		setDefaultEditor(Boolean.class, this.getChoiceEditor(choiceRenderer));
