@@ -50,6 +50,13 @@ public class OperationAction {
 		return expressionSubActions;
 	}
 
+	public OperationSubAction getExpressionSubAction(String column) {
+		for (OperationSubAction oper : expressionSubActions)
+			if (oper.getDescription().equals(column))
+				return oper;
+		return null;
+	}
+
 	public void setExpressionSubActions(
 			List<OperationSubAction> expressionSubActions) {
 		this.expressionSubActions = expressionSubActions;

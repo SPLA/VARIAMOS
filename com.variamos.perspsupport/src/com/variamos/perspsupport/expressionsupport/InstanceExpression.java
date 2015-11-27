@@ -144,8 +144,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		this.customExpression = customExpression;
 		if (customExpression) {
 			customSemanticExpression = semanticExpression;
-			semanticExpressionId = semanticExpression.getIdentifier();
-		}
+		} else
+			volatileSemanticExpression = semanticExpression;
+		semanticExpressionId = semanticExpression.getIdentifier();
 	}
 
 	public InstanceExpression(SemanticExpression semanticExpression,
@@ -191,6 +192,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		Expression condition = createExpression();
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
 		return hlclFactory.doubleImplies(iden, (BooleanExpression) condition);
+	}
+
+	public Expression createSGSExpression() {
+		Expression condition = createExpression();
+		return condition;
 	}
 
 	public Expression createExpression() {
@@ -312,10 +318,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
-		if (expressionVertexType.name().equals("LEFT")) {			
-			 System.out.println(volatileLefInstElement.getIdentifier() + " "
-			 + getSemanticExpression()
-				.getLeftAttributeName());
+		if (expressionVertexType.name().equals("LEFT")) {
+			System.out.println(volatileLefInstElement.getIdentifier() + " "
+					+ getSemanticExpression().getLeftAttributeName());
 			Identifier identifier = hlclFactory
 					.newIdentifier(
 							volatileLefInstElement
@@ -733,26 +738,29 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier()) + "_" + getLeftAttributeName();
+						.getIdentifier())
+						+ "_" + getLeftAttributeName();
 			break;
 		case RIGHT:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getIdentifier()) + "_"
-								+ getRightAttributeName();
+						: getRightElement().getIdentifier())
+						+ "_" + getRightAttributeName();
 			break;
 		case LEFTVARIABLEVALUE:
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
-						.getIdentifier()) + "_" + leftValue;
+						.getIdentifier())
+						+ "_" + leftValue;
 			break;
 		case RIGHTVARIABLEVALUE:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
-						: getRightElement().getIdentifier()) + "_" + rightValue;
+						: getRightElement().getIdentifier())
+						+ "_" + rightValue;
 			break;
 		default:
 			return null;
@@ -853,5 +861,41 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public void setSemExprSubActions(List<OperationSubAction> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
+	}
+
+	public void createFromSemanticExpression(InstElement instElement) {
+		ExpressionVertexType type = volatileSemanticExpression
+				.getLeftExpressionType();
+
+		switch (type) {
+		case LEFTSUBEXPRESSION:
+		case LEFTNUMERICEXPRESSIONVALUE:
+			leftInstanceExpression = new InstanceExpression(false,
+					volatileSemanticExpression.getLeftSemanticExpression());
+			break;
+		case LEFT:
+			this.volatileLefInstElement = instElement;
+			break;
+		case LEFTVARIABLEVALUE:
+			this.leftValue = volatileSemanticExpression.getLeftString();
+			break;
+		}
+
+		type = volatileSemanticExpression.getRightExpressionType();
+
+		switch (type) {
+		case RIGHTSUBEXPRESSION:
+		case RIGHTNUMERICEXPRESSIONVALUE:
+			rightInstanceExpression = new InstanceExpression(false,
+					volatileSemanticExpression.getRightSemanticExpression());
+			break;
+		case RIGHT:
+			this.volatileRightInstElement = instElement;
+			break;
+		case RIGHTVARIABLEVALUE:
+			this.rightValue = volatileSemanticExpression.getRightString();
+			break;
+		}
+
 	}
 }

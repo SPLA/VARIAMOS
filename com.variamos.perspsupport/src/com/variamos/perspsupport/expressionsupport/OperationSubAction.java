@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.OperationSubActionType;
 
 /**
@@ -102,5 +103,14 @@ public class OperationSubAction {
 			out.add(oper);
 		}
 		return out;
+	}
+
+	public OperationSubActionExpType getOperationSubActionExpType(
+			OperationSubActionExecType expressionType) {
+		for (OperationSubActionExpType oper : operationSubActionExpTypes) {
+			if (oper.getExpressionType().equals(expressionType))
+				return oper;
+		}
+		return null;
 	}
 }

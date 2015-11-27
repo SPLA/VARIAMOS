@@ -246,6 +246,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
+
+		// TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+		// "Simulation", null, null);
+		// transExpSet.addExpressions(refas, null, "Execution",
+		// OperationSubActionExecType.NORMAL);
 		String elementIdentifier = null;
 		if (instElement == null)
 			createModelExpressions(execType);
