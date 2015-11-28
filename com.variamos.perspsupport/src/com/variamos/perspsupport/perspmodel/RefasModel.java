@@ -2241,7 +2241,7 @@ public class RefasModel extends AbstractModel {
 		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
 				"Is Visible", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Visibility", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
 				"Is Allowed", true, 0, -1, "", "", -1, "", "");
@@ -2274,13 +2274,13 @@ public class RefasModel extends AbstractModel {
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("DashBoardVisible", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
 				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
 				"");
 		semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
 				+ "#" + "Core" + "#==#" + "false" + "#" + "false");

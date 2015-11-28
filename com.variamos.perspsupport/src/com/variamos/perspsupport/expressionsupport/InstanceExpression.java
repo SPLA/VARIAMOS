@@ -434,9 +434,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 				break;
 			case LEFTVARIABLEVALUE:
+			case LEFTSTRINGVALUE:
 				out.add(hlclFactory.number(getVariableIntValue(expressionType)));
 				break;
 			case RIGHTVARIABLEVALUE:
+			case RIGHTSTRINGVALUE:
 				out.add(hlclFactory.number(getVariableIntValue(expressionType)));
 				break;
 			case LEFTSUBEXPRESSION:
@@ -470,6 +472,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					.getValue();
 
 			break;
+		case LEFTSTRINGVALUE:
+			value = leftValue;
+			valueType = "String";
+			break;
+		case RIGHTSTRINGVALUE:
+			value = rightValue;
+			valueType = "String";
+
+			break;
+
 		default:
 		}
 		switch (valueType) {
@@ -483,6 +495,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case "Enumeration":
 			String[] split = value.split("-");
 			return Integer.parseInt(split[0]);
+		case "String":
+			return value.hashCode();
 		}
 		return 0;
 	}
@@ -872,12 +886,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTNUMERICEXPRESSIONVALUE:
 			leftInstanceExpression = new InstanceExpression(false,
 					volatileSemanticExpression.getLeftSemanticExpression());
-			break;
-		case LEFT:
-			this.volatileLefInstElement = instElement;
+			leftInstanceExpression.createFromSemanticExpression(instElement);
 			break;
 		case LEFTVARIABLEVALUE:
+		case LEFTSTRINGVALUE:
 			this.leftValue = volatileSemanticExpression.getLeftString();
+		case LEFT:
+			this.volatileLefInstElement = instElement;
 			break;
 		}
 
@@ -888,12 +903,15 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case RIGHTNUMERICEXPRESSIONVALUE:
 			rightInstanceExpression = new InstanceExpression(false,
 					volatileSemanticExpression.getRightSemanticExpression());
+
+			rightInstanceExpression.createFromSemanticExpression(instElement);
 			break;
+
+		case RIGHTVARIABLEVALUE:
+		case RIGHTSTRINGVALUE:
+			this.rightValue = volatileSemanticExpression.getRightString();
 		case RIGHT:
 			this.volatileRightInstElement = instElement;
-			break;
-		case RIGHTVARIABLEVALUE:
-			this.rightValue = volatileSemanticExpression.getRightString();
 			break;
 		}
 
