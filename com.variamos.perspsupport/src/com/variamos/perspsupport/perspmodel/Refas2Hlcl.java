@@ -32,6 +32,8 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.translationsupport.TranslationExpressionSet;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -246,6 +248,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
+
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+				"Simulation", null, null);
+		transExpSet.addExpressions(refas, null, "Execution",
+				OperationSubActionExecType.NORMAL);
+		for (Expression exp : transExpSet.getHLCLExpressions("Execution" + "-"
+				+ OperationSubActionExecType.NORMAL)) {
+			System.out.println(exp.toString());
+		}
 		String elementIdentifier = null;
 		if (instElement == null)
 			createModelExpressions(execType);

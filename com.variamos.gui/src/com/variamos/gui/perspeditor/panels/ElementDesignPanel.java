@@ -252,7 +252,11 @@ public class ElementDesignPanel extends JPanel {
 									if (name == null)
 										name = editElm.getInstAttributes().get(
 												"Name");
-									instAttribute.setValue(name.getValue());
+									if (name != null)
+										instAttribute.setValue(name.getValue());
+									else
+										System.out.println("null editElm:"
+												+ editElm.getIdentifier());
 								}
 							}
 							final InstAttribute finalInstAttribute = instAttribute;

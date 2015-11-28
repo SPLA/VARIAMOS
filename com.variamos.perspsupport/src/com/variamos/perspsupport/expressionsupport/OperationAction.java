@@ -3,6 +3,8 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+
 /**
  * A class to support the operations definition with GUI edition. Part of PhD
  * work at University of Paris 1
@@ -18,11 +20,15 @@ public class OperationAction {
 		this.position = position;
 		this.description = description;
 		expressionSubActions = new ArrayList<OperationSubAction>();
+		inVariables = new ArrayList<AbstractAttribute>();
+		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
 	private int position;
 	private String description;
 	private List<OperationSubAction> expressionSubActions;
+	private List<AbstractAttribute> inVariables;
+	private List<AbstractAttribute> outVariables;
 
 	public int getPosition() {
 		return position;
@@ -42,6 +48,13 @@ public class OperationAction {
 
 	public List<OperationSubAction> getExpressionSubActions() {
 		return expressionSubActions;
+	}
+
+	public OperationSubAction getExpressionSubAction(String column) {
+		for (OperationSubAction oper : expressionSubActions)
+			if (oper.getDescription().equals(column))
+				return oper;
+		return null;
 	}
 
 	public void setExpressionSubActions(
@@ -85,5 +98,27 @@ public class OperationAction {
 			out.addAll(subAction.getOperLabels());
 		}
 		return out;
+	}
+
+	public boolean hasInVariable(String variable) {
+		for (AbstractAttribute var : inVariables)
+			if (var.getName().equals(variable))
+				return true;
+		return false;
+	}
+
+	public boolean hasOutVariable(String variable) {
+		for (AbstractAttribute var : outVariables)
+			if (var.getName().equals(variable))
+				return true;
+		return false;
+	}
+
+	public void addInVariable(AbstractAttribute attribute) {
+		inVariables.add(attribute);
+	}
+
+	public void addOutVariable(AbstractAttribute attribute) {
+		outVariables.add(attribute);
 	}
 }
