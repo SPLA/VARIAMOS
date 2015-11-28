@@ -2240,7 +2240,7 @@ public class RefasModel extends AbstractModel {
 
 		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
 				"Is Visible", true, 0, -1, "", "", -1, "", "");
-		// semGeneralElement.putSemanticAttribute("Visibility", attribute);
+		semGeneralElement.putSemanticAttribute("Visibility", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
@@ -2273,14 +2273,13 @@ public class RefasModel extends AbstractModel {
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
-		// semGeneralElement.putSemanticAttribute("DashBoardVisible",
-		// attribute);
+		semGeneralElement.putSemanticAttribute("DashBoardVisible", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
 				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
 				"");
-		// semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
+		semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semGeneralElement.addPropEditableAttribute("15#" + "ConfigSelected"
@@ -2308,16 +2307,15 @@ public class RefasModel extends AbstractModel {
 		attribute = new ExecCurrentStateAttribute("InitialRequiredLevel",
 				"Integer", false, "Initial Required Level", 0, new RangeDomain(
 						0, 5), 0, -1, "", "", -1, "", "");
-		// semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-		// attribute);
+		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
+				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationOperationAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("SimRequiredLevel",
 				"Integer", false, "Required Level", 0, new RangeDomain(0, 5),
 				0, -1, "", "", -1, "", "");
-		// semGeneralElement.putSemanticAttribute("SimRequiredLevel",
-		// attribute);
+		semGeneralElement.putSemanticAttribute("SimRequiredLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ExecCurrentStateAttribute("HasParent", "Boolean",
