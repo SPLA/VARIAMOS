@@ -319,8 +319,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType) {
 		Identifier out = null;
 		if (expressionVertexType.name().equals("LEFT")) {
-			System.out.println(volatileLefInstElement.getIdentifier() + " "
-					+ getSemanticExpression().getLeftAttributeName());
+			// System.out.println(volatileLefInstElement.getIdentifier() + " "
+			// + getSemanticExpression().getLeftAttributeName());
 			Identifier identifier = hlclFactory
 					.newIdentifier(
 							volatileLefInstElement
@@ -883,10 +883,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 		switch (type) {
 		case LEFTSUBEXPRESSION:
-		case LEFTNUMERICEXPRESSIONVALUE:
 			leftInstanceExpression = new InstanceExpression(false,
 					volatileSemanticExpression.getLeftSemanticExpression());
 			leftInstanceExpression.createFromSemanticExpression(instElement);
+			break;
+		case LEFTNUMERICEXPRESSIONVALUE:
+			this.leftValue = volatileSemanticExpression.getLeftNumber() + "";
+			this.volatileLefInstElement = instElement;
 			break;
 		case LEFTVARIABLEVALUE:
 		case LEFTSTRINGVALUE:
@@ -900,13 +903,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 		switch (type) {
 		case RIGHTSUBEXPRESSION:
-		case RIGHTNUMERICEXPRESSIONVALUE:
 			rightInstanceExpression = new InstanceExpression(false,
 					volatileSemanticExpression.getRightSemanticExpression());
 
 			rightInstanceExpression.createFromSemanticExpression(instElement);
 			break;
 
+		case RIGHTNUMERICEXPRESSIONVALUE:
+			this.rightValue = volatileSemanticExpression.getRightNumber() + "";
+			this.volatileRightInstElement = instElement;
+			break;
 		case RIGHTVARIABLEVALUE:
 		case RIGHTSTRINGVALUE:
 			this.rightValue = volatileSemanticExpression.getRightString();

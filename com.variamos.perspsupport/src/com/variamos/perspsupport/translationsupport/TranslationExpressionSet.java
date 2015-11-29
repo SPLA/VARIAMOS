@@ -79,7 +79,7 @@ public class TranslationExpressionSet {
 		List<SemanticExpression> semExp = operExpType.getSemanticExpressions();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		if (instElement == null)
-			for (InstElement instE : refas.getVariabilityVertexCollection()) {
+			for (InstElement instE : refas.getElements()) {
 				out.addAll(createElementInstanceExpressions(instE, semExp));
 			}
 		else
@@ -95,9 +95,9 @@ public class TranslationExpressionSet {
 		IntSemanticElement semElement = instElement
 				.getTransSupportMetaElement().getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		if (semElement != null && semElement.getSemanticExpresions() != null)
+		if (semElement != null && semElement.getSemanticExpressions() != null)
 			for (IntSemanticExpression semExpression : semElement
-					.getSemanticExpresions()) {
+					.getSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							false, (SemanticExpression) semExpression);

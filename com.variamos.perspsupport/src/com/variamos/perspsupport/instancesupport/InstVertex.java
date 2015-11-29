@@ -121,7 +121,8 @@ public abstract class InstVertex extends InstElement {
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
-					modelingAttribute, value == null ?  modelingAttribute.getDefaultValue() : value);
+					modelingAttribute,
+					value == null ? modelingAttribute.getDefaultValue() : value);
 			getInstAttributes().put(name, instAttribute);
 			// instAttributes.put(name, instAttribute);
 		}
@@ -214,8 +215,8 @@ public abstract class InstVertex extends InstElement {
 	public abstract String getSupportMetaElementUserIdentifier();
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		// System.out.println("InstV:"+this.getIdentifier() +
-		// insAttributeLocalId);
+		// System.out.println("InstV:" + this.getIdentifier()
+		// + insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}

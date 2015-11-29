@@ -190,7 +190,7 @@ public class ElementDesignPanel extends JPanel {
 						public void actionPerformed(ActionEvent e) {
 							List<IntSemanticExpression> ie = ((InstElement) finalEditElm)
 									.getEditableSemanticElement()
-									.getSemanticExpresions();
+									.getSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
 									finalEditor, finalEditElm, ie);
 							dialog.center();
@@ -207,7 +207,7 @@ public class ElementDesignPanel extends JPanel {
 									try {
 										finalEditElm
 												.getEditableSemanticElement()
-												.setSemanticExpresions(
+												.setSemanticExpressions(
 														dialog.getExpressions());
 
 									} catch (Exception e) {
