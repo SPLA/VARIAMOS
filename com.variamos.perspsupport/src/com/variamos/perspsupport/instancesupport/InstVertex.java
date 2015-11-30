@@ -136,7 +136,7 @@ public abstract class InstVertex extends InstElement {
 		if (getTransSupportMetaElement() == null)
 			return null;
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributes(parents);
+				.getPropVisibleAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -164,7 +164,7 @@ public abstract class InstVertex extends InstElement {
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name).getAttributeType();
+					type = getInstAttributes().get(name).getType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);

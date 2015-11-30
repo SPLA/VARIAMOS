@@ -32,8 +32,6 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.translationsupport.TranslationExpressionSet;
-import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -249,14 +247,14 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 
-		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-				"Simulation", null, null);
-		transExpSet.addExpressions(refas, null, "Execution",
-				OperationSubActionExecType.NORMAL);
-		for (Expression exp : transExpSet.getHLCLExpressions("Execution" + "-"
-				+ OperationSubActionExecType.NORMAL)) {
-			System.out.println(exp.toString());
-		}
+		/*
+		 * TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+		 * "Simulation", null, null); transExpSet.addExpressions(refas, null,
+		 * "Execution", OperationSubActionExecType.NORMAL); for (Expression exp
+		 * : transExpSet.getHLCLExpressions("Execution" + "-" +
+		 * OperationSubActionExecType.NORMAL)) {
+		 * System.out.println(exp.toString()); }
+		 */
 		String elementIdentifier = null;
 		if (instElement == null)
 			createModelExpressions(execType);
@@ -461,7 +459,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute
-							&& instAttribute.getAttributeType().equals(
+							&& instAttribute.getType().equals(
 									"Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -474,7 +472,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 										.getIdentifier().equals("NotAvailable")))
 							instAttribute.setValue(false);
 					}
-					if (instAttribute.getAttributeType().equals("Boolean")
+					if (instAttribute.getType().equals("Boolean")
 							&& (instAttribute.getIdentifier().equals(
 									"NextPrefSelected") || instAttribute
 									.getIdentifier().equals(
@@ -543,7 +541,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						// + prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute)
-										.getAttributeType().equals("Boolean")) {
+										.getType().equals("Boolean")) {
 							// System.out.println(prologOut.get(identifier));
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) == null ? "0" : prologOut
@@ -562,7 +560,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						for (String attTarget : selectedAttributes) {
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getAttributeType()
+											.getType()
 											.equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
@@ -578,7 +576,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getAttributeType()
+											.getType()
 											.equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
@@ -591,7 +589,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						for (String attTarget : notAvailableAttributes) {
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getAttributeType()
+											.getType()
 											.equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
@@ -607,7 +605,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getAttributeType()
+											.getType()
 											.equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
@@ -689,7 +687,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			InstAttribute instAttribute = instVertex
 					.getInstAttribute("Optional");
-			if (instAttribute.getAttributeType().equals("Boolean"))
+			if (instAttribute.getType().equals("Boolean"))
 				instAttribute.setValue(false);
 		}
 	}

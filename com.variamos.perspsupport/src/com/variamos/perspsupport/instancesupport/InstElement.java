@@ -332,12 +332,12 @@ public abstract class InstElement implements Serializable, EditableElement,
 			out = "<<MetaConcept>>\nClaim\n\n";
 		else if (getTransSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getTransSupportMetaElement()
-					.getPanelVisibleAttributes(parents);
+					.getPanelVisibleAttributesSet(parents);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 			Set<String> spacersAttributes = getTransSupportMetaElement()
-					.getPanelSpacersAttributes(parents);
+					.getPanelSpacersAttributesSet(parents);
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -386,8 +386,8 @@ public abstract class InstElement implements Serializable, EditableElement,
 										.get(name);
 								// System.out.println(this.getIdentifier());
 								// if (instAttribute != null) {
-								if (instAttribute.getAttributeType() != null
-										&& instAttribute.getAttributeType()
+								if (instAttribute.getType() != null
+										&& instAttribute.getType()
 												.equals("Set"))
 									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
 											.getValue())

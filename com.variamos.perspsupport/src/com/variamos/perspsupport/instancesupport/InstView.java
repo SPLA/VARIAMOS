@@ -83,7 +83,7 @@ public class InstView extends InstElement {
 	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributes(parents);
+				.getPropEditableAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -96,7 +96,7 @@ public class InstView extends InstElement {
 	@Override
 	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) {
 		Set<String> attributesNames = this.getTransSupportMetaElement()
-				.getPropVisibleAttributes(parents);
+				.getPropVisibleAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -124,7 +124,7 @@ public class InstView extends InstElement {
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name).getAttributeType();
+					type = getInstAttributes().get(name).getType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);

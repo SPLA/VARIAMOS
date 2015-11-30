@@ -348,11 +348,17 @@ public class ClassWidget extends WidgetR {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				instAttribute.setValueObject(semanticElements.get(s));
+			} else {
+				String s = ((String) txtValue.getItemAt(0)).trim();
+				instAttribute.setValueObject(semanticElements.get(s));
 			}
 		}
 		if (syntaxElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
+				instAttribute.setValueObject(syntaxElements.get(s));
+			} else {
+				String s = ((String) txtValue.getItemAt(0)).trim();
 				instAttribute.setValueObject(syntaxElements.get(s));
 			}
 		}

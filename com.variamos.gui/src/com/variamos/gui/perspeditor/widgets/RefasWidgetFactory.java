@@ -57,7 +57,7 @@ public class RefasWidgetFactory {
 	public WidgetR getWidgetFor(EditableElementAttribute v) {
 		// Type d = register.getDomain(v.getType());
 
-		String type = v.getAttributeType();
+		String type = v.getType();
 
 		Class<? extends WidgetR> c = null;
 

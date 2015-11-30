@@ -299,39 +299,51 @@ public abstract class MetaElement implements Serializable {
 
 	}
 
-	protected Set<String> getPropVisibleAttributes() {
+	public List<String> getPropVisibleAttributes() {
+		return propVisibleAttributes;
+	}
+
+	protected Set<String> getPropVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPropVisibleAttributes(List<InstElement> parents) {
-		return getPropVisibleAttributes();
+	public Set<String> getPropVisibleAttributesSet(List<InstElement> parents) {
+		return getPropVisibleAttributesSet();
 	}
 
 	public void addPropVisibleAttribute(String visibleAttribute) {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	protected Set<String> getPropEditableAttributes() {
+	public List<String> getPropEditableAttributes() {
+		return propEditableAttributes;
+	}
+
+	protected Set<String> getPropEditableAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(propEditableAttributes);
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPropEditableAttributes(List<InstElement> parents) {
-		return getPropEditableAttributes();
+	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
+		return getPropEditableAttributesSet();
 	}
 
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
 	}
 
-	public Set<String> getPanelVisibleAttributes(List<InstElement> parents) {
-		return getPanelVisibleAttributes();
+	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
+		return getPanelVisibleAttributesSet();
 	}
 
-	protected Set<String> getPanelVisibleAttributes() {
+	public List<String> getPanelVisibleAttributes() {
+		return panelVisibleAttributes;
+	}
+
+	protected Set<String> getPanelVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelVisibleAttributes);
 		return modelingAttributesNames;
@@ -341,11 +353,15 @@ public abstract class MetaElement implements Serializable {
 		panelVisibleAttributes.add(visibleAttribute);
 	}
 
-	public Set<String> getPanelSpacersAttributes(List<InstElement> parents) {
-		return getPanelSpacersAttributes();
+	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
+		return getPanelSpacersAttributesSet();
 	}
 
-	protected Set<String> getPanelSpacersAttributes() {
+	public List<String> getPanelSpacersAttributes() {
+		return panelSpacersAttributes;
+	}
+
+	protected Set<String> getPanelSpacersAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		modelingAttributesNames.addAll(panelSpacersAttributes);
 		return modelingAttributesNames;

@@ -24,21 +24,13 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 
 	private String type;
 
-	public String getAttributeType() {
-		return type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
 	private String name;
 	/**
 	 * Object associated to an existing metaElement, syntaxElement or
 	 * InstElement - from JList or JComboBox
 	 */
-	private Object valueObject;
-	
+	private Object value;
+
 	private Object group;
 
 	public AttributeElement() {
@@ -50,14 +42,14 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 		this.identifier = identifier;
 		this.type = type;
 		this.name = name;
-		this.valueObject = valueObject;
+		this.value = valueObject;
 	}
 
 	public AttributeElement(String identifier, String type, String name) {
 		this.identifier = identifier;
 		this.type = type;
 		this.name = name;
-		this.valueObject = null;
+		this.value = null;
 	}
 
 	public void setIdentifier(String identifier) {
@@ -68,14 +60,25 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 		return identifier;
 	}
 
+	public String getType() {
+		return type;
+	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	// Method from com.cfm.productline.Variable class
 	public Float getAsFloat() {
-		Object val = valueObject;
+		Object val = value;
 		if (val == null)
 			return null;
 
@@ -90,7 +93,7 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 
 	// Method from com.cfm.productline.Variable class
 	public Integer getAsInteger() {
-		Object val = valueObject;
+		Object val = value;
 		if (val == null)
 			return null;
 
@@ -105,7 +108,7 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 
 	// Method from com.cfm.productline.Variable class
 	public Boolean getAsBoolean() {
-		Object val = valueObject;
+		Object val = value;
 		if (val == null)
 			return null;
 
@@ -125,7 +128,7 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 	}
 
 	public String toString() {
-		Object val = valueObject;
+		Object val = value;
 		if (val == null)
 			return "";
 		return val.toString();
@@ -138,13 +141,13 @@ public class AttributeElement implements Serializable, EditableElementAttribute 
 	public Object getGroup() {
 		return group;
 	}
-	
+
 	public void setValue(Object valueObject) {
-		this.valueObject = valueObject;
+		this.value = valueObject;
 	}
 
 	public Object getValue() {
-		return valueObject;
+		return value;
 	}
 
 	@Override

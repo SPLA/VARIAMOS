@@ -1081,7 +1081,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
 							EditableElementAttribute v = w.getInstAttribute();
-							if (v.getAttributeType().equals("String"))
+							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
 							// Divide lines every 15 characters (aprox.)
@@ -1098,7 +1098,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
 							EditableElementAttribute v = w.getInstAttribute();
-							if (v.getAttributeType().equals("String"))
+							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
 							// Divide lines every 15 characters (aprox.)

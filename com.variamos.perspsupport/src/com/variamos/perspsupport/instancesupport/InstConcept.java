@@ -77,7 +77,7 @@ public class InstConcept extends InstVertex {
 		// superclass
 		createInstAttributes(parents);
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributes(parents);
+				.getPropEditableAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 

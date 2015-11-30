@@ -366,8 +366,7 @@ public class ElementDesignPanel extends JPanel {
 												// Makes it pull the values.
 												EditableElementAttribute elementAttribute = widget
 														.getInstAttribute();
-												if (elementAttribute
-														.getAttributeType()
+												if (elementAttribute.getType()
 														.equals("String")
 														&& !elementAttribute
 																.getIdentifier()
@@ -403,8 +402,7 @@ public class ElementDesignPanel extends JPanel {
 												// Makes it pull the values.
 												EditableElementAttribute elementAttribute = widget
 														.getInstAttribute();
-												if (elementAttribute
-														.getAttributeType()
+												if (elementAttribute.getType()
 														.equals("String")
 														&& !elementAttribute
 																.getIdentifier()
@@ -580,6 +578,7 @@ public class ElementDesignPanel extends JPanel {
 
 								}
 
+								widget.getInstAttribute();
 								// GARA
 								// variablesPanel.add(new JLabel(v.getName() +
 								// ":: "));
