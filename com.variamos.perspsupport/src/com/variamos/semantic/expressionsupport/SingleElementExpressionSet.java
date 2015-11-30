@@ -114,7 +114,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// System.out.println(instVertex.getIdentifier() + " "
 						// + instAttribute.getIdentifier());
 						int attributeValue = 0;
-						String type = (String) instAttribute.getAttributeType();
+						String type = (String) instAttribute.getType();
 						if (type.equals("Integer") || type.equals("Boolean")) {
 							if (instAttribute.getValue() instanceof Boolean)
 								attributeValue = ((boolean) instAttribute

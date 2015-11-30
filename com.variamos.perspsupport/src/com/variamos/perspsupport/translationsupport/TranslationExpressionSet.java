@@ -70,21 +70,29 @@ public class TranslationExpressionSet {
 
 	public void addExpressions(RefasModel refas, InstElement instElement,
 			String subAction, OperationSubActionExecType expressionType) {
+
+		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		OperationAction operAction = refas.getSemanticRefas()
 				.getOperationActions().get(operation);
 		OperationSubAction operSubAction = operAction
 				.getExpressionSubAction(subAction);
-		OperationSubActionExpType operExpType = operSubAction
-				.getOperationSubActionExpType(expressionType);
-		List<SemanticExpression> semExp = operExpType.getSemanticExpressions();
-		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		if (instElement == null)
-			for (InstElement instE : refas.getVariabilityVertexCollection()) {
-				out.addAll(createElementInstanceExpressions(instE, semExp));
-			}
-		else
-			out.addAll(createElementInstanceExpressions(instElement, semExp));
+		if (operSubAction != null) {
+			OperationSubActionExpType operExpType = operSubAction
+					.getOperationSubActionExpType(expressionType);
+			if (operExpType != null) {
+				List<SemanticExpression> semExp = operExpType
+						.getSemanticExpressions();
 
+				if (instElement == null)
+					for (InstElement instE : refas.getElements()) {
+						out.addAll(createElementInstanceExpressions(instE,
+								semExp));
+					}
+				else
+					out.addAll(createElementInstanceExpressions(instElement,
+							semExp));
+			}
+		}
 		instanceExpressions.put(subAction + "-" + expressionType, out);
 
 	}
@@ -95,9 +103,9 @@ public class TranslationExpressionSet {
 		IntSemanticElement semElement = instElement
 				.getTransSupportMetaElement().getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		if (semElement != null && semElement.getSemanticExpresions() != null)
+		if (semElement != null && semElement.getSemanticExpressions() != null)
 			for (IntSemanticExpression semExpression : semElement
-					.getSemanticExpresions()) {
+					.getSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							false, (SemanticExpression) semExpression);

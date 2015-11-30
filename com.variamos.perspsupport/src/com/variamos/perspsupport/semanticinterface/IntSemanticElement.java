@@ -36,9 +36,9 @@ public interface IntSemanticElement extends Serializable {
 
 	public Set<String> getAllAttributesNames(List<InstElement> parents);
 
-	public List<IntSemanticExpression> getSemanticExpresions();
+	public List<IntSemanticExpression> getSemanticExpressions();
 
-	public void setSemanticExpresions(
+	public void setSemanticExpressions(
 			List<IntSemanticExpression> semanticExpressions);
 
 	Collection<? extends String> getPanelSpacersAttributes();

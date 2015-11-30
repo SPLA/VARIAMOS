@@ -61,7 +61,7 @@ public class PropertyParameterDialog extends JDialog {
 
 		for (final EditableElementAttribute elementAttribute : arguments) {
 			panel.add(new JLabel(elementAttribute.getDisplayName() + ": "));
-			if (elementAttribute.getAttributeType().equals(
+			if (elementAttribute.getType().equals(
 					SemanticExpression.class.getCanonicalName())) {
 				JButton jb = new JButton(elementAttribute.getDisplayName());
 				panel.add(jb);

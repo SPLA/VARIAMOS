@@ -359,7 +359,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public Set<String> getDisPropEditableAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropEditableAttributes(parents);
+				.getPropEditableAttributesSet(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -391,7 +391,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public Set<String> getDisPropVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPropVisibleAttributes(parents);
+				.getPropVisibleAttributesSet(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -411,7 +411,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public Set<String> getDisPanelVisibleAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelVisibleAttributes(parents);
+				.getPanelVisibleAttributesSet(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
@@ -428,7 +428,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	public Set<String> getDisPanelSpacersAttributes(List<InstElement> parents) {
 		Set<String> editableAttributes = getMetaPairwiseRelation()
-				.getPanelSpacersAttributes(parents);
+				.getPanelSpacersAttributesSet(parents);
 
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(

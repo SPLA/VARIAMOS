@@ -37,7 +37,7 @@ public class AbstractSemanticElement implements Serializable,
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, AbstractAttribute> semanticAttributes = new HashMap<String, AbstractAttribute>();
-	private List<IntSemanticExpression> semanticExpresions;
+	private List<IntSemanticExpression> semanticExpressions;
 
 	public AbstractSemanticElement(String identifier) {
 		this(null, identifier, new ArrayList<String>(),
@@ -214,13 +214,18 @@ public class AbstractSemanticElement implements Serializable,
 		return identifier;
 	}
 
-	public List<IntSemanticExpression> getSemanticExpresions() {
-		return semanticExpresions;
+	public List<IntSemanticExpression> getSemanticExpressions() {
+		List<IntSemanticExpression> out = new ArrayList<IntSemanticExpression>();
+		if (semanticExpressions != null)
+			out.addAll(semanticExpressions);
+		if (parent != null)
+			out.addAll(parent.getSemanticExpressions());
+		return out;
 	}
 
-	public void setSemanticExpresions(
-			List<IntSemanticExpression> semanticExpresions) {
-		this.semanticExpresions = semanticExpresions;
+	public void setSemanticExpressions(
+			List<IntSemanticExpression> semanticExpressions) {
+		this.semanticExpressions = semanticExpressions;
 	}
 
 	public Set<String> getAllAttributesNames(List<InstElement> parents) {

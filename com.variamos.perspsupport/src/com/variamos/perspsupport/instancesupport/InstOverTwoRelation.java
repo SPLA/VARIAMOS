@@ -308,7 +308,7 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPropVisibleAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropVisibleAttributes(parents));
+				.getPropVisibleAttributesSet(parents));
 		return modelingAttributesNames;
 	}
 
@@ -324,7 +324,7 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPropEditableAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPropEditableAttributes(parents));
+				.getPropEditableAttributesSet(parents));
 		return modelingAttributesNames;
 	}
 
@@ -340,7 +340,7 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPanelVisibleAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelVisibleAttributes(parents));
+				.getPanelVisibleAttributesSet(parents));
 		return modelingAttributesNames;
 	}
 
@@ -356,7 +356,7 @@ public class InstOverTwoRelation extends InstVertex {
 							.getPanelSpacersAttributes());
 
 		modelingAttributesNames.addAll(getSupportMetaOverTwoRelation()
-				.getPanelSpacersAttributes(parents));
+				.getPanelSpacersAttributesSet(parents));
 		return modelingAttributesNames;
 	}
 

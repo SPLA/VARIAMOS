@@ -235,7 +235,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		// this.value = value;
 	}
 	
-	public String getAttributeType() {
+	public String getType() {
 		if (volatileAttribute != null)
 		return volatileAttribute.getType();
 		else return null;

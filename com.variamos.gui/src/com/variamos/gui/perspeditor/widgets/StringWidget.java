@@ -2,6 +2,7 @@ package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
@@ -22,7 +23,6 @@ public class StringWidget extends WidgetR {
 
 	private JTextField txtValue;
 
-
 	public StringWidget() {
 		super();
 		setLayout(new BorderLayout());
@@ -42,15 +42,17 @@ public class StringWidget extends WidgetR {
 
 	@Override
 	protected void pullValue(EditableElementAttribute v) {
-		v.setValue(txtValue.getText());
-		v.setGroup(group.getText());
+		if (v != null) {
+			v.setValue(txtValue.getText());
+			v.setGroup(group.getText());
+		}
 	}
 
 	@Override
 	public JComponent getEditor() {
 		return txtValue;
 	}
-	
+
 	@Override
 	public JComponent getGroup() {
 		return group;

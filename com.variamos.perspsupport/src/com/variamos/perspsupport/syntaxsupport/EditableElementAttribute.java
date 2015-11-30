@@ -10,7 +10,7 @@ public interface EditableElementAttribute {
 
 	public void setType(String selectedItem);
 
-	public String getAttributeType();
+	public String getType();
 
 	public Integer getAsInteger();
 

@@ -121,7 +121,8 @@ public abstract class InstVertex extends InstElement {
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
-					modelingAttribute, value == null ?  modelingAttribute.getDefaultValue() : value);
+					modelingAttribute,
+					value == null ? modelingAttribute.getDefaultValue() : value);
 			getInstAttributes().put(name, instAttribute);
 			// instAttributes.put(name, instAttribute);
 		}
@@ -135,7 +136,7 @@ public abstract class InstVertex extends InstElement {
 		if (getTransSupportMetaElement() == null)
 			return null;
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributes(parents);
+				.getPropVisibleAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -163,7 +164,7 @@ public abstract class InstVertex extends InstElement {
 				condition = attribute.substring(varEnd + 1, condEnd);
 				if (valueEnd != -1) {
 					value = attribute.substring(condEnd + 1, valueEnd);
-					type = getInstAttributes().get(name).getAttributeType();
+					type = getInstAttributes().get(name).getType();
 					defvalue = attribute.substring(valueEnd + 1);
 				} else
 					value = attribute.substring(condEnd + 1);
@@ -214,8 +215,8 @@ public abstract class InstVertex extends InstElement {
 	public abstract String getSupportMetaElementUserIdentifier();
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		// System.out.println("InstV:"+this.getIdentifier() +
-		// insAttributeLocalId);
+		// System.out.println("InstV:" + this.getIdentifier()
+		// + insAttributeLocalId);
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}

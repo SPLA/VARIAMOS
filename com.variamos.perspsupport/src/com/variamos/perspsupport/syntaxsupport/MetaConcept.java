@@ -86,7 +86,7 @@ public class MetaConcept extends MetaVertex {
 	// }
 
 	@Override
-	public Set<String> getPropVisibleAttributes(List<InstElement> parents) {
+	public Set<String> getPropVisibleAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
@@ -104,15 +104,15 @@ public class MetaConcept extends MetaVertex {
 							.getEditableSemanticElement()
 							.getPropVisibleAttributes());
 				modelingAttributesNames.addAll(parentConcept
-						.getPropVisibleAttributes());
+						.getPropVisibleAttributesSet());
 
 			}
-		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
+		modelingAttributesNames.addAll(super.getPropVisibleAttributesSet());
 		return modelingAttributesNames;
 	}
 
 	@Override
-	public Set<String> getPropEditableAttributes(List<InstElement> parents) {
+	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
@@ -131,14 +131,14 @@ public class MetaConcept extends MetaVertex {
 							.getEditableSemanticElement()
 							.getPropEditableAttributes());
 				modelingAttributesNames.addAll(parentConcept
-						.getPropEditableAttributes());
+						.getPropEditableAttributesSet());
 			}
-		modelingAttributesNames.addAll(super.getPropEditableAttributes());
+		modelingAttributesNames.addAll(super.getPropEditableAttributesSet());
 		return modelingAttributesNames;
 	}
 
 	@Override
-	public Set<String> getPanelVisibleAttributes(List<InstElement> parents) {
+	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
@@ -157,15 +157,15 @@ public class MetaConcept extends MetaVertex {
 							.getEditableSemanticElement()
 							.getPanelVisibleAttributes());
 				modelingAttributesNames.addAll(parentConcept
-						.getPanelVisibleAttributes());
+						.getPanelVisibleAttributesSet());
 
 			}
-		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
+		modelingAttributesNames.addAll(super.getPanelVisibleAttributesSet());
 		return modelingAttributesNames;
 	}
 
 	@Override
-	public Set<String> getPanelSpacersAttributes(List<InstElement> parents) {
+	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
@@ -185,10 +185,10 @@ public class MetaConcept extends MetaVertex {
 							.getPanelSpacersAttributes());
 
 				modelingAttributesNames.addAll(parentConcept
-						.getPanelSpacersAttributes());
+						.getPanelSpacersAttributesSet());
 
 			}
-		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
+		modelingAttributesNames.addAll(super.getPanelSpacersAttributesSet());
 		return modelingAttributesNames;
 	}
 

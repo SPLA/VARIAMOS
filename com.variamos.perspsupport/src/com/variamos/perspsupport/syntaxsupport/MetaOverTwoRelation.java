@@ -124,47 +124,47 @@ public class MetaOverTwoRelation extends MetaVertex {
 		// this.addPropVisibleAttribute("01#" + VAR_SEMANTICPAIRWISEREL);
 	}
 
-	public Set<String> getPropVisibleAttributes() {
+	public Set<String> getPropVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropVisibleAttributes());
 
-		modelingAttributesNames.addAll(super.getPropVisibleAttributes());
+		modelingAttributesNames.addAll(super.getPropVisibleAttributesSet());
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPropEditableAttributes() {
+	public Set<String> getPropEditableAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPropEditableAttributes());
 
-		modelingAttributesNames.addAll(super.getPropEditableAttributes());
+		modelingAttributesNames.addAll(super.getPropEditableAttributesSet());
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPanelVisibleAttributes() {
+	public Set<String> getPanelVisibleAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelVisibleAttributes());
 
-		modelingAttributesNames.addAll(super.getPanelVisibleAttributes());
+		modelingAttributesNames.addAll(super.getPanelVisibleAttributesSet());
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPanelSpacersAttributes() {
+	public Set<String> getPanelSpacersAttributesSet() {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement().getEditableSemanticElement() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getEditableSemanticElement().getPanelSpacersAttributes());
 
-		modelingAttributesNames.addAll(super.getPanelSpacersAttributes());
+		modelingAttributesNames.addAll(super.getPanelSpacersAttributesSet());
 		return modelingAttributesNames;
 	}
 

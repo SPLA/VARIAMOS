@@ -542,7 +542,7 @@ public class SharedActions {
 							.getTransSupportMetaElement())
 							.getSemanticRelationTypes();
 					ia.setValidationRelationTypes(semGD);
-					if (ia.getAttributeType().equals("Boolean")
+					if (ia.getType().equals("Boolean")
 							&& ia.getValue() instanceof String)
 						if (((String) ia.getValue()).equals("0"))
 							ia.setValue(false);
@@ -608,7 +608,7 @@ public class SharedActions {
 									parents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
-						if (ia.getAttributeType().equals("Boolean")
+						if (ia.getType().equals("Boolean")
 								&& ia.getValue() instanceof String)
 							if (((String) ia.getValue()).equals("0"))
 								ia.setValue(false);
@@ -744,7 +744,7 @@ public class SharedActions {
 								// if (absAttribute != null)// TODO find a
 								// better
 								// fix
-								if (instAttribute.getAttributeType().equals(
+								if (instAttribute.getType().equals(
 										"Boolean")
 										&& instAttribute.getValue() != null
 										&& instAttribute.getValue() instanceof String)

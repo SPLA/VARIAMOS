@@ -93,7 +93,7 @@ public class InstEnumeration extends InstVertex {
 																					// to
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributes(parents);
+				.getPropEditableAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -102,7 +102,7 @@ public class InstEnumeration extends InstVertex {
 																				// to
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributes(parents);
+				.getPropVisibleAttributesSet(parents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
