@@ -207,16 +207,17 @@ public class VariableAttributeList extends JList<InstAttribute> {
 							"", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
-			instName.setValue(split[0]);
-			instValue.setValue(split[1]);
-			instExtVisible.setValue(split[2]);
-			instExtControl.setValue(split[3]);
-			instVariableType.setValue(split[4]);
-			instContext.setValue(split[5]);
-			instVariableDomain.setValue(split[6]);
-			instEnumerationType.setValue(split[7]);
-			instVariableConfigValue.setValue(split[8]);
-			instVariableConfigDomain.setValue(split[9]);
+			instName.setValue(split[1]);
+			instValue.setValue(split[2]);
+			instExtVisible.setValue(split[3]);
+			instExtControl.setValue(split[4]);
+			instVariableType.setValue(split[5]);
+			instContext.setValue(split[6]);
+			instVariableDomain.setValue(split[7]);
+			instEnumerationType.setValue(split[8]);
+			instVariableConfigValue.setValue(split[9]);
+			if (split.length == 9)
+				instVariableConfigDomain.setValue(split[10]);
 		}
 		final InstAttribute finalInstAttribute = instAttribute;
 
@@ -275,7 +276,8 @@ public class VariableAttributeList extends JList<InstAttribute> {
 				// return false;
 				// }
 				InstAttribute v = buffer[0];
-				v.setValue(instName.getValue()
+				v.setValue("0#"
+						+ instName.getValue()
 						+ "#"
 						+ ((Integer) instValue.getValue()).intValue()
 						+ "#"
@@ -292,7 +294,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 						+ (String) instEnumerationType.getValue()
 						+ "#"
 						+ ((Integer) instVariableConfigValue.getValue())
-								.intValue() + "-"
+								.intValue() + "#"
 						+ (String) instVariableConfigDomain.getValue());
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element

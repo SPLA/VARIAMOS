@@ -63,6 +63,7 @@ public class AbstractSemanticElement implements Serializable,
 		this.propEditableAttributes = propEditableAttributes;
 		this.panelVisibleAttributes = panelVisibleAttributes;
 		this.panelSpacersAttributes = panelSpacersAttributes;
+		this.semanticExpressions = new ArrayList<IntSemanticExpression>();
 	}
 
 	public AbstractSemanticElement getParent() {
@@ -212,6 +213,13 @@ public class AbstractSemanticElement implements Serializable,
 
 	public String getIdentifier() {
 		return identifier;
+	}
+
+	public List<IntSemanticExpression> getDeclaredSemanticExpressions() {
+		List<IntSemanticExpression> out = new ArrayList<IntSemanticExpression>();
+		if (semanticExpressions != null)
+			out.addAll(semanticExpressions);
+		return out;
 	}
 
 	public List<IntSemanticExpression> getSemanticExpressions() {

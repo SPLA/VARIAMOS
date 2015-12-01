@@ -36,6 +36,8 @@ public interface IntSemanticElement extends Serializable {
 
 	public Set<String> getAllAttributesNames(List<InstElement> parents);
 
+	public List<IntSemanticExpression> getDeclaredSemanticExpressions();
+
 	public List<IntSemanticExpression> getSemanticExpressions();
 
 	public void setSemanticExpressions(

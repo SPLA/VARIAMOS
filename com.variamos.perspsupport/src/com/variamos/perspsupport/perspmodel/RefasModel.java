@@ -2886,6 +2886,8 @@ public class RefasModel extends AbstractModel {
 		ias.add(new InstAttribute("and", new AbstractAttribute("and",
 				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
 				""), semanticExpressions));
+		
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -2907,6 +2909,8 @@ public class RefasModel extends AbstractModel {
 				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
 				""), semanticExpressions));
 
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+		
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
@@ -2925,6 +2929,8 @@ public class RefasModel extends AbstractModel {
 		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
 				"", ""), semanticExpressions));
+		
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		variabilityInstVertex.put("Claim", instVertexCL);
 
