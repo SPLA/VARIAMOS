@@ -18,7 +18,8 @@ import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
 import com.variamos.solver.Solver;
 
-public class SWIPrologTest {
+@Deprecated
+public class SWIPrologTestV3 {
 
 	private HlclFactory f = null;
 
@@ -34,7 +35,7 @@ public class SWIPrologTest {
 	/**
 	 * Little example to test the program load in SWI Prolog.
 	 */
-	@Test
+	
 	public void isSatisfiableTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -52,7 +53,7 @@ public class SWIPrologTest {
 
 	}
 
-	@Test
+	
 	public void oneConfigurationTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -95,7 +96,7 @@ public class SWIPrologTest {
 
 	}
 	
-	@Test
+	
 	public void allConfigurationsTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -125,8 +126,6 @@ public class SWIPrologTest {
 		assertTrue(solFound == 2);
 
 	}
-	
-
 
 	@Test
 	public void loadMethod() {
@@ -151,7 +150,6 @@ public class SWIPrologTest {
 		System.out.println(" load time: " + totalTime);
 	}
 
-	@Test
 	public void isSatisfiableWithParametersTest() {
 
 		Identifier A = f.newIdentifier("A", "A");
@@ -182,7 +180,7 @@ public class SWIPrologTest {
 		ConfigurationOptions options = new ConfigurationOptions();
 		options.addAdditionalExpression(comparaison);
 		swiSolver.solve(new Configuration(), new ConfigurationOptions());
-		boolean isSatisfiable = swiSolver.hasSolution();
+		boolean isSatisfiable = swiSolver.hasNextSolution();
 
 		assertTrue(isSatisfiable);
 	}
