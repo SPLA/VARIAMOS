@@ -3,18 +3,18 @@ package com.variamos.solver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
-import org.jpl7.Compound;
-import org.jpl7.Query;
-import org.jpl7.Term;
-import org.jpl7.Util;
-import org.jpl7.Variable;
+import jpl.Compound;
+import jpl.Query;
+import jpl.Term;
+import jpl.Util;
+import jpl.Variable;
 
 import com.cfm.common.AbstractModel;
 import com.variamos.core.exceptions.TechnicalException;
@@ -25,8 +25,8 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.prologEditors.Hlcl2SWIProlog;
 import com.variamos.prologEditors.PrologTransformParameters;
-
-public class SWIPrologSolver implements Solver {
+@Deprecated
+public class SWIPrologSolverV3 implements Solver {
 
 	private boolean loaded;
 	private static Object monitor = new Object();
@@ -40,13 +40,12 @@ public class SWIPrologSolver implements Solver {
 	private long lastExecutionTime;
 
 	public final static String PROGRAM_INVOCATION = "productline(L)";
-	public final static String PARTIAL_INVOCATION_NAME = "productline";
 
-	public SWIPrologSolver() {
+	public SWIPrologSolverV3() {
 
 	}
 
-	public SWIPrologSolver(HlclProgram hlclProgram) {
+	public SWIPrologSolverV3(HlclProgram hlclProgram) {
 		super();
 		this.hlclProgram = hlclProgram;
 	}
@@ -63,9 +62,12 @@ public class SWIPrologSolver implements Solver {
 
 		String query = PROGRAM_INVOCATION;
 		if (loaded) {
-			Query qr = new Query(query);
-			return qr.hasSolution();
-
+			Query prologQuery = new Query(query);
+			// Se obtiene una solución
+			Hashtable[] table = prologQuery.nSolutions(1);
+			if (table.length >= 1) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -80,10 +82,21 @@ public class SWIPrologSolver implements Solver {
 	@Override
 	public void solve(Configuration config, ConfigurationOptions options) {
 
-		// Restarts the solver
+		// Reinicia el solver
 		synchronized (monitor) {
 			if (options.isStartFromZero()) {
-				endSolving();
+				if (qr != null && qr.isOpen()) {
+
+					try {
+						qr.rewind();// Cierra las consultas que no se hayan
+									// explorado
+						qr.close();
+						Thread.sleep(10); //To make safer the new call, reduce FATAL ERROR
+					} catch (Exception e) {
+					}
+
+				}
+				qr = null;
 				vars = new TreeMap<>();
 				doQuery(config, options);
 			}
@@ -94,7 +107,8 @@ public class SWIPrologSolver implements Solver {
 
 	private void doQuery(Configuration config, ConfigurationOptions options) {
 
-		if ((hlclProgram == null || hlclProgram.isEmpty()) && options.getProgramPath() == null) {
+		if ((hlclProgram == null || hlclProgram.isEmpty())
+				&& options.getProgramPath() == null) {
 			throw new TechnicalException("HlclProgram was not initialized");
 		} else if (hlclProgram == null) {
 			// A predefined prolog file is charged
@@ -105,9 +119,11 @@ public class SWIPrologSolver implements Solver {
 			// real hlclprogram
 			HlclProgram modifiedCopy = new HlclProgram();
 			modifiedCopy.addAll(hlclProgram.subList(0, hlclProgram.size()));
-			PrologTransformParameters params = addParametersToProgram(modifiedCopy, options);
+			PrologTransformParameters params = addParametersToProgram(
+					modifiedCopy, options);
 			programPath = createPrologFile(modifiedCopy, params);
-			Set<Identifier> identifiers = HlclUtil.getUsedIdentifiers(hlclProgram);
+			Set<Identifier> identifiers = HlclUtil
+					.getUsedIdentifiers(hlclProgram);
 			// Variables map is mandatory for dynamic configurations
 			for (Identifier id : identifiers) {
 				vars.put(id.getId(), new Variable(id.getId()));
@@ -118,42 +134,45 @@ public class SWIPrologSolver implements Solver {
 		lastExecutionTime = System.nanoTime() - initTime;
 	}
 
-	private void consultProgram(Configuration config, ConfigurationOptions options) {
+	private void consultProgram(Configuration config,
+			ConfigurationOptions options) {
 
-		if (options.getProgramName() == null) {
-			List<Compound> parts = new ArrayList<>();
-			Term[] varTermsArray = new Term[vars.size()];
-			int count = 0;
-			for (String id : vars.keySet()) {
-				varTermsArray[count] = vars.get(id);
-				count++;
+//		synchronized (monitor) {
+			if (options.getProgramName() == null) {
+				List<Compound> parts = new ArrayList<>();
+				Term[] varTermsArray = new Term[vars.size()];
+				int count = 0;
+				for (String id : vars.keySet()) {
+					varTermsArray[count] = vars.get(id);
+					count++;
+				}
+				// Generate the list of variables Ejm L={A,B,C}
+				Term L = Util.termArrayToList(varTermsArray);
+
+				// Generate the assigns for the not ignored variables
+				for (String id : config.getNotIgnored()) {
+					// Create the atom
+					jpl.Integer i = new jpl.Integer(config.stateOf(id));
+					// Create the compound for the assign.
+					Compound assign = new Compound("=", new Term[] {
+							vars.get(id), i });
+					parts.add(assign);
+				}
+
+				parts.add(new Compound("productline", new Term[] { L }));
+
+				// Add all additional configuration options
+				Compound query = addSubQueries(parts);
+				// System.out.println(query.toString());
+				long initTime = System.nanoTime();
+				qr = new Query(query);
+				lastExecutionTime += System.nanoTime() - initTime;
+			} else {
+				long initTime = System.nanoTime();
+				qr = new Query(options.programName + "(L)");
+				lastExecutionTime += System.nanoTime() - initTime;
 			}
-			// Generate the list of variables Ejm L={A,B,C}
-			Term L = Util.termArrayToList(varTermsArray);
-
-			// Generate the assigns for the not ignored variables
-			for (String id : config.getNotIgnored()) {
-				// Create the atom
-				org.jpl7.Integer i = new org.jpl7.Integer(config.stateOf(id));
-				// Create the compound for the assign.
-				Compound assign = new Compound("=", new Term[] { vars.get(id), i });
-				parts.add(assign);
-			}
-
-			parts.add(new Compound(PARTIAL_INVOCATION_NAME, new Term[] { L }));
-
-			// Add all additional configuration options
-			Compound query = addSubQueries(parts);
-			// System.out.println(query.toString());
-			long initTime = System.nanoTime();
-			qr = new Query(query);
-			lastExecutionTime += System.nanoTime() - initTime;
-		} else {
-			long initTime = System.nanoTime();
-			qr = new Query(options.programName + "(L)");
-			lastExecutionTime += System.nanoTime() - initTime;
-		}
-
+//		}
 	}
 
 	private static Compound addSubQueries(List<Compound> parts) {
@@ -166,7 +185,8 @@ public class SWIPrologSolver implements Solver {
 
 		int n = parts.size();
 
-		Compound partial = new Compound(",", new Term[] { parts.get(n - 2), parts.get(n - 1) });
+		Compound partial = new Compound(",", new Term[] { parts.get(n - 2),
+				parts.get(n - 1) });
 		for (int i = n - 3; i >= 0; i--)
 			partial = new Compound(",", new Term[] { parts.get(i), partial });
 
@@ -180,26 +200,22 @@ public class SWIPrologSolver implements Solver {
 			throw new TechnicalException("Solve method was not invoked");
 		}
 		synchronized (monitor) {
-			boolean result = qr.hasNext();
+			boolean result = qr.hasMoreElements();
 			return result;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.variamos.solver.Solver#getSolution()
-	 */
 	@Override
 	public Configuration getSolution() {
 		if (qr != null) {
 			synchronized (monitor) {
 				if (hasNextSolution()) {
 					long initTime = System.nanoTime();
-					//More documentation about this method is available at http://jpl7.org/doc/index.html
-					Map<String, Term> configurationMap = qr.nextSolution();
+					Hashtable<Variable, Term> configurationHashSet = qr
+							.nextSolution();
 					lastExecutionTime = System.nanoTime() - initTime;
-
-					if (configurationMap != null) {
-						Configuration configuration = makeConfiguration(configurationMap);
+					if (configurationHashSet != null) {
+						Configuration configuration = makeConfiguration(configurationHashSet);
 						return configuration;
 					}
 				}
@@ -209,22 +225,24 @@ public class SWIPrologSolver implements Solver {
 		return null;
 	}
 
-	private Configuration makeConfiguration(Map<String, Term> configurationResultMap) {
+	private Configuration makeConfiguration(
+			Hashtable<Variable, Term> configurationHashSet) {
 
 		// FIXME: puede ser mejorado para quitar esta L quemada
-		Term invocationTerm = (Term) configurationResultMap.get("L");
+		Term invocationTerm = (Term) configurationHashSet.get("L");
 		Configuration configuration = new Configuration();
-		// A predefined list of variables was sent
 		if (invocationTerm != null) {
 			List<Integer> configurationValues = new ArrayList<Integer>();
 			// Obtiene del resultado de L los valores asignados a cada variable
 			// descomponiendo el resultado
-			getSolutionValues(invocationTerm.args(), configurationValues);
+			configurationValues = getSolutionValues(invocationTerm.args(),
+					configurationValues);
 
-			// Get the ordered list of identifiers from the HLCL program to put
-			// them into a new configuration.
-			// We use the same order when we make a new prolog program
+			// Obtiene la lista ordenada de identificadores del hlcl program
+			// para asignarlos a la configuracion. En este mismo orden se crean
+			// cuando se define el programa de prolog
 			Set<Identifier> idsSet = HlclUtil.getUsedIdentifiers(hlclProgram);
+
 			int i = 0;
 			if (idsSet.size() == idsSet.size()) {
 				for (Identifier identifier : idsSet) {
@@ -242,17 +260,17 @@ public class SWIPrologSolver implements Solver {
 				return configuration;
 			} else {
 				throw new TechnicalException(
-						"The values and the number of variables must be equals into the expression list ");
+						"Configurated values and number of variables defined in expressions must be equals");
 			}
 		} else {
-			Set<String> variables = configurationResultMap.keySet();
+			Set<Variable> variables = configurationHashSet.keySet();
 
 			Term term;
 			String variable;
-			Iterator<String> iterator = variables.iterator();
+			Iterator iterator = variables.iterator();
 			while (iterator.hasNext()) {
-				variable = iterator.next();
-				term = configurationResultMap.get(variable);
+				variable = (String) iterator.next();
+				term = configurationHashSet.get(variable);
 
 				if (term.isInteger()) {
 					Integer termValue = term.intValue();
@@ -264,8 +282,6 @@ public class SWIPrologSolver implements Solver {
 						configuration.set(variable, termValue);
 					}
 
-				} else {
-					throw new TechnicalException("Swi prolog API only supports integer values, please check ");
 				}
 			}
 		}
@@ -274,37 +290,16 @@ public class SWIPrologSolver implements Solver {
 
 	private boolean loadSWIProgram(String temporalPath) {
 		// To solve out of global stack
-		org.jpl7.fli.Prolog.set_default_init_args(new String[] { "pl", "-nosignals", "-L128m", "-G128m" });
+		jpl.fli.Prolog.set_default_init_args(new String[] { "pl", "-nosignals",
+				"-L128m", "-G128m" });
 		Query q1 = new Query("consult('" + temporalPath + "')");
 		return q1.hasSolution();
 	}
 
 	@Override
 	public void nextSolution() {
-		if (qr != null) {
-			synchronized (monitor) {
-				if (hasNextSolution())
-					qr.nextSolution();
-				else
-					endSolving();
-			}
+		// disabled method in SWI prolog
 
-		}
-
-	}
-
-	private void endSolving() {
-		if (qr != null && qr.isOpen()) {
-			try {
-				qr.close();
-				// To make safer the new call, reduce FATAL ERROR
-				Thread.sleep(10);
-			} catch (Exception e) {
-
-			}
-
-		}
-		qr = null;
 	}
 
 	@Override
@@ -314,13 +309,15 @@ public class SWIPrologSolver implements Solver {
 	}
 
 	@Override
-	public Map<String, List<Integer>> reduceDomain(Configuration config, ConfigurationOptions params) {
+	public Map<String, List<Integer>> reduceDomain(Configuration config,
+			ConfigurationOptions params) {
 		// TODO Auto-generated method stub
 		// FIXME
 		return null;
 	}
 
-	private static List<Integer> getSolutionValues(Term[] terms, List<Integer> values) {
+	private static List<Integer> getSolutionValues(Term[] terms,
+			List<Integer> values) {
 
 		if (terms[1].isAtom()) {
 			Integer valueInteger = terms[0].intValue();
@@ -336,7 +333,8 @@ public class SWIPrologSolver implements Solver {
 		return values;
 	}
 
-	private PrologTransformParameters addParametersToProgram(HlclProgram prog, ConfigurationOptions options) {
+	private PrologTransformParameters addParametersToProgram(HlclProgram prog,
+			ConfigurationOptions options) {
 
 		PrologTransformParameters params = getParamsFor(options);
 
@@ -366,9 +364,11 @@ public class SWIPrologSolver implements Solver {
 		return params;
 	}
 
-	private String createPrologFile(HlclProgram hlclProgram, PrologTransformParameters params) {
+	private String createPrologFile(HlclProgram hlclProgram,
+			PrologTransformParameters params) {
 		Hlcl2SWIProlog swiPrologTransformer = new Hlcl2SWIProlog();
-		String prologProgram = swiPrologTransformer.transform(hlclProgram, params);
+		String prologProgram = swiPrologTransformer.transform(hlclProgram,
+				params);
 		String path;
 		try {
 			// Create a temporary file
@@ -412,20 +412,20 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public List<Configuration> getAllSolutions() {
-		Map<String, Term>[] configurationResultMap;
+		Hashtable<Variable, Term>[] configurationHashSets;
 		List<Configuration> configurations = new ArrayList<Configuration>();
 		if (qr != null) {
 			synchronized (monitor) {
-				configurationResultMap = qr.allSolutions();
-				for (Map<String, Term> configuration : configurationResultMap) {	
-					if (configuration != null) {
-						configurations.add(this.makeConfiguration(configuration));
+				configurationHashSets = qr.allSolutions();
+				for (Hashtable<Variable, Term> configurationHashSet : configurationHashSets) {
+					if (configurationHashSet != null) {
+						configurations.add(this
+								.makeConfiguration(configurationHashSet));
 					}
 				}
 			}
 		}
 		return configurations;
-		
 	}
 
 	@Override
@@ -433,16 +433,16 @@ public class SWIPrologSolver implements Solver {
 		if (qr != null && qr.isOpen()) {
 
 			try {
+				qr.rewind();// Cierra las consultas que no se hayan
+							// explorado
 				qr.close();
 			} catch (Exception e) {
-				System.out.println(e.toString());
-				throw new TechnicalException("Problems cleaning the query monitor details:"+ e.toString());
 			}
 
 		}
 		qr = null;
 		monitor = new Object();
-
+		
 	}
 
 }
