@@ -74,8 +74,7 @@ public class SemanticExpressionDialog extends JDialog {
 			List<IntSemanticExpression> semanticExpressions) {
 		super(editor.getFrame(), "Semantic Expressions Editor");
 		refasModel = (RefasModel) editor.getEditedModel();
-		this.semanticExpressions = new ArrayList<IntSemanticExpression>();
-		this.semanticExpressions.add(new SemanticExpression(instElement));
+		this.semanticExpressions = semanticExpressions;
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, semanticExpressions);
 	}
@@ -100,7 +99,7 @@ public class SemanticExpressionDialog extends JDialog {
 		if (semanticExpressions != null)
 			this.semanticExpressions = semanticExpressions;
 		final List<IntSemanticExpression> finalSemanticExpressions = this.semanticExpressions;
-		for (IntSemanticExpression semanticExpression : this.semanticExpressions) {
+		for (final IntSemanticExpression semanticExpression : this.semanticExpressions) {
 
 			if (semanticExpressions != null)
 				selectedExpression = (SemanticExpression) semanticExpression;
@@ -108,6 +107,24 @@ public class SemanticExpressionDialog extends JDialog {
 			solutionPanel = new JPanel();
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
+			JTextField iden = new JTextField();
+			iden.setSize(100, 40);
+			iden.setText(semanticExpression.getIdentifier());
+			iden.addFocusListener(new FocusListener() {
+				@Override
+				public void focusGained(FocusEvent e) {
+				}
+
+				@Override
+				public void focusLost(FocusEvent event) {
+					String item = (String) ((JTextField) event.getSource())
+							.getText();
+					if (item != null) {
+						semanticExpression.setIdentifier(item);
+					}
+				}
+			});
+			solutionPanel.add(iden);
 			showExpression((SemanticExpression) semanticExpression, element,
 					solutionPanel, SemanticExpressionType.BOOLEXP, 255);
 

@@ -14,8 +14,8 @@ public class EnumerationSort implements Comparator<Object> {
 			if (oo1 instanceof String && oo2 instanceof String) {
 				String s1 = (String) oo1;
 				String s2 = (String) oo2;
-				String[] ss1 = s1.split("-");
-				String[] ss2 = s2.split("-");
+				String[] ss1 = s1.split("#");
+				String[] ss2 = s2.split("#");
 				int i1 = Integer.parseInt(ss1[0]);
 				int i2 = Integer.parseInt(ss2[0]);
 				return (i1 - i2);
