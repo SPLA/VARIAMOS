@@ -64,6 +64,7 @@ import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationDialog;
 import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
+import com.variamos.gui.perspeditor.panels.OperationDefinitionDialog;
 import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
 import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
@@ -169,6 +170,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private ExternalContextDialog ecd = new ExternalContextDialog(this);
 
 	private ElementsOperationAssociationDialog eoad;
+
+	private OperationDefinitionDialog odd;
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
 			(RefasModel) getEditedModel());
@@ -1903,5 +1906,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void showElementOperationAssociationDialog(int dialog) {
 		eoad = new ElementsOperationAssociationDialog(this, dialog);
 		eoad.center();
+	}
+
+	public void showOperationDefinitionDialog() {
+		odd = new OperationDefinitionDialog(this);
+		odd.center();
 	}
 }

@@ -694,6 +694,9 @@ public class SharedActions {
 				// .createAttributes(new HashMap<String, InstAttribute>());
 				// if (source.getSource() == null)
 				// source.getSource().toString();
+				if (source.getSource() == null) {
+					System.out.println("");
+				}
 				InstElement sourceVertex = (InstElement) ((InstCell) source
 						.getSource().getValue()).getInstElement();
 				InstElement targetVertex = (InstElement) ((InstCell) source
@@ -744,8 +747,7 @@ public class SharedActions {
 								// if (absAttribute != null)// TODO find a
 								// better
 								// fix
-								if (instAttribute.getType().equals(
-										"Boolean")
+								if (instAttribute.getType().equals("Boolean")
 										&& instAttribute.getValue() != null
 										&& instAttribute.getValue() instanceof String)
 									if (((String) instAttribute.getValue())
