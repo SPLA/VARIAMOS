@@ -15,6 +15,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -24,6 +25,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
@@ -509,6 +511,16 @@ public class SharedActions {
 				InstElement rr = refas.getSemanticRefas().getVertex(
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
+			}
+			IntSemanticElement semElement = instElement
+					.getEditableSemanticElement();
+			if (semElement != null) {
+				List<IntSemanticExpression> semExp = semElement
+						.getSemanticExpressions();
+				for (IntSemanticExpression exp : semExp) {
+					((SemanticExpression) exp).loadVolatileElements(refas
+							.getVariabilityVertex());
+				}
 			}
 		}
 

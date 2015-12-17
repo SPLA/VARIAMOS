@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
@@ -44,6 +45,11 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	 * for LEFT Relation Concept
 	 */
 	private InstElement volatileLeftSemanticRelElement;
+
+	private String rightSemanticElementId;
+	private String leftSemanticElementId;
+	private String rightSemanticRelElementId;
+	private String leftSemanticRelElementId;
 
 	/**
 	 * for RIGHT Concept - Related Concept
@@ -393,6 +399,57 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		this.volatileLeftSemanticElement = leftSemanticElement;
 		this.leftAttributeName = attributeName;
 		setLeftExpressionType(leftExpressionVertexType);
+	}
+
+	public String getRightSemanticElementId() {
+		return rightSemanticElementId;
+	}
+
+	public void setRightSemanticElementId(String rightSemanticElementId) {
+		this.rightSemanticElementId = rightSemanticElementId;
+	}
+
+	public String getLeftSemanticElementId() {
+		return leftSemanticElementId;
+	}
+
+	public void setLeftSemanticElementId(String leftSemanticElementId) {
+		this.leftSemanticElementId = leftSemanticElementId;
+	}
+
+	public String getRightSemanticRelElementId() {
+		return rightSemanticRelElementId;
+	}
+
+	public void setRightSemanticRelElementId(String rightSemanticRelElementId) {
+		this.rightSemanticRelElementId = rightSemanticRelElementId;
+	}
+
+	public String getLeftSemanticRelElementId() {
+		return leftSemanticRelElementId;
+	}
+
+	public void setLeftSemanticRelElementId(String leftSemanticRelElementId) {
+		this.leftSemanticRelElementId = leftSemanticRelElementId;
+	}
+
+	public void loadVolatileElements(Map<String, InstElement> instVertices) {
+		if (rightSemanticElementId != null)
+			volatileRightSemanticElement = instVertices
+					.get(rightSemanticElementId);
+		if (leftSemanticElementId != null)
+			volatileLeftSemanticElement = instVertices
+					.get(leftSemanticElementId);
+		if (rightSemanticElementId != null)
+			volatileRightSemanticRelElement = instVertices
+					.get(rightSemanticRelElementId);
+		if (leftSemanticElementId != null)
+			volatileLeftSemanticRelElement = instVertices
+					.get(leftSemanticRelElementId);
+		if (leftSemanticExpression != null)
+			leftSemanticExpression.loadVolatileElements(instVertices);
+		if (rightSemanticExpression != null)
+			rightSemanticExpression.loadVolatileElements(instVertices);
 	}
 
 	public String getLeftExpTypeStr() {

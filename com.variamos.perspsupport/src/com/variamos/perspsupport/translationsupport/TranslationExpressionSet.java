@@ -103,7 +103,8 @@ public class TranslationExpressionSet {
 		IntSemanticElement semElement = instElement
 				.getTransSupportMetaElement().getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		if (semElement != null && semElement.getSemanticExpressions() != null)
+		if (semElement != null
+				&& semElement.getAllSemanticExpressions() != null)
 			for (IntSemanticExpression semExpression : semElement
 					.getSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
