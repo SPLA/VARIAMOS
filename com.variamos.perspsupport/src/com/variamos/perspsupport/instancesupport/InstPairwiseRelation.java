@@ -571,7 +571,8 @@ public class InstPairwiseRelation extends InstElement {
 			supportMetaPairwiseRelIden = ((MetaPairwiseRelation) metaEdge)
 					.getAutoIdentifier();
 		}
-		if (getInstAttribute("relationType") != null)
+		if (getInstAttribute("relationType") != null
+				&& (String) getInstAttribute("relationType").getValue() != null)
 			semanticPairwiseRelType = ((String) getInstAttribute("relationType")
 					.getValue()).trim();
 

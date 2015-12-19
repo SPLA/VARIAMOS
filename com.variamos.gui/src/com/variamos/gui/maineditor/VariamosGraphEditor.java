@@ -1470,10 +1470,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public void updateObjects() {
-		if (perspective == 2) {
-			mxGraph target = graphComponent.getGraph();
-			SharedActions.afterOpenCloneGraph(target, this);
-		}
 		if (perspective == 4) {
 			clearElementState(Refas2Hlcl.DESIGN_EXEC);
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
@@ -1491,6 +1487,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					.setValue("simul");
 			// Different from null, to display simulation colors
 			this.refresh();
+		} else
+		 if (perspective == 2)
+		{
+			mxGraph target = graphComponent.getGraph();
+			SharedActions.afterOpenCloneGraph(target, this);
 		}
 	}
 

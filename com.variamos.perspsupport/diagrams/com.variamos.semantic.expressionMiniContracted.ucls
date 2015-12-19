@@ -317,7 +317,7 @@
   <association id="57">    
     <bendpoint x="383" y="-102"/>    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="58" name="instElement">        
+      <attribute id="58" name="volatileSemanticElement">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="59" minimum="0" maximum="1">        

@@ -3112,7 +3112,7 @@ public class RefasModel extends AbstractModel {
 		featSemOverTwoRelList.add(new SemanticRelationType("mutex", "Mutex",
 				"Mutex.", false, true, true, 2, -1, 1, 1));
 		featSemOverTwoRelList.add(new SemanticRelationType("range", "Range",
-				"Range", false, true, true, 2, -1, 1, 1));
+				"range", false, true, true, 2, -1, 1, 1));
 		featSemOverTwoRelList.add(new SemanticRelationType("other", "other",
 				"other", false, true, true, 2, -1, 1, 1));
 

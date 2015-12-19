@@ -125,6 +125,8 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			});
 			solutionPanel.add(iden);
+			((SemanticExpression) semanticExpression)
+					.loadVolatileElements(refasModel.getVariabilityVertex());
 			showExpression((SemanticExpression) semanticExpression, element,
 					solutionPanel, SemanticExpressionType.BOOLEXP, 255);
 

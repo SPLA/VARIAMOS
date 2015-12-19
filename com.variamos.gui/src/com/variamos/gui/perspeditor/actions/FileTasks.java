@@ -114,6 +114,7 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		setProgress(70);
 		progressMonitor.setNote("Updating DataModel...");
 		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
+		SharedActions.afterOpenCloneGraph(graph, variamosEditor);
 		variamosEditor.populateIndex(((AbstractGraph) graph).getProductLine());
 		setProgress(90);
 		progressMonitor.setNote("Load completed.");
@@ -124,8 +125,8 @@ public class FileTasks extends SwingWorker<Void, Void> {
 
 	public boolean saveAction(String filename) throws InterruptedException {
 		setProgress(1);
-		int modelViewIndex =variamosEditor.getModelViewIndex();
-		int modelSubViewIndex =variamosEditor.getModelSubViewIndex();
+		int modelViewIndex = variamosEditor.getModelViewIndex();
+		int modelSubViewIndex = variamosEditor.getModelSubViewIndex();
 		progressMonitor.setNote("Preparing to save file");
 		mxCodec codec = new mxCodec();
 		mxGraph outGraph = SharedActions.beforeGraphOperation(graph, true,
@@ -168,11 +169,10 @@ public class FileTasks extends SwingWorker<Void, Void> {
 			variamosEditor.setCurrentFile(new File(filename));
 			setProgress(95);
 			progressMonitor.setNote("Save Completed");
-			variamosEditor.setVisibleModel(modelViewIndex,
-					modelSubViewIndex);
+			variamosEditor.setVisibleModel(modelViewIndex, modelSubViewIndex);
 			variamosEditor.setSelectedTab(modelViewIndex);
 			variamosEditor.updateView();
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

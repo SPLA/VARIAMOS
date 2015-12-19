@@ -77,6 +77,8 @@ public class SharedActions {
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
 			for (int i = 0; i < o1.getChildCount(); i++) {
 				mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
+				InstElement value3 = (InstElement) ((InstCell) mv.getValue())
+						.getInstElement();
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
 					InstElement value = (InstElement) ((InstCell) concept
@@ -86,11 +88,12 @@ public class SharedActions {
 								concept, k);
 						InstElement value2 = (InstElement) ((InstCell) concept2
 								.getValue()).getInstElement();
-						updateIdAndObjects(value2, beforeSave);
+						updateIdAndObjects(value2, beforeSave, true);
 
 					}
-					updateIdAndObjects(value, beforeSave);
+					updateIdAndObjects(value, beforeSave, true);
 				}
+				updateIdAndObjects(value3, beforeSave, false);
 			}
 		}
 		stopTime = System.currentTimeMillis();
@@ -131,7 +134,8 @@ public class SharedActions {
 		}
 	}
 
-	private static void updateIdAndObjects(Object value, boolean beforeSave) {
+	private static void updateIdAndObjects(Object value, boolean beforeSave,
+			boolean model) {
 		if (value instanceof InstElement) {
 			InstElement instElement = (InstElement) value;
 			if (value instanceof InstOverTwoRelation) {
@@ -148,7 +152,7 @@ public class SharedActions {
 							.clearMetaPairwiseRelation();
 				}
 			}
-			if (beforeSave) {
+			if (beforeSave && model) {
 				instElement.clearEditableMetaVertex();
 				instElement.clearInstAttributesObjects();
 			}
