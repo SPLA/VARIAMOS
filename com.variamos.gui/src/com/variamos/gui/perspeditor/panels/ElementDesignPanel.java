@@ -759,7 +759,7 @@ public class ElementDesignPanel extends JPanel {
 							instCell.getInstElement(), instCell
 									.getInstElement()
 									.getEditableSemanticElement()
-									.getSemanticAttributes(), attributeEdition);
+									.getAllSemanticAttributes(), attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(450, 450));
 				attPanel.setMaximumSize(new Dimension(550, 450));

@@ -180,7 +180,8 @@ public class ElementsOperationAssociationPanel extends
 			// Add Attributes
 			if (dialog == 0
 					&& el.getEditableSemanticElement() != null
-					&& el.getEditableSemanticElement().getSemanticExpressions() != null)
+					&& el.getEditableSemanticElement()
+							.getAllSemanticExpressions() != null)
 				for (IntSemanticExpression v : el.getEditableSemanticElement()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();

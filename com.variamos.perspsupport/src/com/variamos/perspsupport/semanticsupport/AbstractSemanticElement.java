@@ -166,12 +166,12 @@ public class AbstractSemanticElement implements Serializable,
 		return properties;
 	}
 
-	public Map<String, AbstractAttribute> getSemanticAttributes() {
+	public Map<String, AbstractAttribute> getAllSemanticAttributes() {
 
 		Map<String, AbstractAttribute> abstractAttributes = new HashMap<String, AbstractAttribute>();
 		abstractAttributes.putAll(semanticAttributes);
 		if (parent != null)
-			abstractAttributes.putAll(parent.getSemanticAttributes());
+			abstractAttributes.putAll(parent.getAllSemanticAttributes());
 		return abstractAttributes;
 	}
 
@@ -179,6 +179,10 @@ public class AbstractSemanticElement implements Serializable,
 		Set<String> abstractAttributesNames = new HashSet<String>();
 		abstractAttributesNames.addAll(semanticAttributes.keySet());
 		return abstractAttributesNames;
+	}
+
+	public Map<String, AbstractAttribute> getSemanticAttributes() {
+		return semanticAttributes;
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
@@ -222,13 +226,17 @@ public class AbstractSemanticElement implements Serializable,
 		return out;
 	}
 
-	public List<IntSemanticExpression> getSemanticExpressions() {
+	public List<IntSemanticExpression> getAllSemanticExpressions() {
 		List<IntSemanticExpression> out = new ArrayList<IntSemanticExpression>();
 		if (semanticExpressions != null)
 			out.addAll(semanticExpressions);
 		if (parent != null)
-			out.addAll(parent.getSemanticExpressions());
+			out.addAll(parent.getAllSemanticExpressions());
 		return out;
+	}
+
+	public List<IntSemanticExpression> getSemanticExpressions() {
+		return semanticExpressions;
 	}
 
 	public void setSemanticExpressions(

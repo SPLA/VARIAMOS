@@ -82,11 +82,29 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
 				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
-				VAR_RELATIONTYPE_CLASS, null, null, 0, 6, "", "",6, "",""));
+				VAR_RELATIONTYPE_CLASS, null, null, 0, 6, "", "", 6, "", ""));
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
+
+		putSemanticAttribute("LowRange", new SemanticAttribute("LowRange",
+				"Integer", false, "Low Range", "1", 0, 6, "", "", 6, "", ""));
+		addPropEditableAttribute("08#" + "LowRange");
+		addPropVisibleAttribute("08#" + "LowRange" + "#"
+				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");
+		addPanelVisibleAttribute("08#" + "LowRange" + "#"
+				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range");
+		addPanelSpacersAttribute(" [#" + "LowRange" + "#");
+
+		putSemanticAttribute("HighRange", new SemanticAttribute("HighRange",
+				"Integer", false, "High Range", "1", 0, 6, "", "", 6, "", ""));
+		addPropEditableAttribute("09#" + "HighRange");
+		addPropVisibleAttribute("09#" + "HighRange" + "#"
+				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");
+		addPanelVisibleAttribute("09#" + "HighRange" + "#"
+				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range");
+		addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 	}
 
 	public boolean isExclusive() {

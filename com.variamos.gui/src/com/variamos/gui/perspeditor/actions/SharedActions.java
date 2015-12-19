@@ -15,6 +15,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -24,6 +25,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
@@ -75,6 +77,8 @@ public class SharedActions {
 			mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
 			for (int i = 0; i < o1.getChildCount(); i++) {
 				mxCell mv = (mxCell) refasGraph.getChildAt(o1, i);
+				InstElement value3 = (InstElement) ((InstCell) mv.getValue())
+						.getInstElement();
 				for (int j = 0; j < mv.getChildCount(); j++) {
 					mxCell concept = (mxCell) refasGraph.getChildAt(mv, j);
 					InstElement value = (InstElement) ((InstCell) concept
@@ -84,11 +88,12 @@ public class SharedActions {
 								concept, k);
 						InstElement value2 = (InstElement) ((InstCell) concept2
 								.getValue()).getInstElement();
-						updateIdAndObjects(value2, beforeSave);
+						updateIdAndObjects(value2, beforeSave, true);
 
 					}
-					updateIdAndObjects(value, beforeSave);
+					updateIdAndObjects(value, beforeSave, true);
 				}
+				updateIdAndObjects(value3, beforeSave, false);
 			}
 		}
 		stopTime = System.currentTimeMillis();
@@ -129,7 +134,8 @@ public class SharedActions {
 		}
 	}
 
-	private static void updateIdAndObjects(Object value, boolean beforeSave) {
+	private static void updateIdAndObjects(Object value, boolean beforeSave,
+			boolean model) {
 		if (value instanceof InstElement) {
 			InstElement instElement = (InstElement) value;
 			if (value instanceof InstOverTwoRelation) {
@@ -146,7 +152,7 @@ public class SharedActions {
 							.clearMetaPairwiseRelation();
 				}
 			}
-			if (beforeSave) {
+			if (beforeSave && model) {
 				instElement.clearEditableMetaVertex();
 				instElement.clearInstAttributesObjects();
 			}
@@ -510,6 +516,16 @@ public class SharedActions {
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
 			}
+			IntSemanticElement semElement = instElement
+					.getEditableSemanticElement();
+			if (semElement != null) {
+				List<IntSemanticExpression> semExp = semElement
+						.getSemanticExpressions();
+				for (IntSemanticExpression exp : semExp) {
+					((SemanticExpression) exp).loadVolatileElements(refas
+							.getVariabilityVertex());
+				}
+			}
 		}
 
 		if (instElement instanceof InstOverTwoRelation) {
@@ -694,6 +710,9 @@ public class SharedActions {
 				// .createAttributes(new HashMap<String, InstAttribute>());
 				// if (source.getSource() == null)
 				// source.getSource().toString();
+				if (source.getSource() == null) {
+					System.out.println("");
+				}
 				InstElement sourceVertex = (InstElement) ((InstCell) source
 						.getSource().getValue()).getInstElement();
 				InstElement targetVertex = (InstElement) ((InstCell) source
@@ -744,8 +763,7 @@ public class SharedActions {
 								// if (absAttribute != null)// TODO find a
 								// better
 								// fix
-								if (instAttribute.getType().equals(
-										"Boolean")
+								if (instAttribute.getType().equals("Boolean")
 										&& instAttribute.getValue() != null
 										&& instAttribute.getValue() instanceof String)
 									if (((String) instAttribute.getValue())

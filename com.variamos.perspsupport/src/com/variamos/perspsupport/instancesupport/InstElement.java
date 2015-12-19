@@ -355,7 +355,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 					condition = visibleAttribute.substring(varEnd + 1, condEnd);
 					value = visibleAttribute.substring(condEnd + 1);
 					InstAttribute varValue = getInstAttributes().get(variable);
-					if (varValue == null)
+					if (varValue == null || varValue.getValue() == null)
 						validCondition = false;
 					else if (varValue.getValue().toString().trim()
 							.equals(value)) {

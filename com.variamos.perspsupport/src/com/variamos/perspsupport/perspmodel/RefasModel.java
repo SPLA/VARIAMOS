@@ -2886,7 +2886,7 @@ public class RefasModel extends AbstractModel {
 		ias.add(new InstAttribute("and", new AbstractAttribute("and",
 				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
 				""), semanticExpressions));
-		
+
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -2910,7 +2910,7 @@ public class RefasModel extends AbstractModel {
 				""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
-		
+
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
@@ -2929,7 +2929,7 @@ public class RefasModel extends AbstractModel {
 		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
 				"", ""), semanticExpressions));
-		
+
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		variabilityInstVertex.put("Claim", instVertexCL);
@@ -3112,7 +3112,7 @@ public class RefasModel extends AbstractModel {
 		featSemOverTwoRelList.add(new SemanticRelationType("mutex", "Mutex",
 				"Mutex.", false, true, true, 2, -1, 1, 1));
 		featSemOverTwoRelList.add(new SemanticRelationType("range", "Range",
-				"Range", false, true, true, 2, -1, 1, 1));
+				"range", false, true, true, 2, -1, 1, 1));
 		featSemOverTwoRelList.add(new SemanticRelationType("other", "other",
 				"other", false, true, true, 2, -1, 1, 1));
 
@@ -3842,7 +3842,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemCLPWAsso = new InstConcept("operclaimPWAsso",
 				metaPairwiseRelation, semOperClaimPairwiseRel);
 
-		// variabilityInstVertex.put("operclaimPWAsso", instSemCLPWAsso);
+		variabilityInstVertex.put("operclaimPWAsso", instSemCLPWAsso);
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("operclaimPWAsso-GR", instEdge);
@@ -4281,7 +4281,7 @@ public class RefasModel extends AbstractModel {
 
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sgsgPW-sgpwsg", instEdge);
-		instEdge.setIdentifier("sgsgSGR-SGsgsg");
+		instEdge.setIdentifier("sgsgPW-sgpwsg");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdge.setTargetRelation(instDirSGSGSemanticEdge, true);
 		instEdge.setSourceRelation(instVertexSG, true);

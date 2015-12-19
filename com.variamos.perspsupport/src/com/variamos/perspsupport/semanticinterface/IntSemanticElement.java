@@ -28,7 +28,7 @@ public interface IntSemanticElement extends Serializable {
 
 	void setIdentifier(String value);
 
-	public Map<String, AbstractAttribute> getSemanticAttributes();
+	public Map<String, AbstractAttribute> getAllSemanticAttributes();
 
 	IntSemanticElement getParent();
 
@@ -39,6 +39,8 @@ public interface IntSemanticElement extends Serializable {
 	public List<IntSemanticExpression> getDeclaredSemanticExpressions();
 
 	public List<IntSemanticExpression> getSemanticExpressions();
+
+	public List<IntSemanticExpression> getAllSemanticExpressions();
 
 	public void setSemanticExpressions(
 			List<IntSemanticExpression> semanticExpressions);

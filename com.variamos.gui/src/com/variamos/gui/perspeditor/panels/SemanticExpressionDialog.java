@@ -125,6 +125,8 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			});
 			solutionPanel.add(iden);
+			((SemanticExpression) semanticExpression)
+					.loadVolatileElements(refasModel.getVariabilityVertex());
 			showExpression((SemanticExpression) semanticExpression, element,
 					solutionPanel, SemanticExpressionType.BOOLEXP, 255);
 
@@ -1088,7 +1090,7 @@ public class SemanticExpressionDialog extends JDialog {
 				if (instElement.getEditableSemanticElement() != null)
 					for (AbstractAttribute attribute : instElement
 							.getEditableSemanticElement()
-							.getSemanticAttributes().values())
+							.getAllSemanticAttributes().values())
 						if (displayVariableName)
 
 							combo.addItem(attribute.getDisplayName());
@@ -1108,7 +1110,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (instElementT.getEditableSemanticElement() != null)
 						for (AbstractAttribute attribute : instElementT
 								.getEditableSemanticElement()
-								.getSemanticAttributes().values())
+								.getAllSemanticAttributes().values())
 
 							if (displayVariableName)
 

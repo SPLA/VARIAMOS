@@ -280,7 +280,7 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 		int n = expressionsToTest.size();
 		List<List<BooleanExpression>> MCSes = new ArrayList<List<BooleanExpression>>();
 		List<List<BooleanExpression>> newUnsatisfiableSet = new ArrayList<List<BooleanExpression>>();
-		//System.out.println("INICIO IDENTIFICACIÓN NIVEL " + r);
+		// System.out.println("INICIO IDENTIFICACIÓN NIVEL " + r);
 
 		while (advance) {
 
@@ -314,9 +314,9 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 				} else {
 
-				//	System.out
-				//			.println("Iniciando bloqueo dicotómico tamaño K: "
-				//					+ candidateMCS.size());
+					// System.out
+					// .println("Iniciando bloqueo dicotómico tamaño K: "
+					// + candidateMCS.size());
 					newUnsatisfiableSet.add(blockConstraints(modelExpressions,
 							modelToTest, fixedExpressions, unsatisifableSets,
 							blockedConstraints, r, defect));
@@ -327,12 +327,13 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 			}
 
 		}
-		//System.out.println("RESULT: Level " + r + " elements ejecuted: "
-		//		+ analyzedSets + " of " + n);
-		//System.out.println("Unsatisfiable collection of sets "
-		//		+ unsatisifableSets.size());
-		//System.out.println("ClausesToBlock size: " + blockedConstraints.size());
-		//System.out.println("MCS encontrados : " + MCSes);
+		// System.out.println("RESULT: Level " + r + " elements ejecuted: "
+		// + analyzedSets + " of " + n);
+		// System.out.println("Unsatisfiable collection of sets "
+		// + unsatisifableSets.size());
+		// System.out.println("ClausesToBlock size: " +
+		// blockedConstraints.size());
+		// System.out.println("MCS encontrados : " + MCSes);
 		return MCSes;
 
 	}
@@ -502,8 +503,8 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 					newUnsatisfiableSetComplement, k);
 		}
 
-	//	System.out.println("Conjunto de restricciones a bloquear: "
-	//			+ blockedConstraints.size());
+		// System.out.println("Conjunto de restricciones a bloquear: "
+		// + blockedConstraints.size());
 		return newUnsatisfiableSetComplement;
 	}
 
@@ -650,13 +651,14 @@ public class CauCosAnayzer implements IntCauCosAnalyzer {
 
 			// Causes
 			startTime = System.nanoTime();
-			List<CauCos> causes = getCauses(defect, fixedConstraints,
-					corrections, unsatisfiableSets, mode);
-			diagnosis.setCauses(causes);
-			endTime = System.nanoTime();
-			totalTime = endTime - startTime;
-			diagnosis.setCausesProcessingTime(totalTime);
-			System.out.println(" Causes time: " + totalTime);
+			/*
+			 * List<CauCos> causes = getCauses(defect, fixedConstraints,
+			 * corrections, unsatisfiableSets, mode);
+			 * diagnosis.setCauses(causes); endTime = System.nanoTime();
+			 * totalTime = endTime - startTime;
+			 * diagnosis.setCausesProcessingTime(totalTime);
+			 * System.out.println(" Causes time: " + totalTime);
+			 */
 			if (parentComponent != null) {
 				progressMonitor.setProgress(100);
 			}
