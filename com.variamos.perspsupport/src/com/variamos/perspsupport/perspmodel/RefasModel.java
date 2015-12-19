@@ -17,12 +17,12 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.OperationAction;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubAction;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -75,9 +75,9 @@ public class RefasModel extends AbstractModel {
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
 	private Map<String, SemanticExpressionType> semanticExpressionTypes;
-	private Map<String, OperationAction> operationActions;
+	private Map<String, SemanticOperationAction> operationActions;
 
-	public Map<String, OperationAction> getOperationActions() {
+	public Map<String, SemanticOperationAction> getOperationActions() {
 		return operationActions;
 	}
 
@@ -1494,29 +1494,29 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instOverTwoRelation, true);
 	}
 
-	OperationAction verifDeadElemOperationAction = null;
+	SemanticOperationAction verifDeadElemOperationAction = null;
 	OperationSubActionExpType verifDeadElemOperSubActionNormal = null;
 	OperationSubActionExpType verifDeadElemOperSubActionRelaxable = null;
 	OperationSubActionExpType verifDeadElemOperSubActionVerification = null;
 
-	OperationAction verifParentsOperationAction = null;
+	SemanticOperationAction verifParentsOperationAction = null;
 	OperationSubActionExpType verifParentsOperSubActionNormal = null;
 	OperationSubActionExpType verifParentsOperSubActionRelaxable = null;
 	OperationSubActionExpType verifParentsOperSubActionVerification = null;
 
-	OperationAction verifRootOperationAction = null;
+	SemanticOperationAction verifRootOperationAction = null;
 	OperationSubActionExpType verifRootOperSubActionNormal = null;
 	OperationSubActionExpType verifRootOperSubActionRelaxable = null;
 	OperationSubActionExpType verifRootOperSubActionVerification = null;
 
-	OperationAction verifFalseOptOperationAction = null;
+	SemanticOperationAction verifFalseOptOperationAction = null;
 	OperationSubActionExpType verifFalseOptOperSubActionNormal = null;
 	OperationSubActionExpType verifFalseOptOperSubActionRelaxable = null;
 	OperationSubActionExpType verifFalseOptOperSubActionVerification = null;
 
 	OperationLabeling simulationExecOperUniqueLabeling = null;
 
-	OperationAction simulationOperationAction = null;
+	SemanticOperationAction simulationOperationAction = null;
 
 	OperationSubActionExpType simulationExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPreValOptOperSubActionNormal = null;
@@ -1524,7 +1524,7 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulationPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPostUpdOptOperSubActionNormal = null;
 
-	OperationAction simulScenOperationAction = null;
+	SemanticOperationAction simulScenOperationAction = null;
 
 	OperationSubActionExpType simulScenExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPreValOptOperSubActionNormal = null;
@@ -1532,22 +1532,22 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulScenPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPostUpdOptOperSubActionNormal = null;
 
-	OperationAction configTemporalOperationAction = null;
+	SemanticOperationAction configTemporalOperationAction = null;
 
 	OperationSubActionExpType configTemporalOptOperSubActionNormal = null;
 
-	OperationAction configPermanentOperationAction = null;
+	SemanticOperationAction configPermanentOperationAction = null;
 
 	OperationSubActionExpType configPermanentOptOperSubActionNormal = null;
 
-	OperationAction updateCoreOperationAction = null;
+	SemanticOperationAction updateCoreOperationAction = null;
 
 	OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
 
 	public void createSemanticOperations() {
-		operationActions = new HashMap<String, OperationAction>();
+		operationActions = new HashMap<String, SemanticOperationAction>();
 
-		simulationOperationAction = new OperationAction(1, "Simulation");
+		simulationOperationAction = new SemanticOperationAction(1, "Simulation");
 		operationActions.put("Simulation", simulationOperationAction);
 
 		OperationSubAction operationSubAction = new OperationSubAction(1,
@@ -1608,7 +1608,8 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
-		simulScenOperationAction = new OperationAction(1, "SimulationScenarios");
+		simulScenOperationAction = new SemanticOperationAction(1,
+				"SimulationScenarios");
 		operationActions.put("SimulationScenarios", simulScenOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Pre-Validacion",
@@ -1668,7 +1669,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
-		updateCoreOperationAction = new OperationAction(1, "UpdateCore");
+		updateCoreOperationAction = new SemanticOperationAction(1, "UpdateCore");
 		operationActions.put("UpdateCore", updateCoreOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "Update Core",
@@ -1682,7 +1683,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
 
-		configTemporalOperationAction = new OperationAction(1,
+		configTemporalOperationAction = new SemanticOperationAction(1,
 				"ConfigureTemporal");
 		operationActions
 				.put("ConfigureTemporal", configTemporalOperationAction);
@@ -1699,7 +1700,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
 
-		configPermanentOperationAction = new OperationAction(1,
+		configPermanentOperationAction = new SemanticOperationAction(1,
 				"ConfigurePermanent");
 		operationActions.put("ConfigurePermanent",
 				configPermanentOperationAction);
@@ -1716,7 +1717,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
-		verifDeadElemOperationAction = new OperationAction(1,
+		verifDeadElemOperationAction = new SemanticOperationAction(1,
 				"VerifyDeadElements");
 		operationActions
 				.put("VerifyDeadElements", verifDeadElemOperationAction);
@@ -1742,7 +1743,8 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
 
-		verifParentsOperationAction = new OperationAction(2, "VerifyParents");
+		verifParentsOperationAction = new SemanticOperationAction(2,
+				"VerifyParents");
 		operationActions.put("VerifyParents", verifParentsOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyParents",
@@ -1766,7 +1768,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
 
-		verifRootOperationAction = new OperationAction(3, "VerifyRoots");
+		verifRootOperationAction = new SemanticOperationAction(3, "VerifyRoots");
 		operationActions.put("VerifyRoots", verifRootOperationAction);
 
 		operationSubAction = new OperationSubAction(1, "VerifyRoots",
@@ -1790,7 +1792,7 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(verifRootOperSubActionVerification);
 
-		verifFalseOptOperationAction = new OperationAction(4,
+		verifFalseOptOperationAction = new SemanticOperationAction(4,
 				"VerifyFalseOperations");
 		operationActions.put("VerifyFalseOperations",
 				verifFalseOptOperationAction);
@@ -2859,7 +2861,7 @@ public class RefasModel extends AbstractModel {
 				"GreaterOrEq"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
 				instVertexCL, instDirOperClaimSemanticEdge, t2,
 				ExpressionVertexType.RIGHTRELATIONCONCEPT,
-				instDirOperClaimSemanticEdge, "lowCardinality");
+				instDirOperClaimSemanticEdge, "LowRange");
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTRELATIONCONCEPT,
@@ -2869,12 +2871,12 @@ public class RefasModel extends AbstractModel {
 				"LessOrEquals"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
 				instVertexCL, instDirOperClaimSemanticEdge, t2,
 				ExpressionVertexType.RIGHTRELATIONCONCEPT, instVertexCL,
-				"highCardinality");
+				"HighRange");
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"And"), t1, t3);
 
-		t1 = new SemanticExpression("ANDlowCardinality", this
+		t1 = new SemanticExpression("ANDLowRange", this
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCL, "Selected", true, t1);
 

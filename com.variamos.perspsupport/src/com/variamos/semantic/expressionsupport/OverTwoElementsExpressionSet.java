@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.mxgraph.util.mxResources;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
@@ -132,6 +132,25 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			 * coreList.add(out); allList.add(out); } }
 			 */
 			// System.out.println(relationType + " " + element);
+			if (relationType.equals("range")) {
+
+				AbstractExpression r = new EqualsComparisonExpression(
+						instOverTwoRelation, instOverTwoRelation
+								.getInstAttribute("LowRange").getIdentifier(),
+						getHlclFactory().number(
+								(int) instOverTwoRelation.getInstAttribute(
+										"LowRange").getValue()));
+				getElementExpressions().add(r);
+				allList.add(r);
+
+				r = new EqualsComparisonExpression(instOverTwoRelation,
+						instOverTwoRelation.getInstAttribute("HighRange")
+								.getIdentifier(), getHlclFactory().number(
+								(int) instOverTwoRelation.getInstAttribute(
+										"HighRange").getValue()));
+				getElementExpressions().add(r);
+				allList.add(r);
+			}
 			if (relationType.equals("and") || element == null
 					|| !element.equals("Core"))
 				for (String sourceName : instOverTwoRelation
@@ -227,16 +246,16 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 									constructor2, instEdges1, left1, sourceName);
 							AbstractBooleanExpression out = null;
 							if (!relationType.equals("none"))
-							out = new DoubleImplicationBooleanExpression(
-									instOverTwoRelation, sourceName, true,
-									recursiveExpression1);
-							else
-							{	AbstractBooleanExpression negation = new NotBooleanExpression(instOverTwoRelation, sourceName);
 								out = new DoubleImplicationBooleanExpression(
-										negation,
+										instOverTwoRelation, sourceName, true,
 										recursiveExpression1);
+							else {
+								AbstractBooleanExpression negation = new NotBooleanExpression(
+										instOverTwoRelation, sourceName);
+								out = new DoubleImplicationBooleanExpression(
+										negation, recursiveExpression1);
 							}
-									
+
 							getElementExpressions().add(out);
 							if (relationType.equals("and"))
 								coreList.add(out);
@@ -275,12 +294,12 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 							recursiveExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
 							AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
-									instOverTwoRelation, "lowCardinality",
-									false, recursiveExpression1);
+									instOverTwoRelation, "LowRange", false,
+									recursiveExpression1);
 
 							AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
-									instOverTwoRelation, "highCardinality",
-									false, recursiveExpression2);
+									instOverTwoRelation, "HighRange", false,
+									recursiveExpression2);
 
 							AbstractExpression transformation5 = new AndBooleanExpression(
 									transformation3, transformation4);
@@ -293,7 +312,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 									transformation5);
 							getElementExpressions().add(out0);
 							if (instOverTwoRelation.getSourceRelations().size() <= instOverTwoRelation
-									.getInstAttribute("lowCardinality")
+									.getInstAttribute("LowRange")
 									.getAsInteger())
 								coreList.add(out0);
 							allList.add(out0);
@@ -381,12 +400,14 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					e.printStackTrace();
 				}
 		} else
-			// TODO define a cleaner way to deal with group relations with one
-			// element
-			if (constructor1.getDeclaringClass().getSimpleName().equals("SumNumericExpression"))
-				return new SumNumericExpression(((InstPairwiseRelation) left)
-						.getSourceRelations().get(0), sourceName, true, (new HlclFactory()).number(0));
-			else
+		// TODO define a cleaner way to deal with group relations with one
+		// element
+		if (constructor1.getDeclaringClass().getSimpleName()
+				.equals("SumNumericExpression"))
+			return new SumNumericExpression(((InstPairwiseRelation) left)
+					.getSourceRelations().get(0), sourceName, true,
+					(new HlclFactory()).number(0));
+		else
 			return new AndBooleanExpression(((InstPairwiseRelation) left)
 					.getSourceRelations().get(0), ((InstPairwiseRelation) left)
 					.getSourceRelations().get(0), sourceName, sourceName);

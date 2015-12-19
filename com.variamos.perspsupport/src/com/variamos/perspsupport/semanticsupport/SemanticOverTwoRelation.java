@@ -2,6 +2,7 @@ package com.variamos.perspsupport.semanticsupport;
 
 import java.util.List;
 
+import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -89,7 +90,8 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
 
 		putSemanticAttribute("LowRange", new SemanticAttribute("LowRange",
-				"Integer", false, "Low Range", "1", 0, 6, "", "", 6, "", ""));
+				"Integer", false, "Low Range", 1, new RangeDomain(0, 50), 0, 6,
+				"", "", 6, "", ""));
 		addPropEditableAttribute("08#" + "LowRange");
 		addPropVisibleAttribute("08#" + "LowRange" + "#"
 				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");
@@ -98,7 +100,8 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		putSemanticAttribute("HighRange", new SemanticAttribute("HighRange",
-				"Integer", false, "High Range", "1", 0, 6, "", "", 6, "", ""));
+				"Integer", false, "High Range", 1, new RangeDomain(0, 50), 0,
+				6, "", "", 6, "", ""));
 		addPropEditableAttribute("09#" + "HighRange");
 		addPropVisibleAttribute("09#" + "HighRange" + "#"
 				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");

@@ -3,6 +3,7 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 /**
@@ -14,18 +15,21 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
  * @version 1.1
  * @since 2015-11-07
  */
-public class OperationAction {
-	public OperationAction(int position, String description) {
-		super();
+public class SemanticOperationAction extends AbstractSemanticElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6532989148655801713L;
+
+	public SemanticOperationAction(int position, String identifier) {
+		super(identifier);
 		this.position = position;
-		this.description = description;
 		expressionSubActions = new ArrayList<OperationSubAction>();
 		inVariables = new ArrayList<AbstractAttribute>();
 		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
 	private int position;
-	private String description;
 	private List<OperationSubAction> expressionSubActions;
 	private List<AbstractAttribute> inVariables;
 	private List<AbstractAttribute> outVariables;
@@ -36,14 +40,6 @@ public class OperationAction {
 
 	public void setPosition(int position) {
 		this.position = position;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public List<OperationSubAction> getExpressionSubActions() {

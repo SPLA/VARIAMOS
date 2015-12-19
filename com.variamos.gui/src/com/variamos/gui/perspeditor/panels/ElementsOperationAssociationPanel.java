@@ -26,9 +26,9 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.perspsupport.expressionsupport.OperationAction;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
@@ -56,7 +56,7 @@ public class ElementsOperationAssociationPanel extends
 	private int dialog = 0;
 	private int width = 880;
 	private int height = 600;
-	Map<String, OperationAction> operActions = null;
+	Map<String, SemanticOperationAction> operActions = null;
 	private AssociationTreeTable table = null;
 
 	static interface DialogButtonAction {
@@ -77,8 +77,8 @@ public class ElementsOperationAssociationPanel extends
 		final JComboBox combo = new JComboBox();
 		operActions = editor.getEditedModel().getOperationActions();
 
-		for (OperationAction operAction : operActions.values()) {
-			combo.addItem(operAction.getDescription());
+		for (SemanticOperationAction operAction : operActions.values()) {
+			// combo.addItem(operAction.getDescription());
 		}
 		combo.setSelectedItem("Simulation");
 		JPanel topPanel = new JPanel();
@@ -90,7 +90,7 @@ public class ElementsOperationAssociationPanel extends
 		combo.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				OperationAction operAction = operActions.get(combo
+				SemanticOperationAction operAction = operActions.get(combo
 						.getSelectedItem());
 				AssociationTreeTable tableN = createTable(
 						editor.getEditedModel(), operAction);
@@ -124,7 +124,7 @@ public class ElementsOperationAssociationPanel extends
 	}
 
 	private AssociationTreeTable createTable(RefasModel refasModel,
-			OperationAction operAction) {
+			SemanticOperationAction operAction) {
 
 		List<String> operColumnsNames = operAction.getOperColumnsNames();
 
