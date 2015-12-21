@@ -22,6 +22,7 @@ import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationMenu;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -981,9 +982,9 @@ public class RefasModel extends AbstractModel {
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemOperationSubAction, true);
 
-		operationAction.addPanelVisibleAttribute("04#"
+		operationSubAction.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
-		operationAction.addPanelSpacersAttribute("#"
+		operationSubAction.addPanelSpacersAttribute("#"
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instOperSubAction = new InstConcept("CSOpSubAction",
@@ -1736,6 +1737,13 @@ public class RefasModel extends AbstractModel {
 
 		operationActions = new HashMap<String, SemanticOperationAction>();
 
+		SemanticOperationMenu operationMenu = new SemanticOperationMenu(1,
+				"SimulationOper", 2);
+
+		InstVertex instOperationMenu = new InstConcept("SimulationMenu",
+				metaOperationAction, operationMenu);
+		variabilityInstVertex.put("SimulationMenu", instOperationMenu);
+
 		simulationOperationAction = new SemanticOperationAction(1,
 				"SimulationOper");
 		operationActions.put("SimulationOper", simulationOperationAction);
@@ -1743,6 +1751,13 @@ public class RefasModel extends AbstractModel {
 		InstVertex instOperationAction = new InstConcept("SimulationOper",
 				metaOperationAction, simulationOperationAction);
 		variabilityInstVertex.put("SimulationOper", instOperationAction);
+
+		InstPairwiseRelation instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-menu", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-menu");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		SemanticOperationSubAction operationSubAction = new SemanticOperationSubAction(
 				1, "Sim-Pre-Validacion", OperationSubActionType.VERIFICATION);
@@ -1755,9 +1770,9 @@ public class RefasModel extends AbstractModel {
 				operationSubAction);
 		variabilityInstVertex.put("Sim-Pre-Validacion", instOperationSubAction);
 
-		InstPairwiseRelation instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("simsce-pre-val", instEdgeOper);
-		instEdgeOper.setIdentifier("simsce-pre-val");
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-pre-val", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pre-val");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1778,8 +1793,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("Sim-Pre-Update", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("simsce-pre-upd", instEdgeOper);
-		instEdgeOper.setIdentifier("simsce-pre-upd");
+		this.constraintInstEdges.put("sim-pre-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pre-upd");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1803,8 +1818,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("Sim-Execution", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("simsce-exec", instEdgeOper);
-		instEdgeOper.setIdentifier("simsce-exec");
+		this.constraintInstEdges.put("sim-exec", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-exec");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1852,6 +1867,12 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
+		operationMenu = new SemanticOperationMenu(1, "SimulationSCeOper", 2);
+
+		instOperationMenu = new InstConcept("SimulationSceMenu",
+				metaOperationAction, operationMenu);
+		variabilityInstVertex.put("SimulationSceMenu", instOperationMenu);
+
 		simulScenOperationAction = new SemanticOperationAction(1,
 				"SimulationScenarios");
 		operationActions.put("SimulationScenarios", simulScenOperationAction);
@@ -1867,6 +1888,13 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, simulScenOperationAction);
 		variabilityInstVertex.put("SimulationScenarios", instOperationAction);
 
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-menu", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-menu");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
 		operationSubAction = new SemanticOperationSubAction(1,
 				"SimSce-Pre-Validacion", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
@@ -1879,8 +1907,8 @@ public class RefasModel extends AbstractModel {
 				instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sim-pre-val", instEdgeOper);
-		instEdgeOper.setIdentifier("sim-pre-val");
+		this.constraintInstEdges.put("simsce-pre-val", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pre-val");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1901,8 +1929,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("SimSce-Pre-Update", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sim-pre-upd", instEdgeOper);
-		instEdgeOper.setIdentifier("sim-pre-upd");
+		this.constraintInstEdges.put("simsce-pre-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pre-upd");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1925,8 +1953,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("SimSce-Execution", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sim-exec", instEdgeOper);
-		instEdgeOper.setIdentifier("sim-exec");
+		this.constraintInstEdges.put("simsce-exec", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-exec");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1948,8 +1976,8 @@ public class RefasModel extends AbstractModel {
 				instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sim-pos-val", instEdgeOper);
-		instEdgeOper.setIdentifier("sim-pos-val");
+		this.constraintInstEdges.put("simsce-pos-val", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pos-val");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1970,8 +1998,8 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex.put("SimSce-Post-Update", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("sim-pos-upd", instEdgeOper);
-		instEdgeOper.setIdentifier("sim-pos-upd");
+		this.constraintInstEdges.put("simsce-pos-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pos-upd");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1981,6 +2009,12 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
+		operationMenu = new SemanticOperationMenu(1, "Verification", 2);
+
+		instOperationMenu = new InstConcept("Verification",
+				metaOperationAction, operationMenu);
+		variabilityInstVertex.put("Verification", instOperationMenu);
+
 		updateCoreOperationAction = new SemanticOperationAction(1,
 				"UpdateCoreOper");
 		operationActions.put("UpdateCoreOper", updateCoreOperationAction);
@@ -1988,6 +2022,13 @@ public class RefasModel extends AbstractModel {
 		instOperationAction = new InstConcept("UpdateCoreOper",
 				metaOperationAction, updateCoreOperationAction);
 		variabilityInstVertex.put("UpdateCoreOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"UpdateCoreSubOper", OperationSubActionType.SINGLEUPDATE);
@@ -2020,6 +2061,13 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, configTemporalOperationAction);
 		variabilityInstVertex.put("ConfigureTemporalOper", instOperationAction);
 
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-conft", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-conft");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
 		operationSubAction = new SemanticOperationSubAction(1,
 				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
@@ -2045,7 +2093,7 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
 
 		configPermanentOperationAction = new SemanticOperationAction(1,
-				"ConfigurePermanent");
+				"ConfigurePermanentOper");
 		operationActions.put("ConfigurePermanentOper",
 				configPermanentOperationAction);
 
@@ -2053,6 +2101,13 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, configPermanentOperationAction);
 		variabilityInstVertex
 				.put("ConfigurePermanentOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-confp", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-confp");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"ConfigurePermanentSubOper",
@@ -2088,6 +2143,13 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, verifDeadElemOperationAction);
 		variabilityInstVertex
 				.put("VerifyDeadElementsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-dead", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-dead");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyDeadElementsSubOper",
@@ -2125,11 +2187,18 @@ public class RefasModel extends AbstractModel {
 
 		verifParentsOperationAction = new SemanticOperationAction(2,
 				"VerifyParentsOper");
-		operationActions.put("VerifyParents", verifParentsOperationAction);
+		operationActions.put("VerifyParentsOper", verifParentsOperationAction);
 
 		instOperationAction = new InstConcept("VerifyParentsOper",
 				metaOperationAction, verifParentsOperationAction);
 		variabilityInstVertex.put("VerifyParentsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-pare", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-pare");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyParentsSubOper", OperationSubActionType.VERIFICATION);
@@ -2166,11 +2235,18 @@ public class RefasModel extends AbstractModel {
 
 		verifRootOperationAction = new SemanticOperationAction(3,
 				"VerifyRootsOper");
-		operationActions.put("VerifyRoots", verifRootOperationAction);
+		operationActions.put("VerifyRootsOper", verifRootOperationAction);
 
 		instOperationAction = new InstConcept("VerifyRootsOper",
 				metaOperationAction, verifRootOperationAction);
 		variabilityInstVertex.put("VerifyRootsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-root", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-root");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyRootsSubOper", OperationSubActionType.VERIFICATION);

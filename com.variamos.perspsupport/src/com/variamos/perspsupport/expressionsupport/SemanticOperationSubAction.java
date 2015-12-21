@@ -25,17 +25,15 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 	 */
 	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
-	private String identifier;
 	private List<OperationSubActionExpType> operationSubActionExpTypes;
 
 	private List<OperationLabeling> operationLabelings;
 	private OperationSubActionType operationSubActionType;
 
-	public SemanticOperationSubAction(int position, String description,
+	public SemanticOperationSubAction(int position, String identifier,
 			OperationSubActionType operationSubActionType) {
-		super(description);
+		super(identifier);
 		this.position = position;
-		this.identifier = description;
 		this.operationSubActionType = operationSubActionType;
 		operationSubActionExpTypes = new ArrayList<OperationSubActionExpType>();
 		operationLabelings = new ArrayList<OperationLabeling>();
@@ -47,14 +45,6 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 
 	public void setPosition(int position) {
 		this.position = position;
-	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public void setIdentifier(String description) {
-		this.identifier = description;
 	}
 
 	public List<OperationSubActionExpType> getOperationSubActionExpTypes() {

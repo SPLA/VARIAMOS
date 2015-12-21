@@ -74,13 +74,13 @@ public class ElementsOperationAssociationPanel extends
 		generalPanel = new JPanel();
 		generalPanel.setLayout(new BorderLayout());
 
-		final JComboBox combo = new JComboBox();
+		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getOperationActions();
 
 		for (SemanticOperationAction operAction : operActions.values()) {
-			// combo.addItem(operAction.getDescription());
+			combo.addItem(operAction.getIdentifier());
 		}
-		combo.setSelectedItem("Simulation");
+		combo.setSelectedItem("SimulationOper");
 		JPanel topPanel = new JPanel();
 		topPanel.add(new JLabel("Operation"));
 		topPanel.add(combo);
@@ -106,7 +106,7 @@ public class ElementsOperationAssociationPanel extends
 		});
 
 		table = createTable(editor.getEditedModel(),
-				operActions.get("Simulation"));
+				operActions.get("SimulationOper"));
 		table.setPreferredSize(new Dimension(width, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
