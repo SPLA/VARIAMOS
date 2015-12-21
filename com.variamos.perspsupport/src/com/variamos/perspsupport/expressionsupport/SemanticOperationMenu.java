@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 
 /**
  * A class to support the menus for the operations. Part of PhD work at
@@ -19,6 +20,12 @@ public class SemanticOperationMenu extends AbstractSemanticElement {
 
 	private int position;
 	private int type;
+
+	public static final String VAR_MENUTYPE_IDEN = "menuType",
+			VAR_MENUTYPE_NAME = "Menu Type",
+			VAR_MENUTYPE_CLASS = SemanticRelationType.class.getCanonicalName(),
+			VAR_NAME_IDEN = "name", VAR_NAME_NAME = "Menu Name",
+			VAR_SHORTCUT_IDEN = "shorcut", VAR_SHORTCUT_NAME = "Menu Shortcut";
 
 	public SemanticOperationMenu(int position, String identifier, int type) {
 		super(identifier);

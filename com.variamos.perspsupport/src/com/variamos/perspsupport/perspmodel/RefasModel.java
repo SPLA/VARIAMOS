@@ -855,32 +855,33 @@ public class RefasModel extends AbstractModel {
 		constraintInstEdges.put("AssoPWCORel", rel);
 
 		SemanticConcept semOperationMenu = new SemanticConcept(semConcept,
-				"CSOperationMenu");
+				"CSOpMenu");
 
-		semOperationMenu.putSemanticAttribute("enumerationType",
-				new SemanticAttribute("enumerationType", "Class", false,
-						"enumeration",
-						InstEnumeration.class.getCanonicalName(),
-						"TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
-						""));
+		semOperationMenu.putSemanticAttribute("menuType",
+				new SemanticAttribute("menuType", "String", false, "Menu Type",
+						null, null, null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("05#" + "menuType");
+		semOperationMenu.addPropVisibleAttribute("05#" + "menuType");
 
-		semOperationMenu.addPropEditableAttribute("03#" + "enumerationType");
-		semOperationMenu.addPropVisibleAttribute("03#" + "enumerationType");
+		semOperationMenu
+				.putSemanticAttribute("name", new SemanticAttribute("name",
+						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("06#" + "name");
+		semOperationMenu.addPropVisibleAttribute("06#" + "name");
+		semOperationMenu.addPanelVisibleAttribute("06#" + "name");
+		semOperationMenu.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationMenu.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		semOperationMenu.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("07#" + "shortcut");
+		semOperationMenu.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationMenu.putSemanticAttribute(
-				"relationTypesSemExpressions",
-				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		semOperationMenu.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("08#" + "position");
+		semOperationMenu.addPropVisibleAttribute("08#" + "position");
 
 		InstConcept instSemOperationMenu = new InstConcept("CSOpMenu", null,
 				semOperationMenu);
@@ -902,30 +903,25 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationAction = new SemanticConcept(semConcept,
 				"CSOpAction");
 
-		semOperationAction.putSemanticAttribute("enumerationType",
-				new SemanticAttribute("enumerationType", "Class", false,
-						"enumeration",
-						InstEnumeration.class.getCanonicalName(),
-						"TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
-						""));
+		semOperationAction
+				.putSemanticAttribute("name", new SemanticAttribute("name",
+						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("06#" + "name");
+		semOperationAction.addPropVisibleAttribute("06#" + "name");
+		semOperationAction.addPanelVisibleAttribute("06#" + "name");
+		semOperationAction.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationAction.addPropEditableAttribute("03#" + "enumerationType");
-		semOperationAction.addPropVisibleAttribute("03#" + "enumerationType");
+		semOperationAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
+		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationAction.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
-
-		semOperationAction.putSemanticAttribute(
-				"relationTypesSemExpressions",
-				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		semOperationAction.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("08#" + "position");
+		semOperationAction.addPropVisibleAttribute("08#" + "position");
 
 		InstConcept instSemOperationAction = new InstConcept("CSOpAction",
 				null, semOperationAction);
@@ -947,32 +943,25 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationSubAction = new SemanticConcept(semConcept,
 				"CSOpSubAction");
 
-		semOperationSubAction.putSemanticAttribute("enumerationType",
-				new SemanticAttribute("enumerationType", "Class", false,
-						"enumeration",
-						InstEnumeration.class.getCanonicalName(),
-						"TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
-						""));
+		semOperationSubAction.putSemanticAttribute("name",
+				new SemanticAttribute("name", "String", false, "Name", null, 0,
+						6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("06#" + "name");
+		semOperationSubAction.addPropVisibleAttribute("06#" + "name");
+		semOperationSubAction.addPanelVisibleAttribute("06#" + "name");
+		semOperationSubAction.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationSubAction.addPropEditableAttribute("03#"
-				+ "enumerationType");
-		semOperationSubAction
-				.addPropVisibleAttribute("03#" + "enumerationType");
+		semOperationSubAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("07#" + "shortcut");
+		semOperationSubAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationSubAction.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
-
-		semOperationSubAction.putSemanticAttribute(
-				"relationTypesSemExpressions",
-				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		semOperationSubAction.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "position");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "position");
 
 		InstConcept instSemOperationSubAction = new InstConcept(
 				"CSOpSubAction", null, semOperationSubAction);
@@ -1741,7 +1730,7 @@ public class RefasModel extends AbstractModel {
 				"SimulationOper", 2);
 
 		InstVertex instOperationMenu = new InstConcept("SimulationMenu",
-				metaOperationAction, operationMenu);
+				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationMenu", instOperationMenu);
 
 		simulationOperationAction = new SemanticOperationAction(1,
@@ -1870,7 +1859,7 @@ public class RefasModel extends AbstractModel {
 		operationMenu = new SemanticOperationMenu(1, "SimulationSCeOper", 2);
 
 		instOperationMenu = new InstConcept("SimulationSceMenu",
-				metaOperationAction, operationMenu);
+				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationSceMenu", instOperationMenu);
 
 		simulScenOperationAction = new SemanticOperationAction(1,
@@ -2011,8 +2000,8 @@ public class RefasModel extends AbstractModel {
 
 		operationMenu = new SemanticOperationMenu(1, "Verification", 2);
 
-		instOperationMenu = new InstConcept("Verification",
-				metaOperationAction, operationMenu);
+		instOperationMenu = new InstConcept("Verification", metaOperationMenu,
+				operationMenu);
 		variabilityInstVertex.put("Verification", instOperationMenu);
 
 		updateCoreOperationAction = new SemanticOperationAction(1,
@@ -3110,138 +3099,149 @@ public class RefasModel extends AbstractModel {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addInVariable(attribute);
 
-		attribute = new SemanticAttribute(semVariable.VAR_NAME, "String",
-				false, semVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_NAME, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_VARIABLETYPE,
-				"Enumeration", true, semVariable.VAR_VARIABLETYPENAME,
-				semVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "",
-				-1, "", semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLETYPE,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
-				"String", false, semVariable.VAR_VARIABLEDOMAINNAME, "0,1", 0,
-				3, semVariable.VAR_VARIABLETYPE + "#==#" + "Integer",
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
-				"Class", false, semVariable.VAR_ENUMERATIONTYPENAME,
-				semVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "", 0, 4,
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration",
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration", -1, "",
+		attribute = new SemanticAttribute(SemanticVariable.VAR_NAME, "String",
+				false, SemanticVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "",
 				"");
-		semVariable.putSemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_NAME, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLETYPE,
+				"Enumeration", true, SemanticVariable.VAR_VARIABLETYPENAME,
+				SemanticVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "",
+				"", -1, "", SemanticVariable.VAR_VARIABLETYPE + "#!=#"
+						+ "Enumeration");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VARIABLETYPE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
+				"String", false, SemanticVariable.VAR_VARIABLEDOMAINNAME,
+				"0,1", 0, 3, SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Integer", SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Integer", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_ENUMERATIONTYPE,
+				"Class", false, SemanticVariable.VAR_ENUMERATIONTYPENAME,
+				SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "",
+				0, 4, SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Enumeration", SemanticVariable.VAR_VARIABLETYPE
+						+ "#==#" + "Enumeration", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_ENUMERATIONTYPE,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		// TODO define domain for enumtype
-		attribute = new ExecCurrentStateAttribute(semVariable.VAR_VALUE,
-				"Integer", false, semVariable.VAR_VALUENAME, 0, 1, -1, "", "",
+		attribute = new ExecCurrentStateAttribute(SemanticVariable.VAR_VALUE,
+				"Integer", false, SemanticVariable.VAR_VALUENAME, 0, 1, -1, "",
+				"", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VALUE, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_CONTEXT,
+				"Boolean", false, SemanticVariable.VAR_CONTEXTNAME, false, 0,
+				5, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_CONTEXT,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
+				"Boolean", false, SemanticVariable.VAR_EXTVISIBLENAME, false,
+				0, 8, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
+				"Boolean", false, SemanticVariable.VAR_EXTCONTROLNAME, false,
+				0, 9, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
+				SemanticVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "",
 				-1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VALUE, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_CONTEXT, "Boolean",
-				false, semVariable.VAR_CONTEXTNAME, false, 0, 5, "", "", -1,
-				"", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_CONTEXT, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_EXTVISIBLE,
-				"Boolean", false, semVariable.VAR_EXTVISIBLENAME, false, 0, 8,
-				"", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_EXTVISIBLE, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_EXTCONTROL,
-				"Boolean", false, semVariable.VAR_EXTCONTROLNAME, false, 0, 9,
-				"", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_EXTCONTROL, attribute);
+		semVariable.putSemanticAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGVALUE, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute(
-				semVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
-				semVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "", -1,
-				"", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGVALUE,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new GlobalConfigAttribute(
-				semVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
-				semVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
-						+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration"
-						+ "||" + semVariable.VAR_VARIABLETYPE + "#==#"
+				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
+				SemanticVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
+				SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
+						+ SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Enumeration" + "||"
+						+ SemanticVariable.VAR_VARIABLETYPE + "#==#"
 						+ "Boolean", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGDOMAIN,
-				attribute);
+		semVariable.putSemanticAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semVariable.addPropEditableAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropEditableAttribute("01#" + SemanticVariable.VAR_NAME);
 		semVariable.addPropEditableAttribute("02#"
-				+ semVariable.VAR_VARIABLETYPE);
+				+ SemanticVariable.VAR_VARIABLETYPE);
 		semVariable.addPropEditableAttribute("03#"
-				+ semVariable.VAR_VARIABLEDOMAIN);
+				+ SemanticVariable.VAR_VARIABLEDOMAIN);
 		semVariable.addPropEditableAttribute("04#"
-				+ semVariable.VAR_ENUMERATIONTYPE);
-		semVariable.addPropEditableAttribute("05#" + semVariable.VAR_CONTEXT);
+				+ SemanticVariable.VAR_ENUMERATIONTYPE);
+		semVariable.addPropEditableAttribute("05#"
+				+ SemanticVariable.VAR_CONTEXT);
 
-		semVariable
-				.addPropEditableAttribute("08#" + semVariable.VAR_EXTVISIBLE);
-		semVariable
-				.addPropEditableAttribute("09#" + semVariable.VAR_EXTCONTROL);
+		semVariable.addPropEditableAttribute("08#"
+				+ SemanticVariable.VAR_EXTVISIBLE);
+		semVariable.addPropEditableAttribute("09#"
+				+ SemanticVariable.VAR_EXTCONTROL);
 
 		semVariable.addPropEditableAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN);
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN);
 
-		semVariable.addPropVisibleAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropVisibleAttribute("01#" + SemanticVariable.VAR_NAME);
 		semVariable.addPropVisibleAttribute("02#"
-				+ semVariable.VAR_VARIABLETYPE);
+				+ SemanticVariable.VAR_VARIABLETYPE);
 		semVariable.addPropVisibleAttribute("03#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPropVisibleAttribute("04#"
-				+ semVariable.VAR_ENUMERATIONTYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("05#" + semVariable.VAR_CONTEXT);
+				+ SemanticVariable.VAR_ENUMERATIONTYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("05#"
+				+ SemanticVariable.VAR_CONTEXT);
 
-		semVariable.addPropVisibleAttribute("06#" + semVariable.VAR_VALUE);
-		semVariable.addPropVisibleAttribute("07#" + semVariable.VAR_VALUE);
-		semVariable.addPropVisibleAttribute("08#" + semVariable.VAR_EXTVISIBLE);
-		semVariable.addPropVisibleAttribute("09#" + semVariable.VAR_EXTCONTROL);
+		semVariable.addPropVisibleAttribute("06#" + SemanticVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("07#" + SemanticVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("08#"
+				+ SemanticVariable.VAR_EXTVISIBLE);
+		semVariable.addPropVisibleAttribute("09#"
+				+ SemanticVariable.VAR_EXTCONTROL);
 
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Boolean");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Boolean");
 
 		semVariable.addPanelVisibleAttribute("05#"
-				+ semVariable.VAR_VARIABLETYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
+				+ SemanticVariable.VAR_VARIABLETYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
 		semVariable.addPanelVisibleAttribute("06#"
-				+ semVariable.VAR_ENUMERATIONTYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+				+ SemanticVariable.VAR_ENUMERATIONTYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
 		semVariable.addPanelVisibleAttribute("07#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPanelSpacersAttribute("{#"
-				+ semVariable.VAR_VARIABLETYPE + "#} ");
+				+ SemanticVariable.VAR_VARIABLETYPE + "#} ");
 
 		semVariable.addPanelSpacersAttribute("{#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#} ");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#} ");
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
