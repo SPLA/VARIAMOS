@@ -459,8 +459,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
 					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute
-							&& instAttribute.getType().equals(
-									"Boolean")
+							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
 						if (execType == Refas2Hlcl.DESIGN_EXEC
@@ -540,8 +539,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						// System.out.println(vertexId + " " + attribute + " "
 						// + prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
-								&& vertex.getInstAttribute(attribute)
-										.getType().equals("Boolean")) {
+								&& vertex.getInstAttribute(attribute).getType()
+										.equals("Boolean")) {
 							// System.out.println(prologOut.get(identifier));
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) == null ? "0" : prologOut
@@ -560,8 +559,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						for (String attTarget : selectedAttributes) {
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getType()
-											.equals("Boolean")) {
+											.getType().equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								if (val == 1)
@@ -576,8 +574,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getType()
-											.equals("Integer")) {
+											.getType().equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								vertex.getInstAttribute(attTarget)
@@ -589,8 +586,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						for (String attTarget : notAvailableAttributes) {
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getType()
-											.equals("Boolean")) {
+											.getType().equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								if (val == 1)
@@ -605,8 +601,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
-											.getType()
-											.equals("Integer")) {
+											.getType().equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								vertex.getInstAttribute(attTarget)

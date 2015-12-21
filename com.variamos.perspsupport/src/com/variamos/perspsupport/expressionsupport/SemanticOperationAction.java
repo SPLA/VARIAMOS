@@ -3,6 +3,7 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 /**
@@ -14,19 +15,22 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
  * @version 1.1
  * @since 2015-11-07
  */
-public class OperationAction {
-	public OperationAction(int position, String description) {
-		super();
+public class SemanticOperationAction extends AbstractSemanticElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6532989148655801713L;
+
+	public SemanticOperationAction(int position, String identifier) {
+		super(identifier);
 		this.position = position;
-		this.description = description;
-		expressionSubActions = new ArrayList<OperationSubAction>();
+		expressionSubActions = new ArrayList<SemanticOperationSubAction>();
 		inVariables = new ArrayList<AbstractAttribute>();
 		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
 	private int position;
-	private String description;
-	private List<OperationSubAction> expressionSubActions;
+	private List<SemanticOperationSubAction> expressionSubActions;
 	private List<AbstractAttribute> inVariables;
 	private List<AbstractAttribute> outVariables;
 
@@ -38,38 +42,31 @@ public class OperationAction {
 		this.position = position;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<OperationSubAction> getExpressionSubActions() {
+	public List<SemanticOperationSubAction> getExpressionSubActions() {
 		return expressionSubActions;
 	}
 
-	public OperationSubAction getExpressionSubAction(String column) {
-		for (OperationSubAction oper : expressionSubActions)
-			if (oper.getDescription().equals(column))
+	public SemanticOperationSubAction getExpressionSubAction(String column) {
+		for (SemanticOperationSubAction oper : expressionSubActions)
+			if (oper.getIdentifier().equals(column))
 				return oper;
 		return null;
 	}
 
 	public void setExpressionSubActions(
-			List<OperationSubAction> expressionSubActions) {
+			List<SemanticOperationSubAction> expressionSubActions) {
 		this.expressionSubActions = expressionSubActions;
 	}
 
-	public void addExpressionSubAction(OperationSubAction operationSubAction) {
+	public void addExpressionSubAction(
+			SemanticOperationSubAction operationSubAction) {
 		expressionSubActions.add(operationSubAction);
 	}
 
 	public List<String> getOperColumnsNames() {
 
 		List<String> out = new ArrayList<String>();
-		for (OperationSubAction subAction : expressionSubActions) {
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
 			out.addAll(subAction.getOperationSubActionExpTypesNames());
 		}
 		return out;
@@ -78,7 +75,7 @@ public class OperationAction {
 	public List<OperationSubActionExpType> getOperColumns() {
 
 		List<OperationSubActionExpType> out = new ArrayList<OperationSubActionExpType>();
-		for (OperationSubAction subAction : expressionSubActions) {
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
 			out.addAll(subAction.getOperationSubActionExpTypes());
 		}
 		return out;
@@ -86,7 +83,7 @@ public class OperationAction {
 
 	public List<String> getOperLabelNames() {
 		List<String> out = new ArrayList<String>();
-		for (OperationSubAction subAction : expressionSubActions) {
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
 			out.addAll(subAction.getOperLabelNames());
 		}
 		return out;
@@ -94,7 +91,7 @@ public class OperationAction {
 
 	public List<OperationLabeling> getOperLabels() {
 		List<OperationLabeling> out = new ArrayList<OperationLabeling>();
-		for (OperationSubAction subAction : expressionSubActions) {
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
 			out.addAll(subAction.getOperLabels());
 		}
 		return out;

@@ -907,7 +907,6 @@ public class SemanticExpressionDialog extends JDialog {
 					+ (instanceExpression).getRightNumber());
 			break;
 		case LEFTSTRINGVALUE:
-
 			textField = new JTextField((instanceExpression).getLeftString());
 			break;
 		case RIGHTSTRINGVALUE:
@@ -936,10 +935,8 @@ public class SemanticExpressionDialog extends JDialog {
 						break;
 					case LEFTSTRINGVALUE:
 						instanceExpression.setLeftString(item);
-
 						break;
 					case RIGHTSTRINGVALUE:
-
 						instanceExpression.setRightString(item);
 						break;
 					default:

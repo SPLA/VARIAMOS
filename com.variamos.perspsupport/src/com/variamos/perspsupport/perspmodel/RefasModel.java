@@ -17,12 +17,13 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.OperationAction;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
-import com.variamos.perspsupport.expressionsupport.OperationSubAction;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationMenu;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -75,9 +76,9 @@ public class RefasModel extends AbstractModel {
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
 	private Map<String, SemanticExpressionType> semanticExpressionTypes;
-	private Map<String, OperationAction> operationActions;
+	private Map<String, SemanticOperationAction> operationActions;
 
-	public Map<String, OperationAction> getOperationActions() {
+	public Map<String, SemanticOperationAction> getOperationActions() {
 		return operationActions;
 	}
 
@@ -134,7 +135,6 @@ public class RefasModel extends AbstractModel {
 		case MODELING:
 			break;
 		case SEMANTIC:
-			createSemanticOperations();
 			createDefaultSemantic();
 			break;
 		case CONFIG_SIMULATION:
@@ -853,6 +853,146 @@ public class RefasModel extends AbstractModel {
 		rel.setTargetRelation(instPairWiseRelation, true);
 		rel.setSourceRelation(instConcept, true);
 		constraintInstEdges.put("AssoPWCORel", rel);
+
+		SemanticConcept semOperationMenu = new SemanticConcept(semConcept,
+				"CSOpMenu");
+
+		semOperationMenu.putSemanticAttribute("menuType",
+				new SemanticAttribute("menuType", "String", false, "Menu Type",
+						null, null, null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("05#" + "menuType");
+		semOperationMenu.addPropVisibleAttribute("05#" + "menuType");
+
+		semOperationMenu
+				.putSemanticAttribute("name", new SemanticAttribute("name",
+						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("06#" + "name");
+		semOperationMenu.addPropVisibleAttribute("06#" + "name");
+		semOperationMenu.addPanelVisibleAttribute("06#" + "name");
+		semOperationMenu.addPanelSpacersAttribute("#" + "name" + "#");
+
+		semOperationMenu.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("07#" + "shortcut");
+		semOperationMenu.addPropVisibleAttribute("07#" + "shortcut");
+
+		semOperationMenu.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationMenu.addPropEditableAttribute("08#" + "position");
+		semOperationMenu.addPropVisibleAttribute("08#" + "position");
+
+		InstConcept instSemOperationMenu = new InstConcept("CSOpMenu", null,
+				semOperationMenu);
+
+		MetaConcept operationMenu = new MetaConcept('O', "CSOpMenu", true,
+				"CSOpMenu", "refasminiclass", "Operation Menu", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemOperationMenu, true);
+
+		operationMenu.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		operationMenu.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instOperMenu = new InstConcept("CSOpMenu",
+				metaBasicConcept, operationMenu);
+		variabilityInstVertex.put("CSOpMenu", instOperMenu);
+
+		SemanticConcept semOperationAction = new SemanticConcept(semConcept,
+				"CSOpAction");
+
+		semOperationAction
+				.putSemanticAttribute("name", new SemanticAttribute("name",
+						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("06#" + "name");
+		semOperationAction.addPropVisibleAttribute("06#" + "name");
+		semOperationAction.addPanelVisibleAttribute("06#" + "name");
+		semOperationAction.addPanelSpacersAttribute("#" + "name" + "#");
+
+		semOperationAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
+		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
+
+		semOperationAction.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationAction.addPropEditableAttribute("08#" + "position");
+		semOperationAction.addPropVisibleAttribute("08#" + "position");
+
+		InstConcept instSemOperationAction = new InstConcept("CSOpAction",
+				null, semOperationAction);
+
+		MetaConcept operationAction = new MetaConcept('O', "CSOpAction", true,
+				"CSOpAction", "refasminiclass", "Operation Action", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemOperationAction, true);
+
+		operationAction.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		operationAction.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instOperAction = new InstConcept("CSOpAction",
+				metaBasicConcept, operationAction);
+		variabilityInstVertex.put("CSOpAction", instOperAction);
+
+		SemanticConcept semOperationSubAction = new SemanticConcept(semConcept,
+				"CSOpSubAction");
+
+		semOperationSubAction.putSemanticAttribute("name",
+				new SemanticAttribute("name", "String", false, "Name", null, 0,
+						6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("06#" + "name");
+		semOperationSubAction.addPropVisibleAttribute("06#" + "name");
+		semOperationSubAction.addPanelVisibleAttribute("06#" + "name");
+		semOperationSubAction.addPanelSpacersAttribute("#" + "name" + "#");
+
+		semOperationSubAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String", false, "Shortcut",
+						null, 0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("07#" + "shortcut");
+		semOperationSubAction.addPropVisibleAttribute("07#" + "shortcut");
+
+		semOperationSubAction.putSemanticAttribute("position",
+				new SemanticAttribute("position", "Integer", false, "Position",
+						1, 0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "position");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "position");
+
+		InstConcept instSemOperationSubAction = new InstConcept(
+				"CSOpSubAction", null, semOperationSubAction);
+
+		MetaConcept operationSubAction = new MetaConcept('O', "CSOpSubAction",
+				true, "CSOpSubAction", "refasminiclass", "Operation Action",
+				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, instSemOperationSubAction, true);
+
+		operationSubAction.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		operationSubAction.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instOperSubAction = new InstConcept("CSOpSubAction",
+				metaBasicConcept, operationSubAction);
+		variabilityInstVertex.put("CSOpSubAction", instOperSubAction);
+
+		rel = new InstPairwiseRelation(semPairwAsoRel);
+		rel.setEditableMetaElement(metaPairwiseRelAso);
+		rel.setIdentifier("AssoMenu-Act");
+		rel.setTargetRelation(instOperAction, true);
+		rel.setSourceRelation(instOperMenu, true);
+		constraintInstEdges.put("AssoMenu-Act", rel);
+
+		rel = new InstPairwiseRelation(semPairwAsoRel);
+		rel.setEditableMetaElement(metaPairwiseRelAso);
+		rel.setIdentifier("AssoAct-SubAct");
+		rel.setTargetRelation(instOperSubAction, true);
+		rel.setSourceRelation(instOperAction, true);
+		constraintInstEdges.put("AssoAct-SubAct", rel);
 	}
 
 	/**
@@ -1494,29 +1634,29 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instOverTwoRelation, true);
 	}
 
-	OperationAction verifDeadElemOperationAction = null;
+	SemanticOperationAction verifDeadElemOperationAction = null;
 	OperationSubActionExpType verifDeadElemOperSubActionNormal = null;
 	OperationSubActionExpType verifDeadElemOperSubActionRelaxable = null;
 	OperationSubActionExpType verifDeadElemOperSubActionVerification = null;
 
-	OperationAction verifParentsOperationAction = null;
+	SemanticOperationAction verifParentsOperationAction = null;
 	OperationSubActionExpType verifParentsOperSubActionNormal = null;
 	OperationSubActionExpType verifParentsOperSubActionRelaxable = null;
 	OperationSubActionExpType verifParentsOperSubActionVerification = null;
 
-	OperationAction verifRootOperationAction = null;
+	SemanticOperationAction verifRootOperationAction = null;
 	OperationSubActionExpType verifRootOperSubActionNormal = null;
 	OperationSubActionExpType verifRootOperSubActionRelaxable = null;
 	OperationSubActionExpType verifRootOperSubActionVerification = null;
 
-	OperationAction verifFalseOptOperationAction = null;
+	SemanticOperationAction verifFalseOptOperationAction = null;
 	OperationSubActionExpType verifFalseOptOperSubActionNormal = null;
 	OperationSubActionExpType verifFalseOptOperSubActionRelaxable = null;
 	OperationSubActionExpType verifFalseOptOperSubActionVerification = null;
 
 	OperationLabeling simulationExecOperUniqueLabeling = null;
 
-	OperationAction simulationOperationAction = null;
+	SemanticOperationAction simulationOperationAction = null;
 
 	OperationSubActionExpType simulationExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPreValOptOperSubActionNormal = null;
@@ -1524,7 +1664,7 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulationPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulationPostUpdOptOperSubActionNormal = null;
 
-	OperationAction simulScenOperationAction = null;
+	SemanticOperationAction simulScenOperationAction = null;
 
 	OperationSubActionExpType simulScenExecOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPreValOptOperSubActionNormal = null;
@@ -1532,290 +1672,17 @@ public class RefasModel extends AbstractModel {
 	OperationSubActionExpType simulScenPosValOptOperSubActionNormal = null;
 	OperationSubActionExpType simulScenPostUpdOptOperSubActionNormal = null;
 
-	OperationAction configTemporalOperationAction = null;
+	SemanticOperationAction configTemporalOperationAction = null;
 
 	OperationSubActionExpType configTemporalOptOperSubActionNormal = null;
 
-	OperationAction configPermanentOperationAction = null;
+	SemanticOperationAction configPermanentOperationAction = null;
 
 	OperationSubActionExpType configPermanentOptOperSubActionNormal = null;
 
-	OperationAction updateCoreOperationAction = null;
+	SemanticOperationAction updateCoreOperationAction = null;
 
 	OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
-
-	public void createSemanticOperations() {
-		operationActions = new HashMap<String, OperationAction>();
-
-		simulationOperationAction = new OperationAction(1, "Simulation");
-		operationActions.put("Simulation", simulationOperationAction);
-
-		OperationSubAction operationSubAction = new OperationSubAction(1,
-				"Pre-Validacion", OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulationPreValOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(2, "Pre-Update",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulationPreUpdOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(3, "Execution",
-				OperationSubActionType.ITERATIVEUPDATE);
-		simulationExecOperUniqueLabeling = new OperationLabeling("unique",
-				"ff", 1, false);
-
-		operationSubAction
-				.addOperationLabeling(simulationExecOperUniqueLabeling);
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(4, "Post-Validacion",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulationPosValOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(5, "Post-Update",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulationPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
-
-		simulScenOperationAction = new OperationAction(1, "SimulationScenarios");
-		operationActions.put("SimulationScenarios", simulScenOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "Pre-Validacion",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(2, "Pre-Update",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(3, "Execution",
-				OperationSubActionType.ITERATIVEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("all",
-				"ff", 1, false));
-		operationSubAction.addOperationLabeling(new OperationLabeling("once",
-				"ff", 2, true));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulScenExecOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(4, "Post-Validacion",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulScenPosValOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
-
-		operationSubAction = new OperationSubAction(5, "Post-Update",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
-
-		simulScenPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
-
-		updateCoreOperationAction = new OperationAction(1, "UpdateCore");
-		operationActions.put("UpdateCore", updateCoreOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "Update Core",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		updateCoreOperationAction.addExpressionSubAction(operationSubAction);
-
-		updateCoreOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
-
-		configTemporalOperationAction = new OperationAction(1,
-				"ConfigureTemporal");
-		operationActions
-				.put("ConfigureTemporal", configTemporalOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "Configure Temporal",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		configTemporalOperationAction
-				.addExpressionSubAction(operationSubAction);
-
-		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
-
-		configPermanentOperationAction = new OperationAction(1,
-				"ConfigurePermanent");
-		operationActions.put("ConfigurePermanent",
-				configPermanentOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "Configure Permanent",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		configPermanentOperationAction
-				.addExpressionSubAction(operationSubAction);
-
-		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
-
-		verifDeadElemOperationAction = new OperationAction(1,
-				"VerifyDeadElements");
-		operationActions
-				.put("VerifyDeadElements", verifDeadElemOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "VerifyDeadElements",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
-
-		verifDeadElemOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionNormal);
-
-		verifDeadElemOperSubActionRelaxable = new OperationSubActionExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionRelaxable);
-
-		verifDeadElemOperSubActionVerification = new OperationSubActionExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
-
-		verifParentsOperationAction = new OperationAction(2, "VerifyParents");
-		operationActions.put("VerifyParents", verifParentsOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "VerifyParents",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		verifParentsOperationAction.addExpressionSubAction(operationSubAction);
-
-		verifParentsOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionNormal);
-
-		verifParentsOperSubActionRelaxable = new OperationSubActionExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionRelaxable);
-
-		verifParentsOperSubActionVerification = new OperationSubActionExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
-
-		verifRootOperationAction = new OperationAction(3, "VerifyRoots");
-		operationActions.put("VerifyRoots", verifRootOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "VerifyRoots",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		verifRootOperationAction.addExpressionSubAction(operationSubAction);
-
-		verifRootOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionNormal);
-
-		verifRootOperSubActionRelaxable = new OperationSubActionExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionRelaxable);
-
-		verifRootOperSubActionVerification = new OperationSubActionExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionVerification);
-
-		verifFalseOptOperationAction = new OperationAction(4,
-				"VerifyFalseOperations");
-		operationActions.put("VerifyFalseOperations",
-				verifFalseOptOperationAction);
-
-		operationSubAction = new OperationSubAction(1, "VerifyFalseOperations",
-				OperationSubActionType.VERIFICATION);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
-
-		verifFalseOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionNormal);
-
-		verifFalseOptOperSubActionRelaxable = new OperationSubActionExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionRelaxable);
-
-		verifFalseOptOperSubActionVerification = new OperationSubActionExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionVerification);
-	}
 
 	/**
 	 * Creates the default elements (objects) of the Semantic Model (Semantic
@@ -1825,6 +1692,15 @@ public class RefasModel extends AbstractModel {
 	 */
 	@SuppressWarnings("unchecked")
 	public void createDefaultSemantic() {
+		MetaConcept metaOperationMenu = (MetaConcept) ((InstConcept) this
+				.getSyntaxRefas().getVertex("CSOpMenu"))
+				.getEditableMetaElement();
+		MetaConcept metaOperationAction = (MetaConcept) ((InstConcept) this
+				.getSyntaxRefas().getVertex("CSOpAction"))
+				.getEditableMetaElement();
+		MetaConcept metaOperationSubAction = (MetaConcept) ((InstConcept) this
+				.getSyntaxRefas().getVertex("CSOpSubAction"))
+				.getEditableMetaElement();
 		MetaConcept metaConcept = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("Concept"))
 				.getEditableMetaElement();
@@ -1847,6 +1723,593 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwRelAso = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
+
+		operationActions = new HashMap<String, SemanticOperationAction>();
+
+		SemanticOperationMenu operationMenu = new SemanticOperationMenu(1,
+				"SimulationOper", 2);
+
+		InstVertex instOperationMenu = new InstConcept("SimulationMenu",
+				metaOperationMenu, operationMenu);
+		variabilityInstVertex.put("SimulationMenu", instOperationMenu);
+
+		simulationOperationAction = new SemanticOperationAction(1,
+				"SimulationOper");
+		operationActions.put("SimulationOper", simulationOperationAction);
+
+		InstVertex instOperationAction = new InstConcept("SimulationOper",
+				metaOperationAction, simulationOperationAction);
+		variabilityInstVertex.put("SimulationOper", instOperationAction);
+
+		InstPairwiseRelation instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-menu", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-menu");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		SemanticOperationSubAction operationSubAction = new SemanticOperationSubAction(
+				1, "Sim-Pre-Validacion", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
+
+		InstVertex instOperationSubAction = new InstConcept(
+				"Sim-Pre-Validacion", metaOperationSubAction,
+				operationSubAction);
+		variabilityInstVertex.put("Sim-Pre-Validacion", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-pre-val", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pre-val");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulationPreValOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(2,
+				"Sim-Pre-Update", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("Sim-Pre-Update",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("Sim-Pre-Update", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-pre-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pre-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulationPreUpdOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(3, "Sim-Execution",
+				OperationSubActionType.ITERATIVEUPDATE);
+		simulationExecOperUniqueLabeling = new OperationLabeling("unique",
+				"ff", 1, false);
+
+		operationSubAction
+				.addOperationLabeling(simulationExecOperUniqueLabeling);
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("Sim-Execution",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("Sim-Execution", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-exec", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-exec");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulationExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(4,
+				"SimSce-Post-Validacion", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Post-Validacion",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Post-Validacion",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-pos-val", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pos-val");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulationPosValOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(5,
+				"Sim-Post-Update", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulationOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("Sim-Post-Update",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("Sim-Post-Update", instOperationSubAction);
+
+		simulationPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
+
+		operationMenu = new SemanticOperationMenu(1, "SimulationSCeOper", 2);
+
+		instOperationMenu = new InstConcept("SimulationSceMenu",
+				metaOperationMenu, operationMenu);
+		variabilityInstVertex.put("SimulationSceMenu", instOperationMenu);
+
+		simulScenOperationAction = new SemanticOperationAction(1,
+				"SimulationScenarios");
+		operationActions.put("SimulationScenarios", simulScenOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("sim-pos-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pos-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		instOperationAction = new InstConcept("SimulationScenarios",
+				metaOperationAction, simulScenOperationAction);
+		variabilityInstVertex.put("SimulationScenarios", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-menu", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-menu");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"SimSce-Pre-Validacion", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Pre-Validacion",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Pre-Validacion",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-pre-val", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pre-val");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(2,
+				"SimSce-Pre-Update", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Pre-Update",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Pre-Update", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-pre-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pre-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulScenPreValOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(3,
+				"SimSce-Execution", OperationSubActionType.ITERATIVEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("all",
+				"ff", 1, false));
+		operationSubAction.addOperationLabeling(new OperationLabeling("once",
+				"ff", 2, true));
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Execution",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Execution", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-exec", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-exec");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulScenExecOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(4,
+				"SimSce-Post-Validacion", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Post-Validacion",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Post-Validacion",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-pos-val", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pos-val");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulScenPosValOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
+
+		operationSubAction = new SemanticOperationSubAction(5,
+				"SimSce-Post-Update", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("SimSce-Post-Update",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("SimSce-Post-Update", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("simsce-pos-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("simsce-pos-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		simulScenPostUpdOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
+
+		operationMenu = new SemanticOperationMenu(1, "Verification", 2);
+
+		instOperationMenu = new InstConcept("Verification", metaOperationMenu,
+				operationMenu);
+		variabilityInstVertex.put("Verification", instOperationMenu);
+
+		updateCoreOperationAction = new SemanticOperationAction(1,
+				"UpdateCoreOper");
+		operationActions.put("UpdateCoreOper", updateCoreOperationAction);
+
+		instOperationAction = new InstConcept("UpdateCoreOper",
+				metaOperationAction, updateCoreOperationAction);
+		variabilityInstVertex.put("UpdateCoreOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-upd", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-upd");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"UpdateCoreSubOper", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("UpdateCoreSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("UpdateCoreSubOper", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("upd-core", instEdgeOper);
+		instEdgeOper.setIdentifier("upd-core");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		updateCoreOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
+
+		configTemporalOperationAction = new SemanticOperationAction(1,
+				"ConfigureTemporalOper");
+		operationActions.put("ConfigureTemporalOper",
+				configTemporalOperationAction);
+
+		instOperationAction = new InstConcept("ConfigureTemporalOper",
+				metaOperationAction, configTemporalOperationAction);
+		variabilityInstVertex.put("ConfigureTemporalOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-conft", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-conft");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		configTemporalOperationAction
+				.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("ConfigureTemporalSubOper",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("conf-temp", instEdgeOper);
+		instEdgeOper.setIdentifier("conf-temp");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
+
+		configPermanentOperationAction = new SemanticOperationAction(1,
+				"ConfigurePermanentOper");
+		operationActions.put("ConfigurePermanentOper",
+				configPermanentOperationAction);
+
+		instOperationAction = new InstConcept("ConfigurePermanentOper",
+				metaOperationAction, configPermanentOperationAction);
+		variabilityInstVertex
+				.put("ConfigurePermanentOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-confp", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-confp");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"ConfigurePermanentSubOper",
+				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		configPermanentOperationAction
+				.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("ConfigurePermanentSubOpe",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("conf-perm", instEdgeOper);
+		instEdgeOper.setIdentifier("conf-perm");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
+
+		verifDeadElemOperationAction = new SemanticOperationAction(1,
+				"VerifyDeadElementsOper");
+		operationActions.put("VerifyDeadElementsOper",
+				verifDeadElemOperationAction);
+
+		instOperationAction = new InstConcept("VerifyDeadElementsOper",
+				metaOperationAction, verifDeadElemOperationAction);
+		variabilityInstVertex
+				.put("VerifyDeadElementsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-dead", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-dead");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"VerifyDeadElementsSubOper",
+				OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("VerifyDeadElementsSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("VerifyDeadElementsSubOper",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-dead", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-dead");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		verifDeadElemOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(verifDeadElemOperSubActionNormal);
+
+		verifDeadElemOperSubActionRelaxable = new OperationSubActionExpType(
+				OperationSubActionExecType.RELAXABLE);
+		operationSubAction
+				.addOperationSubActionExpType(verifDeadElemOperSubActionRelaxable);
+
+		verifDeadElemOperSubActionVerification = new OperationSubActionExpType(
+				OperationSubActionExecType.VERIFICATION);
+		operationSubAction
+				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
+
+		verifParentsOperationAction = new SemanticOperationAction(2,
+				"VerifyParentsOper");
+		operationActions.put("VerifyParentsOper", verifParentsOperationAction);
+
+		instOperationAction = new InstConcept("VerifyParentsOper",
+				metaOperationAction, verifParentsOperationAction);
+		variabilityInstVertex.put("VerifyParentsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-pare", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-pare");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"VerifyParentsSubOper", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		verifParentsOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("VerifyParentsSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("VerifyParentsSubOper",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-par", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-par");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		verifParentsOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(verifParentsOperSubActionNormal);
+
+		verifParentsOperSubActionRelaxable = new OperationSubActionExpType(
+				OperationSubActionExecType.RELAXABLE);
+		operationSubAction
+				.addOperationSubActionExpType(verifParentsOperSubActionRelaxable);
+
+		verifParentsOperSubActionVerification = new OperationSubActionExpType(
+				OperationSubActionExecType.VERIFICATION);
+		operationSubAction
+				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
+
+		verifRootOperationAction = new SemanticOperationAction(3,
+				"VerifyRootsOper");
+		operationActions.put("VerifyRootsOper", verifRootOperationAction);
+
+		instOperationAction = new InstConcept("VerifyRootsOper",
+				metaOperationAction, verifRootOperationAction);
+		variabilityInstVertex.put("VerifyRootsOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-root", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-root");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"VerifyRootsSubOper", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		verifRootOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("VerifyRootsSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("VerifyRootsSubOper", instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-root", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-root");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		verifRootOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(verifRootOperSubActionNormal);
+
+		verifRootOperSubActionRelaxable = new OperationSubActionExpType(
+				OperationSubActionExecType.RELAXABLE);
+		operationSubAction
+				.addOperationSubActionExpType(verifRootOperSubActionRelaxable);
+
+		verifRootOperSubActionVerification = new OperationSubActionExpType(
+				OperationSubActionExecType.VERIFICATION);
+		operationSubAction
+				.addOperationSubActionExpType(verifRootOperSubActionVerification);
+
+		verifFalseOptOperationAction = new SemanticOperationAction(4,
+				"VerifyFalseOperations");
+		operationActions.put("VerifyFalseOperations",
+				verifFalseOptOperationAction);
+
+		instOperationAction = new InstConcept("VerifyFalseOperations",
+				metaOperationAction, verifFalseOptOperationAction);
+		variabilityInstVertex.put("VerifyFalseOperations", instOperationAction);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("VerifyFalseSubOperations",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("VerifyFalseSubOperations",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-false", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-false");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		verifFalseOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(verifFalseOptOperSubActionNormal);
+
+		verifFalseOptOperSubActionRelaxable = new OperationSubActionExpType(
+				OperationSubActionExecType.RELAXABLE);
+		operationSubAction
+				.addOperationSubActionExpType(verifFalseOptOperSubActionRelaxable);
+
+		verifFalseOptOperSubActionVerification = new OperationSubActionExpType(
+				OperationSubActionExecType.VERIFICATION);
+		operationSubAction
+				.addOperationSubActionExpType(verifFalseOptOperSubActionVerification);
 
 		InstEnumeration instVertexHStrME = new InstEnumeration(
 				"HardStructEnumeration", metaEnumeration);
@@ -2636,138 +3099,149 @@ public class RefasModel extends AbstractModel {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addInVariable(attribute);
 
-		attribute = new SemanticAttribute(semVariable.VAR_NAME, "String",
-				false, semVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_NAME, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_VARIABLETYPE,
-				"Enumeration", true, semVariable.VAR_VARIABLETYPENAME,
-				semVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "", "",
-				-1, "", semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLETYPE,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
-				"String", false, semVariable.VAR_VARIABLEDOMAINNAME, "0,1", 0,
-				3, semVariable.VAR_VARIABLETYPE + "#==#" + "Integer",
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLEDOMAIN,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
-				"Class", false, semVariable.VAR_ENUMERATIONTYPENAME,
-				semVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "", 0, 4,
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration",
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration", -1, "",
+		attribute = new SemanticAttribute(SemanticVariable.VAR_NAME, "String",
+				false, SemanticVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "",
 				"");
-		semVariable.putSemanticAttribute(semVariable.VAR_ENUMERATIONTYPE,
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_NAME, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLETYPE,
+				"Enumeration", true, SemanticVariable.VAR_VARIABLETYPENAME,
+				SemanticVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "",
+				"", -1, "", SemanticVariable.VAR_VARIABLETYPE + "#!=#"
+						+ "Enumeration");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VARIABLETYPE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
+				"String", false, SemanticVariable.VAR_VARIABLEDOMAINNAME,
+				"0,1", 0, 3, SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Integer", SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Integer", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_ENUMERATIONTYPE,
+				"Class", false, SemanticVariable.VAR_ENUMERATIONTYPENAME,
+				SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "",
+				0, 4, SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Enumeration", SemanticVariable.VAR_VARIABLETYPE
+						+ "#==#" + "Enumeration", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_ENUMERATIONTYPE,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		// TODO define domain for enumtype
-		attribute = new ExecCurrentStateAttribute(semVariable.VAR_VALUE,
-				"Integer", false, semVariable.VAR_VALUENAME, 0, 1, -1, "", "",
+		attribute = new ExecCurrentStateAttribute(SemanticVariable.VAR_VALUE,
+				"Integer", false, SemanticVariable.VAR_VALUENAME, 0, 1, -1, "",
+				"", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_VALUE, attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_CONTEXT,
+				"Boolean", false, SemanticVariable.VAR_CONTEXTNAME, false, 0,
+				5, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_CONTEXT,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
+				"Boolean", false, SemanticVariable.VAR_EXTVISIBLENAME, false,
+				0, 8, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
+				"Boolean", false, SemanticVariable.VAR_EXTCONTROLNAME, false,
+				0, 9, "", "", -1, "", "");
+		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
+				attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new GlobalConfigAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
+				SemanticVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "",
 				-1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VALUE, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_CONTEXT, "Boolean",
-				false, semVariable.VAR_CONTEXTNAME, false, 0, 5, "", "", -1,
-				"", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_CONTEXT, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_EXTVISIBLE,
-				"Boolean", false, semVariable.VAR_EXTVISIBLENAME, false, 0, 8,
-				"", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_EXTVISIBLE, attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new SemanticAttribute(semVariable.VAR_EXTCONTROL,
-				"Boolean", false, semVariable.VAR_EXTCONTROLNAME, false, 0, 9,
-				"", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_EXTCONTROL, attribute);
+		semVariable.putSemanticAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGVALUE, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute(
-				semVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
-				semVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "", -1,
-				"", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGVALUE,
-				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-		attribute = new GlobalConfigAttribute(
-				semVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
-				semVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
-				semVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
-						+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration"
-						+ "||" + semVariable.VAR_VARIABLETYPE + "#==#"
+				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
+				SemanticVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
+				SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
+						+ SemanticVariable.VAR_VARIABLETYPE + "#==#"
+						+ "Enumeration" + "||"
+						+ SemanticVariable.VAR_VARIABLETYPE + "#==#"
 						+ "Boolean", "", -1, "", "");
-		semVariable.putSemanticAttribute(semVariable.VAR_VARIABLECONFIGDOMAIN,
-				attribute);
+		semVariable.putSemanticAttribute(
+				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semVariable.addPropEditableAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropEditableAttribute("01#" + SemanticVariable.VAR_NAME);
 		semVariable.addPropEditableAttribute("02#"
-				+ semVariable.VAR_VARIABLETYPE);
+				+ SemanticVariable.VAR_VARIABLETYPE);
 		semVariable.addPropEditableAttribute("03#"
-				+ semVariable.VAR_VARIABLEDOMAIN);
+				+ SemanticVariable.VAR_VARIABLEDOMAIN);
 		semVariable.addPropEditableAttribute("04#"
-				+ semVariable.VAR_ENUMERATIONTYPE);
-		semVariable.addPropEditableAttribute("05#" + semVariable.VAR_CONTEXT);
+				+ SemanticVariable.VAR_ENUMERATIONTYPE);
+		semVariable.addPropEditableAttribute("05#"
+				+ SemanticVariable.VAR_CONTEXT);
 
-		semVariable
-				.addPropEditableAttribute("08#" + semVariable.VAR_EXTVISIBLE);
-		semVariable
-				.addPropEditableAttribute("09#" + semVariable.VAR_EXTCONTROL);
+		semVariable.addPropEditableAttribute("08#"
+				+ SemanticVariable.VAR_EXTVISIBLE);
+		semVariable.addPropEditableAttribute("09#"
+				+ SemanticVariable.VAR_EXTCONTROL);
 
 		semVariable.addPropEditableAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN);
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN);
 
-		semVariable.addPropVisibleAttribute("01#" + semVariable.VAR_NAME);
+		semVariable.addPropVisibleAttribute("01#" + SemanticVariable.VAR_NAME);
 		semVariable.addPropVisibleAttribute("02#"
-				+ semVariable.VAR_VARIABLETYPE);
+				+ SemanticVariable.VAR_VARIABLETYPE);
 		semVariable.addPropVisibleAttribute("03#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPropVisibleAttribute("04#"
-				+ semVariable.VAR_ENUMERATIONTYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("05#" + semVariable.VAR_CONTEXT);
+				+ SemanticVariable.VAR_ENUMERATIONTYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("05#"
+				+ SemanticVariable.VAR_CONTEXT);
 
-		semVariable.addPropVisibleAttribute("06#" + semVariable.VAR_VALUE);
-		semVariable.addPropVisibleAttribute("07#" + semVariable.VAR_VALUE);
-		semVariable.addPropVisibleAttribute("08#" + semVariable.VAR_EXTVISIBLE);
-		semVariable.addPropVisibleAttribute("09#" + semVariable.VAR_EXTCONTROL);
+		semVariable.addPropVisibleAttribute("06#" + SemanticVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("07#" + SemanticVariable.VAR_VALUE);
+		semVariable.addPropVisibleAttribute("08#"
+				+ SemanticVariable.VAR_EXTVISIBLE);
+		semVariable.addPropVisibleAttribute("09#"
+				+ SemanticVariable.VAR_EXTCONTROL);
 
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPropVisibleAttribute("01#"
-				+ semVariable.VAR_VARIABLECONFIGDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Boolean");
+				+ SemanticVariable.VAR_VARIABLECONFIGDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Boolean");
 
 		semVariable.addPanelVisibleAttribute("05#"
-				+ semVariable.VAR_VARIABLETYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
+				+ SemanticVariable.VAR_VARIABLETYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#!=#" + "Enumeration");
 		semVariable.addPanelVisibleAttribute("06#"
-				+ semVariable.VAR_ENUMERATIONTYPE + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
+				+ SemanticVariable.VAR_ENUMERATIONTYPE + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Enumeration");
 		semVariable.addPanelVisibleAttribute("07#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#"
-				+ semVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#"
+				+ SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer");
 		semVariable.addPanelSpacersAttribute("{#"
-				+ semVariable.VAR_VARIABLETYPE + "#} ");
+				+ SemanticVariable.VAR_VARIABLETYPE + "#} ");
 
 		semVariable.addPanelSpacersAttribute("{#"
-				+ semVariable.VAR_VARIABLEDOMAIN + "#} ");
+				+ SemanticVariable.VAR_VARIABLEDOMAIN + "#} ");
 
 		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
@@ -2859,7 +3333,7 @@ public class RefasModel extends AbstractModel {
 				"GreaterOrEq"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
 				instVertexCL, instDirOperClaimSemanticEdge, t2,
 				ExpressionVertexType.RIGHTRELATIONCONCEPT,
-				instDirOperClaimSemanticEdge, "lowCardinality");
+				instDirOperClaimSemanticEdge, "LowRange");
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTRELATIONCONCEPT,
@@ -2869,12 +3343,12 @@ public class RefasModel extends AbstractModel {
 				"LessOrEquals"), ExpressionVertexType.LEFTINCOMRELVARIABLE,
 				instVertexCL, instDirOperClaimSemanticEdge, t2,
 				ExpressionVertexType.RIGHTRELATIONCONCEPT, instVertexCL,
-				"highCardinality");
+				"HighRange");
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"And"), t1, t3);
 
-		t1 = new SemanticExpression("ANDlowCardinality", this
+		t1 = new SemanticExpression("ANDLowRange", this
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexCL, "Selected", true, t1);
 

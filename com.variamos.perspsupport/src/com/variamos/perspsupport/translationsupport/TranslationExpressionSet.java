@@ -11,8 +11,8 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.OperationAction;
-import com.variamos.perspsupport.expressionsupport.OperationSubAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -72,9 +72,9 @@ public class TranslationExpressionSet {
 			String subAction, OperationSubActionExecType expressionType) {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		OperationAction operAction = refas.getSemanticRefas()
+		SemanticOperationAction operAction = refas.getSemanticRefas()
 				.getOperationActions().get(operation);
-		OperationSubAction operSubAction = operAction
+		SemanticOperationSubAction operSubAction = operAction
 				.getExpressionSubAction(subAction);
 		if (operSubAction != null) {
 			OperationSubActionExpType operExpType = operSubAction
