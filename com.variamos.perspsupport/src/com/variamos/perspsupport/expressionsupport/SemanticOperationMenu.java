@@ -33,6 +33,11 @@ public class SemanticOperationMenu extends AbstractSemanticElement {
 		this.type = type;
 	}
 
+	public SemanticOperationMenu() {
+		super(null);
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getPosition() {
 		return position;
 	}

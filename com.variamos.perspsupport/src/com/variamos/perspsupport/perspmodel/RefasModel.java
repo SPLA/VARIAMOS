@@ -886,7 +886,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemOperationMenu = new InstConcept("CSOpMenu", null,
 				semOperationMenu);
 
-		MetaConcept operationMenu = new MetaConcept('O', "CSOpMenu", true,
+		MetaConcept operationMenu = new MetaConcept('M', "CSOpMenu", true,
 				"CSOpMenu", "refasminiclass", "Operation Menu", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOperationMenu, true);
@@ -926,7 +926,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemOperationAction = new InstConcept("CSOpAction",
 				null, semOperationAction);
 
-		MetaConcept operationAction = new MetaConcept('O', "CSOpAction", true,
+		MetaConcept operationAction = new MetaConcept('A', "CSOpAction", true,
 				"CSOpAction", "refasminiclass", "Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOperationAction, true);
@@ -966,7 +966,7 @@ public class RefasModel extends AbstractModel {
 		InstConcept instSemOperationSubAction = new InstConcept(
 				"CSOpSubAction", null, semOperationSubAction);
 
-		MetaConcept operationSubAction = new MetaConcept('O', "CSOpSubAction",
+		MetaConcept operationSubAction = new MetaConcept('S', "CSOpSubAction",
 				true, "CSOpSubAction", "refasminiclass", "Operation Action",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemOperationSubAction, true);
@@ -2277,6 +2277,13 @@ public class RefasModel extends AbstractModel {
 		instOperationAction = new InstConcept("VerifyFalseOperations",
 				metaOperationAction, verifFalseOptOperationAction);
 		variabilityInstVertex.put("VerifyFalseOperations", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-false", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-false");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);

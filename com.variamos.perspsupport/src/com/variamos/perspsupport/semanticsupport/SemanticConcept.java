@@ -33,7 +33,9 @@ public class SemanticConcept extends AbstractSemanticVertex implements
 		defineSemanticAttributes();
 	}
 
-	private void defineSemanticAttributes() {}
+	private void defineSemanticAttributes() {
+	}
+
 	public String toString() {
 
 		return " HSC: " + super.toString();

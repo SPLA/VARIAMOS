@@ -25,6 +25,10 @@ public class SemanticEnumeration {
 
 	}
 
+	public SemanticEnumeration() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
