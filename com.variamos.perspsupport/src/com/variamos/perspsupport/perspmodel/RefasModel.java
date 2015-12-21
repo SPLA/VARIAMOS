@@ -76,11 +76,6 @@ public class RefasModel extends AbstractModel {
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
 	private Map<String, SemanticExpressionType> semanticExpressionTypes;
-	private Map<String, SemanticOperationAction> operationActions;
-
-	public Map<String, SemanticOperationAction> getOperationActions() {
-		return operationActions;
-	}
 
 	/**
 	 * 
@@ -1724,8 +1719,6 @@ public class RefasModel extends AbstractModel {
 				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
-		operationActions = new HashMap<String, SemanticOperationAction>();
-
 		SemanticOperationMenu operationMenu = new SemanticOperationMenu(1,
 				"SimulationOper", 2);
 
@@ -1735,7 +1728,6 @@ public class RefasModel extends AbstractModel {
 
 		simulationOperationAction = new SemanticOperationAction(1,
 				"SimulationOper");
-		operationActions.put("SimulationOper", simulationOperationAction);
 
 		InstVertex instOperationAction = new InstConcept("SimulationOper",
 				metaOperationAction, simulationOperationAction);
@@ -1864,7 +1856,6 @@ public class RefasModel extends AbstractModel {
 
 		simulScenOperationAction = new SemanticOperationAction(1,
 				"SimulationScenarios");
-		operationActions.put("SimulationScenarios", simulScenOperationAction);
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sim-pos-upd", instEdgeOper);
@@ -2006,7 +1997,6 @@ public class RefasModel extends AbstractModel {
 
 		updateCoreOperationAction = new SemanticOperationAction(1,
 				"UpdateCoreOper");
-		operationActions.put("UpdateCoreOper", updateCoreOperationAction);
 
 		instOperationAction = new InstConcept("UpdateCoreOper",
 				metaOperationAction, updateCoreOperationAction);
@@ -2043,8 +2033,6 @@ public class RefasModel extends AbstractModel {
 
 		configTemporalOperationAction = new SemanticOperationAction(1,
 				"ConfigureTemporalOper");
-		operationActions.put("ConfigureTemporalOper",
-				configTemporalOperationAction);
 
 		instOperationAction = new InstConcept("ConfigureTemporalOper",
 				metaOperationAction, configTemporalOperationAction);
@@ -2083,8 +2071,6 @@ public class RefasModel extends AbstractModel {
 
 		configPermanentOperationAction = new SemanticOperationAction(1,
 				"ConfigurePermanentOper");
-		operationActions.put("ConfigurePermanentOper",
-				configPermanentOperationAction);
 
 		instOperationAction = new InstConcept("ConfigurePermanentOper",
 				metaOperationAction, configPermanentOperationAction);
@@ -2125,8 +2111,6 @@ public class RefasModel extends AbstractModel {
 
 		verifDeadElemOperationAction = new SemanticOperationAction(1,
 				"VerifyDeadElementsOper");
-		operationActions.put("VerifyDeadElementsOper",
-				verifDeadElemOperationAction);
 
 		instOperationAction = new InstConcept("VerifyDeadElementsOper",
 				metaOperationAction, verifDeadElemOperationAction);
@@ -2176,7 +2160,6 @@ public class RefasModel extends AbstractModel {
 
 		verifParentsOperationAction = new SemanticOperationAction(2,
 				"VerifyParentsOper");
-		operationActions.put("VerifyParentsOper", verifParentsOperationAction);
 
 		instOperationAction = new InstConcept("VerifyParentsOper",
 				metaOperationAction, verifParentsOperationAction);
@@ -2224,7 +2207,6 @@ public class RefasModel extends AbstractModel {
 
 		verifRootOperationAction = new SemanticOperationAction(3,
 				"VerifyRootsOper");
-		operationActions.put("VerifyRootsOper", verifRootOperationAction);
 
 		instOperationAction = new InstConcept("VerifyRootsOper",
 				metaOperationAction, verifRootOperationAction);
@@ -2271,8 +2253,6 @@ public class RefasModel extends AbstractModel {
 
 		verifFalseOptOperationAction = new SemanticOperationAction(4,
 				"VerifyFalseOperations");
-		operationActions.put("VerifyFalseOperations",
-				verifFalseOptOperationAction);
 
 		instOperationAction = new InstConcept("VerifyFalseOperations",
 				metaOperationAction, verifFalseOptOperationAction);
