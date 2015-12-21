@@ -286,20 +286,20 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						case "range":
 
 							// B_"attribute" #<=> ( ( ( ( A1_"attribute" +
-							// A2_"attribute" ) + ... ) #>= GD_LowCardinality)
+							// A2_"attribute" ) + ... ) #>= GD_LowRange)
 							// #/\
 							// ( ( ( A1_"attribute" + A2_"attribute" ) + ... )
 							// #<=
-							// GD_HighCardinality ) )
+							// GD_HighRange ) )
 							recursiveExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
-							AbstractExpression transformation3 = new GreaterOrEqualsBooleanExpression(
-									instOverTwoRelation, "LowRange", false,
+							AbstractExpression transformation3 = new LessOrEqualsBooleanExpression(
+									instOverTwoRelation, "LowRange", true,
 									recursiveExpression1);
 
-							AbstractExpression transformation4 = new LessOrEqualsBooleanExpression(
-									instOverTwoRelation, "HighRange", false,
-									recursiveExpression2);
+							AbstractExpression transformation4 = new GreaterOrEqualsBooleanExpression(
+									instOverTwoRelation, "HighRange", true,
+									recursiveExpression1);
 
 							AbstractExpression transformation5 = new AndBooleanExpression(
 									transformation3, transformation4);

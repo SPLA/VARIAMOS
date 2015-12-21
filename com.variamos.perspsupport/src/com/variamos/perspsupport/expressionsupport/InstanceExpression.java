@@ -71,7 +71,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private InstanceExpression rightInstanceExpression;
 
 	// TODO change to a new class for type (normal, relax)
-	private List<OperationSubAction> SemExprSubActions;
+	private List<SemanticOperationSubAction> SemExprSubActions;
 
 	/**
 	 * For LEFTVARIABLEVALUE
@@ -869,11 +869,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return out;
 	}
 
-	public List<OperationSubAction> getSemExprSubActions() {
+	public List<SemanticOperationSubAction> getSemExprSubActions() {
 		return SemExprSubActions;
 	}
 
-	public void setSemExprSubActions(List<OperationSubAction> semExprSubActions) {
+	public void setSemExprSubActions(List<SemanticOperationSubAction> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
 	}
 

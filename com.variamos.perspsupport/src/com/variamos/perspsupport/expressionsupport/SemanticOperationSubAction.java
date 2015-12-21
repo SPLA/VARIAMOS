@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.OperationSubActionType;
 
@@ -17,20 +18,24 @@ import com.variamos.perspsupport.types.OperationSubActionType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class OperationSubAction {
+public class SemanticOperationSubAction extends AbstractSemanticElement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
-	private String description;
+	private String identifier;
 	private List<OperationSubActionExpType> operationSubActionExpTypes;
 
 	private List<OperationLabeling> operationLabelings;
 	private OperationSubActionType operationSubActionType;
 
-	public OperationSubAction(int position, String description,
+	public SemanticOperationSubAction(int position, String description,
 			OperationSubActionType operationSubActionType) {
-		super();
+		super(description);
 		this.position = position;
-		this.description = description;
+		this.identifier = description;
 		this.operationSubActionType = operationSubActionType;
 		operationSubActionExpTypes = new ArrayList<OperationSubActionExpType>();
 		operationLabelings = new ArrayList<OperationLabeling>();
@@ -44,12 +49,12 @@ public class OperationSubAction {
 		this.position = position;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getIdentifier() {
+		return identifier;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setIdentifier(String description) {
+		this.identifier = description;
 	}
 
 	public List<OperationSubActionExpType> getOperationSubActionExpTypes() {
@@ -82,7 +87,7 @@ public class OperationSubAction {
 	public List<String> getOperationSubActionExpTypesNames() {
 		List<String> out = new ArrayList<String>();
 		for (OperationSubActionExpType oper : operationSubActionExpTypes) {
-			out.add(this.getDescription() + "-"
+			out.add(this.getIdentifier() + "-"
 					+ oper.getExpressionType().toString());
 		}
 		return out;
@@ -92,7 +97,7 @@ public class OperationSubAction {
 	public Collection<? extends String> getOperLabelNames() {
 		List<String> out = new ArrayList<String>();
 		for (OperationLabeling oper : operationLabelings) {
-			out.add(this.getDescription() + "-" + oper.getName());
+			out.add(this.getIdentifier() + "-" + oper.getName());
 		}
 		return out;
 	}
