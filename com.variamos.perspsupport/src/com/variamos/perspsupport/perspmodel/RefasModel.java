@@ -877,11 +877,11 @@ public class RefasModel extends AbstractModel {
 		semOperationMenu.addPropEditableAttribute("07#" + "shortcut");
 		semOperationMenu.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationMenu.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationMenu.addPropEditableAttribute("08#" + "position");
-		semOperationMenu.addPropVisibleAttribute("08#" + "position");
+		semOperationMenu.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", false, "Position", 1, 0, 6, "", "", 6, "",
+				""));
+		semOperationMenu.addPropEditableAttribute("08#" + "Index");
+		semOperationMenu.addPropVisibleAttribute("08#" + "Index");
 
 		InstConcept instSemOperationMenu = new InstConcept("CSOpMenu", null,
 				semOperationMenu);
@@ -917,11 +917,11 @@ public class RefasModel extends AbstractModel {
 		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationAction.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationAction.addPropEditableAttribute("08#" + "position");
-		semOperationAction.addPropVisibleAttribute("08#" + "position");
+		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", false, "Position", 1, 0, 6, "", "", 6, "",
+				""));
+		semOperationAction.addPropEditableAttribute("08#" + "Index");
+		semOperationAction.addPropVisibleAttribute("08#" + "Index");
 
 		InstConcept instSemOperationAction = new InstConcept("CSOpAction",
 				null, semOperationAction);
@@ -957,11 +957,11 @@ public class RefasModel extends AbstractModel {
 		semOperationSubAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationSubAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationSubAction.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationSubAction.addPropEditableAttribute("08#" + "position");
-		semOperationSubAction.addPropVisibleAttribute("08#" + "position");
+		semOperationSubAction.putSemanticAttribute("Index",
+				new SemanticAttribute("Index", "Integer", false, "Position", 1,
+						0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "Index");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "Index");
 
 		InstConcept instSemOperationSubAction = new InstConcept(
 				"CSOpSubAction", null, semOperationSubAction);

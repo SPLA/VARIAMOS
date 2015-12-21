@@ -76,9 +76,12 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getOperationActions();
+		List<InstElement> oper = editor.getEditedModel().getVariabilityVertex(
+				"CSOpAction");
 
-		for (SemanticOperationAction operAction : operActions.values()) {
-			combo.addItem(operAction.getIdentifier());
+		for (InstElement operAction : oper) {
+			combo.addItem(operAction.getEditableSemanticElement()
+					.getIdentifier());
 		}
 		combo.setSelectedItem("SimulationOper");
 		JPanel topPanel = new JPanel();
