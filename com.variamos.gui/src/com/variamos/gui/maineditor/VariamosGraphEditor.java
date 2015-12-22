@@ -87,6 +87,7 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.SemSolverTasks;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -135,7 +136,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private RefasModel refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
-
+	private SemSolverTasks semTask;
 	protected RefasExpressionPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
@@ -1487,9 +1488,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					.setValue("simul");
 			// Different from null, to display simulation colors
 			this.refresh();
-		} else
-		 if (perspective == 2)
-		{
+		} else if (perspective == 2) {
 			mxGraph target = graphComponent.getGraph();
 			SharedActions.afterOpenCloneGraph(target, this);
 		}
@@ -1580,11 +1579,43 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	// Static operation's definition
 	public void executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, int type) {
 		executeSimulation(firstSimulExecution, reloadDashboard, type, true, "");
 	}
 
+	// TODO support all operations dynamically
+	public void executeOperation(String value) {
+		System.out.println(value);
+		executeSimulation(true, true, value, true, value);
+
+	}
+
+	public SemSolverTasks executeSimulation(boolean firstSimulExecution,
+			boolean reloadDashboard, String type, boolean update, String element) {
+
+		if (!firstSimulExecution && semTask != null) {
+			semTask.setFirstSimulExec(false);
+			semTask.setNext(true);
+		} else {
+			if (semTask != null)
+				semTask.setTerminated(true);
+			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
+					"Executing Simulation", "", 0, 100);
+			progressMonitor.setMillisToDecideToPopup(5);
+			progressMonitor.setMillisToPopup(5);
+			progressMonitor.setProgress(0);
+			semTask = new SemSolverTasks(progressMonitor, type, refas2hlcl,
+					configHlclProgram, firstSimulExecution, reloadDashboard,
+					update, element, lastConfiguration);
+			semTask.addPropertyChangeListener(this);
+			semTask.execute();
+		}
+		return semTask;
+	}
+
+	// Static operation's definition
 	public SolverTasks executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, int type, boolean update, String element) {
 
@@ -1609,6 +1640,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		return task;
 	}
 
+	// Static operation's definition
 	public void exportConfiguration(String file) {
 		if (task == null || task.isDone() || task.getProgress() == 100) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
@@ -1625,6 +1657,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
+	// Static operation's definition without swing worker
 	public boolean executeSimulation(int type, boolean update, String element) {
 		boolean wasFirst = false, first = false;
 		long iniTime = System.currentTimeMillis();
@@ -1638,13 +1671,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			} else {
 				result = refas2hlcl.execute(null, element,
 						Refas2Hlcl.NEXT_SOLUTION, type);
-				/*
-				 * Configuration currentConfiguration = refas2hlcl
-				 * .getConfiguration(); if (result) { List<String>
-				 * modifiedIdentifiers = compareSolutions( lastConfiguration,
-				 * currentConfiguration);
-				 * System.out.println(modifiedIdentifiers); }
-				 */
 			}
 			lastConfiguration = refas2hlcl.getConfiguration();
 			if (result) {
@@ -1825,6 +1851,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
+	// Static operation's definition
 	public void configModel(InstElement element, boolean test) {
 		if (task == null || task.isDone()) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
@@ -1843,10 +1870,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
+	// Static operation's definition
 	public void verify() {
 		verify(defects);
 	}
 
+	// Static operation's definition
 	public void verify(List<String> defect) {
 		if (task == null || task.isDone()) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
@@ -1913,4 +1942,5 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		odd = new OperationDefinitionDialog(this);
 		odd.center();
 	}
+
 }

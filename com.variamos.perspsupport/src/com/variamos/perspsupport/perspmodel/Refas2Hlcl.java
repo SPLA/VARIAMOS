@@ -32,6 +32,8 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.translationsupport.TranslationExpressionSet;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -242,19 +244,31 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return getHlclProgram(element, execType, null);
 	}
 
+	public HlclProgram getHlclProgram(String element, String operation,
+			String subOperation, OperationSubActionExecType operExecType) {
+
+		HlclProgram hlclProgram = new HlclProgram();
+		constraintGroups = new HashMap<String, ElementExpressionSet>();
+
+		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+				operation, null, null);
+		transExpSet.addExpressions(refas, null, subOperation, operExecType);
+		for (Expression exp : transExpSet.getHLCLExpressions(subOperation + "-"
+				+ operExecType)) {
+			System.out.println(exp.toString());
+		}
+
+		constraintGroups.put(element, transExpSet);
+		fillHlclProgram(element, subOperation, operExecType, hlclProgram);
+
+		return hlclProgram;
+	}
+
 	public HlclProgram getHlclProgram(String element, int execType,
 			InstElement instElement) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 
-		/*
-		 * TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-		 * "Simulation", null, null); transExpSet.addExpressions(refas, null,
-		 * "Execution", OperationSubActionExecType.NORMAL); for (Expression exp
-		 * : transExpSet.getHLCLExpressions("Execution" + "-" +
-		 * OperationSubActionExecType.NORMAL)) {
-		 * System.out.println(exp.toString()); }
-		 */
 		String elementIdentifier = null;
 		if (instElement == null)
 			createModelExpressions(execType);
@@ -272,6 +286,12 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (instElement == null || instElement instanceof InstOverTwoRelation)
 			createGroupExpressions(elementIdentifier, execType, element);
 
+		fillHlclProgram(element, null, null, hlclProgram);
+		return hlclProgram;
+	}
+
+	private void fillHlclProgram(String element, String subOperation,
+			OperationSubActionExecType operExecType, HlclProgram hlclProgram) {
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
@@ -309,6 +329,18 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		for (BooleanExpression transformation : modelExpressions) {
 			hlclProgram.add(transformation);
 		}
+		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
+			if (constraintGroup instanceof TranslationExpressionSet) {
+				if (((TranslationExpressionSet) constraintGroup)
+						.getHlCLProgramExpressions(subOperation + "-"
+								+ operExecType) != null) {
+					hlclProgram
+							.add(((TranslationExpressionSet) constraintGroup)
+									.getHlCLProgramExpressions(subOperation
+											+ "-" + operExecType));
+				}
+			}
+		}
 		for (AbstractExpression transformation : transformations) {
 			// System.out.println(transformation.expressionStructure());
 			idMap.putAll(transformation.getIdentifiers(f));
@@ -331,7 +363,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			}
 
 		}
-		return hlclProgram;
 	}
 
 	public NumericExpression getSumExpression(InstElement last,
@@ -355,6 +386,81 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
+	// dynamic call implementation
+	public boolean execute(ProgressMonitor progressMonitor, String element,
+			int solutions, String execType) throws InterruptedException {
+		lastExecutionTime = 0;
+		if (solutions == 0 || swiSolver == null) {
+			text = "";
+			configuration = new Configuration();
+
+			hlclProgram = getHlclProgram(element, execType, "Sim-Execution",
+					OperationSubActionExecType.NORMAL);
+
+			Set<Identifier> identifiers = new TreeSet<Identifier>();
+			for (Expression exp : hlclProgram) {
+				// System.out.println(HlclUtil.getUsedIdentifiers(exp));
+				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
+				text += exp + "\n";
+			}
+			// if (swiSolver != null)
+			// swiSolver.close();
+			swiSolver = new SWIPrologSolver(hlclProgram);
+			if (progressMonitor != null && progressMonitor.isCanceled())
+				throw (new InterruptedException());
+			try {
+				ConfigurationOptions configurationOptions = new ConfigurationOptions();
+				switch (execType) {
+				case "Simulation":/*
+								 * Refas2Hlcl.SIMUL_EXEC: case
+								 * Refas2Hlcl.SIMUL_EXPORT: case
+								 * Refas2Hlcl.SIMUL_MAPE:
+								 */
+					configurationOptions.setOrder(true);
+
+				}
+				configurationOptions.setStartFromZero(true);
+				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
+				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
+				labelingOrderList.add(LabelingOrder.MIN);
+				labelingOrderList.add(LabelingOrder.MIN);
+				Iterator<InstElement> iterVertex = refas
+						.getVariabilityVertexCollection().iterator();
+				InstElement instVertex = iterVertex.next();
+				orderExpressionList.add(getSumExpression(instVertex,
+						iterVertex, "Order"));
+				iterVertex = refas.getVariabilityVertexCollection().iterator();
+				instVertex = iterVertex.next();
+				orderExpressionList.add(getSumExpression(instVertex,
+						iterVertex, "Opt"));
+				configurationOptions.setLabelingOrder(labelingOrderList);
+				configurationOptions.setOrderExpressions(orderExpressionList);
+				swiSolver.solve(new Configuration(), configurationOptions);
+				lastExecutionTime = swiSolver.getLastExecutionTime();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("No solution");
+				return false;
+			}
+		}
+		if (progressMonitor != null && progressMonitor.isCanceled())
+			return false;
+
+		if (solutions == 0 || solutions == 1) {
+			if (configuration != null) {
+				configuration = swiSolver.getSolution();
+				lastExecutionTime += swiSolver.getLastExecutionTime();
+				if (configuration == null)
+					return false;
+			}
+		} else
+			throw new RuntimeException("Solution parameter not supported");
+		// System.out.println("configuration: " + configuration.toString());
+
+		return true;
+	}
+
+	// static call implementation
 	public boolean execute(ProgressMonitor progressMonitor, String element,
 			int solutions, int execType) throws InterruptedException {
 		lastExecutionTime = 0;

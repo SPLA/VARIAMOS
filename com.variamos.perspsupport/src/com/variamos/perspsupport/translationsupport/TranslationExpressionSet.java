@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mxgraph.util.mxResources;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
@@ -20,6 +21,7 @@ import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
+import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 
 /**
  * A class to represent the constraints. Part of PhD work at University of Paris
@@ -30,7 +32,7 @@ import com.variamos.perspsupport.types.OperationSubActionExecType;
  * @version 1.1
  * @since 2014-12-13
  */
-public class TranslationExpressionSet {
+public class TranslationExpressionSet extends ElementExpressionSet {
 
 	/**
 	 * Identifier of the operation
@@ -61,7 +63,8 @@ public class TranslationExpressionSet {
 	 */
 	public TranslationExpressionSet(String operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
-		super();
+		super(operation, mxResources.get("defect-concepts") + " " + operation,
+				idMap, hlclFactory);
 		instanceExpressions = new HashMap<String, List<InstanceExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
@@ -73,7 +76,7 @@ public class TranslationExpressionSet {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOperAction");
+				.getVariabilityVertex("CSOpAction");
 		SemanticOperationAction operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation))
@@ -112,7 +115,7 @@ public class TranslationExpressionSet {
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions() != null)
 			for (IntSemanticExpression semExpression : semElement
-					.getSemanticExpressions()) {
+					.getAllSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							false, (SemanticExpression) semExpression);
@@ -166,5 +169,4 @@ public class TranslationExpressionSet {
 		}
 		return prog;
 	}
-
 }
