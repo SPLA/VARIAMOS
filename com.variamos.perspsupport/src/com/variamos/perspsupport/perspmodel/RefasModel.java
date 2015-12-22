@@ -76,11 +76,6 @@ public class RefasModel extends AbstractModel {
 	private RefasModel syntaxRefas;
 	private RefasModel semanticRefas;
 	private Map<String, SemanticExpressionType> semanticExpressionTypes;
-	private Map<String, SemanticOperationAction> operationActions;
-
-	public Map<String, SemanticOperationAction> getOperationActions() {
-		return operationActions;
-	}
 
 	/**
 	 * 
@@ -859,9 +854,15 @@ public class RefasModel extends AbstractModel {
 
 		semOperationMenu.putSemanticAttribute("menuType",
 				new SemanticAttribute("menuType", "String", false, "Menu Type",
-						null, null, null, 0, 6, "", "", 6, "", ""));
+						null, null, null, 0, 5, "", "", 5, "", ""));
 		semOperationMenu.addPropEditableAttribute("05#" + "menuType");
 		semOperationMenu.addPropVisibleAttribute("05#" + "menuType");
+
+		semOperationMenu.putSemanticAttribute("visible", new SemanticAttribute(
+				"visible", "Boolean", false, "Visible", true, 0, 8, "", "", 8,
+				"", ""));
+		semOperationMenu.addPropEditableAttribute("08#" + "visible");
+		semOperationMenu.addPropVisibleAttribute("08#" + "visible");
 
 		semOperationMenu
 				.putSemanticAttribute("name", new SemanticAttribute("name",
@@ -873,20 +874,20 @@ public class RefasModel extends AbstractModel {
 
 		semOperationMenu.putSemanticAttribute("shortcut",
 				new SemanticAttribute("shortcut", "String", false, "Shortcut",
-						null, 0, 6, "", "", 6, "", ""));
+						null, 0, 7, "", "", 7, "", ""));
 		semOperationMenu.addPropEditableAttribute("07#" + "shortcut");
 		semOperationMenu.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationMenu.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationMenu.addPropEditableAttribute("08#" + "position");
-		semOperationMenu.addPropVisibleAttribute("08#" + "position");
+		semOperationMenu.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", false, "Position", 1, 0, 9, "", "", 9, "",
+				""));
+		semOperationMenu.addPropEditableAttribute("09#" + "Index");
+		semOperationMenu.addPropVisibleAttribute("09#" + "Index");
 
 		InstConcept instSemOperationMenu = new InstConcept("CSOpMenu", null,
 				semOperationMenu);
 
-		MetaConcept operationMenu = new MetaConcept('O', "CSOpMenu", true,
+		MetaConcept operationMenu = new MetaConcept('M', "CSOpMenu", true,
 				"CSOpMenu", "refasminiclass", "Operation Menu", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOperationMenu, true);
@@ -917,16 +918,16 @@ public class RefasModel extends AbstractModel {
 		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationAction.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationAction.addPropEditableAttribute("08#" + "position");
-		semOperationAction.addPropVisibleAttribute("08#" + "position");
+		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", false, "Position", 1, 0, 6, "", "", 6, "",
+				""));
+		semOperationAction.addPropEditableAttribute("08#" + "Index");
+		semOperationAction.addPropVisibleAttribute("08#" + "Index");
 
 		InstConcept instSemOperationAction = new InstConcept("CSOpAction",
 				null, semOperationAction);
 
-		MetaConcept operationAction = new MetaConcept('O', "CSOpAction", true,
+		MetaConcept operationAction = new MetaConcept('A', "CSOpAction", true,
 				"CSOpAction", "refasminiclass", "Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOperationAction, true);
@@ -957,16 +958,16 @@ public class RefasModel extends AbstractModel {
 		semOperationSubAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationSubAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationSubAction.putSemanticAttribute("position",
-				new SemanticAttribute("position", "Integer", false, "Position",
-						1, 0, 6, "", "", 6, "", ""));
-		semOperationSubAction.addPropEditableAttribute("08#" + "position");
-		semOperationSubAction.addPropVisibleAttribute("08#" + "position");
+		semOperationSubAction.putSemanticAttribute("Index",
+				new SemanticAttribute("Index", "Integer", false, "Position", 1,
+						0, 6, "", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "Index");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "Index");
 
 		InstConcept instSemOperationSubAction = new InstConcept(
 				"CSOpSubAction", null, semOperationSubAction);
 
-		MetaConcept operationSubAction = new MetaConcept('O', "CSOpSubAction",
+		MetaConcept operationSubAction = new MetaConcept('S', "CSOpSubAction",
 				true, "CSOpSubAction", "refasminiclass", "Operation Action",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemOperationSubAction, true);
@@ -1724,8 +1725,6 @@ public class RefasModel extends AbstractModel {
 				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
-		operationActions = new HashMap<String, SemanticOperationAction>();
-
 		SemanticOperationMenu operationMenu = new SemanticOperationMenu(1,
 				"SimulationOper", 2);
 
@@ -1733,9 +1732,13 @@ public class RefasModel extends AbstractModel {
 				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationMenu", instOperationMenu);
 
+		instOperationMenu.getInstAttribute("visible").setValue(false);
+		instOperationMenu.getInstAttribute("menuType").setValue("4");
+		instOperationMenu.getInstAttribute("name").setValue("Basic Simulation");
+		instOperationMenu.getInstAttribute("shortcut").setValue("S");
+
 		simulationOperationAction = new SemanticOperationAction(1,
 				"SimulationOper");
-		operationActions.put("SimulationOper", simulationOperationAction);
 
 		InstVertex instOperationAction = new InstConcept("SimulationOper",
 				metaOperationAction, simulationOperationAction);
@@ -1862,9 +1865,14 @@ public class RefasModel extends AbstractModel {
 				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationSceMenu", instOperationMenu);
 
+		instOperationMenu.getInstAttribute("visible").setValue(false);
+		instOperationMenu.getInstAttribute("menuType").setValue("4");
+		instOperationMenu.getInstAttribute("name").setValue(
+				"Simulation Scenarios");
+		instOperationMenu.getInstAttribute("shortcut").setValue("C");
+
 		simulScenOperationAction = new SemanticOperationAction(1,
 				"SimulationScenarios");
-		operationActions.put("SimulationScenarios", simulScenOperationAction);
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sim-pos-upd", instEdgeOper);
@@ -2004,9 +2012,13 @@ public class RefasModel extends AbstractModel {
 				operationMenu);
 		variabilityInstVertex.put("Verification", instOperationMenu);
 
+		instOperationMenu.getInstAttribute("visible").setValue(false);
+		instOperationMenu.getInstAttribute("menuType").setValue("2");
+		instOperationMenu.getInstAttribute("name").setValue("Verification");
+		instOperationMenu.getInstAttribute("shortcut").setValue("V");
+
 		updateCoreOperationAction = new SemanticOperationAction(1,
 				"UpdateCoreOper");
-		operationActions.put("UpdateCoreOper", updateCoreOperationAction);
 
 		instOperationAction = new InstConcept("UpdateCoreOper",
 				metaOperationAction, updateCoreOperationAction);
@@ -2041,92 +2053,8 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
 
-		configTemporalOperationAction = new SemanticOperationAction(1,
-				"ConfigureTemporalOper");
-		operationActions.put("ConfigureTemporalOper",
-				configTemporalOperationAction);
-
-		instOperationAction = new InstConcept("ConfigureTemporalOper",
-				metaOperationAction, configTemporalOperationAction);
-		variabilityInstVertex.put("ConfigureTemporalOper", instOperationAction);
-
-		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("ver-menu-conft", instEdgeOper);
-		instEdgeOper.setIdentifier("ver-menu-conft");
-		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdgeOper.setTargetRelation(instOperationAction, true);
-		instEdgeOper.setSourceRelation(instOperationMenu, true);
-
-		operationSubAction = new SemanticOperationSubAction(1,
-				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		configTemporalOperationAction
-				.addExpressionSubAction(operationSubAction);
-
-		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
-				metaOperationSubAction, operationSubAction);
-		variabilityInstVertex.put("ConfigureTemporalSubOper",
-				instOperationSubAction);
-
-		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("conf-temp", instEdgeOper);
-		instEdgeOper.setIdentifier("conf-temp");
-		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdgeOper.setTargetRelation(instOperationSubAction, true);
-		instEdgeOper.setSourceRelation(instOperationAction, true);
-
-		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
-
-		configPermanentOperationAction = new SemanticOperationAction(1,
-				"ConfigurePermanentOper");
-		operationActions.put("ConfigurePermanentOper",
-				configPermanentOperationAction);
-
-		instOperationAction = new InstConcept("ConfigurePermanentOper",
-				metaOperationAction, configPermanentOperationAction);
-		variabilityInstVertex
-				.put("ConfigurePermanentOper", instOperationAction);
-
-		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("ver-menu-confp", instEdgeOper);
-		instEdgeOper.setIdentifier("ver-menu-confp");
-		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdgeOper.setTargetRelation(instOperationAction, true);
-		instEdgeOper.setSourceRelation(instOperationMenu, true);
-
-		operationSubAction = new SemanticOperationSubAction(1,
-				"ConfigurePermanentSubOper",
-				OperationSubActionType.SINGLEUPDATE);
-		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				"ff", 1, false));
-		configPermanentOperationAction
-				.addExpressionSubAction(operationSubAction);
-
-		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",
-				metaOperationSubAction, operationSubAction);
-		variabilityInstVertex.put("ConfigurePermanentSubOpe",
-				instOperationSubAction);
-
-		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("conf-perm", instEdgeOper);
-		instEdgeOper.setIdentifier("conf-perm");
-		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
-		instEdgeOper.setTargetRelation(instOperationSubAction, true);
-		instEdgeOper.setSourceRelation(instOperationAction, true);
-
-		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
-
 		verifDeadElemOperationAction = new SemanticOperationAction(1,
 				"VerifyDeadElementsOper");
-		operationActions.put("VerifyDeadElementsOper",
-				verifDeadElemOperationAction);
 
 		instOperationAction = new InstConcept("VerifyDeadElementsOper",
 				metaOperationAction, verifDeadElemOperationAction);
@@ -2176,7 +2104,6 @@ public class RefasModel extends AbstractModel {
 
 		verifParentsOperationAction = new SemanticOperationAction(2,
 				"VerifyParentsOper");
-		operationActions.put("VerifyParentsOper", verifParentsOperationAction);
 
 		instOperationAction = new InstConcept("VerifyParentsOper",
 				metaOperationAction, verifParentsOperationAction);
@@ -2224,7 +2151,6 @@ public class RefasModel extends AbstractModel {
 
 		verifRootOperationAction = new SemanticOperationAction(3,
 				"VerifyRootsOper");
-		operationActions.put("VerifyRootsOper", verifRootOperationAction);
 
 		instOperationAction = new InstConcept("VerifyRootsOper",
 				metaOperationAction, verifRootOperationAction);
@@ -2271,12 +2197,17 @@ public class RefasModel extends AbstractModel {
 
 		verifFalseOptOperationAction = new SemanticOperationAction(4,
 				"VerifyFalseOperations");
-		operationActions.put("VerifyFalseOperations",
-				verifFalseOptOperationAction);
 
 		instOperationAction = new InstConcept("VerifyFalseOperations",
 				metaOperationAction, verifFalseOptOperationAction);
 		variabilityInstVertex.put("VerifyFalseOperations", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-false", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-false");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);
@@ -2310,6 +2241,93 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionExecType.VERIFICATION);
 		operationSubAction
 				.addOperationSubActionExpType(verifFalseOptOperSubActionVerification);
+
+		instOperationMenu = new InstConcept("Configuration", metaOperationMenu,
+				operationMenu);
+		variabilityInstVertex.put("Configuration", instOperationMenu);
+
+		instOperationMenu.getInstAttribute("visible").setValue(false);
+		instOperationMenu.getInstAttribute("menuType").setValue("4");
+		instOperationMenu.getInstAttribute("name").setValue("Configuration");
+		instOperationMenu.getInstAttribute("shortcut").setValue("C");
+
+		configTemporalOperationAction = new SemanticOperationAction(1,
+				"ConfigureTemporalOper");
+
+		instOperationAction = new InstConcept("ConfigureTemporalOper",
+				metaOperationAction, configTemporalOperationAction);
+		variabilityInstVertex.put("ConfigureTemporalOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-conft", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-conft");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		configTemporalOperationAction
+				.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("ConfigureTemporalSubOper",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("conf-temp", instEdgeOper);
+		instEdgeOper.setIdentifier("conf-temp");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		configTemporalOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
+
+		configPermanentOperationAction = new SemanticOperationAction(1,
+				"ConfigurePermanentOper");
+
+		instOperationAction = new InstConcept("ConfigurePermanentOper",
+				metaOperationAction, configPermanentOperationAction);
+		variabilityInstVertex
+				.put("ConfigurePermanentOper", instOperationAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("ver-menu-confp", instEdgeOper);
+		instEdgeOper.setIdentifier("ver-menu-confp");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationAction, true);
+		instEdgeOper.setSourceRelation(instOperationMenu, true);
+
+		operationSubAction = new SemanticOperationSubAction(1,
+				"ConfigurePermanentSubOper",
+				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
+				"ff", 1, false));
+		configPermanentOperationAction
+				.addExpressionSubAction(operationSubAction);
+
+		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",
+				metaOperationSubAction, operationSubAction);
+		variabilityInstVertex.put("ConfigurePermanentSubOpe",
+				instOperationSubAction);
+
+		instEdgeOper = new InstPairwiseRelation();
+		this.constraintInstEdges.put("conf-perm", instEdgeOper);
+		instEdgeOper.setIdentifier("conf-perm");
+		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
+		instEdgeOper.setTargetRelation(instOperationSubAction, true);
+		instEdgeOper.setSourceRelation(instOperationAction, true);
+
+		configPermanentOptOperSubActionNormal = new OperationSubActionExpType(
+				OperationSubActionExecType.NORMAL);
+		operationSubAction
+				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
 		InstEnumeration instVertexHStrME = new InstEnumeration(
 				"HardStructEnumeration", metaEnumeration);

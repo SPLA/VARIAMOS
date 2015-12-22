@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
@@ -48,6 +49,7 @@ import com.variamos.gui.perspeditor.actions.VariableOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
+import com.variamos.perspsupport.instancesupport.InstElement;
 
 @SuppressWarnings("serial")
 public class PerspEditorMenuBar extends JMenuBar {
@@ -230,6 +232,46 @@ public class PerspEditorMenuBar extends JMenuBar {
 					KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 			menu.add(al);
 			add(menu);
+
+		}
+		if (editor.getPerspective() == 2 || (editor.getPerspective() == 4)) {
+			List<InstElement> menus = ((VariamosGraphEditor) editor)
+					.getEditedModel().getSemanticRefas()
+					.getVariabilityVertex("CSOpMenu");
+			for (InstElement menuElement : menus) {
+				if ((boolean) menuElement.getInstAttribute("visible")
+						.getValue() == true
+						&& ((String) menuElement.getInstAttribute("menuType")
+								.getValue()).equals(editor.getPerspective()
+								+ "")) {
+					menu = (JMenu) menu.add(new JMenu(menuElement
+							.getIdentifier()));
+					// menu.setMnemonic();
+					for (InstElement oper : menuElement.getTargetRelations()) {
+						JCheckBoxMenuItem item = new JCheckBoxMenuItem(oper
+								.getTargetRelations().get(0).getIdentifier());
+						item.setState(true);
+						item.addActionListener(new ActionListener() {
+
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								AbstractButton aButton = (AbstractButton) arg0
+										.getSource();
+								boolean selected = aButton.getModel()
+										.isSelected();
+
+								if (selected)
+									finalEditor.updateDefects("FalseOpt", true);
+								else
+									finalEditor
+											.updateDefects("FalseOpt", false);
+							}
+						});
+						menu.add(item);
+					}
+					add(menu);
+				}
+			}
 		}
 		if (editor.getPerspective() == 1) {
 			menu = (JMenu) menu.add(new JMenu(mxResources
@@ -374,5 +416,4 @@ public class PerspEditorMenuBar extends JMenuBar {
 				new CheckUpdateAction()));
 		add(menu);
 	}
-
 }

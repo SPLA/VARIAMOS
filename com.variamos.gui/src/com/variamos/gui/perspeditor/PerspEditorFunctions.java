@@ -26,12 +26,20 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationMenu;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticConcept;
+import com.variamos.perspsupport.semanticsupport.SemanticEnumeration;
+import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
@@ -111,10 +119,13 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							if (metaVertex instanceof MetaConcept) {
 								Object o;
 								o = new InstConcept();
-								Constructor<?> c = o.getClass().getConstructor(
-										String.class, MetaElement.class,
-										MetaElement.class);
-								if (editor.getPerspective() != 2)
+
+								if (editor.getPerspective() == 0) {
+									Constructor<?> c = o.getClass()
+											.getConstructor(String.class,
+													MetaElement.class,
+													MetaElement.class);
+
 									switch (((MetaElement) metaVertex)
 											.getType()) {
 									case 'V':
@@ -148,9 +159,62 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												(MetaElement) metaVertex,
 												new MetaConcept('C'));
 									}
-								else
+								} else if (editor.getPerspective() == 1) {
+									Constructor<?> c = o.getClass()
+											.getConstructor(String.class,
+													MetaElement.class,
+													IntSemanticElement.class);
+									switch (((MetaElement) metaVertex)
+											.getType()) {
+									case 'M':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticOperationMenu());
+										break;
+									case 'A':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticOperationAction());
+										break;
+									case 'S':
+										obj = (InstElement) c
+												.newInstance(
+														"",
+														(MetaElement) metaVertex,
+														new SemanticOperationSubAction());
+										break;
+									case 'P':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticPairwiseRelation());
+										break;
+									case 'E':
+										o = new InstEnumeration();
+										c = o.getClass().getConstructor(
+												String.class, MetaVertex.class,
+												MetaElement.class);
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticEnumeration());
+										break;
+									case 'O':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticOverTwoRelation());
+										break;
+									case 'C':
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new SemanticConcept());
+									}
+								} else {
+									Constructor<?> c = o.getClass()
+											.getConstructor(String.class,
+													MetaElement.class,
+													MetaElement.class);
 									obj = (InstElement) c.newInstance("",
 											(MetaElement) metaVertex, null);
+								}
 
 							} else if (metaVertex instanceof MetaOverTwoRelation) {
 								// MetaElement metaElement = ;

@@ -29,6 +29,11 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
+	public SemanticOperationAction() {
+		super(null);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int position;
 	private List<SemanticOperationSubAction> expressionSubActions;
 	private List<AbstractAttribute> inVariables;

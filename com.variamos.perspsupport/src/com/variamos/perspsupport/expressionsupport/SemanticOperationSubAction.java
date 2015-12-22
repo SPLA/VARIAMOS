@@ -39,6 +39,11 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 		operationLabelings = new ArrayList<OperationLabeling>();
 	}
 
+	public SemanticOperationSubAction() {
+		super(null);
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getPosition() {
 		return position;
 	}

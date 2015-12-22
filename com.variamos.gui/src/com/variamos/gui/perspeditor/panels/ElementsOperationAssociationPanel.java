@@ -8,7 +8,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +31,7 @@ import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
@@ -56,7 +56,7 @@ public class ElementsOperationAssociationPanel extends
 	private int dialog = 0;
 	private int width = 880;
 	private int height = 600;
-	Map<String, SemanticOperationAction> operActions = null;
+	List<InstElement> operActions = null;
 	private AssociationTreeTable table = null;
 
 	static interface DialogButtonAction {
@@ -75,10 +75,12 @@ public class ElementsOperationAssociationPanel extends
 		generalPanel.setLayout(new BorderLayout());
 
 		final JComboBox<String> combo = new JComboBox<String>();
-		operActions = editor.getEditedModel().getOperationActions();
+		operActions = editor.getEditedModel()
+				.getVariabilityVertex("CSOpAction");
 
-		for (SemanticOperationAction operAction : operActions.values()) {
-			combo.addItem(operAction.getIdentifier());
+		for (InstElement operAction : operActions) {
+			combo.addItem(operAction.getEditableSemanticElement()
+					.getIdentifier());
 		}
 		combo.setSelectedItem("SimulationOper");
 		JPanel topPanel = new JPanel();
@@ -90,10 +92,11 @@ public class ElementsOperationAssociationPanel extends
 		combo.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				SemanticOperationAction operAction = operActions.get(combo
-						.getSelectedItem());
+				IntSemanticElement operAction = operActions.get(
+						combo.getSelectedIndex()).getEditableSemanticElement();
 				AssociationTreeTable tableN = createTable(
-						editor.getEditedModel(), operAction);
+						editor.getEditedModel(),
+						(SemanticOperationAction) operAction);
 				panel.removeAll();
 				table = tableN;
 				table.setPreferredSize(new Dimension(width, height + 400));
@@ -106,7 +109,8 @@ public class ElementsOperationAssociationPanel extends
 		});
 
 		table = createTable(editor.getEditedModel(),
-				operActions.get("SimulationOper"));
+				(SemanticOperationAction) operActions.get(0)
+						.getEditableSemanticElement());
 		table.setPreferredSize(new Dimension(width, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
