@@ -389,13 +389,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	// dynamic call implementation
 	public boolean execute(ProgressMonitor progressMonitor, String element,
-			int solutions, String execType) throws InterruptedException {
+			int solutions, String operation) throws InterruptedException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
 
-			hlclProgram = getHlclProgram(element, execType, "Sim-Execution",
+			hlclProgram = getHlclProgram(element, operation, "Sim-Execution",
 					OperationSubActionExecType.NORMAL);
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
@@ -411,7 +411,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				throw (new InterruptedException());
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
-				switch (execType) {
+				switch (operation) {
 				case "Simulation":/*
 								 * Refas2Hlcl.SIMUL_EXEC: case
 								 * Refas2Hlcl.SIMUL_EXPORT: case

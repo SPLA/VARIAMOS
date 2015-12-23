@@ -62,7 +62,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	private String operationIdentifier;
 	private long task = 0;
 	private InstElement element;
-	private String stringElement;
+	private String operation;
 	private boolean firstSimulExec;
 	private boolean reloadDashBoard;
 	private String executionTime = "";
@@ -105,7 +105,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	public SemSolverTasks(ProgressMonitor progressMonitor,
 			String operationIdentifier, Refas2Hlcl refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
-			boolean reloadDashBoard, boolean update, String element,
+			boolean reloadDashBoard, boolean update, String operation,
 			Configuration lastConfiguration) {
 		this.progressMonitor = progressMonitor;
 		this.operationIdentifier = operationIdentifier;
@@ -114,7 +114,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		this.firstSimulExec = firstSimulExec;
 		this.reloadDashBoard = reloadDashBoard;
 		this.update = update;
-		this.stringElement = element;
+		this.operation = operation;
 		this.lastConfiguration = lastConfiguration;
 	}
 
@@ -153,7 +153,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		setProgress(0);
 		try {
 			Thread.sleep(1);
-			executeOperation(operationIdentifier, update, stringElement);
+			executeOperation(operationIdentifier, update, operation);
 		} catch (java.lang.UnsatisfiedLinkError e) {
 			errorMessage = "Solver not correctly configured";
 			errorTitle = "System Configuration Error";
@@ -390,7 +390,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 	// dynamic call implementation
 	public void executeOperation(String operationIdentifier, boolean update,
-			String element) {
+			String operation) {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
@@ -408,11 +408,11 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			next = false;
 			try {
 				if (firstSimulExec || lastConfiguration == null) {
-					result = refas2hlcl.execute(progressMonitor, element,
-							Refas2Hlcl.ONE_SOLUTION, element); // type
+					result = refas2hlcl.execute(progressMonitor, operation,
+							Refas2Hlcl.ONE_SOLUTION, operation); // type
 				} else {
-					result = refas2hlcl.execute(progressMonitor, element,
-							Refas2Hlcl.NEXT_SOLUTION, element); // type
+					result = refas2hlcl.execute(progressMonitor, operation,
+							Refas2Hlcl.NEXT_SOLUTION, operation); // type
 					Configuration currentConfiguration = refas2hlcl
 							.getConfiguration();
 					if (result) {

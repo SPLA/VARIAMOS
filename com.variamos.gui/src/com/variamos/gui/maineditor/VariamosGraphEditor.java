@@ -1586,14 +1586,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	// TODO support all operations dynamically
-	public void executeOperation(String value) {
-		System.out.println(value);
-		executeSimulation(true, true, value, true, value);
+	public void executeOperation(String operation) {
+		System.out.println(operation);
+		executeSimulation(true, true, operation, true, operation);
 
 	}
 
 	public SemSolverTasks executeSimulation(boolean firstSimulExecution,
-			boolean reloadDashboard, String type, boolean update, String element) {
+			boolean reloadDashboard, String type, boolean update, String operation) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1608,7 +1608,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(0);
 			semTask = new SemSolverTasks(progressMonitor, type, refas2hlcl,
 					configHlclProgram, firstSimulExecution, reloadDashboard,
-					update, element, lastConfiguration);
+					update, operation, lastConfiguration);
 			semTask.addPropertyChangeListener(this);
 			semTask.execute();
 		}

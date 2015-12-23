@@ -24,6 +24,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -793,6 +794,48 @@ public class BasicGraphEditor extends JPanel {
 	 */
 	public Action bind(String name, final Action action) {
 		return bind(name, action, null);
+	}
+
+	public Action bind(final JMenuItem menuItem, String identifier,
+			final Action action, String iconUrl) {
+		AbstractAction newAction = new AbstractAction(identifier,
+				(iconUrl != null) ? new ImageIcon(
+						BasicGraphEditor.class.getResource(iconUrl)) : null) {
+			/**
+							 * 
+							 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				action.actionPerformed(new ActionEvent(menuItem, e.getID(), e
+						.getActionCommand()));
+			}
+		};
+
+		newAction.putValue(Action.SHORT_DESCRIPTION, identifier);
+
+		return newAction;
+	}
+
+	public Action bind(String identifier, String name, final Action action,
+			String iconUrl) {
+		AbstractAction newAction = new AbstractAction(name,
+				(iconUrl != null) ? new ImageIcon(
+						BasicGraphEditor.class.getResource(iconUrl)) : null) {
+			/**
+							 * 
+							 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+				action.actionPerformed(new ActionEvent(getGraphComponent(), e
+						.getID(), e.getActionCommand()));
+			}
+		};
+
+		newAction.putValue(Action.SHORT_DESCRIPTION, identifier);
+
+		return newAction;
 	}
 
 	/**

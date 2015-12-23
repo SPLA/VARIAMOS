@@ -901,6 +901,32 @@ public class RefasModel extends AbstractModel {
 				metaBasicConcept, operationMenu);
 		variabilityInstVertex.put("CSOpMenu", instOperMenu);
 
+		SemanticConcept semModel = new SemanticConcept(semConcept, "CSModel");
+
+		semModel.putSemanticAttribute("name", new SemanticAttribute("name",
+				"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semModel.addPropEditableAttribute("06#" + "name");
+		semModel.addPropVisibleAttribute("06#" + "name");
+		semModel.addPanelVisibleAttribute("06#" + "name");
+		semModel.addPanelSpacersAttribute("#" + "name" + "#");
+
+		InstConcept instSemModel = new InstConcept("CSModel", null,
+				semOperationMenu);
+
+		MetaConcept metaModel = new MetaConcept('C', "CSModel", true,
+				"CSModel", "refasminiclass", "Semantic Model", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemModel, true);
+
+		metaModel.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		metaModel.addPanelSpacersAttribute("#" + MetaConcept.VAR_USERIDENTIFIER
+				+ "#\n\n");
+
+		InstConcept instMetaModel = new InstConcept("CSModel",
+				metaBasicConcept, metaModel);
+		variabilityInstVertex.put("CSModel", instMetaModel);
+
 		SemanticConcept semOperationAction = new SemanticConcept(semConcept,
 				"CSOpAction");
 
@@ -1693,6 +1719,10 @@ public class RefasModel extends AbstractModel {
 	 */
 	@SuppressWarnings("unchecked")
 	public void createDefaultSemantic() {
+
+		MetaConcept metaModel = (MetaConcept) ((InstConcept) this
+				.getSyntaxRefas().getVertex("CSModel"))
+				.getEditableMetaElement();
 		MetaConcept metaOperationMenu = (MetaConcept) ((InstConcept) this
 				.getSyntaxRefas().getVertex("CSOpMenu"))
 				.getEditableMetaElement();
@@ -1732,7 +1762,7 @@ public class RefasModel extends AbstractModel {
 				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationMenu", instOperationMenu);
 
-		instOperationMenu.getInstAttribute("visible").setValue(true);
+		instOperationMenu.getInstAttribute("visible").setValue(false);
 		instOperationMenu.getInstAttribute("menuType").setValue("4");
 		instOperationMenu.getInstAttribute("name").setValue("Basic Simulation");
 		instOperationMenu.getInstAttribute("shortcut").setValue("S");
@@ -1743,6 +1773,10 @@ public class RefasModel extends AbstractModel {
 		InstVertex instOperationAction = new InstConcept("SimulationOper",
 				metaOperationAction, simulationOperationAction);
 		variabilityInstVertex.put("SimulationOper", instOperationAction);
+
+		instOperationAction.getInstAttribute("name").setValue(
+				"Simulation Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
 
 		InstPairwiseRelation instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sim-menu", instEdgeOper);
@@ -1866,7 +1900,7 @@ public class RefasModel extends AbstractModel {
 				metaOperationMenu, operationMenu);
 		variabilityInstVertex.put("SimulationSceMenu", instOperationMenu);
 
-		instOperationMenu.getInstAttribute("visible").setValue(true);
+		instOperationMenu.getInstAttribute("visible").setValue(false);
 		instOperationMenu.getInstAttribute("menuType").setValue("4");
 		instOperationMenu.getInstAttribute("name").setValue(
 				"Simulation Scenarios");
@@ -1885,6 +1919,10 @@ public class RefasModel extends AbstractModel {
 		instOperationAction = new InstConcept("SimulationScenarios",
 				metaOperationAction, simulScenOperationAction);
 		variabilityInstVertex.put("SimulationScenarios", instOperationAction);
+
+		instOperationAction.getInstAttribute("name").setValue(
+				"Simulation Scenarios");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("simsce-menu", instEdgeOper);
@@ -2013,7 +2051,7 @@ public class RefasModel extends AbstractModel {
 				operationMenu);
 		variabilityInstVertex.put("Verification", instOperationMenu);
 
-		instOperationMenu.getInstAttribute("visible").setValue(true);
+		instOperationMenu.getInstAttribute("visible").setValue(false);
 		instOperationMenu.getInstAttribute("menuType").setValue("2");
 		instOperationMenu.getInstAttribute("name").setValue("Verification");
 		instOperationMenu.getInstAttribute("shortcut").setValue("V");
@@ -2024,6 +2062,10 @@ public class RefasModel extends AbstractModel {
 		instOperationAction = new InstConcept("UpdateCoreOper",
 				metaOperationAction, updateCoreOperationAction);
 		variabilityInstVertex.put("UpdateCoreOper", instOperationAction);
+
+		instOperationAction.getInstAttribute("name").setValue(
+				"Update Core Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-upd", instEdgeOper);
@@ -2061,6 +2103,10 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, verifDeadElemOperationAction);
 		variabilityInstVertex
 				.put("VerifyDeadElementsOper", instOperationAction);
+
+		instOperationAction.getInstAttribute("name").setValue(
+				"Verify Dead Elements Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-dead", instEdgeOper);
@@ -2110,6 +2156,10 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, verifParentsOperationAction);
 		variabilityInstVertex.put("VerifyParentsOper", instOperationAction);
 
+		instOperationAction.getInstAttribute("name").setValue(
+				"Verify Parents Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
+
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-pare", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-menu-pare");
@@ -2157,6 +2207,10 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, verifRootOperationAction);
 		variabilityInstVertex.put("VerifyRootsOper", instOperationAction);
 
+		instOperationAction.getInstAttribute("name").setValue(
+				"Verify Roots Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
+
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-root", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-menu-root");
@@ -2203,6 +2257,10 @@ public class RefasModel extends AbstractModel {
 				metaOperationAction, verifFalseOptOperationAction);
 		variabilityInstVertex.put("VerifyFalseOperations", instOperationAction);
 
+		instOperationAction.getInstAttribute("name").setValue(
+				"Verify False Optional Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
+
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-false", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-menu-false");
@@ -2247,7 +2305,7 @@ public class RefasModel extends AbstractModel {
 				operationMenu);
 		variabilityInstVertex.put("Configuration", instOperationMenu);
 
-		instOperationMenu.getInstAttribute("visible").setValue(true);
+		instOperationMenu.getInstAttribute("visible").setValue(false);
 		instOperationMenu.getInstAttribute("menuType").setValue("4");
 		instOperationMenu.getInstAttribute("name").setValue("Configuration");
 		instOperationMenu.getInstAttribute("shortcut").setValue("C");
@@ -2258,6 +2316,10 @@ public class RefasModel extends AbstractModel {
 		instOperationAction = new InstConcept("ConfigureTemporalOper",
 				metaOperationAction, configTemporalOperationAction);
 		variabilityInstVertex.put("ConfigureTemporalOper", instOperationAction);
+
+		instOperationAction.getInstAttribute("name").setValue(
+				"Configure Temporal Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-conft", instEdgeOper);
@@ -2298,6 +2360,10 @@ public class RefasModel extends AbstractModel {
 		variabilityInstVertex
 				.put("ConfigurePermanentOper", instOperationAction);
 
+		instOperationAction.getInstAttribute("name").setValue(
+				"Configure Permanent Operation");
+		instOperationAction.getInstAttribute("shortcut").setValue("S");
+
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("ver-menu-confp", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-menu-confp");
@@ -2329,6 +2395,33 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
+
+		SemanticConcept refasModel = new SemanticConcept("REFAS");
+
+		InstVertex instRefasModel = new InstConcept("REFAS", metaModel,
+				refasModel);
+		variabilityInstVertex.put("REFAS", instRefasModel);
+
+		InstAttribute ia = null;
+		List<InstAttribute> ias = null;
+
+		List<IntSemanticExpression> semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		refasModel.setSemanticExpressions(semanticExpressions);
+
+		SemanticExpression t1 = new SemanticExpression("4", this
+				.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTINCOMRELVARIABLE, instRefasModel,
+				instRefasModel, null,
+				ExpressionVertexType.RIGHTRELATIONCONCEPT, instRefasModel,
+				"HighRange");
+
+		SemanticExpression t2 = new SemanticExpression("Amodel_pref", this
+				.getSemanticExpressionTypes().get("LessOrEquals"), 1, true, t1);
+
+		SemanticExpression t3;
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
 
 		InstEnumeration instVertexHStrME = new InstEnumeration(
 				"HardStructEnumeration", metaEnumeration);
@@ -2423,19 +2516,16 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From this name depends all the operations,
 									// do not change it
-		List<IntSemanticExpression> semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		semGeneralElement.setSemanticExpressions(semanticExpressions);
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
 
-		SemanticExpression t1 = new SemanticExpression("1", this
-				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"IsRootFeature", 0);
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexGE, "IsRootFeature", 0);
 
-		SemanticExpression t3 = new SemanticExpression("3", this
-				.getSemanticExpressionTypes().get("NotEquals"), instVertexGE,
-				"userIdentifier", "Feature");
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexGE, "userIdentifier", "Feature");
 
 		t1 = new SemanticExpression("Not Feat Implies NoRoot", this
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -2503,9 +2593,8 @@ public class RefasModel extends AbstractModel {
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "HasParent", 1);
 
-		SemanticExpression t2 = new SemanticExpression("2", this
-				.getSemanticExpressionTypes().get("NotEquals"), instVertexGE,
-				"userIdentifier", "GeneralFeature");
+		t2 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"NotEquals"), instVertexGE, "userIdentifier", "GeneralFeature");
 
 		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"NotEquals"), instVertexGE, "userIdentifier", "LeafFeature");
@@ -2528,8 +2617,11 @@ public class RefasModel extends AbstractModel {
 				"Product"), instVertexGE, "NextPrefSelected", true, t1);
 
 		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, instVertexGE, "NextPrefSelected",
+				"Sum"), instVertexGE, instVertexGE, "NextPrefSelected",
 				"ConfigSelected");
+
+		t3 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", true, t3);
 
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
 				"Sum"), t1, t3);
@@ -2650,8 +2742,8 @@ public class RefasModel extends AbstractModel {
 				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
-		simulationOperationAction.addOutVariable(attribute);
-		simulOperationSubAction.addOutVariable(attribute);
+		simulationOperationAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Description", "String", false,
 				"Description", "", 0, -1, "", "", -1, "", "");
@@ -2684,15 +2776,15 @@ public class RefasModel extends AbstractModel {
 				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Core", attribute);
-		simulationOperationAction.addOutVariable(attribute);
-		simulOperationSubAction.addOutVariable(attribute);
+		simulationOperationAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Dead", "Boolean", false,
 				"Is a Dead Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
-		simulationOperationAction.addOutVariable(attribute);
-		simulOperationSubAction.addOutVariable(attribute);
+		simulationOperationAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
 				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
@@ -2857,6 +2949,8 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement
 				.putSemanticAttribute("NextNotPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
 				false, "Selected by simulation", false, 0, -1, "", "", -1, "",
@@ -3339,9 +3433,8 @@ public class RefasModel extends AbstractModel {
 				"OperClaimPWAsso", metaPairwiseRelation,
 				directOperClaimSemanticEdge);
 
-		InstAttribute ia = instVertexCL
-				.getInstAttribute("relationTypesAttributes");
-		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+		ia = instVertexCL.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("and", new AbstractAttribute("and",
 				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
 				""), "and#and#true#true#true#1#-1#1#1"));
