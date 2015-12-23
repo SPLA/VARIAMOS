@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.17";
-	private String variamosVersionName = "1.0 Beta 17";
-	private String variamosBuild = "20151130 1600";
+	private String variamosVersionNumber = "1.0.1.18";
+	private String variamosVersionName = "1.0 Beta 18";
+	private String variamosBuild = "20151222 1600";
 	private String downloadId = "443";
 
 	public int getPerspective() {

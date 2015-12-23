@@ -16,10 +16,13 @@ import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
+import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 
@@ -96,10 +99,48 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstElement instE : refas.getElements()) {
 						out.addAll(createElementInstanceExpressions(instE,
 								semExp));
+						for (AbstractAttribute var : operSubAction
+								.getInVariables()) {
+							int attributeValue = 0;
+							InstAttribute instAttribute = instE
+									.getInstAttribute(var.getName());
+							if (instAttribute != null) {
+								String type = (String) instAttribute.getType();
+								if (type.equals("Integer")
+										|| type.equals("Boolean")) {
+									if (instAttribute.getValue() instanceof Boolean)
+										attributeValue = ((boolean) instAttribute
+												.getValue()) ? 1 : 0;
+									else if (instAttribute.getValue() instanceof String)
+										attributeValue = Integer
+												.valueOf((String) instAttribute
+														.getValue());
+									else
+										attributeValue = (Integer) instAttribute
+												.getValue();
+								}
+								InstanceExpression instanceExpression = new InstanceExpression(
+										true, "t", true);
+								instanceExpression
+										.setSemanticExpressionType(refas
+												.getSemanticExpressionTypes()
+												.get("Equals"));
+								instanceExpression.setLeftElement(instE);
+								instanceExpression
+										.setLeftAttributeName(instAttribute
+												.getIdentifier());
+								instanceExpression
+										.setRightNumber(attributeValue);
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+								out.add(instanceExpression);
+							}
+						}
 					}
 				else
 					out.addAll(createElementInstanceExpressions(instElement,
 							semExp));
+
 			}
 		}
 		instanceExpressions.put(subAction + "-" + expressionType, out);
