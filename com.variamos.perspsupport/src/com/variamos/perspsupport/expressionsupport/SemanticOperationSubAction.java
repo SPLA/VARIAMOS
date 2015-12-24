@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.OperationSubActionType;
 
@@ -26,6 +27,8 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
 	private List<OperationSubActionExpType> operationSubActionExpTypes;
+	private List<AbstractAttribute> inVariables;
+	private List<AbstractAttribute> outVariables;
 
 	private List<OperationLabeling> operationLabelings;
 	private OperationSubActionType operationSubActionType;
@@ -37,6 +40,8 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 		this.operationSubActionType = operationSubActionType;
 		operationSubActionExpTypes = new ArrayList<OperationSubActionExpType>();
 		operationLabelings = new ArrayList<OperationLabeling>();
+		inVariables = new ArrayList<AbstractAttribute>();
+		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
 	public SemanticOperationSubAction() {
@@ -112,5 +117,43 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 				return oper;
 		}
 		return null;
+	}
+
+	public boolean hasInVariable(String variable) {
+		for (AbstractAttribute var : inVariables)
+			if (var.getName().equals(variable))
+				return true;
+		return false;
+	}
+
+	public List<AbstractAttribute> getInVariables() {
+		return inVariables;
+	}
+
+	public void setInVariables(List<AbstractAttribute> inVariables) {
+		this.inVariables = inVariables;
+	}
+
+	public List<AbstractAttribute> getOutVariables() {
+		return outVariables;
+	}
+
+	public void setOutVariables(List<AbstractAttribute> outVariables) {
+		this.outVariables = outVariables;
+	}
+
+	public boolean hasOutVariable(String variable) {
+		for (AbstractAttribute var : outVariables)
+			if (var.getName().equals(variable))
+				return true;
+		return false;
+	}
+
+	public void addInVariable(AbstractAttribute attribute) {
+		inVariables.add(attribute);
+	}
+
+	public void addOutVariable(AbstractAttribute attribute) {
+		outVariables.add(attribute);
 	}
 }

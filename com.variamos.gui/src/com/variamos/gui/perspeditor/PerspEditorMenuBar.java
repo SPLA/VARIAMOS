@@ -11,6 +11,7 @@ import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
@@ -34,6 +35,7 @@ import com.variamos.gui.perspeditor.actions.HideSimulationsCustomizationBox;
 import com.variamos.gui.perspeditor.actions.NewAction;
 import com.variamos.gui.perspeditor.actions.NextSimulationAction;
 import com.variamos.gui.perspeditor.actions.OpenAction;
+import com.variamos.gui.perspeditor.actions.OperationAction;
 import com.variamos.gui.perspeditor.actions.OperationDefinitionAction;
 import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
@@ -238,40 +240,80 @@ public class PerspEditorMenuBar extends JMenuBar {
 			List<InstElement> menus = ((VariamosGraphEditor) editor)
 					.getEditedModel().getSemanticRefas()
 					.getVariabilityVertex("CSOpMenu");
-			for (InstElement menuElement : menus) {
-				if ((boolean) menuElement.getInstAttribute("visible")
-						.getValue() == true
-						&& ((String) menuElement.getInstAttribute("menuType")
-								.getValue()).equals(editor.getPerspective()
-								+ "")) {
-					menu = (JMenu) menu.add(new JMenu(menuElement
-							.getIdentifier()));
-					// menu.setMnemonic();
-					for (InstElement oper : menuElement.getTargetRelations()) {
-						JCheckBoxMenuItem item = new JCheckBoxMenuItem(oper
-								.getTargetRelations().get(0).getIdentifier());
-						item.setState(true);
-						item.addActionListener(new ActionListener() {
-
-							@Override
-							public void actionPerformed(ActionEvent arg0) {
-								AbstractButton aButton = (AbstractButton) arg0
-										.getSource();
-								boolean selected = aButton.getModel()
-										.isSelected();
-
-								if (selected)
-									finalEditor.updateDefects("FalseOpt", true);
-								else
-									finalEditor
-											.updateDefects("FalseOpt", false);
-							}
-						});
-						menu.add(item);
-					}
-					add(menu);
-				}
+			int cantMenu = 1;
+			String pre1 = "", pre2 = "";
+			if (editor.getPerspective() == 2) {
+				cantMenu = 2;
+				pre1 = "Individual ";
+				pre2 = "Group ";
 			}
+			for (int i = 0; i < cantMenu; i++)
+				for (InstElement menuElement : menus) {
+					if ((boolean) menuElement.getInstAttribute("visible")
+							.getValue() == true
+							&& ((String) menuElement.getInstAttribute(
+									"menuType").getValue()).equals(editor
+									.getPerspective() + "")) {
+						menu = (JMenu) menu.add(new JMenu(
+								(i == 0 ? pre1 : pre2)
+										+ menuElement.getInstAttribute("name")
+												.getValue()));
+						// menu.setMnemonic();
+						for (InstElement oper : menuElement
+								.getTargetRelations()) {
+							if (i == 0) {
+								InstElement e = oper.getTargetRelations()
+										.get(0);
+								JMenuItem menuItem = new JMenuItem(
+										(String) oper.getTargetRelations()
+												.get(0)
+												.getInstAttribute("name")
+												.getValue());
+
+								menuItem.setName(oper.getTargetRelations()
+										.get(0).getIdentifier());
+								menuItem.setAction(editor.bind(menuItem, oper
+										.getTargetRelations().get(0)
+										.getIdentifier(),
+										new OperationAction(), null));
+								menu.add(menuItem);
+								menuItem.setText((String) oper
+										.getTargetRelations().get(0)
+										.getInstAttribute("name").getValue());
+								menu.add(editor.bind(oper.getTargetRelations()
+										.get(0).getIdentifier(), (String) oper
+										.getTargetRelations().get(0)
+										.getInstAttribute("name").getValue(),
+										new OperationAction(), null));
+							} else {
+								JCheckBoxMenuItem item = new JCheckBoxMenuItem(
+										oper.getTargetRelations().get(0)
+												.getIdentifier());
+								item.setState(true);
+								item.addActionListener(new ActionListener() {
+
+									@Override
+									public void actionPerformed(ActionEvent arg0) {
+										AbstractButton aButton = (AbstractButton) arg0
+												.getSource();
+										boolean selected = aButton.getModel()
+												.isSelected();
+
+										if (selected)
+											finalEditor.updateDefects(
+													"FalseOpt", true);
+										else
+											finalEditor.updateDefects(
+													"FalseOpt", false);
+									}
+								});
+
+								menu.add(item);
+							}
+						}
+						add(menu);
+					}
+				}
 		}
 		if (editor.getPerspective() == 1) {
 			menu = (JMenu) menu.add(new JMenu(mxResources

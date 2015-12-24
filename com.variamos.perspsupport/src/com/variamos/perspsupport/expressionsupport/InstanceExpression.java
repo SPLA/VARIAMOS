@@ -361,9 +361,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			InstElement instVertex, Identifier identifier) {
 		if (attribute.getName()
 				.equals(SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
-			String configdomain = (String) volatileLefInstElement
+			String configdomain = (String) (volatileLefInstElement
 					.getInstAttribute(SemanticVariable.VAR_VARIABLECONFIGDOMAIN)
-					.getValue();
+					.getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		}
@@ -873,7 +873,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return SemExprSubActions;
 	}
 
-	public void setSemExprSubActions(List<SemanticOperationSubAction> semExprSubActions) {
+	public void setSemExprSubActions(
+			List<SemanticOperationSubAction> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
 	}
 
