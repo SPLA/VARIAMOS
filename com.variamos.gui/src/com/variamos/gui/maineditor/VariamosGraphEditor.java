@@ -1593,7 +1593,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public SemSolverTasks executeSimulation(boolean firstSimulExecution,
-			boolean reloadDashboard, String type, boolean update, String operation) {
+			boolean reloadDashboard, String type, boolean update,
+			String operation) {
 
 		if (!firstSimulExecution && semTask != null) {
 			semTask.setFirstSimulExec(false);
@@ -1658,6 +1659,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	// Static operation's definition without swing worker
+	@Deprecated
 	public boolean executeSimulation(int type, boolean update, String element) {
 		boolean wasFirst = false, first = false;
 		long iniTime = System.currentTimeMillis();

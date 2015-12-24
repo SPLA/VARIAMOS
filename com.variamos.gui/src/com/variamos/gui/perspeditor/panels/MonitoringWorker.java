@@ -120,7 +120,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							Refas2Hlcl.DESIGN_EXEC);
 					editor.getRefas2hlcl().updateGUIElements(
 							selectedAttributes, notAvailableAttributes,
-							conceptTypes, config);
+							conceptTypes, null, config);
 					// editor.editPropertiesRefas();
 					if (mapeAP) {
 						try {
@@ -157,7 +157,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 								editor.getRefas2hlcl().updateGUIElements(
 										selectedAttributes,
 										notAvailableAttributes, conceptTypes,
-										config);
+										null, config);
 								task = editor.executeSimulation(true, false,
 										Refas2Hlcl.SIMUL_MAPE, true, "Simul");
 								while (task.getProgress() != 100) {

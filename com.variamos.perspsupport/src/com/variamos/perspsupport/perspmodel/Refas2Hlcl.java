@@ -65,6 +65,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	private Configuration configuration = new Configuration();
 	private Solver swiSolver;
 	private long lastExecutionTime;
+	private List<String> outVariables;
 
 	public long getLastExecutionTime() {
 		return lastExecutionTime;
@@ -258,6 +259,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// + operExecType)) {
 		// System.out.println(exp.toString());
 		// }
+
+		outVariables = transExpSet.getOutVariables(refas, subOperation);
 
 		constraintGroups.put(element, transExpSet);
 		fillHlclProgram(element, subOperation, operExecType, hlclProgram);
@@ -611,7 +614,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
-		updateGUIElements(attributes, new ArrayList<String>(), null, null);
+		updateGUIElements(attributes, new ArrayList<String>(), null,
+				outVariables, null);
 	}
 
 	/**
@@ -619,7 +623,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 */
 	public void updateGUIElements(List<String> selectedAttributes,
 			List<String> notAvailableAttributes, List<String> conceptTypes,
-			Map<String, Integer> config) {
+			List<String> outVariables, Map<String, Integer> config) {
 		// Call the SWIProlog and obtain the result
 		if (configuration != null) {
 			Map<String, Integer> prologOut;
@@ -639,7 +643,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
 											.getTransSupportMetaElement()
-											.getAutoIdentifier())))
+											.getAutoIdentifier()))
+							|| (outVariables != null && !outVariables
+									.contains(attribute)))
 						continue;
 
 					if (selectedAttributes == null) {
@@ -677,7 +683,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 											.setValue(false);
 								else
 									vertex.getInstAttribute(attTarget)
-											.setValue(prologOut.get(i));
+											.setValue(prologOut.get(identifier));
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)
@@ -704,7 +710,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 											.setValue(false);
 								else
 									vertex.getInstAttribute(attTarget)
-											.setValue(prologOut.get(i));
+											.setValue(prologOut.get(identifier));
 							}
 							if (vertex.getInstAttribute(attTarget) != null
 									&& vertex.getInstAttribute(attTarget)

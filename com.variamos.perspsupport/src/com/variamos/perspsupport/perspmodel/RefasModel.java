@@ -2825,7 +2825,7 @@ public class RefasModel extends AbstractModel {
 		attribute = new GlobalConfigAttribute("Active", "Boolean", true,
 				"Is Active", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Active", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
@@ -2837,7 +2837,7 @@ public class RefasModel extends AbstractModel {
 		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
 				"Is Allowed", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Allowed", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
@@ -2918,6 +2918,7 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("HasParent", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addOutVariable(attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Opt", "Integer", false,
 				"FilterVariable", 0, new RangeDomain(0, 20), 0, -1, "", "", -1,
@@ -2936,12 +2937,16 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("NextNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addOutVariable(attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextPrefSelected",
 				"Boolean", false, "Selected by configuration", false, 0, -1,
 				"", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationOperationAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotPrefSelected",
 				"Boolean", false, "Not Selected by configuration", false, 0,
@@ -2958,6 +2963,7 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulationOperationAction.addOutVariable(attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
 		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
