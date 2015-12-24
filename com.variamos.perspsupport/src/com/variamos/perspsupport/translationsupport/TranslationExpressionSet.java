@@ -21,6 +21,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
@@ -194,6 +195,26 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					out.add(instanceExpression);
 				}
 			}
+		if (semElement != null && semElement instanceof SemanticOverTwoRelation) {
+			InstAttribute ia = instElement.getTransSupportMetaElement()
+					.getTransInstSemanticElement()
+					.getInstAttribute("relationTypesSemExpressions");
+			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+			for (InstAttribute attribute : ias) {
+				if (attribute.getIdentifier().equals(
+						instElement.getInstAttribute("relationType")))
+					for (IntSemanticExpression semExpression : (List<IntSemanticExpression>) attribute
+							.getValue()) {
+						if (semanticExpressions.contains(semExpression)) {
+							InstanceExpression instanceExpression = new InstanceExpression(
+									false, (SemanticExpression) semExpression);
+							instanceExpression
+									.createFromSemanticExpression(instElement);
+							out.add(instanceExpression);
+						}
+					}
+			}
+		}
 		return out;
 	}
 
