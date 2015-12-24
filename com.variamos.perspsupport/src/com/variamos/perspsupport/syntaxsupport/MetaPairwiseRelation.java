@@ -187,12 +187,13 @@ public class MetaPairwiseRelation extends MetaElement {
 		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
 		// this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
 		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
-		this.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-				new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-						false, "User Identifier", null, 0, 1, "", "", -1, "",
-						""));
-		this.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
-		this.addPropEditableAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+		// this.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
+		// new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
+		// false, "User Identifier", null, 0, 1, "", "", -1, "",
+		// ""));
+		// this.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
+		// this.addPropEditableAttribute("01#" +
+		// MetaConcept.VAR_USERIDENTIFIER);
 	}
 
 	public Set<String> getPropVisibleAttributesSet() {

@@ -451,30 +451,34 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						.getTargetRelations().get(0);
 				AbstractExpression out22a = null;
 
-				String targetSatisficingType = (String) targetSoftgoal
-						.getInstAttribute("satisficingType").getValue();
+				if (targetSoftgoal.getInstAttribute("satisficingType") != null) {
+					String targetSatisficingType = (String) targetSoftgoal
+							.getInstAttribute("satisficingType").getValue();
 
-				// TargetId_SDReqLevel #= relId_TargetLevel
-				if (targetSatisficingType.contains("low")) {
+					// TargetId_SDReqLevel #= relId_TargetLevel
+					if (targetSatisficingType.contains("low")) {
 
-					out22a = new LessOrEqualsBooleanExpression(targetSoftgoal,
-							instPairwiseRelation, "SDReqLevel",
-							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
-				} else if (targetSatisficingType.contains("high")) {
+						out22a = new LessOrEqualsBooleanExpression(
+								targetSoftgoal, instPairwiseRelation,
+								"SDReqLevel",
+								SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+					} else if (targetSatisficingType.contains("high")) {
 
-					out22a = new GreaterOrEqualsBooleanExpression(
-							targetSoftgoal, instPairwiseRelation, "SDReqLevel",
-							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
-				} else {
-					out22a = new EqualsComparisonExpression(targetSoftgoal,
-							instPairwiseRelation, "SDReqLevel",
-							SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+						out22a = new GreaterOrEqualsBooleanExpression(
+								targetSoftgoal, instPairwiseRelation,
+								"SDReqLevel",
+								SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+					} else {
+						out22a = new EqualsComparisonExpression(targetSoftgoal,
+								instPairwiseRelation, "SDReqLevel",
+								SemanticPairwiseRelation.VAR_TARGET_LEVEL);
+					}
+
+					AbstractBooleanExpression out23a = new ImplicationBooleanExpression(
+							out21a, out22a);
+					getElementExpressions().add(out23a);
+					allList.add(out23a);
 				}
-
-				AbstractBooleanExpression out23a = new ImplicationBooleanExpression(
-						out21a, out22a);
-				getElementExpressions().add(out23a);
-				allList.add(out23a);
 
 				break;
 			case "SD":
