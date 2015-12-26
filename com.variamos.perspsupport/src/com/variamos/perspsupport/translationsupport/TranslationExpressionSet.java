@@ -21,6 +21,8 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
@@ -189,11 +191,34 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							false, (SemanticExpression) semExpression);
-					instanceExpression
-							.createFromSemanticExpression(instElement);
+					instanceExpression.createFromSemanticExpression(
+							instElement, 0);
 					out.add(instanceExpression);
 				}
 			}
+		if (semElement != null
+				&& (semElement instanceof SemanticOverTwoRelation || semElement instanceof SemanticPairwiseRelation)) {
+			InstAttribute ia = instElement.getTransSupportMetaElement()
+					.getTransInstSemanticElement()
+					.getInstAttribute("relationTypesSemExpressions");
+			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+			for (InstAttribute attribute : ias) {
+				String att = attribute.getIdentifier();
+				String comp = (String) instElement.getInstAttribute(
+						"relationType").getValue();
+				if (att.equals(comp))
+					for (IntSemanticExpression semExpression : (List<IntSemanticExpression>) attribute
+							.getValue()) {
+						if (semanticExpressions.contains(semExpression)) {
+							InstanceExpression instanceExpression = new InstanceExpression(
+									false, (SemanticExpression) semExpression);
+							instanceExpression.createFromSemanticExpression(
+									instElement, 0);
+							out.add(instanceExpression);
+						}
+					}
+			}
+		}
 		return out;
 	}
 
@@ -206,7 +231,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getAllSemanticExpressions()) {
 				InstanceExpression instanceExpression = new InstanceExpression(
 						false, (SemanticExpression) semExpression);
-				instanceExpression.createFromSemanticExpression(null);
+				instanceExpression.createFromSemanticExpression(null, 0);
 				out.add(instanceExpression);
 			}
 		return out;
@@ -241,7 +266,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<Expression> out = new ArrayList<Expression>();
 		for (InstanceExpression expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
-			out.add(expression.createSGSExpression());
+			Expression newExp = expression.createSGSExpression();
+			if (newExp != null)
+				out.add(newExp);
 		}
 		return out;
 	}
@@ -250,7 +277,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		HlclProgram prog = new HlclProgram();
 		for (InstanceExpression expression : instanceExpressions.get(column)) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
-			prog.add((BooleanExpression) expression.createSGSExpression());
+			BooleanExpression newExp = (BooleanExpression) expression
+					.createSGSExpression();
+			if (newExp != null)
+				prog.add(newExp);
 		}
 		return prog;
 	}

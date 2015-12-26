@@ -344,7 +344,7 @@ public class ClassWidget extends WidgetR {
 		if (instVertex != null)
 			instAttribute.setValueObject(instVertex.get((String) txtValue
 					.getSelectedItem()));
-		if (semanticElements != null) {
+		if (semanticElements != null && txtValue.getItemCount() > 0) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				instAttribute.setValueObject(semanticElements.get(s));
@@ -353,7 +353,7 @@ public class ClassWidget extends WidgetR {
 				instAttribute.setValueObject(semanticElements.get(s));
 			}
 		}
-		if (syntaxElements != null) {
+		if (syntaxElements != null && txtValue.getItemCount() > 0) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				instAttribute.setValueObject(syntaxElements.get(s));

@@ -139,4 +139,9 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 	public List<IntSemanticRelationType> getSemanticRelationTypes() {
 		return semanticRelationTypes;
 	}
+
+	public Object getAllSemanticExpressions(String value) {
+
+		return null;
+	}
 }

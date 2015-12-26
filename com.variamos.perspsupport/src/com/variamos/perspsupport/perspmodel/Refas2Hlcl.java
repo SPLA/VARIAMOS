@@ -557,6 +557,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 									.getAsBoolean())
 						continue;
 					break;
+				case Refas2Hlcl.CORE_EXEC:
+					instVertex.getInstAttribute("Core").setValue(false);
 				case Refas2Hlcl.DESIGN_EXEC:
 					instVertex.getInstAttribute("ConfigSelected").setValue(
 							false);
@@ -572,7 +574,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
-						if (execType == Refas2Hlcl.DESIGN_EXEC
+						if (execType == Refas2Hlcl.CORE_EXEC
+								|| execType == Refas2Hlcl.DESIGN_EXEC
 								|| execType == Refas2Hlcl.SIMUL_EXEC
 								|| execType == Refas2Hlcl.SIMUL_EXPORT
 								|| execType == Refas2Hlcl.SIMUL_MAPE
