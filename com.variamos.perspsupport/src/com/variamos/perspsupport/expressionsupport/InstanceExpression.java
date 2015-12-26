@@ -217,10 +217,19 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			if (expressionTerms.get(0) == null
 					|| expressionTerms.get(1) == null)
 				return null;
+			InstElement element = this.getSemanticExpression()
+					.getRightSemanticElement();
+			if (element != null && !volatileRightInstElement.isChild(element))
+				return null;
 		} else {
 			if (expressionTerms.get(0) == null)
 				return null;
 		}
+
+		InstElement element = this.getSemanticExpression()
+				.getLeftSemanticElement();
+		if (element != null && !volatileLeftInstElement.isChild(element))
+			return null;
 
 		Method factoryMethod = null;
 		try {

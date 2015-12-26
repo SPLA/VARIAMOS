@@ -275,6 +275,8 @@ public abstract class InstElement implements Serializable, EditableElement,
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstE"+ this.getIdentifier() +
 		// "_"+insAttributeLocalId);
+		if (this.getInstAttribute(insAttributeLocalId) == null)
+			return null;
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
@@ -608,5 +610,27 @@ public abstract class InstElement implements Serializable, EditableElement,
 		String other = view.getInstAttribute("Index").getValue()
 				+ view.getIdentifier();
 		return index.compareTo(other);
+	}
+
+	public boolean isChild(InstElement element) {
+		if (this.getTransSupportMetaElement().getTransInstSemanticElement()
+				.getIdentifier().equals(element.getIdentifier())
+				|| this.getIdentifier().equals(element.getIdentifier()))
+			return true;
+
+		for (InstElement rel : this.getTransSupportMetaElement()
+				.getTransInstSemanticElement().getTargetRelations())
+			if (((InstPairwiseRelation) rel).getSupportMetaPairwiseRelIden()
+					.equals("ExtendsRelation"))
+				return rel.getTargetRelations().get(0).isChild(element);
+
+		for (InstElement rel : this.getTargetRelations())
+			if ((rel instanceof InstPairwiseRelation)
+					&& ((InstPairwiseRelation) rel)
+							.getSupportMetaPairwiseRelIden().equals(
+									"ExtendsRelation"))
+				return rel.getTargetRelations().get(0).isChild(element);
+
+		return false;
 	}
 }

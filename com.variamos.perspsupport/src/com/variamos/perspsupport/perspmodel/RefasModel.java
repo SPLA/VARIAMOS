@@ -3249,21 +3249,19 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexVAR = new InstConcept("Variable", metaConcept,
 				semVariable);
-		/*
-		 * t1 = new SemanticExpression("1",
-		 * this.getSemanticExpressionTypes().get( "Equals"), instVertexVAR,
-		 * instVertexVAR, "variableConfigValue", "value");
-		 * 
-		 * t3 = new SemanticExpression("3",
-		 * this.getSemanticExpressionTypes().get( "Equals"), instVertexVAR,
-		 * "variableConfigDomain", "");
-		 * 
-		 * t1 = new SemanticExpression("varConfigVal=value=varConfigDomain",
-		 * this .getSemanticExpressionTypes().get("Implies"), t3, t1);
-		 * 
-		 * semanticExpressions.add(t1);
-		 * simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-		 */
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexVAR, instVertexVAR, "variableConfigValue",
+				"value");
+
+		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Equals"), instVertexVAR, "variableConfigDomain", "");
+
+		t1 = new SemanticExpression("varConfigVal=value=varConfigDomain", this
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		semanticExpressions.add(t1);
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
 				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
@@ -3854,7 +3852,13 @@ public class RefasModel extends AbstractModel {
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"And"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexHHGR, instVertexHC, null, "Selected", "True", true);
+				instVertexHHGR, instVertexHHGR, null, "Selected", "True", true); // FIX
+																					// use
+																					// instVertexHC
+																					// after
+																					// fixing
+																					// child
+																					// validation
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"DoubleImplies"), t2, "True");
@@ -3874,7 +3878,13 @@ public class RefasModel extends AbstractModel {
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Or"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instHchcHHGRHC, instVertexHC, null, "Selected", "True", true);
+				instVertexHHGR, instVertexHHGR, null, "Selected", "True", true); // FIX
+																					// use
+																					// instVertexHC
+																					// after
+																					// fixing
+																					// child
+																					// validation
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"DoubleImplies"), t2, "True");
@@ -3895,7 +3905,13 @@ public class RefasModel extends AbstractModel {
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instHchcHHGRHC, instVertexHC, null, "Selected", true, 0);
+				instVertexHHGR, instVertexHHGR, null, "Selected", true, 0); // FIX
+																			// use
+																			// instVertexHC
+																			// after
+																			// fixing
+																			// child
+																			// validation
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), t2, 1);
@@ -3915,7 +3931,7 @@ public class RefasModel extends AbstractModel {
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instHchcHHGRHC, instVertexHC, null, "Selected", "True", true);
+				instVertexHHGR, instVertexHHGR, null, "Selected", "True", true);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), t2, ExpressionVertexType.RIGHTRELATIONCONCEPT,
@@ -3923,11 +3939,11 @@ public class RefasModel extends AbstractModel {
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instHchcHHGRHC, instVertexHC, null, "Selected", "True", true);
+				instVertexHHGR, instVertexHHGR, null, "Selected", "True", true);
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), t2, ExpressionVertexType.RIGHTRELATIONCONCEPT,
-				instVertexCL, "HighRange");
+				instVertexHHGR, "HighRange");
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"And"), t1, t3);
