@@ -367,10 +367,10 @@ public class SemanticExpressionDialog extends JDialog {
 			case LEFTCONCEPTTYPEVARIABLE:
 				leftSide.setSelectedItem("A Concept Type Variable");
 				break;
-			case LEFTINCOMRELVARIABLE:
+			case LEFTITERINCRELVARIABLE:
 				leftSide.setSelectedItem("Source Variables (Concept/Relation)");
 				break;
-			case LEFTOUTGRELVARIABLE:
+			case LEFTITEROUTRELVARIABLE:
 				leftSide.setSelectedItem("Target Variables (Concept/Relation)");
 				break;
 			case LEFTANYRELVARIABLE:
@@ -599,10 +599,10 @@ public class SemanticExpressionDialog extends JDialog {
 		ExpressionVertexType iterativeType = null;
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables (Concept/Relation)"))
-			iterativeType = ExpressionVertexType.LEFTINCOMRELVARIABLE;
+			iterativeType = ExpressionVertexType.LEFTITERINCRELVARIABLE;
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables (Concept/Relation)"))
-			iterativeType = ExpressionVertexType.LEFTOUTGRELVARIABLE;
+			iterativeType = ExpressionVertexType.LEFTITEROUTRELVARIABLE;
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Concept/Relation)"))
 			iterativeType = ExpressionVertexType.LEFTANYRELVARIABLE;
@@ -1049,8 +1049,8 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTCONCEPTTYPEVARIABLE:
 			instElements = refasModel.getVariabilityVertexCollection();
 			break;
-		case LEFTINCOMRELVARIABLE:
-		case LEFTOUTGRELVARIABLE:
+		case LEFTITERINCRELVARIABLE:
+		case LEFTITEROUTRELVARIABLE:
 		case LEFTANYRELVARIABLE:
 		case RIGHTUNIQUEINCRELVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
@@ -1247,11 +1247,11 @@ public class SemanticExpressionDialog extends JDialog {
 							break;
 						case "Source Variables (Concept/Relation)":
 							semanticExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTINCOMRELVARIABLE);
+									.setLeftExpressionType(ExpressionVertexType.LEFTITERINCRELVARIABLE);
 							break;
 						case "Target Variables (Concept/Relation)":
 							semanticExpression
-									.setLeftExpressionType(ExpressionVertexType.LEFTOUTGRELVARIABLE);
+									.setLeftExpressionType(ExpressionVertexType.LEFTITEROUTRELVARIABLE);
 							break;
 						case "Source/Target Variables (Concept/Relation)":
 							semanticExpression

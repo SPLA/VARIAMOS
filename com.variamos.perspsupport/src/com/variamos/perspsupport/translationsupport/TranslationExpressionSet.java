@@ -191,8 +191,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							false, (SemanticExpression) semExpression);
-					instanceExpression
-							.createFromSemanticExpression(instElement);
+					instanceExpression.createFromSemanticExpression(
+							instElement, 0);
 					out.add(instanceExpression);
 				}
 			}
@@ -212,8 +212,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						if (semanticExpressions.contains(semExpression)) {
 							InstanceExpression instanceExpression = new InstanceExpression(
 									false, (SemanticExpression) semExpression);
-							instanceExpression
-									.createFromSemanticExpression(instElement);
+							instanceExpression.createFromSemanticExpression(
+									instElement, 0);
 							out.add(instanceExpression);
 						}
 					}
@@ -231,7 +231,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getAllSemanticExpressions()) {
 				InstanceExpression instanceExpression = new InstanceExpression(
 						false, (SemanticExpression) semExpression);
-				instanceExpression.createFromSemanticExpression(null);
+				instanceExpression.createFromSemanticExpression(null, 0);
 				out.add(instanceExpression);
 			}
 		return out;
@@ -266,7 +266,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<Expression> out = new ArrayList<Expression>();
 		for (InstanceExpression expression : instanceExpressions.get(column)) {
 			// idMap.putAll(expression.(hlclFactory));
-			out.add(expression.createSGSExpression());
+			Expression newExp = expression.createSGSExpression();
+			if (newExp != null)
+				out.add(newExp);
 		}
 		return out;
 	}
@@ -275,7 +277,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		HlclProgram prog = new HlclProgram();
 		for (InstanceExpression expression : instanceExpressions.get(column)) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
-			prog.add((BooleanExpression) expression.createSGSExpression());
+			BooleanExpression newExp = (BooleanExpression) expression
+					.createSGSExpression();
+			if (newExp != null)
+				prog.add(newExp);
 		}
 		return prog;
 	}

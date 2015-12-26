@@ -217,6 +217,11 @@ public abstract class InstVertex extends InstElement {
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstV:" + this.getIdentifier()
 		// + insAttributeLocalId);
+		if (this.getInstAttribute(insAttributeLocalId) == null) {
+			System.out.println("InstV null:" + this.getIdentifier()
+					+ insAttributeLocalId);
+			return null;
+		}
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
