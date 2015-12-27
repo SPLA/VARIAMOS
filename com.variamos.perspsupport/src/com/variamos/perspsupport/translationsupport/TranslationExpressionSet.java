@@ -131,6 +131,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										attributeValue = (Integer) instAttribute
 												.getValue();
 								}
+								if (type.equals("String")) {
+									attributeValue = ((String) instAttribute
+											.getValue()).hashCode();
+								}
 								InstanceExpression instanceExpression = new InstanceExpression(
 										true, "t", true);
 								instanceExpression

@@ -262,6 +262,9 @@ public abstract class AbstractExpression {
 				|| attribute.getType().equals("Enumeration")) {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
+		} else if (attribute.getType().equals("String")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
 		}
 	}
 

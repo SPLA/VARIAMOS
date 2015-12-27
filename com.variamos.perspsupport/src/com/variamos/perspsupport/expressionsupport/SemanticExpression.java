@@ -557,6 +557,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		this.rightString = rightString;
 	}
 
+	public InstElement getSemanticElement() {
+		return volatileSemanticElement;
+	}
+
 	public void setSemanticElement(InstElement semanticElement) {
 		this.volatileSemanticElement = semanticElement;
 		this.semanticElementId = semanticElement.getIdentifier();
@@ -676,6 +680,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public InstElement getLeftSemanticRelElement() {
 		return volatileLeftSemanticRelElement;
+	}
+
+	public InstElement getRightSemanticRelElement() {
+		return volatileRightSemanticRelElement;
 	}
 
 	public String getLeftAttributeName() {
