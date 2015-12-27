@@ -280,11 +280,11 @@ public class PerspEditorMenuBar extends JMenuBar {
 								menuItem.setText((String) oper
 										.getTargetRelations().get(0)
 										.getInstAttribute("name").getValue());
-								menu.add(editor.bind(oper.getTargetRelations()
-										.get(0).getIdentifier(), (String) oper
-										.getTargetRelations().get(0)
-										.getInstAttribute("name").getValue(),
-										new OperationAction(), null));
+								// menu.add(editor.bind(oper.getTargetRelations()
+								// .get(0).getIdentifier(), (String) oper
+								// .getTargetRelations().get(0)
+								// .getInstAttribute("name").getValue(),
+								// new OperationAction(), null));
 							} else {
 								JCheckBoxMenuItem item = new JCheckBoxMenuItem(
 										oper.getTargetRelations().get(0)
