@@ -335,13 +335,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		}
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof TranslationExpressionSet) {
-				if (((TranslationExpressionSet) constraintGroup)
+				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
 						.getHlCLProgramExpressions(subOperation + "-"
-								+ operExecType) != null) {
-					hlclProgram
-							.add(((TranslationExpressionSet) constraintGroup)
-									.getHlCLProgramExpressions(subOperation
-											+ "-" + operExecType));
+								+ operExecType);
+				if (ts != null) {
+					hlclProgram.add(ts);
 				}
 			}
 		}

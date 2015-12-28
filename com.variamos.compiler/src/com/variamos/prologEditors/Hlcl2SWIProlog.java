@@ -7,17 +7,17 @@ import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.compiler.solverSymbols.SWIPrologSymbols;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.hlcl.BooleanOperation;
+import com.variamos.hlcl.ComposedDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.IntervalDomain;
 import com.variamos.hlcl.RangeDomain;
-import com.variamos.hlcl.ComposedDomain;
+import com.variamos.hlcl.StringDomain;
 
 /**
- * @author Luisa Rincón
- * Modified by jcmunoz to support composed domains
+ * @author Luisa Rincón Modified by jcmunoz to support composed domains
  *
  */
 public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
@@ -156,6 +156,10 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					// set the id to null to define the variable only one time.
 					id = null;
 				}
+				// jcmunoz: new condition for String domains using hashcodes
+			} else if (identifier.getDomain() instanceof StringDomain) {
+				domainString
+						.append(getStringDomain(identifier.getDomain(), id));
 			}
 
 			domainString.append(COMMA);
@@ -175,8 +179,10 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 	/**
 	 * New method to support Range individual or composed domains
+	 * 
 	 * @param domain
-	 * @param id: is null for second and additional domain ranges
+	 * @param id
+	 *            : is null for second and additional domain ranges
 	 * @return
 	 */
 	private StringBuffer getRangeDomain(Domain domain, String id) {
@@ -193,11 +199,13 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		domainString.append(upperValue);
 		return domainString;
 	}
+
 	/**
-	 * @author jcmunoz {jcmunoz@gmail.com}
-	 * New method to support Internal individual or composed domains
+	 * @author jcmunoz {jcmunoz@gmail.com} New method to support Internal
+	 *         individual or composed domains
 	 * @param domain
-	 * @param id: is null for second and additional domain intervals
+	 * @param id
+	 *            : is null for second and additional domain intervals
 	 * @return
 	 */
 	private StringBuffer getIntervalDomain(Domain domain, String id) {
@@ -213,9 +221,29 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			domainString.append(Integer.toString(domainValue));
 			if (i < domains.size() - 1) {
 				domainString.append(ORDOMAIN);
-
 			}
+		}
+		return domainString;
+	}
 
+	/**
+	 * @author jcmunoz {jcmunoz@gmail.com} New method to support String domains
+	 *         using hashcodes
+	 * @param domain
+	 * @param id
+	 * @return
+	 */
+	private StringBuffer getStringDomain(Domain domain, String id) {
+		StringBuffer domainString = new StringBuffer();
+		List<String> values = ((StringDomain) domain).getStringValues();
+		domainString.append(id);
+		domainString.append(IN);
+		for (int i = 0; i < values.size(); i++) {
+			String domainValue = values.get(i);
+			domainString.append(Integer.toString(domainValue.hashCode()));
+			if (i < values.size() - 1) {
+				domainString.append(ORDOMAIN);
+			}
 		}
 		return domainString;
 	}

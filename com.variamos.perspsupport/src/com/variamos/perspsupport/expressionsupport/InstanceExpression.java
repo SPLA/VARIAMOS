@@ -217,9 +217,50 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			if (expressionTerms.get(0) == null
 					|| expressionTerms.get(1) == null)
 				return null;
+			InstElement element = this.getSemanticExpression()
+					.getRightSemanticElement();
+			InstElement elementRel = this.getSemanticExpression()
+					.getRightSemanticRelElement();
+			if ((element == null || !volatileRightInstElement.isChild(element))
+					&& (elementRel == null || !volatileRightInstElement
+							.isChild(elementRel))) {
+				if (element != null || elementRel != null)
+					System.out
+							.println("e: "
+									+ ((element == null) ? "" : element
+											.getIdentifier())
+									+ " eR: "
+									+ ((elementRel == null) ? "" : elementRel
+											.getIdentifier())
+									+ " vRE: "
+									+ ((volatileRightInstElement == null) ? ""
+											: volatileRightInstElement
+													.getIdentifier()));
+				// return null;
+			}
+
 		} else {
 			if (expressionTerms.get(0) == null)
 				return null;
+		}
+
+		InstElement element = this.getSemanticExpression()
+				.getLeftSemanticElement();
+		InstElement elementRel = this.getSemanticExpression()
+				.getLeftSemanticRelElement();
+		if ((element == null || !volatileLeftInstElement.isChild(element))
+				&& (elementRel == null || !volatileLeftInstElement
+						.isChild(elementRel))) {
+			if (element != null || elementRel != null)
+				System.out.println("e: "
+						+ ((element == null) ? "" : element.getIdentifier())
+						+ " eR: "
+						+ ((elementRel == null) ? "" : elementRel
+								.getIdentifier())
+						+ " vLE: "
+						+ ((volatileLeftInstElement == null) ? ""
+								: volatileLeftInstElement.getIdentifier()));
+			// return null;
 		}
 
 		Method factoryMethod = null;
@@ -471,6 +512,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				identifier.setDomain(attribute.getDomain());
 			else
 				identifier.setDomain(new RangeDomain(0, 4));
+		} else if (attribute.getType().equals("String")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
 		}
 	}
 

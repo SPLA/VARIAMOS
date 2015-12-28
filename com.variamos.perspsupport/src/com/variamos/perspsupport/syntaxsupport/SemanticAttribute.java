@@ -43,9 +43,9 @@ public class SemanticAttribute extends AbstractAttribute {
 				elementDisplayCondition);
 	}
 
-	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, int defaultGroup, int propTabPosition,
+	public SemanticAttribute(String name, String type, String displayName,
+			Object defaultValue, boolean affectProperties, Domain domain,
+			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {

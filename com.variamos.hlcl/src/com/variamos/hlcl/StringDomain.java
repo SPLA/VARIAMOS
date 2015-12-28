@@ -1,5 +1,6 @@
 package com.variamos.hlcl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,12 @@ import java.util.List;
  * @since 2015-11-10
  * @see com.variamos.hlcl.IntervalDomain
  */
-public class StringDomain implements Domain {
+public class StringDomain implements Domain, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4268925453726727704L;
 	protected List<String> stringValues;
 
 	public List<String> getDomainValues() {

@@ -90,7 +90,7 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
 
 		putSemanticAttribute("LowRange", new SemanticAttribute("LowRange",
-				"Integer", false, "Low Range", 1, new RangeDomain(0, 50), 0, 6,
+				"Integer", "Low Range", 1, false, new RangeDomain(0, 50), 0, 6,
 				"", "", 6, "", ""));
 		addPropEditableAttribute("08#" + "LowRange");
 		addPropVisibleAttribute("08#" + "LowRange" + "#"
@@ -100,7 +100,7 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		putSemanticAttribute("HighRange", new SemanticAttribute("HighRange",
-				"Integer", false, "High Range", 1, new RangeDomain(0, 50), 0,
+				"Integer", "High Range", 1, false, new RangeDomain(0, 50), 0,
 				6, "", "", 6, "", ""));
 		addPropEditableAttribute("09#" + "HighRange");
 		addPropVisibleAttribute("09#" + "HighRange" + "#"
