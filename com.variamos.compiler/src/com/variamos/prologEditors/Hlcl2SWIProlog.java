@@ -221,9 +221,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			domainString.append(Integer.toString(domainValue));
 			if (i < domains.size() - 1) {
 				domainString.append(ORDOMAIN);
-
 			}
-
 		}
 		return domainString;
 	}
