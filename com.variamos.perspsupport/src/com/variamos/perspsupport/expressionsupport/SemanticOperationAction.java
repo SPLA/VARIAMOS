@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 /**
  * A class to support the operations definition with GUI edition. Part of PhD
@@ -25,8 +24,6 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 		super(identifier);
 		this.position = position;
 		expressionSubActions = new ArrayList<SemanticOperationSubAction>();
-		inVariables = new ArrayList<AbstractAttribute>();
-		outVariables = new ArrayList<AbstractAttribute>();
 	}
 
 	public SemanticOperationAction() {
@@ -36,8 +33,6 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 
 	private int position;
 	private List<SemanticOperationSubAction> expressionSubActions;
-	private List<AbstractAttribute> inVariables;
-	private List<AbstractAttribute> outVariables;
 
 	public int getPosition() {
 		return position;
@@ -68,7 +63,25 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 		expressionSubActions.add(operationSubAction);
 	}
 
-	public List<String> getOperColumnsNames() {
+	public List<String> getSubOperColumnsNames() {
+
+		List<String> out = new ArrayList<String>();
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
+			out.add(subAction.getIdentifier());
+		}
+		return out;
+	}
+
+	public List<SemanticOperationSubAction> getSubOperColumns() {
+
+		List<SemanticOperationSubAction> out = new ArrayList<SemanticOperationSubAction>();
+		for (SemanticOperationSubAction subAction : expressionSubActions) {
+			out.add(subAction);
+		}
+		return out;
+	}
+
+	public List<String> getSubOperTypesColumnsNames() {
 
 		List<String> out = new ArrayList<String>();
 		for (SemanticOperationSubAction subAction : expressionSubActions) {
@@ -77,7 +90,7 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 		return out;
 	}
 
-	public List<OperationSubActionExpType> getOperColumns() {
+	public List<OperationSubActionExpType> getSubOperTypesColumns() {
 
 		List<OperationSubActionExpType> out = new ArrayList<OperationSubActionExpType>();
 		for (SemanticOperationSubAction subAction : expressionSubActions) {
@@ -100,27 +113,5 @@ public class SemanticOperationAction extends AbstractSemanticElement {
 			out.addAll(subAction.getOperLabels());
 		}
 		return out;
-	}
-
-	public boolean hasInVariable(String variable) {
-		for (AbstractAttribute var : inVariables)
-			if (var.getName().equals(variable))
-				return true;
-		return false;
-	}
-
-	public boolean hasOutVariable(String variable) {
-		for (AbstractAttribute var : outVariables)
-			if (var.getName().equals(variable))
-				return true;
-		return false;
-	}
-
-	public void addInVariable(AbstractAttribute attribute) {
-		inVariables.add(attribute);
-	}
-
-	public void addOutVariable(AbstractAttribute attribute) {
-		outVariables.add(attribute);
 	}
 }

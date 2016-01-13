@@ -28,6 +28,7 @@ import com.variamos.hlcl.Domain;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
@@ -130,12 +131,18 @@ public class ElementsOperationAssociationPanel extends
 	private AssociationTreeTable createTable(RefasModel refasModel,
 			SemanticOperationAction operAction) {
 
-		List<String> operColumnsNames = operAction.getOperColumnsNames();
+		List<String> subOperTypesColumnsNames = operAction
+				.getSubOperTypesColumnsNames();
 
-		List<OperationSubActionExpType> operColumns = operAction
-				.getOperColumns();
+		List<OperationSubActionExpType> subOperTypesColumns = operAction
+				.getSubOperTypesColumns();
+
+		List<String> subOperColumnsNames = operAction.getSubOperColumnsNames();
+
+		List<SemanticOperationSubAction> subOperColumns = operAction
+				.getSubOperColumns();
 		List<Domain> domainOperColumns = new ArrayList<Domain>();
-		for (String s : operColumnsNames)
+		for (String s : subOperTypesColumnsNames)
 			domainOperColumns.add(BinaryDomain.INSTANCE);
 
 		List<String> operLabelNames = operAction.getOperLabelNames();
@@ -149,17 +156,18 @@ public class ElementsOperationAssociationPanel extends
 		List<String> operIO = new ArrayList<String>();
 		List<Domain> domainOperIO = new ArrayList<Domain>();
 		List<Boolean> valuesOperIO = new ArrayList<Boolean>();
-		domainOperIO.add(BinaryDomain.INSTANCE);
-		domainOperIO.add(BinaryDomain.INSTANCE);
-
-		operIO.add("ModelValue/FreeValue");
-		operIO.add("UpdateModelValue");
+		for (String s : subOperColumnsNames) {
+			domainOperIO.add(BinaryDomain.INSTANCE);
+			domainOperIO.add(BinaryDomain.INSTANCE);
+			operIO.add(s + "ModelValue/\nFreeValue");
+			operIO.add(s + "UpdateModelValue");
+		}
 
 		AssociationRow root = null;
 		AssociationDataModel dataModel = null;
 
 		if (dialog == 0)
-			root = new AssociationRow("", operColumns.size(), false,
+			root = new AssociationRow("", subOperTypesColumns.size(), false,
 					domainOperColumns, null);
 		if (dialog == 1)
 			root = new AssociationRow("", operIO.size(), false, domainOperIO,
@@ -172,7 +180,8 @@ public class ElementsOperationAssociationPanel extends
 			AssociationRow node = null;
 			if (dialog == 0)
 				node = new AssociationRow(el.getIdentifier(),
-						operColumns.size(), false, domainOperColumns, null);
+						subOperTypesColumns.size(), false, domainOperColumns,
+						null);
 			if (dialog == 1)
 				node = new AssociationRow(el.getIdentifier(), operIO.size(),
 						false, domainOperIO, null);
@@ -189,15 +198,15 @@ public class ElementsOperationAssociationPanel extends
 				for (IntSemanticExpression v : el.getEditableSemanticElement()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
-					for (OperationSubActionExpType operColumn : operColumns)
+					for (OperationSubActionExpType operColumn : subOperTypesColumns)
 						if (operColumn.hasSemanticExpression(v.getIdentifier()))
 							valuesOperColumns.add(1);
 						else
 							valuesOperColumns.add(0);
 
 					AssociationRow attNode = new AssociationRow(
-							v.getIdentifier(), operColumns.size(), true,
-							domainOperColumns, valuesOperColumns);
+							v.getIdentifier(), subOperTypesColumns.size(),
+							true, domainOperColumns, valuesOperColumns);
 
 					node.getChildren().add(attNode);
 
@@ -211,13 +220,13 @@ public class ElementsOperationAssociationPanel extends
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					AssociationRow attNode = new AssociationRow(
-							v.getIdentifier(), operColumns.size(), false,
-							domainOperColumns, null);
+							v.getIdentifier(), subOperTypesColumns.size(),
+							false, domainOperColumns, null);
 
 					node.getChildren().add(attNode);
 					for (IntSemanticExpression e : (List<IntSemanticExpression>) v
 							.getValue()) {
-						for (OperationSubActionExpType operColumn : operColumns)
+						for (OperationSubActionExpType operColumn : subOperTypesColumns)
 							if (operColumn.hasSemanticExpression(e
 									.getIdentifier()))
 								valuesOperColumns.add(1);
@@ -225,8 +234,8 @@ public class ElementsOperationAssociationPanel extends
 								valuesOperColumns.add(0);
 
 						AssociationRow att2Node = new AssociationRow(
-								e.getIdentifier(), operColumns.size(), true,
-								domainOperColumns, valuesOperColumns);
+								e.getIdentifier(), subOperTypesColumns.size(),
+								true, domainOperColumns, valuesOperColumns);
 
 						attNode.getChildren().add(att2Node);
 					}
@@ -236,17 +245,20 @@ public class ElementsOperationAssociationPanel extends
 						.getDeclaredSemanticAttributes()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
-					if (operAction.hasInVariable(v))
-						valuesVarColumns.add(1);
-					else
-						valuesVarColumns.add(0);
-					if (operAction.hasOutVariable(v))
-						valuesVarColumns.add(1);
-					else
-						valuesVarColumns.add(0);
+					for (SemanticOperationSubAction operColumn : subOperColumns) {
+						if (operColumn.hasInVariable(v))
+							valuesVarColumns.add(1);
+						else
+							valuesVarColumns.add(0);
+						if (operColumn.hasOutVariable(v))
+							valuesVarColumns.add(1);
+						else
+							valuesVarColumns.add(0);
+					}
 					AssociationRow attNode = new AssociationRow(v,
 							operIO.size(), true, domainOperIO, valuesVarColumns);
 					node.getChildren().add(attNode);
+
 				}
 
 			if (dialog == 2 && el.getEditableSemanticElement() != null)
@@ -270,8 +282,8 @@ public class ElementsOperationAssociationPanel extends
 
 		AssociationTreeTable table;
 		if (dialog == 0)
-			dataModel = new AssociationDataModel(root, this, operColumnsNames,
-					domainOperColumns);
+			dataModel = new AssociationDataModel(root, this,
+					subOperTypesColumnsNames, domainOperColumns);
 		if (dialog == 1)
 			dataModel = new AssociationDataModel(root, this, operIO,
 					domainOperIO);

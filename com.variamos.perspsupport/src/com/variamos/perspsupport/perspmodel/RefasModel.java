@@ -865,57 +865,57 @@ public class RefasModel extends AbstractModel {
 		rel.setSourceRelation(instConcept, true);
 		constraintInstEdges.put("AssoPWCORel", rel);
 
-		SemanticConcept semOperationMenu = new SemanticConcept(semConcept,
+		SemanticConcept semOperationGroup = new SemanticConcept(semConcept,
 				"CSOperGroup");
 
-		semOperationMenu.putSemanticAttribute("menuType",
+		semOperationGroup.putSemanticAttribute("menuType",
 				new SemanticAttribute("menuType", "String", false,
 						"Oper Group Type", null, null, null, 0, 5, "", "", 5,
 						"", ""));
-		semOperationMenu.addPropEditableAttribute("05#" + "menuType");
-		semOperationMenu.addPropVisibleAttribute("05#" + "menuType");
+		semOperationGroup.addPropEditableAttribute("05#" + "menuType");
+		semOperationGroup.addPropVisibleAttribute("05#" + "menuType");
 
-		semOperationMenu.putSemanticAttribute("visible", new SemanticAttribute(
-				"visible", "Boolean", false, "Visible", true, 0, 8, "", "", 8,
-				"", ""));
-		semOperationMenu.addPropEditableAttribute("08#" + "visible");
-		semOperationMenu.addPropVisibleAttribute("08#" + "visible");
+		semOperationGroup.putSemanticAttribute("visible",
+				new SemanticAttribute("visible", "Boolean", false, "Visible",
+						true, 0, 8, "", "", 8, "", ""));
+		semOperationGroup.addPropEditableAttribute("08#" + "visible");
+		semOperationGroup.addPropVisibleAttribute("08#" + "visible");
 
-		semOperationMenu
+		semOperationGroup
 				.putSemanticAttribute("name", new SemanticAttribute("name",
 						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
-		semOperationMenu.addPropEditableAttribute("06#" + "name");
-		semOperationMenu.addPropVisibleAttribute("06#" + "name");
-		semOperationMenu.addPanelVisibleAttribute("06#" + "name");
-		semOperationMenu.addPanelSpacersAttribute("#" + "name" + "#");
+		semOperationGroup.addPropEditableAttribute("06#" + "name");
+		semOperationGroup.addPropVisibleAttribute("06#" + "name");
+		semOperationGroup.addPanelVisibleAttribute("06#" + "name");
+		semOperationGroup.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationMenu.putSemanticAttribute("shortcut",
+		semOperationGroup.putSemanticAttribute("shortcut",
 				new SemanticAttribute("shortcut", "String", false, "Shortcut",
 						null, 0, 7, "", "", 7, "", ""));
-		semOperationMenu.addPropEditableAttribute("07#" + "shortcut");
-		semOperationMenu.addPropVisibleAttribute("07#" + "shortcut");
+		semOperationGroup.addPropEditableAttribute("07#" + "shortcut");
+		semOperationGroup.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationMenu.putSemanticAttribute("Index", new SemanticAttribute(
+		semOperationGroup.putSemanticAttribute("Index", new SemanticAttribute(
 				"Index", "Integer", false, "Position", 1, 0, 9, "", "", 9, "",
 				""));
-		semOperationMenu.addPropEditableAttribute("09#" + "Index");
-		semOperationMenu.addPropVisibleAttribute("09#" + "Index");
+		semOperationGroup.addPropEditableAttribute("09#" + "Index");
+		semOperationGroup.addPropVisibleAttribute("09#" + "Index");
 
-		InstConcept instSemOperationMenu = new InstConcept("CSOperGroup", null,
-				semOperationMenu);
+		InstConcept instSemOperationGroup = new InstConcept("CSOperGroup",
+				null, semOperationGroup);
 
-		MetaConcept operationMenu = new MetaConcept('M', "CSOperGroup", true,
+		MetaConcept operationGroup = new MetaConcept('M', "CSOperGroup", true,
 				"CSOperGroup", "refasminiclass", "Operation Group", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instSemOperationMenu, true);
+				Color.BLUE.toString(), 3, instSemOperationGroup, true);
 
-		operationMenu.addPanelVisibleAttribute("04#"
+		operationGroup.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
-		operationMenu.addPanelSpacersAttribute("#"
+		operationGroup.addPanelSpacersAttribute("#"
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instOperMenu = new InstConcept("CSOperGroup",
-				metaBasicConcept, operationMenu);
+				metaBasicConcept, operationGroup);
 		variabilityInstVertex.put("CSOperGroup", instOperMenu);
 
 		SemanticConcept semModel = new SemanticConcept(semConcept, "CSModel");
@@ -928,7 +928,7 @@ public class RefasModel extends AbstractModel {
 		semModel.addPanelSpacersAttribute("#" + "name" + "#");
 
 		InstConcept instSemModel = new InstConcept("CSModel", null,
-				semOperationMenu);
+				semOperationGroup);
 
 		MetaConcept metaModel = new MetaConcept('C', "CSModel", true,
 				"CSModel", "refasminiclass", "Semantic Model", 100, 150,
@@ -1804,15 +1804,15 @@ public class RefasModel extends AbstractModel {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		SemanticOperationSubAction operationSubAction = new SemanticOperationSubAction(
-				1, "Sim-Pre-Validacion", OperationSubActionType.VERIFICATION);
+				1, "Sim-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
 		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		InstVertex instOperationSubAction = new InstConcept(
-				"Sim-Pre-Validacion", metaOperationSubAction,
+				"Sim-Pre-Validation", metaOperationSubAction,
 				operationSubAction);
-		variabilityInstVertex.put("Sim-Pre-Validacion", instOperationSubAction);
+		variabilityInstVertex.put("Sim-Pre-Validation", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sim-pre-val", instEdgeOper);
@@ -1875,19 +1875,19 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
 
 		operationSubAction = new SemanticOperationSubAction(4,
-				"SimSce-Post-Validacion", OperationSubActionType.VERIFICATION);
+				"Sim-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
 		simulationOperationAction.addExpressionSubAction(operationSubAction);
 
-		instOperationSubAction = new InstConcept("SimSce-Post-Validacion",
+		instOperationSubAction = new InstConcept("Sim-Post-Validation",
 				metaOperationSubAction, operationSubAction);
-		variabilityInstVertex.put("SimSce-Post-Validacion",
-				instOperationSubAction);
+		variabilityInstVertex
+				.put("Sim-Post-Validation", instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
-		this.constraintInstEdges.put("simsce-pos-val", instEdgeOper);
-		instEdgeOper.setIdentifier("simsce-pos-val");
+		this.constraintInstEdges.put("sim-pos-val", instEdgeOper);
+		instEdgeOper.setIdentifier("sim-pos-val");
 		instEdgeOper.setSupportMetaPairwiseRelation(metaPairwRelAso);
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
@@ -1950,14 +1950,14 @@ public class RefasModel extends AbstractModel {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new SemanticOperationSubAction(1,
-				"SimSce-Pre-Validacion", OperationSubActionType.VERIFICATION);
+				"SimSce-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
 		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
-		instOperationSubAction = new InstConcept("SimSce-Pre-Validacion",
+		instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
 				metaOperationSubAction, operationSubAction);
-		variabilityInstVertex.put("SimSce-Pre-Validacion",
+		variabilityInstVertex.put("SimSce-Pre-Validation",
 				instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -2019,14 +2019,14 @@ public class RefasModel extends AbstractModel {
 				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
 
 		operationSubAction = new SemanticOperationSubAction(4,
-				"SimSce-Post-Validacion", OperationSubActionType.VERIFICATION);
+				"SimSce-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
 		simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
-		instOperationSubAction = new InstConcept("SimSce-Post-Validacion",
+		instOperationSubAction = new InstConcept("SimSce-Post-Validation",
 				metaOperationSubAction, operationSubAction);
-		variabilityInstVertex.put("SimSce-Post-Validacion",
+		variabilityInstVertex.put("SimSce-Post-Validation",
 				instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -2782,21 +2782,18 @@ public class RefasModel extends AbstractModel {
 				"", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("True", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
 				"***Selected***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Selected", attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
 				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Description", "String", false,
@@ -2808,7 +2805,6 @@ public class RefasModel extends AbstractModel {
 				"Is Required", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Required", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SysRequired", "Boolean", true,
@@ -2820,7 +2816,6 @@ public class RefasModel extends AbstractModel {
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
@@ -2828,28 +2823,24 @@ public class RefasModel extends AbstractModel {
 				null, "", 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Core", "Boolean", false,
 				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Core", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Dead", "Boolean", false,
 				"Is a Dead Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
 				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("IsRootFeature", attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("IgnoreForSimulation", "Boolean",
@@ -2885,7 +2876,6 @@ public class RefasModel extends AbstractModel {
 				"Is Active", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Active", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
@@ -2897,7 +2887,6 @@ public class RefasModel extends AbstractModel {
 				"Is Allowed", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("RequiredLevel", "Integer",
@@ -2905,7 +2894,6 @@ public class RefasModel extends AbstractModel {
 				"", -1, "", "");
 		semGeneralElement.putSemanticAttribute("RequiredLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 		// TODO define domain or Enum Level
 
@@ -2914,7 +2902,6 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("ConfigSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ConfigNotSelected", "Boolean",
@@ -2922,7 +2909,6 @@ public class RefasModel extends AbstractModel {
 				"", "");
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
@@ -2976,7 +2962,6 @@ public class RefasModel extends AbstractModel {
 				false, "Has Parent", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("HasParent", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Opt", "Integer", false,
@@ -2996,7 +2981,6 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("NextNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextPrefSelected",
@@ -3004,7 +2988,6 @@ public class RefasModel extends AbstractModel {
 				"", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotPrefSelected",
@@ -3013,7 +2996,6 @@ public class RefasModel extends AbstractModel {
 		semGeneralElement
 				.putSemanticAttribute("NextNotPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
@@ -3021,7 +3003,6 @@ public class RefasModel extends AbstractModel {
 				"");
 		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		semGeneralElement.addPropVisibleAttribute("01#" + "Selected");
@@ -3167,7 +3148,6 @@ public class RefasModel extends AbstractModel {
 				"Satisficing Level", "low", false, d, 0, 10, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		semSoftgoal.addPropEditableAttribute("11#" + "satisficingLevel");
 		semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
@@ -3188,7 +3168,6 @@ public class RefasModel extends AbstractModel {
 		semSoftgoal.putSemanticAttribute(
 				SoftSemanticConcept.VAR_CONFREQLEVELTYPE, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		semSoftgoal.addPropEditableAttribute("10#"
@@ -3324,7 +3303,6 @@ public class RefasModel extends AbstractModel {
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
@@ -3332,7 +3310,6 @@ public class RefasModel extends AbstractModel {
 				null, "", 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_NAME, "String",
@@ -3703,7 +3680,6 @@ public class RefasModel extends AbstractModel {
 				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
@@ -3716,7 +3692,6 @@ public class RefasModel extends AbstractModel {
 				"", -1, "", "");
 		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ClaimSelected", "Boolean",
@@ -3728,7 +3703,6 @@ public class RefasModel extends AbstractModel {
 				"Claim Expression Text", "", 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ClaimExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
@@ -3778,7 +3752,6 @@ public class RefasModel extends AbstractModel {
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SDExpression", "String", false,
@@ -4394,7 +4367,6 @@ public class RefasModel extends AbstractModel {
 		attribute = new AbstractAttribute("optional", StringType.IDENTIFIER,
 				false, "optional", "", 1, -1, "", "", -1, "", "");
 		ias.add(new InstAttribute("optional", attribute, semanticExpressions));
-		simulationOperationAction.addInVariable(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		variabilityInstVertex.put("FeatFeatParentPWAsso",
