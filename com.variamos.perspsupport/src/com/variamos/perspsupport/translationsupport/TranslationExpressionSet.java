@@ -14,7 +14,6 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -91,15 +90,29 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstElement> operActions = refas.getSemanticRefas()
 				.getVariabilityVertex("CSOpAction");
-		SemanticOperationAction operAction = null;
+		InstElement operAction = null;
+		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
-			if (oper.getIdentifier().equals(operation))
-				operAction = (SemanticOperationAction) oper
-						.getEditableSemanticElement();
-
+			if (oper.getIdentifier().equals(operation)) {
+				operAction = oper;
+				break;
+			}
 		}
-		SemanticOperationSubAction operSubAction = operAction
-				.getExpressionSubAction(subAction);
+		for (InstElement rel : operAction.getTargetRelations()) {
+			InstElement subOper = rel.getTargetRelations().get(0);
+			if (subOper.getIdentifier().equals(subAction))
+				operSubAction = (SemanticOperationSubAction) subOper
+						.getEditableSemanticElement();
+		}
+
+		/*
+		 * SemanticOperationAction operAction = null; for (InstElement oper :
+		 * operActions) { if (oper.getIdentifier().equals(operation)) operAction
+		 * = (SemanticOperationAction) oper .getEditableSemanticElement();
+		 * 
+		 * } SemanticOperationSubAction operSubAction = operAction
+		 * .getExpressionSubAction(subAction);
+		 */
 		if (operSubAction != null) {
 			OperationSubActionExpType operExpType = operSubAction
 					.getOperationSubActionExpType(expressionType);
@@ -167,17 +180,19 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<String> out = new ArrayList<String>();
 		List<InstElement> operActions = refas.getSemanticRefas()
 				.getVariabilityVertex("CSOpAction");
-		SemanticOperationAction operAction = null;
+		InstElement operAction = null;
 		for (InstElement oper : operActions) {
-			if (oper.getIdentifier().equals(operation))
-				operAction = (SemanticOperationAction) oper
-						.getEditableSemanticElement();
-
+			if (oper.getIdentifier().equals(operation)) {
+				operAction = oper;
+				break;
+			}
 		}
-		SemanticOperationSubAction operSubAction = operAction
-				.getExpressionSubAction(subAction);
-		for (AbstractAttribute att : operSubAction.getOutVariables()) {
-			out.add(att.getName());
+		for (InstElement rel : operAction.getTargetRelations()) {
+			InstElement subOper = rel.getTargetRelations().get(0);
+			if (subOper.getIdentifier().equals(subAction))
+				for (AbstractAttribute att : ((SemanticOperationSubAction) subOper
+						.getEditableSemanticElement()).getOutVariables())
+					out.add(att.getName());
 		}
 		return out;
 	}

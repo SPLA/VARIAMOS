@@ -1807,7 +1807,7 @@ public class RefasModel extends AbstractModel {
 				1, "Sim-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
+		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		InstVertex instOperationSubAction = new InstConcept(
 				"Sim-Pre-Validation", metaOperationSubAction,
@@ -1830,7 +1830,7 @@ public class RefasModel extends AbstractModel {
 				"Sim-Pre-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
+		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Pre-Update",
 				metaOperationSubAction, operationSubAction);
@@ -1855,8 +1855,7 @@ public class RefasModel extends AbstractModel {
 
 		simulOperationSubAction
 				.addOperationLabeling(simulationExecOperUniqueLabeling);
-		simulationOperationAction
-				.addExpressionSubAction(simulOperationSubAction);
+		// simulationOperationAction.addExpressionSubAction(simulOperationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Execution",
 				metaOperationSubAction, simulOperationSubAction);
@@ -1878,7 +1877,7 @@ public class RefasModel extends AbstractModel {
 				"Sim-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
+		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Validation",
 				metaOperationSubAction, operationSubAction);
@@ -1901,7 +1900,7 @@ public class RefasModel extends AbstractModel {
 				"Sim-Post-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulationOperationAction.addExpressionSubAction(operationSubAction);
+		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Update",
 				metaOperationSubAction, operationSubAction);
@@ -1953,7 +1952,7 @@ public class RefasModel extends AbstractModel {
 				"SimSce-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
 				metaOperationSubAction, operationSubAction);
@@ -1976,7 +1975,7 @@ public class RefasModel extends AbstractModel {
 				"SimSce-Pre-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Update",
 				metaOperationSubAction, operationSubAction);
@@ -2000,7 +1999,7 @@ public class RefasModel extends AbstractModel {
 				"ff", 1, false));
 		operationSubAction.addOperationLabeling(new OperationLabeling("once",
 				"ff", 2, true));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Execution",
 				metaOperationSubAction, operationSubAction);
@@ -2022,7 +2021,7 @@ public class RefasModel extends AbstractModel {
 				"SimSce-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Validation",
 				metaOperationSubAction, operationSubAction);
@@ -2045,7 +2044,7 @@ public class RefasModel extends AbstractModel {
 				"SimSce-Post-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		simulScenOperationAction.addExpressionSubAction(operationSubAction);
+		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Update",
 				metaOperationSubAction, operationSubAction);
@@ -2096,7 +2095,7 @@ public class RefasModel extends AbstractModel {
 				"UpdateCoreSubOper", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		updateCoreOperationAction.addExpressionSubAction(operationSubAction);
+		// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("UpdateCoreSubOper",
 				metaOperationSubAction, operationSubAction);
@@ -2138,7 +2137,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
+		// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyDeadElementsSubOper",
 				metaOperationSubAction, operationSubAction);
@@ -2189,7 +2188,7 @@ public class RefasModel extends AbstractModel {
 				"VerifyParentsSubOper", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		verifParentsOperationAction.addExpressionSubAction(operationSubAction);
+		// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyParentsSubOper",
 				metaOperationSubAction, operationSubAction);
@@ -2240,7 +2239,7 @@ public class RefasModel extends AbstractModel {
 				"VerifyRootsSubOper", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		verifRootOperationAction.addExpressionSubAction(operationSubAction);
+		// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyRootsSubOper",
 				metaOperationSubAction, operationSubAction);
@@ -2290,7 +2289,7 @@ public class RefasModel extends AbstractModel {
 				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
+		// verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyFalseSubOperations",
 				metaOperationSubAction, operationSubAction);
@@ -2350,8 +2349,7 @@ public class RefasModel extends AbstractModel {
 				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		configTemporalOperationAction
-				.addExpressionSubAction(operationSubAction);
+		// configTemporalOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
 				metaOperationSubAction, operationSubAction);
@@ -2394,8 +2392,7 @@ public class RefasModel extends AbstractModel {
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
 				"ff", 1, false));
-		configPermanentOperationAction
-				.addExpressionSubAction(operationSubAction);
+		// configPermanentOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",
 				metaOperationSubAction, operationSubAction);

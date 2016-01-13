@@ -27,12 +27,10 @@ import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.perspmodel.RefasModel;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
@@ -93,11 +91,10 @@ public class ElementsOperationAssociationPanel extends
 		combo.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				IntSemanticElement operAction = operActions.get(
-						combo.getSelectedIndex()).getEditableSemanticElement();
+				InstElement operAction = operActions.get(combo
+						.getSelectedIndex());
 				AssociationTreeTable tableN = createTable(
-						editor.getEditedModel(),
-						(SemanticOperationAction) operAction);
+						editor.getEditedModel(), operAction);
 				panel.removeAll();
 				table = tableN;
 				table.setPreferredSize(new Dimension(width, height + 400));
@@ -109,9 +106,7 @@ public class ElementsOperationAssociationPanel extends
 			}
 		});
 
-		table = createTable(editor.getEditedModel(),
-				(SemanticOperationAction) operActions.get(0)
-						.getEditableSemanticElement());
+		table = createTable(editor.getEditedModel(), operActions.get(0));
 		table.setPreferredSize(new Dimension(width, height + 400));
 		panel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -129,24 +124,33 @@ public class ElementsOperationAssociationPanel extends
 	}
 
 	private AssociationTreeTable createTable(RefasModel refasModel,
-			SemanticOperationAction operAction) {
+			InstElement operAction) {
 
-		List<String> subOperTypesColumnsNames = operAction
-				.getSubOperTypesColumnsNames();
+		SemanticOperationSubAction operSubAction = null;
+		List<String> subOperTypesColumnsNames = new ArrayList<String>();
+		List<OperationSubActionExpType> subOperTypesColumns = new ArrayList<OperationSubActionExpType>();
+		List<String> subOperColumnsNames = new ArrayList<String>();
+		List<SemanticOperationSubAction> subOperColumns = new ArrayList<SemanticOperationSubAction>();
+		List<String> operLabelNames = new ArrayList<String>();
+		List<OperationLabeling> operLabels = new ArrayList<OperationLabeling>();
+		for (InstElement rel : operAction.getTargetRelations()) {
+			InstElement subOper = rel.getTargetRelations().get(0);
 
-		List<OperationSubActionExpType> subOperTypesColumns = operAction
-				.getSubOperTypesColumns();
+			operSubAction = (SemanticOperationSubAction) subOper
+					.getEditableSemanticElement();
+			subOperTypesColumnsNames.addAll(operSubAction
+					.getOperationSubActionExpTypesNames());
+			subOperTypesColumns.addAll(operSubAction
+					.getOperationSubActionExpTypes());
+			subOperColumnsNames.add(operSubAction.getIdentifier());
+			subOperColumns.add(operSubAction);
+			operLabelNames.addAll(operSubAction.getOperLabelNames());
+			operLabels.addAll(operSubAction.getOperLabels());
+		}
 
-		List<String> subOperColumnsNames = operAction.getSubOperColumnsNames();
-
-		List<SemanticOperationSubAction> subOperColumns = operAction
-				.getSubOperColumns();
 		List<Domain> domainOperColumns = new ArrayList<Domain>();
 		for (String s : subOperTypesColumnsNames)
 			domainOperColumns.add(BinaryDomain.INSTANCE);
-
-		List<String> operLabelNames = operAction.getOperLabelNames();
-		List<OperationLabeling> operLabels = operAction.getOperLabels();
 
 		List<Domain> domainOperLabels = new ArrayList<Domain>();
 		List<Boolean> valuesOperLabels = new ArrayList<Boolean>();
