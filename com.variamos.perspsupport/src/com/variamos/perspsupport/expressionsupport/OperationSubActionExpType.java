@@ -3,25 +3,36 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 
-public class OperationSubActionExpType {
+public class OperationSubActionExpType extends AbstractSemanticElement {
 
-	private List<SemanticExpression> semanticExpressions;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4179971760312524058L;
+	private List<IntSemanticExpression> semanticExpressions;
 	private OperationSubActionExecType expressionType;
 
-	public OperationSubActionExpType(OperationSubActionExecType expressionType) {
-		super();
-		this.expressionType = expressionType;
-		semanticExpressions = new ArrayList<SemanticExpression>();
+	public OperationSubActionExpType() {
+		super(null);
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
 	}
 
-	public List<SemanticExpression> getSemanticExpressions() {
+	public OperationSubActionExpType(OperationSubActionExecType expressionType) {
+		super(null);
+		this.expressionType = expressionType;
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+	}
+
+	public List<IntSemanticExpression> getSemanticExpressions() {
 		return semanticExpressions;
 	}
 
 	public void setSemanticExpressions(
-			List<SemanticExpression> semanticExpressions) {
+			List<IntSemanticExpression> semanticExpressions) {
 		this.semanticExpressions = semanticExpressions;
 	}
 
@@ -38,7 +49,7 @@ public class OperationSubActionExpType {
 	}
 
 	public boolean hasSemanticExpression(String identifier) {
-		for (SemanticExpression s : semanticExpressions)
+		for (IntSemanticExpression s : semanticExpressions)
 			if (s.getIdentifier().equals(identifier))
 				return true;
 		return false;

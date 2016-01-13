@@ -4,15 +4,16 @@ import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
 
 /**
- * A class to support the menus for the operations. Part of PhD work at
- * University of Paris 1
+ * A class to support the groups of operations (displayed as menus on the
+ * modeling or simulation perspectives). Part of PhD work at University of Paris
+ * 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2015-12-20
  */
-public class SemanticOperationMenu extends AbstractSemanticElement {
+public class SemanticOperationGroup extends AbstractSemanticElement {
 	/**
 	 * 
 	 */
@@ -22,18 +23,19 @@ public class SemanticOperationMenu extends AbstractSemanticElement {
 	private int type;
 
 	public static final String VAR_MENUTYPE_IDEN = "menuType",
-			VAR_MENUTYPE_NAME = "Menu Type",
+			VAR_MENUTYPE_NAME = "Oper Group Type",
 			VAR_MENUTYPE_CLASS = SemanticRelationType.class.getCanonicalName(),
-			VAR_NAME_IDEN = "name", VAR_NAME_NAME = "Menu Name",
-			VAR_SHORTCUT_IDEN = "shorcut", VAR_SHORTCUT_NAME = "Menu Shortcut";
+			VAR_NAME_IDEN = "name", VAR_NAME_NAME = "Oper Group Name",
+			VAR_SHORTCUT_IDEN = "shorcut",
+			VAR_SHORTCUT_NAME = "Oper Group Shortcut";
 
-	public SemanticOperationMenu(int position, String identifier, int type) {
+	public SemanticOperationGroup(int position, String identifier, int type) {
 		super(identifier);
 		this.position = position;
 		this.type = type;
 	}
 
-	public SemanticOperationMenu() {
+	public SemanticOperationGroup() {
 		super(null);
 		// TODO Auto-generated constructor stub
 	}

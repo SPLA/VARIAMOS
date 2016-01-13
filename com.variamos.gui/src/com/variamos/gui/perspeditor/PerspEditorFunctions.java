@@ -27,7 +27,7 @@ import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationMenu;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationGroup;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -169,7 +169,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									case 'M':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticOperationMenu());
+												new SemanticOperationGroup());
 										break;
 									case 'A':
 										obj = (InstElement) c.newInstance("",

@@ -104,7 +104,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OperationSubActionExpType operExpType = operSubAction
 					.getOperationSubActionExpType(expressionType);
 			if (operExpType != null) {
-				List<SemanticExpression> semExp = operExpType
+				List<IntSemanticExpression> semExp = operExpType
 						.getSemanticExpressions();
 
 				if (instElement == null)
@@ -184,7 +184,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	protected List<InstanceExpression> createElementInstanceExpressions(
 			InstElement instElement,
-			List<SemanticExpression> semanticExpressions) {
+			List<IntSemanticExpression> semanticExpressions) {
 		IntSemanticElement semElement = instElement
 				.getTransSupportMetaElement().getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
