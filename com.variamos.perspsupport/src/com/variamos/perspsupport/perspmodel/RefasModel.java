@@ -2684,34 +2684,6 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions.add(t2);
 
-		t2 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"NotEquals"), instVertexGE, "userIdentifier", "SoftGoal");
-
-		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Subtraction"), instVertexGE, "Selected", 1);
-
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Product"), 8, true, t1);
-
-		t3 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", 4);
-
-		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
-				"Product"), t1, t3);
-
-		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
-				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
-
-		t1 = new SemanticExpression("5", this.getSemanticExpressionTypes().get(
-				"Equals"), instVertexGE, "Order", true, t1);
-
-		t1 = new SemanticExpression("Order...", this
-				.getSemanticExpressionTypes().get("Implies"), t2, t1);
-
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-		semanticExpressions.add(t1);
-
 		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
 				"Sum"), instVertexGE, instVertexGE, "ConfigSelected",
 				"NextReqSelected");
@@ -3184,6 +3156,29 @@ public class RefasModel extends AbstractModel {
 
 		InstVertex instVertexSG = new InstConcept("Softgoal", metaConcept,
 				semSoftgoal);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Subtraction"), instVertexGE, "Selected", 1);
+
+		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
+				"Product"), 8, true, t1);
+
+		t3 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Product"), t1, t3);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), instVertexSG, instVertexSG, "SDReqLevel",
