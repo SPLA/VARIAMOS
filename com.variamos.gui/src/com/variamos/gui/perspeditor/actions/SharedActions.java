@@ -711,7 +711,10 @@ public class SharedActions {
 				// if (source.getSource() == null)
 				// source.getSource().toString();
 				if (source.getSource() == null) {
-					System.out.println("");
+					System.out.println(source.getId());
+				}
+				if (source.getTarget() == null) {
+					System.out.println(source.getId());
 				}
 				InstElement sourceVertex = (InstElement) ((InstCell) source
 						.getSource().getValue()).getInstElement();
