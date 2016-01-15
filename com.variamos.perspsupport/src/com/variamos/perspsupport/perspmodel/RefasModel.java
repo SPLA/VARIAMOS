@@ -2772,27 +2772,29 @@ public class RefasModel extends AbstractModel {
 
 		attribute = new SemanticAttribute("Required", "Boolean", true,
 				"Is Required", false, 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Required", attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SysRequired", "Boolean", true,
 				"Is Required", false, 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("SysRequired", attribute);
 
 		attribute = new SemanticAttribute("Scope", "Boolean", true,
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO use scope
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
 				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
 				null, "", 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO: use concern level
 
 		attribute = new SemanticAttribute("Core", "Boolean", false,
 				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
@@ -2805,12 +2807,6 @@ public class RefasModel extends AbstractModel {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
 		simulOperationSubAction.addInVariable(attribute);
-
-		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
-				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semGeneralElement.putSemanticAttribute("IsRootFeature", attribute);
-		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new SemanticAttribute("IgnoreForSimulation", "Boolean",
 				true, "Ignore for Simulation", false, 0, -1, "", "", -1, "", "");
@@ -2845,7 +2841,7 @@ public class RefasModel extends AbstractModel {
 				"Is Active", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Active", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
 				"Is Visible", true, 0, -1, "", "", -1, "", "");
@@ -2856,7 +2852,7 @@ public class RefasModel extends AbstractModel {
 				"Is Allowed", true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("RequiredLevel", "Integer",
 				"Required Level", 0, false, new RangeDomain(0, 4), 0, -1, "",
@@ -2944,6 +2940,7 @@ public class RefasModel extends AbstractModel {
 				"", "");
 		semGeneralElement.putSemanticAttribute("Order", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
 				false, "Not selected(inactive)", false, 0, -1, "", "", -1, "",
@@ -3013,6 +3010,12 @@ public class RefasModel extends AbstractModel {
 				"Feature");
 		InstVertex instVertexF = new InstConcept("Feature", metaConcept,
 				semFeature);
+
+		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
+				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semFeature.putSemanticAttribute("IsRootFeature", attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3294,15 +3297,17 @@ public class RefasModel extends AbstractModel {
 		attribute = new SemanticAttribute("Scope", "Boolean", true,
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO use scope
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
 				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
 				null, "", 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO: use concern level
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_NAME, "String",
 				false, SemanticVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "",
@@ -3671,8 +3676,8 @@ public class RefasModel extends AbstractModel {
 				InstanceExpression.class.getCanonicalName(), false,
 				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
 				"Boolean Comp. Expression", true, 0, -1, "", "", -1, "", "");
@@ -3684,7 +3689,7 @@ public class RefasModel extends AbstractModel {
 				"", -1, "", "");
 		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ClaimSelected", "Boolean",
 				false, "Claim Selected", false, 0, -1, "", "", -1, "", "");
@@ -3695,7 +3700,7 @@ public class RefasModel extends AbstractModel {
 				"Claim Expression Text", "", 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ClaimExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		// semClaim.addPanelVisibleAttribute("01#" + "Operationalizations");
 		semClaim.addPanelVisibleAttribute("03#" + "ConditionalExpression"); // TODO
@@ -3743,8 +3748,8 @@ public class RefasModel extends AbstractModel {
 				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SDExpression", "String", false,
 				"SD Expression Text", "", 2, -1, "", "", -1, "", "");
@@ -5492,6 +5497,7 @@ public class RefasModel extends AbstractModel {
 		directClaimSGSemanticEdge.putSemanticAttribute(
 				SemanticPairwiseRelation.VAR_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		directClaimSGSemanticEdge.addPropEditableAttribute("08#"
 				+ SemanticPairwiseRelation.VAR_LEVEL);
