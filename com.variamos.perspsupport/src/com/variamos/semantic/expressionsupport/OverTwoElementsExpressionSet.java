@@ -158,8 +158,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					AbstractExpression abstractTransformation = null;
 					Iterator<InstElement> instEdges1 = instOverTwoRelation
 							.getSourceRelations().iterator();
-					AbstractExpression recursiveExpression1 = null;
-					AbstractExpression recursiveExpression2 = null;
+					AbstractExpression iterativeExpression1 = null;
 					if (instEdges1.hasNext()) {
 						InstElement left1 = instEdges1.next();
 						while (((InstPairwiseRelation) left1)
@@ -185,32 +184,30 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 							break;
 						case "range":
 							abstractTransformation = new SumNumericExpression();
-							Iterator<InstElement> instEdges2 = instOverTwoRelation
-									.getSourceRelations().iterator();
+							// Iterator<InstElement> instEdges2 =
+							// instOverTwoRelation
+							// .getSourceRelations().iterator();
 							// instEdges2.next(); // TODO eliminate duplicated
 							// edges
 							// from collection and remove this
 							// line
-							InstElement left2 = instEdges2.next();
-							Constructor<?> constructor3 = null,
-							constructor4 = null;
-							try {
-								constructor3 = abstractTransformation
-										.getClass().getConstructor(
-												InstElement.class,
-												String.class, Boolean.TYPE,
-												AbstractExpression.class);
-								constructor4 = abstractTransformation
-										.getClass().getConstructor(
-												InstElement.class,
-												InstElement.class,
-												String.class, String.class);
-							} catch (NoSuchMethodException | SecurityException e) {
-								e.printStackTrace();
-							}
-
-							recursiveExpression2 = transformation(constructor3,
-									constructor4, instEdges2, left2, sourceName);
+							/*
+							 * InstElement left2 = instEdges2.next();
+							 * Constructor<?> constructor3 = null, constructor4
+							 * = null; try { constructor3 =
+							 * abstractTransformation
+							 * .getClass().getConstructor( InstElement.class,
+							 * String.class, Boolean.TYPE,
+							 * AbstractExpression.class); constructor4 =
+							 * abstractTransformation
+							 * .getClass().getConstructor( InstElement.class,
+							 * InstElement.class, String.class, String.class); }
+							 * catch (NoSuchMethodException | SecurityException
+							 * e) { e.printStackTrace(); }
+							 */
+							// recursiveExpression2 =
+							// transformation(constructor3,
+							// constructor4, instEdges2, left2, sourceName);
 							break;
 						case "":
 							return;
@@ -242,18 +239,18 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						case "or":
 							// B_Satisfied #<=> ( ( A1_"attribute" #\/
 							// A2_"attribute" ) #\/ ... )
-							recursiveExpression1 = transformation(constructor1,
+							iterativeExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
 							AbstractBooleanExpression out = null;
 							if (!relationType.equals("none"))
 								out = new DoubleImplicationBooleanExpression(
 										instOverTwoRelation, sourceName, true,
-										recursiveExpression1);
+										iterativeExpression1);
 							else {
 								AbstractBooleanExpression negation = new NotBooleanExpression(
 										instOverTwoRelation, sourceName);
 								out = new DoubleImplicationBooleanExpression(
-										negation, recursiveExpression1);
+										negation, iterativeExpression1);
 							}
 
 							getElementExpressions().add(out);
@@ -264,10 +261,10 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						case "mutex":
 							// (( ( A1_"attribute" + A2_"attribute"
 							// ) + ... ) #<= 1)
-							recursiveExpression1 = transformation(constructor1,
+							iterativeExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
 							LessOrEqualsBooleanExpression out2 = new LessOrEqualsBooleanExpression(
-									recursiveExpression1,
+									iterativeExpression1,
 									new NumberNumericExpression(1));
 							getElementExpressions().add(out2);
 							allList.add(out2);
@@ -275,7 +272,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 							// A2_"attribute"
 							// ) + ... ) #<=> 1)
 							AbstractExpression transformation1 = new EqualsComparisonExpression(
-									recursiveExpression1,
+									iterativeExpression1,
 									new NumberNumericExpression(1));
 							AbstractBooleanExpression out3 = new DoubleImplicationBooleanExpression(
 									instOverTwoRelation, sourceName, true,
@@ -291,15 +288,15 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 							// ( ( ( A1_"attribute" + A2_"attribute" ) + ... )
 							// #<=
 							// GD_HighRange ) )
-							recursiveExpression1 = transformation(constructor1,
+							iterativeExpression1 = transformation(constructor1,
 									constructor2, instEdges1, left1, sourceName);
 							AbstractExpression transformation3 = new LessOrEqualsBooleanExpression(
 									instOverTwoRelation, "LowRange", true,
-									recursiveExpression1);
+									iterativeExpression1);
 
 							AbstractExpression transformation4 = new GreaterOrEqualsBooleanExpression(
 									instOverTwoRelation, "HighRange", true,
-									recursiveExpression1);
+									iterativeExpression1);
 
 							AbstractExpression transformation5 = new AndBooleanExpression(
 									transformation3, transformation4);

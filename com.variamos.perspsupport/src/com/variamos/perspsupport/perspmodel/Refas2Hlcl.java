@@ -85,6 +85,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
+	@Deprecated
 	public List<BooleanExpression> rootVerityTest() {
 		// HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -206,6 +207,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return hlclProgram;
 	}
 
+	@Deprecated
 	public HlclProgram rootRelaxedTest() {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
@@ -463,6 +465,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	}
 
 	// static call implementation
+	// No longer needed when the dynamic implementation is completed
 	public boolean execute(ProgressMonitor progressMonitor, String element,
 			int solutions, int execType) throws InterruptedException {
 		lastExecutionTime = 0;
@@ -633,7 +636,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			else
 				prologOut = config;
 
-			int i = 0;
 			for (String identifier : prologOut.keySet()) {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];

@@ -10,8 +10,8 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.NumericExpression;
 
 /**
- * A class to represent the types of expression. Part of PhD work at University
- * of Paris 1
+ * A class to represent the dynamic types of expressions and their allowed types
+ * of expression left and right. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -36,14 +36,17 @@ public class SemanticExpressionType implements Serializable {
 	public static final int NONE = 0, BOOLEXP = 1, NUMEXP = 2, EXP = 3,
 			IDEN = 4, BOOLVAL = 5, INTVAL = 6, LIT = 7;
 
+	// 3 means any expression
+
 	public SemanticExpressionType() {
 
 	}
 
-	public SemanticExpressionType(String textConnector, String gnuPrologConnector,
-			String swiPrologConnector, String method, int leftExpression,
-			int rightExpression, int resultExpression,
-			boolean singleInExpression, boolean arrayParameters) {
+	public SemanticExpressionType(String textConnector,
+			String gnuPrologConnector, String swiPrologConnector,
+			String method, int leftExpression, int rightExpression,
+			int resultExpression, boolean singleInExpression,
+			boolean arrayParameters) {
 		super();
 		this.gnuPrologConnector = gnuPrologConnector;
 		this.swiPrologConnector = swiPrologConnector;
@@ -69,6 +72,7 @@ public class SemanticExpressionType implements Serializable {
 			return null;
 		}
 	}
+
 	public int getLeftExpression() {
 		return leftExpression;
 	}
@@ -125,7 +129,6 @@ public class SemanticExpressionType implements Serializable {
 		return getExpressionClass(rightExpression);
 	}
 
-	
 	public String getGnuPrologConnector() {
 		return gnuPrologConnector;
 	}
@@ -153,11 +156,11 @@ public class SemanticExpressionType implements Serializable {
 	public String getMethod() {
 		return method;
 	}
-	
+
 	public boolean isArrayParameters() {
 		return arrayParameters;
 	}
-	
+
 	public boolean isSingleInExpression() {
 		return singleInExpression;
 	}
