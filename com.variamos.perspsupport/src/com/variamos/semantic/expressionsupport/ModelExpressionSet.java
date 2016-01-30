@@ -60,21 +60,26 @@ public class ModelExpressionSet extends ElementExpressionSet {
 					switch (execType) {
 					case Refas2Hlcl.VAL_UPD_EXEC:
 
-						if (rootOutExp == null)
-							rootOutExp = new SumNumericExpression(vertex,
-									"IsRootFeature", true,
-									new NumberNumericExpression(0));
-						else
-							rootOutExp = new SumNumericExpression(vertex,
-									"IsRootFeature", true, rootOutExp);
-						if (parentOutExp == null)
-							parentOutExp = new ProdNumericExpression(vertex,
-									"HasParent", true,
-									new NumberNumericExpression(1));
-						else
-							parentOutExp = new ProdNumericExpression(vertex,
-									"HasParent", true, parentOutExp);
-
+						if (semElement.getIdentifier().equals("GeneralFeature")
+								|| semElement.getIdentifier().equals(
+										"LeafFeature")
+								|| semElement.getIdentifier().equals(
+										"RootFeature")) {
+							if (rootOutExp == null)
+								rootOutExp = new SumNumericExpression(vertex,
+										"IsRootFeature", true,
+										new NumberNumericExpression(0));
+							else
+								rootOutExp = new SumNumericExpression(vertex,
+										"IsRootFeature", true, rootOutExp);
+							if (parentOutExp == null)
+								parentOutExp = new ProdNumericExpression(
+										vertex, "HasParent", true,
+										new NumberNumericExpression(1));
+							else
+								parentOutExp = new ProdNumericExpression(
+										vertex, "HasParent", true, parentOutExp);
+						}
 						if (coreOutExp == null)
 							coreOutExp = new SumNumericExpression(vertex,
 									"Selected", true,
