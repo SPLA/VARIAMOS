@@ -1,5 +1,4 @@
 package com.variamos.hlcl;
 
-public interface BooleanExpression extends Expression{
-	
+public interface BooleanExpression extends Expression {
 }
