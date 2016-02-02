@@ -321,10 +321,10 @@ public class ElementDesignPanel extends JPanel {
 															.showMessageDialog(
 																	finalEditor,
 																	"Complete/Correct the expression before closing the editor",
-																	"Expression Error",
+																	"Instance Expression Error",
 																	JOptionPane.INFORMATION_MESSAGE,
 																	null);
-													e.printStackTrace();
+													// e.printStackTrace();
 													return false;
 												}
 
@@ -759,7 +759,8 @@ public class ElementDesignPanel extends JPanel {
 							instCell.getInstElement(), instCell
 									.getInstElement()
 									.getEditableSemanticElement()
-									.getAllSemanticAttributes(), attributeEdition);
+									.getAllSemanticAttributes(),
+							attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(450, 450));
 				attPanel.setMaximumSize(new Dimension(550, 450));

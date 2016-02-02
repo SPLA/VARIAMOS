@@ -60,10 +60,14 @@ public class ModelExpressionSet extends ElementExpressionSet {
 					switch (execType) {
 					case Refas2Hlcl.VAL_UPD_EXEC:
 
-						if (semElement.getIdentifier().equals("GeneralFeature")
-								|| semElement.getIdentifier().equals(
+						if (metaElement.getAutoIdentifier().equals(
+								"GeneralFeature") // TODO temporal solution:
+													// syntax validation cannot
+													// be used for semantic
+													// attributes
+								|| metaElement.getAutoIdentifier().equals(
 										"LeafFeature")
-								|| semElement.getIdentifier().equals(
+								|| metaElement.getAutoIdentifier().equals(
 										"RootFeature")) {
 							if (rootOutExp == null)
 								rootOutExp = new SumNumericExpression(vertex,
