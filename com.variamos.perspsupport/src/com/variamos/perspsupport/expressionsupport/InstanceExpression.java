@@ -190,9 +190,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	}
 
 	public Expression createSGSExpression(String element) {
-		System.out.println(element);
+		// System.out.println(element);
 		Expression condition = createExpression(0);
 		Identifier iden = hlclFactory.newIdentifier(element + "_CompExp");
+		// System.out.println(hlclFactory.doubleImplies(iden,
+		// (BooleanExpression) condition));
 		return hlclFactory.doubleImplies(iden, (BooleanExpression) condition);
 	}
 
