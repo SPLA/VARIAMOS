@@ -197,13 +197,6 @@ public class ElementDesignPanel extends JPanel {
 							dialog.setOnAccept(new SemanticExpressionButtonAction() {
 								@Override
 								public boolean onAction() {
-									// This calls Pull on each
-									// parameter
-									// attributeEdition.getParameters();
-									// finalInstAttribute.setValue(dialog
-									// .getExpressions()[0]);
-									// attributes.put(name.getName(),
-									// v);
 									try {
 										finalEditElm
 												.getEditableSemanticElement()
@@ -301,20 +294,26 @@ public class ElementDesignPanel extends JPanel {
 										dialog.setOnAccept(new InstanceExpressionButtonAction() {
 											@Override
 											public boolean onAction() {
-												// This calls Pull on each
-												// parameter
-												// attributeEdition.getParameters();
 												finalInstAttribute
 														.setValue(dialog
 																.getExpressions()
 																.get(0));
-												// attributes.put(name.getName(),
-												// v);
 												try {
-													((InstanceExpression) finalInstAttribute
+													if (!((InstanceExpression) finalInstAttribute
 															.getValue())
-															.createSGSExpression(finalEditElm
-																	.getIdentifier());
+															.createSGSExpression(
+																	finalEditElm
+																			.getIdentifier())
+															.isValidExpression()) {
+														JOptionPane
+																.showMessageDialog(
+																		finalEditor,
+																		"Complete/Correct the expression before closing the editor",
+																		"Instance Expression Error",
+																		JOptionPane.INFORMATION_MESSAGE,
+																		null);
+														return false;
+													}
 													// System.out.println(exp);
 												} catch (Exception e) {
 													JOptionPane
@@ -329,6 +328,39 @@ public class ElementDesignPanel extends JPanel {
 												}
 
 												// afterAction();
+												return true;
+											}
+										});
+										dialog.setOnCancel(new InstanceExpressionButtonAction() {
+											@Override
+											public boolean onAction() {
+												if ((InstanceExpression) finalInstAttribute
+														.getValue() != null)
+													try {
+														if (!((InstanceExpression) finalInstAttribute
+																.getValue())
+																.createSGSExpression(
+																		finalEditElm
+																				.getIdentifier())
+																.isValidExpression()) {
+															JOptionPane
+																	.showMessageDialog(
+																			finalEditor,
+																			"The expression is imcomplete, this may cause error for verification and simulation operations",
+																			"Instance Expression Error",
+																			JOptionPane.INFORMATION_MESSAGE,
+																			null);
+														}
+														// System.out.println(exp);
+													} catch (Exception e) {
+														JOptionPane
+																.showMessageDialog(
+																		finalEditor,
+																		"The expression is imcomplete, this may cause error for verification and simulation operations",
+																		"Instance Expression Error",
+																		JOptionPane.INFORMATION_MESSAGE,
+																		null);
+													}
 												return true;
 											}
 										});

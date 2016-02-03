@@ -1052,22 +1052,35 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTANYRELVARIABLE:
-		case RIGHTUNIQUEINCRELVARIABLE:
-		case RIGHTUNIQUEOUTRELVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCRELVARIABLE:
-		case LEFTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (((sourceRelation.getSupportMetaElementIden().equals(
-						"Concept") || sourceRelation
+				if (((element instanceof InstConcept && (sourceRelation
+						.getSupportMetaElementIden().equals("Concept") || sourceRelation
 						.getSupportMetaElementIden()
-						.equals("CSOverTwoRelation")) && elementType == 'C')
-						|| (sourceRelation.getSupportMetaElementIden().equals(
-								"CSPairWiseRelation") && elementType == 'P'))
+						.equals("CSOverTwoRelation"))))
+						|| (element instanceof InstPairwiseRelation && sourceRelation
+								.getSupportMetaElementIden().equals(
+										"CSPairWiseRelation")))
+					instElements.add(sourceRelation);// .getSourceRelations().get(0));
+			break;
+
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTRELVARIABLE:
+			for (InstElement sourceRelation : refasModel
+					.getVariabilityVertexCollection())
+				if (((element instanceof InstPairwiseRelation && (sourceRelation
+						.getSupportMetaElementIden().equals("Concept") || sourceRelation
+						.getSupportMetaElementIden()
+						.equals("CSOverTwoRelation"))))
+						|| (element instanceof InstConcept && sourceRelation
+								.getSupportMetaElementIden().equals(
+										"CSPairWiseRelation")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:

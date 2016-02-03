@@ -964,4 +964,7 @@ public class InstanceExpressionDialog extends JDialog {
 		this.onDelete = onDelete;
 	}
 
+	public void setOnCancel(InstanceExpressionButtonAction onCancel) {
+		this.onCancel = onCancel;
+	}
 }

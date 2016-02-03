@@ -83,7 +83,7 @@ public class PropertyParameterDialog extends JDialog {
 								// parameter
 								// attributeEdition.getParameters();
 								elementAttribute.setValue(dialog
-										.getExpressions().get(0));
+										.getExpressions());
 								// attributes.put(name.getName(),
 								// v);
 								try {
