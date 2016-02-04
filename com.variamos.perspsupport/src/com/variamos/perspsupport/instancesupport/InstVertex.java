@@ -107,9 +107,10 @@ public abstract class InstVertex extends InstElement {
 
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
-				.get(name);
-		// return instAttributes.get(name);
+		if (getDynamicVariable(VAR_INSTATTRIBUTES) != null)
+			return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
+					.get(name);
+		return null;
 	}
 
 	public void setInstAttribute(String name, Object value) {

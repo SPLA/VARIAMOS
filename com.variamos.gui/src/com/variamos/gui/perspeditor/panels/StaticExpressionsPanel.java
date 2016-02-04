@@ -31,9 +31,10 @@ import com.variamos.semantic.expressionsupport.ElementExpressionSet;
 import com.variamos.semantic.types.ExpressionClassType;
 
 /**
- * A class to support the properties panel to display and edit (future) the
- * expression associated to concepts and relations. Part of PhD work at
- * University of Paris 1
+ * A class to support the properties panel to display textual and visual
+ * expression in the editor associated to concepts and relations. Part of PhD
+ * work at University of Paris 1 Note: No longer needed when the dynamic
+ * semantic operations are completed
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -41,7 +42,7 @@ import com.variamos.semantic.types.ExpressionClassType;
  * @since 2014-12-21
  */
 @SuppressWarnings("serial")
-public class RefasExpressionPanel extends JPanel {
+public class StaticExpressionsPanel extends JPanel {
 	private RefasModel refas;
 
 	private JPanel solutionPanel;
@@ -50,7 +51,7 @@ public class RefasExpressionPanel extends JPanel {
 
 	private AbstractExpression selectedExpression;
 
-	public RefasExpressionPanel() {
+	public StaticExpressionsPanel() {
 
 	}
 

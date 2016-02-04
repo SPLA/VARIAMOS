@@ -66,14 +66,14 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	private boolean firstSimulExec;
 	private boolean reloadDashBoard;
 	private String executionTime = "";
-	private List<String> defects;
+	// private List<String> defects;
 	private Configuration lastConfiguration;
 	private String errorTitle = "";
 	private String errorMessage = "";
 	private boolean update;
 	private Component parentComponent;
 	private RefasModel refasModel;
-	private String file;
+	// private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
 	private boolean terminated = false;
@@ -97,7 +97,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		this.invalidConfigHlclProgram = invalidConfigHlclProgram;
 		this.test = test;
 		this.element = element;
-		this.defects = defects;
+		// this.defects = defects;
 		this.lastConfiguration = lastConfiguration;
 		this.parentComponent = parentComponent;
 	}
@@ -125,7 +125,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		this.refasModel = refasModel;
 		this.operationIdentifier = operationIdentifier;
 		this.refas2hlcl = refas2hlcl;
-		this.file = file;
+		// this.file = file;
 	}
 
 	public boolean isFirstSimulExec() {

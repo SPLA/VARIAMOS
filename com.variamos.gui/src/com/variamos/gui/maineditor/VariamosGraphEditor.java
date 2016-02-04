@@ -65,7 +65,7 @@ import com.variamos.gui.perspeditor.panels.ElementDesignPanel;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationDialog;
 import com.variamos.gui.perspeditor.panels.ExternalContextDialog;
 import com.variamos.gui.perspeditor.panels.OperationDefinitionDialog;
-import com.variamos.gui.perspeditor.panels.RefasExpressionPanel;
+import com.variamos.gui.perspeditor.panels.StaticExpressionsPanel;
 import com.variamos.gui.perspeditor.panels.VariamosDashBoardFrame;
 import com.variamos.gui.perspeditor.widgets.MClassWidget;
 import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
@@ -137,7 +137,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
 	private SemSolverTasks semTask;
-	protected RefasExpressionPanel expressions;
+	protected StaticExpressionsPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
 	private ElementDesignPanel elementDesignPanel;
@@ -746,7 +746,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 		configuratorProperties = new ConfigurationPropertiesTab();
 
-		expressions = new RefasExpressionPanel();
+		expressions = new StaticExpressionsPanel();
 
 		// if (getPerspective() == 2) {
 

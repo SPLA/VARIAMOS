@@ -278,7 +278,16 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									"ConditionalExpression")) {
 								InstanceExpression instanceExpression = (InstanceExpression) instAttribute
 										.getValue();
-								if (instanceExpression != null) {
+								if (instanceExpression != null
+										&& !instanceExpression
+												.createSGSExpression(
+														instVertex
+																.getIdentifier())
+												.toString()
+												.endsWith(
+														"right=null, operator=DoubleImplies]")) {
+									// TODO Fix this when the expressions are
+									// verified
 									booleanExpressions
 											.put("Simul",
 													(BooleanExpression) (instanceExpression)

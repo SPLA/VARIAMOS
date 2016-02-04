@@ -36,7 +36,6 @@ import com.variamos.gui.perspeditor.actions.NewAction;
 import com.variamos.gui.perspeditor.actions.NextSimulationAction;
 import com.variamos.gui.perspeditor.actions.OpenAction;
 import com.variamos.gui.perspeditor.actions.OperationAction;
-import com.variamos.gui.perspeditor.actions.OperationDefinitionAction;
 import com.variamos.gui.perspeditor.actions.ParentElementAction;
 import com.variamos.gui.perspeditor.actions.RootElementAction;
 import com.variamos.gui.perspeditor.actions.SaveAction;
@@ -319,10 +318,11 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu = (JMenu) menu.add(new JMenu(mxResources
 					.get("translationConfiguration")));
 			menu.setMnemonic('C');
-			Action a = editor.bind(mxResources.get("operationDefinition"),
-					new OperationDefinitionAction());
-			menu.add(a);
-			a = editor.bind(mxResources.get("elementOperationAssociation"),
+			// Action a = editor.bind(mxResources.get("operationDefinition"),
+			// new OperationDefinitionAction());
+			// menu.add(a);
+			Action a = editor.bind(
+					mxResources.get("elementOperationAssociation"),
 					new ElementOperationAssociationAction());
 			menu.add(a);
 			a = editor.bind(mxResources.get("variableOperationAssociation"),

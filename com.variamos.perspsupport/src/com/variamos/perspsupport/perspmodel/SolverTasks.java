@@ -687,6 +687,8 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 			modelToVerify.addAll(relaxed);
 			modelToVerify.addAll(fixed);
 			iniSTime = System.currentTimeMillis();
+			if (modelToVerify.toString().equals("[]"))
+				return "No features to verify";
 			IntDefectsVerifier verifier = new DefectsVerifier(modelToVerify,
 					SolverEditorType.SWI_PROLOG);
 			// The model has two or more roots

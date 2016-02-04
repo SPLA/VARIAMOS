@@ -176,8 +176,8 @@ public class MainFrame extends JFrame {
 				SemanticExpressionType.BOOLEXP, false, false));
 		out.put("Assign", new SemanticExpressionType("Assign", "=", "=",
 				"assign", SemanticExpressionType.IDEN,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
-				false, false));
+				SemanticExpressionType.EXP, SemanticExpressionType.NONE, false,
+				false));
 		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-",
 				"-", "diff", SemanticExpressionType.NUMEXP,
 				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,

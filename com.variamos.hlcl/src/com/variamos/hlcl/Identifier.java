@@ -1,10 +1,11 @@
 package com.variamos.hlcl;
 
-public class Identifier implements BooleanExpression, NumericExpression, Comparable<Identifier>{
-	
+public class Identifier implements BooleanExpression, NumericExpression,
+		Comparable<Identifier> {
+
 	protected String id;
 	protected Domain domain;
-	
+
 	protected Identifier() {
 		super();
 		domain = new RangeDomain();
@@ -15,16 +16,26 @@ public class Identifier implements BooleanExpression, NumericExpression, Compara
 		this.id = firstUpperCase(id);
 	}
 
+	/**
+	 * jcmunoz: added to validate expressions in editor
+	 * 
+	 * @return true if the expression has all the components
+	 */
+	public boolean isValidExpression() {
+		return true;
+	};
 
 	public String getId() {
 		return id;
 	}
 
-//	public String getName() {
-//		return name;
-//	}
+	// public String getName() {
+	// return name;
+	// }
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -35,7 +46,9 @@ public class Identifier implements BooleanExpression, NumericExpression, Compara
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -59,6 +72,7 @@ public class Identifier implements BooleanExpression, NumericExpression, Compara
 	public int compareTo(Identifier other) {
 		return id.compareTo(other.getId());
 	}
+
 	public String toString() {
 		return "Identifier [id=" + id + "]";
 	}
@@ -70,9 +84,9 @@ public class Identifier implements BooleanExpression, NumericExpression, Compara
 	public void setDomain(Domain domain) {
 		this.domain = domain;
 	}
-	
-	public static String firstUpperCase(String str){
-		if( !Character.isUpperCase(str.charAt(0)) ){
+
+	public static String firstUpperCase(String str) {
+		if (!Character.isUpperCase(str.charAt(0))) {
 			return Character.toUpperCase(str.charAt(0)) + str.substring(1);
 		}
 		return str;

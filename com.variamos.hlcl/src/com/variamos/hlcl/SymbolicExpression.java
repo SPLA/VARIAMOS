@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SymbolicExpression implements BooleanExpression{
-	
+public class SymbolicExpression implements BooleanExpression {
+
 	protected String name;
 	protected List<Identifier> args;
-	
+
 	protected SymbolicExpression() {
 		super();
 		args = new LinkedList<>();
@@ -17,8 +17,20 @@ public class SymbolicExpression implements BooleanExpression{
 	protected SymbolicExpression(String name, Identifier... args) {
 		super();
 		this.name = name;
-		this.args = Arrays.asList( args );
+		this.args = Arrays.asList(args);
 	}
+
+	/**
+	 * jcmunoz: added to validate expressions in editor
+	 * 
+	 * @return true if the expression has all the components
+	 */
+	public boolean isValidExpression() {
+		if (name == null)
+			return false;
+		// TODO how to define a valid SymbolicExpression?
+		return true;
+	};
 
 	public String getName() {
 		return name;
@@ -36,7 +48,9 @@ public class SymbolicExpression implements BooleanExpression{
 		this.args = args;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -44,5 +58,4 @@ public class SymbolicExpression implements BooleanExpression{
 		return "SymbolicExpression [name=" + name + ", args=" + args + "]";
 	}
 
-	
 }
