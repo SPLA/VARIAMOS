@@ -2534,22 +2534,9 @@ public class RefasModel extends AbstractModel {
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
 
-		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"Equals"), instVertexGE, "SysRequired", 1);
-
-		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
-				"Equals"), instVertexGE, "Selected", 1);
-
-		t1 = new SemanticExpression("SysReq Implies Selected", this
-				.getSemanticExpressionTypes().get("Implies"), t1, t3);
-
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-		semanticExpressions.add(t1);
-
-		t1 = new SemanticExpression("RootOR Req Implies SysReq", this
+		t1 = new SemanticExpression("Req Implies Selected", this
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-				instVertexGE, "Required", "SysRequired");
+				instVertexGE, "Required", "Selected");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -2573,7 +2560,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("UserReq Implies Req", this
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-				instVertexGE, "Required", "SysRequired");
+				instVertexGE, "Required", "Selected");
 
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -2696,7 +2683,7 @@ public class RefasModel extends AbstractModel {
 				"", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("True", attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
 				"***Selected***", false, 2, -1, "", "", -1, "", "");
@@ -2720,11 +2707,6 @@ public class RefasModel extends AbstractModel {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Required", attribute);
 		simulOperationSubAction.addInVariable(attribute);
-
-		attribute = new SemanticAttribute("SysRequired", "Boolean", true,
-				"SysRequired", false, 2, -1, "", "", -1, "", "");
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semGeneralElement.putSemanticAttribute("SysRequired", attribute);
 
 		attribute = new SemanticAttribute("Scope", "Boolean", true,
 				"Global Scope", true, 0, -1, "", "", -1, "", "");
@@ -2885,7 +2867,7 @@ public class RefasModel extends AbstractModel {
 				"", "");
 		semGeneralElement.putSemanticAttribute("Order", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
 				false, "Not selected(inactive)", false, 0, -1, "", "", -1, "",
@@ -2942,6 +2924,27 @@ public class RefasModel extends AbstractModel {
 				semHardConcept);
 		variabilityInstVertex.put("HardConcept", instVertexHC);
 
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semHardConcept.setSemanticExpressions(semanticExpressions);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, 0);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
 		InstPairwiseRelation instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("hctoge", instEdge);
 		instEdge.setIdentifier("hctoge");
@@ -2965,6 +2968,23 @@ public class RefasModel extends AbstractModel {
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		semFeature.setSemanticExpressions(semanticExpressions);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, 0);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "IsRootFeature", 1);
@@ -3012,7 +3032,7 @@ public class RefasModel extends AbstractModel {
 				"Equals"), instVertexGE, "IsRootFeature", 1);
 
 		t3 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
-				"Equals"), instVertexGE, "SysRequired", 1);
+				"Equals"), instVertexGE, "Selected", 1);
 
 		t1 = new SemanticExpression("Root Implies Req", this
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
@@ -3470,6 +3490,27 @@ public class RefasModel extends AbstractModel {
 				semAsset);
 		variabilityInstVertex.put("Asset", instVertexAsset);
 
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semAsset.setSemanticExpressions(semanticExpressions);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, 0);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("astoge", instEdge);
 		instEdge.setIdentifier("astoge");
@@ -3489,6 +3530,27 @@ public class RefasModel extends AbstractModel {
 				semGeneralElement, "Claim", true, claimSemOverTwoRelList);
 		InstVertex instVertexCL = new InstConcept("Claim", metaOverTwoRelation,
 				semClaim);
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semClaim.setSemanticExpressions(semanticExpressions);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, 0);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
 
 		List<IntSemanticRelationType> operclaimPairwiseRelList = new ArrayList<IntSemanticRelationType>();
 		operclaimPairwiseRelList.add(new SemanticRelationType("OperToClaim",
@@ -3722,6 +3784,27 @@ public class RefasModel extends AbstractModel {
 				semSoftDependency);
 		variabilityInstVertex.put("SoftDep", instVertexSD);
 
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		semSoftDependency.setSemanticExpressions(semanticExpressions);
+
+		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
+				"Product"), instVertexGE, "NextReqSelected", 4);
+
+		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
+				"Sum"), t1, 0);
+
+		t1 = new SemanticExpression("4", this.getSemanticExpressionTypes().get(
+				"Sum"), instVertexGE, "NextPrefSelected", true, t1);
+
+		t1 = new SemanticExpression("Order...", this
+				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
+				"Order", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
 		instEdge = new InstPairwiseRelation();
 		this.constraintInstEdges.put("sdtoge", instEdge);
 		instEdge.setIdentifier("sdtoge");
@@ -3833,8 +3916,32 @@ public class RefasModel extends AbstractModel {
 		featSemOverTwoRelList.add(new SemanticRelationType("other", "other",
 				"other", false, true, true, 2, -1, 1, 1));
 
+		SemanticConcept semGeneralGroup = new SemanticConcept("GeneralGroup");
+
+		InstVertex instVertexGR = new InstConcept("GeneralGroup", metaConcept,
+				semGeneralGroup);
+
+		variabilityInstVertex.put("GeneralGroup", instVertexGR);
+
+		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
+				"***Selected***", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralGroup.putSemanticAttribute("Selected", attribute);
+		simulOperationSubAction.addOutVariable(attribute);
+
+		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
+				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralGroup.putSemanticAttribute("NotAvailable", attribute);
+		simulOperationSubAction.addOutVariable(attribute);
+
+		attribute = new SemanticAttribute("Description", "String", false,
+				"Description", "", 0, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralGroup.putSemanticAttribute("Description", attribute);
+
 		SemanticOverTwoRelation semHardOverTwoRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "OverTwoRelation", hardSemOverTwoRelList);
+				semGeneralGroup, "OverTwoRelation", hardSemOverTwoRelList);
 
 		InstVertex instVertexHHGR = new InstConcept("GoalOTAsso",
 				metaOverTwoRelation, semHardOverTwoRelation);
@@ -4441,7 +4548,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
 
 		SemanticOverTwoRelation semFeatOverTwoRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "FeatFeatOTAsso", featSemOverTwoRelList);
+				semGeneralGroup, "FeatFeatOTAsso", featSemOverTwoRelList);
 		InstVertex instVertexFFGR = new InstConcept("FeatFeatOTAsso",
 				metaOverTwoRelation, semFeatOverTwoRelation);
 		variabilityInstVertex.put("FeatFeatOTAsso", instVertexFFGR);
@@ -5147,7 +5254,7 @@ public class RefasModel extends AbstractModel {
 		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
 		SemanticOverTwoRelation semanticSGSGGroupRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "SgSgOTAsso", hardSemOverTwoRelList);
+				semGeneralGroup, "SgSgOTAsso", hardSemOverTwoRelList);
 
 		InstVertex instVertexSGGR = new InstConcept("SgSgOTAsso",
 				metaOverTwoRelation, semanticSGSGGroupRelation);
@@ -5238,7 +5345,7 @@ public class RefasModel extends AbstractModel {
 
 		// Oper to Claim
 		SemanticOverTwoRelation semanticOperClaimGroupRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "OperCLOTAsso", hardSemOverTwoRelList);
+				semGeneralGroup, "OperCLOTAsso", hardSemOverTwoRelList);
 
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semClaim);
@@ -5351,7 +5458,7 @@ public class RefasModel extends AbstractModel {
 
 		// LFeat to Claim
 		SemanticOverTwoRelation semanticLFClaimGroupRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "LFtoClaimOTAsso", hardSemOverTwoRelList);
+				semGeneralGroup, "LFtoClaimOTAsso", hardSemOverTwoRelList);
 
 		InstVertex instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
 				metaOverTwoRelation, semanticLFClaimGroupRelation);
@@ -5718,7 +5825,7 @@ public class RefasModel extends AbstractModel {
 		// Asset to Asset
 
 		SemanticOverTwoRelation semanticAssetAssetOvertwoRel = new SemanticOverTwoRelation(
-				semGeneralElement, "AssetOperOTAsso", hardSemOverTwoRelList);
+				semGeneralGroup, "AssetOperOTAsso", hardSemOverTwoRelList);
 
 		InstVertex instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
 				metaOverTwoRelation, semanticAssetAssetOvertwoRel);
@@ -5766,7 +5873,7 @@ public class RefasModel extends AbstractModel {
 		// Asset to Oper
 		// TODO use list of possible relations
 		SemanticOverTwoRelation semanticAssetOperGroupRelation = new SemanticOverTwoRelation(
-				semGeneralElement, "AssetOperOTAsso", hardSemOverTwoRelList);
+				semGeneralGroup, "AssetOperOTAsso", hardSemOverTwoRelList);
 
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semOperationalization);
