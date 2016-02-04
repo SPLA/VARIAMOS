@@ -777,7 +777,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
 								semanticExpression, element,
-								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'C');
 						rightPanel.add(conceptCombo);
@@ -800,7 +800,7 @@ public class SemanticExpressionDialog extends JDialog {
 					if (semanticExpression.getSemanticExpressionType() != null) {
 						JComboBox<String> conceptCombo = createCombo(
 								semanticExpression, element,
-								ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE,
+								ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
 								semanticExpression.getRightValidExpressions(),
 								true, 'C');
 						rightPanel.add(conceptCombo);
@@ -959,11 +959,11 @@ public class SemanticExpressionDialog extends JDialog {
 		selectedElement = semanticExpression.getSelectedElement(
 				expressionVertexType, showConceptName, elementType);
 		InstElement comboElement = null;
-		if (elementType == 'C')
-			comboElement = element;
-		if (elementType == 'P')
-			comboElement = semanticExpression.getSelectedElement(
-					expressionVertexType, elementType);
+		// if (elementType == 'C')
+		comboElement = element;
+		// if (elementType == 'P')
+		// comboElement = semanticExpression.getSelectedElement(
+		// expressionVertexType, elementType);
 		identifiers = fillCombo(semanticExpression, expressionVertexType,
 				comboElement, selectedElement, showConceptName, elementType);
 
@@ -1052,10 +1052,6 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTANYRELVARIABLE:
-		case RIGHTUNIQUEINCCONVARIABLE:
-		case RIGHTUNIQUEOUTCONVARIABLE:
-		case LEFTUNIQUEINCCONVARIABLE:
-		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
@@ -1067,20 +1063,26 @@ public class SemanticExpressionDialog extends JDialog {
 										"CSPairWiseRelation")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
-
+		case RIGHTUNIQUEINCCONVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
+			for (InstElement sourceRelation : refasModel
+					.getVariabilityVertexCollection())
+				if (sourceRelation.getSupportMetaElementIden()
+						.equals("Concept")
+						|| sourceRelation.getSupportMetaElementIden().equals(
+								"CSOverTwoRelation"))
+					instElements.add(sourceRelation);// .getSourceRelations().get(0));
+			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (((element instanceof InstPairwiseRelation && (sourceRelation
-						.getSupportMetaElementIden().equals("Concept") || sourceRelation
-						.getSupportMetaElementIden()
-						.equals("CSOverTwoRelation"))))
-						|| (element instanceof InstConcept && sourceRelation
-								.getSupportMetaElementIden().equals(
-										"CSPairWiseRelation")))
+				if (sourceRelation.getSupportMetaElementIden().equals(
+						"CSPairWiseRelation"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:

@@ -16,6 +16,7 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
+import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
@@ -227,17 +228,14 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					&& (elementRel == null || !volatileRightInstElement
 							.isChild(elementRel))) {
 				if (element != null || elementRel != null)
-					System.out
-							.println("e: "
-									+ ((element == null) ? "" : element
-											.getIdentifier())
-									+ " eR: "
-									+ ((elementRel == null) ? "" : elementRel
-											.getIdentifier())
-									+ " vRE: "
-									+ ((volatileRightInstElement == null) ? ""
-											: volatileRightInstElement
-													.getIdentifier()));
+					;
+				/*
+				 * System.out .println("e: " + ((element == null) ? "" : element
+				 * .getIdentifier()) + " eR: " + ((elementRel == null) ? "" :
+				 * elementRel .getIdentifier()) + " vRE: " +
+				 * ((volatileRightInstElement == null) ? "" :
+				 * volatileRightInstElement .getIdentifier()));
+				 */
 				// return null;
 			}
 
@@ -254,14 +252,14 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				&& (elementRel == null || !volatileLeftInstElement
 						.isChild(elementRel))) {
 			if (element != null || elementRel != null)
-				System.out.println("e: "
-						+ ((element == null) ? "" : element.getIdentifier())
-						+ " eR: "
-						+ ((elementRel == null) ? "" : elementRel
-								.getIdentifier())
-						+ " vLE: "
-						+ ((volatileLeftInstElement == null) ? ""
-								: volatileLeftInstElement.getIdentifier()));
+				;
+			/*
+			 * System.out.println("e: " + ((element == null) ? "" :
+			 * element.getIdentifier()) + " eR: " + ((elementRel == null) ? "" :
+			 * elementRel .getIdentifier()) + " vLE: " +
+			 * ((volatileLeftInstElement == null) ? "" :
+			 * volatileLeftInstElement.getIdentifier()));
+			 */
 			// return null;
 		}
 
@@ -374,6 +372,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		Identifier out = null;
 
 		List<InstElement> elements = null;
+		InstElement volatileInstElement = null;
 		InstElement expInstElement = null;
 		String expAttributeName = null;
 		switch (expressionVertexType) {
@@ -387,6 +386,40 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTITEROUTCONVARIABLE:
 			elements = volatileLeftInstElement.getTargetRelations();
 			size = volatileLeftInstElement.getTargetRelations().size();
+			break;
+		case LEFTUNIQUEOUTRELVARIABLE:
+		case LEFTUNIQUEINCRELVARIABLE:
+		case LEFTUNIQUEOUTCONVARIABLE:
+		case LEFTUNIQUEINCCONVARIABLE:
+			volatileInstElement = volatileLeftInstElement;
+			break;
+		case RIGHTUNIQUEOUTRELVARIABLE:
+		case RIGHTUNIQUEINCRELVARIABLE:
+		case RIGHTUNIQUEOUTCONVARIABLE:
+		case RIGHTUNIQUEINCCONVARIABLE:
+			volatileInstElement = volatileRightInstElement;
+			break;
+
+		}
+		InstElement incExpDirInstElement = null;
+		InstElement outExpDirInstElement = null;
+		InstElement incExpIndirInstElement = null;
+		InstElement outExpIndirInstElement = null;
+		if (volatileInstElement != null
+				&& volatileInstElement.getSourceRelations().size() > pos) {
+			incExpDirInstElement = volatileInstElement.getSourceRelations()
+					.get(pos);
+			if (incExpDirInstElement.getSourceRelations().size() > 0)
+				incExpIndirInstElement = incExpDirInstElement
+						.getSourceRelations().get(0);
+		}
+		if (volatileInstElement != null
+				&& volatileInstElement.getTargetRelations().size() > pos) {
+			outExpDirInstElement = volatileInstElement.getTargetRelations()
+					.get(pos);
+			if (outExpDirInstElement.getTargetRelations().size() > 0)
+				outExpIndirInstElement = outExpDirInstElement
+						.getTargetRelations().get(0);
 		}
 		switch (expressionVertexType) {
 
@@ -395,7 +428,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTCONVARIABLE:
+		case LEFTITEROUTCONVARIABLE: // TODO fix inconsistency between OUT and
+										// IN
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
@@ -409,23 +443,33 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTUNIQUEOUTRELVARIABLE:
-			expInstElement = volatileLeftInstElement.getTargetRelations().get(
-					pos);
-			expAttributeName = getSemanticExpression().getLeftAttributeName();
+			if (!(volatileLeftInstElement instanceof InstConcept))
+				expInstElement = outExpIndirInstElement;
+			else
+				expInstElement = outExpDirInstElement;
+			expAttributeName = getSemanticExpression()
+					.getLeftRelAttributeName();
 			break;
 		case LEFTUNIQUEINCRELVARIABLE:
-			expInstElement = volatileLeftInstElement.getSourceRelations().get(
-					pos);
-			expAttributeName = getSemanticExpression().getLeftAttributeName();
+			if (!(volatileLeftInstElement instanceof InstConcept))
+				expInstElement = incExpIndirInstElement;
+			else
+				expInstElement = incExpDirInstElement;
+			expAttributeName = getSemanticExpression()
+					.getLeftRelAttributeName();
 			break;
 		case LEFTUNIQUEOUTCONVARIABLE:
-			expInstElement = volatileLeftInstElement.getTargetRelations()
-					.get(pos).getTargetRelations().get(0);
+			if (volatileLeftInstElement instanceof InstConcept)
+				expInstElement = outExpIndirInstElement;
+			else
+				expInstElement = outExpDirInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTUNIQUEINCCONVARIABLE:
-			expInstElement = volatileLeftInstElement.getSourceRelations()
-					.get(pos).getSourceRelations().get(0);
+			if (volatileLeftInstElement instanceof InstConcept)
+				expInstElement = incExpIndirInstElement;
+			else
+				expInstElement = incExpDirInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case RIGHT:
@@ -433,32 +477,47 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
 		case RIGHTUNIQUEOUTRELVARIABLE:
-			expInstElement = volatileRightInstElement.getTargetRelations().get(
-					0);
-			expAttributeName = getSemanticExpression().getRightAttributeName();
+			if (!(volatileRightInstElement instanceof InstConcept))
+				expInstElement = outExpIndirInstElement;
+			else
+				expInstElement = outExpDirInstElement;
+			expAttributeName = getSemanticExpression()
+					.getRightRelAttributeName();
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
-			expInstElement = volatileRightInstElement.getSourceRelations().get(
-					0);
-			expAttributeName = getSemanticExpression().getRightAttributeName();
+			if (!(volatileRightInstElement instanceof InstConcept))
+				expInstElement = incExpIndirInstElement;
+			else
+				expInstElement = incExpDirInstElement;
+			expAttributeName = getSemanticExpression()
+					.getRightRelAttributeName();
 			break;
 		case RIGHTUNIQUEOUTCONVARIABLE:
-			expInstElement = volatileRightInstElement.getTargetRelations()
-					.get(0).getTargetRelations().get(0);
+			if (volatileRightInstElement instanceof InstConcept)
+				expInstElement = outExpIndirInstElement;
+			else
+				expInstElement = outExpDirInstElement;
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
-			expInstElement = volatileRightInstElement.getSourceRelations()
-					.get(0).getSourceRelations().get(0);
+			if (volatileRightInstElement instanceof InstConcept)
+				expInstElement = incExpIndirInstElement;
+			else
+				expInstElement = incExpDirInstElement;
+
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
 		}
 
-		if (expInstElement != null) {
+		if (expInstElement != null && expAttributeName != null) {
+			// System.out.println(expAttributeName);
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
-			if (fullIdentifier == null)
+			if (fullIdentifier == null) {
+				System.out.println("NUll: " + expInstElement + " "
+						+ expAttributeName);
 				return null;
+			}
 			Identifier identifier = hlclFactory.newIdentifier(fullIdentifier,
 					expAttributeName);
 			AbstractAttribute attribute = expInstElement.getInstAttribute(

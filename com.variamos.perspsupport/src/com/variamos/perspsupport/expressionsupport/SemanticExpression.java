@@ -169,9 +169,9 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			String leftAttributeName, String rightAttributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
-		if (semanticExpressionType
+		if (leftExpressionVertexType
 				.equals(ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE)
-				|| semanticExpressionType
+				|| leftExpressionVertexType
 						.equals(ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE)) {
 			this.setLeftSemanticRelElement(leftSemanticElement);
 			this.leftRelAttributeName = leftAttributeName;
@@ -179,9 +179,9 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			this.setLeftSemanticElement(leftSemanticElement);
 			this.leftAttributeName = leftAttributeName;
 		}
-		if (semanticExpressionType
+		if (rightExpressionVertexType
 				.equals(ExpressionVertexType.RIGHTUNIQUEINCRELVARIABLE)
-				|| semanticExpressionType
+				|| rightExpressionVertexType
 						.equals(ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE)) {
 			this.setRightSemanticRelElement(rightSemanticElement);
 			this.rightRelAttributeName = rightAttributeName;
@@ -297,9 +297,9 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.setSemanticElement(semanticElement);
-		if (semanticExpressionType
+		if (leftExpressionVertexType
 				.equals(ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE)
-				|| semanticExpressionType
+				|| leftExpressionVertexType
 						.equals(ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE)) {
 			this.setLeftSemanticRelElement(leftSemanticElement);
 			this.leftRelAttributeName = leftAttributeName;
@@ -617,7 +617,8 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public void setSemanticElement(InstElement semanticElement) {
 		this.volSemElement = semanticElement;
-		this.semElemId = semanticElement.getIdentifier();
+		if (semanticElement != null)
+			this.semElemId = semanticElement.getIdentifier();
 	}
 
 	public void setLeftSemanticElement(InstElement leftSemanticElement) {

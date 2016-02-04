@@ -127,6 +127,29 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstElement instE : refas.getElements()) {
 						out.addAll(createElementInstanceExpressions(instE,
 								semExp));
+						for (InstAttribute att : instE.getInstAttributes()
+								.values()) {
+							if (att.getType()
+									.equals(InstanceExpression.class
+											.getCanonicalName())
+									&& (InstanceExpression) att.getValue() != null) {
+								InstanceExpression instanceExpression = new InstanceExpression(
+										true, "cond", true);
+								instanceExpression
+										.setSemanticExpressionType(refas
+												.getSemanticExpressionTypes()
+												.get("DoubleImplies"));
+								instanceExpression.setLeftElement(instE);
+								instanceExpression.setLeftAttributeName(att
+										.getIdentifier());
+								instanceExpression
+										.setRightInstanceExpression((InstanceExpression) att
+												.getValue());
+								instanceExpression
+										.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+								out.add(instanceExpression);
+							}
+						}
 						for (AbstractAttribute var : operSubAction
 								.getInVariables()) {
 							int attributeValue = 0;
