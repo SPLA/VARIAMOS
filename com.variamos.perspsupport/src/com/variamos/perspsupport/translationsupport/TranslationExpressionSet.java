@@ -223,6 +223,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<InstanceExpression> createElementInstanceExpressions(
 			InstElement instElement,
 			List<IntSemanticExpression> semanticExpressions) {
