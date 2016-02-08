@@ -2411,7 +2411,27 @@ public class RefasModel extends AbstractModel {
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
+		SemanticConcept semGeneralElement = new SemanticConcept(
+				"GeneralElement"); // From this name depends all the operations,
+									// do not change it
+
+		InstVertex instVertexGE = new InstConcept("GeneralElement",
+				metaConcept, semGeneralElement);
+
 		SemanticConcept refasModel = new SemanticConcept("REFAS");
+
+		AbstractAttribute attribute = null;
+		attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
+				false, "***TotalOrder***", 0, new RangeDomain(0, 2000), 2, -1,
+				"", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		refasModel.putSemanticAttribute("TotalOrder", attribute);
+
+		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer", false,
+				"***TotalOpt***", 0, new RangeDomain(0, 2000), 2, -1, "", "",
+				-1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		refasModel.putSemanticAttribute("TotalOpt", attribute);
 
 		InstVertex instRefasModel = new InstConcept("REFAS", metaModel,
 				refasModel);
@@ -2424,17 +2444,44 @@ public class RefasModel extends AbstractModel {
 
 		refasModel.setSemanticExpressions(semanticExpressions);
 
-		SemanticExpression t1 = new SemanticExpression("4", this
-				.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.RIGHTRELATIONCONCEPT, instRefasModel,
-				"HighRange");
+		SemanticExpression t1 = new SemanticExpression("prefSel <=1", this
+				.getSemanticExpressionTypes().get("LessOrEquals"),
+				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
+				instVertexGE, null, "NextPrefSelected", true, 1);
 
-		SemanticExpression t2 = new SemanticExpression("Amodel_pref", this
-				.getSemanticExpressionTypes().get("LessOrEquals"), 1, true, t1);
+		SemanticExpression t2;
 
 		SemanticExpression t3;
 
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("TotalOrder", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
+				instVertexGE, null, "Order", "TotalOrder", true);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("TotalOpt", this
+				.getSemanticExpressionTypes().get("Equals"),
+				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
+				instVertexGE, null, "Opt", "TotalOpt", true);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
+		// t1 = new SemanticExpression("REFAS_pref<=1", this
+		// .getSemanticExpressionTypes().get("LessOrEquals"),
+		// instRefasModel, "pref", 1);
+		//
+		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		//
+		// semanticExpressions.add(t1);
 
 		InstEnumeration instVertexHStrME = new InstEnumeration(
 				"HardStructEnumeration", metaEnumeration);
@@ -2526,13 +2573,11 @@ public class RefasModel extends AbstractModel {
 		a.setInstAttributeAttribute("Identifier", "enum3");
 		c.add(a);
 
-		SemanticConcept semGeneralElement = new SemanticConcept(
-				"GeneralElement"); // From this name depends all the operations,
-									// do not change it
+		// Semantic Element
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		semGeneralElement.setSemanticExpressions(semanticExpressions);
-		InstVertex instVertexGE = new InstConcept("GeneralElement",
-				metaConcept, semGeneralElement);
 
 		t1 = new SemanticExpression("Req Implies Selected", this
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
@@ -2678,9 +2723,8 @@ public class RefasModel extends AbstractModel {
 
 		// Design attributes: Do not change identifiers
 
-		AbstractAttribute attribute = new ExecCurrentStateAttribute("True",
-				"Boolean", false, "***Selected***", true, 2, -1, "", "", -1,
-				"", "");
+		attribute = new ExecCurrentStateAttribute("True", "Boolean", false,
+				"***Selected***", true, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("True", attribute);
 		// simulOperationSubAction.addInVariable(attribute);

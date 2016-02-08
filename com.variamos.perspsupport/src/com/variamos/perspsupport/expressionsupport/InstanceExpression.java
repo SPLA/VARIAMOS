@@ -19,6 +19,7 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
+import com.variamos.perspsupport.perspmodel.RefasModel;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -94,6 +95,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private String leftInstElementId;
 
 	private int size = 0;
+	private RefasModel refas;
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -144,6 +146,17 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public InstanceExpression(boolean customExpression,
 			SemanticExpression semanticExpression) {
+		this.customExpression = customExpression;
+		if (customExpression) {
+			customSemanticExpression = semanticExpression;
+		} else
+			volatileSemanticExpression = semanticExpression;
+		semanticExpressionId = semanticExpression.getIdentifier();
+	}
+
+	public InstanceExpression(RefasModel refas, boolean customExpression,
+			SemanticExpression semanticExpression) {
+		this.refas = refas;
 		this.customExpression = customExpression;
 		if (customExpression) {
 			customSemanticExpression = semanticExpression;
@@ -377,6 +390,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		String expAttributeName = null;
 		switch (expressionVertexType) {
 
+		case LEFTCONCEPTTYPEVARIABLE:
+			elements = new ArrayList<InstElement>();
+			elements.addAll(refas.getVariabilityVertexCollection());
+			size = elements.size();
+			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
 			elements = volatileLeftInstElement.getSourceRelations();
@@ -427,9 +445,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expInstElement = volatileLeftInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
+		case LEFTCONCEPTTYPEVARIABLE:
+			expInstElement = elements.get(pos);
+			expAttributeName = getSemanticExpression().getLeftAttributeName();
+
+			break;
 		case LEFTITERINCRELVARIABLE:
-		case LEFTITEROUTCONVARIABLE: // TODO fix inconsistency between OUT and
-										// IN
+		case LEFTITEROUTRELVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
@@ -438,8 +460,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expInstElement = elements.get(pos).getSourceRelations().get(0);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
-		case LEFTITEROUTRELVARIABLE:
-			expInstElement = elements.get(pos);
+		case LEFTITEROUTCONVARIABLE:
+			expInstElement = elements.get(pos).getTargetRelations().get(0);
+			;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTUNIQUEOUTRELVARIABLE:
@@ -510,7 +533,6 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		}
 
 		if (expInstElement != null && expAttributeName != null) {
-			// System.out.println(expAttributeName);
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
 			if (fullIdentifier == null) {
@@ -600,6 +622,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case LEFTITERINCRELVARIABLE:
 			case LEFTITEROUTCONVARIABLE:
 			case LEFTITERINCCONVARIABLE:
+			case LEFTCONCEPTTYPEVARIABLE:
 				iter = true;
 			case LEFT:
 			case LEFTUNIQUEOUTRELVARIABLE:
@@ -1112,6 +1135,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
+		case LEFTCONCEPTVARIABLE: // TODO verify
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTCONCEPTTYPEVARIABLE:
+			if (pos < refas.getVariabilityVertex().values().size()) {
+				leftInstanceExpression = new InstanceExpression(refas, false,
+						this.getSemanticExpression());
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			}
 			this.volatileLeftInstElement = instElement;
 			break;
 		case LEFTITERINCRELVARIABLE:

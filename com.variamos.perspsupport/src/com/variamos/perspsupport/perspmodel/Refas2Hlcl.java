@@ -254,7 +254,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 
 		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-				operation, null, null);
+				refas, operation, null, null);
 		transExpSet.addExpressions(refas, null, subOperation, operExecType);
 		// for (Expression exp : transExpSet.getHLCLExpressions(subOperation +
 		// "-"

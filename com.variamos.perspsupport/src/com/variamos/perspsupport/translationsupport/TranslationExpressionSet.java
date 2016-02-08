@@ -58,6 +58,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private boolean optional = false;
+	private RefasModel refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -65,10 +66,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(String operation,
+	public TranslationExpressionSet(RefasModel refas, String operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation, mxResources.get("defect-concepts") + " " + operation,
 				idMap, hlclFactory);
+		this.refas = refas;
 		instanceExpressions = new HashMap<String, List<InstanceExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
@@ -85,6 +87,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (InstElement oper : semModel) {
 			IntSemanticElement semModelElement = oper
 					.getEditableSemanticElement();
+
+			out.addAll(createElementInstanceExpressions(oper));
 			// TODO create expressions for model concepts
 
 			// if (instElement == null)
@@ -129,6 +133,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								semExp));
 						for (InstAttribute att : instE.getInstAttributes()
 								.values()) {
+							// create instance expressions for conditional
+							// expressions
 							if (att.getType()
 									.equals(InstanceExpression.class
 											.getCanonicalName())
@@ -265,6 +271,24 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					}
 			}
 		}
+		return out;
+	}
+
+	protected List<InstanceExpression> createElementInstanceExpressions(
+			InstElement instElement) {
+		IntSemanticElement semElement = instElement
+				.getEditableSemanticElement();
+		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
+		if (semElement != null
+				&& semElement.getAllSemanticExpressions() != null)
+			for (IntSemanticExpression semExpression : semElement
+					.getAllSemanticExpressions()) {
+				InstanceExpression instanceExpression = new InstanceExpression(
+						refas, false, (SemanticExpression) semExpression);
+				instanceExpression.createFromSemanticExpression(instElement, 0);
+				out.add(instanceExpression);
+			}
+
 		return out;
 	}
 
