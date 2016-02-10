@@ -129,6 +129,32 @@ public class PerspEditorMenuBar extends JMenuBar {
 		final VariamosGraphEditor finalEditor = (VariamosGraphEditor) editor;
 
 		if (editor.getPerspective() == 2) {
+			menu = (JMenu) menu.add(new JMenu(mxResources.get("models")));
+			menu.setMnemonic('M');
+			// menu.add(editor.bind(mxResources.get("verifyVoidModel"), new
+			// VerifyVoidModelAction()));
+			// menu.add(editor.bind(mxResources.get("verifyFalseProductLine"),
+			// new
+			// VerifyFalseProductLineModelAction()));
+			JCheckBoxMenuItem item = new JCheckBoxMenuItem("REFAS Model");
+			item.setState(true);
+			item.setEnabled(false);
+			item.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					AbstractButton aButton = (AbstractButton) arg0.getSource();
+					boolean selected = aButton.getModel().isSelected();
+					if (selected)
+						finalEditor.updateDefects("Root", true);
+					else
+						finalEditor.updateDefects("Root", false);
+				}
+			});
+			menu.add(item);
+
+			add(menu);
+
 			menu = (JMenu) menu
 					.add(new JMenu(mxResources.get("verifyDefects")));
 			menu.setMnemonic('I');
@@ -154,8 +180,7 @@ public class PerspEditorMenuBar extends JMenuBar {
 			menu = (JMenu) menu.add(new JMenu(mxResources
 					.get("verifyDefectsOptions")));
 			menu.setMnemonic('D');
-			JCheckBoxMenuItem item = new JCheckBoxMenuItem(
-					mxResources.get("verifyRoot"));
+			item = new JCheckBoxMenuItem(mxResources.get("verifyRoot"));
 			item.setState(true);
 			item.addActionListener(new ActionListener() {
 

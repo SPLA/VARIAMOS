@@ -59,8 +59,8 @@ public abstract class AbstractExpression {
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
 
-		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
-		this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+		this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
+		this.expressionVertexTypes.add(ExpressionVertexType.RIGHTVARIABLE);
 	}
 
 	public AbstractExpression(InstElement vertex, String attributeName,
@@ -71,7 +71,7 @@ public abstract class AbstractExpression {
 			if (vertex != null) {
 				this.leftVertex = vertex;
 				this.leftAttributeName = attributeName;
-				this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+				this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
 			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
@@ -80,7 +80,7 @@ public abstract class AbstractExpression {
 			if (vertex != null) {
 				this.rightVertex = vertex;
 				this.rightAttributeName = attributeName;
-				this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+				this.expressionVertexTypes.add(ExpressionVertexType.RIGHTVARIABLE);
 			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
@@ -96,16 +96,16 @@ public abstract class AbstractExpression {
 		if (replaceTarget) {
 			this.leftVertex = vertex;
 			this.leftAttributeName = attributeName;
-			this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+			this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.RIGHTBOOLEANEXPRESSIONVALUE);
+					.add(ExpressionVertexType.RIGHTBOOLEANEXPRESSION);
 			this.rightBooleanExpression = booleanExpression;
 		} else {
 			this.rightVertex = vertex;
 			this.rightAttributeName = attributeName;
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.LEFTBOOLEANEXPRESSIONVALUE);
-			this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+					.add(ExpressionVertexType.LEFTBOOLEANEXPRESSION);
+			this.expressionVertexTypes.add(ExpressionVertexType.RIGHTVARIABLE);
 			this.leftBooleanExpression = booleanExpression;
 		}
 	}
@@ -118,16 +118,16 @@ public abstract class AbstractExpression {
 		if (replaceTarget) {
 			this.leftVertex = vertex;
 			this.leftAttributeName = attributeName;
-			this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+			this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+					.add(ExpressionVertexType.RIGHTNUMERICVALUE);
 			this.rightNumericExpression = numericExpression;
 		} else {
 			this.rightVertex = vertex;
 			this.rightAttributeName = attributeName;
 			this.expressionVertexTypes
-					.add(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
-			this.expressionVertexTypes.add(ExpressionVertexType.RIGHT);
+					.add(ExpressionVertexType.LEFTNUMERICVALUE);
+			this.expressionVertexTypes.add(ExpressionVertexType.RIGHTVARIABLE);
 			this.leftNumericExpression = numericExpression;
 		}
 	}
@@ -154,7 +154,7 @@ public abstract class AbstractExpression {
 
 		this.leftVertex = vertex;
 		this.leftAttributeName = attributeName;
-		this.expressionVertexTypes.add(ExpressionVertexType.LEFT);
+		this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
 	}
 
 	public Map<String, Identifier> getIdentifiers(HlclFactory f) {
@@ -343,16 +343,16 @@ public abstract class AbstractExpression {
 			if (expressionConnectors.size() > i)
 				out += " " + expressionConnectors.get(i) + " ";
 			switch (expressionVertex) {
-			case LEFTBOOLEANEXPRESSIONVALUE:
+			case LEFTBOOLEANEXPRESSION:
 				out += leftBooleanExpression;
 				break;
-			case RIGHTBOOLEANEXPRESSIONVALUE:
+			case RIGHTBOOLEANEXPRESSION:
 				out += rightBooleanExpression;
 				break;
-			case LEFT:
+			case LEFTVARIABLE:
 				out += leftAttributeName;
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 				out += rightAttributeName;
 
 				break;
@@ -377,23 +377,23 @@ public abstract class AbstractExpression {
 
 		for (ExpressionVertexType expressionType : expressionVertexTypes) {
 			switch (expressionType) {
-			case LEFTBOOLEANEXPRESSIONVALUE:
+			case LEFTBOOLEANEXPRESSION:
 				out.add(leftBooleanExpression);
 				break;
-			case RIGHTBOOLEANEXPRESSIONVALUE:
+			case RIGHTBOOLEANEXPRESSION:
 				out.add(rightBooleanExpression);
 				break;
-			case LEFTNUMERICEXPRESSIONVALUE:
+			case LEFTNUMERICVALUE:
 				out.add(leftNumericExpression);
 				break;
-			case RIGHTNUMERICEXPRESSIONVALUE:
+			case RIGHTNUMERICVALUE:
 				out.add(rightNumericExpression);
 				break;
-			case LEFT:
+			case LEFTVARIABLE:
 				out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
 						leftAttributeName)));
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 				out.add(idMap.get(getRight().getInstAttributeFullIdentifier(
 						rightAttributeName)));
 
@@ -435,22 +435,22 @@ public abstract class AbstractExpression {
 
 		for (ExpressionVertexType expressionType : expressionVertexTypes) {
 			switch (expressionType) {
-			case LEFTBOOLEANEXPRESSIONVALUE:
+			case LEFTBOOLEANEXPRESSION:
 				if (negateLeft)
 					out.add(f.not(leftBooleanExpression));
 				else
 					out.add(leftBooleanExpression);
 				break;
-			case RIGHTBOOLEANEXPRESSIONVALUE:
+			case RIGHTBOOLEANEXPRESSION:
 				out.add(rightBooleanExpression);
 				break;
-			case LEFTNUMERICEXPRESSIONVALUE:
+			case LEFTNUMERICVALUE:
 				out.add(leftNumericExpression);
 				break;
-			case RIGHTNUMERICEXPRESSIONVALUE:
+			case RIGHTNUMERICVALUE:
 				out.add(rightNumericExpression);
 				break;
-			case LEFT:
+			case LEFTVARIABLE:
 				if (negateLeft)
 					out.add(f.not(idMap.get(getLeft()
 							.getInstAttributeFullIdentifier(leftAttributeName))));
@@ -458,7 +458,7 @@ public abstract class AbstractExpression {
 					out.add(idMap.get(getLeft().getInstAttributeFullIdentifier(
 							leftAttributeName)));
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 				if (negateRight)
 					out.add(f.not(idMap
 							.get(getRight().getInstAttributeFullIdentifier(

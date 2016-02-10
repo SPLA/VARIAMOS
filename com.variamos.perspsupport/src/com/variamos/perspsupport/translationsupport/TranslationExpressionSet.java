@@ -58,6 +58,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private boolean optional = false;
+	private RefasModel refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -65,10 +66,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(String operation,
+	public TranslationExpressionSet(RefasModel refas, String operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation, mxResources.get("defect-concepts") + " " + operation,
 				idMap, hlclFactory);
+		this.refas = refas;
 		instanceExpressions = new HashMap<String, List<InstanceExpression>>();
 		this.idMap = idMap;
 		this.hlclFactory = hlclFactory;
@@ -80,16 +82,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 
-		List<InstElement> semModel = refas.getSemanticRefas()
-				.getVariabilityVertex("CSModel");
-		for (InstElement oper : semModel) {
-			IntSemanticElement semModelElement = oper
-					.getEditableSemanticElement();
-			// TODO create expressions for model concepts
+		// List<InstElement> semModel = refas.getVariabilityVertex("CSModel");
+		// for (InstElement oper : semModel) {
+		InstElement oper2 = refas.getElement("REFAS1");
+		IntSemanticElement semModelElement = oper2.getEditableSemanticElement();
 
-			// if (instElement == null)
-			// out.addAll(createElementInstanceExpressions(operAction));
-		}
+		out.addAll(createElementInstanceExpressions(oper2));
+		// TODO create expressions for model concepts
+
+		// if (instElement == null)
+		// out.addAll(createElementInstanceExpressions(operAction));
+		// }
 
 		List<InstElement> operActions = refas.getSemanticRefas()
 				.getVariabilityVertex("CSOpAction");
@@ -129,6 +132,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								semExp));
 						for (InstAttribute att : instE.getInstAttributes()
 								.values()) {
+							// create instance expressions for conditional
+							// expressions
 							if (att.getType()
 									.equals(InstanceExpression.class
 											.getCanonicalName())
@@ -187,7 +192,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								instanceExpression
 										.setRightNumber(attributeValue);
 								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 								out.add(instanceExpression);
 							}
 						}
@@ -223,6 +228,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<InstanceExpression> createElementInstanceExpressions(
 			InstElement instElement,
 			List<IntSemanticExpression> semanticExpressions) {
@@ -235,7 +241,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getAllSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
-							false, (SemanticExpression) semExpression);
+							refas, false, (SemanticExpression) semExpression);
 					instanceExpression.createFromSemanticExpression(
 							instElement, 0);
 					out.add(instanceExpression);
@@ -256,7 +262,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							.getValue()) {
 						if (semanticExpressions.contains(semExpression)) {
 							InstanceExpression instanceExpression = new InstanceExpression(
-									false, (SemanticExpression) semExpression);
+									refas, false,
+									(SemanticExpression) semExpression);
 							instanceExpression.createFromSemanticExpression(
 									instElement, 0);
 							out.add(instanceExpression);
@@ -268,6 +275,24 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	}
 
 	protected List<InstanceExpression> createElementInstanceExpressions(
+			InstElement instElement) {
+		IntSemanticElement semElement = instElement
+				.getTransSupportMetaElement().getTransSemanticConcept();
+		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
+		if (semElement != null
+				&& semElement.getAllSemanticExpressions() != null)
+			for (IntSemanticExpression semExpression : semElement
+					.getAllSemanticExpressions()) {
+				InstanceExpression instanceExpression = new InstanceExpression(
+						refas, false, (SemanticExpression) semExpression);
+				instanceExpression.createFromSemanticExpression(instElement, 0);
+				out.add(instanceExpression);
+			}
+
+		return out;
+	}
+
+	protected List<InstanceExpression> createElementInstanceExpressions(
 			IntSemanticElement semElement) {
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		if (semElement != null
@@ -275,7 +300,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (IntSemanticExpression semExpression : semElement
 					.getAllSemanticExpressions()) {
 				InstanceExpression instanceExpression = new InstanceExpression(
-						false, (SemanticExpression) semExpression);
+						refas, false, (SemanticExpression) semExpression);
 				instanceExpression.createFromSemanticExpression(null, 0);
 				out.add(instanceExpression);
 			}

@@ -1,6 +1,5 @@
 package com.variamos.perspsupport.instancesupport;
 
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,9 +33,9 @@ public class InstConcept extends InstVertex {
 		super("");
 	}
 
-	public InstConcept(MetaElement metaElement) {
+	public InstConcept(MetaElement supportMetaElement) {
 		super("");
-		setTransSupportMetaElement(metaElement);
+		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes(null);
 	}
 

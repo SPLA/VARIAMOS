@@ -374,10 +374,10 @@ public class InstanceExpressionDialog extends JDialog {
 			case LEFTSUBEXPRESSION:
 				leftSide.setSelectedItem("SubExpression");
 				break;
-			case LEFT:
+			case LEFTVARIABLE:
 				leftSide.setSelectedItem("Variable");
 				break;
-			case LEFTNUMERICEXPRESSIONVALUE:
+			case LEFTNUMERICVALUE:
 				leftSide.setSelectedItem("Number");
 				break;
 			case LEFTVARIABLEVALUE:
@@ -391,10 +391,10 @@ public class InstanceExpressionDialog extends JDialog {
 			case RIGHTSUBEXPRESSION:
 				rightSide.setSelectedItem("SubExpression");
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 				rightSide.setSelectedItem("Variable");
 				break;
-			case RIGHTNUMERICEXPRESSIONVALUE:
+			case RIGHTNUMERICVALUE:
 				rightSide.setSelectedItem("Number");
 				break;
 			case RIGHTVARIABLEVALUE:
@@ -419,9 +419,9 @@ public class InstanceExpressionDialog extends JDialog {
 		if (leftSide.getSelectedItem().equals("Number")) {
 			if (instanceExpression.getLeftExpressionType() != null)
 				if (instanceExpression.getLeftExpressionType().equals(
-						ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)) {
+						ExpressionVertexType.LEFTNUMERICVALUE)) {
 					basePanel.add(createTextField(instanceExpression, element,
-							ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE));
+							ExpressionVertexType.LEFTNUMERICVALUE));
 				}
 		}
 		if (leftSide.getSelectedItem().equals("Variable")) {
@@ -429,10 +429,10 @@ public class InstanceExpressionDialog extends JDialog {
 				if (instanceExpression.getSemanticExpression()
 						.getSemanticExpressionType() != null) {
 					leftPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.LEFT,
+							ExpressionVertexType.LEFTVARIABLE,
 							instanceExpression.getLeftValidExpressions()));
 					instanceExpression
-							.setLeftExpressionType(ExpressionVertexType.LEFT);
+							.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 				}
 			}
 		}
@@ -540,22 +540,22 @@ public class InstanceExpressionDialog extends JDialog {
 			if (rightSide.getSelectedItem().equals("Number")) {
 				if (instanceExpression.getRightExpressionType() != null)
 					if (instanceExpression.getRightExpressionType().equals(
-							ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)) {
+							ExpressionVertexType.RIGHTNUMERICVALUE)) {
 						rightPanel
 								.add(createTextField(
 										instanceExpression,
 										element,
-										ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE));
+										ExpressionVertexType.RIGHTNUMERICVALUE));
 					}
 			}
 			if (rightSide.getSelectedItem().equals("Variable")) {
 				if (instanceExpression.getSemanticExpression()
 						.getSemanticExpressionType() != null) {
 					rightPanel.add(createVarCombo(instanceExpression, element,
-							ExpressionVertexType.RIGHT,
+							ExpressionVertexType.RIGHTVARIABLE,
 							instanceExpression.getRightValidExpressions()));
 					instanceExpression
-							.setRightExpressionType(ExpressionVertexType.RIGHT);
+							.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 				}
 			}
 			if (rightSide.getSelectedItem().equals("VariableValue")) {
@@ -581,7 +581,7 @@ public class InstanceExpressionDialog extends JDialog {
 		JTextField textField;
 
 		if (expressionVertexType
-				.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+				.equals(ExpressionVertexType.LEFTNUMERICVALUE))
 			textField = new JTextField(""
 					+ (instanceExpression).getLeftNumber());
 		else
@@ -601,7 +601,7 @@ public class InstanceExpressionDialog extends JDialog {
 						.getText();
 				if (item != null) {
 					if (expressionVertexType
-							.equals(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE))
+							.equals(ExpressionVertexType.LEFTNUMERICVALUE))
 						instanceExpression.setLeftNumber(Integer.parseInt(item));
 					else
 						instanceExpression.setRightNumber(Integer
@@ -760,8 +760,8 @@ public class InstanceExpressionDialog extends JDialog {
 		}
 		if (!editable)
 			combo.setEnabled(false);
-		if (type == ExpressionVertexType.LEFT
-				|| type == ExpressionVertexType.RIGHT) {
+		if (type == ExpressionVertexType.LEFTVARIABLE
+				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
 				IntSemanticElement semElement2 = ((MetaVertex) instVertex
@@ -910,18 +910,18 @@ public class InstanceExpressionDialog extends JDialog {
 						case "Variable":
 							if (left)
 								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFT);
+										.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 							else
 								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHT);
+										.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 							break;
 						case "Number":
 							if (left)
 								instanceExpression
-										.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE);
+										.setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
 							else
 								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 							break;
 						case "VariableValue":
 							if (left)
