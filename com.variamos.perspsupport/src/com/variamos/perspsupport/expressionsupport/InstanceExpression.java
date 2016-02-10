@@ -380,6 +380,33 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	// return out;
 	// }
 
+	private int getSize(ExpressionVertexType expressionVertexType) {
+		int out = 0;
+		List<InstElement> elements = null;
+		switch (expressionVertexType) {
+
+		case LEFTITERCONCEPTVARIABLE:
+		case LEFTITERFIXEDVARIABLE:
+			elements = new ArrayList<InstElement>();
+			String elemetType = this.getSemanticExpression()
+					.getLeftSemanticElement().getIdentifier();
+			elements.addAll(refas.getVariabilityVertexMC(elemetType));
+			out = elements.size();
+			break;
+		case LEFTITERINCRELVARIABLE:
+		case LEFTITERINCCONVARIABLE:
+			elements = volatileLeftInstElement.getSourceRelations();
+			out = volatileLeftInstElement.getSourceRelations().size();
+			break;
+		case LEFTITEROUTRELVARIABLE:
+		case LEFTITEROUTCONVARIABLE:
+			elements = volatileLeftInstElement.getTargetRelations();
+			out = volatileLeftInstElement.getTargetRelations().size();
+			break;
+		}
+		return out;
+	}
+
 	private Identifier getIdentifier(ExpressionVertexType expressionVertexType,
 			int pos) {
 		Identifier out = null;
@@ -637,9 +664,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case LEFTITERCONCEPTVARIABLE:
 				iter = true;
 				pos = -1;
-				String elemetType = this.getSemanticExpression()
-						.getLeftSemanticElement().getIdentifier();
-				if (pos >= refas.getVariabilityVertexMC(elemetType).size() - 1)
+				if (pos >= getSize(expressionType) - 1)
 					iter = false;
 				break;
 
@@ -831,7 +856,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			this.leftInstanceExpression = new InstanceExpression(true, id,
 					false);
 		if (type == ExpressionVertexType.LEFTNUMERICVALUE)
-			this.leftInstanceExpression = new InstanceExpression(true,
+			this.leftInstanceExpression = new InstanceExpression(refas, true,
 					new SemanticExpression(id, semanticExpressionType));
 		getSemanticExpression().setLeftExpressionType(type);
 	}
@@ -849,7 +874,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			this.rightInstanceExpression = new InstanceExpression(true, id,
 					false);
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
-			this.rightInstanceExpression = new InstanceExpression(true,
+			this.rightInstanceExpression = new InstanceExpression(refas, true,
 					new SemanticExpression(id, semanticExpressionType));
 		getSemanticExpression().setRightExpressionType(type);
 	}
@@ -1168,7 +1193,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 		switch (type) {
 		case LEFTSUBEXPRESSION:
-			leftInstanceExpression = new InstanceExpression(false,
+			leftInstanceExpression = new InstanceExpression(refas, false,
 					volatileSemanticExpression.getLeftSemanticExpression());
 			leftInstanceExpression.createFromSemanticExpression(instElement,
 					pos);
@@ -1214,7 +1239,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
 			if (pos < instElement.getSourceRelations().size()) {
-				leftInstanceExpression = new InstanceExpression(false,
+				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
 						instElement, pos + 1);
@@ -1224,7 +1249,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTITEROUTCONVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
 			if (pos < instElement.getTargetRelations().size()) {
-				leftInstanceExpression = new InstanceExpression(false,
+				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
 						instElement, pos + 1);
@@ -1240,7 +1265,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 		switch (type) {
 		case RIGHTSUBEXPRESSION:
-			rightInstanceExpression = new InstanceExpression(false,
+			rightInstanceExpression = new InstanceExpression(refas, false,
 					volatileSemanticExpression.getRightSemanticExpression());
 			if (instElement != null)
 				rightInstanceExpression.createFromSemanticExpression(

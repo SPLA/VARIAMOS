@@ -102,7 +102,7 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 		return out;
 	}
 
-	public Collection<OperationLabeling> getOperLabels() {
+	public List<OperationLabeling> getOperLabels() {
 		List<OperationLabeling> out = new ArrayList<OperationLabeling>();
 		for (OperationLabeling oper : operationLabelings) {
 			out.add(oper);

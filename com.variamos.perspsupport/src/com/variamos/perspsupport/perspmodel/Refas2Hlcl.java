@@ -21,6 +21,8 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.perspsupport.expressionsupport.OperationLabeling;
+import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -397,6 +399,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
+			InstElement subop = refas.getSyntaxRefas().getSemanticRefas()
+					.getElement("Sim-Execution");
 
 			hlclProgram = getHlclProgram(element, operation, "Sim-Execution",
 					OperationSubActionExecType.NORMAL);
@@ -423,22 +427,17 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					configurationOptions.setOrder(true);
 
 				}
+
+				configurationOptions.setOrder(true);
 				configurationOptions.setStartFromZero(true);
-				List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
-				List<LabelingOrder> labelingOrderList = new ArrayList<LabelingOrder>();
-				labelingOrderList.add(LabelingOrder.MIN);
-				labelingOrderList.add(LabelingOrder.MIN);
-				Iterator<InstElement> iterVertex = refas
-						.getVariabilityVertexCollection().iterator();
-				InstElement instVertex = iterVertex.next();
-				orderExpressionList.add(getSumExpression(instVertex,
-						iterVertex, "Order"));
-				iterVertex = refas.getVariabilityVertexCollection().iterator();
-				instVertex = iterVertex.next();
-				orderExpressionList.add(getSumExpression(instVertex,
-						iterVertex, "Opt"));
-				configurationOptions.setLabelingOrder(labelingOrderList);
-				configurationOptions.setOrderExpressions(orderExpressionList);
+				// FIX Luisa: iterate over all the labelings
+				OperationLabeling operlab = ((SemanticOperationSubAction) subop
+						.getEditableSemanticElement()).getOperLabels().get(0);
+				configurationOptions.setLabelingOrder(operlab
+						.getLabelingOrderList());
+				configurationOptions.setOrderExpressions(operlab
+						.getOrderExpressionList());
+				operlab.getVariables(); // FIX Luisa: pass variables to labeling
 				swiSolver.solve(new Configuration(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {

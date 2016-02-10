@@ -3,31 +3,60 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.variamos.compiler.solverSymbols.LabelingOrder;
+import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 public class OperationLabeling {
-	private String orderExpressions;
+	private List<NumericExpression> orderExpressionList;
+	private List<LabelingOrder> labelingOrderList;
+
 	private String name;
 	private boolean once;
 	private int position;
 	private List<AbstractAttribute> variables;
 
-	public OperationLabeling(String name, String orderExpressions,
-			int position, boolean once) {
+	public OperationLabeling(String name, int position, boolean once,
+			List<LabelingOrder> labelingOrderList,
+			List<NumericExpression> orderExpressionList
+
+	) {
 		super();
 		this.name = name;
-		this.orderExpressions = orderExpressions;
+		this.orderExpressionList = orderExpressionList;
+		this.labelingOrderList = labelingOrderList;
 		this.position = position;
 		this.once = once;
 		variables = new ArrayList<AbstractAttribute>();
 	}
 
-	public String getOrderExpressions() {
-		return orderExpressions;
+	public List<NumericExpression> getOrderExpressionList() {
+		return orderExpressionList;
 	}
 
-	public void setOrderExpressions(String orderExpressions) {
-		this.orderExpressions = orderExpressions;
+	public void setOrderExpressionList(
+			List<NumericExpression> orderExpressionList) {
+		this.orderExpressionList = orderExpressionList;
+	}
+
+	public List<LabelingOrder> getLabelingOrderList() {
+		return labelingOrderList;
+	}
+
+	public void setLabelingOrderList(List<LabelingOrder> labelingOrderList) {
+		this.labelingOrderList = labelingOrderList;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean isOnce() {

@@ -262,7 +262,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							.getValue()) {
 						if (semanticExpressions.contains(semExpression)) {
 							InstanceExpression instanceExpression = new InstanceExpression(
-									false, (SemanticExpression) semExpression);
+									refas, false,
+									(SemanticExpression) semExpression);
 							instanceExpression.createFromSemanticExpression(
 									instElement, 0);
 							out.add(instanceExpression);
@@ -299,7 +300,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (IntSemanticExpression semExpression : semElement
 					.getAllSemanticExpressions()) {
 				InstanceExpression instanceExpression = new InstanceExpression(
-						false, (SemanticExpression) semExpression);
+						refas, false, (SemanticExpression) semExpression);
 				instanceExpression.createFromSemanticExpression(null, 0);
 				out.add(instanceExpression);
 			}
