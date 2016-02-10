@@ -354,7 +354,47 @@ public class RefasModel extends AbstractModel {
 							.equals(stereotype))
 				out.add((InstElement) element);
 		}
-		Collections.sort(out);
+		try {
+			Collections.sort(out);
+		} catch (Exception e) {
+
+		}
+		return out;
+	}
+
+	public List<InstElement> getVariabilityVertexMC(String metatype) {
+		Iterator<InstElement> iter = variabilityInstVertex.values().iterator();
+		List<InstElement> out = new ArrayList<InstElement>();
+		while (iter.hasNext()) {
+			InstElement element = iter.next();
+			if (element.getTransSupportMetaElement() != null) {
+				MetaElement e = element.getTransSupportMetaElement();
+				InstElement el = this.getSyntaxRefas()
+						.getVertex(e.getAutoIdentifier())
+						.getEditableMetaElement().getTransInstSemanticElement();
+				while (el != null) {
+					if (el.getUserIdentifier().equals(metatype)) {
+						out.add((InstElement) element);
+						break;
+					}
+					InstElement el2 = null;
+					for (InstElement ee : el.getTargetRelations()) {
+
+						// System.out.println(ee.getTransSupportMetaElement()
+						// .getUserIdentifier());
+						if (ee.getTransSupportMetaElement().getUserIdentifier()
+								.equals("ExtendsRelation"))
+							el2 = ee.getTargetRelations().get(0);
+					}
+					el = el2;
+				}
+			}
+		}
+		try {
+			Collections.sort(out);
+		} catch (Exception e) {
+
+		}
 		return out;
 	}
 
@@ -927,8 +967,7 @@ public class RefasModel extends AbstractModel {
 		semModel.addPanelVisibleAttribute("06#" + "name");
 		semModel.addPanelSpacersAttribute("#" + "name" + "#");
 
-		InstConcept instSemModel = new InstConcept("CSModel", null,
-				semOperationGroup);
+		InstConcept instSemModel = new InstConcept("CSModel", null, semModel);
 
 		MetaConcept metaModel = new MetaConcept('C', "CSModel", true,
 				"CSModel", "refasminiclass", "Semantic Model", 100, 150,
@@ -2444,10 +2483,15 @@ public class RefasModel extends AbstractModel {
 
 		refasModel.setSemanticExpressions(semanticExpressions);
 
-		SemanticExpression t1 = new SemanticExpression("prefSel <=1", this
+		SemanticExpression t1 = new SemanticExpression("sub", this
+				.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERFIXEDVARIABLE, instVertexGE,
+				"NextPrefSelected", 0);
+
+		t1 = new SemanticExpression("prefSel <=1", this
 				.getSemanticExpressionTypes().get("LessOrEquals"),
-				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
-				instVertexGE, null, "NextPrefSelected", true, 1);
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instVertexGE, t1, 1);
 
 		SemanticExpression t2;
 
@@ -2457,19 +2501,27 @@ public class RefasModel extends AbstractModel {
 
 		semanticExpressions.add(t1);
 
+		t1 = new SemanticExpression("sub", this.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERFIXEDVARIABLE,
+				instVertexGE, "Order", 0);
+
 		t1 = new SemanticExpression("TotalOrder", this
 				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
-				instVertexGE, null, "Order", "TotalOrder", true);
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instVertexGE, t1, "TotalOrder");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		semanticExpressions.add(t1);
 
+		t1 = new SemanticExpression("sub", this.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERFIXEDVARIABLE,
+				instVertexGE, "Opt", 0);
+
 		t1 = new SemanticExpression("TotalOpt", this
 				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTCONCEPTTYPEVARIABLE, instRefasModel,
-				instVertexGE, null, "Opt", "TotalOpt", true);
+				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+				instVertexGE, t1, "TotalOpt");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -4123,7 +4175,7 @@ public class RefasModel extends AbstractModel {
 				instVertexHHGR, instVertexHC, null, "Selected", "True", true);
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"GreaterOrEq"), t2, ExpressionVertexType.RIGHTRELATIONCONCEPT,
+				"GreaterOrEq"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
 				instVertexHC, "LowRange");
 
 		t2 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
@@ -4131,7 +4183,7 @@ public class RefasModel extends AbstractModel {
 				instVertexHHGR, instVertexHC, null, "Selected", "True", true);
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
-				"LessOrEquals"), t2, ExpressionVertexType.RIGHTRELATIONCONCEPT,
+				"LessOrEquals"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
 				instVertexHC, "HighRange");
 
 		t1 = new SemanticExpression("3", this.getSemanticExpressionTypes().get(
@@ -5112,12 +5164,12 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5136,12 +5188,12 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5160,12 +5212,12 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
 
 		t3 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5659,7 +5711,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5681,7 +5733,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5703,7 +5755,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5779,7 +5831,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSDSGSemanticEdge, "SDReqLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5799,7 +5851,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"LessOrEquals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSDSGSemanticEdge, "SDReqLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -5819,7 +5871,7 @@ public class RefasModel extends AbstractModel {
 
 		t1 = new SemanticExpression("1", this.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				ExpressionVertexType.RIGHT, instVertexSG,
+				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSDSGSemanticEdge, "SDReqLevel", "level");
 
 		t1 = new SemanticExpression("2", this.getSemanticExpressionTypes().get(
@@ -6096,6 +6148,19 @@ public class RefasModel extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelNormal = (MetaPairwiseRelation) ((InstPairwiseRelation) this
 				.getSyntaxRefas().getConstraintInstEdge("NormalRelation"))
 				.getEditableMetaElement();
+
+		InstConcept semREFAS = ((InstConcept) this.getSemanticRefas()
+				.getVertex("REFAS"));
+
+		MetaConcept syntaxRefas = new MetaConcept('C', "REFAS", false, "REFAS",
+				"plnode", "Applies REFAS", 100, 50,
+				"/com/variamos/gui/pl/editor/images/plnode.png", true,
+				Color.BLUE.toString(), 3, semREFAS, true);
+
+		InstConcept instRefas = new InstConcept("REFAS",
+				supportMetaElementConcept, syntaxRefas);
+
+		variabilityInstVertex.put("REFAS", instRefas);
 
 		// *************************---------------****************************
 		// *************************---------------****************************

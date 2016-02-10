@@ -82,18 +82,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 
-		List<InstElement> semModel = refas.getSemanticRefas()
-				.getVariabilityVertex("CSModel");
-		for (InstElement oper : semModel) {
-			IntSemanticElement semModelElement = oper
-					.getEditableSemanticElement();
+		// List<InstElement> semModel = refas.getVariabilityVertex("CSModel");
+		// for (InstElement oper : semModel) {
+		InstElement oper2 = refas.getElement("REFAS1");
+		IntSemanticElement semModelElement = oper2.getEditableSemanticElement();
 
-			out.addAll(createElementInstanceExpressions(oper));
-			// TODO create expressions for model concepts
+		out.addAll(createElementInstanceExpressions(oper2));
+		// TODO create expressions for model concepts
 
-			// if (instElement == null)
-			// out.addAll(createElementInstanceExpressions(operAction));
-		}
+		// if (instElement == null)
+		// out.addAll(createElementInstanceExpressions(operAction));
+		// }
 
 		List<InstElement> operActions = refas.getSemanticRefas()
 				.getVariabilityVertex("CSOpAction");
@@ -193,7 +192,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								instanceExpression
 										.setRightNumber(attributeValue);
 								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE);
+										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 								out.add(instanceExpression);
 							}
 						}
@@ -242,7 +241,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getAllSemanticExpressions()) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
-							false, (SemanticExpression) semExpression);
+							refas, false, (SemanticExpression) semExpression);
 					instanceExpression.createFromSemanticExpression(
 							instElement, 0);
 					out.add(instanceExpression);
@@ -277,7 +276,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	protected List<InstanceExpression> createElementInstanceExpressions(
 			InstElement instElement) {
 		IntSemanticElement semElement = instElement
-				.getEditableSemanticElement();
+				.getTransSupportMetaElement().getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions() != null)

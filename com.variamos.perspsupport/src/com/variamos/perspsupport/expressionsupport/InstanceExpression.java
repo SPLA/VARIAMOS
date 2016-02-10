@@ -140,8 +140,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			setRightInstanceExpression(ExpressionVertexType.RIGHTSUBEXPRESSION,
 					null, "id");
 		}
-		this.setLeftExpressionType(ExpressionVertexType.LEFT);
-		this.setRightExpressionType(ExpressionVertexType.RIGHT);
+		this.setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+		this.setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 	}
 
 	public InstanceExpression(boolean customExpression,
@@ -390,9 +390,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		String expAttributeName = null;
 		switch (expressionVertexType) {
 
-		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTITERCONCEPTVARIABLE:
+		case LEFTITERFIXEDVARIABLE:
 			elements = new ArrayList<InstElement>();
-			elements.addAll(refas.getVariabilityVertexCollection());
+			elements.addAll(refas.getVariabilityVertexMC("GeneralElement"));
 			size = elements.size();
 			break;
 		case LEFTITERINCRELVARIABLE:
@@ -441,11 +442,16 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		}
 		switch (expressionVertexType) {
 
-		case LEFT:
+		case LEFTVARIABLE:
 			expInstElement = volatileLeftInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
-		case LEFTCONCEPTTYPEVARIABLE:
+		case LEFTITERCONCEPTVARIABLE:
+			expInstElement = elements.get(pos);
+			expAttributeName = getSemanticExpression()
+					.getLeftSemanticExpression().getLeftAttributeName();
+			break;
+		case LEFTITERFIXEDVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 
@@ -495,8 +501,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				expInstElement = incExpDirInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
-		case RIGHT:
+		case RIGHTVARIABLE:
 			expInstElement = volatileRightInstElement;
+			expAttributeName = getSemanticExpression().getRightAttributeName();
+			break;
+		case RIGHTCONCEPTVARIABLE:
+			expInstElement = this.getRightElement();
 			expAttributeName = getSemanticExpression().getRightAttributeName();
 			break;
 		case RIGHTUNIQUEOUTRELVARIABLE:
@@ -622,29 +632,35 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case LEFTITERINCRELVARIABLE:
 			case LEFTITEROUTCONVARIABLE:
 			case LEFTITERINCCONVARIABLE:
-			case LEFTCONCEPTTYPEVARIABLE:
+			case LEFTITERCONCEPTVARIABLE:
 				iter = true;
-			case LEFT:
+				pos = -1;
+				if (pos <= size - 2)
+					iter = false;
+				break;
+
+			case LEFTITERFIXEDVARIABLE:
+				iter = true;
+			case LEFTVARIABLE:
 			case LEFTUNIQUEOUTRELVARIABLE:
 			case LEFTUNIQUEINCRELVARIABLE:
 			case LEFTUNIQUEOUTCONVARIABLE:
 			case LEFTUNIQUEINCCONVARIABLE:
 				out.add(getIdentifier(expressionType, pos));
-				if (pos == size - 1)
+				if (pos >= size - 1)
 					iter = false;
-
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 			case RIGHTUNIQUEOUTRELVARIABLE:
 			case RIGHTUNIQUEINCRELVARIABLE:
 			case RIGHTUNIQUEOUTCONVARIABLE:
 			case RIGHTUNIQUEINCCONVARIABLE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
-				else
+				if (pos == -1 || !iter)
 					out.add(getIdentifier(expressionType, pos));
 				break;
-			case LEFTNUMERICEXPRESSIONVALUE:
+			case LEFTNUMERICVALUE:
 				out.add(hlclFactory.number(getSemanticExpression()
 						.getLeftNumber()));
 				break;
@@ -655,20 +671,25 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case LEFTCONCEPTVARIABLE:
 				out.add(leftInstanceExpression.createExpression(0));
 				break;
-			case LEFTRELATIONCONCEPT:
 			case LEFTSUBEXPRESSION:
 				out.add(leftInstanceExpression.createExpression(0));
 				break;
 			case RIGHTSUBEXPRESSION:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
-				else
+				if (pos == -1 || !iter)
 					out.add(rightInstanceExpression.createExpression(0));
 				break;
-			case RIGHTNUMERICEXPRESSIONVALUE:
+			case RIGHTCONCEPTVARIABLE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
-				else
+				if (pos == -1 || !iter)
+					out.add(getIdentifier(expressionType, pos));
+				break;
+			case RIGHTNUMERICVALUE:
+				if (iter)
+					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 || !iter)
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getRightNumber()));
 				break;
@@ -676,7 +697,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case RIGHTSTRINGVALUE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
-				else
+				if (pos == -1 || !iter)
 					out.add(hlclFactory
 							.number(getVariableIntValue(expressionType)));
 				break;
@@ -779,15 +800,15 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION)
 			this.leftInstanceExpression = new InstanceExpression(true, id,
 					false);
-		if (type == ExpressionVertexType.LEFTNUMERICEXPRESSIONVALUE)
+		if (type == ExpressionVertexType.LEFTNUMERICVALUE)
 			this.leftInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));
 		getSemanticExpression().setLeftExpressionType(type);
 	}
 
 	public void setLeftElement(InstElement instElement, String attribute) {
-		getSemanticExpression()
-				.setLeftExpressionType(ExpressionVertexType.LEFT);
+		getSemanticExpression().setLeftExpressionType(
+				ExpressionVertexType.LEFTVARIABLE);
 		this.volatileLeftInstElement = instElement;
 		getSemanticExpression().setLeftAttributeName(attribute);
 	}
@@ -797,7 +818,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
 			this.rightInstanceExpression = new InstanceExpression(true, id,
 					false);
-		if (type == ExpressionVertexType.RIGHTNUMERICEXPRESSIONVALUE)
+		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightInstanceExpression = new InstanceExpression(true,
 					new SemanticExpression(id, semanticExpressionType));
 		getSemanticExpression().setRightExpressionType(type);
@@ -805,7 +826,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public void setRightElement(InstElement instElement, String attribute) {
 		getSemanticExpression().setRightExpressionType(
-				ExpressionVertexType.RIGHT);
+				ExpressionVertexType.RIGHTVARIABLE);
 		this.volatileLeftInstElement = instElement;
 		getSemanticExpression().setRightAttributeName(attribute);
 	}
@@ -930,13 +951,13 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public String getSideElementIdentifier(
 			ExpressionVertexType expressionVertexType,
 			boolean displayVariableName) {
-		if (expressionVertexType == ExpressionVertexType.LEFT
+		if (expressionVertexType == ExpressionVertexType.LEFTVARIABLE
 				|| expressionVertexType == ExpressionVertexType.LEFTVARIABLEVALUE) {
 			if (getLeftElement() != null)
 				return getLeftElement().getIdentifier();
 			else
 				return leftInstElementId;
-		} else if (expressionVertexType == ExpressionVertexType.RIGHT
+		} else if (expressionVertexType == ExpressionVertexType.RIGHTVARIABLE
 				|| expressionVertexType == ExpressionVertexType.RIGHTVARIABLEVALUE) {
 			if (getRightElement() != null)
 				return getRightElement().getIdentifier();
@@ -981,14 +1002,14 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public String getElementAttributeIdentifier(
 			ExpressionVertexType expressionVertexType, boolean displayName) {
 		switch (expressionVertexType) {
-		case LEFT:
+		case LEFTVARIABLE:
 			if (getLeftElement() != null)
 				return (displayName ? (String) getLeftElement()
 						.getInstAttribute("name").getValue() : getLeftElement()
 						.getIdentifier())
 						+ "_" + getLeftAttributeName();
 			break;
-		case RIGHT:
+		case RIGHTVARIABLE:
 			if (getRightElement() != null)
 				return (displayName ? (String) getRightElement()
 						.getInstAttribute("name").getValue()
@@ -1017,10 +1038,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 
 	public InstElement getSideElement(ExpressionVertexType expressionVertexType) {
 		switch (expressionVertexType) {
-		case LEFT:
+		case LEFTVARIABLE:
 		case LEFTVARIABLEVALUE:
 			return getLeftElement();
-		case RIGHT:
+		case RIGHTVARIABLE:
 		case RIGHTVARIABLEVALUE:
 			return getRightElement();
 		default:
@@ -1031,11 +1052,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setInstElement(InstElement vertex,
 			ExpressionVertexType expressionVertexType) {
 		switch (expressionVertexType) {
-		case LEFT:
+		case LEFTVARIABLE:
 		case LEFTVARIABLEVALUE:
 			this.setLeftElement(vertex);
 			break;
-		case RIGHT:
+		case RIGHTVARIABLE:
 		case RIGHTVARIABLEVALUE:
 			this.setRightElement(vertex);
 		default:
@@ -1045,10 +1066,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public void setAttributeName(String attributeName,
 			ExpressionVertexType expressionVertexType) {
 		switch (expressionVertexType) {
-		case LEFT:
+		case LEFTVARIABLE:
 			this.setLeftAttributeName(attributeName);
 			break;
-		case RIGHT:
+		case RIGHTVARIABLE:
 			this.setRightAttributeName(attributeName);
 			break;
 		case LEFTVARIABLEVALUE:
@@ -1081,10 +1102,10 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case RIGHTVARIABLEVALUE:
 				out += rightValue;
 				break;
-			case LEFT:
+			case LEFTVARIABLE:
 				out += getLeftAttributeName();
 				break;
-			case RIGHT:
+			case RIGHTVARIABLE:
 				out += getRightAttributeName();
 
 				break;
@@ -1116,21 +1137,20 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				.getLeftExpressionType();
 
 		switch (type) {
-		case LEFTRELATIONCONCEPT:
 		case LEFTSUBEXPRESSION:
 			leftInstanceExpression = new InstanceExpression(false,
 					volatileSemanticExpression.getLeftSemanticExpression());
 			leftInstanceExpression.createFromSemanticExpression(instElement,
 					pos);
 			break;
-		case LEFTNUMERICEXPRESSIONVALUE:
+		case LEFTNUMERICVALUE:
 			this.leftValue = volatileSemanticExpression.getLeftNumber() + "";
 			this.volatileLeftInstElement = instElement;
 			break;
 		case LEFTVARIABLEVALUE:
 		case LEFTSTRINGVALUE:
 			this.leftValue = volatileSemanticExpression.getLeftString();
-		case LEFT:
+		case LEFTVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:
 		case LEFTUNIQUEINCRELVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
@@ -1138,8 +1158,18 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTCONCEPTVARIABLE: // TODO verify
 			this.volatileLeftInstElement = instElement;
 			break;
-		case LEFTCONCEPTTYPEVARIABLE:
-			if (pos < refas.getVariabilityVertex().values().size()) {
+		case LEFTITERCONCEPTVARIABLE:
+			if (pos < refas.getVariabilityVertexMC("GeneralElement").size()) {
+				leftInstanceExpression = new InstanceExpression(refas, false,
+						this.getSemanticExpression()
+								.getLeftSemanticExpression());
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			}
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTITERFIXEDVARIABLE:
+			if (pos < refas.getVariabilityVertexMC("GeneralElement").size()) {
 				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
@@ -1183,14 +1213,15 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 						instElement, pos);
 			break;
 
-		case RIGHTNUMERICEXPRESSIONVALUE:
+		case RIGHTNUMERICVALUE:
 			this.rightValue = volatileSemanticExpression.getRightNumber() + "";
 			this.volatileRightInstElement = instElement;
 			break;
 		case RIGHTVARIABLEVALUE:
 		case RIGHTSTRINGVALUE:
 			this.rightValue = volatileSemanticExpression.getRightString();
-		case RIGHT:
+		case RIGHTVARIABLE:
+		case RIGHTCONCEPTVARIABLE:
 		case RIGHTUNIQUEOUTRELVARIABLE:
 		case RIGHTUNIQUEINCRELVARIABLE:
 		case RIGHTUNIQUEOUTCONVARIABLE:

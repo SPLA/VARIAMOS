@@ -84,6 +84,7 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
+import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
 import com.variamos.perspsupport.perspmodel.RefasModel;
@@ -1587,6 +1588,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// TODO support all operations dynamically
 	public void executeOperation(String operation) {
+		// TODO support multiple models selected from the menu
+		InstElement refas = refasModel.getSyntaxRefas().getVertex("REFAS");
+		InstVertex element = new InstConcept("REFAS1",
+				refas.getEditableMetaElement());
+		element.createInstAttributes(null);
+		this.refasModel.getVariabilityVertex().put("REFAS1", element);
 		System.out.println(operation);
 		executeSimulation(true, true, operation, true, operation);
 
