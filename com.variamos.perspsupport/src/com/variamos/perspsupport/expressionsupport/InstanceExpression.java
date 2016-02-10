@@ -393,7 +393,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTITERCONCEPTVARIABLE:
 		case LEFTITERFIXEDVARIABLE:
 			elements = new ArrayList<InstElement>();
-			elements.addAll(refas.getVariabilityVertexMC("GeneralElement"));
+			String elemetType = this.getSemanticExpression()
+					.getLeftSemanticElement().getIdentifier();
+			elements.addAll(refas.getVariabilityVertexMC(elemetType));
 			size = elements.size();
 			break;
 		case LEFTITERINCRELVARIABLE:
@@ -635,7 +637,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case LEFTITERCONCEPTVARIABLE:
 				iter = true;
 				pos = -1;
-				if (pos <= size - 2)
+				String elemetType = this.getSemanticExpression()
+						.getLeftSemanticElement().getIdentifier();
+				if (pos >= refas.getVariabilityVertexMC(elemetType).size() - 1)
 					iter = false;
 				break;
 
@@ -657,6 +661,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case RIGHTUNIQUEINCCONVARIABLE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
 					out.add(getIdentifier(expressionType, pos));
 				break;
@@ -677,26 +686,47 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			case RIGHTSUBEXPRESSION:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
 					out.add(rightInstanceExpression.createExpression(0));
 				break;
 			case RIGHTCONCEPTVARIABLE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
 					out.add(getIdentifier(expressionType, pos));
 				break;
 			case RIGHTNUMERICVALUE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getRightNumber()));
+
 				break;
 			case RIGHTVARIABLEVALUE:
 			case RIGHTSTRINGVALUE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 && !iter)
+					// FIXME support other types of default values for iter
+					// expressions
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getLeftSemanticExpression().getRightNumber()));
 				if (pos == -1 || !iter)
 					out.add(hlclFactory
 							.number(getVariableIntValue(expressionType)));
@@ -1159,7 +1189,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			this.volatileLeftInstElement = instElement;
 			break;
 		case LEFTITERCONCEPTVARIABLE:
-			if (pos < refas.getVariabilityVertexMC("GeneralElement").size()) {
+			String elemetType = this.getSemanticExpression()
+					.getLeftSemanticElement().getIdentifier();
+			if (pos < refas.getVariabilityVertexMC(elemetType).size()) {
 				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression()
 								.getLeftSemanticExpression());
@@ -1169,7 +1201,9 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			this.volatileLeftInstElement = instElement;
 			break;
 		case LEFTITERFIXEDVARIABLE:
-			if (pos < refas.getVariabilityVertexMC("GeneralElement").size()) {
+			elemetType = this.getSemanticExpression().getLeftSemanticElement()
+					.getIdentifier();
+			if (pos < refas.getVariabilityVertexMC(elemetType).size()) {
 				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
