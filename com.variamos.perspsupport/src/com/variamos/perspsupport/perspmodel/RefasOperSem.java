@@ -1132,12 +1132,13 @@ public class RefasOperSem {
 				"***Selected***", true, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("True", attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("False", "Boolean", false,
 				"***NotSelected***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("False", attribute);
-		// simulOperationSubAction.addInVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
 				"***Selected***", false, 2, -1, "", "", -1, "", "");
@@ -2377,6 +2378,18 @@ public class RefasOperSem {
 
 		refas.getVariabilityVertex().put("GeneralGroup", instVertexGR);
 
+		attribute = new ExecCurrentStateAttribute("True", "Boolean", false,
+				"***Selected***", true, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralGroup.putSemanticAttribute("True", attribute);
+		simulOperationSubAction.addInVariable(attribute);
+
+		attribute = new ExecCurrentStateAttribute("False", "Boolean", false,
+				"***NotSelected***", false, 2, -1, "", "", -1, "", "");
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		semGeneralGroup.putSemanticAttribute("False", attribute);
+		simulOperationSubAction.addInVariable(attribute);
+
 		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
 				"***Selected***", false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -2396,16 +2409,6 @@ public class RefasOperSem {
 
 		SemanticOverTwoRelation semHardOverTwoRelation = new SemanticOverTwoRelation(
 				semGeneralGroup, "OverTwoRelation", hardSemOverTwoRelList);
-
-		attribute = new ExecCurrentStateAttribute("True", "Boolean", false,
-				"***Selected***", true, 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semHardOverTwoRelation.putSemanticAttribute("True", attribute);
-
-		attribute = new ExecCurrentStateAttribute("False", "Boolean", false,
-				"***NotSelected***", false, 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		semHardOverTwoRelation.putSemanticAttribute("False", attribute);
 
 		InstVertex instVertexHHGR = new InstConcept("GoalOTAsso",
 				metaOverTwoRelation, semHardOverTwoRelation);
@@ -2463,7 +2466,7 @@ public class RefasOperSem {
 				"", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
 
 		ias.add(new InstAttribute("range", new AbstractAttribute("range",
-				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
+				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
 				"", ""), "range#range#false#true#true#1#-1#1#1"));
 
 		ia = instVertexHHGR.getInstAttribute("relationTypesSemExpressions");
@@ -3825,6 +3828,121 @@ public class RefasOperSem {
 
 		InstVertex instVertexCLGR = new InstConcept("OperCLOTAsso",
 				metaOverTwoRelation, semanticOperClaimGroupRelation);
+
+		ia = instVertexCLGR.getInstAttribute("relationTypesAttributes");
+		ias = (List<InstAttribute>) ia.getValue();
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
+				""), "and#and#true#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
+				""), "or#or#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
+				"", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
+
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
+				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
+				"", ""), "range#range#false#true#true#1#-1#1#1"));
+
+		ia = instVertexCLGR.getInstAttribute("relationTypesSemExpressions");
+		ias = (List<InstAttribute>) ia.getValue();
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+				.get("And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOper, "Selected", "True");
+
+		t1 = new SemanticExpression("ANDhardRel", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, t1, "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
+				""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+				.get("Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOper, "Selected", "False");
+
+		t1 = new SemanticExpression("ORhardRel", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
+				instVertexOper, t1, "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
+				""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+				instVertexOper, "Selected", 0);
+
+		t1 = new SemanticExpression("sub2", refas.getSemanticExpressionTypes()
+				.get("Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCLGR, instVertexOper, t1, 1);
+
+		t1 = new SemanticExpression("MUTEXhardRel", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				instVertexHC, "Selected", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
+				"", ""), semanticExpressions));
+
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		t2 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCLGR, instVertexOper, null, "Selected", "True", true);
+
+		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
+				.get("GreaterOrEq"), t2,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexCLGR,
+				"LowRange");
+
+		t2 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+				instVertexCLGR, instVertexOper, null, "Selected", "True", true);
+
+		t3 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
+				.get("LessOrEquals"), t2,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexCLGR,
+				"HighRange");
+
+		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
+				.get("And"), t1, t3);
+
+		t1 = new SemanticExpression("RANGEHardRel", refas
+				.getSemanticExpressionTypes().get("Equals"), instVertexCLGR,
+				"Selected", true, t1);
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
+				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
+				"", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("OperCLOTAsso", instVertexCLGR);
 

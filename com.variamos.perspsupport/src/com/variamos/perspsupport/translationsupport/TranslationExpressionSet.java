@@ -137,23 +137,38 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							// expressions
 							if (att.getType()
 									.equals(InstanceExpression.class
-											.getCanonicalName())
-									&& (InstanceExpression) att.getValue() != null) {
-								InstanceExpression instanceExpression = new InstanceExpression(
-										true, "cond", true);
-								instanceExpression
-										.setSemanticExpressionType(refas
-												.getSemanticExpressionTypes()
-												.get("DoubleImplies"));
-								instanceExpression.setLeftElement(instE);
-								instanceExpression.setLeftAttributeName(att
-										.getIdentifier());
-								instanceExpression
-										.setRightInstanceExpression((InstanceExpression) att
-												.getValue());
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-								out.add(instanceExpression);
+											.getCanonicalName())) {
+								if ((InstanceExpression) att.getValue() != null) {
+									InstanceExpression instanceExpression = new InstanceExpression(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("DoubleImplies"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									instanceExpression
+											.setRightInstanceExpression((InstanceExpression) att
+													.getValue());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+									out.add(instanceExpression);
+								} else {
+									InstanceExpression instanceExpression = new InstanceExpression(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("Equals"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+									instanceExpression.setRightNumber(1);
+									out.add(instanceExpression);
+								}
 							}
 						}
 						for (AbstractAttribute var : operSubAction
