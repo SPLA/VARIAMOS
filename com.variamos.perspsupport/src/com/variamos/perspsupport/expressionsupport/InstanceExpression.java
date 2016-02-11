@@ -303,7 +303,8 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 				factoryMethod = hlclFactoryClass.getMethod(
 						semanticExpressionType.getMethod(), parameter1,
 						parameter2);
-
+				// System.out.println(expressionTerms.get(0) + " "
+				// + expressionTerms.get(1));
 				return (Expression) factoryMethod.invoke(hlclFactory,
 						parameter1.cast(expressionTerms.get(0)),
 						parameter2.cast(expressionTerms.get(1)));
@@ -386,7 +387,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		switch (expressionVertexType) {
 
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERFIXEDVARIABLE:
+		case LEFTITERCONFIXEDVARIABLE:
 			elements = new ArrayList<InstElement>();
 			String elemetType = this.getSemanticExpression()
 					.getLeftSemanticElement().getIdentifier();
@@ -395,11 +396,15 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITERINCCONVARIABLE:
+		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTITERINCRELFIXEDVARIABLE:
 			elements = volatileLeftInstElement.getSourceRelations();
 			out = volatileLeftInstElement.getSourceRelations().size();
 			break;
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
+		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTITEROUTRELFIXEDVARIABLE:
 			elements = volatileLeftInstElement.getTargetRelations();
 			out = volatileLeftInstElement.getTargetRelations().size();
 			break;
@@ -418,7 +423,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		switch (expressionVertexType) {
 
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERFIXEDVARIABLE:
+		case LEFTITERCONFIXEDVARIABLE:
 			elements = new ArrayList<InstElement>();
 			String elemetType = this.getSemanticExpression()
 					.getLeftSemanticElement().getIdentifier();
@@ -426,13 +431,23 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			size = elements.size();
 			break;
 		case LEFTITERINCRELVARIABLE:
+		case LEFTITERINCRELFIXEDVARIABLE:
 		case LEFTITERINCCONVARIABLE:
+		case LEFTITERINCCONFIXEDVARIABLE:
 			elements = volatileLeftInstElement.getSourceRelations();
 			size = volatileLeftInstElement.getSourceRelations().size();
 			break;
 		case LEFTITEROUTRELVARIABLE:
+		case LEFTITEROUTRELFIXEDVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
+		case LEFTITEROUTCONFIXEDVARIABLE:
 			elements = volatileLeftInstElement.getTargetRelations();
+			size = volatileLeftInstElement.getTargetRelations().size();
+			break;
+		case LEFTITERANYCONVARIABLE:
+		case LEFTITERANYFIXEDVARIABLE:
+			elements = volatileLeftInstElement.getTargetRelations();
+			elements.addAll(volatileLeftInstElement.getSourceRelations());
 			size = volatileLeftInstElement.getTargetRelations().size();
 			break;
 		case LEFTUNIQUEOUTRELVARIABLE:
@@ -480,22 +495,26 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			expAttributeName = getSemanticExpression()
 					.getLeftSemanticExpression().getLeftAttributeName();
 			break;
-		case LEFTITERFIXEDVARIABLE:
+		case LEFTITERCONFIXEDVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 
 			break;
 		case LEFTITERINCRELVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
+		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTITEROUTRELFIXEDVARIABLE:
 			expInstElement = elements.get(pos);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 
 		case LEFTITERINCCONVARIABLE:
+		case LEFTITERINCCONFIXEDVARIABLE:
 			expInstElement = elements.get(pos).getSourceRelations().get(0);
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTITEROUTCONVARIABLE:
+		case LEFTITEROUTCONFIXEDVARIABLE:
 			expInstElement = elements.get(pos).getTargetRelations().get(0);
 			;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
@@ -668,7 +687,11 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					iter = false;
 				break;
 
-			case LEFTITERFIXEDVARIABLE:
+			case LEFTITERCONFIXEDVARIABLE:
+			case LEFTITERINCCONFIXEDVARIABLE:
+			case LEFTITEROUTCONFIXEDVARIABLE:
+			case LEFTITERINCRELFIXEDVARIABLE:
+			case LEFTITEROUTRELFIXEDVARIABLE:
 				iter = true;
 			case LEFTVARIABLE:
 			case LEFTUNIQUEOUTRELVARIABLE:
@@ -720,41 +743,45 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 					out.add(rightInstanceExpression.createExpression(0));
 				break;
 			case RIGHTCONCEPTVARIABLE:
-				if (iter)
+				if (iter) {
+					if (leftInstanceExpression == null)
+						System.out.println("leftInstanceExpression null");
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				}
+				if (pos == -1 || !iter)
+					out.add(getIdentifier(expressionType, pos));
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getLeftSemanticExpression().getRightNumber()));
-				if (pos == -1 || !iter)
-					out.add(getIdentifier(expressionType, pos));
 				break;
 			case RIGHTNUMERICVALUE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 || !iter)
+					out.add(hlclFactory.number(getSemanticExpression()
+							.getRightNumber()));
+
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getLeftSemanticExpression().getRightNumber()));
-				if (pos == -1 || !iter)
-					out.add(hlclFactory.number(getSemanticExpression()
-							.getRightNumber()));
 
 				break;
 			case RIGHTVARIABLEVALUE:
 			case RIGHTSTRINGVALUE:
 				if (iter)
 					out.add(leftInstanceExpression.createExpression(pos + 1));
+				if (pos == -1 || !iter)
+					out.add(hlclFactory
+							.number(getVariableIntValue(expressionType)));
 				if (pos == -1 && !iter)
 					// FIXME support other types of default values for iter
 					// expressions
 					out.add(hlclFactory.number(getSemanticExpression()
 							.getLeftSemanticExpression().getRightNumber()));
-				if (pos == -1 || !iter)
-					out.add(hlclFactory
-							.number(getVariableIntValue(expressionType)));
 				break;
 			default:
 				break;
@@ -1225,7 +1252,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
-		case LEFTITERFIXEDVARIABLE:
+		case LEFTITERCONFIXEDVARIABLE:
 			elemetType = this.getSemanticExpression().getLeftSemanticElement()
 					.getIdentifier();
 			if (pos < refas.getVariabilityVertexMC(elemetType).size()) {
@@ -1240,6 +1267,17 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTITERINCCONVARIABLE:
 			if (pos < instElement.getSourceRelations().size()) {
 				leftInstanceExpression = new InstanceExpression(refas, false,
+						this.getSemanticExpression()
+								.getLeftSemanticExpression());
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			}
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTITERINCRELFIXEDVARIABLE:
+			if (pos < instElement.getSourceRelations().size()) {
+				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
 						instElement, pos + 1);
@@ -1248,6 +1286,17 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 			break;
 		case LEFTITEROUTCONVARIABLE:
 		case LEFTITEROUTRELVARIABLE:
+			if (pos < instElement.getTargetRelations().size()) {
+				leftInstanceExpression = new InstanceExpression(refas, false,
+						this.getSemanticExpression()
+								.getLeftSemanticExpression());
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			}
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTITEROUTRELFIXEDVARIABLE:
 			if (pos < instElement.getTargetRelations().size()) {
 				leftInstanceExpression = new InstanceExpression(refas, false,
 						this.getSemanticExpression());

@@ -220,7 +220,6 @@ public abstract class InstVertex extends InstElement {
 		// + insAttributeLocalId);
 		if (this.getInstAttribute(insAttributeLocalId) == null) {
 			this.createInstAttributes(null);
-			this.createInstAttributes(null);
 			if (this.getInstAttribute(insAttributeLocalId) == null) {
 				System.out.println("InstV null:" + this.getIdentifier()
 						+ insAttributeLocalId);

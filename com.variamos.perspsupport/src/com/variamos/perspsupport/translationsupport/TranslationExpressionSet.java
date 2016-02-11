@@ -84,10 +84,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		// List<InstElement> semModel = refas.getVariabilityVertex("CSModel");
 		// for (InstElement oper : semModel) {
-		InstElement oper2 = refas.getElement("REFAS1");
-		IntSemanticElement semModelElement = oper2.getEditableSemanticElement();
+		// InstElement oper2 = refas.getElement("REFAS1");
+		// IntSemanticElement semModelElement =
+		// oper2.getEditableSemanticElement();
 
-		out.addAll(createElementInstanceExpressions(oper2));
+		// out.addAll(createElementInstanceExpressions(oper2));
 		// TODO create expressions for model concepts
 
 		// if (instElement == null)

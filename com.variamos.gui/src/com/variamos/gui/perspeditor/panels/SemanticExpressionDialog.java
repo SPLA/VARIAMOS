@@ -347,7 +347,7 @@ public class SemanticExpressionDialog extends JDialog {
 		if (semanticExpression != null
 				&& semanticExpression.getLeftExpressionType() != null)
 			switch (semanticExpression.getLeftExpressionType()) {
-			case LEFTITERFIXEDVARIABLE:
+			case LEFTITERCONFIXEDVARIABLE:
 				leftSide.setSelectedItem("An Element Fixed");
 				break;
 			case LEFTSUBEXPRESSION:
@@ -576,36 +576,36 @@ public class SemanticExpressionDialog extends JDialog {
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITEROUTCONFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals("A Concept Type Variable")) {
 			iterativeType = ExpressionVertexType.LEFTITERCONCEPTVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERCONFIXEDVARIABLE;
 		}
 		if (iterativeType != null)
 			if (semanticExpression.getSemanticExpressionType() != null) {
