@@ -2,7 +2,7 @@ package com.variamos.prologEditors;
 
 import java.util.List;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 
 public class PrologTransformParameters {

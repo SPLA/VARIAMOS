@@ -5,6 +5,7 @@ import java.util.List;
 import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.semantic.types.AttributeType;
 import com.variamos.semantic.types.LevelType;
 import com.variamos.semantic.types.SatisficingType;
 
@@ -101,8 +102,9 @@ public class SemanticPairwiseRelation extends AbstractSemanticElement implements
 
 	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
-				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
-				VAR_RELATIONTYPE_CLASS, null, "", 0, 6, "", "", 6, "#-#\n",""));
+				VAR_RELATIONTYPE_IDEN, "Class", AttributeType.OPERATION, true,
+				VAR_RELATIONTYPE_NAME, VAR_RELATIONTYPE_CLASS, null, "", 0, 6,
+				"", "", 6, "#-#\n", ""));
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);

@@ -13,6 +13,8 @@ import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
+import com.variamos.semantic.types.AttributeType;
 
 public class RefasSyntax {
 	public static void createDefaultSyntax(RefasModel refas) {
@@ -2131,8 +2133,8 @@ public class RefasSyntax {
 
 		syntaxClaim
 				.addModelingAttribute("conditionalExpression",
-						new SemanticAttribute("conditionalExpression",
-								"String", false, "Cond. Expression Text", "",
+						new SyntaxAttribute("conditionalExpression",
+								"String",AttributeType.SYNTAX, false, "Cond. Expression Text", "",
 								0, -1, "", "", -1, "", ""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.Labeling;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 
 public class ConfigurationOptions {
@@ -19,16 +20,18 @@ public class ConfigurationOptions {
 	// The solutions order is influenced by min or max expressions
 	private boolean order;
 
+	// jcmunoz: new multi-labeling support
+	private List<Labeling> labelings;
 	// Mandatory list when order is necessary
 	private List<LabelingOrder> labelingOrder;
 	private List<NumericExpression> orderExpressions;
 
 	// Sirve para saber cuando cerrar la conexión anterior para abrir una nueva
 	public boolean startFromZero;
-	
-	public String programName; 
-	
-	//Sirve para cargar directamente un archivo que ya existe en prolog
+
+	public String programName;
+
+	// Sirve para cargar directamente un archivo que ya existe en prolog
 	public String programPath;
 
 	public ConfigurationOptions() {

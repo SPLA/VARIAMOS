@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.syntaxsupport;
 
 import com.variamos.hlcl.Domain;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -19,61 +20,54 @@ public class SemanticAttribute extends AbstractAttribute {
 	}
 
 	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, defaultValue,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
-
-	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		super(name, type, attributeType, affectProperties, displayName,
 				defaultValue, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition);
 	}
 
-	public SemanticAttribute(String name, String type, String displayName,
+	public SemanticAttribute(String name, String type,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType, Object defaultValue,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		super(name, type, attributeType, affectProperties, displayName,
+				enumType, defaultValue, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	public SemanticAttribute(String name, String type,
+			AttributeType attributeType, String displayName,
 			Object defaultValue, boolean affectProperties, Domain domain,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, defaultValue, domain,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
+		super(name, type, attributeType, affectProperties, displayName,
+				defaultValue, domain, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
 	}
 
 	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			String hint, int defaultGroup, int propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, String hint,
+			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, defaultValue, hint,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
-
-	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, enumType,
+		super(name, type, attributeType, affectProperties, displayName,
 				defaultValue, hint, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
@@ -81,15 +75,30 @@ public class SemanticAttribute extends AbstractAttribute {
 	}
 
 	public SemanticAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType, Object defaultValue,
+			String hint, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		super(name, type, attributeType, affectProperties, displayName,
+				enumType, defaultValue, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	public SemanticAttribute(String name, String type,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, String hint,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, hint, defaultGroup,
-				propTabPosition, propTabEditionCondition,
+		super(name, type, attributeType, affectProperties, displayName,
+				enumType, metaConceptInstanceType, defaultValue, hint,
+				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
 	}

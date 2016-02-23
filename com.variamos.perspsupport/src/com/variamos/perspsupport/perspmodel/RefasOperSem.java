@@ -3,8 +3,8 @@ package com.variamos.perspsupport.perspmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.hlcl.HlclFactory;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
@@ -36,12 +36,14 @@ import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
+import com.variamos.perspsupport.syntaxsupport.OptionAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.semantic.types.AttributeType;
 
 public class RefasOperSem {
 	static SemanticOperationAction verifDeadElemOperationAction = null;
@@ -806,14 +808,14 @@ public class RefasOperSem {
 
 		AbstractAttribute attribute = null;
 		attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
-				false, "***TotalOrder***", 0, new RangeDomain(0, 2000), 2, -1,
-				"", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0,
+				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		refasModel.putSemanticAttribute("TotalOrder", attribute);
 
-		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer", false,
-				"***TotalOpt***", 0, new RangeDomain(0, 2000), 2, -1, "", "",
-				-1, "", "");
+		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0,
+				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		refasModel.putSemanticAttribute("TotalOpt", attribute);
 
@@ -1128,70 +1130,81 @@ public class RefasOperSem {
 
 		// Design attributes: Do not change identifiers
 
-		attribute = new ExecCurrentStateAttribute("True", "Boolean", false,
-				"***Selected***", true, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("True", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("True", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ExecCurrentStateAttribute("False", "Boolean", false,
-				"***NotSelected***", false, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("False", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
+				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("False", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
-				"***Selected***", false, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("Selected", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Selected", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
-				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
+				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
-		attribute = new SemanticAttribute("Description", "String", false,
-				"Description", "", 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Description", "String",
+				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
+				"", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Description", attribute);
 
-		attribute = new SemanticAttribute("Required", "Boolean", true,
-				"Is Required", false, 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Required", "Boolean",
+				AttributeType.OPERATION, true, "Is Required", false, 2, -1, "",
+				"", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Required", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new SemanticAttribute("Scope", "Boolean", true,
-				"Global Scope", true, 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
+				"", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		// TODO use scope
 
-		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
-				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
-				null, "", 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				InstConcept.class.getCanonicalName(), "CG", null, "", 2, -1,
+				"", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
 
-		attribute = new SemanticAttribute("Core", "Boolean", false,
-				"Is a Core Concept", false, 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Core", "Boolean",
+				AttributeType.OPERATION, false, "Is a Core Concept", false, 2,
+				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Core", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new SemanticAttribute("Dead", "Boolean", false,
-				"Is a Dead Concept", false, 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Dead", "Boolean",
+				AttributeType.OPERATION, false, "Is a Dead Concept", false, 2,
+				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("IgnoreForSimulation", "Boolean",
-				true, "Ignore for Simulation", false, 0, -1, "", "", -1, "", "");
+				AttributeType.OPERATION, true, "Ignore for Simulation", false,
+				0, -1, "", "", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement
 				.putSemanticAttribute("IgnoreForSimulation", attribute);
@@ -1219,53 +1232,57 @@ public class RefasOperSem {
 
 		// Configuration attributes: do no change identifiers
 
-		attribute = new GlobalConfigAttribute("Active", "Boolean", true,
-				"Is Active", true, 0, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("Active", "Boolean",
+				AttributeType.GLOBALCONFIG, true, "Is Active", true, 0, -1, "",
+				"", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Active", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new GlobalConfigAttribute("Visibility", "Boolean", false,
-				"Is Visible", true, 0, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("Visibility", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Is Visible", true, 0, -1,
+				"", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Visibility", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new GlobalConfigAttribute("Allowed", "Boolean", true,
-				"Is Allowed", true, 0, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("Allowed", "Boolean",
+				AttributeType.GLOBALCONFIG, true, "Is Allowed", true, 0, -1,
+				"", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("RequiredLevel", "Integer",
-				"Required Level", 0, false, new RangeDomain(0, 4), 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, "Required Level", 0, false,
+				new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("RequiredLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 		// TODO define domain or Enum Level
 
 		attribute = new GlobalConfigAttribute("ConfigSelected", "Boolean",
-				true, "Configuration Selected", false, 2, -1, "", "", -1, "",
-				"");
+				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
+				false, 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConfigSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ConfigNotSelected", "Boolean",
-				true, "Configuration Not Selected", false, 2, -1, "", "", -1,
-				"", "");
+				AttributeType.GLOBALCONFIG, true, "Configuration Not Selected",
+				false, 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
-				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("DashBoardVisible", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
-				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
-				"");
+				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
+				true, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ExportOnConfig", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -1292,63 +1309,67 @@ public class RefasOperSem {
 		// Simulation attributes: do not modify identifiers
 
 		attribute = new ExecCurrentStateAttribute("InitialRequiredLevel",
-				"Integer", false, "Initial Required Level", 0, new RangeDomain(
-						0, 5), 0, -1, "", "", -1, "", "");
+				"Integer", AttributeType.EXECCURRENTSTATE, false,
+				"Initial Required Level", 0, new RangeDomain(0, 5), 0, -1, "",
+				"", -1, "", "");
 		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationOperationAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("SimRequiredLevel",
-				"Integer", false, "Required Level", 0, new RangeDomain(0, 5),
-				0, -1, "", "", -1, "", "");
+				"Integer", AttributeType.EXECCURRENTSTATE, false,
+				"Required Level", 0, new RangeDomain(0, 5), 0, -1, "", "", -1,
+				"", "");
 		semGeneralElement.putSemanticAttribute("SimRequiredLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ExecCurrentStateAttribute("HasParent", "Boolean",
-				false, "Has Parent", true, 0, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "Has Parent", true, 0,
+				-1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("HasParent", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
-		attribute = new ExecCurrentStateAttribute("Opt", "Integer", false,
-				"FilterVariable", 0, new RangeDomain(0, 20), 0, -1, "", "", -1,
-				"", "");
+		attribute = new ExecCurrentStateAttribute("Opt", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "FilterVariable", 0,
+				new RangeDomain(0, 20), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Opt", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ExecCurrentStateAttribute("Order", "Integer", false,
-				"SortVariable", 0, new RangeDomain(0, 40), 0, -1, "", "", -1,
-				"", "");
+		attribute = new ExecCurrentStateAttribute("Order", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "SortVariable", 0,
+				new RangeDomain(0, 40), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Order", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
-				false, "Not selected(inactive)", false, 0, -1, "", "", -1, "",
-				"");
+				AttributeType.EXECCURRENTSTATE, false,
+				"Not selected(inactive)", false, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextPrefSelected",
-				"Boolean", false, "Selected by configuration", false, 0, -1,
-				"", "", -1, "", "");
+				"Boolean", AttributeType.EXECCURRENTSTATE, false,
+				"Selected by configuration", false, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotPrefSelected",
-				"Boolean", false, "Not Selected by configuration", false, 0,
-				-1, "", "", -1, "", "");
+				"Boolean", AttributeType.EXECCURRENTSTATE, false,
+				"Not Selected by configuration", false, 0, -1, "", "", -1, "",
+				"");
 		semGeneralElement
 				.putSemanticAttribute("NextNotPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextReqSelected", "Boolean",
-				false, "Selected by simulation", false, 0, -1, "", "", -1, "",
-				"");
+				AttributeType.EXECCURRENTSTATE, false,
+				"Selected by simulation", false, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addOutVariable(attribute);
@@ -1366,7 +1387,7 @@ public class RefasOperSem {
 				"semHardConcept");
 
 		attribute = new SemanticAttribute("satisfactionType", "Enumeration",
-				false, "satisfactionType",
+				AttributeType.OPERATION, false, "satisfactionType",
 				"com.variamos.semantic.types.SatisfactionType", "achieve", "",
 				0, -1, "", "", -1, "", "");
 		semHardConcept.putSemanticAttribute("satisfactionType", attribute);
@@ -1414,8 +1435,9 @@ public class RefasOperSem {
 		InstVertex instVertexF = new InstConcept("Feature", metaConcept,
 				semFeature);
 
-		attribute = new SemanticAttribute("IsRootFeature", "Boolean", true,
-				"Is a Root Feature Concept", false, 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("IsRootFeature", "Boolean",
+				AttributeType.OPERATION, true, "Is a Root Feature Concept",
+				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semFeature.putSemanticAttribute("IsRootFeature", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
@@ -1549,8 +1571,9 @@ public class RefasOperSem {
 		SemanticConcept semOperationalization = new SemanticConcept(
 				semHardConcept, "Operationalization");
 
-		attribute = new SyntaxAttribute("attributeValue", "Set", false,
-				"values", InstAttribute.class.getCanonicalName(),
+		attribute = new SyntaxAttribute("attributeValue", "Set",
+				AttributeType.SYNTAX, false, "values",
+				InstAttribute.class.getCanonicalName(),
 				new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
 		semOperationalization.putSemanticAttribute("attributeValue", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -1578,7 +1601,8 @@ public class RefasOperSem {
 		d.add("high");
 		d.add("close");
 		attribute = new SemanticAttribute("satisficingLevel", "String",
-				"Satisficing Level", "low", false, d, 0, 10, "", "", -1, "", "");
+				AttributeType.OPERATION, "Satisficing Level", "low", false, d,
+				0, 10, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
@@ -1586,7 +1610,8 @@ public class RefasOperSem {
 		semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
 
 		attribute = new SemanticAttribute(
-				SoftSemanticConcept.VAR_SATISFICINGTYPE, "Enumeration", false,
+				SoftSemanticConcept.VAR_SATISFICINGTYPE, "Enumeration",
+				AttributeType.OPERATION, false,
 				SoftSemanticConcept.VAR_SATISFICINGTYPENAME,
 				SoftSemanticConcept.VAR_SATISFICINGTYPECLASS,
 				"Achieve as close as possible", "", 0, 10, "", "", -1, "", "");
@@ -1595,6 +1620,7 @@ public class RefasOperSem {
 
 		attribute = new SemanticAttribute(
 				SoftSemanticConcept.VAR_CONFREQLEVELTYPE, "Integer",
+				AttributeType.OPERATION,
 				SoftSemanticConcept.VAR_CONFREQLEVELTYPENAME, 0, false,
 				new RangeDomain(0, 5), 0, 5, "Required" + "#==#" + "true" + "#"
 						+ "0", "", -1, "", "");
@@ -1698,14 +1724,15 @@ public class RefasOperSem {
 		refas.getVariabilityVertex().put("Softgoal", instVertexSG);
 
 		attribute = new ExecCurrentStateAttribute("SDReqLevel", "Integer",
-				false, "Required Level by SD", 0, new RangeDomain(0, 4), 2, -1,
-				"", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "Required Level by SD",
+				0, new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ExecCurrentStateAttribute("ClaimExpLevel", "Integer",
-				false, "Expected Level by Claim", 0, new RangeDomain(0, 4), 2,
-				-1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false,
+				"Expected Level by Claim", 0, new RangeDomain(0, 4), 2, -1, "",
+				"", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -1745,39 +1772,43 @@ public class RefasOperSem {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		attribute = new GlobalConfigAttribute("DashBoardVisible", "Boolean",
-				false, "Visible on Dashboard", true, 0, -1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("DashBoardVisible", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute("ExportOnConfig", "Boolean",
-				false, "Export on Configuration", true, 0, -1, "", "", -1, "",
-				"");
+				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
+				true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new SemanticAttribute("Scope", "Boolean", true,
-				"Global Scope", true, 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
+				"", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO use scope
 
-		attribute = new SemanticAttribute("ConcernLevel", "Class", false,
-				"Concern Level", InstConcept.class.getCanonicalName(), "CG",
-				null, "", 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				InstConcept.class.getCanonicalName(), "CG", null, "", 0, -1,
+				"", "", -1, "", "");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_NAME, "String",
-				false, SemanticVariable.VAR_NAMENAME, "", 0, 1, "", "", -1, "",
-				"");
+				AttributeType.OPERATION, false, SemanticVariable.VAR_NAMENAME,
+				"", 0, 1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_NAME, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLETYPE,
-				"Enumeration", true, SemanticVariable.VAR_VARIABLETYPENAME,
+				"Enumeration", AttributeType.OPERATION, true,
+				SemanticVariable.VAR_VARIABLETYPENAME,
 				SemanticVariable.VAR_VARIABLETYPECLASS, "String", "", 0, 2, "",
 				"", -1, "", SemanticVariable.VAR_VARIABLETYPE + "#!=#"
 						+ "Enumeration");
@@ -1786,16 +1817,18 @@ public class RefasOperSem {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
-				"String", false, SemanticVariable.VAR_VARIABLEDOMAINNAME,
-				"0,1", 0, 3, SemanticVariable.VAR_VARIABLETYPE + "#==#"
-						+ "Integer", SemanticVariable.VAR_VARIABLETYPE + "#==#"
-						+ "Integer", -1, "", "");
+				"String", AttributeType.OPERATION, false,
+				SemanticVariable.VAR_VARIABLEDOMAINNAME, "0,1", 0, 3,
+				SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer",
+				SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer", -1, "",
+				"");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_VARIABLEDOMAIN,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_ENUMERATIONTYPE,
-				"Class", false, SemanticVariable.VAR_ENUMERATIONTYPENAME,
+				"Class", AttributeType.OPERATION, false,
+				SemanticVariable.VAR_ENUMERATIONTYPENAME,
 				SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "String", "",
 				0, 4, SemanticVariable.VAR_VARIABLETYPE + "#==#"
 						+ "Enumeration", SemanticVariable.VAR_VARIABLETYPE
@@ -1806,34 +1839,38 @@ public class RefasOperSem {
 
 		// TODO define domain for enumtype
 		attribute = new ExecCurrentStateAttribute(SemanticVariable.VAR_VALUE,
-				"Integer", false, SemanticVariable.VAR_VALUENAME, 0, 1, -1, "",
-				"", -1, "", "");
+				"Integer", AttributeType.EXECCURRENTSTATE, false,
+				SemanticVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_VALUE, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_CONTEXT,
-				"Boolean", false, SemanticVariable.VAR_CONTEXTNAME, false, 0,
-				5, "", "", -1, "", "");
+				"Boolean", AttributeType.OPERATION, false,
+				SemanticVariable.VAR_CONTEXTNAME, false, 0, 5, "", "", -1, "",
+				"");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_CONTEXT,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
-				"Boolean", false, SemanticVariable.VAR_EXTVISIBLENAME, false,
-				0, 8, "", "", -1, "", "");
+				"Boolean", AttributeType.OPERATION, false,
+				SemanticVariable.VAR_EXTVISIBLENAME, false, 0, 8, "", "", -1,
+				"", "");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTVISIBLE,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
-				"Boolean", false, SemanticVariable.VAR_EXTCONTROLNAME, false,
-				0, 9, "", "", -1, "", "");
+				"Boolean", AttributeType.OPERATION, false,
+				SemanticVariable.VAR_EXTCONTROLNAME, false, 0, 9, "", "", -1,
+				"", "");
 		semVariable.putSemanticAttribute(SemanticVariable.VAR_EXTCONTROL,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute(
-				SemanticVariable.VAR_VARIABLECONFIGVALUE, "Integer", false,
+				SemanticVariable.VAR_VARIABLECONFIGVALUE, "Integer",
+				AttributeType.GLOBALCONFIG, false,
 				SemanticVariable.VAR_VARIABLECONFIGVALUENAME, 0, 0, -1, "", "",
 				-1, "", "");
 		semVariable.putSemanticAttribute(
@@ -1841,7 +1878,8 @@ public class RefasOperSem {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new GlobalConfigAttribute(
-				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, "String", false,
+				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, "String",
+				AttributeType.GLOBALCONFIG, false,
 				SemanticVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 0, 1,
 				SemanticVariable.VAR_VARIABLETYPE + "#==#" + "Integer" + "||"
 						+ SemanticVariable.VAR_VARIABLETYPE + "#==#"
@@ -2024,9 +2062,9 @@ public class RefasOperSem {
 		ia = instDirOperClaimSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirOperClaimSemanticEdge
@@ -2057,9 +2095,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		// ia = instVertexCL.getInstAttribute("relationTypesAttributes");
 		// ias = (List<InstAttribute>) ia.getValue();
@@ -2176,31 +2215,35 @@ public class RefasOperSem {
 		instEdge.setSourceRelation(instVertexCL, true);
 
 		attribute = new SemanticAttribute("ConditionalExpression",
-				InstanceExpression.class.getCanonicalName(), false,
-				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
+				InstanceExpression.class.getCanonicalName(),
+				AttributeType.OPERATION, false, "Conditional Expression", null,
+				0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
-				"Boolean Comp. Expression", true, 0, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("CompExp", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
+				true, 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("CompExp", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new SemanticAttribute("ConfidenceLevel", "Integer",
-				"Confidence Level", 1, false, new RangeDomain(1, 5), 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, "Confidence Level", 1, false,
+				new RangeDomain(1, 5), 0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("ClaimSelected", "Boolean",
-				false, "Claim Selected", false, 0, -1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Claim Selected", false, 0,
+				-1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ClaimSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new SemanticAttribute("ClaimExpression", "String", false,
-				"Claim Expression Text", "", 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("ClaimExpression", "String",
+				AttributeType.OPERATION, false, "Claim Expression Text", "", 0,
+				-1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ClaimExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
@@ -2268,25 +2311,29 @@ public class RefasOperSem {
 		instEdge.setSourceRelation(instVertexSD, true);
 
 		attribute = new SemanticAttribute("ConditionalExpression",
-				InstanceExpression.class.getCanonicalName(), false,
-				"Conditional Expression", null, 0, -1, "", "", -1, "", "");
+				InstanceExpression.class.getCanonicalName(),
+				AttributeType.OPERATION, false, "Conditional Expression", null,
+				0, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new SemanticAttribute("SDExpression", "String", false,
-				"SD Expression Text", "", 2, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("SDExpression", "String",
+				AttributeType.OPERATION, false, "SD Expression Text", "", 2,
+				-1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("SDExpression", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new GlobalConfigAttribute("CompExp", "Boolean", false,
-				"Boolean Comp. Expression", true, 2, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("CompExp", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Boolean Comp. Expression",
+				true, 2, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("CompExp", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new GlobalConfigAttribute("SDSelected", "Boolean", false,
-				"SD Selected", false, 2, -1, "", "", -1, "", "");
+		attribute = new GlobalConfigAttribute("SDSelected", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "SD Selected", false, 2, -1,
+				"", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("SDSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -2378,32 +2425,37 @@ public class RefasOperSem {
 
 		refas.getVariabilityVertex().put("GeneralGroup", instVertexGR);
 
-		attribute = new ExecCurrentStateAttribute("True", "Boolean", false,
-				"***Selected***", true, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("True", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("True", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ExecCurrentStateAttribute("False", "Boolean", false,
-				"***NotSelected***", false, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("False", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
+				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("False", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ExecCurrentStateAttribute("Selected", "Boolean", false,
-				"***Selected***", false, 2, -1, "", "", -1, "", "");
+		attribute = new ExecCurrentStateAttribute("Selected", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("Selected", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NotAvailable", "Boolean",
-				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
+				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("NotAvailable", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 
-		attribute = new SemanticAttribute("Description", "String", false,
-				"Description", "", 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("Description", "String",
+				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
+				"", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("Description", attribute);
 
@@ -2453,21 +2505,23 @@ public class RefasOperSem {
 
 		ia = instVertexHHGR.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("and", new AbstractAttribute("and",
-				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
-				""), "and#and#true#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("and", new OptionAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), "and#and#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("or", new AbstractAttribute("or",
-				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
-				""), "or#or#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("or", new OptionAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), "or#or#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
-				"", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("range", new AbstractAttribute("range",
-				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
-				"", ""), "range#range#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("range", new OptionAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
 
 		ia = instVertexHHGR.getInstAttribute("relationTypesSemExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -2487,9 +2541,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("and", new AbstractAttribute("and",
-				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
-				""), semanticExpressions));
+		ias.add(new InstAttribute("and", new OptionAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2506,9 +2560,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("or", new AbstractAttribute("or",
-				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
-				""), semanticExpressions));
+		ias.add(new InstAttribute("or", new OptionAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2527,9 +2581,9 @@ public class RefasOperSem {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
-				"", ""), semanticExpressions));
+		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2562,9 +2616,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("range", new AbstractAttribute("range",
-				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
-				"", ""), semanticExpressions));
+		ias.add(new InstAttribute("range", new OptionAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		// List<AbstractSemanticVertex> semanticVertices = new
 		// ArrayList<AbstractSemanticVertex>();
@@ -2612,27 +2666,29 @@ public class RefasOperSem {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("alternative", new AbstractAttribute(
-				"alternative", StringType.IDENTIFIER, false, "alternative", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("alternative", new OptionAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				"altern.#altern.#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("preferred", new AbstractAttribute(
-				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", 1, -1, "", "", -1, "", ""),
 				"preferred#preferred#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
-				"", ""), "require#require#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("condition", new AbstractAttribute(
-				"condition", StringType.IDENTIFIER, false, "condition", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("condition", new OptionAttribute("condition",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", 1, -1, "", "", -1, "", ""),
 				"condition#condition#false#true#true#1#-1#1#1"));
 
 		ia = instDirHardHardSemanticEdge
@@ -2652,9 +2708,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2670,9 +2726,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("alternative", new AbstractAttribute(
-				"alternative", StringType.IDENTIFIER, false, "alternative", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("alternative", new OptionAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2692,9 +2749,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("preferred", new AbstractAttribute(
-				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
-				-1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2710,9 +2768,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "condition", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2734,9 +2793,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("condition", new AbstractAttribute(
-				"condition", StringType.IDENTIFIER, false, "condition", "", 1,
-				-1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("condition", new OptionAttribute("condition",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("GoalGoalSidePWAsso",
 				instDirHardHardSemanticEdge);
@@ -2765,14 +2825,14 @@ public class RefasOperSem {
 		ia = instDirStructHardHardSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
-				"means_ends", StringType.IDENTIFIER, false, "means_ends", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("means_ends", new OptionAttribute(
+				"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "means_ends", "", 1, -1, "", "", -1, "", ""),
 				"means_ends#means-ends#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("implication", new AbstractAttribute(
-				"implication", StringType.IDENTIFIER, false, "implication", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implication", new OptionAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
 
 		ia = instDirStructHardHardSemanticEdge
@@ -2797,9 +2857,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
-				"means_ends", StringType.IDENTIFIER, false, "means_ends", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("means_ends", new OptionAttribute(
+				"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "means_ends", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2816,9 +2877,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implication", new AbstractAttribute(
-				"implication", StringType.IDENTIFIER, false, "implication", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("implication", new OptionAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("structHardHardPWAsso",
 				instDirStructHardHardSemanticEdge);
@@ -2859,14 +2921,15 @@ public class RefasOperSem {
 		ia = instDirFeaFeatVertSemEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
-				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", 1, -1, "", "", -1, "", ""),
 				"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
-				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
-				-1, "", ""), "optional#optional#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("optional", new OptionAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", 1, -1, "", "", -1, "", ""),
+				"optional#optional#false#true#true#1#-1#1#1"));
 
 		ia = instDirFeaFeatVertSemEdge
 				.getInstAttribute("relationTypesSemExpressions");
@@ -2892,9 +2955,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
-				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
-				-1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2916,8 +2980,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		attribute = new AbstractAttribute("optional", StringType.IDENTIFIER,
-				false, "optional", "", 1, -1, "", "", -1, "", "");
+		attribute = new OptionAttribute("optional", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "optional", "", 1, -1, "", "", -1,
+				"", "");
 		ias.add(new InstAttribute("optional", attribute, semanticExpressions));
 		simulOperationSubAction.addInVariable(attribute);
 
@@ -2949,13 +3014,15 @@ public class RefasOperSem {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
-				"", ""), "require#require#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
 
 		ia = instDirFeatFeatSideSemEdge
 				.getInstAttribute("relationTypesSemExpressions");
@@ -2974,9 +3041,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -2992,9 +3059,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "condition", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"condition", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("FeatFeatSidePWAsso",
 				instDirFeatFeatSideSemEdge);
@@ -3033,9 +3101,9 @@ public class RefasOperSem {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#false#true#true#1#-1#1#1"));
 
 		ia = instDirStructHardHardSemanticEdge
@@ -3064,9 +3132,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("varAssetOperPWAsso",
@@ -3100,14 +3168,15 @@ public class RefasOperSem {
 		ia = instSemAssetPairwiseRel
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
-				"mandatory", StringType.IDENTIFIER, false, "mandatory", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"mandatory", "", 1, -1, "", "", -1, "", ""),
 				"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
-				StringType.IDENTIFIER, false, "optional", "", 1, -1, "", "",
-				-1, "", ""), "optional#optional#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("optional", new OptionAttribute("optional",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
+				"", 1, -1, "", "", -1, "", ""),
+				"optional#optional#false#true#true#1#-1#1#1"));
 
 		ia = instSemAssetPairwiseRel
 				.getInstAttribute("relationTypesSemExpressions");
@@ -3134,9 +3203,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("delegation", new AbstractAttribute(
-				"delegation", StringType.IDENTIFIER, false, "delegation", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("delegation", new OptionAttribute(
+				"delegation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "delegation", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 		t1 = new SemanticExpression("ASSESelected", refas
@@ -3159,9 +3229,9 @@ public class RefasOperSem {
 
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("assembly", new AbstractAttribute("assembly",
-				StringType.IDENTIFIER, false, "assembly", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("assembly", new OptionAttribute("assembly",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "assembly",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("varAssetPWAsso",
 				instSemAssetPairwiseRel);
@@ -3194,9 +3264,10 @@ public class RefasOperSem {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
-				"Variable Context", StringType.IDENTIFIER, false, "", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("Variable Context",
+				new OptionAttribute("Variable Context", StringType.IDENTIFIER,
+						AttributeType.OPTION, false, "", "", 1, -1, "", "", -1,
+						"", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 		ia = instSemvarcntxPairwiseRel
@@ -3205,10 +3276,10 @@ public class RefasOperSem {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
-				"Variable Context", StringType.IDENTIFIER, false,
-				"Variable Context", "", 1, -1, "", "", -1, "", ""),
-				semanticExpressions));
+		ias.add(new InstAttribute("Variable Context", new OptionAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", 1, -1, "",
+				"", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("varcntxPWAsso",
 				instSemvarcntxPairwiseRel);
@@ -3438,6 +3509,7 @@ public class RefasOperSem {
 				"SgSgPWAsso", true, sgPairwiseRelList);
 		attribute = new SemanticAttribute(
 				SemanticPairwiseRelation.VAR_SOURCE_LEVEL, "Integer",
+				AttributeType.OPERATION,
 				SemanticPairwiseRelation.VAR_SOURCE_LEVELNAME, 0, false,
 				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute(
@@ -3446,14 +3518,16 @@ public class RefasOperSem {
 
 		attribute = new SemanticAttribute(
 				SemanticPairwiseRelation.VAR_TARGET_LEVEL, "Integer",
+				AttributeType.OPERATION,
 				SemanticPairwiseRelation.VAR_TARGET_LEVELNAME, 0, false,
 				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute(
 				SemanticPairwiseRelation.VAR_TARGET_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new SemanticAttribute("AggregationLow", "Integer", false,
-				"Aggregation Low", 0, 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("AggregationLow", "Integer",
+				AttributeType.OPERATION, false, "Aggregation Low", 0, 0, -1,
+				"", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -3466,8 +3540,9 @@ public class RefasOperSem {
 
 		directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
 
-		attribute = new SemanticAttribute("AggregationHigh", "Integer", false,
-				"AggregationHigh", 0, 0, -1, "", "", -1, "", "");
+		attribute = new SemanticAttribute("AggregationHigh", "Integer",
+				AttributeType.OPERATION, false, "AggregationHigh", 0, 0, -1,
+				"", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -3502,32 +3577,34 @@ public class RefasOperSem {
 		ia = instDirSGSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("contribution", new AbstractAttribute(
-				"contribution", StringType.IDENTIFIER, false, "contribution",
-				"", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("contribution", new OptionAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", 1, -1, "", "", -1, "", ""),
 				"contribution#contribution#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), "conflict#conflict#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""),
+				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("alternative", new AbstractAttribute(
-				"alternative", StringType.IDENTIFIER, false, "alternative", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("alternative", new OptionAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				"altern.#altern.#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("preferred", new AbstractAttribute(
-				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", 1, -1, "", "", -1, "", ""),
 				"preferred#preferred#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
-				"", ""), "require#require#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", 1, -1, "", "", -1, "", ""),
+				"require#require#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("implication", new AbstractAttribute(
-				"implication", StringType.IDENTIFIER, false, "implication", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implication", new OptionAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
 
 		ia = instDirSGSGSemanticEdge
@@ -3614,9 +3691,10 @@ public class RefasOperSem {
 
 		// TODO include expressions for contribution
 
-		ias.add(new InstAttribute("contribution", new AbstractAttribute(
-				"contribution", StringType.IDENTIFIER, false, "contribution",
-				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("contribution", new OptionAttribute(
+				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "contribution", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3631,9 +3709,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
-				StringType.IDENTIFIER, false, "conflict", "", 1, -1, "", "",
-				-1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3650,9 +3728,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("alternative", new AbstractAttribute(
-				"alternative", StringType.IDENTIFIER, false, "alternative", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("alternative", new OptionAttribute(
+				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "alternative", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3672,9 +3751,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("preferred", new AbstractAttribute(
-				"preferred", StringType.IDENTIFIER, false, "preferred", "", 1,
-				-1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"preferred", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3690,9 +3770,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new AbstractAttribute("require",
-				StringType.IDENTIFIER, false, "require", "", 1, -1, "", "", -1,
-				"", ""), semanticExpressions));
+		ias.add(new InstAttribute("require", new OptionAttribute("require",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3709,9 +3789,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implication", new AbstractAttribute(
-				"implication", StringType.IDENTIFIER, false, "implication", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("implication", new OptionAttribute(
+				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implication", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("SgSgPWAsso", instDirSGSGSemanticEdge);
 
@@ -3787,9 +3868,10 @@ public class RefasOperSem {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
-				"Variable Context", StringType.IDENTIFIER, false, "", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("Variable Context",
+				new OptionAttribute("Variable Context", StringType.IDENTIFIER,
+						AttributeType.OPTION, false, "", "", 1, -1, "", "", -1,
+						"", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 		ia = instDirCVCGSemanticEdge
@@ -3798,10 +3880,10 @@ public class RefasOperSem {
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
-		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
-				"Variable Context", StringType.IDENTIFIER, false,
-				"Variable Context", "", 1, -1, "", "", -1, "", ""),
-				semanticExpressions));
+		ias.add(new InstAttribute("Variable Context", new OptionAttribute(
+				"Variable Context", StringType.IDENTIFIER,
+				AttributeType.OPTION, false, "Variable Context", "", 1, -1, "",
+				"", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("CVCGPWAsso", instDirCVCGSemanticEdge);
 
@@ -3831,21 +3913,23 @@ public class RefasOperSem {
 
 		ia = instVertexCLGR.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("and", new AbstractAttribute("and",
-				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
-				""), "and#and#true#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("and", new OptionAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), "and#and#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("or", new AbstractAttribute("or",
-				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
-				""), "or#or#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("or", new OptionAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), "or#or#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
-				"", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""),
+				"mutex#mutex#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("range", new AbstractAttribute("range",
-				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
-				"", ""), "range#range#false#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("range", new OptionAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""),
+				"range#range#false#true#true#1#-1#1#1"));
 
 		ia = instVertexCLGR.getInstAttribute("relationTypesSemExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -3865,9 +3949,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("and", new AbstractAttribute("and",
-				StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
-				""), semanticExpressions));
+		ias.add(new InstAttribute("and", new OptionAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3884,9 +3968,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("or", new AbstractAttribute("or",
-				StringType.IDENTIFIER, false, "or", "", 1, -1, "", "", -1, "",
-				""), semanticExpressions));
+		ias.add(new InstAttribute("or", new OptionAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3905,9 +3989,9 @@ public class RefasOperSem {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-				StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
-				"", ""), semanticExpressions));
+		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
@@ -3940,9 +4024,9 @@ public class RefasOperSem {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("range", new AbstractAttribute("range",
-				StringType.IDENTIFIER, false, "range", "", 1, -1, "", "", -1,
-				"", ""), semanticExpressions));
+		ias.add(new InstAttribute("range", new OptionAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("OperCLOTAsso", instVertexCLGR);
 
@@ -3956,9 +4040,9 @@ public class RefasOperSem {
 		ia = instDirOperClaimToSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirOperClaimToSemanticEdge
@@ -3989,9 +4073,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("operToClaim", new AbstractAttribute(
-				"operToClaim", StringType.IDENTIFIER, false, "operToClaim", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("operToClaim", new OptionAttribute(
+				"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "operToClaim", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("OperClaimToPWAsso",
 				instDirOperClaimToSemanticEdge);
@@ -4068,9 +4153,9 @@ public class RefasOperSem {
 		ia = instDirFClaimToSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
-				1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirFClaimToSemanticEdge
@@ -4102,9 +4187,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
-				"OperToClaim", StringType.IDENTIFIER, false, "OperToClaim", "",
-				1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("FClaimToPWAsso",
 				instDirFClaimToSemanticEdge);
@@ -4176,8 +4262,9 @@ public class RefasOperSem {
 		SemanticPairwiseRelation directClaimSGSemanticEdge = new SemanticPairwiseRelation(
 				"ClaimSGPWAsso", true, claimSGPairwiseRelList);
 		attribute = new SemanticAttribute(SemanticPairwiseRelation.VAR_LEVEL,
-				"Integer", SemanticPairwiseRelation.VAR_LEVEL, 2, false,
-				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
+				"Integer", AttributeType.OPERATION,
+				SemanticPairwiseRelation.VAR_LEVEL, 2, false, new RangeDomain(
+						0, 5), 0, -1, "", "", -1, "", "");
 		directClaimSGSemanticEdge.putSemanticAttribute(
 				SemanticPairwiseRelation.VAR_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -4196,9 +4283,9 @@ public class RefasOperSem {
 		ia = instDirClaimSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
-				"ClaimToSG", StringType.IDENTIFIER, false, "ClaimToSG", "", 1,
-				-1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("ClaimToSG", new OptionAttribute("ClaimToSG",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"ClaimToSG", "", 1, -1, "", "", -1, "", ""),
 				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
 		ia = instDirClaimSGSemanticEdge
@@ -4273,9 +4360,10 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("claimToSG", new AbstractAttribute(
-				"claimToSG", StringType.IDENTIFIER, false, "claimToSG", "", 1,
-				-1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("claimToSG", new OptionAttribute("claimToSG",
+				StringType.IDENTIFIER, AttributeType.OPTION, false,
+				"claimToSG", "", 1, -1, "", "", -1, "", ""),
+				semanticExpressions));
 
 		refas.getVariabilityVertex().put("ClaimSGPWAsso",
 				instDirClaimSGSemanticEdge);
@@ -4302,7 +4390,8 @@ public class RefasOperSem {
 		SemanticPairwiseRelation directSDSGSemanticEdge = new SemanticPairwiseRelation(
 				"SDSGPWAsso", true, sdPairwiseRelList);
 		attribute = new SemanticAttribute(SemanticPairwiseRelation.VAR_LEVEL,
-				"Integer", SemanticPairwiseRelation.VAR_LEVELNAME, 0, false,
+				"Integer", AttributeType.OPERATION,
+				SemanticPairwiseRelation.VAR_LEVELNAME, 0, false,
 				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directSDSGSemanticEdge.putSemanticAttribute(
 				SemanticPairwiseRelation.VAR_LEVEL, attribute);
@@ -4320,9 +4409,9 @@ public class RefasOperSem {
 		ia = instDirSDSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
-				StringType.IDENTIFIER, false, "SD", "", 1, -1, "", "", -1, "",
-				""), "SD#SD#true#true#true#1#-1#1#1"));
+		ias.add(new InstAttribute("SD", new OptionAttribute("SD",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
+				1, -1, "", "", -1, "", ""), "SD#SD#true#true#true#1#-1#1#1"));
 
 		ia = instDirSDSGSemanticEdge
 				.getInstAttribute("relationTypesSemExpressions");
@@ -4401,9 +4490,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
-				StringType.IDENTIFIER, false, "SD", "", 1, -1, "", "", -1, "",
-				""), semanticExpressions));
+		ias.add(new InstAttribute("SD", new OptionAttribute("SD",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("SDSGPWAsso", instDirSDSGSemanticEdge);
 
@@ -4510,9 +4599,9 @@ public class RefasOperSem {
 
 		ia = instAssetOperGRAO.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
 		ia = instAssetOperGRAO.getInstAttribute("relationTypesSemExpressions");
@@ -4539,9 +4628,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("AssetOperFromOTAssoPWAsso",
@@ -4570,9 +4659,9 @@ public class RefasOperSem {
 		ia = instDirAssetOperSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
 		ia = instDirAssetOperSemanticEdge
@@ -4600,9 +4689,9 @@ public class RefasOperSem {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new AbstractAttribute(
-				"implementation", StringType.IDENTIFIER, false,
-				"implementation", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("implementation", new OptionAttribute(
+				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("AssetOperPWAsso",

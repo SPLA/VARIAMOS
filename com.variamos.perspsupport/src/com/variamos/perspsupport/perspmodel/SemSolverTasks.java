@@ -49,6 +49,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	private Refas2Hlcl refas2hlcl;
 	private HlclProgram configHlclProgram;
 	private boolean invalidConfigHlclProgram;
+	private List<String> outVariables = null;
 
 	public String getErrorTitle() {
 		return errorTitle;
@@ -406,6 +407,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				continue;
 			}
 			next = false;
+
 			try {
 				if (firstSimulExec || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, operation,
@@ -413,6 +415,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				} else {
 					result = refas2hlcl.execute(progressMonitor, operation,
 							Refas2Hlcl.NEXT_SOLUTION, operation); // type
+					refas2hlcl.getOutVariables(operation, "Sim-Execution");
 					Configuration currentConfiguration = refas2hlcl
 							.getConfiguration();
 					if (result) {
@@ -473,7 +476,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			if (!firstSimulExec && result)
 				// Update GUI after first execution, editor not notify because
 				// the task is at 100%
-				this.refas2hlcl.updateGUIElements(null);
+				this.refas2hlcl.updateGUIElements(null, outVariables);
 			task = 100;
 			setProgress((int) task);
 			this.setProgress(100);

@@ -11,7 +11,9 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.Labeling;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
@@ -54,6 +56,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private HlclFactory hlclFactory;
+
+	static private HlclFactory f = new HlclFactory();
 	/**
 	 * 
 	 */
@@ -176,6 +180,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							int attributeValue = 0;
 							InstAttribute instAttribute = instE
 									.getInstAttribute(var.getName());
+							// FIXME: compare attribute name and element name
 							if (instAttribute != null) {
 								String type = (String) instAttribute.getType();
 								if (type.equals("Integer")
@@ -223,11 +228,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	}
 
-	public List<String> getOutVariables(RefasModel refas, String subAction) {
-		List<String> out = new ArrayList<String>();
+	public List<Labeling> getLabelings(RefasModel refas, String subAction,
+			OperationSubActionExecType expressionType) {
+
 		List<InstElement> operActions = refas.getSemanticRefas()
 				.getVariabilityVertex("CSOpAction");
 		InstElement operAction = null;
+		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
 				operAction = oper;
@@ -237,11 +244,39 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction))
-				for (AbstractAttribute att : ((SemanticOperationSubAction) subOper
-						.getEditableSemanticElement()).getOutVariables())
-					out.add(att.getName());
+				operSubAction = (SemanticOperationSubAction) subOper
+						.getEditableSemanticElement();
 		}
-		return out;
+
+		if (operSubAction != null) {
+			OperationSubActionExpType operExpType = operSubAction
+					.getOperationSubActionExpType(expressionType);
+			if (operExpType != null) {
+				List<IntSemanticExpression> semExp = operExpType
+						.getSemanticExpressions();
+				for (InstElement instE : refas.getElements()) {
+					List<Labeling> out = new ArrayList<Labeling>();
+					for (OperationLabeling operLab : operSubAction
+							.getOperLabels()) {
+						int attributeValue = 0;
+						List<Identifier> ident = new ArrayList<Identifier>();
+						for (AbstractAttribute var : operLab.getVariables()) {
+							InstAttribute instAttribute = instE
+									.getInstAttribute(var.getName());
+							// FIXME: compare attribute name and element name
+							ident.add(f.newIdentifier("-"));
+						}
+						// FIXME: set labeling parameters
+						Labeling lab = new Labeling(null, attributeValue,
+								optional, null, null);
+						lab.setVariables(ident);
+						out.add(lab);
+					}
+					return out;
+				}
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")

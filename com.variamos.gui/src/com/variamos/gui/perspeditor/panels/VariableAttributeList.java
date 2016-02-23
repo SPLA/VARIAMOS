@@ -27,6 +27,7 @@ import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassSingleSelectionType;
 import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property list for instance enumerations type on
@@ -56,8 +57,9 @@ public class VariableAttributeList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add ...", "", 1, -1, "", "", -1, "", ""), "Add ...");
+			new AbstractAttribute("Add ...", StringType.IDENTIFIER,
+					AttributeType.SYNTAX, false, "Add ...", "", 1, -1, "", "",
+					-1, "", ""), "Add ...");
 
 	public VariableAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,33 +124,36 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instName = new InstAttribute(
 				SemanticVariable.VAR_NAME, new AbstractAttribute(
 						SemanticVariable.VAR_NAME, StringType.IDENTIFIER,
-						false, SemanticVariable.VAR_NAMENAME, "", 1, -1, "",
-						"", -1, "", ""), "");
+						AttributeType.SYNTAX, false,
+						SemanticVariable.VAR_NAMENAME, "", 1, -1, "", "", -1,
+						"", ""), "");
 
 		final InstAttribute instValue = new InstAttribute(
 				SemanticVariable.VAR_VALUE, new AbstractAttribute(
 						SemanticVariable.VAR_VALUE, IntegerType.IDENTIFIER,
-						false, SemanticVariable.VAR_VALUENAME, 0, 1, -1, "",
-						"", -1, "", ""), 0);
+						AttributeType.SYNTAX, false,
+						SemanticVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1,
+						"", ""), 0);
 
 		final InstAttribute instExtVisible = new InstAttribute(
 				SemanticVariable.VAR_EXTVISIBLE, new AbstractAttribute(
 						SemanticVariable.VAR_EXTVISIBLE,
-						BooleanType.IDENTIFIER, false,
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_EXTVISIBLENAME, false, 1, -1, "",
 						"", -1, "", ""), false);
 
 		final InstAttribute instExtControl = new InstAttribute(
 				SemanticVariable.VAR_EXTCONTROL, new AbstractAttribute(
 						SemanticVariable.VAR_EXTCONTROL,
-						BooleanType.IDENTIFIER, false,
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_EXTCONTROLNAME, false, 1, -1, "",
 						"", -1, "", ""), false);
 
 		final InstAttribute instVariableType = new InstAttribute(
 				SemanticVariable.VAR_VARIABLETYPE, new AbstractAttribute(
 						SemanticVariable.VAR_VARIABLETYPE,
-						EnumerationSingleSelectionType.IDENTIFIER, false,
+						EnumerationSingleSelectionType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_VARIABLETYPENAME,
 						SemanticVariable.VAR_VARIABLETYPECLASS, "String", "",
 						"", 1, -1, "", "", -1, "", ""), "");
@@ -156,33 +161,35 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instContext = new InstAttribute(
 				SemanticVariable.VAR_CONTEXT, new AbstractAttribute(
 						SemanticVariable.VAR_CONTEXT, BooleanType.IDENTIFIER,
-						false, SemanticVariable.VAR_CONTEXTNAME, false, 1, -1,
-						"", "", -1, "", ""), false);
+						AttributeType.SYNTAX, false,
+						SemanticVariable.VAR_CONTEXTNAME, false, 1, -1, "", "",
+						-1, "", ""), false);
 
 		final InstAttribute instVariableDomain = new InstAttribute(
 				SemanticVariable.VAR_VARIABLEDOMAIN, new AbstractAttribute(
 						SemanticVariable.VAR_VARIABLEDOMAIN,
-						StringType.IDENTIFIER, false,
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_VARIABLEDOMAINNAME, "", 1, -1, "",
 						"", -1, "", ""), "");
 		final InstAttribute instEnumerationType = new InstAttribute(
 				SemanticVariable.VAR_ENUMERATIONTYPE, new AbstractAttribute(
 						SemanticVariable.VAR_ENUMERATIONTYPE,
-						ClassSingleSelectionType.IDENTIFIER, false,
+						ClassSingleSelectionType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_ENUMERATIONTYPENAME,
 						SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "",
 						"", 1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
 				SemanticVariable.VAR_VARIABLECONFIGVALUE,
 				new AbstractAttribute(SemanticVariable.VAR_VARIABLECONFIGVALUE,
-						IntegerType.IDENTIFIER, false,
+						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_VARIABLECONFIGVALUENAME, 1, 1, -1,
 						"", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
 				SemanticVariable.VAR_VARIABLECONFIGDOMAIN,
 				new AbstractAttribute(
 						SemanticVariable.VAR_VARIABLECONFIGDOMAIN,
-						StringType.IDENTIFIER, false,
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 						SemanticVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 1,
 						-1, "", "", -1, "", ""), "");
 		if (insert) {
@@ -203,8 +210,8 @@ public class VariableAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-							false, "Enumeration Value", "", 1, -1, "", "", -1,
-							"", ""), "");
+							AttributeType.SYNTAX, false, "Enumeration Value",
+							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instName.setValue(split[1]);

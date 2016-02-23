@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.semanticsupport;
 
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent the edges at semantic level. Part of PhD work at
@@ -49,17 +50,17 @@ public class SemanticContextGroup extends AbstractSemanticVertex {
 	private void defineSemanticAttributes() {
 
 		putSemanticAttribute(VAR_VARIABLENAME, new SemanticAttribute(
-				VAR_VARIABLENAME, "String", false, VAR_VARIABLENAMENAME,
-				"<<new>>", 0, 1, "", "", 1, "", ""));
+				VAR_VARIABLENAME, "String", AttributeType.OPERATION, false,
+				VAR_VARIABLENAMENAME, "<<new>>", 0, 1, "", "", 1, "", ""));
 		putSemanticAttribute(VAR_INSTANCENUMBER, new SemanticAttribute(
-				VAR_INSTANCENUMBER, "Integer", false, VAR_INSTANCENUMBERNAME,
-				"1", 0, 7, "", "", -1, "", ""));
+				VAR_INSTANCENUMBER, "Integer", AttributeType.OPERATION, false,
+				VAR_INSTANCENUMBERNAME, "1", 0, 7, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_EXTVISIBLE, new SemanticAttribute(
-				VAR_EXTVISIBLE, "Boolean", false, VAR_EXTVISIBLENAME, false, 0,
-				8, "", "", -1, "", ""));
+				VAR_EXTVISIBLE, "Boolean", AttributeType.OPERATION, false,
+				VAR_EXTVISIBLENAME, false, 0, 8, "", "", -1, "", ""));
 		putSemanticAttribute(VAR_EXTCONTROL, new SemanticAttribute(
-				VAR_EXTCONTROL, "Boolean", false, VAR_EXTCONTROLNAME, false, 0,
-				9, "", "", -1, "", ""));
+				VAR_EXTCONTROL, "Boolean", AttributeType.OPERATION, false,
+				VAR_EXTCONTROLNAME, false, 0, 9, "", "", -1, "", ""));
 
 		this.addPropEditableAttribute("01#" + VAR_VARIABLENAME);
 		this.addPropEditableAttribute("07#" + VAR_INSTANCENUMBER);

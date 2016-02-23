@@ -17,6 +17,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * Class to store the back end information of relations between two elements
@@ -159,9 +160,9 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	public SemanticAttribute getSemanticAttribute() {
-		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class", true,
-				VAR_METAPAIRWISE_OBJ_NAME, VAR_METAPAIRWISE_OBJ_CLASS, null,
-				"", 0, -1, "", "", -1, "", "");
+		return new SemanticAttribute(VAR_METAPAIRWISE_OBJ_IDEN, "Class",
+				AttributeType.OPERATION, true, VAR_METAPAIRWISE_OBJ_NAME,
+				VAR_METAPAIRWISE_OBJ_CLASS, null, "", 0, -1, "", "", -1, "", "");
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {

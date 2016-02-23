@@ -13,13 +13,14 @@ import java.util.TreeSet;
 
 import javax.swing.ProgressMonitor;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.Labeling;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
@@ -32,6 +33,7 @@ import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.translationsupport.TranslationExpressionSet;
@@ -264,8 +266,6 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		// System.out.println(exp.toString());
 		// }
 
-		outVariables = transExpSet.getOutVariables(refas, subOperation);
-
 		constraintGroups.put(element, transExpSet);
 		fillHlclProgram(element, subOperation, operExecType, hlclProgram);
 
@@ -392,6 +392,27 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	}
 
+	public List<String> getOutVariables(String operation, String subAction) {
+		List<String> out = new ArrayList<String>();
+		List<InstElement> operActions = refas.getSemanticRefas()
+				.getVariabilityVertex("CSOpAction");
+		InstElement operAction = null;
+		for (InstElement oper : operActions) {
+			if (oper.getIdentifier().equals(operation)) {
+				operAction = oper;
+				break;
+			}
+		}
+		for (InstElement rel : operAction.getTargetRelations()) {
+			InstElement subOper = rel.getTargetRelations().get(0);
+			if (subOper.getIdentifier().equals(subAction))
+				for (AbstractAttribute att : ((SemanticOperationSubAction) subOper
+						.getEditableSemanticElement()).getOutVariables())
+					out.add(att.getName());
+		}
+		return out;
+	}
+
 	// dynamic call implementation
 	public boolean execute(ProgressMonitor progressMonitor, String element,
 			int solutions, String operation) throws InterruptedException {
@@ -430,14 +451,21 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 				configurationOptions.setOrder(true);
 				configurationOptions.setStartFromZero(true);
-				// FIX Luisa: iterate over all the labelings
+				// FIXME: Luisa: iterate over all the labelings
+				List<Labeling> labelings = new ArrayList<Labeling>();
+				for (OperationLabeling opLab : ((SemanticOperationSubAction) subop
+						.getEditableSemanticElement()).getOperLabels()) {
+					// labelings.add(opLab.getlabeling());
+				}
+
 				OperationLabeling operlab = ((SemanticOperationSubAction) subop
 						.getEditableSemanticElement()).getOperLabels().get(0);
 				configurationOptions.setLabelingOrder(operlab
 						.getLabelingOrderList());
 				configurationOptions.setOrderExpressions(operlab
 						.getOrderExpressionList());
-				operlab.getVariables(); // FIX Luisa: pass variables to labeling
+				operlab.getVariables(); // FIXME: Luisa: pass variables to
+										// labeling
 				swiSolver.solve(new Configuration(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
@@ -617,6 +645,15 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	 * Updates the GUI with the configuration
 	 */
 	public void updateGUIElements(List<String> attributes) {
+		updateGUIElements(attributes, new ArrayList<String>(), null,
+				outVariables, null);
+	}
+
+	/**
+	 * Updates the GUI with the configuration
+	 */
+	public void updateGUIElements(List<String> attributes,
+			List<String> outVariables) {
 		updateGUIElements(attributes, new ArrayList<String>(), null,
 				outVariables, null);
 	}

@@ -1,4 +1,4 @@
-package com.variamos.compiler.solverSymbols;
+package com.variamos.hlcl;
 
 public enum LabelingOrder {
 

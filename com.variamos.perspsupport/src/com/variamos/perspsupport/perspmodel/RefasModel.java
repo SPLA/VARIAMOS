@@ -36,6 +36,7 @@ import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
 import com.variamos.perspsupport.types.PerspectiveType;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent the model with vertex and edges. Maintains the
@@ -544,67 +545,70 @@ public class RefasModel extends AbstractModel {
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
-				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
-				"", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Description",
-				new SyntaxAttribute("Description", "String", false,
-						"Description", "", 0, -1, "", "", -1, "", ""));
+				new SyntaxAttribute("Description", "String",
+						AttributeType.SYNTAX, false, "Description", "", 0, -1,
+						"", "", -1, "", ""));
 
 		metaBasicConcept.addModelingAttribute("MetaType", new SyntaxAttribute(
-				"MetaType", "Enumeration", false, "MetaConcept Type",
-				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
-				"", -1, "", ""));
+				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
+				"MetaConcept Type", ConceptType.class.getCanonicalName(),
+				"MetaConcept", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new SyntaxAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
-				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
-				-1, "", ""));
+				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
+				true, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
-				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
-				"", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute(
-				"Style", "String", false, "Drawing Style", "refasclaim", 0, -1,
-				"", "", -1, "", ""));
+				"Style", "String", AttributeType.SYNTAX, false,
+				"Drawing Style", "refasclaim", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute(
-				"Width", "Integer", false, "Initial Width", 100, 0, -1, "", "",
-				-1, "", ""));
+				"Width", "Integer", AttributeType.SYNTAX, false,
+				"Initial Width", 100, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute(
-				"Height", "Integer", false, "Initial Height", 40, 0, -1, "",
-				"", -1, "", ""));
+				"Height", "Integer", AttributeType.SYNTAX, false,
+				"Initial Height", 40, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute(
-				"Image", "String", false, "Image File",
+				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("TopConcept",
-				new SyntaxAttribute("TopConcept", "Boolean", false,
-						"Is Top Concept", true, 0, -1, "", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BackgroundColor",
-				new SyntaxAttribute("BackgroundColor", "String", false,
-						"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0,
+				new SyntaxAttribute("TopConcept", "Boolean",
+						AttributeType.SYNTAX, false, "Is Top Concept", true, 0,
 						-1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BackgroundColor",
+				new SyntaxAttribute("BackgroundColor", "String",
+						AttributeType.SYNTAX, false, "Background Color",
+						"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "",
+						""));
 		metaBasicConcept.addModelingAttribute("BorderStroke",
-				new SyntaxAttribute("BorderStroke", "Integer", false,
-						"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
+				new SyntaxAttribute("BorderStroke", "Integer",
+						AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
+						"", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Resizable", new SyntaxAttribute(
-				"Resizable", "Boolean", false, "Is Resizable", true, 0, -1, "",
-				"", -1, "", ""));
+				"Resizable", "Boolean", AttributeType.SYNTAX, false,
+				"Is Resizable", true, 0, -1, "", "", -1, "", ""));
 
 		SemanticConcept semConcept = new SemanticConcept();
 
 		// FOR SD and CLAIMS - Review to change
 		semConcept.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		semConcept.putSemanticAttribute(
-				"relationTypesSemExpressions",
+		semConcept.putSemanticAttribute("relationTypesSemExpressions",
 				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
+						AttributeType.SYNTAX, false, "semanticExpressions",
+						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 		// semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
@@ -638,8 +642,8 @@ public class RefasModel extends AbstractModel {
 				"CSPairWiseRelation");
 
 		semPairwiseRelation.putSemanticAttribute("enumerationType",
-				new SemanticAttribute("enumerationType", "Class", false,
-						"enumeration",
+				new SemanticAttribute("enumerationType", "Class",
+						AttributeType.OPERATION, false, "enumeration",
 						InstEnumeration.class.getCanonicalName(),
 						"TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
 						""));
@@ -648,17 +652,16 @@ public class RefasModel extends AbstractModel {
 		semPairwiseRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
 		semPairwiseRelation.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		semPairwiseRelation.putSemanticAttribute(
-				"relationTypesSemExpressions",
+		semPairwiseRelation.putSemanticAttribute("relationTypesSemExpressions",
 				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
+						AttributeType.SYNTAX, false, "semanticExpressions",
+						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
@@ -716,8 +719,8 @@ public class RefasModel extends AbstractModel {
 				"CSOverTwoRelation");
 
 		semOverTwoRelation.putSemanticAttribute("enumerationType",
-				new SemanticAttribute("enumerationType", "Class", false,
-						"enumeration",
+				new SemanticAttribute("enumerationType", "Class",
+						AttributeType.OPERATION, false, "enumeration",
 						InstEnumeration.class.getCanonicalName(),
 						"TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
 						""));
@@ -726,17 +729,16 @@ public class RefasModel extends AbstractModel {
 		semOverTwoRelation.addPropVisibleAttribute("03#" + "enumerationType");
 
 		semOverTwoRelation.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set", false,
-						"relationTypes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		semOverTwoRelation.putSemanticAttribute(
-				"relationTypesSemExpressions",
+		semOverTwoRelation.putSemanticAttribute("relationTypesSemExpressions",
 				new SyntaxAttribute("relationTypesSemExpressions", "Set",
-						false, "semanticExpressions", InstAttribute.class
-								.getCanonicalName(),
+						AttributeType.SYNTAX, false, "semanticExpressions",
+						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
@@ -885,35 +887,37 @@ public class RefasModel extends AbstractModel {
 				"CSOperGroup");
 
 		semOperationGroup.putSemanticAttribute("menuType",
-				new SemanticAttribute("menuType", "String", false,
-						"Oper Group Type", null, null, null, 0, 5, "", "", 5,
-						"", ""));
+				new SemanticAttribute("menuType", "String",
+						AttributeType.OPERATION, false, "Oper Group Type",
+						null, null, null, 0, 5, "", "", 5, "", ""));
 		semOperationGroup.addPropEditableAttribute("05#" + "menuType");
 		semOperationGroup.addPropVisibleAttribute("05#" + "menuType");
 
 		semOperationGroup.putSemanticAttribute("visible",
-				new SemanticAttribute("visible", "Boolean", false, "Visible",
-						true, 0, 8, "", "", 8, "", ""));
+				new SemanticAttribute("visible", "Boolean",
+						AttributeType.OPERATION, false, "Visible", true, 0, 8,
+						"", "", 8, "", ""));
 		semOperationGroup.addPropEditableAttribute("08#" + "visible");
 		semOperationGroup.addPropVisibleAttribute("08#" + "visible");
 
-		semOperationGroup
-				.putSemanticAttribute("name", new SemanticAttribute("name",
-						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationGroup.putSemanticAttribute("name", new SemanticAttribute(
+				"name", "String", AttributeType.OPERATION, false, "Name", null,
+				0, 6, "", "", 6, "", ""));
 		semOperationGroup.addPropEditableAttribute("06#" + "name");
 		semOperationGroup.addPropVisibleAttribute("06#" + "name");
 		semOperationGroup.addPanelVisibleAttribute("06#" + "name");
 		semOperationGroup.addPanelSpacersAttribute("#" + "name" + "#");
 
 		semOperationGroup.putSemanticAttribute("shortcut",
-				new SemanticAttribute("shortcut", "String", false, "Shortcut",
-						null, 0, 7, "", "", 7, "", ""));
+				new SemanticAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+						"", "", 7, "", ""));
 		semOperationGroup.addPropEditableAttribute("07#" + "shortcut");
 		semOperationGroup.addPropVisibleAttribute("07#" + "shortcut");
 
 		semOperationGroup.putSemanticAttribute("Index", new SemanticAttribute(
-				"Index", "Integer", false, "Position", 1, 0, 9, "", "", 9, "",
-				""));
+				"Index", "Integer", AttributeType.OPERATION, false, "Position",
+				1, 0, 9, "", "", 9, "", ""));
 		semOperationGroup.addPropEditableAttribute("09#" + "Index");
 		semOperationGroup.addPropVisibleAttribute("09#" + "Index");
 
@@ -937,7 +941,8 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semModel = new SemanticConcept(semConcept, "CSModel");
 
 		semModel.putSemanticAttribute("name", new SemanticAttribute("name",
-				"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+				"String", AttributeType.OPERATION, false, "Name", null, 0, 6,
+				"", "", 6, "", ""));
 		semModel.addPropEditableAttribute("06#" + "name");
 		semModel.addPropVisibleAttribute("06#" + "name");
 		semModel.addPanelVisibleAttribute("06#" + "name");
@@ -962,23 +967,24 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOperationAction = new SemanticConcept(semConcept,
 				"CSOpAction");
 
-		semOperationAction
-				.putSemanticAttribute("name", new SemanticAttribute("name",
-						"String", false, "Name", null, 0, 6, "", "", 6, "", ""));
+		semOperationAction.putSemanticAttribute("name", new SemanticAttribute(
+				"name", "String", AttributeType.OPERATION, false, "Name", null,
+				0, 6, "", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("06#" + "name");
 		semOperationAction.addPropVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelSpacersAttribute("#" + "name" + "#");
 
 		semOperationAction.putSemanticAttribute("shortcut",
-				new SemanticAttribute("shortcut", "String", false, "Shortcut",
-						null, 0, 6, "", "", 6, "", ""));
+				new SemanticAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 6,
+						"", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
 		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
-				"Index", "Integer", false, "Position", 1, 0, 6, "", "", 6, "",
-				""));
+				"Index", "Integer", AttributeType.OPERATION, false, "Position",
+				1, 0, 6, "", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("08#" + "Index");
 		semOperationAction.addPropVisibleAttribute("08#" + "Index");
 
@@ -1003,22 +1009,25 @@ public class RefasModel extends AbstractModel {
 				"CSOpSubAction");
 
 		semOperationSubAction.putSemanticAttribute("name",
-				new SemanticAttribute("name", "String", false, "Name", null, 0,
-						6, "", "", 6, "", ""));
+				new SemanticAttribute("name", "String",
+						AttributeType.OPERATION, false, "Name", null, 0, 6, "",
+						"", 6, "", ""));
 		semOperationSubAction.addPropEditableAttribute("06#" + "name");
 		semOperationSubAction.addPropVisibleAttribute("06#" + "name");
 		semOperationSubAction.addPanelVisibleAttribute("06#" + "name");
 		semOperationSubAction.addPanelSpacersAttribute("#" + "name" + "#");
 
 		semOperationSubAction.putSemanticAttribute("shortcut",
-				new SemanticAttribute("shortcut", "String", false, "Shortcut",
-						null, 0, 6, "", "", 6, "", ""));
+				new SemanticAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 6,
+						"", "", 6, "", ""));
 		semOperationSubAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationSubAction.addPropVisibleAttribute("07#" + "shortcut");
 
 		semOperationSubAction.putSemanticAttribute("Index",
-				new SemanticAttribute("Index", "Integer", false, "Position", 1,
-						0, 6, "", "", 6, "", ""));
+				new SemanticAttribute("Index", "Integer",
+						AttributeType.OPERATION, false, "Position", 1, 0, 6,
+						"", "", 6, "", ""));
 		semOperationSubAction.addPropEditableAttribute("08#" + "Index");
 		semOperationSubAction.addPropVisibleAttribute("08#" + "Index");
 
@@ -1068,91 +1077,99 @@ public class RefasModel extends AbstractModel {
 				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
-				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
-				"", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Description",
-				new SyntaxAttribute("Description", "String", false,
-						"Description", "", 0, -1, "", "", -1, "", ""));
+				new SyntaxAttribute("Description", "String",
+						AttributeType.SYNTAX, false, "Description", "", 0, -1,
+						"", "", -1, "", ""));
 
 		metaBasicConcept.addModelingAttribute("MetaType", new SyntaxAttribute(
-				"MetaType", "Enumeration", false, "MetaConcept Type",
-				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
-				"", -1, "", ""));
+				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
+				"MetaConcept Type", ConceptType.class.getCanonicalName(),
+				"MetaConcept", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new SyntaxAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Visible", new SyntaxAttribute(
-				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
-				-1, "", ""));
+				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
+				true, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Name", new SyntaxAttribute(
-				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
-				"", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Style", new SyntaxAttribute(
-				"Style", "String", false, "Drawing Style", "refasclaim", 0, -1,
-				"", "", -1, "", ""));
+				"Style", "String", AttributeType.SYNTAX, false,
+				"Drawing Style", "refasclaim", 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Width", new SyntaxAttribute(
-				"Width", "Integer", false, "Initial Width", 100, 0, -1, "", "",
-				-1, "", ""));
+				"Width", "Integer", AttributeType.SYNTAX, false,
+				"Initial Width", 100, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Height", new SyntaxAttribute(
-				"Height", "Integer", false, "Initial Height", 40, 0, -1, "",
-				"", -1, "", ""));
+				"Height", "Integer", AttributeType.SYNTAX, false,
+				"Initial Height", 40, 0, -1, "", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Image", new SyntaxAttribute(
-				"Image", "String", false, "Image File",
+				"Image", "String", AttributeType.SYNTAX, false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("TopConcept",
-				new SyntaxAttribute("TopConcept", "Boolean", false,
-						"Is Top Concept", true, 0, -1, "", "", -1, "", ""));
-		metaBasicConcept.addModelingAttribute("BackgroundColor",
-				new SyntaxAttribute("BackgroundColor", "String", false,
-						"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0,
+				new SyntaxAttribute("TopConcept", "Boolean",
+						AttributeType.SYNTAX, false, "Is Top Concept", true, 0,
 						-1, "", "", -1, "", ""));
+		metaBasicConcept.addModelingAttribute("BackgroundColor",
+				new SyntaxAttribute("BackgroundColor", "String",
+						AttributeType.SYNTAX, false, "Background Color",
+						"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "",
+						""));
 		metaBasicConcept.addModelingAttribute("BorderStroke",
-				new SyntaxAttribute("BorderStroke", "Integer", false,
-						"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
+				new SyntaxAttribute("BorderStroke", "Integer",
+						AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
+						"", "", -1, "", ""));
 		metaBasicConcept.addModelingAttribute("Resizable", new SyntaxAttribute(
-				"Resizable", "Boolean", false, "Is Resizable", true, 0, -1, "",
-				"", -1, "", ""));
+				"Resizable", "Boolean", AttributeType.SYNTAX, false,
+				"Is Resizable", true, 0, -1, "", "", -1, "", ""));
 
 		SemanticConcept semView = new SemanticConcept();
 
 		semView.putSemanticAttribute("MetaType", new SyntaxAttribute(
-				"MetaType", "Enumeration", false, "MetaConcept Type",
-				ConceptType.class.getCanonicalName(), "MetaView", 0, -1, "",
-				"", -1, "", ""));
+				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
+				"MetaConcept Type", ConceptType.class.getCanonicalName(),
+				"MetaView", 0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Index", new SyntaxAttribute("Index",
-				"Integer", false, "View Index", 3, 0, -1, "", "", -1, "", ""));
-		semView.putSemanticAttribute("Identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "View Identifier", "", 0, -1,
+				"Integer", AttributeType.SYNTAX, false, "View Index", 3, 0, -1,
 				"", "", -1, "", ""));
+		semView.putSemanticAttribute("Identifier", new SyntaxAttribute(
+				"Identifier", "String", AttributeType.SYNTAX, false,
+				"View Identifier", "", 0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Visible", new SyntaxAttribute("Visible",
-				"Boolean", false, "Visible", true, 0, -1, "", "", -1, "", ""));
+				"Boolean", AttributeType.SYNTAX, false, "Visible", true, 0, -1,
+				"", "", -1, "", ""));
 		semView.putSemanticAttribute("Parent", new SyntaxAttribute("Parent",
-				"String", false, "Parent View", "", 0, -1, "", "", -1, "", ""));
+				"String", AttributeType.SYNTAX, false, "Parent View", "", 0,
+				-1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Name", new SyntaxAttribute("Name",
-				"String", false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
+				"String", AttributeType.SYNTAX, false, "Concept Name", "", 0,
+				-1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Style", new SyntaxAttribute("Style",
-				"String", false, "Drawing Style", "refasclaim", 0, -1, "", "",
-				-1, "", ""));
+				"String", AttributeType.SYNTAX, false, "Drawing Style",
+				"refasclaim", 0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Description", new SyntaxAttribute(
-				"Description", "String", false, "Description", "", 0, -1, "",
-				"", -1, "", ""));
+				"Description", "String", AttributeType.SYNTAX, false,
+				"Description", "", 0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Width", new SyntaxAttribute("Width",
-				"Integer", false, "Initial Width", 100, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Width", 100,
+				0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Height", new SyntaxAttribute("Height",
-				"Integer", false, "Initial Height", 40, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Height", 40,
+				0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("Image", new SyntaxAttribute("Image",
-				"String", false, "Image File",
+				"String", AttributeType.SYNTAX, false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
 		semView.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
-				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
-				"", "", -1, "", ""));
+				"BorderStroke", "Integer", AttributeType.SYNTAX, false,
+				"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
 		semView.putSemanticAttribute("PaletteNames", new SyntaxAttribute(
-				"PaletteNames", "String", false, "Palette Name", "", 0, -1, "",
-				"", -1, "", ""));
+				"PaletteNames", "String", AttributeType.SYNTAX, false,
+				"Palette Name", "", 0, -1, "", "", -1, "", ""));
 
 		semView.addPropEditableAttribute("03#" + "PaletteNames");
 		semView.addPropVisibleAttribute("03#" + "PaletteNames");
@@ -1203,55 +1220,55 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semVertex = new SemanticConcept();
 
-		semVertex
-				.putSemanticAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
+		semVertex.putSemanticAttribute("Name", new SyntaxAttribute("Name",
+				"String", AttributeType.SYNTAX, false, "Concept Name", "", 0,
+				-1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Description", new SyntaxAttribute(
-				"Description", "String", false, "Description", "", 0, -1, "",
-				"", -1, "", ""));
+				"Description", "String", AttributeType.SYNTAX, false,
+				"Description", "", 0, -1, "", "", -1, "", ""));
 
 		semVertex.putSemanticAttribute("MetaType", new SyntaxAttribute(
-				"MetaType", "Enumeration", false, "MetaConcept Type",
-				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
-				"", -1, "", ""));
+				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
+				"MetaConcept Type", ConceptType.class.getCanonicalName(),
+				"MetaConcept", 0, -1, "", "", -1, "", ""));
 		// semVertex.putSemanticAttribute("Identifier", new SyntaxAttribute(
 		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
 		// "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Visible", new SyntaxAttribute(
-				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
-				-1, "", ""));
-		semVertex
-				.putSemanticAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
+				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
+				true, 0, -1, "", "", -1, "", ""));
+		semVertex.putSemanticAttribute("Name", new SyntaxAttribute("Name",
+				"String", AttributeType.SYNTAX, false, "Concept Name", "", 0,
+				-1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Style", new SyntaxAttribute("Style",
-				"String", false, "Drawing Style", "refasclaim", 0, -1, "", "",
-				-1, "", ""));
+				"String", AttributeType.SYNTAX, false, "Drawing Style",
+				"refasclaim", 0, -1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Width", new SyntaxAttribute("Width",
-				"Integer", false, "Initial Width", 100, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Width", 100,
+				0, -1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Height", new SyntaxAttribute("Height",
-				"Integer", false, "Initial Height", 40, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Height", 40,
+				0, -1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("Image", new SyntaxAttribute("Image",
-				"String", false, "Image File",
+				"String", AttributeType.SYNTAX, false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
 		semVertex.putSemanticAttribute("TopConcept", new SyntaxAttribute(
-				"TopConcept", "Boolean", false, "Is Top Concept", true, 0, -1,
-				"", "", -1, "", ""));
+				"TopConcept", "Boolean", AttributeType.SYNTAX, false,
+				"Is Top Concept", true, 0, -1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("BackgroundColor", new SyntaxAttribute(
-				"BackgroundColor", "String", false, "Background Color",
-				"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "", ""));
-		semVertex.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
-				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
-				"", "", -1, "", ""));
-		semVertex.putSemanticAttribute("Resizable", new SyntaxAttribute(
-				"Resizable", "Boolean", false, "Is Resizable", true, 0, -1, "",
+				"BackgroundColor", "String", AttributeType.SYNTAX, false,
+				"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0, -1, "",
 				"", -1, "", ""));
+		semVertex.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
+				"BorderStroke", "Integer", AttributeType.SYNTAX, false,
+				"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
+		semVertex.putSemanticAttribute("Resizable", new SyntaxAttribute(
+				"Resizable", "Boolean", AttributeType.SYNTAX, false,
+				"Is Resizable", true, 0, -1, "", "", -1, "", ""));
 		semVertex.putSemanticAttribute("value", new SyntaxAttribute("value",
-				"Set", false, "values", "", 0, -1, "", "", -1, "", ""));
+				"Set", AttributeType.SYNTAX, false, "values", "", 0, -1, "",
+				"", -1, "", ""));
 
 		semVertex.addPropVisibleAttribute("00#" + "MetaType");
 		// semVertex.addPropEditableAttribute("01#" + "Identifier");
@@ -1284,51 +1301,52 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semPWAsso = new SemanticConcept();
 
 		semPWAsso.putSemanticAttribute("Name", new SyntaxAttribute("Name",
-				"String", false, "Association Name", "", 0, -1, "", "", -1, "",
-				""));
+				"String", AttributeType.SYNTAX, false, "Association Name", "",
+				0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Description", new SyntaxAttribute(
-				"Description", "String", false, "Description", "", 0, -1, "",
-				"", -1, "", ""));
+				"Description", "String", AttributeType.SYNTAX, false,
+				"Description", "", 0, -1, "", "", -1, "", ""));
 
 		semPWAsso.putSemanticAttribute("MetaType", new SyntaxAttribute(
-				"MetaType", "Enumeration", false, "MetaPWAsso Type",
-				ConceptType.class.getCanonicalName(), "MetaConcept", 0, -1, "",
-				"", -1, "", ""));
+				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
+				"MetaPWAsso Type", ConceptType.class.getCanonicalName(),
+				"MetaConcept", 0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("SemanticType", new SemanticAttribute(
-				"SemanticType", "Class", false, "Semantic Type",
-				SemanticConcept.class.getCanonicalName(), "P", null, "", 0, -1,
-				"", "", -1, "", ""));
+				"SemanticType", "Class", AttributeType.SYNTAX, false,
+				"Semantic Type", SemanticConcept.class.getCanonicalName(), "P",
+				null, "", 0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Identifier", new SyntaxAttribute(
-				"Identifier", "String", false, "Association Identifier", "", 0,
-				-1, "", "", -1, "", ""));
+				"Identifier", "String", AttributeType.SYNTAX, false,
+				"Association Identifier", "", 0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Visible", new SyntaxAttribute(
-				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
-				-1, "", ""));
-		semPWAsso
-				.putSemanticAttribute("Name", new SyntaxAttribute("Name",
-						"String", false, "Concept Name", "", 0, -1, "", "", -1,
-						"", ""));
-		semPWAsso.putSemanticAttribute("Style",
-				new SyntaxAttribute("Style", "String", false, "Drawing Style",
-						"", 0, -1, "", "", -1, "", ""));
+				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
+				true, 0, -1, "", "", -1, "", ""));
+		semPWAsso.putSemanticAttribute("Name", new SyntaxAttribute("Name",
+				"String", AttributeType.SYNTAX, false, "Concept Name", "", 0,
+				-1, "", "", -1, "", ""));
+		semPWAsso.putSemanticAttribute("Style", new SyntaxAttribute("Style",
+				"String", AttributeType.SYNTAX, false, "Drawing Style", "", 0,
+				-1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Width", new SyntaxAttribute("Width",
-				"Integer", false, "Initial Width", 50, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Width", 50, 0,
+				-1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Height", new SyntaxAttribute("Height",
-				"Integer", false, "Initial Height", 50, 0, -1, "", "", -1, "",
-				""));
+				"Integer", AttributeType.SYNTAX, false, "Initial Height", 50,
+				0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("Image", new SyntaxAttribute("Image",
-				"String", false, "Image File",
+				"String", AttributeType.SYNTAX, false, "Image File",
 				"/com/variamos/gui/perspeditor/images/claim.png", 0, -1, "",
 				"", -1, "", ""));
 		semPWAsso.putSemanticAttribute("BackgroundColor", new SyntaxAttribute(
-				"BackgroundColor", "String", false, "Background Color",
-				"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "", ""));
+				"BackgroundColor", "String", AttributeType.SYNTAX, false,
+				"Background Color", "java.awt.Color[r=0,g=0,b=255]", 0, -1, "",
+				"", -1, "", ""));
 		semPWAsso.putSemanticAttribute("BorderStroke", new SyntaxAttribute(
-				"BorderStroke", "Integer", false, "Border Stroke", 1, 0, -1,
-				"", "", -1, "", ""));
+				"BorderStroke", "Integer", AttributeType.SYNTAX, false,
+				"Border Stroke", 1, 0, -1, "", "", -1, "", ""));
 		semPWAsso.putSemanticAttribute("value", new SyntaxAttribute("value",
-				"Set", false, "values", "", 0, -1, "", "", -1, "", ""));
+				"Set", AttributeType.SYNTAX, false, "values", "", 0, -1, "",
+				"", -1, "", ""));
 
 		semPWAsso.addPropVisibleAttribute("00#" + "MetaType");
 		// semPWAsso.addPropEditableAttribute("01#" + "Identifier");
@@ -1357,9 +1375,9 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semConcept = new SemanticConcept(semVertex, "Concept");
 
 		semConcept.putSemanticAttribute("SemanticType", new SemanticAttribute(
-				"SemanticType", "Class", false, "Semantic Type",
-				SemanticConcept.class.getCanonicalName(), "C", null, "", 0, -1,
-				"", "", -1, "", ""));
+				"SemanticType", "Class", AttributeType.OPERATION, false,
+				"Semantic Type", SemanticConcept.class.getCanonicalName(), "C",
+				null, "", 0, -1, "", "", -1, "", ""));
 
 		semConcept.addPropEditableAttribute("00#" + "SemanticType");
 		semConcept.addPropVisibleAttribute("00#" + "SemanticType");
@@ -1387,27 +1405,26 @@ public class RefasModel extends AbstractModel {
 
 		SemanticConcept semElementNoSyntax = new SemanticConcept();
 
-		semElementNoSyntax.putSemanticAttribute(
-				"MetaType",
-				new SyntaxAttribute("MetaType", "Enumeration", false,
-						"MetaConcept Type", ConceptType.class
-								.getCanonicalName(), "MetaEnumeration", 0, -1,
-						"", "", -1, "", ""));
+		semElementNoSyntax.putSemanticAttribute("MetaType",
+				new SyntaxAttribute("MetaType", "Enumeration",
+						AttributeType.SYNTAX, false, "MetaConcept Type",
+						ConceptType.class.getCanonicalName(),
+						"MetaEnumeration", 0, -1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("Identifier",
 		// new SyntaxAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		semElementNoSyntax.putSemanticAttribute("Visible", new SyntaxAttribute(
-				"Visible", "Boolean", false, "Visible", true, 0, -1, "", "",
-				-1, "", ""));
+				"Visible", "Boolean", AttributeType.SYNTAX, false, "Visible",
+				true, 0, -1, "", "", -1, "", ""));
 		semElementNoSyntax.putSemanticAttribute("Name", new SyntaxAttribute(
-				"Name", "String", false, "Concept Name", "", 0, -1, "", "", -1,
-				"", ""));
-		semElementNoSyntax
-				.putSemanticAttribute("value", new SyntaxAttribute("value",
-						"Set", false, "values", "", 0, -1, "", "", -1, "", ""));
+				"Name", "String", AttributeType.SYNTAX, false, "Concept Name",
+				"", 0, -1, "", "", -1, "", ""));
+		semElementNoSyntax.putSemanticAttribute("value", new SyntaxAttribute(
+				"value", "Set", AttributeType.SYNTAX, false, "values", "", 0,
+				-1, "", "", -1, "", ""));
 		semElementNoSyntax.putSemanticAttribute("dummy", new SyntaxAttribute(
-				"dummy", "String", false, "dummy", "", 0, -1, "", "", -1, "",
-				""));
+				"dummy", "String", AttributeType.SYNTAX, false, "dummy", "", 0,
+				-1, "", "", -1, "", ""));
 
 		semElementNoSyntax.addPropVisibleAttribute("00#" + "MetaType");
 		// semElementNoSyntax.addPropEditableAttribute("01#" + "Identifier");
@@ -1437,18 +1454,16 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semOverTwoRelation = new SemanticConcept(semVertex,
 				"OverTwoRelation");
 
-		semOverTwoRelation.putSemanticAttribute(
-				"MetaType",
-				new SyntaxAttribute("MetaType", "Enumeration", false,
-						"MetaConcept Type", ConceptType.class
-								.getCanonicalName(), "MetaOverTwoRelation", 0,
-						-1, "", "", -1, "", ""));
-		semOverTwoRelation.putSemanticAttribute(
-				"SemanticType",
-				new SemanticAttribute("SemanticType", "Class", false,
-						"Semantic Type", SemanticConcept.class
-								.getCanonicalName(), "O", null, "", 0, -1, "",
-						"", -1, "", ""));
+		semOverTwoRelation.putSemanticAttribute("MetaType",
+				new SyntaxAttribute("MetaType", "Enumeration",
+						AttributeType.SYNTAX, false, "MetaConcept Type",
+						ConceptType.class.getCanonicalName(),
+						"MetaOverTwoRelation", 0, -1, "", "", -1, "", ""));
+		semOverTwoRelation.putSemanticAttribute("SemanticType",
+				new SemanticAttribute("SemanticType", "Class",
+						AttributeType.OPERATION, false, "Semantic Type",
+						SemanticConcept.class.getCanonicalName(), "O", null,
+						"", 0, -1, "", "", -1, "", ""));
 
 		semOverTwoRelation.addPropVisibleAttribute("00#" + "MetaType");
 		semOverTwoRelation.addPropVisibleAttribute("00#" + "SemanticType");
@@ -1472,8 +1487,8 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
 		overTwoRelation.addModelingAttribute("Type", new SyntaxAttribute(
-				"Type", "String", false, "Relation Type", "", 0, -1, "", "",
-				-1, "", ""));
+				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",
+				"", 0, -1, "", "", -1, "", ""));
 
 		// overTwoRelation.addPropVisibleAttribute("03#" + "Type");
 		// overTwoRelation.addPropEditableAttribute("03#" + "Type");
@@ -1550,8 +1565,8 @@ public class RefasModel extends AbstractModel {
 		viewConceptAsso
 				.addPanelSpacersAttribute("<<MetaViewConceptAsso>>#dummy#\n");
 		viewConceptAsso.addModelingAttribute("Palette", new SyntaxAttribute(
-				"Palette", "String", false, "Palette Name", "", 0, -1, "", "",
-				-1, "", ""));
+				"Palette", "String", AttributeType.SYNTAX, false,
+				"Palette Name", "", 0, -1, "", "", -1, "", ""));
 
 		viewConceptAsso.addPropEditableAttribute("02#" + "Palette");
 		viewConceptAsso.addPropVisibleAttribute("02#" + "Palette");
@@ -1599,12 +1614,11 @@ public class RefasModel extends AbstractModel {
 		SemanticConcept semPairwiseRelation = new SemanticConcept(semPWAsso,
 				"PairwiseRelation");
 
-		semPairwiseRelation.putSemanticAttribute(
-				"SemanticType",
-				new SemanticAttribute("SemanticType", "Class", false,
-						"Semantic Type", SemanticConcept.class
-								.getCanonicalName(), "P", null, "", 0, -1, "",
-						"", -1, "", ""));
+		semPairwiseRelation.putSemanticAttribute("SemanticType",
+				new SemanticAttribute("SemanticType", "Class",
+						AttributeType.OPERATION, false, "Semantic Type",
+						SemanticConcept.class.getCanonicalName(), "P", null,
+						"", 0, -1, "", "", -1, "", ""));
 
 		semPairwiseRelation.addPropVisibleAttribute("00#" + "SemanticType");
 		semPairwiseRelation.addPropEditableAttribute("00#" + "SemanticType");
@@ -1625,8 +1639,8 @@ public class RefasModel extends AbstractModel {
 				Color.BLUE.toString(), 3, instSemPairwiseRelationn, true);
 
 		pairwiseRelation.addModelingAttribute("Type", new SyntaxAttribute(
-				"Type", "String", false, "Relation Type", "", 0, -1, "", "",
-				-1, "", ""));
+				"Type", "String", AttributeType.SYNTAX, false, "Relation Type",
+				"", 0, -1, "", "", -1, "", ""));
 
 		// pairwiseRelation.addPropEditableAttribute("03#" + "Type");
 		// pairwiseRelation.addPropVisibleAttribute("03#" + "Type");
@@ -1636,9 +1650,9 @@ public class RefasModel extends AbstractModel {
 		// pairwiseRelation.addPanelSpacersAttribute("\n{#" + "Type" + "#}");
 
 		pairwiseRelation.addModelingAttribute("SourceCardinality",
-				new SyntaxAttribute("SourceCardinality", "String", false,
-						"Source Cardinality", "String", "[]", 0, -1, "", "",
-						-1, "", ""));
+				new SyntaxAttribute("SourceCardinality", "String",
+						AttributeType.SYNTAX, false, "Source Cardinality",
+						"String", "[]", 0, -1, "", "", -1, "", ""));
 
 		pairwiseRelation.addPropEditableAttribute("04#" + "SourceCardinality");
 		pairwiseRelation.addPropVisibleAttribute("04#" + "SourceCardinality");
@@ -1648,9 +1662,10 @@ public class RefasModel extends AbstractModel {
 				+ "SourceCardinality" + "#,");
 
 		pairwiseRelation.addModelingAttribute("TargetCardinality",
-				new SyntaxAttribute("TargetCardinality", "String", false,
-						"Target Cardinality", "String", "[]", 0, 5, "", "", 5,
-						"TargCard:#-#}\n", "Type#!=##"));
+				new SyntaxAttribute("TargetCardinality", "String",
+						AttributeType.SYNTAX, false, "Target Cardinality",
+						"String", "[]", 0, 5, "", "", 5, "TargCard:#-#}\n",
+						"Type#!=##"));
 
 		pairwiseRelation.addPropEditableAttribute("05#" + "TargetCardinality");
 		pairwiseRelation.addPropVisibleAttribute("05#" + "TargetCardinality");
