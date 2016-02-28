@@ -5,7 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
@@ -52,7 +52,7 @@ public class SetWidget extends WidgetR {
 
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
+			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 	}
 
 	@Override

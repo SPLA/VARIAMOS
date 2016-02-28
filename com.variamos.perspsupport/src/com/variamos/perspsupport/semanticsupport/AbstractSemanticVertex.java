@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent the vertex at semantic level. Part of PhD work at
@@ -75,13 +73,6 @@ public abstract class AbstractSemanticVertex extends AbstractSemanticElement
 	}
 
 	private void createModelingAttributes() {
-		putSemanticAttribute("Selected", new ExecCurrentStateAttribute(
-				"Selected", "Boolean", AttributeType.EXECCURRENTSTATE, false,
-				"***Selected***", false, 2, -1, "", "", -1, "", ""));
-		putSemanticAttribute("NotAvailable", new ExecCurrentStateAttribute(
-				"NotAvailable", "Boolean", AttributeType.EXECCURRENTSTATE,
-				false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", ""));
-
 	}
 
 	public boolean isBooleanSatisfaction() {

@@ -217,7 +217,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 			instMinTargetCard.setValue(split[7]);
 			instMaxTargetCard.setValue(split[8]);
 			List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-					.getInstAttributes().get("relationTypesSemExpressions")
+					.getInstAttributes().get("operationsExpressions")
 					.getValue());
 			instSemanticExpressions.setValue(semExpAttributes.get(index)
 					.getValue());
@@ -297,7 +297,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 						.getValue());
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesSemExpressions")
+						.getInstAttributes().get("operationsExpressions")
 						.getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
@@ -326,7 +326,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 				attributes.remove(v);
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesSemExpressions")
+						.getInstAttributes().get("operationsExpressions")
 						.getValue());
 
 				semExpAttributes.remove(v);

@@ -34,7 +34,7 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticEnumeration;
@@ -60,9 +60,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 	private void loadPaletteElements() {
 		paletteElements = new ArrayList<PaletteElement>();
 		Collection<InstElement> instElements = new HashSet<InstElement>();
-		if (((RefasModel) editor.getEditedModel()).getSyntaxRefas() != null)
-			for (InstElement instVertex : ((RefasModel) editor.getEditedModel())
-					.getSyntaxRefas().getVertices()) {
+		if (((ModelInstance) editor.getEditedModel()).getSyntaxModel() != null)
+			for (InstElement instVertex : ((ModelInstance) editor
+					.getEditedModel()).getSyntaxModel().getVertices()) {
 				instElements.add(instVertex);
 			}
 		for (InstElement instElement : instElements) {
@@ -285,7 +285,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											.getSupportMetaElementIden() == null
 											|| !pairwiseRelation
 													.getSupportMetaElementIden()
-													.equals("ViewConceptAsso")
+													.equals("SMMViewConceptAsso")
 											|| pairwiseRelation
 													.getSourceRelations()
 													.size() == 0

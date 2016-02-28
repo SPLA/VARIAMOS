@@ -20,7 +20,7 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
@@ -61,7 +61,7 @@ public class ClassWidget extends WidgetR {
 
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
+			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 
 		ClassLoader classLoader = ClassSingleSelectionType.class

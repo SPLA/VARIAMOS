@@ -143,7 +143,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 						MetaConcept.VAR_USERIDENTIFIER))
 					instAttribute.setValue(editableMetaElement
 							.getUserIdentifier());
-				if (instAttribute.getIdentifier().equals("SemanticType")
+				if (instAttribute.getIdentifier().equals("OperationsMMType")
 						&& editableMetaElement.getTransInstSemanticElement() != null)
 					instAttribute.setValue(editableMetaElement
 							.getTransInstSemanticElement().getIdentifier());
@@ -301,6 +301,8 @@ public abstract class InstElement implements Serializable, EditableElement,
 		String out2 = "";
 		if (getEditableMetaElement() != null) {
 			out2 = "\n";
+			// Set<String> modelingAttributes = this.getEditableMetaElement()
+			// .getAllAttributesNames(parents);
 			Set<String> modelingAttributes = getEditableMetaElement()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
@@ -309,6 +311,9 @@ public abstract class InstElement implements Serializable, EditableElement,
 						&& !attributeName.equals("Description")) {
 					AbstractAttribute i = getEditableMetaElement()
 							.getModelingAttribute(attributeName, parents);
+					if (i == null)
+						i = getEditableMetaElement().getSemanticAttribute(
+								attributeName);
 					String v = "";
 					if (i != null)
 						v = ":" + i.getType();
@@ -387,16 +392,16 @@ public abstract class InstElement implements Serializable, EditableElement,
 								InstAttribute instAttribute = getInstAttributes()
 										.get(name);
 								// System.out.println(this.getIdentifier());
-								// if (instAttribute != null) {
-								if (instAttribute.getType() != null
-										&& instAttribute.getType()
-												.equals("Set"))
-									for (InstAttribute e : (Collection<InstAttribute>) instAttribute
-											.getValue())
-										out += e.toString().trim() + "\n";
-								else
-									out += instAttribute.toString().trim();
-								// }
+								if (instAttribute != null) {
+									if (instAttribute.getType() != null
+											&& instAttribute.getType().equals(
+													"Set"))
+										for (InstAttribute e : (Collection<InstAttribute>) instAttribute
+												.getValue())
+											out += e.toString().trim() + "\n";
+									else
+										out += instAttribute.toString().trim();
+								}
 							}
 							while (sp2 != spacer.length()) {
 								int sp3 = spacer.indexOf("#", sp2 + 1);
@@ -524,7 +529,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 								metaConcept.getSemanticAttribute(name),
 								getTransSupportMetaElement().getDescription());
 					else if (name.equals("relationTypesAttributes")
-							|| name.equals("relationTypesSemExpressions")) {
+							|| name.equals("operationsExpressions")) {
 						addInstAttribute(name,
 								metaConcept.getSemanticAttribute(name),
 								new ArrayList<SemanticExpression>());

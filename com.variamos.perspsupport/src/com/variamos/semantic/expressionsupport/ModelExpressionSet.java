@@ -10,8 +10,8 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
@@ -24,7 +24,7 @@ import com.variamos.semantic.expressions.SumNumericExpression;
 
 public class ModelExpressionSet extends ElementExpressionSet {
 
-	private RefasModel refas;
+	private ModelInstance refas;
 	private Map<String, List<BooleanExpression>> booleanExpressions = new HashMap<String, List<BooleanExpression>>();
 
 	public List<BooleanExpression> getBooleanExpressionList(String element) {
@@ -33,7 +33,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 
 	public ModelExpressionSet(String identifier, String description,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			RefasModel refas, int execType) {
+			ModelInstance refas, int execType) {
 		super(identifier, description, idMap, hlclFactory);
 		this.refas = refas;
 		defineExpressions(execType);
@@ -58,7 +58,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 					&& semElement.getIdentifier().equals("GeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
 					switch (execType) {
-					case Refas2Hlcl.VAL_UPD_EXEC:
+					case ModelExpr2HLCL.VAL_UPD_EXEC:
 
 						if (metaElement.getAutoIdentifier().equals(
 								"GeneralFeature") // TODO temporal solution:
@@ -93,9 +93,9 @@ public class ModelExpressionSet extends ElementExpressionSet {
 									"Selected", true, coreOutExp);
 
 						break;
-					case Refas2Hlcl.SIMUL_MAPE:
-					case Refas2Hlcl.SIMUL_EXEC:
-					case Refas2Hlcl.SIMUL_EXPORT:
+					case ModelExpr2HLCL.SIMUL_MAPE:
+					case ModelExpr2HLCL.SIMUL_EXEC:
+					case ModelExpr2HLCL.SIMUL_EXPORT:
 						if (reqOutExp == null)
 							reqOutExp = new SumNumericExpression(vertex,
 									"NextReqSelected", true,

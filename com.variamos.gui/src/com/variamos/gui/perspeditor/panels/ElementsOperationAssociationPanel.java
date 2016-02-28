@@ -30,7 +30,7 @@ import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
@@ -74,8 +74,8 @@ public class ElementsOperationAssociationPanel extends
 		generalPanel.setLayout(new BorderLayout());
 
 		final JComboBox<String> combo = new JComboBox<String>();
-		operActions = editor.getEditedModel()
-				.getVariabilityVertex("CSOpAction");
+		operActions = editor.getEditedModel().getVariabilityVertex(
+				"OMMOperation");
 
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getEditableSemanticElement()
@@ -123,7 +123,7 @@ public class ElementsOperationAssociationPanel extends
 		repaint();
 	}
 
-	private AssociationTreeTable createTable(RefasModel refasModel,
+	private AssociationTreeTable createTable(ModelInstance refasModel,
 			InstElement operAction) {
 
 		SemanticOperationSubAction operSubAction = null;
@@ -217,10 +217,9 @@ public class ElementsOperationAssociationPanel extends
 				}
 
 			if (dialog == 0
-					&& el.getInstAttribute("relationTypesSemExpressions") != null)
+					&& el.getInstAttribute("operationsExpressions") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
-						.getInstAttribute("relationTypesSemExpressions")
-						.getValue()) {
+						.getInstAttribute("operationsExpressions").getValue()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					AssociationRow attNode = new AssociationRow(

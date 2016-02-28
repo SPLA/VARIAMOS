@@ -17,7 +17,6 @@ import com.variamos.perspsupport.expressionsupport.SemanticOperationGroup;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
@@ -34,7 +33,6 @@ import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.OptionAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
@@ -45,7 +43,7 @@ import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.StringType;
 import com.variamos.semantic.types.AttributeType;
 
-public class RefasOperSem {
+public class RefasDefaultOperations {
 	static SemanticOperationAction verifDeadElemOperationAction = null;
 	static OperationSubActionExpType verifDeadElemOperSubActionNormal = null;
 	static OperationSubActionExpType verifDeadElemOperSubActionRelaxable = null;
@@ -97,43 +95,44 @@ public class RefasOperSem {
 	static OperationSubActionExpType updateCoreOptOperSubActionNormal = null;
 
 	@SuppressWarnings("unchecked")
-	public static void createDefaultSemantic(RefasModel refas) {
+	public static void createDefaultOperations(ModelInstance refas) {
 
 		HlclFactory hlclFactory = new HlclFactory();
 
 		MetaConcept metaModel = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSModel"))
+				.getSyntaxModel().getVertex("OMMModel"))
 				.getEditableMetaElement();
 		MetaConcept metaOperationMenu = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSOperGroup"))
+				.getSyntaxModel().getVertex("OMMOperationGroup"))
 				.getEditableMetaElement();
 		MetaConcept metaOperationAction = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSOpAction"))
+				.getSyntaxModel().getVertex("OMMOperation"))
 				.getEditableMetaElement();
 		MetaConcept metaOperationSubAction = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSOpSubAction"))
+				.getSyntaxModel().getVertex("OMMSubOperation"))
 				.getEditableMetaElement();
 		MetaConcept metaConcept = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("Concept"))
+				.getSyntaxModel().getVertex("OMMConcept"))
 				.getEditableMetaElement();
-		MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("TypeEnumeration"))
-				.getEditableMetaElement();
+		// MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept)
+		// refas
+		// .getSyntaxModel().getVertex("TypeEnumeration"))
+		// .getEditableMetaElement();
 		MetaConcept metaPairwiseRelation = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSPairWiseRelation"))
+				.getSyntaxModel().getVertex("OMMPairWiseRelation"))
 				.getEditableMetaElement();
 		MetaConcept metaOverTwoRelation = (MetaConcept) ((InstConcept) refas
-				.getSyntaxRefas().getVertex("CSOverTwoRelation"))
+				.getSyntaxModel().getVertex("OMMOverTwoRelation"))
 				.getEditableMetaElement();
 		MetaPairwiseRelation metaPairwRelCCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) refas
-				.getSyntaxRefas().getConstraintInstEdge("ExtendsCCRel"))
+				.getSyntaxModel().getConstraintInstEdge("ExtendsCCRel"))
 				.getEditableMetaElement();
 		MetaPairwiseRelation metaPairwRelOCExt = (MetaPairwiseRelation) ((InstPairwiseRelation) refas
-				.getSyntaxRefas().getConstraintInstEdge("ExtendsOCRel"))
+				.getSyntaxModel().getConstraintInstEdge("ExtendsOCRel"))
 				.getEditableMetaElement();
 
 		MetaPairwiseRelation metaPairwRelAso = (MetaPairwiseRelation) ((InstPairwiseRelation) refas
-				.getSyntaxRefas().getConstraintInstEdge("DirectRelation"))
+				.getSyntaxModel().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
 		SemanticOperationGroup operationMenu = new SemanticOperationGroup(1,
@@ -796,10 +795,27 @@ public class RefasOperSem {
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
+		// END Operations definition
+		// --------------------------------------------------------------
+
+		// Start Concept's definition
+		// -------------------------------------------------------
+
 		SemanticConcept semGeneralElement = new SemanticConcept(
 				"GeneralElement"); // From refas name depends all the
 									// operations,
 									// do not change it
+
+		semGeneralElement.putSemanticAttribute("Selected",
+				new ExecCurrentStateAttribute("Selected", "Boolean",
+						AttributeType.EXECCURRENTSTATE, false,
+						"***Selected***", false, 2, -1, "", "", -1, "", ""));
+		semGeneralElement
+				.putSemanticAttribute("NotAvailable",
+						new ExecCurrentStateAttribute("NotAvailable",
+								"Boolean", AttributeType.EXECCURRENTSTATE,
+								false, "***Not Avaliable***", false, 2, -1, "",
+								"", -1, "", ""));
 
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
@@ -882,98 +898,100 @@ public class RefasOperSem {
 		//
 		// semanticExpressions.add(t1);
 
-		InstEnumeration instVertexHStrME = new InstEnumeration(
-				"HardStructEnumeration", metaEnumeration);
+		// InstEnumeration instVertexHStrME = new InstEnumeration(
+		// "HardStructEnumeration", metaEnumeration);
 		// refas.getVariabilityVertex().put("HardStructEnumeration",
 		// instVertexHStrME);
 
-		ArrayList<InstAttribute> c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHStrME
-				.getInstAttribute("value")).getInstAttributeAttribute("Value");
-		InstAttribute a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"1-means_ends-means_ends-true-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum11");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"12-impl.-Impl.-true-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum12");
-		c.add(a);
-
-		InstEnumeration instVertexHSideME = new InstEnumeration(
-				"HardSideEnumeration", metaEnumeration);
-		// refas.getVariabilityVertex().put("HardSideEnumeration",
-		// instVertexHSideME);
-
-		c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHSideME
-				.getInstAttribute("value")).getInstAttributeAttribute("Value");
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"1-conflict-conflict-false-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"2-altern.-altern.-false-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum2");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"3-preferred-pref.-false-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum3");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"4-req.-req..-false-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum4");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"5-cond.-cond.-false-true-true-1-1-1-1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum5");
-		c.add(a);
-
-		InstEnumeration instClaimSemOTAsso = new InstEnumeration(
-				"ClaimSemOTAsso", metaEnumeration);
-		// refas.getVariabilityVertex().put("ClaimSemOTAsso",
-		// instClaimSemOTAsso);
-
-		c = (ArrayList<InstAttribute>) ((InstAttribute) instClaimSemOTAsso
-				.getInstAttribute("value")).getInstAttributeAttribute("Value");
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"1#And#And#false#false#false#2#1#1#1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum1");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value", "2#Or#Or#false#true#true#2#1#1#1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum2");
-		c.add(a);
-		a = new InstAttribute();
-		a.setInstAttributeAttribute("Value",
-				"3#mutex#mutex#false#true#true#2#1#1#1");
-		a.setInstAttributeAttribute("DisplayValue", null);
-		a.setInstAttributeAttribute("attributeIden", "EnumValue");
-		a.setInstAttributeAttribute("Identifier", "enum3");
-		c.add(a);
+		// ArrayList<InstAttribute> c = (ArrayList<InstAttribute>)
+		// ((InstAttribute) instVertexHStrME
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// InstAttribute a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1-means_ends-means_ends-true-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum11");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "12-impl.-Impl.-true-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum12");
+		// c.add(a);
+		//
+		// InstEnumeration instVertexHSideME = new InstEnumeration(
+		// "HardSideEnumeration", metaEnumeration);
+		// // refas.getVariabilityVertex().put("HardSideEnumeration",
+		// // instVertexHSideME);
+		//
+		// c = (ArrayList<InstAttribute>) ((InstAttribute) instVertexHSideME
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1-conflict-conflict-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum1");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "2-altern.-altern.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum2");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "3-preferred-pref.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum3");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "4-req.-req..-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum4");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "5-cond.-cond.-false-true-true-1-1-1-1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum5");
+		// c.add(a);
+		//
+		// InstEnumeration instClaimSemOTAsso = new InstEnumeration(
+		// "ClaimSemOTAsso", metaEnumeration);
+		// // refas.getVariabilityVertex().put("ClaimSemOTAsso",
+		// // instClaimSemOTAsso);
+		//
+		// c = (ArrayList<InstAttribute>) ((InstAttribute) instClaimSemOTAsso
+		// .getInstAttribute("value")).getInstAttributeAttribute("Value");
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "1#And#And#false#false#false#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum1");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "2#Or#Or#false#true#true#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum2");
+		// c.add(a);
+		// a = new InstAttribute();
+		// a.setInstAttributeAttribute("Value",
+		// "3#mutex#mutex#false#true#true#2#1#1#1");
+		// a.setInstAttributeAttribute("DisplayValue", null);
+		// a.setInstAttributeAttribute("attributeIden", "EnumValue");
+		// a.setInstAttributeAttribute("Identifier", "enum3");
+		// c.add(a);
 
 		// Semantic Element
 
@@ -2068,7 +2086,7 @@ public class RefasOperSem {
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirOperClaimSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -2114,7 +2132,7 @@ public class RefasOperSem {
 		// StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
 		// "", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
 		//
-		// ia = instVertexCL.getInstAttribute("relationTypesSemExpressions");
+		// ia = instVertexCL.getInstAttribute("operationsExpressions");
 		// ias = (List<InstAttribute>) ia.getValue();
 		//
 		// semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -2420,6 +2438,17 @@ public class RefasOperSem {
 
 		SemanticConcept semGeneralGroup = new SemanticConcept("GeneralGroup");
 
+		semGeneralGroup.putSemanticAttribute("Selected",
+				new ExecCurrentStateAttribute("Selected", "Boolean",
+						AttributeType.EXECCURRENTSTATE, false,
+						"***Selected***", false, 2, -1, "", "", -1, "", ""));
+		semGeneralGroup
+				.putSemanticAttribute("NotAvailable",
+						new ExecCurrentStateAttribute("NotAvailable",
+								"Boolean", AttributeType.EXECCURRENTSTATE,
+								false, "***Not Avaliable***", false, 2, -1, "",
+								"", -1, "", ""));
+
 		InstVertex instVertexGR = new InstConcept("GeneralGroup", metaConcept,
 				semGeneralGroup);
 
@@ -2460,7 +2489,7 @@ public class RefasOperSem {
 		semGeneralGroup.putSemanticAttribute("Description", attribute);
 
 		SemanticOverTwoRelation semHardOverTwoRelation = new SemanticOverTwoRelation(
-				semGeneralGroup, "OverTwoRelation", hardSemOverTwoRelList);
+				semGeneralGroup, "SMMOverTwoRelation", hardSemOverTwoRelList);
 
 		InstVertex instVertexHHGR = new InstConcept("GoalOTAsso",
 				metaOverTwoRelation, semHardOverTwoRelation);
@@ -2523,7 +2552,7 @@ public class RefasOperSem {
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
 
-		ia = instVertexHHGR.getInstAttribute("relationTypesSemExpressions");
+		ia = instVertexHHGR.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -2692,7 +2721,7 @@ public class RefasOperSem {
 				"condition#condition#false#true#true#1#-1#1#1"));
 
 		ia = instDirHardHardSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -2836,7 +2865,7 @@ public class RefasOperSem {
 				"implication#implication#false#true#true#1#-1#1#1"));
 
 		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -2932,7 +2961,7 @@ public class RefasOperSem {
 				"optional#optional#false#true#true#1#-1#1#1"));
 
 		ia = instDirFeaFeatVertSemEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3025,7 +3054,7 @@ public class RefasOperSem {
 				"require#require#false#true#true#1#-1#1#1"));
 
 		ia = instDirFeatFeatSideSemEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3107,7 +3136,7 @@ public class RefasOperSem {
 				"implementation#implementation#false#true#true#1#-1#1#1"));
 
 		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3178,8 +3207,7 @@ public class RefasOperSem {
 				"", 1, -1, "", "", -1, "", ""),
 				"optional#optional#false#true#true#1#-1#1#1"));
 
-		ia = instSemAssetPairwiseRel
-				.getInstAttribute("relationTypesSemExpressions");
+		ia = instSemAssetPairwiseRel.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3271,7 +3299,7 @@ public class RefasOperSem {
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 		ia = instSemvarcntxPairwiseRel
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3607,8 +3635,7 @@ public class RefasOperSem {
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
 
-		ia = instDirSGSGSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+		ia = instDirSGSGSemanticEdge.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3874,8 +3901,7 @@ public class RefasOperSem {
 						"", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
-		ia = instDirCVCGSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+		ia = instDirCVCGSemanticEdge.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3931,7 +3957,7 @@ public class RefasOperSem {
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
 
-		ia = instVertexCLGR.getInstAttribute("relationTypesSemExpressions");
+		ia = instVertexCLGR.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4046,7 +4072,7 @@ public class RefasOperSem {
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirOperClaimToSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4159,7 +4185,7 @@ public class RefasOperSem {
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 		ia = instDirFClaimToSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4289,7 +4315,7 @@ public class RefasOperSem {
 				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
 		ia = instDirClaimSGSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4413,8 +4439,7 @@ public class RefasOperSem {
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
 				1, -1, "", "", -1, "", ""), "SD#SD#true#true#true#1#-1#1#1"));
 
-		ia = instDirSDSGSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+		ia = instDirSDSGSemanticEdge.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4604,7 +4629,7 @@ public class RefasOperSem {
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
-		ia = instAssetOperGRAO.getInstAttribute("relationTypesSemExpressions");
+		ia = instAssetOperGRAO.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -4665,7 +4690,7 @@ public class RefasOperSem {
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
 		ia = instDirAssetOperSemanticEdge
-				.getInstAttribute("relationTypesSemExpressions");
+				.getInstAttribute("operationsExpressions");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntSemanticExpression>();

@@ -46,7 +46,7 @@ import com.variamos.solver.Configuration;
  */
 
 public class SemSolverTasks extends SwingWorker<Void, Void> {
-	private Refas2Hlcl refas2hlcl;
+	private ModelExpr2HLCL refas2hlcl;
 	private HlclProgram configHlclProgram;
 	private boolean invalidConfigHlclProgram;
 	private List<String> outVariables = null;
@@ -73,7 +73,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	private String errorMessage = "";
 	private boolean update;
 	private Component parentComponent;
-	private RefasModel refasModel;
+	private ModelInstance refasModel;
 	// private String file;
 	private ProgressMonitor progressMonitor;
 	private boolean next = true;
@@ -86,7 +86,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 	public SemSolverTasks(ProgressMonitor progressMonitor,
 			Component parentComponent, String operationIdentifier,
-			Refas2Hlcl refas2hlcl, HlclProgram configHlclProgram,
+			ModelExpr2HLCL refas2hlcl, HlclProgram configHlclProgram,
 			boolean invalidConfigHlclProgram, boolean test,
 			InstElement element, List<String> defects,
 			Configuration lastConfiguration) {
@@ -104,7 +104,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	public SemSolverTasks(ProgressMonitor progressMonitor,
-			String operationIdentifier, Refas2Hlcl refas2hlcl,
+			String operationIdentifier, ModelExpr2HLCL refas2hlcl,
 			HlclProgram configHlclProgram, boolean firstSimulExec,
 			boolean reloadDashBoard, boolean update, String operation,
 			Configuration lastConfiguration) {
@@ -120,8 +120,8 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	}
 
 	public SemSolverTasks(ProgressMonitor progressMonitor,
-			String operationIdentifier, RefasModel refasModel,
-			Refas2Hlcl refas2hlcl, String file) {
+			String operationIdentifier, ModelInstance refasModel,
+			ModelExpr2HLCL refas2hlcl, String file) {
 		this.progressMonitor = progressMonitor;
 		this.refasModel = refasModel;
 		this.operationIdentifier = operationIdentifier;
@@ -192,7 +192,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 	public void configModel() throws InterruptedException {
 		// this.clearNotificationBar();
-		refas2hlcl.cleanGUIElements(Refas2Hlcl.CONF_EXEC);
+		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
 		Set<Identifier> freeIdentifiers = null;
 		Set<InstElement> elementSubSet = null;
 		task = 0;
@@ -201,7 +201,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		iniTime = System.currentTimeMillis();
 		if (invalidConfigHlclProgram && element == null) {
 			configHlclProgram = refas2hlcl.getHlclProgram("Simul",
-					Refas2Hlcl.CONF_EXEC);
+					ModelExpr2HLCL.CONF_EXEC);
 			freeIdentifiers = refas2hlcl.getFreeIdentifiers();
 		} else {
 			freeIdentifiers = new HashSet<Identifier>();
@@ -411,10 +411,10 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			try {
 				if (firstSimulExec || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, operation,
-							Refas2Hlcl.ONE_SOLUTION, operation); // type
+							ModelExpr2HLCL.ONE_SOLUTION, operation); // type
 				} else {
 					result = refas2hlcl.execute(progressMonitor, operation,
-							Refas2Hlcl.NEXT_SOLUTION, operation); // type
+							ModelExpr2HLCL.NEXT_SOLUTION, operation); // type
 					refas2hlcl.getOutVariables(operation, "Sim-Execution");
 					Configuration currentConfiguration = refas2hlcl
 							.getConfiguration();
@@ -521,7 +521,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
 		result = refas2hlcl.execute(progressMonitor, element,
-				Refas2Hlcl.ONE_SOLUTION, Refas2Hlcl.VAL_UPD_EXEC);
+				ModelExpr2HLCL.ONE_SOLUTION, ModelExpr2HLCL.VAL_UPD_EXEC);
 		IntDefectsVerifier defectVerifier = null;
 		long falseOTime = 0;
 		if (result) {
@@ -551,7 +551,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				try {
 					defectVerifier = new DefectsVerifier(
 							refas2hlcl.getHlclProgram("FalseOpt2",
-									Refas2Hlcl.VAL_UPD_EXEC),
+									ModelExpr2HLCL.VAL_UPD_EXEC),
 							SolverEditorType.SWI_PROLOG, parentComponent,
 							"Identifing core/falseoptional/dead Elements");
 

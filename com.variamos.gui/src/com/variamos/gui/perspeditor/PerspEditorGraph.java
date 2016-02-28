@@ -47,7 +47,7 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 
@@ -56,7 +56,7 @@ public class PerspEditorGraph extends AbstractGraph {
 	protected ConstraintMode constraintAddingMode = ConstraintMode.None;
 
 	public static final String PL_EVT_NODE_CHANGE = "plEvtNodeChange";
-	private RefasModel refasModel = null;
+	private ModelInstance refasModel = null;
 	private int modelViewIndex = 0;
 	private int modelViewSubIndex = -1;
 	private boolean validation = true;
@@ -91,7 +91,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		this.perspective = perspective;
 	}
 
-	public PerspEditorGraph(int perspective, RefasModel refasModel) {
+	public PerspEditorGraph(int perspective, ModelInstance refasModel) {
 		init();
 		this.perspective = perspective;
 		this.refasModel = refasModel;
@@ -103,8 +103,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		root.insert(parent);
 		getModel().setRoot(root);
 		List<InstElement> views = null;
-		if (refasModel.getSyntaxRefas() != null)
-			views = refasModel.getSyntaxRefas().getVariabilityVertex("View");
+		if (refasModel.getSyntaxModel() != null)
+			views = refasModel.getSyntaxModel().getVariabilityVertex("SMMView");
 		int pos = 0;
 		if (views != null && views.size() == 0) {
 			// Load Syntax and Semantic
@@ -129,8 +129,9 @@ public class PerspEditorGraph extends AbstractGraph {
 
 			}
 			/*
-			 * for (InstView instView : refasModel.getVariabilityVertex("View"))
-			 * { if (instView.getChildViews().size() == 0) { mxCell child = new
+			 * for (InstView instView :
+			 * refasModel.getVariabilityVertex("SMMView")) { if
+			 * (instView.getChildViews().size() == 0) { mxCell child = new
 			 * mxCell(instView.getIdentifier()); child.setValue(new
 			 * InstCell(child, instView, false)); addCell(child); String id =
 			 * instView.getIdentifier(); child.setVisible(true);
@@ -221,9 +222,9 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	public List<String> getValidElements(int modelView, int modelSubView) {
-		if (refasModel.getSyntaxRefas() == null)
+		if (refasModel.getSyntaxModel() == null)
 			return null;
-		return refasModel.getSyntaxRefas().modelElements(modelView,
+		return refasModel.getSyntaxModel().modelElements(modelView,
 				modelSubView);
 	}
 
@@ -322,7 +323,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
 					null);
-			RefasModel refas = getRefas();
+			ModelInstance refas = getRefas();
 			refas.updateValidationLists(directRelation, instSource, instTarget,
 					refas.getParentSyntaxConcept(directRelation));
 			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
@@ -356,7 +357,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
 				null);
-		RefasModel refas = getRefas();
+		ModelInstance refas = getRefas();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
 		cell.setValue(new InstCell(cell, directRelation, false));
@@ -448,7 +449,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		if (value instanceof InstVertex) {
 			String id = null;
 			String elementIdentifier = null;
-			RefasModel pl = getRefas();
+			ModelInstance pl = getRefas();
 			InstElement instElement = ((InstCell) cell.getValue())
 					.getInstElement();
 			if (cell.getGeometry() != null) {
@@ -546,7 +547,7 @@ public class PerspEditorGraph extends AbstractGraph {
 										.getChildCount(mv1); j++) {
 									mxCell mv2 = (mxCell) refasGraph
 											.getChildAt(mv1, j);
-									if (refasModel.getSyntaxRefas()
+									if (refasModel.getSyntaxModel()
 											.elementsValidation(name, i, j)
 											&& (i != modelViewIndex || j != modelViewSubIndex)) {
 
@@ -577,7 +578,7 @@ public class PerspEditorGraph extends AbstractGraph {
 
 							} else {
 								// if (valid[i] && i != modelViewIndex) {
-								if (refasModel.getSyntaxRefas()
+								if (refasModel.getSyntaxModel()
 										.elementsValidation(name, i, -1)
 										&& i != modelViewIndex) {
 
@@ -675,7 +676,7 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	public void setModel(AbstractModel pl) {
-		refasModel = (RefasModel) pl;
+		refasModel = (ModelInstance) pl;
 		defineInitialGraph();
 		try {
 			mxGraphLayout layout = new mxOrganicLayout(this);
@@ -685,7 +686,7 @@ public class PerspEditorGraph extends AbstractGraph {
 		}
 	}
 
-	public RefasModel getRefas() {
+	public ModelInstance getRefas() {
 		/*
 		 * if (refasModel == null) { refasModel = new
 		 * Refas(PerspectiveType.modeling); return refasModel; }

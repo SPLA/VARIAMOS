@@ -16,7 +16,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
@@ -131,7 +131,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// Init Validation Only
 						// ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-						if (execType == Refas2Hlcl.VAL_UPD_EXEC) {
+						if (execType == ModelExpr2HLCL.VAL_UPD_EXEC) {
 							if (instAttribute.getIdentifier().equals(
 									"IsRootFeature")) {
 								List<AbstractExpression> rootList = new ArrayList<AbstractExpression>();
@@ -270,9 +270,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						// Init Simulation Only
 						// //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-						if (execType == Refas2Hlcl.SIMUL_MAPE
-								|| execType == Refas2Hlcl.SIMUL_EXPORT
-								|| execType == Refas2Hlcl.SIMUL_EXEC) {
+						if (execType == ModelExpr2HLCL.SIMUL_MAPE
+								|| execType == ModelExpr2HLCL.SIMUL_EXPORT
+								|| execType == ModelExpr2HLCL.SIMUL_EXEC) {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
@@ -402,8 +402,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals("Opt")) {
 								// Opt #<==>
-								if (execType != Refas2Hlcl.CORE_EXEC
-										&& (execType != Refas2Hlcl.DESIGN_EXEC)) {
+								if (execType != ModelExpr2HLCL.CORE_EXEC
+										&& (execType != ModelExpr2HLCL.DESIGN_EXEC)) {
 									AbstractNumericExpression transformation50 = new SumNumericExpression(
 											instVertex, instVertex,
 											"NextReqSelected", "ConfigSelected");
@@ -437,7 +437,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							}
 							// Order#<==>
 							if (instAttribute.getIdentifier().equals("Order")
-									&& (execType != Refas2Hlcl.CORE_EXEC && (execType != Refas2Hlcl.DESIGN_EXEC))) {
+									&& (execType != ModelExpr2HLCL.CORE_EXEC && (execType != ModelExpr2HLCL.DESIGN_EXEC))) {
 								AbstractNumericExpression transformation49 = null;
 								if (instVertex.getTransSupportMetaElement()
 										.getAutoIdentifier()

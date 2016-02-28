@@ -19,7 +19,7 @@ import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
@@ -62,7 +62,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private boolean optional = false;
-	private RefasModel refas;
+	private ModelInstance refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -70,7 +70,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(RefasModel refas, String operation,
+	public TranslationExpressionSet(ModelInstance refas, String operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation, mxResources.get("defect-concepts") + " " + operation,
 				idMap, hlclFactory);
@@ -81,12 +81,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
-	public void addExpressions(RefasModel refas, InstElement instElement,
+	public void addExpressions(ModelInstance refas, InstElement instElement,
 			String subAction, OperationSubActionExecType expressionType) {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 
-		// List<InstElement> semModel = refas.getVariabilityVertex("CSModel");
+		// List<InstElement> semModel = refas.getVariabilityVertex("OMMModel");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -99,8 +99,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// out.addAll(createElementInstanceExpressions(operAction));
 		// }
 
-		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOpAction");
+		List<InstElement> operActions = refas.getOperationalModel()
+				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
@@ -228,11 +228,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	}
 
-	public List<Labeling> getLabelings(RefasModel refas, String subAction,
+	public List<Labeling> getLabelings(ModelInstance refas, String subAction,
 			OperationSubActionExecType expressionType) {
 
-		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOpAction");
+		List<InstElement> operActions = refas.getOperationalModel()
+				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
@@ -302,7 +302,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				&& (semElement instanceof SemanticOverTwoRelation || semElement instanceof SemanticPairwiseRelation)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
-					.getInstAttribute("relationTypesSemExpressions");
+					.getInstAttribute("operationsExpressions");
 			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 			for (InstAttribute attribute : ias) {
 				String att = attribute.getIdentifier();

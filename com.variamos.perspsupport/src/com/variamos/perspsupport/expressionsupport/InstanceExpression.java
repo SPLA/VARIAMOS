@@ -19,7 +19,7 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -95,7 +95,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private String leftInstElementId;
 
 	private int size = 0;
-	private RefasModel refas;
+	private ModelInstance refas;
 
 	public String getLastLeft() {
 		return lastLeft;
@@ -154,7 +154,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		semanticExpressionId = semanticExpression.getIdentifier();
 	}
 
-	public InstanceExpression(RefasModel refas, boolean customExpression,
+	public InstanceExpression(ModelInstance refas, boolean customExpression,
 			SemanticExpression semanticExpression) {
 		this.refas = refas;
 		this.customExpression = customExpression;

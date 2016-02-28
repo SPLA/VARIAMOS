@@ -9,7 +9,7 @@ import javax.swing.SwingWorker;
 
 import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 
 /**
@@ -117,7 +117,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					else
 						lastConfig = config;
 					editor.getRefas2hlcl().cleanGUIElements(
-							Refas2Hlcl.DESIGN_EXEC);
+							ModelExpr2HLCL.DESIGN_EXEC);
 					editor.getRefas2hlcl().updateGUIElements(
 							selectedAttributes, notAvailableAttributes,
 							conceptTypes, null, config);
@@ -126,7 +126,7 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 						try {
 							SolverTasks task = editor
 									.executeSimulation(true, false,
-											Refas2Hlcl.SIMUL_MAPE, true,
+											ModelExpr2HLCL.SIMUL_MAPE, true,
 											"Simul");
 							while (task.getProgress() != 100) {
 								Thread.sleep(100);
@@ -153,13 +153,13 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 								conceptTypes.add("ContextVariable");
 								conceptTypes.add("Variable");
 								editor.getRefas2hlcl().cleanGUIElements(
-										Refas2Hlcl.DESIGN_EXEC);
+										ModelExpr2HLCL.DESIGN_EXEC);
 								editor.getRefas2hlcl().updateGUIElements(
 										selectedAttributes,
 										notAvailableAttributes, conceptTypes,
 										null, config);
 								task = editor.executeSimulation(true, false,
-										Refas2Hlcl.SIMUL_MAPE, true, "Simul");
+										ModelExpr2HLCL.SIMUL_MAPE, true, "Simul");
 								while (task.getProgress() != 100) {
 									Thread.sleep(100);
 									if (canceled)

@@ -44,7 +44,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
 import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
@@ -63,7 +63,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 	// private ConfigurationDataModel dataModel;
 	private Configurator configurator;
 
-	private Refas2Hlcl refas2hlcl;
+	private ModelExpr2HLCL refas2hlcl;
 	// private AbstractModel abstractModel;
 
 	private JLabel lblStatus;
@@ -110,7 +110,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 		setConfigPanelVisibility(true);
 	}
 
-	public void setRefas2hlcl(Refas2Hlcl refas2hlcl) {
+	public void setRefas2hlcl(ModelExpr2HLCL refas2hlcl) {
 		this.refas2hlcl = refas2hlcl;
 	}
 

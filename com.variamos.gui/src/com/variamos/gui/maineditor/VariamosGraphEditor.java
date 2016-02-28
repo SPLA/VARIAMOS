@@ -86,8 +86,8 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.perspmodel.SemSolverTasks;
 import com.variamos.perspsupport.perspmodel.SolverTasks;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
@@ -134,7 +134,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	protected GraphTree productLineIndex;
 	protected ConfiguratorPanel configurator;
 	protected ConfigurationPropertiesTab configuratorProperties;
-	private RefasModel refasModel;
+	private ModelInstance refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
 	private SemSolverTasks semTask;
@@ -151,7 +151,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	protected int mode = 0;
 	private int tabIndex = 0, lastTabIndex = 0;
-	private Refas2Hlcl refas2hlcl;
+	private ModelExpr2HLCL refas2hlcl;
 	private VariamosGraphEditor modelEditor;
 	private InstCell lastEditableElement;
 	private boolean recursiveCall = false;
@@ -176,7 +176,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private OperationDefinitionDialog odd;
 
 	VariamosDashBoardFrame dashBoardFrame = new VariamosDashBoardFrame(
-			(RefasModel) getEditedModel());
+			(ModelInstance) getEditedModel());
 
 	private FileTasks fileTask;
 
@@ -197,7 +197,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		dashBoardFrame.hideDashBoard();
 	}
 
-	public Refas2Hlcl getRefas2hlcl() {
+	public ModelExpr2HLCL getRefas2hlcl() {
 		return refas2hlcl;
 	}
 
@@ -216,8 +216,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		defects.add("FalseOpt");
 		defects.add("Dead");
 
-		refasModel = (RefasModel) abstractModel;
-		refas2hlcl = new Refas2Hlcl(refasModel);
+		refasModel = (ModelInstance) abstractModel;
+		refas2hlcl = new ModelExpr2HLCL(refasModel);
 		configurator.setRefas2hlcl(refas2hlcl);
 
 		registerEvents();
@@ -243,9 +243,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		List<InstElement> instViews = null;
-		if (refasModel.getSyntaxRefas() != null)
-			instViews = refasModel.getSyntaxRefas()
-					.getVariabilityVertex("View");
+		if (refasModel.getSyntaxModel() != null)
+			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
+					"SMMView");
 		if (instViews != null)
 			if (instViews.size() == 0) {
 				center.setDividerLocation(0);
@@ -260,7 +260,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				for (InstElement instElement : instViews) {
 
 					JPanel tabPane = new JPanel();
-					if (instElement.getSupportMetaElementIden().equals("View")) {
+					if (instElement.getSupportMetaElementIden().equals(
+							"SMMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -324,8 +325,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 							// TODO change to RefasModel
 							List<InstElement> finalInstViews = refasModel
-									.getSyntaxRefas().getVariabilityVertex(
-											"View");
+									.getSyntaxModel().getVariabilityVertex(
+											"SMMView");
 							VariamosGraphEditor editor = getEditor();
 							((MainFrame) editor.getFrame()).waitingCursor(true);
 							int modelInd = getModelViewIndex();
@@ -453,7 +454,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
 				.getValidElements(modelViewIndex, modelSubViewIndex);
 		dashBoardFrame = new VariamosDashBoardFrame(
-				(RefasModel) getEditedModel());
+				(ModelInstance) getEditedModel());
 		graphEditorFunctions.updateEditor(this.validElements,
 				getGraphComponent(), modelViewIndex);
 	}
@@ -507,12 +508,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			PerspEditorGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new RefasModel(
+				abstractModel = reader.readRefasFile(file, new ModelInstance(
 						PerspectiveType.MODELING, null));
 				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.MODELING,
+					abstractModel = new ModelInstance(PerspectiveType.MODELING,
 							null);
 					refasGraph = new PerspEditorGraph(persp);
 
@@ -540,12 +541,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			PerspEditorGraph refasGraph = null;
 			if (file != null) {
 				SXFMReader reader = new SXFMReader();
-				abstractModel = reader.readRefasFile(file, new RefasModel(
+				abstractModel = reader.readRefasFile(file, new ModelInstance(
 						PerspectiveType.MODELING, null));
 				refasGraph = new PerspEditorGraph(persp);
 			} else {
 				{
-					abstractModel = new RefasModel(PerspectiveType.MODELING,
+					abstractModel = new ModelInstance(PerspectiveType.MODELING,
 							null);
 					refasGraph = new PerspEditorGraph(persp);
 
@@ -572,7 +573,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	@Deprecated
-	public void editModel(RefasModel pl) {
+	public void editModel(ModelInstance pl) {
 		// productLineIndex.reset();
 		AbstractGraph abstractGraph = null;
 		// todo: review other perspectives
@@ -810,7 +811,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								.getElementConstraintGroup(lastEditableElement
 										.getInstElement().getIdentifier(),
 										editableElementType,
-										Refas2Hlcl.SIMUL_EXEC);
+										ModelExpr2HLCL.SIMUL_EXEC);
 
 						expressions.configure(getEditedModel(),
 								metaExpressionSet,
@@ -935,7 +936,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public RefasModel getEditedModel() {
+	public ModelInstance getEditedModel() {
 		return refasModel;
 		/*
 		 * if (perspective == 0) return ((AbstractGraph)
@@ -1040,13 +1041,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
 											editableElementType,
-											Refas2Hlcl.CONF_EXEC));
+											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
-					expressionsArea
-							.setText(refas2hlcl.getElementTextConstraints(
+					expressionsArea.setText(refas2hlcl
+							.getElementTextConstraints(
 									finalEditElm.getIdentifier(),
-									editableElementType, Refas2Hlcl.SIMUL_EXEC));
+									editableElementType,
+									ModelExpr2HLCL.SIMUL_EXEC));
 				// expressions.configure(
 				// getEditedModel(),
 				// refas2hlcl.getElementConstraintGroup(
@@ -1057,7 +1059,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					Map<String, MetaElement> mapElements = null;
 					if (finalEditElm instanceof InstPairwiseRelation) {
 						InstPairwiseRelation instPairwise = (InstPairwiseRelation) finalEditElm;
-						mapElements = refasModel.getSyntaxRefas()
+						mapElements = refasModel.getSyntaxModel()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
 												.get(0),
@@ -1181,7 +1183,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									if (!recursiveCall) {
 										clearNotificationBar();
 										executeSimulation(true, true,
-												Refas2Hlcl.CONF_EXEC);
+												ModelExpr2HLCL.CONF_EXEC);
 										editPropertiesRefas(instCell);
 										updateExpressions = true;
 									}
@@ -1331,7 +1333,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (elm instanceof InstPairwiseRelation) {
 				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
 				try {
-					mapElements = refasModel.getSyntaxRefas()
+					mapElements = refasModel.getSyntaxModel()
 							.getValidPairwiseRelations(
 									instPairwise.getSourceRelations().get(0),
 									instPairwise.getTargetRelations().get(0));
@@ -1365,10 +1367,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
-				if (instAttribute.getIdentifier().equals("SemanticType"))
+				if (instAttribute.getIdentifier().equals("OperationsMMType"))
 					editableMetaElement
 							.setTransInstSemanticElement((InstElement) this.refasModel
-									.getSemanticRefas().getElement(
+									.getOperationalModel().getElement(
 											(String) instAttribute.getValue()));
 				// if (instAttribute.getIdentifier().equals("Visible"))
 				// editableMetaElement.setVisible((boolean) instAttribute
@@ -1473,7 +1475,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void updateObjects() {
 		if (perspective == 4) {
-			clearElementState(Refas2Hlcl.DESIGN_EXEC);
+			clearElementState(ModelExpr2HLCL.DESIGN_EXEC);
 			// executeSimulation(true, Refas2Hlcl.DESIGN_EXEC);
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
@@ -1496,7 +1498,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	private void updateRefasModel(AbstractModel editedModel) {
-		refasModel = (RefasModel) editedModel;
+		refasModel = (ModelInstance) editedModel;
 		this.refas2hlcl.setRefas(refasModel);
 	}
 
@@ -1589,7 +1591,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	// TODO support all operations dynamically
 	public void executeOperation(String operation) {
 		// TODO support multiple models selected from the menu
-		InstElement refas = refasModel.getSyntaxRefas().getVertex("REFAS");
+		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
 		InstVertex element = new InstConcept("REFAS1",
 				refas.getEditableMetaElement());
 		element.createInstAttributes(null);
@@ -1628,7 +1630,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			boolean reloadDashboard, int type, boolean update, String element) {
 
 		if (!firstSimulExecution && task != null
-				&& task.getExecType() == Refas2Hlcl.SIMUL_EXEC) {
+				&& task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC) {
 			task.setFirstSimulExec(false);
 			task.setNext(true);
 		} else {
@@ -1657,8 +1659,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 
-			task = new SolverTasks(progressMonitor, Refas2Hlcl.SIMUL_EXPORT,
-					this.refasModel, refas2hlcl, file);
+			task = new SolverTasks(progressMonitor,
+					ModelExpr2HLCL.SIMUL_EXPORT, this.refasModel, refas2hlcl,
+					file);
 			task.addPropertyChangeListener(this);
 			((MainFrame) getFrame()).waitingCursor(true);
 			task.execute();
@@ -1675,11 +1678,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		try {
 			if (first || lastConfiguration == null) {
 				result = refas2hlcl.execute(null, element,
-						Refas2Hlcl.ONE_SOLUTION, type);
+						ModelExpr2HLCL.ONE_SOLUTION, type);
 				wasFirst = true;
 			} else {
 				result = refas2hlcl.execute(null, element,
-						Refas2Hlcl.NEXT_SOLUTION, type);
+						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			}
 			lastConfiguration = refas2hlcl.getConfiguration();
 			if (result) {
@@ -1693,7 +1696,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			} else {
 				if (first) {
 					switch (type) {
-					case Refas2Hlcl.DESIGN_EXEC:
+					case ModelExpr2HLCL.DESIGN_EXEC:
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1703,7 +1706,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										"Simulation Execution Error",
 										JOptionPane.INFORMATION_MESSAGE, null);
 						break;
-					case Refas2Hlcl.CONF_EXEC:
+					case ModelExpr2HLCL.CONF_EXEC:
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1713,8 +1716,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 										"Simulation Execution Error",
 										JOptionPane.INFORMATION_MESSAGE, null);
 						break;
-					case Refas2Hlcl.SIMUL_EXEC:
-					case Refas2Hlcl.SIMUL_EXPORT:
+					case ModelExpr2HLCL.SIMUL_EXEC:
+					case ModelExpr2HLCL.SIMUL_EXPORT:
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1769,8 +1772,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				String message = String.format("Completed %d%%.\n", progress);
 				progressMonitor.setNote(message);
 				if (task.getProgress() == 100
-						&& (task.getExecType() == Refas2Hlcl.SIMUL_EXEC || task
-								.getExecType() == Refas2Hlcl.SIMUL_MAPE)) {
+						&& (task.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
+								.getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
 					refas2hlcl.updateGUIElements(null);
 					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
 					messagesArea.setText(refas2hlcl.getText());
@@ -1795,7 +1798,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					|| (task != null && task.isDone())) {
 				if (progressMonitor.isCanceled()) {
 					task.cancel(true);
-					if (task.getExecType() == Refas2Hlcl.SIMUL_EXPORT) {
+					if (task.getExecType() == ModelExpr2HLCL.SIMUL_EXPORT) {
 						JOptionPane
 								.showMessageDialog(
 										frame,
@@ -1813,11 +1816,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = task.getExecutionTime();
 					switch (task.getExecType()) {
-					case Refas2Hlcl.CONF_EXEC:
+					case ModelExpr2HLCL.CONF_EXEC:
 						invalidConfigHlclProgram = task
 								.isInvalidConfigHlclProgram();
 						break;
-					case Refas2Hlcl.DESIGN_EXEC:
+					case ModelExpr2HLCL.DESIGN_EXEC:
 						if (!task.getErrorTitle().equals("")) {
 							JOptionPane.showMessageDialog(frame,
 									task.getErrorMessage(),
@@ -1827,10 +1830,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						}
 						refresh();
 						break;
-					case Refas2Hlcl.SIMUL_EXEC:
+					case ModelExpr2HLCL.SIMUL_EXEC:
 						updateDashBoard(task.isReloadDashBoard(),
 								task.isUpdate());
-					case Refas2Hlcl.SIMUL_EXPORT:
+					case ModelExpr2HLCL.SIMUL_EXPORT:
 						refresh();
 						lastConfiguration = task.getLastConfiguration();
 						if (!task.getErrorTitle().equals("")) {
@@ -1870,7 +1873,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setProgress(0);
 
 			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
-					Refas2Hlcl.CONF_EXEC, refas2hlcl, configHlclProgram,
+					ModelExpr2HLCL.CONF_EXEC, refas2hlcl, configHlclProgram,
 					invalidConfigHlclProgram, test, element, defects,
 					lastConfiguration);
 			task.addPropertyChangeListener(this);
@@ -1893,7 +1896,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
 			task = new SolverTasks(progressMonitor, VariamosGraphEditor.this,
-					Refas2Hlcl.DESIGN_EXEC, refas2hlcl, configHlclProgram,
+					ModelExpr2HLCL.DESIGN_EXEC, refas2hlcl, configHlclProgram,
 					invalidConfigHlclProgram, false, null, defect,
 					lastConfiguration);
 			task.addPropertyChangeListener(this);
@@ -1918,7 +1921,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public List<InstElement> getInstViews() {
-		return refasModel.getSyntaxRefas().getVariabilityVertex("View");
+		return refasModel.getSyntaxModel().getVariabilityVertex("SMMView");
 	}
 
 	public void setProgressMonitor(ProgressMonitor progressMonitor) {

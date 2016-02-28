@@ -30,7 +30,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.semanticinterface.IntRefas2Hlcl;
+import com.variamos.perspsupport.semanticinterface.IntModelExpr2Hlcl;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -53,18 +53,19 @@ import com.variamos.solver.Solver;
 
 /**
  * Class to create the Hlcl program. Part of PhD work at University of Paris 1
+ * Renamed from Refas2HLCL
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
  * @since 2014-12-13
  */
-public class Refas2Hlcl implements IntRefas2Hlcl {
+public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	private HlclFactory f = new HlclFactory();
 	private Map<String, ElementExpressionSet> constraintGroups;
 	private String text;
 	private HlclProgram hlclProgram = new HlclProgram();
-	private RefasModel refas;
+	private ModelInstance refas;
 	private Map<String, Identifier> idMap = new HashMap<>();
 	private Configuration configuration = new Configuration();
 	private Solver swiSolver;
@@ -83,7 +84,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			DESIGN_EXEC = 0, CONF_EXEC = 1, SIMUL_EXEC = 2, CORE_EXEC = 3,
 			VAL_UPD_EXEC = 4, SIMUL_EXPORT = 5, SIMUL_MAPE = 6;
 
-	public Refas2Hlcl(RefasModel refas) {
+	public ModelExpr2HLCL(ModelInstance refas) {
 		this.refas = refas;
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 
@@ -93,7 +94,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public List<BooleanExpression> rootVerityTest() {
 		// HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createModelExpressions(Refas2Hlcl.VAL_UPD_EXEC);
+		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC);
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
@@ -109,7 +110,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public List<BooleanExpression> verityTest(String element) {
 		// HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createModelExpressions(Refas2Hlcl.VAL_UPD_EXEC);
+		createModelExpressions(ModelExpr2HLCL.VAL_UPD_EXEC);
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values())
 			if (constraintGroup instanceof ModelExpressionSet)
@@ -125,7 +126,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 	public HlclProgram relaxedTest(String element) {
 		HlclProgram hlclProgram = new HlclProgram();
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
-		createVertexExpressions(null, Refas2Hlcl.VAL_UPD_EXEC);
+		createVertexExpressions(null, ModelExpr2HLCL.VAL_UPD_EXEC);
 
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
@@ -394,8 +395,8 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 
 	public List<String> getOutVariables(String operation, String subAction) {
 		List<String> out = new ArrayList<String>();
-		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOpAction");
+		List<InstElement> operActions = refas.getOperationalModel()
+				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
@@ -420,7 +421,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
-			InstElement subop = refas.getSyntaxRefas().getSemanticRefas()
+			InstElement subop = refas.getSyntaxModel().getOperationalModel()
 					.getElement("Sim-Execution");
 
 			hlclProgram = getHlclProgram(element, operation, "Sim-Execution",
@@ -516,9 +517,9 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 			try {
 				ConfigurationOptions configurationOptions = new ConfigurationOptions();
 				switch (execType) {
-				case Refas2Hlcl.SIMUL_EXEC:
-				case Refas2Hlcl.SIMUL_EXPORT:
-				case Refas2Hlcl.SIMUL_MAPE:
+				case ModelExpr2HLCL.SIMUL_EXEC:
+				case ModelExpr2HLCL.SIMUL_EXPORT:
+				case ModelExpr2HLCL.SIMUL_MAPE:
 					configurationOptions.setOrder(true);
 
 				}
@@ -576,18 +577,18 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 				 * instVertex.getInstAttribute("Dead").getAsBoolean()) continue;
 				 */
 				switch (execType) {
-				case Refas2Hlcl.SIMUL_EXEC:
-				case Refas2Hlcl.SIMUL_EXPORT:
-				case Refas2Hlcl.SIMUL_MAPE:
+				case ModelExpr2HLCL.SIMUL_EXEC:
+				case ModelExpr2HLCL.SIMUL_EXPORT:
+				case ModelExpr2HLCL.SIMUL_MAPE:
 					if (instVertex.getInstAttribute("ConfigSelected")
 							.getAsBoolean()
 							|| instVertex.getInstAttribute("ConfigNotSelected")
 									.getAsBoolean())
 						continue;
 					break;
-				case Refas2Hlcl.CORE_EXEC:
+				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
-				case Refas2Hlcl.DESIGN_EXEC:
+				case ModelExpr2HLCL.DESIGN_EXEC:
 					instVertex.getInstAttribute("ConfigSelected").setValue(
 							false);
 					instVertex.getInstAttribute("ConfigNotSelected").setValue(
@@ -602,11 +603,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
-						if (execType == Refas2Hlcl.CORE_EXEC
-								|| execType == Refas2Hlcl.DESIGN_EXEC
-								|| execType == Refas2Hlcl.SIMUL_EXEC
-								|| execType == Refas2Hlcl.SIMUL_EXPORT
-								|| execType == Refas2Hlcl.SIMUL_MAPE
+						if (execType == ModelExpr2HLCL.CORE_EXEC
+								|| execType == ModelExpr2HLCL.DESIGN_EXEC
+								|| execType == ModelExpr2HLCL.SIMUL_EXEC
+								|| execType == ModelExpr2HLCL.SIMUL_EXPORT
+								|| execType == ModelExpr2HLCL.SIMUL_MAPE
 								|| (!instAttribute.getIdentifier().equals(
 										"Selected") && !instAttribute
 										.getIdentifier().equals("NotAvailable")))
@@ -923,11 +924,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		return out;
 	}
 
-	public RefasModel getRefas() {
+	public ModelInstance getRefas() {
 		return refas;
 	}
 
-	public void setRefas(RefasModel refas) {
+	public void setRefas(ModelInstance refas) {
 		this.refas = refas;
 		constraintGroups = new HashMap<String, ElementExpressionSet>();
 		swiSolver = null;
@@ -1156,7 +1157,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						throw (new InterruptedException());
 					if (calc)
 						out.addAll(getHlclProgram("Simul",
-								Refas2Hlcl.CONF_EXEC, element));
+								ModelExpr2HLCL.CONF_EXEC, element));
 					InstElement related = element.getSourceRelations().get(0);
 					out.addAll(configGraph(progressMonitor, related,
 							evaluatedSet, freeIdentifiers, calc));
@@ -1166,13 +1167,13 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 						throw (new InterruptedException());
 					if (calc)
 						out.addAll(getHlclProgram("Simul",
-								Refas2Hlcl.CONF_EXEC, element));
+								ModelExpr2HLCL.CONF_EXEC, element));
 					out.addAll(configGraph(progressMonitor, element
 							.getTargetRelations().get(0), evaluatedSet,
 							freeIdentifiers, calc));
 				}
 			}
-			out.addAll(getHlclProgram("Simul", Refas2Hlcl.CONF_EXEC, target));
+			out.addAll(getHlclProgram("Simul", ModelExpr2HLCL.CONF_EXEC, target));
 		}
 		return out;
 	}
@@ -1183,7 +1184,7 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 		Map<String, Map<String, Integer>> elements = new TreeMap<String, Map<String, Integer>>();
 		elements = new HashMap<String, Map<String, Integer>>();
 		String element = "Simul";
-		int type = Refas2Hlcl.SIMUL_EXEC;
+		int type = ModelExpr2HLCL.SIMUL_EXEC;
 		boolean result = true;
 		boolean first = true;
 		int cont = 0;
@@ -1192,11 +1193,11 @@ public class Refas2Hlcl implements IntRefas2Hlcl {
 					+ "(total unknown)");
 			if (first) {
 				result = execute(progressMonitor, element,
-						Refas2Hlcl.ONE_SOLUTION, type);
+						ModelExpr2HLCL.ONE_SOLUTION, type);
 				first = false;
 			} else
 				result = execute(progressMonitor, element,
-						Refas2Hlcl.NEXT_SOLUTION, type);
+						ModelExpr2HLCL.NEXT_SOLUTION, type);
 			if (result) {
 				updateGUIElements(null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
