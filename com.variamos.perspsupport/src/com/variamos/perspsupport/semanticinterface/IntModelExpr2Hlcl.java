@@ -1,5 +1,5 @@
 package com.variamos.perspsupport.semanticinterface;
 
-public interface IntRefas2Hlcl {
+public interface IntModelExpr2Hlcl {
 
 }

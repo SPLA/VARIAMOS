@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.syntaxsupport;
 
 import com.variamos.hlcl.Domain;
+import com.variamos.semantic.types.AttributeType;
 
 public class SyntaxAttribute extends AbstractAttribute {
 	/**
@@ -12,39 +13,44 @@ public class SyntaxAttribute extends AbstractAttribute {
 		super();
 	}
 
-	public SyntaxAttribute(String name, String type, boolean affectProperties,
+	public SyntaxAttribute(String name, String type,
+			AttributeType attributeType, boolean affectProperties,
 			String displayName, Object defaultValue, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
 			String elementDisplaySpacers, String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, defaultValue,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
-
-	public SyntaxAttribute(String name, String type, boolean affectProperties,
-			String displayName, String enumType, Object defaultValue,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, enumType,
+		super(name, type, attributeType, affectProperties, displayName,
 				defaultValue, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition);
 	}
 
-	public SyntaxAttribute(String name, String type, boolean affectProperties,
+	public SyntaxAttribute(String name, String type,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType, Object defaultValue,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		super(name, type, attributeType, affectProperties, displayName,
+				enumType, defaultValue, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	public SyntaxAttribute(String name, String type,
+			AttributeType attributeType, boolean affectProperties,
 			String displayName, Object defaultValue, Domain domain,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		super(name, type, affectProperties, displayName, defaultValue, domain,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
+		super(name, type, attributeType, affectProperties, displayName,
+				defaultValue, domain, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
 	}
 }

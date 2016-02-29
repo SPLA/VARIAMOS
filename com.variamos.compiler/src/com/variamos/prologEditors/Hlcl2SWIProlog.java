@@ -3,7 +3,6 @@ package com.variamos.prologEditors;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
 import com.variamos.compiler.solverSymbols.SWIPrologSymbols;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.hlcl.BooleanOperation;
@@ -13,6 +12,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.IntervalDomain;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
 
@@ -28,6 +28,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		StringBuilder footerExpression = new StringBuilder();
 		StringBuilder insideLabeling = new StringBuilder();
 		int idx = 0;
+		// FIX Luisa: Iterate over labeling list to create all labelings
 		if (params.isFdLabeling()) {
 			footerExpression.append(LABELING);
 
@@ -114,11 +115,17 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	protected void writeHeader(HlclProgram program, StringBuilder out) {
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
 		out.append(HEADER);
+		// FIX Luisa: Iterate over labelings to create all the required list of
+		// variables
+		// user the variables defined for each labeling
 		out.append(makeDomainsAndVariables(ids));
 	}
 
 	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
 		// Se contruye la lista de características y de dominios
+		// FIXME: Luisa: use a number from the labeling List possition to
+		// identify
+		// variable lists
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
 		StringBuilder domainString = new StringBuilder();
@@ -169,6 +176,8 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		dommainAndVariables.append(variablesList.toString().replace(",]",
 				CLOSE_BRACKET));
 		dommainAndVariables.append(LF);
+		// FIX Luisa: End iteration required
+
 		// add domain string
 		dommainAndVariables.append(domainString);
 

@@ -11,13 +11,15 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.Labeling;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
+import com.variamos.perspsupport.expressionsupport.OperationLabeling;
 import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
@@ -54,11 +56,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * 
 	 */
 	private HlclFactory hlclFactory;
+
+	static private HlclFactory f = new HlclFactory();
 	/**
 	 * 
 	 */
 	private boolean optional = false;
-	private RefasModel refas;
+	private ModelInstance refas;
 
 	/**
 	 * Assign the parameters on the abstract class
@@ -66,7 +70,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	 * @param operation
 	 * @param column
 	 */
-	public TranslationExpressionSet(RefasModel refas, String operation,
+	public TranslationExpressionSet(ModelInstance refas, String operation,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory) {
 		super(operation, mxResources.get("defect-concepts") + " " + operation,
 				idMap, hlclFactory);
@@ -77,25 +81,26 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		this.operation = operation;
 	}
 
-	public void addExpressions(RefasModel refas, InstElement instElement,
+	public void addExpressions(ModelInstance refas, InstElement instElement,
 			String subAction, OperationSubActionExecType expressionType) {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 
-		// List<InstElement> semModel = refas.getVariabilityVertex("CSModel");
+		// List<InstElement> semModel = refas.getVariabilityVertex("OMMModel");
 		// for (InstElement oper : semModel) {
-		InstElement oper2 = refas.getElement("REFAS1");
-		IntSemanticElement semModelElement = oper2.getEditableSemanticElement();
+		// InstElement oper2 = refas.getElement("REFAS1");
+		// IntSemanticElement semModelElement =
+		// oper2.getEditableSemanticElement();
 
-		out.addAll(createElementInstanceExpressions(oper2));
+		// out.addAll(createElementInstanceExpressions(oper2));
 		// TODO create expressions for model concepts
 
 		// if (instElement == null)
 		// out.addAll(createElementInstanceExpressions(operAction));
 		// }
 
-		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOpAction");
+		List<InstElement> operActions = refas.getOperationalModel()
+				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
@@ -136,23 +141,38 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							// expressions
 							if (att.getType()
 									.equals(InstanceExpression.class
-											.getCanonicalName())
-									&& (InstanceExpression) att.getValue() != null) {
-								InstanceExpression instanceExpression = new InstanceExpression(
-										true, "cond", true);
-								instanceExpression
-										.setSemanticExpressionType(refas
-												.getSemanticExpressionTypes()
-												.get("DoubleImplies"));
-								instanceExpression.setLeftElement(instE);
-								instanceExpression.setLeftAttributeName(att
-										.getIdentifier());
-								instanceExpression
-										.setRightInstanceExpression((InstanceExpression) att
-												.getValue());
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
-								out.add(instanceExpression);
+											.getCanonicalName())) {
+								if ((InstanceExpression) att.getValue() != null) {
+									InstanceExpression instanceExpression = new InstanceExpression(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("DoubleImplies"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									instanceExpression
+											.setRightInstanceExpression((InstanceExpression) att
+													.getValue());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
+									out.add(instanceExpression);
+								} else {
+									InstanceExpression instanceExpression = new InstanceExpression(
+											true, "cond", true);
+									instanceExpression
+											.setSemanticExpressionType(refas
+													.getSemanticExpressionTypes()
+													.get("Equals"));
+									instanceExpression.setLeftElement(instE);
+									instanceExpression.setLeftAttributeName(att
+											.getIdentifier());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+									instanceExpression.setRightNumber(1);
+									out.add(instanceExpression);
+								}
 							}
 						}
 						for (AbstractAttribute var : operSubAction
@@ -160,6 +180,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							int attributeValue = 0;
 							InstAttribute instAttribute = instE
 									.getInstAttribute(var.getName());
+							// FIXME: compare attribute name and element name
 							if (instAttribute != null) {
 								String type = (String) instAttribute.getType();
 								if (type.equals("Integer")
@@ -207,11 +228,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	}
 
-	public List<String> getOutVariables(RefasModel refas, String subAction) {
-		List<String> out = new ArrayList<String>();
-		List<InstElement> operActions = refas.getSemanticRefas()
-				.getVariabilityVertex("CSOpAction");
+	public List<Labeling> getLabelings(ModelInstance refas, String subAction,
+			OperationSubActionExecType expressionType) {
+
+		List<InstElement> operActions = refas.getOperationalModel()
+				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
+		SemanticOperationSubAction operSubAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
 				operAction = oper;
@@ -221,11 +244,39 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction))
-				for (AbstractAttribute att : ((SemanticOperationSubAction) subOper
-						.getEditableSemanticElement()).getOutVariables())
-					out.add(att.getName());
+				operSubAction = (SemanticOperationSubAction) subOper
+						.getEditableSemanticElement();
 		}
-		return out;
+
+		if (operSubAction != null) {
+			OperationSubActionExpType operExpType = operSubAction
+					.getOperationSubActionExpType(expressionType);
+			if (operExpType != null) {
+				List<IntSemanticExpression> semExp = operExpType
+						.getSemanticExpressions();
+				for (InstElement instE : refas.getElements()) {
+					List<Labeling> out = new ArrayList<Labeling>();
+					for (OperationLabeling operLab : operSubAction
+							.getOperLabels()) {
+						int attributeValue = 0;
+						List<Identifier> ident = new ArrayList<Identifier>();
+						for (AbstractAttribute var : operLab.getVariables()) {
+							InstAttribute instAttribute = instE
+									.getInstAttribute(var.getName());
+							// FIXME: compare attribute name and element name
+							ident.add(f.newIdentifier("-"));
+						}
+						// FIXME: set labeling parameters
+						Labeling lab = new Labeling(null, attributeValue,
+								optional, null, null);
+						lab.setVariables(ident);
+						out.add(lab);
+					}
+					return out;
+				}
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -251,7 +302,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				&& (semElement instanceof SemanticOverTwoRelation || semElement instanceof SemanticPairwiseRelation)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
-					.getInstAttribute("relationTypesSemExpressions");
+					.getInstAttribute("operationsExpressions");
 			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 			for (InstAttribute attribute : ias) {
 				String att = attribute.getIdentifier();

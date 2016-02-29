@@ -47,7 +47,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
@@ -64,7 +64,7 @@ public class InstanceExpressionDialog extends JDialog {
 	private InstanceExpressionButtonAction onAccept, onCancel, onDelete;
 	private InstanceExpression selectedExpression;
 	private JPanel solutionPanel;
-	private RefasModel refasModel;
+	private ModelInstance refasModel;
 	private boolean displayVariableName = true;
 	private int width = 950;
 	private int height = 400;
@@ -82,7 +82,7 @@ public class InstanceExpressionDialog extends JDialog {
 		super(editor.getFrame(), "Expressions Editor");
 		this.multiExpressions = multiExpression;
 		this.editable = editable;
-		refasModel = (RefasModel) editor.getEditedModel();
+		refasModel = (ModelInstance) editor.getEditedModel();
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, instanceExpressions);
 	}

@@ -43,7 +43,7 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
@@ -148,7 +148,7 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			EditableElement editElm = instCell.getInstElement();
-			List<InstElement> parent = ((RefasModel) editor.getEditedModel())
+			List<InstElement> parent = ((ModelInstance) editor.getEditedModel())
 					.getParentSyntaxConcept((InstElement) editElm);
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
@@ -256,8 +256,8 @@ public class ElementDesignPanel extends JPanel {
 							Map<String, MetaElement> mapElements = null;
 							if (editElm instanceof InstPairwiseRelation) {
 								InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
-								mapElements = ((RefasModel) editor
-										.getEditedModel()).getSyntaxRefas()
+								mapElements = ((ModelInstance) editor
+										.getEditedModel()).getSyntaxModel()
 										.getValidPairwiseRelations(
 												instPairwise
 														.getSourceRelations()
@@ -813,9 +813,9 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
-							.equals("CSPairWiseRelation") || ((InstElement) editElm)
+							.equals("OperMMPairWiseRelation") || ((InstElement) editElm)
 							.getSupportMetaElementIden().equals(
-									"CSOverTwoRelation"))) {
+									"OMMOverTwoRelation"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
@@ -884,10 +884,10 @@ public class ElementDesignPanel extends JPanel {
 					editableMetaElement
 							.setAutoIdentifier((String) instAttribute
 									.getValue());
-				if (instAttribute.getIdentifier().equals("SemanticType"))
+				if (instAttribute.getIdentifier().equals("OperationsMMType"))
 					editableMetaElement
-							.setTransInstSemanticElement((InstElement) ((RefasModel) editor
-									.getEditedModel()).getSemanticRefas()
+							.setTransInstSemanticElement((InstElement) ((ModelInstance) editor
+									.getEditedModel()).getOperationalModel()
 									.getElement(
 											(String) instAttribute.getValue()));
 				// if (instAttribute.getIdentifier().equals("Visible"))

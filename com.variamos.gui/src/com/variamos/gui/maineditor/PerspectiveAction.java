@@ -53,8 +53,8 @@ public class PerspectiveAction extends AbstractEditorAction {
 				&& jb.getText().equals(mxResources.get("modelingPerspButton"))) {
 			mainFrame.setPerspective(2);
 			VariamosGraphEditor ed = mainFrame.getEditor(2);
-			List<InstElement> views = ed.getEditedModel().getSyntaxRefas()
-					.getVariabilityVertex("View");
+			List<InstElement> views = ed.getEditedModel().getSyntaxModel()
+					.getVariabilityVertex("SMMView");
 			if (views.size() == 0) {
 				JOptionPane.showMessageDialog(editor,
 						mxResources.get("nometamodelerror"),

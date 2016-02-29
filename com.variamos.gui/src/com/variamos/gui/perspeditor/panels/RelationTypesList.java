@@ -26,6 +26,7 @@ import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the relation types for semantic pairwise and over two
@@ -55,9 +56,9 @@ public class RelationTypesList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("Add Type ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER, false,
-					"Add Type ...", "", 1, -1, "", "", -1, "", ""),
-			"Add Type ...");
+			new AbstractAttribute("Add ...", StringType.IDENTIFIER,
+					AttributeType.SYNTAX, false, "Add Type ...", "", 1, -1, "",
+					"", -1, "", ""), "Add Type ...");
 
 	public RelationTypesList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,57 +123,66 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 		final InstAttribute instIdentifier = new InstAttribute("identifier",
 				new AbstractAttribute("identifier", StringType.IDENTIFIER,
-						false, "Identifier", "", 1, -1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Identifier", "", 1, -1,
+						"", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute("displayName",
 				new AbstractAttribute("displayName", StringType.IDENTIFIER,
-						false, "Display Name", 0, 1, -1, "", "", -1, "", ""),
-				"");
+						AttributeType.SYNTAX, false, "Display Name", 0, 1, -1,
+						"", "", -1, "", ""), "");
 
 		final InstAttribute instRelExclusive = new InstAttribute(
-				"relationExclusive", new AbstractAttribute("relationExclusive",
-						BooleanType.IDENTIFIER, false, "Relation Exclusive",
-						false, 1, -1, "", "", -1, "", ""), false);
+				"relationExclusive",
+				new AbstractAttribute("relationExclusive",
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Relation Exclusive", false, 1, -1, "", "", -1, "", ""),
+				false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
 				"sourceExclusive", new AbstractAttribute("sourceExclusive",
-						BooleanType.IDENTIFIER, false, "Source Exclusive",
-						false, 1, -1, "", "", -1, "", ""), false);
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Source Exclusive", false, 1, -1, "", "", -1, "", ""),
+				false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
 				"targetExclusive", new AbstractAttribute("targetExclusive",
-						BooleanType.IDENTIFIER, false, "Target Exclusive",
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Target Exclusive",
 						SemanticVariable.VAR_VARIABLETYPECLASS, "String", "",
 						"", 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instMinSourceCard = new InstAttribute(
 				"minSourceCardinality", new AbstractAttribute(
-						"minSourceCardinality", IntegerType.IDENTIFIER, false,
+						"minSourceCardinality", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						"Minim Source Cardinality", false, 1, -1, "", "", -1,
 						"", ""), 0);
 
 		final InstAttribute instMaxSourceCard = new InstAttribute(
 				"maxSourceCardinality", new AbstractAttribute(
-						"maxSourceCardinality", IntegerType.IDENTIFIER, false,
+						"maxSourceCardinality", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						"Maximum Source Cardinality", "", 1, -1, "", "", -1,
 						"", ""), 1);
 		final InstAttribute instMinTargetCard = new InstAttribute(
 				"minTargetCardinality", new AbstractAttribute(
-						"minTargetCardinality", IntegerType.IDENTIFIER, false,
+						"minTargetCardinality", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						"Minimum Target Cardinality",
 						SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "",
 						"", 1, -1, "", "", -1, "", ""), 0);
 		final InstAttribute instMaxTargetCard = new InstAttribute(
 				"maxTargetCardinality", new AbstractAttribute(
-						"maxTargetCardinality", IntegerType.IDENTIFIER, false,
+						"maxTargetCardinality", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
 						"Maximum Target Cardinality", 1, 1, -1, "", "", -1, "",
 						""), 1);
 		final InstAttribute instSemanticExpressions = new InstAttribute(
 				"semanticExpression", new AbstractAttribute(
 						"semanticExpression",
-						SemanticExpression.class.getCanonicalName(), false,
-						"Semantic Expression", "", 1, -1, "", "", -1, "", ""),
-				null);
+						SemanticExpression.class.getCanonicalName(),
+						AttributeType.SYNTAX, false, "Semantic Expression", "",
+						1, -1, "", "", -1, "", ""), null);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -192,7 +202,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("RelTypeValue",
-							StringType.IDENTIFIER, false,
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Relation Type Value", "", 1, -1, "", "", -1, "",
 							""), "");
 		} else {
@@ -207,7 +217,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 			instMinTargetCard.setValue(split[7]);
 			instMaxTargetCard.setValue(split[8]);
 			List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-					.getInstAttributes().get("relationTypesSemExpressions")
+					.getInstAttributes().get("operationsExpressions")
 					.getValue());
 			instSemanticExpressions.setValue(semExpAttributes.get(index)
 					.getValue());
@@ -287,7 +297,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 						.getValue());
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesSemExpressions")
+						.getInstAttributes().get("operationsExpressions")
 						.getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
@@ -316,7 +326,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 				attributes.remove(v);
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesSemExpressions")
+						.getInstAttributes().get("operationsExpressions")
 						.getValue());
 
 				semExpAttributes.remove(v);

@@ -24,6 +24,7 @@ import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property list for instance enumerations on modeling.
@@ -54,8 +55,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
 			new AbstractAttribute("New Enum Type ...", StringType.IDENTIFIER,
-					false, "New Enum Type ...", "", 1, -1, "", "", -1, "", ""),
-			"New Enum Type ...");
+					AttributeType.SYNTAX, false, "New Enum Type ...", "", 1,
+					-1, "", "", -1, "", ""), "New Enum Type ...");
 
 	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -119,12 +120,13 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
-						false, "Value Name", "", 1, -1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Value Name", "", 1, -1,
+						"", "", -1, "", ""), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						false, "Value Id(int)", "", 1, -1, "", "", -1, "", ""),
-				0);
+						AttributeType.SYNTAX, false, "Value Id(int)", "", 1,
+						-1, "", "", -1, "", ""), 0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -144,8 +146,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
 					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
-							false, "Enumeration Value", "", 1, -1, "", "", -1,
-							"", ""), "");
+							AttributeType.SYNTAX, false, "Enumeration Value",
+							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);

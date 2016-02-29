@@ -189,6 +189,16 @@
 		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
+		<add as="refasbigclass">
+		<add as="shape" value="bigenum"/>
+		<add as="labelBackgroundColor" value="none"/>
+		<add as="endArrow" value="classic"/>
+		<add as="fontSize" value="10"/>
+		<add as="align" value="center"/>
+		<add as="verticalAlign" value="top"/>
+		<add as="fillColor" value="white"/>		
+		<add as="strokeColor" value="black"/>
+	</add>	
 		<add as="refasminiclass">
 		<add as="shape" value="miniclass"/>
 		<add as="labelBackgroundColor" value="none"/>

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.variamos.hlcl.Domain;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent semantic and syntax concepts attributes. The attributes
@@ -73,6 +74,8 @@ public class AbstractAttribute implements Serializable {
 	 * Unique name of the attribute within the concept
 	 */
 	private String name;
+
+	private AttributeType attributeType;
 	/**
 	 * Attribute type (String, Integer, Boolean, Set, Class, MClass,
 	 * Enumeration, MEnumeration)
@@ -310,13 +313,13 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, null, defaultGroup, propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName, null,
+				null, defaultValue, null, null, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition);
@@ -343,13 +346,14 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			String hint, int defaultGroup, int propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, String hint,
+			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, null, hint, defaultGroup, propTabPosition,
+		this(name, type, attributeType, affectProperties, displayName, null,
+				null, defaultValue, null, hint, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition);
@@ -376,16 +380,17 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup, int propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType, Object defaultValue,
+			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, null, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+		this(name, type, attributeType, affectProperties, displayName,
+				enumType, null, defaultValue, null, null, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -411,14 +416,15 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, null,
+		this(name, type, attributeType, affectProperties, displayName,
+				enumType, metaConceptInstanceType, defaultValue, null, null,
 				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
@@ -450,16 +456,17 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, enumType, null,
-				defaultValue, null, hint, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType, Object defaultValue,
+			String hint, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				enumType, null, defaultValue, null, hint, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -488,14 +495,15 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, String hint,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, null, hint,
+		this(name, type, attributeType, affectProperties, displayName,
+				enumType, metaConceptInstanceType, defaultValue, null, hint,
 				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
@@ -522,16 +530,17 @@ public class AbstractAttribute implements Serializable {
 	 */
 
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, int defaultGroup, int propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, Domain domain,
+			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, null, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+		this(name, type, attributeType, affectProperties, displayName, null,
+				null, defaultValue, domain, null, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -557,16 +566,17 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, String hint, int defaultGroup, int propTabPosition,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, Object defaultValue, Domain domain,
+			String hint, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
-		this(name, type, affectProperties, displayName, null, null,
-				defaultValue, domain, hint, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+		this(name, type, attributeType, affectProperties, displayName, null,
+				null, defaultValue, domain, hint, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -597,11 +607,12 @@ public class AbstractAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, Domain domain,
 			String hint, int defaultGroup) {
-		this(name, type, affectProperties, displayName, enumType,
-				metaConceptInstanceType, defaultValue, domain, hint,
+		this(name, type, attributeType, affectProperties, displayName,
+				enumType, metaConceptInstanceType, defaultValue, domain, hint,
 				defaultGroup, -1, "", "", -1, "", "");
 	}
 
@@ -634,7 +645,8 @@ public class AbstractAttribute implements Serializable {
 	 */
 
 	public AbstractAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
+			AttributeType attributeType, boolean affectProperties,
+			String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, Domain domain,
 			String hint, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
@@ -643,6 +655,7 @@ public class AbstractAttribute implements Serializable {
 		super();
 		this.name = name;
 		this.type = type;
+		this.attributeType = attributeType;
 		this.affectProperties = affectProperties;
 		this.displayName = displayName;
 		this.classCanonicalName = enumType;
@@ -791,5 +804,13 @@ public class AbstractAttribute implements Serializable {
 		dynamicAttributeComponentsMap.put(VAR_NAME, new AttributeElement(
 				VAR_NAME, "String", VAR_NAME, name));
 
+	}
+
+	public AttributeType getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(AttributeType attributeType) {
+		this.attributeType = attributeType;
 	}
 }

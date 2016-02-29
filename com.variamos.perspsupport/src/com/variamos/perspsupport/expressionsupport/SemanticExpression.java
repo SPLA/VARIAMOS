@@ -207,6 +207,20 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
+			InstElement leftSemanticElement, String leftAttributeName,
+			String rightAttributeName) {
+		this.identifier = identifier;
+		this.semanticExpressionType = semanticExpressionType;
+		this.setLeftSemanticElement(leftSemanticElement);
+		this.leftAttributeName = leftAttributeName;
+		this.rightAttributeName = rightAttributeName;
+		setLeftExpressionType(expressionVertexType);
+		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
+	}
+
+	public SemanticExpression(String identifier,
+			SemanticExpressionType semanticExpressionType,
+			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
 			InstElement semanticRelElement, String attributeName,
 			boolean replaceRight, int number) {
@@ -686,7 +700,12 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 			SemanticExpressionType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION
 				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
-				|| type == ExpressionVertexType.LEFTITERFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERCONFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITEROUTCONFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE
+				|| type == ExpressionVertexType.LEFTITERANYFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYRELVARIABLE)
@@ -932,7 +951,11 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 		case LEFTCONCEPTVARIABLE:
 		case LEFTITERCONCEPTVARIABLE:
-		case LEFTITERFIXEDVARIABLE:
+		case LEFTITERCONFIXEDVARIABLE:
+		case LEFTITERINCCONFIXEDVARIABLE:
+		case LEFTITEROUTCONFIXEDVARIABLE:
+		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTITEROUTRELFIXEDVARIABLE:
 		case LEFTUNIQUEOUTCONVARIABLE:
 		case LEFTUNIQUEINCCONVARIABLE:
 		case LEFTUNIQUEOUTRELVARIABLE:

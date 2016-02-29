@@ -21,7 +21,7 @@ import com.variamos.gui.perspeditor.PerspEditorMenuBar;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
@@ -60,34 +60,38 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
-		System.out.println("Loading Basic Semantic and Syntax...");
-		RefasModel basicSyntaxRefas = new RefasModel(
-				PerspectiveType.CORESYNTAX, metaExpressionTypes);
-		RefasModel basicSemanticRefas = new RefasModel(
-				PerspectiveType.CORESEMANTIC, metaExpressionTypes);
-		RefasModel semanticRefas = null;
-		RefasModel syntaxRefas = null;
-		RefasModel abstractModel = null;
+		System.out.println("Loading Syntax and Operations Infrastructure...");
+		ModelInstance syntaxInfrastructure = new ModelInstance(
+				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes);
+		ModelInstance operationsInfrastructure = new ModelInstance(
+				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes);
+		ModelInstance semanticSuperstructure = null;
+		ModelInstance syntaxSuperstructure = null;
+		ModelInstance abstractModel = null;
 		PerspEditorGraph refasGraph = null;
 		Color bgColor = null;
 		VariamosGraphEditor modelEditor = null;
 		String perspTitle = "";
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: // semantic
-				abstractModel = new RefasModel(metaExpressionTypes,
-						basicSemanticRefas);
-				semanticRefas = abstractModel;
-				syntaxRefas = new RefasModel(PerspectiveType.SYNTAX,
-						metaExpressionTypes, basicSyntaxRefas, semanticRefas);
+			case 0: // operations
+				abstractModel = new ModelInstance(metaExpressionTypes,
+						operationsInfrastructure);
+				semanticSuperstructure = abstractModel;
+				syntaxSuperstructure = new ModelInstance(
+						PerspectiveType.SYNTAXSUPERSTRUCTURE,
+						metaExpressionTypes, syntaxInfrastructure,
+						semanticSuperstructure);
 				bgColor = new Color(252, 233, 252);
-				perspTitle = "Semantic - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Semantic Perspective...");
+				perspTitle = "Operations - VariaMos " + variamosVersionNumber;
+				System.out
+						.println("Creating Operations Meta-Model Perspective...");
 				break;
 
 			case 1:// modeling
-				abstractModel = new RefasModel(PerspectiveType.MODELING,
-						metaExpressionTypes, syntaxRefas, semanticRefas);
+				abstractModel = new ModelInstance(PerspectiveType.MODELING,
+						metaExpressionTypes, syntaxSuperstructure,
+						semanticSuperstructure);
 
 				bgColor = new Color(236, 238, 255);
 				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
@@ -97,17 +101,17 @@ public class MainFrame extends JFrame {
 				break;
 
 			case 2:// syntax
-				abstractModel = syntaxRefas;
+				abstractModel = syntaxSuperstructure;
 
 				bgColor = new Color(255, 255, 245);
 				perspTitle = "Syntax - VariaMos " + variamosVersionNumber;
-				System.out.println("Creating Syntax Model Perspective...");
+				System.out.println("Creating Syntax Meta-Model Perspective...");
 				break;
 
 			case 3:// simulation
-				abstractModel = new RefasModel(
+				abstractModel = new ModelInstance(
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
-						syntaxRefas, semanticRefas);
+						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
 				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;
 				System.out

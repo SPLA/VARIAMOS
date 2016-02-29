@@ -446,6 +446,33 @@
 		<fillstroke/>
 	</foreground>
 </shape>
+<shape name="bigenum" aspect="variable">
+	<background>
+			<fillstroke color="#FFFFFF"/>
+		<strokewidth width="6"/>
+		<linecap cap="round"/>
+		<linejoin join="round"/>
+		<strokewidth width="1"/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="100" y="0"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="0"/>
+			<close/>
+			<move x="0" y="10"/>
+			<line x="100" y="10"/>
+			<line x="100" y="100"/>
+			<line x="0" y="100"/>
+			<line x="0" y="10"/>
+			<close/>
+		</path>
+		<stroke/>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
 <shape name="enum" aspect="variable">
 	<background>
 			<fillstroke color="#FFFFFF"/>

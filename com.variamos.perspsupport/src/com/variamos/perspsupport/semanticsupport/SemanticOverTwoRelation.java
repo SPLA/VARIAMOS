@@ -7,6 +7,7 @@ import com.variamos.perspsupport.semanticinterface.IntSemanticOverTwoRelation;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent relations of more than two concepts at semantic level.
@@ -82,16 +83,17 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 
 	private void defineSemanticAttributes() {
 		putSemanticAttribute(VAR_RELATIONTYPE_IDEN, new SemanticAttribute(
-				VAR_RELATIONTYPE_IDEN, "Class", true, VAR_RELATIONTYPE_NAME,
-				VAR_RELATIONTYPE_CLASS, null, null, 0, 6, "", "", 6, "", ""));
+				VAR_RELATIONTYPE_IDEN, "Class", AttributeType.OPERATION, true,
+				VAR_RELATIONTYPE_NAME, VAR_RELATIONTYPE_CLASS, null, null, 0,
+				6, "", "", 6, "", ""));
 		addPropEditableAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPropVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelVisibleAttribute("06#" + VAR_RELATIONTYPE_IDEN);
 		addPanelSpacersAttribute("#" + VAR_RELATIONTYPE_IDEN + "#");
 
 		putSemanticAttribute("LowRange", new SemanticAttribute("LowRange",
-				"Integer", "Low Range", 1, false, new RangeDomain(0, 50), 0, 6,
-				"", "", 6, "", ""));
+				"Integer", AttributeType.OPERATION, "Low Range", 1, false,
+				new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
 		addPropEditableAttribute("08#" + "LowRange");
 		addPropVisibleAttribute("08#" + "LowRange" + "#"
 				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");
@@ -100,8 +102,8 @@ public class SemanticOverTwoRelation extends AbstractSemanticVertex implements
 		addPanelSpacersAttribute(" [#" + "LowRange" + "#");
 
 		putSemanticAttribute("HighRange", new SemanticAttribute("HighRange",
-				"Integer", "High Range", 1, false, new RangeDomain(0, 50), 0,
-				6, "", "", 6, "", ""));
+				"Integer", AttributeType.OPERATION, "High Range", 1, false,
+				new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
 		addPropEditableAttribute("09#" + "HighRange");
 		addPropVisibleAttribute("09#" + "HighRange" + "#"
 				+ VAR_RELATIONTYPE_IDEN + "#==#" + "range" + "#" + "1");

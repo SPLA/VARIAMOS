@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.Refas2Hlcl;
+import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
 
 @SuppressWarnings("serial")
 public class ClearSimulationAction extends AbstractEditorAction {
@@ -21,6 +21,6 @@ public class ClearSimulationAction extends AbstractEditorAction {
 	public void actionPerformed(ActionEvent e) {
 		VariamosGraphEditor editor = getEditor(e);
 		editor.clearQueryMonitor();
-		editor.clearElementState(Refas2Hlcl.SIMUL_EXEC);
+		editor.clearElementState(ModelExpr2HLCL.SIMUL_EXEC);
 	}
 }

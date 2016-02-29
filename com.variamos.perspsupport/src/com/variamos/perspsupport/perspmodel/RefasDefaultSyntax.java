@@ -12,39 +12,43 @@ import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
+import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
+import com.variamos.semantic.types.AttributeType;
 
-public class RefasSyntax {
-	public static void createDefaultSyntax(RefasModel refas) {
+public class RefasDefaultSyntax {
+	public static void createDefaultSyntax(ModelInstance refas) {
 
 		MetaView syntaxMetaView = null;
 
-		MetaConcept metaView = (MetaConcept) refas.getSyntaxRefas()
-				.getVertex("View").getEditableMetaElement();
+		MetaConcept metaView = (MetaConcept) refas.getSyntaxModel()
+				.getVertex("SMMView").getEditableMetaElement();
 
 		MetaConcept supportMetaElementConcept = (MetaConcept) refas
-				.getSyntaxRefas().getVertex("Concept").getEditableMetaElement();
+				.getSyntaxModel().getVertex("SMMConcept")
+				.getEditableMetaElement();
 		MetaConcept supportMetaElementOverTwo = (MetaConcept) refas
-				.getSyntaxRefas().getVertex("OverTwoRelation")
+				.getSyntaxModel().getVertex("SMMOverTwoRelation")
 				.getEditableMetaElement();
 
 		MetaConcept supportMetaElementPairwise = (MetaConcept) refas
-				.getSyntaxRefas().getVertex("PairwiseRelation")
+				.getSyntaxModel().getVertex("SMMPairwiseRelation")
 				.getEditableMetaElement();
 
 		MetaConcept supportMetaExtendsPairwise = (MetaConcept) refas
-				.getSyntaxRefas().getVertex("ExtendRelation")
+				.getSyntaxModel().getVertex("SMMExtendRelation")
 				.getEditableMetaElement();
 
 		MetaConcept supportMetaViewPairwise = (MetaConcept) refas
-				.getSyntaxRefas().getVertex("ViewConceptAsso")
+				.getSyntaxModel().getVertex("SMMViewConceptAsso")
 				.getEditableMetaElement();
 
 		MetaPairwiseRelation metaPairwiseRelNormal = (MetaPairwiseRelation) ((InstPairwiseRelation) refas
-				.getSyntaxRefas().getConstraintInstEdge("NormalRelation"))
+				.getSyntaxModel().getConstraintInstEdge("SMMNormalRelation"))
 				.getEditableMetaElement();
 
-		InstConcept semREFAS = ((InstConcept) refas.getSemanticRefas()
+		// Model concept
+
+		InstConcept semREFAS = ((InstConcept) refas.getOperationalModel()
 				.getVertex("REFAS"));
 
 		MetaConcept syntaxRefas = new MetaConcept('C', "REFAS", false, "REFAS",
@@ -67,10 +71,10 @@ public class RefasSyntax {
 				"Goals Palette;Feature Palette", 1, null);
 
 		InstPairwiseRelation directExtendsSemanticEdge = refas
-				.getSemanticRefas().getConstraintInstEdge("extendsPWAsso");
+				.getOperationalModel().getConstraintInstEdge("extendsPWAsso");
 
-		InstPairwiseRelation directViewSemanticEdge = refas.getSemanticRefas()
-				.getConstraintInstEdge("viewPWAsso");
+		InstPairwiseRelation directViewSemanticEdge = refas
+				.getOperationalModel().getConstraintInstEdge("viewPWAsso");
 
 		MetaPairwiseRelation metaExtendsRel = new MetaPairwiseRelation(
 				"ExtendsRelation", false, "ExtendsRelation", "",
@@ -90,13 +94,13 @@ public class RefasSyntax {
 
 		refas.getVariabilityVertex().put("Variability", instViewC);
 
-		InstConcept semFeature = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semFeature = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Feature"));
 
-		InstConcept semHardConcept = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semHardConcept = ((InstConcept) refas.getOperationalModel()
 				.getVertex("HardConcept"));
 
-		InstConcept semGoal = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semGoal = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Goal"));
 
 		MetaConcept syntaxFeature = new MetaConcept('C', "Feature", false,
@@ -370,7 +374,7 @@ public class RefasSyntax {
 
 		// Feature direct relations
 
-		InstElement semGroupPaiwiseRel = refas.getSemanticRefas().getVertex(
+		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
 				"groupPWAsso");
 
 		MetaPairwiseRelation metaGroupPairwiseRel = new MetaPairwiseRelation(
@@ -405,10 +409,10 @@ public class RefasSyntax {
 		// refas.getVariabilityVertex().put("Group Relation",
 		// instGroupPairWiseRel);
 
-		InstElement directFeatFeatVertSemEdge = refas.getSemanticRefas()
+		InstElement directFeatFeatVertSemEdge = refas.getOperationalModel()
 				.getVertex("FeatFeatParentPWAsso");
 
-		InstElement directFeatFeatSideSemEdge = refas.getSemanticRefas()
+		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
 				.getVertex("FeatFeatSidePWAsso");
 
 		MetaPairwiseRelation metaFeatVertPairwiseRel = new MetaPairwiseRelation(
@@ -566,7 +570,7 @@ public class RefasSyntax {
 		// Features OverTwoRelations
 
 		InstConcept semanticFeatFeatGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("FeatFeatOTAsso"));
+				.getOperationalModel().getVertex("FeatFeatOTAsso"));
 
 		MetaOverTwoRelation featureMetaOverTwoRel = new MetaOverTwoRelation(
 				"FeatOTAsso", true, "FeatOTAsso", "plgroup",
@@ -823,7 +827,7 @@ public class RefasSyntax {
 		instEdge.setSourceRelation(instVertexGG, true);
 
 		InstConcept semOperationalization = ((InstConcept) refas
-				.getSemanticRefas().getVertex("Operationalization"));
+				.getOperationalModel().getVertex("Operationalization"));
 		MetaConcept sOperationalization = new MetaConcept('C', "OPER", true,
 				"OPER", "refasoper", "An operationalization allows"
 						+ " the partial or complete satisfaction of a goal or"
@@ -882,7 +886,7 @@ public class RefasSyntax {
 		instEdge.setTargetRelation(instViewOper, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept semAssumption = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semAssumption = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Assumption"));
 
 		MetaConcept syntaxAssumption = new MetaConcept('C', "Assu", true,
@@ -941,8 +945,8 @@ public class RefasSyntax {
 
 		// Direct Hard Relations
 
-		InstElement directStructHardHardSemanticEdge = refas.getSemanticRefas()
-				.getVertex("structHardHardPWAsso");
+		InstElement directStructHardHardSemanticEdge = refas
+				.getOperationalModel().getVertex("structHardHardPWAsso");
 
 		MetaPairwiseRelation metaStructHardPairwiseRel = new MetaPairwiseRelation(
 				"HardRelation", true, "HardRelation", "",
@@ -1017,8 +1021,8 @@ public class RefasSyntax {
 		refas.getVariabilityVertex().put("DirMeansEndsRelation",
 				instDirMeansEndsRelation);
 
-		InstElement directSideHardHardSemanticEdge = refas.getSemanticRefas()
-				.getVertex("GoalGoalSidePWAsso");
+		InstElement directSideHardHardSemanticEdge = refas
+				.getOperationalModel().getVertex("GoalGoalSidePWAsso");
 
 		MetaPairwiseRelation metaSideHardPairwiseRel = new MetaPairwiseRelation(
 				"SideHardRelation", true, "SideHardRelation", "",
@@ -1102,7 +1106,7 @@ public class RefasSyntax {
 		// Hard OverTwoRelations
 
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("GoalOTAsso"));
+				.getOperationalModel().getVertex("GoalOTAsso"));
 
 		MetaOverTwoRelation hardMetaOverTwoRel = new MetaOverTwoRelation(
 				"HardOverTwoRel", true, "HardOverTwoRel", "plgroup",
@@ -1225,7 +1229,7 @@ public class RefasSyntax {
 
 		refas.getVariabilityVertex().put("SoftGoals", instViewC);
 
-		InstConcept semSoftgoal = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semSoftgoal = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Softgoal"));
 		MetaConcept syntaxSoftGoal = new MetaConcept(
 				'C',
@@ -1396,7 +1400,7 @@ public class RefasSyntax {
 
 		// Direct Soft relation
 
-		InstElement directSGSGSemEdge = refas.getSemanticRefas().getVertex(
+		InstElement directSGSGSemEdge = refas.getOperationalModel().getVertex(
 				"SgSgPWAsso");
 
 		MetaPairwiseRelation metaGroupSoftFromPairWiseRel = new MetaPairwiseRelation(
@@ -1493,7 +1497,7 @@ public class RefasSyntax {
 		instEdge.setSourceRelation(instDirSoftPairWiseRel, true);
 
 		InstConcept semanticSGSGGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("SgSgOTAsso"));
+				.getOperationalModel().getVertex("SgSgOTAsso"));
 
 		// Group soft relation
 
@@ -1593,8 +1597,8 @@ public class RefasSyntax {
 		instViewC = new InstConcept("Context", metaView, syntaxMetaView);
 		refas.getVariabilityVertex().put("Context", instViewC);
 		// syntaxMetaView.addConcept(syntaxVariable);
-		InstConcept semContextGroup = ((InstConcept) refas.getSemanticRefas()
-				.getVertex("ConcernLevel"));
+		InstConcept semContextGroup = ((InstConcept) refas
+				.getOperationalModel().getVertex("ConcernLevel"));
 		MetaConcept syntaxContextGroup = new MetaConcept('C', "CG", true,
 				"ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
@@ -1639,7 +1643,7 @@ public class RefasSyntax {
 		instEdge.setTargetRelation(instViewCG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept semVariable = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semVariable = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Variable"));
 		MetaConcept syntaxAbsVariable = new MetaConcept(
 				'C',
@@ -1896,7 +1900,7 @@ public class RefasSyntax {
 
 		// Direct variable relations
 
-		InstElement directCVCGSemanticEdge = refas.getSemanticRefas()
+		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
 				.getVertex("CVCGPWAsso");
 
 		MetaPairwiseRelation metaVariableEdge = new MetaPairwiseRelation(
@@ -2107,7 +2111,7 @@ public class RefasSyntax {
 		instEdge.setTargetRelation(instViewLFs, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept semClaim = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semClaim = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Claim"));
 
 		MetaConcept syntaxClaim = new MetaConcept('C', "CL", true, "Claim",
@@ -2129,11 +2133,10 @@ public class RefasSyntax {
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
 				0, -1, "", "", -1, "", "");
 
-		syntaxClaim
-				.addModelingAttribute("conditionalExpression",
-						new SemanticAttribute("conditionalExpression",
-								"String", false, "Cond. Expression Text", "",
-								0, -1, "", "", -1, "", ""));
+		syntaxClaim.addModelingAttribute("conditionalExpression",
+				new SyntaxAttribute("conditionalExpression", "String",
+						AttributeType.SYNTAX, false, "Cond. Expression Text",
+						"", 0, -1, "", "", -1, "", ""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2174,8 +2177,8 @@ public class RefasSyntax {
 		instEdge.setTargetRelation(instViewCL, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		InstConcept semSoftDependency = ((InstConcept) refas.getSemanticRefas()
-				.getVertex("SoftDep"));
+		InstConcept semSoftDependency = ((InstConcept) refas
+				.getOperationalModel().getVertex("SoftDep"));
 		MetaConcept syntaxSoftDependency = new MetaConcept(
 				'C',
 				"SoftDependency",
@@ -2248,7 +2251,7 @@ public class RefasSyntax {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticOperClaimGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("OperCLOTAsso"));
+				.getOperationalModel().getVertex("OperCLOTAsso"));
 
 		hardMetaOverTwoRel = new MetaOverTwoRelation(
 				"OperClaimOverTwoRel",
@@ -2261,8 +2264,8 @@ public class RefasSyntax {
 				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
 				false, "white", 1, semanticOperClaimGroupRelation, false);
 
-		InstElement semClaimPairwiseRel = refas.getSemanticRefas().getVertex(
-				"OperClaimPWAsso");
+		InstElement semClaimPairwiseRel = refas.getOperationalModel()
+				.getVertex("OperClaimPWAsso");
 
 		MetaPairwiseRelation metaClaimPairwiseRel = new MetaPairwiseRelation(
 				"ClaimRelation",
@@ -2384,7 +2387,7 @@ public class RefasSyntax {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semanticLFClaimGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("LFtoClaimOTAsso"));
+				.getOperationalModel().getVertex("LFtoClaimOTAsso"));
 
 		hardMetaOverTwoRel = new MetaOverTwoRelation(
 				"LFClaimOTAsso",
@@ -2521,7 +2524,7 @@ public class RefasSyntax {
 		instEdge.setTargetRelation(instGrpLFClaimPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexFCOTR, true);
 
-		InstElement directSDSGSemanticEdge = refas.getSemanticRefas()
+		InstElement directSDSGSemanticEdge = refas.getOperationalModel()
 				.getVertex("SDSGPWAsso");
 
 		MetaPairwiseRelation metaSDSGEdge = new MetaPairwiseRelation(
@@ -2560,7 +2563,7 @@ public class RefasSyntax {
 		// getConstraintInstEdges().put("SDSGRelation", new InstEdge(
 		// MetaEdge, metaSDSGEdge));
 
-		InstElement directClaimSGSemanticEdge = refas.getSemanticRefas()
+		InstElement directClaimSGSemanticEdge = refas.getOperationalModel()
 				.getVertex("ClaimSGPWAsso");
 
 		MetaPairwiseRelation metaClaimSGEdge = new MetaPairwiseRelation(
@@ -2609,7 +2612,7 @@ public class RefasSyntax {
 		// syntaxMetaView.addConcept(sOperationalization);
 		// syntaxMetaView.addConcept(syntaxVertexLF);
 
-		InstConcept semAsset = ((InstConcept) refas.getSemanticRefas()
+		InstConcept semAsset = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Asset"));
 		MetaConcept syntaxAsset = new MetaConcept('C', "Asset", true, "Asset",
 				"refasasset", "Represents a asset of the system. The most"
@@ -2660,15 +2663,15 @@ public class RefasSyntax {
 		childView.addInstVertex(instVertexAsset);
 
 		InstConcept semanticAssetOperGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("AssetOperOTAsso"));
+				.getOperationalModel().getVertex("AssetOperOTAsso"));
 
-		InstElement directAssetOperSemanticEdge = refas.getSemanticRefas()
+		InstElement directAssetOperSemanticEdge = refas.getOperationalModel()
 				.getVertex("AssetOperPWAsso");
 
 		InstConcept semanticAssetAssetGroupRelation = ((InstConcept) refas
-				.getSemanticRefas().getVertex("AssetAssetOTAsso"));
+				.getOperationalModel().getVertex("AssetAssetOTAsso"));
 
-		InstElement directAssetSemanticEdge = refas.getSemanticRefas()
+		InstElement directAssetSemanticEdge = refas.getOperationalModel()
 				.getVertex("varAssetPWAsso");
 
 		hardMetaOverTwoRel = new MetaOverTwoRelation("AssetOperGroupDep", true,

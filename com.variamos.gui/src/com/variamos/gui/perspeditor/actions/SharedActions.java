@@ -23,7 +23,7 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
@@ -458,8 +458,8 @@ public class SharedActions {
 			}
 			viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
 			// Null Root
-			if (((RefasModel) editor.getEditedModel())
-					.getSyntaxRefas()
+			if (((ModelInstance) editor.getEditedModel())
+					.getSyntaxModel()
 					.elementsValidation(name, modelViewIndex, modelViewSubIndex)) {
 				if ((refasGraph.getCell(modelViewIndex + id + "-"
 						+ modelViewSubIndex) == null && modelViewSubIndex != -1)
@@ -491,7 +491,7 @@ public class SharedActions {
 
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
-		RefasModel refas = ((PerspEditorGraph) editor.getGraphComponent()
+		ModelInstance refas = ((PerspEditorGraph) editor.getGraphComponent()
 				.getGraph()).getRefas();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;
@@ -512,7 +512,7 @@ public class SharedActions {
 			MetaElement metaElement = instElement.getEditableMetaElement();
 			if (metaElement != null
 					&& metaElement.getInstSemanticElementId() != null) {
-				InstElement rr = refas.getSemanticRefas().getVertex(
+				InstElement rr = refas.getOperationalModel().getVertex(
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
 			}
@@ -530,7 +530,7 @@ public class SharedActions {
 
 		if (instElement instanceof InstOverTwoRelation) {
 			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
-			InstElement instSupportElement = refas.getSyntaxRefas().getVertex(
+			InstElement instSupportElement = refas.getSyntaxModel().getVertex(
 					instOverTwoRelation.getSupportMetaElementUserIdentifier());
 			if (instSupportElement == null) {
 				System.err.println("OverTwoRel Null"
@@ -604,9 +604,9 @@ public class SharedActions {
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
 			MetaVertex metaVertex = null;
-			if (refas.getSyntaxRefas().getVertex(
+			if (refas.getSyntaxModel().getVertex(
 					instVertex.getSupportMetaElementIden()) != null)
-				metaVertex = (MetaVertex) refas.getSyntaxRefas()
+				metaVertex = (MetaVertex) refas.getSyntaxModel()
 						.getVertex(instVertex.getSupportMetaElementIden())
 						.getEditableMetaElement();
 			if (metaVertex == null)
@@ -726,7 +726,7 @@ public class SharedActions {
 				}
 				MetaElement metaPairwiseRelation = null;
 				try {
-					metaPairwiseRelation = refas.getSyntaxRefas()
+					metaPairwiseRelation = refas.getSyntaxModel()
 							.getValidMetaPairwiseRelation(
 									sourceVertex,
 									targetVertex,

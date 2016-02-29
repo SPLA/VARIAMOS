@@ -21,6 +21,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property of syntax and semantic concepts for modeling.
@@ -47,9 +48,11 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 	/**
 	 * 
 	 */
+	// AttributeType.SYNTAX,FIXME: create Syntax or Semantic attributes and
+	// allow the user to define the type
 	private AbstractAttribute spoof = new AbstractAttribute("Add ...",
-			StringType.IDENTIFIER, false, "Add ...", "", 1, -1, "", "", -1, "",
-			"");
+			StringType.IDENTIFIER, AttributeType.SYNTAX, false, "Add ...", "",
+			1, -1, "", "", -1, "", "");
 
 	private AttributeEditionPanel attributeEdition;
 
@@ -121,7 +124,8 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			// Name
 			var = new SyntaxAttribute("EnumValue", StringType.IDENTIFIER,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", "");
+					AttributeType.SYNTAX, false, "Enumeration Value", "", 1,
+					-1, "", "", -1, "", "");
 
 		}
 

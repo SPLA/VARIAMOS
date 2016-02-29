@@ -3,7 +3,7 @@ package com.variamos.perspsupport.expressionsupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.compiler.solverSymbols.LabelingOrder;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
@@ -89,4 +89,5 @@ public class OperationLabeling {
 	public Object getName() {
 		return name;
 	}
+
 }

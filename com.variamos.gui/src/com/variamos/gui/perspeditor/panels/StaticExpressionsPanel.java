@@ -24,7 +24,7 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.expressionsupport.ElementExpressionSet;
@@ -43,7 +43,7 @@ import com.variamos.semantic.types.ExpressionClassType;
  */
 @SuppressWarnings("serial")
 public class StaticExpressionsPanel extends JPanel {
-	private RefasModel refas;
+	private ModelInstance refas;
 
 	private JPanel solutionPanel;
 
@@ -67,14 +67,14 @@ public class StaticExpressionsPanel extends JPanel {
 
 	}
 
-	public RefasModel getRefas() {
+	public ModelInstance getRefas() {
 		return this.refas;
 	}
 
 	public void configure(AbstractModel am, ElementExpressionSet expressionSet,
 			InstElement element) {
 		this.expressionSet = expressionSet;
-		this.refas = (RefasModel) am;
+		this.refas = (ModelInstance) am;
 		initialize(element);
 	}
 
@@ -304,7 +304,7 @@ public class StaticExpressionsPanel extends JPanel {
 		return combo;
 	}
 
-	public void setRefas(RefasModel refas) {
+	public void setRefas(ModelInstance refas) {
 		this.refas = refas;
 	}
 }

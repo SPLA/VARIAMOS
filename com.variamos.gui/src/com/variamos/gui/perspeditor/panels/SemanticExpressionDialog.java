@@ -38,7 +38,7 @@ import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
@@ -57,7 +57,7 @@ public class SemanticExpressionDialog extends JDialog {
 	private SemanticExpressionButtonAction onAccept, onCancel;
 	private SemanticExpression selectedExpression;
 	private JPanel solutionPanel;
-	private RefasModel refasModel;
+	private ModelInstance refasModel;
 	private boolean displayConceptName = false;
 	private boolean displayVariableName = false;
 	private int width = 950;
@@ -72,7 +72,7 @@ public class SemanticExpressionDialog extends JDialog {
 			InstElement instElement,
 			List<IntSemanticExpression> semanticExpressions) {
 		super(editor.getFrame(), "Semantic Expressions Editor");
-		refasModel = (RefasModel) editor.getEditedModel();
+		refasModel = (ModelInstance) editor.getEditedModel();
 		this.semanticExpressions = semanticExpressions;
 		setPreferredSize(new Dimension(width, height));
 		this.initialize(instElement, semanticExpressions);
@@ -347,7 +347,7 @@ public class SemanticExpressionDialog extends JDialog {
 		if (semanticExpression != null
 				&& semanticExpression.getLeftExpressionType() != null)
 			switch (semanticExpression.getLeftExpressionType()) {
-			case LEFTITERFIXEDVARIABLE:
+			case LEFTITERCONFIXEDVARIABLE:
 				leftSide.setSelectedItem("An Element Fixed");
 				break;
 			case LEFTSUBEXPRESSION:
@@ -576,36 +576,36 @@ public class SemanticExpressionDialog extends JDialog {
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITEROUTCONFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERINCRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERINCRELFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Target Variables - Iterative (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITEROUTRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITEROUTRELFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Concept)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYCONVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals(
 				"Source/Target Variables (Relation)")) {
 			iterativeType = ExpressionVertexType.LEFTITERANYRELVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERANYFIXEDVARIABLE;
 		}
 		if (leftSide.getSelectedItem().equals("A Concept Type Variable")) {
 			iterativeType = ExpressionVertexType.LEFTITERCONCEPTVARIABLE;
-			subIterType = ExpressionVertexType.LEFTITERFIXEDVARIABLE;
+			subIterType = ExpressionVertexType.LEFTITERCONFIXEDVARIABLE;
 		}
 		if (iterativeType != null)
 			if (semanticExpression.getSemanticExpressionType() != null) {
@@ -1030,12 +1030,12 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
-						.getSupportMetaElementIden().equals("Concept") || sourceRelation
-						.getSupportMetaElementIden()
-						.equals("CSOverTwoRelation"))))
+						.getSupportMetaElementIden().equals("OMMConcept") || sourceRelation
+						.getSupportMetaElementIden().equals(
+								"OMMOverTwoRelation"))))
 						|| (element instanceof InstPairwiseRelation && sourceRelation
 								.getSupportMetaElementIden().equals(
-										"CSPairWiseRelation")))
+										"OMMPairWiseRelation")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1044,10 +1044,10 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupportMetaElementIden()
-						.equals("Concept")
+				if (sourceRelation.getSupportMetaElementIden().equals(
+						"OMMConcept")
 						|| sourceRelation.getSupportMetaElementIden().equals(
-								"CSOverTwoRelation"))
+								"OMMOverTwoRelation"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
@@ -1057,7 +1057,7 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupportMetaElementIden().equals(
-						"CSPairWiseRelation"))
+						"OMMPairWiseRelation"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:

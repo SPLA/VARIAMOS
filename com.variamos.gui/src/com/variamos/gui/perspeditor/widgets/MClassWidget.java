@@ -21,7 +21,7 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.RefasModel;
+import com.variamos.perspsupport.perspmodel.ModelInstance;
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
@@ -52,7 +52,7 @@ public class MClassWidget extends WidgetR {
 
 	@Override
 	public void configure(EditableElementAttribute v, mxGraph graph,
-			RefasModel semanticModel, boolean showSimulationCustomizationBox) {
+			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = ClassMultiSelectionType.class
 				.getClassLoader();

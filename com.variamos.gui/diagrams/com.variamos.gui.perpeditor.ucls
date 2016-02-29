@@ -21,7 +21,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
- <class id="4" language="java" name="com.variamos.gui.perspeditor.PerspEditorToolBar" project="com.variamos.gui" 
+  <class id="3" language="java" name="com.variamos.gui.perspeditor.PerspEditorToolBar" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorToolBar.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="254" x="1211" y="1301"/>    
@@ -31,7 +31,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.variamos.gui.perspeditor.PerspEditorMenuBar" project="com.variamos.gui" 
+  <class id="4" language="java" name="com.variamos.gui.perspeditor.PerspEditorMenuBar" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorMenuBar.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="65" y="165"/>    
@@ -41,7 +41,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.variamos.gui.perspeditor.PerspEditorGraph" project="com.variamos.gui" 
+  <class id="5" language="java" name="com.variamos.gui.perspeditor.PerspEditorGraph" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorGraph.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="512" y="1080"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -50,7 +50,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.variamos.gui.perspeditor.PaletteElement" project="com.variamos.gui" 
+  <class id="6" language="java" name="com.variamos.gui.perspeditor.PaletteElement" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PaletteElement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="532" y="496"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -59,7 +59,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.variamos.gui.perspeditor.PerspEditorGraphTree" project="com.variamos.gui" 
+  <class id="7" language="java" name="com.variamos.gui.perspeditor.PerspEditorGraphTree" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorGraphTree.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="104" y="376"/>    
@@ -69,7 +69,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.variamos.gui.perspeditor.ConfiguratorPanel" project="com.variamos.gui" 
+  <class id="8" language="java" name="com.variamos.gui.perspeditor.ConfiguratorPanel" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/ConfiguratorPanel.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1327" y="618"/>    
@@ -79,7 +79,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.variamos.gui.perspeditor.PerspEditorFunctions" project="com.variamos.gui" 
+  <class id="9" language="java" name="com.variamos.gui.perspeditor.PerspEditorFunctions" project="com.variamos.gui" 
     file="/com.variamos.gui/src/com/variamos/gui/perspeditor/PerspEditorFunctions.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="153" width="323" x="378" y="105"/>    
@@ -89,9 +89,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.variamos.perspsupport.perspmodel.Refas2Hlcl" 
+  <class id="10" language="java" name="com.variamos.perspsupport.perspmodel.ModelExpr2HLCL" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/Refas2Hlcl.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/ModelExpr2HLCL.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="945" width="358" x="-52" y="541"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,9 +100,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.variamos.perspsupport.perspmodel.RefasModel" 
+  <class id="11" language="java" name="com.variamos.perspsupport.perspmodel.ModelInstance" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/RefasModel.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/ModelInstance.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="1269" width="370" x="725" y="107"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -111,101 +111,71 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="13">    
-    <bendpoint x="1143" y="1035"/>    
-    <bendpoint x="1111" y="1034"/>    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="14" name="refas">        
+  <association id="12">    
+    <bendpoint x="354" y="1472"/>    
+    <bendpoint x="752" y="1472"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="13" name="refas">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="15" minimum="0" maximum="1">        
+      <multiplicity id="14" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="16">    
-    <bendpoint x="267" y="384"/>    
-    <bendpoint x="320" y="445"/>    
-    <bendpoint x="338" y="713"/>    
+  <association id="15">    
+    <bendpoint x="1143" y="1035"/>    
+    <bendpoint x="1111" y="1034"/>    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="17" name="graph">        
-        <position height="0" width="0" x="39" y="189"/>      
+      <attribute id="16" name="refas">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="18" minimum="0" maximum="1">        
-        <position height="0" width="0" x="39" y="189"/>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="19" name="paletteElements">        
+        <position height="0" width="0" x="-286" y="-34"/>      
+      </attribute>      
+      <multiplicity id="20" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-286" y="-34"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="19">    
-    <bendpoint x="1072" y="1396"/>    
-    <bendpoint x="1134" y="1394"/>    
-    <bendpoint x="1134" y="1304"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="20" name="syntaxRefas">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <association id="21">    
+    <bendpoint x="267" y="384"/>    
+    <bendpoint x="320" y="445"/>    
+    <bendpoint x="338" y="713"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="22" name="graph">        
+        <position height="0" width="0" x="39" y="189"/>      
       </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="39" y="189"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="22">    
-    <bendpoint x="354" y="1472"/>    
-    <bendpoint x="752" y="1472"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="23" name="refas">        
+  <association id="24">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="25" name="refasModel">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="24" minimum="0" maximum="1">        
+      <multiplicity id="26" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
-    <bendpoint x="1084" y="1386"/>    
-    <bendpoint x="1106" y="1386"/>    
-    <bendpoint x="1120" y="1352"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="26" name="semanticRefas">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="28">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="29" name="refasModel">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="32" name="paletteElements">        
-        <position height="0" width="0" x="-286" y="-34"/>      
-      </attribute>      
-      <multiplicity id="33" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-286" y="-34"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

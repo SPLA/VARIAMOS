@@ -12,6 +12,7 @@ import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.semantic.types.AttributeType;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -160,11 +161,11 @@ public abstract class MetaElement implements Serializable {
 
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new SyntaxAttribute(
-				VAR_AUTOIDENTIFIER, "String", false, "Auto Identifier", null,
-				0, 1, "", "", -1, "", ""));
+				VAR_AUTOIDENTIFIER, "String", AttributeType.SYNTAX, false,
+				"Auto Identifier", null, 0, 1, "", "", -1, "", ""));
 		this.modelingAttributes.put(VAR_USERIDENTIFIER, new SyntaxAttribute(
-				VAR_USERIDENTIFIER, "String", false, "UserIdentifier", null, 0,
-				1, "", "", -1, "", ""));
+				VAR_USERIDENTIFIER, "String", AttributeType.SYNTAX, false,
+				"UserIdentifier", null, 0, 1, "", "", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -426,10 +427,11 @@ public abstract class MetaElement implements Serializable {
 		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, defaultValue, defaultGroup,
-					propTabPosition, propTabEditionCondition,
-					propTabVisualCondition, elementDisplayPosition,
-					elementDisplaySpacers, elementDisplayCondition));
+					AttributeType.SYNTAX, affectProperties, displayName,
+					defaultValue, defaultGroup, propTabPosition,
+					propTabEditionCondition, propTabVisualCondition,
+					elementDisplayPosition, elementDisplaySpacers,
+					elementDisplayCondition));
 	}
 
 	public void addModelingAttribute(String name,
@@ -448,10 +450,11 @@ public abstract class MetaElement implements Serializable {
 		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new SyntaxAttribute(name, type,
-					affectProperties, displayName, enumType, defaultValue,
-					defaultGroup, propTabPosition, propTabEditionCondition,
-					propTabVisualCondition, elementDisplayPosition,
-					elementDisplaySpacers, elementDisplayCondition));
+					AttributeType.SYNTAX, affectProperties, displayName,
+					enumType, defaultValue, defaultGroup, propTabPosition,
+					propTabEditionCondition, propTabVisualCondition,
+					elementDisplayPosition, elementDisplaySpacers,
+					elementDisplayCondition));
 	}
 
 	public boolean getVisible() {

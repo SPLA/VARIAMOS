@@ -23,10 +23,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <enumeration id="3" language="java" name="com.variamos.compiler.solverSymbols.LabelingOrder" 
-    project="com.variamos.compiler" 
-    file="/com.variamos.compiler/src/com/variamos/compiler/solverSymbols/LabelingOrder.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <enumeration id="3" language="java" name="com.variamos.hlcl.LabelingOrder" project="com.variamos.hlcl" 
+    file="/com.variamos.hlcl/src/com/variamos/hlcl/LabelingOrder.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="685" y="855"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -104,43 +102,51 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="11">    
+  <realization id="11">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="12">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="9"/>  
   </generalization>  
-  <realization id="12">    
-    <bendpoint x="320" y="803"/>    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
   <association id="13">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="14" name="labelingOrder"/>      
-      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
+      <attribute id="14" name="labelingOrder">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="16">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <association id="18">    
+  <association id="16">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="19" name="params"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+      <attribute id="17" name="params">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="21">    
+  <realization id="19">    
+    <bendpoint x="320" y="803"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="20">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
   <realization id="22">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
