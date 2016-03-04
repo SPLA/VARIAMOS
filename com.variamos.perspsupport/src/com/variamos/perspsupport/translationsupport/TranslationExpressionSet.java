@@ -254,10 +254,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getOperationSubActionExpType(expressionType);
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
-				for (InstElement instE : refas.getElements()) {
-					for (OperationLabeling operLab : operSubAction
-							.getOperLabels()) {
-						List<Identifier> ident = new ArrayList<Identifier>();
+				for (OperationLabeling operLab : operSubAction.getOperLabels()) {
+					List<Identifier> ident = new ArrayList<Identifier>();
+					for (InstElement instE : refas.getElements()) {
 						for (AbstractAttribute var : operLab.getVariables()) {
 							InstAttribute instAttribute = instE
 									.getInstAttribute(var.getName());
@@ -268,13 +267,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										+ instAttribute.getAttributeName()));
 							}
 						}
-						Labeling lab = new Labeling((String) operLab.getName(),
-								operLab.getPosition(), operLab.isOnce(),
-								operLab.getLabelingOrderList(),
-								operLab.getOrderExpressionList());
-						lab.setVariables(ident);
-						out.add(lab);
 					}
+					Labeling lab = new Labeling((String) operLab.getName(),
+							operLab.getPosition(), operLab.isOnce(),
+							operLab.getLabelingOrderList(),
+							operLab.getOrderExpressionList());
+					lab.setVariables(ident);
+					out.add(lab);
 				}
 
 				return out;

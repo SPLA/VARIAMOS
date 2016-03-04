@@ -252,14 +252,13 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	}
 
 	public HlclProgram getHlclProgram(String element, String operation,
-			String subOperation, OperationSubActionExecType operExecType) {
+			String subOperation, OperationSubActionExecType operExecType,
+			TranslationExpressionSet transExpSet) {
 
 		HlclProgram hlclProgram = new HlclProgram();
 
 		Map<String, ElementExpressionSet> constraintGroups = new HashMap<String, ElementExpressionSet>();
 
-		TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-				refas, operation, null, null);
 		transExpSet.addExpressions(refas, null, subOperation, operExecType);
 		// for (Expression exp : transExpSet.getHLCLExpressions(subOperation +
 		// "-"
@@ -428,11 +427,14 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
+			// FIXME: execute for all sub-operations
 			InstElement subop = refas.getSyntaxModel().getOperationalModel()
 					.getElement("Sim-Execution");
 
+			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+					refas, operation, null, null);
 			hlclProgram = getHlclProgram(element, operation, "Sim-Execution",
-					OperationSubActionExecType.NORMAL);
+					OperationSubActionExecType.NORMAL, transExpSet);
 
 			Set<Identifier> identifiers = new TreeSet<Identifier>();
 			for (Expression exp : hlclProgram) {
@@ -453,19 +455,15 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 								 * Refas2Hlcl.SIMUL_EXPORT: case
 								 * Refas2Hlcl.SIMUL_MAPE:
 								 */
-					configurationOptions.setOrder(true);
 
 				}
+				configurationOptions.setLabelings(transExpSet.getLabelings(
+						refas, "Sim-Execution",
+						OperationSubActionExecType.NORMAL));
+				configurationOptions.setOrder(true);
 
 				configurationOptions.setOrder(true);
 				configurationOptions.setStartFromZero(true);
-				// FIXME: Luisa: iterate over all the labelings
-				// List<Labeling> labelings = new ArrayList<Labeling>();
-				// for (OperationLabeling opLab : ((SemanticOperationSubAction)
-				// subop
-				// .getEditableSemanticElement()).getOperLabels()) {
-				// labelings.add(opLab.getlabeling());
-				// }
 
 				OperationLabeling operlab = ((SemanticOperationSubAction) subop
 						.getEditableSemanticElement()).getOperLabels().get(0);
@@ -473,8 +471,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						.getLabelingOrderList());
 				configurationOptions.setOrderExpressions(operlab
 						.getOrderExpressionList());
-				operlab.getVariables(); // FIXME: Luisa: pass variables to
-										// labeling
+
 				swiSolver.solve(new Configuration(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
