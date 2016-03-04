@@ -142,7 +142,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							if (att.getType()
 									.equals(InstanceExpression.class
 											.getCanonicalName())) {
-								if ((InstanceExpression) att.getValue() != null) {
+								if (att.getValue() != null) {
 									InstanceExpression instanceExpression = new InstanceExpression(
 											true, "cond", true);
 									instanceExpression
@@ -181,7 +181,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							InstAttribute instAttribute = instE
 									.getInstAttribute(var.getName());
 							// FIXME: compare attribute name and element name
-							if (instAttribute != null) {
+							if (instAttribute != null
+									&& instAttribute.getAttribute() == var) {
 								String type = (String) instAttribute.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
@@ -252,28 +253,31 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OperationSubActionExpType operExpType = operSubAction
 					.getOperationSubActionExpType(expressionType);
 			if (operExpType != null) {
-				List<IntSemanticExpression> semExp = operExpType
-						.getSemanticExpressions();
+				List<Labeling> out = new ArrayList<Labeling>();
 				for (InstElement instE : refas.getElements()) {
-					List<Labeling> out = new ArrayList<Labeling>();
 					for (OperationLabeling operLab : operSubAction
 							.getOperLabels()) {
-						int attributeValue = 0;
 						List<Identifier> ident = new ArrayList<Identifier>();
 						for (AbstractAttribute var : operLab.getVariables()) {
 							InstAttribute instAttribute = instE
 									.getInstAttribute(var.getName());
-							// FIXME: compare attribute name and element name
-							ident.add(f.newIdentifier("-"));
+							if (instAttribute != null
+									&& instAttribute.getAttribute() == var) {
+								ident.add(f.newIdentifier(instE.getIdentifier()
+										+ "_"
+										+ instAttribute.getAttributeName()));
+							}
 						}
-						// FIXME: set labeling parameters
-						Labeling lab = new Labeling(null, attributeValue,
-								optional, null, null);
+						Labeling lab = new Labeling((String) operLab.getName(),
+								operLab.getPosition(), operLab.isOnce(),
+								operLab.getLabelingOrderList(),
+								operLab.getOrderExpressionList());
 						lab.setVariables(ident);
 						out.add(lab);
 					}
-					return out;
 				}
+
+				return out;
 			}
 		}
 		return null;

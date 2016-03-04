@@ -12,9 +12,9 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 
@@ -55,11 +55,14 @@ public class VisualElement implements Comparable<VisualElement> {
 	}
 
 	private void updateValues() {
-		boolean newSelected, newNotAvailable;
+		boolean newSelected = false, newNotAvailable = false;
 		String newOtherParameters = "";
-		newSelected = instElement.getInstAttribute("Selected").getAsBoolean();
-		newNotAvailable = instElement.getInstAttribute("NotAvailable")
-				.getAsBoolean();
+		if (instElement.getInstAttribute("Selected") != null)
+			newSelected = instElement.getInstAttribute("Selected")
+					.getAsBoolean();
+		if (instElement.getInstAttribute("NotAvailable") != null)
+			newNotAvailable = instElement.getInstAttribute("NotAvailable")
+					.getAsBoolean();
 		if (semanticElement instanceof SemanticReasoningConcept) {
 			newOtherParameters = "{BoolExp:"
 					+ instElement.getInstAttribute("CompExp").getAsBoolean()

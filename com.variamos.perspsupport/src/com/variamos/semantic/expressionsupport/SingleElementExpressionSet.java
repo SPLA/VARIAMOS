@@ -276,24 +276,33 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
-								InstanceExpression instanceExpression = (InstanceExpression) instAttribute
-										.getValue();
-								if (instanceExpression != null
-										&& !instanceExpression
-												.createSGSExpression(
-														instVertex
-																.getIdentifier())
-												.toString()
-												.endsWith(
-														"right=null, operator=DoubleImplies]")) {
-									// TODO Fix this when the expressions are
-									// verified
-									booleanExpressions
-											.put("Simul",
-													(BooleanExpression) (instanceExpression)
-															.createSGSExpression(instVertex
-																	.getIdentifier()));
-								} else
+								boolean dr = false;
+								if (instAttribute.getValue() instanceof Integer)
+									dr = true;
+								if (!dr) {
+									InstanceExpression instanceExpression = (InstanceExpression) instAttribute
+											.getValue();
+									if (instanceExpression != null
+											&& !instanceExpression
+													.createSGSExpression(
+															instVertex
+																	.getIdentifier())
+													.toString()
+													.endsWith(
+															"right=null, operator=DoubleImplies]")) {
+										// TODO Fix this when the expressions
+										// are
+										// verified
+										booleanExpressions
+												.put("Simul",
+														(BooleanExpression) (instanceExpression)
+																.createSGSExpression(instVertex
+																		.getIdentifier()));
+									} else
+										dr = true;
+								}
+								if (dr)
+
 									booleanExpressions
 											.put("Simul",
 													(BooleanExpression) getHlclFactory()
