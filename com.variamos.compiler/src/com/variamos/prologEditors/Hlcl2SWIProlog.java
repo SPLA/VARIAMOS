@@ -140,9 +140,10 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					footerExpression.append(ptp.getLabelId());
 					footerExpression.append(CLOSE_PARENHESIS);
 					footerExpression.append(COMMA);
-					out.append(footerExpression);
+					footerExpression.append(LF);
 				}
 			}
+			out.append(footerExpression);
 			out.deleteCharAt(out.length() - 1);
 			out.append(DOT);
 		}
