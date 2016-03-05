@@ -395,6 +395,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
+		List<String> outVariables = null;
 		setProgress(10);
 		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
@@ -412,10 +413,13 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				if (firstSimulExec || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.ONE_SOLUTION, operation); // type
+					outVariables = refas2hlcl.getOutVariables(operation,
+							"Sim-Execution");
 				} else {
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.NEXT_SOLUTION, operation); // type
-					refas2hlcl.getOutVariables(operation, "Sim-Execution");
+					outVariables = refas2hlcl.getOutVariables(operation,
+							"Sim-Execution");
 					Configuration currentConfiguration = refas2hlcl
 							.getConfiguration();
 					if (result) {
@@ -427,7 +431,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				if (result) {
 					lastConfiguration = refas2hlcl.getConfiguration();
 					if (update) {
-						refas2hlcl.updateGUIElements(null);
+						refas2hlcl.updateGUIElements(null, outVariables);
 						// messagesArea.setText(refas2hlcl.getText());
 						// bringUpTab(mxResources.get("elementSimPropTab"));
 						// editPropertiesRefas(editor.lastEditableElement);

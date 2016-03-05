@@ -169,7 +169,7 @@ public class RefasDefaultOperations {
 		SemanticOperationSubAction operationSubAction = new SemanticOperationSubAction(
 				1, "Sim-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		InstVertex instOperationSubAction = new InstConcept(
@@ -193,7 +193,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(2,
 				"Sim-Pre-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Pre-Update",
@@ -221,12 +221,18 @@ public class RefasDefaultOperations {
 		List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
 		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOrder"));
 		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOpt"));
-		simulationExecOperUniqueLabeling = new OperationLabeling("unique", 1,
-				false, labord, orderExpressionList);
+		simulationExecOperUniqueLabeling = new OperationLabeling("unique",
+				"L1", 1, false, labord, orderExpressionList);
 
 		simulOperationSubAction
 				.addOperationLabeling(simulationExecOperUniqueLabeling);
-		// simulationOperationAction.addExpressionSubAction(simulOperationSubAction);
+		simulationExecOperUniqueLabeling = new OperationLabeling("unique2",
+				"L2", 1, false, labord, orderExpressionList);
+
+		simulOperationSubAction
+				.addOperationLabeling(simulationExecOperUniqueLabeling);
+		// simulationOperationAction
+		// .addExpressionSubAction(simulOperationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Execution",
 				metaOperationSubAction, simulOperationSubAction);
@@ -248,7 +254,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(4,
 				"Sim-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Validation",
@@ -271,7 +277,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(5,
 				"Sim-Post-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Update",
@@ -326,7 +332,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"SimSce-Pre-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
@@ -349,7 +355,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(2,
 				"SimSce-Pre-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Update",
@@ -372,9 +378,9 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(3,
 				"SimSce-Execution", OperationSubActionType.ITERATIVEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Execution",
@@ -397,7 +403,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(4,
 				"SimSce-Post-Validation", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Validation",
@@ -420,7 +426,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(5,
 				"SimSce-Post-Update", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Update",
@@ -472,7 +478,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"UpdateCoreSubOper", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("UpdateCoreSubOper",
@@ -515,7 +521,7 @@ public class RefasDefaultOperations {
 				"VerifyDeadElementsSubOper",
 				OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyDeadElementsSubOper",
@@ -567,7 +573,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyParentsSubOper", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyParentsSubOper",
@@ -619,7 +625,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyRootsSubOper", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyRootsSubOper",
@@ -671,7 +677,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// verifFalseOptOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyFalseSubOperations",
@@ -732,7 +738,7 @@ public class RefasDefaultOperations {
 		operationSubAction = new SemanticOperationSubAction(1,
 				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// configTemporalOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
@@ -775,7 +781,7 @@ public class RefasDefaultOperations {
 				"ConfigurePermanentSubOper",
 				OperationSubActionType.SINGLEUPDATE);
 		operationSubAction.addOperationLabeling(new OperationLabeling("unique",
-				1, false, null, null));
+				"L1", 1, false, null, null));
 		// configPermanentOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",

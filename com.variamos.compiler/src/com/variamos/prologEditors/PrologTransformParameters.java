@@ -2,10 +2,13 @@ package com.variamos.prologEditors;
 
 import java.util.List;
 
+import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 
 public class PrologTransformParameters {
+	private String labelId;
+	private List<Identifier> identifiers;
 	private boolean fdLabeling;
 
 	// First fail. Label the leftmost variable with smallest domain next, in
@@ -59,6 +62,23 @@ public class PrologTransformParameters {
 
 	public void setLabelingOrder(List<LabelingOrder> labelingOrder) {
 		this.labelingOrder = labelingOrder;
+	}
+
+	public String getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(String labelId) {
+		this.labelId = labelId;
+	}
+
+	public List<Identifier> getIdentifiers() {
+		return identifiers;
+	}
+
+	public void setIdentifiers(List<Identifier> identifiers) {
+		this.identifiers = identifiers;
+
 	}
 
 }

@@ -542,8 +542,7 @@ public class InstanceExpressionDialog extends JDialog {
 					if (instanceExpression.getRightExpressionType().equals(
 							ExpressionVertexType.RIGHTNUMERICVALUE)) {
 						rightPanel
-								.add(createTextField(
-										instanceExpression,
+								.add(createTextField(instanceExpression,
 										element,
 										ExpressionVertexType.RIGHTNUMERICVALUE));
 					}
@@ -580,8 +579,7 @@ public class InstanceExpressionDialog extends JDialog {
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField;
 
-		if (expressionVertexType
-				.equals(ExpressionVertexType.LEFTNUMERICVALUE))
+		if (expressionVertexType.equals(ExpressionVertexType.LEFTNUMERICVALUE))
 			textField = new JTextField(""
 					+ (instanceExpression).getLeftNumber());
 		else
@@ -673,7 +671,12 @@ public class InstanceExpressionDialog extends JDialog {
 				.getVariabilityVertexCollection()) {
 			String instElementId = null;
 			if (displayVariableName) {
-				instElementId = instVertex.getInstAttribute("name").toString();
+				if (instVertex.getInstAttribute("name") != null)
+					instElementId = instVertex.getInstAttribute("name")
+							.toString();
+				else
+					instElementId = instVertex.getIdentifier();
+
 			} else {
 				instElementId = instVertex.getIdentifier();
 
