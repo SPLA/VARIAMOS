@@ -1050,6 +1050,41 @@ public class ModelInstance extends AbstractModel {
 				metaBasicConcept, operationSubAction);
 		variabilityInstVertex.put("OMMSubOperation", instOperSubAction);
 
+		SemanticConcept semLabeling = new SemanticConcept(semOper,
+				"OMMLabeling");
+
+		semLabeling.putSemanticAttribute("name", new SemanticAttribute("name",
+				"String", AttributeType.OPERATION, false, "Name", null, 0, 6,
+				"", "", 6, "", ""));
+		semLabeling.addPropEditableAttribute("06#" + "name");
+		semLabeling.addPropVisibleAttribute("06#" + "name");
+		semLabeling.addPanelVisibleAttribute("06#" + "name");
+		semLabeling.addPanelSpacersAttribute("#" + "name" + "#");
+
+		semOperationSubAction.putSemanticAttribute("labelId",
+				new SemanticAttribute("labelId", "String",
+						AttributeType.OPERATION, false, "Position", "L1", 0, 6,
+						"", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "labelId");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "labelId");
+
+		InstConcept instSemLabeling = new InstConcept("OMMLabeling", null,
+				semLabeling);
+
+		MetaConcept operationLabeling = new MetaConcept('S', "OMMLabeling",
+				true, "OMMLabeling", "refasminiclass", "Operation Labeling",
+				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, instSemLabeling, true);
+
+		operationLabeling.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		operationLabeling.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instOperLabeling = new InstConcept("OMMLabeling",
+				metaBasicConcept, operationLabeling);
+		variabilityInstVertex.put("OMMLabeling", instOperLabeling);
+
 		rel = new InstPairwiseRelation(semPairwAsoRel);
 		rel.setEditableMetaElement(metaPairwiseRelAso);
 		rel.setIdentifier("AssoMenu-Act");
@@ -1063,6 +1098,14 @@ public class ModelInstance extends AbstractModel {
 		rel.setTargetRelation(instOperSubAction, true);
 		rel.setSourceRelation(instOperAction, true);
 		constraintInstEdges.put("AssoAct-SubAct", rel);
+
+		rel = new InstPairwiseRelation(semPairwAsoRel);
+		rel.setEditableMetaElement(metaPairwiseRelAso);
+		rel.setIdentifier("AssoSubAct-Lab");
+		rel.setTargetRelation(instOperLabeling, true);
+		rel.setSourceRelation(instOperSubAction, true);
+		constraintInstEdges.put("AssoSubAct-Lab", rel);
+
 	}
 
 	/**
