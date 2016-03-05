@@ -143,4 +143,12 @@ public class ConfigurationOptions {
 	public void setProgramPath(String programPath) {
 		this.programPath = programPath;
 	}
+
+	public List<Labeling> getLabelings() {
+		return labelings;
+	}
+
+	public void setLabelings(List<Labeling> labelings) {
+		this.labelings = labelings;
+	}
 }

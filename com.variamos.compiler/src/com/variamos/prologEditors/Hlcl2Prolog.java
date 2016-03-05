@@ -1,5 +1,6 @@
 package com.variamos.prologEditors;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,8 +24,11 @@ import com.variamos.hlcl.NumericOperation;
 import com.variamos.hlcl.SymbolicExpression;
 
 public abstract class Hlcl2Prolog implements ConstraintSymbols {
-	
+
 	protected PrologTransformParameters params;
+
+	protected List<PrologTransformParameters> paramList;
+
 	/**
 	 * Main method
 	 * 
@@ -34,9 +38,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	public String transform(HlclProgram program) {
 		return transform(program, new PrologTransformParameters());
 	}
-	
+
 	/**
-	 * Used when a prolog program must be directly analyzed 
+	 * Used when a prolog program must be directly analyzed
+	 * 
 	 * @param program
 	 * @param domains
 	 * @return
@@ -49,19 +54,33 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		writeFooter(out);
 		return out.toString();
 	}
-	
-	public String transform(HlclProgram program, PrologTransformParameters params){
+
+	public String transform(HlclProgram program,
+			PrologTransformParameters params) {
 		this.params = params;
-		
+
 		StringBuilder out = new StringBuilder();
 		writeHeader(program, out);
 		transformProgram(program, out);
 		out.append(COMMA).append(LF);
 		writeFooter(out);
-		//System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
+		// System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
 		return out.toString();
 	}
-	
+
+	public String transform(HlclProgram program,
+			ArrayList<PrologTransformParameters> paramList) {
+		this.paramList = paramList;
+
+		StringBuilder out = new StringBuilder();
+		writeHeader(program, out);
+		transformProgram(program, out);
+		out.append(COMMA).append(LF);
+		writeFooter(out);
+		// System.out.println("SOLUTION: \n"+ out.toString() + "\n\n");
+		return out.toString();
+	}
+
 	/**
 	 * @param e
 	 *            expression to transform
@@ -87,14 +106,11 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	}
 
 	/*
-	private void transformListExpression(ListDefinitionExpression e,
-			StringBuilder out) {
-		out.append("[");
-		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(e);
-		writeIdentifiersList(ids, out);
-		out.append("]");
-	}
-*/
+	 * private void transformListExpression(ListDefinitionExpression e,
+	 * StringBuilder out) { out.append("["); Set<Identifier> ids =
+	 * HlclUtil.getUsedIdentifiers(e); writeIdentifiersList(ids, out);
+	 * out.append("]"); }
+	 */
 	protected void transformLine(Expression e, StringBuilder out) {
 		if (e instanceof HlclProgram) {
 			transformProgram((HlclProgram) e, out);
@@ -113,33 +129,35 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 	protected abstract void writeFooter(StringBuilder out);
 
 	protected abstract void writeHeader(HlclProgram program, StringBuilder out);
-	
+
 	/**
-	 * This method uses predefined domains when we analyze directly constraint programs expressed in GNU Prolog o SWI Prolog
+	 * This method uses predefined domains when we analyze directly constraint
+	 * programs expressed in GNU Prolog o SWI Prolog
+	 * 
 	 * @param program
 	 * @param domainList
 	 * @param out
 	 */
 	protected abstract void writeHeaderWithDefinedDomains(HlclProgram program,
-			List<String> domainList, StringBuilder out); 
+			List<String> domainList, StringBuilder out);
 
 	protected abstract void transformBooleanOperation(BooleanOperation e,
 			StringBuilder out);
 
-
 	protected void transformProgram(HlclProgram program, StringBuilder out) {
-		
-		if( program instanceof HlclFunction )
-			transformFunctionDeclaration(((HlclFunction) program).getDecl(), out);
-		
+
+		if (program instanceof HlclFunction)
+			transformFunctionDeclaration(((HlclFunction) program).getDecl(),
+					out);
+
 		int counter = 0;
-		for (BooleanExpression e : program){
+		for (BooleanExpression e : program) {
 			transformLine(e, out);
 			counter++;
-			if( counter < program.size() )
+			if (counter < program.size())
 				out.append(COMMA).append(LF);
 		}
-		//out.append(DOT).append(LF);
+		// out.append(DOT).append(LF);
 	}
 
 	protected void transformBooleanExpression(BooleanExpression e,
@@ -163,23 +181,23 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		}
 		if (e instanceof Identifier)
 			transformIdentifier((Identifier) e, out);
-		
-		if( e instanceof AssignExpression )
-			transformAssign( (AssignExpression) e, out );
-		
-		if( e instanceof FunctionDeclarationExpression )
-			transformFunctionDeclaration( (FunctionDeclarationExpression)e, out);
-		
-		if(e instanceof LiteralBooleanExpression)
+
+		if (e instanceof AssignExpression)
+			transformAssign((AssignExpression) e, out);
+
+		if (e instanceof FunctionDeclarationExpression)
+			transformFunctionDeclaration((FunctionDeclarationExpression) e, out);
+
+		if (e instanceof LiteralBooleanExpression)
 			out.append((((LiteralBooleanExpression) e).getPrologConstraint()));
 	}
 
 	private void transformFunctionDeclaration(FunctionDeclarationExpression e,
 			StringBuilder out) {
-		
+
 		transformSymbolic(e.getHeader(), out);
 		out.append(SPACE).append(FUNCTION_DECLARATION).append(LF);
-		
+
 	}
 
 	private void transformAssign(AssignExpression e, StringBuilder out) {
@@ -187,9 +205,10 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		out.append(SPACE);
 		out.append(ASSIGN_VARIABLE);
 		out.append(SPACE);
-		//transformListExpression( (ListDefinitionExpression)e.getRightExpression(), out );
+		// transformListExpression(
+		// (ListDefinitionExpression)e.getRightExpression(), out );
 		out.append(transformExpressionToProlog(e.getRightExpression()));
-		
+
 	}
 
 	protected void transformNumericOperation(NumericOperation e,
@@ -246,9 +265,9 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 
 	protected void transformComparison(ComparisonExpression e, StringBuilder out) {
 		if (e.getLeft() instanceof NumericExpression)
-			transformNumericExpression((NumericExpression)e.getLeft(), out);
+			transformNumericExpression((NumericExpression) e.getLeft(), out);
 		else
-			transformBooleanExpression((BooleanExpression)e.getLeft(), out);
+			transformBooleanExpression((BooleanExpression) e.getLeft(), out);
 		out.append(SPACE);
 		switch (e.getType()) {
 		case Equals:
@@ -272,9 +291,9 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 		}
 		out.append(SPACE);
 		if (e.getRight() instanceof NumericExpression)
-			transformNumericExpression((NumericExpression)e.getRight(), out);
+			transformNumericExpression((NumericExpression) e.getRight(), out);
 		else
-			transformBooleanExpression((BooleanExpression)e.getRight(), out);
+			transformBooleanExpression((BooleanExpression) e.getRight(), out);
 	}
 
 	protected void transformNot(BooleanNegation e, StringBuilder out) {
@@ -294,6 +313,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 				out.append(COMMA + " ");
 		}
 	}
+
 	public void writeList(List<String> ids, StringBuilder out) {
 		int i = 0;
 		for (String id : ids) {
@@ -303,6 +323,7 @@ public abstract class Hlcl2Prolog implements ConstraintSymbols {
 				out.append(COMMA + " ");
 		}
 	}
+
 	public void writeIdentifiersList(List<Identifier> ids, StringBuilder out) {
 		int i = 0;
 		for (Identifier id : ids) {

@@ -11,18 +11,20 @@ public class OperationLabeling {
 	private List<NumericExpression> orderExpressionList;
 	private List<LabelingOrder> labelingOrderList;
 
+	private String labelId;
 	private String name;
 	private boolean once;
 	private int position;
 	private List<AbstractAttribute> variables;
 
-	public OperationLabeling(String name, int position, boolean once,
-			List<LabelingOrder> labelingOrderList,
+	public OperationLabeling(String name, String labelId, int position,
+			boolean once, List<LabelingOrder> labelingOrderList,
 			List<NumericExpression> orderExpressionList
 
 	) {
 		super();
 		this.name = name;
+		this.setLabelId(labelId);
 		this.orderExpressionList = orderExpressionList;
 		this.labelingOrderList = labelingOrderList;
 		this.position = position;
@@ -88,6 +90,14 @@ public class OperationLabeling {
 
 	public Object getName() {
 		return name;
+	}
+
+	public String getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(String labelId) {
+		this.labelId = labelId;
 	}
 
 }

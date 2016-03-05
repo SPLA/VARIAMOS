@@ -26,61 +26,125 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	protected void writeFooter(StringBuilder out) {
 
 		StringBuilder footerExpression = new StringBuilder();
-		StringBuilder insideLabeling = new StringBuilder();
-		int idx = 0;
-		// FIX Luisa: Iterate over labeling list to create all labelings
-		if (params.isFdLabeling()) {
-			footerExpression.append(LABELING);
+		if (paramList == null) {
+			StringBuilder insideLabeling = new StringBuilder();
+			if (params.isFdLabeling()) {
+				footerExpression.append(LABELING);
 
-			if (params.isFf()) {
-				insideLabeling.append(FF);
-			}
-			if (params.isOrder()) {
-				if (params.getLabelingOrder() == null
-						|| params.getOrderExpressions() == null
-						|| (params.getLabelingOrder().size() != params
-								.getOrderExpressions().size())) {
-					throw new TechnicalException("order params are missed");
-				}
-
-				// Add a comma after the FF instruction.
 				if (params.isFf()) {
-					insideLabeling.append(COMMA);
+					insideLabeling.append(FF);
 				}
-
-				for (LabelingOrder labOrder : params.getLabelingOrder()) {
-					if (labOrder.equals(LabelingOrder.MIN)) {
-						insideLabeling.append(MIN);
-
-					} else {
-						insideLabeling.append(MAX);
+				if (params.isOrder()) {
+					if (params.getLabelingOrder() == null
+							|| params.getOrderExpressions() == null
+							|| (params.getLabelingOrder().size() != params
+									.getOrderExpressions().size())) {
+						throw new TechnicalException("order params are missed");
 					}
-					insideLabeling.append(OPEN_PARENTHESIS);
 
-					StringBuilder orderExpression = new StringBuilder();
-					transformNumericExpression(params.getOrderExpressions()
-							.get(idx), orderExpression);
-					insideLabeling.append(orderExpression);
-					insideLabeling.append(CLOSE_PARENHESIS);
-					idx++;
-
-					if (idx <= (params.getOrderExpressions().size() - 1)) {
+					// Add a comma after the FF instruction.
+					if (params.isFf()) {
 						insideLabeling.append(COMMA);
 					}
+
+					int idx = 0;
+					for (LabelingOrder labOrder : params.getLabelingOrder()) {
+						if (labOrder.equals(LabelingOrder.MIN)) {
+							insideLabeling.append(MIN);
+
+						} else {
+							insideLabeling.append(MAX);
+						}
+						insideLabeling.append(OPEN_PARENTHESIS);
+
+						StringBuilder orderExpression = new StringBuilder();
+						transformNumericExpression(params.getOrderExpressions()
+								.get(idx), orderExpression);
+						insideLabeling.append(orderExpression);
+						insideLabeling.append(CLOSE_PARENHESIS);
+						idx++;
+
+						if (idx <= (params.getOrderExpressions().size() - 1)) {
+							insideLabeling.append(COMMA);
+						}
+					}
+				}
+
+				footerExpression.append(OPEN_PARENTHESIS);
+				if (insideLabeling.length() > 0) {
+					footerExpression.append(OPEN_BRACKET);
+					footerExpression.append(insideLabeling);
+					footerExpression.append(CLOSE_BRACKET);
+					footerExpression.append(COMMA);
+				}
+				footerExpression.append(INVOCATION);
+				footerExpression.append(CLOSE_PARENHESIS);
+				footerExpression.append(DOT);
+				out.append(footerExpression);
+			}
+		} else {
+			for (PrologTransformParameters ptp : paramList) {
+
+				StringBuilder insideLabeling = new StringBuilder();
+				if (ptp.isFdLabeling()) {
+					footerExpression.append(LABELING);
+
+					if (ptp.isFf()) {
+						insideLabeling.append(FF);
+					}
+					if (ptp.isOrder()) {
+						if (ptp.getLabelingOrder() == null
+								|| ptp.getOrderExpressions() == null
+								|| (ptp.getLabelingOrder().size() != ptp
+										.getOrderExpressions().size())) {
+							throw new TechnicalException(
+									"order params are missed");
+						}
+
+						// Add a comma after the FF instruction.
+						if (ptp.isFf()) {
+							insideLabeling.append(COMMA);
+						}
+
+						int idx = 0;
+						for (LabelingOrder labOrder : ptp.getLabelingOrder()) {
+							if (labOrder.equals(LabelingOrder.MIN)) {
+								insideLabeling.append(MIN);
+
+							} else {
+								insideLabeling.append(MAX);
+							}
+							insideLabeling.append(OPEN_PARENTHESIS);
+
+							StringBuilder orderExpression = new StringBuilder();
+							transformNumericExpression(ptp
+									.getOrderExpressions().get(idx),
+									orderExpression);
+							insideLabeling.append(orderExpression);
+							insideLabeling.append(CLOSE_PARENHESIS);
+							idx++;
+
+							if (idx <= (ptp.getOrderExpressions().size() - 1)) {
+								insideLabeling.append(COMMA);
+							}
+						}
+					}
+
+					footerExpression.append(OPEN_PARENTHESIS);
+					if (insideLabeling.length() > 0) {
+						footerExpression.append(OPEN_BRACKET);
+						footerExpression.append(insideLabeling);
+						footerExpression.append(CLOSE_BRACKET);
+						footerExpression.append(COMMA);
+					}
+					footerExpression.append(ptp.getLabelId());
+					footerExpression.append(CLOSE_PARENHESIS);
+					footerExpression.append(COMMA);
+					out.append(footerExpression);
 				}
 			}
-
-			footerExpression.append(OPEN_PARENTHESIS);
-			if (insideLabeling.length() > 0) {
-				footerExpression.append(OPEN_BRACKET);
-				footerExpression.append(insideLabeling);
-				footerExpression.append(CLOSE_BRACKET);
-				footerExpression.append(COMMA);
-			}
-			footerExpression.append(INVOCATION);
-			footerExpression.append(CLOSE_PARENHESIS);
-			footerExpression.append(DOT);
-			out.append(footerExpression);
+			out.deleteCharAt(out.length() - 1);
+			out.append(DOT);
 		}
 
 	}
@@ -114,11 +178,32 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	@Override
 	protected void writeHeader(HlclProgram program, StringBuilder out) {
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
-		out.append(HEADER);
-		// FIX Luisa: Iterate over labelings to create all the required list of
-		// variables
-		// user the variables defined for each labeling
-		out.append(makeDomainsAndVariables(ids));
+		if (paramList == null) {
+			out.append(HEADER);
+			// FIX Luisa: Iterate over labelings to create all the required list
+			// of
+			// variables
+			// user the variables defined for each labeling
+			out.append(makeDomainsAndVariables(ids));
+		} else {
+			StringBuilder labids = new StringBuilder();
+			StringBuilder variables = new StringBuilder();
+			StringBuilder domains = new StringBuilder();
+
+			for (PrologTransformParameters ptp : paramList) {
+				labids.append(ptp.getLabelId() + ",");
+				variables.append(makeVariables(ptp.getLabelId(),
+						ptp.getIdentifiers()));
+				domains.append(makeDomains(ptp.getIdentifiers()));
+			}
+			labids.deleteCharAt(labids.length() - 1);
+			out.append(HEADER_INI);
+			out.append(labids);
+			out.append(HEADER_END);
+			out.append(variables);
+			out.append(domains);
+		}
+
 	}
 
 	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
@@ -207,6 +292,91 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		domainString.append(DOMAIN_INTERVAL);
 		domainString.append(upperValue);
 		return domainString;
+	}
+
+	/**
+	 * @author jcmunoz {jcmunoz@gmail.com} New method to obtain the variables
+	 *         supporting different identifiers for each labeling
+	 * @param ids
+	 *            :
+	 * @return
+	 */
+	private StringBuilder makeVariables(String name, List<Identifier> ids) {
+		StringBuilder variables = new StringBuilder(name + "=[");
+		StringBuilder variablesList = new StringBuilder();
+		String id = "";
+		for (Identifier identifier : ids) {
+			id = identifier.getId();
+			variablesList.append(id);
+			variablesList.append(COMMA);
+		}
+		variablesList.append("],");
+		variables.append(variablesList.toString().replace(",]", CLOSE_BRACKET));
+		variables.append(LF);
+		return variables;
+	}
+
+	/**
+	 * @author jcmunoz {jcmunoz@gmail.com} New method to obtain the domains
+	 *         supporting different identifiers for each labeling
+	 * @param ids
+	 *            :
+	 * @return
+	 */
+	private StringBuilder makeDomains(List<Identifier> ids) {
+		// Se contruye la lista de características y de dominios
+		// FIXME: Luisa: use a number from the labeling List possition to
+		// identify
+		// variable lists
+		StringBuilder domainOut = new StringBuilder();
+		StringBuilder domainString = new StringBuilder();
+		String id = "";
+		for (Identifier identifier : ids) {
+			id = identifier.getId();
+			if (identifier.getDomain() instanceof RangeDomain) {
+				// Sample WidthResolution in 0..1
+				// jcmunoz: new method for range domains
+				domainString.append(getRangeDomain(identifier.getDomain(), id));
+			} else if (identifier.getDomain() instanceof IntervalDomain) {
+
+				// Sample WidthResolution in 0 \/ 800 \/ 1024 \/
+				// 1366
+				// jcmunoz: new method for interval domains
+				domainString.append(getIntervalDomain(identifier.getDomain(),
+						id));
+
+				// jcmunoz: new condition for composed domains
+			} else if (identifier.getDomain() instanceof ComposedDomain) {
+				for (Domain domain : ((ComposedDomain) identifier.getDomain())
+						.getDomains()) {
+					if (domain instanceof RangeDomain) {
+						// Sample WidthResolution in 0..1
+						domainString.append(getRangeDomain(domain, id));
+					} else if (domain instanceof IntervalDomain) {
+
+						// Sample WidthResolution in 0 \/ 800 \/ 1024 \/
+						// 1366
+						domainString.append(getIntervalDomain(domain, id));
+					}
+					// set the id to null to define the variable only one time.
+					id = null;
+				}
+				// jcmunoz: new condition for String domains using hashcodes
+			} else if (identifier.getDomain() instanceof StringDomain) {
+				domainString
+						.append(getStringDomain(identifier.getDomain(), id));
+			}
+
+			domainString.append(COMMA);
+		}
+		domainString.append(LF);
+		domainOut.append(LF);
+		// add domain string
+		domainOut.append(domainString);
+
+		// TODO implements composed domain transformation
+
+		return domainOut;
 	}
 
 	/**
