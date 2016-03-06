@@ -236,6 +236,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		SemanticOperationSubAction operSubAction = null;
+		InstElement instOperSubAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
 				operAction = oper;
@@ -244,9 +245,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		}
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
-			if (subOper.getIdentifier().equals(subAction))
+			if (subOper.getIdentifier().equals(subAction)) {
+				instOperSubAction = subOper;
 				operSubAction = (SemanticOperationSubAction) subOper
 						.getEditableSemanticElement();
+			}
 		}
 
 		if (operSubAction != null) {
@@ -254,7 +257,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getOperationSubActionExpType(expressionType);
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
-				for (OperationLabeling operLab : operSubAction.getOperLabels()) {
+				for (InstElement rel : instOperSubAction.getTargetRelations()) {
+					InstElement instOperLab = rel.getTargetRelations().get(0);
+					OperationLabeling operLab = (OperationLabeling) instOperLab
+							.getEditableSemanticElement();
+					// for (OperationLabeling operLab :
+					// operSubAction.getOperLabels()) {
+
 					List<Identifier> ident = new ArrayList<Identifier>();
 					for (InstElement instE : refas.getElements()) {
 						for (AbstractAttribute var : operLab.getVariables()) {

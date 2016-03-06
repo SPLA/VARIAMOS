@@ -464,12 +464,15 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 				configurationOptions.setOrder(true);
 				configurationOptions.setStartFromZero(true);
-
-				OperationLabeling operlab = ((SemanticOperationSubAction) subop
-						.getEditableSemanticElement()).getOperLabels().get(0);
-				configurationOptions.setLabelingOrder(operlab
+				OperationLabeling operLab = null;
+				for (InstElement rel : subop.getTargetRelations()) {
+					InstElement instOperLab = rel.getTargetRelations().get(0);
+					operLab = (OperationLabeling) instOperLab
+							.getEditableSemanticElement();
+				}
+				configurationOptions.setLabelingOrder(operLab
 						.getLabelingOrderList());
-				configurationOptions.setOrderExpressions(operlab
+				configurationOptions.setOrderExpressions(operLab
 						.getOrderExpressionList());
 
 				swiSolver.solve(new Configuration(), configurationOptions);

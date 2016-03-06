@@ -144,8 +144,22 @@ public class ElementsOperationAssociationPanel extends
 					.getOperationSubActionExpTypes());
 			subOperColumnsNames.add(operSubAction.getIdentifier());
 			subOperColumns.add(operSubAction);
-			operLabelNames.addAll(operSubAction.getOperLabelNames());
-			operLabels.addAll(operSubAction.getOperLabels());
+			// operLabelNames.addAll(operSubAction.getOperLabelNames());
+			// operLabels.addAll(operSubAction.getOperLabels());
+			List<OperationLabeling> operLabs = new ArrayList<OperationLabeling>();
+			List<String> operLabsNames = new ArrayList<String>();
+			for (InstElement rel2 : subOper.getTargetRelations()) {
+				InstElement instOperLab = rel2.getTargetRelations().get(0);
+				OperationLabeling operLab = (OperationLabeling) instOperLab
+						.getEditableSemanticElement();
+				operLabs.add(operLab);
+				operLabsNames.add(operSubAction.getIdentifier() + "-"
+						+ operLab.getName());
+
+			}
+
+			operLabelNames.addAll(operLabsNames);
+			operLabels.addAll(operLabs);
 		}
 
 		List<Domain> domainOperColumns = new ArrayList<Domain>();
