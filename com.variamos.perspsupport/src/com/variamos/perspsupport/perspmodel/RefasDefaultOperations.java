@@ -138,6 +138,28 @@ public class RefasDefaultOperations {
 				.getSyntaxModel().getConstraintInstEdge("DirectRelation"))
 				.getEditableMetaElement();
 
+		SemanticConcept refasModel = new SemanticConcept("REFAS");
+
+		AbstractAttribute attribute = null;
+		attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0,
+				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		refasModel.putSemanticAttribute("TotalOrder", attribute);
+
+		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0,
+				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		refasModel.putSemanticAttribute("TotalOpt", attribute);
+
+		InstVertex instRefasModel = new InstConcept("REFAS", metaModel,
+				refasModel);
+		refas.getVariabilityVertex().put("REFAS", instRefasModel);
+
+		InstAttribute ia = null;
+		List<InstAttribute> ias = null;
+
 		SemanticOperationGroup operationMenu = new SemanticOperationGroup(1,
 				"SimulationGroup", 2);
 
@@ -161,6 +183,7 @@ public class RefasDefaultOperations {
 		instOperationAction.getInstAttribute("name").setValue(
 				"Simulation Operation (Partially Working)");
 		instOperationAction.getInstAttribute("shortcut").setValue("S");
+		instOperationAction.getInstAttribute("iteration").setValue(true);
 
 		InstPairwiseRelation instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-menu", instEdgeOper);
@@ -199,6 +222,11 @@ public class RefasDefaultOperations {
 
 		InstVertex instLabeling = new InstConcept("Sim-Pre-Validation-lab",
 				metaLabeling, operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex()
 				.put("Sim-Pre-Validation-lab", instLabeling);
 
@@ -237,6 +265,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("sim-pre-upd-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("sim-pre-upd-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -256,6 +289,28 @@ public class RefasDefaultOperations {
 		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOpt"));
 		simulationExecOperUniqueLabeling = new OperationLabeling("unique",
 				"L1", 1, false, labord, orderExpressionList);
+
+		List<IntSemanticExpression> semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		simulationExecOperUniqueLabeling
+				.setSemanticExpressions(semanticExpressions);
+
+		SemanticExpression t1 = new SemanticExpression("sub", refas
+				.getSemanticExpressionTypes().get("Sum"),
+				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+				"TotalOrder", 0);
+
+		semanticExpressions.add(t1);
+
+		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+				instRefasModel, "TotalOpt", 0);
+
+		semanticExpressions.add(t1);
+
+		SemanticExpression t2;
+
+		SemanticExpression t3;
 
 		// simulationOperationAction
 		// .addExpressionSubAction(simulOperationSubAction);
@@ -282,6 +337,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("Sim-Execution-lab", metaLabeling,
 				simulationExecOperUniqueLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("Sim-Execution-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -320,6 +380,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("sim-pos-val-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("sim-pos-val-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -351,6 +416,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("Sim-Post-Update-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("Sim-Post-Update-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -367,7 +437,7 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("SimulationSceGroup",
 				instOperationGroup);
 
-		instOperationGroup.getInstAttribute("visible").setValue(false);
+		instOperationGroup.getInstAttribute("visible").setValue(true);
 		instOperationGroup.getInstAttribute("menuType").setValue("4");
 		instOperationGroup.getInstAttribute("name").setValue(
 				"Simulation Scenarios");
@@ -391,6 +461,7 @@ public class RefasDefaultOperations {
 		instOperationAction.getInstAttribute("name").setValue(
 				"Simulation Scenarios");
 		instOperationAction.getInstAttribute("shortcut").setValue("S");
+		instOperationAction.getInstAttribute("iteration").setValue(true);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-menu", instEdgeOper);
@@ -428,6 +499,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("simsce-pre-val-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("simsce-pre-val-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -466,6 +542,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("simsce-pre-upd-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("simsce-pre-upd-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -503,6 +584,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("simsce-exec-lab1", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("simsce-exec-lab1", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -519,6 +605,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("simsce-exec-lab2", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L2");
+		instLabeling.getInstAttribute("position").setValue(2);
+		instLabeling.getInstAttribute("once").setValue(true);
+
 		refas.getVariabilityVertex().put("simsce-exec-lab2", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -557,6 +648,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("simsce-pos-val-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("simsce-pos-val-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -594,6 +690,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("SimSce-Post-Update-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex()
 				.put("SimSce-Post-Update-lab", instLabeling);
 
@@ -662,6 +763,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("upd-core-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("upd-core-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -729,6 +835,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("ver-dead-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("ver-dead-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -798,6 +909,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("ver-par-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("ver-par-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -864,6 +980,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("ver-root-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("ver-root-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -930,6 +1051,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("ver-false-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("ver-false-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -998,6 +1124,11 @@ public class RefasDefaultOperations {
 
 		instLabeling = new InstConcept("conf-temp-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("conf-temp-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -1051,10 +1182,21 @@ public class RefasDefaultOperations {
 		operationLabeling = new OperationLabeling("unique", "L1", 1, false,
 				null, null);
 
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		semanticExpressions.add(t1);
+
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
 		instLabeling = new InstConcept("conf-perm-lab", metaLabeling,
 				operationLabeling);
+
+		instLabeling.getInstAttribute("labelId").setValue("L1");
+		instLabeling.getInstAttribute("position").setValue(1);
+		instLabeling.getInstAttribute("once").setValue(false);
+
 		refas.getVariabilityVertex().put("conf-perm-lab", instLabeling);
 
 		instEdgeOper = new InstPairwiseRelation();
@@ -1089,45 +1231,18 @@ public class RefasDefaultOperations {
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
 
-		SemanticConcept refasModel = new SemanticConcept("REFAS");
-
-		AbstractAttribute attribute = null;
-		attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0,
-				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		refasModel.putSemanticAttribute("TotalOrder", attribute);
-
-		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0,
-				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		refasModel.putSemanticAttribute("TotalOpt", attribute);
-
-		InstVertex instRefasModel = new InstConcept("REFAS", metaModel,
-				refasModel);
-		refas.getVariabilityVertex().put("REFAS", instRefasModel);
-
-		InstAttribute ia = null;
-		List<InstAttribute> ias = null;
-
-		List<IntSemanticExpression> semanticExpressions = new ArrayList<IntSemanticExpression>();
+		semanticExpressions = new ArrayList<IntSemanticExpression>();
 
 		refasModel.setSemanticExpressions(semanticExpressions);
 
-		SemanticExpression t1 = new SemanticExpression("sub", refas
-				.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexGE,
-				"NextPrefSelected", 0);
+		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+				instVertexGE, "NextPrefSelected", 0);
 
 		t1 = new SemanticExpression("prefSel <=1", refas
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
 				instVertexGE, t1, 1);
-
-		SemanticExpression t2;
-
-		SemanticExpression t3;
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -1461,7 +1576,7 @@ public class RefasDefaultOperations {
 		attribute = new SemanticAttribute("Scope", "Boolean",
 				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
 				"", -1, "", "");
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		// TODO use scope
@@ -2074,8 +2189,8 @@ public class RefasDefaultOperations {
 				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
 				"", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
-		// simulOperationSubAction.addInVariable(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 		// TODO use scope
 
 		attribute = new SemanticAttribute("ConcernLevel", "Class",
@@ -2767,6 +2882,13 @@ public class RefasDefaultOperations {
 		InstConcept instHchcHHGRHC = new InstConcept("GoaltoOTAssoPWAsso",
 				metaPairwiseRelation);
 		refas.getVariabilityVertex().put("GoaltoOTAssoPWAsso", instHchcHHGRHC);
+
+		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("hhtoge", instEdge);
+		instEdge.setIdentifier("hhtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexHHGR, true);
 
 		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("hctoHHGR-HHGR-HHHHGR", instEdge);
@@ -3718,6 +3840,13 @@ public class RefasDefaultOperations {
 
 		// Feature to Feature
 
+		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("ffgrtogr", instEdge);
+		instEdge.setIdentifier("ffgrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexFFGR, true);
+
 		InstConcept instFeatFeatFFFGR = new InstConcept(
 				"FeatFeatToOTAssoPWAsso", metaPairwiseRelation);
 		refas.getVariabilityVertex().put("FeatFeatToOTAssoPWAsso",
@@ -4119,6 +4248,13 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("sgsgOTAssoFromPWAsso", instSgsgSGR);
 
 		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("sggrtogr", instEdge);
+		instEdge.setIdentifier("sggrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexSGGR, true);
+
+		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sgsgSGR-SGsgsg", instEdge);
 		instEdge.setIdentifier("sgsgSGR-SGsgsg");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
@@ -4377,6 +4513,13 @@ public class RefasDefaultOperations {
 				instDirOperClaimToSemanticEdge);
 
 		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("clgrtogr", instEdge);
+		instEdge.setIdentifier("clgrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexCLGR, true);
+
+		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("OperClaimToPWAsso-OOGR", instEdge);
 		instEdge.setIdentifier("OperClaimToPWAsso-OOGR");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
@@ -4489,6 +4632,13 @@ public class RefasDefaultOperations {
 
 		refas.getVariabilityVertex().put("FClaimToPWAsso",
 				instDirFClaimToSemanticEdge);
+
+		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("fctogr", instEdge);
+		instEdge.setIdentifier("fctogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexLFCLGR, true);
 
 		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("FClaimToPWAsso-OOGR", instEdge);
@@ -4820,6 +4970,13 @@ public class RefasDefaultOperations {
 				instAssetassetASGR);
 
 		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("agrtogr", instEdge);
+		instEdge.setIdentifier("agrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instVertexASSETGR, true);
+
+		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ASSETGRtoassetA-AGR", instEdge);
 		instEdge.setIdentifier("ASSETGRtoassetA-AGR");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
@@ -4869,6 +5026,13 @@ public class RefasDefaultOperations {
 				"AssetOperToOTAssoPWAsso", metaPairwiseRelation);
 		refas.getVariabilityVertex().put("AssetOperToOTAssoPWAsso",
 				instAssetOperAOGR);
+
+		instEdge = new InstPairwiseRelation();
+		refas.getConstraintInstEdges().put("aogrtogr", instEdge);
+		instEdge.setIdentifier("aogrtogr");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelOCExt);
+		instEdge.setTargetRelation(instVertexGR, true);
+		instEdge.setSourceRelation(instAssetOperAOGR, true);
 
 		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("assettoOperGR-AAOGR", instEdge);

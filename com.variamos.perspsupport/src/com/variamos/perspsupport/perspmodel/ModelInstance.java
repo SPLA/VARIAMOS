@@ -978,23 +978,31 @@ public class ModelInstance extends AbstractModel {
 		semOperationAction.putSemanticAttribute("name", new SemanticAttribute(
 				"name", "String", AttributeType.OPERATION, false, "Name", null,
 				0, 6, "", "", 6, "", ""));
+		semOperationAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+						"", "", 7, "", ""));
+		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", AttributeType.OPERATION, false, "Position",
+				1, 0, 8, "", "", 8, "", ""));
+		semOperationAction.putSemanticAttribute("iteration",
+				new SemanticAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false, "Iterate Button",
+						false, 0, 9, "", "", 9, "", ""));
+
 		semOperationAction.addPropEditableAttribute("06#" + "name");
 		semOperationAction.addPropVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationAction.putSemanticAttribute("shortcut",
-				new SemanticAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 6,
-						"", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
-				"Index", "Integer", AttributeType.OPERATION, false, "Position",
-				1, 0, 6, "", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("08#" + "Index");
 		semOperationAction.addPropVisibleAttribute("08#" + "Index");
+
+		semOperationAction.addPropEditableAttribute("09#" + "iteration");
+		semOperationAction.addPropVisibleAttribute("09#" + "iteration");
 
 		InstConcept instSemOperationAction = new InstConcept("OMMOperation",
 				null, semOperationAction);
@@ -1053,13 +1061,25 @@ public class ModelInstance extends AbstractModel {
 		SemanticConcept semLabeling = new SemanticConcept(semOper,
 				"OMMLabeling");
 
-		semLabeling.putSemanticAttribute("name", new SemanticAttribute("name",
-				"String", AttributeType.OPERATION, false, "Name", null, 0, 6,
+		semLabeling.putSemanticAttribute("labelId", new SemanticAttribute(
+				"labelId", "String", AttributeType.OPERATION, false,
+				"Label ID", null, 0, 6, "", "", 6, "", ""));
+		semLabeling.putSemanticAttribute("position", new SemanticAttribute(
+				"position", "Integer", AttributeType.OPERATION, false,
+				"Position", 1, 0, 6, "", "", 6, "", ""));
+		semLabeling.putSemanticAttribute("once", new SemanticAttribute("once",
+				"Boolean", AttributeType.OPERATION, false, "Once", false, 0, 6,
 				"", "", 6, "", ""));
-		semLabeling.addPropEditableAttribute("06#" + "name");
-		semLabeling.addPropVisibleAttribute("06#" + "name");
-		semLabeling.addPanelVisibleAttribute("06#" + "name");
-		semLabeling.addPanelSpacersAttribute("#" + "name" + "#");
+
+		semLabeling.addPanelVisibleAttribute("04#" + "identifier");
+		semLabeling.addPanelSpacersAttribute("#" + "identifier" + "#");
+
+		semLabeling.addPropEditableAttribute("06#" + "labelId");
+		semLabeling.addPropVisibleAttribute("06#" + "labelId");
+		semLabeling.addPropEditableAttribute("07#" + "position");
+		semLabeling.addPropVisibleAttribute("07#" + "position");
+		semLabeling.addPropEditableAttribute("08#" + "once");
+		semLabeling.addPropVisibleAttribute("08#" + "once");
 
 		semOperationSubAction.putSemanticAttribute("labelId",
 				new SemanticAttribute("labelId", "String",

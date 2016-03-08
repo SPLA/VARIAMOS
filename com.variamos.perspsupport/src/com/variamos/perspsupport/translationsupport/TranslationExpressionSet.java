@@ -271,9 +271,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getInstAttribute(var.getName());
 							if (instAttribute != null
 									&& instAttribute.getAttribute() == var) {
-								ident.add(f.newIdentifier(instE.getIdentifier()
+								Identifier id = f.newIdentifier(instE
+										.getIdentifier()
 										+ "_"
-										+ instAttribute.getAttributeName()));
+										+ instAttribute.getAttributeName());
+								// id.setDomain();
+								InstanceExpression.updateDomain(var, instE, id);
+								ident.add(id);
 							}
 						}
 					}

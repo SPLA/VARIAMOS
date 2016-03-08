@@ -144,7 +144,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 				}
 			}
 			out.append(footerExpression);
-			out.deleteCharAt(out.length() - 1);
+			System.out.println(out);
+			out.deleteCharAt(out.length() - 2);
+			System.out.println(out);
 			out.append(DOT);
 		}
 
@@ -193,7 +195,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 						ptp.getIdentifiers()));
 				domains.append(makeDomains(ptp.getIdentifiers()));
 			}
+			System.out.println(labids);
 			labids.deleteCharAt(labids.length() - 1);
+			System.out.println(labids);
 			out.append(HEADER_INI);
 			out.append(labids);
 			out.append(HEADER_END);

@@ -410,12 +410,13 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			next = false;
 
 			try {
-				if (firstSimulExec || lastConfiguration == null) {
+				if (operation.startsWith("N:") || lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.ONE_SOLUTION, operation); // type
 					outVariables = refas2hlcl.getOutVariables(operation,
 							"Sim-Execution");
 				} else {
+					operation = operation.substring(2);
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.NEXT_SOLUTION, operation); // type
 					outVariables = refas2hlcl.getOutVariables(operation,
