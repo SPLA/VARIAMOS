@@ -83,10 +83,14 @@ public class OpenAction extends AbstractEditorAction {
 
 					JFileChooser fc = new JFileChooser(wd);
 
+					final String fileExtension = finalEditor.getFileExtension();
+					final String fileExtensionName = finalEditor
+							.getExtensionName();
+
 					// Adds file filter for supported file format
 					DefaultFileFilter defaultFilter = new DefaultFileFilter(
-							".vmsm", mxResources.get("defaultExtension")
-									+ " (.vmsm)") {
+							fileExtension, fileExtensionName + " ("
+									+ fileExtension + ")") {
 
 						public boolean accept(File file) {
 							String lcase = file.getName().toLowerCase();
@@ -94,7 +98,7 @@ public class OpenAction extends AbstractEditorAction {
 							((MainFrame) finalEditor.getFrame())
 									.waitingCursor(false);
 							return super.accept(file)
-									|| lcase.endsWith(".vmsm");
+									|| lcase.endsWith(fileExtension);
 						}
 					};
 					// fc.addChoosableFileFilter(defaultFilter);

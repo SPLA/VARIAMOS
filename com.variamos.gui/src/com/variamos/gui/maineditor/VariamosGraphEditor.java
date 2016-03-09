@@ -466,6 +466,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	// When tab change or save/load file (resetEditor)
 	public void updateView() {
 		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
 				.getValidElements(modelViewIndex, modelSubViewIndex);

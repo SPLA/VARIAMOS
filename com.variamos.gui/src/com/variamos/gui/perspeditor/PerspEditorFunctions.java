@@ -85,6 +85,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
 	public void updateView(List<String> validElements,
 			mxGraphComponent graphComponent, int modelViewIndex) {
+		editor.reloadMenus();
 		editor.clearPalettes();
 		loadPaletteElements();
 		EditorPalette[] palettes = editor.insertPalettes(editor

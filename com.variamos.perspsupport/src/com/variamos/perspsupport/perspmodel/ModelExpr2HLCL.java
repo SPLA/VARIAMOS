@@ -684,8 +684,8 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
 				String attribute = split[1];
-				System.out.println(vertexId + " " + attribute + " "
-						+ prologOut.get(identifier));
+				// System.out.println(vertexId + " " + attribute + " "
+				// + prologOut.get(identifier));
 				if (!vertexId.equals("Amodel")
 						&& (outVariables == null || outVariables
 								.contains(attribute))) {
