@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.translationsupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -236,6 +237,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				.getVariabilityVertex("OMMOperation");
 		InstElement operAction = null;
 		SemanticOperationSubAction operSubAction = null;
+		InstElement instOperSubAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
 				operAction = oper;
@@ -244,9 +246,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		}
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
-			if (subOper.getIdentifier().equals(subAction))
+			if (subOper.getIdentifier().equals(subAction)) {
+				instOperSubAction = subOper;
 				operSubAction = (SemanticOperationSubAction) subOper
 						.getEditableSemanticElement();
+			}
 		}
 
 		if (operSubAction != null) {
@@ -254,7 +258,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getOperationSubActionExpType(expressionType);
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
-				for (OperationLabeling operLab : operSubAction.getOperLabels()) {
+				for (InstElement rel : instOperSubAction.getTargetRelations()) {
+					InstElement instOperLab = rel.getTargetRelations().get(0);
+					OperationLabeling operLab = (OperationLabeling) instOperLab
+							.getEditableSemanticElement();
+					// for (OperationLabeling operLab :
+					// operSubAction.getOperLabels()) {
+
 					List<Identifier> ident = new ArrayList<Identifier>();
 					for (InstElement instE : refas.getElements()) {
 						for (AbstractAttribute var : operLab.getVariables()) {
@@ -262,12 +272,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 									.getInstAttribute(var.getName());
 							if (instAttribute != null
 									&& instAttribute.getAttribute() == var) {
-								ident.add(f.newIdentifier(instE.getIdentifier()
+								Identifier id = f.newIdentifier(instE
+										.getIdentifier()
 										+ "_"
-										+ instAttribute.getAttributeName()));
+										+ instAttribute.getAttributeName());
+								// id.setDomain();
+								InstanceExpression.updateDomain(var, instE, id);
+								ident.add(id);
 							}
 						}
 					}
+					Collections.sort(ident);
 					Labeling lab = new Labeling((String) operLab.getName(),
 							operLab.getLabelId(), operLab.getPosition(),
 							operLab.isOnce(), operLab.getLabelingOrderList(),
@@ -275,7 +290,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					lab.setVariables(ident);
 					out.add(lab);
 				}
-
 				return out;
 			}
 		}

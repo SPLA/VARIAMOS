@@ -288,22 +288,28 @@ public class PerspEditorMenuBar extends JMenuBar {
 							if (i == 0) {
 								InstElement e = oper.getTargetRelations()
 										.get(0);
-								JMenuItem menuItem = new JMenuItem(
-										(String) oper.getTargetRelations()
-												.get(0)
-												.getInstAttribute("name")
-												.getValue());
+								JMenuItem menuItem = new JMenuItem((String) e
+										.getInstAttribute("name").getValue());
 
-								menuItem.setName(oper.getTargetRelations()
-										.get(0).getIdentifier());
-								menuItem.setAction(editor.bind(menuItem, oper
-										.getTargetRelations().get(0)
-										.getIdentifier(),
+								menuItem.setName(e.getIdentifier());
+								menuItem.setAction(editor.bind(menuItem,
+										e.getIdentifier(),
 										new OperationAction(), null));
 								menu.add(menuItem);
-								menuItem.setText((String) oper
-										.getTargetRelations().get(0)
-										.getInstAttribute("name").getValue());
+								menuItem.setText((String) e.getInstAttribute(
+										"name").getValue());
+								boolean iterate = (boolean) e.getInstAttribute(
+										"iteration").getValue();
+								if (iterate) {
+									JMenuItem menuItem2 = new JMenuItem(
+											"Next Element");
+									menuItem2.setName("N:" + e.getIdentifier());
+									menuItem2.setAction(editor.bind(menuItem2,
+											"N:" + e.getIdentifier(),
+											new OperationAction(), null));
+									menu.add(menuItem2);
+									menuItem2.setText("Next Element");
+								}
 								// menu.add(editor.bind(oper.getTargetRelations()
 								// .get(0).getIdentifier(), (String) oper
 								// .getTargetRelations().get(0)

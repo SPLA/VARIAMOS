@@ -1,7 +1,6 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
@@ -30,7 +29,7 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 	private List<AbstractAttribute> inVariables;
 	private List<AbstractAttribute> outVariables;
 
-	private List<OperationLabeling> operationLabelings;
+	// private List<OperationLabeling> operationLabelings;
 	private OperationSubActionType operationSubActionType;
 
 	public SemanticOperationSubAction(int position, String identifier,
@@ -39,7 +38,7 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 		this.position = position;
 		this.operationSubActionType = operationSubActionType;
 		operationSubActionExpTypes = new ArrayList<OperationSubActionExpType>();
-		operationLabelings = new ArrayList<OperationLabeling>();
+		// operationLabelings = new ArrayList<OperationLabeling>();
 		inVariables = new ArrayList<AbstractAttribute>();
 		outVariables = new ArrayList<AbstractAttribute>();
 	}
@@ -75,9 +74,9 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 		this.operationSubActionType = operationSubActionType;
 	}
 
-	public void addOperationLabeling(OperationLabeling operationLabeling) {
-		operationLabelings.add(operationLabeling);
-	}
+	// public void addOperationLabeling(OperationLabeling operationLabeling) {
+	// operationLabelings.add(operationLabeling);
+	// }
 
 	public void addOperationSubActionExpType(
 			OperationSubActionExpType operationSubActionExpType) {
@@ -94,21 +93,21 @@ public class SemanticOperationSubAction extends AbstractSemanticElement {
 
 	}
 
-	public Collection<? extends String> getOperLabelNames() {
-		List<String> out = new ArrayList<String>();
-		for (OperationLabeling oper : operationLabelings) {
-			out.add(this.getIdentifier() + "-" + oper.getName());
-		}
-		return out;
-	}
+	// public Collection<? extends String> getOperLabelNames() {
+	// List<String> out = new ArrayList<String>();
+	// for (OperationLabeling oper : operationLabelings) {
+	// out.add(this.getIdentifier() + "-" + oper.getName());
+	// }
+	// return out;
+	// }
 
-	public List<OperationLabeling> getOperLabels() {
-		List<OperationLabeling> out = new ArrayList<OperationLabeling>();
-		for (OperationLabeling oper : operationLabelings) {
-			out.add(oper);
-		}
-		return out;
-	}
+	// public List<OperationLabeling> getOperLabels() {
+	// List<OperationLabeling> out = new ArrayList<OperationLabeling>();
+	// for (OperationLabeling oper : operationLabelings) {
+	// out.add(oper);
+	// }
+	// return out;
+	// }
 
 	public OperationSubActionExpType getOperationSubActionExpType(
 			OperationSubActionExecType expressionType) {

@@ -144,7 +144,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 				}
 			}
 			out.append(footerExpression);
-			out.deleteCharAt(out.length() - 1);
+			// System.out.println(out);
+			out.deleteCharAt(out.length() - 2);
+			// System.out.println(out);
 			out.append(DOT);
 		}
 
@@ -181,10 +183,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
 		if (paramList == null) {
 			out.append(HEADER);
-			// FIX Luisa: Iterate over labelings to create all the required list
-			// of
-			// variables
-			// user the variables defined for each labeling
 			out.append(makeDomainsAndVariables(ids));
 		} else {
 			StringBuilder labids = new StringBuilder();
@@ -197,7 +195,9 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 						ptp.getIdentifiers()));
 				domains.append(makeDomains(ptp.getIdentifiers()));
 			}
+			System.out.println(labids);
 			labids.deleteCharAt(labids.length() - 1);
+			// System.out.println(labids);
 			out.append(HEADER_INI);
 			out.append(labids);
 			out.append(HEADER_END);
@@ -209,9 +209,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 
 	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
 		// Se contruye la lista de características y de dominios
-		// FIXME: Luisa: use a number from the labeling List possition to
-		// identify
-		// variable lists
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
 		StringBuilder domainString = new StringBuilder();
@@ -262,7 +259,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 		dommainAndVariables.append(variablesList.toString().replace(",]",
 				CLOSE_BRACKET));
 		dommainAndVariables.append(LF);
-		// FIX Luisa: End iteration required
 
 		// add domain string
 		dommainAndVariables.append(domainString);
@@ -325,8 +321,6 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	 * @return
 	 */
 	private StringBuilder makeDomains(List<Identifier> ids) {
-		// Se contruye la lista de características y de dominios
-		// FIXME: Luisa: use a number from the labeling List possition to
 		// identify
 		// variable lists
 		StringBuilder domainOut = new StringBuilder();

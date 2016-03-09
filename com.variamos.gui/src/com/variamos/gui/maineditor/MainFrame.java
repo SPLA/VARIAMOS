@@ -45,9 +45,14 @@ public class MainFrame extends JFrame {
 	private String variamosVersionName = "1.0 Beta 18";
 	private String variamosBuild = "20160113 1800";
 	private String downloadId = "465";
+	private static boolean solverError = false;
 
 	public int getPerspective() {
 		return perspective;
+	}
+
+	public static boolean getSolverError() {
+		return solverError;
 	}
 
 	private List<VariamosGraphEditor> graphEditors;
@@ -161,6 +166,7 @@ public class MainFrame extends JFrame {
 							"Solver not properly configured, visit http://variamos.com and follow the steps",
 							"Solver Error", JOptionPane.INFORMATION_MESSAGE,
 							null);
+			solverError = true;
 		}
 	}
 

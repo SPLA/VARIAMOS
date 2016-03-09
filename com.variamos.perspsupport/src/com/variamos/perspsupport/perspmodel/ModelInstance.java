@@ -978,23 +978,31 @@ public class ModelInstance extends AbstractModel {
 		semOperationAction.putSemanticAttribute("name", new SemanticAttribute(
 				"name", "String", AttributeType.OPERATION, false, "Name", null,
 				0, 6, "", "", 6, "", ""));
+		semOperationAction.putSemanticAttribute("shortcut",
+				new SemanticAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+						"", "", 7, "", ""));
+		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
+				"Index", "Integer", AttributeType.OPERATION, false, "Position",
+				1, 0, 8, "", "", 8, "", ""));
+		semOperationAction.putSemanticAttribute("iteration",
+				new SemanticAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false, "Iterate Button",
+						false, 0, 9, "", "", 9, "", ""));
+
 		semOperationAction.addPropEditableAttribute("06#" + "name");
 		semOperationAction.addPropVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelVisibleAttribute("06#" + "name");
 		semOperationAction.addPanelSpacersAttribute("#" + "name" + "#");
 
-		semOperationAction.putSemanticAttribute("shortcut",
-				new SemanticAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 6,
-						"", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("07#" + "shortcut");
 		semOperationAction.addPropVisibleAttribute("07#" + "shortcut");
 
-		semOperationAction.putSemanticAttribute("Index", new SemanticAttribute(
-				"Index", "Integer", AttributeType.OPERATION, false, "Position",
-				1, 0, 6, "", "", 6, "", ""));
 		semOperationAction.addPropEditableAttribute("08#" + "Index");
 		semOperationAction.addPropVisibleAttribute("08#" + "Index");
+
+		semOperationAction.addPropEditableAttribute("09#" + "iteration");
+		semOperationAction.addPropVisibleAttribute("09#" + "iteration");
 
 		InstConcept instSemOperationAction = new InstConcept("OMMOperation",
 				null, semOperationAction);
@@ -1050,6 +1058,53 @@ public class ModelInstance extends AbstractModel {
 				metaBasicConcept, operationSubAction);
 		variabilityInstVertex.put("OMMSubOperation", instOperSubAction);
 
+		SemanticConcept semLabeling = new SemanticConcept(semOper,
+				"OMMLabeling");
+
+		semLabeling.putSemanticAttribute("labelId", new SemanticAttribute(
+				"labelId", "String", AttributeType.OPERATION, false,
+				"Label ID", null, 0, 6, "", "", 6, "", ""));
+		semLabeling.putSemanticAttribute("position", new SemanticAttribute(
+				"position", "Integer", AttributeType.OPERATION, false,
+				"Position", 1, 0, 6, "", "", 6, "", ""));
+		semLabeling.putSemanticAttribute("once", new SemanticAttribute("once",
+				"Boolean", AttributeType.OPERATION, false, "Once", false, 0, 6,
+				"", "", 6, "", ""));
+
+		semLabeling.addPanelVisibleAttribute("04#" + "identifier");
+		semLabeling.addPanelSpacersAttribute("#" + "identifier" + "#");
+
+		semLabeling.addPropEditableAttribute("06#" + "labelId");
+		semLabeling.addPropVisibleAttribute("06#" + "labelId");
+		semLabeling.addPropEditableAttribute("07#" + "position");
+		semLabeling.addPropVisibleAttribute("07#" + "position");
+		semLabeling.addPropEditableAttribute("08#" + "once");
+		semLabeling.addPropVisibleAttribute("08#" + "once");
+
+		semOperationSubAction.putSemanticAttribute("labelId",
+				new SemanticAttribute("labelId", "String",
+						AttributeType.OPERATION, false, "Position", "L1", 0, 6,
+						"", "", 6, "", ""));
+		semOperationSubAction.addPropEditableAttribute("08#" + "labelId");
+		semOperationSubAction.addPropVisibleAttribute("08#" + "labelId");
+
+		InstConcept instSemLabeling = new InstConcept("OMMLabeling", null,
+				semLabeling);
+
+		MetaConcept operationLabeling = new MetaConcept('S', "OMMLabeling",
+				true, "OMMLabeling", "refasminiclass", "Operation Labeling",
+				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, instSemLabeling, true);
+
+		operationLabeling.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		operationLabeling.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instOperLabeling = new InstConcept("OMMLabeling",
+				metaBasicConcept, operationLabeling);
+		variabilityInstVertex.put("OMMLabeling", instOperLabeling);
+
 		rel = new InstPairwiseRelation(semPairwAsoRel);
 		rel.setEditableMetaElement(metaPairwiseRelAso);
 		rel.setIdentifier("AssoMenu-Act");
@@ -1063,6 +1118,14 @@ public class ModelInstance extends AbstractModel {
 		rel.setTargetRelation(instOperSubAction, true);
 		rel.setSourceRelation(instOperAction, true);
 		constraintInstEdges.put("AssoAct-SubAct", rel);
+
+		rel = new InstPairwiseRelation(semPairwAsoRel);
+		rel.setEditableMetaElement(metaPairwiseRelAso);
+		rel.setIdentifier("AssoSubAct-Lab");
+		rel.setTargetRelation(instOperLabeling, true);
+		rel.setSourceRelation(instOperSubAction, true);
+		constraintInstEdges.put("AssoSubAct-Lab", rel);
+
 	}
 
 	/**

@@ -179,7 +179,10 @@ public class ElementDesignPanel extends JPanel {
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
 						.getVisibleVariables(parent);
-				if (((InstElement) editElm).getEditableSemanticElement() != null) {
+				if (((InstElement) editElm).getEditableSemanticElement() != null
+						&& !((InstElement) editElm)
+								.getTransSupportMetaElement().getName()
+								.equals("OMMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
 					JButton button = new JButton(
@@ -208,6 +211,54 @@ public class ElementDesignPanel extends JPanel {
 												.showMessageDialog(
 														finalEditor,
 														"Complete the expression before closing the editor",
+														"Expression Error",
+														JOptionPane.INFORMATION_MESSAGE,
+														null);
+										e.printStackTrace();
+										return false;
+									}
+
+									// afterAction();
+									return true;
+								}
+							});
+						}
+					});
+					elementDesPropSubPanel.add(button);
+					elementDesPropSubPanel.add(new JPanel());
+					designPanelElements++;
+				}
+				if (((InstElement) editElm).getEditableSemanticElement() != null
+						&& ((InstElement) editElm).getTransSupportMetaElement()
+								.getName().equals("OMMLabeling")) {
+					elementDesPropSubPanel.add(new JLabel(
+							"Order Meta-Expressions"));
+					JButton button = new JButton(
+							"Open Order Meta-Expressions Editor");
+					if (editor.getPerspective() == 4)
+						button.setEnabled(false);
+					button.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							List<IntSemanticExpression> ie = ((InstElement) finalEditElm)
+									.getEditableSemanticElement()
+									.getDeclaredSemanticExpressions();
+							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
+									finalEditor, finalEditElm, ie);
+							dialog.center();
+							dialog.setOnAccept(new SemanticExpressionButtonAction() {
+								@Override
+								public boolean onAction() {
+									try {
+										finalEditElm
+												.getEditableSemanticElement()
+												.setSemanticExpressions(
+														dialog.getExpressions());
+
+									} catch (Exception e) {
+										JOptionPane
+												.showMessageDialog(
+														finalEditor,
+														"Complete the expressions before closing the editor",
 														"Expression Error",
 														JOptionPane.INFORMATION_MESSAGE,
 														null);

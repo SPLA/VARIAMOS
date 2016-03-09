@@ -5,9 +5,14 @@ import java.util.List;
 
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
-public class OperationLabeling {
+public class OperationLabeling extends AbstractSemanticElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4720471978011738167L;
 	private List<NumericExpression> orderExpressionList;
 	private List<LabelingOrder> labelingOrderList;
 
@@ -22,7 +27,7 @@ public class OperationLabeling {
 			List<NumericExpression> orderExpressionList
 
 	) {
-		super();
+		super(null);
 		this.name = name;
 		this.setLabelId(labelId);
 		this.orderExpressionList = orderExpressionList;

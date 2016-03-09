@@ -611,13 +611,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return out;
 	}
 
-	private void updateDomain(AbstractAttribute attribute,
+	public static void updateDomain(AbstractAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
 		if (attribute.getName()
 				.equals(SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
-			String configdomain = (String) (volatileLeftInstElement
-					.getInstAttribute(SemanticVariable.VAR_VARIABLECONFIGDOMAIN)
-					.getValue() + "");
+			String configdomain = (String) (instVertex.getInstAttribute(
+					SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		}

@@ -266,7 +266,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		// System.out.println(exp.toString());
 		// }
 		// List<Labeling> labelings =
-		transExpSet.getLabelings(refas, subOperation, operExecType);
+		// transExpSet.getLabelings(refas, subOperation, operExecType);
 		constraintGroups.put(element, transExpSet);
 		fillHlclProgram(element, subOperation, operExecType, hlclProgram,
 				constraintGroups);
@@ -464,12 +464,15 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 				configurationOptions.setOrder(true);
 				configurationOptions.setStartFromZero(true);
-
-				OperationLabeling operlab = ((SemanticOperationSubAction) subop
-						.getEditableSemanticElement()).getOperLabels().get(0);
-				configurationOptions.setLabelingOrder(operlab
+				OperationLabeling operLab = null;
+				for (InstElement rel : subop.getTargetRelations()) {
+					InstElement instOperLab = rel.getTargetRelations().get(0);
+					operLab = (OperationLabeling) instOperLab
+							.getEditableSemanticElement();
+				}
+				configurationOptions.setLabelingOrder(operLab
 						.getLabelingOrderList());
-				configurationOptions.setOrderExpressions(operlab
+				configurationOptions.setOrderExpressions(operLab
 						.getOrderExpressionList());
 
 				swiSolver.solve(new Configuration(), configurationOptions);
@@ -681,20 +684,20 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
 				String attribute = split[1];
-				if (!vertexId.equals("Amodel")) {
+				System.out.println(vertexId + " " + attribute + " "
+						+ prologOut.get(identifier));
+				if (!vertexId.equals("Amodel")
+						&& (outVariables == null || outVariables
+								.contains(attribute))) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (vertex == null
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
 											.getTransSupportMetaElement()
-											.getAutoIdentifier()))
-							|| (outVariables != null && !outVariables
-									.contains(attribute)))
+											.getAutoIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {
-						// System.out.println(vertexId + " " + attribute + " "
-						// + prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute).getType()
 										.equals("Boolean")) {
