@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import javax.swing.ProgressMonitor;
 
@@ -17,7 +16,6 @@ import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
@@ -436,12 +434,12 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 			hlclProgram = getHlclProgram(element, operation, "Sim-Execution",
 					OperationSubActionExecType.NORMAL, transExpSet);
 
-			Set<Identifier> identifiers = new TreeSet<Identifier>();
-			for (Expression exp : hlclProgram) {
-				// System.out.println(HlclUtil.getUsedIdentifiers(exp));
-				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-				text += exp + "\n";
-			}
+			// Set<Identifier> identifiers = new TreeSet<Identifier>();
+			// for (Expression exp : hlclProgram) {
+			// // System.out.println(HlclUtil.getUsedIdentifiers(exp));
+			// identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
+			// text += exp + "\n";
+			// }
 			// if (swiSolver != null)
 			// swiSolver.close();
 			swiSolver = new SWIPrologSolver(hlclProgram);
@@ -511,12 +509,12 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 			hlclProgram = getHlclProgram(element, execType);
 
-			Set<Identifier> identifiers = new TreeSet<Identifier>();
-			for (Expression exp : hlclProgram) {
-				// System.out.println(HlclUtil.getUsedIdentifiers(exp));
-				identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-				text += exp + "\n";
-			}
+			// Set<Identifier> identifiers = new TreeSet<Identifier>();
+			// for (Expression exp : hlclProgram) {
+			// System.out.println(HlclUtil.getUsedIdentifiers(exp));
+			// identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
+			// text += exp + "\n";
+			// }
 			// if (swiSolver != null)
 			// swiSolver.close();
 			swiSolver = new SWIPrologSolver(hlclProgram);
@@ -696,76 +694,68 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 											.getTransSupportMetaElement()
 											.getAutoIdentifier())))
 						continue;
-
+					InstAttribute instAttribute = vertex
+							.getInstAttribute(attribute);
 					if (selectedAttributes == null) {
-						if (vertex.getInstAttribute(attribute) != null
-								&& vertex.getInstAttribute(attribute).getType()
-										.equals("Boolean")) {
+						if (instAttribute != null
+								&& instAttribute.getType().equals("Boolean")) {
 							// System.out.println(prologOut.get(identifier));
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) == null ? "0" : prologOut
 									.get(identifier) + "");
 							if (val == 1)
-								vertex.getInstAttribute(attribute).setValue(
-										true);
+								instAttribute.setValue(true);
 							else if (val == 0)
-								vertex.getInstAttribute(attribute).setValue(
-										false);
-						} else if (vertex.getInstAttribute(attribute) != null)
-							vertex.getInstAttribute(attribute).setValue(
-									(int) Float.parseFloat(prologOut
+								instAttribute.setValue(false);
+						} else if (instAttribute != null)
+							instAttribute
+									.setValue((int) Float.parseFloat(prologOut
 											.get(identifier) + ""));
 					} else if (attribute.equals("Selected"))
 						for (String attTarget : selectedAttributes) {
-							if (vertex.getInstAttribute(attTarget) != null
-									&& vertex.getInstAttribute(attTarget)
-											.getType().equals("Boolean")) {
+							InstAttribute instTarget = vertex
+									.getInstAttribute(attTarget);
+							if (instTarget != null
+									&& instTarget.getType().equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								if (val == 1)
-									vertex.getInstAttribute(attTarget)
-											.setValue(true);
+									instTarget.setValue(true);
 								else if (val == 0)
-									vertex.getInstAttribute(attTarget)
-											.setValue(false);
+									instTarget.setValue(false);
 								else
-									vertex.getInstAttribute(attTarget)
-											.setValue(prologOut.get(identifier));
+									instTarget.setValue(prologOut
+											.get(identifier));
 							}
-							if (vertex.getInstAttribute(attTarget) != null
-									&& vertex.getInstAttribute(attTarget)
-											.getType().equals("Integer")) {
+							if (instTarget != null
+									&& instTarget.getType().equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
-								vertex.getInstAttribute(attTarget)
-										.setValue(val);
+								instTarget.setValue(val);
 
 							}
 						}
 					else if (attribute.equals("NotAvailable"))
 						for (String attTarget : notAvailableAttributes) {
-							if (vertex.getInstAttribute(attTarget) != null
-									&& vertex.getInstAttribute(attTarget)
-											.getType().equals("Boolean")) {
+							InstAttribute instTarget = vertex
+									.getInstAttribute(attTarget);
+							if (instTarget != null
+									&& instTarget.getType().equals("Boolean")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								if (val == 1)
-									vertex.getInstAttribute(attTarget)
-											.setValue(true);
+									instTarget.setValue(true);
 								else if (val == 0)
-									vertex.getInstAttribute(attTarget)
-											.setValue(false);
+									instTarget.setValue(false);
 								else
-									vertex.getInstAttribute(attTarget)
-											.setValue(prologOut.get(identifier));
+									instTarget.setValue(prologOut
+											.get(identifier));
 							}
-							if (vertex.getInstAttribute(attTarget) != null
-									&& vertex.getInstAttribute(attTarget)
-											.getType().equals("Integer")) {
+							if (instTarget != null
+									&& instTarget.getType().equals("Integer")) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
-								vertex.getInstAttribute(attTarget)
-										.setValue(val);
+								instTarget.setValue(val);
 
 							}
 						}

@@ -551,6 +551,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	}
 
 	public void loadVolatileElements(Map<String, InstElement> instVertices) {
+		if (leftSemanticExpression != null)
+			leftSemanticExpression.loadVolatileElements(instVertices);
+		if (rightSemanticExpression != null)
+			rightSemanticExpression.loadVolatileElements(instVertices);
 		if (semElemId != null)
 			volSemElement = instVertices.get(semElemId);
 		if (leftExpTypeStr != null)
@@ -570,10 +574,6 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		if (rightSemanticRelElementId != null)
 			volatileRightSemanticRelElement = instVertices
 					.get(rightSemanticRelElementId);
-		if (leftSemanticExpression != null)
-			leftSemanticExpression.loadVolatileElements(instVertices);
-		if (rightSemanticExpression != null)
-			rightSemanticExpression.loadVolatileElements(instVertices);
 	}
 
 	public String getLeftExpTypeStr() {
