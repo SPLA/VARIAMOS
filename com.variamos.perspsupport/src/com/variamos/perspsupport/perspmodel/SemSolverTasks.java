@@ -410,24 +410,23 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			next = false;
 
 			try {
-				if (operation.startsWith("N:") || lastConfiguration == null) {
+				if (lastConfiguration == null) {
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.ONE_SOLUTION, operation); // type
 					outVariables = refas2hlcl.getOutVariables(operation,
 							"Sim-Execution");
 				} else {
-					operation = operation.substring(2);
 					result = refas2hlcl.execute(progressMonitor, operation,
 							ModelExpr2HLCL.NEXT_SOLUTION, operation); // type
 					outVariables = refas2hlcl.getOutVariables(operation,
 							"Sim-Execution");
-					Configuration currentConfiguration = refas2hlcl
-							.getConfiguration();
-					if (result) {
-						List<String> modifiedIdentifiers = compareSolutions(
-								lastConfiguration, currentConfiguration);
-						System.out.println(modifiedIdentifiers);
-					}
+					// Configuration currentConfiguration = refas2hlcl
+					// .getConfiguration();
+					// if (result) {
+					// List<String> modifiedIdentifiers = compareSolutions(
+					// lastConfiguration, currentConfiguration);
+					// System.out.println(modifiedIdentifiers);
+					// }
 				}
 				if (result) {
 					lastConfiguration = refas2hlcl.getConfiguration();
@@ -533,7 +532,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 			refas2hlcl.updateGUIElements(attributes);
 			Map<String, Integer> currentResult = refas2hlcl.getResult();
-			System.out.println(currentResult);
+			// System.out.println(currentResult);
 			List<String> falseOptIdentifiers = getNewIdentifiers(currentResult,
 					refas2hlcl.getResult());
 

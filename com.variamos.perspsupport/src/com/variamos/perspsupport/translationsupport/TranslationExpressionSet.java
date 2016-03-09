@@ -1,6 +1,7 @@
 package com.variamos.perspsupport.translationsupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -281,6 +282,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							}
 						}
 					}
+					Collections.sort(ident);
 					Labeling lab = new Labeling((String) operLab.getName(),
 							operLab.getLabelId(), operLab.getPosition(),
 							operLab.isOnce(), operLab.getLabelingOrderList(),
@@ -288,7 +290,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					lab.setVariables(ident);
 					out.add(lab);
 				}
-
 				return out;
 			}
 		}

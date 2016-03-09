@@ -1597,7 +1597,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
 		System.out.println(operation);
-		executeSimulation(true, true, operation, true, operation);
+		boolean first = true;
+		if (operation.startsWith("N:"))
+			first = false;
+		executeSimulation(first, true, operation, true, operation);
 
 	}
 

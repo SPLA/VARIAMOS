@@ -266,7 +266,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		// System.out.println(exp.toString());
 		// }
 		// List<Labeling> labelings =
-		transExpSet.getLabelings(refas, subOperation, operExecType);
+		// transExpSet.getLabelings(refas, subOperation, operExecType);
 		constraintGroups.put(element, transExpSet);
 		fillHlclProgram(element, subOperation, operExecType, hlclProgram,
 				constraintGroups);
@@ -684,20 +684,20 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				String[] split = identifier.split("_");
 				String vertexId = split[0];
 				String attribute = split[1];
-				if (!vertexId.equals("Amodel")) {
+				System.out.println(vertexId + " " + attribute + " "
+						+ prologOut.get(identifier));
+				if (!vertexId.equals("Amodel")
+						&& (outVariables == null || outVariables
+								.contains(attribute))) {
 					InstElement vertex = refas.getElement(vertexId);
 					if (vertex == null
 							|| (conceptTypes != null && !conceptTypes
 									.contains(vertex
 											.getTransSupportMetaElement()
-											.getAutoIdentifier()))
-							|| (outVariables != null && !outVariables
-									.contains(attribute)))
+											.getAutoIdentifier())))
 						continue;
 
 					if (selectedAttributes == null) {
-						// System.out.println(vertexId + " " + attribute + " "
-						// + prologOut.get(identifier));
 						if (vertex.getInstAttribute(attribute) != null
 								&& vertex.getInstAttribute(attribute).getType()
 										.equals("Boolean")) {
