@@ -1786,6 +1786,18 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 			}
+			if (semTask.getProgress() == 100 // TODO validate for simulation
+			// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
+			// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
+			) {
+				refas2hlcl.updateGUIElements(null);
+				updateDashBoard(semTask.isReloadDashBoard(), semTask.isUpdate());
+				messagesArea.setText(refas2hlcl.getText());
+				// bringUpTab(mxResources.get("elementSimPropTab"));
+				editPropertiesRefas(lastEditableElement);
+
+			}
+
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
@@ -1849,6 +1861,60 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 						break;
 					}
+
+				}
+			} else if (progressMonitor.isCanceled()
+					|| (semTask != null && semTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					semTask.cancel(true);
+					// if (false//task.getExecType() ==
+					// ModelExpr2HLCL.SIMUL_EXPORT
+					// ) {
+					// JOptionPane
+					// .showMessageDialog(
+					// frame,
+					// "Execution incomplete, partial solution file saved",
+					// "Task Notification",
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					// } else
+					JOptionPane.showMessageDialog(frame, "Execution cancelled",
+							"Task Notification",
+							JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				} else {
+					editPropertiesRefas(lastEditableElement);
+					messagesArea.setText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = task.getExecutionTime();
+					// switch (semTask.getExecType()) {
+					// case ModelExpr2HLCL.CONF_EXEC:
+					// invalidConfigHlclProgram = task
+					// .isInvalidConfigHlclProgram();
+					// break;
+					// case ModelExpr2HLCL.DESIGN_EXEC:
+					// if (!semTask.getErrorTitle().equals("")) {
+					// JOptionPane.showMessageDialog(frame,
+					// semTask.getErrorMessage(),
+					// semTask.getErrorTitle(),
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					//
+					// }
+					// refresh();
+					// break;
+					// case ModelExpr2HLCL.SIMUL_EXEC:
+					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
+					// case ModelExpr2HLCL.SIMUL_EXPORT:
+					// refresh();
+					// lastConfiguration = task.getLastConfiguration();
+					// if (!task.getErrorTitle().equals("")) {
+					// JOptionPane.showMessageDialog(frame,
+					// task.getErrorMessage(),
+					// task.getErrorTitle(),
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					// }
+					//
+					// break;
+					// }
 
 				}
 			}

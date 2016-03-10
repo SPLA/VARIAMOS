@@ -1,8 +1,8 @@
 package com.variamos.hlcl;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class HlclProgram extends ArrayList<BooleanExpression> implements
+public class HlclProgram extends LinkedList<BooleanExpression> implements
 		BooleanExpression {
 
 	private static final long serialVersionUID = -4199309663392940681L;
