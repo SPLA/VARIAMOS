@@ -440,7 +440,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				} else {
 					if (firstSimulExec || lastConfiguration == null) {
 						switch (operationIdentifier) {
-						case "s":
+						case "simulation":
 							errorMessage = "Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.";

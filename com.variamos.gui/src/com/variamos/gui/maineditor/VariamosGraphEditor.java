@@ -1786,16 +1786,22 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 			}
-			if (semTask.getProgress() == 100 // TODO validate for simulation
-			// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC || task
-			// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
-			) {
-				refas2hlcl.updateGUIElements(null);
-				updateDashBoard(semTask.isReloadDashBoard(), semTask.isUpdate());
-				messagesArea.setText(refas2hlcl.getText());
-				// bringUpTab(mxResources.get("elementSimPropTab"));
-				editPropertiesRefas(lastEditableElement);
+			if (semTask != null) {
+				String message = String.format("Completed %d%%.\n", progress);
+				progressMonitor.setNote(message);
+				if (semTask.getProgress() == 100 // TODO validate for simulation
+				// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC ||
+				// task
+				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
+				) {
+					refas2hlcl.updateGUIElements(null);
+					updateDashBoard(semTask.isReloadDashBoard(),
+							semTask.isUpdate());
+					messagesArea.setText(refas2hlcl.getText());
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
 
+				}
 			}
 
 			if (progressMonitor.isCanceled()

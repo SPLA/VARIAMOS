@@ -418,13 +418,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 				} else {
 					result = refas2hlcl.execute(progressMonitor, element,
 							ModelExpr2HLCL.NEXT_SOLUTION, type);
-					Configuration currentConfiguration = refas2hlcl
-							.getConfiguration();
-					if (result) {
-						List<String> modifiedIdentifiers = compareSolutions(
-								lastConfiguration, currentConfiguration);
-						System.out.println(modifiedIdentifiers);
-					}
+					/*
+					 * Configuration currentConfiguration = refas2hlcl
+					 * .getConfiguration(); if (result) { List<String>
+					 * modifiedIdentifiers = compareSolutions(
+					 * lastConfiguration, currentConfiguration);
+					 * System.out.println(modifiedIdentifiers); }
+					 */
 				}
 				if (result) {
 					lastConfiguration = refas2hlcl.getConfiguration();
