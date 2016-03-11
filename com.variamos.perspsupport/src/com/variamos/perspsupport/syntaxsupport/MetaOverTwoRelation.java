@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticConcept;
-import com.variamos.perspsupport.semanticinterface.IntSemanticOverTwoRelation;
-import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.perspsupport.opers.OpersOverTwoRel;
+import com.variamos.perspsupport.opersint.IntOpersConcept;
+import com.variamos.perspsupport.opersint.IntOpersOverTwoRel;
+import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
+import com.variamos.perspsupport.opersint.IntOpersRelType;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -42,7 +42,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 	/**
 					 * 
 					 */
-	VAR_SEMANTICPAIRWISEREL_CLASS = IntSemanticPairwiseRelation.class
+	VAR_SEMANTICPAIRWISEREL_CLASS = IntOpersPairwiseRel.class
 			.getCanonicalName();
 
 	public MetaOverTwoRelation() {
@@ -103,7 +103,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 			String image, boolean topConcept, String backgroundColor,
 			int borderStroke, InstElement instSemanticElement,
 			boolean resizable,
-			IntSemanticOverTwoRelation intSemanticOverTwoRelation) {
+			IntOpersOverTwoRel intSemanticOverTwoRelation) {
 		super(identifier, visible, name, style, description, width, height,
 				image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable);
@@ -184,8 +184,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 				.getSemanticAttribute(name);
 	}
 
-	public List<IntSemanticRelationType> getSemanticRelationTypes() {
-		return ((SemanticOverTwoRelation) getTransInstSemanticElement()
+	public List<IntOpersRelType> getSemanticRelationTypes() {
+		return ((OpersOverTwoRel) getTransInstSemanticElement()
 				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 
@@ -195,8 +195,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 	 * 
 	 * @return
 	 */
-	public IntSemanticConcept getTransSemanticConcept() {
-		return (IntSemanticConcept) getTransInstSemanticElement()
+	public IntOpersConcept getTransSemanticConcept() {
+		return (IntOpersConcept) getTransInstSemanticElement()
 				.getEditableSemanticElement();
 	}
 

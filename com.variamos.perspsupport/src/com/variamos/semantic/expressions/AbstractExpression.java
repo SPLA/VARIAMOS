@@ -18,8 +18,8 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.opers.OpersPairwiseRel;
+import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.ExpressionVertexType;
@@ -208,20 +208,20 @@ public abstract class AbstractExpression {
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				// FIXME implement a dynamic definition for this validation
 				if (((InstPairwiseRelation) relation)
-						.getInstAttribute(SemanticPairwiseRelation.VAR_LEVEL) != null)
+						.getInstAttribute(OpersPairwiseRel.VAR_LEVEL) != null)
 					values.add(((InstPairwiseRelation) relation)
 							.getInstAttribute(
-									SemanticPairwiseRelation.VAR_LEVEL)
+									OpersPairwiseRel.VAR_LEVEL)
 							.getAsInteger());
 				if (((InstPairwiseRelation) relation)
 						.getInstAttribute("CLSGLevel") != null)
 					values.add(((InstPairwiseRelation) relation)
 							.getInstAttribute("CLSGLevel").getAsInteger());
 				if (((InstPairwiseRelation) relation)
-						.getInstAttribute(SemanticPairwiseRelation.VAR_TARGET_LEVEL) != null)
+						.getInstAttribute(OpersPairwiseRel.VAR_TARGET_LEVEL) != null)
 					values.add(((InstPairwiseRelation) relation)
 							.getInstAttribute(
-									SemanticPairwiseRelation.VAR_TARGET_LEVEL)
+									OpersPairwiseRel.VAR_TARGET_LEVEL)
 							.getAsInteger());
 			}
 			if (values.size() == 0) {
@@ -235,18 +235,18 @@ public abstract class AbstractExpression {
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain));
 		} else if (attribute.getName().equals(
-				SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+				OpersVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) instVertex.getInstAttribute(
-					SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
+					OpersVariable.VAR_VARIABLECONFIGDOMAIN).getValue();
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
-		} else if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
+		} else if (attribute.getName().equals(OpersVariable.VAR_VALUE)) {
 			String type = (String) instVertex.getInstAttribute(
-					SemanticVariable.VAR_VARIABLETYPE).getValue();
+					OpersVariable.VAR_VARIABLETYPE).getValue();
 
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute(
-						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+						OpersVariable.VAR_VARIABLEDOMAIN).getValue();
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumerationType")

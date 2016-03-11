@@ -19,9 +19,9 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.opersint.IntModelExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.types.ExpressionVertexType;
@@ -39,7 +39,7 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
  * @author jcmunoz
  *
  */
-public class InstanceExpression implements Serializable, IntInstanceExpression {
+public class InstanceExpression implements Serializable, IntModelExpression {
 	/**
 	 * 
 	 */
@@ -73,7 +73,7 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	private InstanceExpression rightInstanceExpression;
 
 	// TODO change to a new class for type (normal, relax)
-	private List<SemanticOperationSubAction> SemExprSubActions;
+	private List<OpersSubOperation> SemExprSubActions;
 
 	/**
 	 * For LEFTVARIABLEVALUE
@@ -614,19 +614,19 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 	public static void updateDomain(AbstractAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
 		if (attribute.getName()
-				.equals(SemanticVariable.VAR_VARIABLECONFIGVALUE)) {
+				.equals(OpersVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) (instVertex.getInstAttribute(
-					SemanticVariable.VAR_VARIABLECONFIGDOMAIN).getValue() + "");
+					OpersVariable.VAR_VARIABLECONFIGDOMAIN).getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		}
-		if (attribute.getName().equals(SemanticVariable.VAR_VALUE)) {
+		if (attribute.getName().equals(OpersVariable.VAR_VALUE)) {
 			String type = (String) instVertex.getInstAttribute(
-					SemanticVariable.VAR_VARIABLETYPE).getValue();
+					OpersVariable.VAR_VARIABLETYPE).getValue();
 
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute(
-						SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+						OpersVariable.VAR_VARIABLEDOMAIN).getValue();
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumerationType")
@@ -798,12 +798,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
 			valueType = (String) this.volatileLeftInstElement.getInstAttribute(
-					SemanticVariable.VAR_VARIABLETYPE).getValue();
+					OpersVariable.VAR_VARIABLETYPE).getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
 			valueType = (String) this.volatileRightInstElement
-					.getInstAttribute(SemanticVariable.VAR_VARIABLETYPE)
+					.getInstAttribute(OpersVariable.VAR_VARIABLETYPE)
 					.getValue();
 
 			break;
@@ -1204,12 +1204,12 @@ public class InstanceExpression implements Serializable, IntInstanceExpression {
 		return out;
 	}
 
-	public List<SemanticOperationSubAction> getSemExprSubActions() {
+	public List<OpersSubOperation> getSemExprSubActions() {
 		return SemExprSubActions;
 	}
 
 	public void setSemExprSubActions(
-			List<SemanticOperationSubAction> semExprSubActions) {
+			List<OpersSubOperation> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
 	}
 

@@ -44,7 +44,7 @@ import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
+import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;

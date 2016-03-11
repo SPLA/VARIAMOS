@@ -24,10 +24,10 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
-import com.variamos.semantic.expressionsupport.ElementExpressionSet;
+import com.variamos.semantic.staticexpr.ElementExpressionSet;
 import com.variamos.semantic.types.ExpressionClassType;
 
 /**

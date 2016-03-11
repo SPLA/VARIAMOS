@@ -47,9 +47,9 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.types.ExpressionVertexType;
@@ -682,12 +682,12 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			IntSemanticElement semElement2 = ((MetaVertex) instVertex
+			IntOpersElement semElement2 = ((MetaVertex) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
 				String variableType = (String) instVertex.getInstAttribute(
-						SemanticVariable.VAR_VARIABLETYPE).getValue();
+						OpersVariable.VAR_VARIABLETYPE).getValue();
 				switch (variableType) {
 				case "Boolean":
 					combo.addItem(instElementId + "_" + "true");
@@ -696,7 +696,7 @@ public class InstanceExpressionDialog extends JDialog {
 					break;
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
-							SemanticVariable.VAR_VARIABLEDOMAIN).getValue();
+							OpersVariable.VAR_VARIABLEDOMAIN).getValue();
 
 					Domain dom = (DomainParser.parseDomain(domain));
 					List<Integer> intValues = dom.getPossibleValues();
@@ -767,7 +767,7 @@ public class InstanceExpressionDialog extends JDialog {
 				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
-				IntSemanticElement semElement2 = ((MetaVertex) instVertex
+				IntOpersElement semElement2 = ((MetaVertex) instVertex
 						.getTransSupportMetaElement())
 						.getTransSemanticConcept();
 				if (semElement2 != null
@@ -779,8 +779,7 @@ public class InstanceExpressionDialog extends JDialog {
 					else
 						instVertexId = instVertex.getIdentifier();
 					identifiersList.put(instVertexId, instVertex);
-					combo.addItem(instVertexId + "_"
-							+ SemanticVariable.VAR_VALUE);
+					combo.addItem(instVertexId + "_" + OpersVariable.VAR_VALUE);
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE

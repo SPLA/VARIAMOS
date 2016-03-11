@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
@@ -16,7 +16,7 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class SemanticExpression implements Serializable, IntSemanticExpression {
+public class SemanticExpression implements Serializable, IntMetaExpression {
 	/**
 	 * 
 	 */

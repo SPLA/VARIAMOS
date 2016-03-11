@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
+import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 
 @SuppressWarnings("serial")
 public class ClearSimulationAction extends AbstractEditorAction {

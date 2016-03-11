@@ -26,7 +26,7 @@ import com.variamos.gui.perspeditor.actions.SharedActions;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
 @SuppressWarnings("serial")
@@ -165,7 +165,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 			if (instElement != null) {
 				MetaVertex metaElement = ((MetaVertex) instElement
 						.getTransSupportMetaElement());
-				IntSemanticElement semElement = metaElement == null ? null
+				IntOpersElement semElement = metaElement == null ? null
 						: metaElement.getTransSemanticConcept();
 				while (semElement != null && semElement.getIdentifier() != null
 						&& !semElement.getIdentifier().equals("GeneralElement"))

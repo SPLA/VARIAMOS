@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 
 /**
@@ -50,7 +50,7 @@ public class InstConcept extends InstVertex {
 	}
 
 	public InstConcept(String identifier, MetaElement supportMetaElement,
-			IntSemanticElement editableSemanticElement) {
+			IntOpersElement editableSemanticElement) {
 		super(identifier);
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);

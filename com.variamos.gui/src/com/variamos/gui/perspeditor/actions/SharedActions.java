@@ -23,12 +23,12 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
-import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersPairwiseRel;
+import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.opersint.IntMetaExpression;
+import com.variamos.perspsupport.opersint.IntOpersElement;
+import com.variamos.perspsupport.opersint.IntOpersRelType;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
@@ -516,12 +516,12 @@ public class SharedActions {
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
 			}
-			IntSemanticElement semElement = instElement
+			IntOpersElement semElement = instElement
 					.getEditableSemanticElement();
 			if (semElement != null) {
-				List<IntSemanticExpression> semExp = semElement
+				List<IntMetaExpression> semExp = semElement
 						.getSemanticExpressions();
-				for (IntSemanticExpression exp : semExp) {
+				for (IntMetaExpression exp : semExp) {
 					((SemanticExpression) exp).loadVolatileElements(refas
 							.getVariabilityVertex());
 				}
@@ -554,7 +554,7 @@ public class SharedActions {
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<IntSemanticRelationType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
+					List<IntOpersRelType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
 							.getTransSupportMetaElement())
 							.getSemanticRelationTypes();
 					ia.setValidationRelationTypes(semGD);
@@ -638,7 +638,7 @@ public class SharedActions {
 										.getVariabilityVertex());
 						}
 						if (ia.getIdentifier().equals(
-								SemanticVariable.VAR_ENUMERATIONTYPE)) {
+								OpersVariable.VAR_ENUMERATIONTYPE)) {
 							Object instanceExpression = ia.getValue();
 							if (ia.getAttribute().getType().equals("Class")) {
 
@@ -774,13 +774,12 @@ public class SharedActions {
 										instAttribute.setValue(false);
 									else
 										instAttribute.setValue(true);
-								if (instAttribute
-										.getIdentifier()
-										.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN))
+								if (instAttribute.getIdentifier().equals(
+										OpersPairwiseRel.VAR_RELATIONTYPE_IDEN))
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<IntSemanticRelationType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
+									List<IntOpersRelType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
 											.getMetaPairwiseRelation())
 											.getSemanticRelationTypes();
 									instAttribute
@@ -898,7 +897,7 @@ public class SharedActions {
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
-		IntSemanticElement semElement = metaElement.getTransSemanticConcept();
+		IntOpersElement semElement = metaElement.getTransSemanticConcept();
 		while (semElement != null && semElement.getIdentifier() != null
 				&& !semElement.getIdentifier().equals(element))
 			semElement = semElement.getParent();

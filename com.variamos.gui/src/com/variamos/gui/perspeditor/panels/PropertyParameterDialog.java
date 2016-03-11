@@ -27,7 +27,7 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
@@ -67,10 +67,10 @@ public class PropertyParameterDialog extends JDialog {
 				panel.add(jb);
 				jb.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						List<IntSemanticExpression> ie = new ArrayList<IntSemanticExpression>();
+						List<IntMetaExpression> ie = new ArrayList<IntMetaExpression>();
 						;
 						if (elementAttribute.getValue() != null)
-							ie.addAll((List<IntSemanticExpression>) elementAttribute
+							ie.addAll((List<IntMetaExpression>) elementAttribute
 									.getValue());
 
 						final SemanticExpressionDialog dialog = new SemanticExpressionDialog(

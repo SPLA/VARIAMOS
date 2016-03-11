@@ -14,7 +14,7 @@ import javax.swing.JList;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticsupport.SemanticConcept;
+import com.variamos.perspsupport.opers.OpersConcept;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
@@ -220,7 +220,7 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 								+ (String) name.getValue());
 					}
 					if (instElement.getEditableSemanticElement() != null) {
-						SemanticConcept sc = ((SemanticConcept) instElement
+						OpersConcept sc = ((OpersConcept) instElement
 								.getEditableSemanticElement());
 						sc.putSemanticAttribute((String) name.getValue(), v);
 						sc.addPanelVisibleAttribute("99#"

@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticRelationType;
+import com.variamos.perspsupport.opers.OpersPairwiseRel;
+import com.variamos.perspsupport.opers.OpersRelType;
+import com.variamos.perspsupport.opersint.IntOpersElement;
+import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
@@ -73,7 +73,7 @@ public class InstPairwiseRelation extends InstElement {
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
-	public InstPairwiseRelation(IntSemanticElement editableSemanticElement) {
+	public InstPairwiseRelation(IntOpersElement editableSemanticElement) {
 		super(null);
 		setEditableSemanticElement(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
@@ -82,7 +82,7 @@ public class InstPairwiseRelation extends InstElement {
 	public InstPairwiseRelation(
 			MetaPairwiseRelation supportMetaPairwiseRelation,
 			String supportInstPairwiseRelationIden,
-			IntSemanticElement editableSemanticElement) {
+			IntOpersElement editableSemanticElement) {
 		super(null);
 		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
 		setEditableSemanticElement(editableSemanticElement);
@@ -366,7 +366,7 @@ public class InstPairwiseRelation extends InstElement {
 				&& getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject() != null) {
-			IntSemanticPairwiseRelation semanticRelation = (IntSemanticPairwiseRelation) getInstAttribute(
+			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
@@ -378,12 +378,12 @@ public class InstPairwiseRelation extends InstElement {
 		return editableAttributes;
 	}
 
-	public IntSemanticPairwiseRelation getSemanticEdge() {
+	public IntOpersPairwiseRel getSemanticEdge() {
 		if (getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN) != null
 				&& getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject() != null) {
-			return (IntSemanticPairwiseRelation) getInstAttribute(
+			return (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 		}
@@ -398,7 +398,7 @@ public class InstPairwiseRelation extends InstElement {
 				&& getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject() != null) {
-			IntSemanticPairwiseRelation semanticRelation = (IntSemanticPairwiseRelation) getInstAttribute(
+			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
@@ -418,7 +418,7 @@ public class InstPairwiseRelation extends InstElement {
 				&& getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject() != null) {
-			IntSemanticPairwiseRelation semanticRelation = (IntSemanticPairwiseRelation) getInstAttribute(
+			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
@@ -435,7 +435,7 @@ public class InstPairwiseRelation extends InstElement {
 				&& getInstAttribute(
 						MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 						.getValueObject() != null) {
-			IntSemanticPairwiseRelation semanticRelation = (IntSemanticPairwiseRelation) getInstAttribute(
+			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
@@ -501,13 +501,13 @@ public class InstPairwiseRelation extends InstElement {
 							int sp2 = spacer.indexOf("#", sp1 + 1);
 
 							out += spacer.substring(0, sp1);
-							if (name.equals(SemanticPairwiseRelation.VAR_RELATIONTYPE_IDEN)
+							if (name.equals(OpersPairwiseRel.VAR_RELATIONTYPE_IDEN)
 									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
 											.getValueObject() != null
 									&& getInstAttributes().get(name)
-											.getValueObject() instanceof SemanticRelationType) {
-								out += ((SemanticRelationType) getInstAttributes()
+											.getValueObject() instanceof OpersRelType) {
+								out += ((OpersRelType) getInstAttributes()
 										.get(name).getValueObject())
 										.getDiplayName();
 							} else
@@ -579,7 +579,7 @@ public class InstPairwiseRelation extends InstElement {
 
 	}
 
-	public void setSemanticEdge(IntSemanticPairwiseRelation semanticEdgeIde2) {
+	public void setSemanticEdge(IntOpersPairwiseRel semanticEdgeIde2) {
 		getInstAttribute(MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 				.setValueObject(semanticEdgeIde2);
 

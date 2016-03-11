@@ -20,8 +20,8 @@ import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonA
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.partialsorts.EnumerationSort;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassSingleSelectionType;
@@ -122,76 +122,75 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instName = new InstAttribute(
-				SemanticVariable.VAR_NAME, new AbstractAttribute(
-						SemanticVariable.VAR_NAME, StringType.IDENTIFIER,
+				OpersVariable.VAR_NAME, new AbstractAttribute(
+						OpersVariable.VAR_NAME, StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_NAMENAME, "", 1, -1, "", "", -1,
-						"", ""), "");
+						OpersVariable.VAR_NAMENAME, "", 1, -1, "", "", -1, "",
+						""), "");
 
 		final InstAttribute instValue = new InstAttribute(
-				SemanticVariable.VAR_VALUE, new AbstractAttribute(
-						SemanticVariable.VAR_VALUE, IntegerType.IDENTIFIER,
+				OpersVariable.VAR_VALUE, new AbstractAttribute(
+						OpersVariable.VAR_VALUE, IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1,
-						"", ""), 0);
+						OpersVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1, "",
+						""), 0);
 
 		final InstAttribute instExtVisible = new InstAttribute(
-				SemanticVariable.VAR_EXTVISIBLE, new AbstractAttribute(
-						SemanticVariable.VAR_EXTVISIBLE,
-						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_EXTVISIBLENAME, false, 1, -1, "",
-						"", -1, "", ""), false);
+				OpersVariable.VAR_EXTVISIBLE, new AbstractAttribute(
+						OpersVariable.VAR_EXTVISIBLE, BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
+						OpersVariable.VAR_EXTVISIBLENAME, false, 1, -1, "", "",
+						-1, "", ""), false);
 
 		final InstAttribute instExtControl = new InstAttribute(
-				SemanticVariable.VAR_EXTCONTROL, new AbstractAttribute(
-						SemanticVariable.VAR_EXTCONTROL,
-						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_EXTCONTROLNAME, false, 1, -1, "",
-						"", -1, "", ""), false);
+				OpersVariable.VAR_EXTCONTROL, new AbstractAttribute(
+						OpersVariable.VAR_EXTCONTROL, BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false,
+						OpersVariable.VAR_EXTCONTROLNAME, false, 1, -1, "", "",
+						-1, "", ""), false);
 
 		final InstAttribute instVariableType = new InstAttribute(
-				SemanticVariable.VAR_VARIABLETYPE, new AbstractAttribute(
-						SemanticVariable.VAR_VARIABLETYPE,
+				OpersVariable.VAR_VARIABLETYPE, new AbstractAttribute(
+						OpersVariable.VAR_VARIABLETYPE,
 						EnumerationSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_VARIABLETYPENAME,
-						SemanticVariable.VAR_VARIABLETYPECLASS, "String", "",
-						"", 1, -1, "", "", -1, "", ""), "");
+						OpersVariable.VAR_VARIABLETYPENAME,
+						OpersVariable.VAR_VARIABLETYPECLASS, "String", "", "",
+						1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instContext = new InstAttribute(
-				SemanticVariable.VAR_CONTEXT, new AbstractAttribute(
-						SemanticVariable.VAR_CONTEXT, BooleanType.IDENTIFIER,
+				OpersVariable.VAR_CONTEXT, new AbstractAttribute(
+						OpersVariable.VAR_CONTEXT, BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_CONTEXTNAME, false, 1, -1, "", "",
+						OpersVariable.VAR_CONTEXTNAME, false, 1, -1, "", "",
 						-1, "", ""), false);
 
 		final InstAttribute instVariableDomain = new InstAttribute(
-				SemanticVariable.VAR_VARIABLEDOMAIN, new AbstractAttribute(
-						SemanticVariable.VAR_VARIABLEDOMAIN,
+				OpersVariable.VAR_VARIABLEDOMAIN, new AbstractAttribute(
+						OpersVariable.VAR_VARIABLEDOMAIN,
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_VARIABLEDOMAINNAME, "", 1, -1, "",
+						OpersVariable.VAR_VARIABLEDOMAINNAME, "", 1, -1, "",
 						"", -1, "", ""), "");
 		final InstAttribute instEnumerationType = new InstAttribute(
-				SemanticVariable.VAR_ENUMERATIONTYPE, new AbstractAttribute(
-						SemanticVariable.VAR_ENUMERATIONTYPE,
+				OpersVariable.VAR_ENUMERATIONTYPE, new AbstractAttribute(
+						OpersVariable.VAR_ENUMERATIONTYPE,
 						ClassSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_ENUMERATIONTYPENAME,
-						SemanticVariable.VAR_ENUMERATIONTYPECLASS, "ME", "",
-						"", 1, -1, "", "", -1, "", ""), "");
+						OpersVariable.VAR_ENUMERATIONTYPENAME,
+						OpersVariable.VAR_ENUMERATIONTYPECLASS, "ME", "", "",
+						1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
-				SemanticVariable.VAR_VARIABLECONFIGVALUE,
-				new AbstractAttribute(SemanticVariable.VAR_VARIABLECONFIGVALUE,
+				OpersVariable.VAR_VARIABLECONFIGVALUE, new AbstractAttribute(
+						OpersVariable.VAR_VARIABLECONFIGVALUE,
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_VARIABLECONFIGVALUENAME, 1, 1, -1,
+						OpersVariable.VAR_VARIABLECONFIGVALUENAME, 1, 1, -1,
 						"", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
-				SemanticVariable.VAR_VARIABLECONFIGDOMAIN,
-				new AbstractAttribute(
-						SemanticVariable.VAR_VARIABLECONFIGDOMAIN,
+				OpersVariable.VAR_VARIABLECONFIGDOMAIN, new AbstractAttribute(
+						OpersVariable.VAR_VARIABLECONFIGDOMAIN,
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						SemanticVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 1,
-						-1, "", "", -1, "", ""), "");
+						OpersVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 1, -1,
+						"", "", -1, "", ""), "");
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")

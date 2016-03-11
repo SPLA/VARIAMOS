@@ -18,17 +18,17 @@ import com.variamos.perspsupport.types.OperationSubActionExecType;
  * @author jcmunoz
  *
  */
+@Deprecated
 public class InstanceExprSubAction {
-	private SemanticOperationSubAction expressionSubAction;
+	private OpersSubOperation expressionSubAction;
 	private List<InstanceExpression> instanceExpressions;
 	private OperationSubActionExecType expressionType;
 
-	public SemanticOperationSubAction getExpressionSubAction() {
+	public OpersSubOperation getExpressionSubAction() {
 		return expressionSubAction;
 	}
 
-	public void setExpressionSubAction(
-			SemanticOperationSubAction expressionSubAction) {
+	public void setExpressionSubAction(OpersSubOperation expressionSubAction) {
 		this.expressionSubAction = expressionSubAction;
 	}
 

@@ -9,8 +9,8 @@ import javax.swing.SwingWorker;
 
 import com.variamos.configurator.io.ConfigurationIO;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
-import com.variamos.perspsupport.perspmodel.SolverTasks;
+import com.variamos.perspsupport.translation.ModelExpr2HLCL;
+import com.variamos.perspsupport.translation.SolverTasks;
 
 /**
  * A class to support the thread for simulation of configurations. Part of PhD
@@ -124,10 +124,9 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					// editor.editPropertiesRefas();
 					if (mapeAP) {
 						try {
-							SolverTasks task = editor
-									.executeSimulation(true, false,
-											ModelExpr2HLCL.SIMUL_MAPE, true,
-											"Simul");
+							SolverTasks task = editor.executeSimulation(true,
+									false, ModelExpr2HLCL.SIMUL_MAPE, true,
+									"Simul");
 							while (task.getProgress() != 100) {
 								Thread.sleep(100);
 								if (isCancelled())
@@ -159,7 +158,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 										notAvailableAttributes, conceptTypes,
 										null, config);
 								task = editor.executeSimulation(true, false,
-										ModelExpr2HLCL.SIMUL_MAPE, true, "Simul");
+										ModelExpr2HLCL.SIMUL_MAPE, true,
+										"Simul");
 								while (task.getProgress() != 100) {
 									Thread.sleep(100);
 									if (canceled)
