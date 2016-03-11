@@ -15,16 +15,16 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.Labeling;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.OpersLabeling;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.opers.OpersOverTwoRel;
 import com.variamos.perspsupport.opers.OpersPairwiseRel;
-import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
@@ -176,32 +176,27 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								}
 							}
 						}
-						for (AbstractAttribute var : operSubAction
-								.getInVariables()) {
+						for (InstAttribute var : instE.getInstAttributes()
+								.values()) {
 							int attributeValue = 0;
-							InstAttribute instAttribute = instE
-									.getInstAttribute(var.getName());
-							// FIXME: compare attribute name and element name
-							if (instAttribute != null
-									&& instAttribute.getAttribute() == var) {
-								String type = (String) instAttribute.getType();
+							if (operSubAction.validateAttribute(instE
+									.getTransSupportMetaElement()
+									.getTransInstSemanticElement(), var
+									.getAttributeName(), true) == 1) {
+								String type = (String) var.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
-									if (instAttribute.getValue() instanceof Boolean)
-										attributeValue = ((boolean) instAttribute
+									if (var.getValue() instanceof Boolean)
+										attributeValue = ((boolean) var
 												.getValue()) ? 1 : 0;
-									else if (instAttribute.getValue() instanceof String)
+									else if (var.getValue() instanceof String)
 										attributeValue = Integer
-												.valueOf((String) instAttribute
+												.valueOf((String) var
 														.getValue());
 									else
-										attributeValue = (Integer) instAttribute
+										attributeValue = (Integer) var
 												.getValue();
 								}
-								// if (type.equals("String")) {
-								// attributeValue = ((String) instAttribute
-								// .getValue()).hashCode();
-								// }
 								InstanceExpression instanceExpression = new InstanceExpression(
 										true, "t", true);
 								instanceExpression
@@ -209,12 +204,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 												.getSemanticExpressionTypes()
 												.get("Equals"));
 								instanceExpression.setLeftElement(instE);
-								instanceExpression
-										.setLeftAttributeName(instAttribute
-												.getIdentifier());
+								instanceExpression.setLeftAttributeName(var
+										.getIdentifier());
 								if (type.equals("String")) {
 									instanceExpression
-											.setRightValue((String) instAttribute
+											.setRightValue((String) var
 													.getValue());
 									instanceExpression
 											.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
@@ -227,6 +221,58 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								out.add(instanceExpression);
 							}
 						}
+						// for (AbstractAttribute var : operSubAction
+						// .getInVariables()) {
+						// int attributeValue = 0;
+						// InstAttribute instAttribute = instE
+						// .getInstAttribute(var.getName());
+						// // FIXME: compare attribute name and element name
+						// if (instAttribute != null
+						// && instAttribute.getAttribute() == var) {
+						// String type = (String) instAttribute.getType();
+						// if (type.equals("Integer")
+						// || type.equals("Boolean")) {
+						// if (instAttribute.getValue() instanceof Boolean)
+						// attributeValue = ((boolean) instAttribute
+						// .getValue()) ? 1 : 0;
+						// else if (instAttribute.getValue() instanceof String)
+						// attributeValue = Integer
+						// .valueOf((String) instAttribute
+						// .getValue());
+						// else
+						// attributeValue = (Integer) instAttribute
+						// .getValue();
+						// }
+						// // if (type.equals("String")) {
+						// // attributeValue = ((String) instAttribute
+						// // .getValue()).hashCode();
+						// // }
+						// InstanceExpression instanceExpression = new
+						// InstanceExpression(
+						// true, "t", true);
+						// instanceExpression
+						// .setSemanticExpressionType(refas
+						// .getSemanticExpressionTypes()
+						// .get("Equals"));
+						// instanceExpression.setLeftElement(instE);
+						// instanceExpression
+						// .setLeftAttributeName(instAttribute
+						// .getIdentifier());
+						// if (type.equals("String")) {
+						// instanceExpression
+						// .setRightValue((String) instAttribute
+						// .getValue());
+						// instanceExpression
+						// .setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
+						// } else {
+						// instanceExpression
+						// .setRightNumber(attributeValue);
+						// instanceExpression
+						// .setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+						// }
+						// out.add(instanceExpression);
+						// }
+						// }
 					}
 				else
 					out.addAll(createElementInstanceExpressions(instElement,
@@ -306,10 +352,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	@SuppressWarnings("unchecked")
 	protected List<InstanceExpression> createElementInstanceExpressions(
-			InstElement instElement,
-			List<IntMetaExpression> semanticExpressions) {
-		IntOpersElement semElement = instElement
-				.getTransSupportMetaElement().getTransSemanticConcept();
+			InstElement instElement, List<IntMetaExpression> semanticExpressions) {
+		IntOpersElement semElement = instElement.getTransSupportMetaElement()
+				.getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions() != null)
@@ -352,8 +397,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	protected List<InstanceExpression> createElementInstanceExpressions(
 			InstElement instElement) {
-		IntOpersElement semElement = instElement
-				.getTransSupportMetaElement().getTransSemanticConcept();
+		IntOpersElement semElement = instElement.getTransSupportMetaElement()
+				.getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions() != null)
