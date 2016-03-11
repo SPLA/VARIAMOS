@@ -1517,7 +1517,7 @@ public class EditorActions {
 								.getExtensionName();
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								fileExtension, fileExtensionName + " ("
+								"." + fileExtension, fileExtensionName + " (."
 										+ fileExtension + ")") {
 
 							public boolean accept(File file) {
@@ -1528,7 +1528,7 @@ public class EditorActions {
 								return super.accept(file)
 								// || lcase.endsWith(".png")
 								// || lcase.endsWith(".vdx")
-										|| lcase.endsWith(fileExtension);
+										|| lcase.endsWith("." + fileExtension);
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1573,7 +1573,8 @@ public class EditorActions {
 													.getAbsolutePath()));
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
-										.toLowerCase().endsWith(fileExtension)) {
+										.toLowerCase()
+										.endsWith("." + fileExtension)) {
 									FileTasks
 											.openAction(
 													FileTasks.OPEN,

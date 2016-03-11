@@ -166,8 +166,9 @@ public class SaveAction extends AbstractEditorAction {
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(fileExtension,
-						fileExtensionName + " (" + fileExtension + ")");
+				FileFilter defaultFilter = new DefaultFileFilter("."
+						+ fileExtension, fileExtensionName + " (."
+						+ fileExtension + ")");
 				fc.addChoosableFileFilter(defaultFilter);
 
 				fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",

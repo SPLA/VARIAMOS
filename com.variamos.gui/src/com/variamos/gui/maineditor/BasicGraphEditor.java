@@ -1129,13 +1129,13 @@ public class BasicGraphEditor extends JPanel {
 		String extension = null;
 		switch (this.getPerspective()) {
 		case 1:
-			extension = ".vmom";
+			extension = "vmom";
 			break;
 		case 2:
-			extension = ".vmum";
+			extension = "vmum";
 			break;
 		case 3:
-			extension = ".vmsm";
+			extension = "vmsm";
 		}
 		return extension;
 	}

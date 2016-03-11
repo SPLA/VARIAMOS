@@ -1794,7 +1794,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				// task
 				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
 				) {
-					refas2hlcl.updateGUIElements(null);
+					List<String> outVariables = semTask.getOutVariables();
+					refas2hlcl.updateGUIElements(null, outVariables);
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
 					messagesArea.setText(refas2hlcl.getText());
@@ -1891,7 +1892,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editPropertiesRefas(lastEditableElement);
 					messagesArea.setText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
-					lastSolverInvocations = task.getExecutionTime();
+					lastSolverInvocations = semTask.getExecutionTime();
 					// switch (semTask.getExecType()) {
 					// case ModelExpr2HLCL.CONF_EXEC:
 					// invalidConfigHlclProgram = task
@@ -1908,7 +1909,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					// refresh();
 					// break;
 					// case ModelExpr2HLCL.SIMUL_EXEC:
-					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
+					updateDashBoard(semTask.isReloadDashBoard(),
+							semTask.isUpdate());
 					// case ModelExpr2HLCL.SIMUL_EXPORT:
 					// refresh();
 					// lastConfiguration = task.getLastConfiguration();
@@ -1930,11 +1932,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void updateSimulResults() {
 
 		messagesArea.setText(refas2hlcl.getText());
-		if (!task.getErrorTitle().equals("")) {
+		if (task != null && !task.getErrorTitle().equals("")) {
 			JOptionPane
 					.showMessageDialog(frame, task.getErrorMessage(),
 							task.getErrorTitle(),
 							JOptionPane.INFORMATION_MESSAGE, null);
+
+		}
+		if (semTask != null && !semTask.getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
+					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+					null);
 
 		}
 	}

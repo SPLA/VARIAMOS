@@ -1220,17 +1220,16 @@ public class RefasDefaultOperations {
 									// operations,
 									// do not change it
 
-		semGeneralElement.putSemanticAttribute("Selected",
-				new ExecCurrentStateAttribute("Selected", "Boolean",
-						AttributeType.EXECCURRENTSTATE, false,
-						"***Selected***", false, 2, -1, "", "", -1, "", ""));
-		semGeneralElement
-				.putSemanticAttribute("NotAvailable",
-						new ExecCurrentStateAttribute("NotAvailable",
-								"Boolean", AttributeType.EXECCURRENTSTATE,
-								false, "***Not Avaliable***", false, 2, -1, "",
-								"", -1, "", ""));
-
+		/*
+		 * semGeneralElement.putSemanticAttribute("Selected", new
+		 * ExecCurrentStateAttribute("Selected", "Boolean",
+		 * AttributeType.EXECCURRENTSTATE, false, "***Selected***", false, 2,
+		 * -1, "", "", -1, "", "")); semGeneralElement
+		 * .putSemanticAttribute("NotAvailable", new
+		 * ExecCurrentStateAttribute("NotAvailable", "Boolean",
+		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
+		 * 2, -1, "", "", -1, "", ""));
+		 */
 		InstVertex instVertexGE = new InstConcept("GeneralElement",
 				metaConcept, semGeneralElement);
 
@@ -1396,7 +1395,7 @@ public class RefasDefaultOperations {
 
 		t1 = new SemanticExpression("NextPrefSel_=_0", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"NextPrefSelected", 0);
+				"NextPrefSelected", true, 0);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -1404,7 +1403,7 @@ public class RefasDefaultOperations {
 
 		t1 = new SemanticExpression("NextNotPrefSel_=_0", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"NextNotPrefSelected", 0);
+				"NextNotPrefSelected", true, 0);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -1419,7 +1418,7 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "HasParent", 1);
+				.get("Equals"), instVertexGE, "HasParent", true, 1);
 
 		t2 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
 				.get("NotEquals"), instVertexGE, "userIdentifier",
@@ -1466,7 +1465,7 @@ public class RefasDefaultOperations {
 
 		t2 = new SemanticExpression("Opt =0", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"Opt", 0);
+				"Opt", true, 0);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t2);
 
@@ -1565,7 +1564,7 @@ public class RefasDefaultOperations {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simsceExecOperLabeling1.addAttribute(attribute);
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
-		simulOperationSubAction.addOutVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Description", "String",
 				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
@@ -1826,7 +1825,7 @@ public class RefasDefaultOperations {
 		semHardConcept.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Sum"), t1, 0);
@@ -1869,7 +1868,7 @@ public class RefasDefaultOperations {
 		semFeature.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Sum"), t1, 0);
@@ -1886,7 +1885,7 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "IsRootFeature", 1);
+				.get("Equals"), instVertexGE, "IsRootFeature", true, 1);
 
 		SemanticExpression t2_1 = new SemanticExpression("2-1", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
@@ -1928,10 +1927,10 @@ public class RefasDefaultOperations {
 		// semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "IsRootFeature", 1);
+				.get("Equals"), instVertexGE, "IsRootFeature", true, 1);
 
 		t3 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "Selected", 1);
+				.get("Equals"), instVertexGE, "Selected", true, 1);
 
 		t1 = new SemanticExpression("Root Implies Req", refas
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
@@ -1941,10 +1940,10 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "IsRootFeature", 1);
+				.get("Equals"), instVertexGE, "IsRootFeature", true, 1);
 
 		t3 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "Selected", 1);
+				.get("Equals"), instVertexGE, "Selected", true, 1);
 
 		t1 = new SemanticExpression("Root Implies Selected", refas
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
@@ -2072,13 +2071,13 @@ public class RefasDefaultOperations {
 				semSoftgoal);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Subtraction"), instVertexGE, "Selected", 1);
+				.get("Subtraction"), instVertexGE, "Selected", false, 1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Product"), 8, true, t1);
 
 		t3 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Product"), t1, t3);
@@ -2153,6 +2152,7 @@ public class RefasDefaultOperations {
 		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simsceExecOperLabeling2.addAttribute(attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("ClaimExpLevel", "Integer",
 				AttributeType.EXECCURRENTSTATE, false,
@@ -2161,6 +2161,7 @@ public class RefasDefaultOperations {
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simsceExecOperLabeling2.addAttribute(attribute);
+		simulOperationSubAction.addOutVariable(attribute);
 
 		semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
 		semSoftgoal.addPropVisibleAttribute("16#" + "ClaimExpLevel");
@@ -2317,8 +2318,8 @@ public class RefasDefaultOperations {
 		semVariable.putSemanticAttribute(
 				SemanticVariable.VAR_VARIABLECONFIGDOMAIN, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
-		simulOperationSubAction.addInVariable(attribute);
+		// simsceExecOperLabeling1.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
 
 		semVariable.addPropEditableAttribute("01#" + SemanticVariable.VAR_NAME);
 		semVariable.addPropEditableAttribute("02#"
@@ -2418,7 +2419,7 @@ public class RefasDefaultOperations {
 		semAsset.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Sum"), t1, 0);
@@ -2459,7 +2460,7 @@ public class RefasDefaultOperations {
 		semClaim.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Sum"), t1, 0);
@@ -2718,7 +2719,7 @@ public class RefasDefaultOperations {
 		semSoftDependency.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
-				.get("Product"), instVertexGE, "NextReqSelected", 4);
+				.get("Product"), instVertexGE, "NextReqSelected", true, 4);
 
 		t1 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Sum"), t1, 0);
@@ -2851,17 +2852,16 @@ public class RefasDefaultOperations {
 
 		SemanticConcept semGeneralGroup = new SemanticConcept("GeneralGroup");
 
-		semGeneralGroup.putSemanticAttribute("Selected",
-				new ExecCurrentStateAttribute("Selected", "Boolean",
-						AttributeType.EXECCURRENTSTATE, false,
-						"***Selected***", false, 2, -1, "", "", -1, "", ""));
-		semGeneralGroup
-				.putSemanticAttribute("NotAvailable",
-						new ExecCurrentStateAttribute("NotAvailable",
-								"Boolean", AttributeType.EXECCURRENTSTATE,
-								false, "***Not Avaliable***", false, 2, -1, "",
-								"", -1, "", ""));
-
+		/*
+		 * semGeneralGroup.putSemanticAttribute("Selected", new
+		 * ExecCurrentStateAttribute("Selected", "Boolean",
+		 * AttributeType.EXECCURRENTSTATE, false, "***Selected***", false, 2,
+		 * -1, "", "", -1, "", "")); semGeneralGroup
+		 * .putSemanticAttribute("NotAvailable", new
+		 * ExecCurrentStateAttribute("NotAvailable", "Boolean",
+		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
+		 * 2, -1, "", "", -1, "", ""));
+		 */
 		InstVertex instVertexGR = new InstConcept("GeneralGroup", metaConcept,
 				semGeneralGroup);
 
@@ -2897,7 +2897,7 @@ public class RefasDefaultOperations {
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
 		simsceExecOperLabeling1.addAttribute(attribute);
 		semGeneralGroup.putSemanticAttribute("NotAvailable", attribute);
-		simulOperationSubAction.addOutVariable(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("Description", "String",
 				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
@@ -4743,22 +4743,17 @@ public class RefasDefaultOperations {
 		// semanticVertices.add(semSoftgoal);
 		SemanticPairwiseRelation directClaimSGSemanticEdge = new SemanticPairwiseRelation(
 				"ClaimSGPWAsso", true, claimSGPairwiseRelList);
-		attribute = new SemanticAttribute(SemanticPairwiseRelation.VAR_LEVEL,
-				"Integer", AttributeType.OPERATION,
-				SemanticPairwiseRelation.VAR_LEVEL, 2, false, new RangeDomain(
-						0, 5), 0, -1, "", "", -1, "", "");
-		directClaimSGSemanticEdge.putSemanticAttribute(
-				SemanticPairwiseRelation.VAR_LEVEL, attribute);
+		attribute = new SemanticAttribute("CLSGLevel", "Integer",
+				AttributeType.OPERATION, "Relation Level", 2, false,
+				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
+		directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
 		simulOperationSubAction.addInVariable(attribute);
+		simsceExecOperLabeling1.addAttribute(attribute);
 
-		directClaimSGSemanticEdge.addPropEditableAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_LEVEL);
-		directClaimSGSemanticEdge.addPropVisibleAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_LEVEL);
-		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#"
-				+ SemanticPairwiseRelation.VAR_LEVEL);
+		directClaimSGSemanticEdge.addPropEditableAttribute("08#" + "CLSGLevel");
+		directClaimSGSemanticEdge.addPropVisibleAttribute("08#" + "CLSGLevel");
+		directClaimSGSemanticEdge.addPanelVisibleAttribute("08#" + "CLSGLevel");
 		InstConcept instDirClaimSGSemanticEdge = new InstConcept(
 				"ClaimSGPWAsso", metaPairwiseRelation,
 				directClaimSGSemanticEdge);
@@ -4768,7 +4763,7 @@ public class RefasDefaultOperations {
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("ClaimToSG", new OptionAttribute("ClaimToSG",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"ClaimToSG", "", 1, -1, "", "", -1, "", ""),
+				"Claim To SG", "", 1, -1, "", "", -1, "", ""),
 				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
 		ia = instDirClaimSGSemanticEdge
@@ -4781,7 +4776,7 @@ public class RefasDefaultOperations {
 				.get("GreaterOrEq"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
-				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -4789,8 +4784,7 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
-				"low");
+				instVertexSG, "satisficingLevel", "low");
 
 		t1 = new SemanticExpression("low: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -4798,13 +4792,11 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
-
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
-				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -4812,8 +4804,7 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
-				"high");
+				instVertexSG, "satisficingLevel", "high");
 
 		t1 = new SemanticExpression("high: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -4821,12 +4812,10 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		semanticExpressions = new ArrayList<IntSemanticExpression>();
-
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
-				instDirClaimSGSemanticEdge, "ClaimExpLevel", "level");
+				instDirClaimSGSemanticEdge, "ClaimExpLevel", "CLSGLevel");
 
 		t1 = new SemanticExpression("2", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
@@ -4834,8 +4823,7 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
-				"close");
+				instVertexSG, "satisficingLevel", "close");
 
 		t1 = new SemanticExpression("close: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -4843,9 +4831,9 @@ public class RefasDefaultOperations {
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("claimToSG", new OptionAttribute("claimToSG",
+		ias.add(new InstAttribute("ClaimToSG", new OptionAttribute("ClaimToSG",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"claimToSG", "", 1, -1, "", "", -1, "", ""),
+				"claim To SG", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("ClaimSGPWAsso",
@@ -4879,6 +4867,7 @@ public class RefasDefaultOperations {
 		directSDSGSemanticEdge.putSemanticAttribute(
 				SemanticPairwiseRelation.VAR_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulOperationSubAction.addInVariable(attribute);
 		simsceExecOperLabeling1.addAttribute(attribute);
 
 		directSDSGSemanticEdge.addPropEditableAttribute("08#"

@@ -88,9 +88,9 @@ public class OpenAction extends AbstractEditorAction {
 							.getExtensionName();
 
 					// Adds file filter for supported file format
-					DefaultFileFilter defaultFilter = new DefaultFileFilter(
-							fileExtension, fileExtensionName + " ("
-									+ fileExtension + ")") {
+					DefaultFileFilter defaultFilter = new DefaultFileFilter("."
+							+ fileExtension, fileExtensionName + " (."
+							+ fileExtension + ")") {
 
 						public boolean accept(File file) {
 							String lcase = file.getName().toLowerCase();
@@ -98,7 +98,7 @@ public class OpenAction extends AbstractEditorAction {
 							((MainFrame) finalEditor.getFrame())
 									.waitingCursor(false);
 							return super.accept(file)
-									|| lcase.endsWith(fileExtension);
+									|| lcase.endsWith("." + fileExtension);
 						}
 					};
 					// fc.addChoosableFileFilter(defaultFilter);
