@@ -21,7 +21,7 @@ import com.variamos.gui.perspeditor.PerspEditorMenuBar;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 

@@ -20,13 +20,13 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
-import com.variamos.perspsupport.semanticsupport.SemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersAbstractElement;
+import com.variamos.perspsupport.opers.OpersConcept;
+import com.variamos.perspsupport.opers.OpersOverTwoRel;
+import com.variamos.perspsupport.opersint.IntOpersElement;
+import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
+import com.variamos.perspsupport.opersint.IntOpersRelType;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
@@ -46,7 +46,7 @@ import com.variamos.perspsupport.types.ClassSingleSelectionType;
 public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
-	private Map<String, IntSemanticElement> semanticElements;
+	private Map<String, IntOpersElement> semanticElements;
 	private Map<String, MetaElement> syntaxElements;
 	private Map<String, InstElement> instVertex;
 
@@ -78,11 +78,11 @@ public class ClassWidget extends WidgetR {
 			e.printStackTrace();
 		}
 		if (instAttribute.getPairwiseRelValidationList() != null) {
-			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticPairwiseRelation> list = instAttribute
+			semanticElements = new HashMap<String, IntOpersElement>();
+			List<IntOpersPairwiseRel> list = instAttribute
 					.getPairwiseRelValidationList();
 
-			for (IntSemanticPairwiseRelation groupDependency : list) {
+			for (IntOpersPairwiseRel groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						groupDependency);
 				String out = groupDependency.getIdentifier();
@@ -105,13 +105,13 @@ public class ClassWidget extends WidgetR {
 				// txtValue.setSelectedItem(out);
 			}
 		} else if (instAttribute.getOverTwoRelValidationList() != null) {
-			semanticElements = new HashMap<String, IntSemanticElement>();
-			List<IntSemanticRelationType> list = instAttribute
+			semanticElements = new HashMap<String, IntOpersElement>();
+			List<IntOpersRelType> list = instAttribute
 					.getOverTwoRelValidationList();
 
-			for (IntSemanticRelationType groupDependency : list) {
+			for (IntOpersRelType groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
-						(AbstractSemanticElement) groupDependency);
+						(OpersAbstractElement) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 				if (instAttribute.getValue() != null
@@ -130,9 +130,9 @@ public class ClassWidget extends WidgetR {
 
 		} else {
 			if (aClass.isInterface()
-					|| aClass.getSuperclass().equals(
-							AbstractSemanticElement.class)) {
-				semanticElements = new HashMap<String, IntSemanticElement>();
+					|| aClass.getSuperclass()
+							.equals(OpersAbstractElement.class)) {
+				semanticElements = new HashMap<String, IntOpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
 				 * Collection<IntSemanticElement> list = semanticSyntaxObject
@@ -197,7 +197,7 @@ public class ClassWidget extends WidgetR {
 					}
 				}
 			}
-			if (aClass.equals(SemanticConcept.class)) {
+			if (aClass.equals(OpersConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					Collection<InstElement> list = semanticModel
@@ -291,8 +291,8 @@ public class ClassWidget extends WidgetR {
 
 		InstAttribute instAttribute = (InstAttribute) v;
 		if (instAttribute.getValueObject() != null) {
-			if (instAttribute.getValueObject() instanceof SemanticOverTwoRelation)
-				txtValue.setSelectedItem((String) ((SemanticOverTwoRelation) instAttribute
+			if (instAttribute.getValueObject() instanceof OpersOverTwoRel)
+				txtValue.setSelectedItem((String) ((OpersOverTwoRel) instAttribute
 						.getValueObject()).getIdentifier());
 			else if (instAttribute.getValueObject() instanceof MetaPairwiseRelation)
 				txtValue.setSelectedItem((String) ((MetaPairwiseRelation) instAttribute

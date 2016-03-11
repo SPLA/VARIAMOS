@@ -89,9 +89,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.variamos.perspsupport.perspmodel.ModelExpr2HLCL" 
+  <class id="10" language="java" name="com.variamos.perspsupport.translation.ModelExpr2HLCL" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/ModelExpr2HLCL.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/translation/ModelExpr2HLCL.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="945" width="358" x="-52" y="541"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,9 +100,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.variamos.perspsupport.perspmodel.ModelInstance" 
+  <class id="11" language="java" name="com.variamos.perspsupport.model.ModelInstance" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/perspmodel/ModelInstance.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/model/ModelInstance.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="1269" width="370" x="725" y="107"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -112,9 +112,9 @@
     </display>  
   </class>  
   <association id="12">    
-    <bendpoint x="354" y="1472"/>    
-    <bendpoint x="752" y="1472"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
+    <bendpoint x="1143" y="1035"/>    
+    <bendpoint x="1111" y="1034"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
       <attribute id="13" name="refas">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -126,9 +126,9 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <bendpoint x="1143" y="1035"/>    
-    <bendpoint x="1111" y="1034"/>    
-    <end type="SOURCE" refId="8" navigable="false">      
+    <bendpoint x="354" y="1472"/>    
+    <bendpoint x="752" y="1472"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
       <attribute id="16" name="refas">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -140,30 +140,30 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="18">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="19" name="paletteElements">        
-        <position height="0" width="0" x="-286" y="-34"/>      
-      </attribute>      
-      <multiplicity id="20" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-286" y="-34"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="21">    
     <bendpoint x="267" y="384"/>    
     <bendpoint x="320" y="445"/>    
     <bendpoint x="338" y="713"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="22" name="graph">        
+      <attribute id="19" name="graph">        
         <position height="0" width="0" x="39" y="189"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
+      <multiplicity id="20" minimum="0" maximum="1">        
         <position height="0" width="0" x="39" y="189"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="22" name="paletteElements">        
+        <position height="0" width="0" x="-286" y="-34"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-286" y="-34"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="24">    

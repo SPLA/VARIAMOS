@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -233,7 +233,7 @@ public abstract class MetaElement implements Serializable {
 		this.borderStroke = borderStroke;
 	}
 
-	public IntSemanticElement getTransSemanticConcept() {
+	public IntOpersElement getTransSemanticConcept() {
 		if (instSemanticElement != null)
 			return this.instSemanticElement.getEditableSemanticElement();
 		else

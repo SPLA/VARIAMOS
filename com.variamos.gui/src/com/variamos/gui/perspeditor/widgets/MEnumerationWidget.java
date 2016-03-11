@@ -11,7 +11,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.EnumerationMultiSelectionType;
 

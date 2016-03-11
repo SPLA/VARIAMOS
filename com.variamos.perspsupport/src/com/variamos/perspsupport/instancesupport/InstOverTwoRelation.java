@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticOverTwoRelation;
+import com.variamos.perspsupport.opersint.IntOpersElement;
+import com.variamos.perspsupport.opersint.IntOpersOverTwoRel;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
@@ -109,7 +109,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	public InstOverTwoRelation(String identifier,
 			MetaOverTwoRelation supportMetaOvetTwoRelation,
-			IntSemanticElement semanticElement) {
+			IntOpersElement semanticElement) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEditableSemanticElement(semanticElement);
@@ -223,10 +223,10 @@ public class InstOverTwoRelation extends InstVertex {
 			if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null) {
 				dynamicAttributesMap.put(
 						VAR_SEMANTICOVERTWOREL_IDEN,
-						((IntSemanticOverTwoRelation) getInstAttribute(
+						((IntOpersOverTwoRel) getInstAttribute(
 								VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 								.getIdentifier());
-				return ((IntSemanticOverTwoRelation) getInstAttribute(
+				return ((IntOpersOverTwoRel) getInstAttribute(
 						VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 						.getIdentifier();
 			}
@@ -236,9 +236,9 @@ public class InstOverTwoRelation extends InstVertex {
 		return (String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN);
 	}
 
-	public IntSemanticOverTwoRelation getSemanticOverTwoRelation() {
+	public IntOpersOverTwoRel getSemanticOverTwoRelation() {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null)
-			return ((IntSemanticOverTwoRelation) getInstAttribute(
+			return ((IntOpersOverTwoRel) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject());
 		else
 			return null;
@@ -260,7 +260,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 	}
 
-	public void setSemanticOverTwoRelation(IntSemanticOverTwoRelation sgd) {
+	public void setSemanticOverTwoRelation(IntOpersOverTwoRel sgd) {
 		setDynamicVariable(VAR_SEMANTICOVERTWOREL_IDEN, sgd.getIdentifier());
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, sgd);
 
@@ -303,7 +303,7 @@ public class InstOverTwoRelation extends InstVertex {
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null)
 			modelingAttributesNames
-					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
+					.addAll(((IntOpersOverTwoRel) getInstAttribute(
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPropVisibleAttributes());
 
@@ -319,7 +319,7 @@ public class InstOverTwoRelation extends InstVertex {
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
 			modelingAttributesNames
-					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
+					.addAll(((IntOpersOverTwoRel) getInstAttribute(
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPropEditableAttributes());
 
@@ -335,7 +335,7 @@ public class InstOverTwoRelation extends InstVertex {
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
 			modelingAttributesNames
-					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
+					.addAll(((IntOpersOverTwoRel) getInstAttribute(
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPanelVisibleAttributes());
 
@@ -351,7 +351,7 @@ public class InstOverTwoRelation extends InstVertex {
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
 			modelingAttributesNames
-					.addAll(((IntSemanticOverTwoRelation) getInstAttribute(
+					.addAll(((IntOpersOverTwoRel) getInstAttribute(
 							VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 							.getPanelSpacersAttributes());
 
@@ -367,7 +367,7 @@ public class InstOverTwoRelation extends InstVertex {
 						.getValueObject() != null) // TODO simulation attributes
 													// too?
 		{
-			IntSemanticOverTwoRelation tmp = (IntSemanticOverTwoRelation) getInstAttribute(
+			IntOpersOverTwoRel tmp = (IntOpersOverTwoRel) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject();
 			modelingAttributesNames.addAll(tmp.getSemanticAttributesNames());
 		}
@@ -382,7 +382,7 @@ public class InstOverTwoRelation extends InstVertex {
 						.getValueObject() != null) {
 			Object o = getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 					.getValueObject();
-			String semGroupDep = (String) ((IntSemanticOverTwoRelation) o)
+			String semGroupDep = (String) ((IntOpersOverTwoRel) o)
 					.getIdentifier();
 
 			if (!semGroupDepOld.equals(semGroupDep)) {

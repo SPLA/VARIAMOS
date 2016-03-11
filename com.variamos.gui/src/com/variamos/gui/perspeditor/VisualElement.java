@@ -11,17 +11,17 @@ import javax.swing.JPanel;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticsupport.SemanticReasoningConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
-import com.variamos.perspsupport.semanticsupport.SoftSemanticConcept;
+import com.variamos.perspsupport.opers.OpersReasoningConcept;
+import com.variamos.perspsupport.opers.OpersSoftConcept;
+import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 
 public class VisualElement implements Comparable<VisualElement> {
 
 	private InstElement instElement;
-	private IntSemanticElement semanticElement;
+	private IntOpersElement semanticElement;
 	private boolean selected, notAvailable, updated;
 	private Color green, red, yellow;
 	private String otherParameters = "";
@@ -63,26 +63,26 @@ public class VisualElement implements Comparable<VisualElement> {
 		if (instElement.getInstAttribute("NotAvailable") != null)
 			newNotAvailable = instElement.getInstAttribute("NotAvailable")
 					.getAsBoolean();
-		if (semanticElement instanceof SemanticReasoningConcept) {
+		if (semanticElement instanceof OpersReasoningConcept) {
 			newOtherParameters = "{BoolExp:"
 					+ instElement.getInstAttribute("CompExp").getAsBoolean()
 					+ "}";
 		}
-		if (semanticElement instanceof SoftSemanticConcept) {
+		if (semanticElement instanceof OpersSoftConcept) {
 			newOtherParameters = "{Required: "
 					+ instElement.getInstAttribute("SDReqLevel").getAsInteger()
 					+ " Expected: "
 					+ instElement.getInstAttribute("ClaimExpLevel")
 							.getAsInteger() + "}";
 		}
-		if (semanticElement instanceof SemanticVariable) {
-			if (semanticElement instanceof SemanticVariable) {
+		if (semanticElement instanceof OpersVariable) {
+			if (semanticElement instanceof OpersVariable) {
 				String out = " : ";
 				if (instElement.getInstAttribute("variableType").getValue()
 						.equals("Integer")) {
 					out += "int : "
 							+ instElement.getInstAttribute(
-									SemanticVariable.VAR_VALUE).getAsInteger()
+									OpersVariable.VAR_VALUE).getAsInteger()
 							+ "";
 				} else if (instElement.getInstAttribute("variableType")
 						.getValue().equals("Enumeration")) {
@@ -99,14 +99,14 @@ public class VisualElement implements Comparable<VisualElement> {
 									.split("-");
 							String val = null;
 							if (instElement.getInstAttribute(
-									SemanticVariable.VAR_VALUE).getValue() instanceof Integer)
+									OpersVariable.VAR_VALUE).getValue() instanceof Integer)
 								val = ((Integer) instElement.getInstAttribute(
-										SemanticVariable.VAR_VALUE).getValue())
+										OpersVariable.VAR_VALUE).getValue())
 										.toString();
 							else
 
 								val = (String) instElement.getInstAttribute(
-										SemanticVariable.VAR_VALUE).getValue();
+										OpersVariable.VAR_VALUE).getValue();
 							if (split[0].equals(val))
 								out += value + "";
 						}
@@ -115,7 +115,7 @@ public class VisualElement implements Comparable<VisualElement> {
 						.getValue().equals("Boolean")) {
 					out += "bool : "
 							+ instElement.getInstAttribute(
-									SemanticVariable.VAR_VALUE).getAsBoolean()
+									OpersVariable.VAR_VALUE).getAsBoolean()
 							+ "";
 				} else
 					out += "Other type";
@@ -163,11 +163,11 @@ public class VisualElement implements Comparable<VisualElement> {
 	}
 
 	public int getCols() {
-		if (semanticElement instanceof SemanticVariable)
+		if (semanticElement instanceof OpersVariable)
 			return 2;
-		if (semanticElement instanceof SemanticReasoningConcept)
+		if (semanticElement instanceof OpersReasoningConcept)
 			return 2;
-		if (semanticElement instanceof SoftSemanticConcept)
+		if (semanticElement instanceof OpersSoftConcept)
 			return 1;
 		return 3;
 	}

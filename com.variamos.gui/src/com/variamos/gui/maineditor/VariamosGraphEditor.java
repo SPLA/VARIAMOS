@@ -86,11 +86,8 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.perspmodel.ModelExpr2HLCL;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.perspmodel.SemSolverTasks;
-import com.variamos.perspsupport.perspmodel.SolverTasks;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
@@ -98,9 +95,12 @@ import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
+import com.variamos.perspsupport.translation.ModelExpr2HLCL;
+import com.variamos.perspsupport.translation.SemSolverTasks;
+import com.variamos.perspsupport.translation.SolverTasks;
 import com.variamos.perspsupport.types.DomainRegister;
 import com.variamos.perspsupport.types.PerspectiveType;
-import com.variamos.semantic.expressionsupport.ElementExpressionSet;
+import com.variamos.semantic.staticexpr.ElementExpressionSet;
 import com.variamos.solver.Configuration;
 
 import fm.FeatureModelException;
@@ -1414,7 +1414,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals(
-						SemanticVariable.VAR_VALUE))
+						OpersVariable.VAR_VALUE))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());

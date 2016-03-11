@@ -43,10 +43,10 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
-import com.variamos.perspsupport.semanticsupport.SemanticVariable;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.opersint.IntMetaExpression;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
@@ -191,7 +191,7 @@ public class ElementDesignPanel extends JPanel {
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							List<IntSemanticExpression> ie = ((InstElement) finalEditElm)
+							List<IntMetaExpression> ie = ((InstElement) finalEditElm)
 									.getEditableSemanticElement()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
@@ -239,7 +239,7 @@ public class ElementDesignPanel extends JPanel {
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							List<IntSemanticExpression> ie = ((InstElement) finalEditElm)
+							List<IntMetaExpression> ie = ((InstElement) finalEditElm)
 									.getEditableSemanticElement()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
@@ -985,12 +985,12 @@ public class ElementDesignPanel extends JPanel {
 					((MetaPairwiseRelation) editableMetaElement)
 							.setPalette((String) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals(
-						SemanticVariable.VAR_VALUE))
+						OpersVariable.VAR_VALUE))
 					editableMetaElement
 							.setModelingAttributes((HashSet<AbstractAttribute>) instAttribute
 									.getValue());
 			}
-			IntSemanticElement editableSemanticElement = ((InstConcept) editableElement)
+			IntOpersElement editableSemanticElement = ((InstConcept) editableElement)
 					.getEditableSemanticElement();
 			if (editableSemanticElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))

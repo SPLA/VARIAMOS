@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.semanticinterface.IntSemanticPairwiseRelation;
-import com.variamos.perspsupport.semanticinterface.IntSemanticRelationType;
-import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.opers.OpersPairwiseRel;
+import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
+import com.variamos.perspsupport.opersint.IntOpersRelType;
 
 /**
  * A class to represented edges of the meta model. Extends from MetaElement
@@ -45,7 +45,7 @@ public class MetaPairwiseRelation extends MetaElement {
 	public static final/**
 						 * CanonicalName of DirectSemanticEdge - no direct reference allowed
 						 */
-	String VAR_SEMANTICPAIRWISEREL_CLASS = IntSemanticPairwiseRelation.class
+	String VAR_SEMANTICPAIRWISEREL_CLASS = IntOpersPairwiseRel.class
 			.getCanonicalName(),
 	/**
 	 * Name of the semantic relation attribute
@@ -259,10 +259,10 @@ public class MetaPairwiseRelation extends MetaElement {
 		return null;
 	}
 
-	public List<IntSemanticRelationType> getSemanticRelationTypes() {
+	public List<IntOpersRelType> getSemanticRelationTypes() {
 		if (getTransInstSemanticElement() == null)
 			return null;
-		return ((SemanticPairwiseRelation) getTransInstSemanticElement()
+		return ((OpersPairwiseRel) getTransInstSemanticElement()
 				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 

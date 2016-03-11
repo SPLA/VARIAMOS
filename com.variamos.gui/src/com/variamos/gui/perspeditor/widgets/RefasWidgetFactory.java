@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassMultiSelectionType;
@@ -39,17 +39,20 @@ public class RefasWidgetFactory {
 		// this.register = editor.getDomainRegister();
 		this.graph = editor.getGraphComponent().getGraph();
 		this.semanticModel = editor.getEditedModel().getOperationalModel();
-		this.showSimulationCustomizationBox = editor.isShowSimulationCustomizationBox();
+		this.showSimulationCustomizationBox = editor
+				.isShowSimulationCustomizationBox();
 
 		widgetReg = new HashMap<String, Class<? extends WidgetR>>();
 		widgetReg.put(IntegerType.IDENTIFIER, IntegerWidget.class);
 		widgetReg.put(StringType.IDENTIFIER, StringWidget.class);
 		widgetReg.put(BooleanType.IDENTIFIER, BooleanWidget.class);
-		widgetReg.put(EnumerationSingleSelectionType.IDENTIFIER, EnumerationWidget.class);
-		widgetReg.put(EnumerationMultiSelectionType.IDENTIFIER, MEnumerationWidget.class);
+		widgetReg.put(EnumerationSingleSelectionType.IDENTIFIER,
+				EnumerationWidget.class);
+		widgetReg.put(EnumerationMultiSelectionType.IDENTIFIER,
+				MEnumerationWidget.class);
 		widgetReg.put(ClassSingleSelectionType.IDENTIFIER, ClassWidget.class);
 		widgetReg.put(SetType.IDENTIFIER, SetWidget.class);
-		//widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
+		// widgetReg.put(SortIdListType.IDENTIFIER, SortIdListWidget.class);
 		widgetReg.put(ClassMultiSelectionType.IDENTIFIER, MClassWidget.class);
 
 	}

@@ -14,7 +14,7 @@ import javax.swing.SpringLayout;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 
 /**
  * A class to draw the dashboard for initial simultaion. Part of PhD work at
@@ -94,8 +94,8 @@ public class VariamosDashBoardFrame extends JFrame {
 		this.showNames = showNames;
 	}
 
-	public void updateDashBoard(ModelInstance refasModel, boolean updateConcepts,
-			boolean updated) {
+	public void updateDashBoard(ModelInstance refasModel,
+			boolean updateConcepts, boolean updated) {
 		this.refasModel = refasModel;
 		int concepts = 0;
 		if (updateConcepts || elements == null)

@@ -21,8 +21,8 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticsupport.AbstractSemanticElement;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersAbstractElement;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.types.ClassMultiSelectionType;
@@ -68,7 +68,7 @@ public class MClassWidget extends WidgetR {
 		}
 		String[] out = null;
 		if (aClass.getSuperclass() != null
-				&& aClass.getSuperclass().equals(AbstractSemanticElement.class)) {
+				&& aClass.getSuperclass().equals(OpersAbstractElement.class)) {
 			/*
 			 * Collection<IntSemanticElement> list = semanticSyntaxObject
 			 * .getSemanticConcepts().values();

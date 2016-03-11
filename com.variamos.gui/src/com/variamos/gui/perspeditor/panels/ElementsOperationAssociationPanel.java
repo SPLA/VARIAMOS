@@ -25,13 +25,13 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.perspsupport.expressionsupport.OperationLabeling;
-import com.variamos.perspsupport.expressionsupport.OperationSubActionExpType;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
+import com.variamos.perspsupport.expressionsupport.OpersLabeling;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticExpression;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
 
@@ -126,17 +126,17 @@ public class ElementsOperationAssociationPanel extends
 	private AssociationTreeTable createTable(ModelInstance refasModel,
 			InstElement operAction) {
 
-		SemanticOperationSubAction operSubAction = null;
+		OpersSubOperation operSubAction = null;
 		List<String> subOperTypesColumnsNames = new ArrayList<String>();
-		List<OperationSubActionExpType> subOperTypesColumns = new ArrayList<OperationSubActionExpType>();
+		List<OpersSubOperationExpType> subOperTypesColumns = new ArrayList<OpersSubOperationExpType>();
 		List<String> subOperColumnsNames = new ArrayList<String>();
-		List<SemanticOperationSubAction> subOperColumns = new ArrayList<SemanticOperationSubAction>();
+		List<OpersSubOperation> subOperColumns = new ArrayList<OpersSubOperation>();
 		List<String> operLabelNames = new ArrayList<String>();
-		List<OperationLabeling> operLabels = new ArrayList<OperationLabeling>();
+		List<OpersLabeling> operLabels = new ArrayList<OpersLabeling>();
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 
-			operSubAction = (SemanticOperationSubAction) subOper
+			operSubAction = (OpersSubOperation) subOper
 					.getEditableSemanticElement();
 			subOperTypesColumnsNames.addAll(operSubAction
 					.getOperationSubActionExpTypesNames());
@@ -146,11 +146,11 @@ public class ElementsOperationAssociationPanel extends
 			subOperColumns.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
 			// operLabels.addAll(operSubAction.getOperLabels());
-			List<OperationLabeling> operLabs = new ArrayList<OperationLabeling>();
+			List<OpersLabeling> operLabs = new ArrayList<OpersLabeling>();
 			List<String> operLabsNames = new ArrayList<String>();
 			for (InstElement rel2 : subOper.getTargetRelations()) {
 				InstElement instOperLab = rel2.getTargetRelations().get(0);
-				OperationLabeling operLab = (OperationLabeling) instOperLab
+				OpersLabeling operLab = (OpersLabeling) instOperLab
 						.getEditableSemanticElement();
 				operLabs.add(operLab);
 				operLabsNames.add(operSubAction.getIdentifier() + "-"
@@ -213,10 +213,10 @@ public class ElementsOperationAssociationPanel extends
 					&& el.getEditableSemanticElement() != null
 					&& el.getEditableSemanticElement()
 							.getAllSemanticExpressions() != null)
-				for (IntSemanticExpression v : el.getEditableSemanticElement()
+				for (IntMetaExpression v : el.getEditableSemanticElement()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
-					for (OperationSubActionExpType operColumn : subOperTypesColumns)
+					for (OpersSubOperationExpType operColumn : subOperTypesColumns)
 						if (operColumn.hasSemanticExpression(v.getIdentifier()))
 							valuesOperColumns.add(1);
 						else
@@ -241,9 +241,9 @@ public class ElementsOperationAssociationPanel extends
 							false, domainOperColumns, null);
 
 					node.getChildren().add(attNode);
-					for (IntSemanticExpression e : (List<IntSemanticExpression>) v
+					for (IntMetaExpression e : (List<IntMetaExpression>) v
 							.getValue()) {
-						for (OperationSubActionExpType operColumn : subOperTypesColumns)
+						for (OpersSubOperationExpType operColumn : subOperTypesColumns)
 							if (operColumn.hasSemanticExpression(e
 									.getIdentifier()))
 								valuesOperColumns.add(1);
@@ -262,7 +262,7 @@ public class ElementsOperationAssociationPanel extends
 						.getDeclaredSemanticAttributes()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
-					for (SemanticOperationSubAction operColumn : subOperColumns) {
+					for (OpersSubOperation operColumn : subOperColumns) {
 						if (operColumn.hasInVariable(v))
 							valuesVarColumns.add(1);
 						else
@@ -283,7 +283,7 @@ public class ElementsOperationAssociationPanel extends
 						.getDeclaredSemanticAttributes()) {
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
-					for (OperationLabeling operColumn : operLabels)
+					for (OpersLabeling operColumn : operLabels)
 						if (operColumn.hasAttribute(v))
 							valuesVarColums.add(1);
 						else

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 @SuppressWarnings("serial")

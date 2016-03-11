@@ -13,8 +13,8 @@ import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.semanticinterface.IntInstanceExpression;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
+import com.variamos.perspsupport.opersint.IntModelExpression;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
@@ -49,15 +49,15 @@ public abstract class InstElement implements Serializable, EditableElement,
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
-	private List<IntInstanceExpression> instanceExpressions;
-	private IntSemanticElement editableSemanticElement;
+	private List<IntModelExpression> instanceExpressions;
+	private IntOpersElement editableSemanticElement;
 
-	public List<IntInstanceExpression> getInstanceExpressions() {
+	public List<IntModelExpression> getInstanceExpressions() {
 		return instanceExpressions;
 	}
 
 	public void setInstanceExpressions(
-			List<IntInstanceExpression> instanceExpressions) {
+			List<IntModelExpression> instanceExpressions) {
 		this.instanceExpressions = instanceExpressions;
 	}
 
@@ -220,12 +220,12 @@ public abstract class InstElement implements Serializable, EditableElement,
 		this.dynamicAttributes = dynamicAttributesMap;
 	}
 
-	public IntSemanticElement getEditableSemanticElement() {
+	public IntOpersElement getEditableSemanticElement() {
 		return editableSemanticElement;
 	}
 
 	public void setEditableSemanticElement(
-			IntSemanticElement editableSemanticElement) {
+			IntOpersElement editableSemanticElement) {
 		this.editableSemanticElement = editableSemanticElement;
 	}
 
@@ -505,7 +505,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 							.getTransInstSemanticElement() != null) {
 				InstElement instElement = (InstElement) getTransSupportMetaElement()
 						.getTransInstSemanticElement();
-				IntSemanticElement metaConcept = instElement
+				IntOpersElement metaConcept = instElement
 						.getEditableSemanticElement();
 				Iterator<String> semanticAttributes = instElement
 						.getEditableSemanticElement()

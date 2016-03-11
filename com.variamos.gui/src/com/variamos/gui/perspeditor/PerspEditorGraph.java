@@ -47,7 +47,7 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
+import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 

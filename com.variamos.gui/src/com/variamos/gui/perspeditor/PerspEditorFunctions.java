@@ -26,20 +26,20 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationAction;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationGroup;
-import com.variamos.perspsupport.expressionsupport.SemanticOperationSubAction;
+import com.variamos.perspsupport.expressionsupport.OpersOperation;
+import com.variamos.perspsupport.expressionsupport.OpersOperationGroup;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.perspmodel.ModelInstance;
-import com.variamos.perspsupport.semanticinterface.IntSemanticElement;
-import com.variamos.perspsupport.semanticsupport.SemanticConcept;
-import com.variamos.perspsupport.semanticsupport.SemanticEnumeration;
-import com.variamos.perspsupport.semanticsupport.SemanticOverTwoRelation;
-import com.variamos.perspsupport.semanticsupport.SemanticPairwiseRelation;
+import com.variamos.perspsupport.model.ModelInstance;
+import com.variamos.perspsupport.opers.OpersConcept;
+import com.variamos.perspsupport.opers.OpersEnumeration;
+import com.variamos.perspsupport.opers.OpersOverTwoRel;
+import com.variamos.perspsupport.opers.OpersPairwiseRel;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
@@ -164,30 +164,28 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
 													MetaElement.class,
-													IntSemanticElement.class);
+													IntOpersElement.class);
 									switch (((MetaElement) metaVertex)
 											.getType()) {
 									case 'M':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticOperationGroup());
+												new OpersOperationGroup());
 										break;
 									case 'A':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticOperationAction());
+												new OpersOperation());
 										break;
 									case 'S':
-										obj = (InstElement) c
-												.newInstance(
-														"",
-														(MetaElement) metaVertex,
-														new SemanticOperationSubAction());
+										obj = (InstElement) c.newInstance("",
+												(MetaElement) metaVertex,
+												new OpersSubOperation());
 										break;
 									case 'P':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticPairwiseRelation());
+												new OpersPairwiseRel());
 										break;
 									case 'E':
 										o = new InstEnumeration();
@@ -196,17 +194,17 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												MetaElement.class);
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticEnumeration());
+												new OpersEnumeration());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticOverTwoRelation());
+												new OpersOverTwoRel());
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
 												(MetaElement) metaVertex,
-												new SemanticConcept());
+												new OpersConcept());
 									}
 								} else {
 									Constructor<?> c = o.getClass()
