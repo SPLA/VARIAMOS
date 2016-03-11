@@ -466,6 +466,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	// When tab change or save/load file (resetEditor)
 	public void updateView() {
 		validElements = ((PerspEditorGraph) getGraphComponent().getGraph())
 				.getValidElements(modelViewIndex, modelSubViewIndex);
@@ -1785,6 +1786,25 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				}
 			}
+			if (semTask != null) {
+				String message = String.format("Completed %d%%.\n", progress);
+				progressMonitor.setNote(message);
+				if (semTask.getProgress() == 100 // TODO validate for simulation
+				// && (semTask.getExecType() == ModelExpr2HLCL.SIMUL_EXEC ||
+				// task
+				// .getExecType() == ModelExpr2HLCL.SIMUL_MAPE)
+				) {
+					List<String> outVariables = semTask.getOutVariables();
+					refas2hlcl.updateGUIElements(null, outVariables);
+					updateDashBoard(semTask.isReloadDashBoard(),
+							semTask.isUpdate());
+					messagesArea.setText(refas2hlcl.getText());
+					// bringUpTab(mxResources.get("elementSimPropTab"));
+					editPropertiesRefas(lastEditableElement);
+
+				}
+			}
+
 			if (progressMonitor.isCanceled()
 					|| (fileTask != null && fileTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
@@ -1850,6 +1870,61 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					}
 
 				}
+			} else if (progressMonitor.isCanceled()
+					|| (semTask != null && semTask.isDone())) {
+				if (progressMonitor.isCanceled()) {
+					semTask.cancel(true);
+					// if (false//task.getExecType() ==
+					// ModelExpr2HLCL.SIMUL_EXPORT
+					// ) {
+					// JOptionPane
+					// .showMessageDialog(
+					// frame,
+					// "Execution incomplete, partial solution file saved",
+					// "Task Notification",
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					// } else
+					JOptionPane.showMessageDialog(frame, "Execution cancelled",
+							"Task Notification",
+							JOptionPane.INFORMATION_MESSAGE, null);
+					((MainFrame) getFrame()).waitingCursor(false);
+				} else {
+					editPropertiesRefas(lastEditableElement);
+					messagesArea.setText(refas2hlcl.getText());
+					((MainFrame) getFrame()).waitingCursor(false);
+					lastSolverInvocations = semTask.getExecutionTime();
+					// switch (semTask.getExecType()) {
+					// case ModelExpr2HLCL.CONF_EXEC:
+					// invalidConfigHlclProgram = task
+					// .isInvalidConfigHlclProgram();
+					// break;
+					// case ModelExpr2HLCL.DESIGN_EXEC:
+					// if (!semTask.getErrorTitle().equals("")) {
+					// JOptionPane.showMessageDialog(frame,
+					// semTask.getErrorMessage(),
+					// semTask.getErrorTitle(),
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					//
+					// }
+					// refresh();
+					// break;
+					// case ModelExpr2HLCL.SIMUL_EXEC:
+					updateDashBoard(semTask.isReloadDashBoard(),
+							semTask.isUpdate());
+					// case ModelExpr2HLCL.SIMUL_EXPORT:
+					// refresh();
+					// lastConfiguration = task.getLastConfiguration();
+					// if (!task.getErrorTitle().equals("")) {
+					// JOptionPane.showMessageDialog(frame,
+					// task.getErrorMessage(),
+					// task.getErrorTitle(),
+					// JOptionPane.INFORMATION_MESSAGE, null);
+					// }
+					//
+					// break;
+					// }
+
+				}
 			}
 		}
 	}
@@ -1857,11 +1932,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void updateSimulResults() {
 
 		messagesArea.setText(refas2hlcl.getText());
-		if (!task.getErrorTitle().equals("")) {
+		if (task != null && !task.getErrorTitle().equals("")) {
 			JOptionPane
 					.showMessageDialog(frame, task.getErrorMessage(),
 							task.getErrorTitle(),
 							JOptionPane.INFORMATION_MESSAGE, null);
+
+		}
+		if (semTask != null && !semTask.getErrorTitle().equals("")) {
+			JOptionPane.showMessageDialog(frame, semTask.getErrorMessage(),
+					semTask.getErrorTitle(), JOptionPane.INFORMATION_MESSAGE,
+					null);
 
 		}
 	}

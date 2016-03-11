@@ -537,9 +537,11 @@ public class EditorActions {
 				mxGraphComponent graphComponent = editor.getGraphComponent();
 				mxGraph graph = graphComponent.getGraph();
 				FileFilter selectedFilter = null;
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(".vmsm",
-						"VariaMos-SystemModel " + mxResources.get("file")
-								+ " (.vmsm)");
+				String fileExtension = finalEditor.getFileExtension();
+				String extensionName = finalEditor.getExtensionName();
+				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(
+						fileExtension, extensionName + mxResources.get("file")
+								+ " (" + fileExtension + ")");
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;
@@ -673,7 +675,7 @@ public class EditorActions {
 								.createHtmlDocument(graph, null, 1, null, null)
 								.getDocumentElement()), filename);
 					} else if (ext.equalsIgnoreCase("mxe")
-							|| ext.equalsIgnoreCase("vmsm")
+							|| ext.equalsIgnoreCase(fileExtension)
 							|| ext.equalsIgnoreCase("xml")) {
 						FileTasks.saveAction(FileTasks.SAVE, filename, ext,
 								(VariamosGraphEditor) editor, graph);
@@ -1509,10 +1511,14 @@ public class EditorActions {
 
 						JFileChooser fc = new JFileChooser(wd);
 
+						final String fileExtension = finalEditor
+								.getFileExtension();
+						final String fileExtensionName = finalEditor
+								.getExtensionName();
 						// Adds file filter for supported file format
 						DefaultFileFilter defaultFilter = new DefaultFileFilter(
-								".vmsm", mxResources.get("defaultExtension")
-										+ " (.vmsm)") {
+								"." + fileExtension, fileExtensionName + " (."
+										+ fileExtension + ")") {
 
 							public boolean accept(File file) {
 								String lcase = file.getName().toLowerCase();
@@ -1522,7 +1528,7 @@ public class EditorActions {
 								return super.accept(file)
 								// || lcase.endsWith(".png")
 								// || lcase.endsWith(".vdx")
-										|| lcase.endsWith(".vmsm");
+										|| lcase.endsWith("." + fileExtension);
 							}
 						};
 						fc.addChoosableFileFilter(defaultFilter);
@@ -1567,7 +1573,8 @@ public class EditorActions {
 													.getAbsolutePath()));
 								}
 								if (fc.getSelectedFile().getAbsolutePath()
-										.toLowerCase().endsWith(".vmsm")) {
+										.toLowerCase()
+										.endsWith("." + fileExtension)) {
 									FileTasks
 											.openAction(
 													FileTasks.OPEN,

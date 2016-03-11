@@ -198,10 +198,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										attributeValue = (Integer) instAttribute
 												.getValue();
 								}
-								if (type.equals("String")) {
-									attributeValue = ((String) instAttribute
-											.getValue()).hashCode();
-								}
+								// if (type.equals("String")) {
+								// attributeValue = ((String) instAttribute
+								// .getValue()).hashCode();
+								// }
 								InstanceExpression instanceExpression = new InstanceExpression(
 										true, "t", true);
 								instanceExpression
@@ -212,10 +212,18 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								instanceExpression
 										.setLeftAttributeName(instAttribute
 												.getIdentifier());
-								instanceExpression
-										.setRightNumber(attributeValue);
-								instanceExpression
-										.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+								if (type.equals("String")) {
+									instanceExpression
+											.setRightValue((String) instAttribute
+													.getValue());
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
+								} else {
+									instanceExpression
+											.setRightNumber(attributeValue);
+									instanceExpression
+											.setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+								}
 								out.add(instanceExpression);
 							}
 						}

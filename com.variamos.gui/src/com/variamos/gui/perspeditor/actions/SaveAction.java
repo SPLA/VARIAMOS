@@ -65,7 +65,7 @@ public class SaveAction extends AbstractEditorAction {
 	 * 
 	 */
 	protected void resetEditor(VariamosGraphEditor editor) {
-	//	editor.setVisibleModel(0, -1);
+		// editor.setVisibleModel(0, -1);
 		editor.setDefaultButton();
 		editor.updateView();
 		editor.setModified(false);
@@ -149,6 +149,8 @@ public class SaveAction extends AbstractEditorAction {
 			// "VML " + mxResources.get("file") + " (.html)");
 			String filename = null;
 			boolean dialogShown = false;
+			final String fileExtension = finalEditor.getFileExtension();
+			final String fileExtensionName = finalEditor.getExtensionName();
 
 			if (showDialog || editor.getCurrentFile() == null) {
 				String wd;
@@ -164,8 +166,9 @@ public class SaveAction extends AbstractEditorAction {
 				JFileChooser fc = new JFileChooser(wd);
 
 				// Adds the default file format
-				FileFilter defaultFilter = new DefaultFileFilter(".vmsm",
-						mxResources.get("defaultExtension") + " (.vmsm)");
+				FileFilter defaultFilter = new DefaultFileFilter("."
+						+ fileExtension, fileExtensionName + " (."
+						+ fileExtension + ")");
 				fc.addChoosableFileFilter(defaultFilter);
 
 				fc.addChoosableFileFilter(new DefaultFileFilter(".sxfm",
@@ -271,31 +274,28 @@ public class SaveAction extends AbstractEditorAction {
 					// ProductLineGraph plGraph = (ProductLineGraph)graph;
 					// generatePrologFile(plGraph.getProductLine(), filename);
 					generatePrologFile(pl, filename);
-				} else if (ext.equalsIgnoreCase("vmsm")
+				} else if (ext.equalsIgnoreCase(fileExtension)
 						|| ext.equalsIgnoreCase("xml")) {
-					
+
 					FileTasks.saveAction(FileTasks.SAVE, filename, ext,
 							(VariamosGraphEditor) editor, graph);
-/*
-					mxGraph outGraph = SharedActions.beforeGraphOperation(
-							graph, true, editor.getModelViewIndex(),
-							editor.getModelSubViewIndex());
-					mxCodec codec = new mxCodec();
-					String xml = mxXmlUtils.getXml(codec.encode(outGraph
-							.getModel()));
-					mxUtils.writeFile(xml, filename);
-					String file = filename.substring(0,
-							filename.lastIndexOf('.'));
-					file += ".backup."+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+"."+ext;
-					mxUtils.writeFile(xml, file);
-					SharedActions.afterSaveGraph(graph, editor);
-					editor.updateObjects();
-					editor.setVisibleModel(0, -1);
-					editor.setDefaultButton();
-					editor.setModified(false);
-					*/
+					/*
+					 * mxGraph outGraph = SharedActions.beforeGraphOperation(
+					 * graph, true, editor.getModelViewIndex(),
+					 * editor.getModelSubViewIndex()); mxCodec codec = new
+					 * mxCodec(); String xml =
+					 * mxXmlUtils.getXml(codec.encode(outGraph .getModel()));
+					 * mxUtils.writeFile(xml, filename); String file =
+					 * filename.substring(0, filename.lastIndexOf('.')); file +=
+					 * ".backup."+ new
+					 * SimpleDateFormat("yyyyMMddHHmmss").format(new
+					 * Date())+"."+ext; mxUtils.writeFile(xml, file);
+					 * SharedActions.afterSaveGraph(graph, editor);
+					 * editor.updateObjects(); editor.setVisibleModel(0, -1);
+					 * editor.setDefaultButton(); editor.setModified(false);
+					 */
 					editor.setCurrentFile(new File(filename));
-					
+
 				} else {
 					Color bg = null;
 
@@ -344,9 +344,12 @@ public class SaveAction extends AbstractEditorAction {
 				XMLFeatureModel.USE_VARIABLE_NAME_AS_ID);
 		featureModel.loadModel();
 
-	/*	FeatureModelSPLOTransformer transformer = new FeatureModelSPLOTransformer();
-		mxUtils.writeFile(transformer.getPrologString(featureModel,
-				PrologEditorType.GNU_PROLOG), filename);*/
+		/*
+		 * FeatureModelSPLOTransformer transformer = new
+		 * FeatureModelSPLOTransformer();
+		 * mxUtils.writeFile(transformer.getPrologString(featureModel,
+		 * PrologEditorType.GNU_PROLOG), filename);
+		 */
 	}
 
 }

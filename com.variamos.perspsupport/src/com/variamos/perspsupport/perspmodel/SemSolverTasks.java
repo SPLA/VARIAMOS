@@ -51,6 +51,10 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 	private boolean invalidConfigHlclProgram;
 	private List<String> outVariables = null;
 
+	public List<String> getOutVariables() {
+		return outVariables;
+	}
+
 	public String getErrorTitle() {
 		return errorTitle;
 	}
@@ -395,7 +399,6 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 		long iniTime = System.currentTimeMillis();
 		boolean result = false;
-		List<String> outVariables = null;
 		setProgress(10);
 		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
@@ -440,7 +443,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 				} else {
 					if (firstSimulExec || lastConfiguration == null) {
 						switch (operationIdentifier) {
-						case "s":
+						case "simulation":
 							errorMessage = "Last changes on the model makes it inconsistent."
 									+ " \n Please review the restrictions defined and "
 									+ "try again. \nModel visual representation was not updated.";

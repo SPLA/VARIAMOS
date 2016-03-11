@@ -179,15 +179,22 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 
 	public SemanticExpression(String identifier,
 			SemanticExpressionType semanticExpressionType,
-			InstElement leftSemanticElement, String leftAttributeName,
-			int rightNumber) {
+			InstElement leftSemanticElement, String attributeName,
+			boolean replaceRight, int number) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.setLeftSemanticElement(leftSemanticElement);
-		this.leftAttributeName = leftAttributeName;
-		this.rightNumber = rightNumber;
-		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
-		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+		if (replaceRight) {
+			this.leftAttributeName = attributeName;
+			this.rightNumber = number;
+			setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
+			setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
+		} else {
+			this.rightAttributeName = attributeName;
+			this.leftNumber = number;
+			setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
+			setLeftExpressionType(ExpressionVertexType.LEFTNUMERICVALUE);
+		}
 	}
 
 	public SemanticExpression(String identifier,
@@ -551,6 +558,10 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 	}
 
 	public void loadVolatileElements(Map<String, InstElement> instVertices) {
+		if (leftSemanticExpression != null)
+			leftSemanticExpression.loadVolatileElements(instVertices);
+		if (rightSemanticExpression != null)
+			rightSemanticExpression.loadVolatileElements(instVertices);
 		if (semElemId != null)
 			volSemElement = instVertices.get(semElemId);
 		if (leftExpTypeStr != null)
@@ -570,10 +581,6 @@ public class SemanticExpression implements Serializable, IntSemanticExpression {
 		if (rightSemanticRelElementId != null)
 			volatileRightSemanticRelElement = instVertices
 					.get(rightSemanticRelElementId);
-		if (leftSemanticExpression != null)
-			leftSemanticExpression.loadVolatileElements(instVertices);
-		if (rightSemanticExpression != null)
-			rightSemanticExpression.loadVolatileElements(instVertices);
 	}
 
 	public String getLeftExpTypeStr() {

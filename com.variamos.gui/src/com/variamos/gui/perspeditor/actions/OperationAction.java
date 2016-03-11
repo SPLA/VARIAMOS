@@ -27,7 +27,14 @@ public class OperationAction extends AbstractEditorAction {
 			int i = ((MainFrame) editor).getPerspective();
 			vg = ((MainFrame) editor).getEditor(i);
 		}
+		String operation = (String) ((JMenuItem) e.getSource()).getName();
 
-		vg.executeOperation((String) (((JMenuItem) e.getSource())).getName());
+		vg.executeOperation(operation);
+
+		if (operation.startsWith("N:")) {
+			vg.editPropertiesRefas();
+			vg.updateDashBoard(false, true);
+			vg.updateSimulResults();
+		}
 	}
 }

@@ -675,28 +675,28 @@ public class SharedActions {
 				}
 			}
 			int semAtt = 0;
-			if (instVertex.getTransSupportMetaElement().getAllAttributesNames(
-					parents) != null)
-				semAtt = instVertex.getTransSupportMetaElement()
-						.getAllAttributesNames(parents).size();
+			MetaElement supportMetaElement = instVertex
+					.getTransSupportMetaElement();
+			Set<String> attributeNames = supportMetaElement
+					.getAllAttributesNames(parents);
+			if (attributeNames != null)
+				semAtt = attributeNames.size();
 			if (instVertex.getInstAttributes().size() < semAtt) {
 				// TODO modify to support syntax attributes changes
-				for (String attributeName : instVertex
-						.getTransSupportMetaElement().getAllAttributesNames(
-								parents)) {
+				for (String attributeName : attributeNames) {
 					if (instVertex.getInstAttribute(attributeName) == null
-							&& instVertex.getTransSupportMetaElement()
+							&& supportMetaElement
 									.getSemanticAttribute(attributeName) != null) {
-						instVertex.addInstAttribute(attributeName, instVertex
-								.getTransSupportMetaElement()
-								.getSemanticAttribute(attributeName), null);
+						instVertex.addInstAttribute(attributeName,
+								supportMetaElement
+										.getSemanticAttribute(attributeName),
+								null);
 						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					} else if (instVertex.getInstAttribute(attributeName) == null) {
-						instVertex.addInstAttribute(attributeName, instVertex
-								.getTransSupportMetaElement()
-								.getModelingAttribute(attributeName, parents),
-								null);
+						instVertex.addInstAttribute(attributeName,
+								supportMetaElement.getModelingAttribute(
+										attributeName, parents), null);
 						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}

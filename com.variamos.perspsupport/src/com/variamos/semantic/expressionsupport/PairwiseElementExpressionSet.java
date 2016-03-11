@@ -357,9 +357,9 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				sourcePositiveAttributeNames.add("Selected");
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out21 = new EqualsComparisonExpression(
-						instPairwiseRelation, "level", getHlclFactory().number(
-								(Integer) instPairwiseRelation
-										.getInstAttribute("level")
+						instPairwiseRelation, "CLSGLevel", getHlclFactory()
+								.number((Integer) instPairwiseRelation
+										.getInstAttribute("CLSGLevel")
 										.getAsInteger()));
 				getElementExpressions().add(out21);
 				allList.add(out21);
@@ -376,16 +376,16 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 					out22 = new GreaterOrEqualsBooleanExpression(
 							instPairwiseRelation.getTargetRelations().get(0),
-							instPairwiseRelation, "ClaimExpLevel", "level");
+							instPairwiseRelation, "ClaimExpLevel", "CLSGLevel");
 				} else if (satisficingType.contains("high")) {
 
 					out22 = new LessOrEqualsBooleanExpression(
 							instPairwiseRelation.getTargetRelations().get(0),
-							instPairwiseRelation, "ClaimExpLevel", "level");
+							instPairwiseRelation, "ClaimExpLevel", "CLSGLevel");
 				} else {
 					out22 = new EqualsComparisonExpression(instPairwiseRelation
 							.getTargetRelations().get(0), instPairwiseRelation,
-							"ClaimExpLevel", "level");
+							"ClaimExpLevel", "CLSGLevel");
 				}
 				AbstractBooleanExpression out23 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),

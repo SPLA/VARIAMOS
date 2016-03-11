@@ -23,7 +23,7 @@ public class SoftSemanticConcept extends AbstractSemanticVertex {
 			VAR_SATISFICINGTYPENAME = "satisficing Type",
 			VAR_SATISFICINGTYPECLASS = SatisficingType.class.getCanonicalName(),
 			VAR_CONFREQLEVELTYPE = "ConfigReqLevel",
-			VAR_CONFREQLEVELTYPENAME = "Satisficing Level",
+			VAR_CONFREQLEVELTYPENAME = "Satisficing Req. Level",
 			VAR_CONFREQLEVELTYPECLASS = LevelType.class.getCanonicalName();
 
 	public SoftSemanticConcept() {
