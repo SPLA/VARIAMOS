@@ -71,7 +71,8 @@ public abstract class AbstractExpression {
 			if (vertex != null) {
 				this.leftVertex = vertex;
 				this.leftAttributeName = attributeName;
-				this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
+				this.expressionVertexTypes
+						.add(ExpressionVertexType.LEFTVARIABLE);
 			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.RIGHTSUBEXPRESSION);
@@ -80,7 +81,8 @@ public abstract class AbstractExpression {
 			if (vertex != null) {
 				this.rightVertex = vertex;
 				this.rightAttributeName = attributeName;
-				this.expressionVertexTypes.add(ExpressionVertexType.RIGHTVARIABLE);
+				this.expressionVertexTypes
+						.add(ExpressionVertexType.RIGHTVARIABLE);
 			}
 			this.expressionVertexTypes
 					.add(ExpressionVertexType.LEFTSUBEXPRESSION);
@@ -204,12 +206,17 @@ public abstract class AbstractExpression {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
 			for (InstElement relation : instVertex.getSourceRelations()) {
+				// FIXME implement a dynamic definition for this validation
 				if (((InstPairwiseRelation) relation)
 						.getInstAttribute(SemanticPairwiseRelation.VAR_LEVEL) != null)
 					values.add(((InstPairwiseRelation) relation)
 							.getInstAttribute(
 									SemanticPairwiseRelation.VAR_LEVEL)
 							.getAsInteger());
+				if (((InstPairwiseRelation) relation)
+						.getInstAttribute("CLSGLevel") != null)
+					values.add(((InstPairwiseRelation) relation)
+							.getInstAttribute("CLSGLevel").getAsInteger());
 				if (((InstPairwiseRelation) relation)
 						.getInstAttribute(SemanticPairwiseRelation.VAR_TARGET_LEVEL) != null)
 					values.add(((InstPairwiseRelation) relation)
