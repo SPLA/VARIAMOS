@@ -112,9 +112,11 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		}
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
-			if (subOper.getIdentifier().equals(subAction))
+			if (subOper.getIdentifier().equals(subAction)) {
 				operSubAction = (OpersSubOperation) subOper
 						.getEditableSemanticElement();
+				break;
+			}
 		}
 
 		/*
@@ -136,6 +138,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstElement instE : refas.getElements()) {
 						out.addAll(createElementInstanceExpressions(instE,
 								semExp));
+						if (out.size() == 0) {
+							instanceExpressions.put(subAction + "-"
+									+ expressionType, out);
+							return;
+						}
+
 						for (InstAttribute att : instE.getInstAttributes()
 								.values()) {
 							// create instance expressions for conditional

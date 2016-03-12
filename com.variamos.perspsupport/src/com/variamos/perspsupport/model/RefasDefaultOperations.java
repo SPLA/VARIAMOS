@@ -163,12 +163,16 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0,
 				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				refasModel.getIdentifier(), attribute.getName(), true));
 		refasModel.putSemanticAttribute("TotalOrder", attribute);
 
 		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0,
 				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				refasModel.getIdentifier(), attribute.getName(), true));
 		refasModel.putSemanticAttribute("TotalOpt", attribute);
 
 		InstVertex instRefasModel = new InstConcept("REFAS", metaModel,
@@ -1541,7 +1545,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("True", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1551,7 +1559,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("False", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1561,7 +1573,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("Selected", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -1571,7 +1587,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("NotAvailable", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1596,7 +1616,11 @@ public class RefasDefaultOperations {
 				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
 				"", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("Scope", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1616,7 +1640,11 @@ public class RefasDefaultOperations {
 				AttributeType.OPERATION, false, "Is a Core Concept", false, 2,
 				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("Core", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1626,7 +1654,11 @@ public class RefasDefaultOperations {
 				AttributeType.OPERATION, false, "Is a Dead Concept", false, 2,
 				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		semGeneralElement.putSemanticAttribute("Dead", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1695,7 +1727,11 @@ public class RefasDefaultOperations {
 				false, 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConfigSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -1705,7 +1741,11 @@ public class RefasDefaultOperations {
 				false, 2, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("ConfigNotSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -1774,14 +1814,22 @@ public class RefasDefaultOperations {
 				new RangeDomain(0, 20), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Opt", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ExecCurrentStateAttribute("Order", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "SortVariable", 0,
 				new RangeDomain(0, 40), 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("Order", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ExecCurrentStateAttribute("NextNotSelected", "Boolean",
@@ -1796,7 +1844,11 @@ public class RefasDefaultOperations {
 				"Selected by configuration", false, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -1808,7 +1860,11 @@ public class RefasDefaultOperations {
 		semGeneralElement
 				.putSemanticAttribute("NextNotPrefSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -1818,7 +1874,11 @@ public class RefasDefaultOperations {
 				"Selected by simulation", false, 0, -1, "", "", -1, "", "");
 		semGeneralElement.putSemanticAttribute("NextReqSelected", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
@@ -1887,7 +1947,11 @@ public class RefasDefaultOperations {
 				AttributeType.OPERATION, true, "Is a Root Feature Concept",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semFeature.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semFeature
+				.getIdentifier(), attribute.getName(), true));
 		semFeature.putSemanticAttribute("IsRootFeature", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(semFeature
@@ -2033,6 +2097,12 @@ public class RefasDefaultOperations {
 		semOperationalization
 				.addPropEditableAttribute("06#" + "attributeValue");
 
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
+				semOperationalization.getIdentifier(), "Selected", true));
+
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semOperationalization.getIdentifier(), "Selected", false));
+
 		InstVertex instVertexOper = new InstConcept("Operationalization",
 				metaConcept, semOperationalization);
 		refas.getVariabilityVertex().put("Operationalization", instVertexOper);
@@ -2047,6 +2117,12 @@ public class RefasDefaultOperations {
 		OpersSoftConcept semSoftgoal = new OpersSoftConcept(semGeneralElement,
 				"Softgoal");
 
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), "Selected", true));
+
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), "Selected", false));
+
 		StringDomain d = new StringDomain();
 		d.add("low");
 		d.add("high");
@@ -2056,7 +2132,11 @@ public class RefasDefaultOperations {
 				0, 10, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(semSoftgoal
 				.getIdentifier(), attribute.getName(), true));
@@ -2080,7 +2160,11 @@ public class RefasDefaultOperations {
 		semSoftgoal.putSemanticAttribute(OpersSoftConcept.VAR_CONFREQLEVELTYPE,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(semSoftgoal
 				.getIdentifier(), attribute.getName(), true));
@@ -2184,7 +2268,11 @@ public class RefasDefaultOperations {
 				0, new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 		semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling2.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling1.addAttribute(attribute);
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -2195,7 +2283,11 @@ public class RefasDefaultOperations {
 				"", -1, "", "");
 		semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling2.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftgoal.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling1.addAttribute(attribute);
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semSoftgoal
+				.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -2214,6 +2306,12 @@ public class RefasDefaultOperations {
 		instEdge.setSourceRelation(instVertexSG, true);
 
 		OpersVariable semVariable = new OpersVariable("Variable");
+
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), "NotAvailable", true));
+
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), "NotAvailable", false));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -2252,7 +2350,11 @@ public class RefasDefaultOperations {
 				"", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(semVariable
 				.getIdentifier(), attribute.getName(), true));
@@ -2309,7 +2411,11 @@ public class RefasDefaultOperations {
 				OpersVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute(OpersVariable.VAR_VALUE, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling1.addAttribute(attribute);
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new SemanticAttribute(OpersVariable.VAR_CONTEXT, "Boolean",
 				AttributeType.OPERATION, false, OpersVariable.VAR_CONTEXTNAME,
@@ -2353,6 +2459,8 @@ public class RefasDefaultOperations {
 		semVariable.putSemanticAttribute(
 				OpersVariable.VAR_VARIABLECONFIGDOMAIN, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		// simsceExecOperLabeling1.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
@@ -2683,7 +2791,11 @@ public class RefasDefaultOperations {
 				0, -1, "", "", -1, "", "");
 		semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semClaim.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
+				.getIdentifier(), attribute.getName(), true));
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new GlobalConfigAttribute("CompExp", "Boolean",
@@ -2780,7 +2892,12 @@ public class RefasDefaultOperations {
 				0, -1, "", "", -1, "", "");
 		semSoftDependency.putSemanticAttribute("ConditionalExpression",
 				attribute);
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semSoftDependency.getIdentifier(), attribute.getName(), true));
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new SemanticAttribute("SDExpression", "String",
@@ -2902,7 +3019,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
 		semGeneralGroup.putSemanticAttribute("True", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -2912,7 +3033,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
 		semGeneralGroup.putSemanticAttribute("False", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -2922,7 +3047,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
 		semGeneralGroup.putSemanticAttribute("Selected", attribute);
 		simulOperationSubAction.addOutVariable(attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -2932,7 +3061,11 @@ public class RefasDefaultOperations {
 				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semGeneralGroup.getIdentifier(), attribute.getName(), true));
 		semGeneralGroup.putSemanticAttribute("NotAvailable", attribute);
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -4013,7 +4146,11 @@ public class RefasDefaultOperations {
 		directSGSGSemEdge.putSemanticAttribute(
 				OpersPairwiseRel.VAR_SOURCE_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		attribute = new SemanticAttribute(OpersPairwiseRel.VAR_TARGET_LEVEL,
 				"Integer", AttributeType.OPERATION,
@@ -4022,14 +4159,22 @@ public class RefasDefaultOperations {
 		directSGSGSemEdge.putSemanticAttribute(
 				OpersPairwiseRel.VAR_TARGET_LEVEL, attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		attribute = new SemanticAttribute("AggregationLow", "Integer",
 				AttributeType.OPERATION, false, "Aggregation Low", 0, 0, -1,
 				"", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGSGSemEdge.addPanelVisibleAttribute("07#" + "AggregationLow");
 
@@ -4045,7 +4190,11 @@ public class RefasDefaultOperations {
 				"", "", -1, "", "");
 		directSGSGSemEdge.putSemanticAttribute("AggregationHigh", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directSGSGSemEdge.getIdentifier(), attribute.getName(), true));
 
 		directSGSGSemEdge.addPanelVisibleAttribute("08#" + "AggregationHigh");
 
@@ -4786,11 +4935,17 @@ public class RefasDefaultOperations {
 				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
 		directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directClaimSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
 
 		directClaimSGSemanticEdge.addPropEditableAttribute("08#" + "CLSGLevel");
 		directClaimSGSemanticEdge.addPropVisibleAttribute("08#" + "CLSGLevel");
@@ -4908,11 +5063,17 @@ public class RefasDefaultOperations {
 		directSDSGSemanticEdge.putSemanticAttribute(OpersPairwiseRel.VAR_LEVEL,
 				attribute);
 		simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
 		simulOperationSubAction.addInVariable(attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
 				true));
-		simsceExecOperLabeling1.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(attribute);
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				directSDSGSemanticEdge.getIdentifier(), attribute.getName(),
+				true));
 
 		directSDSGSemanticEdge.addPropEditableAttribute("08#"
 				+ OpersPairwiseRel.VAR_LEVEL);

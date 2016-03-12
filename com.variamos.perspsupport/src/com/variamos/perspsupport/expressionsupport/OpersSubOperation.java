@@ -157,7 +157,7 @@ public class OpersSubOperation extends OpersAbstractElement {
 		return outAttributes;
 	}
 
-	public void setOutVariables(Set<OpersIOAttribute> outVariables) {
+	public void setOutAttribute(Set<OpersIOAttribute> outVariables) {
 		this.outAttributes = outVariables;
 	}
 
