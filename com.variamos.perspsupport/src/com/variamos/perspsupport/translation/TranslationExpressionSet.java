@@ -25,7 +25,6 @@ import com.variamos.perspsupport.opers.OpersOverTwoRel;
 import com.variamos.perspsupport.opers.OpersPairwiseRel;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.staticexpr.ElementExpressionSet;
@@ -329,17 +328,20 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 					List<Identifier> ident = new ArrayList<Identifier>();
 					for (InstElement instE : refas.getElements()) {
-						for (AbstractAttribute var : operLab.getVariables()) {
-							InstAttribute instAttribute = instE
-									.getInstAttribute(var.getName());
-							if (instAttribute != null
-									&& instAttribute.getAttribute() == var) {
+						for (InstAttribute var : instE.getInstAttributes()
+								.values()) {
+							int attributeValue = 0;
+							if (operLab.validateAttribute(instE
+									.getTransSupportMetaElement()
+									.getTransInstSemanticElement(), var
+									.getAttributeName()) == 1) {
 								Identifier id = f.newIdentifier(instE
 										.getIdentifier()
 										+ "_"
-										+ instAttribute.getAttributeName());
+										+ var.getAttributeName());
 								// id.setDomain();
-								InstanceExpression.updateDomain(var, instE, id);
+								InstanceExpression.updateDomain(
+										var.getAttribute(), instE, id);
 								ident.add(id);
 							}
 						}

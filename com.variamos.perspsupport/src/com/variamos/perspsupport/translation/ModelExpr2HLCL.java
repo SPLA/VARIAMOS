@@ -419,94 +419,90 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	}
 
 	// dynamic call implementation
-	public boolean execute(ProgressMonitor progressMonitor, String element,
-			int solutions, String operation) throws InterruptedException {
+	public int execute(ProgressMonitor progressMonitor, String element,
+			int solutions, String operation, InstElement suboper)
+			throws InterruptedException {
 		lastExecutionTime = 0;
 		if (solutions == 0 || swiSolver == null) {
 			text = "";
 			configuration = new Configuration();
 			// FIXME: execute for all sub-operations
-			InstElement oper = refas.getSyntaxModel().getOperationalModel()
-					.getElement(operation);
 
-			for (InstElement operpair : oper.getTargetRelations()) {
-				InstElement suboper = operpair.getTargetRelations().get(0);
+			TranslationExpressionSet transExpSet = new TranslationExpressionSet(
+					refas, operation, null, null);
+			HlclProgram exp = getHlclProgram(element, operation,
+					suboper.getIdentifier(), OperationSubActionExecType.NORMAL,
+					transExpSet);
+			if (exp.size() > 1) {
 
-				TranslationExpressionSet transExpSet = new TranslationExpressionSet(
-						refas, operation, null, null);
-				HlclProgram exp = getHlclProgram(element, operation,
-						(String) suboper.getIdentifier(),
-						OperationSubActionExecType.NORMAL, transExpSet);
-				if (exp.size() > 1) {
+				hlclProgram = exp;
+				// Set<Identifier> identifiers = new TreeSet<Identifier>();
+				// for (Expression exp : hlclProgram) {
+				// // System.out.println(HlclUtil.getUsedIdentifiers(exp));
+				// identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
+				// text += exp + "\n";
+				// }
+				// if (swiSolver != null)
+				// swiSolver.close();
+				swiSolver = new SWIPrologSolver(hlclProgram);
+				if (progressMonitor != null && progressMonitor.isCanceled())
+					throw (new InterruptedException());
+				try {
+					ConfigurationOptions configurationOptions = new ConfigurationOptions();
+					switch (operation) {
+					case "Simulation":/*
+									 * Refas2Hlcl.SIMUL_EXEC: case
+									 * Refas2Hlcl.SIMUL_EXPORT: case
+									 * Refas2Hlcl.SIMUL_MAPE:
+									 */
 
-					hlclProgram = exp;
-					// Set<Identifier> identifiers = new TreeSet<Identifier>();
-					// for (Expression exp : hlclProgram) {
-					// // System.out.println(HlclUtil.getUsedIdentifiers(exp));
-					// identifiers.addAll(HlclUtil.getUsedIdentifiers(exp));
-					// text += exp + "\n";
-					// }
-					// if (swiSolver != null)
-					// swiSolver.close();
-					swiSolver = new SWIPrologSolver(hlclProgram);
-					if (progressMonitor != null && progressMonitor.isCanceled())
-						throw (new InterruptedException());
-					try {
-						ConfigurationOptions configurationOptions = new ConfigurationOptions();
-						switch (operation) {
-						case "Simulation":/*
-										 * Refas2Hlcl.SIMUL_EXEC: case
-										 * Refas2Hlcl.SIMUL_EXPORT: case
-										 * Refas2Hlcl.SIMUL_MAPE:
-										 */
-
-						}
-						configurationOptions.setLabelings(transExpSet
-								.getLabelings(refas, "Sim-Execution",
-										OperationSubActionExecType.NORMAL));
-						configurationOptions.setOrder(true);
-
-						configurationOptions.setOrder(true);
-						configurationOptions.setStartFromZero(true);
-						OpersLabeling operLab = null;
-						for (InstElement rel : suboper.getTargetRelations()) {
-							InstElement instOperLab = rel.getTargetRelations()
-									.get(0);
-							operLab = (OpersLabeling) instOperLab
-									.getEditableSemanticElement();
-						}
-						configurationOptions.setLabelingOrder(operLab
-								.getLabelingOrderList());
-						configurationOptions.setOrderExpressions(operLab
-								.getOrderExpressionList());
-
-						swiSolver.solve(new Configuration(),
-								configurationOptions);
-
-						lastExecutionTime = swiSolver.getLastExecutionTime();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						System.out.println("No solution");
-						return false;
 					}
+					configurationOptions.setLabelings(transExpSet.getLabelings(
+							refas, "Sim-Execution",
+							OperationSubActionExecType.NORMAL));
+					configurationOptions.setOrder(true);
+
+					configurationOptions.setOrder(true);
+					configurationOptions.setStartFromZero(true);
+					OpersLabeling operLab = null;
+					for (InstElement rel : suboper.getTargetRelations()) {
+						InstElement instOperLab = rel.getTargetRelations().get(
+								0);
+						operLab = (OpersLabeling) instOperLab
+								.getEditableSemanticElement();
+					}
+					configurationOptions.setLabelingOrder(operLab
+							.getLabelingOrderList());
+					configurationOptions.setOrderExpressions(operLab
+							.getOrderExpressionList());
+
+					swiSolver.solve(new Configuration(), configurationOptions);
+
+					lastExecutionTime = swiSolver.getLastExecutionTime();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					System.out.println("No solution");
+					return -1;
 				}
-			}
+			} else
+				return 0;
 		}
+
 		if (progressMonitor != null && progressMonitor.isCanceled())
-			return false;
+			return -1;
 
 		if (solutions == 0 || solutions == 1) {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
 				lastExecutionTime += swiSolver.getLastExecutionTime();
 				if (configuration == null)
-					return false;
+					return -1;
 			}
 		} else
 			throw new RuntimeException("Solution parameter not supported");
 		// System.out.println("configuration: " + configuration.toString());
 
-		return true;
+		return 1;
 	}
 
 	// static call implementation

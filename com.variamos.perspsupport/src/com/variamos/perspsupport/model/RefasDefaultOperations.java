@@ -214,7 +214,8 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		OpersSubOperation operationSubAction = new OpersSubOperation(1,
-				"Sim-Pre-Validation", OperationSubActionType.VERIFICATION);
+				"Sim-Pre-Validation", false,
+				OperationSubActionType.VERIFICATION);
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -258,7 +259,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(2, "Sim-Pre-Update",
+		operationSubAction = new OpersSubOperation(2, "Sim-Pre-Update", false,
 				OperationSubActionType.SINGLEUPDATE);
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -301,7 +302,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 		OpersSubOperation simulOperationSubAction = new OpersSubOperation(3,
-				"Sim-Execution", OperationSubActionType.ITERATIVEUPDATE);
+				"Sim-Execution", true, OperationSubActionType.ITERATIVEUPDATE);
 
 		List<IntMetaExpression> semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -365,7 +366,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 		operationSubAction = new OpersSubOperation(4, "Sim-Post-Validation",
-				OperationSubActionType.VERIFICATION);
+				false, OperationSubActionType.VERIFICATION);
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -407,7 +408,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(5, "Sim-Post-Update",
+		operationSubAction = new OpersSubOperation(5, "Sim-Post-Update", false,
 				OperationSubActionType.SINGLEUPDATE);
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
@@ -483,7 +484,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1, "SimSce-Pre-Validation",
-				OperationSubActionType.VERIFICATION);
+				false, OperationSubActionType.VERIFICATION);
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -526,7 +527,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 		operationSubAction = new OpersSubOperation(2, "SimSce-Pre-Update",
-				OperationSubActionType.SINGLEUPDATE);
+				false, OperationSubActionType.SINGLEUPDATE);
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -568,7 +569,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(3, "SimSce-Execution",
+		operationSubAction = new OpersSubOperation(3, "SimSce-Execution", true,
 				OperationSubActionType.ITERATIVEUPDATE);
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -625,7 +626,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(4, "SimSce-Post-Validation",
+		operationSubAction = new OpersSubOperation(4, "SimSce-Post-Validation",false,
 				OperationSubActionType.VERIFICATION);
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
@@ -668,7 +669,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(5, "SimSce-Post-Update",
+		operationSubAction = new OpersSubOperation(5, "SimSce-Post-Update",false,
 				OperationSubActionType.SINGLEUPDATE);
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -740,7 +741,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "UpdateCoreSubOper",
+		operationSubAction = new OpersSubOperation(1, "UpdateCoreSubOper",false,
 				OperationSubActionType.SINGLEUPDATE);
 		// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -802,7 +803,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"VerifyDeadElementsSubOper",
+				"VerifyDeadElementsSubOper",false,
 				OperationSubActionType.VERIFICATION);
 		// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -872,7 +873,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "VerifyParentsSubOper",
+		operationSubAction = new OpersSubOperation(1, "VerifyParentsSubOper",false,
 				OperationSubActionType.VERIFICATION);
 		// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -942,7 +943,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "VerifyRootsSubOper",
+		operationSubAction = new OpersSubOperation(1, "VerifyRootsSubOper",false,
 				OperationSubActionType.VERIFICATION);
 		// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
@@ -1014,7 +1015,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"VerifyFalseSubOperations", OperationSubActionType.VERIFICATION);
+				"VerifyFalseSubOperations",false, OperationSubActionType.VERIFICATION);
 		// operationSubAction.addOperationLabeling(new
 		// OperationLabeling("unique",
 		// "L1", 1, false, null, null));
@@ -1097,7 +1098,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"ConfigureTemporalSubOper", OperationSubActionType.SINGLEUPDATE);
+				"ConfigureTemporalSubOper",false, OperationSubActionType.SINGLEUPDATE);
 		// operationSubAction.addOperationLabeling(new
 		// OperationLabeling("unique",
 		// "L1", 1, false, null, null));
@@ -1161,7 +1162,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"ConfigurePermanentSubOper",
+				"ConfigurePermanentSubOper",false,
 				OperationSubActionType.SINGLEUPDATE);
 		// configPermanentOperationAction.addExpressionSubAction(operationSubAction);
 

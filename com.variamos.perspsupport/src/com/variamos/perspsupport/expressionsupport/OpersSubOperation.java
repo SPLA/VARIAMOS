@@ -22,13 +22,15 @@ import com.variamos.perspsupport.types.OperationSubActionType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class OpersSubOperation extends OpersAbstractElement {
+public class OpersSubOperation extends OpersAbstractElement implements
+		Comparable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
+	private boolean iterable;
 	private List<OpersSubOperationExpType> operationSubActionExpTypes;
 	private Set<OpersIOAttribute> inAttributes;
 	private Set<OpersIOAttribute> outAttributes;
@@ -38,10 +40,11 @@ public class OpersSubOperation extends OpersAbstractElement {
 	// private List<OperationLabeling> operationLabelings;
 	private OperationSubActionType operationSubActionType;
 
-	public OpersSubOperation(int position, String identifier,
+	public OpersSubOperation(int position, String identifier, boolean iterable,
 			OperationSubActionType operationSubActionType) {
 		super(identifier);
 		this.position = position;
+		this.iterable = iterable;
 		this.operationSubActionType = operationSubActionType;
 		operationSubActionExpTypes = new ArrayList<OpersSubOperationExpType>();
 		// operationLabelings = new ArrayList<OperationLabeling>();
@@ -235,5 +238,20 @@ public class OpersSubOperation extends OpersAbstractElement {
 		if (include < exclude)
 			return 1;
 		return -1;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		OpersSubOperation op = (OpersSubOperation) o;
+		return this.getPosition() - op.getPosition();
+
+	}
+
+	public boolean isIterable() {
+		return iterable;
+	}
+
+	public void setIterable(boolean iterable) {
+		this.iterable = iterable;
 	}
 }
