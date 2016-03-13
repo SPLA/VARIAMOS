@@ -11,6 +11,8 @@ public class PrologTransformParameters {
 	private List<Identifier> identifiers;
 	private boolean fdLabeling;
 
+	private boolean onceLabeling;
+
 	// First fail. Label the leftmost variable with smallest domain next, in
 	// order to detect infeasibility early. This is often a good strategy.
 	private boolean ff;
@@ -22,14 +24,23 @@ public class PrologTransformParameters {
 
 	public PrologTransformParameters() {
 		fdLabeling = true;
+		onceLabeling = false;
 	}
 
 	public boolean isFdLabeling() {
 		return fdLabeling;
 	}
 
+	public boolean isOnceLabeling() {
+		return onceLabeling;
+	}
+
 	public void setFdLabeling(boolean fdLabeling) {
 		this.fdLabeling = fdLabeling;
+	}
+
+	public void setOnceLabeling(boolean onceLabeling) {
+		this.onceLabeling = onceLabeling;
 	}
 
 	public boolean isOrder() {

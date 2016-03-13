@@ -458,7 +458,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 					}
 					configurationOptions.setLabelings(transExpSet.getLabelings(
-							refas, "Sim-Execution",
+							refas, suboper.getIdentifier(),
 							OperationSubActionExecType.NORMAL));
 					configurationOptions.setOrder(true);
 

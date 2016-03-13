@@ -138,9 +138,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						out.addAll(createElementInstanceExpressions(instE,
 								semExp));
 						if (out.size() == 0) {
-							instanceExpressions.put(subAction + "-"
-									+ expressionType, out);
-							return;
+							continue;
 						}
 
 						for (InstAttribute att : instE.getInstAttributes()
