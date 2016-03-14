@@ -86,6 +86,11 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 			for (PrologTransformParameters ptp : paramList) {
 
 				StringBuilder insideLabeling = new StringBuilder();
+				if (ptp.isOnceLabeling()) {
+					footerExpression.append(ONCE);
+					footerExpression.append(OPEN_PARENTHESIS);
+
+				}
 				if (ptp.isFdLabeling()) {
 					footerExpression.append(LABELING);
 
@@ -139,14 +144,20 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					}
 					footerExpression.append(ptp.getLabelId());
 					footerExpression.append(CLOSE_PARENHESIS);
+					if (ptp.isOnceLabeling()) {
+						footerExpression.append(CLOSE_PARENHESIS);
+
+					}
 					footerExpression.append(COMMA);
 					footerExpression.append(LF);
 				}
+
 			}
 			out.append(footerExpression);
 			// System.out.println(out);
 			out.deleteCharAt(out.length() - 2);
 			// System.out.println(out);
+
 			out.append(DOT);
 		}
 

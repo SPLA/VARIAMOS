@@ -2,6 +2,7 @@ package com.variamos.perspsupport.translation;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.io.configurations.ExportConfiguration;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
@@ -399,7 +401,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			String operation) {
 
 		long iniTime = System.currentTimeMillis();
-		boolean result = false;
+		int result = 0;
 		setProgress(10);
 		while (!terminated) { // use the same task for simulation iterations
 			if (!next) {
@@ -413,78 +415,99 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 			}
 			next = false;
 
-			try {
-				if (lastConfiguration == null) {
-					result = refas2hlcl.execute(progressMonitor, operation,
-							ModelExpr2HLCL.ONE_SOLUTION, operation); // type
-					outVariables = refas2hlcl.getOutVariables(operation,
-							"Sim-Execution");
-				} else {
-					result = refas2hlcl.execute(progressMonitor, operation,
-							ModelExpr2HLCL.NEXT_SOLUTION, operation); // type
-					outVariables = refas2hlcl.getOutVariables(operation,
-							"Sim-Execution");
-					// Configuration currentConfiguration = refas2hlcl
-					// .getConfiguration();
-					// if (result) {
-					// List<String> modifiedIdentifiers = compareSolutions(
-					// lastConfiguration, currentConfiguration);
-					// System.out.println(modifiedIdentifiers);
-					// }
-				}
-				if (result) {
-					lastConfiguration = refas2hlcl.getConfiguration();
-					if (update) {
-						refas2hlcl.updateGUIElements(null, outVariables);
-						// messagesArea.setText(refas2hlcl.getText());
-						// bringUpTab(mxResources.get("elementSimPropTab"));
-						// editPropertiesRefas(editor.lastEditableElement);
-					}
-					correctExecution = true;
-				} else {
-					if (firstSimulExec || lastConfiguration == null) {
-						switch (operationIdentifier) {
-						case "simulation":
-							errorMessage = "Last changes on the model makes it inconsistent."
-									+ " \n Please review the restrictions defined and "
-									+ "try again. \nModel visual representation was not updated.";
-							errorTitle = "Model Verification Error";
-							correctExecution = false;
-							break;
-						case "a":
-							errorMessage = "Last change on the configuration makes the model "
-									+ "\n inconsistent. Please review the selection and "
-									+ "try again. \nAttributes values were not updated.";
-							errorTitle = "Model Configuration Error";
-							correctExecution = false;
-							break;
-						case "d":
-							errorMessage = "No solution found for this model configuration."
-									+ " \n Please review the restrictions defined and "
-									+ "try again.";
-							errorTitle = "Model Simulation Error";
-							correctExecution = false;
-							break;
-						}
-						terminated = true;
-					} else {
-						errorMessage = "No more solutions found";
-						errorTitle = "Simulation Message";
-						correctExecution = false;
-					}
-				}
-				long endTime = System.currentTimeMillis();
-				executionTime += "NormalExec: " + (endTime - iniTime) + "["
-						+ (refas2hlcl.getLastExecutionTime() / 1000000) + "]"
-						+ " -- ";
-				System.out.println(executionTime);
-			} catch (Exception e) {
-				e.printStackTrace();
+			InstElement oper = refas2hlcl.getRefas().getSyntaxModel()
+					.getOperationalModel().getElement(operation);
+			Set<OpersSubOperation> suboperations = new TreeSet<OpersSubOperation>();
+			Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
+
+			for (InstElement operpair : oper.getTargetRelations()) {
+				InstElement suboper = operpair.getTargetRelations().get(0);
+				instsuboperations.put(suboper.getIdentifier(), suboper);
+				suboperations.add((OpersSubOperation) suboper
+						.getEditableSemanticElement());
 			}
-			if (!firstSimulExec && result)
-				// Update GUI after first execution, editor not notify because
-				// the task is at 100%
-				this.refas2hlcl.updateGUIElements(null, outVariables);
+			for (OpersSubOperation suboper : suboperations) {
+				result = 0;
+				try {
+					if (lastConfiguration == null) {
+						result = refas2hlcl.execute(progressMonitor, operation,
+								ModelExpr2HLCL.ONE_SOLUTION, operation,
+								instsuboperations.get(suboper.getIdentifier())); // type
+					} else {
+						if (suboper.isIterable()) {
+							result = refas2hlcl.execute(progressMonitor,
+									operation, ModelExpr2HLCL.NEXT_SOLUTION,
+									operation, instsuboperations.get(suboper
+											.getIdentifier())); // type
+						} else
+							continue;
+						// Configuration currentConfiguration = refas2hlcl
+						// .getConfiguration();
+						// if (result) {
+						// List<String> modifiedIdentifiers = compareSolutions(
+						// lastConfiguration, currentConfiguration);
+						// System.out.println(modifiedIdentifiers);
+						// }
+					}
+					if (result == 1) {
+						outVariables = refas2hlcl.getOutVariables(operation,
+								suboper.getIdentifier());
+						lastConfiguration = refas2hlcl.getConfiguration();
+						if (update) {
+							refas2hlcl.updateGUIElements(null, outVariables);
+							// messagesArea.setText(refas2hlcl.getText());
+							// bringUpTab(mxResources.get("elementSimPropTab"));
+							// editPropertiesRefas(editor.lastEditableElement);
+						}
+						correctExecution = true;
+						long endTime = System.currentTimeMillis();
+						executionTime += "NormalExec: " + (endTime - iniTime)
+								+ "["
+								+ (refas2hlcl.getLastExecutionTime() / 1000000)
+								+ "]" + " -- ";
+						System.out.println(executionTime);
+					} else {
+						if (result == -1)
+							if (firstSimulExec && lastConfiguration == null) {
+								switch (operationIdentifier) {
+								case "simulation":
+									errorMessage = "Last changes on the model makes it inconsistent."
+											+ " \n Please review the restrictions defined and "
+											+ "try again. \nModel visual representation was not updated.";
+									errorTitle = "Model Verification Error";
+									correctExecution = false;
+									break;
+								case "a":
+									errorMessage = "Last change on the configuration makes the model "
+											+ "\n inconsistent. Please review the selection and "
+											+ "try again. \nAttributes values were not updated.";
+									errorTitle = "Model Configuration Error";
+									correctExecution = false;
+									break;
+								case "d":
+									errorMessage = "No solution found for this model configuration."
+											+ " \n Please review the restrictions defined and "
+											+ "try again.";
+									errorTitle = "Model Simulation Error";
+									correctExecution = false;
+									break;
+								}
+								// terminated = true;
+							} else {
+								errorMessage = "No more solutions found";
+								errorTitle = "Simulation Message";
+								correctExecution = false;
+							}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (!firstSimulExec && result == 1)
+					// Update GUI after first execution, editor is not notify
+					// because the task is at 100%
+					this.refas2hlcl.updateGUIElements(null, outVariables);
+			}
 			task = 100;
 			setProgress((int) task);
 			this.setProgress(100);

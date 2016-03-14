@@ -456,16 +456,20 @@ public class SWIPrologSolver implements Solver {
 			ConfigurationOptions options) {
 		ArrayList<PrologTransformParameters> paramList = new ArrayList<PrologTransformParameters>();
 		for (Labeling lab : options.getLabelings()) {
-			// FIXME: review if all the initial parameters should be from the
+			// FIXME: review if all the initial parameter should be from the
 			// options or the labeling
 			PrologTransformParameters params = new PrologTransformParameters();
+
 			params.setFdLabeling(options.getMode() == ConfigurationMode.FULL);
 			params.setFf(options.isFf());
-			params.setOrder(options.isOrder());
+			params.setOnceLabeling(lab.isOnce());
+			params.setOrder((lab.getOrderExpressionList() == null && lab
+					.getLabelingOrderList() == null) ? false : true);
 			params.setLabelingOrder(lab.getLabelingOrderList());
 			params.setOrderExpressions(lab.getOrderExpressionList());
 			params.setLabelId(lab.getLabelId());
 			params.setIdentifiers(lab.getVariables());
+
 			paramList.add(params);
 		}
 

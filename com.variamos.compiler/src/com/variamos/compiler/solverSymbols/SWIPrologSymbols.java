@@ -13,6 +13,7 @@ public interface SWIPrologSymbols {
 	public static final String HEADER_END = "):-\n";
 
 	public static final String LABELING = "labeling";
+	public static final String ONCE = "once";
 	public static final String FF = "ff";
 	public static final String MIN = "min";
 	public static final String MAX = "max";

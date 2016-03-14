@@ -1,10 +1,14 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.opers.OpersAbstractElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
@@ -21,6 +25,7 @@ public class OpersLabeling extends OpersAbstractElement {
 	private boolean once;
 	private int position;
 	private List<AbstractAttribute> variables;
+	private Set<OpersIOAttribute> attributes;
 
 	public OpersLabeling(String name, String labelId, int position,
 			boolean once, List<LabelingOrder> labelingOrderList,
@@ -35,6 +40,7 @@ public class OpersLabeling extends OpersAbstractElement {
 		this.position = position;
 		this.once = once;
 		variables = new ArrayList<AbstractAttribute>();
+		attributes = new HashSet<OpersIOAttribute>();
 	}
 
 	public List<NumericExpression> getOrderExpressionList() {
@@ -105,4 +111,50 @@ public class OpersLabeling extends OpersAbstractElement {
 		this.labelId = labelId;
 	}
 
+	public Set<OpersIOAttribute> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Set<OpersIOAttribute> outVariables) {
+		this.attributes = outVariables;
+	}
+
+	public void addAttribute(OpersIOAttribute attribute) {
+		attributes.add(attribute);
+	}
+
+	// 1 include, -1 exclude, 0 unknown
+	public int validateAttribute(InstElement instElement, String attribute) {
+		int include = 99999;
+		int exclude = 99999;
+		List<String> parents = new ArrayList<String>();
+		InstElement element = instElement;
+		while (element != null) {
+			parents.add(element.getIdentifier());
+			InstElement elt = element;
+			if (elt instanceof InstPairwiseRelation)
+				break;
+			element = null;
+			for (InstElement e : elt.getTargetRelations()) {
+				if (((InstPairwiseRelation) e).getSupportMetaPairwiseRelIden()
+						.equals("ExtendsRelation")) {
+					element = e.getTargetRelations().get(0);
+				}
+			}
+		}
+		for (OpersIOAttribute ioAtt : attributes) {
+			if (attribute.equals(ioAtt.getAttributeId())
+					&& parents.contains(ioAtt.getConceptId()))
+				if (ioAtt.isInclude()) {
+					if (include > parents.indexOf(ioAtt.getConceptId()))
+						include = parents.indexOf(ioAtt.getConceptId());
+				} else if (exclude > parents.indexOf(ioAtt.getConceptId()))
+					exclude = parents.indexOf(ioAtt.getConceptId());
+		}
+		if (include == 99999 && exclude == 99999)
+			return 0;
+		if (include < exclude)
+			return 1;
+		return -1;
+	}
 }
