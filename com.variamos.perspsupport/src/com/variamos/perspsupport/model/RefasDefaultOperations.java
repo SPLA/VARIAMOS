@@ -5103,7 +5103,8 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexSG, "satisficingLevel", "low");
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"low");
 
 		t1 = new SemanticExpression("low: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -5124,7 +5125,8 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexSG, "satisficingLevel", "high");
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"high");
 
 		t1 = new SemanticExpression("high: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -5144,7 +5146,8 @@ public class RefasDefaultOperations {
 
 		t3 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexSG, "satisficingLevel", "close");
+				instDirClaimSGSemanticEdge, instVertexSG, "satisficingLevel",
+				"close");
 
 		t1 = new SemanticExpression("close: ClaimExpLevel", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -5227,7 +5230,7 @@ public class RefasDefaultOperations {
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("GreaterOrEq"),
+				.get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSDSGSemanticEdge, "SDReqLevel", "level");
@@ -5249,7 +5252,7 @@ public class RefasDefaultOperations {
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		t1 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
-				.get("LessOrEquals"),
+				.get("GreaterOrEq"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
 				instDirSDSGSemanticEdge, "SDReqLevel", "level");

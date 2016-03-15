@@ -594,8 +594,8 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
 			if (fullIdentifier == null) {
-				System.out.println("NUll: " + expInstElement + " "
-						+ expAttributeName);
+				System.out.println("NUll: " + expInstElement.getIdentifier()
+						+ " " + expAttributeName);
 				return null;
 			}
 			Identifier identifier = hlclFactory.newIdentifier(fullIdentifier,
@@ -613,8 +613,7 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 
 	public static void updateDomain(AbstractAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
-		if (attribute.getName()
-				.equals(OpersVariable.VAR_VARIABLECONFIGVALUE)) {
+		if (attribute.getName().equals(OpersVariable.VAR_VARIABLECONFIGVALUE)) {
 			String configdomain = (String) (instVertex.getInstAttribute(
 					OpersVariable.VAR_VARIABLECONFIGDOMAIN).getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
@@ -1208,8 +1207,7 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		return SemExprSubActions;
 	}
 
-	public void setSemExprSubActions(
-			List<OpersSubOperation> semExprSubActions) {
+	public void setSemExprSubActions(List<OpersSubOperation> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
 	}
 
