@@ -325,7 +325,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 		if (getEditableSemanticElement() != null) {
 			out2 = "\n";
 			Set<String> modelingAttributes = getEditableSemanticElement()
-					.getDeclaredSemanticAttributes();
+					.getDeclaredSemanticAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(MetaConcept.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")

@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
+import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 
@@ -23,8 +23,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaConcept;
  * @version 1.1
  * @since 2014-12-07
  */
-public class OpersAbstractElement implements Serializable,
-		IntOpersElement {
+public class OpersAbstractElement implements Serializable, IntOpersElement {
 	/**
 	 * 
 	 */
@@ -110,6 +109,13 @@ public class OpersAbstractElement implements Serializable,
 		return modelingAttributesNames;
 	}
 
+	@Override
+	public HashMap<String, AbstractAttribute> getDeclaredSemanticAttributes() {
+		HashMap<String, AbstractAttribute> properties = new HashMap<String, AbstractAttribute>();
+		properties.putAll(semanticAttributes);
+		return properties;
+	}
+
 	public List<String> getPropEditableAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (parent != null)
@@ -160,7 +166,7 @@ public class OpersAbstractElement implements Serializable,
 
 	public Set<String> getSemanticAttributesNames() {
 		Set<String> properties = new HashSet<String>();
-		properties.addAll(getDeclaredSemanticAttributes());
+		properties.addAll(getDeclaredSemanticAttributesNames());
 		if (parent != null)
 			properties.addAll(parent.getSemanticAttributesNames());
 		return properties;
@@ -175,7 +181,7 @@ public class OpersAbstractElement implements Serializable,
 		return abstractAttributes;
 	}
 
-	public Set<String> getDeclaredSemanticAttributes() {
+	public Set<String> getDeclaredSemanticAttributesNames() {
 		Set<String> abstractAttributesNames = new HashSet<String>();
 		abstractAttributesNames.addAll(semanticAttributes.keySet());
 		return abstractAttributesNames;

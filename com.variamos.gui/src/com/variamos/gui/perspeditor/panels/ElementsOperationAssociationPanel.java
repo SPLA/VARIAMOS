@@ -259,7 +259,7 @@ public class ElementsOperationAssociationPanel extends
 				}
 			if (dialog == 1 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getDeclaredSemanticAttributes()) {
+						.getDeclaredSemanticAttributesNames()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
 					for (OpersSubOperation operColumn : subOperColumns) {
@@ -280,7 +280,7 @@ public class ElementsOperationAssociationPanel extends
 
 			if (dialog == 2 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getDeclaredSemanticAttributes()) {
+						.getDeclaredSemanticAttributesNames()) {
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
 					for (OpersLabeling operColumn : operLabels)

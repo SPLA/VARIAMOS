@@ -2,6 +2,7 @@ package com.variamos.perspsupport.opersint;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +25,9 @@ public interface IntOpersElement extends Serializable {
 
 	AbstractAttribute getSemanticAttribute(String attributeName);
 
-	public Set<String> getDeclaredSemanticAttributes();
+	public Set<String> getDeclaredSemanticAttributesNames();
+
+	public HashMap<String, AbstractAttribute> getDeclaredSemanticAttributes();
 
 	void setIdentifier(String value);
 

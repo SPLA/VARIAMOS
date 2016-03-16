@@ -85,8 +85,9 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(150, 120));
-		setMaximumSize(new Dimension(200, 120));
+		setPreferredSize(new Dimension(150, varAttributes.size() * 18));
+		setMaximumSize(new Dimension(200, varAttributes.size() * 18));
+		this.setAutoscrolls(true);
 
 		addMouseListener(new MouseAdapter() {
 

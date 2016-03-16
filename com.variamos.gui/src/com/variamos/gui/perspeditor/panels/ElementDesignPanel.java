@@ -842,13 +842,18 @@ public class ElementDesignPanel extends JPanel {
 							instCell.getInstElement(), instCell
 									.getInstElement()
 									.getEditableSemanticElement()
-									.getAllSemanticAttributes(),
+									.getDeclaredSemanticAttributes(),
 							attributeEdition);
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(450, 450));
-				attPanel.setMaximumSize(new Dimension(550, 450));
-				attPanel.add(new JScrollPane(attList));
-				attPanel.add(new JScrollPane(attributeEdition));
+				attPanel.setPreferredSize(new Dimension(450, 250));
+				attPanel.setMaximumSize(new Dimension(550, 250));
+				JScrollPane jj = new JScrollPane(attList);
+				jj.setAutoscrolls(true);
+				attPanel.add(jj);
+				jj = new JScrollPane(attributeEdition);
+				jj.setAutoscrolls(true);
+				attPanel.add(jj);
+				attPanel.add(jj);
 
 				SpringUtilities.makeCompactGrid(attPanel, 2, 2, 4, 4, 4, 4);
 
