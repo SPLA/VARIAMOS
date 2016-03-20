@@ -50,27 +50,29 @@ public class MetaOverTwoRelation extends MetaVertex {
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaOverTwoRelation(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
-			boolean topConcept, String backgroundColor, boolean resizable,
+	public MetaOverTwoRelation(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
+			InstElement instSemanticElement, boolean topConcept,
+			String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> modelingAttributes) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable, propVisibleAttributes,
 				propEditableAttributes, panelVisibleAttributes,
 				panelSparerAttributes, modelingAttributes);
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaOverTwoRelation(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
-			boolean topConcept, String backgroundColor, boolean resizable,
+	public MetaOverTwoRelation(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
+			InstElement instSemanticElement, boolean topConcept,
+			String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
@@ -78,8 +80,8 @@ public class MetaOverTwoRelation extends MetaVertex {
 			Map<String, AbstractAttribute> modelingAttributes,
 			List<MetaPairwiseRelation> asOriginRelations,
 			List<MetaPairwiseRelation> asDestinationRelations) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable, propVisibleAttributes,
 				propEditableAttributes, panelVisibleAttributes,
 				panelSparerAttributes, modelingAttributes, asOriginRelations,
@@ -87,25 +89,26 @@ public class MetaOverTwoRelation extends MetaVertex {
 		createGroupDepModelingAttributes();
 	}
 
-	public MetaOverTwoRelation(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, InstElement instSemanticElement, boolean resizable) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+	public MetaOverTwoRelation(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, boolean topConcept,
+			String backgroundColor, int borderStroke,
+			InstElement instSemanticElement, boolean resizable) {
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable);
 		createGroupDepModelingAttributes();
 	}
 
 	// new
-	public MetaOverTwoRelation(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, InstElement instSemanticElement,
-			boolean resizable,
+	public MetaOverTwoRelation(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, boolean topConcept,
+			String backgroundColor, int borderStroke,
+			InstElement instSemanticElement, boolean resizable,
 			IntOpersOverTwoRel intSemanticOverTwoRelation) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable);
 		// this.semanticOverTwoRelation = intSemanticOverTwoRelation;
 		createGroupDepModelingAttributes();

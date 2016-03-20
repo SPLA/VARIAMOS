@@ -48,28 +48,28 @@ public class MetaEnumeration extends MetaVertex {
 	 */
 	VAR_METAENUMVALUECLASS = InstAttribute.class.getCanonicalName();
 
-	public MetaEnumeration(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, boolean topConcept,
-			String backgroundColor, boolean resizable,
+	public MetaEnumeration(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> attributes) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, topConcept, backgroundColor,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null, topConcept, backgroundColor,
 				resizable, propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
 		createEnumModelingAttributes();
 	}
 
-	public MetaEnumeration(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, boolean resizable) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, topConcept, backgroundColor,
+	public MetaEnumeration(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, boolean topConcept,
+			String backgroundColor, int borderStroke, boolean resizable) {
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null, topConcept, backgroundColor,
 				resizable);
 		createEnumModelingAttributes();
 	}

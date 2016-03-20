@@ -82,6 +82,19 @@ public abstract class MetaElement implements Serializable {
 	/**
 	 * 
 	 */
+	private boolean editable = true;
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	/**
+	 * 
+	 */
 	private Map<String, AbstractAttribute> modelingAttributes;
 	/**
 	 * 
@@ -109,28 +122,30 @@ public abstract class MetaElement implements Serializable {
 	 */
 	public MetaElement() {
 
-		this("", true, "", "", "", 100, 40, "", 1, null,
+		this("", true, true, "", "", "", 100, 40, "", 1, null,
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
 		createSyntaxAttributes();
 	}
 
-	public MetaElement(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement)
+	public MetaElement(String identifier, boolean visible, boolean editable,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement)
 
 	{
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement,
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement,
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new HashMap<String, AbstractAttribute>());
 	}
 
-	public MetaElement(String autoIdentifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
+	public MetaElement(String autoIdentifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
+			InstElement instSemanticElement,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
@@ -149,6 +164,7 @@ public abstract class MetaElement implements Serializable {
 		this.image = image;
 		this.borderStroke = borderStroke;
 		this.instSemanticElement = instSemanticElement;
+		this.editable = editable;
 		if (instSemanticElement != null)
 			this.instSemanticElementId = instSemanticElement.getIdentifier();
 		this.propVisibleAttributes = disPropVisibleAttributes;

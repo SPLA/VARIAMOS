@@ -32,19 +32,19 @@ public class MetaView extends MetaElement implements Serializable {
 	public MetaView() {
 	}
 
-	public MetaView(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, String paletteName, int index,
-			InstElement instSemanticElement) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement);
+	public MetaView(String identifier, boolean visible, boolean editable,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke, String paletteName,
+			int index, InstElement instSemanticElement) {
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement);
 		this.index = index;
 		this.paletteName = paletteName;
 	}
 
 	public MetaView(String shortName, String name, String paletteName,
 			int index, InstElement instSemanticElement) {
-		super(shortName, true, name, "", "", 100, 30, "", 1,
+		super(shortName, true, true, name, "", "", 100, 30, "", 1,
 				instSemanticElement);
 		this.index = index;
 		this.paletteName = paletteName;

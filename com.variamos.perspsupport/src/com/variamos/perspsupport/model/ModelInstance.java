@@ -539,7 +539,7 @@ public class ModelInstance extends AbstractModel {
 	 */
 	private void createOperationsInfrastructure() {
 		MetaConcept opersMetaMetaMetaConcept = new MetaConcept('C',
-				"OMMMConcept", true, "OMMMConcept", "refasminiclass",
+				"OMMMConcept", true, true, "OMMMConcept", "refasminiclass",
 				"Operations Meta Meta Meta Concept", 180, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -639,6 +639,7 @@ public class ModelInstance extends AbstractModel {
 				'N',
 				"OInfraMMConcept",
 				false,
+				false,
 				"OInfraMMConcept",
 				"infrabigclass",
 				"Operations Infra MMConcept: Define Infrastructure (fixed) MMConcepts for the operations",
@@ -656,7 +657,7 @@ public class ModelInstance extends AbstractModel {
 		variabilityInstVertex.put("OInfraMMConcept", instInfraConcept);
 
 		MetaConcept metaMetaConcept = new MetaConcept('C', "OMMConcept", true,
-				"OMMConcept", "refasenumeration",
+				true, "OMMConcept", "refasenumeration",
 				"Operations MMConcept: Define a MMConcept for the operations",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instSemConcept, true);
@@ -707,6 +708,7 @@ public class ModelInstance extends AbstractModel {
 				'W',
 				"OInfraMMPairWiseRelation",
 				false,
+				false,
 				"OInfraMMPairWiseRelation",
 				"infraclass",
 				"Operations Infrastructure (fiexd) MMPairWise Relation: Defines a direct relation for the operations meta-model",
@@ -735,6 +737,7 @@ public class ModelInstance extends AbstractModel {
 		MetaConcept metaMetaPairwiseRel = new MetaConcept(
 				'P',
 				"OMMPairWiseRelation",
+				true,
 				true,
 				"OMMPairWiseRelation",
 				"refasenumeration",
@@ -818,10 +821,10 @@ public class ModelInstance extends AbstractModel {
 				"OMMOverTwoRelation", null, semOverTwoRelation);
 
 		MetaConcept infraMetaOverTwoRelation = new MetaConcept('T',
-				"OInfraMMOverTwoRelation", true, "OInfraMMOverTwoRelation",
-				"infraclass", "Over Two Relation", 100, 150,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
+				"OInfraMMOverTwoRelation", false, false,
+				"OInfraMMOverTwoRelation", "infraclass", "Over Two Relation",
+				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
 
 		infraMetaOverTwoRelation.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -835,7 +838,7 @@ public class ModelInstance extends AbstractModel {
 				instInfraMetaOverTwo);
 
 		MetaConcept overTwoRelation = new MetaConcept('O',
-				"OMMOverTwoRelation", true, "OMMOverTwoRelation",
+				"OMMOverTwoRelation", true, true, "OMMOverTwoRelation",
 				"refasminiclass", "Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
@@ -873,7 +876,7 @@ public class ModelInstance extends AbstractModel {
 		// "TypeEnumeration", metaBasicConcept, enumeration));
 
 		MetaPairwiseRelation metaPairwiseRelAso = new MetaPairwiseRelation(
-				"AssociationRelation", false, "Association Relation",
+				"AssociationRelation", false, true, "Association Relation",
 				"defaultAsso", "Association Relation: ", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1,
 				instSemPairwAsoRel);
@@ -889,6 +892,7 @@ public class ModelInstance extends AbstractModel {
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
 				"ExtendsRelation",
 				false,
+				true,
 				"Extends Relation",
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
@@ -1028,9 +1032,10 @@ public class ModelInstance extends AbstractModel {
 				"OMMOperationGroup", null, semOperationGroup);
 
 		MetaConcept operationGroup = new MetaConcept('M', "OMMOperationGroup",
-				true, "OMMOperationGroup", "refasminiclass", "Operation Group",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instSemOperationGroup, true);
+				true, true, "OMMOperationGroup", "refasminiclass",
+				"Operation Group", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemOperationGroup, true);
 
 		operationGroup.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1053,7 +1058,7 @@ public class ModelInstance extends AbstractModel {
 
 		InstConcept instSemModel = new InstConcept("OMMModel", null, semModel);
 
-		MetaConcept metaModel = new MetaConcept('C', "OMMModel", true,
+		MetaConcept metaModel = new MetaConcept('C', "OMMModel", true, true,
 				"OMMModel", "refasminiclass", "Semantic Model", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemModel, true);
@@ -1103,9 +1108,10 @@ public class ModelInstance extends AbstractModel {
 				null, semOperationAction);
 
 		MetaConcept operationAction = new MetaConcept('A', "OMMOperation",
-				true, "OMMOperation", "refasminiclass", "Operation Action",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instSemOperationAction, true);
+				true, true, "OMMOperation", "refasminiclass",
+				"Operation Action", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemOperationAction, true);
 
 		operationAction.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1139,8 +1145,8 @@ public class ModelInstance extends AbstractModel {
 				"OMMSubOperation", null, semOperationSubAction);
 
 		MetaConcept operationSubAction = new MetaConcept('S',
-				"OMMSubOperation", true, "OMMSubOperation", "refasminiclass",
-				"Operation Action", 100, 150,
+				"OMMSubOperation", true, true, "OMMSubOperation",
+				"refasminiclass", "Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instSemOperationSubAction, true);
 
@@ -1186,9 +1192,10 @@ public class ModelInstance extends AbstractModel {
 				semLabeling);
 
 		MetaConcept operationLabeling = new MetaConcept('S', "OMMLabeling",
-				true, "OMMLabeling", "refasminiclass", "Operation Labeling",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instSemLabeling, true);
+				true, true, "OMMLabeling", "refasminiclass",
+				"Operation Labeling", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instSemLabeling, true);
 
 		operationLabeling.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1229,7 +1236,7 @@ public class ModelInstance extends AbstractModel {
 	 */
 	private void createSyntaxInfrastructure() {
 		MetaConcept metaBasicConcept = new MetaConcept('C', "SMMMConcept",
-				true, "SMMMConcept", "refasminiclass",
+				true, true, "SMMMConcept", "refasminiclass",
 				"Syntax Meta Meta Meta Concept", 180, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -1369,8 +1376,8 @@ public class ModelInstance extends AbstractModel {
 
 		InstConcept instSemView = new InstConcept("SMMView", null, semView);
 
-		MetaConcept view = new MetaConcept('V', "SMMView", true, "SMMView",
-				"refasview", "MM View/MM SubView Concept", 100, 30,
+		MetaConcept view = new MetaConcept('V', "SMMView", true, true,
+				"SMMView", "refasview", "MM View/MM SubView Concept", 100, 30,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.WHITE.toString(), 3, instSemView, true);
 
@@ -1551,7 +1558,7 @@ public class ModelInstance extends AbstractModel {
 		InstConcept instSemVertex = new InstConcept("SMMConcept", null,
 				semConcept);
 
-		MetaConcept concept = new MetaConcept('C', "SMMConcept", true,
+		MetaConcept concept = new MetaConcept('C', "SMMConcept", true, true,
 				"SMMConcept", "refasminiclass", "Syntax Meta Concept", 150,
 				180, "/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemVertex, true);
@@ -1649,7 +1656,7 @@ public class ModelInstance extends AbstractModel {
 				"SMMOverTwoRelation", null, semOverTwoRelation);
 
 		MetaConcept overTwoRelation = new MetaConcept('O',
-				"SMMOverTwoRelation", true, "SMMOverTwoRelation",
+				"SMMOverTwoRelation", true, true, "SMMOverTwoRelation",
 				"refasminiclass", "MetaOverTwoRelation", 180, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemOverTwoRelation, true);
@@ -1670,8 +1677,8 @@ public class ModelInstance extends AbstractModel {
 		variabilityInstVertex.put("SMMOverTwoRelation", instOverTwoRelation);
 
 		MetaPairwiseRelation metaPairwiseRelNormal = new MetaPairwiseRelation(
-				"SMMNormalRelation", false, "Normal Relation", "defaultAsso",
-				"View-Concept relation", 50, 50,
+				"SMMNormalRelation", false, true, "Normal Relation",
+				"defaultAsso", "View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("SMMNormalRelation", new InstPairwiseRelation(
@@ -1684,9 +1691,10 @@ public class ModelInstance extends AbstractModel {
 				"SMMExtendRelation", null, semExtendRelation);
 
 		MetaConcept extendRelation = new MetaConcept('X', "SMMExtendRelation",
-				true, "SMMExtendRelation", "refasminiclass", "Extend relation",
-				150, 70, "/com/variamos/gui/perspeditor/images/concept.png",
-				true, Color.BLUE.toString(), 3, instSemExtendRelation, true);
+				true, true, "SMMExtendRelation", "refasminiclass",
+				"Extend relation", 150, 70,
+				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				Color.BLUE.toString(), 3, instSemExtendRelation, true);
 		extendRelation.addPanelVisibleAttribute("01#Name");
 		extendRelation
 				.addPanelSpacersAttribute("<<MetaExtendsAsso>>\n#Name#\n\n");
@@ -1711,8 +1719,8 @@ public class ModelInstance extends AbstractModel {
 		instEdge.setSourceRelation(instConcept, true);
 
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
-				"ExtendsRelation", false, "Extends Relation", "refasextends",
-				"View-Concept relation", 50, 50,
+				"ExtendsRelation", false, true, "Extends Relation",
+				"refasextends", "View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRelation(
@@ -1725,7 +1733,7 @@ public class ModelInstance extends AbstractModel {
 				null, semViewConceptAsso);
 
 		MetaConcept viewConceptAsso = new MetaConcept('I',
-				"SMMViewConceptAsso", true, "SMMViewConceptAsso",
+				"SMMViewConceptAsso", true, true, "SMMViewConceptAsso",
 				"refasminiclass", "View-Concept Association", 150, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemViewConceptAsso, true);
@@ -1770,7 +1778,7 @@ public class ModelInstance extends AbstractModel {
 		instEdge.setSourceRelation(instViewConceptAsso, true);
 
 		MetaPairwiseRelation metaPairwiseRelFromView = new MetaPairwiseRelation(
-				"ViewRelation", false, "View Relation", "refasviewrel",
+				"ViewRelation", false, true, "View Relation", "refasviewrel",
 				"View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
 
@@ -1803,7 +1811,7 @@ public class ModelInstance extends AbstractModel {
 				"SMMPairwiseRelation", null, semPairwiseRelation);
 
 		MetaConcept pairwiseRelation = new MetaConcept('P',
-				"SMMPairwiseRelation", true, "SMMPairwiseRelation",
+				"SMMPairwiseRelation", true, true, "SMMPairwiseRelation",
 				"refasminiclass", "MetaPairwiseRelation", 150, 200,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instSemPairwiseRelationn, true);

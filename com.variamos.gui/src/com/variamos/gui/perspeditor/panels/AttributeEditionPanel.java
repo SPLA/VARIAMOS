@@ -74,6 +74,7 @@ public class AttributeEditionPanel extends JPanel {
 	}
 
 	public void loadElementAttributes(VariamosGraphEditor editor,
+			boolean editable,
 			EditableElementAttribute... editableElementAttributes) {
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 
@@ -88,6 +89,7 @@ public class AttributeEditionPanel extends JPanel {
 					continue;
 				}
 
+				w.getEditor().setEnabled(editable);
 				contEd++;
 				w.editVariable(p);
 

@@ -78,45 +78,45 @@ public class MetaPairwiseRelation extends MetaElement {
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
-			String name, String style, String description, int width,
-			int height, String image, int borderStroke,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
 			InstElement instSemanticElement) {
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
-				false, TypeOfLine.solid);
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
+				"", "", false, TypeOfLine.solid);
 		// this.semanticPairwiseRelation = semanticRelation;
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
-			String name, String style, String description, int width,
-			int height, String image, int borderStroke,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
 			InstElement instSemanticElement, String palette) {
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, 1, 1, 1, 1, "", "",
-				false, TypeOfLine.solid);
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
+				"", "", false, TypeOfLine.solid);
 		this.palette = palette;
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
-			String name, String style, String description, int width,
-			int height, String image, int borderStroke) {
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, 1, 1, 1, 1, "", "", false,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke) {
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
 		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
-			String name, String style, String description, int width,
-			int height, String image, int borderStroke,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
 			InstElement instSemanticElement, int iniLowCardinality,
 			int iniHighCardinality, int endLowCardinality,
 			int endHighCardinality, String iniDescription,
 			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement);
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement);
 
 		this.iniLowCardinality = iniLowCardinality;
 		this.iniHighCardinality = iniHighCardinality;
@@ -130,8 +130,8 @@ public class MetaPairwiseRelation extends MetaElement {
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
-			String name, String style, String description, int width,
-			int height, String image, int borderStroke,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
 			InstElement instSemanticElement,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
@@ -142,8 +142,8 @@ public class MetaPairwiseRelation extends MetaElement {
 			int endLowCardinality, int endHighCardinality,
 			String iniDescription, String endDescription,
 			boolean arrowDirection, TypeOfLine typeOfLine) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement,
 				disPropVisibleAttributes, disPropEditableAttributes,
 				disPanelVisibleAttributes, disPanelSpacersAttributes,
 				modelingAttributes);

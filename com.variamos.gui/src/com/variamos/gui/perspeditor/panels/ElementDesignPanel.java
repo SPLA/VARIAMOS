@@ -146,7 +146,7 @@ public class ElementDesignPanel extends JPanel {
 		if (instCell == null || instCell.getInstElement() == null) {
 			return;
 		} else {
-			EditableElement editElm = instCell.getInstElement();
+			InstElement editElm = instCell.getInstElement();
 			List<InstElement> parent = ((ModelInstance) editor.getEditedModel())
 					.getParentSyntaxConcept((InstElement) editElm);
 			editElm.getInstAttributes();
@@ -653,7 +653,11 @@ public class ElementDesignPanel extends JPanel {
 										.getEditableVariables(parent);
 
 								if (!editables.contains(instAttribute)
-										|| editor.getPerspective() == 4)
+										|| editor.getPerspective() == 4
+										|| (editElm
+												.getTransSupportMetaElement() != null && editElm
+												.getTransSupportMetaElement()
+												.isEditable() == false))
 
 								{
 									widget.getEditor().setEnabled(false);
@@ -830,19 +834,26 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("elementAttributes")));
 				attPanel.add(new JLabel(mxResources.get("attributeEdition")));
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
+				boolean editable = true;
+				if ((editElm.getTransSupportMetaElement() != null && editElm
+						.getTransSupportMetaElement().isEditable() == false)) {
+					attributeEdition.setEnabled(false);
+					editable = false;
+				}
 				PropertyAttributeList attList = null;
 				if (instCell.getInstElement().getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor,
+					attList = new PropertyAttributeList(editor, editable,
 							instCell.getInstElement(), instCell
 									.getInstElement().getEditableMetaElement()
 									.getModelingAttributes(), attributeEdition);
 				if (instCell.getInstElement().getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor,
+					attList = new PropertyAttributeList(editor, editable,
 							instCell.getInstElement(), instCell
 									.getInstElement()
 									.getEditableSemanticElement()
 									.getDeclaredSemanticAttributes(),
 							attributeEdition);
+
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(450, 250));
 				attPanel.setMaximumSize(new Dimension(550, 250));
