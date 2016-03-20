@@ -216,7 +216,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		return getInstAttributeAttribute(VAR_GROUP);
 		// return value;
 	}
-	
+
 	public Object getDisplayValue() {
 		if (getInstAttributeAttribute(VAR_DISPLAYVALUE) == null)
 			return getInstAttributeAttribute(VAR_VALUE);
@@ -234,11 +234,12 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 		setInstAttributeAttribute(VAR_GROUP, value);
 		// this.value = value;
 	}
-	
+
 	public String getType() {
 		if (volatileAttribute != null)
-		return volatileAttribute.getType();
-		else return null;
+			return volatileAttribute.getType();
+		else
+			return null;
 	}
 
 	public Object getEnumType() {
@@ -370,8 +371,9 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 
 	public void updateValidationList(InstElement instElement,
 			Map<String, MetaElement> mapElements) {
+		// FIXME change this validation to use relationTypesAttributes instead
+		// of relationType
 		if (instElement instanceof InstOverTwoRelation) {
-
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(

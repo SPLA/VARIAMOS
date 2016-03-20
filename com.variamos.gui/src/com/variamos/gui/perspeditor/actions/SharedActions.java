@@ -24,8 +24,6 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersPairwiseRel;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.opersint.IntOpersRelType;
@@ -637,8 +635,7 @@ public class SharedActions {
 								instanceExpression.loadVolatileElements(refas
 										.getVariabilityVertex());
 						}
-						if (ia.getIdentifier().equals(
-								OpersVariable.VAR_ENUMERATIONTYPE)) {
+						if (ia.getIdentifier().equals("enumerationType")) {
 							Object instanceExpression = ia.getValue();
 							if (ia.getAttribute().getType().equals("Class")) {
 
@@ -775,7 +772,7 @@ public class SharedActions {
 									else
 										instAttribute.setValue(true);
 								if (instAttribute.getIdentifier().equals(
-										OpersPairwiseRel.VAR_RELATIONTYPE_IDEN))
+										"relationType"))
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {

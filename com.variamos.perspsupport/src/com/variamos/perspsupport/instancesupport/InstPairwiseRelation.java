@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.opers.OpersPairwiseRel;
 import com.variamos.perspsupport.opers.OpersRelType;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
@@ -501,15 +500,14 @@ public class InstPairwiseRelation extends InstElement {
 							int sp2 = spacer.indexOf("#", sp1 + 1);
 
 							out += spacer.substring(0, sp1);
-							if (name.equals(OpersPairwiseRel.VAR_RELATIONTYPE_IDEN)
+							if (name.equals("relationType")
 									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
 											.getValueObject() != null
 									&& getInstAttributes().get(name)
 											.getValueObject() instanceof OpersRelType) {
-								out += ((OpersRelType) getInstAttributes()
-										.get(name).getValueObject())
-										.getDiplayName();
+								out += ((OpersRelType) getInstAttributes().get(
+										name).getValueObject()).getDiplayName();
 							} else
 								out += getInstAttributes().get(name).toString()
 										.trim();

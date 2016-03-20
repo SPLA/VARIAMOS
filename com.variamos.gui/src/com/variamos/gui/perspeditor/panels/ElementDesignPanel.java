@@ -44,7 +44,6 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -869,7 +868,7 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
-							.equals("OperMMPairWiseRelation") || ((InstElement) editElm)
+							.equals("OMMPairWiseRelation") || ((InstElement) editElm)
 							.getSupportMetaElementIden().equals(
 									"OMMOverTwoRelation"))) {
 
@@ -989,8 +988,7 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Palette"))
 					((MetaPairwiseRelation) editableMetaElement)
 							.setPalette((String) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals(
-						OpersVariable.VAR_VALUE))
+				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((HashSet<AbstractAttribute>) instAttribute
 									.getValue());

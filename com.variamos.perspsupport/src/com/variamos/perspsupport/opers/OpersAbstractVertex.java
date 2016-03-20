@@ -36,13 +36,11 @@ public abstract class OpersAbstractVertex extends OpersAbstractElement
 
 	public OpersAbstractVertex(String identifier) {
 		super(identifier);
-		createModelingAttributes();
 	}
 
 	public OpersAbstractVertex(OpersAbstractVertex parentConcept,
 			String identifier) {
 		super(parentConcept, identifier);
-		createModelingAttributes();
 	}
 
 	public OpersAbstractVertex(OpersAbstractVertex parentConcept,
@@ -69,10 +67,6 @@ public abstract class OpersAbstractVertex extends OpersAbstractElement
 				disPropEditableAttributes, disPanelVisibleAttributes,
 				disPanelSpacersAttributes);
 		this.booleanSatisfaction = booleanSatisfaction;
-		createModelingAttributes();
-	}
-
-	private void createModelingAttributes() {
 	}
 
 	public boolean isBooleanSatisfaction() {

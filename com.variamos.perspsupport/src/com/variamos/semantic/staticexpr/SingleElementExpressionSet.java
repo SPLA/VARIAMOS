@@ -16,7 +16,6 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
@@ -94,8 +93,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 				|| instVertex instanceof InstOverTwoRelation) {
 			MetaVertex metaElement = ((MetaVertex) instVertex
 					.getTransSupportMetaElement());
-			IntOpersElement semElement = metaElement
-					.getTransSemanticConcept();
+			IntOpersElement semElement = metaElement.getTransSemanticConcept();
 			while (semElement != null && semElement.getIdentifier() != null
 					&& !semElement.getIdentifier().equals("GeneralElement"))
 				semElement = semElement.getParent();
@@ -328,11 +326,11 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									"variableConfigDomain")) {
 								if (!((String) instAttribute.getValue())
 										.equals(""))
-									getElementExpressions()
-											.add(new EqualsComparisonExpression(
+									getElementExpressions().add(
+											new EqualsComparisonExpression(
 													instVertex, instVertex,
 													"variableConfigValue",
-													OpersVariable.VAR_VALUE));
+													"value"));
 							}
 
 							if (instAttribute.getIdentifier().equals(

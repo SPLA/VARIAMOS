@@ -48,7 +48,6 @@ import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
@@ -687,7 +686,7 @@ public class InstanceExpressionDialog extends JDialog {
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
 				String variableType = (String) instVertex.getInstAttribute(
-						OpersVariable.VAR_VARIABLETYPE).getValue();
+						"value").getValue();
 				switch (variableType) {
 				case "Boolean":
 					combo.addItem(instElementId + "_" + "true");
@@ -696,7 +695,7 @@ public class InstanceExpressionDialog extends JDialog {
 					break;
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
-							OpersVariable.VAR_VARIABLEDOMAIN).getValue();
+							"variableDomain").getValue();
 
 					Domain dom = (DomainParser.parseDomain(domain));
 					List<Integer> intValues = dom.getPossibleValues();
@@ -779,7 +778,7 @@ public class InstanceExpressionDialog extends JDialog {
 					else
 						instVertexId = instVertex.getIdentifier();
 					identifiersList.put(instVertexId, instVertex);
-					combo.addItem(instVertexId + "_" + OpersVariable.VAR_VALUE);
+					combo.addItem(instVertexId + "_" + "value");
 				}
 			}
 		} else if (type == ExpressionVertexType.LEFTVARIABLEVALUE

@@ -30,10 +30,6 @@ public class OpersConcept extends OpersAbstractVertex implements
 
 	public OpersConcept(OpersAbstractVertex parentConcept, String name) {
 		super(parentConcept, name, true);
-		defineSemanticAttributes();
-	}
-
-	private void defineSemanticAttributes() {
 	}
 
 	public String toString() {

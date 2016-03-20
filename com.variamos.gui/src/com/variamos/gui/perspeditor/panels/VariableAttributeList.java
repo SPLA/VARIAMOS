@@ -20,13 +20,14 @@ import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonA
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.opers.OpersVariable;
+import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.ClassSingleSelectionType;
 import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.perspsupport.types.VariableType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -121,76 +122,58 @@ public class VariableAttributeList extends JList<InstAttribute> {
 	protected void editItem(InstAttribute instAttribute) {
 		final boolean insert = (instAttribute == null);
 
-		final InstAttribute instName = new InstAttribute(
-				OpersVariable.VAR_NAME, new AbstractAttribute(
-						OpersVariable.VAR_NAME, StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_NAMENAME, "", 1, -1, "", "", -1, "",
-						""), "");
+		final InstAttribute instName = new InstAttribute("name",
+				new AbstractAttribute("name", StringType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Name", "", 1, -1, "", "",
+						-1, "", ""), "");
 
-		final InstAttribute instValue = new InstAttribute(
-				OpersVariable.VAR_VALUE, new AbstractAttribute(
-						OpersVariable.VAR_VALUE, IntegerType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_VALUENAME, 0, 1, -1, "", "", -1, "",
-						""), 0);
+		final InstAttribute instValue = new InstAttribute("value",
+				new AbstractAttribute("value", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Value", 0, 1, -1, "", "",
+						-1, "", ""), 0);
 
-		final InstAttribute instExtVisible = new InstAttribute(
-				OpersVariable.VAR_EXTVISIBLE, new AbstractAttribute(
-						OpersVariable.VAR_EXTVISIBLE, BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_EXTVISIBLENAME, false, 1, -1, "", "",
-						-1, "", ""), false);
+		final InstAttribute instExtVisible = new InstAttribute("ExtVisible",
+				new AbstractAttribute("ExtVisible", BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Externally Visible",
+						false, 1, -1, "", "", -1, "", ""), false);
 
-		final InstAttribute instExtControl = new InstAttribute(
-				OpersVariable.VAR_EXTCONTROL, new AbstractAttribute(
-						OpersVariable.VAR_EXTCONTROL, BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_EXTCONTROLNAME, false, 1, -1, "", "",
-						-1, "", ""), false);
+		final InstAttribute instExtControl = new InstAttribute("ExtControl",
+				new AbstractAttribute("ExtControl", BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Externally Controlled",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableType = new InstAttribute(
-				OpersVariable.VAR_VARIABLETYPE, new AbstractAttribute(
-						OpersVariable.VAR_VARIABLETYPE,
+				"variableType", new AbstractAttribute("variableType",
 						EnumerationSingleSelectionType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_VARIABLETYPENAME,
-						OpersVariable.VAR_VARIABLETYPECLASS, "String", "", "",
-						1, -1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Variable Type",
+						VariableType.class.getCanonicalName(), "String", "",
+						"", 1, -1, "", "", -1, "", ""), "");
 
-		final InstAttribute instContext = new InstAttribute(
-				OpersVariable.VAR_CONTEXT, new AbstractAttribute(
-						OpersVariable.VAR_CONTEXT, BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_CONTEXTNAME, false, 1, -1, "", "",
-						-1, "", ""), false);
+		final InstAttribute instContext = new InstAttribute("isContext",
+				new AbstractAttribute("isContext", BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Context Defined", false,
+						1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableDomain = new InstAttribute(
-				OpersVariable.VAR_VARIABLEDOMAIN, new AbstractAttribute(
-						OpersVariable.VAR_VARIABLEDOMAIN,
+				"variableDomain", new AbstractAttribute("variableDomain",
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						OpersVariable.VAR_VARIABLEDOMAINNAME, "", 1, -1, "",
-						"", -1, "", ""), "");
+						"Variable Domain", "", 1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instEnumerationType = new InstAttribute(
-				OpersVariable.VAR_ENUMERATIONTYPE, new AbstractAttribute(
-						OpersVariable.VAR_ENUMERATIONTYPE,
+				"enumerationType", new AbstractAttribute("enumerationType",
 						ClassSingleSelectionType.IDENTIFIER,
-						AttributeType.SYNTAX, false,
-						OpersVariable.VAR_ENUMERATIONTYPENAME,
-						OpersVariable.VAR_ENUMERATIONTYPECLASS, "ME", "", "",
+						AttributeType.SYNTAX, false, "Enumeration",
+						InstEnumeration.class.getCanonicalName(), "ME", "", "",
 						1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
-				OpersVariable.VAR_VARIABLECONFIGVALUE, new AbstractAttribute(
-						OpersVariable.VAR_VARIABLECONFIGVALUE,
-						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						OpersVariable.VAR_VARIABLECONFIGVALUENAME, 1, 1, -1,
-						"", "", -1, "", ""), 1);
+				"variableConfigValue", new AbstractAttribute(
+						"variableConfigValue", IntegerType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Configured Value", 1, 1,
+						-1, "", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
-				OpersVariable.VAR_VARIABLECONFIGDOMAIN, new AbstractAttribute(
-						OpersVariable.VAR_VARIABLECONFIGDOMAIN,
-						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						OpersVariable.VAR_VARIABLECONFIGDOMAINNAME, "", 1, -1,
-						"", "", -1, "", ""), "");
+				"variableConfigDomain", new AbstractAttribute(
+						"variableConfigDomain", StringType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Configured Domain", "",
+						1, -1, "", "", -1, "", ""), "");
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")

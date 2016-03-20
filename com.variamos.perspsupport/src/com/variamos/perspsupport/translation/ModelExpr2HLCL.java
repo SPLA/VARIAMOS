@@ -28,7 +28,6 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntModelExpr2Hlcl;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -1219,18 +1218,16 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 									.getAsBoolean()) {
 						String instId = instVertex.getIdentifier();
 						if (instVertex.getIdentifier().contains("Variable")) {
-							Object oo = instVertex.getInstAttribute(
-									OpersVariable.VAR_VALUE).getValue();
+							Object oo = instVertex.getInstAttribute("value")
+									.getValue();
 							Integer o = null;
 							if (oo instanceof Integer) {
 								o = (Integer) instVertex.getInstAttribute(
-										OpersVariable.VAR_VALUE).getValue();
+										"value").getValue();
 
 							} else {
 								o = Integer.valueOf((String) instVertex
-										.getInstAttribute(
-												OpersVariable.VAR_VALUE)
-										.getValue());
+										.getInstAttribute("value").getValue());
 							}
 
 							newMap.put(instId, o);

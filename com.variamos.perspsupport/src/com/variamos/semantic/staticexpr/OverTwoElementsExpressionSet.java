@@ -13,7 +13,6 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.opers.OpersOverTwoRel;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -98,7 +97,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getInstAttribute("Active").getValue();
 		if (targetActiveAttribute && metaGroupDep != null) {
 			relationType = (String) instOverTwoRelation.getInstAttribute(
-					OpersOverTwoRel.VAR_RELATIONTYPE_IDEN).getValue();
+					"relationType").getValue();
 			// System.out.println(relationType);
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();

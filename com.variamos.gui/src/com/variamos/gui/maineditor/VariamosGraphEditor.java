@@ -87,7 +87,6 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
@@ -1413,8 +1412,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals(
-						OpersVariable.VAR_VALUE))
+				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());

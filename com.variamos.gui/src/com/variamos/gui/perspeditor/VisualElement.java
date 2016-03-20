@@ -21,7 +21,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
 public class VisualElement implements Comparable<VisualElement> {
 
 	private InstElement instElement;
-	private IntOpersElement semanticElement;
+	private IntOpersElement opersElement;
 	private boolean selected, notAvailable, updated;
 	private Color green, red, yellow;
 	private String otherParameters = "";
@@ -29,7 +29,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	public VisualElement(InstElement instElement) {
 		defineColors();
 		this.instElement = instElement;
-		this.semanticElement = ((MetaElement) instElement
+		this.opersElement = ((MetaElement) instElement
 				.getTransSupportMetaElement()).getTransSemanticConcept();
 		updateValues();
 		this.updated = false;
@@ -63,27 +63,26 @@ public class VisualElement implements Comparable<VisualElement> {
 		if (instElement.getInstAttribute("NotAvailable") != null)
 			newNotAvailable = instElement.getInstAttribute("NotAvailable")
 					.getAsBoolean();
-		if (semanticElement instanceof OpersReasoningConcept) {
+		if (opersElement instanceof OpersReasoningConcept) {
 			newOtherParameters = "{BoolExp:"
 					+ instElement.getInstAttribute("CompExp").getAsBoolean()
 					+ "}";
 		}
-		if (semanticElement instanceof OpersSoftConcept) {
+		if (opersElement instanceof OpersSoftConcept) {
 			newOtherParameters = "{Required: "
 					+ instElement.getInstAttribute("SDReqLevel").getAsInteger()
 					+ " Expected: "
 					+ instElement.getInstAttribute("ClaimExpLevel")
 							.getAsInteger() + "}";
 		}
-		if (semanticElement instanceof OpersVariable) {
-			if (semanticElement instanceof OpersVariable) {
+		if (opersElement instanceof OpersVariable) {
+			if (opersElement instanceof OpersVariable) {
 				String out = " : ";
 				if (instElement.getInstAttribute("variableType").getValue()
 						.equals("Integer")) {
 					out += "int : "
-							+ instElement.getInstAttribute(
-									OpersVariable.VAR_VALUE).getAsInteger()
-							+ "";
+							+ instElement.getInstAttribute("value")
+									.getAsInteger() + "";
 				} else if (instElement.getInstAttribute("variableType")
 						.getValue().equals("Enumeration")) {
 					out += "enum : ";
@@ -98,15 +97,14 @@ public class VisualElement implements Comparable<VisualElement> {
 							String[] split = ((String) value.getValue())
 									.split("-");
 							String val = null;
-							if (instElement.getInstAttribute(
-									OpersVariable.VAR_VALUE).getValue() instanceof Integer)
+							if (instElement.getInstAttribute("value")
+									.getValue() instanceof Integer)
 								val = ((Integer) instElement.getInstAttribute(
-										OpersVariable.VAR_VALUE).getValue())
-										.toString();
+										"value").getValue()).toString();
 							else
 
 								val = (String) instElement.getInstAttribute(
-										OpersVariable.VAR_VALUE).getValue();
+										"value").getValue();
 							if (split[0].equals(val))
 								out += value + "";
 						}
@@ -114,9 +112,8 @@ public class VisualElement implements Comparable<VisualElement> {
 				} else if (instElement.getInstAttribute("variableType")
 						.getValue().equals("Boolean")) {
 					out += "bool : "
-							+ instElement.getInstAttribute(
-									OpersVariable.VAR_VALUE).getAsBoolean()
-							+ "";
+							+ instElement.getInstAttribute("value")
+									.getAsBoolean() + "";
 				} else
 					out += "Other type";
 				newOtherParameters = out;
@@ -163,11 +160,17 @@ public class VisualElement implements Comparable<VisualElement> {
 	}
 
 	public int getCols() {
-		if (semanticElement instanceof OpersVariable)
+		String opersId = opersElement.getIdentifier();
+		if (opersId.equals("AbstVariable")
+				|| opersId.equals("AbstReasoningElement"))
 			return 2;
-		if (semanticElement instanceof OpersReasoningConcept)
+		if (opersId.equals("AbstSoftElement"))
+			return 1;
+		if (opersElement instanceof OpersVariable)
 			return 2;
-		if (semanticElement instanceof OpersSoftConcept)
+		if (opersElement instanceof OpersReasoningConcept)
+			return 2;
+		if (opersElement instanceof OpersSoftConcept)
 			return 1;
 		return 3;
 	}
