@@ -542,7 +542,7 @@ public class ModelInstance extends AbstractModel {
 		// Begin Syntax M3 model
 		MetaConcept basicOpersSyntaxM3Concept = new MetaConcept('C',
 				"BasicOpersSyntaxM3Concept", true, true,
-				"BasicOpersSyntaxM3Concept", "refasminiclass",
+				"BasicOpersSyntaxM3Concept", "infrabasicsyntaxm3miniconcept",
 				"Operations Meta Meta Meta Concept", 180, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);
@@ -894,7 +894,7 @@ public class ModelInstance extends AbstractModel {
 				false,
 				false,
 				"InfraSyntaxOpersM2InfraConcept",
-				"infrabigclass",
+				"infrasyntaxm2biggrayconcept",
 				"Operations Infra MetaMetaConcept: Define Infrastructure (fixed) MMConcepts for the operations",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instBasicOpersM2Concept, true);
@@ -917,7 +917,7 @@ public class ModelInstance extends AbstractModel {
 				true,
 				true,
 				"InfraSyntaxOpersM2Concept",
-				"refasenumeration",
+				"infrasyntaxm2concept",
 				"Operations MetaMetaConcept: Define a MMConcept for the operations",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instBasicOpersM2Concept, true);
@@ -957,7 +957,7 @@ public class ModelInstance extends AbstractModel {
 				false,
 				false,
 				"InfraSyntaxOpersM2InfraPWRel",
-				"infraclass",
+				"infrasyntaxm2concept",
 				"Operations Infrastructure (fiexd) MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instBasicOpersM2PWRel, true);
@@ -1031,7 +1031,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2InfraOTRel = new MetaConcept('T',
 				"InfraSyntaxOpersM2InfraOTRel", false, false,
-				"InfraSyntaxOpersM2InfraOTRel", "infraclass",
+				"InfraSyntaxOpersM2InfraOTRel", "infrasyntaxm2concept",
 				"Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2OTRel, true);
@@ -1049,7 +1049,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2OTRel = new MetaConcept('O',
 				"InfraSyntaxOpersM2OTRel", true, true,
-				"InfraSyntaxOpersM2OTRel", "refasminiclass",
+				"InfraSyntaxOpersM2OTRel", "infrasyntaxopersm2miniconcept",
 				"Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2OTRel, true);
@@ -1205,7 +1205,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2OperGroup = new MetaConcept('M',
 				"InfraSyntaxOpersM2OperGroup", true, true,
-				"InfraSyntaxOpersM2OperGroup", "refasminiclass",
+				"InfraSyntaxOpersM2OperGroup", "infrasyntaxopersm2miniconcept",
 				"Operation Group", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2OperGroup, true);
@@ -1223,9 +1223,10 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2MetaModel = new MetaConcept('C',
 				"InfraSyntaxOpersM2Model", true, true,
-				"InfraSyntaxOpersM2Model", "refasminiclass", "Semantic Model",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instBasicOpersM2SemModel, true);
+				"InfraSyntaxOpersM2Model", "infrasyntaxopersm2miniconcept",
+				"Semantic Model", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instBasicOpersM2SemModel, true);
 
 		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1240,7 +1241,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2OperAction = new MetaConcept('A',
 				"InfraSyntaxOpersM2Operation", true, true,
-				"InfraSyntaxOpersM2Operation", "refasminiclass",
+				"InfraSyntaxOpersM2Operation", "infrasyntaxopersm2miniconcept",
 				"Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2OperAction, true);
@@ -1258,7 +1259,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2OperSubAction = new MetaConcept('S',
 				"InfraSyntaxOpersM2SubOper", true, true,
-				"InfraSyntaxOpersM2SubOper", "refasminiclass",
+				"InfraSyntaxOpersM2SubOper", "infrasyntaxopersm2miniconcept",
 				"Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2OperSubAction, true);
@@ -1276,7 +1277,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxOpersM2OperLabeling = new MetaConcept('S',
 				"InfraSyntaxOpersM2Labeling", true, true,
-				"InfraSyntaxOpersM2Labeling", "refasminiclass",
+				"InfraSyntaxOpersM2Labeling", "infrasyntaxopersm2miniconcept",
 				"Operation Labeling", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, instBasicOpersM2Labeling, true);
@@ -1578,7 +1579,7 @@ public class ModelInstance extends AbstractModel {
 				null, infraOpersM2Concept);
 
 		MetaConcept infraSyntaxM2Concept = new MetaConcept('C', "SMMConcept",
-				true, true, "SMMConcept", "refasminiclass",
+				true, true, "SMMConcept", "infrasyntaxm2miniconcept",
 				"Syntax Meta Concept", 150, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instInfraOpersM2Concept, true);
@@ -1904,9 +1905,10 @@ public class ModelInstance extends AbstractModel {
 		// Begin Syntax M2 Model
 
 		MetaConcept infraSyntaxM2View = new MetaConcept('V', "SMMView", true,
-				true, "SMMView", "refasview", "MM View/MM SubView Concept",
-				100, 30, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.WHITE.toString(), 3, instInfraOpersM2View, true);
+				true, "SMMView", "infrasyntaxm2view",
+				"MM View/MM SubView Concept", 100, 30,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.WHITE.toString(), 3, instInfraOpersM2View, true);
 
 		infraSyntaxM2View.addPanelVisibleAttribute("04#"
 				+ MetaConcept.VAR_USERIDENTIFIER);
@@ -1919,7 +1921,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxM2OTRel = new MetaConcept('O',
 				"SMMOverTwoRelation", true, true, "SMMOverTwoRelation",
-				"refasminiclass", "MetaOverTwoRelation", 180, 70,
+				"infrasyntaxm2miniconcept", "MetaOverTwoRelation", 180, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instInfraOpersM2OTRel, true);
 
@@ -1949,7 +1951,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxM2ExtendsRelation = new MetaConcept('X',
 				"SMMExtendRelation", true, true, "SMMExtendRelation",
-				"refasminiclass", "Extend relation", 150, 70,
+				"infrasyntaxm2miniconcept", "Extend relation", 150, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instInfraOpersM2ExtendsRelation, true);
 		infraSyntaxM2ExtendsRelation.addPanelVisibleAttribute("01#Name");
@@ -1979,7 +1981,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaPairwiseRelation metaPairwiseRelExtends = new MetaPairwiseRelation(
 				"ExtendsRelation", false, true, "Extends Relation",
-				"refasextends", "View-Concept relation", 50, 50,
+				"refasextends", "Extends relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
 
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRelation(
@@ -1987,8 +1989,8 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxM2ViewConceptAsso = new MetaConcept('I',
 				"SMMViewConceptAsso", true, true, "SMMViewConceptAsso",
-				"refasminiclass", "View-Concept Association", 150, 70,
-				"/com/variamos/gui/perspeditor/images/concept.png", true,
+				"infrasyntaxm2miniconcept", "View-Concept Association", 150,
+				70, "/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instInfraOpersM2ViewConceptAsso, true);
 		infraSyntaxM2ViewConceptAsso.addPanelVisibleAttribute("01#dummy");
 		infraSyntaxM2ViewConceptAsso
@@ -2034,8 +2036,8 @@ public class ModelInstance extends AbstractModel {
 		instEdge.setSourceRelation(instInfraSyntaxM2ViewConceptAsso, true);
 
 		MetaPairwiseRelation metaPairwiseRelFromView = new MetaPairwiseRelation(
-				"ViewRelation", false, true, "View Relation", "refasviewrel",
-				"View-Concept relation", 50, 50,
+				"ViewRelation", false, true, "View Relation",
+				"infrasyntaxm2viewrel", "View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
 
 		InstPairwiseRelation instViewRelation = new InstPairwiseRelation(
@@ -2045,7 +2047,7 @@ public class ModelInstance extends AbstractModel {
 
 		MetaConcept infraSyntaxM2PWRel = new MetaConcept('P',
 				"SMMPairwiseRelation", true, true, "SMMPairwiseRelation",
-				"refasminiclass", "MetaPairwiseRelation", 150, 200,
+				"infrasyntaxm2miniconcept", "MetaPairwiseRelation", 150, 200,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, instInfraOpersM2PWRel, true);
 
