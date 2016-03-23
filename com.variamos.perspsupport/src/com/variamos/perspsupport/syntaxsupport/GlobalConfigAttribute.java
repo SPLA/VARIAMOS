@@ -8,7 +8,7 @@ import com.variamos.semantic.types.AttributeType;
  *
  *         Definition of semantics for REFAS
  */
-public class GlobalConfigAttribute extends ConfigurationAttribute {
+public class GlobalConfigAttribute extends AbstractAttribute {
 	/**
 	 * 
 	 */

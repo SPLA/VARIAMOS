@@ -25,7 +25,6 @@ public class InstEnumeration extends InstVertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 188655707058755882L;
-	public static final String VAR_METAENUM_IDEN = "MetaEnumIde";
 
 	public InstEnumeration() {
 		super();
@@ -108,11 +107,6 @@ public class InstEnumeration extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaElementUserIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
-		return (String) dynamicAttributesMap.get(VAR_METAENUM_IDEN);
-	}
-
 	public void setIdentifier(String identifier) {
 		super.setIdentifier(identifier);
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
@@ -120,14 +114,14 @@ public class InstEnumeration extends InstVertex {
 				supportMetaElement.getDescription());
 	}
 
-	public void setTransSupportMetaElement(MetaVertex metaEnumeration) {
-		super.setTransSupportMetaElement(metaEnumeration);
-		setDynamicVariable(VAR_METAENUM_IDEN,
-				metaEnumeration.getAutoIdentifier());
+	public void setTransSupportMetaElement(MetaVertex metaVertex) {
+		super.setTransSupportMetaElement(metaVertex);
+		setDynamicVariable(InstConcept.VAR_METACONCEPT_IDEN,
+				metaVertex.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
-				metaEnumeration.getDescription());
+				metaVertex.getDescription());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
-				metaEnumeration.getDescription());
+				metaVertex.getDescription());
 
 		// createInstAttributes();
 	}
@@ -135,7 +129,8 @@ public class InstEnumeration extends InstVertex {
 	public void setMetaEnumerationUserIdentifier(
 			String metaEnumerationIdentifier) {
 		MetaElement supportMetaElement = this.getTransSupportMetaElement();
-		setDynamicVariable(VAR_METAENUM_IDEN, metaEnumerationIdentifier);
+		setDynamicVariable(InstConcept.VAR_METACONCEPT_IDEN,
+				metaEnumerationIdentifier);
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				supportMetaElement.getDescription());
 		// createInstAttributes();

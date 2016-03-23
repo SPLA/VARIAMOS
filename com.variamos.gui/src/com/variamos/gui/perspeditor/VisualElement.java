@@ -63,12 +63,12 @@ public class VisualElement implements Comparable<VisualElement> {
 		if (instElement.getInstAttribute("NotAvailable") != null)
 			newNotAvailable = instElement.getInstAttribute("NotAvailable")
 					.getAsBoolean();
-		if (opersElement instanceof OpersReasoningConcept) {
+		if (instElement.getInstAttribute("CompExp") != null) {
 			newOtherParameters = "{BoolExp:"
 					+ instElement.getInstAttribute("CompExp").getAsBoolean()
 					+ "}";
 		}
-		if (opersElement instanceof OpersSoftConcept) {
+		if (instElement.getInstAttribute("SDReqLevel") != null) {
 			newOtherParameters = "{Required: "
 					+ instElement.getInstAttribute("SDReqLevel").getAsInteger()
 					+ " Expected: "
@@ -161,6 +161,7 @@ public class VisualElement implements Comparable<VisualElement> {
 
 	public int getCols() {
 		String opersId = opersElement.getIdentifier();
+		// FIXME validate considering parents and remove classes
 		if (opersId.equals("AbstVariable")
 				|| opersId.equals("AbstReasoningElement"))
 			return 2;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,6 +86,9 @@ public abstract class InstVertex extends InstElement {
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
 		if (getEditableMetaElement() != null)
 			getEditableMetaElement().setAutoIdentifier(identifier);
+		if (supportMetaElement != null)
+			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+					getTransSupportMetaElement().getDescription());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -138,16 +140,9 @@ public abstract class InstVertex extends InstElement {
 		createInstAttributes(syntaxParents);
 		if (getTransSupportMetaElement() == null)
 			return null;
-		Set<String> attributesNames = getTransSupportMetaElement().getPropVisibleAttributesSet(syntaxParents);
+		Set<String> attributesNames = getTransSupportMetaElement()
+				.getPropVisibleAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
-	}
-
-	private Set<String> getPropVisibleAttributesSet(
-			List<InstElement> syntaxParents) {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getPropVisibleAttributesSet(
-					getParentOpersConcept());
-		return new HashSet<String>();
 	}
 
 	public List<InstAttribute> getFilteredInstAttributes(
@@ -222,7 +217,11 @@ public abstract class InstVertex extends InstElement {
 
 	}
 
-	public abstract String getSupportMetaElementUserIdentifier();
+	public String getSupportMetaElementUserIdentifier() {
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		return (String) dynamicAttributesMap
+				.get(InstConcept.VAR_METACONCEPT_IDEN);
+	}
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstV:" + this.getIdentifier()

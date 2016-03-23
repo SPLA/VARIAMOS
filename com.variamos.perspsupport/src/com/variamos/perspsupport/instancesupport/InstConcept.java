@@ -86,19 +86,7 @@ public class InstConcept extends InstVertex {
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaElementUserIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
-		return (String) dynamicAttributesMap.get(VAR_METACONCEPT_IDEN);
-	}
-
-	public void setIdentifier(String identifier) {
-		super.setIdentifier(identifier);
-		MetaElement supportMetaElement = this.getTransSupportMetaElement();
-		if (supportMetaElement != null)
-			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
-					supportMetaElement.getDescription());
-	}
-
+	@Override
 	public void setTransSupportMetaElement(MetaElement metaElement) {
 		super.setTransSupportMetaElement(metaElement);
 
@@ -117,11 +105,4 @@ public class InstConcept extends InstVertex {
 				supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
-
-	public void clearEditableMetaVertex() {
-		super.clearEditableMetaVertex();
-		// supportMetaElement = null;
-
-	}
-
 }

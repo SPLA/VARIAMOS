@@ -74,7 +74,6 @@ public class MetaPairwiseRelation extends MetaElement {
 
 	public MetaPairwiseRelation() {
 
-		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
@@ -84,8 +83,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		this(identifier, visible, editable, name, style, description, width,
 				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
 				"", "", false, TypeOfLine.solid);
-		// this.semanticPairwiseRelation = semanticRelation;
-		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
@@ -96,7 +93,6 @@ public class MetaPairwiseRelation extends MetaElement {
 				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
 				"", "", false, TypeOfLine.solid);
 		this.palette = palette;
-		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
@@ -105,7 +101,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		this(identifier, visible, editable, name, style, description, width,
 				height, image, borderStroke, null, 1, 1, 1, 1, "", "", false,
 				TypeOfLine.solid);
-		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
@@ -126,7 +121,6 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createPWModelingAttributes();
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
@@ -155,45 +149,7 @@ public class MetaPairwiseRelation extends MetaElement {
 		this.endDescription = endDescription;
 		this.arrowDirection = arrowDirection;
 		this.typeOfLine = typeOfLine;
-		createPWModelingAttributes();
-	}
 
-	public void createPWModelingAttributes() {
-		// TODO include attribute based on other object values, cardinalityType
-		// from semanticTypes
-		// addModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN, new
-		// SemanticAttribute(
-		// VAR_SEMANTICPAIRWISEREL_IDEN, "Class", true,
-		// VAR_SEMANTICPAIRWISEREL_NAME, VAR_SEMANTICPAIRWISEREL_CLASS,
-		// "OperGoalOverTwoRel", ""));
-		/*
-		 * addModelingAttribute(VAR_METAPAIRWISERELTYPE, new SemanticAttribute(
-		 * VAR_METAPAIRWISERELTYPE, "Enumeration", true,
-		 * VAR_METAPAIRWISERELTYPE_NAME, VAR_METAPAIRWISERELTYPE_CLASS,
-		 * "mandatory", ""));
-		 */
-		// addModelingAttribute(VAR_METAGENERALCONSTRAINT, new
-		// SemanticAttribute(
-		// VAR_METAGENERALCONSTRAINT, "String", false,
-		// VAR_METAGENERALCONSTRAINTNAME, ""));
-
-		// this.addPropEditableAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
-		// this.addPropVisibleAttribute("03#" + VAR_SEMANTICPAIRWISEREL_IDEN);
-
-		// this.addPropEditableAttribute("04#" + VAR_METAPAIRWISERELTYPE);
-		// this.addPropVisibleAttribute("04#" + VAR_METAPAIRWISERELTYPE);
-
-		// this.addPropEditableAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
-		// this.addPropVisibleAttribute("05#" + VAR_METAGENERALCONSTRAINT + "#"
-		// + VAR_METAPAIRWISERELTYPE + "#==#" + "generalConstraint");
-		// this.addModelingAttribute(MetaConcept.VAR_USERIDENTIFIER,
-		// new SyntaxAttribute(MetaConcept.VAR_USERIDENTIFIER, "String",
-		// false, "User Identifier", null, 0, 1, "", "", -1, "",
-		// ""));
-		// this.addPropVisibleAttribute("01#" + MetaConcept.VAR_USERIDENTIFIER);
-		// this.addPropEditableAttribute("01#" +
-		// MetaConcept.VAR_USERIDENTIFIER);
 	}
 
 	public Set<String> getPropVisibleAttributesSet(

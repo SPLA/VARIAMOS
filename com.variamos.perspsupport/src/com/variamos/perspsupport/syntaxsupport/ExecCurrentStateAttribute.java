@@ -9,7 +9,7 @@ import com.variamos.semantic.types.AttributeType;
  *
  *         Definition of semantics for REFAS
  */
-public class ExecCurrentStateAttribute extends ExecutionAttribute {
+public class ExecCurrentStateAttribute extends AbstractAttribute {
 	/**
 	 * 
 	 */

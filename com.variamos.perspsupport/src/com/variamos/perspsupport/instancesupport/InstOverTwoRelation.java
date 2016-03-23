@@ -212,6 +212,7 @@ public class InstOverTwoRelation extends InstVertex {
 		return getTransSupportMetaElement();
 	}
 
+	@Override
 	public String getSupportMetaElementUserIdentifier() {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		return (String) dynamicAttributesMap.get(VAR_METAOVERTWOREL_IDEN);
@@ -242,13 +243,6 @@ public class InstOverTwoRelation extends InstVertex {
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject());
 		else
 			return null;
-	}
-
-	public void setIdentifier(String identifier) {
-		super.setIdentifier(identifier);
-		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
-				getTransSupportMetaElement().getDescription());
-
 	}
 
 	public void setTransSupportMetaElement(MetaVertex supportMetaOvetTwoRelation) {
@@ -406,8 +400,7 @@ public class InstOverTwoRelation extends InstVertex {
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();
 		if (getSupportMetaOverTwoRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(
-					null);
+			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(null);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
@@ -479,6 +472,7 @@ public class InstOverTwoRelation extends InstVertex {
 		return out;
 	}
 
+	@Override
 	public void clearEditableMetaVertex() {
 		super.clearEditableMetaVertex();
 		// supportMetaElement = null;

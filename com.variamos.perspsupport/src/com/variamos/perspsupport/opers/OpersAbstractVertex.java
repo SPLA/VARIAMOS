@@ -14,8 +14,8 @@ import com.variamos.perspsupport.opersint.IntOpersConcept;
  * @version 1.1
  * @since 2014-11-23
  */
-public abstract class OpersAbstractVertex extends OpersAbstractElement
-		implements IntOpersConcept {
+public class OpersAbstractVertex extends OpersAbstractElement implements
+		IntOpersConcept {
 
 	/**
 	 * 

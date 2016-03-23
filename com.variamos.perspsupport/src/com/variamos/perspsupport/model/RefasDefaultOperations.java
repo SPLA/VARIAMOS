@@ -21,8 +21,8 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
+import com.variamos.perspsupport.opers.OpersAbstractVertex;
 import com.variamos.perspsupport.opers.OpersConcept;
-import com.variamos.perspsupport.opers.OpersContextGroup;
 import com.variamos.perspsupport.opers.OpersOverTwoRel;
 import com.variamos.perspsupport.opers.OpersPairwiseRel;
 import com.variamos.perspsupport.opers.OpersReasoningConcept;
@@ -36,7 +36,6 @@ import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaConcept;
 import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.OptionAttribute;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
@@ -2733,8 +2732,36 @@ public class RefasDefaultOperations {
 
 		refas.getVariabilityVertex().put("Variable", instVertexVAR);
 
-		OpersContextGroup semContextGroup = new OpersContextGroup(
+		OpersAbstractVertex semContextGroup = new OpersAbstractVertex(
 				"ConcernLevel");
+
+		semContextGroup.putSemanticAttribute("name", new SemanticAttribute(
+				"name", "String", AttributeType.OPERATION, false, "Group Name",
+				"<<new>>", 0, 1, "", "", 1, "", ""));
+		semContextGroup.putSemanticAttribute("instances",
+				new SemanticAttribute("instances", "Integer",
+						AttributeType.OPERATION, false, "Number of Instances",
+						"1", 0, 7, "", "", -1, "", ""));
+		semContextGroup.putSemanticAttribute("ExtVisible",
+				new SemanticAttribute("ExtVisible", "Boolean",
+						AttributeType.OPERATION, false, "External Visible",
+						false, 0, 8, "", "", -1, "", ""));
+		semContextGroup.putSemanticAttribute("ExtControl",
+				new SemanticAttribute("ExtControl", "Boolean",
+						AttributeType.OPERATION, false,
+						"Externally Controlled", false, 0, 9, "", "", -1, "",
+						""));
+
+		semContextGroup.addPropEditableAttribute("01#" + "name");
+		semContextGroup.addPropEditableAttribute("07#" + "instances");
+		semContextGroup.addPropEditableAttribute("08#" + "ExtVisible");
+		semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
+
+		semContextGroup.addPropVisibleAttribute("01#" + "name");
+		semContextGroup.addPropVisibleAttribute("07#" + "instances");
+		semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
+		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
+
 		InstVertex instVertexCG = new InstConcept("ConcernLevel",
 				infraMetaMetaConcept, semContextGroup);
 		refas.getVariabilityVertex().put("ConcernLevel", instVertexCG);
@@ -2834,7 +2861,7 @@ public class RefasDefaultOperations {
 		ia = instDirOperClaimSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
@@ -2869,7 +2896,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3264,20 +3291,20 @@ public class RefasDefaultOperations {
 
 		ia = instVertexHHGR.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("and", new OptionAttribute("and",
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				1, -1, "", "", -1, "", ""), "and#and#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("or", new OptionAttribute("or",
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				1, -1, "", "", -1, "", ""), "or#or#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", 1, -1, "", "", -1, "", ""),
 				"mutex#mutex#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("range", new OptionAttribute("range",
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
@@ -3301,7 +3328,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("and", new OptionAttribute("and",
+		// ias.add(new InstAttribute("and", new AbstractAttribute("and",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 		// 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3321,7 +3348,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("or", new OptionAttribute("or",
+		// ias.add(new InstAttribute("or", new AbstractAttribute("or",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 		// 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3343,7 +3370,7 @@ public class RefasDefaultOperations {
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+		// ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3379,7 +3406,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("range", new OptionAttribute("range",
+		// ias.add(new InstAttribute("range", new AbstractAttribute("range",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3435,29 +3462,29 @@ public class RefasDefaultOperations {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""),
 				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("alternative", new OptionAttribute(
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
 				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				"altern.#altern.#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"preferred", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "preferred", "", 1, -1, "", "", -1, "", ""),
 				"preferred#preferred#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", 1, -1, "", "", -1, "", ""),
 				"require#require#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("condition", new OptionAttribute("condition",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"condition", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("condition", new AbstractAttribute(
+				"condition", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "condition", "", 1, -1, "", "", -1, "", ""),
 				"condition#condition#false#true#true#1#-1#1#1"));
 
 		ia = instDirHardHardSemanticEdge
@@ -3478,7 +3505,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3497,7 +3524,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("alternative", new OptionAttribute(
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
 				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3521,9 +3548,9 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"preferred", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "preferred", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3541,7 +3568,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3568,9 +3595,9 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("condition", new OptionAttribute("condition",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"condition", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("condition", new AbstractAttribute(
+				"condition", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "condition", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("GoalGoalSidePWAsso",
@@ -3607,12 +3634,12 @@ public class RefasDefaultOperations {
 		ia = instDirStructHardHardSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("means_ends", new OptionAttribute(
+		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
 				"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "means_ends", "", 1, -1, "", "", -1, "", ""),
 				"means_ends#means-ends#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("implication", new OptionAttribute(
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
 				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
@@ -3641,7 +3668,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("means_ends", new OptionAttribute(
+		ias.add(new InstAttribute("means_ends", new AbstractAttribute(
 				"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "means_ends", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3662,7 +3689,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implication", new OptionAttribute(
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
 				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3713,12 +3740,12 @@ public class RefasDefaultOperations {
 		ia = instDirFeaFeatVertSemEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "mandatory", "", 1, -1, "", "", -1, "", ""),
 				"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("optional", new OptionAttribute("optional",
+		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
 				"", 1, -1, "", "", -1, "", ""),
 				"optional#optional#false#true#true#1#-1#1#1"));
@@ -3749,9 +3776,9 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "mandatory", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3776,7 +3803,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		attribute = new OptionAttribute("optional", StringType.IDENTIFIER,
+		attribute = new AbstractAttribute("optional", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "optional", "", 1, -1, "", "", -1,
 				"", "");
 		ias.add(new InstAttribute("optional", attribute, semanticExpressions));
@@ -3819,12 +3846,12 @@ public class RefasDefaultOperations {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""),
 				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", 1, -1, "", "", -1, "", ""),
 				"require#require#false#true#true#1#-1#1#1"));
@@ -3847,7 +3874,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -3866,7 +3893,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"condition", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3915,7 +3942,7 @@ public class RefasDefaultOperations {
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
 
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#false#true#true#1#-1#1#1"));
@@ -3948,7 +3975,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -3991,12 +4018,12 @@ public class RefasDefaultOperations {
 		ia = instSemAssetPairwiseRel
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("mandatory", new OptionAttribute("mandatory",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"mandatory", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("mandatory", new AbstractAttribute(
+				"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "mandatory", "", 1, -1, "", "", -1, "", ""),
 				"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("optional", new OptionAttribute("optional",
+		ias.add(new InstAttribute("optional", new AbstractAttribute("optional",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "optional",
 				"", 1, -1, "", "", -1, "", ""),
 				"optional#optional#false#true#true#1#-1#1#1"));
@@ -4027,7 +4054,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("delegation", new OptionAttribute(
+		ias.add(new InstAttribute("delegation", new AbstractAttribute(
 				"delegation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "delegation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -4055,7 +4082,7 @@ public class RefasDefaultOperations {
 
 		semanticExpressions.add(t1);
 
-		ias.add(new InstAttribute("assembly", new OptionAttribute("assembly",
+		ias.add(new InstAttribute("assembly", new AbstractAttribute("assembly",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "assembly",
 				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4099,9 +4126,9 @@ public class RefasDefaultOperations {
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("Variable Context",
-				new OptionAttribute("Variable Context", StringType.IDENTIFIER,
-						AttributeType.OPTION, false, "", "", 1, -1, "", "", -1,
-						"", ""),
+				new AbstractAttribute("Variable Context",
+						StringType.IDENTIFIER, AttributeType.OPTION, false, "",
+						"", 1, -1, "", "", -1, "", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 		ia = instSemvarcntxPairwiseRel
@@ -4110,7 +4137,7 @@ public class RefasDefaultOperations {
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
-		ias.add(new InstAttribute("Variable Context", new OptionAttribute(
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
 				"Variable Context", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "Variable Context", "", 1, -1, "",
 				"", -1, "", ""), semanticExpressions));
@@ -4432,32 +4459,32 @@ public class RefasDefaultOperations {
 		ia = instDirSGSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("contribution", new OptionAttribute(
+		ias.add(new InstAttribute("contribution", new AbstractAttribute(
 				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "contribution", "", 1, -1, "", "", -1, "", ""),
 				"contribution#contribution#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""),
 				"conflict#conflict#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("alternative", new OptionAttribute(
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
 				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				"altern.#altern.#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"preferred", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "preferred", "", 1, -1, "", "", -1, "", ""),
 				"preferred#preferred#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", 1, -1, "", "", -1, "", ""),
 				"require#require#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("implication", new OptionAttribute(
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
 				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
@@ -4548,7 +4575,7 @@ public class RefasDefaultOperations {
 
 		// TODO include expressions for contribution
 
-		ias.add(new InstAttribute("contribution", new OptionAttribute(
+		ias.add(new InstAttribute("contribution", new AbstractAttribute(
 				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "contribution", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -4567,7 +4594,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("conflict", new OptionAttribute("conflict",
+		ias.add(new InstAttribute("conflict", new AbstractAttribute("conflict",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "conflict",
 				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4587,7 +4614,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("alternative", new OptionAttribute(
+		ias.add(new InstAttribute("alternative", new AbstractAttribute(
 				"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "alternative", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -4611,9 +4638,9 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("preferred", new OptionAttribute("preferred",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"preferred", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("preferred", new AbstractAttribute(
+				"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "preferred", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4631,7 +4658,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("require", new OptionAttribute("require",
+		ias.add(new InstAttribute("require", new AbstractAttribute("require",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "require",
 				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4651,7 +4678,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implication", new OptionAttribute(
+		ias.add(new InstAttribute("implication", new AbstractAttribute(
 				"implication", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -4745,9 +4772,9 @@ public class RefasDefaultOperations {
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("Variable Context",
-				new OptionAttribute("Variable Context", StringType.IDENTIFIER,
-						AttributeType.OPTION, false, "", "", 1, -1, "", "", -1,
-						"", ""),
+				new AbstractAttribute("Variable Context",
+						StringType.IDENTIFIER, AttributeType.OPTION, false, "",
+						"", 1, -1, "", "", -1, "", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 		ia = instDirCVCGSemanticEdge.getInstAttribute("operationsExpressions");
@@ -4755,7 +4782,7 @@ public class RefasDefaultOperations {
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
-		ias.add(new InstAttribute("Variable Context", new OptionAttribute(
+		ias.add(new InstAttribute("Variable Context", new AbstractAttribute(
 				"Variable Context", StringType.IDENTIFIER,
 				AttributeType.OPTION, false, "Variable Context", "", 1, -1, "",
 				"", -1, "", ""), semanticExpressions));
@@ -4788,20 +4815,20 @@ public class RefasDefaultOperations {
 
 		ia = instVertexCLGR.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("and", new OptionAttribute("and",
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 				1, -1, "", "", -1, "", ""), "and#and#true#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("or", new OptionAttribute("or",
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 				1, -1, "", "", -1, "", ""), "or#or#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 				"", 1, -1, "", "", -1, "", ""),
 				"mutex#mutex#false#true#true#1#-1#1#1"));
 
-		ias.add(new InstAttribute("range", new OptionAttribute("range",
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
@@ -4825,7 +4852,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("and", new OptionAttribute("and",
+		// ias.add(new InstAttribute("and", new AbstractAttribute("and",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
 		// 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4845,7 +4872,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("or", new OptionAttribute("or",
+		// ias.add(new InstAttribute("or", new AbstractAttribute("or",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
 		// 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4867,7 +4894,7 @@ public class RefasDefaultOperations {
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("mutex", new OptionAttribute("mutex",
+		// ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
 		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4903,7 +4930,7 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("range", new OptionAttribute("range",
+		// ias.add(new InstAttribute("range", new AbstractAttribute("range",
 		// StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
 		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -4926,7 +4953,7 @@ public class RefasDefaultOperations {
 		ia = instDirOperClaimToSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
@@ -4961,7 +4988,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("operToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("operToClaim", new AbstractAttribute(
 				"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "operToClaim", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -5062,7 +5089,7 @@ public class RefasDefaultOperations {
 		ia = instDirFClaimToSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
@@ -5098,7 +5125,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("OperToClaim", new OptionAttribute(
+		ias.add(new InstAttribute("OperToClaim", new AbstractAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -5231,9 +5258,9 @@ public class RefasDefaultOperations {
 		ia = instDirClaimSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("ClaimToSG", new OptionAttribute("ClaimToSG",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"Claim To SG", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
+				"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "Claim To SG", "", 1, -1, "", "", -1, "", ""),
 				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
 		ia = instDirClaimSGSemanticEdge
@@ -5307,9 +5334,9 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("ClaimToSG", new OptionAttribute("ClaimToSG",
-				StringType.IDENTIFIER, AttributeType.OPTION, false,
-				"claim To SG", "", 1, -1, "", "", -1, "", ""),
+		ias.add(new InstAttribute("ClaimToSG", new AbstractAttribute(
+				"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
+				false, "claim To SG", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
 		refas.getVariabilityVertex().put("ClaimSGPWAsso",
@@ -5373,7 +5400,7 @@ public class RefasDefaultOperations {
 		ia = instDirSDSGSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("SD", new OptionAttribute("SD",
+		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
 				1, -1, "", "", -1, "", ""), "SD#SD#true#true#true#1#-1#1#1"));
 
@@ -5457,7 +5484,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("SD", new OptionAttribute("SD",
+		ias.add(new InstAttribute("SD", new AbstractAttribute("SD",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
 				1, -1, "", "", -1, "", ""), semanticExpressions));
 
@@ -5594,7 +5621,7 @@ public class RefasDefaultOperations {
 
 		ia = instAssetOperGRAO.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
@@ -5625,7 +5652,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
@@ -5663,7 +5690,7 @@ public class RefasDefaultOperations {
 		ia = instDirAssetOperSemanticEdge
 				.getInstAttribute("relationTypesAttributes");
 		ias = (List<InstAttribute>) ia.getValue();
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
@@ -5695,7 +5722,7 @@ public class RefasDefaultOperations {
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		ias.add(new InstAttribute("implementation", new OptionAttribute(
+		ias.add(new InstAttribute("implementation", new AbstractAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
