@@ -3,10 +3,8 @@ package com.variamos.perspsupport.syntaxsupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * A class to support the dynamic enumeration on modeling perspective. Extends
@@ -48,28 +46,28 @@ public class MetaEnumeration extends MetaVertex {
 	 */
 	VAR_METAENUMVALUECLASS = InstAttribute.class.getCanonicalName();
 
-	public MetaEnumeration(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, boolean topConcept,
-			String backgroundColor, boolean resizable,
+	public MetaEnumeration(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, int borderStroke,
+			boolean topConcept, String backgroundColor, boolean resizable,
 			List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSparerAttributes,
 			Map<String, AbstractAttribute> attributes) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, topConcept, backgroundColor,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null, topConcept, backgroundColor,
 				resizable, propVisibleAttributes, propEditableAttributes,
 				panelVisibleAttributes, panelSparerAttributes, attributes);
 		createEnumModelingAttributes();
 	}
 
-	public MetaEnumeration(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, boolean topConcept, String backgroundColor,
-			int borderStroke, boolean resizable) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, null, topConcept, backgroundColor,
+	public MetaEnumeration(String identifier, boolean visible,
+			boolean editable, String name, String style, String description,
+			int width, int height, String image, boolean topConcept,
+			String backgroundColor, int borderStroke, boolean resizable) {
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null, topConcept, backgroundColor,
 				resizable);
 		createEnumModelingAttributes();
 	}
@@ -87,26 +85,10 @@ public class MetaEnumeration extends MetaVertex {
 				new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n", "");
 
 		this.addPropEditableAttribute("01#" + VAR_METAENUMNAME);
-		// this.addPropEditableAttribute("02#" + VAR_METAENUMVALUE);
 
 		this.addPropVisibleAttribute("01#" + VAR_METAENUMNAME);
-		// this.addDisPropVisibleAttribute("02#" + VAR_METAENUMVALUE);
-		// TODO enable when the attribute JPanel gets loaded dynamically
-
-		// this.addPanelVisibleAttribute("01#" + VAR_METAENUMNAME);
 		this.addPanelVisibleAttribute("05#" + VAR_METAENUMVALUE);
-
-		// this.addPanelSpacersAttribute("#" + VAR_METAENUMNAME + "#\n\n");
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMVALUE + "#\n");
-	}
-
-	@Override
-	public Set<String> getAllAttributesNames(List<InstElement> parents) {
-		return this.getModelingAttributesNames();
-	}
-
-	public AbstractAttribute getSemanticAttribute(String name) {
-		return null;
 	}
 
 	public char getType() {

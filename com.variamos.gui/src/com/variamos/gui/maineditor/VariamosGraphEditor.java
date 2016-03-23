@@ -87,7 +87,6 @@ import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.instancesupport.InstView;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
@@ -227,7 +226,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		refasGraph.setValidation(false);
-		refasGraph.setModel(abstractModel);
+		refasGraph.setModelInstance(abstractModel);
 		refasGraph.setValidation(true);
 		graphEditorFunctions = new PerspEditorFunctions(this);
 		// RefasGraph refasGraph = (RefasGraph) component.getGraph();
@@ -588,7 +587,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
 		registerEvents();
 
-		abstractGraph.setModel(pl);
+		abstractGraph.setModelInstance(pl);
 	}
 
 	public void resetView() {
@@ -994,11 +993,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				List<InstAttribute> editables = finalEditElm
 						.getEditableVariables(refasModel
-								.getParentSyntaxConcept((InstElement) finalEditElm));
+								.getParentSMMSyntaxElement((InstElement) finalEditElm));
 
 				List<InstAttribute> visible = finalEditElm
 						.getVisibleVariables(refasModel
-								.getParentSyntaxConcept(finalEditElm));
+								.getParentSMMSyntaxElement(finalEditElm));
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 
@@ -1327,7 +1326,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void refreshElement(EditableElement elm) {
 		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
-				.getParentSyntaxConcept((InstElement) elm));
+				.getParentSMMSyntaxElement((InstElement) elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;
@@ -1413,8 +1412,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Resizable"))
 					((MetaConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals(
-						OpersVariable.VAR_VALUE))
+				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
 									.getValue());
@@ -1741,7 +1739,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			// updateObjects();
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
-			lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
+			lastSolverInvocations = "NormalExec: " + (endTime - iniTime) + "["
 					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
 					+ " -- ";
 		} catch (Exception e) {

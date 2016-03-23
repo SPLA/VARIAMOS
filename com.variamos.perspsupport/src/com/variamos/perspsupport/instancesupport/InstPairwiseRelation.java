@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.perspsupport.opers.OpersPairwiseRel;
 import com.variamos.perspsupport.opers.OpersRelType;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
@@ -185,7 +184,7 @@ public class InstPairwiseRelation extends InstElement {
 		setDynamicVariable("relationType", metaEdge.getAutoIdentifier());
 		setDynamicVariable(MetaElement.VAR_DESCRIPTION,
 				metaEdge.getDescription());
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public void createInstAttributes() {
@@ -270,12 +269,13 @@ public class InstPairwiseRelation extends InstElement {
 	// }
 
 	@Override
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
+	public List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents) {
 		createInstAttributes();
 		// return new InstAttribute[0];
 		List<InstAttribute> editableInstAttributes = null;
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> attributesNames = getDisPropEditableAttributes(parents);
+			Set<String> attributesNames = getDisPropEditableAttributes(syntaxParents);
 			editableInstAttributes = getFilteredInstAttributes(attributesNames,
 					null);
 		} else {
@@ -287,12 +287,13 @@ public class InstPairwiseRelation extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) {
-		createInstAttributes();
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) {
+		createInstAttributes(syntaxParents);
 		// return new InstAttribute[0];
 		List<InstAttribute> visibleInstAttributes = null;
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> attributesNames = getDisPropVisibleAttributes(parents);
+			Set<String> attributesNames = getDisPropVisibleAttributes(syntaxParents);
 			visibleInstAttributes = getFilteredInstAttributes(attributesNames,
 					null);
 		} else {
@@ -369,8 +370,9 @@ public class InstPairwiseRelation extends InstElement {
 			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
+			// FIXME how pass parent to opersconcept
 			editableAttributes.addAll(semanticRelation
-					.getPropEditableAttributes());
+					.getPropEditableAttributes(null));
 		}
 
 		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ_IDEN);
@@ -401,8 +403,9 @@ public class InstPairwiseRelation extends InstElement {
 			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
+			// FIXME how to get the parents for this opersconcept
 			editableAttributes.addAll(semanticRelation
-					.getPropVisibleAttributes());
+					.getPropVisibleAttributes(null));
 		}
 
 		editableAttributes.add("02#" + VAR_METAPAIRWISE_OBJ_IDEN);
@@ -422,7 +425,7 @@ public class InstPairwiseRelation extends InstElement {
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
-					.getPanelVisibleAttributes());
+					.getPanelVisibleAttributes(null));
 		}
 		return editableAttributes;
 	}
@@ -439,7 +442,7 @@ public class InstPairwiseRelation extends InstElement {
 					MetaPairwiseRelation.VAR_SEMANTICPAIRWISEREL_IDEN)
 					.getValueObject();
 			editableAttributes.addAll(semanticRelation
-					.getPanelSpacersAttributes());
+					.getPanelSpacersAttributes(null));
 		}
 		return editableAttributes;
 	}
@@ -453,14 +456,16 @@ public class InstPairwiseRelation extends InstElement {
 		// List<String> visibleAttributesNames = metaConcept
 		// .getPanelVisibleAttributes();
 		if (getMetaPairwiseRelation() != null) {
-			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(null);
+			Set<String> visibleAttributesNames = getDisPanelVisibleAttributes(
+					parents);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 
 			// List<String> spacersAttributes = metaConcept
 			// .getPanelSpacersAttributes();
-			Set<String> spacersAttributes = getDisPanelSpacersAttributes(null);
+			Set<String> spacersAttributes = getDisPanelSpacersAttributes(
+					parents);
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -501,15 +506,14 @@ public class InstPairwiseRelation extends InstElement {
 							int sp2 = spacer.indexOf("#", sp1 + 1);
 
 							out += spacer.substring(0, sp1);
-							if (name.equals(OpersPairwiseRel.VAR_RELATIONTYPE_IDEN)
+							if (name.equals("relationType")
 									&& getInstAttributes().get(name) != null
 									&& getInstAttributes().get(name)
 											.getValueObject() != null
 									&& getInstAttributes().get(name)
 											.getValueObject() instanceof OpersRelType) {
-								out += ((OpersRelType) getInstAttributes()
-										.get(name).getValueObject())
-										.getDiplayName();
+								out += ((OpersRelType) getInstAttributes().get(
+										name).getValueObject()).getDiplayName();
 							} else
 								out += getInstAttributes().get(name).toString()
 										.trim();
@@ -562,7 +566,7 @@ public class InstPairwiseRelation extends InstElement {
 						.getModelingAttribute(ia.getAttributeName(), null));
 			}
 		}
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public void updateIdentifiers() {

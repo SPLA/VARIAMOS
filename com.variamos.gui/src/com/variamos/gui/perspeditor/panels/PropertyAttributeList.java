@@ -58,15 +58,26 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 
 	private InstElement instElement;
 
+	private boolean editable = true;
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
 	public PropertyAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
 		init(null);
 	}
 
-	public PropertyAttributeList(VariamosGraphEditor editor,
+	public PropertyAttributeList(VariamosGraphEditor editor, boolean editable,
 			InstElement instElement, Map<String, AbstractAttribute> attributes,
 			AttributeEditionPanel attributeEdition) {
 		this.editor = editor;
+		this.editable = editable;
 		this.instElement = instElement;
 		this.attributes = attributes;
 		this.attributeEdition = attributeEdition;
@@ -85,8 +96,9 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		model.addElement(spoof);
 
 		// setSize(new Dimension(150, 150));
-		setPreferredSize(new Dimension(150, 120));
-		setMaximumSize(new Dimension(200, 120));
+		setPreferredSize(new Dimension(150, varAttributes.size() * 18));
+		setMaximumSize(new Dimension(200, varAttributes.size() * 18));
+		this.setAutoscrolls(true);
 
 		addMouseListener(new MouseAdapter() {
 
@@ -170,9 +182,9 @@ public class PropertyAttributeList extends JList<AbstractAttribute> {
 		// if(!insert)
 		// = var.getDomain().getStringRepresentation();
 
-		attributeEdition.loadElementAttributes(editor, name, displayName, type,
-				ClassCanName, MetaCInstType, defaultValue, domain, hint,
-				propTabPosition, propTabEditionCondition,
+		attributeEdition.loadElementAttributes(editor, editable, name,
+				displayName, type, ClassCanName, MetaCInstType, defaultValue,
+				domain, hint, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
 		attributeEdition.revalidate();

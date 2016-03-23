@@ -20,7 +20,6 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntModelExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
@@ -594,8 +593,8 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
 			if (fullIdentifier == null) {
-				System.out.println("NUll: " + expInstElement + " "
-						+ expAttributeName);
+				System.out.println("NUll: " + expInstElement.getIdentifier()
+						+ " " + expAttributeName);
 				return null;
 			}
 			Identifier identifier = hlclFactory.newIdentifier(fullIdentifier,
@@ -613,20 +612,19 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 
 	public static void updateDomain(AbstractAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
-		if (attribute.getName()
-				.equals(OpersVariable.VAR_VARIABLECONFIGVALUE)) {
+		if (attribute.getName().equals("variableConfigValue")) {
 			String configdomain = (String) (instVertex.getInstAttribute(
-					OpersVariable.VAR_VARIABLECONFIGDOMAIN).getValue() + "");
+					"variableConfigDomain").getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		}
-		if (attribute.getName().equals(OpersVariable.VAR_VALUE)) {
-			String type = (String) instVertex.getInstAttribute(
-					OpersVariable.VAR_VARIABLETYPE).getValue();
+		if (attribute.getName().equals("value")) {
+			String type = (String) instVertex.getInstAttribute("variableType")
+					.getValue();
 
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute(
-						OpersVariable.VAR_VARIABLEDOMAIN).getValue();
+						"variableDomain").getValue();
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumerationType")
@@ -798,13 +796,12 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
 			valueType = (String) this.volatileLeftInstElement.getInstAttribute(
-					OpersVariable.VAR_VARIABLETYPE).getValue();
+					"variableType").getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
 			valueType = (String) this.volatileRightInstElement
-					.getInstAttribute(OpersVariable.VAR_VARIABLETYPE)
-					.getValue();
+					.getInstAttribute("variableType").getValue();
 
 			break;
 		case LEFTSTRINGVALUE:
@@ -1208,8 +1205,7 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		return SemExprSubActions;
 	}
 
-	public void setSemExprSubActions(
-			List<OpersSubOperation> semExprSubActions) {
+	public void setSemExprSubActions(List<OpersSubOperation> semExprSubActions) {
 		SemExprSubActions = semExprSubActions;
 	}
 

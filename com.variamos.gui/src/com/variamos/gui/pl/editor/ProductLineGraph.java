@@ -104,7 +104,7 @@ public class ProductLineGraph extends AbstractGraph {
 		}
 	}
 
-	public void setModel(AbstractModel abstractModel) {
+	public void setModelInstance(AbstractModel abstractModel) {
 		ProductLine pl = (ProductLine) abstractModel;
 		buildFromProductLine(pl);
 		mxGraphLayout layout = new mxFastOrganicLayout(this);

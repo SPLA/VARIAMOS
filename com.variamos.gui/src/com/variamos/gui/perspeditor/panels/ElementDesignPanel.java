@@ -44,7 +44,6 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -147,9 +146,11 @@ public class ElementDesignPanel extends JPanel {
 		if (instCell == null || instCell.getInstElement() == null) {
 			return;
 		} else {
-			EditableElement editElm = instCell.getInstElement();
-			List<InstElement> parent = ((ModelInstance) editor.getEditedModel())
-					.getParentSyntaxConcept((InstElement) editElm);
+			InstElement editElm = instCell.getInstElement();
+			List<InstElement> syntaxParent = ((ModelInstance) editor
+					.getEditedModel())
+					.getParentSMMSyntaxElement((InstElement) editElm);
+
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
@@ -178,11 +179,11 @@ public class ElementDesignPanel extends JPanel {
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
-						.getVisibleVariables(parent);
+						.getVisibleVariables(syntaxParent);
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& !((InstElement) editElm)
 								.getTransSupportMetaElement().getName()
-								.equals("OMMLabeling")) {
+								.equals("InfraSyntaxOpersM2Labeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
 					JButton button = new JButton(
@@ -230,7 +231,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& ((InstElement) editElm).getTransSupportMetaElement()
-								.getName().equals("OMMLabeling")) {
+								.getName().equals("InfraSyntaxOpersM2Labeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Order Meta-Expressions"));
 					JButton button = new JButton(
@@ -651,10 +652,14 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.editVariable(instAttribute))
 									count = 0;
 								List<InstAttribute> editables = editElm
-										.getEditableVariables(parent);
+										.getEditableVariables(syntaxParent);
 
 								if (!editables.contains(instAttribute)
-										|| editor.getPerspective() == 4)
+										|| editor.getPerspective() == 4
+										|| (editElm
+												.getTransSupportMetaElement() != null && editElm
+												.getTransSupportMetaElement()
+												.isEditable() == false))
 
 								{
 									widget.getEditor().setEnabled(false);
@@ -831,24 +836,39 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("elementAttributes")));
 				attPanel.add(new JLabel(mxResources.get("attributeEdition")));
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
+				boolean editable = true;
+
+				if (// editor.getPerspective() == 3
+				(editElm.getTransSupportMetaElement() != null && editElm
+						.getTransSupportMetaElement().isEditable() == false)) {
+					attributeEdition.setEnabled(false);
+					editable = false;
+				}
+
 				PropertyAttributeList attList = null;
 				if (instCell.getInstElement().getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor,
+					attList = new PropertyAttributeList(editor, editable,
 							instCell.getInstElement(), instCell
 									.getInstElement().getEditableMetaElement()
 									.getModelingAttributes(), attributeEdition);
 				if (instCell.getInstElement().getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor,
+					attList = new PropertyAttributeList(editor, editable,
 							instCell.getInstElement(), instCell
 									.getInstElement()
 									.getEditableSemanticElement()
-									.getAllSemanticAttributes(),
+									.getDeclaredSemanticAttributes(),
 							attributeEdition);
+
 				attributeEdition.setPropertyAttributeList(attList);
-				attPanel.setPreferredSize(new Dimension(450, 450));
-				attPanel.setMaximumSize(new Dimension(550, 450));
-				attPanel.add(new JScrollPane(attList));
-				attPanel.add(new JScrollPane(attributeEdition));
+				attPanel.setPreferredSize(new Dimension(450, 250));
+				attPanel.setMaximumSize(new Dimension(550, 250));
+				JScrollPane jj = new JScrollPane(attList);
+				jj.setAutoscrolls(true);
+				attPanel.add(jj);
+				jj = new JScrollPane(attributeEdition);
+				jj.setAutoscrolls(true);
+				attPanel.add(jj);
+				attPanel.add(jj);
 
 				SpringUtilities.makeCompactGrid(attPanel, 2, 2, 4, 4, 4, 4);
 
@@ -864,9 +884,9 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
-							.equals("OperMMPairWiseRelation") || ((InstElement) editElm)
+							.equals("InfraSyntaxOpersM2PWRel") || ((InstElement) editElm)
 							.getSupportMetaElementIden().equals(
-									"OMMOverTwoRelation"))) {
+									"InfraSyntaxOpersM2OTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
@@ -984,8 +1004,7 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Palette"))
 					((MetaPairwiseRelation) editableMetaElement)
 							.setPalette((String) instAttribute.getValue());
-				if (instAttribute.getIdentifier().equals(
-						OpersVariable.VAR_VALUE))
+				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
 							.setModelingAttributes((HashSet<AbstractAttribute>) instAttribute
 									.getValue());

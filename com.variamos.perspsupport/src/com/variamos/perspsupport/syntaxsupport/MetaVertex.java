@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 
@@ -28,12 +27,13 @@ public abstract class MetaVertex extends MetaElement {
 		super();
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
-			boolean topConcept, String backgroundColor, boolean resizable) {
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+	public MetaVertex(String identifier, boolean visible, boolean editable,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement, boolean topConcept,
+			String backgroundColor, boolean resizable) {
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(),
@@ -42,17 +42,18 @@ public abstract class MetaVertex extends MetaElement {
 				new ArrayList<MetaPairwiseRelation>());
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
-			boolean topConcept, String backgroundColor, boolean resizable,
+	public MetaVertex(String identifier, boolean visible, boolean editable,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement, boolean topConcept,
+			String backgroundColor, boolean resizable,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes,
 			Map<String, AbstractAttribute> modelingAttributes) {
-		this(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement, topConcept,
+		this(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement, topConcept,
 				backgroundColor, resizable, disPropVisibleAttributes,
 				disPropEditableAttributes, disPanelVisibleAttributes,
 				disPanelSpacersAttributes, modelingAttributes,
@@ -60,10 +61,11 @@ public abstract class MetaVertex extends MetaElement {
 				new ArrayList<MetaPairwiseRelation>());
 	}
 
-	public MetaVertex(String identifier, boolean visible, String name,
-			String style, String description, int width, int height,
-			String image, int borderStroke, InstElement instSemanticElement,
-			boolean topConcept, String backgroundColor, boolean resizable,
+	public MetaVertex(String identifier, boolean visible, boolean editable,
+			String name, String style, String description, int width,
+			int height, String image, int borderStroke,
+			InstElement instSemanticElement, boolean topConcept,
+			String backgroundColor, boolean resizable,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
@@ -71,8 +73,8 @@ public abstract class MetaVertex extends MetaElement {
 			Map<String, AbstractAttribute> modelingAttributes,
 			List<MetaPairwiseRelation> asOriginRelations,
 			List<MetaPairwiseRelation> asDestinationRelations) {
-		super(identifier, visible, name, style, description, width, height,
-				image, borderStroke, instSemanticElement,
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, instSemanticElement,
 				disPropVisibleAttributes, disPropEditableAttributes,
 				disPanelVisibleAttributes, disPanelSpacersAttributes,
 				modelingAttributes);
@@ -106,16 +108,4 @@ public abstract class MetaVertex extends MetaElement {
 		return resizable;
 	}
 
-	public boolean equals(MetaVertex obj) {
-		return getAutoIdentifier().equals(obj.getAutoIdentifier());
-	}
-
-	@Override
-	public AbstractAttribute getAbstractAttribute(String attributeName, List<InstElement> parents) {
-		return this.getModelingAttribute(attributeName, parents);
-	}
-
-	public abstract Set<String> getAllAttributesNames(List<InstElement> parents);
-
-	public abstract AbstractAttribute getSemanticAttribute(String name);
 }

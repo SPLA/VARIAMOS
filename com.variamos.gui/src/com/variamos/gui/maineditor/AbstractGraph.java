@@ -51,7 +51,7 @@ public abstract class AbstractGraph extends mxGraph {
 		setRestrictions();
 		addListeners();
 	}
-	public abstract void setModel(AbstractModel abstractModel);
+	public abstract void setModelInstance(AbstractModel abstractModel);
 	private void addListeners() {
 		addListener(mxEvent.CELLS_REMOVED, new mxIEventListener(){
 

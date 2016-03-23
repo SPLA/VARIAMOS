@@ -1,7 +1,6 @@
 package com.variamos.perspsupport.expressionsupport;
 
 import com.variamos.perspsupport.opers.OpersAbstractElement;
-import com.variamos.perspsupport.opers.OpersRelType;
 
 /**
  * A class to support the groups of operations (displayed as menus on the
@@ -21,13 +20,6 @@ public class OpersOperationGroup extends OpersAbstractElement {
 
 	private int position;
 	private int type;
-
-	public static final String VAR_MENUTYPE_IDEN = "menuType",
-			VAR_MENUTYPE_NAME = "Oper Group Type",
-			VAR_MENUTYPE_CLASS = OpersRelType.class.getCanonicalName(),
-			VAR_NAME_IDEN = "name", VAR_NAME_NAME = "Oper Group Name",
-			VAR_SHORTCUT_IDEN = "shorcut",
-			VAR_SHORTCUT_NAME = "Oper Group Shortcut";
 
 	public OpersOperationGroup(int position, String identifier, int type) {
 		super(identifier);

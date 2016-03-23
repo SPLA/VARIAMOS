@@ -21,11 +21,11 @@ import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.opers.OpersVariable;
 import com.variamos.perspsupport.partialsorts.EnumerationSort;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.types.BooleanType;
 import com.variamos.perspsupport.types.StringType;
+import com.variamos.perspsupport.types.VariableType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -148,8 +148,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 				"targetExclusive", new AbstractAttribute("targetExclusive",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Target Exclusive",
-						OpersVariable.VAR_VARIABLETYPECLASS, "String", "", "",
-						1, -1, "", "", -1, "", ""), false);
+						VariableType.class.getCanonicalName(), "String", "",
+						"", 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instMinSourceCard = new InstAttribute(
 				"minSourceCardinality", new AbstractAttribute(
@@ -168,9 +168,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 				"minTargetCardinality", new AbstractAttribute(
 						"minTargetCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						"Minimum Target Cardinality",
-						OpersVariable.VAR_ENUMERATIONTYPECLASS, "ME", "", "",
-						1, -1, "", "", -1, "", ""), 0);
+						"Minimum Target Cardinality", "enumerationType", "ME",
+						"", "", 1, -1, "", "", -1, "", ""), 0);
 		final InstAttribute instMaxTargetCard = new InstAttribute(
 				"maxTargetCardinality", new AbstractAttribute(
 						"maxTargetCardinality", IntegerType.IDENTIFIER,

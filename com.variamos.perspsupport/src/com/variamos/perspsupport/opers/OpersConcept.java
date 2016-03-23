@@ -21,21 +21,17 @@ public class OpersConcept extends OpersAbstractVertex implements
 	private static final long serialVersionUID = -9024843014882087367L;
 
 	public OpersConcept() {
-		this(null, null);
+		this(null);
 	}
 
 	public OpersConcept(String identifier) {
-		this(null, identifier);
+		super(identifier, true);
 	}
 
-	public OpersConcept(OpersAbstractVertex parentConcept, String name) {
-		super(parentConcept, name, true);
-		defineSemanticAttributes();
-	}
-
-	private void defineSemanticAttributes() {
-	}
-
+	/*
+	 * public OpersConcept(OpersAbstractVertex parentConcept, String name) {
+	 * super(parentConcept, name, true); }
+	 */
 	public String toString() {
 
 		return " HSC: " + super.toString();

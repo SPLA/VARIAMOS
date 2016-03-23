@@ -14,8 +14,8 @@ import com.variamos.perspsupport.opersint.IntOpersConcept;
  * @version 1.1
  * @since 2014-11-23
  */
-public abstract class OpersAbstractVertex extends OpersAbstractElement
-		implements IntOpersConcept {
+public class OpersAbstractVertex extends OpersAbstractElement implements
+		IntOpersConcept {
 
 	/**
 	 * 
@@ -30,49 +30,42 @@ public abstract class OpersAbstractVertex extends OpersAbstractElement
 	VAR_SELECTED_IDEN = "Selected";
 
 	public OpersAbstractVertex() {
-		this(null, "", false, new ArrayList<String>(), new ArrayList<String>(),
+		this("", false, new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
 	}
 
 	public OpersAbstractVertex(String identifier) {
 		super(identifier);
-		createModelingAttributes();
 	}
 
-	public OpersAbstractVertex(OpersAbstractVertex parentConcept,
-			String identifier) {
-		super(parentConcept, identifier);
-		createModelingAttributes();
-	}
-
-	public OpersAbstractVertex(OpersAbstractVertex parentConcept,
-			String identifier, boolean satisfactionType) {
-		this(parentConcept, identifier, satisfactionType,
-				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>(), new ArrayList<String>());
-
-	}
-
+	/*
+	 * public OpersAbstractVertex(OpersAbstractVertex parentConcept, String
+	 * identifier) { super(parentConcept, identifier); }
+	 * 
+	 * 
+	 * public OpersAbstractVertex(// OpersAbstractVertex parentConcept, String
+	 * identifier, boolean satisfactionType) { this(parentConcept, identifier,
+	 * satisfactionType, new ArrayList<String>(), new ArrayList<String>(), new
+	 * ArrayList<String>(), new ArrayList<String>());
+	 * 
+	 * }
+	 */
 	public OpersAbstractVertex(String name, boolean satisfactionType) {
-		this(null, name, satisfactionType, new ArrayList<String>(),
+		this(name, satisfactionType, new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>());
 	}
 
-	public OpersAbstractVertex(OpersAbstractVertex parentConcept,
+	public OpersAbstractVertex(
+			// OpersAbstractVertex parentConcept,
 			String identifier, boolean booleanSatisfaction,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes) {
-		super(parentConcept, identifier, disPropVisibleAttributes,
-				disPropEditableAttributes, disPanelVisibleAttributes,
-				disPanelSpacersAttributes);
+		super(identifier, disPropVisibleAttributes, disPropEditableAttributes,
+				disPanelVisibleAttributes, disPanelSpacersAttributes);
 		this.booleanSatisfaction = booleanSatisfaction;
-		createModelingAttributes();
-	}
-
-	private void createModelingAttributes() {
 	}
 
 	public boolean isBooleanSatisfaction() {

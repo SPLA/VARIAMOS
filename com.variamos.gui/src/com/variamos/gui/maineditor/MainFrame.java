@@ -163,9 +163,11 @@ public class MainFrame extends JFrame {
 			JOptionPane
 					.showMessageDialog(
 							this,
-							"Solver not properly configured, visit http://variamos.com and follow the steps",
-							"Solver Error", JOptionPane.INFORMATION_MESSAGE,
-							null);
+							"The SWIProlog Solver is not correctly configured for VariaMos. \n"
+									+ "Double check you have the version 7.2.3 and the required variables \n"
+									+ "defined. Please visit http://variamos.com and follow the steps",
+							"Solver Configuration Error: Operations will not work",
+							JOptionPane.ERROR_MESSAGE, null);
 			solverError = true;
 		}
 	}

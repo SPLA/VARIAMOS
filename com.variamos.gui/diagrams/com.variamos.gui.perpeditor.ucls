@@ -112,9 +112,9 @@
     </display>  
   </class>  
   <association id="12">    
-    <bendpoint x="1143" y="1035"/>    
-    <bendpoint x="1111" y="1034"/>    
-    <end type="SOURCE" refId="8" navigable="false">      
+    <bendpoint x="354" y="1472"/>    
+    <bendpoint x="752" y="1472"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
       <attribute id="13" name="refas">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -126,10 +126,8 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <bendpoint x="354" y="1472"/>    
-    <bendpoint x="752" y="1472"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="16" name="refas">        
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="16" name="modelInstance">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="1">        
@@ -140,18 +138,17 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="18">    
-    <bendpoint x="267" y="384"/>    
-    <bendpoint x="320" y="445"/>    
-    <bendpoint x="338" y="713"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="19" name="graph">        
-        <position height="0" width="0" x="39" y="189"/>      
+    <bendpoint x="1143" y="1035"/>    
+    <bendpoint x="1111" y="1034"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="19" name="refas">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="0" width="0" x="39" y="189"/>      
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="21">    
@@ -167,15 +164,18 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="24">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="25" name="refasModel">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <bendpoint x="267" y="384"/>    
+    <bendpoint x="320" y="445"/>    
+    <bendpoint x="338" y="713"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="25" name="graph">        
+        <position height="0" width="0" x="39" y="189"/>      
       </attribute>      
       <multiplicity id="26" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="39" y="189"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

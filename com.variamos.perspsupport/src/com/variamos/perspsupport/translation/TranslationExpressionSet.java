@@ -86,7 +86,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 
-		// List<InstElement> semModel = refas.getVariabilityVertex("OMMModel");
+		// List<InstElement> semModel =
+		// refas.getVariabilityVertex("InfraSyntaxOpersM2Model");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -100,7 +101,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// }
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMMOperation");
+				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
 		InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		for (InstElement oper : operActions) {
@@ -293,7 +294,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OperationSubActionExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMMOperation");
+				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
 		InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		InstElement instOperSubAction = null;
@@ -364,10 +365,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		IntOpersElement semElement = instElement.getTransSupportMetaElement()
 				.getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
+		List<InstElement> opersParents = null;
+		if (instElement.getTransSupportMetaElement() != null
+				&& instElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement() != null)
+			opersParents = instElement.getTransSupportMetaElement()
+					.getTransInstSemanticElement().getParentOpersConcept();
 		if (semElement != null
-				&& semElement.getAllSemanticExpressions() != null)
+				&& semElement.getAllSemanticExpressions(opersParents) != null)
 			for (IntMetaExpression semExpression : semElement
-					.getAllSemanticExpressions()) {
+					.getAllSemanticExpressions(opersParents)) {
 				if (semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							refas, false, (SemanticExpression) semExpression);
@@ -408,10 +415,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		IntOpersElement semElement = instElement.getTransSupportMetaElement()
 				.getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
+		List<InstElement> opersParents = instElement
+				.getTransSupportMetaElement().getTransInstSemanticElement()
+				.getParentOpersConcept();
 		if (semElement != null
-				&& semElement.getAllSemanticExpressions() != null)
+				&& semElement.getAllSemanticExpressions(opersParents) != null)
 			for (IntMetaExpression semExpression : semElement
-					.getAllSemanticExpressions()) {
+					.getAllSemanticExpressions(opersParents)) {
 				InstanceExpression instanceExpression = new InstanceExpression(
 						refas, false, (SemanticExpression) semExpression);
 				instanceExpression.createFromSemanticExpression(instElement, 0);
@@ -421,20 +431,20 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
-	protected List<InstanceExpression> createElementInstanceExpressions(
-			IntOpersElement semElement) {
-		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
-		if (semElement != null
-				&& semElement.getAllSemanticExpressions() != null)
-			for (IntMetaExpression semExpression : semElement
-					.getAllSemanticExpressions()) {
-				InstanceExpression instanceExpression = new InstanceExpression(
-						refas, false, (SemanticExpression) semExpression);
-				instanceExpression.createFromSemanticExpression(null, 0);
-				out.add(instanceExpression);
-			}
-		return out;
-	}
+	// protected List<InstanceExpression> createElementInstanceExpressions(
+	// IntOpersElement semElement) {
+	// List<InstanceExpression> out = new ArrayList<InstanceExpression>();
+	// if (semElement != null
+	// && semElement.getAllSemanticExpressions() != null)
+	// for (IntMetaExpression semExpression : semElement
+	// .getAllSemanticExpressions()) {
+	// InstanceExpression instanceExpression = new InstanceExpression(
+	// refas, false, (SemanticExpression) semExpression);
+	// instanceExpression.createFromSemanticExpression(null, 0);
+	// out.add(instanceExpression);
+	// }
+	// return out;
+	// }
 
 	protected void setOptional(boolean optional) {
 		this.optional = optional;

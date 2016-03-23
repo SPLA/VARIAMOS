@@ -86,6 +86,9 @@ public abstract class InstVertex extends InstElement {
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
 		if (getEditableMetaElement() != null)
 			getEditableMetaElement().setAutoIdentifier(identifier);
+		if (supportMetaElement != null)
+			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
+					getTransSupportMetaElement().getDescription());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -129,15 +132,16 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO
-																				// move
-																				// to
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) { // TODO
+		// move
+		// to
 		// superclass
-		createInstAttributes(parents);
+		createInstAttributes(syntaxParents);
 		if (getTransSupportMetaElement() == null)
 			return null;
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(parents);
+				.getPropVisibleAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -213,7 +217,11 @@ public abstract class InstVertex extends InstElement {
 
 	}
 
-	public abstract String getSupportMetaElementUserIdentifier();
+	public String getSupportMetaElementUserIdentifier() {
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		return (String) dynamicAttributesMap
+				.get(InstConcept.VAR_METACONCEPT_IDEN);
+	}
 
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
 		// System.out.println("InstV:" + this.getIdentifier()

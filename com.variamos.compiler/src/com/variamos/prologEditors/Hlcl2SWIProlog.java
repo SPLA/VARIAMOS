@@ -206,7 +206,7 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 						ptp.getIdentifiers()));
 				domains.append(makeDomains(ptp.getIdentifiers()));
 			}
-			System.out.println(labids);
+			// System.out.println(labids);
 			labids.deleteCharAt(labids.length() - 1);
 			// System.out.println(labids);
 			out.append(HEADER_INI);

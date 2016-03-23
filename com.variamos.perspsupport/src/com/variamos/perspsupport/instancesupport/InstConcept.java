@@ -58,6 +58,11 @@ public class InstConcept extends InstVertex {
 		createInstAttributes(null);
 	}
 
+	public void createInstAttributes() {
+		MetaElement supportMetaElement = getTransSupportMetaElement();
+		createInstAttributes(null);
+	}
+
 	public InstConcept(String identifier, MetaElement supportMetaElement,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
@@ -72,27 +77,16 @@ public class InstConcept extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
+	public List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents) {
 		// superclass
-		createInstAttributes(parents);
+		createInstAttributes(syntaxParents);
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributesSet(parents);
+				.getPropEditableAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public String getSupportMetaElementUserIdentifier() {
-		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
-		return (String) dynamicAttributesMap.get(VAR_METACONCEPT_IDEN);
-	}
-
-	public void setIdentifier(String identifier) {
-		super.setIdentifier(identifier);
-		MetaElement supportMetaElement = this.getTransSupportMetaElement();
-		if (supportMetaElement != null)
-			setDynamicVariable(MetaElement.VAR_DESCRIPTION,
-					supportMetaElement.getDescription());
-	}
-
+	@Override
 	public void setTransSupportMetaElement(MetaElement metaElement) {
 		super.setTransSupportMetaElement(metaElement);
 
@@ -111,11 +105,4 @@ public class InstConcept extends InstVertex {
 				supportMetaElement.getDescription());
 		// createInstAttributes();
 	}
-
-	public void clearEditableMetaVertex() {
-		super.clearEditableMetaVertex();
-		// supportMetaElement = null;
-
-	}
-
 }

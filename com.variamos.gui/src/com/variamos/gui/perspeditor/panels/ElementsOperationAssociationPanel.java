@@ -75,7 +75,7 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getVariabilityVertex(
-				"OMMOperation");
+				"InfraSyntaxOpersM2Operation");
 
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getEditableSemanticElement()
@@ -208,11 +208,13 @@ public class ElementsOperationAssociationPanel extends
 						operLabelNames.size(), false, domainOperLabels, null);
 			// node.setVariable(var);
 
+			List<InstElement> opersParent = el.getTransSupportMetaElement()
+					.getTransInstSemanticElement().getParentOpersConcept();
 			// Add Attributes
 			if (dialog == 0
 					&& el.getEditableSemanticElement() != null
 					&& el.getEditableSemanticElement()
-							.getAllSemanticExpressions() != null)
+							.getAllSemanticExpressions(opersParent) != null)
 				for (IntMetaExpression v : el.getEditableSemanticElement()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
@@ -259,7 +261,7 @@ public class ElementsOperationAssociationPanel extends
 				}
 			if (dialog == 1 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getDeclaredSemanticAttributes()) {
+						.getDeclaredSemanticAttributesNames()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
 					for (OpersSubOperation operColumn : subOperColumns) {
@@ -280,7 +282,7 @@ public class ElementsOperationAssociationPanel extends
 
 			if (dialog == 2 && el.getEditableSemanticElement() != null)
 				for (String v : el.getEditableSemanticElement()
-						.getDeclaredSemanticAttributes()) {
+						.getDeclaredSemanticAttributesNames()) {
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
 					for (OpersLabeling operColumn : operLabels)

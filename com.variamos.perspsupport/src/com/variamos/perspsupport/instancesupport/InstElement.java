@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -296,7 +297,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 	}
 
 	@SuppressWarnings("unchecked")
-	public String getText(List<InstElement> parents) {
+	public String getText(List<InstElement> syntaxParents) {
 		String out = "";
 		String out2 = "";
 		if (getEditableMetaElement() != null) {
@@ -310,7 +311,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description")) {
 					AbstractAttribute i = getEditableMetaElement()
-							.getModelingAttribute(attributeName, parents);
+							.getModelingAttribute(attributeName, syntaxParents);
 					if (i == null)
 						i = getEditableMetaElement().getSemanticAttribute(
 								attributeName);
@@ -325,7 +326,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 		if (getEditableSemanticElement() != null) {
 			out2 = "\n";
 			Set<String> modelingAttributes = getEditableSemanticElement()
-					.getDeclaredSemanticAttributes();
+					.getDeclaredSemanticAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(MetaConcept.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
@@ -339,12 +340,12 @@ public abstract class InstElement implements Serializable, EditableElement,
 			out = "<<MetaConcept>>\nClaim\n\n";
 		else if (getTransSupportMetaElement() != null) {
 			Set<String> visibleAttributesNames = getTransSupportMetaElement()
-					.getPanelVisibleAttributesSet(parents);
+					.getPanelVisibleAttributesSet(syntaxParents);
 			List<String> listVisibleAttributes = new ArrayList<String>();
 			listVisibleAttributes.addAll(visibleAttributesNames);
 			Collections.sort(listVisibleAttributes);
 			Set<String> spacersAttributes = getTransSupportMetaElement()
-					.getPanelSpacersAttributesSet(parents);
+					.getPanelSpacersAttributesSet(syntaxParents);
 			for (String visibleAttribute : listVisibleAttributes) {
 				boolean validCondition = true;
 
@@ -470,34 +471,33 @@ public abstract class InstElement implements Serializable, EditableElement,
 		}
 	}
 
-	public void createInstAttributes(List<InstElement> parents) {
+	public void createInstAttributes(List<InstElement> syntaxParents) {
 		if (getTransSupportMetaElement() != null) {
 			Set<String> names = getTransSupportMetaElement()
-					.getModelingAttributesNames(parents);
-			names.addAll(getTransSupportMetaElement().getAllAttributesNames(
-					parents));
+					.getModelingAttributesNames(syntaxParents);
+			names.addAll(getAllAttributesNames(syntaxParents));
 			if (getInstAttributes().keySet().equals(names))
 				return;
 			names = getTransSupportMetaElement().getModelingAttributesNames(
-					parents);
+					syntaxParents);
 			Iterator<String> modelingAttributes = names.iterator();
 			while (modelingAttributes.hasNext()) {
 				String name = modelingAttributes.next();
 				if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getModelingAttribute(name, parents),
+							.getModelingAttribute(name, syntaxParents),
 							getIdentifier());
 				else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getModelingAttribute(name, parents),
+							.getModelingAttribute(name, syntaxParents),
 							getUserIdentifier());
 				else if (name.equals(MetaElement.VAR_DESCRIPTION))
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getModelingAttribute(name, parents),
+							.getModelingAttribute(name, syntaxParents),
 							getTransSupportMetaElement().getDescription());
 				else
 					addInstAttribute(name, getTransSupportMetaElement()
-							.getModelingAttribute(name, parents), null);
+							.getModelingAttribute(name, syntaxParents), null);
 			}
 
 			if (getTransSupportMetaElement() instanceof MetaElement
@@ -508,37 +508,45 @@ public abstract class InstElement implements Serializable, EditableElement,
 				IntOpersElement metaConcept = instElement
 						.getEditableSemanticElement();
 				Iterator<String> semanticAttributes = instElement
-						.getEditableSemanticElement()
-						.getAllAttributesNames(parents).iterator(); // TODO get
-																	// parents
-																	// attributes
-																	// too.
+						.getAllAttributesNames(syntaxParents).iterator();
 				while (semanticAttributes.hasNext()) {
 					String name = semanticAttributes.next();
 					// System.out.println(name + "\n");
 					if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
 						addInstAttribute(name,
-								metaConcept.getSemanticAttribute(name),
+								instElement.getSemanticAttribute(name),
 								getIdentifier());
 					else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
 						addInstAttribute(name,
-								metaConcept.getSemanticAttribute(name),
+								instElement.getSemanticAttribute(name),
 								getUserIdentifier());
 					else if (name.equals(MetaElement.VAR_DESCRIPTION))
 						addInstAttribute(name,
-								metaConcept.getSemanticAttribute(name),
+								instElement.getSemanticAttribute(name),
 								getTransSupportMetaElement().getDescription());
 					else if (name.equals("relationTypesAttributes")
 							|| name.equals("operationsExpressions")) {
 						addInstAttribute(name,
-								metaConcept.getSemanticAttribute(name),
+								instElement.getSemanticAttribute(name),
 								new ArrayList<SemanticExpression>());
 					} else
 						addInstAttribute(name,
-								metaConcept.getSemanticAttribute(name), null);
+								instElement.getSemanticAttribute(name), null);
 				}
 			}
 		}
+	}
+
+	public AbstractAttribute getSemanticAttribute(String name) {
+		return getEditableSemanticElement().getSemanticAttribute(name,
+				getParentOpersConcept());
+	}
+
+	private Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getAllAttributesNames(
+					syntaxParents, getParentOpersConcept());
+		return new HashSet<String>();
 	}
 
 	public void setTargetRelation(InstElement targetRelation, boolean firstCall) {
@@ -638,4 +646,60 @@ public abstract class InstElement implements Serializable, EditableElement,
 
 		return false;
 	}
+
+	public List<InstElement> getParentOpersConcept() {
+		List<InstElement> out = new ArrayList<InstElement>();
+		List<InstElement> rel = getTargetRelations();
+		for (InstElement element : rel) {
+			if (((InstPairwiseRelation) element)
+					.getSupportMetaPairwiseRelIden() != null
+					&& ((InstPairwiseRelation) element)
+							.getSupportMetaPairwiseRelIden().equals(
+									"ExtendsRelation")) {
+				InstElement parent = element.getTargetRelations().get(0);
+				// parent.createInstAttributes(parents);
+				out.add(parent);
+				out.addAll(element.getTargetRelations().get(0)
+						.getParentOpersConcept());
+			}
+		}
+		return out;
+	}
+
+	public Set<String> getPropEditableAttributes() {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPropEditableAttributesSet(
+					getParentOpersConcept());
+		return new HashSet<String>();
+	}
+
+	public Collection<String> getPropVisibleAttributes() {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPropVisibleAttributesSet(
+					getParentOpersConcept());
+		return new HashSet<String>();
+	}
+
+	public Collection<String> getPanelSpacersAttributes() {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPanelSpacersAttributes(
+					getParentOpersConcept());
+		return new HashSet<String>();
+	}
+
+	public Collection<String> getPanelVisibleAttributes() {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPanelVisibleAttributes(
+					this.getParentOpersConcept());
+		return new HashSet<String>();
+	}
+
+	public Collection<? extends String> getAllSemanticAttributesNames(
+			List<InstElement> syntaxParents) {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getAllAttributesNames(
+					syntaxParents, this.getParentOpersConcept());
+		return new HashSet<String>();
+	}
+
 }

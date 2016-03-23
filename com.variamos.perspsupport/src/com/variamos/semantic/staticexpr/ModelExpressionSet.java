@@ -10,8 +10,9 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntOpersElement;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
@@ -39,6 +40,39 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		defineExpressions(execType);
 	}
 
+	public boolean validateConceptType(InstElement instElement, String element) {
+		if (instElement == null)// || !(instElement instanceof InstVertex))
+			return false;
+		MetaElement metaElement = ((MetaElement) instElement
+				.getTransSupportMetaElement());
+		if (metaElement == null)
+			return false;
+		InstElement semElement = metaElement.getTransInstSemanticElement();
+		while (semElement != null && semElement.getIdentifier() != null
+				&& !semElement.getIdentifier().equals(element)) {
+			InstElement sEle = semElement;
+			semElement = null;
+			for (InstElement ele : sEle.getTargetRelations())
+				if (ele instanceof InstPairwiseRelation) {
+					if (((InstPairwiseRelation) ele)
+							.getSupportMetaPairwiseRelIden().equals(
+									"ExtendsRelation")) {
+						semElement = ele.getTargetRelations().get(0);
+						break;
+					}
+				} else if (((InstPairwiseRelation) ele)
+						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+					semElement = ele.getTargetRelations().get(0);
+					break;
+				}
+		}
+		if (semElement != null && semElement.getIdentifier() != null
+				&& semElement.getIdentifier().equals(element)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void defineExpressions(int execType) {
 		AbstractNumericExpression rootOutExp = null;
 		AbstractNumericExpression parentOutExp = null;
@@ -49,13 +83,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
 			MetaVertex metaElement = ((MetaVertex) vertex
 					.getTransSupportMetaElement());
-			IntOpersElement semElement = metaElement
-					.getTransSemanticConcept();
-			while (semElement != null && semElement.getIdentifier() != null
-					&& !semElement.getIdentifier().equals("GeneralElement"))
-				semElement = semElement.getParent();
-			if (semElement != null && semElement.getIdentifier() != null
-					&& semElement.getIdentifier().equals("GeneralElement"))
+			if (validateConceptType(vertex, "GeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
 					switch (execType) {
 					case ModelExpr2HLCL.VAL_UPD_EXEC:

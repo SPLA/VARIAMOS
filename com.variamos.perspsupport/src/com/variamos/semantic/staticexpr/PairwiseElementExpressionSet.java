@@ -12,7 +12,6 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.opers.OpersPairwiseRel;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
@@ -108,15 +107,12 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			activeVertex = true;
 		if (activeVertex
 				&& metaPairwiseRelation != null
-				&& instPairwiseRelation
-						.getInstAttribute(OpersPairwiseRel.VAR_RELATIONTYPE_IDEN) != null
+				&& instPairwiseRelation.getInstAttribute("relationType") != null
 				&& !(instPairwiseRelation.getTargetRelations().get(0) instanceof InstOverTwoRelation)
-				&& instPairwiseRelation.getInstAttribute(
-						OpersPairwiseRel.VAR_RELATIONTYPE_IDEN)
+				&& instPairwiseRelation.getInstAttribute("relationType")
 						.getValue() != null) {
 			relationType = ((String) instPairwiseRelation.getInstAttribute(
-					OpersPairwiseRel.VAR_RELATIONTYPE_IDEN).getValue())
-					.trim().replace(" ", "_");
+					"relationType").getValue()).trim().replace(" ", "_");
 			setDescription(getDescription() + relationType);
 			Set<String> sourcePositiveAttributeNames = new HashSet<String>();
 			Set<String> sourceNegativeAttributeNames = new HashSet<String>();
@@ -399,12 +395,9 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				sourcePositiveAttributeNames.add("Selected");
 				// relId_Sourcelevel #= <<Sourcelevel>>
 				EqualsComparisonExpression out21p = new EqualsComparisonExpression(
-						instPairwiseRelation,
-						OpersPairwiseRel.VAR_SOURCE_LEVEL,
-						getHlclFactory()
+						instPairwiseRelation, "sourceLevel", getHlclFactory()
 								.number((Integer) instPairwiseRelation
-										.getInstAttribute(
-												OpersPairwiseRel.VAR_SOURCE_LEVEL)
+										.getInstAttribute("sourceLevel")
 										.getAsInteger()));
 				getElementExpressions().add(out21p);
 				allList.add(out21p);
@@ -420,29 +413,24 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				if (sourceSatisficingType.contains("low")) {
 
 					out21a = new LessOrEqualsBooleanExpression(sourceSoftgoal,
-							instPairwiseRelation, "SDReqLevel",
-							OpersPairwiseRel.VAR_SOURCE_LEVEL);
+							instPairwiseRelation, "SDReqLevel", "sourceLevel");
 				} else if (sourceSatisficingType.contains("high")) {
 
 					out21a = new GreaterOrEqualsBooleanExpression(
 							sourceSoftgoal, instPairwiseRelation, "SDReqLevel",
-							OpersPairwiseRel.VAR_SOURCE_LEVEL);
+							"sourceLevel");
 				} else {
 					out21a = new EqualsComparisonExpression(sourceSoftgoal,
-							instPairwiseRelation, "SDReqLevel",
-							OpersPairwiseRel.VAR_SOURCE_LEVEL);
+							instPairwiseRelation, "SDReqLevel", "sourceLevel");
 				}
 				// getElementExpressions().add(out21a);
 				// allList.add(out21a);
 
 				// relId_Targetlevel #= <<Targetlevel>>
 				EqualsComparisonExpression out22p = new EqualsComparisonExpression(
-						instPairwiseRelation,
-						OpersPairwiseRel.VAR_TARGET_LEVEL,
-						getHlclFactory()
+						instPairwiseRelation, "targetLevel", getHlclFactory()
 								.number((Integer) instPairwiseRelation
-										.getInstAttribute(
-												OpersPairwiseRel.VAR_TARGET_LEVEL)
+										.getInstAttribute("targetLevel")
 										.getAsInteger()));
 				getElementExpressions().add(out22p);
 				allList.add(out22p);
@@ -460,18 +448,16 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 						out22a = new LessOrEqualsBooleanExpression(
 								targetSoftgoal, instPairwiseRelation,
-								"SDReqLevel",
-								OpersPairwiseRel.VAR_TARGET_LEVEL);
+								"SDReqLevel", "targetLevel");
 					} else if (targetSatisficingType.contains("high")) {
 
 						out22a = new GreaterOrEqualsBooleanExpression(
 								targetSoftgoal, instPairwiseRelation,
-								"SDReqLevel",
-								OpersPairwiseRel.VAR_TARGET_LEVEL);
+								"SDReqLevel", "targetLevel");
 					} else {
 						out22a = new EqualsComparisonExpression(targetSoftgoal,
 								instPairwiseRelation, "SDReqLevel",
-								OpersPairwiseRel.VAR_TARGET_LEVEL);
+								"targetLevel");
 					}
 
 					AbstractBooleanExpression out23a = new ImplicationBooleanExpression(

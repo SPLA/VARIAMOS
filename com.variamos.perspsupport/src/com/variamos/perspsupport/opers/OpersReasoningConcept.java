@@ -5,8 +5,8 @@ import java.util.List;
 import com.variamos.perspsupport.opersint.IntOpersRelType;
 
 /**
- * A class to represent concepts for resoning. Part of PhD work
- * at University of Paris 1
+ * A class to represent concepts for resoning. Part of PhD work at University of
+ * Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -23,21 +23,16 @@ public class OpersReasoningConcept extends OpersOverTwoRel {
 	public OpersReasoningConcept() {
 		super();
 	}
-	
-	public OpersReasoningConcept(
-			OpersAbstractVertex semanticConcept, String name,
-			boolean exclusive, List<IntOpersRelType> semanticRelationTypes) {
-		super(semanticConcept, name, exclusive, semanticRelationTypes);
-	//	if (condExpression)
-	//		conditionalExpression = new ConditionalExpression();
-		//addPanelSpacersAttribute("#" + this.VAR_RELATIONTYPE_IDEN + "#\n\n");
-	}
+
+	/*
+	 * public OpersReasoningConcept( String name, boolean exclusive,
+	 * List<IntOpersRelType> semanticRelationTypes) { super( name, exclusive,
+	 * semanticRelationTypes); }
+	 */
 
 	public OpersReasoningConcept(String name, boolean exclusive,
 			List<IntOpersRelType> semanticRelationTypes) {
 		super(name, exclusive, semanticRelationTypes, true);
-	//	if (condExpression)
-	//		conditionalExpression = new ConditionalExpression();
 	}
 
 	public String toString() {
