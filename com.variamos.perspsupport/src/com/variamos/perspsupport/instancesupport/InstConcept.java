@@ -58,6 +58,11 @@ public class InstConcept extends InstVertex {
 		createInstAttributes(null);
 	}
 
+	public void createInstAttributes() {
+		MetaElement supportMetaElement = getTransSupportMetaElement();
+		createInstAttributes(null);
+	}
+
 	public InstConcept(String identifier, MetaElement supportMetaElement,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRelation> relations) {
@@ -72,11 +77,12 @@ public class InstConcept extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
+	public List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents) {
 		// superclass
-		createInstAttributes(parents);
+		createInstAttributes(syntaxParents);
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributesSet(parents);
+				.getPropEditableAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 

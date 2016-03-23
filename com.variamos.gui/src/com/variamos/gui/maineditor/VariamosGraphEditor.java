@@ -226,7 +226,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
 		refasGraph.setValidation(false);
-		refasGraph.setModel(abstractModel);
+		refasGraph.setModelInstance(abstractModel);
 		refasGraph.setValidation(true);
 		graphEditorFunctions = new PerspEditorFunctions(this);
 		// RefasGraph refasGraph = (RefasGraph) component.getGraph();
@@ -587,7 +587,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		((VariamosGraphComponent) graphComponent).updateGraph(abstractGraph);
 		registerEvents();
 
-		abstractGraph.setModel(pl);
+		abstractGraph.setModelInstance(pl);
 	}
 
 	public void resetView() {
@@ -993,11 +993,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				List<InstAttribute> editables = finalEditElm
 						.getEditableVariables(refasModel
-								.getParentSyntaxConcept((InstElement) finalEditElm));
+								.getParentSMMSyntaxElement((InstElement) finalEditElm));
 
 				List<InstAttribute> visible = finalEditElm
 						.getVisibleVariables(refasModel
-								.getParentSyntaxConcept(finalEditElm));
+								.getParentSMMSyntaxElement(finalEditElm));
 
 				RefasWidgetFactory factory = new RefasWidgetFactory(this);
 
@@ -1326,7 +1326,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void refreshElement(EditableElement elm) {
 		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
-				.getParentSyntaxConcept((InstElement) elm));
+				.getParentSMMSyntaxElement((InstElement) elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
 			Map<String, MetaElement> mapElements = null;

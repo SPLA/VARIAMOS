@@ -490,7 +490,7 @@ public class SharedActions {
 	private static void loadSupportObjects(VariamosGraphEditor editor,
 			Object value, mxCell source, mxGraph graph) {
 		ModelInstance refas = ((PerspEditorGraph) editor.getGraphComponent()
-				.getGraph()).getRefas();
+				.getGraph()).getModelInstance();
 		InstCell instCell = ((InstCell) value);
 		InstElement instElement = null;
 		instCell.setMxCell(source);
@@ -502,10 +502,16 @@ public class SharedActions {
 			instCell.setInstElement(instElement);
 		} else
 			instElement = instCell.getInstElement();
-		List<InstElement> parents = null;
+		List<InstElement> syntaxParents = null;
+		List<InstElement> opersParents = null;
 		if (instElement != null) {
-			parents = refas.getParentSyntaxConcept(instElement);
-			instElement.createInstAttributes(parents);
+			syntaxParents = refas.getParentSMMSyntaxElement(instElement);
+			if (instElement.getTransSupportMetaElement() != null
+					&& instElement.getTransSupportMetaElement()
+							.getTransInstSemanticElement() != null)
+				opersParents = instElement.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+			instElement.createInstAttributes(syntaxParents);
 
 			MetaElement metaElement = instElement.getEditableMetaElement();
 			if (metaElement != null
@@ -548,7 +554,8 @@ public class SharedActions {
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
 				AbstractAttribute attribute = instOverTwoRelation
-						.getAbstractAttribute(ia.getAttributeName());
+						.getAbstractAttribute(ia.getAttributeName(),
+								opersParents);
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
@@ -571,10 +578,10 @@ public class SharedActions {
 					.getTransSupportMetaElement().getModelingAttributes()
 					.size()
 					+ instOverTwoRelation.getTransSupportMetaElement()
-							.getAllAttributesNames(null).size()) {
+							.getAllAttributesNames(syntaxParents).size()) {
 				for (String attributeName : instOverTwoRelation
 						.getTransSupportMetaElement().getAllAttributesNames(
-								null)) {
+								syntaxParents)) {
 					if (instOverTwoRelation.getInstAttribute(attributeName) == null
 							&& instOverTwoRelation.getTransSupportMetaElement()
 									.getSemanticAttribute(attributeName) != null) {
@@ -619,7 +626,7 @@ public class SharedActions {
 					InstAttribute ia = (InstAttribute) ias.next();
 					AbstractAttribute attribute = metaVertex
 							.getAbstractAttribute(ia.getAttributeName(),
-									parents);
+									syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getType().equals("Boolean")
@@ -675,7 +682,7 @@ public class SharedActions {
 			MetaElement supportMetaElement = instVertex
 					.getTransSupportMetaElement();
 			Set<String> attributeNames = supportMetaElement
-					.getAllAttributesNames(parents);
+					.getAllAttributesNames(syntaxParents);
 			if (attributeNames != null)
 				semAtt = attributeNames.size();
 			if (instVertex.getInstAttributes().size() < semAtt) {
@@ -693,7 +700,7 @@ public class SharedActions {
 					} else if (instVertex.getInstAttribute(attributeName) == null) {
 						instVertex.addInstAttribute(attributeName,
 								supportMetaElement.getModelingAttribute(
-										attributeName, parents), null);
+										attributeName, syntaxParents), null);
 						// System.out.println("create" + attributeName);
 						additionAttributes = true;
 					}
@@ -754,7 +761,7 @@ public class SharedActions {
 							AbstractAttribute absAttribute = metaPairwiseRelation
 									.getAbstractAttribute(
 											instAttribute.getAttributeName(),
-											parents);
+											syntaxParents, opersParents);
 							if (absAttribute == null)
 								absAttribute = instPairwiseRelation
 										.getSemanticAttribute();
@@ -804,12 +811,12 @@ public class SharedActions {
 					}
 					if (instPairwiseRelation.getInstAttributes().size() < instPairwiseRelation
 							.getTransSupportMetaElement()
-							.getAllAttributesNames(null).size()
+							.getAllAttributesNames(syntaxParents).size()
 							+ instPairwiseRelation.getTransSupportMetaElement()
 									.getModelingAttributes().size()) {
 						for (String attributeName : instPairwiseRelation
 								.getTransSupportMetaElement()
-								.getAllAttributesNames(null)) {
+								.getAllAttributesNames(syntaxParents)) {
 							if (instPairwiseRelation
 									.getInstAttribute(attributeName) == null
 									&& instPairwiseRelation
@@ -888,16 +895,31 @@ public class SharedActions {
 
 	public static boolean validateConceptType(InstElement instElement,
 			String element) {
-		if (instElement == null || !(instElement instanceof InstVertex))
+		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		MetaVertex metaElement = ((MetaVertex) instElement
+		MetaElement metaElement = ((MetaElement) instElement
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
-		IntOpersElement semElement = metaElement.getTransSemanticConcept();
+		InstElement semElement = metaElement.getTransInstSemanticElement();
 		while (semElement != null && semElement.getIdentifier() != null
-				&& !semElement.getIdentifier().equals(element))
-			semElement = semElement.getParent();
+				&& !semElement.getIdentifier().equals(element)) {
+			InstElement sEle = semElement;
+			semElement = null;
+			for (InstElement ele : sEle.getTargetRelations())
+				if (ele instanceof InstPairwiseRelation) {
+					if (((InstPairwiseRelation) ele)
+							.getSupportMetaPairwiseRelIden().equals(
+									"ExtendsRelation")) {
+						semElement = ele.getTargetRelations().get(0);
+						break;
+					}
+				} else if (((InstPairwiseRelation) ele)
+						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+					semElement = ele.getTargetRelations().get(0);
+					break;
+				}
+		}
 		if (semElement != null && semElement.getIdentifier() != null
 				&& semElement.getIdentifier().equals(element)) {
 			return true;

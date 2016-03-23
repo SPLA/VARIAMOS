@@ -138,7 +138,7 @@ public class VisualElement implements Comparable<VisualElement> {
 			updateValues();
 		JPanel row = new JPanel();
 		JLabel label = null;
-		if (showNames)
+		if (showNames && instElement.getInstAttribute("name") != null)
 			label = new JLabel((String) instElement.getInstAttribute("name")
 					.getValue());
 		else

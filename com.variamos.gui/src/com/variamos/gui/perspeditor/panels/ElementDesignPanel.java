@@ -147,8 +147,10 @@ public class ElementDesignPanel extends JPanel {
 			return;
 		} else {
 			InstElement editElm = instCell.getInstElement();
-			List<InstElement> parent = ((ModelInstance) editor.getEditedModel())
-					.getParentSyntaxConcept((InstElement) editElm);
+			List<InstElement> syntaxParent = ((ModelInstance) editor
+					.getEditedModel())
+					.getParentSMMSyntaxElement((InstElement) editElm);
+
 			editElm.getInstAttributes();
 			final InstElement finalEditElm = (InstElement) editElm;
 			RefasWidgetFactory factory = new RefasWidgetFactory(editor);
@@ -177,11 +179,11 @@ public class ElementDesignPanel extends JPanel {
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
 				Collection<InstAttribute> visible = editElm
-						.getVisibleVariables(parent);
+						.getVisibleVariables(syntaxParent);
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& !((InstElement) editElm)
 								.getTransSupportMetaElement().getName()
-								.equals("OMMLabeling")) {
+								.equals("InfraSyntaxOpersM2Labeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
 					JButton button = new JButton(
@@ -229,7 +231,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& ((InstElement) editElm).getTransSupportMetaElement()
-								.getName().equals("OMMLabeling")) {
+								.getName().equals("InfraSyntaxOpersM2Labeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Order Meta-Expressions"));
 					JButton button = new JButton(
@@ -650,7 +652,7 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.editVariable(instAttribute))
 									count = 0;
 								List<InstAttribute> editables = editElm
-										.getEditableVariables(parent);
+										.getEditableVariables(syntaxParent);
 
 								if (!editables.contains(instAttribute)
 										|| editor.getPerspective() == 4
@@ -879,9 +881,9 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
-							.equals("OMMPairWiseRelation") || ((InstElement) editElm)
+							.equals("InfraSyntaxOpersM2PWRel") || ((InstElement) editElm)
 							.getSupportMetaElementIden().equals(
-									"OMMOverTwoRelation"))) {
+									"InfraSyntaxOpersM2OTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;

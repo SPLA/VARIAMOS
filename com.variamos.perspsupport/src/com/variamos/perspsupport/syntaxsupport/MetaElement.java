@@ -280,9 +280,43 @@ public abstract class MetaElement implements Serializable {
 		return image;
 	}
 
-	public abstract Set<String> getAllAttributesNames(List<InstElement> parents);
+	public Set<String> getAllSemanticAttributesNames(
+			List<InstElement> syntaxParents) {
+		Set<String> semanticAttributesNames = new HashSet<String>();
+		if (getTransInstSemanticElement() != null)
+			semanticAttributesNames.addAll(getTransInstSemanticElement()
+					.getAllSemanticAttributesNames(syntaxParents));
+		return semanticAttributesNames;
+	}
 
-	public abstract AbstractAttribute getSemanticAttribute(String name);
+	public Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		if (getTransInstSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getAllSemanticAttributesNames(syntaxParents));
+		if (syntaxParents != null)
+			for (InstElement parent : syntaxParents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null) {
+					modelingAttributesNames.addAll(parentConcept
+							.getTransInstSemanticElement()
+							.getAllSemanticAttributesNames(syntaxParents));
+					modelingAttributesNames.addAll(parentConcept
+							.getModelingAttributesNames(syntaxParents));
+				}
+			}
+		modelingAttributesNames.addAll(this
+				.getModelingAttributesNames(syntaxParents));
+		return modelingAttributesNames;
+	}
+
+	public AbstractAttribute getSemanticAttribute(String name) {
+		AbstractAttribute out = null;
+		if (getTransInstSemanticElement() != null)
+			return getTransInstSemanticElement().getSemanticAttribute(name);
+		return null;
+	}
 
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
 		this.propVisibleAttributes = disPropVisibleAttributes;
@@ -326,8 +360,111 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPropVisibleAttributesSet(List<InstElement> parents) {
-		return getPropVisibleAttributesSet();
+	public Set<String> getPropVisibleAttributesSet(
+			List<InstElement> syntaParents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getPropVisibleAttributes());
+		if (syntaParents != null)
+			for (InstElement parent : syntaParents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null) {
+					if (parentConcept.getTransInstSemanticElement()
+							.getEditableSemanticElement() != null)
+						modelingAttributesNames.addAll(parentConcept
+								.getTransInstSemanticElement()
+								.getPropVisibleAttributes());
+					modelingAttributesNames.addAll(parentConcept
+							.getPropVisibleAttributesSet());
+				}
+
+			}
+		modelingAttributesNames.addAll(getPropVisibleAttributesSet());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getPropEditableAttributes());
+
+		if (parents != null)
+			for (InstElement parent : parents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null) {
+					if (parentConcept.getTransInstSemanticElement()
+							.getEditableSemanticElement() != null)
+						modelingAttributesNames.addAll(parentConcept
+								.getTransInstSemanticElement()
+								.getPropEditableAttributes());
+					modelingAttributesNames.addAll(parentConcept
+							.getPropEditableAttributesSet());
+				}
+			}
+		modelingAttributesNames.addAll(getPropEditableAttributesSet());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getPanelVisibleAttributes());
+
+		if (parents != null)
+			for (InstElement parent : parents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null) {
+					if (parentConcept.getTransInstSemanticElement()
+							.getEditableSemanticElement() != null)
+						modelingAttributesNames.addAll(parentConcept
+								.getTransInstSemanticElement()
+								.getPanelVisibleAttributes());
+					modelingAttributesNames.addAll(parentConcept
+							.getPanelVisibleAttributesSet());
+				}
+			}
+		modelingAttributesNames.addAll(getPanelVisibleAttributesSet());
+		return modelingAttributesNames;
+	}
+
+	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+
+		if (getTransInstSemanticElement() != null
+				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+			modelingAttributesNames.addAll(getTransInstSemanticElement()
+					.getPanelSpacersAttributes());
+
+		if (parents != null)
+			for (InstElement parent : parents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null) {
+					if (parentConcept.getTransInstSemanticElement()
+							.getEditableSemanticElement() != null)
+						modelingAttributesNames.addAll(parentConcept
+								.getTransInstSemanticElement()
+								.getPanelSpacersAttributes());
+
+					modelingAttributesNames.addAll(parentConcept
+							.getPanelSpacersAttributesSet());
+				}
+
+			}
+		modelingAttributesNames.addAll(getPanelSpacersAttributesSet());
+		return modelingAttributesNames;
 	}
 
 	public void addPropVisibleAttribute(String visibleAttribute) {
@@ -344,16 +481,8 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributesNames;
 	}
 
-	public Set<String> getPropEditableAttributesSet(List<InstElement> parents) {
-		return getPropEditableAttributesSet();
-	}
-
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
-	}
-
-	public Set<String> getPanelVisibleAttributesSet(List<InstElement> parents) {
-		return getPanelVisibleAttributesSet();
 	}
 
 	public List<String> getPanelVisibleAttributes() {
@@ -368,10 +497,6 @@ public abstract class MetaElement implements Serializable {
 
 	public void addPanelVisibleAttribute(String visibleAttribute) {
 		panelVisibleAttributes.add(visibleAttribute);
-	}
-
-	public Set<String> getPanelSpacersAttributesSet(List<InstElement> parents) {
-		return getPanelSpacersAttributesSet();
 	}
 
 	public List<String> getPanelSpacersAttributes() {
@@ -393,7 +518,17 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public Set<String> getModelingAttributesNames(List<InstElement> parents) {
-		return getModelingAttributesNames();
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		modelingAttributesNames.addAll(getModelingAttributesNames());
+		if (parents != null)
+			for (InstElement parent : parents) {
+				MetaConcept parentConcept = (MetaConcept) parent
+						.getEditableMetaElement();
+				if (parentConcept != null)
+					modelingAttributesNames.addAll(parentConcept
+							.getModelingAttributesNames());
+			}
+		return modelingAttributesNames;
 	}
 
 	protected Set<String> getModelingAttributesNames() {
@@ -410,11 +545,6 @@ public abstract class MetaElement implements Serializable {
 		return modelingAttributes.get(name);
 	}
 
-	public AbstractAttribute getModelingAttribute(String name,
-			List<InstElement> parents) {
-		return modelingAttributes.get(name);
-	}
-
 	protected AbstractAttribute getModelingAttribute(String name) {
 		return modelingAttributes.get(name);
 	}
@@ -425,13 +555,36 @@ public abstract class MetaElement implements Serializable {
 		return null;
 	}
 
-	public AbstractAttribute getAbstractAttribute(String attributeName,
+	public AbstractAttribute getModelingAttribute(String name,
 			List<InstElement> parents) {
+		if (getModelingAttribute(name) != null)
+			return getModelingAttribute(name);
+		else {
+			if (parents != null)
+				for (InstElement parent : parents) {
+					MetaConcept parentConcept = (MetaConcept) parent
+							.getEditableMetaElement();
+
+					if (parentConcept != null
+							&& parentConcept.getModelingAttribute(name) != null) {
+						return parentConcept.getModelingAttribute(name);
+					}
+				}
+		}
+		return null;
+	}
+
+	public AbstractAttribute getAbstractAttribute(String attributeName,
+			List<InstElement> syntaxParents, List<InstElement> opersParents) {
 		AbstractAttribute out = getSemanticAttribute(attributeName);
 		if (out == null)
-			return getModelingAttribute(attributeName, parents);
+			return getModelingAttribute(attributeName, syntaxParents);
 		else
 			return out;
+	}
+
+	public boolean equals(MetaElement obj) {
+		return getAutoIdentifier().equals(obj.getAutoIdentifier());
 	}
 
 	public void addModelingAttribute(String name, String type,

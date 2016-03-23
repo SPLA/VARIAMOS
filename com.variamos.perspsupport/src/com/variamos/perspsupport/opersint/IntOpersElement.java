@@ -23,7 +23,8 @@ public interface IntOpersElement extends Serializable {
 
 	String getIdentifier();
 
-	AbstractAttribute getSemanticAttribute(String attributeName);
+	AbstractAttribute getSemanticAttribute(String attributeName,
+			List<InstElement> opersParents);
 
 	public Set<String> getDeclaredSemanticAttributesNames();
 
@@ -31,28 +32,43 @@ public interface IntOpersElement extends Serializable {
 
 	void setIdentifier(String value);
 
-	public Map<String, AbstractAttribute> getAllSemanticAttributes();
+	public void setSemanticAttribute(String name,
+			AbstractAttribute semanticAttribute, List<InstElement> opersParents);
 
-	IntOpersElement getParent();
+	public Map<String, AbstractAttribute> getAllSemanticAttributes(
+			List<InstElement> opersParents);
 
-	public Set<String> getSemanticAttributesNames();
+	public Set<String> getAllSemanticAttributesNames(
+			List<InstElement> opersPparents);
 
-	public Set<String> getAllAttributesNames(List<InstElement> parents);
+	public Set<String> getAllAttributesNames(List<InstElement> syntaxParents,
+			List<InstElement> opersParents);
 
 	public List<IntMetaExpression> getDeclaredSemanticExpressions();
 
 	public List<IntMetaExpression> getSemanticExpressions();
 
-	public List<IntMetaExpression> getAllSemanticExpressions();
+	public List<IntMetaExpression> getAllSemanticExpressions(
+			List<InstElement> parents);
 
 	public void setSemanticExpressions(
 			List<IntMetaExpression> semanticExpressions);
 
-	Collection<? extends String> getPanelSpacersAttributes();
+	Collection<String> getPanelSpacersAttributes(List<InstElement> parents);
 
-	Collection<? extends String> getPropVisibleAttributes();
+	Collection<String> getPropVisibleAttributes(List<InstElement> parents);
 
-	Collection<? extends String> getPropEditableAttributes();
+	Set<String> getPropVisibleAttributesSet(List<InstElement> parents);
 
-	Collection<? extends String> getPanelVisibleAttributes();
+	Collection<String> getPropEditableAttributes(List<InstElement> parents);
+
+	Collection<String> getPanelVisibleAttributes(List<InstElement> parents);
+
+	Collection<String> getDeclaredPanelSpacersAttributes();
+
+	Collection<String> getDeclaredPropVisibleAttributes();
+
+	Collection<String> getDeclaredPropEditableAttributes();
+
+	Collection<String> getDeclaredPanelVisibleAttributes();
 }

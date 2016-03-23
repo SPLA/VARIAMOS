@@ -1,8 +1,6 @@
 package com.variamos.perspsupport.syntaxsupport;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 
@@ -18,15 +16,6 @@ public class MetaView extends MetaElement implements Serializable {
 	 */
 	private static final long serialVersionUID = -3876870066100742969L;
 	private String paletteName = "";
-
-	public String getPaletteName() {
-		return paletteName;
-	}
-
-	public void setPaletteName(String paletteName) {
-		this.paletteName = paletteName;
-	}
-
 	private int index;
 
 	public MetaView() {
@@ -54,18 +43,16 @@ public class MetaView extends MetaElement implements Serializable {
 		return index;
 	}
 
-	@Override
-	public Set<String> getAllAttributesNames(List<InstElement> parents) {
-		return null;
-	}
-
-	@Override
-	public AbstractAttribute getSemanticAttribute(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public char getType() {
 		return 'V';
 	};
+
+	public String getPaletteName() {
+		return paletteName;
+	}
+
+	public void setPaletteName(String paletteName) {
+		this.paletteName = paletteName;
+	}
+
 }

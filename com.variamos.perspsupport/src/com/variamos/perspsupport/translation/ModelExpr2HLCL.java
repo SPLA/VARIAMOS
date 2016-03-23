@@ -26,13 +26,11 @@ import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.opersint.IntModelExpr2Hlcl;
-import com.variamos.perspsupport.opersint.IntOpersElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
@@ -399,7 +397,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	public List<String> getOutVariables(String operation, String subAction) {
 		List<String> out = new ArrayList<String>();
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("OMMOperation");
+				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
 		InstElement operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
@@ -1099,16 +1097,31 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	}
 
 	public boolean validateConceptType(InstElement instElement, String element) {
-		if (instElement == null || !(instElement instanceof InstVertex))
+		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		MetaVertex metaElement = ((MetaVertex) instElement
+		MetaElement metaElement = ((MetaElement) instElement
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
-		IntOpersElement semElement = metaElement.getTransSemanticConcept();
+		InstElement semElement = metaElement.getTransInstSemanticElement();
 		while (semElement != null && semElement.getIdentifier() != null
-				&& !semElement.getIdentifier().equals(element))
-			semElement = semElement.getParent();
+				&& !semElement.getIdentifier().equals(element)) {
+			InstElement sEle = semElement;
+			semElement = null;
+			for (InstElement ele : sEle.getTargetRelations())
+				if (ele instanceof InstPairwiseRelation) {
+					if (((InstPairwiseRelation) ele)
+							.getSupportMetaPairwiseRelIden().equals(
+									"ExtendsRelation")) {
+						semElement = ele.getTargetRelations().get(0);
+						break;
+					}
+				} else if (((InstPairwiseRelation) ele)
+						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+					semElement = ele.getTargetRelations().get(0);
+					break;
+				}
+		}
 		if (semElement != null && semElement.getIdentifier() != null
 				&& semElement.getIdentifier().equals(element)) {
 			return true;

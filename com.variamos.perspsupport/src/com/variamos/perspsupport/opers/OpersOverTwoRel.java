@@ -26,15 +26,15 @@ public class OpersOverTwoRel extends OpersAbstractVertex implements
 	public OpersOverTwoRel() {
 	}
 
-	public OpersOverTwoRel(OpersAbstractVertex parent, String identifier,
-			boolean exclusive, List<IntOpersRelType> semanticRelationTypes) {
-		super(parent, identifier);
+	public OpersOverTwoRel(String identifier, boolean exclusive,
+			List<IntOpersRelType> semanticRelationTypes) {
+		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	public OpersOverTwoRel(OpersAbstractVertex parent, String identifier,
+	public OpersOverTwoRel(String identifier,
 			List<IntOpersRelType> semanticRelationTypes) {
-		this(parent, identifier, false, semanticRelationTypes);
+		this(identifier, false, semanticRelationTypes);
 	}
 
 	public OpersOverTwoRel(String identifier, boolean exclusive,

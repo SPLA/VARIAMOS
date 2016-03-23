@@ -1029,12 +1029,13 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
-						.getSupportMetaElementIden().equals("OMMConcept") || sourceRelation
 						.getSupportMetaElementIden().equals(
-								"OMMOverTwoRelation"))))
+								"InfraSyntaxOpersM2Concept") || sourceRelation
+						.getSupportMetaElementIden().equals(
+								"InfraSyntaxOpersM2OTRel"))))
 						|| (element instanceof InstPairwiseRelation && sourceRelation
 								.getSupportMetaElementIden().equals(
-										"OMMPairWiseRelation")))
+										"InfraSyntaxOpersM2PWRel")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1044,9 +1045,9 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupportMetaElementIden().equals(
-						"OMMConcept")
+						"InfraSyntaxOpersM2Concept")
 						|| sourceRelation.getSupportMetaElementIden().equals(
-								"OMMOverTwoRelation"))
+								"InfraSyntaxOpersM2OTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCRELVARIABLE:
@@ -1056,7 +1057,7 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupportMetaElementIden().equals(
-						"OMMPairWiseRelation"))
+						"InfraSyntaxOpersM2PWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
@@ -1073,10 +1074,14 @@ public class SemanticExpressionDialog extends JDialog {
 			}
 		} else {
 			if (instElement != null) {
+
+				List<InstElement> opersParent = instElement
+						.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
 				if (instElement.getEditableSemanticElement() != null)
 					for (AbstractAttribute attribute : instElement
 							.getEditableSemanticElement()
-							.getAllSemanticAttributes().values())
+							.getAllSemanticAttributes(opersParent).values())
 						if (displayVariableName)
 
 							combo.addItem(attribute.getDisplayName());
@@ -1092,17 +1097,22 @@ public class SemanticExpressionDialog extends JDialog {
 						combo.addItem(attribute.getName());
 			}
 			if (instElements != null)
-				for (InstElement instElementT : instElements)
+				for (InstElement instElementT : instElements) {
+					List<InstElement> opersParent = instElementT
+							.getTransSupportMetaElement()
+							.getTransInstSemanticElement()
+							.getParentOpersConcept();
 					if (instElementT.getEditableSemanticElement() != null)
 						for (AbstractAttribute attribute : instElementT
 								.getEditableSemanticElement()
-								.getAllSemanticAttributes().values())
+								.getAllSemanticAttributes(opersParent).values())
 
 							if (displayVariableName)
 
 								combo.addItem(attribute.getDisplayName());
 							else
 								combo.addItem(attribute.getName());
+				}
 		}
 		combo.setSelectedItem(selectedElement);
 		return combo;

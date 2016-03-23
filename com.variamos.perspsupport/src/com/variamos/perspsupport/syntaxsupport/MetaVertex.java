@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
 
@@ -109,17 +108,4 @@ public abstract class MetaVertex extends MetaElement {
 		return resizable;
 	}
 
-	public boolean equals(MetaVertex obj) {
-		return getAutoIdentifier().equals(obj.getAutoIdentifier());
-	}
-
-	@Override
-	public AbstractAttribute getAbstractAttribute(String attributeName,
-			List<InstElement> parents) {
-		return this.getModelingAttribute(attributeName, parents);
-	}
-
-	public abstract Set<String> getAllAttributesNames(List<InstElement> parents);
-
-	public abstract AbstractAttribute getSemanticAttribute(String name);
 }

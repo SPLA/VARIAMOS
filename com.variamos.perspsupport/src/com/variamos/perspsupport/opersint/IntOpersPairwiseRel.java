@@ -1,7 +1,6 @@
 package com.variamos.perspsupport.opersint;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * An interface for DirectSemanticEdge class, required to avoid cyclic
@@ -12,13 +11,7 @@ import java.util.Set;
  * @since 2014-11-24
  * @see com.variamos.semantic.semanticsupport.DirectSemanticEdge
  */
-public interface IntOpersPairwiseRel  extends IntOpersElement {
+public interface IntOpersPairwiseRel extends IntOpersElement {
+
 	public List<IntOpersRelType> getSemanticRelationTypes();
-	public String getIdentifier();
-	public Set<String> getSemanticAttributesNames();
-	public List<String> getPropEditableAttributes();
-	public List<String> getPanelVisibleAttributes();
-	public List<String> getPropVisibleAttributes();
-	public List<String> getPanelSpacersAttributes();
-	
 }

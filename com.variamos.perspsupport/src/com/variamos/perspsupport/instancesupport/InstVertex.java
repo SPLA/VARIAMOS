@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -129,16 +130,24 @@ public abstract class InstVertex extends InstElement {
 		}
 	}
 
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO
-																				// move
-																				// to
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) { // TODO
+		// move
+		// to
 		// superclass
-		createInstAttributes(parents);
+		createInstAttributes(syntaxParents);
 		if (getTransSupportMetaElement() == null)
 			return null;
-		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(parents);
+		Set<String> attributesNames = getTransSupportMetaElement().getPropVisibleAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
+	}
+
+	private Set<String> getPropVisibleAttributesSet(
+			List<InstElement> syntaxParents) {
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPropVisibleAttributesSet(
+					getParentOpersConcept());
+		return new HashSet<String>();
 	}
 
 	public List<InstAttribute> getFilteredInstAttributes(

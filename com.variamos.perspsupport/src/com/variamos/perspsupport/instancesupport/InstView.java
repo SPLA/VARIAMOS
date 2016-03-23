@@ -80,10 +80,11 @@ public class InstView extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) {
+	public List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents) {
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributesSet(parents);
+				.getPropEditableAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
@@ -94,9 +95,10 @@ public class InstView extends InstElement {
 	}
 
 	@Override
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) {
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) {
 		Set<String> attributesNames = this.getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(parents);
+				.getPropVisibleAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 

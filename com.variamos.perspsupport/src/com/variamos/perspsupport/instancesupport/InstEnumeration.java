@@ -88,21 +88,23 @@ public class InstEnumeration extends InstVertex {
 		}
 	}
 
-	public List<InstAttribute> getEditableVariables(List<InstElement> parents) { // TODO
-																					// move
-																					// to
+	public List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents) { // TODO
+		// move
+		// to
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropEditableAttributesSet(parents);
+				.getPropEditableAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 
-	public List<InstAttribute> getVisibleVariables(List<InstElement> parents) { // TODO
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents, List<InstElement> opersParents) { // TODO
 																				// move
 																				// to
 		// superclass
 		Set<String> attributesNames = getTransSupportMetaElement()
-				.getPropVisibleAttributesSet(parents);
+				.getPropVisibleAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
 	}
 

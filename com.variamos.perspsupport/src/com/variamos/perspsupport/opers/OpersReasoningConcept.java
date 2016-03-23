@@ -24,11 +24,11 @@ public class OpersReasoningConcept extends OpersOverTwoRel {
 		super();
 	}
 
-	public OpersReasoningConcept(OpersAbstractVertex semanticConcept,
-			String name, boolean exclusive,
-			List<IntOpersRelType> semanticRelationTypes) {
-		super(semanticConcept, name, exclusive, semanticRelationTypes);
-	}
+	/*
+	 * public OpersReasoningConcept( String name, boolean exclusive,
+	 * List<IntOpersRelType> semanticRelationTypes) { super( name, exclusive,
+	 * semanticRelationTypes); }
+	 */
 
 	public OpersReasoningConcept(String name, boolean exclusive,
 			List<IntOpersRelType> semanticRelationTypes) {

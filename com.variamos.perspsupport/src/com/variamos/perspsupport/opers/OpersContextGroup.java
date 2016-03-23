@@ -41,11 +41,10 @@ public class OpersContextGroup extends OpersAbstractVertex {
 		defineSemanticAttributes();
 	}
 
-	public OpersContextGroup(OpersAbstractVertex parentConcept,
-			String name) {
-		super(parentConcept, name, true);
-		defineSemanticAttributes();
-	}
+	/*
+	 * public OpersContextGroup(OpersAbstractVertex parentConcept, String name)
+	 * { super( name, true); defineSemanticAttributes(); }
+	 */
 
 	private void defineSemanticAttributes() {
 

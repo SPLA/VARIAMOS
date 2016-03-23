@@ -3,10 +3,8 @@ package com.variamos.perspsupport.syntaxsupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * A class to support the dynamic enumeration on modeling perspective. Extends
@@ -98,15 +96,6 @@ public class MetaEnumeration extends MetaVertex {
 
 		// this.addPanelSpacersAttribute("#" + VAR_METAENUMNAME + "#\n\n");
 		this.addPanelSpacersAttribute("#" + VAR_METAENUMVALUE + "#\n");
-	}
-
-	@Override
-	public Set<String> getAllAttributesNames(List<InstElement> parents) {
-		return this.getModelingAttributesNames();
-	}
-
-	public AbstractAttribute getSemanticAttribute(String name) {
-		return null;
 	}
 
 	public char getType() {

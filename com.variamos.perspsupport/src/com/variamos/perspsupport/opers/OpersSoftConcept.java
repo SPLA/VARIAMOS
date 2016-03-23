@@ -21,8 +21,8 @@ public class OpersSoftConcept extends OpersAbstractVertex {
 		super();
 	}
 
-	public OpersSoftConcept(OpersAbstractVertex semanticConcept, String name) {
-		super(semanticConcept, name, false);
+	public OpersSoftConcept(String name) {
+		super(name, false);
 	}
 
 	public String toString() {
