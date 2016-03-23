@@ -152,7 +152,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		 */
 	}
 
-	private String imagesBasePath = "/com/variamos/gui/perspeditor/images/test/";
+	private String imagesBasePath = "/com/variamos/gui/perspeditor/images/";
 
 	private void drawStatusBar(mxCell childCell, mxCell parentCell) {
 		if (childCell.isVertex()) {

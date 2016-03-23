@@ -837,11 +837,14 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.add(new JLabel(mxResources.get("attributeEdition")));
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
 				boolean editable = true;
-				if ((editElm.getTransSupportMetaElement() != null && editElm
+
+				if (// editor.getPerspective() == 3
+				(editElm.getTransSupportMetaElement() != null && editElm
 						.getTransSupportMetaElement().isEditable() == false)) {
 					attributeEdition.setEnabled(false);
 					editable = false;
 				}
+
 				PropertyAttributeList attList = null;
 				if (instCell.getInstElement().getEditableMetaElement() != null)
 					attList = new PropertyAttributeList(editor, editable,

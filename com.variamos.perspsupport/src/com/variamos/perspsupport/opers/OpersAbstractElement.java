@@ -140,6 +140,19 @@ public class OpersAbstractElement implements Serializable, IntOpersElement {
 		return modelingAttributesNames;
 	}
 
+	@Override
+	public Set<String> getPropEditableAttributesSet(
+			List<InstElement> opersDirectParents) {
+		Set<String> modelingAttributesNames = new HashSet<String>();
+		if (opersDirectParents != null)
+			for (InstElement parent : opersDirectParents)
+				modelingAttributesNames.addAll(parent
+						.getEditableSemanticElement()
+						.getDeclaredPropEditableAttributes());
+		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
+		return modelingAttributesNames;
+	}
+
 	public void addPropEditableAttribute(String editableAttribute) {
 		propEditableAttributes.add(editableAttribute);
 	}

@@ -667,8 +667,8 @@ public abstract class InstElement implements Serializable, EditableElement,
 	}
 
 	public Set<String> getPropEditableAttributes() {
-		if (getEditableMetaElement() != null)
-			return getEditableMetaElement().getPropEditableAttributesSet(
+		if (getEditableSemanticElement() != null)
+			return getEditableSemanticElement().getPropEditableAttributesSet(
 					getParentOpersConcept());
 		return new HashSet<String>();
 	}

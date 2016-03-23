@@ -1739,7 +1739,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			// updateObjects();
 			((MainFrame) getFrame()).waitingCursor(false);
 			long endTime = System.currentTimeMillis();
-			lastSolverInvocations += "NormalExec: " + (endTime - iniTime) + "["
+			lastSolverInvocations = "NormalExec: " + (endTime - iniTime) + "["
 					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
 					+ " -- ";
 		} catch (Exception e) {

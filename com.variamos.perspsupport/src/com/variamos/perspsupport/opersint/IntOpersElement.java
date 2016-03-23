@@ -62,6 +62,8 @@ public interface IntOpersElement extends Serializable {
 
 	Collection<String> getPropEditableAttributes(List<InstElement> parents);
 
+	Set<String> getPropEditableAttributesSet(List<InstElement> parents);
+
 	Collection<String> getPanelVisibleAttributes(List<InstElement> parents);
 
 	Collection<String> getDeclaredPanelSpacersAttributes();

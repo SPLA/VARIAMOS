@@ -461,7 +461,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 						}
 						correctExecution = true;
 						long endTime = System.currentTimeMillis();
-						executionTime += "NormalExec: " + (endTime - iniTime)
+						executionTime = "NormalExec: " + (endTime - iniTime)
 								+ "["
 								+ (refas2hlcl.getLastExecutionTime() / 1000000)
 								+ "]" + " -- ";
