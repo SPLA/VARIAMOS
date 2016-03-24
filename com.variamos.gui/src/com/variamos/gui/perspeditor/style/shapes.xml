@@ -446,7 +446,7 @@
 		<fillstroke/>
 	</foreground>
 </shape>
-<shape name="bigenum" aspect="variable">
+<shape name="bigconcept" aspect="variable">
 	<background>
 			<fillstroke color="#FFFFFF"/>
 		<strokewidth width="6"/>
@@ -473,7 +473,7 @@
 		<fillstroke/>
 	</foreground>
 </shape>
-<shape name="enum" aspect="variable">
+<shape name="concept" aspect="variable">
 	<background>
 			<fillstroke color="#FFFFFF"/>
 		<strokewidth width="6"/>
@@ -500,7 +500,7 @@
 		<fillstroke/>
 	</foreground>
 </shape>
-<shape name="miniclass" aspect="variable">
+<shape name="miniconcept" aspect="variable">
 	<background>
 			<fillstroke color="#FFFFFF"/>
 		<strokewidth width="6"/>
