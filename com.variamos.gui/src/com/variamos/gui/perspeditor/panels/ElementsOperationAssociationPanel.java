@@ -265,11 +265,11 @@ public class ElementsOperationAssociationPanel extends
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
 					for (OpersSubOperation operColumn : subOperColumns) {
-						if (operColumn.hasInVariable(v))
+						if (operColumn.hasInVariable(el.getIdentifier(), v))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
-						if (operColumn.hasOutVariable(v))
+						if (operColumn.hasOutVariable(el.getIdentifier(), v))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
@@ -286,7 +286,7 @@ public class ElementsOperationAssociationPanel extends
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
 					for (OpersLabeling operColumn : operLabels)
-						if (operColumn.hasAttribute(v))
+						if (operColumn.hasAttribute(el.getIdentifier(), v))
 							valuesVarColums.add(1);
 						else
 							valuesVarColums.add(0);

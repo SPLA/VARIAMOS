@@ -21,7 +21,6 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.io.configurations.ExportConfiguration;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
@@ -417,16 +416,15 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 			InstElement oper = refas2hlcl.getRefas().getSyntaxModel()
 					.getOperationalModel().getElement(operation);
-			Set<OpersSubOperation> suboperations = new TreeSet<OpersSubOperation>();
+			Set<InstElement> suboperations = new TreeSet<InstElement>();
 			Map<String, InstElement> instsuboperations = new HashMap<String, InstElement>();
 
 			for (InstElement operpair : oper.getTargetRelations()) {
 				InstElement suboper = operpair.getTargetRelations().get(0);
 				instsuboperations.put(suboper.getIdentifier(), suboper);
-				suboperations.add((OpersSubOperation) suboper
-						.getEditableSemanticElement());
+				suboperations.add(suboper);
 			}
-			for (OpersSubOperation suboper : suboperations) {
+			for (InstElement suboper : suboperations) {
 				result = 0;
 				try {
 					if (lastConfiguration == null) {
@@ -434,7 +432,8 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 								ModelExpr2HLCL.ONE_SOLUTION, operation,
 								instsuboperations.get(suboper.getIdentifier())); // type
 					} else {
-						if (suboper.isIterable()) {
+						if ((boolean) suboper
+								.getInstAttributeValue("iteration")) {
 							result = refas2hlcl.execute(progressMonitor,
 									operation, ModelExpr2HLCL.NEXT_SOLUTION,
 									operation, instsuboperations.get(suboper

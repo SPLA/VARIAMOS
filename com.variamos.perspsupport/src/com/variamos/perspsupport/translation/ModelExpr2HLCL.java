@@ -19,6 +19,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.perspsupport.expressionsupport.OpersIOAttribute;
 import com.variamos.perspsupport.expressionsupport.OpersLabeling;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -28,7 +29,6 @@ import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.opersint.IntModelExpr2Hlcl;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
 import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
@@ -408,9 +408,9 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction))
-				for (AbstractAttribute att : ((OpersSubOperation) subOper
-						.getEditableSemanticElement()).getOutVariables())
-					out.add(att.getName());
+				for (OpersIOAttribute att : ((OpersSubOperation) subOper
+						.getEditableSemanticElement()).getOutAttributes())
+					out.add(att.getAttributeId());
 		}
 		return out;
 	}

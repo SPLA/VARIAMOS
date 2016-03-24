@@ -10,7 +10,6 @@ import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.opers.OpersAbstractElement;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 
 public class OpersLabeling extends OpersAbstractElement {
 	/**
@@ -24,7 +23,6 @@ public class OpersLabeling extends OpersAbstractElement {
 	private String name;
 	private boolean once;
 	private int position;
-	private List<AbstractAttribute> variables;
 	private Set<OpersIOAttribute> attributes;
 
 	public OpersLabeling(String name, String labelId, int position,
@@ -39,7 +37,6 @@ public class OpersLabeling extends OpersAbstractElement {
 		this.labelingOrderList = labelingOrderList;
 		this.position = position;
 		this.once = once;
-		variables = new ArrayList<AbstractAttribute>();
 		attributes = new HashSet<OpersIOAttribute>();
 	}
 
@@ -80,21 +77,10 @@ public class OpersLabeling extends OpersAbstractElement {
 		this.once = once;
 	}
 
-	public List<AbstractAttribute> getVariables() {
-		return variables;
-	}
-
-	public void setVariables(List<AbstractAttribute> variables) {
-		this.variables = variables;
-	}
-
-	public void addAttribute(AbstractAttribute attribute) {
-		variables.add(attribute);
-	}
-
-	public boolean hasAttribute(String name) {
-		for (AbstractAttribute s : variables)
-			if (s.getName().equals(name))
+	public boolean hasAttribute(String concept, String name) {
+		for (OpersIOAttribute s : attributes)
+			if (s.getConceptId().equals(concept)
+					&& s.getAttributeId().equals(name))
 				return true;
 		return false;
 	}

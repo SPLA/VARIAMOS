@@ -18,34 +18,12 @@ public class OpersOperationGroup extends OpersAbstractElement {
 	 */
 	private static final long serialVersionUID = -6532989148655801713L;
 
-	private int position;
-	private int type;
-
-	public OpersOperationGroup(int position, String identifier, int type) {
+	public OpersOperationGroup(String identifier) {
 		super(identifier);
-		this.position = position;
-		this.type = type;
 	}
 
 	public OpersOperationGroup() {
 		super(null);
 		// TODO Auto-generated constructor stub
 	}
-
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 }
