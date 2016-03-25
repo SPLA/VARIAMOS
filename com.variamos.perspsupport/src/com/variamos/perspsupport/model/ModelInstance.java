@@ -35,6 +35,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
+import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.types.AttributeType;
 
@@ -869,6 +870,22 @@ public class ModelInstance extends AbstractModel {
 		basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "Index");
 		basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "Index");
 
+		basicOpersM2OperSubAction.putSemanticAttribute("type",
+				new SyntaxAttribute("type", "Enumeration",
+						AttributeType.OPERATION, false, "Type",
+						OperationSubActionType.class.getCanonicalName(),
+						"SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
+		basicOpersM2OperSubAction.addPropEditableAttribute("09#" + "type");
+		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "type");
+
+		basicOpersM2OperSubAction.putSemanticAttribute(
+				"exttype",
+				new SyntaxAttribute("exttype", "Set", AttributeType.SYNTAX,
+						false, "exttype", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
+
 		InstConcept instBasicOpersM2OperSubAction = new InstConcept(
 				"BasicOpersM2SubOper", null, basicOpersM2OperSubAction);
 
@@ -888,6 +905,13 @@ public class ModelInstance extends AbstractModel {
 						AttributeType.OPERATION, false, "Once", false, 0, 6,
 						"", "", 6, "", ""));
 
+		basicOpersM2Labeling.putSemanticAttribute(
+				"sortorder",
+				new SyntaxAttribute("sortorder", "Set", AttributeType.SYNTAX,
+						false, "sortorder", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
 		basicOpersM2Labeling.addPanelVisibleAttribute("04#" + "identifier");
 		basicOpersM2Labeling.addPanelSpacersAttribute("#" + "identifier" + "#");
 

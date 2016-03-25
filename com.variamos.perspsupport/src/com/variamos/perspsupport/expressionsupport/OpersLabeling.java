@@ -19,24 +19,14 @@ public class OpersLabeling extends OpersAbstractElement {
 	private List<NumericExpression> orderExpressionList;
 	private List<LabelingOrder> labelingOrderList;
 
-	private String labelId;
-	private String name;
-	private boolean once;
-	private int position;
 	private Set<OpersIOAttribute> attributes;
 
-	public OpersLabeling(String name, String labelId, int position,
-			boolean once, List<LabelingOrder> labelingOrderList,
-			List<NumericExpression> orderExpressionList
-
-	) {
-		super(null);
-		this.name = name;
-		this.setLabelId(labelId);
+	public OpersLabeling(String identifier,
+			List<LabelingOrder> labelingOrderList,
+			List<NumericExpression> orderExpressionList) {
+		super(identifier);
 		this.orderExpressionList = orderExpressionList;
 		this.labelingOrderList = labelingOrderList;
-		this.position = position;
-		this.once = once;
 		attributes = new HashSet<OpersIOAttribute>();
 	}
 
@@ -57,44 +47,12 @@ public class OpersLabeling extends OpersAbstractElement {
 		this.labelingOrderList = labelingOrderList;
 	}
 
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean isOnce() {
-		return once;
-	}
-
-	public void setOnce(boolean once) {
-		this.once = once;
-	}
-
 	public boolean hasAttribute(String concept, String name) {
 		for (OpersIOAttribute s : attributes)
 			if (s.getConceptId().equals(concept)
 					&& s.getAttributeId().equals(name))
 				return true;
 		return false;
-	}
-
-	public Object getName() {
-		return name;
-	}
-
-	public String getLabelId() {
-		return labelId;
-	}
-
-	public void setLabelId(String labelId) {
-		this.labelId = labelId;
 	}
 
 	public Set<OpersIOAttribute> getAttributes() {

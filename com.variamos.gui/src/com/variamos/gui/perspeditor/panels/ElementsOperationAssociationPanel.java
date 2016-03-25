@@ -154,7 +154,7 @@ public class ElementsOperationAssociationPanel extends
 						.getEditableSemanticElement();
 				operLabs.add(operLab);
 				operLabsNames.add(operSubAction.getIdentifier() + "-"
-						+ operLab.getName());
+						+ operLab.getIdentifier());
 
 			}
 

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -18,6 +19,7 @@ import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
+import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 public class AttributeEditionPanel extends JPanel {
@@ -27,7 +29,7 @@ public class AttributeEditionPanel extends JPanel {
 	private static final long serialVersionUID = 1478873242908064197L;
 	private HashMap<String, WidgetR> widgets;
 	private DialogButtonAction onAccept, onCancel;
-	private PropertyAttributeList propertyAttributeList;
+	private JList<AbstractAttribute> propertyAttributeList;
 	JPanel panel = null;
 
 	static interface DialogButtonAction {
@@ -68,7 +70,7 @@ public class AttributeEditionPanel extends JPanel {
 	}
 
 	public void setPropertyAttributeList(
-			PropertyAttributeList propertyAttributeList) {
+			JList<AbstractAttribute> propertyAttributeList) {
 		this.propertyAttributeList = propertyAttributeList;
 
 	}

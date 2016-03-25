@@ -320,8 +320,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				List<Labeling> out = new ArrayList<Labeling>();
 				for (InstElement rel : instOperSubAction.getTargetRelations()) {
 					InstElement instOperLab = rel.getTargetRelations().get(0);
-					OpersLabeling operLab = (OpersLabeling) instOperLab
-							.getEditableSemanticElement();
+					InstElement operLab = instOperLab;
 					// for (OperationLabeling operLab :
 					// operSubAction.getOperLabels()) {
 
@@ -330,10 +329,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							int attributeValue = 0;
-							if (operLab.validateAttribute(instE
-									.getTransSupportMetaElement()
-									.getTransInstSemanticElement(), var
-									.getAttributeName()) == 1) {
+							if (((OpersLabeling) operLab
+									.getEditableSemanticElement())
+									.validateAttribute(instE
+											.getTransSupportMetaElement()
+											.getTransInstSemanticElement(), var
+											.getAttributeName()) == 1) {
 								Identifier id = f.newIdentifier(instE
 										.getIdentifier()
 										+ "_"
@@ -346,10 +347,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						}
 					}
 					Collections.sort(ident);
-					Labeling lab = new Labeling((String) operLab.getName(),
-							operLab.getLabelId(), operLab.getPosition(),
-							operLab.isOnce(), operLab.getLabelingOrderList(),
-							operLab.getOrderExpressionList());
+					Labeling lab = new Labeling(
+							(String) operLab.getIdentifier(),
+							(String) operLab.getInstAttributeValue("labelId"),
+							(int) operLab.getInstAttributeValue("position"),
+							(boolean) operLab.getInstAttributeValue("once"),
+							((OpersLabeling) operLab
+									.getEditableSemanticElement())
+									.getLabelingOrderList(),
+							((OpersLabeling) operLab
+									.getEditableSemanticElement())
+									.getOrderExpressionList());
 					lab.setVariables(ident);
 					out.add(lab);
 				}

@@ -158,12 +158,11 @@ public class RefasDefaultOperations {
 		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOpt"));
 
 		OpersLabeling simulationExecOperUniqueLabeling = null;
-		simulationExecOperUniqueLabeling = new OpersLabeling("unique", "L1", 1,
-				false, labord, orderExpressionList);
+		simulationExecOperUniqueLabeling = new OpersLabeling("unique", labord,
+				orderExpressionList);
 
 		OpersLabeling simsceExecOperLabeling1 = null;
-		simsceExecOperLabeling1 = new OpersLabeling("all", "L1", 1, false,
-				null, null);
+		simsceExecOperLabeling1 = new OpersLabeling("all", null, null);
 		labord = new ArrayList<LabelingOrder>();
 		labord.add(LabelingOrder.MAX);
 
@@ -171,8 +170,8 @@ public class RefasDefaultOperations {
 		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalSG"));
 
 		OpersLabeling simsceExecOperLabeling2 = null;
-		simsceExecOperLabeling2 = new OpersLabeling("once", "L2", 2, true,
-				labord, orderExpressionList); // TODO define max for SG
+		simsceExecOperLabeling2 = new OpersLabeling("once", labord,
+				orderExpressionList); // TODO define max for SG
 
 		OpersConcept refasModel = new OpersConcept("REFAS");
 
@@ -264,8 +263,8 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
 
-		OpersLabeling operationLabeling = new OpersLabeling("unique", "L1", 1,
-				false, null, null);
+		OpersLabeling operationLabeling = new OpersLabeling("unique", null,
+				null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -295,6 +294,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("Sim-Pre-Update",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-pre-upd", instEdgeOper);
 		instEdgeOper.setIdentifier("sim-pre-upd");
@@ -307,8 +308,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -361,6 +361,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("Sim-Execution",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-exec", instEdgeOper);
 		instEdgeOper.setIdentifier("sim-exec");
@@ -402,6 +404,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("Sim-Post-Validation",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-pos-val", instEdgeOper);
 		instEdgeOper.setIdentifier("sim-pos-val");
@@ -414,8 +418,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -445,13 +448,14 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("Sim-Post-Update",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		simulationPostUpdOptOperSubActionNormal = new OpersSubOperationExpType(
 				OperationSubActionExecType.NORMAL);
 		operationSubAction
 				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -522,6 +526,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("SimSce-Pre-Validation",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pre-val", instEdgeOper);
 		instEdgeOper.setIdentifier("simsce-pre-val");
@@ -534,8 +540,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -565,6 +570,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("SimSce-Pre-Update",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pre-upd", instEdgeOper);
 		instEdgeOper.setIdentifier("simsce-pre-upd");
@@ -577,8 +584,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -607,6 +613,8 @@ public class RefasDefaultOperations {
 				metaOperationSubAction, simSceOperationSubAction);
 		refas.getVariabilityVertex().put("SimSce-Execution",
 				instOperationSubAction);
+
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-exec", instEdgeOper);
@@ -690,8 +698,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -720,6 +727,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("SimSce-Post-Update",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pos-upd", instEdgeOper);
 		instEdgeOper.setIdentifier("simsce-pos-upd");
@@ -732,8 +741,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -794,6 +802,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("UpdateCoreSubOper",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("upd-core", instEdgeOper);
 		instEdgeOper.setIdentifier("upd-core");
@@ -806,8 +816,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -858,6 +867,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("VerifyDeadElementsSubOper",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ver-dead", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-dead");
@@ -880,8 +891,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -930,6 +940,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("VerifyParentsSubOper",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ver-par", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-par");
@@ -952,8 +964,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1002,6 +1013,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("VerifyRootsSubOper",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ver-root", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-root");
@@ -1024,8 +1037,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(verifRootOperSubActionVerification);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1079,6 +1091,10 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("VerifyFalseSubOperations",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ver-false", instEdgeOper);
 		instEdgeOper.setIdentifier("ver-false");
@@ -1101,8 +1117,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(verifFalseOptOperSubActionVerification);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1165,6 +1180,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("ConfigureTemporalSubOper",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("conf-temp", instEdgeOper);
 		instEdgeOper.setIdentifier("conf-temp");
@@ -1177,8 +1194,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1229,6 +1245,8 @@ public class RefasDefaultOperations {
 		refas.getVariabilityVertex().put("ConfigurePermanentSubOpe",
 				instOperationSubAction);
 
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("conf-perm", instEdgeOper);
 		instEdgeOper.setIdentifier("conf-perm");
@@ -1241,8 +1259,7 @@ public class RefasDefaultOperations {
 		operationSubAction
 				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", "L1", 1, false, null,
-				null);
+		operationLabeling = new OpersLabeling("unique", null, null);
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
