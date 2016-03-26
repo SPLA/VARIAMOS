@@ -96,7 +96,7 @@ public class OpersSubOperation extends OpersAbstractElement implements
 
 	}
 
-	public OpersSubOperationExpType getOperationSubActionExpType(
+	public OpersSubOperationExpType getOpersSubOperationExpType(
 			OperationSubActionExecType expressionType) {
 		for (OpersSubOperationExpType oper : operationSubActionExpTypes) {
 			if (oper.getExpressionType().equals(expressionType))

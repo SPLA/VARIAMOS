@@ -362,6 +362,16 @@ public class RefasDefaultOperations {
 				instOperationSubAction);
 
 		instOperationSubAction.getInstAttribute("Index").setValue(1);
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"ITERATIVEUPDATE");
+		List<InstAttribute> exptype = (List<InstAttribute>) instOperationSubAction
+				.getInstAttribute("exptype").getValue();
+		exptype.add(new InstAttribute("enum1", new AbstractAttribute(
+				"EnumValue", "Class", AttributeType.SYNTAX, false,
+				"Enumeration Value", OpersSubOperationExpType.class
+						.getCanonicalName(), OperationSubActionExecType.NORMAL,
+				1, -1, "", "", -1, "", ""), new OpersSubOperationExpType(
+				OperationSubActionExecType.NORMAL)));
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-exec", instEdgeOper);
@@ -384,6 +394,16 @@ public class RefasDefaultOperations {
 		instLabeling.getInstAttribute("labelId").setValue("L1");
 		instLabeling.getInstAttribute("position").setValue(1);
 		instLabeling.getInstAttribute("once").setValue(false);
+		List<InstAttribute> sortatt = (List<InstAttribute>) instLabeling
+				.getInstAttribute("sortorder").getValue();
+		sortatt.add(new InstAttribute("enum1", new AbstractAttribute(
+				"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+				false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				LabelingOrder.MAX));
+		sortatt.add(new InstAttribute("enum2", new AbstractAttribute(
+				"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+				false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				LabelingOrder.MAX));
 
 		refas.getVariabilityVertex().put("Sim-Execution-lab", instLabeling);
 

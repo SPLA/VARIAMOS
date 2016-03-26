@@ -13,6 +13,7 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.Labeling;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.OpersLabeling;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
@@ -103,7 +104,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<InstElement> operActions = refas.getOperationalModel()
 				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
 		InstElement operAction = null;
-		OpersSubOperation operSubAction = null;
+		InstElement operSubAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
 				operAction = oper;
@@ -113,8 +114,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction)) {
-				operSubAction = (OpersSubOperation) subOper
-						.getEditableSemanticElement();
+				operSubAction = subOper;
 				break;
 			}
 		}
@@ -128,8 +128,18 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * .getExpressionSubAction(subAction);
 		 */
 		if (operSubAction != null) {
-			OpersSubOperationExpType operExpType = operSubAction
-					.getOperationSubActionExpType(expressionType);
+			ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operSubAction
+					.getInstAttributeValue("exptype");
+			Object o = null;
+			for (InstAttribute att : instattrs) {
+				o = att.getValue();
+			}
+			// FIXME use the OperationSubActionExpType from the instattribute,
+			// not the object collection, requires to create the object in the
+			// attribute instead of the type
+			OpersSubOperationExpType operExpType = ((OpersSubOperation) operSubAction
+					.getEditableSemanticElement())
+					.getOpersSubOperationExpType(expressionType);
 			if (operExpType != null) {
 				List<IntMetaExpression> semExp = operExpType
 						.getSemanticExpressions();
@@ -185,10 +195,12 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							int attributeValue = 0;
-							if (operSubAction.validateAttribute(instE
-									.getTransSupportMetaElement()
-									.getTransInstSemanticElement(), var
-									.getAttributeName(), true) == 1) {
+							if (((OpersSubOperation) operSubAction
+									.getEditableSemanticElement())
+									.validateAttribute(instE
+											.getTransSupportMetaElement()
+											.getTransInstSemanticElement(), var
+											.getAttributeName(), true) == 1) {
 								String type = (String) var.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
@@ -315,7 +327,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 		if (operSubAction != null) {
 			OpersSubOperationExpType operExpType = operSubAction
-					.getOperationSubActionExpType(expressionType);
+					.getOpersSubOperationExpType(expressionType);
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
 				for (InstElement rel : instOperSubAction.getTargetRelations()) {
@@ -347,14 +359,21 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						}
 					}
 					Collections.sort(ident);
+
+					ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operLab
+							.getInstAttributeValue("sortorder");
+					List<LabelingOrder> laborder = new ArrayList<LabelingOrder>();
+					for (InstAttribute att : instattrs) {
+						laborder.add((LabelingOrder) att.getValue());
+					}
 					Labeling lab = new Labeling(
 							(String) operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
 							(int) operLab.getInstAttributeValue("position"),
 							(boolean) operLab.getInstAttributeValue("once"),
-							((OpersLabeling) operLab
-									.getEditableSemanticElement())
-									.getLabelingOrderList(),
+							laborder,// ((OpersLabeling) operLab
+										// .getEditableSemanticElement())
+										// .getLabelingOrderList(),
 							((OpersLabeling) operLab
 									.getEditableSemanticElement())
 									.getOrderExpressionList());

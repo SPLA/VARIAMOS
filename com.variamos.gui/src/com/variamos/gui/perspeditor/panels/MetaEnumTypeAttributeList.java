@@ -15,11 +15,14 @@ import javax.swing.JOptionPane;
 
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
+import com.variamos.hlcl.LabelingOrder;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.StringType;
 import com.variamos.semantic.types.AttributeType;
 
@@ -113,7 +116,12 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 					int index, boolean isSelected, boolean cellHasFocus) {
 				JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 						value, index, isSelected, cellHasFocus);
-				lbl.setText((String) ((InstAttribute) value).getValue());
+				Object attvalue = ((InstAttribute) value).getValue();
+				if (attvalue instanceof OperationSubActionExecType)
+					lbl.setText(((OperationSubActionExecType) attvalue)
+							.toString());
+				if (attvalue instanceof LabelingOrder)
+					lbl.setText(((LabelingOrder) attvalue).toString());
 				return lbl;
 			}
 		});
@@ -148,8 +156,14 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 							AttributeType.SYNTAX, false, "Enumeration Value",
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
-			String split[] = ((String) instAttribute.getValue()).split("-");
-			instName.setValue(split[0]);
+			if (attributeName.equals("exptype")) {
+				String split[] = ((OpersSubOperationExpType) instAttribute
+						.getValue()).getExpressionType().toString().split("-");
+				instName.setValue(split[0]);
+			} else {
+				String split[] = ((String) instAttribute.getValue()).split("-");
+				instName.setValue(split[0]);
+			}
 		}
 		final InstAttribute finalInstAttribute = instAttribute;
 
@@ -185,10 +199,22 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 					return false;
 				}
 				InstAttribute v = buffer[0];
-				v.setValue((String) instName.getValue());
+				List<InstAttribute> attributes = null;
+				if (attributeName.equals("exptype")) {
+					OperationSubActionExecType.valueOf((String) instName
+							.getValue());
+					OperationSubActionExecType ex = OperationSubActionExecType
+							.valueOf((String) instName.getValue());
+					v.setValue(new OpersSubOperationExpType(ex));
 
-				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes().get(attributeName).getValue());
+					attributes = ((List<InstAttribute>) element
+							.getInstAttributes().get(attributeName).getValue());
+				} else {
+					v.setValue((String) instName.getValue());
+
+					attributes = ((List<InstAttribute>) element
+							.getInstAttributes().get(attributeName).getValue());
+				}
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);

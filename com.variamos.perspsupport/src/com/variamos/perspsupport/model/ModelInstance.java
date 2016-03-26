@@ -879,9 +879,9 @@ public class ModelInstance extends AbstractModel {
 		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "type");
 
 		basicOpersM2OperSubAction.putSemanticAttribute(
-				"exttype",
-				new SyntaxAttribute("exttype", "Set", AttributeType.SYNTAX,
-						false, "exttype", InstAttribute.class
+				"exptype",
+				new SyntaxAttribute("exptype", "Set", AttributeType.SYNTAX,
+						false, "exptype", InstAttribute.class
 								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
 						""));

@@ -852,7 +852,7 @@ public class ElementDesignPanel extends JPanel {
 				if (editElm.getTransSupportMetaElement().getName()
 						.equals("InfraSyntaxOpersM2SubOper")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
-							"exttype",
+							"exptype",
 							OperationSubActionExecType.class.getCanonicalName());
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
