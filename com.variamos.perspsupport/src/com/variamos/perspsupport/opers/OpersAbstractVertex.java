@@ -22,7 +22,6 @@ public class OpersAbstractVertex extends OpersAbstractElement implements
 	 */
 	private static final long serialVersionUID = -3569174300072453550L;
 
-	private boolean booleanSatisfaction;
 	public static final String
 	/**
 	* 
@@ -30,7 +29,7 @@ public class OpersAbstractVertex extends OpersAbstractElement implements
 	VAR_SELECTED_IDEN = "Selected";
 
 	public OpersAbstractVertex() {
-		this("", false, new ArrayList<String>(), new ArrayList<String>(),
+		this("", new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<String>(), new ArrayList<String>());
 	}
 
@@ -38,59 +37,17 @@ public class OpersAbstractVertex extends OpersAbstractElement implements
 		super(identifier);
 	}
 
-	/*
-	 * public OpersAbstractVertex(OpersAbstractVertex parentConcept, String
-	 * identifier) { super(parentConcept, identifier); }
-	 * 
-	 * 
-	 * public OpersAbstractVertex(// OpersAbstractVertex parentConcept, String
-	 * identifier, boolean satisfactionType) { this(parentConcept, identifier,
-	 * satisfactionType, new ArrayList<String>(), new ArrayList<String>(), new
-	 * ArrayList<String>(), new ArrayList<String>());
-	 * 
-	 * }
-	 */
-	public OpersAbstractVertex(String name, boolean satisfactionType) {
-		this(name, satisfactionType, new ArrayList<String>(),
-				new ArrayList<String>(), new ArrayList<String>(),
-				new ArrayList<String>());
-	}
-
-	public OpersAbstractVertex(
-			// OpersAbstractVertex parentConcept,
-			String identifier, boolean booleanSatisfaction,
+	public OpersAbstractVertex(String identifier,
 			List<String> disPropVisibleAttributes,
 			List<String> disPropEditableAttributes,
 			List<String> disPanelVisibleAttributes,
 			List<String> disPanelSpacersAttributes) {
 		super(identifier, disPropVisibleAttributes, disPropEditableAttributes,
 				disPanelVisibleAttributes, disPanelSpacersAttributes);
-		this.booleanSatisfaction = booleanSatisfaction;
-	}
-
-	public boolean isBooleanSatisfaction() {
-		return booleanSatisfaction;
-	}
-
-	public void setBooleanSatisfaction(boolean booleanSatisfaction) {
-		this.booleanSatisfaction = booleanSatisfaction;
 	}
 
 	public String toString() {
-		/*
-		 * String directRelationsOut = ""; for (int i = 0; i<
-		 * directRelations.size();i++) directRelationsOut +=
-		 * directRelations.get(i).getType()+", "; String groupRelationsOut = "";
-		 * for (int i = 0; i< groupRelations.size();i++) groupRelationsOut +=
-		 * groupRelations.get(i).toString()+", ";
-		 */
-		return "name : " + getIdentifier() + " booleanSatisf: "
-				+ booleanSatisfaction + " multirel: " /*
-													 * + multipleGroupRelations
-													 * + " dirRel: " +
-													 * directRelationsOut +
-													 * " dirRel: " +
-													 * groupRelationsOut
-													 */;
+
+		return "name : " + getIdentifier();
 	}
 }

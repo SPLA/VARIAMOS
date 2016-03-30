@@ -1,6 +1,5 @@
 package com.variamos.perspsupport.instancesupport;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +32,7 @@ public class InstEnumeration extends InstVertex {
 	public InstEnumeration(MetaEnumeration metaEnumeration) {
 		super();
 		setTransSupportMetaElement(metaEnumeration);
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public InstEnumeration(MetaVertex metaEnumeration,
@@ -41,7 +40,7 @@ public class InstEnumeration extends InstVertex {
 		super();
 		setEditableMetaElement(editableMetaElement);
 		setTransSupportMetaElement(metaEnumeration);
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration,
@@ -49,13 +48,13 @@ public class InstEnumeration extends InstVertex {
 			Map<String, InstPairwiseRelation> relations) {
 		super(identifier, attributes, relations);
 		setTransSupportMetaElement(metaEnumeration);
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration) {
 		super(identifier);
 		setTransSupportMetaElement(metaEnumeration);
-		createInstAttributes();
+		createInstAttributes(null);
 	}
 
 	public InstEnumeration(String identifier, MetaVertex metaEnumeration,
@@ -63,28 +62,7 @@ public class InstEnumeration extends InstVertex {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
 		setTransSupportMetaElement(metaEnumeration);
-		createInstAttributes();
-	}
-
-	protected void createInstAttributes() {
-		Iterator<String> modelingAttributes = getTransSupportMetaElement()
-				.getModelingAttributesNames(null).iterator();
-		while (modelingAttributes.hasNext()) {
-			String name = modelingAttributes.next();
-			if (name.equals(MetaElement.VAR_AUTOIDENTIFIER))
-				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name, null), getIdentifier());
-			else if (name.equals(MetaElement.VAR_USERIDENTIFIER))
-				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name, null), getUserIdentifier());
-			else if (name.equals(MetaElement.VAR_DESCRIPTION))
-				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name, null),
-						getTransSupportMetaElement().getDescription());
-			else
-				addInstAttribute(name, getTransSupportMetaElement()
-						.getModelingAttribute(name, null), null);
-		}
+		createInstAttributes(null);
 	}
 
 	public List<InstAttribute> getEditableVariables(

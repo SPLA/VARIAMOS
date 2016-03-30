@@ -22,7 +22,7 @@ public class OpersSoftConcept extends OpersAbstractVertex {
 	}
 
 	public OpersSoftConcept(String name) {
-		super(name, false);
+		super(name);
 	}
 
 	public String toString() {

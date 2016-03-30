@@ -13,6 +13,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
+import com.variamos.hlcl.LabelingOrder;
+import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.opersint.IntModelExpression;
 import com.variamos.perspsupport.opersint.IntOpersElement;
@@ -529,6 +531,14 @@ public abstract class InstElement implements Serializable, EditableElement,
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
 								new ArrayList<SemanticExpression>());
+					} else if (name.equals("exptype")) {
+						addInstAttribute(name,
+								instElement.getSemanticAttribute(name),
+								new ArrayList<OpersSubOperationExpType>());
+					} else if (name.equals("sortorder")) {
+						addInstAttribute(name,
+								instElement.getSemanticAttribute(name),
+								new ArrayList<LabelingOrder>());
 					} else
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name), null);
@@ -619,7 +629,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 	@Override
 	public int compareTo(InstElement view) {
 		String index = this.getInstAttribute("Index").getValue()
-				+ view.getIdentifier();
+				+ this.getIdentifier();
 		String other = view.getInstAttribute("Index").getValue()
 				+ view.getIdentifier();
 		return index.compareTo(other);

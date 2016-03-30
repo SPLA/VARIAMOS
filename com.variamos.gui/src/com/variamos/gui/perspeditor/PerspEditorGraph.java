@@ -371,10 +371,14 @@ public class PerspEditorGraph extends AbstractGraph {
 		cell.setValue(new InstCell(cell, directRelation, false));
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
+		List<InstElement> parents = null;
+		if (directRelation.getTransSupportMetaElement() != null
+				&& directRelation.getTransSupportMetaElement()
+						.getTransInstSemanticElement() != null)
+			parents = directRelation.getTransSupportMetaElement()
+					.getTransInstSemanticElement().getParentOpersConcept();
 		refas.updateValidationLists(directRelation, source, target,
-				refas.getParentSMMSyntaxElement(directRelation), directRelation
-						.getTransSupportMetaElement()
-						.getTransInstSemanticElement().getParentOpersConcept());
+				refas.getParentSMMSyntaxElement(directRelation), parents);
 		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
 		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();

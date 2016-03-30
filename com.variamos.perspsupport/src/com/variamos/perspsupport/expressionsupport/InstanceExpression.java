@@ -19,6 +19,7 @@ import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstEnumeration;
+import com.variamos.perspsupport.instancesupport.InstVertex;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.opersint.IntModelExpression;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
@@ -519,7 +520,7 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTUNIQUEOUTRELVARIABLE:
-			if (!(volatileLeftInstElement instanceof InstConcept))
+			if (!(volatileLeftInstElement instanceof InstVertex))
 				expInstElement = outExpIndirInstElement;
 			else
 				expInstElement = outExpDirInstElement;
@@ -527,7 +528,7 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 					.getLeftRelAttributeName();
 			break;
 		case LEFTUNIQUEINCRELVARIABLE:
-			if (!(volatileLeftInstElement instanceof InstConcept))
+			if (!(volatileLeftInstElement instanceof InstVertex))
 				expInstElement = incExpIndirInstElement;
 			else
 				expInstElement = incExpDirInstElement;
@@ -535,14 +536,14 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 					.getLeftRelAttributeName();
 			break;
 		case LEFTUNIQUEOUTCONVARIABLE:
-			if (volatileLeftInstElement instanceof InstConcept)
+			if (volatileLeftInstElement instanceof InstVertex)
 				expInstElement = outExpIndirInstElement;
 			else
 				expInstElement = outExpDirInstElement;
 			expAttributeName = getSemanticExpression().getLeftAttributeName();
 			break;
 		case LEFTUNIQUEINCCONVARIABLE:
-			if (volatileLeftInstElement instanceof InstConcept)
+			if (volatileLeftInstElement instanceof InstVertex)
 				expInstElement = incExpIndirInstElement;
 			else
 				expInstElement = incExpDirInstElement;
@@ -1227,11 +1228,20 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		case LEFTVARIABLEVALUE:
 		case LEFTSTRINGVALUE:
 			this.leftValue = volatileSemanticExpression.getLeftString();
-		case LEFTVARIABLE:
+
 		case LEFTUNIQUEOUTRELVARIABLE:
+			this.volatileLeftInstElement = instElement;
+			break;
 		case LEFTUNIQUEINCRELVARIABLE:
+			this.volatileLeftInstElement = instElement;
+			break;
 		case LEFTUNIQUEOUTCONVARIABLE:
+			this.volatileLeftInstElement = instElement;
+			break;
 		case LEFTUNIQUEINCCONVARIABLE:
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTVARIABLE:
 		case LEFTCONCEPTVARIABLE: // TODO verify
 			this.volatileLeftInstElement = instElement;
 			break;

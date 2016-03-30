@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,6 +36,7 @@ import com.variamos.gui.perspeditor.widgets.MEnumerationWidget;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
+import com.variamos.hlcl.LabelingOrder;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.instancesupport.EditableElement;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
@@ -54,6 +56,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
@@ -398,7 +401,8 @@ public class ElementDesignPanel extends JPanel {
 															JOptionPane
 																	.showMessageDialog(
 																			finalEditor,
-																			"The expression is imcomplete, this may cause error for verification and simulation operations",
+																			"The expression is imcomplete, this may cause"
+																					+ " error for verification and simulation operations",
 																			"Instance Expression Error",
 																			JOptionPane.INFORMATION_MESSAGE,
 																			null);
@@ -408,7 +412,8 @@ public class ElementDesignPanel extends JPanel {
 														JOptionPane
 																.showMessageDialog(
 																		finalEditor,
-																		"The expression is imcomplete, this may cause error for verification and simulation operations",
+																		"The expression is imcomplete, this may cause error"
+																				+ " for verification and simulation operations",
 																		"Instance Expression Error",
 																		JOptionPane.INFORMATION_MESSAGE,
 																		null);
@@ -833,8 +838,6 @@ public class ElementDesignPanel extends JPanel {
 					}
 				});
 
-				attPanel.add(new JLabel(mxResources.get("elementAttributes")));
-				attPanel.add(new JLabel(mxResources.get("attributeEdition")));
 				AttributeEditionPanel attributeEdition = new AttributeEditionPanel();
 				boolean editable = true;
 
@@ -845,20 +848,48 @@ public class ElementDesignPanel extends JPanel {
 					editable = false;
 				}
 
-				PropertyAttributeList attList = null;
-				if (instCell.getInstElement().getEditableMetaElement() != null)
-					attList = new PropertyAttributeList(editor, editable,
-							instCell.getInstElement(), instCell
-									.getInstElement().getEditableMetaElement()
-									.getModelingAttributes(), attributeEdition);
-				if (instCell.getInstElement().getEditableSemanticElement() != null)
-					attList = new PropertyAttributeList(editor, editable,
-							instCell.getInstElement(), instCell
-									.getInstElement()
-									.getEditableSemanticElement()
-									.getDeclaredSemanticAttributes(),
-							attributeEdition);
+				JList attList = null;
+				if (editElm.getTransSupportMetaElement().getName()
+						.equals("InfraSyntaxOpersM2SubOper")) {
+					attList = new MetaEnumTypeAttributeList(
+							editor,
+							instCell,
+							"exptype",
+							OperationSubActionExecType.class.getCanonicalName(),
+							((ModelInstance) editor.getEditedModel())
+									.getSyntaxModel()
+									.getVertex("InfraSyntaxOpersM2ExpType")
+									.getEditableMetaElement());
+					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
+					attPanel.add(new JLabel(""));
+				} else if (editElm.getTransSupportMetaElement().getName()
+						.equals("InfraSyntaxOpersM2Labeling")) {
+					attList = new MetaEnumTypeAttributeList(editor, instCell,
+							"sortorder",
+							LabelingOrder.class.getCanonicalName(), null);
 
+					attPanel.add(new JLabel(mxResources.get("labelingSort")));
+					attPanel.add(new JLabel(""));
+				} else {
+
+					attPanel.add(new JLabel(mxResources
+							.get("elementAttributes")));
+					attPanel.add(new JLabel(""));
+					if (instCell.getInstElement().getEditableMetaElement() != null)
+						attList = new PropertyAttributeList(editor, editable,
+								instCell.getInstElement(), instCell
+										.getInstElement()
+										.getEditableMetaElement()
+										.getModelingAttributes(),
+								attributeEdition);
+					if (instCell.getInstElement().getEditableSemanticElement() != null)
+						attList = new PropertyAttributeList(editor, editable,
+								instCell.getInstElement(), instCell
+										.getInstElement()
+										.getEditableSemanticElement()
+										.getDeclaredSemanticAttributes(),
+								attributeEdition);
+				}
 				attributeEdition.setPropertyAttributeList(attList);
 				attPanel.setPreferredSize(new Dimension(450, 250));
 				attPanel.setMaximumSize(new Dimension(550, 250));

@@ -138,10 +138,13 @@ public class ElementsOperationAssociationPanel extends
 
 			operSubAction = (OpersSubOperation) subOper
 					.getEditableSemanticElement();
-			subOperTypesColumnsNames.addAll(operSubAction
-					.getOperationSubActionExpTypesNames());
-			subOperTypesColumns.addAll(operSubAction
-					.getOperationSubActionExpTypes());
+			// FIXME complete: include names and objects from suboper
+			/*
+			 * subOperTypesColumnsNames.addAll(operSubAction
+			 * .getOperationSubActionExpTypesNames());
+			 * subOperTypesColumns.addAll(operSubAction
+			 * .getOperationSubActionExpTypes());
+			 */
 			subOperColumnsNames.add(operSubAction.getIdentifier());
 			subOperColumns.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
@@ -154,7 +157,7 @@ public class ElementsOperationAssociationPanel extends
 						.getEditableSemanticElement();
 				operLabs.add(operLab);
 				operLabsNames.add(operSubAction.getIdentifier() + "-"
-						+ operLab.getName());
+						+ operLab.getIdentifier());
 
 			}
 
@@ -265,11 +268,11 @@ public class ElementsOperationAssociationPanel extends
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
 					for (OpersSubOperation operColumn : subOperColumns) {
-						if (operColumn.hasInVariable(v))
+						if (operColumn.hasInVariable(el.getIdentifier(), v))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
-						if (operColumn.hasOutVariable(v))
+						if (operColumn.hasOutVariable(el.getIdentifier(), v))
 							valuesVarColumns.add(1);
 						else
 							valuesVarColumns.add(0);
@@ -286,7 +289,7 @@ public class ElementsOperationAssociationPanel extends
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 
 					for (OpersLabeling operColumn : operLabels)
-						if (operColumn.hasAttribute(v))
+						if (operColumn.hasAttribute(el.getIdentifier(), v))
 							valuesVarColums.add(1);
 						else
 							valuesVarColums.add(0);

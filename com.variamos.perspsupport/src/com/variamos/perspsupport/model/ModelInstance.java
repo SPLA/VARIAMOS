@@ -15,6 +15,7 @@ import com.cfm.common.AbstractModel;
 import com.cfm.productline.Asset;
 import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.hlcl.IntervalDomain;
 import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -34,6 +35,8 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
+import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.types.AttributeType;
 
@@ -731,13 +734,36 @@ public class ModelInstance extends AbstractModel {
 		instEdge.setTargetRelation(instBasicOpersM2Concept, true);
 		instEdge.setSourceRelation(instBasicOpersM2OTRel, true);
 
+		OpersConcept basicOpersM2SemModel = new OpersConcept(
+				"BasicOpersM2Model");
+
+		basicOpersM2SemModel.putSemanticAttribute("name",
+				new SemanticAttribute("name", "String",
+						AttributeType.OPERATION, false, "Name", null, 0, 6, "",
+						"", 6, "", ""));
+		basicOpersM2SemModel.addPropEditableAttribute("06#" + "name");
+		basicOpersM2SemModel.addPropVisibleAttribute("06#" + "name");
+		basicOpersM2SemModel.addPanelVisibleAttribute("06#" + "name");
+		basicOpersM2SemModel.addPanelSpacersAttribute("#" + "name" + "#");
+
+		InstConcept instBasicOpersM2SemModel = new InstConcept(
+				"BasicOpersM2Model", null, basicOpersM2SemModel);
+
 		OpersConcept basicOpebrsM2OperGroup = new OpersConcept(
 				"BasicOpersM2OperGroup");
 
+		// 4 config/simul
+		// 2 req model
+		List<Integer> dom = new ArrayList<Integer>();
+		dom.add(2);
+		dom.add(4);
+		IntervalDomain d = new IntervalDomain();
+		d.setRangeValues(dom);
+
 		basicOpebrsM2OperGroup.putSemanticAttribute("menuType",
-				new SemanticAttribute("menuType", "String",
-						AttributeType.OPERATION, false, "Oper Group Type",
-						null, null, null, 0, 5, "", "", 5, "", ""));
+				new SemanticAttribute("menuType", "Integer",
+						AttributeType.OPERATION, "Oper Group Type", 4, false,
+						d, 0, 5, "", "", 5, "", ""));
 		basicOpebrsM2OperGroup.addPropEditableAttribute("05#" + "menuType");
 		basicOpebrsM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
 
@@ -774,21 +800,6 @@ public class ModelInstance extends AbstractModel {
 		InstConcept instBasicOpersM2OperGroup = new InstConcept(
 				"BasicOpersM2OperGroup", null, basicOpebrsM2OperGroup);
 
-		OpersConcept basicOpersM2SemModel = new OpersConcept(
-				"BasicOpersM2Model");
-
-		basicOpersM2SemModel.putSemanticAttribute("name",
-				new SemanticAttribute("name", "String",
-						AttributeType.OPERATION, false, "Name", null, 0, 6, "",
-						"", 6, "", ""));
-		basicOpersM2SemModel.addPropEditableAttribute("06#" + "name");
-		basicOpersM2SemModel.addPropVisibleAttribute("06#" + "name");
-		basicOpersM2SemModel.addPanelVisibleAttribute("06#" + "name");
-		basicOpersM2SemModel.addPanelSpacersAttribute("#" + "name" + "#");
-
-		InstConcept instBasicOpersM2SemModel = new InstConcept(
-				"BasicOpersM2Model", null, basicOpersM2SemModel);
-
 		OpersConcept basicOpersM2OperAction = new OpersConcept(
 				"BasicOpersM2Operation");
 
@@ -808,6 +819,14 @@ public class ModelInstance extends AbstractModel {
 				new SemanticAttribute("iteration", "Boolean",
 						AttributeType.OPERATION, false, "Iterate Button",
 						false, 0, 9, "", "", 9, "", ""));
+		basicOpersM2OperAction.putSemanticAttribute("iterationName",
+				new SemanticAttribute("iterationName", "String",
+						AttributeType.OPERATION, false, "Iterate Name", null,
+						0, 6, "", "", 6, "", ""));
+		basicOpersM2OperAction.putSemanticAttribute("prevSpacer",
+				new SemanticAttribute("prevSpacer", "Boolean",
+						AttributeType.OPERATION, false, "Add Previous Spacer",
+						false, 0, 9, "", "", 9, "", ""));
 
 		basicOpersM2OperAction.addPropEditableAttribute("06#" + "name");
 		basicOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
@@ -822,6 +841,13 @@ public class ModelInstance extends AbstractModel {
 
 		basicOpersM2OperAction.addPropEditableAttribute("09#" + "iteration");
 		basicOpersM2OperAction.addPropVisibleAttribute("09#" + "iteration");
+
+		basicOpersM2OperAction
+				.addPropEditableAttribute("09#" + "iterationName");
+		basicOpersM2OperAction.addPropVisibleAttribute("09#" + "iterationName");
+
+		basicOpersM2OperAction.addPropEditableAttribute("10#" + "prevSpacer");
+		basicOpersM2OperAction.addPropVisibleAttribute("10#" + "prevSpacer");
 
 		InstConcept instBasicOpersM2OperAction = new InstConcept(
 				"BasicOpersM2Operation", null, basicOpersM2OperAction);
@@ -845,6 +871,31 @@ public class ModelInstance extends AbstractModel {
 		basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "Index");
 		basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "Index");
 
+		basicOpersM2OperSubAction
+				.putSemanticAttribute("iteration",
+						new SyntaxAttribute("iteration", "Boolean",
+								AttributeType.OPERATION, false,
+								"Iterate Sub-Operation", false, 0, 6, "", "",
+								6, "", ""));
+		basicOpersM2OperSubAction.addPropEditableAttribute("09#" + "iteration");
+		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "iteration");
+
+		basicOpersM2OperSubAction.putSemanticAttribute("type",
+				new SyntaxAttribute("type", "Enumeration",
+						AttributeType.OPERATION, false, "Type",
+						OperationSubActionType.class.getCanonicalName(),
+						"SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
+		basicOpersM2OperSubAction.addPropEditableAttribute("10#" + "type");
+		basicOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
+
+		basicOpersM2OperSubAction.putSemanticAttribute(
+				"exptype",
+				new SyntaxAttribute("exptype", "Set", AttributeType.SYNTAX,
+						false, "exptype", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
+
 		InstConcept instBasicOpersM2OperSubAction = new InstConcept(
 				"BasicOpersM2SubOper", null, basicOpersM2OperSubAction);
 
@@ -864,6 +915,13 @@ public class ModelInstance extends AbstractModel {
 						AttributeType.OPERATION, false, "Once", false, 0, 6,
 						"", "", 6, "", ""));
 
+		basicOpersM2Labeling.putSemanticAttribute(
+				"sortorder",
+				new SyntaxAttribute("sortorder", "Set", AttributeType.SYNTAX,
+						false, "sortorder", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
 		basicOpersM2Labeling.addPanelVisibleAttribute("04#" + "identifier");
 		basicOpersM2Labeling.addPanelSpacersAttribute("#" + "identifier" + "#");
 
@@ -874,15 +932,20 @@ public class ModelInstance extends AbstractModel {
 		basicOpersM2Labeling.addPropEditableAttribute("08#" + "once");
 		basicOpersM2Labeling.addPropVisibleAttribute("08#" + "once");
 
-		basicOpersM2OperSubAction.putSemanticAttribute("labelId",
-				new SemanticAttribute("labelId", "String",
-						AttributeType.OPERATION, false, "Position", "L1", 0, 6,
-						"", "", 6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "labelId");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "labelId");
-
 		InstConcept instBasicOpersM2Labeling = new InstConcept(
 				"BasicOpersM2Labeling", null, basicOpersM2Labeling);
+
+		OpersConcept basicOpersM2ExpType = new OpersConcept(
+				"BasicOpersM2ExpType");
+
+		basicOpersM2ExpType.putSemanticAttribute("suboperexptype",
+				new SyntaxAttribute("suboperexptype", "Enumeration",
+						AttributeType.OPERATION, false, "Expression Type",
+						OperationSubActionExecType.class.getCanonicalName(),
+						"NORMAL", 0, 6, "", "", 6, "", ""));
+
+		InstConcept instBasicOpersM2ExpType = new InstConcept(
+				"BasicOpersM2ExpType", null, basicOpersM2ExpType);
 
 		// End Basic M2 Model
 
@@ -1293,6 +1356,24 @@ public class ModelInstance extends AbstractModel {
 		variabilityInstVertex.put("InfraSyntaxOpersM2Labeling",
 				instInfraSyntaxOpersM2OperLabeling);
 
+		MetaConcept infraSyntaxOpersM2ExpType = new MetaConcept('S',
+				"InfraSyntaxOpersM2ExpType", false, true,
+				"InfraSyntaxOpersM2ExpType", "infrasyntaxopersm2miniconcept",
+				"Operation Expression Type", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instBasicOpersM2ExpType, true);
+
+		infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
+				"InfraSyntaxOpersM2Labeling", basicOpersSyntaxM3Concept,
+				infraSyntaxOpersM2ExpType);
+		variabilityInstVertex.put("InfraSyntaxOpersM2ExpType",
+				instInfraSyntaxOpersM2ExpType);
+
 		rel = new InstPairwiseRelation(basicOpersM2AsoRel);
 		rel.setEditableMetaElement(infraSyntaxOpersM2AsoRel);
 		rel.setIdentifier("AssoMenu-Act");
@@ -1314,6 +1395,12 @@ public class ModelInstance extends AbstractModel {
 		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
 		constraintInstEdges.put("AssoSubAct-Lab", rel);
 
+		rel = new InstPairwiseRelation(basicOpersM2AsoRel);
+		rel.setEditableMetaElement(infraSyntaxOpersM2AsoRel);
+		rel.setIdentifier("AssoSubAct-ExpType");
+		rel.setTargetRelation(instInfraSyntaxOpersM2ExpType, true);
+		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
+		constraintInstEdges.put("AssoSubAct-ExpType", rel);
 	}
 
 	/**

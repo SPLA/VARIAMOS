@@ -17,7 +17,7 @@ public class OpersVariable extends OpersAbstractVertex {
 	private static final long serialVersionUID = 5538738414024566452L;
 
 	public OpersVariable(String name) {
-		super(name, true);
+		super(name);
 	}
 
 	public String toString() {
