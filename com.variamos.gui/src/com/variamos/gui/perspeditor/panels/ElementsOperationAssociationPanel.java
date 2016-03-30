@@ -138,10 +138,13 @@ public class ElementsOperationAssociationPanel extends
 
 			operSubAction = (OpersSubOperation) subOper
 					.getEditableSemanticElement();
-			subOperTypesColumnsNames.addAll(operSubAction
-					.getOperationSubActionExpTypesNames());
-			subOperTypesColumns.addAll(operSubAction
-					.getOperationSubActionExpTypes());
+			// FIXME complete: include names and objects from suboper
+			/*
+			 * subOperTypesColumnsNames.addAll(operSubAction
+			 * .getOperationSubActionExpTypesNames());
+			 * subOperTypesColumns.addAll(operSubAction
+			 * .getOperationSubActionExpTypes());
+			 */
 			subOperColumnsNames.add(operSubAction.getIdentifier());
 			subOperColumns.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());

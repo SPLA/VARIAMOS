@@ -468,11 +468,13 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						operLab = (OpersLabeling) instOperLab
 								.getEditableSemanticElement();
 					}
-					configurationOptions.setLabelingOrder(operLab
-							.getLabelingOrderList());
-					configurationOptions.setOrderExpressions(operLab
-							.getOrderExpressionList());
-
+					// FIXME complete: include the orders from the labeling
+					/*
+					 * configurationOptions.setLabelingOrder(operLab
+					 * .getLabelingOrderList());
+					 * configurationOptions.setOrderExpressions(operLab
+					 * .getOrderExpressionList());
+					 */
 					swiSolver.solve(new Configuration(), configurationOptions);
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();

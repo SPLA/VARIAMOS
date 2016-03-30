@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
 import com.variamos.gui.maineditor.AbstractEditorAction;
+import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 
@@ -24,6 +25,7 @@ public class StartSimulationAction extends AbstractEditorAction {
 		editor.executeSimulation(true, true, ModelExpr2HLCL.SIMUL_EXEC, true,
 				"Simul");
 		// editor.updateDashBoard(true, true);
-
+		((VariamosGraphComponent) editor.getGraphComponent())
+				.setSimulationStarted(true);
 	}
 }

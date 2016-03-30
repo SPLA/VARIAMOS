@@ -629,7 +629,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 	@Override
 	public int compareTo(InstElement view) {
 		String index = this.getInstAttribute("Index").getValue()
-				+ view.getIdentifier();
+				+ this.getIdentifier();
 		String other = view.getInstAttribute("Index").getValue()
 				+ view.getIdentifier();
 		return index.compareTo(other);

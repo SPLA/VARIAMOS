@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.opers.OpersAbstractElement;
@@ -16,35 +14,12 @@ public class OpersLabeling extends OpersAbstractElement {
 	 * 
 	 */
 	private static final long serialVersionUID = 4720471978011738167L;
-	private List<NumericExpression> orderExpressionList;
-	private List<LabelingOrder> labelingOrderList;
 
 	private Set<OpersIOAttribute> attributes;
 
-	public OpersLabeling(String identifier,
-			List<LabelingOrder> labelingOrderList,
-			List<NumericExpression> orderExpressionList) {
+	public OpersLabeling(String identifier) {
 		super(identifier);
-		this.orderExpressionList = orderExpressionList;
-		this.labelingOrderList = labelingOrderList;
 		attributes = new HashSet<OpersIOAttribute>();
-	}
-
-	public List<NumericExpression> getOrderExpressionList() {
-		return orderExpressionList;
-	}
-
-	public void setOrderExpressionList(
-			List<NumericExpression> orderExpressionList) {
-		this.orderExpressionList = orderExpressionList;
-	}
-
-	public List<LabelingOrder> getLabelingOrderList() {
-		return labelingOrderList;
-	}
-
-	public void setLabelingOrderList(List<LabelingOrder> labelingOrderList) {
-		this.labelingOrderList = labelingOrderList;
 	}
 
 	public boolean hasAttribute(String concept, String name) {

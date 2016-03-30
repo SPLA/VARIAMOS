@@ -35,6 +35,7 @@ import com.variamos.perspsupport.syntaxsupport.MetaView;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ConceptType;
+import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.types.AttributeType;
@@ -870,13 +871,22 @@ public class ModelInstance extends AbstractModel {
 		basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "Index");
 		basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "Index");
 
+		basicOpersM2OperSubAction
+				.putSemanticAttribute("iteration",
+						new SyntaxAttribute("iteration", "Boolean",
+								AttributeType.OPERATION, false,
+								"Iterate Sub-Operation", false, 0, 6, "", "",
+								6, "", ""));
+		basicOpersM2OperSubAction.addPropEditableAttribute("09#" + "iteration");
+		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "iteration");
+
 		basicOpersM2OperSubAction.putSemanticAttribute("type",
 				new SyntaxAttribute("type", "Enumeration",
 						AttributeType.OPERATION, false, "Type",
 						OperationSubActionType.class.getCanonicalName(),
 						"SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("09#" + "type");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "type");
+		basicOpersM2OperSubAction.addPropEditableAttribute("10#" + "type");
+		basicOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
 
 		basicOpersM2OperSubAction.putSemanticAttribute(
 				"exptype",
@@ -924,6 +934,18 @@ public class ModelInstance extends AbstractModel {
 
 		InstConcept instBasicOpersM2Labeling = new InstConcept(
 				"BasicOpersM2Labeling", null, basicOpersM2Labeling);
+
+		OpersConcept basicOpersM2ExpType = new OpersConcept(
+				"BasicOpersM2ExpType");
+
+		basicOpersM2ExpType.putSemanticAttribute("suboperexptype",
+				new SyntaxAttribute("suboperexptype", "Enumeration",
+						AttributeType.OPERATION, false, "Expression Type",
+						OperationSubActionExecType.class.getCanonicalName(),
+						"NORMAL", 0, 6, "", "", 6, "", ""));
+
+		InstConcept instBasicOpersM2ExpType = new InstConcept(
+				"BasicOpersM2ExpType", null, basicOpersM2ExpType);
 
 		// End Basic M2 Model
 
@@ -1334,6 +1356,24 @@ public class ModelInstance extends AbstractModel {
 		variabilityInstVertex.put("InfraSyntaxOpersM2Labeling",
 				instInfraSyntaxOpersM2OperLabeling);
 
+		MetaConcept infraSyntaxOpersM2ExpType = new MetaConcept('S',
+				"InfraSyntaxOpersM2ExpType", false, true,
+				"InfraSyntaxOpersM2ExpType", "infrasyntaxopersm2miniconcept",
+				"Operation Expression Type", 100, 150,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, instBasicOpersM2ExpType, true);
+
+		infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
+				+ MetaConcept.VAR_USERIDENTIFIER);
+		infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("#"
+				+ MetaConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
+				"InfraSyntaxOpersM2Labeling", basicOpersSyntaxM3Concept,
+				infraSyntaxOpersM2ExpType);
+		variabilityInstVertex.put("InfraSyntaxOpersM2ExpType",
+				instInfraSyntaxOpersM2ExpType);
+
 		rel = new InstPairwiseRelation(basicOpersM2AsoRel);
 		rel.setEditableMetaElement(infraSyntaxOpersM2AsoRel);
 		rel.setIdentifier("AssoMenu-Act");
@@ -1355,6 +1395,12 @@ public class ModelInstance extends AbstractModel {
 		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
 		constraintInstEdges.put("AssoSubAct-Lab", rel);
 
+		rel = new InstPairwiseRelation(basicOpersM2AsoRel);
+		rel.setEditableMetaElement(infraSyntaxOpersM2AsoRel);
+		rel.setIdentifier("AssoSubAct-ExpType");
+		rel.setTargetRelation(instInfraSyntaxOpersM2ExpType, true);
+		rel.setSourceRelation(instInfraSyntaxOpersM2OperSubAction, true);
+		constraintInstEdges.put("AssoSubAct-ExpType", rel);
 	}
 
 	/**

@@ -14,12 +14,14 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
+import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
 import com.variamos.perspsupport.expressionsupport.OpersLabeling;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.expressionsupport.SemanticExpression;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
+import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.perspsupport.opers.OpersOverTwoRel;
@@ -128,18 +130,17 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * .getExpressionSubAction(subAction);
 		 */
 		if (operSubAction != null) {
-			ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operSubAction
-					.getInstAttributeValue("exptype");
-			Object o = null;
-			for (InstAttribute att : instattrs) {
-				o = att.getValue();
+			List<InstAttribute> listatt = ((List<InstAttribute>) operSubAction
+					.getInstAttributeValue("exptype"));
+			OpersSubOperationExpType operExpType = null;
+			for (InstAttribute att : listatt) {
+				Object attval = ((InstConcept) att.getValue())
+						.getInstAttributeValue("suboperexptype");
+				if (attval.equals(expressionType.toString())) {
+					operExpType = (OpersSubOperationExpType) ((InstConcept) att
+							.getValue()).getEditableSemanticElement();
+				}
 			}
-			// FIXME use the OperationSubActionExpType from the instattribute,
-			// not the object collection, requires to create the object in the
-			// attribute instead of the type
-			OpersSubOperationExpType operExpType = ((OpersSubOperation) operSubAction
-					.getEditableSemanticElement())
-					.getOpersSubOperationExpType(expressionType);
 			if (operExpType != null) {
 				List<IntMetaExpression> semExp = operExpType
 						.getSemanticExpressions();
@@ -147,7 +148,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
 						out.addAll(createElementInstanceExpressions(instE,
-								semExp));
+								semExp, false));
+						// FIXME better validate to create conditional
+						// expressions
 						if (out.size() == 0) {
 							continue;
 						}
@@ -294,7 +297,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					}
 				else
 					out.addAll(createElementInstanceExpressions(instElement,
-							semExp));
+							semExp, false));
 
 			}
 		}
@@ -326,8 +329,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		}
 
 		if (operSubAction != null) {
-			OpersSubOperationExpType operExpType = operSubAction
-					.getOpersSubOperationExpType(expressionType);
+			List<InstAttribute> listatt = ((List<InstAttribute>) instOperSubAction
+					.getInstAttributeValue("exptype"));
+			OpersSubOperationExpType operExpType = null;
+			for (InstAttribute att : listatt) {
+				if (((InstConcept) att.getValue()).getInstAttributeValue(
+						"suboperexptype").equals(expressionType.toString())) {
+					operExpType = (OpersSubOperationExpType) ((InstConcept) att
+							.getValue()).getEditableSemanticElement();
+				}
+			}
 			if (operExpType != null) {
 				List<Labeling> out = new ArrayList<Labeling>();
 				for (InstElement rel : instOperSubAction.getTargetRelations()) {
@@ -366,17 +377,20 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstAttribute att : instattrs) {
 						laborder.add((LabelingOrder) att.getValue());
 					}
+					List<IntMetaExpression> semExps = operLab
+							.getEditableSemanticElement()
+							.getSemanticExpressions();
+					// FIXME support more models
+					InstElement oper2 = refas.getElement("REFAS1");
+					List<InstanceExpression> instexp = createElementInstanceExpressions(
+							oper2, semExps, true);
+					List<NumericExpression> explist = getNumericExpressions(instexp);
 					Labeling lab = new Labeling(
 							(String) operLab.getIdentifier(),
 							(String) operLab.getInstAttributeValue("labelId"),
 							(int) operLab.getInstAttributeValue("position"),
 							(boolean) operLab.getInstAttributeValue("once"),
-							laborder,// ((OpersLabeling) operLab
-										// .getEditableSemanticElement())
-										// .getLabelingOrderList(),
-							((OpersLabeling) operLab
-									.getEditableSemanticElement())
-									.getOrderExpressionList());
+							laborder, explist);
 					lab.setVariables(ident);
 					out.add(lab);
 				}
@@ -388,8 +402,14 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	@SuppressWarnings("unchecked")
 	protected List<InstanceExpression> createElementInstanceExpressions(
-			InstElement instElement, List<IntMetaExpression> semanticExpressions) {
-		IntOpersElement semElement = instElement.getTransSupportMetaElement()
+			InstElement instElement,
+			List<IntMetaExpression> semanticExpressions, boolean semanticElement) {
+		IntOpersElement semElement = null;
+		/*
+		 * if (semanticElement) semElement =
+		 * instElement.getEditableSemanticElement(); else
+		 */
+		semElement = instElement.getTransSupportMetaElement()
 				.getTransSemanticConcept();
 		List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 		List<InstElement> opersParents = null;
@@ -399,10 +419,16 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			opersParents = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement().getParentOpersConcept();
 		if (semElement != null
-				&& semElement.getAllSemanticExpressions(opersParents) != null)
-			for (IntMetaExpression semExpression : semElement
-					.getAllSemanticExpressions(opersParents)) {
-				if (semanticExpressions.contains(semExpression)) {
+				&& semElement.getAllSemanticExpressions(opersParents) != null) {
+			List<IntMetaExpression> semanticExpr = null;
+			if (semanticElement)
+				semanticExpr = semanticExpressions;
+			else
+				semanticExpr = semElement
+						.getAllSemanticExpressions(opersParents);
+			for (IntMetaExpression semExpression : semanticExpr) {
+				if (semanticElement
+						|| semanticExpressions.contains(semExpression)) {
 					InstanceExpression instanceExpression = new InstanceExpression(
 							refas, false, (SemanticExpression) semExpression);
 					instanceExpression.createFromSemanticExpression(
@@ -410,6 +436,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					out.add(instanceExpression);
 				}
 			}
+		}
 		if (semElement != null
 				&& (semElement instanceof OpersOverTwoRel || semElement instanceof OpersPairwiseRel)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
@@ -423,7 +450,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (att.equals(comp))
 					for (IntMetaExpression semExpression : (List<IntMetaExpression>) attribute
 							.getValue()) {
-						if (semanticExpressions.contains(semExpression)) {
+						if (semanticElement
+								|| semanticExpressions.contains(semExpression)) {
 							InstanceExpression instanceExpression = new InstanceExpression(
 									refas, false,
 									(SemanticExpression) semExpression);
@@ -514,6 +542,19 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		for (InstanceExpression expression : instanceExpressions.get(column)) {
 			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			BooleanExpression newExp = (BooleanExpression) expression
+					.createSGSExpression();
+			if (newExp != null)
+				prog.add(newExp);
+		}
+		return prog;
+	}
+
+	public List<NumericExpression> getNumericExpressions(
+			List<InstanceExpression> instanceExpressions) {
+		List<NumericExpression> prog = new ArrayList<NumericExpression>();
+		for (InstanceExpression expression : instanceExpressions) {
+			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
+			NumericExpression newExp = (NumericExpression) expression
 					.createSGSExpression();
 			if (newExp != null)
 				prog.add(newExp);

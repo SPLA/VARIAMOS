@@ -32,7 +32,7 @@ public class OpersReasoningConcept extends OpersOverTwoRel {
 
 	public OpersReasoningConcept(String name, boolean exclusive,
 			List<IntOpersRelType> semanticRelationTypes) {
-		super(name, exclusive, semanticRelationTypes, true);
+		super(name, semanticRelationTypes);
 	}
 
 	public String toString() {

@@ -8,8 +8,6 @@ import java.util.Set;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
 import com.variamos.perspsupport.opers.OpersAbstractElement;
-import com.variamos.perspsupport.types.OperationSubActionExecType;
-import com.variamos.perspsupport.types.OperationSubActionType;
 
 /**
  * TODO A class to support sub actions to generalize the semantic
@@ -29,19 +27,14 @@ public class OpersSubOperation extends OpersAbstractElement implements
 	 */
 	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
-	private List<OpersSubOperationExpType> operationSubActionExpTypes;
 	private Set<OpersIOAttribute> inAttributes;
 	private Set<OpersIOAttribute> outAttributes;
 
 	// private List<OperationLabeling> operationLabelings;
-	private OperationSubActionType operationSubActionType;
 
-	public OpersSubOperation(int position, String identifier, boolean iterable,
-			OperationSubActionType operationSubActionType) {
+	public OpersSubOperation(int position, String identifier) {
 		super(identifier);
 		this.position = position;
-		this.operationSubActionType = operationSubActionType;
-		operationSubActionExpTypes = new ArrayList<OpersSubOperationExpType>();
 		inAttributes = new HashSet<OpersIOAttribute>();
 		outAttributes = new HashSet<OpersIOAttribute>();
 	}
@@ -59,51 +52,9 @@ public class OpersSubOperation extends OpersAbstractElement implements
 		this.position = position;
 	}
 
-	public List<OpersSubOperationExpType> getOperationSubActionExpTypes() {
-		return operationSubActionExpTypes;
-	}
-
-	public void setOperationSubActionExpTypes(
-			List<OpersSubOperationExpType> operationSubActionExpType) {
-		this.operationSubActionExpTypes = operationSubActionExpType;
-	}
-
-	public OperationSubActionType getOperationSubActionType() {
-		return operationSubActionType;
-	}
-
-	public void setOperationSubActionType(
-			OperationSubActionType operationSubActionType) {
-		this.operationSubActionType = operationSubActionType;
-	}
-
 	// public void addOperationLabeling(OperationLabeling operationLabeling) {
 	// operationLabelings.add(operationLabeling);
 	// }
-
-	public void addOperationSubActionExpType(
-			OpersSubOperationExpType operationSubActionExpType) {
-		operationSubActionExpTypes.add(operationSubActionExpType);
-	}
-
-	public List<String> getOperationSubActionExpTypesNames() {
-		List<String> out = new ArrayList<String>();
-		for (OpersSubOperationExpType oper : operationSubActionExpTypes) {
-			out.add(this.getIdentifier() + "-"
-					+ oper.getExpressionType().toString());
-		}
-		return out;
-
-	}
-
-	public OpersSubOperationExpType getOpersSubOperationExpType(
-			OperationSubActionExecType expressionType) {
-		for (OpersSubOperationExpType oper : operationSubActionExpTypes) {
-			if (oper.getExpressionType().equals(expressionType))
-				return oper;
-		}
-		return null;
-	}
 
 	public boolean hasInVariable(String concept, String attribute) {
 		for (OpersIOAttribute var : inAttributes)

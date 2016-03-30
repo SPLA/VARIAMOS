@@ -2,7 +2,6 @@ package com.variamos.perspsupport.syntaxsupport;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.variamos.perspsupport.instancesupport.InstElement;
@@ -28,14 +27,6 @@ public class MetaPairwiseRelation extends MetaElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -2665541567934067387L;
-	private int iniLowCardinality;
-	private int iniHighCardinality;
-	private int endLowCardinality;
-	private int endHighCardinality;
-	private String iniDescription;
-	private String endDescription;
-	private boolean arrowDirection;
-	private TypeOfLine typeOfLine;
 	private String palette = "";
 	/**
 	 * 
@@ -80,76 +71,15 @@ public class MetaPairwiseRelation extends MetaElement {
 			boolean editable, String name, String style, String description,
 			int width, int height, String image, int borderStroke,
 			InstElement instSemanticElement) {
-		this(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
-				"", "", false, TypeOfLine.solid);
-	}
-
-	public MetaPairwiseRelation(String identifier, boolean visible,
-			boolean editable, String name, String style, String description,
-			int width, int height, String image, int borderStroke,
-			InstElement instSemanticElement, String palette) {
-		this(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, instSemanticElement, 1, 1, 1, 1,
-				"", "", false, TypeOfLine.solid);
-		this.palette = palette;
+		super(identifier, visible, editable, name, style, description, width,
+				height, image, borderStroke, null);
 	}
 
 	public MetaPairwiseRelation(String identifier, boolean visible,
 			boolean editable, String name, String style, String description,
 			int width, int height, String image, int borderStroke) {
-		this(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, null, 1, 1, 1, 1, "", "", false,
-				TypeOfLine.solid);
-	}
-
-	public MetaPairwiseRelation(String identifier, boolean visible,
-			boolean editable, String name, String style, String description,
-			int width, int height, String image, int borderStroke,
-			InstElement instSemanticElement, int iniLowCardinality,
-			int iniHighCardinality, int endLowCardinality,
-			int endHighCardinality, String iniDescription,
-			String endDescription, boolean arrowDirection, TypeOfLine typeOfLine) {
 		super(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, instSemanticElement);
-
-		this.iniLowCardinality = iniLowCardinality;
-		this.iniHighCardinality = iniHighCardinality;
-		this.endLowCardinality = endLowCardinality;
-		this.endHighCardinality = endHighCardinality;
-		this.iniDescription = iniDescription;
-		this.endDescription = endDescription;
-		this.arrowDirection = arrowDirection;
-		this.typeOfLine = typeOfLine;
-	}
-
-	public MetaPairwiseRelation(String identifier, boolean visible,
-			boolean editable, String name, String style, String description,
-			int width, int height, String image, int borderStroke,
-			InstElement instSemanticElement,
-			List<String> disPropVisibleAttributes,
-			List<String> disPropEditableAttributes,
-			List<String> disPanelVisibleAttributes,
-			List<String> disPanelSpacersAttributes,
-			Map<String, AbstractAttribute> modelingAttributes,
-			int iniLowCardinality, int iniHighCardinality,
-			int endLowCardinality, int endHighCardinality,
-			String iniDescription, String endDescription,
-			boolean arrowDirection, TypeOfLine typeOfLine) {
-		super(identifier, visible, editable, name, style, description, width,
-				height, image, borderStroke, instSemanticElement,
-				disPropVisibleAttributes, disPropEditableAttributes,
-				disPanelVisibleAttributes, disPanelSpacersAttributes,
-				modelingAttributes);
-		this.iniLowCardinality = iniLowCardinality;
-		this.iniHighCardinality = iniHighCardinality;
-		this.endLowCardinality = endLowCardinality;
-		this.endHighCardinality = endHighCardinality;
-		this.iniDescription = iniDescription;
-		this.endDescription = endDescription;
-		this.arrowDirection = arrowDirection;
-		this.typeOfLine = typeOfLine;
-
+				height, image, borderStroke, null);
 	}
 
 	public Set<String> getPropVisibleAttributesSet(
@@ -230,80 +160,12 @@ public class MetaPairwiseRelation extends MetaElement {
 				.getEditableSemanticElement()).getSemanticRelationTypes();
 	}
 
-	public void setIniLowCardinality(int iniLowCardinality) {
-		this.iniLowCardinality = iniLowCardinality;
-	}
-
-	public void setIniHighCardinality(int iniHighCardinality) {
-		this.iniHighCardinality = iniHighCardinality;
-	}
-
-	public void setEndLowCardinality(int endLowCardinality) {
-		this.endLowCardinality = endLowCardinality;
-	}
-
-	public void setEndHighCardinality(int endHighCardinality) {
-		this.endHighCardinality = endHighCardinality;
-	}
-
-	public void setIniDescription(String iniDescription) {
-		this.iniDescription = iniDescription;
-	}
-
-	public void setEndDescription(String endDescription) {
-		this.endDescription = endDescription;
-	}
-
-	public void setArrowDirection(boolean arrowDirection) {
-		this.arrowDirection = arrowDirection;
-	}
-
-	public void setTypeOfLine(TypeOfLine typeOfLine) {
-		this.typeOfLine = typeOfLine;
-	}
-
-	public int getIniLowCardinality() {
-		return iniLowCardinality;
-	}
-
-	public int getIniHighCardinality() {
-		return iniHighCardinality;
-	}
-
-	public int getEndLowCardinality() {
-		return endLowCardinality;
-	}
-
-	public int getEndHighCardinality() {
-		return endHighCardinality;
-	}
-
-	public String getIniDescription() {
-		return iniDescription;
-	}
-
-	public String getEndDescription() {
-		return endDescription;
-	}
-
-	public boolean isArrowDirection() {
-		return arrowDirection;
-	}
-
-	public TypeOfLine getTypeOfLine() {
-		return typeOfLine;
-	}
-
 	public String toString() {
 		return "MetaGroupRelation";
 	}
 
 	public static String getClassId() {
 		return "E";
-	}
-
-	public SemanticAttribute getSemanticRelation() {
-		return (SemanticAttribute) getModelingAttribute(VAR_SEMANTICPAIRWISEREL_IDEN);
 	}
 
 	public char getType() {

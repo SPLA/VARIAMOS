@@ -30,6 +30,12 @@ import com.variamos.perspsupport.instancesupport.InstElement;
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
 
+	private boolean simulationStarted = false;
+
+	public void setSimulationStarted(boolean simulationStarted) {
+		this.simulationStarted = simulationStarted;
+	}
+
 	public VariamosGraphComponent(mxGraph graph, Color bgColor) {
 		super(graph);
 		setToolTips(true);
@@ -152,7 +158,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 		 */
 	}
 
-	private String imagesBasePath = "/com/variamos/gui/perspeditor/images/";
+	private String imagesBasePath = "/com/variamos/gui/perspeditor/images/test/";
 
 	private void drawStatusBar(mxCell childCell, mxCell parentCell) {
 		if (childCell.isVertex()) {
@@ -184,6 +190,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					String backtophint = null, backbottomhint = null;
 
 					String sim_core = imagesBasePath + "sim_core.png";
+					String sim_core_req = imagesBasePath + "sim_core_req.png";
 					String sim_dead = imagesBasePath + "sim_dead.png";
 					String sim_inactive = imagesBasePath + "sim_inactive.png";
 					String sim_normal = imagesBasePath + "sim_normal.png";
@@ -194,15 +201,28 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 					String sim_green1 = imagesBasePath + "sim_green1.png";
 					String sim_green2 = imagesBasePath + "sim_green2.png";
+					String sim_green2_tmp = imagesBasePath
+							+ "sim_green2_tmp.png";
 					String sim_green3 = imagesBasePath + "sim_green3.png";
 
 					String sim_red2 = imagesBasePath + "sim_red2.png";
+					String sim_red2_tmp = imagesBasePath + "sim_red2_tmp.png";
 					String sim_red3 = imagesBasePath + "sim_red3.png";
+					if (simulationStarted)
+						sim_backcolor = sim_red3;
 
 					if ((boolean) instConcept.getInstAttribute("Core")
-							.getValue()) {
+							.getValue()
+							&& !(boolean) instConcept.getInstAttribute(
+									"Required").getValue()) {
 						sim_backcolor = sim_core;
-						backtophint = "Element part of the core (red on sides)";
+						backtophint = "Element part of the core and required";
+					} else if ((boolean) instConcept.getInstAttribute("Core")
+							.getValue()
+							&& (boolean) instConcept.getInstAttribute(
+									"Required").getValue()) {
+						sim_backcolor = sim_core_req;
+						backtophint = "Element part of the core by relations";
 					} else if (!(boolean) instConcept
 							.getInstAttribute("Active").getValue()) {
 						sim_backcolor = sim_inactive;
@@ -239,14 +259,34 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept
-							.getInstAttribute("ConfigSelected").getValue()
-							|| (boolean) instConcept.getInstAttribute(
-									"NextPrefSelected").getValue()) {
+					if ((boolean) instConcept.getInstAttribute("Selected")
+							.getValue()
+							&& ((boolean) instConcept.getInstAttribute(
+									"ConfigSelected").getValue() || (boolean) instConcept
+									.getInstAttribute("NextPrefSelected")
+									.getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green2)),
+								backtophint
+										+ "; Configuration Selected (Second green circle)");
+
+						backtophint += "; Configuration Selected (Second green circle)";
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(childCell, over3);
+					}
+					if (!(boolean) instConcept.getInstAttribute("Selected")
+							.getValue()
+							&& ((boolean) instConcept.getInstAttribute(
+									"ConfigSelected").getValue() || (boolean) instConcept
+									.getInstAttribute("NextPrefSelected")
+									.getValue())) {
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource(sim_green2_tmp)),
 								backtophint
 										+ "; Configuration Selected (Second green circle)");
 
@@ -267,10 +307,29 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute(
-							"ConfigNotSelected").getValue()
-							|| (boolean) instConcept.getInstAttribute(
-									"NextNotPrefSelected").getValue()) {
+					if (!(boolean) instConcept.getInstAttribute("NotAvailable")
+							.getValue()
+							&& ((boolean) instConcept.getInstAttribute(
+									"ConfigNotSelected").getValue() || (boolean) instConcept
+									.getInstAttribute("NextNotPrefSelected")
+									.getValue())) {
+						mxCellOverlay over3 = new mxCellOverlay(
+								new ImageIcon(
+										mxGraphComponent.class
+												.getResource(sim_red2_tmp)),
+								backbottomhint
+										+ "; Configuration Not Selected (Second red circle)");
+						backbottomhint += "; Configuration Not Selected (Second red circle)";
+						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
+						over3.setAlign(mxConstants.ALIGN_CENTER);
+						addCellOverlay(childCell, over3);
+					}
+					if ((boolean) instConcept.getInstAttribute("NotAvailable")
+							.getValue()
+							&& ((boolean) instConcept.getInstAttribute(
+									"ConfigNotSelected").getValue() || (boolean) instConcept
+									.getInstAttribute("NextNotPrefSelected")
+									.getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class

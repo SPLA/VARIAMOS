@@ -851,15 +851,22 @@ public class ElementDesignPanel extends JPanel {
 				JList attList = null;
 				if (editElm.getTransSupportMetaElement().getName()
 						.equals("InfraSyntaxOpersM2SubOper")) {
-					attList = new MetaEnumTypeAttributeList(editor, instCell,
+					attList = new MetaEnumTypeAttributeList(
+							editor,
+							instCell,
 							"exptype",
-							OperationSubActionExecType.class.getCanonicalName());
+							OperationSubActionExecType.class.getCanonicalName(),
+							((ModelInstance) editor.getEditedModel())
+									.getSyntaxModel()
+									.getVertex("InfraSyntaxOpersM2ExpType")
+									.getEditableMetaElement());
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement().getName()
 						.equals("InfraSyntaxOpersM2Labeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
-							"sortorder", LabelingOrder.class.getCanonicalName());
+							"sortorder",
+							LabelingOrder.class.getCanonicalName(), null);
 
 					attPanel.add(new JLabel(mxResources.get("labelingSort")));
 					attPanel.add(new JLabel(""));

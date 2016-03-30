@@ -7,6 +7,7 @@ import javax.swing.JMenuItem;
 
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
+import com.variamos.gui.maineditor.VariamosGraphComponent;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 
 @SuppressWarnings("serial")
@@ -29,6 +30,9 @@ public class OperationAction extends AbstractEditorAction {
 		}
 		String operation = (String) ((JMenuItem) e.getSource()).getName();
 
+		// FIXME only for simulation
+		((VariamosGraphComponent) vg.getGraphComponent())
+				.setSimulationStarted(true);
 		vg.executeOperation(operation);
 
 		if (operation.startsWith("N:")) {

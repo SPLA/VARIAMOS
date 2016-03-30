@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.LabelingOrder;
-import com.variamos.hlcl.NumericExpression;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
 import com.variamos.perspsupport.expressionsupport.InstanceExpression;
@@ -39,8 +38,6 @@ import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.ExpressionVertexType;
-import com.variamos.perspsupport.types.OperationSubActionExecType;
-import com.variamos.perspsupport.types.OperationSubActionType;
 import com.variamos.perspsupport.types.StringType;
 import com.variamos.perspsupport.types.VariableType;
 import com.variamos.semantic.types.AttributeType;
@@ -115,6 +112,10 @@ public class RefasDefaultOperations {
 		MetaConcept metaLabeling = (MetaConcept) ((InstConcept) refas
 				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Labeling"))
 				.getEditableMetaElement();
+		MetaConcept metaExpType = (MetaConcept) ((InstConcept) refas
+				.getSyntaxModel().getVertex("InfraSyntaxOpersM2ExpType"))
+				.getEditableMetaElement();
+
 		// MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept)
 		// refas
 		// .getSyntaxModel().getVertex("TypeEnumeration"))
@@ -150,28 +151,14 @@ public class RefasDefaultOperations {
 				.getSyntaxModel().getConstraintInstEdge(
 						"InfraSyntaxOpersM2AsoRel")).getEditableMetaElement();
 
-		List<LabelingOrder> labord = new ArrayList<LabelingOrder>();
-		labord.add(LabelingOrder.MIN);
-		labord.add(LabelingOrder.MIN);
-		List<NumericExpression> orderExpressionList = new ArrayList<NumericExpression>();
-		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOrder"));
-		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalOpt"));
-
 		OpersLabeling simulationExecOperUniqueLabeling = null;
-		simulationExecOperUniqueLabeling = new OpersLabeling("unique", labord,
-				orderExpressionList);
-
+		simulationExecOperUniqueLabeling = new OpersLabeling("unique");
 		OpersLabeling simsceExecOperLabeling1 = null;
-		simsceExecOperLabeling1 = new OpersLabeling("all", null, null);
-		labord = new ArrayList<LabelingOrder>();
-		labord.add(LabelingOrder.MAX);
-
-		orderExpressionList = new ArrayList<NumericExpression>();
-		orderExpressionList.add(hlclFactory.newIdentifier("REFAS1_TotalSG"));
+		simsceExecOperLabeling1 = new OpersLabeling("all");
 
 		OpersLabeling simsceExecOperLabeling2 = null;
-		simsceExecOperLabeling2 = new OpersLabeling("once", labord,
-				orderExpressionList); // TODO define max for SG
+		simsceExecOperLabeling2 = new OpersLabeling("once"); // TODO define max
+																// for SG
 
 		OpersConcept refasModel = new OpersConcept("REFAS");
 
@@ -240,14 +227,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		OpersSubOperation operationSubAction = new OpersSubOperation(1,
-				"Sim-Pre-Validation", false,
-				OperationSubActionType.VERIFICATION);
+				"Sim-Pre-Validation");
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		InstVertex instOperationSubAction = new InstConcept(
 				"Sim-Pre-Validation", metaOperationSubAction,
 				operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		refas.getVariabilityVertex().put("Sim-Pre-Validation",
 				instOperationSubAction);
 
@@ -258,13 +250,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulationPreValOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPreValOptOperSubActionNormal);
+		simulationPreValOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		OpersLabeling operationLabeling = new OpersLabeling("unique", null,
-				null);
+		InstConcept instOperSubOperationExpType = new InstConcept("exptype",
+				metaExpType, simulationPreValOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		OpersLabeling operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -285,16 +287,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(2, "Sim-Pre-Update", false,
-				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction = new OpersSubOperation(2, "Sim-Pre-Update");
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Pre-Update",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(2);
+
 		refas.getVariabilityVertex().put("Sim-Pre-Update",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-pre-upd", instEdgeOper);
@@ -303,12 +308,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulationPreUpdOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPreUpdOptOperSubActionNormal);
+		simulationPreUpdOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulationPreUpdOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -329,7 +345,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 		OpersSubOperation simulOperationSubAction = new OpersSubOperation(3,
-				"Sim-Execution", true, OperationSubActionType.ITERATIVEUPDATE);
+				"Sim-Execution");
 
 		List<IntMetaExpression> semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -358,20 +374,14 @@ public class RefasDefaultOperations {
 
 		instOperationSubAction = new InstConcept("Sim-Execution",
 				metaOperationSubAction, simulOperationSubAction);
-		refas.getVariabilityVertex().put("Sim-Execution",
-				instOperationSubAction);
 
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 		instOperationSubAction.getInstAttribute("type").setValue(
 				"ITERATIVEUPDATE");
-		List<InstAttribute> exptype = (List<InstAttribute>) instOperationSubAction
-				.getInstAttribute("exptype").getValue();
-		exptype.add(new InstAttribute("enum1", new AbstractAttribute(
-				"EnumValue", "Class", AttributeType.SYNTAX, false,
-				"Enumeration Value", OpersSubOperationExpType.class
-						.getCanonicalName(), OperationSubActionExecType.NORMAL,
-				1, -1, "", "", -1, "", ""), new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL)));
+		instOperationSubAction.getInstAttribute("iteration").setValue(true);
+		instOperationSubAction.getInstAttribute("Index").setValue(3);
+
+		refas.getVariabilityVertex().put("Sim-Execution",
+				instOperationSubAction);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-exec", instEdgeOper);
@@ -380,10 +390,21 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulationExecOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		simulOperationSubAction
-				.addOperationSubActionExpType(simulationExecOptOperSubActionNormal);
+		simulationExecOptOperSubActionNormal = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulationExecOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
 
 		// simulOperationSubAction
 		// .addOperationLabeling(simulationExecOperUniqueLabeling);
@@ -399,11 +420,11 @@ public class RefasDefaultOperations {
 		sortatt.add(new InstAttribute("enum1", new AbstractAttribute(
 				"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 				false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-				LabelingOrder.MAX));
+				LabelingOrder.MIN));
 		sortatt.add(new InstAttribute("enum2", new AbstractAttribute(
 				"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
 				false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-				LabelingOrder.MAX));
+				LabelingOrder.MIN));
 
 		refas.getVariabilityVertex().put("Sim-Execution-lab", instLabeling);
 
@@ -414,17 +435,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(4, "Sim-Post-Validation",
-				false, OperationSubActionType.VERIFICATION);
+		operationSubAction = new OpersSubOperation(4, "Sim-Post-Validation");
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Validation",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 		refas.getVariabilityVertex().put("Sim-Post-Validation",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
+		instOperationSubAction.getInstAttribute("Index").setValue(4);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("sim-pos-val", instEdgeOper);
@@ -433,12 +456,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulationPosValOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPosValOptOperSubActionNormal);
+		simulationPosValOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulationPosValOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -458,24 +492,38 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(5, "Sim-Post-Update", false,
-				OperationSubActionType.SINGLEUPDATE);
+		operationSubAction = new OpersSubOperation(5, "Sim-Post-Update");
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("Sim-Post-Update",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(5);
+
 		refas.getVariabilityVertex().put("Sim-Post-Update",
 				instOperationSubAction);
 
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
+		simulationPostUpdOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		simulationPostUpdOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulationPostUpdOptOperSubActionNormal);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulationPostUpdOptOperSubActionNormal);
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -536,17 +584,20 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "SimSce-Pre-Validation",
-				false, OperationSubActionType.VERIFICATION);
+		operationSubAction = new OpersSubOperation(1, "SimSce-Pre-Validation");
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		refas.getVariabilityVertex().put("SimSce-Pre-Validation",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pre-val", instEdgeOper);
@@ -555,12 +606,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
+		simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulScenPreValOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -580,17 +642,20 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(2, "SimSce-Pre-Update",
-				false, OperationSubActionType.SINGLEUPDATE);
+		operationSubAction = new OpersSubOperation(2, "SimSce-Pre-Update");
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Pre-Update",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(2);
+
 		refas.getVariabilityVertex().put("SimSce-Pre-Update",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pre-upd", instEdgeOper);
@@ -599,12 +664,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPreValOptOperSubActionNormal);
+		simulScenPreValOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulScenPreValOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -625,16 +701,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
 		OpersSubOperation simSceOperationSubAction = new OpersSubOperation(3,
-				"SimSce-Execution", true,
-				OperationSubActionType.ITERATIVEUPDATE);
+				"SimSce-Execution");
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Execution",
 				metaOperationSubAction, simSceOperationSubAction);
+
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"ITERATIVEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(true);
+		instOperationSubAction.getInstAttribute("Index").setValue(3);
+
 		refas.getVariabilityVertex().put("SimSce-Execution",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-exec", instEdgeOper);
@@ -643,10 +722,21 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulScenExecOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		simSceOperationSubAction
-				.addOperationSubActionExpType(simulScenExecOptOperSubActionNormal);
+		simulScenExecOptOperSubActionNormal = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulScenExecOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -674,6 +764,12 @@ public class RefasDefaultOperations {
 		instLabeling.getInstAttribute("labelId").setValue("L2");
 		instLabeling.getInstAttribute("position").setValue(2);
 		instLabeling.getInstAttribute("once").setValue(true);
+		sortatt = (List<InstAttribute>) instLabeling.getInstAttribute(
+				"sortorder").getValue();
+		sortatt.add(new InstAttribute("enum1", new AbstractAttribute(
+				"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+				false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				LabelingOrder.MAX));
 
 		refas.getVariabilityVertex().put("simsce-exec-lab2", instLabeling);
 
@@ -694,17 +790,20 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(4, "SimSce-Post-Validation",
-				false, OperationSubActionType.VERIFICATION);
+		operationSubAction = new OpersSubOperation(4, "SimSce-Post-Validation");
 
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Validation",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(4);
+
 		refas.getVariabilityVertex().put("SimSce-Post-Validation",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(2);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pos-val", instEdgeOper);
@@ -713,12 +812,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulScenPosValOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPosValOptOperSubActionNormal);
+		simulScenPosValOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulScenPosValOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -738,16 +848,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instLabeling, true);
 		instEdgeOper.setSourceRelation(instOperationSubAction, true);
 
-		operationSubAction = new OpersSubOperation(5, "SimSce-Post-Update",
-				false, OperationSubActionType.SINGLEUPDATE);
+		operationSubAction = new OpersSubOperation(5, "SimSce-Post-Update");
 		// simulScenOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("SimSce-Post-Update",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(5);
+
 		refas.getVariabilityVertex().put("SimSce-Post-Update",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("simsce-pos-upd", instEdgeOper);
@@ -756,12 +869,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		simulScenPostUpdOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(simulScenPostUpdOptOperSubActionNormal);
+		simulScenPostUpdOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				simulScenPostUpdOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -813,16 +937,19 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "UpdateCoreSubOper",
-				false, OperationSubActionType.SINGLEUPDATE);
+		operationSubAction = new OpersSubOperation(1, "UpdateCoreSubOper");
 		// updateCoreOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("UpdateCoreSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+		instOperationSubAction.getInstAttribute("Index").setValue(1);
+
 		refas.getVariabilityVertex().put("UpdateCoreSubOper",
 				instOperationSubAction);
-
-		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
 		instEdgeOper = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("upd-core", instEdgeOper);
@@ -831,12 +958,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		updateCoreOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(updateCoreOptOperSubActionNormal);
+		updateCoreOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				updateCoreOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -878,12 +1016,16 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"VerifyDeadElementsSubOper", false,
-				OperationSubActionType.VERIFICATION);
+				"VerifyDeadElementsSubOper");
 		// verifDeadElemOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyDeadElementsSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("VerifyDeadElementsSubOper",
 				instOperationSubAction);
 
@@ -896,22 +1038,55 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		verifDeadElemOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionNormal);
+		verifDeadElemOperSubActionNormal = new OpersSubOperationExpType();
 
-		verifDeadElemOperSubActionRelaxable = new OpersSubOperationExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionRelaxable);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifDeadElemOperSubActionNormal);
 
-		verifDeadElemOperSubActionVerification = new OpersSubOperationExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifDeadElemOperSubActionVerification);
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifDeadElemOperSubActionRelaxable = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifDeadElemOperSubActionRelaxable);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"RELAXABLE");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifDeadElemOperSubActionVerification = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifDeadElemOperSubActionVerification);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"VERIFICATION");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -951,12 +1126,16 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "VerifyParentsSubOper",
-				false, OperationSubActionType.VERIFICATION);
+		operationSubAction = new OpersSubOperation(1, "VerifyParentsSubOper");
 		// verifParentsOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyParentsSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("VerifyParentsSubOper",
 				instOperationSubAction);
 
@@ -969,22 +1148,55 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		verifParentsOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionNormal);
+		verifParentsOperSubActionNormal = new OpersSubOperationExpType();
 
-		verifParentsOperSubActionRelaxable = new OpersSubOperationExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionRelaxable);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifParentsOperSubActionNormal);
 
-		verifParentsOperSubActionVerification = new OpersSubOperationExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifParentsOperSubActionVerification);
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifParentsOperSubActionRelaxable = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifParentsOperSubActionRelaxable);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"RELAXABLE");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifParentsOperSubActionVerification = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifParentsOperSubActionVerification);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"VERIFICATION");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1024,12 +1236,16 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationAction, true);
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
-		operationSubAction = new OpersSubOperation(1, "VerifyRootsSubOper",
-				false, OperationSubActionType.VERIFICATION);
+		operationSubAction = new OpersSubOperation(1, "VerifyRootsSubOper");
 		// verifRootOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("VerifyRootsSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("VerifyRootsSubOper",
 				instOperationSubAction);
 
@@ -1042,22 +1258,55 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		verifRootOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionNormal);
+		verifRootOperSubActionNormal = new OpersSubOperationExpType();
 
-		verifRootOperSubActionRelaxable = new OpersSubOperationExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionRelaxable);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifRootOperSubActionNormal);
 
-		verifRootOperSubActionVerification = new OpersSubOperationExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifRootOperSubActionVerification);
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifRootOperSubActionRelaxable = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifRootOperSubActionRelaxable);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"RELAXABLE");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifRootOperSubActionVerification = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifRootOperSubActionVerification);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"VERIFICATION");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1099,8 +1348,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"VerifyFalseSubOperations", false,
-				OperationSubActionType.VERIFICATION);
+				"VerifyFalseSubOperations");
 		// operationSubAction.addOperationLabeling(new
 		// OperationLabeling("unique",
 		// "L1", 1, false, null, null));
@@ -1108,6 +1356,11 @@ public class RefasDefaultOperations {
 
 		instOperationSubAction = new InstConcept("VerifyFalseSubOperations",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("VerifyFalseSubOperations",
 				instOperationSubAction);
 
@@ -1122,22 +1375,55 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		verifFalseOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionNormal);
+		verifFalseOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		verifFalseOptOperSubActionRelaxable = new OpersSubOperationExpType(
-				OperationSubActionExecType.RELAXABLE);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionRelaxable);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifFalseOptOperSubActionNormal);
 
-		verifFalseOptOperSubActionVerification = new OpersSubOperationExpType(
-				OperationSubActionExecType.VERIFICATION);
-		operationSubAction
-				.addOperationSubActionExpType(verifFalseOptOperSubActionVerification);
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifFalseOptOperSubActionRelaxable = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifFalseOptOperSubActionRelaxable);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"RELAXABLE");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		verifFalseOptOperSubActionVerification = new OpersSubOperationExpType();
+
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				verifFalseOptOperSubActionVerification);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"VERIFICATION");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1188,8 +1474,7 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"ConfigureTemporalSubOper", false,
-				OperationSubActionType.SINGLEUPDATE);
+				"ConfigureTemporalSubOper");
 		// operationSubAction.addOperationLabeling(new
 		// OperationLabeling("unique",
 		// "L1", 1, false, null, null));
@@ -1197,6 +1482,11 @@ public class RefasDefaultOperations {
 
 		instOperationSubAction = new InstConcept("ConfigureTemporalSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("ConfigureTemporalSubOper",
 				instOperationSubAction);
 
@@ -1209,12 +1499,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		configTemporalOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configTemporalOptOperSubActionNormal);
+		configTemporalOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				configTemporalOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
@@ -1256,12 +1557,16 @@ public class RefasDefaultOperations {
 		instEdgeOper.setSourceRelation(instOperationGroup, true);
 
 		operationSubAction = new OpersSubOperation(1,
-				"ConfigurePermanentSubOper", false,
-				OperationSubActionType.SINGLEUPDATE);
+				"ConfigurePermanentSubOper");
 		// configPermanentOperationAction.addExpressionSubAction(operationSubAction);
 
 		instOperationSubAction = new InstConcept("ConfigurePermanentSubOper",
 				metaOperationSubAction, operationSubAction);
+
+		instOperationSubAction.getInstAttribute("type")
+				.setValue("SINGLEUPDATE");
+		instOperationSubAction.getInstAttribute("iteration").setValue(false);
+
 		refas.getVariabilityVertex().put("ConfigurePermanentSubOpe",
 				instOperationSubAction);
 
@@ -1274,12 +1579,23 @@ public class RefasDefaultOperations {
 		instEdgeOper.setTargetRelation(instOperationSubAction, true);
 		instEdgeOper.setSourceRelation(instOperationAction, true);
 
-		configPermanentOptOperSubActionNormal = new OpersSubOperationExpType(
-				OperationSubActionExecType.NORMAL);
-		operationSubAction
-				.addOperationSubActionExpType(configPermanentOptOperSubActionNormal);
+		configPermanentOptOperSubActionNormal = new OpersSubOperationExpType();
 
-		operationLabeling = new OpersLabeling("unique", null, null);
+		instOperSubOperationExpType = new InstConcept("exptype", metaExpType,
+				configPermanentOptOperSubActionNormal);
+
+		instOperSubOperationExpType.addInstAttribute("suboperexptype",
+				metaExpType.getAbstractAttribute("suboperexptype", null, null),
+				"NORMAL");
+
+		((List<InstAttribute>) instOperationSubAction
+				.getInstAttributeValue("exptype")).add(new InstAttribute(
+				"enum1", new AbstractAttribute("EnumValue",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+				instOperSubOperationExpType));
+
+		operationLabeling = new OpersLabeling("unique");
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -3264,6 +3580,17 @@ public class RefasDefaultOperations {
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
+		t1 = new SemanticExpression("ANDhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
 				instVertexHC, "Selected", "True");
@@ -3278,11 +3605,22 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("and", new AbstractAttribute("and",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
-		// 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("ORhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -3298,11 +3636,22 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("or", new AbstractAttribute("or",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
-		// 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -3320,11 +3669,22 @@ public class RefasDefaultOperations {
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
-		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t2 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -3356,9 +3716,9 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("range", new AbstractAttribute("range",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
-		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		// List<AbstractSemanticVertex> semanticVertices = new
 		// ArrayList<AbstractSemanticVertex>();
@@ -4780,6 +5140,17 @@ public class RefasDefaultOperations {
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
+		t1 = new SemanticExpression("ANDhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
 				instVertexOper, "Selected", "True");
@@ -4794,11 +5165,22 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("and", new AbstractAttribute("and",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
-		// 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("and", new AbstractAttribute("and",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("ORhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -4814,11 +5196,22 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("or", new AbstractAttribute("or",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
-		// 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("or", new AbstractAttribute("or",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "or", "",
+				1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("MUTEXhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
@@ -4836,11 +5229,22 @@ public class RefasDefaultOperations {
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
-		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("mutex", new AbstractAttribute("mutex",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "mutex",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		t1 = new SemanticExpression("RANGEhardConcept", refas
+				.getSemanticExpressionTypes().get("DoubleImplies"),
+				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
+				instVertexHHGR, "Selected", "Selected");
+
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
 
 		t2 = new SemanticExpression("1", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
@@ -4872,9 +5276,9 @@ public class RefasDefaultOperations {
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 		semanticExpressions.add(t1);
 
-		// ias.add(new InstAttribute("range", new AbstractAttribute("range",
-		// StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
-		// "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+		ias.add(new InstAttribute("range", new AbstractAttribute("range",
+				StringType.IDENTIFIER, AttributeType.OPTION, false, "range",
+				"", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 		refas.getVariabilityVertex().put("OperCLOTAsso", instVertexCLGR);
 
@@ -5696,16 +6100,19 @@ public class RefasDefaultOperations {
 
 		semanticExpressions.add(t1);
 
+		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		simulationExecOperUniqueLabeling
+				.setSemanticExpressions(semanticExpressions);
+
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
 				instVertexGE, "Order", 0);
 
-		t1 = new SemanticExpression("TotalOrder", refas
-				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
-				instVertexGE, t1, "TotalOrder");
-
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		// t1 = new SemanticExpression("TotalOrder", refas
+		// .getSemanticExpressionTypes().get("Equals"),
+		// ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+		// instVertexGE, t1, "TotalOrder");
 
 		semanticExpressions.add(t1);
 
@@ -5713,27 +6120,26 @@ public class RefasDefaultOperations {
 				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
 				instVertexGE, "Opt", 0);
 
-		t1 = new SemanticExpression("TotalOpt", refas
-				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
-				instVertexGE, t1, "TotalOpt");
-
-		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		// t1 = new SemanticExpression("TotalOpt", refas
+		// .getSemanticExpressionTypes().get("Equals"),
+		// ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+		// instVertexGE, t1, "TotalOpt");
 
 		semanticExpressions.add(t1);
+
+		semanticExpressions = new ArrayList<IntMetaExpression>();
+
+		simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
 
 		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
 				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
 				instVertexSG, "Selected", 0);
 
-		t1 = new SemanticExpression("TotalSG", refas
-				.getSemanticExpressionTypes().get("Equals"),
-				ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
-				instVertexSG, t1, "TotalSG");
-
-		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+		// t1 = new SemanticExpression("TotalSG", refas
+		// .getSemanticExpressionTypes().get("Equals"),
+		// ExpressionVertexType.LEFTITERCONCEPTVARIABLE, instRefasModel,
+		// instVertexSG, t1, "TotalSG");
 
 		semanticExpressions.add(t1);
-
 	}
 }

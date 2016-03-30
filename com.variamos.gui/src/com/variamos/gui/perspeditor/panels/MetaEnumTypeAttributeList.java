@@ -19,8 +19,10 @@ import com.variamos.hlcl.LabelingOrder;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstCell;
+import com.variamos.perspsupport.instancesupport.InstConcept;
 import com.variamos.perspsupport.instancesupport.InstElement;
 import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
+import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
 import com.variamos.perspsupport.types.OperationSubActionExecType;
 import com.variamos.perspsupport.types.StringType;
@@ -55,6 +57,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 	private String enumCanonicalName = null;
 
+	private MetaElement infraSyntaxOpersM2Element = null;
 	/**
 			 * 
 			 */
@@ -71,12 +74,13 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 	@SuppressWarnings("unchecked")
 	public MetaEnumTypeAttributeList(final VariamosGraphEditor editor,
 			final InstCell instCell, String attributeName,
-			String enumCanonicalName) {
+			String enumCanonicalName, MetaElement infraSyntaxOpersM2Element) {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
 		this.attributeName = attributeName;
 		this.enumCanonicalName = enumCanonicalName;
+		this.infraSyntaxOpersM2Element = infraSyntaxOpersM2Element;
 		InstAttribute o = element.getInstAttributes().get(attributeName);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
@@ -157,11 +161,17 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
 			if (attributeName.equals("exptype")) {
-				String split[] = ((OpersSubOperationExpType) instAttribute
-						.getValue()).getExpressionType().toString().split("-");
+				String split[] = ((InstElement) instAttribute.getValue())
+						.getInstAttributeValue("suboperexptype").toString()
+						.split("-");
 				instName.setValue(split[0]);
-			} else {
-				String split[] = ((String) instAttribute.getValue()).split("-");
+			} else if (attributeName.equals("sortorder")) {
+				String split[] = ((LabelingOrder) instAttribute.getValue())
+						.toString().split("-");
+				instName.setValue(split[0]);
+			} else if (attributeName.equals("sortorder")) {
+				String split[] = ((LabelingOrder) instAttribute.getValue())
+						.toString().split("-");
 				instName.setValue(split[0]);
 			}
 		}
@@ -201,11 +211,13 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = null;
 				if (attributeName.equals("exptype")) {
-					OperationSubActionExecType.valueOf((String) instName
-							.getValue());
 					OperationSubActionExecType ex = OperationSubActionExecType
 							.valueOf((String) instName.getValue());
-					v.setValue(new OpersSubOperationExpType(ex));
+					InstElement e = new InstConcept("exptype",
+							infraSyntaxOpersM2Element,
+							new OpersSubOperationExpType());
+					e.getInstAttribute("suboperexptype").setValue(ex);
+					v.setValue(e);
 
 					attributes = ((List<InstAttribute>) element
 							.getInstAttributes().get(attributeName).getValue());

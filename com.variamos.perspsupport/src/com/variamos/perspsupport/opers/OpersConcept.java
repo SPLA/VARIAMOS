@@ -25,7 +25,7 @@ public class OpersConcept extends OpersAbstractVertex implements
 	}
 
 	public OpersConcept(String identifier) {
-		super(identifier, true);
+		super(identifier);
 	}
 
 	/*
