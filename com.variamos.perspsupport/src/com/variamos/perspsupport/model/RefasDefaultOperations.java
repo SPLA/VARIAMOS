@@ -3,7 +3,6 @@ package com.variamos.perspsupport.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.RangeDomain;
 import com.variamos.hlcl.StringDomain;
@@ -94,9 +93,6 @@ public class RefasDefaultOperations {
 
 	@SuppressWarnings("unchecked")
 	public static void createDefaultOperations(ModelInstance refas) {
-
-		HlclFactory hlclFactory = new HlclFactory();
-
 		MetaConcept metaMetaModel = (MetaConcept) ((InstConcept) refas
 				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Model"))
 				.getEditableMetaElement();

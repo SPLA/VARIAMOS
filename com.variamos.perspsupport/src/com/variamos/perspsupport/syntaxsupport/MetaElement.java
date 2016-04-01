@@ -312,7 +312,6 @@ public abstract class MetaElement implements Serializable {
 	}
 
 	public AbstractAttribute getSemanticAttribute(String name) {
-		AbstractAttribute out = null;
 		if (getTransInstSemanticElement() != null)
 			return getTransInstSemanticElement().getSemanticAttribute(name);
 		return null;

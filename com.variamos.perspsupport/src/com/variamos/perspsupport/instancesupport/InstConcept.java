@@ -59,7 +59,6 @@ public class InstConcept extends InstVertex {
 	}
 
 	public void createInstAttributes() {
-		MetaElement supportMetaElement = getTransSupportMetaElement();
 		createInstAttributes(null);
 	}
 

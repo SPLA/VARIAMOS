@@ -130,6 +130,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * .getExpressionSubAction(subAction);
 		 */
 		if (operSubAction != null) {
+			@SuppressWarnings("unchecked")
 			List<InstAttribute> listatt = ((List<InstAttribute>) operSubAction
 					.getInstAttributeValue("exptype"));
 			OpersSubOperationExpType operExpType = null;
@@ -329,6 +330,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		}
 
 		if (operSubAction != null) {
+			@SuppressWarnings("unchecked")
 			List<InstAttribute> listatt = ((List<InstAttribute>) instOperSubAction
 					.getInstAttributeValue("exptype"));
 			OpersSubOperationExpType operExpType = null;
@@ -351,7 +353,6 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstElement instE : refas.getElements()) {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
-							int attributeValue = 0;
 							if (((OpersLabeling) operLab
 									.getEditableSemanticElement())
 									.validateAttribute(instE
@@ -371,6 +372,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					}
 					Collections.sort(ident);
 
+					@SuppressWarnings("unchecked")
 					ArrayList<InstAttribute> instattrs = (ArrayList<InstAttribute>) operLab
 							.getInstAttributeValue("sortorder");
 					List<LabelingOrder> laborder = new ArrayList<LabelingOrder>();

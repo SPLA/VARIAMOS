@@ -20,7 +20,7 @@ import com.variamos.perspsupport.opers.OpersAbstractElement;
  * @since 2014-02-05
  */
 public class OpersSubOperation extends OpersAbstractElement implements
-		Comparable {
+		Comparable<OpersSubOperation> {
 
 	/**
 	 * 
@@ -146,9 +146,7 @@ public class OpersSubOperation extends OpersAbstractElement implements
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		OpersSubOperation op = (OpersSubOperation) o;
-		return this.getPosition() - op.getPosition();
-
+	public int compareTo(OpersSubOperation o) {
+		return this.getPosition() - o.getPosition();
 	}
 }

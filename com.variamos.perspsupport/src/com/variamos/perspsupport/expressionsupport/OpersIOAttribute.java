@@ -1,6 +1,6 @@
 package com.variamos.perspsupport.expressionsupport;
 
-public class OpersIOAttribute implements Comparable {
+public class OpersIOAttribute implements Comparable<OpersIOAttribute> {
 
 	private String conceptId;
 	private String attributeId;
@@ -43,8 +43,8 @@ public class OpersIOAttribute implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		return ((OpersIOAttribute) o).getId().compareTo(this.getId());
+	public int compareTo(OpersIOAttribute o) {
+		return o.getId().compareTo(this.getId());
 
 	}
 }

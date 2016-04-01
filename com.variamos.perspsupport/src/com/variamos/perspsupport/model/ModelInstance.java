@@ -2218,7 +2218,7 @@ public class ModelInstance extends AbstractModel {
 	 * perspectiv) and defines the semantic for elements on the syntax
 	 * perspective (associated to concepts).
 	 */
-	@SuppressWarnings("unchecked")
+
 	public void createOperationsSuperstructure() {
 		RefasDefaultOperations.createDefaultOperations(this);
 	}

@@ -507,8 +507,6 @@ public abstract class InstElement implements Serializable, EditableElement,
 							.getTransInstSemanticElement() != null) {
 				InstElement instElement = (InstElement) getTransSupportMetaElement()
 						.getTransInstSemanticElement();
-				IntOpersElement metaConcept = instElement
-						.getEditableSemanticElement();
 				Iterator<String> semanticAttributes = instElement
 						.getAllAttributesNames(syntaxParents).iterator();
 				while (semanticAttributes.hasNext()) {

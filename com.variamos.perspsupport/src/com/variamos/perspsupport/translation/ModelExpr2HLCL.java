@@ -20,7 +20,6 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
 import com.variamos.perspsupport.expressionsupport.OpersIOAttribute;
-import com.variamos.perspsupport.expressionsupport.OpersLabeling;
 import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
 import com.variamos.perspsupport.instancesupport.InstAttribute;
 import com.variamos.perspsupport.instancesupport.InstConcept;
@@ -454,6 +453,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 									 */
 
 					}
+					// FIXME support types other than normal
 					configurationOptions.setLabelings(transExpSet.getLabelings(
 							refas, suboper.getIdentifier(),
 							OperationSubActionExecType.NORMAL));
@@ -461,20 +461,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 					configurationOptions.setOrder(true);
 					configurationOptions.setStartFromZero(true);
-					OpersLabeling operLab = null;
-					for (InstElement rel : suboper.getTargetRelations()) {
-						InstElement instOperLab = rel.getTargetRelations().get(
-								0);
-						operLab = (OpersLabeling) instOperLab
-								.getEditableSemanticElement();
-					}
-					// FIXME complete: include the orders from the labeling
-					/*
-					 * configurationOptions.setLabelingOrder(operLab
-					 * .getLabelingOrderList());
-					 * configurationOptions.setOrderExpressions(operLab
-					 * .getOrderExpressionList());
-					 */
+
 					swiSolver.solve(new Configuration(), configurationOptions);
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();

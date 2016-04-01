@@ -408,6 +408,62 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 			elements = volatileLeftInstElement.getTargetRelations();
 			out = volatileLeftInstElement.getTargetRelations().size();
 			break;
+		case LEFTBOOLEANEXPRESSION:
+			break;
+		case LEFTCONCEPTVARIABLE:
+			break;
+		case LEFTITERANYCONVARIABLE:
+			break;
+		case LEFTITERANYFIXEDVARIABLE:
+			break;
+		case LEFTITERANYRELVARIABLE:
+			break;
+		case LEFTMODELVARS:
+			break;
+		case LEFTNUMERICVALUE:
+			break;
+		case LEFTSTRINGVALUE:
+			break;
+		case LEFTSUBEXPRESSION:
+			break;
+		case LEFTUNIQUEINCCONVARIABLE:
+			break;
+		case LEFTUNIQUEINCRELVARIABLE:
+			break;
+		case LEFTUNIQUEOUTCONVARIABLE:
+			break;
+		case LEFTUNIQUEOUTRELVARIABLE:
+			break;
+		case LEFTVARIABLE:
+			break;
+		case LEFTVARIABLEVALUE:
+			break;
+		case RIGHTBOOLEANEXPRESSION:
+			break;
+		case RIGHTCONCEPTVARIABLE:
+			break;
+		case RIGHTMODELVARS:
+			break;
+		case RIGHTNUMERICVALUE:
+			break;
+		case RIGHTSTRINGVALUE:
+			break;
+		case RIGHTSUBEXPRESSION:
+			break;
+		case RIGHTUNIQUEINCCONVARIABLE:
+			break;
+		case RIGHTUNIQUEINCRELVARIABLE:
+			break;
+		case RIGHTUNIQUEOUTCONVARIABLE:
+			break;
+		case RIGHTUNIQUEOUTRELVARIABLE:
+			break;
+		case RIGHTVARIABLE:
+			break;
+		case RIGHTVARIABLEVALUE:
+			break;
+		default:
+			break;
 		}
 		return out;
 	}
@@ -461,6 +517,42 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
 			volatileInstElement = volatileRightInstElement;
+			break;
+		case LEFTBOOLEANEXPRESSION:
+			break;
+		case LEFTCONCEPTVARIABLE:
+			break;
+		case LEFTITERANYRELVARIABLE:
+			break;
+		case LEFTMODELVARS:
+			break;
+		case LEFTNUMERICVALUE:
+			break;
+		case LEFTSTRINGVALUE:
+			break;
+		case LEFTSUBEXPRESSION:
+			break;
+		case LEFTVARIABLE:
+			break;
+		case LEFTVARIABLEVALUE:
+			break;
+		case RIGHTBOOLEANEXPRESSION:
+			break;
+		case RIGHTCONCEPTVARIABLE:
+			break;
+		case RIGHTMODELVARS:
+			break;
+		case RIGHTNUMERICVALUE:
+			break;
+		case RIGHTSTRINGVALUE:
+			break;
+		case RIGHTSUBEXPRESSION:
+			break;
+		case RIGHTVARIABLE:
+			break;
+		case RIGHTVARIABLEVALUE:
+			break;
+		default:
 			break;
 
 		}
@@ -587,6 +679,40 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 				expInstElement = incExpDirInstElement;
 
 			expAttributeName = getSemanticExpression().getRightAttributeName();
+			break;
+		case LEFTBOOLEANEXPRESSION:
+			break;
+		case LEFTCONCEPTVARIABLE:
+			break;
+		case LEFTITERANYCONVARIABLE:
+			break;
+		case LEFTITERANYFIXEDVARIABLE:
+			break;
+		case LEFTITERANYRELVARIABLE:
+			break;
+		case LEFTMODELVARS:
+			break;
+		case LEFTNUMERICVALUE:
+			break;
+		case LEFTSTRINGVALUE:
+			break;
+		case LEFTSUBEXPRESSION:
+			break;
+		case LEFTVARIABLEVALUE:
+			break;
+		case RIGHTBOOLEANEXPRESSION:
+			break;
+		case RIGHTMODELVARS:
+			break;
+		case RIGHTNUMERICVALUE:
+			break;
+		case RIGHTSTRINGVALUE:
+			break;
+		case RIGHTSUBEXPRESSION:
+			break;
+		case RIGHTVARIABLEVALUE:
+			break;
+		default:
 			break;
 		}
 
@@ -1310,6 +1436,42 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 			}
 			this.volatileLeftInstElement = instElement;
 			break;
+		case LEFTBOOLEANEXPRESSION:
+			break;
+		case LEFTITERANYCONVARIABLE:
+			break;
+		case LEFTITERANYFIXEDVARIABLE:
+			break;
+		case LEFTITERANYRELVARIABLE:
+			break;
+		case LEFTMODELVARS:
+			break;
+		case RIGHTBOOLEANEXPRESSION:
+			break;
+		case RIGHTCONCEPTVARIABLE:
+			break;
+		case RIGHTMODELVARS:
+			break;
+		case RIGHTNUMERICVALUE:
+			break;
+		case RIGHTSTRINGVALUE:
+			break;
+		case RIGHTSUBEXPRESSION:
+			break;
+		case RIGHTUNIQUEINCCONVARIABLE:
+			break;
+		case RIGHTUNIQUEINCRELVARIABLE:
+			break;
+		case RIGHTUNIQUEOUTCONVARIABLE:
+			break;
+		case RIGHTUNIQUEOUTRELVARIABLE:
+			break;
+		case RIGHTVARIABLE:
+			break;
+		case RIGHTVARIABLEVALUE:
+			break;
+		default:
+			break;
 		}
 
 		type = volatileSemanticExpression.getRightExpressionType();
@@ -1340,6 +1502,62 @@ public class InstanceExpression implements Serializable, IntModelExpression {
 		case RIGHTUNIQUEOUTCONVARIABLE:
 		case RIGHTUNIQUEINCCONVARIABLE:
 			this.volatileRightInstElement = instElement;
+			break;
+		case LEFTBOOLEANEXPRESSION:
+			break;
+		case LEFTCONCEPTVARIABLE:
+			break;
+		case LEFTITERANYCONVARIABLE:
+			break;
+		case LEFTITERANYFIXEDVARIABLE:
+			break;
+		case LEFTITERANYRELVARIABLE:
+			break;
+		case LEFTITERCONCEPTVARIABLE:
+			break;
+		case LEFTITERCONFIXEDVARIABLE:
+			break;
+		case LEFTITERINCCONFIXEDVARIABLE:
+			break;
+		case LEFTITERINCCONVARIABLE:
+			break;
+		case LEFTITERINCRELFIXEDVARIABLE:
+			break;
+		case LEFTITERINCRELVARIABLE:
+			break;
+		case LEFTITEROUTCONFIXEDVARIABLE:
+			break;
+		case LEFTITEROUTCONVARIABLE:
+			break;
+		case LEFTITEROUTRELFIXEDVARIABLE:
+			break;
+		case LEFTITEROUTRELVARIABLE:
+			break;
+		case LEFTMODELVARS:
+			break;
+		case LEFTNUMERICVALUE:
+			break;
+		case LEFTSTRINGVALUE:
+			break;
+		case LEFTSUBEXPRESSION:
+			break;
+		case LEFTUNIQUEINCCONVARIABLE:
+			break;
+		case LEFTUNIQUEINCRELVARIABLE:
+			break;
+		case LEFTUNIQUEOUTCONVARIABLE:
+			break;
+		case LEFTUNIQUEOUTRELVARIABLE:
+			break;
+		case LEFTVARIABLE:
+			break;
+		case LEFTVARIABLEVALUE:
+			break;
+		case RIGHTBOOLEANEXPRESSION:
+			break;
+		case RIGHTMODELVARS:
+			break;
+		default:
 			break;
 		}
 

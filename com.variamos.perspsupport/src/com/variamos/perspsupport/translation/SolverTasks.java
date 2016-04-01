@@ -506,18 +506,15 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		this.firstSimulExec = first;
 	}
 
-	private List<String> compareSolutions(Configuration lastConfiguration,
-			Configuration currentConfiguration) {
-		List<String> out = new ArrayList<String>();
-		Map<String, Integer> lastConfig = lastConfiguration.getConfiguration();
-		Map<String, Integer> currentConfig = currentConfiguration
-				.getConfiguration();
-		for (String solution : lastConfig.keySet())
-			if (lastConfig.get(solution) != currentConfig.get(solution))
-				out.add(solution);
-		return out;
-	}
-
+	/*
+	 * private List<String> compareSolutions(Configuration lastConfiguration,
+	 * Configuration currentConfiguration) { List<String> out = new
+	 * ArrayList<String>(); Map<String, Integer> lastConfig =
+	 * lastConfiguration.getConfiguration(); Map<String, Integer> currentConfig
+	 * = currentConfiguration .getConfiguration(); for (String solution :
+	 * lastConfig.keySet()) if (lastConfig.get(solution) !=
+	 * currentConfig.get(solution)) out.add(solution); return out; }
+	 */
 	public List<String> updateModel(String element, String verifMessage,
 			String verifHint, List<String> attributes, List<String> defect)
 			throws InterruptedException {
