@@ -159,27 +159,28 @@ public class RefasDefaultOperations {
 		OpersConcept refasModel = new OpersConcept("REFAS");
 
 		AbstractAttribute attribute = null;
-		attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0,
-				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				refasModel.getIdentifier(), attribute.getName(), true));
-		refasModel.putSemanticAttribute("TotalOrder", attribute);
-
-		attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0,
-				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				refasModel.getIdentifier(), attribute.getName(), true));
-		refasModel.putSemanticAttribute("TotalOpt", attribute);
-
-		attribute = new ExecCurrentStateAttribute("TotalSG", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0,
-				new RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
-		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
-				.getIdentifier(), attribute.getName(), true));
-		refasModel.putSemanticAttribute("TotalSG", attribute);
-
+		/*
+		 * attribute = new ExecCurrentStateAttribute("TotalOrder", "Integer",
+		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOrder***", 0, new
+		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		 * refasModel.getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalOrder", attribute);
+		 * 
+		 * attribute = new ExecCurrentStateAttribute("TotalOpt", "Integer",
+		 * AttributeType.EXECCURRENTSTATE, false, "***TotalOpt***", 0, new
+		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		 * simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+		 * refasModel.getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalOpt", attribute);
+		 * 
+		 * attribute = new ExecCurrentStateAttribute("TotalSG", "Integer",
+		 * AttributeType.EXECCURRENTSTATE, false, "***TotalSG***", 0, new
+		 * RangeDomain(0, 2000), 2, -1, "", "", -1, "", "");
+		 * simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(refasModel
+		 * .getIdentifier(), attribute.getName(), true));
+		 * refasModel.putSemanticAttribute("TotalSG", attribute);
+		 */
 		InstVertex instRefasModel = new InstConcept("REFAS", metaMetaModel,
 				refasModel);
 		refas.getVariabilityVertex().put("REFAS", instRefasModel);
@@ -348,18 +349,21 @@ public class RefasDefaultOperations {
 		simulationExecOperUniqueLabeling
 				.setSemanticExpressions(semanticExpressions);
 
-		SemanticExpression t1 = new SemanticExpression("sub", refas
-				.getSemanticExpressionTypes().get("Sum"),
-				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
-				"TotalOrder", 0);
-
-		semanticExpressions.add(t1);
-
-		t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
-				.get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
-				instRefasModel, "TotalOpt", 0);
-
-		semanticExpressions.add(t1);
+		SemanticExpression t1;
+		/*
+		 * = new SemanticExpression("sub", refas
+		 * .getSemanticExpressionTypes().get("Sum"),
+		 * ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
+		 * "TotalOrder", 0);
+		 * 
+		 * semanticExpressions.add(t1);
+		 * 
+		 * t1 = new SemanticExpression("sub", refas.getSemanticExpressionTypes()
+		 * .get("Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,
+		 * instRefasModel, "TotalOpt", 0);
+		 * 
+		 * semanticExpressions.add(t1);
+		 */
 
 		SemanticExpression t2;
 

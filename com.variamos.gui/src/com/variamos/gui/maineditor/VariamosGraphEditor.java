@@ -1971,7 +1971,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	// Static operation's definition
 	public void verify(List<String> defect) {
-		if (task == null || task.isDone()) {
+		if (task == null || task.isDone() || task.getProgress() == 0) {
 			progressMonitor = new ProgressMonitor(VariamosGraphEditor.this,
 					"System Verification", "", 0, 100);
 			progressMonitor.setMillisToDecideToPopup(5);

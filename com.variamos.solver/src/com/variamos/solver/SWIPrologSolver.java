@@ -562,18 +562,15 @@ public class SWIPrologSolver implements Solver {
 
 	@Override
 	public void clearQueryMonitor() {
-		if (qr != null && qr.isOpen()) {
-
-			try {
-				qr.close();
-			} catch (Exception e) {
-				System.out.println(e.toString());
-				throw new TechnicalException(
-						"Problems cleaning the query monitor details:"
-								+ e.toString());
-			}
-
-		}
+		/*
+		 * if (qr != null && qr.isOpen()) {
+		 * 
+		 * try { qr.close(); } catch (Exception e) {
+		 * System.out.println(e.toString()); throw new TechnicalException(
+		 * "Problems cleaning the query monitor details:" + e.toString()); }
+		 * 
+		 * }
+		 */
 		qr = null;
 		monitor = new Object();
 
