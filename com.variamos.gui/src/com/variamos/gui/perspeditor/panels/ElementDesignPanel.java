@@ -185,7 +185,7 @@ public class ElementDesignPanel extends JPanel {
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& !((InstElement) editElm)
 								.getTransSupportMetaElement().getName()
-								.equals("InfraSyntaxOpersM2Labeling")) {
+								.equals("OMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Semantic Expressions"));
 					JButton button = new JButton(
@@ -233,7 +233,7 @@ public class ElementDesignPanel extends JPanel {
 				}
 				if (((InstElement) editElm).getEditableSemanticElement() != null
 						&& ((InstElement) editElm).getTransSupportMetaElement()
-								.getName().equals("InfraSyntaxOpersM2Labeling")) {
+								.getName().equals("OMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel(
 							"Order Meta-Expressions"));
 					JButton button = new JButton(
@@ -852,20 +852,19 @@ public class ElementDesignPanel extends JPanel {
 
 				JList attList = null;
 				if (editElm.getTransSupportMetaElement().getName()
-						.equals("InfraSyntaxOpersM2SubOper")) {
+						.equals("OMSubOper")) {
 					attList = new MetaEnumTypeAttributeList(
 							editor,
 							instCell,
 							"exptype",
 							OperationSubActionExecType.class.getCanonicalName(),
 							((ModelInstance) editor.getEditedModel())
-									.getSyntaxModel()
-									.getVertex("InfraSyntaxOpersM2ExpType")
+									.getSyntaxModel().getVertex("OMExpType")
 									.getEditableMetaElement());
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement().getName()
-						.equals("InfraSyntaxOpersM2Labeling")) {
+						.equals("OMLabeling")) {
 					attList = new MetaEnumTypeAttributeList(editor, instCell,
 							"sortorder",
 							LabelingOrder.class.getCanonicalName(), null);
@@ -917,9 +916,8 @@ public class ElementDesignPanel extends JPanel {
 			}
 			if (((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
-							.equals("InfraSyntaxOpersM2PWRel") || ((InstElement) editElm)
-							.getSupportMetaElementIden().equals(
-									"InfraSyntaxOpersM2OTRel"))) {
+							.equals("OMPWRel") || ((InstElement) editElm)
+							.getSupportMetaElementIden().equals("OMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;

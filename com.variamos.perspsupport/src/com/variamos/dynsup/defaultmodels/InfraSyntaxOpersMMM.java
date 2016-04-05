@@ -434,10 +434,10 @@ public class InfraSyntaxOpersMMM {
 
 		SyntaxConcept infraSyntaxOpersM2InfraConcept = new SyntaxConcept(
 				'N',
-				"InfraSyntaxOpersM2InfraConcept",
+				"OMInfConcept",
 				false,
 				false,
-				"InfraSyntaxOpersM2InfraConcept",
+				"OMInfConcept",
 				"infrasyntaxm2biggrayconcept",
 				"Operations Infra MetaMetaConcept: Define Infrastructure (fixed) MMConcepts for the operations",
 				100, 250, "/com/variamos/gui/perspeditor/images/assump.png",
@@ -449,18 +449,18 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraConcept = new InstConcept(
-				"InfraSyntaxOpersM2InfraConcept", basicOpersSyntaxM3Concept,
+				"OMInfConcept", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2InfraConcept);
 
-		variabilityInstVertex.put("InfraSyntaxOpersM2InfraConcept",
+		variabilityInstVertex.put("OMInfConcept",
 				instInfraSyntaxOpersM2InfraConcept);
 
 		SyntaxConcept infraSyntaxOpersM2Concept = new SyntaxConcept(
 				'C',
-				"InfraSyntaxOpersM2Concept",
+				"OMConcept",
 				true,
 				true,
-				"InfraSyntaxOpersM2Concept",
+				"OMConcept",
 				"infrasyntaxm2concept",
 				"Operations MetaMetaConcept: Define a MMConcept for the operations",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
@@ -472,11 +472,10 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
-				"InfraSyntaxOpersM2Concept", basicOpersSyntaxM3Concept,
+				"OMConcept", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2Concept);
 
-		variabilityInstVertex.put("InfraSyntaxOpersM2Concept",
-				instInfraSyntaxOpersM2Concept);
+		variabilityInstVertex.put("OMConcept", instInfraSyntaxOpersM2Concept);
 
 		SyntaxPairwiseRel metaMetaPairwiseRelExtends = new SyntaxPairwiseRel(
 				"ExtendsRelation",
@@ -497,10 +496,10 @@ public class InfraSyntaxOpersMMM {
 
 		SyntaxConcept infraSyntaxOpersM2PWRel = new SyntaxConcept(
 				'W',
-				"InfraSyntaxOpersM2InfraPWRel",
+				"OMInfraPWRel",
 				false,
 				false,
-				"InfraSyntaxOpersM2InfraPWRel",
+				"OMInfraPWRel",
 				"infrasyntaxm2concept",
 				"Operations Infrastructure (fixed) MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
@@ -527,18 +526,17 @@ public class InfraSyntaxOpersMMM {
 						""));
 
 		InstConcept instInfraSyntaxOpersM2PWRel = new InstConcept(
-				"InfraSyntaxOpersM2InfraPWRel", basicOpersSyntaxM3Concept,
+				"OMInfraPWRel", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2PWRel);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
-		variabilityInstVertex.put("InfraSyntaxOpersM2InfraPWRel",
-				instInfraSyntaxOpersM2PWRel);
+		variabilityInstVertex.put("OMInfraPWRel", instInfraSyntaxOpersM2PWRel);
 
 		SyntaxConcept metaMetaPairwiseRel = new SyntaxConcept(
 				'P',
-				"InfraSyntaxOpersM2PWRel",
+				"OMPWRel",
 				true,
 				true,
-				"InfraSyntaxOpersM2PWRel",
+				"OMPWRel",
 				"refasenumeration",
 				"Operations MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
@@ -564,12 +562,10 @@ public class InfraSyntaxOpersMMM {
 		metaMetaPairwiseRel.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		InstConcept instPairWiseRelation = new InstConcept(
-				"InfraSyntaxOpersM2PWRel", basicOpersSyntaxM3Concept,
-				metaMetaPairwiseRel);
+		InstConcept instPairWiseRelation = new InstConcept("OMPWRel",
+				basicOpersSyntaxM3Concept, metaMetaPairwiseRel);
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
-		variabilityInstVertex.put("InfraSyntaxOpersM2PWRel",
-				instPairWiseRelation);
+		variabilityInstVertex.put("OMPWRel", instPairWiseRelation);
 
 		/*
 		 * SemanticConcept semEnumeration = new SemanticConcept(semConcept,
@@ -604,9 +600,8 @@ public class InfraSyntaxOpersMMM {
 		// enumeration.addPropVisibleAttribute("01#" + "value");
 
 		SyntaxConcept infraSyntaxOpersM2InfraOTRel = new SyntaxConcept('T',
-				"InfraSyntaxOpersM2InfraOTRel", false, false,
-				"InfraSyntaxOpersM2InfraOTRel", "infrasyntaxm2concept",
-				"Over Two Relation", 100, 150,
+				"OMInfraOTRel", false, false, "OMInfraOTRel",
+				"infrasyntaxm2concept", "Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -632,15 +627,14 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraOTRel = new InstConcept(
-				"InfraSyntaxOpersM2InfraOTRel", basicOpersSyntaxM3Concept,
+				"OMInfraOTRel", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2InfraOTRel);
-		variabilityInstVertex.put("InfraSyntaxOpersM2InfraOTRel",
+		variabilityInstVertex.put("OMInfraOTRel",
 				instInfraSyntaxOpersM2InfraOTRel);
 
 		SyntaxConcept infraSyntaxOpersM2OTRel = new SyntaxConcept('O',
-				"InfraSyntaxOpersM2OTRel", true, true,
-				"InfraSyntaxOpersM2OTRel", "infrasyntaxopersm2miniconcept",
-				"Over Two Relation", 100, 150,
+				"OMOTRel", true, true, "OMOTRel",
+				"infrasyntaxopersm2miniconcept", "Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -663,11 +657,9 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OTRel.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept(
-				"InfraSyntaxOpersM2OTRel", basicOpersSyntaxM3Concept,
-				infraSyntaxOpersM2OTRel);
-		variabilityInstVertex.put("InfraSyntaxOpersM2OTRel",
-				instInfraSyntaxOpersM2OTRel);
+		InstConcept instInfraSyntaxOpersM2OTRel = new InstConcept("OMOTRel",
+				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
+		variabilityInstVertex.put("OMOTRel", instInfraSyntaxOpersM2OTRel);
 
 		List<IntOpersRelType> basicOpersM2ExtRelList = new ArrayList<IntOpersRelType>();
 		basicOpersM2ExtRelList.add(new OpersRelType("extends", "extends",
@@ -808,9 +800,8 @@ public class InfraSyntaxOpersMMM {
 		constraintInstEdges.put("AssoPWCORel", rel);
 
 		SyntaxConcept infraSyntaxOpersM2OperGroup = new SyntaxConcept('M',
-				"InfraSyntaxOpersM2OperGroup", true, true,
-				"InfraSyntaxOpersM2OperGroup", "infrasyntaxopersm2miniconcept",
-				"Operation Group", 100, 150,
+				"OMOperGroup", true, true, "OMOperGroup",
+				"infrasyntaxopersm2miniconcept", "Operation Group", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -858,15 +849,14 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2OperGroup = new InstConcept(
-				"InfraSyntaxOpersM2OperGroup", basicOpersSyntaxM3Concept,
+				"OMOperGroup", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2OperGroup);
-		variabilityInstVertex.put("InfraSyntaxOpersM2OperGroup",
+		variabilityInstVertex.put("OMOperGroup",
 				instInfraSyntaxOpersM2OperGroup);
 
 		SyntaxConcept infraSyntaxOpersM2MetaModel = new SyntaxConcept('C',
-				"InfraSyntaxOpersM2Model", true, true,
-				"InfraSyntaxOpersM2Model", "infrasyntaxopersm2miniconcept",
-				"Semantic Model", 100, 150,
+				"OMModel", true, true, "OMModel",
+				"infrasyntaxopersm2miniconcept", "Semantic Model", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -885,15 +875,13 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2MetaModel = new InstConcept(
-				"InfraSyntaxOpersM2Model", basicOpersSyntaxM3Concept,
+				"OMModel", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2MetaModel);
-		variabilityInstVertex.put("InfraSyntaxOpersM2Model",
-				instInfraSyntaxOpersM2MetaModel);
+		variabilityInstVertex.put("OMModel", instInfraSyntaxOpersM2MetaModel);
 
 		SyntaxConcept infraSyntaxOpersM2OperAction = new SyntaxConcept('A',
-				"InfraSyntaxOpersM2Operation", true, true,
-				"InfraSyntaxOpersM2Operation", "infrasyntaxopersm2miniconcept",
-				"Operation Action", 100, 150,
+				"OMOperation", true, true, "OMOperation",
+				"infrasyntaxopersm2miniconcept", "Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -955,15 +943,14 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2OperAction = new InstConcept(
-				"InfraSyntaxOpersM2Operation", basicOpersSyntaxM3Concept,
+				"OMOperation", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2OperAction);
-		variabilityInstVertex.put("InfraSyntaxOpersM2Operation",
+		variabilityInstVertex.put("OMOperation",
 				instInfraSyntaxOpersM2OperAction);
 
 		SyntaxConcept infraSyntaxOpersM2OperSubAction = new SyntaxConcept('S',
-				"InfraSyntaxOpersM2SubOper", true, true,
-				"InfraSyntaxOpersM2SubOper", "infrasyntaxopersm2miniconcept",
-				"Operation Action", 100, 150,
+				"OMSubOper", true, true, "OMSubOper",
+				"infrasyntaxopersm2miniconcept", "Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -1020,16 +1007,15 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2OperSubAction = new InstConcept(
-				"InfraSyntaxOpersM2SubOper", basicOpersSyntaxM3Concept,
+				"OMSubOper", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2OperSubAction);
-		variabilityInstVertex.put("InfraSyntaxOpersM2SubOper",
+		variabilityInstVertex.put("OMSubOper",
 				instInfraSyntaxOpersM2OperSubAction);
 
 		SyntaxConcept infraSyntaxOpersM2OperLabeling = new SyntaxConcept('S',
-				"InfraSyntaxOpersM2Labeling", true, true,
-				"InfraSyntaxOpersM2Labeling", "infrasyntaxopersm2miniconcept",
-				"Operation Labeling", 100, 150,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				"OMLabeling", true, true, "OMLabeling",
+				"infrasyntaxopersm2miniconcept", "Operation Labeling", 100,
+				150, "/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
@@ -1073,17 +1059,16 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2OperLabeling = new InstConcept(
-				"InfraSyntaxOpersM2Labeling", basicOpersSyntaxM3Concept,
+				"OMLabeling", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2OperLabeling);
-		variabilityInstVertex.put("InfraSyntaxOpersM2Labeling",
+		variabilityInstVertex.put("OMLabeling",
 				instInfraSyntaxOpersM2OperLabeling);
 
 		SyntaxConcept infraSyntaxOpersM2ExpType = new SyntaxConcept('S',
-				"InfraSyntaxOpersM2ExpType", false, true,
-				"InfraSyntaxOpersM2ExpType", "infrasyntaxopersm2miniconcept",
-				"Operation Expression Type", 100, 150,
-				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, null, true);
+				"OMExpType", false, true, "OMExpType",
+				"infrasyntaxopersm2miniconcept", "Operation Expression Type",
+				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2ExpType.addModelingAttribute("suboperexptype",
 				new SyntaxAttribute("suboperexptype", "Enumeration",
@@ -1097,10 +1082,9 @@ public class InfraSyntaxOpersMMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
-				"InfraSyntaxOpersM2Labeling", basicOpersSyntaxM3Concept,
+				"OMLabeling", basicOpersSyntaxM3Concept,
 				infraSyntaxOpersM2ExpType);
-		variabilityInstVertex.put("InfraSyntaxOpersM2ExpType",
-				instInfraSyntaxOpersM2ExpType);
+		variabilityInstVertex.put("OMExpType", instInfraSyntaxOpersM2ExpType);
 
 		rel = new InstPairwiseRel(basicOpersM2AsoRel);
 		rel.setEditableMetaElement(infraSyntaxOpersM2AsoRel);

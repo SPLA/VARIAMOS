@@ -90,7 +90,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
 
 		// List<InstElement> semModel =
-		// refas.getVariabilityVertex("InfraSyntaxOpersM2Model");
+		// refas.getVariabilityVertex("OMModel");
 		// for (InstElement oper : semModel) {
 		// InstElement oper2 = refas.getElement("REFAS1");
 		// IntSemanticElement semModelElement =
@@ -104,7 +104,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		// }
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
+				.getVariabilityVertex("OMOperation");
 		InstElement operAction = null;
 		InstElement operSubAction = null;
 		for (InstElement oper : operActions) {
@@ -160,9 +160,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								.values()) {
 							// create instance expressions for conditional
 							// expressions
-							if (att.getType()
-									.equals(ModelExpr.class
-											.getCanonicalName())) {
+							if (att.getType().equals(
+									ModelExpr.class.getCanonicalName())) {
 								if (att.getValue() != null) {
 									ModelExpr instanceExpression = new ModelExpr(
 											true, "cond", true);
@@ -310,7 +309,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			OperationSubActionExecType expressionType) {
 
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
+				.getVariabilityVertex("OMOperation");
 		InstElement operAction = null;
 		OpersSubOperation operSubAction = null;
 		InstElement instOperSubAction = null;
@@ -364,8 +363,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 										+ "_"
 										+ var.getAttributeName());
 								// id.setDomain();
-								ModelExpr.updateDomain(
-										var.getAttribute(), instE, id);
+								ModelExpr.updateDomain(var.getAttribute(),
+										instE, id);
 								ident.add(id);
 							}
 						}
@@ -431,8 +430,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			for (IntMetaExpression semExpression : semanticExpr) {
 				if (semanticElement
 						|| semanticExpressions.contains(semExpression)) {
-					ModelExpr instanceExpression = new ModelExpr(
-							refas, false, (OpersExpr) semExpression);
+					ModelExpr instanceExpression = new ModelExpr(refas, false,
+							(OpersExpr) semExpression);
 					instanceExpression.createFromSemanticExpression(
 							instElement, 0);
 					out.add(instanceExpression);
@@ -454,9 +453,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							.getValue()) {
 						if (semanticElement
 								|| semanticExpressions.contains(semExpression)) {
-							ModelExpr instanceExpression = new ModelExpr(
-									refas, false,
-									(OpersExpr) semExpression);
+							ModelExpr instanceExpression = new ModelExpr(refas,
+									false, (OpersExpr) semExpression);
 							instanceExpression.createFromSemanticExpression(
 									instElement, 0);
 							out.add(instanceExpression);
@@ -479,8 +477,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				&& semElement.getAllSemanticExpressions(opersParents) != null)
 			for (IntMetaExpression semExpression : semElement
 					.getAllSemanticExpressions(opersParents)) {
-				ModelExpr instanceExpression = new ModelExpr(
-						refas, false, (OpersExpr) semExpression);
+				ModelExpr instanceExpression = new ModelExpr(refas, false,
+						(OpersExpr) semExpression);
 				instanceExpression.createFromSemanticExpression(instElement, 0);
 				out.add(instanceExpression);
 			}

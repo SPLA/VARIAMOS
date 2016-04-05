@@ -396,7 +396,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	public List<String> getOutVariables(String operation, String subAction) {
 		List<String> out = new ArrayList<String>();
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
+				.getVariabilityVertex("OMOperation");
 		InstElement operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
@@ -872,8 +872,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	private void createEdgeExpressions(String identifier, int execType,
 			Map<String, ElementExpressionSet> constraintGroups) {
 		if (identifier == null)
-			for (InstPairwiseRel elm : refas
-					.getConstraintInstEdgesCollection()) {
+			for (InstPairwiseRel elm : refas.getConstraintInstEdgesCollection()) {
 				if (elm.getMetaPairwiseRelation() == null
 						|| !elm.getMetaPairwiseRelation().getAutoIdentifier()
 								.equals("Variable To Context Relation"))
@@ -1099,14 +1098,13 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
 				if (ele instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

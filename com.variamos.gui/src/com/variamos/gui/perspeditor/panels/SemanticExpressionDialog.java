@@ -123,8 +123,8 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			});
 			solutionPanel.add(iden);
-			((OpersExpr) semanticExpression)
-					.loadVolatileElements(refasModel.getVariabilityVertex());
+			((OpersExpr) semanticExpression).loadVolatileElements(refasModel
+					.getVariabilityVertex());
 			showExpression((OpersExpr) semanticExpression, element,
 					solutionPanel, OpersExprType.BOOLEXP, 255);
 
@@ -864,8 +864,7 @@ public class SemanticExpressionDialog extends JDialog {
 		parentPanel.add(basePanel);
 	}
 
-	private JTextField createTextField(
-			final OpersExpr instanceExpression,
+	private JTextField createTextField(final OpersExpr instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField = null;
@@ -921,8 +920,7 @@ public class SemanticExpressionDialog extends JDialog {
 		return textField;
 	}
 
-	private JComboBox<String> createCombo(
-			final OpersExpr semanticExpression,
+	private JComboBox<String> createCombo(final OpersExpr semanticExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType,
 			final boolean showConceptName, final char elementType,
@@ -982,8 +980,7 @@ public class SemanticExpressionDialog extends JDialog {
 		return identifiers;
 	}
 
-	private JComboBox<String> fillCombo(
-			final OpersExpr semanticExpression,
+	private JComboBox<String> fillCombo(final OpersExpr semanticExpression,
 			ExpressionVertexType type, InstElement element,
 			String selectedElement, boolean isConcept, char elementType) {
 		JComboBox<String> combo = new JComboBox<String>();
@@ -1029,13 +1026,10 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
-						.getSupportMetaElementIden().equals(
-								"InfraSyntaxOpersM2Concept") || sourceRelation
-						.getSupportMetaElementIden().equals(
-								"InfraSyntaxOpersM2OTRel"))))
+						.getSupportMetaElementIden().equals("OMConcept") || sourceRelation
+						.getSupportMetaElementIden().equals("OMOTRel"))))
 						|| (element instanceof InstPairwiseRel && sourceRelation
-								.getSupportMetaElementIden().equals(
-										"InfraSyntaxOpersM2PWRel")))
+								.getSupportMetaElementIden().equals("OMPWRel")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1045,7 +1039,7 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupportMetaElementIden().equals(
-						"InfraSyntaxOpersM2Concept")
+						"OMConcept")
 						|| sourceRelation.getSupportMetaElementIden().equals(
 								"InfraSyntaxOpersM2OTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
@@ -1056,8 +1050,8 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupportMetaElementIden().equals(
-						"InfraSyntaxOpersM2PWRel"))
+				if (sourceRelation.getSupportMetaElementIden()
+						.equals("OMPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
@@ -1119,9 +1113,8 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createOperatorsCombo(
-			final OpersExpr instanceExpression,
-			final InstElement element, String selectedOperator,
-			int topExpressionType) {
+			final OpersExpr instanceExpression, final InstElement element,
+			String selectedOperator, int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
 		List<OpersExprType> semanticExpressionTypes = OpersExprType
 				.getValidSemanticExpressionTypes(refasModel
@@ -1157,9 +1150,8 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createSidesCombo(
-			final OpersExpr semanticExpression,
-			final InstElement element, final boolean left, boolean relation,
-			boolean fixed) {
+			final OpersExpr semanticExpression, final InstElement element,
+			final boolean left, boolean relation, boolean fixed) {
 		JComboBox<String> combo = new JComboBox<String>();
 		combo.addItem("This Concept Variable");
 		combo.addItem("SubExpression");

@@ -93,22 +93,22 @@ public class DefaultOpersMM {
 	@SuppressWarnings("unchecked")
 	public static void createOpersMetaModel(ModelInstance refas) {
 		SyntaxConcept metaMetaModel = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Model"))
+				.getSyntaxModel().getVertex("OMModel"))
 				.getEditableMetaElement();
 		SyntaxConcept metaOperationMenu = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2OperGroup"))
+				.getSyntaxModel().getVertex("OMOperGroup"))
 				.getEditableMetaElement();
 		SyntaxConcept metaOperationAction = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Operation"))
+				.getSyntaxModel().getVertex("OMOperation"))
 				.getEditableMetaElement();
 		SyntaxConcept metaOperationSubAction = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2SubOper"))
+				.getSyntaxModel().getVertex("OMSubOper"))
 				.getEditableMetaElement();
 		SyntaxConcept metaLabeling = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Labeling"))
+				.getSyntaxModel().getVertex("OMLabeling"))
 				.getEditableMetaElement();
 		SyntaxConcept metaExpType = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2ExpType"))
+				.getSyntaxModel().getVertex("OMExpType"))
 				.getEditableMetaElement();
 
 		// MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept)
@@ -116,23 +116,23 @@ public class DefaultOpersMM {
 		// .getSyntaxModel().getVertex("TypeEnumeration"))
 		// .getEditableMetaElement();
 		SyntaxConcept metaMetaConcept = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2Concept"))
+				.getSyntaxModel().getVertex("OMConcept"))
 				.getEditableMetaElement();
 		SyntaxConcept metaMetaPairwiseRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2PWRel"))
+				.getSyntaxModel().getVertex("OMPWRel"))
 				.getEditableMetaElement();
 		SyntaxConcept metaMetaOverTwoRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2OTRel"))
+				.getSyntaxModel().getVertex("OMOTRel"))
 				.getEditableMetaElement();
 
 		SyntaxConcept infraMetaMetaConcept = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2InfraConcept"))
+				.getSyntaxModel().getVertex("OMInfConcept"))
 				.getEditableMetaElement();
 		SyntaxConcept infraMetaMetaPairwiseRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2InfraPWRel"))
+				.getSyntaxModel().getVertex("OMInfraPWRel"))
 				.getEditableMetaElement();
 		SyntaxConcept infraMetaMetaOverTwoRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("InfraSyntaxOpersM2InfraOTRel"))
+				.getSyntaxModel().getVertex("OMInfraOTRel"))
 				.getEditableMetaElement();
 
 		SyntaxPairwiseRel metaPairwRelCCExt = (SyntaxPairwiseRel) ((InstPairwiseRel) refas

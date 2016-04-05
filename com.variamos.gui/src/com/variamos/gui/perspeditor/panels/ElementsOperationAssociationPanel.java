@@ -75,7 +75,7 @@ public class ElementsOperationAssociationPanel extends
 
 		final JComboBox<String> combo = new JComboBox<String>();
 		operActions = editor.getEditedModel().getVariabilityVertex(
-				"InfraSyntaxOpersM2Operation");
+				"OMOperation");
 
 		for (InstElement operAction : operActions) {
 			combo.addItem(operAction.getEditableSemanticElement()
