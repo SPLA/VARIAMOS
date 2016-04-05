@@ -17,6 +17,13 @@ import javax.swing.table.TableColumnModel;
 
 import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.interfaces.IntMetaExpression;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersLabeling;
+import com.variamos.dynsup.model.OpersSubOperation;
+import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.model.AssociationDataModel;
@@ -25,13 +32,6 @@ import com.variamos.gui.perspeditor.model.AssociationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
-import com.variamos.perspsupport.expressionsupport.OpersLabeling;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntMetaExpression;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
 

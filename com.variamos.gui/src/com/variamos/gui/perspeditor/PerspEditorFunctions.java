@@ -19,6 +19,24 @@ import com.mxgraph.swing.util.mxGraphTransferable;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersConcept;
+import com.variamos.dynsup.model.OpersEnumeration;
+import com.variamos.dynsup.model.OpersOverTwoRel;
+import com.variamos.dynsup.model.OpersPairwiseRel;
+import com.variamos.dynsup.model.OpersSubOperation;
+import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.model.SyntaxOverTwoRel;
+import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
@@ -26,27 +44,6 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.EditorPalette;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.pl.editor.ProductLineGraph;
-import com.variamos.perspsupport.expressionsupport.OpersOperation;
-import com.variamos.perspsupport.expressionsupport.OpersOperationGroup;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperation;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersConcept;
-import com.variamos.perspsupport.opers.OpersEnumeration;
-import com.variamos.perspsupport.opers.OpersOverTwoRel;
-import com.variamos.perspsupport.opers.OpersPairwiseRel;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.syntaxsupport.MetaConcept;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
-import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
 
 public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 
@@ -66,7 +63,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				instElements.add(instVertex);
 			}
 		for (InstElement instElement : instElements) {
-			MetaElement metaElement = instElement.getEditableMetaElement();
+			SyntaxElement metaElement = instElement.getEditableMetaElement();
 			paletteElements.add(new PaletteElement(metaElement
 					.getAutoIdentifier(), metaElement.getName(), metaElement
 					.getImage(), metaElement.getStyle(),
@@ -115,139 +112,142 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 					if (validElements.contains(paletteElement.getId())) {
 						InstElement obj = null;
 						if (paletteElement.getMetaElement() != null) {
-							MetaElement metaVertex = paletteElement
+							SyntaxElement metaVertex = paletteElement
 									.getMetaElement();
-							if (metaVertex instanceof MetaConcept) {
+							if (metaVertex instanceof SyntaxConcept) {
 								Object o;
 								o = new InstConcept();
 
-								if (editor.getPerspective() == 0) {
+								if (editor.getPerspective() == 3) {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
-													MetaElement.class,
-													MetaElement.class);
+													SyntaxElement.class,
+													SyntaxElement.class);
 
-									switch (((MetaElement) metaVertex)
+									switch (((SyntaxElement) metaVertex)
 											.getType()) {
 									case 'V':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaView());
+												(SyntaxElement) metaVertex,
+												new SyntaxView());
 										break;
 									case 'P':
 									case 'I':
 									case 'X':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaPairwiseRelation());
+												(SyntaxElement) metaVertex,
+												new SyntaxPairwiseRel());
 										break;
 									case 'E':
-										o = new InstEnumeration();
+										o = new InstEnum();
 										c = o.getClass().getConstructor(
-												String.class, MetaVertex.class,
-												MetaElement.class);
+												String.class,
+												SyntaxElement.class,
+												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaEnumeration());
+												(SyntaxElement) metaVertex,
+												new SyntaxEnum());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaOverTwoRelation());
+												(SyntaxElement) metaVertex,
+												new SyntaxOverTwoRel());
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new MetaConcept('C'));
+												(SyntaxElement) metaVertex,
+												new SyntaxConcept('C'));
 									}
 								} else if (editor.getPerspective() == 1) {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
-													MetaElement.class,
+													SyntaxElement.class,
 													IntOpersElement.class);
-									switch (((MetaElement) metaVertex)
+									switch (((SyntaxElement) metaVertex)
 											.getType()) {
 									case 'M':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new OpersOperationGroup());
+												(SyntaxElement) metaVertex,
+												new OpersConcept());
 										break;
 									case 'A':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
-												new OpersOperation());
+												(SyntaxElement) metaVertex,
+												new OpersConcept());
 										break;
 									case 'S':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
+												(SyntaxElement) metaVertex,
 												new OpersSubOperation());
 										break;
 									case 'P':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
+												(SyntaxElement) metaVertex,
 												new OpersPairwiseRel());
 										break;
 									case 'E':
-										o = new InstEnumeration();
+										o = new InstEnum();
 										c = o.getClass().getConstructor(
-												String.class, MetaVertex.class,
-												MetaElement.class);
+												String.class,
+												SyntaxElement.class,
+												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
+												(SyntaxElement) metaVertex,
 												new OpersEnumeration());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
+												(SyntaxElement) metaVertex,
 												new OpersOverTwoRel());
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
-												(MetaElement) metaVertex,
+												(SyntaxElement) metaVertex,
 												new OpersConcept());
 									}
 								} else {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
-													MetaElement.class,
-													MetaElement.class);
+													SyntaxElement.class,
+													SyntaxElement.class);
 									obj = (InstElement) c.newInstance("",
-											(MetaElement) metaVertex, null);
+											(SyntaxElement) metaVertex, null);
 								}
 
-							} else if (metaVertex instanceof MetaOverTwoRelation) {
+							} else if (metaVertex instanceof SyntaxOverTwoRel) {
 								// MetaElement metaElement = ;
-								Object o = new InstOverTwoRelation();
+								Object o = new InstOverTwoRel();
 								Constructor<?> c = o.getClass().getConstructor(
-										String.class,
-										MetaOverTwoRelation.class,
-										MetaElement.class);
+										String.class, SyntaxOverTwoRel.class,
+										SyntaxElement.class);
 								if (editor.getPerspective() != 2)
 									obj = (InstElement) c.newInstance("",
-											(MetaOverTwoRelation) metaVertex,
-											new MetaOverTwoRelation());
+											(SyntaxOverTwoRel) metaVertex,
+											new SyntaxOverTwoRel());
 								else
 
-									obj = (InstElement) c.newInstance("",
-											(MetaOverTwoRelation) metaVertex,
-											null);
-							} else if (metaVertex instanceof MetaPairwiseRelation) {
+									obj = (InstElement) c
+											.newInstance(
+													"",
+													(SyntaxOverTwoRel) metaVertex,
+													null);
+							} else if (metaVertex instanceof SyntaxPairwiseRel) {
 								// Not shown on palette
-							} else if (metaVertex instanceof MetaEnumeration) {
+							} else if (metaVertex instanceof SyntaxEnum) {
 								// MetaElement metaElement = new
 								// MetaEnumeration();
-								Object o = new InstEnumeration();
+								Object o = new InstEnum();
 								Constructor<?> c = o.getClass().getConstructor(
-										String.class, MetaVertex.class,
-										MetaElement.class);
+										String.class, SyntaxElement.class,
+										SyntaxElement.class);
 								if (editor.getPerspective() != 2)
 									obj = (InstElement) c.newInstance("",
-											(MetaVertex) metaVertex,
-											new MetaEnumeration());
+											(SyntaxElement) metaVertex,
+											new SyntaxEnum());
 								else
 
 									obj = (InstElement) c.newInstance("",
-											(MetaVertex) metaVertex, null);
+											(SyntaxElement) metaVertex, null);
 							}
 
 						} else {

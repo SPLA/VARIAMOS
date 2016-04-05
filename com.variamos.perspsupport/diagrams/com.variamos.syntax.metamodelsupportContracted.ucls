@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <interface id="1" language="java" name="com.variamos.perspsupport.syntaxsupport.EditableElementAttribute" 
+  <interface id="1" language="java" name="com.variamos.perspsupport.syntax.IntElementAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/EditableElementAttribute.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/IntElementAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-231" y="445"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -12,9 +12,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <enumeration id="2" language="java" name="com.variamos.perspsupport.syntaxsupport.TypeOfLine" 
+  <enumeration id="2" language="java" name="com.variamos.perspsupport.syntax.TypeOfLine" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/TypeOfLine.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/TypeOfLine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="323" y="66"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -23,10 +23,10 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="3" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation" 
+  <class id="3" language="java" name="com.variamos.perspsupport.syntax.SyntaxPairwiseRel" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaPairwiseRelation.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxPairwiseRel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="216" width="210" x="501" y="-8"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -34,9 +34,9 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.variamos.perspsupport.syntaxsupport.SyntaxAttribute" 
+  <class id="4" language="java" name="com.variamos.perspsupport.syntax.SyntaxAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/SyntaxAttribute.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="56" width="190" x="231" y="562"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -56,9 +56,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaElement" 
+  <class id="6" language="java" name="com.variamos.perspsupport.syntax.SyntaxElement" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaElement.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="349" width="209" x="-326" y="-12"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -67,10 +67,10 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation" 
+  <class id="7" language="java" name="com.variamos.perspsupport.syntax.SyntaxOverTwoRel" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaOverTwoRelation.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxOverTwoRel.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="54" width="194" x="-329" y="351"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -78,9 +78,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.variamos.perspsupport.syntaxsupport.SemanticAttribute" 
+  <class id="8" language="java" name="com.variamos.perspsupport.syntax.OpersAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/SemanticAttribute.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/OpersAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="57" width="190" x="-63" y="582"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -89,10 +89,10 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute" 
+  <class id="9" language="java" name="com.variamos.perspsupport.syntax.GlobalConfigAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/GlobalConfigAttribute.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/GlobalConfigAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="58" width="204" x="-51" y="436"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -111,10 +111,10 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute" 
+  <class id="11" language="java" name="com.variamos.perspsupport.syntax.ExecCurrentStateAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/ExecCurrentStateAttribute.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/ExecCurrentStateAttribute.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="57" width="209" x="214" y="269"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -122,9 +122,8 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaView" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaView.java" binary="false" 
+  <class id="12" language="java" name="com.variamos.perspsupport.syntax.SyntaxView" project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxView.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="111" width="208" x="-64" y="-7"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -133,9 +132,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.variamos.perspsupport.syntaxsupport.AttributeElement" 
+  <class id="13" language="java" name="com.variamos.perspsupport.syntax.AttributeElement" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/AttributeElement.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/AttributeElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="149" width="197" x="-329" y="492"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -144,9 +143,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaConcept" 
+  <class id="14" language="java" name="com.variamos.perspsupport.syntax.SyntaxConcept" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaConcept.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxConcept.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="80" width="213" x="214" y="176"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -155,9 +154,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.variamos.perspsupport.syntaxsupport.AbstractAttribute" 
+  <class id="15" language="java" name="com.variamos.perspsupport.syntax.AbstractAttribute" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/AbstractAttribute.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/AbstractAttribute.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="381" width="203" x="500" y="219"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -166,9 +165,8 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaEnumeration" 
-    project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaEnumeration.java" binary="false" 
+  <class id="16" language="java" name="com.variamos.perspsupport.syntax.SyntaxEnum" project="com.variamos.perspsupport" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxEnum.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="77" width="207" x="-53" y="345"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -177,9 +175,9 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="com.variamos.perspsupport.syntaxsupport.MetaVertex" 
+  <class id="17" language="java" name="com.variamos.perspsupport.syntax.SyntaxVertex" 
     project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntaxsupport/MetaVertex.java" binary="false" 
+    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax/SyntaxVertex.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="115" width="211" x="-57" y="163"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -214,98 +212,77 @@
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="19"/>  
   </generalization>  
-  <association id="21">    
+  <generalization id="21">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="25">    
+    <bendpoint x="461" y="404"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="27">    
     <bendpoint x="-28" y="330"/>    
     <bendpoint x="463" y="330"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="22" name="modelingAttributes">        
+      <attribute id="28" name="modelingAttributes">        
         <position height="18" width="97" x="365" y="239"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="2147483647">        
+      <multiplicity id="29" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="-407" y="-1823"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="5"/>  
+  <generalization id="30">    
+    <bendpoint x="14" y="130"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="25">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="26">    
-    <bendpoint x="461" y="404"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <generalization id="27">    
+  <generalization id="31">    
     <bendpoint x="462" y="567"/>    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <generalization id="28">    
+  <generalization id="32">    
+    <bendpoint x="570" y="635"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="33">    
     <bendpoint x="467" y="145"/>    
     <bendpoint x="14" y="144"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="29">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="31">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="32">    
-    <bendpoint x="14" y="130"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="33">    
-    <bendpoint x="474" y="605"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
   <generalization id="34">    
-    <bendpoint x="167" y="531"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <generalization id="35">    
     <bendpoint x="-92" y="386"/>    
     <bendpoint x="-91" y="227"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="17"/>  
   </generalization>  
-  <generalization id="36">    
-    <bendpoint x="570" y="635"/>    
-    <end type="SOURCE" refId="8"/>    
+  <generalization id="35">    
+    <bendpoint x="474" y="605"/>    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <association id="37">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="38" name="typeOfLine">        
-        <position height="0" width="0" x="-857" y="-189"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-857" y="-189"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="40">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

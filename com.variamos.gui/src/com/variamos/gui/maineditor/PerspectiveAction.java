@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.mxgraph.util.mxResources;
-import com.variamos.perspsupport.instancesupport.InstElement;
+import com.variamos.dynsup.instance.InstElement;
 
 /**
  * A class to support perspectives button actions on mainframe. Part of PhD work

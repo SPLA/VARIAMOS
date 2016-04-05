@@ -8,6 +8,8 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import com.cfm.productline.Variable;
+import com.variamos.dynsup.exprsup.ElementVariable;
+import com.variamos.dynsup.exprsup.IntegerVariable;
 import com.variamos.gui.perspeditor.model.actions.SetIntegerValueAction;
 import com.variamos.gui.perspeditor.model.actions.SetStringValueAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;
@@ -16,8 +18,6 @@ import com.variamos.gui.treetable.core.TreeTableModel;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.IntervalDomain;
-import com.variamos.perspsupport.expressionsupport.ElementVariable;
-import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
 /**
  * A class to support the data model for the visual representation of the

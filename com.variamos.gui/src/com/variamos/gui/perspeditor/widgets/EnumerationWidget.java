@@ -7,10 +7,10 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other
@@ -38,7 +38,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph,
+	public void configure(IntElemAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationSingleSelectionType.class
@@ -76,7 +76,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		txtValue.setSelectedItem((String) v.getValue());
 		group.setText((String) v.getGroup());
 		revalidate();
@@ -85,7 +85,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		v.setValue((String) txtValue.getSelectedItem());
 		v.setGroup(group.getText());
 	}

@@ -6,8 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
 
 /**
  * A class to support set widgets on the interface. Copied from SetWidget from
@@ -36,13 +36,13 @@ public class SetWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		comboBox.setSelectedItem(v.getValue());
 		return false;
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		v.setType((String) comboBox.getSelectedItem());
 	}
 
@@ -52,7 +52,7 @@ public class SetWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph,
+	public void configure(IntElemAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 	}
 

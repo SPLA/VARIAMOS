@@ -1,10 +1,11 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
 
 /**
  * Not a real need founded jet. Copied from RealWidget
@@ -31,7 +32,7 @@ public class RealWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsFloat() ));
 		revalidate();
 		repaint();
@@ -39,7 +40,7 @@ public class RealWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		float val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

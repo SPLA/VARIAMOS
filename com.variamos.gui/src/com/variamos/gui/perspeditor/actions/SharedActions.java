@@ -12,26 +12,25 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.instance.InstVertex;
+import com.variamos.dynsup.interfaces.IntMetaExpression;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.interfaces.IntOpersRelType;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxOverTwoRel;
+import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
-import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntMetaExpression;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.opersint.IntOpersRelType;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaOverTwoRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
 
 public class SharedActions {
 
@@ -136,18 +135,17 @@ public class SharedActions {
 			boolean model) {
 		if (value instanceof InstElement) {
 			InstElement instElement = (InstElement) value;
-			if (value instanceof InstOverTwoRelation) {
-				InstOverTwoRelation ic = (InstOverTwoRelation) value;
+			if (value instanceof InstOverTwoRel) {
+				InstOverTwoRel ic = (InstOverTwoRel) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
 				str = (String) ic.getSupportMetaElementIden();
 				ic.setMetaOverTwoRelationIden(str);
 			}
-			if (value instanceof InstPairwiseRelation) {
-				((InstPairwiseRelation) instElement).updateIdentifiers();
+			if (value instanceof InstPairwiseRel) {
+				((InstPairwiseRel) instElement).updateIdentifiers();
 				if (beforeSave) {
-					((InstPairwiseRelation) instElement)
-							.clearMetaPairwiseRelation();
+					((InstPairwiseRel) instElement).clearMetaPairwiseRelation();
 				}
 			}
 			if (beforeSave && model) {
@@ -450,8 +448,8 @@ public class SharedActions {
 				InstConcept c = (InstConcept) instElement;
 				name = c.getTransSupportMetaElement().getAutoIdentifier();
 			}
-			if (instElement instanceof InstOverTwoRelation) {
-				InstOverTwoRelation c = (InstOverTwoRelation) instElement;
+			if (instElement instanceof InstOverTwoRel) {
+				InstOverTwoRel c = (InstOverTwoRel) instElement;
 				name = c.getSupportMetaOverTwoRelation().getAutoIdentifier();
 			}
 			viewsParent = (mxCell) refasGraph.getChildAt(rootCell, 0);
@@ -513,7 +511,7 @@ public class SharedActions {
 						.getTransInstSemanticElement().getParentOpersConcept();
 			instElement.createInstAttributes(syntaxParents);
 
-			MetaElement metaElement = instElement.getEditableMetaElement();
+			SyntaxElement metaElement = instElement.getEditableMetaElement();
 			if (metaElement != null
 					&& metaElement.getInstSemanticElementId() != null) {
 				InstElement rr = refas.getOperationalModel().getVertex(
@@ -526,14 +524,14 @@ public class SharedActions {
 				List<IntMetaExpression> semExp = semElement
 						.getSemanticExpressions();
 				for (IntMetaExpression exp : semExp) {
-					((SemanticExpression) exp).loadVolatileElements(refas
+					((OpersExpr) exp).loadVolatileElements(refas
 							.getVariabilityVertex());
 				}
 			}
 		}
 
-		if (instElement instanceof InstOverTwoRelation) {
-			InstOverTwoRelation instOverTwoRelation = (InstOverTwoRelation) instElement;
+		if (instElement instanceof InstOverTwoRel) {
+			InstOverTwoRel instOverTwoRelation = (InstOverTwoRel) instElement;
 			InstElement instSupportElement = refas.getSyntaxModel().getVertex(
 					instOverTwoRelation.getSupportMetaElementUserIdentifier());
 			if (instSupportElement == null) {
@@ -542,7 +540,7 @@ public class SharedActions {
 								.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
-				MetaOverTwoRelation metaOverTwoRelation = (MetaOverTwoRelation) instSupportElement
+				SyntaxOverTwoRel metaOverTwoRelation = (SyntaxOverTwoRel) instSupportElement
 						.getEditableMetaElement();
 				instOverTwoRelation
 						.setTransSupportMetaElement(metaOverTwoRelation);
@@ -553,13 +551,13 @@ public class SharedActions {
 			// System.out.println(instOverTwoRelation.getInstAttributes().size());
 			while (ias.hasNext()) {
 				InstAttribute ia = (InstAttribute) ias.next();
-				AbstractAttribute attribute = instOverTwoRelation
+				ElemAttribute attribute = instOverTwoRelation
 						.getAbstractAttribute(ia.getAttributeName(),
 								opersParents);
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<IntOpersRelType> semGD = ((MetaOverTwoRelation) instOverTwoRelation
+					List<IntOpersRelType> semGD = ((SyntaxOverTwoRel) instOverTwoRelation
 							.getTransSupportMetaElement())
 							.getSemanticRelationTypes();
 					ia.setValidationRelationTypes(semGD);
@@ -608,10 +606,10 @@ public class SharedActions {
 			editor.refreshElement(instOverTwoRelation);
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
-			MetaVertex metaVertex = null;
+			SyntaxElement metaVertex = null;
 			if (refas.getSyntaxModel().getVertex(
 					instVertex.getSupportMetaElementIden()) != null)
-				metaVertex = (MetaVertex) refas.getSyntaxModel()
+				metaVertex = (SyntaxElement) refas.getSyntaxModel()
 						.getVertex(instVertex.getSupportMetaElementIden())
 						.getEditableMetaElement();
 			if (metaVertex == null)
@@ -624,9 +622,8 @@ public class SharedActions {
 						.values().iterator();
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
-					AbstractAttribute attribute = metaVertex
-							.getAbstractAttribute(ia.getAttributeName(),
-									syntaxParents, opersParents);
+					ElemAttribute attribute = metaVertex.getAbstractAttribute(
+							ia.getAttributeName(), syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getType().equals("Boolean")
@@ -636,7 +633,7 @@ public class SharedActions {
 							else
 								ia.setValue(true);
 						if (ia.getIdentifier().equals("ConditionalExpression")) {
-							InstanceExpression instanceExpression = (InstanceExpression) ia
+							ModelExpr instanceExpression = (ModelExpr) ia
 									.getValue();
 							if (instanceExpression != null)
 								instanceExpression.loadVolatileElements(refas
@@ -679,7 +676,7 @@ public class SharedActions {
 				}
 			}
 			int semAtt = 0;
-			MetaElement supportMetaElement = instVertex
+			SyntaxElement supportMetaElement = instVertex
 					.getTransSupportMetaElement();
 			Set<String> attributeNames = supportMetaElement
 					.getAllAttributesNames(syntaxParents);
@@ -707,9 +704,9 @@ public class SharedActions {
 				}
 			}
 		}
-		if (instElement instanceof InstPairwiseRelation) {
+		if (instElement instanceof InstPairwiseRel) {
 			try {
-				InstPairwiseRelation instPairwiseRelation = (InstPairwiseRelation) instElement;
+				InstPairwiseRel instPairwiseRelation = (InstPairwiseRel) instElement;
 				// instPairwiseRelation
 				// .createAttributes(new HashMap<String, InstAttribute>());
 				// if (source.getSource() == null)
@@ -728,7 +725,7 @@ public class SharedActions {
 					System.out.println("Error load" + source.getId());
 					return;
 				}
-				MetaElement metaPairwiseRelation = null;
+				SyntaxElement metaPairwiseRelation = null;
 				try {
 					metaPairwiseRelation = refas.getSyntaxModel()
 							.getValidMetaPairwiseRelation(
@@ -758,7 +755,7 @@ public class SharedActions {
 							InstAttribute instAttribute = (InstAttribute) instAttributesIter
 									.next();
 
-							AbstractAttribute absAttribute = metaPairwiseRelation
+							ElemAttribute absAttribute = metaPairwiseRelation
 									.getAbstractAttribute(
 											instAttribute.getAttributeName(),
 											syntaxParents, opersParents);
@@ -783,7 +780,7 @@ public class SharedActions {
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<IntOpersRelType> semGD = ((MetaPairwiseRelation) instPairwiseRelation
+									List<IntOpersRelType> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
 											.getMetaPairwiseRelation())
 											.getSemanticRelationTypes();
 									instAttribute
@@ -874,7 +871,7 @@ public class SharedActions {
 							.getInstElement();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
-						MetaElement mc = ic.getTransSupportMetaElement();
+						SyntaxElement mc = ic.getTransSupportMetaElement();
 						if (mc != null && mc.getAutoIdentifier().equals(object))
 							out.add(ic);
 					}
@@ -883,7 +880,7 @@ public class SharedActions {
 						.getInstElement();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaElement mc = ic.getTransSupportMetaElement();
+					SyntaxElement mc = ic.getTransSupportMetaElement();
 					if (mc != null && mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
@@ -897,7 +894,7 @@ public class SharedActions {
 			String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		MetaElement metaElement = ((MetaElement) instElement
+		SyntaxElement metaElement = ((SyntaxElement) instElement
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
@@ -907,15 +904,14 @@ public class SharedActions {
 			InstElement sEle = semElement;
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
-				if (ele instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+				if (ele instanceof InstPairwiseRel) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRelation) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

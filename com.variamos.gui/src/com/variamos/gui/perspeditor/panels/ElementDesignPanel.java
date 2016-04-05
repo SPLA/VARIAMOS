@@ -27,6 +27,26 @@ import javax.swing.SpringLayout;
 
 import com.cfm.productline.AbstractElement;
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstElement;
+import com.variamos.dynsup.interfaces.IntMetaExpression;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersAttribute;
+import com.variamos.dynsup.model.SyntaxAttribute;
+import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.model.SyntaxView;
+import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.panels.InstanceExpressionDialog.InstanceExpressionButtonAction;
@@ -37,26 +57,6 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.LabelingOrder;
-import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.instancesupport.EditableElement;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntMetaExpression;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaConcept;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.syntaxsupport.SemanticAttribute;
-import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
-import com.variamos.perspsupport.types.OperationSubActionExecType;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
@@ -160,9 +160,8 @@ public class ElementDesignPanel extends JPanel {
 
 			String description = null;
 
-			if (editElm instanceof InstPairwiseRelation) {
-				if (((InstPairwiseRelation) editElm).getSourceRelations()
-						.size() == 0)
+			if (editElm instanceof InstPairwiseRel) {
+				if (((InstPairwiseRel) editElm).getSourceRelations().size() == 0)
 					// TODO workaround for non supported relations - delete
 					// after fix
 					return;
@@ -177,7 +176,7 @@ public class ElementDesignPanel extends JPanel {
 				designPanelElements = 0;
 
 				// Warning: Fix for Mac, do not delete it
-				if (editElm instanceof InstPairwiseRelation)
+				if (editElm instanceof InstPairwiseRel)
 					designPanelElements++;
 
 				elementDesPropSubPanel = new JPanel(new SpringLayout());
@@ -284,15 +283,15 @@ public class ElementDesignPanel extends JPanel {
 					for (InstAttribute instAttribute : visible) {
 						if (instAttribute != null
 								&& (instAttribute.getAttribute() instanceof SyntaxAttribute || instAttribute
-										.getAttribute() instanceof SemanticAttribute)) {
+										.getAttribute() instanceof OpersAttribute)) {
 							if (instAttribute.getIdentifier().equals(
-									MetaConcept.VAR_USERIDENTIFIER)
+									SyntaxConcept.VAR_USERIDENTIFIER)
 									&& instAttribute.getValue() == null) {
-								if (editElm instanceof InstPairwiseRelation)
+								if (editElm instanceof InstPairwiseRel)
 									instAttribute
 											.setValue(editElm
 													.getInstAttributes()
-													.get(MetaConcept.VAR_AUTOIDENTIFIER)
+													.get(SyntaxConcept.VAR_AUTOIDENTIFIER)
 													.getValue());
 								else {
 									InstAttribute name = editElm
@@ -308,9 +307,9 @@ public class ElementDesignPanel extends JPanel {
 								}
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
-							Map<String, MetaElement> mapElements = null;
-							if (editElm instanceof InstPairwiseRelation) {
-								InstPairwiseRelation instPairwise = (InstPairwiseRelation) editElm;
+							Map<String, SyntaxElement> mapElements = null;
+							if (editElm instanceof InstPairwiseRel) {
+								InstPairwiseRel instPairwise = (InstPairwiseRel) editElm;
 								mapElements = ((ModelInstance) editor
 										.getEditedModel()).getSyntaxModel()
 										.getValidPairwiseRelations(
@@ -333,15 +332,15 @@ public class ElementDesignPanel extends JPanel {
 										boolean editable = true;
 										if (editor.getPerspective() == 4)
 											editable = false;
-										List<InstanceExpression> ie = new ArrayList<InstanceExpression>();
+										List<ModelExpr> ie = new ArrayList<ModelExpr>();
 										;
-										if ((InstanceExpression) finalInstAttribute
+										if ((ModelExpr) finalInstAttribute
 												.getValue() != null)
-											ie.add((InstanceExpression) finalInstAttribute
+											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
 										else
-											ie.add(new InstanceExpression(true,
-													"id", true));
+											ie.add(new ModelExpr(true, "id",
+													true));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie, editable);
@@ -354,7 +353,7 @@ public class ElementDesignPanel extends JPanel {
 																.getExpressions()
 																.get(0));
 												try {
-													if (!((InstanceExpression) finalInstAttribute
+													if (!((ModelExpr) finalInstAttribute
 															.getValue())
 															.createSGSExpression(
 																	finalEditElm
@@ -389,10 +388,10 @@ public class ElementDesignPanel extends JPanel {
 										dialog.setOnCancel(new InstanceExpressionButtonAction() {
 											@Override
 											public boolean onAction() {
-												if ((InstanceExpression) finalInstAttribute
+												if ((ModelExpr) finalInstAttribute
 														.getValue() != null)
 													try {
-														if (!((InstanceExpression) finalInstAttribute
+														if (!((ModelExpr) finalInstAttribute
 																.getValue())
 																.createSGSExpression(
 																		finalEditElm
@@ -453,7 +452,7 @@ public class ElementDesignPanel extends JPanel {
 											public void focusLost(
 													FocusEvent arg0) {
 												// Makes it pull the values.
-												EditableElementAttribute elementAttribute = widget
+												IntElemAttribute elementAttribute = widget
 														.getInstAttribute();
 												if (elementAttribute.getType()
 														.equals("String")
@@ -489,7 +488,7 @@ public class ElementDesignPanel extends JPanel {
 											public void focusLost(
 													FocusEvent arg0) {
 												// Makes it pull the values.
-												EditableElementAttribute elementAttribute = widget
+												IntElemAttribute elementAttribute = widget
 														.getInstAttribute();
 												if (elementAttribute.getType()
 														.equals("String")
@@ -654,8 +653,11 @@ public class ElementDesignPanel extends JPanel {
 									widget.getEditor().setMaximumSize(
 											new Dimension(200, 20));
 								}
-								if (widget.editVariable(instAttribute))
+								if (widget.editVariable(instAttribute)) {
+									widget.editVariable(instAttribute);
 									count = 0;
+									System.out.println(instAttribute);
+								}
 								List<InstAttribute> editables = editElm
 										.getEditableVariables(syntaxParent);
 
@@ -779,7 +781,7 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setPreferredSize(new Dimension(200, 100));
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
-			if (editElm instanceof InstEnumeration
+			if (editElm instanceof InstEnum
 					|| ((InstElement) editElm).getSupportMetaElementIden() != null
 					&& (((InstElement) editElm).getSupportMetaElementIden()
 							.equals("OPER"))) {
@@ -972,10 +974,9 @@ public class ElementDesignPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
-			EditableElement editableElement,
-			EditableElementAttribute instAttribute) {
+			IntInstElement editableElement, IntElemAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
-			MetaElement editableMetaElement = ((InstConcept) editableElement)
+			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals("userIdentifier"))
@@ -1001,9 +1002,9 @@ public class ElementDesignPanel extends JPanel {
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
-				if (editableMetaElement instanceof MetaView) {
+				if (editableMetaElement instanceof SyntaxView) {
 					if (instAttribute.getIdentifier().equals("PaletteNames"))
-						((MetaView) editableMetaElement)
+						((SyntaxView) editableMetaElement)
 								.setPaletteName((String) instAttribute
 										.getValue());
 				}
@@ -1020,24 +1021,24 @@ public class ElementDesignPanel extends JPanel {
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setTopConcept((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("Palette"))
-					((MetaPairwiseRelation) editableMetaElement)
+					((SyntaxPairwiseRel) editableMetaElement)
 							.setPalette((String) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
-							.setModelingAttributes((HashSet<AbstractAttribute>) instAttribute
+							.setModelingAttributes((HashSet<ElemAttribute>) instAttribute
 									.getValue());
 			}
 			IntOpersElement editableSemanticElement = ((InstConcept) editableElement)

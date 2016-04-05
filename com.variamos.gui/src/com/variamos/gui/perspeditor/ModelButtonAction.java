@@ -7,10 +7,10 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 @SuppressWarnings("serial")
 public class ModelButtonAction extends AbstractEditorAction {

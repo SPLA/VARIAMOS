@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.AndBooleanExpression;
@@ -44,7 +44,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	/**
 	 * The source edge for the constraint
 	 */
-	private InstOverTwoRelation instOverTwoRelation;
+	private InstOverTwoRel instOverTwoRelation;
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -57,7 +57,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRelation instOverTwoRelation, int execType,
+			InstOverTwoRel instOverTwoRelation, int execType,
 			String element) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
@@ -81,18 +81,18 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		return relationType;
 	}
 
-	public InstOverTwoRelation getInstEdge() {
+	public InstOverTwoRel getInstEdge() {
 		return instOverTwoRelation;
 	}
 
 	private void defineTransformations(String element) {
 
-		MetaElement metaGroupDep = instOverTwoRelation
+		SyntaxElement metaGroupDep = instOverTwoRelation
 				.getTransSupportMetaElement();
 		boolean targetActiveAttribute = false;
 		if (instOverTwoRelation.getTargetRelations().size() > 0)
 			// TODO support multiple targets
-			targetActiveAttribute = (boolean) ((InstPairwiseRelation) instOverTwoRelation
+			targetActiveAttribute = (boolean) ((InstPairwiseRel) instOverTwoRelation
 					.getTargetRelations().get(0)).getTargetRelations().get(0)
 					.getInstAttribute("Active").getValue();
 		if (targetActiveAttribute && metaGroupDep != null) {
@@ -160,9 +160,9 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					AbstractExpression iterativeExpression1 = null;
 					if (instEdges1.hasNext()) {
 						InstElement left1 = instEdges1.next();
-						while (((InstPairwiseRelation) left1)
+						while (((InstPairwiseRel) left1)
 								.getSourceRelations().size() != 0
-								&& (boolean) ((InstPairwiseRelation) left1)
+								&& (boolean) ((InstPairwiseRel) left1)
 										.getSourceRelations().get(0)
 										.getInstAttribute("Active").getValue() == false) {
 							if (instEdges1.hasNext())
@@ -356,7 +356,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstPairwiseRelation) instEdge)
+			while ((boolean) ((InstPairwiseRel) instEdge)
 					.getSourceRelations().get(0).getInstAttribute("Active")
 					.getValue() == false) {
 				if (instEdges.hasNext())
@@ -366,15 +366,15 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					// with one
 					// element
 					return new AndBooleanExpression(
-							((InstPairwiseRelation) left).getSourceRelations()
-									.get(0), ((InstPairwiseRelation) left)
+							((InstPairwiseRel) left).getSourceRelations()
+									.get(0), ((InstPairwiseRel) left)
 									.getSourceRelations().get(0), sourceName,
 							sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {
 					return (AbstractExpression) constructor1.newInstance(
-							((InstPairwiseRelation) left).getSourceRelations()
+							((InstPairwiseRel) left).getSourceRelations()
 									.get(0),
 							sourceName,
 							true,
@@ -387,8 +387,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			} else
 				try {
 					return (AbstractExpression) constructor2.newInstance(
-							((InstPairwiseRelation) left).getSourceRelations()
-									.get(0), ((InstPairwiseRelation) instEdge)
+							((InstPairwiseRel) left).getSourceRelations()
+									.get(0), ((InstPairwiseRel) instEdge)
 									.getSourceRelations().get(0), sourceName,
 							sourceName);
 				} catch (InstantiationException | IllegalAccessException
@@ -400,12 +400,12 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		// element
 		if (constructor1.getDeclaringClass().getSimpleName()
 				.equals("SumNumericExpression"))
-			return new SumNumericExpression(((InstPairwiseRelation) left)
+			return new SumNumericExpression(((InstPairwiseRel) left)
 					.getSourceRelations().get(0), sourceName, true,
 					(new HlclFactory()).number(0));
 		else
-			return new AndBooleanExpression(((InstPairwiseRelation) left)
-					.getSourceRelations().get(0), ((InstPairwiseRelation) left)
+			return new AndBooleanExpression(((InstPairwiseRel) left)
+					.getSourceRelations().get(0), ((InstPairwiseRel) left)
 					.getSourceRelations().get(0), sourceName, sourceName);
 		return null;
 	}

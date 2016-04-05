@@ -2,11 +2,11 @@ package com.variamos.semantic.expressions;
 
 import java.util.Map;
 
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * Abstract Class to group at the BooleanTransformation. Part of PhD

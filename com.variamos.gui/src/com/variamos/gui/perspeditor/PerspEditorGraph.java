@@ -36,20 +36,20 @@ import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.instance.InstVertex;
+import com.variamos.dynsup.instance.InstView;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
 
 public class PerspEditorGraph extends AbstractGraph {
 
@@ -157,7 +157,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			 * 
 			 * } }
 			 */
-			for (InstPairwiseRelation instEdge : modelInstance
+			for (InstPairwiseRel instEdge : modelInstance
 					.getConstraintInstEdgesCollection()) {
 				if (instEdge.getSourceRelations().size() != 0
 						&& instEdge.getIdentifier() != null
@@ -173,7 +173,7 @@ public class PerspEditorGraph extends AbstractGraph {
 							+ instEdge.getTargetRelations().get(0)
 									.getIdentifier());
 					child.setStyle("");
-					MetaElement e = instEdge.getTransSupportMetaElement();
+					SyntaxElement e = instEdge.getTransSupportMetaElement();
 					if (e != null) {
 						child.setStyle(e.getStyle());
 					}
@@ -322,7 +322,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstElement instTarget = ((InstCell) t.getValue()).getInstElement();
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-			InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
+			InstPairwiseRel directRelation = new InstPairwiseRel(map,
 					null);
 			ModelInstance refas = getModelInstance();
 			List<InstElement> opersParents = null;
@@ -334,8 +334,9 @@ public class PerspEditorGraph extends AbstractGraph {
 			refas.updateValidationLists(directRelation, instSource, instTarget,
 					refas.getParentSMMSyntaxElement(directRelation),
 					opersParents);
-			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
-			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
+			InstAttribute ia = directRelation
+					.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
+			List<SyntaxPairwiseRel> pwrList = ia.getValidationMEList();
 			if (pwrList == null || pwrList.size() == 0) {
 				directRelation.clearMetaPairwiseRelation();
 				return false;
@@ -356,14 +357,14 @@ public class PerspEditorGraph extends AbstractGraph {
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 		// TODO fill the map with allowed relation types
 		if (value instanceof InstCell) {
-			InstPairwiseRelation element = (InstPairwiseRelation) ((InstCell) value)
+			InstPairwiseRel element = (InstPairwiseRel) ((InstCell) value)
 					.getInstElement();
 
 			String elementIdentifier = element.getIdentifier();
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRelation directRelation = new InstPairwiseRelation(map,
+		InstPairwiseRel directRelation = new InstPairwiseRel(map,
 				null);
 		ModelInstance refas = getModelInstance();
 
@@ -379,8 +380,9 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getTransInstSemanticElement().getParentOpersConcept();
 		refas.updateValidationLists(directRelation, source, target,
 				refas.getParentSMMSyntaxElement(directRelation), parents);
-		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
-		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
+		InstAttribute ia = directRelation
+				.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
+		List<SyntaxPairwiseRel> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		refasGraph.getCells().remove(cell.getId());
 		if (pwrList.size() == 0) {
@@ -390,6 +392,8 @@ public class PerspEditorGraph extends AbstractGraph {
 			// relations - fix delete
 			return false;
 		}
+		directRelation.setTransSupportMetaElement(pwrList.get(0));
+		directRelation.createAttributes(map);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
 					modelViewIndex + id + "-" + modelViewSubIndex, cell);
@@ -473,9 +477,9 @@ public class PerspEditorGraph extends AbstractGraph {
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
 						return false;
-					if (instElement instanceof InstOverTwoRelation)
-						id = pl.addNewInstGroupDependency((InstOverTwoRelation) element);
-					else if (instElement instanceof InstEnumeration)
+					if (instElement instanceof InstOverTwoRel)
+						id = pl.addNewInstGroupDependency((InstOverTwoRel) element);
+					else if (instElement instanceof InstEnum)
 						id = pl.addNewVariabilityInstElement(element);
 					else
 						id = pl.addNewVariabilityInstElement(element);
@@ -541,8 +545,8 @@ public class PerspEditorGraph extends AbstractGraph {
 							name = c.getTransSupportMetaElement()
 									.getAutoIdentifier();
 						}
-						if (instElement instanceof InstOverTwoRelation) {
-							InstOverTwoRelation c = (InstOverTwoRelation) instElement;
+						if (instElement instanceof InstOverTwoRel) {
+							InstOverTwoRel c = (InstOverTwoRel) instElement;
 							name = c.getSupportMetaOverTwoRelation()
 									.getAutoIdentifier();
 						}

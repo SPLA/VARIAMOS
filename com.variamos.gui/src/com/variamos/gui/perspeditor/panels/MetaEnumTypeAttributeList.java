@@ -13,19 +13,19 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.OpersSubOperationExpType;
+import com.variamos.dynsup.model.SyntaxAttribute;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.OperationSubActionExecType;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.hlcl.LabelingOrder;
-import com.variamos.perspsupport.expressionsupport.OpersSubOperationExpType;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.SyntaxAttribute;
-import com.variamos.perspsupport.types.OperationSubActionExecType;
-import com.variamos.perspsupport.types.StringType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -57,12 +57,12 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 	private String enumCanonicalName = null;
 
-	private MetaElement infraSyntaxOpersM2Element = null;
+	private SyntaxElement infraSyntaxOpersM2Element = null;
 	/**
 			 * 
 			 */
 	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
-			new AbstractAttribute("New Enum Type ...", StringType.IDENTIFIER,
+			new ElemAttribute("New Enum Type ...", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "New Enum Type ...", "", 1,
 					-1, "", "", -1, "", ""), "New Enum Type ...");
 
@@ -74,7 +74,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 	@SuppressWarnings("unchecked")
 	public MetaEnumTypeAttributeList(final VariamosGraphEditor editor,
 			final InstCell instCell, String attributeName,
-			String enumCanonicalName, MetaElement infraSyntaxOpersM2Element) {
+			String enumCanonicalName, SyntaxElement infraSyntaxOpersM2Element) {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
@@ -156,7 +156,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
-					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
 							AttributeType.SYNTAX, false, "Enumeration Value",
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {

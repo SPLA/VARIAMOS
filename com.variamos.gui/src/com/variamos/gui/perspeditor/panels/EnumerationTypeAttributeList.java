@@ -15,16 +15,16 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.partialsorts.EnumerationSort;
+import com.variamos.dynsup.types.BooleanType;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.partialsorts.EnumerationSort;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
-import com.variamos.perspsupport.types.BooleanType;
-import com.variamos.perspsupport.types.StringType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -55,7 +55,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER,
+			new ElemAttribute("Add ...", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "Add ...", "", 1, -1, "", "",
 					-1, "", ""), "Add ...");
 
@@ -71,7 +71,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
 		InstAttribute o = element.getInstAttributes().get(
-				MetaEnumeration.VAR_METAENUMVALUE);
+				SyntaxEnum.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -121,60 +121,60 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
-				new AbstractAttribute("EnumIdValue", StringType.IDENTIFIER,
+				new ElemAttribute("EnumIdValue", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Identifier", "", 1, -1,
 						"", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute(
-				"enumDisplayName", new AbstractAttribute(
+				"enumDisplayName", new ElemAttribute(
 						"EnumDisplayNameValue", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Display Name", "", 1, -1,
 						"", "", -1, "", ""), "");
 
 		final InstAttribute instPanelName = new InstAttribute("enumPanelName",
-				new AbstractAttribute("EnumPanelNameValue",
+				new ElemAttribute("EnumPanelNameValue",
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Panel Name", "", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instRelationExclusive = new InstAttribute(
-				"enumRelExclusive", new AbstractAttribute(
+				"enumRelExclusive", new ElemAttribute(
 						"EnumRelExclusiveValue", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Relation Exclusive",
 						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
-				"enumSourceExclusive", new AbstractAttribute(
+				"enumSourceExclusive", new ElemAttribute(
 						"EnumSourceExclusiveValue", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Source Exclusive", false,
 						1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
-				"enumTargetExclusive", new AbstractAttribute(
+				"enumTargetExclusive", new ElemAttribute(
 						"EnumTargetExclusiveValue", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Target Exclusive", false,
 						1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instMinSourceCardinality = new InstAttribute(
-				"enumMinSourceCardinality", new AbstractAttribute(
+				"enumMinSourceCardinality", new ElemAttribute(
 						"EnumMinSourceCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Min Source Cardinality(int)", "", 1, -1, "", "", -1,
 						"", ""), 1);
 		final InstAttribute instSourceCardinality = new InstAttribute(
 				"enumMaxSourceCardinality",
-				new AbstractAttribute("EnumMaxSourceCardinalityValue",
+				new ElemAttribute("EnumMaxSourceCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Max Source Cardinality", "", 1, -1, "", "", -1, "", ""),
 				1);
 		final InstAttribute instMinTargetCardinality = new InstAttribute(
 				"enumMinTargetCardinality",
-				new AbstractAttribute("EnumMinTargetCardinalityValue",
+				new ElemAttribute("EnumMinTargetCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Min Target Cardinality", "", 1, -1, "", "", -1, "", ""),
 				1);
 		final InstAttribute instTargetCardinality = new InstAttribute(
 				"enumMaxTargetCardinality",
-				new AbstractAttribute("EnumMaxTargetCardinalityValue",
+				new ElemAttribute("EnumMaxTargetCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Max Target Cardinality", "", 1, -1, "", "", -1, "", ""),
 				1);
@@ -182,7 +182,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
+					.getInstAttributes().get(SyntaxEnum.VAR_METAENUMVALUE)
 					.getValue();
 			int i = 1;
 			/*
@@ -196,7 +196,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
-					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
 							AttributeType.SYNTAX, false, "Enumeration Value",
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
@@ -294,7 +294,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -316,7 +316,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
 
 				attributes.remove(v);
 

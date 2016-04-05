@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.VisualElement;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.model.ModelInstance;
 
 /**
  * A class to draw the dashboard for initial simultaion. Part of PhD work at

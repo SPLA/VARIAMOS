@@ -15,19 +15,19 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.partialsorts.EnumerationSort;
+import com.variamos.dynsup.types.BooleanType;
+import com.variamos.dynsup.types.ClassSingleSelectionType;
+import com.variamos.dynsup.types.EnumerationSingleSelectionType;
+import com.variamos.dynsup.types.StringType;
+import com.variamos.dynsup.types.VariableType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.partialsorts.EnumerationSort;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.types.BooleanType;
-import com.variamos.perspsupport.types.ClassSingleSelectionType;
-import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
-import com.variamos.perspsupport.types.StringType;
-import com.variamos.perspsupport.types.VariableType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -58,7 +58,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER,
+			new ElemAttribute("Add ...", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "Add ...", "", 1, -1, "", "",
 					-1, "", ""), "Add ...");
 
@@ -123,54 +123,54 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instName = new InstAttribute("name",
-				new AbstractAttribute("name", StringType.IDENTIFIER,
+				new ElemAttribute("name", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Name", "", 1, -1, "", "",
 						-1, "", ""), "");
 
 		final InstAttribute instValue = new InstAttribute("value",
-				new AbstractAttribute("value", IntegerType.IDENTIFIER,
+				new ElemAttribute("value", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Value", 0, 1, -1, "", "",
 						-1, "", ""), 0);
 
 		final InstAttribute instExtVisible = new InstAttribute("ExtVisible",
-				new AbstractAttribute("ExtVisible", BooleanType.IDENTIFIER,
+				new ElemAttribute("ExtVisible", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Externally Visible",
 						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instExtControl = new InstAttribute("ExtControl",
-				new AbstractAttribute("ExtControl", BooleanType.IDENTIFIER,
+				new ElemAttribute("ExtControl", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Externally Controlled",
 						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableType = new InstAttribute(
-				"variableType", new AbstractAttribute("variableType",
+				"variableType", new ElemAttribute("variableType",
 						EnumerationSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Variable Type",
 						VariableType.class.getCanonicalName(), "String", "",
 						"", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instContext = new InstAttribute("isContext",
-				new AbstractAttribute("isContext", BooleanType.IDENTIFIER,
+				new ElemAttribute("isContext", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Context Defined", false,
 						1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableDomain = new InstAttribute(
-				"variableDomain", new AbstractAttribute("variableDomain",
+				"variableDomain", new ElemAttribute("variableDomain",
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Variable Domain", "", 1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instEnumerationType = new InstAttribute(
-				"enumerationType", new AbstractAttribute("enumerationType",
+				"enumerationType", new ElemAttribute("enumerationType",
 						ClassSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Enumeration",
-						InstEnumeration.class.getCanonicalName(), "ME", "", "",
+						InstEnum.class.getCanonicalName(), "ME", "", "",
 						1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
-				"variableConfigValue", new AbstractAttribute(
+				"variableConfigValue", new ElemAttribute(
 						"variableConfigValue", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Configured Value", 1, 1,
 						-1, "", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
-				"variableConfigDomain", new AbstractAttribute(
+				"variableConfigDomain", new ElemAttribute(
 						"variableConfigDomain", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Configured Domain", "",
 						1, -1, "", "", -1, "", ""), "");
@@ -191,7 +191,7 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
-					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
 							AttributeType.SYNTAX, false, "Enumeration Value",
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {

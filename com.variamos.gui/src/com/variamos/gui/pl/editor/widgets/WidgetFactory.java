@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cfm.productline.Variable;
+import com.variamos.dynsup.types.BooleanType;
+import com.variamos.dynsup.types.IntegerType;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.types.BooleanType;
-import com.variamos.perspsupport.types.IntegerType;
-import com.variamos.perspsupport.types.StringType;
 
 
 public class WidgetFactory {

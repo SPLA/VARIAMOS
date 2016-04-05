@@ -3,9 +3,9 @@ package com.variamos.gui.perspeditor.actions;
 import java.awt.event.ActionEvent;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.gui.maineditor.AbstractEditorAction;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 
 @SuppressWarnings("serial")
 public class NextSimulationAction extends AbstractEditorAction {

@@ -3,6 +3,9 @@ package com.variamos.semantic.expressions;
 import java.util.Map;
 
 
+
+
+import com.variamos.dynsup.instance.InstElement;
 /**
  * Abstract  Class to group the ComparisonTranformation. Part of PhD
  * work at University of Paris 1
@@ -17,7 +20,6 @@ import com.variamos.hlcl.ComparisonExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * Abstract Class to group at the ComparisonTransformation, currently only for

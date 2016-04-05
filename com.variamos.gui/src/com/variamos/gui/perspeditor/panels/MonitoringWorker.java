@@ -8,9 +8,9 @@ import java.util.Map;
 import javax.swing.SwingWorker;
 
 import com.variamos.configurator.io.ConfigurationIO;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
+import com.variamos.dynsup.translation.SolverTasks;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
-import com.variamos.perspsupport.translation.SolverTasks;
 
 /**
  * A class to support the thread for simulation of configurations. Part of PhD

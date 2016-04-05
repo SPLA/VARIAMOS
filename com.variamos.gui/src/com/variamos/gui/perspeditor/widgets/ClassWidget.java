@@ -14,23 +14,23 @@ import javax.swing.JComponent;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersAbstractElement;
-import com.variamos.perspsupport.opers.OpersConcept;
-import com.variamos.perspsupport.opers.OpersOverTwoRel;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.opersint.IntOpersPairwiseRel;
-import com.variamos.perspsupport.opersint.IntOpersRelType;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaPairwiseRelation;
-import com.variamos.perspsupport.types.ClassSingleSelectionType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstVertex;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.interfaces.IntOpersPairwiseRel;
+import com.variamos.dynsup.interfaces.IntOpersRelType;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersConcept;
+import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.OpersOverTwoRel;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.types.ClassSingleSelectionType;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
@@ -47,7 +47,7 @@ public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
 	private Map<String, IntOpersElement> semanticElements;
-	private Map<String, MetaElement> syntaxElements;
+	private Map<String, SyntaxElement> syntaxElements;
 	private Map<String, InstElement> instVertex;
 
 	public ClassWidget() {
@@ -60,7 +60,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph,
+	public void configure(IntElemAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 
@@ -89,14 +89,13 @@ public class ClassWidget extends WidgetR {
 				txtValue.addItem(out);
 			}
 		} else if (instAttribute.getValidationMEList() != null) {
-			syntaxElements = new HashMap<String, MetaElement>();
-			List<MetaPairwiseRelation> list = instAttribute
-					.getValidationMEList();
+			syntaxElements = new HashMap<String, SyntaxElement>();
+			List<SyntaxPairwiseRel> list = instAttribute.getValidationMEList();
 
-			for (MetaPairwiseRelation groupDependency : list) {
+			for (SyntaxPairwiseRel groupDependency : list) {
 				if (groupDependency != null) {
 					syntaxElements.put(groupDependency.getAutoIdentifier(),
-							(MetaPairwiseRelation) groupDependency);
+							(SyntaxPairwiseRel) groupDependency);
 					String out = groupDependency.getAutoIdentifier();
 					txtValue.addItem(out);
 				}
@@ -111,7 +110,7 @@ public class ClassWidget extends WidgetR {
 
 			for (IntOpersRelType groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
-						(OpersAbstractElement) groupDependency);
+						(OpersElement) groupDependency);
 				String out = groupDependency.getIdentifier();
 				txtValue.addItem(out);
 				if (instAttribute.getValue() != null
@@ -130,8 +129,7 @@ public class ClassWidget extends WidgetR {
 
 		} else {
 			if (aClass.isInterface()
-					|| aClass.getSuperclass()
-							.equals(OpersAbstractElement.class)) {
+					|| aClass.getSuperclass().equals(OpersElement.class)) {
 				semanticElements = new HashMap<String, IntOpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
@@ -173,7 +171,7 @@ public class ClassWidget extends WidgetR {
 					txtValue.addItem(out.trim());
 				}
 			}
-			if (aClass.equals(InstEnumeration.class)
+			if (aClass.equals(InstEnum.class)
 					|| aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
@@ -208,7 +206,7 @@ public class ClassWidget extends WidgetR {
 								.getAttribute()
 								.getMetaConceptInstanceType()
 								.equals(""
-										+ ((MetaElement) concept
+										+ ((SyntaxElement) concept
 												.getTransSupportMetaElement())
 												.getType())) {
 							instVertex.put(
@@ -216,7 +214,7 @@ public class ClassWidget extends WidgetR {
 											.toString(), concept);
 							String out = concept.getInstAttribute("identifier")
 									.toString();
-							System.out.println(out);
+							// System.out.println(out);
 							txtValue.addItem(out);
 							if (instAttribute.getValue() != null
 									&& out.equals(instAttribute.getValue()))
@@ -255,7 +253,7 @@ public class ClassWidget extends WidgetR {
 							.getInstElement();
 					if (value instanceof InstVertex) {
 						InstVertex ic = (InstVertex) value;
-						MetaElement mc = ic.getTransSupportMetaElement();
+						SyntaxElement mc = ic.getTransSupportMetaElement();
 						if (mc.getAutoIdentifier().equals(object)
 								&& !out.contains(ic))
 							out.add(ic);
@@ -265,7 +263,7 @@ public class ClassWidget extends WidgetR {
 						.getInstElement();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaElement mc = ic.getTransSupportMetaElement();
+					SyntaxElement mc = ic.getTransSupportMetaElement();
 					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
@@ -275,7 +273,7 @@ public class ClassWidget extends WidgetR {
 				InstElement value = ((InstCell) mv.getValue()).getInstElement();
 				if (value instanceof InstVertex) {
 					InstVertex ic = (InstVertex) value;
-					MetaElement mc = ic.getTransSupportMetaElement();
+					SyntaxElement mc = ic.getTransSupportMetaElement();
 					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
@@ -286,7 +284,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		boolean out = false;
 
 		InstAttribute instAttribute = (InstAttribute) v;
@@ -294,8 +292,8 @@ public class ClassWidget extends WidgetR {
 			if (instAttribute.getValueObject() instanceof OpersOverTwoRel)
 				txtValue.setSelectedItem((String) ((OpersOverTwoRel) instAttribute
 						.getValueObject()).getIdentifier());
-			else if (instAttribute.getValueObject() instanceof MetaPairwiseRelation)
-				txtValue.setSelectedItem((String) ((MetaPairwiseRelation) instAttribute
+			else if (instAttribute.getValueObject() instanceof SyntaxPairwiseRel)
+				txtValue.setSelectedItem((String) ((SyntaxPairwiseRel) instAttribute
 						.getValueObject()).getAutoIdentifier());
 		}
 		if (instVertex != null) {
@@ -311,8 +309,9 @@ public class ClassWidget extends WidgetR {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				if (instAttribute.getValueObject() == null
-						|| !instAttribute.getValueObject().equals(
-								semanticElements.get(s))) {
+						|| semanticElements.get(s) != null
+						&& (!instAttribute.getValueObject().equals(
+								semanticElements.get(s)))) {
 					instAttribute.setValueObject(semanticElements.get(s));
 					out = true;
 				}
@@ -337,7 +336,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 
 		InstAttribute instAttribute = (InstAttribute) v;
 		v.setValue((String) txtValue.getSelectedItem());

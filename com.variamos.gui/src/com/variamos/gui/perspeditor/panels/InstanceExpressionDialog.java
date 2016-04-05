@@ -34,24 +34,24 @@ import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
-import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
  * @author unknown
@@ -59,9 +59,9 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
  */
 @SuppressWarnings("serial")
 public class InstanceExpressionDialog extends JDialog {
-	private List<InstanceExpression> instanceExpressions;
+	private List<ModelExpr> instanceExpressions;
 	private InstanceExpressionButtonAction onAccept, onCancel, onDelete;
-	private InstanceExpression selectedExpression;
+	private ModelExpr selectedExpression;
 	private JPanel solutionPanel;
 	private ModelInstance refasModel;
 	private boolean displayVariableName = true;
@@ -77,7 +77,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 	public InstanceExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, boolean multiExpression,
-			List<InstanceExpression> instanceExpressions, boolean editable) {
+			List<ModelExpr> instanceExpressions, boolean editable) {
 		super(editor.getFrame(), "Expressions Editor");
 		this.multiExpressions = multiExpression;
 		this.editable = editable;
@@ -87,7 +87,7 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	public void initialize(final InstElement element,
-			List<InstanceExpression> instanceExpressions) {
+			List<ModelExpr> instanceExpressions) {
 		this.getContentPane().removeAll();
 		// removeAll();
 		if (this.getWidth() != 0)
@@ -104,7 +104,7 @@ public class InstanceExpressionDialog extends JDialog {
 		if (instanceExpressions != null)
 			this.instanceExpressions = instanceExpressions;
 
-		for (final InstanceExpression instanceExpression : this.instanceExpressions) {
+		for (final ModelExpr instanceExpression : this.instanceExpressions) {
 
 			if (instanceExpressions != null)
 				selectedExpression = instanceExpression;
@@ -113,7 +113,7 @@ public class InstanceExpressionDialog extends JDialog {
 			solutionPanel.setAutoscrolls(true);
 			solutionPanel.setMaximumSize(new Dimension(900, 200));
 			showExpression(instanceExpression, element, solutionPanel,
-					SemanticExpressionType.BOOLEXP, 255);
+					OpersExprType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -201,14 +201,14 @@ public class InstanceExpressionDialog extends JDialog {
 			}
 		});
 		if (multiExpressions) {
-			final List<InstanceExpression> finalInstanceExpressions = instanceExpressions;
+			final List<ModelExpr> finalInstanceExpressions = instanceExpressions;
 			JButton addButton = new JButton("Add new Instance Expression");
 			addButton.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					finalInstanceExpressions.add(new InstanceExpression());
+					finalInstanceExpressions.add(new ModelExpr());
 
 					new Thread() {
 						public void run() {
@@ -293,11 +293,11 @@ public class InstanceExpressionDialog extends JDialog {
 		repaint();
 	}
 
-	private void showExpression(final InstanceExpression instanceExpression,
+	private void showExpression(final ModelExpr instanceExpression,
 			final InstElement element, JPanel parentPanel,
 			int topExpressionType, int color) {
 		final InstElement ele = element;
-		final InstanceExpression exp = instanceExpression;
+		final ModelExpr exp = instanceExpression;
 
 		JPanel basePanel = new JPanel();
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -572,8 +572,7 @@ public class InstanceExpressionDialog extends JDialog {
 		parentPanel.add(basePanel);
 	}
 
-	private JTextField createTextField(
-			final InstanceExpression instanceExpression,
+	private JTextField createTextField(final ModelExpr instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField;
@@ -610,8 +609,7 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createVarCombo(
-			final InstanceExpression instanceExpression,
-			final InstElement element,
+			final ModelExpr instanceExpression, final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
 		if (instanceExpression.getSideElement(expressionVertexType) == null) {
 			String id = instanceExpression.getSideElementIdentifier(
@@ -681,7 +679,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			IntOpersElement semElement2 = ((MetaVertex) instVertex
+			IntOpersElement semElement2 = ((SyntaxElement) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
@@ -718,8 +716,8 @@ public class InstanceExpressionDialog extends JDialog {
 							"enumerationType").getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
+								.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
 								.getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instElementId + "_"
@@ -742,21 +740,21 @@ public class InstanceExpressionDialog extends JDialog {
 		String instElementId = null, instRelElementId = null;
 		if (displayVariableName) {
 			instElementId = element.getInstAttribute("name").toString();
-			if (element instanceof InstPairwiseRelation)
-				instRelElementId = ((InstPairwiseRelation) element)
+			if (element instanceof InstPairwiseRel)
+				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getInstAttribute("name")
 						.toString();
-			if (element instanceof InstOverTwoRelation)
-				instRelElementId = ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+			if (element instanceof InstOverTwoRel)
+				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttribute("name").toString();
 		} else {
 			instElementId = element.getIdentifier();
-			if (element instanceof InstPairwiseRelation)
-				instRelElementId = ((InstPairwiseRelation) element)
+			if (element instanceof InstPairwiseRel)
+				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getIdentifier();
-			if (element instanceof InstOverTwoRelation)
-				instRelElementId = ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+			if (element instanceof InstOverTwoRel)
+				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getIdentifier();
 		}
@@ -766,7 +764,7 @@ public class InstanceExpressionDialog extends JDialog {
 				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
-				IntOpersElement semElement2 = ((MetaVertex) instVertex
+				IntOpersElement semElement2 = ((SyntaxElement) instVertex
 						.getTransSupportMetaElement())
 						.getTransSemanticConcept();
 				if (semElement2 != null
@@ -793,12 +791,12 @@ public class InstanceExpressionDialog extends JDialog {
 						.keySet())
 					combo.addItem(instElementId + "_" + attributeName);
 
-			if (element instanceof InstPairwiseRelation) {
-				for (String attributeName : ((InstPairwiseRelation) element)
+			if (element instanceof InstPairwiseRel) {
+				for (String attributeName : ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getInstAttributes()
 						.keySet())
 					combo.addItem(instRelElementId + "_" + attributeName);
-				for (String attributeName : ((InstPairwiseRelation) element)
+				for (String attributeName : ((InstPairwiseRel) element)
 						.getTargetRelations().get(0).getInstAttributes()
 						.keySet())
 					combo.addItem(instRelElementId + "_" + attributeName);
@@ -807,24 +805,24 @@ public class InstanceExpressionDialog extends JDialog {
 					combo.addItem(instElementId + "_" + attributeName);
 			}
 
-			if (element instanceof InstOverTwoRelation) {
-				if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
-					for (String attributeName : ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+			if (element instanceof InstOverTwoRel) {
+				if (((InstOverTwoRel) element).getTargetRelations().size() > 0)
+					for (String attributeName : ((InstPairwiseRel) ((InstOverTwoRel) element)
 							.getTargetRelations().get(0)).getTargetRelations()
 							.get(0).getInstAttributes().keySet())
 						combo.addItem(instRelElementId + "_" + attributeName);
-				for (InstElement sourceRelation : ((InstOverTwoRelation) element)
+				for (InstElement sourceRelation : ((InstOverTwoRel) element)
 						.getSourceRelations())
-					for (String attributeName : ((InstPairwiseRelation) sourceRelation)
+					for (String attributeName : ((InstPairwiseRel) sourceRelation)
 							.getSourceRelations().get(0).getInstAttributes()
 							.keySet())
 						if (displayVariableName)
-							combo.addItem(((InstPairwiseRelation) sourceRelation)
+							combo.addItem(((InstPairwiseRel) sourceRelation)
 									.getSourceRelations().get(0)
 									.getInstAttribute("name").toString()
 									+ "_" + attributeName);
 						else
-							combo.addItem(((InstPairwiseRelation) sourceRelation)
+							combo.addItem(((InstPairwiseRel) sourceRelation)
 									.getSourceRelations().get(0)
 									.getIdentifier()
 									+ "_" + attributeName);
@@ -842,18 +840,17 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createOperatorsCombo(
-			final InstanceExpression instanceExpression,
-			final InstElement element, String selectedOperator,
-			int topExpressionType) {
+			final ModelExpr instanceExpression, final InstElement element,
+			String selectedOperator, int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
-		List<SemanticExpressionType> semanticExpressionTypes = SemanticExpressionType
+		List<OpersExprType> semanticExpressionTypes = OpersExprType
 				.getValidSemanticExpressionTypes(refasModel
 						.getSemanticExpressionTypes().values(),
 						topExpressionType);
 
-		for (SemanticExpressionType semanticExpressionType : semanticExpressionTypes) {
+		for (OpersExprType semanticExpressionType : semanticExpressionTypes) {
 			combo.addItem(semanticExpressionType.getTextConnector());
 		}
 		combo.setSelectedItem(selectedOperator);
@@ -879,8 +876,8 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createSidesCombo(
-			final InstanceExpression instanceExpression,
-			final InstElement element, final boolean left) {
+			final ModelExpr instanceExpression, final InstElement element,
+			final boolean left) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
@@ -948,7 +945,7 @@ public class InstanceExpressionDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public List<InstanceExpression> getExpressions() {
+	public List<ModelExpr> getExpressions() {
 		return instanceExpressions;
 	}
 

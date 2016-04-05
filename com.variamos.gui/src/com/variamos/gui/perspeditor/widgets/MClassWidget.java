@@ -17,15 +17,15 @@ import javax.swing.ScrollPaneConstants;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opers.OpersAbstractElement;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.types.ClassMultiSelectionType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.ClassMultiSelectionType;
 
 /**
  * A class to support class widgets on the interface with multi-selection.
@@ -51,7 +51,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph,
+	public void configure(IntElemAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = ClassMultiSelectionType.class
@@ -68,7 +68,7 @@ public class MClassWidget extends WidgetR {
 		}
 		String[] out = null;
 		if (aClass.getSuperclass() != null
-				&& aClass.getSuperclass().equals(OpersAbstractElement.class)) {
+				&& aClass.getSuperclass().equals(OpersElement.class)) {
 			/*
 			 * Collection<IntSemanticElement> list = semanticSyntaxObject
 			 * .getSemanticConcepts().values();
@@ -124,7 +124,7 @@ public class MClassWidget extends WidgetR {
 						.getInstElement();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					MetaVertex mc = ic.getTransSupportMetaElement();
+					SyntaxElement mc = ic.getTransSupportMetaElement();
 					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}
@@ -135,7 +135,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		if (v.getValue() instanceof int[]) {
 			@SuppressWarnings("unchecked")
 			List<Integer> values = (List<Integer>) v.getValue();
@@ -152,7 +152,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		List<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = txtValue.getSelectedIndices();
 		for (int i = 0; i < valuesArray.length; i++)

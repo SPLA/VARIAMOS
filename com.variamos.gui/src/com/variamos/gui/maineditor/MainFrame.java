@@ -15,14 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
-import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
 public class MainFrame extends JFrame {
@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.18";
-	private String variamosVersionName = "1.0 Beta 18";
-	private String variamosBuild = "20160113 1800";
+	private String variamosVersionNumber = "1.0.1.19";
+	private String variamosVersionName = "1.0 Beta 19";
+	private String variamosBuild = "20160405-1800";
 	private String downloadId = "465";
 	private static boolean solverError = false;
 
@@ -61,7 +61,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(String arg0) {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
-		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
+		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
@@ -88,7 +88,8 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxInfrastructure,
 						semanticSuperstructure);
 				bgColor = new Color(252, 233, 252);
-				perspTitle = "Operations - VariaMos " + variamosVersionNumber;
+				perspTitle = "Operations - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Operations Meta-Model Perspective...");
 				break;
@@ -99,7 +100,8 @@ public class MainFrame extends JFrame {
 						semanticSuperstructure);
 
 				bgColor = new Color(236, 238, 255);
-				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
+				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Requirements Model Perspective...");
 				this.setTitle("New Diagram - " + perspTitle);
@@ -109,7 +111,8 @@ public class MainFrame extends JFrame {
 				abstractModel = syntaxSuperstructure;
 
 				bgColor = new Color(255, 255, 245);
-				perspTitle = "Syntax - VariaMos " + variamosVersionNumber;
+				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
+						+ variamosBuild;
 				System.out.println("Creating Syntax Meta-Model Perspective...");
 				break;
 
@@ -118,7 +121,8 @@ public class MainFrame extends JFrame {
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;
+				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Configuration and Simulation Perspective...");
 				break;
@@ -181,75 +185,62 @@ public class MainFrame extends JFrame {
 		verifier.isVoid();
 	}
 
-	private Map<String, SemanticExpressionType> createMetaExpressionTypes() {
-		Map<String, SemanticExpressionType> out = new HashMap<String, SemanticExpressionType>();
-		out.put("And", new SemanticExpressionType("And", "#/\"", "#/\"", "and",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Assign", new SemanticExpressionType("Assign", "=", "=",
-				"assign", SemanticExpressionType.IDEN,
-				SemanticExpressionType.EXP, SemanticExpressionType.NONE, false,
-				false));
-		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-",
-				"-", "diff", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+	private Map<String, OpersExprType> createMetaExpressionTypes() {
+		Map<String, OpersExprType> out = new HashMap<String, OpersExprType>();
+		out.put("And", new OpersExprType("And", "#/\"", "#/\"", "and",
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign",
+				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
 				false, false));
-		out.put("DoubleImplies", new SemanticExpressionType("DoubleImplies",
-				"#<==>", "#<==>", "doubleImplies",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Equals", new SemanticExpressionType("Equals", "#=", "#=",
-				"equals", SemanticExpressionType.EXP,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-",
+				"diff", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, false, false));
+		out.put("DoubleImplies", new OpersExprType("DoubleImplies", "#<==>",
+				"#<==>", "doubleImplies", OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Equals", new OpersExprType("Equals", "#=", "#=", "equals",
+				OpersExprType.EXP, OpersExprType.EXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("Greater", new SemanticExpressionType("Greater", "#>", "#>",
-				"greaterThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-		out.put("GreaterOrEq", new SemanticExpressionType("GreaterOrEq", "#>=",
-				"#>=", "greaterOrEqualsThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-		out.put("Implies", new SemanticExpressionType("Implies", "#==>",
-				"#==>", "implies", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-		out.put("Less", new SemanticExpressionType("Less", "#<", "#<",
-				"lessThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals",
-				"#<=", "#<=", "lessOrEqualsThan",
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
+		out.put("Greater", new OpersExprType("Greater", "#>", "#>",
+				"greaterThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=", "#>=",
+				"greaterOrEqualsThan", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Implies", new OpersExprType("Implies", "#==>", "#==>",
+				"implies", OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Less", new OpersExprType("Less", "#<", "#<", "lessThan",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("LessOrEquals", new OpersExprType("LessOrEquals", "#<=", "#<=",
+				"lessOrEqualsThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
 		/*
 		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "",
 		 * "", "literalBooleanExpression", SemanticExpressionType.LIT,
 		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,
 		 * false));
 		 */
-		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
-				"not", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
+		out.put("Negation", new OpersExprType("Negation", "-", "-", "not",
+				OpersExprType.BOOLEXP, OpersExprType.NONE,
+				OpersExprType.BOOLEXP, true, false));
+		out.put("Number", new OpersExprType("Number", "", "", "number",
+				OpersExprType.INTVAL, OpersExprType.NONE, OpersExprType.NUMEXP,
 				true, false));
-		out.put("Number", new SemanticExpressionType("Number", "", "",
-				"number", SemanticExpressionType.INTVAL,
-				SemanticExpressionType.NONE, SemanticExpressionType.NUMEXP,
-				true, false));
-		out.put("NotEquals", new SemanticExpressionType("NotEquals", "\\==",
-				"\\==", "notEquals", SemanticExpressionType.EXP,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
-				false, false));
-		out.put("Or", new SemanticExpressionType("Or", "#\"/", "#\"/", "or",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Product", new SemanticExpressionType("Product", "*", "*",
-				"prod", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				false, true));
-		out.put("Sum", new SemanticExpressionType("Sum", "+", "+", "sum",
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, false, true));
+		out.put("NotEquals", new OpersExprType("NotEquals", "\\==", "\\==",
+				"notEquals", OpersExprType.EXP, OpersExprType.EXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Or", new OpersExprType("Or", "#\"/", "#\"/", "or",
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Product", new OpersExprType("Product", "*", "*", "prod",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, false, true));
+		out.put("Sum", new OpersExprType("Sum", "+", "+", "sum",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, false, true));
 		return out;
 	}
 
@@ -327,7 +318,10 @@ public class MainFrame extends JFrame {
 			java.util.Scanner s = new java.util.Scanner(input)
 					.useDelimiter(":");
 			String newVersion = s.hasNext() ? s.next() : null;
-			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+			if (newVersion != null
+					&& !variamosVersionNumber.equals(newVersion)
+					&& (!newVersion.equals("1.0.1.18") && !variamosVersionNumber
+							.equalsIgnoreCase("1.0.1.19")))
 				JOptionPane.showMessageDialog(this, "Your current version is "
 						+ variamosVersionNumber + ". The latest version is: "
 						+ newVersion + ". Please visit variamos.com.",
@@ -339,6 +333,17 @@ public class MainFrame extends JFrame {
 								"Your current version of VariaMos "
 										+ variamosVersionNumber
 										+ "  is up to date.", "Update Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			else if (variamosVersionNumber.equalsIgnoreCase("1.0.1.19"))
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
+										+ " Nevertheless, models created in version Beta 18 and older are not\n"
+										+ " compatible with this version (Beta 19). Also, models created in this\n"
+										+ " version will not be compatible in the version Beta 20. If you already\n"
+										+ " defined models, we suggest you to continue using version Beta 18.",
+								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
 			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
 					.openStream();
