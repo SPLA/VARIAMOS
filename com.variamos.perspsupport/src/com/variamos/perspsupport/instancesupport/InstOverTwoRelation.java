@@ -139,6 +139,7 @@ public class InstOverTwoRelation extends InstVertex {
 		createInstAttributes(null);
 	}
 
+	@Deprecated
 	public void createInstAttributes() {
 		if (getSupportMetaOverTwoRelation() != null) {
 			for (String name : getSupportMetaOverTwoRelation()
@@ -387,7 +388,7 @@ public class InstOverTwoRelation extends InstVertex {
 			if (!semGroupDepOld.equals(semGroupDep)) {
 				semGroupDepOld = semGroupDep;
 				setInstAttribute(VAR_SEMANTICOVERTWOREL_IDEN, semGroupDep);
-				createInstAttributes();
+				createInstAttributes(syntaxParents);
 			}
 		}
 		Set<String> attributesNames = getDisPropEditableAttributes(syntaxParents);

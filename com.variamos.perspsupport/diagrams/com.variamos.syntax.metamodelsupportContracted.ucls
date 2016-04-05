@@ -214,98 +214,77 @@
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="19"/>  
   </generalization>  
-  <association id="21">    
+  <generalization id="21">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="25">    
+    <bendpoint x="461" y="404"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="27">    
     <bendpoint x="-28" y="330"/>    
     <bendpoint x="463" y="330"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="22" name="modelingAttributes">        
+      <attribute id="28" name="modelingAttributes">        
         <position height="18" width="97" x="365" y="239"/>      
       </attribute>      
-      <multiplicity id="23" minimum="0" maximum="2147483647">        
+      <multiplicity id="29" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="-407" y="-1823"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="5"/>  
+  <generalization id="30">    
+    <bendpoint x="14" y="130"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="25">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="26">    
-    <bendpoint x="461" y="404"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <generalization id="27">    
+  <generalization id="31">    
     <bendpoint x="462" y="567"/>    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <generalization id="28">    
+  <generalization id="32">    
+    <bendpoint x="570" y="635"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <generalization id="33">    
     <bendpoint x="467" y="145"/>    
     <bendpoint x="14" y="144"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="29">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="31">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="32">    
-    <bendpoint x="14" y="130"/>    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="33">    
-    <bendpoint x="474" y="605"/>    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
   <generalization id="34">    
-    <bendpoint x="167" y="531"/>    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="19"/>  
-  </generalization>  
-  <generalization id="35">    
     <bendpoint x="-92" y="386"/>    
     <bendpoint x="-91" y="227"/>    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="17"/>  
   </generalization>  
-  <generalization id="36">    
-    <bendpoint x="570" y="635"/>    
-    <end type="SOURCE" refId="8"/>    
+  <generalization id="35">    
+    <bendpoint x="474" y="605"/>    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <association id="37">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="38" name="typeOfLine">        
-        <position height="0" width="0" x="-857" y="-189"/>      
-      </attribute>      
-      <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-857" y="-189"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="40">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

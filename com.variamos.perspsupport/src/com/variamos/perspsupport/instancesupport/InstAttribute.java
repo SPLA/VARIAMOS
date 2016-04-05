@@ -397,7 +397,7 @@ public class InstAttribute implements Serializable, EditableElementAttribute,
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
-							InstPairwiseRelation.VAR_METAPAIRWISE_OBJ_CLASS)) {
+							InstPairwiseRelation.VAR_METAPAIRWISE_CLASS)) {
 				if (mapElements != null) {
 					Iterator<String> elementNames = mapElements.keySet()
 							.iterator();

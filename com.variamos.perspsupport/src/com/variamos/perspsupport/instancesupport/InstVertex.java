@@ -116,11 +116,6 @@ public abstract class InstVertex extends InstElement {
 		return null;
 	}
 
-	public void setInstAttribute(String name, Object value) {
-		if (getInstAttribute(name) != null)
-			getInstAttribute(name).setValue(value);
-	}
-
 	public void addInstAttribute(String name,
 			AbstractAttribute modelingAttribute, Object value) {
 		if (getInstAttribute(name) == null) {

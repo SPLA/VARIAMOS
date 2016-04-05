@@ -334,7 +334,8 @@ public class PerspEditorGraph extends AbstractGraph {
 			refas.updateValidationLists(directRelation, instSource, instTarget,
 					refas.getParentSMMSyntaxElement(directRelation),
 					opersParents);
-			InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
+			InstAttribute ia = directRelation
+					.getInstAttribute(InstPairwiseRelation.VAR_METAPAIRWISE);
 			List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 			if (pwrList == null || pwrList.size() == 0) {
 				directRelation.clearMetaPairwiseRelation();
@@ -379,7 +380,8 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getTransInstSemanticElement().getParentOpersConcept();
 		refas.updateValidationLists(directRelation, source, target,
 				refas.getParentSMMSyntaxElement(directRelation), parents);
-		InstAttribute ia = directRelation.getInstAttribute("MetaPairwise");
+		InstAttribute ia = directRelation
+				.getInstAttribute(InstPairwiseRelation.VAR_METAPAIRWISE);
 		List<MetaPairwiseRelation> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		refasGraph.getCells().remove(cell.getId());
@@ -390,6 +392,8 @@ public class PerspEditorGraph extends AbstractGraph {
 			// relations - fix delete
 			return false;
 		}
+		directRelation.setTransSupportMetaElement(pwrList.get(0));
+		directRelation.createAttributes(map);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
 					modelViewIndex + id + "-" + modelViewSubIndex, cell);

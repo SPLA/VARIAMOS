@@ -1929,7 +1929,7 @@ public class RefasDefaultOperations {
 
 		semInfraOTRel.putSemanticAttribute("relationType",
 				new SemanticAttribute("relationType", "Class",
-						AttributeType.OPERATION, true, "Relation Type",
+						AttributeType.OPERATION, true, "Relation Type X",
 						OpersRelType.class.getCanonicalName(), null, null, 0,
 						6, "", "", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
@@ -1957,14 +1957,13 @@ public class RefasDefaultOperations {
 				+ "relationType" + "#==#" + "range");
 		semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 
-		OpersPairwiseRel semGeneralPair = new OpersPairwiseRel("InfraPairwise",
-				false, null);
+		OpersConcept semGeneralPair = new OpersConcept("InfraPairwise");
 		InstConcept instInfraPair = new InstConcept("InfraPairwise",
 				infraMetaMetaPairwiseRelation, semGeneralPair);
 
 		semGeneralPair.putSemanticAttribute("relationType",
 				new SemanticAttribute("relationType", "Class",
-						AttributeType.OPERATION, true, "Relation Type",
+						AttributeType.OPERATION, true, "Relation Type X",
 						OpersRelType.class.getCanonicalName(), null, "", 0, 6,
 						"", "", 6, "#-#\n", ""));
 		semGeneralPair.addPropEditableAttribute("06#" + "relationType");
@@ -3760,6 +3759,20 @@ public class RefasDefaultOperations {
 		InstConcept instDirHardHardSemanticEdge = new InstConcept(
 				"GoalGoalSidePWAsso", metaMetaPairwiseRelation,
 				directHardHardSemanticEdge);
+
+		directHardHardSemanticEdge.putSemanticAttribute("relationType",
+				new SemanticAttribute("relationType", "Class",
+						AttributeType.OPERATION, true, "Relation Type",
+						OpersRelType.class.getCanonicalName(), null, "", 0, 6,
+						"", "", 6, "#-#\n", ""));
+		directHardHardSemanticEdge.addPropEditableAttribute("06#"
+				+ "relationType");
+		directHardHardSemanticEdge.addPropVisibleAttribute("06#"
+				+ "relationType");
+		directHardHardSemanticEdge.addPanelVisibleAttribute("06#"
+				+ "relationType");
+		directHardHardSemanticEdge.addPanelSpacersAttribute("#"
+				+ "relationType" + "#\n");
 
 		instEdge = new InstPairwiseRelation();
 		refas.getConstraintInstEdges().put("ggstoip", instEdge);

@@ -22,6 +22,7 @@ public class MetaOverTwoRelation extends MetaVertex {
 	// new
 	// private IntSemanticOverTwoRelation semanticOverTwoRelation;
 
+	@Deprecated
 	public static final String VAR_SEMANTICPAIRWISEREL = "semPairwiseRel";
 
 	public MetaOverTwoRelation() {

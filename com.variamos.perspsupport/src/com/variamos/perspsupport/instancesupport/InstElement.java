@@ -85,6 +85,11 @@ public abstract class InstElement implements Serializable, EditableElement,
 		return volatileDefects;
 	}
 
+	public void setInstAttribute(String name, Object value) {
+		if (getInstAttribute(name) != null)
+			getInstAttribute(name).setValue(value);
+	}
+
 	public void setDefects(Map<String, String> defects) {
 		this.volatileDefects = defects;
 	}
@@ -550,7 +555,7 @@ public abstract class InstElement implements Serializable, EditableElement,
 				getParentOpersConcept());
 	}
 
-	private Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
+	protected Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
 		if (getEditableSemanticElement() != null)
 			return getEditableSemanticElement().getAllAttributesNames(
 					syntaxParents, getParentOpersConcept());
@@ -610,6 +615,10 @@ public abstract class InstElement implements Serializable, EditableElement,
 
 	public void clearMetaPairwiseRelation(String attribute) {
 		dynamicAttributes.put(attribute, null);
+	}
+
+	public void clearInstAttributes() {
+		this.getInstAttributes().clear();
 	}
 
 	public void clearInstAttributesObjects() {
