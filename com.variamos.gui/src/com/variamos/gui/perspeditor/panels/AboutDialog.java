@@ -22,11 +22,11 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import com.variamos.dynsup.interfaces.IntElemAttribute;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 /**
  * A class to draw the About Dialog. Part of PhD work at University of Paris 1
@@ -55,7 +55,7 @@ public class AboutDialog extends JDialog {
 	}
 
 	public AboutDialog(VariamosGraphEditor editor,
-			EditableElementAttribute... arguments) throws URISyntaxException {
+			IntElemAttribute... arguments) throws URISyntaxException {
 		super(editor.getFrame(), "About VariaMos", true);
 
 		setBounds(300, 300, 300, 300);
@@ -171,11 +171,11 @@ public class AboutDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public Map<String, EditableElementAttribute> getParameters() {
-		Map<String, EditableElementAttribute> map = new HashMap<>();
+	public Map<String, IntElemAttribute> getParameters() {
+		Map<String, IntElemAttribute> map = new HashMap<>();
 
 		for (String s : widgets.keySet()) {
-			EditableElementAttribute v = widgets.get(s).getInstAttribute();
+			IntElemAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 

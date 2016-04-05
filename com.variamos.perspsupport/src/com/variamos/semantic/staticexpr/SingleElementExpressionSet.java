@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.instance.InstVertex;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.variamos.perspsupport.expressionsupport.InstanceExpression;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -88,7 +88,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	public boolean validateConceptType(InstElement instElement, String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		MetaElement metaElement = ((MetaElement) instElement
+		SyntaxElement metaElement = ((SyntaxElement) instElement
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
@@ -98,14 +98,14 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 			InstElement sEle = semElement;
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
-				if (ele instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) ele)
+				if (ele instanceof InstPairwiseRel) {
+					if (((InstPairwiseRel) ele)
 							.getSupportMetaPairwiseRelIden().equals(
 									"ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRelation) ele)
+				} else if (((InstPairwiseRel) ele)
 						.getSupportMetaElementIden().equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
@@ -121,7 +121,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 	private void defineTransformations(int execType) {
 
 		if (instVertex instanceof InstConcept
-				|| instVertex instanceof InstOverTwoRelation) {
+				|| instVertex instanceof InstOverTwoRel) {
 			if (validateConceptType(instVertex, "GeneralElement")
 					|| instVertex.getIdentifier().contains("Variable")) {
 				InstAttribute validAttribute = instVertex
@@ -184,7 +184,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 
 							if (instAttribute.getIdentifier().equals(
 									"HasParent")) {
-								MetaElement element = (MetaElement) instVertex
+								SyntaxElement element = (SyntaxElement) instVertex
 										.getTransSupportMetaElement();
 
 								List<AbstractExpression> parentList = new ArrayList<AbstractExpression>();
@@ -301,7 +301,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								if (instAttribute.getValue() instanceof Integer)
 									dr = true;
 								if (!dr) {
-									InstanceExpression instanceExpression = (InstanceExpression) instAttribute
+									ModelExpr instanceExpression = (ModelExpr) instAttribute
 											.getValue();
 									if (instanceExpression != null
 											&& !instanceExpression
@@ -703,7 +703,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 		outRelations.add("optional");
 		for (String relName : outRelations) {
 			for (InstElement target : instVertex2.getTargetRelations()) {
-				String type = ((InstPairwiseRelation) target)
+				String type = ((InstPairwiseRel) target)
 						.getSemanticPairwiseRelType();
 				if (relName.equals(type)) {
 					if (target.getTargetRelations().get(0)
@@ -713,7 +713,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 					InstVertex grouprel = (InstVertex) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
-						String relType = ((InstPairwiseRelation) grouprel
+						String relType = ((InstPairwiseRel) grouprel
 								.getTargetRelations().get(0))
 								.getSemanticPairwiseRelType();
 						if (relType.equals(relName))

@@ -3,12 +3,12 @@ package com.variamos.semantic.expressions;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericIdentifier;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 /**
  * Class to create the Or expression. Part of PhD work at University of Paris 1

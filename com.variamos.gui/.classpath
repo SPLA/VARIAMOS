@@ -6,7 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.perspsupport"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.dynsup"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.configurator"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>

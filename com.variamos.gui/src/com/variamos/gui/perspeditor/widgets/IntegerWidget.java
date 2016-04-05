@@ -1,10 +1,11 @@
 package com.variamos.gui.perspeditor.widgets;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
 
 /**
  * A class to support integer widgets on the interface. Copied on BooleanWidget
@@ -31,7 +32,7 @@ public class IntegerWidget extends WidgetR {
 	}
 	
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsInteger() ));
 		group.setText((String) v.getGroup());
 		revalidate();
@@ -40,7 +41,7 @@ public class IntegerWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		int val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

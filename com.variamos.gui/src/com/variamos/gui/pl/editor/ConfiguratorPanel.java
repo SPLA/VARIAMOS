@@ -38,14 +38,14 @@ import com.variamos.configurator.Choice;
 import com.variamos.configurator.Configurator;
 import com.variamos.configurator.DomainAnnotation;
 import com.variamos.configurator.io.ConfigurationDTO;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
+import com.variamos.dynsup.types.IntegerType;
 import com.variamos.gui.common.jelements.AbstractConfigurationPanel;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationNode;
 import com.variamos.gui.pl.configurator.treetable.ConfigurationTreeTable;
 import com.variamos.gui.treetable.core.TreeTableModelAdapter;
 import com.variamos.hlcl.BinaryDomain;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
-import com.variamos.perspsupport.types.IntegerType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationTask;
 

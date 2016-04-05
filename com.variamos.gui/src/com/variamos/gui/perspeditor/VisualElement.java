@@ -8,15 +8,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.opers.OpersReasoningConcept;
-import com.variamos.perspsupport.opers.OpersSoftConcept;
-import com.variamos.perspsupport.opers.OpersVariable;
-import com.variamos.perspsupport.opersint.IntOpersElement;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.OpersReasoningConcept;
+import com.variamos.dynsup.model.OpersSoftConcept;
+import com.variamos.dynsup.model.OpersVariable;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxEnum;
 
 public class VisualElement implements Comparable<VisualElement> {
 
@@ -29,7 +29,7 @@ public class VisualElement implements Comparable<VisualElement> {
 	public VisualElement(InstElement instElement) {
 		defineColors();
 		this.instElement = instElement;
-		this.opersElement = ((MetaElement) instElement
+		this.opersElement = ((SyntaxElement) instElement
 				.getTransSupportMetaElement()).getTransSemanticConcept();
 		updateValues();
 		this.updated = false;
@@ -90,8 +90,8 @@ public class VisualElement implements Comparable<VisualElement> {
 							"enumerationType").getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-								.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
+								.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
 								.getValue();
 						for (InstAttribute value : values) {
 							String[] split = ((String) value.getValue())

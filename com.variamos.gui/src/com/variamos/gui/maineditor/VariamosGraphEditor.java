@@ -54,6 +54,28 @@ import com.mxgraph.util.mxResources;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphSelectionModel;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.instance.InstVertex;
+import com.variamos.dynsup.instance.InstView;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ExecCurrentStateAttribute;
+import com.variamos.dynsup.model.GlobalConfigAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxView;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
+import com.variamos.dynsup.translation.SemSolverTasks;
+import com.variamos.dynsup.translation.SolverTasks;
+import com.variamos.dynsup.types.DomainRegister;
+import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.ModelButtonAction;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
@@ -77,28 +99,6 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
-import com.variamos.perspsupport.instancesupport.EditableElement;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.instancesupport.InstVertex;
-import com.variamos.perspsupport.instancesupport.InstView;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.syntaxsupport.ExecCurrentStateAttribute;
-import com.variamos.perspsupport.syntaxsupport.GlobalConfigAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaConcept;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaView;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
-import com.variamos.perspsupport.translation.SemSolverTasks;
-import com.variamos.perspsupport.translation.SolverTasks;
-import com.variamos.perspsupport.types.DomainRegister;
-import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.semantic.staticexpr.ElementExpressionSet;
 import com.variamos.solver.Configuration;
 
@@ -801,10 +801,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							else
 								editableElementType = "vertex";
 						}
-						if (elm instanceof InstPairwiseRelation) {
+						if (elm instanceof InstPairwiseRel) {
 							editableElementType = "edge";
 						}
-						if (elm instanceof InstOverTwoRelation) {
+						if (elm instanceof InstOverTwoRel) {
 							editableElementType = "groupdep";
 						}
 						ElementExpressionSet metaExpressionSet = refas2hlcl
@@ -1016,8 +1016,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 						editableElementType = "vertex";
 				}
-				if (finalEditElm instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) finalEditElm)
+				if (finalEditElm instanceof InstPairwiseRel) {
+					if (((InstPairwiseRel) finalEditElm)
 							.getSourceRelations().size() == 0) {
 						((MainFrame) getFrame()).waitingCursor(false);
 						// TODO workaround for non supported relations - delete
@@ -1027,7 +1027,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 					editableElementType = "edge";
 				}
-				if (finalEditElm instanceof InstOverTwoRelation) {
+				if (finalEditElm instanceof InstOverTwoRel) {
 					editableElementType = "groupdep";
 				}
 				if (editableElementType != null)
@@ -1056,9 +1056,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				// TODO split in two new classes, one for each panel
 				for (InstAttribute instAttribute : visible) {
-					Map<String, MetaElement> mapElements = null;
-					if (finalEditElm instanceof InstPairwiseRelation) {
-						InstPairwiseRelation instPairwise = (InstPairwiseRelation) finalEditElm;
+					Map<String, SyntaxElement> mapElements = null;
+					if (finalEditElm instanceof InstPairwiseRel) {
+						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
 						mapElements = refasModel.getSyntaxModel()
 								.getValidPairwiseRelations(
 										instPairwise.getSourceRelations()
@@ -1087,7 +1087,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						@Override
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
-							EditableElementAttribute v = w.getInstAttribute();
+							IntElemAttribute v = w.getInstAttribute();
 							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
@@ -1104,7 +1104,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						@Override
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
-							EditableElementAttribute v = w.getInstAttribute();
+							IntElemAttribute v = w.getInstAttribute();
 							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
@@ -1324,14 +1324,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	public void refreshElement(EditableElement elm) {
+	public void refreshElement(IntInstElement elm) {
 		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
 				.getParentSMMSyntaxElement((InstElement) elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
-			Map<String, MetaElement> mapElements = null;
-			if (elm instanceof InstPairwiseRelation) {
-				InstPairwiseRelation instPairwise = (InstPairwiseRelation) elm;
+			Map<String, SyntaxElement> mapElements = null;
+			if (elm instanceof InstPairwiseRel) {
+				InstPairwiseRel instPairwise = (InstPairwiseRel) elm;
 				try {
 					mapElements = refasModel.getSyntaxModel()
 							.getValidPairwiseRelations(
@@ -1356,14 +1356,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void onVariableEdited(EditableElement editableElement,
-			EditableElementAttribute instAttribute) {
+	protected void onVariableEdited(IntInstElement editableElement,
+			IntElemAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
-			MetaElement editableMetaElement = ((InstConcept) editableElement)
+			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals(
-						MetaConcept.VAR_USERIDENTIFIER))
+						SyntaxConcept.VAR_USERIDENTIFIER))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1381,9 +1381,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
-				if (editableMetaElement instanceof MetaView) {
+				if (editableMetaElement instanceof SyntaxView) {
 					if (instAttribute.getIdentifier().equals("PaletteName"))
-						((MetaView) editableMetaElement)
+						((SyntaxView) editableMetaElement)
 								.setPaletteName((String) instAttribute
 										.getValue());
 				}
@@ -1400,21 +1400,21 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setTopConcept((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((MetaConcept) editableMetaElement)
+					((SyntaxConcept) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
-							.setModelingAttributes((Map<String, AbstractAttribute>) instAttribute
+							.setModelingAttributes((Map<String, ElemAttribute>) instAttribute
 									.getValue());
 			}
 			// IntSemanticElement editableSemanticElement = ((InstConcept)

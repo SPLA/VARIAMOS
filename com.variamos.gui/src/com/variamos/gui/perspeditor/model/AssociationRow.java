@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
+import com.variamos.dynsup.exprsup.ElementVariable;
+import com.variamos.dynsup.exprsup.IntegerVariable;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.IntervalDomain;
-import com.variamos.perspsupport.expressionsupport.ElementVariable;
-import com.variamos.perspsupport.expressionsupport.IntegerVariable;
 
 /**
  * A class to support the creation of nodes for the visual representation of the

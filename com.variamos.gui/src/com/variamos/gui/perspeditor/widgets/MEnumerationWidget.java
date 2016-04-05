@@ -10,10 +10,10 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.types.EnumerationMultiSelectionType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.types.EnumerationMultiSelectionType;
 
 /**
  * A class to support enumeration widgets on the interface with multi-selection.
@@ -40,7 +40,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(EditableElementAttribute v, mxGraph graph,
+	public void configure(IntElemAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationMultiSelectionType.class
@@ -70,7 +70,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		if (v.getValue() instanceof int[])
 			txtValue.setSelectedIndices((int[]) v.getValue());
 		revalidate();
@@ -79,7 +79,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		v.setValue(txtValue.getSelectedIndices());
 		String out = "";
 		List<String> tmp = txtValue.getSelectedValuesList();

@@ -17,14 +17,14 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import com.cfm.common.AbstractModel;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.NumericIdentifier;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.model.ModelInstance;
 import com.variamos.semantic.expressions.AbstractExpression;
 import com.variamos.semantic.expressions.NumberNumericExpression;
 import com.variamos.semantic.staticexpr.ElementExpressionSet;
@@ -225,36 +225,36 @@ public class StaticExpressionsPanel extends JPanel {
 		if (element instanceof InstConcept)
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
-		if (element instanceof InstPairwiseRelation) {
-			for (String attributeName : ((InstPairwiseRelation) element)
+		if (element instanceof InstPairwiseRel) {
+			for (String attributeName : ((InstPairwiseRel) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element)
+				combo.addItem(((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getIdentifier()
 						+ "_" + attributeName);
-			for (String attributeName : ((InstPairwiseRelation) element)
+			for (String attributeName : ((InstPairwiseRel) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRelation) element)
+				combo.addItem(((InstPairwiseRel) element)
 						.getTargetRelations().get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
 		}
 
-		if (element instanceof InstOverTwoRelation) {
-			if (((InstOverTwoRelation) element).getTargetRelations().size() > 0)
-				for (String attributeName : ((InstPairwiseRelation) ((InstOverTwoRelation) element)
+		if (element instanceof InstOverTwoRel) {
+			if (((InstOverTwoRel) element).getTargetRelations().size() > 0)
+				for (String attributeName : ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttributes().keySet())
-					combo.addItem(((InstPairwiseRelation) ((InstOverTwoRelation) element)
+					combo.addItem(((InstPairwiseRel) ((InstOverTwoRel) element)
 							.getTargetRelations().get(0)).getTargetRelations()
 							.get(0).getIdentifier()
 							+ "_" + attributeName);
-			for (InstElement sourceRelation : ((InstOverTwoRelation) element)
+			for (InstElement sourceRelation : ((InstOverTwoRel) element)
 					.getSourceRelations())
-				for (String attributeName : ((InstPairwiseRelation) sourceRelation)
+				for (String attributeName : ((InstPairwiseRel) sourceRelation)
 						.getSourceRelations().get(0).getInstAttributes()
 						.keySet())
-					combo.addItem(((InstPairwiseRelation) sourceRelation)
+					combo.addItem(((InstPairwiseRel) sourceRelation)
 							.getSourceRelations().get(0).getIdentifier()
 							+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())

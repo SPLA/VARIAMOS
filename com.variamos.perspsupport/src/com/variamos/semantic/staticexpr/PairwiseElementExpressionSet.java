@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.Set;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstOverTwoRel;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstOverTwoRelation;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractComparisonExpression;
 import com.variamos.semantic.expressions.AbstractExpression;
@@ -46,7 +46,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 	/**
 	 * The source edge for the constraint
 	 */
-	private InstPairwiseRelation instPairwiseRelation;
+	private InstPairwiseRel instPairwiseRelation;
 
 	/**
 	 * Create the Constraint with all required parameters
@@ -59,7 +59,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 	 */
 	public PairwiseElementExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstPairwiseRelation instPairwiseRelation, int execType) {
+			InstPairwiseRel instPairwiseRelation, int execType) {
 		super(identifier, mxResources.get("defect-pairrelations1")
 				+ " "
 				+ instPairwiseRelation.getSourceRelations().get(0)
@@ -78,14 +78,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		return relationType;
 	}
 
-	public InstPairwiseRelation getInstPairwiseRelation() {
+	public InstPairwiseRel getInstPairwiseRelation() {
 		return instPairwiseRelation;
 	}
 
 	private void defineTransformations(int execType) {
 		// instPairwiseRelation.getSourceRelations()
 		// .get(0).setOptional(false);
-		MetaElement metaPairwiseRelation = instPairwiseRelation
+		SyntaxElement metaPairwiseRelation = instPairwiseRelation
 				.getMetaPairwiseRelation();
 		boolean sourceActiveAttribute = true;
 		if (instPairwiseRelation.getSourceRelations().get(0)
@@ -108,7 +108,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		if (activeVertex
 				&& metaPairwiseRelation != null
 				&& instPairwiseRelation.getInstAttribute("relationType") != null
-				&& !(instPairwiseRelation.getTargetRelations().get(0) instanceof InstOverTwoRelation)
+				&& !(instPairwiseRelation.getTargetRelations().get(0) instanceof InstOverTwoRel)
 				&& instPairwiseRelation.getInstAttribute("relationType")
 						.getValue() != null) {
 			relationType = ((String) instPairwiseRelation.getInstAttribute(
@@ -544,14 +544,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 			InstElement instVertex = instPairwiseRelation.getSourceRelations()
 					.get(0);
-			if (instVertex instanceof InstOverTwoRelation) {
-				((InstOverTwoRelation) instVertex)
+			if (instVertex instanceof InstOverTwoRel) {
+				((InstOverTwoRel) instVertex)
 						.clearSourcePositiveAttributeNames();
-				((InstOverTwoRelation) instVertex)
+				((InstOverTwoRel) instVertex)
 						.clearSourceNegativeAttributeNames();
-				((InstOverTwoRelation) instVertex)
+				((InstOverTwoRel) instVertex)
 						.addSourcePositiveAttributeNames(sourcePositiveAttributeNames);
-				((InstOverTwoRelation) instVertex)
+				((InstOverTwoRel) instVertex)
 						.addSourceNegativeAttributeNames(sourceNegativeAttributeNames);
 			}
 

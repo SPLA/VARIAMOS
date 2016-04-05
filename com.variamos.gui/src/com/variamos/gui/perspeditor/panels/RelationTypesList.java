@@ -15,17 +15,17 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.partialsorts.EnumerationSort;
+import com.variamos.dynsup.types.BooleanType;
+import com.variamos.dynsup.types.StringType;
+import com.variamos.dynsup.types.VariableType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.partialsorts.EnumerationSort;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.types.BooleanType;
-import com.variamos.perspsupport.types.StringType;
-import com.variamos.perspsupport.types.VariableType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -56,7 +56,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("Add Type ...",
-			new AbstractAttribute("Add ...", StringType.IDENTIFIER,
+			new ElemAttribute("Add ...", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "Add Type ...", "", 1, -1, "",
 					"", -1, "", ""), "Add Type ...");
 
@@ -122,64 +122,64 @@ public class RelationTypesList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instIdentifier = new InstAttribute("identifier",
-				new AbstractAttribute("identifier", StringType.IDENTIFIER,
+				new ElemAttribute("identifier", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Identifier", "", 1, -1,
 						"", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute("displayName",
-				new AbstractAttribute("displayName", StringType.IDENTIFIER,
+				new ElemAttribute("displayName", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Display Name", 0, 1, -1,
 						"", "", -1, "", ""), "");
 
 		final InstAttribute instRelExclusive = new InstAttribute(
 				"relationExclusive",
-				new AbstractAttribute("relationExclusive",
+				new ElemAttribute("relationExclusive",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Relation Exclusive", false, 1, -1, "", "", -1, "", ""),
 				false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
-				"sourceExclusive", new AbstractAttribute("sourceExclusive",
+				"sourceExclusive", new ElemAttribute("sourceExclusive",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Source Exclusive", false, 1, -1, "", "", -1, "", ""),
 				false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
-				"targetExclusive", new AbstractAttribute("targetExclusive",
+				"targetExclusive", new ElemAttribute("targetExclusive",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Target Exclusive",
 						VariableType.class.getCanonicalName(), "String", "",
 						"", 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instMinSourceCard = new InstAttribute(
-				"minSourceCardinality", new AbstractAttribute(
+				"minSourceCardinality", new ElemAttribute(
 						"minSourceCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
 						"Minim Source Cardinality", false, 1, -1, "", "", -1,
 						"", ""), 0);
 
 		final InstAttribute instMaxSourceCard = new InstAttribute(
-				"maxSourceCardinality", new AbstractAttribute(
+				"maxSourceCardinality", new ElemAttribute(
 						"maxSourceCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
 						"Maximum Source Cardinality", "", 1, -1, "", "", -1,
 						"", ""), 1);
 		final InstAttribute instMinTargetCard = new InstAttribute(
-				"minTargetCardinality", new AbstractAttribute(
+				"minTargetCardinality", new ElemAttribute(
 						"minTargetCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
 						"Minimum Target Cardinality", "enumerationType", "ME",
 						"", "", 1, -1, "", "", -1, "", ""), 0);
 		final InstAttribute instMaxTargetCard = new InstAttribute(
-				"maxTargetCardinality", new AbstractAttribute(
+				"maxTargetCardinality", new ElemAttribute(
 						"maxTargetCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
 						"Maximum Target Cardinality", 1, 1, -1, "", "", -1, "",
 						""), 1);
 		final InstAttribute instSemanticExpressions = new InstAttribute(
-				"semanticExpression", new AbstractAttribute(
+				"semanticExpression", new ElemAttribute(
 						"semanticExpression",
-						SemanticExpression.class.getCanonicalName(),
+						OpersExpr.class.getCanonicalName(),
 						AttributeType.SYNTAX, false, "Semantic Expression", "",
 						1, -1, "", "", -1, "", ""), null);
 		if (insert) {
@@ -200,7 +200,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
-					new AbstractAttribute("RelTypeValue",
+					new ElemAttribute("RelTypeValue",
 							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
 							"Relation Type Value", "", 1, -1, "", "", -1, "",
 							""), "");

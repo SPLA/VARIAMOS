@@ -15,12 +15,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
 
 public class AttributeEditionPanel extends JPanel {
 	/**
@@ -29,7 +29,7 @@ public class AttributeEditionPanel extends JPanel {
 	private static final long serialVersionUID = 1478873242908064197L;
 	private HashMap<String, WidgetR> widgets;
 	private DialogButtonAction onAccept, onCancel;
-	private JList<AbstractAttribute> propertyAttributeList;
+	private JList<ElemAttribute> propertyAttributeList;
 	JPanel panel = null;
 
 	static interface DialogButtonAction {
@@ -58,11 +58,11 @@ public class AttributeEditionPanel extends JPanel {
 		add(panel, BorderLayout.CENTER);
 	}
 
-	public Map<String, EditableElementAttribute> getParameters() {
-		Map<String, EditableElementAttribute> map = new HashMap<>();
+	public Map<String, IntElemAttribute> getParameters() {
+		Map<String, IntElemAttribute> map = new HashMap<>();
 
 		for (String s : widgets.keySet()) {
-			EditableElementAttribute v = widgets.get(s).getInstAttribute();
+			IntElemAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 
@@ -70,20 +70,20 @@ public class AttributeEditionPanel extends JPanel {
 	}
 
 	public void setPropertyAttributeList(
-			JList<AbstractAttribute> propertyAttributeList) {
+			JList<ElemAttribute> propertyAttributeList) {
 		this.propertyAttributeList = propertyAttributeList;
 
 	}
 
 	public void loadElementAttributes(VariamosGraphEditor editor,
 			boolean editable,
-			EditableElementAttribute... editableElementAttributes) {
+			IntElemAttribute... editableElementAttributes) {
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 
 		widgets = new HashMap<String, WidgetR>();
 		panel.removeAll();
 		int contEd = 0;
-		for (EditableElementAttribute p : editableElementAttributes) {
+		for (IntElemAttribute p : editableElementAttributes) {
 			if (p != null) {
 				WidgetR w = factory.getWidgetFor(p);
 				if (w == null) {

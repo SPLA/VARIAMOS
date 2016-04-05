@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.gui.configurator.guiactions.ExportConfigurationAction;
 import com.variamos.gui.configurator.guiactions.LoadConfigurationAction;
 import com.variamos.gui.configurator.guiactions.SaveConfigurationAction;
@@ -50,7 +51,6 @@ import com.variamos.gui.perspeditor.actions.VariableOperationAssociationAction;
 import com.variamos.gui.perspeditor.actions.VerificationAction;
 import com.variamos.gui.perspeditor.actions.VerifyDeadElementAction;
 import com.variamos.gui.perspeditor.actions.VerifyFalseOptElementAction;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 @SuppressWarnings("serial")
 public class PerspEditorMenuBar extends JMenuBar {

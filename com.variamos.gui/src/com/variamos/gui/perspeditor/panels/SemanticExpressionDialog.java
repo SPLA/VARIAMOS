@@ -31,17 +31,17 @@ import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.interfaces.IntMetaExpression;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
-import com.variamos.perspsupport.expressionsupport.SemanticExpression;
-import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.opersint.IntMetaExpression;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
  * A class to draw the semantic expression editor. Part of PhD work at
@@ -55,7 +55,7 @@ import com.variamos.perspsupport.types.ExpressionVertexType;
 public class SemanticExpressionDialog extends JDialog {
 	private List<IntMetaExpression> semanticExpressions;
 	private SemanticExpressionButtonAction onAccept, onCancel;
-	private SemanticExpression selectedExpression;
+	private OpersExpr selectedExpression;
 	private JPanel solutionPanel;
 	private ModelInstance refasModel;
 	private boolean displayConceptName = false;
@@ -100,7 +100,7 @@ public class SemanticExpressionDialog extends JDialog {
 		for (final IntMetaExpression semanticExpression : this.semanticExpressions) {
 
 			if (semanticExpressions != null)
-				selectedExpression = (SemanticExpression) semanticExpression;
+				selectedExpression = (OpersExpr) semanticExpression;
 
 			solutionPanel = new JPanel();
 			solutionPanel.setAutoscrolls(true);
@@ -123,10 +123,10 @@ public class SemanticExpressionDialog extends JDialog {
 				}
 			});
 			solutionPanel.add(iden);
-			((SemanticExpression) semanticExpression)
+			((OpersExpr) semanticExpression)
 					.loadVolatileElements(refasModel.getVariabilityVertex());
-			showExpression((SemanticExpression) semanticExpression, element,
-					solutionPanel, SemanticExpressionType.BOOLEXP, 255);
+			showExpression((OpersExpr) semanticExpression, element,
+					solutionPanel, OpersExprType.BOOLEXP, 255);
 
 			solutionPanel.addPropertyChangeListener("value",
 					new PropertyChangeListener() {
@@ -187,7 +187,7 @@ public class SemanticExpressionDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				finalSemanticExpressions.add(new SemanticExpression(element));
+				finalSemanticExpressions.add(new OpersExpr(element));
 
 				new Thread() {
 					public void run() {
@@ -258,19 +258,19 @@ public class SemanticExpressionDialog extends JDialog {
 		initializing = false;
 	}
 
-	private void showExpression(final SemanticExpression semanticExpression,
+	private void showExpression(final OpersExpr semanticExpression,
 			final InstElement element, JPanel parentPanel,
 			int topExpressionType, int color) {
 		showExpression(semanticExpression, element, null, false, parentPanel,
 				topExpressionType, color);
 	}
 
-	private void showExpression(final SemanticExpression semanticExpression,
+	private void showExpression(final OpersExpr semanticExpression,
 			final InstElement element, final InstElement recursiveElement,
 			boolean fixedType, JPanel parentPanel, int topExpressionType,
 			int color) {
 		final InstElement ele = element;
-		final SemanticExpression exp = semanticExpression;
+		final OpersExpr exp = semanticExpression;
 
 		JPanel basePanel = new JPanel();
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -865,7 +865,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JTextField createTextField(
-			final SemanticExpression instanceExpression,
+			final OpersExpr instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField = null;
@@ -922,7 +922,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createCombo(
-			final SemanticExpression semanticExpression,
+			final OpersExpr semanticExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType,
 			final boolean showConceptName, final char elementType,
@@ -983,7 +983,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> fillCombo(
-			final SemanticExpression semanticExpression,
+			final OpersExpr semanticExpression,
 			ExpressionVertexType type, InstElement element,
 			String selectedElement, boolean isConcept, char elementType) {
 		JComboBox<String> combo = new JComboBox<String>();
@@ -1033,7 +1033,7 @@ public class SemanticExpressionDialog extends JDialog {
 								"InfraSyntaxOpersM2Concept") || sourceRelation
 						.getSupportMetaElementIden().equals(
 								"InfraSyntaxOpersM2OTRel"))))
-						|| (element instanceof InstPairwiseRelation && sourceRelation
+						|| (element instanceof InstPairwiseRel && sourceRelation
 								.getSupportMetaElementIden().equals(
 										"InfraSyntaxOpersM2PWRel")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
@@ -1079,7 +1079,7 @@ public class SemanticExpressionDialog extends JDialog {
 						.getTransSupportMetaElement()
 						.getTransInstSemanticElement().getParentOpersConcept();
 				if (instElement.getEditableSemanticElement() != null)
-					for (AbstractAttribute attribute : instElement
+					for (ElemAttribute attribute : instElement
 							.getEditableSemanticElement()
 							.getAllSemanticAttributes(opersParent).values())
 						if (displayVariableName)
@@ -1087,7 +1087,7 @@ public class SemanticExpressionDialog extends JDialog {
 							combo.addItem(attribute.getDisplayName());
 						else
 							combo.addItem(attribute.getName());
-				for (AbstractAttribute attribute : instElement
+				for (ElemAttribute attribute : instElement
 						.getTransSupportMetaElement().getModelingAttributes()
 						.values())
 					if (displayVariableName)
@@ -1103,7 +1103,7 @@ public class SemanticExpressionDialog extends JDialog {
 							.getTransInstSemanticElement()
 							.getParentOpersConcept();
 					if (instElementT.getEditableSemanticElement() != null)
-						for (AbstractAttribute attribute : instElementT
+						for (ElemAttribute attribute : instElementT
 								.getEditableSemanticElement()
 								.getAllSemanticAttributes(opersParent).values())
 
@@ -1119,16 +1119,16 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createOperatorsCombo(
-			final SemanticExpression instanceExpression,
+			final OpersExpr instanceExpression,
 			final InstElement element, String selectedOperator,
 			int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
-		List<SemanticExpressionType> semanticExpressionTypes = SemanticExpressionType
+		List<OpersExprType> semanticExpressionTypes = OpersExprType
 				.getValidSemanticExpressionTypes(refasModel
 						.getSemanticExpressionTypes().values(),
 						topExpressionType);
 
-		for (SemanticExpressionType semanticExpressionType : semanticExpressionTypes) {
+		for (OpersExprType semanticExpressionType : semanticExpressionTypes) {
 			combo.addItem(semanticExpressionType.getTextConnector());
 		}
 		combo.setSelectedItem(selectedOperator);
@@ -1157,7 +1157,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createSidesCombo(
-			final SemanticExpression semanticExpression,
+			final OpersExpr semanticExpression,
 			final InstElement element, final boolean left, boolean relation,
 			boolean fixed) {
 		JComboBox<String> combo = new JComboBox<String>();

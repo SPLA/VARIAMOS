@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
 
 /**
  * A class to support string widgets on the interface. Copied from StringWidget
@@ -32,7 +32,7 @@ public class StringWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(EditableElementAttribute v) {
+	protected boolean pushValue(IntElemAttribute v) {
 		txtValue.setText((String) v.getValue());
 		group.setText((String) v.getGroup());
 		revalidate();
@@ -41,7 +41,7 @@ public class StringWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(EditableElementAttribute v) {
+	protected void pullValue(IntElemAttribute v) {
 		if (v != null) {
 			v.setValue(txtValue.getText());
 			v.setGroup(group.getText());

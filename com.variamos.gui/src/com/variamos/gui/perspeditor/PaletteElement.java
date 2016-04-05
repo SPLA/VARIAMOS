@@ -1,7 +1,7 @@
 package com.variamos.gui.perspeditor;
 
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.SyntaxElement;
 
 public class PaletteElement {
 
@@ -13,10 +13,10 @@ public class PaletteElement {
 	private int width;
 	private String className;
 	//jcmunoz
-	private MetaElement metaElement;
+	private SyntaxElement metaElement;
 	private InstElement instElement;
 
-	public MetaElement getMetaElement() {
+	public SyntaxElement getMetaElement() {
 		return metaElement;
 	}
 
@@ -30,7 +30,7 @@ public class PaletteElement {
 	}
 	
 	public PaletteElement(String id, String elementTitle, String icon,
-			String style, int width, int height, String className, MetaElement metaElement, InstElement instElement) {		
+			String style, int width, int height, String className, SyntaxElement metaElement, InstElement instElement) {		
 		this.id = id;
 		this.elementTitle = elementTitle;
 		this.icon = icon;

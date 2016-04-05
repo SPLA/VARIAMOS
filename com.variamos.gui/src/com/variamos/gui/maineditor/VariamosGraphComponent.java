@@ -21,11 +21,11 @@ import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.perspeditor.actions.SharedActions;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstConcept;
-import com.variamos.perspsupport.instancesupport.InstElement;
 
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {

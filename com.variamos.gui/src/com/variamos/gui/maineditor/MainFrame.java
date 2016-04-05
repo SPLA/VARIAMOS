@@ -15,14 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.variamos.core.enums.SolverEditorType;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
-import com.variamos.perspsupport.expressionsupport.SemanticExpressionType;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.types.PerspectiveType;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
 public class MainFrame extends JFrame {
@@ -61,7 +61,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(String arg0) {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
-		Map<String, SemanticExpressionType> metaExpressionTypes = createMetaExpressionTypes();
+		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1166, 768);
 
@@ -181,75 +181,75 @@ public class MainFrame extends JFrame {
 		verifier.isVoid();
 	}
 
-	private Map<String, SemanticExpressionType> createMetaExpressionTypes() {
-		Map<String, SemanticExpressionType> out = new HashMap<String, SemanticExpressionType>();
-		out.put("And", new SemanticExpressionType("And", "#/\"", "#/\"", "and",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Assign", new SemanticExpressionType("Assign", "=", "=",
-				"assign", SemanticExpressionType.IDEN,
-				SemanticExpressionType.EXP, SemanticExpressionType.NONE, false,
+	private Map<String, OpersExprType> createMetaExpressionTypes() {
+		Map<String, OpersExprType> out = new HashMap<String, OpersExprType>();
+		out.put("And", new OpersExprType("And", "#/\"", "#/\"", "and",
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Assign", new OpersExprType("Assign", "=", "=",
+				"assign", OpersExprType.IDEN,
+				OpersExprType.EXP, OpersExprType.NONE, false,
 				false));
-		out.put("Subtraction", new SemanticExpressionType("Subtraction", "-",
-				"-", "diff", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+		out.put("Subtraction", new OpersExprType("Subtraction", "-",
+				"-", "diff", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				false, false));
-		out.put("DoubleImplies", new SemanticExpressionType("DoubleImplies",
+		out.put("DoubleImplies", new OpersExprType("DoubleImplies",
 				"#<==>", "#<==>", "doubleImplies",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Equals", new SemanticExpressionType("Equals", "#=", "#=",
-				"equals", SemanticExpressionType.EXP,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Equals", new OpersExprType("Equals", "#=", "#=",
+				"equals", OpersExprType.EXP,
+				OpersExprType.EXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("Greater", new SemanticExpressionType("Greater", "#>", "#>",
-				"greaterThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+		out.put("Greater", new OpersExprType("Greater", "#>", "#>",
+				"greaterThan", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("GreaterOrEq", new SemanticExpressionType("GreaterOrEq", "#>=",
-				"#>=", "greaterOrEqualsThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=",
+				"#>=", "greaterOrEqualsThan", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("Implies", new SemanticExpressionType("Implies", "#==>",
-				"#==>", "implies", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
+		out.put("Implies", new OpersExprType("Implies", "#==>",
+				"#==>", "implies", OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("Less", new SemanticExpressionType("Less", "#<", "#<",
-				"lessThan", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.BOOLEXP,
+		out.put("Less", new OpersExprType("Less", "#<", "#<",
+				"lessThan", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("LessOrEquals", new SemanticExpressionType("LessOrEquals",
+		out.put("LessOrEquals", new OpersExprType("LessOrEquals",
 				"#<=", "#<=", "lessOrEqualsThan",
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
 		/*
 		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "",
 		 * "", "literalBooleanExpression", SemanticExpressionType.LIT,
 		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,
 		 * false));
 		 */
-		out.put("Negation", new SemanticExpressionType("Negation", "-", "-",
-				"not", SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP,
+		out.put("Negation", new OpersExprType("Negation", "-", "-",
+				"not", OpersExprType.BOOLEXP,
+				OpersExprType.NONE, OpersExprType.BOOLEXP,
 				true, false));
-		out.put("Number", new SemanticExpressionType("Number", "", "",
-				"number", SemanticExpressionType.INTVAL,
-				SemanticExpressionType.NONE, SemanticExpressionType.NUMEXP,
+		out.put("Number", new OpersExprType("Number", "", "",
+				"number", OpersExprType.INTVAL,
+				OpersExprType.NONE, OpersExprType.NUMEXP,
 				true, false));
-		out.put("NotEquals", new SemanticExpressionType("NotEquals", "\\==",
-				"\\==", "notEquals", SemanticExpressionType.EXP,
-				SemanticExpressionType.EXP, SemanticExpressionType.BOOLEXP,
+		out.put("NotEquals", new OpersExprType("NotEquals", "\\==",
+				"\\==", "notEquals", OpersExprType.EXP,
+				OpersExprType.EXP, OpersExprType.BOOLEXP,
 				false, false));
-		out.put("Or", new SemanticExpressionType("Or", "#\"/", "#\"/", "or",
-				SemanticExpressionType.BOOLEXP, SemanticExpressionType.BOOLEXP,
-				SemanticExpressionType.BOOLEXP, false, false));
-		out.put("Product", new SemanticExpressionType("Product", "*", "*",
-				"prod", SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
+		out.put("Or", new OpersExprType("Or", "#\"/", "#\"/", "or",
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Product", new OpersExprType("Product", "*", "*",
+				"prod", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				false, true));
-		out.put("Sum", new SemanticExpressionType("Sum", "+", "+", "sum",
-				SemanticExpressionType.NUMEXP, SemanticExpressionType.NUMEXP,
-				SemanticExpressionType.NUMEXP, false, true));
+		out.put("Sum", new OpersExprType("Sum", "+", "+", "sum",
+				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, false, true));
 		return out;
 	}
 

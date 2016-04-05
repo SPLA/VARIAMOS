@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
+import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.types.BooleanType;
+import com.variamos.dynsup.types.ClassMultiSelectionType;
+import com.variamos.dynsup.types.ClassSingleSelectionType;
+import com.variamos.dynsup.types.EnumerationMultiSelectionType;
+import com.variamos.dynsup.types.EnumerationSingleSelectionType;
+import com.variamos.dynsup.types.IntegerType;
+import com.variamos.dynsup.types.SetType;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.EditableElementAttribute;
-import com.variamos.perspsupport.types.BooleanType;
-import com.variamos.perspsupport.types.ClassMultiSelectionType;
-import com.variamos.perspsupport.types.ClassSingleSelectionType;
-import com.variamos.perspsupport.types.EnumerationMultiSelectionType;
-import com.variamos.perspsupport.types.EnumerationSingleSelectionType;
-import com.variamos.perspsupport.types.IntegerType;
-import com.variamos.perspsupport.types.SetType;
-import com.variamos.perspsupport.types.StringType;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
@@ -57,7 +57,7 @@ public class RefasWidgetFactory {
 
 	}
 
-	public WidgetR getWidgetFor(EditableElementAttribute v) {
+	public WidgetR getWidgetFor(IntElemAttribute v) {
 		// Type d = register.getDomain(v.getType());
 
 		String type = v.getType();

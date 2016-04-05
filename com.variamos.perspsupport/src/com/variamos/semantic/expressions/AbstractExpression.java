@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstEnum;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstEnumeration;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
-import com.variamos.perspsupport.types.ExpressionVertexType;
 
 /**
  * Abstract root Class to group at the Transformation functionality. Part of PhD
@@ -168,7 +168,7 @@ public abstract class AbstractExpression {
 			out.put(leftVertex
 					.getInstAttributeFullIdentifier(leftAttributeName),
 					identifier);
-			AbstractAttribute attribute = leftVertex.getInstAttribute(
+			ElemAttribute attribute = leftVertex.getInstAttribute(
 					leftAttributeName).getAttribute();
 
 			updateDomain(attribute, leftVertex, identifier);
@@ -183,7 +183,7 @@ public abstract class AbstractExpression {
 			out.put(rightVertex
 					.getInstAttributeFullIdentifier(rightAttributeName),
 					identifier);
-			AbstractAttribute attribute = rightVertex.getInstAttribute(
+			ElemAttribute attribute = rightVertex.getInstAttribute(
 					rightAttributeName).getAttribute();
 			updateDomain(attribute, rightVertex, identifier);
 
@@ -197,7 +197,7 @@ public abstract class AbstractExpression {
 		return out;
 	}
 
-	private void updateDomain(AbstractAttribute attribute,
+	private void updateDomain(ElemAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
 		if (attribute.getName().equals("SDReqLevel")
 				|| attribute.getName().equals("ClaimExpLevel")) {
@@ -205,16 +205,16 @@ public abstract class AbstractExpression {
 			Set<Integer> values = new HashSet<Integer>();
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				// FIXME implement a dynamic definition for this validation
-				if (((InstPairwiseRelation) relation).getInstAttribute("level") != null)
-					values.add(((InstPairwiseRelation) relation)
+				if (((InstPairwiseRel) relation).getInstAttribute("level") != null)
+					values.add(((InstPairwiseRel) relation)
 							.getInstAttribute("level").getAsInteger());
-				if (((InstPairwiseRelation) relation)
+				if (((InstPairwiseRel) relation)
 						.getInstAttribute("CLSGLevel") != null)
-					values.add(((InstPairwiseRelation) relation)
+					values.add(((InstPairwiseRel) relation)
 							.getInstAttribute("CLSGLevel").getAsInteger());
-				if (((InstPairwiseRelation) relation)
+				if (((InstPairwiseRel) relation)
 						.getInstAttribute("targetLevel") != null)
-					values.add(((InstPairwiseRelation) relation)
+					values.add(((InstPairwiseRel) relation)
 							.getInstAttribute("targetLevel").getAsInteger());
 			}
 			if (values.size() == 0) {
@@ -246,8 +246,8 @@ public abstract class AbstractExpression {
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnumeration) object)
-							.getInstAttribute(MetaEnumeration.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
+							.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("-");

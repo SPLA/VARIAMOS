@@ -15,15 +15,15 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
+import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.partialsorts.EnumerationSort;
+import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.perspsupport.instancesupport.InstAttribute;
-import com.variamos.perspsupport.instancesupport.InstCell;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.partialsorts.EnumerationSort;
-import com.variamos.perspsupport.syntaxsupport.AbstractAttribute;
-import com.variamos.perspsupport.syntaxsupport.MetaEnumeration;
-import com.variamos.perspsupport.types.StringType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -54,7 +54,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 * 
 	 */
 	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
-			new AbstractAttribute("New Enum Type ...", StringType.IDENTIFIER,
+			new ElemAttribute("New Enum Type ...", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "New Enum Type ...", "", 1,
 					-1, "", "", -1, "", ""), "New Enum Type ...");
 
@@ -70,7 +70,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
 		InstAttribute o = element.getInstAttributes().get(
-				MetaEnumeration.VAR_METAENUMVALUE);
+				SyntaxEnum.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -119,19 +119,19 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instName = new InstAttribute("enumName",
-				new AbstractAttribute("EnumNameValue", StringType.IDENTIFIER,
+				new ElemAttribute("EnumNameValue", StringType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Value Name", "", 1, -1,
 						"", "", -1, "", ""), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
-				new AbstractAttribute("EnumIdValue", IntegerType.IDENTIFIER,
+				new ElemAttribute("EnumIdValue", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Value Id(int)", "", 1,
 						-1, "", "", -1, "", ""), 0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(MetaEnumeration.VAR_METAENUMVALUE)
+					.getInstAttributes().get(SyntaxEnum.VAR_METAENUMVALUE)
 					.getValue();
 			int i = 1;
 			/*
@@ -145,7 +145,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 			// Name
 			instAttribute = new InstAttribute("enum" + i,
-					new AbstractAttribute("EnumValue", StringType.IDENTIFIER,
+					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
 							AttributeType.SYNTAX, false, "Enumeration Value",
 							"", 1, -1, "", "", -1, "", ""), "");
 		} else {
@@ -199,7 +199,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -221,7 +221,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(MetaEnumeration.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
 
 				attributes.remove(v);
 

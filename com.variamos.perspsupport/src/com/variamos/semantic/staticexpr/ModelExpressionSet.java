@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstPairwiseRel;
+import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.model.SyntaxVertex;
+import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
-import com.variamos.perspsupport.instancesupport.InstElement;
-import com.variamos.perspsupport.instancesupport.InstPairwiseRelation;
-import com.variamos.perspsupport.model.ModelInstance;
-import com.variamos.perspsupport.syntaxsupport.MetaElement;
-import com.variamos.perspsupport.syntaxsupport.MetaVertex;
-import com.variamos.perspsupport.translation.ModelExpr2HLCL;
 import com.variamos.semantic.expressions.AbstractBooleanExpression;
 import com.variamos.semantic.expressions.AbstractNumericExpression;
 import com.variamos.semantic.expressions.GreaterOrEqualsBooleanExpression;
@@ -43,7 +43,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 	public boolean validateConceptType(InstElement instElement, String element) {
 		if (instElement == null)// || !(instElement instanceof InstVertex))
 			return false;
-		MetaElement metaElement = ((MetaElement) instElement
+		SyntaxElement metaElement = ((SyntaxElement) instElement
 				.getTransSupportMetaElement());
 		if (metaElement == null)
 			return false;
@@ -53,14 +53,14 @@ public class ModelExpressionSet extends ElementExpressionSet {
 			InstElement sEle = semElement;
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
-				if (ele instanceof InstPairwiseRelation) {
-					if (((InstPairwiseRelation) ele)
+				if (ele instanceof InstPairwiseRel) {
+					if (((InstPairwiseRel) ele)
 							.getSupportMetaPairwiseRelIden().equals(
 									"ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRelation) ele)
+				} else if (((InstPairwiseRel) ele)
 						.getSupportMetaElementIden().equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
@@ -81,7 +81,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		AbstractNumericExpression prefOutExp = null;
 
 		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
-			MetaVertex metaElement = ((MetaVertex) vertex
+			SyntaxVertex metaElement = ((SyntaxVertex) vertex
 					.getTransSupportMetaElement());
 			if (validateConceptType(vertex, "GeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {
