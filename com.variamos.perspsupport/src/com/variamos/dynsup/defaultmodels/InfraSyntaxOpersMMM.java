@@ -12,7 +12,6 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersAttribute;
-import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxAttribute;
@@ -118,23 +117,10 @@ public class InfraSyntaxOpersMMM {
 
 		// Begin Basic M2 Model
 
-		OpersConcept basicOpersM2Concept = new OpersConcept();
+		// OpersConcept basicOpersM2Concept = new OpersConcept();
 
 		// FOR SD and CLAIMS - Review to change
-		basicOpersM2Concept.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
 
-		basicOpersM2Concept.putSemanticAttribute("operationsExpressions",
-				new SyntaxAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false,
-						"Operations Meta-Model Expressions",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
 		// semConcept.putSemanticAttribute("identifier", new SyntaxAttribute(
 		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
 		// "", "", -1, "", ""));
@@ -144,10 +130,11 @@ public class InfraSyntaxOpersMMM {
 		// semConcept.addPanelVisibleAttribute("01#" + "identifier");
 		// semConcept.addPanelSpacersAttribute("#" + "identifier" + "#\n\n");
 
-		InstConcept instBasicOpersM2Concept = new InstConcept(
-				"basicOpersM2Concept", null, basicOpersM2Concept);
+		// InstConcept instBasicOpersM2Concept = new InstConcept(
+		// "basicOpersM2Concept", null, basicOpersM2Concept);
 
-		OpersConcept basicOpersM2PWRel = new OpersConcept("BasicOpersM2PWRel");
+		// OpersConcept basicOpersM2PWRel = new
+		// OpersConcept("BasicOpersM2PWRel");
 
 		// semPairwiseRelation.putSemanticAttribute("enumerationType",
 		// new SemanticAttribute("enumerationType", "Class",
@@ -161,36 +148,37 @@ public class InfraSyntaxOpersMMM {
 		// semPairwiseRelation.addPropVisibleAttribute("03#" +
 		// "enumerationType");
 
-		basicOpersM2PWRel.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		// basicOpersM2PWRel.putSemanticAttribute("relationTypesAttributes",
+		// new SyntaxAttribute("relationTypesAttributes", "Set",
+		// AttributeType.SYNTAX, false, "relationTypes",
+		// InstAttribute.class.getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+		// ""));
+		//
+		// basicOpersM2PWRel.putSemanticAttribute("operationsExpressions",
+		// new SyntaxAttribute("operationsExpressions", "Set",
+		// AttributeType.SYNTAX, false, "semanticExpressions",
+		// InstAttribute.class.getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+		// ""));
+		//
+		// InstConcept instBasicOpersM2PWRel = new InstConcept(
+		// "BasicOpersM2PWRel", null, basicOpersM2PWRel);
 
-		basicOpersM2PWRel.putSemanticAttribute("operationsExpressions",
-				new SyntaxAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false, "semanticExpressions",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		// InstPairwiseRel instEdge = new InstPairwiseRel();
+		// instEdge.setIdentifier("pwtoc");
+		// instEdge.setSupportMetaPairwiseRelation(basicOpersSyntaxM3ExtendsRelation);
+		// instEdge.setTargetRelation(instBasicOpersM2Concept, true);
+		// instEdge.setSourceRelation(instBasicOpersM2PWRel, true);
 
-		InstConcept instBasicOpersM2PWRel = new InstConcept(
-				"BasicOpersM2PWRel", null, basicOpersM2PWRel);
+		// OpersPairwiseRel basicOpersM2ExtendsRelation = new OpersPairwiseRel(
+		// "ExtRel", false, null);
 
-		InstPairwiseRel instEdge = new InstPairwiseRel();
-		instEdge.setIdentifier("pwtoc");
-		instEdge.setSupportMetaPairwiseRelation(basicOpersSyntaxM3ExtendsRelation);
-		instEdge.setTargetRelation(instBasicOpersM2Concept, true);
-		instEdge.setSourceRelation(instBasicOpersM2PWRel, true);
-
-		OpersPairwiseRel basicOpersM2ExtendsRelation = new OpersPairwiseRel(
-				"ExtRel", false, null);
-
-		InstConcept instBasicOpersM2ExtendsRelation = new InstConcept(
-				"ExtendsRelation", basicOpersSyntaxM3Concept,
-				basicOpersM2ExtendsRelation);
-		OpersConcept basicOpersM2OTRel = new OpersConcept("basicOpersM2OTRel");
+		// InstConcept instBasicOpersM2ExtendsRelation = new InstConcept(
+		// "ExtendsRelation", basicOpersSyntaxM3Concept,
+		// basicOpersM2ExtendsRelation);
+		// OpersConcept basicOpersM2OTRel = new
+		// OpersConcept("basicOpersM2OTRel");
 
 		// semOverTwoRelation.putSemanticAttribute("enumerationType",
 		// new SemanticAttribute("enumerationType", "Class",
@@ -204,45 +192,45 @@ public class InfraSyntaxOpersMMM {
 		// semOverTwoRelation.addPropVisibleAttribute("03#" +
 		// "enumerationType");
 
-		basicOpersM2OTRel.putSemanticAttribute("relationTypesAttributes",
-				new SyntaxAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		// basicOpersM2OTRel.putSemanticAttribute("relationTypesAttributes",
+		// new SyntaxAttribute("relationTypesAttributes", "Set",
+		// AttributeType.SYNTAX, false, "relationTypes",
+		// InstAttribute.class.getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+		// ""));
+		//
+		// basicOpersM2OTRel.putSemanticAttribute("operationsExpressions",
+		// new SyntaxAttribute("operationsExpressions", "Set",
+		// AttributeType.SYNTAX, false, "semanticExpressions",
+		// InstAttribute.class.getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+		// ""));
 
-		basicOpersM2OTRel.putSemanticAttribute("operationsExpressions",
-				new SyntaxAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false, "semanticExpressions",
-						InstAttribute.class.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
-						""));
+		// InstConcept instBasicOpersM2OTRel = new InstConcept(
+		// "basicOpersM2OTRel", null, basicOpersM2OTRel);
+		//
+		// InstPairwiseRel instEdge = new InstPairwiseRel();
+		// instEdge.setIdentifier("otrtoc");
+		// instEdge.setSupportMetaPairwiseRelation(basicOpersSyntaxM3ExtendsRelation);
+		// instEdge.setTargetRelation(instBasicOpersM2Concept, true);
+		// instEdge.setSourceRelation(instBasicOpersM2OTRel, true);
 
-		InstConcept instBasicOpersM2OTRel = new InstConcept(
-				"basicOpersM2OTRel", null, basicOpersM2OTRel);
+		// OpersConcept basicOpersM2SemModel = new OpersConcept(
+		// "BasicOpersM2Model");
+		//
+		// basicOpersM2SemModel.putSemanticAttribute("name", new OpersAttribute(
+		// "name", "String", AttributeType.OPERATION, false, "Name", null,
+		// 0, 6, "", "", 6, "", ""));
+		// basicOpersM2SemModel.addPropEditableAttribute("06#" + "name");
+		// basicOpersM2SemModel.addPropVisibleAttribute("06#" + "name");
+		// basicOpersM2SemModel.addPanelVisibleAttribute("06#" + "name");
+		// basicOpersM2SemModel.addPanelSpacersAttribute("#" + "name" + "#");
+		//
+		// InstConcept instBasicOpersM2SemModel = new InstConcept(
+		// "BasicOpersM2Model", null, basicOpersM2SemModel);
 
-		instEdge = new InstPairwiseRel();
-		instEdge.setIdentifier("otrtoc");
-		instEdge.setSupportMetaPairwiseRelation(basicOpersSyntaxM3ExtendsRelation);
-		instEdge.setTargetRelation(instBasicOpersM2Concept, true);
-		instEdge.setSourceRelation(instBasicOpersM2OTRel, true);
-
-		OpersConcept basicOpersM2SemModel = new OpersConcept(
-				"BasicOpersM2Model");
-
-		basicOpersM2SemModel.putSemanticAttribute("name", new OpersAttribute(
-				"name", "String", AttributeType.OPERATION, false, "Name", null,
-				0, 6, "", "", 6, "", ""));
-		basicOpersM2SemModel.addPropEditableAttribute("06#" + "name");
-		basicOpersM2SemModel.addPropVisibleAttribute("06#" + "name");
-		basicOpersM2SemModel.addPanelVisibleAttribute("06#" + "name");
-		basicOpersM2SemModel.addPanelSpacersAttribute("#" + "name" + "#");
-
-		InstConcept instBasicOpersM2SemModel = new InstConcept(
-				"BasicOpersM2Model", null, basicOpersM2SemModel);
-
-		OpersConcept basicOpebrsM2OperGroup = new OpersConcept(
-				"BasicOpersM2OperGroup");
+		// OpersConcept basicOpebrsM2OperGroup = new OpersConcept(
+		// "BasicOpersM2OperGroup");
 
 		// 4 config/simul
 		// 2 req model
@@ -252,185 +240,193 @@ public class InfraSyntaxOpersMMM {
 		IntervalDomain d = new IntervalDomain();
 		d.setRangeValues(dom);
 
-		basicOpebrsM2OperGroup.putSemanticAttribute("menuType",
-				new OpersAttribute("menuType", "Integer",
-						AttributeType.OPERATION, "Oper Group Type", 4, false,
-						d, 0, 5, "", "", 5, "", ""));
-		basicOpebrsM2OperGroup.addPropEditableAttribute("05#" + "menuType");
-		basicOpebrsM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
+		// basicOpebrsM2OperGroup.putSemanticAttribute("menuType",
+		// new OpersAttribute("menuType", "Integer",
+		// AttributeType.OPERATION, "Oper Group Type", 4, false,
+		// d, 0, 5, "", "", 5, "", ""));
+		// basicOpebrsM2OperGroup.addPropEditableAttribute("05#" + "menuType");
+		// basicOpebrsM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
+		//
+		// basicOpebrsM2OperGroup.putSemanticAttribute("visible",
+		// new OpersAttribute("visible", "Boolean",
+		// AttributeType.OPERATION, false, "Visible", true, 0, 8,
+		// "", "", 8, "", ""));
+		// basicOpebrsM2OperGroup.addPropEditableAttribute("08#" + "visible");
+		// basicOpebrsM2OperGroup.addPropVisibleAttribute("08#" + "visible");
+		//
+		// basicOpebrsM2OperGroup.putSemanticAttribute("name", new
+		// OpersAttribute(
+		// "name", "String", AttributeType.OPERATION, false, "Name", null,
+		// 0, 6, "", "", 6, "", ""));
+		// basicOpebrsM2OperGroup.addPropEditableAttribute("06#" + "name");
+		// basicOpebrsM2OperGroup.addPropVisibleAttribute("06#" + "name");
+		// basicOpebrsM2OperGroup.addPanelVisibleAttribute("06#" + "name");
+		// basicOpebrsM2OperGroup.addPanelSpacersAttribute("#" + "name" + "#");
+		//
+		// basicOpebrsM2OperGroup.putSemanticAttribute("shortcut",
+		// new OpersAttribute("shortcut", "String",
+		// AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+		// "", "", 7, "", ""));
+		// basicOpebrsM2OperGroup.addPropEditableAttribute("07#" + "shortcut");
+		// basicOpebrsM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
+		//
+		// basicOpebrsM2OperGroup.putSemanticAttribute("Index",
+		// new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+		// false, "Position", 1, 0, 9, "", "", 9, "", ""));
+		// basicOpebrsM2OperGroup.addPropEditableAttribute("09#" + "Index");
+		// basicOpebrsM2OperGroup.addPropVisibleAttribute("09#" + "Index");
+		//
+		// InstConcept instBasicOpersM2OperGroup = new InstConcept(
+		// "BasicOpersM2OperGroup", null, basicOpebrsM2OperGroup);
 
-		basicOpebrsM2OperGroup.putSemanticAttribute("visible",
-				new OpersAttribute("visible", "Boolean",
-						AttributeType.OPERATION, false, "Visible", true, 0, 8,
-						"", "", 8, "", ""));
-		basicOpebrsM2OperGroup.addPropEditableAttribute("08#" + "visible");
-		basicOpebrsM2OperGroup.addPropVisibleAttribute("08#" + "visible");
+		// OpersConcept basicOpersM2OperAction = new OpersConcept(
+		// "BasicOpersM2Operation");
+		//
+		// basicOpersM2OperAction.putSemanticAttribute("name", new
+		// OpersAttribute(
+		// "name", "String", AttributeType.OPERATION, false, "Name", null,
+		// 0, 6, "", "", 6, "", ""));
+		// basicOpersM2OperAction.putSemanticAttribute("shortcut",
+		// new OpersAttribute("shortcut", "String",
+		// AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+		// "", "", 7, "", ""));
+		// basicOpersM2OperAction.putSemanticAttribute("Index",
+		// new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+		// false, "Position", 1, 0, 8, "", "", 8, "", ""));
+		// basicOpersM2OperAction.putSemanticAttribute("iteration",
+		// new OpersAttribute("iteration", "Boolean",
+		// AttributeType.OPERATION, false, "Iterate Button",
+		// false, 0, 9, "", "", 9, "", ""));
+		// basicOpersM2OperAction.putSemanticAttribute("iterationName",
+		// new OpersAttribute("iterationName", "String",
+		// AttributeType.OPERATION, false, "Iterate Name", null,
+		// 0, 6, "", "", 6, "", ""));
+		// basicOpersM2OperAction.putSemanticAttribute("prevSpacer",
+		// new OpersAttribute("prevSpacer", "Boolean",
+		// AttributeType.OPERATION, false, "Add Previous Spacer",
+		// false, 0, 9, "", "", 9, "", ""));
+		//
+		// basicOpersM2OperAction.addPropEditableAttribute("06#" + "name");
+		// basicOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
+		// basicOpersM2OperAction.addPanelVisibleAttribute("06#" + "name");
+		// basicOpersM2OperAction.addPanelSpacersAttribute("#" + "name" + "#");
+		//
+		// basicOpersM2OperAction.addPropEditableAttribute("07#" + "shortcut");
+		// basicOpersM2OperAction.addPropVisibleAttribute("07#" + "shortcut");
+		//
+		// basicOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
+		// basicOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
+		//
+		// basicOpersM2OperAction.addPropEditableAttribute("09#" + "iteration");
+		// basicOpersM2OperAction.addPropVisibleAttribute("09#" + "iteration");
+		//
+		// basicOpersM2OperAction
+		// .addPropEditableAttribute("09#" + "iterationName");
+		// basicOpersM2OperAction.addPropVisibleAttribute("09#" +
+		// "iterationName");
+		//
+		// basicOpersM2OperAction.addPropEditableAttribute("10#" +
+		// "prevSpacer");
+		// basicOpersM2OperAction.addPropVisibleAttribute("10#" + "prevSpacer");
+		//
+		// InstConcept instBasicOpersM2OperAction = new InstConcept(
+		// "BasicOpersM2Operation", null, basicOpersM2OperAction);
+		//
+		// OpersConcept basicOpersM2OperSubAction = new OpersConcept(
+		// "BasicOpersM2SubOper");
+		//
+		// basicOpersM2OperSubAction.putSemanticAttribute("name",
+		// new OpersAttribute("name", "String", AttributeType.OPERATION,
+		// false, "Name", null, 0, 6, "", "", 6, "", ""));
+		// basicOpersM2OperSubAction.addPropEditableAttribute("06#" + "name");
+		// basicOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
+		// basicOpersM2OperSubAction.addPanelVisibleAttribute("06#" + "name");
+		// basicOpersM2OperSubAction.addPanelSpacersAttribute("#" + "name" +
+		// "#");
+		//
+		// basicOpersM2OperSubAction.putSemanticAttribute("Index",
+		// new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+		// false, "Position", 1, 0, 6, "", "", 6, "", ""));
+		// basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "Index");
+		// basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "Index");
+		//
+		// basicOpersM2OperSubAction
+		// .putSemanticAttribute("iteration",
+		// new SyntaxAttribute("iteration", "Boolean",
+		// AttributeType.OPERATION, false,
+		// "Iterate Sub-Operation", false, 0, 6, "", "",
+		// 6, "", ""));
+		// basicOpersM2OperSubAction.addPropEditableAttribute("09#" +
+		// "iteration");
+		// basicOpersM2OperSubAction.addPropVisibleAttribute("09#" +
+		// "iteration");
+		//
+		// basicOpersM2OperSubAction.putSemanticAttribute("type",
+		// new SyntaxAttribute("type", "Enumeration",
+		// AttributeType.OPERATION, false, "Type",
+		// OperationSubActionType.class.getCanonicalName(),
+		// "SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
+		// basicOpersM2OperSubAction.addPropEditableAttribute("10#" + "type");
+		// basicOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
+		//
+		// basicOpersM2OperSubAction.putSemanticAttribute(
+		// "exptype",
+		// new SyntaxAttribute("exptype", "Set", AttributeType.SYNTAX,
+		// false, "exptype", InstAttribute.class
+		// .getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+		// ""));
+		//
+		// InstConcept instBasicOpersM2OperSubAction = new InstConcept(
+		// "BasicOpersM2SubOper", null, basicOpersM2OperSubAction);
 
-		basicOpebrsM2OperGroup.putSemanticAttribute("name", new OpersAttribute(
-				"name", "String", AttributeType.OPERATION, false, "Name", null,
-				0, 6, "", "", 6, "", ""));
-		basicOpebrsM2OperGroup.addPropEditableAttribute("06#" + "name");
-		basicOpebrsM2OperGroup.addPropVisibleAttribute("06#" + "name");
-		basicOpebrsM2OperGroup.addPanelVisibleAttribute("06#" + "name");
-		basicOpebrsM2OperGroup.addPanelSpacersAttribute("#" + "name" + "#");
+		// OpersConcept basicOpersM2Labeling = new OpersConcept(
+		// "BasicOpersM2Labeling");
+		//
+		// basicOpersM2Labeling.putSemanticAttribute("labelId",
+		// new OpersAttribute("labelId", "String",
+		// AttributeType.OPERATION, false, "Label ID", null, 0, 6,
+		// "", "", 6, "", ""));
+		// basicOpersM2Labeling.putSemanticAttribute("position",
+		// new OpersAttribute("position", "Integer",
+		// AttributeType.OPERATION, false, "Position", 1, 0, 6,
+		// "", "", 6, "", ""));
+		// basicOpersM2Labeling.putSemanticAttribute("once", new OpersAttribute(
+		// "once", "Boolean", AttributeType.OPERATION, false, "Once",
+		// false, 0, 6, "", "", 6, "", ""));
+		//
+		// basicOpersM2Labeling.putSemanticAttribute(
+		// "sortorder",
+		// new SyntaxAttribute("sortorder", "Set", AttributeType.SYNTAX,
+		// false, "sortorder", InstAttribute.class
+		// .getCanonicalName(),
+		// new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+		// ""));
+		// basicOpersM2Labeling.addPanelVisibleAttribute("04#" + "identifier");
+		// basicOpersM2Labeling.addPanelSpacersAttribute("#" + "identifier" +
+		// "#");
+		//
+		// basicOpersM2Labeling.addPropEditableAttribute("06#" + "labelId");
+		// basicOpersM2Labeling.addPropVisibleAttribute("06#" + "labelId");
+		// basicOpersM2Labeling.addPropEditableAttribute("07#" + "position");
+		// basicOpersM2Labeling.addPropVisibleAttribute("07#" + "position");
+		// basicOpersM2Labeling.addPropEditableAttribute("08#" + "once");
+		// basicOpersM2Labeling.addPropVisibleAttribute("08#" + "once");
+		//
+		// InstConcept instBasicOpersM2Labeling = new InstConcept(
+		// "BasicOpersM2Labeling", null, basicOpersM2Labeling);
 
-		basicOpebrsM2OperGroup.putSemanticAttribute("shortcut",
-				new OpersAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
-						"", "", 7, "", ""));
-		basicOpebrsM2OperGroup.addPropEditableAttribute("07#" + "shortcut");
-		basicOpebrsM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
-
-		basicOpebrsM2OperGroup.putSemanticAttribute("Index",
-				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 9, "", "", 9, "", ""));
-		basicOpebrsM2OperGroup.addPropEditableAttribute("09#" + "Index");
-		basicOpebrsM2OperGroup.addPropVisibleAttribute("09#" + "Index");
-
-		InstConcept instBasicOpersM2OperGroup = new InstConcept(
-				"BasicOpersM2OperGroup", null, basicOpebrsM2OperGroup);
-
-		OpersConcept basicOpersM2OperAction = new OpersConcept(
-				"BasicOpersM2Operation");
-
-		basicOpersM2OperAction.putSemanticAttribute("name", new OpersAttribute(
-				"name", "String", AttributeType.OPERATION, false, "Name", null,
-				0, 6, "", "", 6, "", ""));
-		basicOpersM2OperAction.putSemanticAttribute("shortcut",
-				new OpersAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
-						"", "", 7, "", ""));
-		basicOpersM2OperAction.putSemanticAttribute("Index",
-				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 8, "", "", 8, "", ""));
-		basicOpersM2OperAction.putSemanticAttribute("iteration",
-				new OpersAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false, "Iterate Button",
-						false, 0, 9, "", "", 9, "", ""));
-		basicOpersM2OperAction.putSemanticAttribute("iterationName",
-				new OpersAttribute("iterationName", "String",
-						AttributeType.OPERATION, false, "Iterate Name", null,
-						0, 6, "", "", 6, "", ""));
-		basicOpersM2OperAction.putSemanticAttribute("prevSpacer",
-				new OpersAttribute("prevSpacer", "Boolean",
-						AttributeType.OPERATION, false, "Add Previous Spacer",
-						false, 0, 9, "", "", 9, "", ""));
-
-		basicOpersM2OperAction.addPropEditableAttribute("06#" + "name");
-		basicOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
-		basicOpersM2OperAction.addPanelVisibleAttribute("06#" + "name");
-		basicOpersM2OperAction.addPanelSpacersAttribute("#" + "name" + "#");
-
-		basicOpersM2OperAction.addPropEditableAttribute("07#" + "shortcut");
-		basicOpersM2OperAction.addPropVisibleAttribute("07#" + "shortcut");
-
-		basicOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
-		basicOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
-
-		basicOpersM2OperAction.addPropEditableAttribute("09#" + "iteration");
-		basicOpersM2OperAction.addPropVisibleAttribute("09#" + "iteration");
-
-		basicOpersM2OperAction
-				.addPropEditableAttribute("09#" + "iterationName");
-		basicOpersM2OperAction.addPropVisibleAttribute("09#" + "iterationName");
-
-		basicOpersM2OperAction.addPropEditableAttribute("10#" + "prevSpacer");
-		basicOpersM2OperAction.addPropVisibleAttribute("10#" + "prevSpacer");
-
-		InstConcept instBasicOpersM2OperAction = new InstConcept(
-				"BasicOpersM2Operation", null, basicOpersM2OperAction);
-
-		OpersConcept basicOpersM2OperSubAction = new OpersConcept(
-				"BasicOpersM2SubOper");
-
-		basicOpersM2OperSubAction.putSemanticAttribute("name",
-				new OpersAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", null, 0, 6, "", "", 6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("06#" + "name");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
-		basicOpersM2OperSubAction.addPanelVisibleAttribute("06#" + "name");
-		basicOpersM2OperSubAction.addPanelSpacersAttribute("#" + "name" + "#");
-
-		basicOpersM2OperSubAction.putSemanticAttribute("Index",
-				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 6, "", "", 6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("08#" + "Index");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("08#" + "Index");
-
-		basicOpersM2OperSubAction
-				.putSemanticAttribute("iteration",
-						new SyntaxAttribute("iteration", "Boolean",
-								AttributeType.OPERATION, false,
-								"Iterate Sub-Operation", false, 0, 6, "", "",
-								6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("09#" + "iteration");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("09#" + "iteration");
-
-		basicOpersM2OperSubAction.putSemanticAttribute("type",
-				new SyntaxAttribute("type", "Enumeration",
-						AttributeType.OPERATION, false, "Type",
-						OperationSubActionType.class.getCanonicalName(),
-						"SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
-		basicOpersM2OperSubAction.addPropEditableAttribute("10#" + "type");
-		basicOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
-
-		basicOpersM2OperSubAction.putSemanticAttribute(
-				"exptype",
-				new SyntaxAttribute("exptype", "Set", AttributeType.SYNTAX,
-						false, "exptype", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
-						""));
-
-		InstConcept instBasicOpersM2OperSubAction = new InstConcept(
-				"BasicOpersM2SubOper", null, basicOpersM2OperSubAction);
-
-		OpersConcept basicOpersM2Labeling = new OpersConcept(
-				"BasicOpersM2Labeling");
-
-		basicOpersM2Labeling.putSemanticAttribute("labelId",
-				new OpersAttribute("labelId", "String",
-						AttributeType.OPERATION, false, "Label ID", null, 0, 6,
-						"", "", 6, "", ""));
-		basicOpersM2Labeling.putSemanticAttribute("position",
-				new OpersAttribute("position", "Integer",
-						AttributeType.OPERATION, false, "Position", 1, 0, 6,
-						"", "", 6, "", ""));
-		basicOpersM2Labeling.putSemanticAttribute("once", new OpersAttribute(
-				"once", "Boolean", AttributeType.OPERATION, false, "Once",
-				false, 0, 6, "", "", 6, "", ""));
-
-		basicOpersM2Labeling.putSemanticAttribute(
-				"sortorder",
-				new SyntaxAttribute("sortorder", "Set", AttributeType.SYNTAX,
-						false, "sortorder", InstAttribute.class
-								.getCanonicalName(),
-						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
-						""));
-		basicOpersM2Labeling.addPanelVisibleAttribute("04#" + "identifier");
-		basicOpersM2Labeling.addPanelSpacersAttribute("#" + "identifier" + "#");
-
-		basicOpersM2Labeling.addPropEditableAttribute("06#" + "labelId");
-		basicOpersM2Labeling.addPropVisibleAttribute("06#" + "labelId");
-		basicOpersM2Labeling.addPropEditableAttribute("07#" + "position");
-		basicOpersM2Labeling.addPropVisibleAttribute("07#" + "position");
-		basicOpersM2Labeling.addPropEditableAttribute("08#" + "once");
-		basicOpersM2Labeling.addPropVisibleAttribute("08#" + "once");
-
-		InstConcept instBasicOpersM2Labeling = new InstConcept(
-				"BasicOpersM2Labeling", null, basicOpersM2Labeling);
-
-		OpersConcept basicOpersM2ExpType = new OpersConcept(
-				"BasicOpersM2ExpType");
-
-		basicOpersM2ExpType.putSemanticAttribute("suboperexptype",
-				new SyntaxAttribute("suboperexptype", "Enumeration",
-						AttributeType.OPERATION, false, "Expression Type",
-						OperationSubActionExecType.class.getCanonicalName(),
-						"NORMAL", 0, 6, "", "", 6, "", ""));
-
-		InstConcept instBasicOpersM2ExpType = new InstConcept(
-				"BasicOpersM2ExpType", null, basicOpersM2ExpType);
+		// OpersConcept basicOpersM2ExpType = new OpersConcept(
+		// "BasicOpersM2ExpType");
+		//
+		// basicOpersM2ExpType.putSemanticAttribute("suboperexptype",
+		// new SyntaxAttribute("suboperexptype", "Enumeration",
+		// AttributeType.OPERATION, false, "Expression Type",
+		// OperationSubActionExecType.class.getCanonicalName(),
+		// "NORMAL", 0, 6, "", "", 6, "", ""));
+		//
+		// InstConcept instBasicOpersM2ExpType = new InstConcept(
+		// "BasicOpersM2ExpType", null, basicOpersM2ExpType);
 
 		// End Basic M2 Model
 
@@ -445,7 +441,7 @@ public class InfraSyntaxOpersMMM {
 				"infrasyntaxm2biggrayconcept",
 				"Operations Infra MetaMetaConcept: Define Infrastructure (fixed) MMConcepts for the operations",
 				100, 250, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instBasicOpersM2Concept, true);
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2InfraConcept.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -468,7 +464,7 @@ public class InfraSyntaxOpersMMM {
 				"infrasyntaxm2concept",
 				"Operations MetaMetaConcept: Define a MMConcept for the operations",
 				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instBasicOpersM2Concept, true);
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2Concept.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -490,13 +486,14 @@ public class InfraSyntaxOpersMMM {
 				"refasextends",
 				"Extends relation: relates to concepts to extend attributes and operation constraints",
 				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				instBasicOpersM2ExtendsRelation);
+				null);
 
-		InstPairwiseRel rel = new InstPairwiseRel(basicOpersM2ExtendsRelation);
-		rel.setEditableMetaElement(metaMetaPairwiseRelExtends);
-		rel.setIdentifier("ExtendsCCRel");
-		rel.setTargetRelation(instBasicOpersM2Concept, true);
-		rel.setSourceRelation(instBasicOpersM2PWRel, true);
+		// InstPairwiseRel rel = new
+		// InstPairwiseRel(basicOpersM2ExtendsRelation);
+		// rel.setEditableMetaElement(metaMetaPairwiseRelExtends);
+		// rel.setIdentifier("ExtendsCCRel");
+		// rel.setTargetRelation(instBasicOpersM2Concept, true);
+		// rel.setSourceRelation(instBasicOpersM2PWRel, true);
 
 		SyntaxConcept infraSyntaxOpersM2PWRel = new SyntaxConcept(
 				'W',
@@ -505,14 +502,29 @@ public class InfraSyntaxOpersMMM {
 				false,
 				"InfraSyntaxOpersM2InfraPWRel",
 				"infrasyntaxm2concept",
-				"Operations Infrastructure (fiexd) MMPairWise Relation: Defines a direct relation for the operations meta-model",
+				"Operations Infrastructure (fixed) MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instBasicOpersM2PWRel, true);
+				true, Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2PWRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2PWRel.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+
+		infraSyntaxOpersM2PWRel.addModelingAttribute("relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		infraSyntaxOpersM2PWRel.addModelingAttribute("operationsExpressions",
+				new SyntaxAttribute("operationsExpressions", "Set",
+						AttributeType.SYNTAX, false,
+						"Operations Meta-Model Expressions",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
 
 		InstConcept instInfraSyntaxOpersM2PWRel = new InstConcept(
 				"InfraSyntaxOpersM2InfraPWRel", basicOpersSyntaxM3Concept,
@@ -530,7 +542,22 @@ public class InfraSyntaxOpersMMM {
 				"refasenumeration",
 				"Operations MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, instBasicOpersM2PWRel, true);
+				true, Color.BLUE.toString(), 3, null, true);
+
+		metaMetaPairwiseRel.addModelingAttribute("relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		metaMetaPairwiseRel.addModelingAttribute("operationsExpressions",
+				new SyntaxAttribute("operationsExpressions", "Set",
+						AttributeType.SYNTAX, false,
+						"Operations Meta-Model Expressions",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
 
 		metaMetaPairwiseRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -581,7 +608,23 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2InfraOTRel", "infrasyntaxm2concept",
 				"Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2OTRel, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
+				"relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
+				"operationsExpressions",
+				new SyntaxAttribute("operationsExpressions", "Set",
+						AttributeType.SYNTAX, false, "semanticExpressions",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
 
 		infraSyntaxOpersM2InfraOTRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -599,7 +642,21 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2OTRel", "infrasyntaxopersm2miniconcept",
 				"Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2OTRel, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2OTRel.addModelingAttribute("relationTypesAttributes",
+				new SyntaxAttribute("relationTypesAttributes", "Set",
+						AttributeType.SYNTAX, false, "relationTypes",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
+
+		infraSyntaxOpersM2OTRel.addModelingAttribute("operationsExpressions",
+				new SyntaxAttribute("operationsExpressions", "Set",
+						AttributeType.SYNTAX, false, "semanticExpressions",
+						InstAttribute.class.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
+						""));
 
 		infraSyntaxOpersM2OTRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -666,7 +723,7 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2ExtRel.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		rel = new InstPairwiseRel(basicOpersM2ExtRel);
+		InstPairwiseRel rel = new InstPairwiseRel(basicOpersM2ExtRel);
 		rel.setEditableMetaElement(infraSyntaxOpersM2ExtRel);
 		rel.setIdentifier("ExtendsCCRel");
 		rel.setTargetRelation(instInfraSyntaxOpersM2Concept, true);
@@ -755,7 +812,45 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2OperGroup", "infrasyntaxopersm2miniconcept",
 				"Operation Group", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2OperGroup, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("menuType",
+				new OpersAttribute("menuType", "Integer",
+						AttributeType.OPERATION, "Oper Group Type", 4, false,
+						d, 0, 5, "", "", 5, "", ""));
+		infraSyntaxOpersM2OperGroup
+				.addPropEditableAttribute("05#" + "menuType");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
+
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("visible",
+				new OpersAttribute("visible", "Boolean",
+						AttributeType.OPERATION, false, "Visible", true, 0, 8,
+						"", "", 8, "", ""));
+		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("08#" + "visible");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("08#" + "visible");
+
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("name",
+				new OpersAttribute("name", "String", AttributeType.OPERATION,
+						false, "Name", null, 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("06#" + "name");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperGroup
+				.addPanelSpacersAttribute("#" + "name" + "#");
+
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
+				new OpersAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+						"", "", 7, "", ""));
+		infraSyntaxOpersM2OperGroup
+				.addPropEditableAttribute("07#" + "shortcut");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
+
+		infraSyntaxOpersM2OperGroup.addModelingAttribute("Index",
+				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+						false, "Position", 1, 0, 9, "", "", 9, "", ""));
+		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
+		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
 
 		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -773,7 +868,16 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2Model", "infrasyntaxopersm2miniconcept",
 				"Semantic Model", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2SemModel, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2MetaModel.addModelingAttribute("name",
+				new OpersAttribute("name", "String", AttributeType.OPERATION,
+						false, "Name", null, 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2MetaModel.addPropEditableAttribute("06#" + "name");
+		infraSyntaxOpersM2MetaModel.addPropVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2MetaModel
+				.addPanelSpacersAttribute("#" + "name" + "#");
 
 		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -791,7 +895,59 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2Operation", "infrasyntaxopersm2miniconcept",
 				"Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2OperAction, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
+				new OpersAttribute("name", "String", AttributeType.OPERATION,
+						false, "Name", null, 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("shortcut",
+				new OpersAttribute("shortcut", "String",
+						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
+						"", "", 7, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("Index",
+				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+						false, "Position", 1, 0, 8, "", "", 8, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
+				new OpersAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false, "Iterate Button",
+						false, 0, 9, "", "", 9, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
+				new OpersAttribute("iterationName", "String",
+						AttributeType.OPERATION, false, "Iterate Name", null,
+						0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
+				new OpersAttribute("prevSpacer", "Boolean",
+						AttributeType.OPERATION, false, "Add Previous Spacer",
+						false, 0, 9, "", "", 9, "", ""));
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperAction.addPanelSpacersAttribute("#" + "name"
+				+ "#");
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("07#"
+				+ "shortcut");
+		infraSyntaxOpersM2OperAction
+				.addPropVisibleAttribute("07#" + "shortcut");
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("08#" + "Index");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("08#" + "Index");
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
+				+ "iteration");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
+				+ "iteration");
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("09#"
+				+ "iterationName");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("09#"
+				+ "iterationName");
+
+		infraSyntaxOpersM2OperAction.addPropEditableAttribute("10#"
+				+ "prevSpacer");
+		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("10#"
+				+ "prevSpacer");
 
 		infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -809,7 +965,54 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2SubOper", "infrasyntaxopersm2miniconcept",
 				"Operation Action", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2OperSubAction, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
+				new OpersAttribute("name", "String", AttributeType.OPERATION,
+						false, "Name", null, 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addPropEditableAttribute("06#" + "name");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperSubAction
+				.addPanelVisibleAttribute("06#" + "name");
+		infraSyntaxOpersM2OperSubAction.addPanelSpacersAttribute("#" + "name"
+				+ "#");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
+				new OpersAttribute("Index", "Integer", AttributeType.OPERATION,
+						false, "Position", 1, 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
+				+ "Index");
+		infraSyntaxOpersM2OperSubAction
+				.addPropVisibleAttribute("08#" + "Index");
+
+		infraSyntaxOpersM2OperSubAction
+				.addModelingAttribute("iteration",
+						new SyntaxAttribute("iteration", "Boolean",
+								AttributeType.OPERATION, false,
+								"Iterate Sub-Operation", false, 0, 6, "", "",
+								6, "", ""));
+		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
+				+ "iteration");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
+				+ "iteration");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
+				new SyntaxAttribute("type", "Enumeration",
+						AttributeType.OPERATION, false, "Type",
+						OperationSubActionType.class.getCanonicalName(),
+						"SINGLEUPDATE", 0, 6, "", "", 6, "", ""));
+		infraSyntaxOpersM2OperSubAction
+				.addPropEditableAttribute("10#" + "type");
+		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("10#" + "type");
+
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute(
+				"exptype",
+				new SyntaxAttribute("exptype", "Set", AttributeType.SYNTAX,
+						false, "exptype", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
 
 		infraSyntaxOpersM2OperSubAction.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -827,7 +1030,42 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2Labeling", "infrasyntaxopersm2miniconcept",
 				"Operation Labeling", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2Labeling, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
+				new OpersAttribute("labelId", "String",
+						AttributeType.OPERATION, false, "Label ID", null, 0, 6,
+						"", "", 6, "", ""));
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
+				new OpersAttribute("position", "Integer",
+						AttributeType.OPERATION, false, "Position", 1, 0, 6,
+						"", "", 6, "", ""));
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
+				new OpersAttribute("once", "Boolean", AttributeType.OPERATION,
+						false, "Once", false, 0, 6, "", "", 6, "", ""));
+
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
+				"sortorder",
+				new SyntaxAttribute("sortorder", "Set", AttributeType.SYNTAX,
+						false, "sortorder", InstAttribute.class
+								.getCanonicalName(),
+						new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n",
+						""));
+		infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
+				+ "identifier");
+		infraSyntaxOpersM2OperLabeling.addPanelSpacersAttribute("#"
+				+ "identifier" + "#");
+
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("06#"
+				+ "labelId");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("06#"
+				+ "labelId");
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("07#"
+				+ "position");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("07#"
+				+ "position");
+		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
 
 		infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -845,7 +1083,13 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2ExpType", "infrasyntaxopersm2miniconcept",
 				"Operation Expression Type", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
-				Color.BLUE.toString(), 3, instBasicOpersM2ExpType, true);
+				Color.BLUE.toString(), 3, null, true);
+
+		infraSyntaxOpersM2ExpType.addModelingAttribute("suboperexptype",
+				new SyntaxAttribute("suboperexptype", "Enumeration",
+						AttributeType.OPERATION, false, "Expression Type",
+						OperationSubActionExecType.class.getCanonicalName(),
+						"NORMAL", 0, 6, "", "", 6, "", ""));
 
 		infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);

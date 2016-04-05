@@ -35,7 +35,7 @@ public class InstEnum extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public InstEnum(SyntaxVertex metaEnumeration,
+	public InstEnum(SyntaxElement metaEnumeration,
 			SyntaxElement editableMetaElement) {
 		super();
 		setEditableMetaElement(editableMetaElement);
@@ -43,7 +43,7 @@ public class InstEnum extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public InstEnum(String identifier, SyntaxVertex metaEnumeration,
+	public InstEnum(String identifier, SyntaxElement metaEnumeration,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRel> relations) {
 		super(identifier, attributes, relations);
@@ -51,13 +51,13 @@ public class InstEnum extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public InstEnum(String identifier, SyntaxVertex metaEnumeration) {
+	public InstEnum(String identifier, SyntaxElement metaEnumeration) {
 		super(identifier);
 		setTransSupportMetaElement(metaEnumeration);
 		createInstAttributes(null);
 	}
 
-	public InstEnum(String identifier, SyntaxVertex metaEnumeration,
+	public InstEnum(String identifier, SyntaxElement metaEnumeration,
 			SyntaxElement editableMetaElement) {
 		super(identifier);
 		setEditableMetaElement(editableMetaElement);
