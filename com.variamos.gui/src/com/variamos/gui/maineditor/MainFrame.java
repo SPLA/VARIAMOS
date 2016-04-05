@@ -41,9 +41,9 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.18";
-	private String variamosVersionName = "1.0 Beta 18";
-	private String variamosBuild = "20160113 1800";
+	private String variamosVersionNumber = "1.0.1.19";
+	private String variamosVersionName = "1.0 Beta 19";
+	private String variamosBuild = "20160405-1800";
 	private String downloadId = "465";
 	private static boolean solverError = false;
 
@@ -88,7 +88,8 @@ public class MainFrame extends JFrame {
 						metaExpressionTypes, syntaxInfrastructure,
 						semanticSuperstructure);
 				bgColor = new Color(252, 233, 252);
-				perspTitle = "Operations - VariaMos " + variamosVersionNumber;
+				perspTitle = "Operations - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Operations Meta-Model Perspective...");
 				break;
@@ -99,7 +100,8 @@ public class MainFrame extends JFrame {
 						semanticSuperstructure);
 
 				bgColor = new Color(236, 238, 255);
-				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber;
+				perspTitle = "Req. Model - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Requirements Model Perspective...");
 				this.setTitle("New Diagram - " + perspTitle);
@@ -109,7 +111,8 @@ public class MainFrame extends JFrame {
 				abstractModel = syntaxSuperstructure;
 
 				bgColor = new Color(255, 255, 245);
-				perspTitle = "Syntax - VariaMos " + variamosVersionNumber;
+				perspTitle = "Syntax - VariaMos " + variamosVersionNumber + "b"
+						+ variamosBuild;
 				System.out.println("Creating Syntax Meta-Model Perspective...");
 				break;
 
@@ -118,7 +121,8 @@ public class MainFrame extends JFrame {
 						PerspectiveType.CONFIG_SIMULATION, metaExpressionTypes,
 						syntaxSuperstructure, semanticSuperstructure);
 				bgColor = new Color(236, 252, 255);
-				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber;
+				perspTitle = "Config/Simul - VariaMos " + variamosVersionNumber
+						+ "b" + variamosBuild;
 				System.out
 						.println("Creating Configuration and Simulation Perspective...");
 				break;
@@ -186,41 +190,32 @@ public class MainFrame extends JFrame {
 		out.put("And", new OpersExprType("And", "#/\"", "#/\"", "and",
 				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("Assign", new OpersExprType("Assign", "=", "=",
-				"assign", OpersExprType.IDEN,
-				OpersExprType.EXP, OpersExprType.NONE, false,
-				false));
-		out.put("Subtraction", new OpersExprType("Subtraction", "-",
-				"-", "diff", OpersExprType.NUMEXP,
-				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+		out.put("Assign", new OpersExprType("Assign", "=", "=", "assign",
+				OpersExprType.IDEN, OpersExprType.EXP, OpersExprType.NONE,
 				false, false));
-		out.put("DoubleImplies", new OpersExprType("DoubleImplies",
-				"#<==>", "#<==>", "doubleImplies",
-				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
-				OpersExprType.BOOLEXP, false, false));
-		out.put("Equals", new OpersExprType("Equals", "#=", "#=",
-				"equals", OpersExprType.EXP,
-				OpersExprType.EXP, OpersExprType.BOOLEXP,
+		out.put("Subtraction", new OpersExprType("Subtraction", "-", "-",
+				"diff", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, false, false));
+		out.put("DoubleImplies", new OpersExprType("DoubleImplies", "#<==>",
+				"#<==>", "doubleImplies", OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Equals", new OpersExprType("Equals", "#=", "#=", "equals",
+				OpersExprType.EXP, OpersExprType.EXP, OpersExprType.BOOLEXP,
 				false, false));
 		out.put("Greater", new OpersExprType("Greater", "#>", "#>",
-				"greaterThan", OpersExprType.NUMEXP,
-				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
-				false, false));
-		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=",
-				"#>=", "greaterOrEqualsThan", OpersExprType.NUMEXP,
-				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
-				false, false));
-		out.put("Implies", new OpersExprType("Implies", "#==>",
-				"#==>", "implies", OpersExprType.BOOLEXP,
-				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
-				false, false));
-		out.put("Less", new OpersExprType("Less", "#<", "#<",
-				"lessThan", OpersExprType.NUMEXP,
-				OpersExprType.NUMEXP, OpersExprType.BOOLEXP,
-				false, false));
-		out.put("LessOrEquals", new OpersExprType("LessOrEquals",
-				"#<=", "#<=", "lessOrEqualsThan",
+				"greaterThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("GreaterOrEq", new OpersExprType("GreaterOrEq", "#>=", "#>=",
+				"greaterOrEqualsThan", OpersExprType.NUMEXP,
+				OpersExprType.NUMEXP, OpersExprType.BOOLEXP, false, false));
+		out.put("Implies", new OpersExprType("Implies", "#==>", "#==>",
+				"implies", OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("Less", new OpersExprType("Less", "#<", "#<", "lessThan",
 				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
+				OpersExprType.BOOLEXP, false, false));
+		out.put("LessOrEquals", new OpersExprType("LessOrEquals", "#<=", "#<=",
+				"lessOrEqualsThan", OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.BOOLEXP, false, false));
 		/*
 		 * out.put("LiteralBool", new SemanticExpressionType("LiteralBool", "",
@@ -228,25 +223,21 @@ public class MainFrame extends JFrame {
 		 * SemanticExpressionType.NONE, SemanticExpressionType.BOOLEXP, true,
 		 * false));
 		 */
-		out.put("Negation", new OpersExprType("Negation", "-", "-",
-				"not", OpersExprType.BOOLEXP,
-				OpersExprType.NONE, OpersExprType.BOOLEXP,
+		out.put("Negation", new OpersExprType("Negation", "-", "-", "not",
+				OpersExprType.BOOLEXP, OpersExprType.NONE,
+				OpersExprType.BOOLEXP, true, false));
+		out.put("Number", new OpersExprType("Number", "", "", "number",
+				OpersExprType.INTVAL, OpersExprType.NONE, OpersExprType.NUMEXP,
 				true, false));
-		out.put("Number", new OpersExprType("Number", "", "",
-				"number", OpersExprType.INTVAL,
-				OpersExprType.NONE, OpersExprType.NUMEXP,
-				true, false));
-		out.put("NotEquals", new OpersExprType("NotEquals", "\\==",
-				"\\==", "notEquals", OpersExprType.EXP,
-				OpersExprType.EXP, OpersExprType.BOOLEXP,
-				false, false));
+		out.put("NotEquals", new OpersExprType("NotEquals", "\\==", "\\==",
+				"notEquals", OpersExprType.EXP, OpersExprType.EXP,
+				OpersExprType.BOOLEXP, false, false));
 		out.put("Or", new OpersExprType("Or", "#\"/", "#\"/", "or",
 				OpersExprType.BOOLEXP, OpersExprType.BOOLEXP,
 				OpersExprType.BOOLEXP, false, false));
-		out.put("Product", new OpersExprType("Product", "*", "*",
-				"prod", OpersExprType.NUMEXP,
+		out.put("Product", new OpersExprType("Product", "*", "*", "prod",
 				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
-				false, true));
+				OpersExprType.NUMEXP, false, true));
 		out.put("Sum", new OpersExprType("Sum", "+", "+", "sum",
 				OpersExprType.NUMEXP, OpersExprType.NUMEXP,
 				OpersExprType.NUMEXP, false, true));
@@ -327,7 +318,10 @@ public class MainFrame extends JFrame {
 			java.util.Scanner s = new java.util.Scanner(input)
 					.useDelimiter(":");
 			String newVersion = s.hasNext() ? s.next() : null;
-			if (newVersion != null && !variamosVersionNumber.equals(newVersion))
+			if (newVersion != null
+					&& !variamosVersionNumber.equals(newVersion)
+					&& (!newVersion.equals("1.0.1.18") && !variamosVersionNumber
+							.equalsIgnoreCase("1.0.1.19")))
 				JOptionPane.showMessageDialog(this, "Your current version is "
 						+ variamosVersionNumber + ". The latest version is: "
 						+ newVersion + ". Please visit variamos.com.",
@@ -339,6 +333,17 @@ public class MainFrame extends JFrame {
 								"Your current version of VariaMos "
 										+ variamosVersionNumber
 										+ "  is up to date.", "Update Message",
+								JOptionPane.INFORMATION_MESSAGE, null);
+			else if (variamosVersionNumber.equalsIgnoreCase("1.0.1.19"))
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
+										+ " Nevertheless, models created in version Beta 18 and older are not\n"
+										+ " compatible with this version (Beta 19). Also, models created in this\n"
+										+ " version will not be compatible in the version Beta 20. If you already\n"
+										+ " defined models, we suggest you to continue using version Beta 18.",
+								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
 			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)
 					.openStream();

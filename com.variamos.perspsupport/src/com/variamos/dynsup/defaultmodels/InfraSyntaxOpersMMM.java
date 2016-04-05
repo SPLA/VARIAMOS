@@ -444,7 +444,7 @@ public class InfraSyntaxOpersMMM {
 				"InfraSyntaxOpersM2InfraConcept",
 				"infrasyntaxm2biggrayconcept",
 				"Operations Infra MetaMetaConcept: Define Infrastructure (fixed) MMConcepts for the operations",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
+				100, 250, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, instBasicOpersM2Concept, true);
 
 		infraSyntaxOpersM2InfraConcept.addPanelVisibleAttribute("04#"
