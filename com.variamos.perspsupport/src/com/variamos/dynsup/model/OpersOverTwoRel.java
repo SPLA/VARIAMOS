@@ -15,8 +15,7 @@ import com.variamos.dynsup.interfaces.IntOpersRelType;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class OpersOverTwoRel extends OpersVertex implements
-		IntOpersOverTwoRel {
+public class OpersOverTwoRel extends OpersElement implements IntOpersOverTwoRel {
 	/**
 	 * 
 	 */
@@ -24,6 +23,7 @@ public class OpersOverTwoRel extends OpersVertex implements
 	private List<IntOpersRelType> semanticRelationTypes;
 
 	public OpersOverTwoRel() {
+		super(null);
 	}
 
 	public OpersOverTwoRel(String identifier,

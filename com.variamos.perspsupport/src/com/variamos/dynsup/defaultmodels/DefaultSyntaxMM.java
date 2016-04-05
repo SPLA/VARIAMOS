@@ -16,8 +16,8 @@ import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.semantic.types.AttributeType;
 
-public class RefasDefaultSyntax {
-	public static void createDefaultSyntax(ModelInstance refas) {
+public class DefaultSyntaxMM {
+	public static void createSyntaxMetaModel(ModelInstance refas) {
 
 		SyntaxView syntaxMetaView = null;
 
@@ -52,8 +52,8 @@ public class RefasDefaultSyntax {
 		InstConcept semREFAS = ((InstConcept) refas.getOperationalModel()
 				.getVertex("REFAS"));
 
-		SyntaxConcept syntaxRefas = new SyntaxConcept('C', "REFAS", false, true,
-				"REFAS", "plnode", "Applies REFAS", 100, 50,
+		SyntaxConcept syntaxRefas = new SyntaxConcept('C', "REFAS", false,
+				true, "REFAS", "plnode", "Applies REFAS", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semREFAS, true);
 
@@ -71,11 +71,11 @@ public class RefasDefaultSyntax {
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Goals Palette;Feature Palette", 1, null);
 
-		InstPairwiseRel directExtendsSemanticEdge = refas
-				.getOperationalModel().getConstraintInstEdge("extendsPWAsso");
+		InstPairwiseRel directExtendsSemanticEdge = refas.getOperationalModel()
+				.getConstraintInstEdge("extendsPWAsso");
 
-		InstPairwiseRel directViewSemanticEdge = refas
-				.getOperationalModel().getConstraintInstEdge("viewPWAsso");
+		InstPairwiseRel directViewSemanticEdge = refas.getOperationalModel()
+				.getConstraintInstEdge("viewPWAsso");
 
 		SyntaxPairwiseRel metaExtendsRel = new SyntaxPairwiseRel(
 				"ExtendsRelation", false, true, "ExtendsRelation", "",
@@ -84,8 +84,8 @@ public class RefasDefaultSyntax {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directExtendsSemanticEdge);
 
-		SyntaxPairwiseRel metaViewRel = new SyntaxPairwiseRel(
-				"ViewRelation", false, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewRel = new SyntaxPairwiseRel("ViewRelation",
+				false, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -131,8 +131,8 @@ public class RefasDefaultSyntax {
 		refas.getVariabilityVertex().put("Feature", instVertexF);
 		// syntaxMetaView.addConcept(syntaxFeature);
 
-		SyntaxPairwiseRel metaViewF = new SyntaxPairwiseRel(
-				"ViewFeatRel", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewF = new SyntaxPairwiseRel("ViewFeatRel",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -203,17 +203,17 @@ public class RefasDefaultSyntax {
 				supportMetaElementConcept, syntaxGeneralFeature);
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
 
-		SyntaxConcept syntaxVertexLF = new SyntaxConcept('C', "LeafFeature", true,
-				true, "LeafFeature", "plnode", "Defines a leaf feature", 100,
-				50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
+		SyntaxConcept syntaxVertexLF = new SyntaxConcept('C', "LeafFeature",
+				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
+				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
 		InstVertex instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
 		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
 
-		SyntaxPairwiseRel metaViewRF = new SyntaxPairwiseRel(
-				"ViewRootFeaRel", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewRF = new SyntaxPairwiseRel("ViewRootFeaRel",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -238,8 +238,8 @@ public class RefasDefaultSyntax {
 		instEdge.setTargetRelation(instViewRF, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxPairwiseRel metaViewGF = new SyntaxPairwiseRel(
-				"ViewGFeatRel", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewGF = new SyntaxPairwiseRel("ViewGFeatRel",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -287,8 +287,8 @@ public class RefasDefaultSyntax {
 				supportMetaElementConcept, syntaxTopGoal);
 		refas.getVariabilityVertex().put("TopGoal", instVertexTG);
 
-		SyntaxPairwiseRel metaViewLF = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewLF = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -586,8 +586,8 @@ public class RefasDefaultSyntax {
 				supportMetaElementOverTwo, featureMetaOverTwoRel);
 		refas.getVariabilityVertex().put("FeatOTAsso", instVertexFOTR);
 
-		SyntaxPairwiseRel metaViewFG = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewFG = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -830,8 +830,8 @@ public class RefasDefaultSyntax {
 
 		InstConcept semOperationalization = ((InstConcept) refas
 				.getOperationalModel().getVertex("Operationalization"));
-		SyntaxConcept sOperationalization = new SyntaxConcept('C', "OPER", true,
-				true, "OPER", "refasoper", "An operationalization allows"
+		SyntaxConcept sOperationalization = new SyntaxConcept('C', "OPER",
+				true, true, "OPER", "refasoper", "An operationalization allows"
 						+ " the partial or complete satisfaction of a goal or"
 						+ " another operationalization. If"
 						+ " the operationalizations defined is satisfied,"
@@ -891,8 +891,8 @@ public class RefasDefaultSyntax {
 		InstConcept semAssumption = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Assumption"));
 
-		SyntaxConcept syntaxAssumption = new SyntaxConcept('C', "Assu", true, true,
-				"Assumption", "refasassump", "An assumption is a"
+		SyntaxConcept syntaxAssumption = new SyntaxConcept('C', "Assu", true,
+				true, "Assumption", "refasassump", "An assumption is a"
 						+ " condition that should me truth for the goal or"
 						+ " operationalization to be satisfied", 100, 60,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
@@ -1507,9 +1507,8 @@ public class RefasDefaultSyntax {
 
 		// Group soft relation
 
-		hardMetaOverTwoRel = new SyntaxOverTwoRel("SoftgoalOTAsso", true,
-				true, "SoftgoalOTAsso", "plgroup",
-				"Direct relation between soft"
+		hardMetaOverTwoRel = new SyntaxOverTwoRel("SoftgoalOTAsso", true, true,
+				"SoftgoalOTAsso", "plgroup", "Direct relation between soft"
 						+ " concepts. Defines different types of relations"
 						+ " and cardinalities", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
@@ -1606,8 +1605,8 @@ public class RefasDefaultSyntax {
 		// syntaxMetaView.addConcept(syntaxVariable);
 		InstConcept semContextGroup = ((InstConcept) refas
 				.getOperationalModel().getVertex("ConcernLevel"));
-		SyntaxConcept syntaxContextGroup = new SyntaxConcept('C', "CG", true, true,
-				"ConcernLevel", "refascontextgrp", " A Concern Level"
+		SyntaxConcept syntaxContextGroup = new SyntaxConcept('C', "CG", true,
+				true, "ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
 						+ " characteristics. The type defines if variables"
 						+ " are sensed or profiled, in the first case they"
@@ -2096,8 +2095,8 @@ public class RefasDefaultSyntax {
 		instEdge.setTargetRelation(instViewOpers, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxPairwiseRel metaViewLFsg = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewLFsg = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -2421,8 +2420,8 @@ public class RefasDefaultSyntax {
 
 		refas.getVariabilityVertex().put("LFClaimOTAsso", instVertexFCOTR);
 
-		SyntaxPairwiseRel metaViewLFCL = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewLFCL = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -3038,8 +3037,8 @@ public class RefasDefaultSyntax {
 		 * instEdge.setTargetRelation(instViewAOper3, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewLF2 = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewLF2 = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -3050,8 +3049,8 @@ public class RefasDefaultSyntax {
 		 * supportMetaViewPairwise, metaViewLF2);
 		 * refas.getVariabilityVertex().put("View LF2 Relation", instViewLF2);
 		 */
-		SyntaxPairwiseRel metaViewLF3 = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewLF3 = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -3089,8 +3088,8 @@ public class RefasDefaultSyntax {
 		 * instEdge.setTargetRelation(instViewLF2, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewAsFG2 = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewAsFG2 = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -3115,8 +3114,8 @@ public class RefasDefaultSyntax {
 		 * instEdge.setTargetRelation(instViewAssetLF2, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewAsFG = new SyntaxPairwiseRel(
-				"ViewRelation", true, true, "ViewRelation", "",
+		SyntaxPairwiseRel metaViewAsFG = new SyntaxPairwiseRel("ViewRelation",
+				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);

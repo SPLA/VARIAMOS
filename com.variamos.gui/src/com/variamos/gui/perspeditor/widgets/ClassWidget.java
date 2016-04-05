@@ -90,8 +90,7 @@ public class ClassWidget extends WidgetR {
 			}
 		} else if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, SyntaxElement>();
-			List<SyntaxPairwiseRel> list = instAttribute
-					.getValidationMEList();
+			List<SyntaxPairwiseRel> list = instAttribute.getValidationMEList();
 
 			for (SyntaxPairwiseRel groupDependency : list) {
 				if (groupDependency != null) {
@@ -130,8 +129,7 @@ public class ClassWidget extends WidgetR {
 
 		} else {
 			if (aClass.isInterface()
-					|| aClass.getSuperclass()
-							.equals(OpersElement.class)) {
+					|| aClass.getSuperclass().equals(OpersElement.class)) {
 				semanticElements = new HashMap<String, IntOpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
@@ -216,7 +214,7 @@ public class ClassWidget extends WidgetR {
 											.toString(), concept);
 							String out = concept.getInstAttribute("identifier")
 									.toString();
-							System.out.println(out);
+							// System.out.println(out);
 							txtValue.addItem(out);
 							if (instAttribute.getValue() != null
 									&& out.equals(instAttribute.getValue()))

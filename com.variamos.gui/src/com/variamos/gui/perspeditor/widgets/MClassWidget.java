@@ -24,7 +24,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.SyntaxVertex;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ClassMultiSelectionType;
 
 /**
@@ -124,7 +124,7 @@ public class MClassWidget extends WidgetR {
 						.getInstElement();
 				if (value instanceof InstConcept) {
 					InstConcept ic = (InstConcept) value;
-					SyntaxVertex mc = ic.getTransSupportMetaElement();
+					SyntaxElement mc = ic.getTransSupportMetaElement();
 					if (mc.getAutoIdentifier().equals(object))
 						out.add(ic);
 				}

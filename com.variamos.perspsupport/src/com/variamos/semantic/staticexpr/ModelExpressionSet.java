@@ -9,7 +9,6 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxVertex;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.HlclFactory;
@@ -54,14 +53,13 @@ public class ModelExpressionSet extends ElementExpressionSet {
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
 				if (ele instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}
@@ -81,7 +79,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 		AbstractNumericExpression prefOutExp = null;
 
 		for (InstElement vertex : refas.getVariabilityVertexCollection()) {
-			SyntaxVertex metaElement = ((SyntaxVertex) vertex
+			SyntaxElement metaElement = ((SyntaxElement) vertex
 					.getTransSupportMetaElement());
 			if (validateConceptType(vertex, "GeneralElement"))
 				if (vertex.getInstAttribute("Active").getAsBoolean()) {

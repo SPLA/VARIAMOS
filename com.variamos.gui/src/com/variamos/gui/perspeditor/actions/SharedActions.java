@@ -29,7 +29,6 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxOverTwoRel;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
-import com.variamos.dynsup.model.SyntaxVertex;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 
@@ -146,8 +145,7 @@ public class SharedActions {
 			if (value instanceof InstPairwiseRel) {
 				((InstPairwiseRel) instElement).updateIdentifiers();
 				if (beforeSave) {
-					((InstPairwiseRel) instElement)
-							.clearMetaPairwiseRelation();
+					((InstPairwiseRel) instElement).clearMetaPairwiseRelation();
 				}
 			}
 			if (beforeSave && model) {
@@ -608,10 +606,10 @@ public class SharedActions {
 			editor.refreshElement(instOverTwoRelation);
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
-			SyntaxVertex metaVertex = null;
+			SyntaxElement metaVertex = null;
 			if (refas.getSyntaxModel().getVertex(
 					instVertex.getSupportMetaElementIden()) != null)
-				metaVertex = (SyntaxVertex) refas.getSyntaxModel()
+				metaVertex = (SyntaxElement) refas.getSyntaxModel()
 						.getVertex(instVertex.getSupportMetaElementIden())
 						.getEditableMetaElement();
 			if (metaVertex == null)
@@ -624,9 +622,8 @@ public class SharedActions {
 						.values().iterator();
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
-					ElemAttribute attribute = metaVertex
-							.getAbstractAttribute(ia.getAttributeName(),
-									syntaxParents, opersParents);
+					ElemAttribute attribute = metaVertex.getAbstractAttribute(
+							ia.getAttributeName(), syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getType().equals("Boolean")
@@ -908,14 +905,13 @@ public class SharedActions {
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
 				if (ele instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

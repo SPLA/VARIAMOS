@@ -161,8 +161,7 @@ public class ElementDesignPanel extends JPanel {
 			String description = null;
 
 			if (editElm instanceof InstPairwiseRel) {
-				if (((InstPairwiseRel) editElm).getSourceRelations()
-						.size() == 0)
+				if (((InstPairwiseRel) editElm).getSourceRelations().size() == 0)
 					// TODO workaround for non supported relations - delete
 					// after fix
 					return;
@@ -340,8 +339,8 @@ public class ElementDesignPanel extends JPanel {
 											ie.add((ModelExpr) finalInstAttribute
 													.getValue());
 										else
-											ie.add(new ModelExpr(true,
-													"id", true));
+											ie.add(new ModelExpr(true, "id",
+													true));
 										final InstanceExpressionDialog dialog = new InstanceExpressionDialog(
 												finalEditor, finalEditElm,
 												false, ie, editable);
@@ -972,8 +971,7 @@ public class ElementDesignPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
-			IntInstElement editableElement,
-			IntElemAttribute instAttribute) {
+			IntInstElement editableElement, IntElemAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
 			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
 					.getEditableMetaElement();

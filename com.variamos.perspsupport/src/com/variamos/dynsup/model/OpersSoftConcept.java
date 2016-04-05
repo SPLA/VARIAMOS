@@ -10,7 +10,7 @@ package com.variamos.dynsup.model;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class OpersSoftConcept extends OpersVertex {
+public class OpersSoftConcept extends OpersElement {
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class OpersSoftConcept extends OpersVertex {
 	private static final long serialVersionUID = 2755844763829079610L;
 
 	public OpersSoftConcept() {
-		super();
+		super(null);
 	}
 
 	public OpersSoftConcept(String name) {

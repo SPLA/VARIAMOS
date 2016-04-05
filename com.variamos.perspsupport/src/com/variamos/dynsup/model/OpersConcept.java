@@ -12,8 +12,7 @@ import com.variamos.dynsup.interfaces.IntOpersConcept;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class OpersConcept extends OpersVertex implements
-		IntOpersConcept {
+public class OpersConcept extends OpersElement implements IntOpersConcept {
 
 	/**
 	 * 

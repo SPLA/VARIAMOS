@@ -10,7 +10,7 @@ package com.variamos.dynsup.model;
  * @since 2014-12-02
  * @see com.cfm.productline.
  */
-public class OpersVariable extends OpersVertex {
+public class OpersVariable extends OpersElement {
 	/**
 	 * 
 	 */

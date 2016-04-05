@@ -44,8 +44,8 @@ import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxEnum;
-import com.variamos.dynsup.model.SyntaxVertex;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -572,8 +572,7 @@ public class InstanceExpressionDialog extends JDialog {
 		parentPanel.add(basePanel);
 	}
 
-	private JTextField createTextField(
-			final ModelExpr instanceExpression,
+	private JTextField createTextField(final ModelExpr instanceExpression,
 			final InstElement element,
 			final ExpressionVertexType expressionVertexType) {
 		JTextField textField;
@@ -610,8 +609,7 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createVarCombo(
-			final ModelExpr instanceExpression,
-			final InstElement element,
+			final ModelExpr instanceExpression, final InstElement element,
 			final ExpressionVertexType expressionVertexType, int validType) {
 		if (instanceExpression.getSideElement(expressionVertexType) == null) {
 			String id = instanceExpression.getSideElementIdentifier(
@@ -681,7 +679,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			IntOpersElement semElement2 = ((SyntaxVertex) instVertex
+			IntOpersElement semElement2 = ((SyntaxElement) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
@@ -766,7 +764,7 @@ public class InstanceExpressionDialog extends JDialog {
 				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
-				IntOpersElement semElement2 = ((SyntaxVertex) instVertex
+				IntOpersElement semElement2 = ((SyntaxElement) instVertex
 						.getTransSupportMetaElement())
 						.getTransSemanticConcept();
 				if (semElement2 != null
@@ -842,9 +840,8 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createOperatorsCombo(
-			final ModelExpr instanceExpression,
-			final InstElement element, String selectedOperator,
-			int topExpressionType) {
+			final ModelExpr instanceExpression, final InstElement element,
+			String selectedOperator, int topExpressionType) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
@@ -879,8 +876,8 @@ public class InstanceExpressionDialog extends JDialog {
 	}
 
 	private JComboBox<String> createSidesCombo(
-			final ModelExpr instanceExpression,
-			final InstElement element, final boolean left) {
+			final ModelExpr instanceExpression, final InstElement element,
+			final boolean left) {
 		JComboBox<String> combo = new JComboBox<String>();
 		if (!editable)
 			combo.setEnabled(false);
