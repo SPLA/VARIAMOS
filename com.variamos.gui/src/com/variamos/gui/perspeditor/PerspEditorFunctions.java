@@ -118,7 +118,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								Object o;
 								o = new InstConcept();
 
-								if (editor.getPerspective() == 0) {
+								if (editor.getPerspective() == 3) {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
 													SyntaxElement.class,

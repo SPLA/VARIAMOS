@@ -309,8 +309,9 @@ public class ClassWidget extends WidgetR {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				if (instAttribute.getValueObject() == null
-						|| !instAttribute.getValueObject().equals(
-								semanticElements.get(s))) {
+						|| semanticElements.get(s) != null
+						&& (!instAttribute.getValueObject().equals(
+								semanticElements.get(s)))) {
 					instAttribute.setValueObject(semanticElements.get(s));
 					out = true;
 				}

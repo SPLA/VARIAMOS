@@ -653,8 +653,11 @@ public class ElementDesignPanel extends JPanel {
 									widget.getEditor().setMaximumSize(
 											new Dimension(200, 20));
 								}
-								if (widget.editVariable(instAttribute))
+								if (widget.editVariable(instAttribute)) {
+									widget.editVariable(instAttribute);
 									count = 0;
+									System.out.println(instAttribute);
+								}
 								List<InstAttribute> editables = editElm
 										.getEditableVariables(syntaxParent);
 
