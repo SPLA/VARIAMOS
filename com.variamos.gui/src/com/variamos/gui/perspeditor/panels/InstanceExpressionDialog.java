@@ -37,15 +37,14 @@ import javax.swing.border.EmptyBorder;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExprType;
+import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxEnum;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -716,8 +715,8 @@ public class InstanceExpressionDialog extends JDialog {
 							"enumerationType").getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
-								.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
+						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
+								.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
 								.getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instElementId + "_"

@@ -1,9 +1,7 @@
 package com.variamos.dynsup.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
@@ -26,16 +24,16 @@ public class OpersSubOperation extends OpersElement implements
 	 */
 	private static final long serialVersionUID = 2965378108648056600L;
 	private int position;
-	private Set<OpersIOAttribute> inAttributes;
-	private Set<OpersIOAttribute> outAttributes;
+	private List<OpersIOAttribute> inAttributes;
+	private List<OpersIOAttribute> outAttributes;
 
 	// private List<OperationLabeling> operationLabelings;
 
 	public OpersSubOperation(int position, String identifier) {
 		super(identifier);
 		this.position = position;
-		inAttributes = new HashSet<OpersIOAttribute>();
-		outAttributes = new HashSet<OpersIOAttribute>();
+		inAttributes = new ArrayList<OpersIOAttribute>();
+		outAttributes = new ArrayList<OpersIOAttribute>();
 	}
 
 	public OpersSubOperation() {
@@ -63,19 +61,19 @@ public class OpersSubOperation extends OpersElement implements
 		return false;
 	}
 
-	public Set<OpersIOAttribute> getInAttributes() {
+	public List<OpersIOAttribute> getInAttributes() {
 		return inAttributes;
 	}
 
-	public void setInAttributes(Set<OpersIOAttribute> inVariables) {
+	public void setInAttributes(List<OpersIOAttribute> inVariables) {
 		this.inAttributes = inVariables;
 	}
 
-	public Set<OpersIOAttribute> getOutAttributes() {
+	public List<OpersIOAttribute> getOutAttributes() {
 		return outAttributes;
 	}
 
-	public void setOutAttribute(Set<OpersIOAttribute> outVariables) {
+	public void setOutAttribute(List<OpersIOAttribute> outVariables) {
 		this.outAttributes = outVariables;
 	}
 

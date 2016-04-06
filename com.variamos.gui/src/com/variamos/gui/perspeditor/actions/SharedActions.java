@@ -27,7 +27,6 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxOverTwoRel;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
@@ -139,7 +138,7 @@ public class SharedActions {
 				InstOverTwoRel ic = (InstOverTwoRel) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
-				str = (String) ic.getSupportMetaElementIden();
+				str = (String) ic.getSupSyntaxEleId();
 				ic.setMetaOverTwoRelationIden(str);
 			}
 			if (value instanceof InstPairwiseRel) {
@@ -511,7 +510,7 @@ public class SharedActions {
 						.getTransInstSemanticElement().getParentOpersConcept();
 			instElement.createInstAttributes(syntaxParents);
 
-			SyntaxElement metaElement = instElement.getEditableMetaElement();
+			SyntaxElement metaElement = instElement.getEdSyntaxEle();
 			if (metaElement != null
 					&& metaElement.getInstSemanticElementId() != null) {
 				InstElement rr = refas.getOperationalModel().getVertex(
@@ -519,7 +518,7 @@ public class SharedActions {
 				metaElement.setTransInstSemanticElement(rr);
 			}
 			IntOpersElement semElement = instElement
-					.getEditableSemanticElement();
+					.getEdOperEle();
 			if (semElement != null) {
 				List<IntMetaExpression> semExp = semElement
 						.getSemanticExpressions();
@@ -540,8 +539,8 @@ public class SharedActions {
 								.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
-				SyntaxOverTwoRel metaOverTwoRelation = (SyntaxOverTwoRel) instSupportElement
-						.getEditableMetaElement();
+				SyntaxElement metaOverTwoRelation = (SyntaxElement) instSupportElement
+						.getEdSyntaxEle();
 				instOverTwoRelation
 						.setTransSupportMetaElement(metaOverTwoRelation);
 			}
@@ -557,7 +556,7 @@ public class SharedActions {
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<IntOpersRelType> semGD = ((SyntaxOverTwoRel) instOverTwoRelation
+					List<IntOpersRelType> semGD = ((SyntaxElement) instOverTwoRelation
 							.getTransSupportMetaElement())
 							.getSemanticRelationTypes();
 					ia.setValidationRelationTypes(semGD);
@@ -608,13 +607,13 @@ public class SharedActions {
 			InstVertex instVertex = (InstVertex) instElement;
 			SyntaxElement metaVertex = null;
 			if (refas.getSyntaxModel().getVertex(
-					instVertex.getSupportMetaElementIden()) != null)
+					instVertex.getSupSyntaxEleId()) != null)
 				metaVertex = (SyntaxElement) refas.getSyntaxModel()
-						.getVertex(instVertex.getSupportMetaElementIden())
-						.getEditableMetaElement();
+						.getVertex(instVertex.getSupSyntaxEleId())
+						.getEdSyntaxEle();
 			if (metaVertex == null)
 				System.err.println("Concept w "
-						+ instVertex.getSupportMetaElementIden());
+						+ instVertex.getSupSyntaxEleId());
 			else {
 				instVertex.setTransSupportMetaElement(metaVertex);
 				refas.putVariabilityInstVertex(instVertex);
@@ -910,7 +909,7 @@ public class SharedActions {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId()
 						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;

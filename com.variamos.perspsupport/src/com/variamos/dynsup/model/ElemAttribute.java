@@ -313,14 +313,27 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, Object defaultValue, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, Object defaultValue,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName, null,
 				null, defaultValue, null, null, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
+	}
+
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			String displayName, Object defaultValue, boolean affectProperties,
+			Domain domain, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				defaultValue, domain, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
 				elementDisplayCondition);
@@ -346,10 +359,9 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, Object defaultValue, String hint,
-			int defaultGroup, int propTabPosition,
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, Object defaultValue,
+			String hint, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
@@ -380,10 +392,9 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType, Object defaultValue,
-			int defaultGroup, int propTabPosition,
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String enumType,
+			Object defaultValue, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
@@ -416,20 +427,19 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName,
-				enumType, metaConceptInstanceType, defaultValue, null, null,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
+	/*
+	 * public ElemAttribute(String name, String type, AttributeType
+	 * attributeType, boolean affectProperties, String displayName, String
+	 * enumType, String metaConceptInstanceType, Object defaultValue, int
+	 * defaultGroup, int propTabPosition, String propTabEditionCondition, String
+	 * propTabVisualCondition, int elementDisplayPosition, String
+	 * elementDisplaySpacers, String elementDisplayCondition) { this(name, type,
+	 * attributeType, affectProperties, displayName, enumType,
+	 * metaConceptInstanceType, defaultValue, null, null, defaultGroup,
+	 * propTabPosition, propTabEditionCondition, propTabVisualCondition,
+	 * elementDisplayPosition, elementDisplaySpacers, elementDisplayCondition);
+	 * }
+	 */
 
 	/**
 	 * set local attributes not received with null
@@ -456,13 +466,12 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType, Object defaultValue,
-			String hint, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String enumType,
+			Object defaultValue, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName,
 				enumType, null, defaultValue, null, hint, defaultGroup,
 				propTabPosition, propTabEditionCondition,
@@ -495,9 +504,8 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType,
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, String hint,
 			int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
@@ -530,10 +538,9 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, Object defaultValue, Domain domain,
-			int defaultGroup, int propTabPosition,
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, Object defaultValue,
+			Domain domain, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
@@ -566,19 +573,18 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, Object defaultValue, Domain domain,
-			String hint, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName, null,
-				null, defaultValue, domain, hint, defaultGroup,
-				propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
-	}
+	/*
+	 * public ElemAttribute(String name, String type, AttributeType
+	 * attributeType, boolean affectProperties, String displayName, Object
+	 * defaultValue, Domain domain, String hint, int defaultGroup, int
+	 * propTabPosition, String propTabEditionCondition, String
+	 * propTabVisualCondition, int elementDisplayPosition, String
+	 * elementDisplaySpacers, String elementDisplayCondition) { this(name, type,
+	 * attributeType, affectProperties, displayName, null, null, defaultValue,
+	 * domain, hint, defaultGroup, propTabPosition, propTabEditionCondition,
+	 * propTabVisualCondition, elementDisplayPosition, elementDisplaySpacers,
+	 * elementDisplayCondition); }
+	 */
 
 	/**
 	 * constructor, set all local attributes without visual control
@@ -607,15 +613,14 @@ public class ElemAttribute implements Serializable {
 	 * @param defaultGroup
 	 *            Default defaultGroup for the attribute
 	 */
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, Domain domain,
-			String hint, int defaultGroup) {
-		this(name, type, attributeType, affectProperties, displayName,
-				enumType, metaConceptInstanceType, defaultValue, domain, hint,
-				defaultGroup, -1, "", "", -1, "", "");
-	}
+	/*
+	 * public ElemAttribute(String name, String type, AttributeType
+	 * attributeType, boolean affectProperties, String displayName, String
+	 * enumType, String metaConceptInstanceType, Object defaultValue, Domain
+	 * domain, String hint, int defaultGroup) { this(name, type, attributeType,
+	 * affectProperties, displayName, enumType, metaConceptInstanceType,
+	 * defaultValue, domain, hint, defaultGroup, -1, "", "", -1, "", ""); }
+	 */
 
 	/**
 	 * Principal constructor, set all local attributes
@@ -645,9 +650,8 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 
-	public ElemAttribute(String name, String type,
-			AttributeType attributeType, boolean affectProperties,
-			String displayName, String enumType,
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String enumType,
 			String metaConceptInstanceType, Object defaultValue, Domain domain,
 			String hint, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,

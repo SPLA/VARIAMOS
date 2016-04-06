@@ -22,19 +22,15 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
-import com.variamos.dynsup.model.OpersEnumeration;
 import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxEnum;
-import com.variamos.dynsup.model.SyntaxOverTwoRel;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.editor.logic.ConstraintMode;
@@ -63,7 +59,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 				instElements.add(instVertex);
 			}
 		for (InstElement instElement : instElements) {
-			SyntaxElement metaElement = instElement.getEditableMetaElement();
+			SyntaxElement metaElement = instElement.getEdSyntaxEle();
 			paletteElements.add(new PaletteElement(metaElement
 					.getAutoIdentifier(), metaElement.getName(), metaElement
 					.getImage(), metaElement.getStyle(),
@@ -139,19 +135,19 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new SyntaxPairwiseRel());
 										break;
 									case 'E':
-										o = new InstEnum();
+										o = new InstConcept();
 										c = o.getClass().getConstructor(
 												String.class,
 												SyntaxElement.class,
 												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
 												(SyntaxElement) metaVertex,
-												new SyntaxEnum());
+												new SyntaxConcept());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
 												(SyntaxElement) metaVertex,
-												new SyntaxOverTwoRel());
+												new SyntaxConcept());
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
@@ -186,14 +182,14 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new OpersPairwiseRel());
 										break;
 									case 'E':
-										o = new InstEnum();
+										o = new InstConcept();
 										c = o.getClass().getConstructor(
 												String.class,
 												SyntaxElement.class,
 												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
 												(SyntaxElement) metaVertex,
-												new OpersEnumeration());
+												new OpersConcept());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
@@ -206,6 +202,13 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new OpersConcept());
 									}
 								} else {
+									switch (((SyntaxElement) metaVertex)
+											.getType()) {
+									case 'O':
+										o = new InstOverTwoRel();
+										break;
+									}
+
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
 													SyntaxElement.class,
@@ -214,41 +217,34 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											(SyntaxElement) metaVertex, null);
 								}
 
-							} else if (metaVertex instanceof SyntaxOverTwoRel) {
-								// MetaElement metaElement = ;
-								Object o = new InstOverTwoRel();
-								Constructor<?> c = o.getClass().getConstructor(
-										String.class, SyntaxOverTwoRel.class,
-										SyntaxElement.class);
-								if (editor.getPerspective() != 2)
-									obj = (InstElement) c.newInstance("",
-											(SyntaxOverTwoRel) metaVertex,
-											new SyntaxOverTwoRel());
-								else
-
-									obj = (InstElement) c
-											.newInstance(
-													"",
-													(SyntaxOverTwoRel) metaVertex,
-													null);
-							} else if (metaVertex instanceof SyntaxPairwiseRel) {
+							} /*
+							 * else if (metaVertex instanceof SyntaxOverTwoRel)
+							 * { // MetaElement metaElement = ; Object o = new
+							 * InstOverTwoRel(); Constructor<?> c =
+							 * o.getClass().getConstructor( String.class,
+							 * SyntaxElement.class, SyntaxElement.class); if
+							 * (editor.getPerspective() != 2) obj =
+							 * (InstElement) c.newInstance("", (SyntaxElement)
+							 * metaVertex, new SyntaxConcept()); else
+							 * 
+							 * obj = (InstElement) c .newInstance( "",
+							 * (SyntaxOverTwoRel) metaVertex, null); }
+							 */else if (metaVertex instanceof SyntaxPairwiseRel) {
 								// Not shown on palette
-							} else if (metaVertex instanceof SyntaxEnum) {
-								// MetaElement metaElement = new
-								// MetaEnumeration();
-								Object o = new InstEnum();
-								Constructor<?> c = o.getClass().getConstructor(
-										String.class, SyntaxElement.class,
-										SyntaxElement.class);
-								if (editor.getPerspective() != 2)
-									obj = (InstElement) c.newInstance("",
-											(SyntaxElement) metaVertex,
-											new SyntaxEnum());
-								else
-
-									obj = (InstElement) c.newInstance("",
-											(SyntaxElement) metaVertex, null);
-							}
+							} /*
+							 * else if (metaVertex instanceof SyntaxEnum) { //
+							 * MetaElement metaElement = new //
+							 * MetaEnumeration(); Object o = new InstEnum();
+							 * Constructor<?> c = o.getClass().getConstructor(
+							 * String.class, SyntaxElement.class,
+							 * SyntaxElement.class); if (editor.getPerspective()
+							 * != 2) obj = (InstElement) c.newInstance("",
+							 * (SyntaxElement) metaVertex, new SyntaxEnum());
+							 * else
+							 * 
+							 * obj = (InstElement) c.newInstance("",
+							 * (SyntaxElement) metaVertex, null); }
+							 */
 
 						} else {
 							System.out
@@ -280,10 +276,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								search: for (InstElement relation : relations) {
 									InstConcept pairwiseRelation = (InstConcept) relation
 											.getSourceRelations().get(0);
-									if (pairwiseRelation
-											.getSupportMetaElementIden() == null
+									if (pairwiseRelation.getSupSyntaxEleId() == null
 											|| !pairwiseRelation
-													.getSupportMetaElementIden()
+													.getSupSyntaxEleId()
 													.equals("SMMViewConceptAsso")
 											|| pairwiseRelation
 													.getSourceRelations()

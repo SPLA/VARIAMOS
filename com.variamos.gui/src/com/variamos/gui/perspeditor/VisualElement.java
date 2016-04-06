@@ -10,13 +10,10 @@ import javax.swing.JPanel;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.interfaces.IntOpersElement;
-import com.variamos.dynsup.model.OpersReasoningConcept;
-import com.variamos.dynsup.model.OpersSoftConcept;
 import com.variamos.dynsup.model.OpersVariable;
+import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxEnum;
 
 public class VisualElement implements Comparable<VisualElement> {
 
@@ -76,48 +73,45 @@ public class VisualElement implements Comparable<VisualElement> {
 							.getAsInteger() + "}";
 		}
 		if (opersElement instanceof OpersVariable) {
-			if (opersElement instanceof OpersVariable) {
-				String out = " : ";
-				if (instElement.getInstAttribute("variableType").getValue()
-						.equals("Integer")) {
-					out += "int : "
-							+ instElement.getInstAttribute("value")
-									.getAsInteger() + "";
-				} else if (instElement.getInstAttribute("variableType")
-						.getValue().equals("Enumeration")) {
-					out += "enum : ";
-					Object object = instElement.getInstAttribute(
-							"enumerationType").getValueObject();
-					if (object != null) {
-						@SuppressWarnings("unchecked")
-						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
-								.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
-								.getValue();
-						for (InstAttribute value : values) {
-							String[] split = ((String) value.getValue())
-									.split("-");
-							String val = null;
-							if (instElement.getInstAttribute("value")
-									.getValue() instanceof Integer)
-								val = ((Integer) instElement.getInstAttribute(
-										"value").getValue()).toString();
-							else
+			String out = " : ";
+			if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Integer")) {
+				out += "int : "
+						+ instElement.getInstAttribute("value").getAsInteger()
+						+ "";
+			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Enumeration")) {
+				out += "enum : ";
+				Object object = instElement.getInstAttribute("enumerationType")
+						.getValueObject();
+				if (object != null) {
+					@SuppressWarnings("unchecked")
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
+							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+							.getValue();
+					for (InstAttribute value : values) {
+						String[] split = ((String) value.getValue()).split("-");
+						String val = null;
+						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
+							val = ((Integer) instElement.getInstAttribute(
+									"value").getValue()).toString();
+						else
 
-								val = (String) instElement.getInstAttribute(
-										"value").getValue();
-							if (split[0].equals(val))
-								out += value + "";
-						}
+							val = (String) instElement
+									.getInstAttribute("value").getValue();
+						if (split[0].equals(val))
+							out += value + "";
 					}
-				} else if (instElement.getInstAttribute("variableType")
-						.getValue().equals("Boolean")) {
-					out += "bool : "
-							+ instElement.getInstAttribute("value")
-									.getAsBoolean() + "";
-				} else
-					out += "Other type";
-				newOtherParameters = out;
-			}
+				}
+			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Boolean")) {
+				out += "bool : "
+						+ instElement.getInstAttribute("value").getAsBoolean()
+						+ "";
+			} else
+				out += "Other type";
+			newOtherParameters = out;
+
 		}
 		if (selected != newSelected || notAvailable != newNotAvailable
 				|| !otherParameters.equals(newOtherParameters)) {
@@ -159,20 +153,17 @@ public class VisualElement implements Comparable<VisualElement> {
 		return row;
 	}
 
+	// FIXME: use an attribute to define attributes visible for dashboard
 	public int getCols() {
 		String opersId = opersElement.getIdentifier();
 		// FIXME validate considering parents and remove classes
-		if (opersId.equals("AbstVariable")
-				|| opersId.equals("AbstReasoningElement"))
+		if (opersId.equals("AbstVariable") || opersId.equals("SoftDependency")
+				|| opersId.equals("Claim"))
 			return 2;
-		if (opersId.equals("AbstSoftElement"))
+		if (opersId.equals("Softgoal"))
 			return 1;
 		if (opersElement instanceof OpersVariable)
 			return 2;
-		if (opersElement instanceof OpersReasoningConcept)
-			return 2;
-		if (opersElement instanceof OpersSoftConcept)
-			return 1;
 		return 3;
 	}
 

@@ -19,7 +19,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.partialsorts.EnumerationSort;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -70,7 +70,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
 		InstAttribute o = element.getInstAttributes().get(
-				SyntaxEnum.VAR_METAENUMVALUE);
+				SyntaxConcept.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -131,7 +131,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(SyntaxEnum.VAR_METAENUMVALUE)
+					.getInstAttributes().get(SyntaxConcept.VAR_METAENUMVALUE)
 					.getValue();
 			int i = 1;
 			/*
@@ -144,10 +144,10 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			}
 
 			// Name
-			instAttribute = new InstAttribute("enum" + i,
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""), "");
+			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+					"");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("-");
 			instIdentifier.setValue(split[0]);
@@ -199,7 +199,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxConcept.VAR_METAENUMVALUE).getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -221,7 +221,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(SyntaxEnum.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxConcept.VAR_METAENUMVALUE).getValue());
 
 				attributes.remove(v);
 

@@ -1026,10 +1026,10 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (((element instanceof InstConcept && (sourceRelation
-						.getSupportMetaElementIden().equals("OMConcept") || sourceRelation
-						.getSupportMetaElementIden().equals("OMOTRel"))))
+						.getSupSyntaxEleId().equals("OMConcept") || sourceRelation
+						.getSupSyntaxEleId().equals("OMOTRel"))))
 						|| (element instanceof InstPairwiseRel && sourceRelation
-								.getSupportMetaElementIden().equals("OMPWRel")))
+								.getSupSyntaxEleId().equals("OMPWRel")))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		case RIGHTUNIQUEINCCONVARIABLE:
@@ -1038,9 +1038,9 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupportMetaElementIden().equals(
+				if (sourceRelation.getSupSyntaxEleId().equals(
 						"OMConcept")
-						|| sourceRelation.getSupportMetaElementIden().equals(
+						|| sourceRelation.getSupSyntaxEleId().equals(
 								"InfraSyntaxOpersM2OTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
@@ -1050,7 +1050,7 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupportMetaElementIden()
+				if (sourceRelation.getSupSyntaxEleId()
 						.equals("OMPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
@@ -1072,9 +1072,9 @@ public class SemanticExpressionDialog extends JDialog {
 				List<InstElement> opersParent = instElement
 						.getTransSupportMetaElement()
 						.getTransInstSemanticElement().getParentOpersConcept();
-				if (instElement.getEditableSemanticElement() != null)
+				if (instElement.getEdOperEle() != null)
 					for (ElemAttribute attribute : instElement
-							.getEditableSemanticElement()
+							.getEdOperEle()
 							.getAllSemanticAttributes(opersParent).values())
 						if (displayVariableName)
 
@@ -1096,9 +1096,9 @@ public class SemanticExpressionDialog extends JDialog {
 							.getTransSupportMetaElement()
 							.getTransInstSemanticElement()
 							.getParentOpersConcept();
-					if (instElementT.getEditableSemanticElement() != null)
+					if (instElementT.getEdOperEle() != null)
 						for (ElemAttribute attribute : instElementT
-								.getEditableSemanticElement()
+								.getEdOperEle()
 								.getAllSemanticAttributes(opersParent).values())
 
 							if (displayVariableName)

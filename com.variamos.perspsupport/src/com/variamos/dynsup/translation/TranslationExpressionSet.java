@@ -139,7 +139,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						.getInstAttributeValue("suboperexptype");
 				if (attval.equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
-							.getValue()).getEditableSemanticElement();
+							.getValue()).getEdOperEle();
 				}
 			}
 			if (operExpType != null) {
@@ -199,7 +199,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								.values()) {
 							int attributeValue = 0;
 							if (((OpersSubOperation) operSubAction
-									.getEditableSemanticElement())
+									.getEdOperEle())
 									.validateAttribute(instE
 											.getTransSupportMetaElement()
 											.getTransInstSemanticElement(), var
@@ -324,7 +324,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			if (subOper.getIdentifier().equals(subAction)) {
 				instOperSubAction = subOper;
 				operSubAction = (OpersSubOperation) subOper
-						.getEditableSemanticElement();
+						.getEdOperEle();
 			}
 		}
 
@@ -337,7 +337,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				if (((InstConcept) att.getValue()).getInstAttributeValue(
 						"suboperexptype").equals(expressionType.toString())) {
 					operExpType = (OpersSubOperationExpType) ((InstConcept) att
-							.getValue()).getEditableSemanticElement();
+							.getValue()).getEdOperEle();
 				}
 			}
 			if (operExpType != null) {
@@ -353,7 +353,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
 							if (((OpersLabeling) operLab
-									.getEditableSemanticElement())
+									.getEdOperEle())
 									.validateAttribute(instE
 											.getTransSupportMetaElement()
 											.getTransInstSemanticElement(), var
@@ -379,7 +379,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						laborder.add((LabelingOrder) att.getValue());
 					}
 					List<IntMetaExpression> semExps = operLab
-							.getEditableSemanticElement()
+							.getEdOperEle()
 							.getSemanticExpressions();
 					// FIXME support more models
 					InstElement oper2 = refas.getElement("REFAS1");

@@ -78,7 +78,7 @@ public class ElementsOperationAssociationPanel extends
 				"OMOperation");
 
 		for (InstElement operAction : operActions) {
-			combo.addItem(operAction.getEditableSemanticElement()
+			combo.addItem(operAction.getEdOperEle()
 					.getIdentifier());
 		}
 		combo.setSelectedItem("SimulationOper");
@@ -137,7 +137,7 @@ public class ElementsOperationAssociationPanel extends
 			InstElement subOper = rel.getTargetRelations().get(0);
 
 			operSubAction = (OpersSubOperation) subOper
-					.getEditableSemanticElement();
+					.getEdOperEle();
 			// FIXME complete: include names and objects from suboper
 			/*
 			 * subOperTypesColumnsNames.addAll(operSubAction
@@ -154,7 +154,7 @@ public class ElementsOperationAssociationPanel extends
 			for (InstElement rel2 : subOper.getTargetRelations()) {
 				InstElement instOperLab = rel2.getTargetRelations().get(0);
 				OpersLabeling operLab = (OpersLabeling) instOperLab
-						.getEditableSemanticElement();
+						.getEdOperEle();
 				operLabs.add(operLab);
 				operLabsNames.add(operSubAction.getIdentifier() + "-"
 						+ operLab.getIdentifier());
@@ -215,10 +215,10 @@ public class ElementsOperationAssociationPanel extends
 					.getTransInstSemanticElement().getParentOpersConcept();
 			// Add Attributes
 			if (dialog == 0
-					&& el.getEditableSemanticElement() != null
-					&& el.getEditableSemanticElement()
+					&& el.getEdOperEle() != null
+					&& el.getEdOperEle()
 							.getAllSemanticExpressions(opersParent) != null)
-				for (IntMetaExpression v : el.getEditableSemanticElement()
+				for (IntMetaExpression v : el.getEdOperEle()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 					for (OpersSubOperationExpType operColumn : subOperTypesColumns)
@@ -262,8 +262,8 @@ public class ElementsOperationAssociationPanel extends
 						attNode.getChildren().add(att2Node);
 					}
 				}
-			if (dialog == 1 && el.getEditableSemanticElement() != null)
-				for (String v : el.getEditableSemanticElement()
+			if (dialog == 1 && el.getEdOperEle() != null)
+				for (String v : el.getEdOperEle()
 						.getDeclaredSemanticAttributesNames()) {
 
 					List<Integer> valuesVarColumns = new ArrayList<Integer>();
@@ -283,8 +283,8 @@ public class ElementsOperationAssociationPanel extends
 
 				}
 
-			if (dialog == 2 && el.getEditableSemanticElement() != null)
-				for (String v : el.getEditableSemanticElement()
+			if (dialog == 2 && el.getEdOperEle() != null)
+				for (String v : el.getEdOperEle()
 						.getDeclaredSemanticAttributesNames()) {
 					List<Integer> valuesVarColums = new ArrayList<Integer>();
 

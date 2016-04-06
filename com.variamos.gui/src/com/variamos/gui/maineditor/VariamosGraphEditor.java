@@ -65,8 +65,6 @@ import com.variamos.dynsup.instance.InstView;
 import com.variamos.dynsup.interfaces.IntElemAttribute;
 import com.variamos.dynsup.interfaces.IntInstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.ExecCurrentStateAttribute;
-import com.variamos.dynsup.model.GlobalConfigAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -100,6 +98,7 @@ import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
 import com.variamos.semantic.staticexpr.ElementExpressionSet;
+import com.variamos.semantic.types.AttributeType;
 import com.variamos.solver.Configuration;
 
 import fm.FeatureModelException;
@@ -259,7 +258,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				for (InstElement instElement : instViews) {
 
 					JPanel tabPane = new JPanel();
-					if (instElement.getSupportMetaElementIden().equals(
+					if (instElement.getSupSyntaxEleId().equals(
 							"SMMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
@@ -275,7 +274,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					if (instElement instanceof InstView) {
 						InstView instView = (InstView) instElement;
 						if (instView.getChildViews().size() > 0) {
-							modelsTabPane.add(instView.getEditableMetaElement()
+							modelsTabPane.add(instView.getEdSyntaxEle()
 									.getName(), tabPane);
 
 							// mxCell child = new mxCell(new InstCell(null,
@@ -292,7 +291,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								InstView instChildView = instView
 										.getChildViews().get(j);
 								JButton a = new JButton(instChildView
-										.getEditableMetaElement().getName());
+										.getEdSyntaxEle().getName());
 								tabPane.add(a);
 								a.addActionListener(new ModelButtonAction());
 							}
@@ -301,7 +300,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							// required
 						}
 					} else {
-						modelsTabPane.add(instElement.getEditableMetaElement()
+						modelsTabPane.add(instElement.getEdSyntaxEle()
 								.getName(), null);
 						modelsTabPane.setMaximumSize(new Dimension(10, 22));
 						modelsTabPane.setPreferredSize(new Dimension(10, 22));
@@ -338,7 +337,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 																.getSelectedIndex())
 												.equals(finalInstViews
 														.get(i)
-														.getEditableMetaElement()
+														.getEdSyntaxEle()
 														.getName())) {
 									if (finalInstViews.get(i) instanceof InstView) {
 										if (((InstView) finalInstViews.get(i))
@@ -1017,8 +1016,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						editableElementType = "vertex";
 				}
 				if (finalEditElm instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) finalEditElm)
-							.getSourceRelations().size() == 0) {
+					if (((InstPairwiseRel) finalEditElm).getSourceRelations()
+							.size() == 0) {
 						((MainFrame) getFrame()).waitingCursor(false);
 						// TODO workaround for non supported relations - delete
 						// after fix
@@ -1160,7 +1159,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					}
 					// GARA
 					// variablesPanel.add(new JLabel(v.getName() + ":: "));
-					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute) {
+					if (instAttribute.getAttribute() instanceof ElemAttribute
+							&& ((ElemAttribute) instAttribute.getAttribute())
+									.getAttributeType().equals(
+											AttributeType.EXECCURRENTSTATE)) {
 						elementSimPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementSimPropSubPanel.add(w);
@@ -1194,7 +1196,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							elementSimPropSubPanel.add(new JPanel());
 
 						simulationPanelElements++;
-					} else if (instAttribute.getAttribute() instanceof GlobalConfigAttribute) {
+					} else if (instAttribute.getAttribute() instanceof ElemAttribute
+							&& ((ElemAttribute) instAttribute.getAttribute())
+									.getAttributeType().equals(
+											AttributeType.GLOBALCONFIG)) {
 						elementConfPropSubPanel.add(new JLabel(instAttribute
 								.getDisplayName() + ": "));
 						elementConfPropSubPanel.add(w);
@@ -1360,7 +1365,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			IntElemAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
 			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
-					.getEditableMetaElement();
+					.getEdSyntaxEle();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals(
 						SyntaxConcept.VAR_USERIDENTIFIER))
@@ -1592,7 +1597,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		// TODO support multiple models selected from the menu
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
 		InstVertex element = new InstConcept("REFAS1",
-				refas.getEditableMetaElement());
+				refas.getEdSyntaxEle());
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
 		System.out.println(operation);

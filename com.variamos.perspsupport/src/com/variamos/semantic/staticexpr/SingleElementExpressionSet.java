@@ -99,14 +99,13 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
 				if (ele instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

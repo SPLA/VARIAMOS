@@ -18,7 +18,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntModelExpr2Hlcl;
-import com.variamos.dynsup.model.ExecCurrentStateAttribute;
+import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
@@ -39,6 +39,7 @@ import com.variamos.semantic.staticexpr.ModelExpressionSet;
 import com.variamos.semantic.staticexpr.OverTwoElementsExpressionSet;
 import com.variamos.semantic.staticexpr.PairwiseElementExpressionSet;
 import com.variamos.semantic.staticexpr.SingleElementExpressionSet;
+import com.variamos.semantic.types.AttributeType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
@@ -408,7 +409,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction))
 				for (OpersIOAttribute att : ((OpersSubOperation) subOper
-						.getEditableSemanticElement()).getOutAttributes())
+						.getEdOperEle()).getOutAttributes())
 					out.add(att.getAttributeId());
 		}
 		return out;
@@ -598,7 +599,10 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
-					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute
+					if (instAttribute.getAttribute() instanceof ElemAttribute
+							&& ((ElemAttribute) instAttribute.getAttribute())
+									.getAttributeType().equals(
+											AttributeType.EXECCURRENTSTATE)
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -1103,8 +1107,8 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
-						.equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

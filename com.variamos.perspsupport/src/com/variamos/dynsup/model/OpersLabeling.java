@@ -1,9 +1,7 @@
 package com.variamos.dynsup.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
@@ -14,7 +12,7 @@ public class OpersLabeling extends OpersElement {
 	 */
 	private static final long serialVersionUID = 4720471978011738167L;
 
-	private Set<OpersIOAttribute> attributes;
+	private List<OpersIOAttribute> attributes;
 
 	public OpersLabeling() {
 		super(null);
@@ -22,7 +20,7 @@ public class OpersLabeling extends OpersElement {
 
 	public OpersLabeling(String identifier) {
 		super(identifier);
-		attributes = new HashSet<OpersIOAttribute>();
+		attributes = new ArrayList<OpersIOAttribute>();
 	}
 
 	public boolean hasAttribute(String concept, String name) {
@@ -33,11 +31,11 @@ public class OpersLabeling extends OpersElement {
 		return false;
 	}
 
-	public Set<OpersIOAttribute> getAttributes() {
+	public List<OpersIOAttribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Set<OpersIOAttribute> outVariables) {
+	public void setAttributes(List<OpersIOAttribute> outVariables) {
 		this.attributes = outVariables;
 	}
 

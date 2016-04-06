@@ -44,7 +44,7 @@ public class InstConcept extends InstVertex {
 		super(identifier);
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 		createInstAttributes(null);
 		copyValuesToInstAttributes(null);
 	}
@@ -54,7 +54,7 @@ public class InstConcept extends InstVertex {
 		super(identifier);
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);
-		setEditableSemanticElement(editableSemanticElement);
+		setEdOperEle(editableSemanticElement);
 		createInstAttributes(null);
 	}
 

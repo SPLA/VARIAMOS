@@ -43,7 +43,7 @@ public class InstView extends InstElement {
 		this.supportMetaConcept = supportMetaConcept;
 		// instVertices = new ArrayList<InstVertex>();
 		childViews = new ArrayList<InstView>();
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 		createInstAttributes(null);
 		copyValuesToInstAttributes(null);
 	}
@@ -61,22 +61,13 @@ public class InstView extends InstElement {
 		childViews = new ArrayList<InstView>();
 	}
 
-	public void setInstVertices(List<InstVertex> instVertexs) {
-		// this.instVertices = instVertexs;
-	}
-
 	public List<InstView> getChildViews() {
 		return childViews;
-	}
-
-	public void setChildViews(List<InstView> childViews) {
-		this.childViews = childViews;
 	}
 
 	@Override
 	public String getIdentifier() {
 		return super.getIdentifier();
-
 	}
 
 	@Override
@@ -86,12 +77,6 @@ public class InstView extends InstElement {
 		Set<String> attributesNames = getTransSupportMetaElement()
 				.getPropEditableAttributesSet(syntaxParents);
 		return getFilteredInstAttributes(attributesNames, null);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
 	}
 
 	@Override
@@ -173,26 +158,14 @@ public class InstView extends InstElement {
 
 	}
 
-	public void setSupportMetaElement(SyntaxConcept supportMetaConcept) {
-		this.supportMetaConcept = supportMetaConcept;
-	}
-
 	@Override
 	public SyntaxElement getTransSupportMetaElement() {
 		return supportMetaConcept;
 	}
 
-	public void addInstVertex(InstVertex instVertex) {
-		// instVertices.add(instVertex);
-	}
-
-	public void addChildView(InstView instView) {
-		childViews.add(instView);
-	}
-
 	@Override
 	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
-		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
+		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
 		this.supportMetaConcept = (SyntaxConcept) supportMetaElement;
 	}
 

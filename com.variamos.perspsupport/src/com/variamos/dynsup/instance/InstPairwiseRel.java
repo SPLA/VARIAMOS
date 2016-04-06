@@ -11,10 +11,8 @@ import java.util.Set;
 import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.interfaces.IntOpersPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.OpersAttribute;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxOverTwoRel;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.semantic.types.AttributeType;
 
@@ -48,7 +46,7 @@ public class InstPairwiseRel extends InstElement {
 	/**
 	 * Name of InstAttributes variable
 	 */
-	VAR_INSTATTRIBUTES = "InstAttribute",
+	VAR_INSTATTRIBUTES = "InstAtt",
 	/**
 	 * Name of the string identifier of MetaPairwiseRelation
 	 */
@@ -85,17 +83,16 @@ public class InstPairwiseRel extends InstElement {
 
 	public InstPairwiseRel(IntOpersElement editableSemanticElement) {
 		super(null);
-		setEditableSemanticElement(editableSemanticElement);
+		setEdOperEle(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
-	public InstPairwiseRel(
-			SyntaxPairwiseRel supportMetaPairwiseRelation,
+	public InstPairwiseRel(SyntaxPairwiseRel supportMetaPairwiseRelation,
 			String supportInstPairwiseRelationIden,
 			IntOpersElement editableSemanticElement) {
 		super(null);
 		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
-		setEditableSemanticElement(editableSemanticElement);
+		setEdOperEle(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
@@ -107,7 +104,7 @@ public class InstPairwiseRel extends InstElement {
 	 */
 	public InstPairwiseRel(SyntaxElement editableMetaElement) {
 		super(null);
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
@@ -117,11 +114,10 @@ public class InstPairwiseRel extends InstElement {
 	 * @param editableMetaElement
 	 *            : Only for syntax refas, not for modeling
 	 */
-	public InstPairwiseRel(
-			SyntaxPairwiseRel supportMetaPairwiseRelation,
+	public InstPairwiseRel(SyntaxPairwiseRel supportMetaPairwiseRelation,
 			SyntaxElement editableMetaElement) {
 		super(null);
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 
 		createAttributes(new HashMap<String, InstAttribute>());
 		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
@@ -138,7 +134,7 @@ public class InstPairwiseRel extends InstElement {
 	public InstPairwiseRel(String identifier,
 			SyntaxPairwiseRel editableMetaElement) {
 		super(identifier);
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 		createAttributes(new HashMap<String, InstAttribute>());
 
 	}
@@ -169,16 +165,17 @@ public class InstPairwiseRel extends InstElement {
 				metaPairwiseRelationIden);
 	}
 
-	public OpersAttribute getSemanticAttribute() {
-		return new OpersAttribute(VAR_METAPAIRWISE, "Class",
+	public ElemAttribute getSemanticAttribute() {
+		return new ElemAttribute(VAR_METAPAIRWISE, "Class",
 				AttributeType.OPERATION, true, VAR_METAPAIRWISE_NAME,
-				VAR_METAPAIRWISE_CLASS, null, "", 0, -1, "", "", -1, "", "");
+				VAR_METAPAIRWISE_CLASS, new SyntaxPairwiseRel(), "", 0, -1, "",
+				"", -1, "", "");
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
-		OpersAttribute semAttribute = getSemanticAttribute();
+		ElemAttribute semAttribute = getSemanticAttribute();
 		// Add the semanticAttribute
 		dynamicAttributesMap.put(VAR_METAPAIRWISE, semAttribute);
 		dynamicAttributesMap.put(VAR_METAPAIRWISE_IDEN, "");
@@ -255,8 +252,8 @@ public class InstPairwiseRel extends InstElement {
 		return identifier;
 	}
 
-	public void addInstAttribute(String name,
-			ElemAttribute modelingAttribute, Object value) {
+	public void addInstAttribute(String name, ElemAttribute modelingAttribute,
+			Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
 					modelingAttribute,
@@ -380,12 +377,12 @@ public class InstPairwiseRel extends InstElement {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
-		return (Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES);
+		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
 	}
 
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
+		return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
 				.get(name);
 		// return instAttributes.get(name);
 	}
@@ -556,34 +553,6 @@ public class InstPairwiseRel extends InstElement {
 		return out;
 	}
 
-	@Deprecated
-	public void loadSemantic() {
-		Iterator<InstAttribute> ias = getInstAttributes().values().iterator();
-		while (ias.hasNext()) {
-			InstAttribute ia = (InstAttribute) ias.next();
-			if (ia.getAttributeName().equals(
-					SyntaxOverTwoRel.VAR_SEMANTICPAIRWISEREL)) {
-
-				ElemAttribute m = getMetaPairwiseRelation()
-						.getModelingAttribute(
-								InstOverTwoRel.VAR_SEMANTICOVERTWOREL_OBJ,
-								null);
-				ia.setAttribute(m);
-				/*
-				 * List<IntSemanticGroupDependency> semGD =
-				 * ((MetaGroupDependency) getMetaEdge())
-				 * .getSemanticRelations();
-				 * 
-				 * ia.setValidationGDList(semGD);
-				 */
-			} else {
-				ia.setAttribute(this.getMetaPairwiseRelation()
-						.getModelingAttribute(ia.getAttributeName(), null));
-			}
-		}
-		createInstAttributes(null);
-	}
-
 	public void updateIdentifiers() {
 		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE).getValueObject();
 		if (metaEdge != null) {
@@ -626,7 +595,7 @@ public class InstPairwiseRel extends InstElement {
 
 	@Override
 	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
-		this.setSupportMetaElementIden(supportMetaElement.getAutoIdentifier());
+		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
 		this.clearInstAttributes();
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 		createAttributes(map);

@@ -61,7 +61,7 @@ public class SyntaxPairwiseRel extends SyntaxElement {
 		if (getTransInstSemanticElement() == null)
 			return null;
 		return ((OpersPairwiseRel) getTransInstSemanticElement()
-				.getEditableSemanticElement()).getSemanticRelationTypes();
+				.getEdOperEle()).getSemanticRelationTypes();
 	}
 
 	public String toString() {

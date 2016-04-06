@@ -40,11 +40,9 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.instance.InstView;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
@@ -206,17 +204,14 @@ public class PerspEditorGraph extends AbstractGraph {
 				child.setValue(new InstCell(null, null, false));
 				child.setId("mv" + i);
 				addCell(child, parent);
-				if (view instanceof InstView) {
-					InstView instView = (InstView) view;
-					if (instView.getChildViews().size() > 0) {
-						for (int j = 0; j < instView.getChildViews().size(); j++) {
-							mxCell child2 = new mxCell();
-							child2.setValue(new InstCell(child2, null, false));
-							child2.setId("mv" + i + "-" + j);
-							addCell(child2, child);
-						}
-					}
-				}
+				/*
+				 * if (view instanceof InstView) { InstView instView =
+				 * (InstView) view; if (instView.getChildViews().size() > 0) {
+				 * for (int j = 0; j < instView.getChildViews().size(); j++) {
+				 * mxCell child2 = new mxCell(); child2.setValue(new
+				 * InstCell(child2, null, false)); child2.setId("mv" + i + "-" +
+				 * j); addCell(child2, child); } } }
+				 */
 				i++;
 			}
 		}
@@ -322,8 +317,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			InstElement instTarget = ((InstCell) t.getValue()).getInstElement();
 
 			HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
-			InstPairwiseRel directRelation = new InstPairwiseRel(map,
-					null);
+			InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
 			ModelInstance refas = getModelInstance();
 			List<InstElement> opersParents = null;
 			if (directRelation.getTransSupportMetaElement() != null
@@ -364,8 +358,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			if (elementIdentifier != null && !"".equals(elementIdentifier))
 				return true;
 		}
-		InstPairwiseRel directRelation = new InstPairwiseRel(map,
-				null);
+		InstPairwiseRel directRelation = new InstPairwiseRel(map, null);
 		ModelInstance refas = getModelInstance();
 
 		id = refas.addNewConstraintInstEdge(directRelation);
@@ -472,15 +465,13 @@ public class PerspEditorGraph extends AbstractGraph {
 					.getInstElement();
 			if (cell.getGeometry() != null) {
 				if (instElement instanceof InstVertex) {
-					InstVertex element = (InstVertex) instElement;
+					InstElement element = instElement;
 					elementIdentifier = element.getIdentifier();
 					if (elementIdentifier != null
 							&& !"".equals(elementIdentifier))
 						return false;
 					if (instElement instanceof InstOverTwoRel)
 						id = pl.addNewInstGroupDependency((InstOverTwoRel) element);
-					else if (instElement instanceof InstEnum)
-						id = pl.addNewVariabilityInstElement(element);
 					else
 						id = pl.addNewVariabilityInstElement(element);
 				} else {

@@ -58,7 +58,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId()
 						.equals("ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
