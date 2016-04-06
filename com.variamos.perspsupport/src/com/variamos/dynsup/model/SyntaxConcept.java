@@ -24,6 +24,11 @@ public class SyntaxConcept extends SyntaxVertex {
 	private static final long serialVersionUID = 8416609016211900965L;
 	private char type;
 
+	public SyntaxConcept() {
+		super();
+
+	}
+
 	public SyntaxConcept(char type) {
 		super();
 		this.type = type;

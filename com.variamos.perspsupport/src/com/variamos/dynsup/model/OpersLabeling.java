@@ -16,6 +16,10 @@ public class OpersLabeling extends OpersElement {
 
 	private Set<OpersIOAttribute> attributes;
 
+	public OpersLabeling() {
+		super(null);
+	}
+
 	public OpersLabeling(String identifier) {
 		super(identifier);
 		attributes = new HashSet<OpersIOAttribute>();

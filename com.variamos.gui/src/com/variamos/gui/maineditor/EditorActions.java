@@ -539,9 +539,9 @@ public class EditorActions {
 				FileFilter selectedFilter = null;
 				String fileExtension = finalEditor.getFileExtension();
 				String extensionName = finalEditor.getExtensionName();
-				DefaultFileFilter xmlPngFilter = new DefaultFileFilter(
-						fileExtension, extensionName + mxResources.get("file")
-								+ " (" + fileExtension + ")");
+				DefaultFileFilter xmlPngFilter = new DefaultFileFilter("."
+						+ fileExtension, extensionName
+						+ mxResources.get("file") + " (." + fileExtension + ")");
 				FileFilter vmlFileFilter = new DefaultFileFilter(".html",
 						"VML " + mxResources.get("file") + " (.html)");
 				String filename = null;

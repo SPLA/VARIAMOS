@@ -47,8 +47,10 @@ public class OpersElement implements Serializable, IntOpersElement {
 	 * ArrayList<String>()); }
 	 */
 
-	public OpersElement(String identifier,
-			List<String> propVisibleAttributes,
+	public OpersElement() {
+	};
+
+	public OpersElement(String identifier, List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSpacersAttributes) {

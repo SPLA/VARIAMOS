@@ -6,6 +6,10 @@ public class OpersIOAttribute implements Comparable<OpersIOAttribute> {
 	private String attributeId;
 	private boolean include;
 
+	public OpersIOAttribute() {
+		super();
+	}
+
 	public OpersIOAttribute(String conceptId, String attributeId,
 			boolean include) {
 		super();

@@ -16,6 +16,10 @@ public class OpersVariable extends OpersElement {
 	 */
 	private static final long serialVersionUID = 5538738414024566452L;
 
+	public OpersVariable() {
+		super(null);
+	}
+
 	public OpersVariable(String name) {
 		super(name);
 	}
