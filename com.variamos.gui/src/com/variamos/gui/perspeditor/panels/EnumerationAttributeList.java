@@ -149,7 +149,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
 					"");
 		} else {
-			String split[] = ((String) instAttribute.getValue()).split("-");
+			String split[] = ((String) instAttribute.getValue()).split("#");
 			instIdentifier.setValue(split[0]);
 			instName.setValue(split[1]);
 		}
@@ -195,7 +195,7 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 				}
 				InstAttribute v = buffer[0];
 				v.setValue(((Integer) instIdentifier.getValue()).intValue()
-						+ "-" + (String) instName.getValue());
+						+ "#" + (String) instName.getValue());
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()

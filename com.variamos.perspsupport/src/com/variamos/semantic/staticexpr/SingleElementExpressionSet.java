@@ -11,7 +11,6 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
@@ -129,7 +128,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						|| ((boolean) validAttribute.getValue()) == true) {
 					List<AbstractExpression> coreAndFalseOptList = new ArrayList<AbstractExpression>();
 
-					for (InstAttribute instAttribute : ((InstVertex) instVertex)
+					for (InstAttribute instAttribute : ((InstElement) instVertex)
 							.getInstAttributesCollection()) {
 						// System.out.println(instVertex.getIdentifier() + " "
 						// + instAttribute.getIdentifier());
@@ -709,7 +708,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							.getInstAttribute("Active").getAsBoolean())
 						out++;
 				} else if (type == null || (type.equals("Group"))) {
-					InstVertex grouprel = (InstVertex) target
+					InstElement grouprel = (InstElement) target
 							.getTargetRelations().get(0);
 					if (grouprel.getTargetRelations().size() > 0) {
 						String relType = ((InstPairwiseRel) grouprel

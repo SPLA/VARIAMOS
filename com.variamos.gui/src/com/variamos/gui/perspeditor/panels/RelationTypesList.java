@@ -71,8 +71,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
-		InstAttribute o = element.getInstAttributes().get(
-				"relationTypesAttributes");
+		InstAttribute o = element.getInstAttributes().get("relTypesAttr");
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -133,10 +132,9 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 		final InstAttribute instRelExclusive = new InstAttribute(
 				"relationExclusive",
-				new ElemAttribute("relationExclusive",
-						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Relation Exclusive", false, 1, -1, "", "", -1, "", ""),
-				false);
+				new ElemAttribute("relationExclusive", BooleanType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Relation Exclusive",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
 				"sourceExclusive", new ElemAttribute("sourceExclusive",
@@ -177,8 +175,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 						"Maximum Target Cardinality", 1, 1, -1, "", "", -1, "",
 						""), 1);
 		final InstAttribute instSemanticExpressions = new InstAttribute(
-				"semanticExpression", new ElemAttribute(
-						"semanticExpression",
+				"semanticExpression", new ElemAttribute("semanticExpression",
 						OpersExpr.class.getCanonicalName(),
 						AttributeType.SYNTAX, false, "Semantic Expression", "",
 						1, -1, "", "", -1, "", ""), null);
@@ -186,8 +183,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get("relationTypesAttributes")
-					.getValue();
+					.getInstAttributes().get("relTypesAttr").getValue();
 			int i = 1;
 			/*
 			 * while (notFound) { for (InstAttribute i : instAttributes) {
@@ -199,11 +195,10 @@ public class RelationTypesList extends JList<InstAttribute> {
 			}
 
 			// Name
-			instAttribute = new InstAttribute("enum" + i,
-					new ElemAttribute("RelTypeValue",
-							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-							"Relation Type Value", "", 1, -1, "", "", -1, "",
-							""), "");
+			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
+					"RelTypeValue", StringType.IDENTIFIER,
+					AttributeType.SYNTAX, false, "Relation Type Value", "", 1,
+					-1, "", "", -1, "", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instIdentifier.setValue(split[0]);
@@ -216,8 +211,7 @@ public class RelationTypesList extends JList<InstAttribute> {
 			instMinTargetCard.setValue(split[7]);
 			instMaxTargetCard.setValue(split[8]);
 			List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-					.getInstAttributes().get("operationsExpressions")
-					.getValue());
+					.getInstAttributes().get("opersExprs").getValue());
 			instSemanticExpressions.setValue(semExpAttributes.get(index)
 					.getValue());
 		}
@@ -292,12 +286,10 @@ public class RelationTypesList extends JList<InstAttribute> {
 						+ ((Integer) instMaxTargetCard.getValue()).intValue());
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesAttributes")
-						.getValue());
+						.getInstAttributes().get("relTypesAttr").getValue());
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("operationsExpressions")
-						.getValue());
+						.getInstAttributes().get("opersExprs").getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -319,14 +311,12 @@ public class RelationTypesList extends JList<InstAttribute> {
 				dialog.getParameters();
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("relationTypesAttributes")
-						.getValue());
+						.getInstAttributes().get("relTypesAttr").getValue());
 
 				attributes.remove(v);
 
 				List<InstAttribute> semExpAttributes = ((List<InstAttribute>) element
-						.getInstAttributes().get("operationsExpressions")
-						.getValue());
+						.getInstAttributes().get("opersExprs").getValue());
 
 				semExpAttributes.remove(v);
 

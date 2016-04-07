@@ -7,7 +7,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxConcept;
@@ -124,7 +123,7 @@ public class DefaultSyntaxMM {
 		// syntaxFeature.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-		InstVertex instVertexF = new InstConcept("Feature",
+		InstConcept instVertexF = new InstConcept("Feature",
 				supportMetaElementConcept, syntaxFeature);
 		refas.getVariabilityVertex().put("Feature", instVertexF);
 		// syntaxMetaView.addConcept(syntaxFeature);
@@ -178,7 +177,7 @@ public class DefaultSyntaxMM {
 		// "ConcernLevel", false, "Concern Level", "", 0, -1, "", "", -1,
 		// "", "");
 
-		InstVertex instVertexVA = new InstConcept("VA",
+		InstConcept instVertexVA = new InstConcept("VA",
 				supportMetaElementConcept, syntaxVariabilityArtifact);
 		refas.getVariabilityVertex().put("VA", instVertexVA);
 
@@ -187,7 +186,7 @@ public class DefaultSyntaxMM {
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		InstVertex instVertexRF = new InstConcept("RootFeature",
+		InstConcept instVertexRF = new InstConcept("RootFeature",
 				supportMetaElementConcept, syntaxRootFeature);
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
 
@@ -197,7 +196,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		InstVertex instVertexGF = new InstConcept("GeneralFeature",
+		InstConcept instVertexGF = new InstConcept("GeneralFeature",
 				supportMetaElementConcept, syntaxGeneralFeature);
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
 
@@ -206,7 +205,7 @@ public class DefaultSyntaxMM {
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
-		InstVertex instVertexLF = new InstConcept("LeafFeature",
+		InstConcept instVertexLF = new InstConcept("LeafFeature",
 				supportMetaElementConcept, syntaxVertexLF);
 		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
 
@@ -269,7 +268,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
 
-		InstVertex instVertexG = new InstConcept("Goal",
+		InstConcept instVertexG = new InstConcept("Goal",
 				supportMetaElementConcept, syntaxGoal);
 		refas.getVariabilityVertex().put("Goal", instVertexG);
 
@@ -281,7 +280,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 3, semGoal, true);
 
-		InstVertex instVertexTG = new InstConcept("TopGoal",
+		InstConcept instVertexTG = new InstConcept("TopGoal",
 				supportMetaElementConcept, syntaxTopGoal);
 		refas.getVariabilityVertex().put("TopGoal", instVertexTG);
 
@@ -580,7 +579,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticFeatFeatGroupRelation, false);
 
-		InstVertex instVertexFOTR = new InstConcept("FeatOTAsso",
+		InstConcept instVertexFOTR = new InstConcept("FeatOTAsso",
 				supportMetaElementOverTwo, featureMetaOverTwoRel);
 		refas.getVariabilityVertex().put("FeatOTAsso", instVertexFOTR);
 
@@ -784,7 +783,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/goal.png", true,
 				Color.BLUE.toString(), 2, semGoal, true);
 
-		InstVertex instVertexGG = new InstConcept("GeneralGoal",
+		InstConcept instVertexGG = new InstConcept("GeneralGoal",
 				supportMetaElementConcept, syntaxGeneralGoal);
 		refas.getVariabilityVertex().put("GeneralGoal", instVertexGG);
 
@@ -843,7 +842,7 @@ public class DefaultSyntaxMM {
 		sOperationalization.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		InstVertex instVertexOper = new InstConcept("OPER",
+		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
 
 		refas.getVariabilityVertex().put("OPER", instVertexOper);
@@ -901,7 +900,7 @@ public class DefaultSyntaxMM {
 		syntaxAssumption.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		InstVertex instVertexAssum = new InstConcept("Assu",
+		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
 		refas.getVariabilityVertex().put("Assu", instVertexAssum);
 
@@ -1129,7 +1128,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Hard Group Relation",
 				instGroupHardPairWiseRel);
 
-		InstVertex instVertexHOTR = new InstConcept("HardOverTwoRel",
+		InstConcept instVertexHOTR = new InstConcept("HardOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexHOTR.getInstAttribute("Type").setValue("Group");
 		refas.getVariabilityVertex().put("HardOverTwoRel", instVertexHOTR);
@@ -1264,7 +1263,7 @@ public class DefaultSyntaxMM {
 		// syntaxSoftGoal.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-		InstVertex instVertexSG = new InstConcept("Softgoal",
+		InstConcept instVertexSG = new InstConcept("Softgoal",
 				supportMetaElementConcept, syntaxSoftGoal);
 		refas.getVariabilityVertex().put("Softgoal", instVertexSG);
 
@@ -1303,7 +1302,7 @@ public class DefaultSyntaxMM {
 						+ " on the SG", 100, 60,
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 3, semSoftgoal, true);
-		InstVertex instVertexTSG = new InstConcept("TopSoftgoal",
+		InstConcept instVertexTSG = new InstConcept("TopSoftgoal",
 				supportMetaElementConcept, syntaxTopSoftGoal);
 		refas.getVariabilityVertex().put("TopSoftgoal", instVertexTSG);
 
@@ -1361,7 +1360,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/softgoal.png", true,
 				Color.WHITE.toString(), 1, semSoftgoal, true);
 
-		InstVertex instVertexGSG = new InstConcept("GeneralSoftgoal",
+		InstConcept instVertexGSG = new InstConcept("GeneralSoftgoal",
 				supportMetaElementConcept, syntaxGeneralSoftGoal);
 		refas.getVariabilityVertex().put("GeneralSoftgoal", instVertexGSG);
 
@@ -1539,7 +1538,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GroupSoftToRelation",
 				instGrpSoftToPairWiseRel);
 
-		InstVertex instVertexSGOTR = new InstConcept("SoftgoalOTAsso",
+		InstConcept instVertexSGOTR = new InstConcept("SoftgoalOTAsso",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexSGOTR.getInstAttribute("Type").setValue("Group");
 		refas.getVariabilityVertex().put("SoftgoalOTAsso", instVertexSGOTR);
@@ -1626,7 +1625,7 @@ public class DefaultSyntaxMM {
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
 				"Name", "", 0, -1, "", "", -1, "", "");
 
-		InstVertex instVertexCG = new InstConcept("CG",
+		InstConcept instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
 		refas.getVariabilityVertex().put("CG", instVertexCG);
 
@@ -1683,7 +1682,7 @@ public class DefaultSyntaxMM {
 		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 
-		InstVertex instVertexVar = new InstConcept("Variable",
+		InstConcept instVertexVar = new InstConcept("Variable",
 				supportMetaElementConcept, syntaxAbsVariable);
 		refas.getVariabilityVertex().put("Variable", instVertexVar);
 
@@ -1712,7 +1711,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/perspeditor/images/globCnxtVar.png", true,
 				Color.BLUE.toString(), 1, semVariable, true);
 
-		InstVertex instVertexGV = new InstConcept("GlobalVariable",
+		InstConcept instVertexGV = new InstConcept("GlobalVariable",
 				supportMetaElementConcept, syntaxGlobalVariable);
 		refas.getVariabilityVertex().put("GlobalVariable", instVertexGV);
 
@@ -1758,7 +1757,7 @@ public class DefaultSyntaxMM {
 				40, "/com/variamos/gui/perspeditor/images/localCnxtVar.png",
 				true, Color.BLUE.toString(), 1, semVariable, true);
 
-		InstVertex instVertexCV = new InstConcept("ContextVariable",
+		InstConcept instVertexCV = new InstConcept("ContextVariable",
 				supportMetaElementConcept, syntaxContextVariable);
 		refas.getVariabilityVertex().put("ContextVariable", instVertexCV);
 
@@ -1834,7 +1833,7 @@ public class DefaultSyntaxMM {
 				syntaxMetaChildView);
 		// instView.addChildView(childView);
 		// refas.getVariabilityVertex().put("FullContext", childView);
-		InstVertex instVertexME = new InstConcept("ME",
+		InstConcept instVertexME = new InstConcept("ME",
 				supportMetaElementConcept, metaEnumeration);
 		refas.getVariabilityVertex().put("ME", instVertexME);
 
@@ -2179,7 +2178,7 @@ public class DefaultSyntaxMM {
 
 		syntaxClaim.addPropVisibleAttribute("10#" + "conditionalExpression");
 
-		InstVertex instVertexCL = new InstConcept("CL",
+		InstConcept instVertexCL = new InstConcept("CL",
 				supportMetaElementOverTwo, syntaxClaim);
 		refas.getVariabilityVertex().put("CL", instVertexCL);
 
@@ -2253,7 +2252,7 @@ public class DefaultSyntaxMM {
 		// syntaxSoftDependency.addPropVisibleAttribute("10#"
 		// + "conditionalExpression");
 
-		InstVertex instVertexSD = new InstConcept("SoftDependency",
+		InstConcept instVertexSD = new InstConcept("SoftDependency",
 				supportMetaElementConcept, syntaxSoftDependency);
 		refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
 
@@ -2389,7 +2388,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("DirLFClaimRelation",
 				instDirLFClaimPairWiseRel);
 
-		InstVertex instVertexOCOTR = new InstConcept("OperClaimOverTwoRel",
+		InstConcept instVertexOCOTR = new InstConcept("OperClaimOverTwoRel",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexOCOTR.getInstAttribute("Type").setValue("Group");
 
@@ -2431,7 +2430,7 @@ public class DefaultSyntaxMM {
 				20, 20, "/com/variamos/gui/pl/editor/images/plgroup.png",
 				false, "white", 1, semanticLFClaimGroupRelation, false);
 
-		InstVertex instVertexFCOTR = new InstConcept("LFClaimOTAsso",
+		InstConcept instVertexFCOTR = new InstConcept("LFClaimOTAsso",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexFCOTR.getInstAttribute("Type").setValue("Group");
 
@@ -2689,7 +2688,7 @@ public class DefaultSyntaxMM {
 				syntaxMetaChildView);
 		// refas.getVariabilityVertex().put("GeneralAssets", childView);
 
-		InstVertex instVertexAsset = new InstConcept("Asset",
+		InstConcept instVertexAsset = new InstConcept("Asset",
 				supportMetaElementConcept, syntaxAsset);
 		refas.getVariabilityVertex().put("Asset", instVertexAsset);
 
@@ -2711,7 +2710,7 @@ public class DefaultSyntaxMM {
 						+ "of an operationalization by a group of assets", 20,
 				20, "/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetOperGroupRelation, false);
-		InstVertex instVertexAssetOper = new InstConcept("AssetOperGroupDep",
+		InstConcept instVertexAssetOper = new InstConcept("AssetOperGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetOper.getInstAttribute("Type").setValue("Group");
 		refas.getVariabilityVertex().put("AssetOperGroupDep",
@@ -2723,7 +2722,7 @@ public class DefaultSyntaxMM {
 						+ "of a feautre by a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetOperGroupRelation, false);
-		InstVertex instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
+		InstConcept instVertexAssetFeat = new InstConcept("AssetFeatGroupDep",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetFeat.getInstAttribute("Type").setValue("Group");
 		refas.getVariabilityVertex().put("AssetFeatGroupDep",
@@ -2734,7 +2733,7 @@ public class DefaultSyntaxMM {
 						+ "of an asset with a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
 				"white", 1, semanticAssetAssetGroupRelation, false);
-		InstVertex instVertexAssetAsset = new InstConcept("AssetAssetOTAsso",
+		InstConcept instVertexAssetAsset = new InstConcept("AssetAssetOTAsso",
 				supportMetaElementOverTwo, hardMetaOverTwoRel);
 		instVertexAssetAsset.getInstAttribute("Type").setValue("Group");
 		refas.getVariabilityVertex().put("AssetAssetOTAsso",

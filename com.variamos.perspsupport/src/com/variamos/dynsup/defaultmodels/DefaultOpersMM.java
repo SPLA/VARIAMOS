@@ -6,7 +6,6 @@ import java.util.List;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.interfaces.IntMetaExpression;
 import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.dynsup.model.ElemAttribute;
@@ -161,7 +160,7 @@ public class DefaultOpersMM {
 		 * .getIdentifier(), attribute.getName(), true));
 		 * refasModel.putSemanticAttribute("TotalSG", attribute);
 		 */
-		InstVertex instRefasModel = new InstConcept("REFAS", metaMetaModel,
+		InstConcept instRefasModel = new InstConcept("REFAS", metaMetaModel,
 				refasModel);
 		refas.getVariabilityVertex().put("REFAS", instRefasModel);
 
@@ -170,7 +169,7 @@ public class DefaultOpersMM {
 
 		OpersConcept operationMenu = new OpersConcept("SimulationGroup");
 
-		InstVertex instOperationGroup = new InstConcept("SimulationGroup",
+		InstConcept instOperationGroup = new InstConcept("SimulationGroup",
 				metaOperationMenu, operationMenu);
 		refas.getVariabilityVertex().put("SimulationGroup", instOperationGroup);
 
@@ -183,7 +182,7 @@ public class DefaultOpersMM {
 
 		simulationOperationAction = new OpersConcept("SimulationOper");
 
-		InstVertex instOperationAction = new InstConcept("SimulationOper",
+		InstConcept instOperationAction = new InstConcept("SimulationOper",
 				metaOperationAction, simulationOperationAction);
 		refas.getVariabilityVertex().put("SimulationOper", instOperationAction);
 
@@ -207,7 +206,7 @@ public class DefaultOpersMM {
 
 		// simulationOperationAction.addExpressionSubAction(operationSubAction);
 
-		InstVertex instOperationSubAction = new InstConcept(
+		InstConcept instOperationSubAction = new InstConcept(
 				"Sim-Pre-Validation", metaOperationSubAction,
 				operationSubAction);
 
@@ -246,7 +245,7 @@ public class DefaultOpersMM {
 
 		// operationSubAction.addOperationLabeling(operationLabeling);
 
-		InstVertex instLabeling = new InstConcept("Sim-Pre-Validation-lab",
+		InstConcept instLabeling = new InstConcept("Sim-Pre-Validation-lab",
 				metaLabeling, operationLabeling);
 
 		instLabeling.getInstAttribute("labelId").setValue("L1");
@@ -1608,7 +1607,7 @@ public class DefaultOpersMM {
 
 		OpersConcept semInfraElement = new OpersConcept("InfraElement");
 
-		InstVertex instVertexIE = new InstConcept("InfraElement",
+		InstConcept instVertexIE = new InstConcept("InfraElement",
 				infraMetaMetaConcept, semInfraElement);
 
 		attribute = new ElemAttribute("True", "Boolean",
@@ -1829,7 +1828,7 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
-		InstVertex instVertexGR = new InstConcept("InfraOTRel",
+		InstConcept instVertexGR = new InstConcept("InfraOTRel",
 				infraMetaMetaOverTwoRelation, semInfraOTRel);
 
 		refas.getVariabilityVertex().put("InfraOTRel", instVertexGR);
@@ -1964,7 +1963,7 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
-		InstVertex instVertexGE = new InstConcept("GeneralElement",
+		InstConcept instVertexGE = new InstConcept("GeneralElement",
 				metaMetaConcept, semGeneralElement);
 
 		// t1 = new SemanticExpression("REFAS_pref<=1", refas
@@ -2377,7 +2376,7 @@ public class DefaultOpersMM {
 		semHardConcept.addPropEditableAttribute("01#" + "satisfactionType");
 		semHardConcept.addPropVisibleAttribute("01#" + "satisfactionType");
 
-		InstVertex instVertexHC = new InstConcept("HardConcept",
+		InstConcept instVertexHC = new InstConcept("HardConcept",
 				metaMetaConcept, semHardConcept);
 		refas.getVariabilityVertex().put("HardConcept", instVertexHC);
 
@@ -2412,7 +2411,7 @@ public class DefaultOpersMM {
 		// Feature concepts
 
 		OpersConcept semFeature = new OpersConcept("Feature");
-		InstVertex instVertexF = new InstConcept("Feature", metaMetaConcept,
+		InstConcept instVertexF = new InstConcept("Feature", metaMetaConcept,
 				semFeature);
 
 		attribute = new ElemAttribute("IsRootFeature", "Boolean",
@@ -2529,7 +2528,7 @@ public class DefaultOpersMM {
 		// definition of other concepts
 
 		OpersConcept semAssumption = new OpersConcept("Assumption");
-		InstVertex instVertexAS = new InstConcept("Assumption",
+		InstConcept instVertexAS = new InstConcept("Assumption",
 				metaMetaConcept, semAssumption);
 		refas.getVariabilityVertex().put("Assumption", instVertexAS);
 
@@ -2543,7 +2542,7 @@ public class DefaultOpersMM {
 		OpersConcept semGoal = new OpersConcept("Goal");
 		semGoal.addPanelVisibleAttribute("01#" + "satisfactionType");
 		semGoal.addPanelSpacersAttribute("<#" + "satisfactionType" + "#>\n");
-		InstVertex instVertexG = new InstConcept("Goal", metaMetaConcept,
+		InstConcept instVertexG = new InstConcept("Goal", metaMetaConcept,
 				semGoal);
 		refas.getVariabilityVertex().put("Goal", instVertexG);
 
@@ -2574,7 +2573,7 @@ public class DefaultOpersMM {
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 				semOperationalization.getIdentifier(), "Selected", false));
 
-		InstVertex instVertexOper = new InstConcept("Operationalization",
+		InstConcept instVertexOper = new InstConcept("Operationalization",
 				metaMetaConcept, semOperationalization);
 		refas.getVariabilityVertex().put("Operationalization", instVertexOper);
 
@@ -2643,7 +2642,7 @@ public class DefaultOpersMM {
 
 		semSoftgoal.setSemanticExpressions(semanticExpressions);
 
-		InstVertex instVertexSG = new InstConcept("Softgoal", metaMetaConcept,
+		InstConcept instVertexSG = new InstConcept("Softgoal", metaMetaConcept,
 				semSoftgoal);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
@@ -2777,7 +2776,7 @@ public class DefaultOpersMM {
 
 		semVariable.setSemanticExpressions(semanticExpressions);
 
-		InstVertex instVertexVAR = new InstConcept("Variable",
+		InstConcept instVertexVAR = new InstConcept("Variable",
 				infraMetaMetaConcept, semVariable);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
@@ -2990,12 +2989,12 @@ public class DefaultOpersMM {
 		semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
 		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
 
-		InstVertex instVertexCG = new InstConcept("ConcernLevel",
+		InstConcept instVertexCG = new InstConcept("ConcernLevel",
 				infraMetaMetaConcept, semContextGroup);
 		refas.getVariabilityVertex().put("ConcernLevel", instVertexCG);
 
 		OpersConcept semAsset = new OpersConcept("Asset");
-		InstVertex instVertexAsset = new InstConcept("Asset", metaMetaConcept,
+		InstConcept instVertexAsset = new InstConcept("Asset", metaMetaConcept,
 				semAsset);
 		refas.getVariabilityVertex().put("Asset", instVertexAsset);
 
@@ -3037,7 +3036,7 @@ public class DefaultOpersMM {
 
 		OpersOverTwoRel semClaim = new OpersOverTwoRel("Claim",
 				claimSemOverTwoRelList);
-		InstVertex instVertexCL = new InstConcept("Claim",
+		InstConcept instVertexCL = new InstConcept("Claim",
 				metaMetaOverTwoRelation, semClaim);
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3084,16 +3083,14 @@ public class DefaultOpersMM {
 
 		instDirOperClaimSemanticEdge.createInstAttributes();
 
-		ia = instDirOperClaimSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirOperClaimSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
-		ia = instDirOperClaimSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3127,7 +3124,7 @@ public class DefaultOpersMM {
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				semanticExpressions));
 
-		// ia = instVertexCL.getInstAttribute("relationTypesAttributes");
+		// ia = instVertexCL.getInstAttribute("relTypesAttr");
 		// ias = (List<InstAttribute>) ia.getValue();
 		// ias.add(new InstAttribute("and", new AbstractAttribute("and",
 		// StringType.IDENTIFIER, false, "and", "", 1, -1, "", "", -1, "",
@@ -3141,7 +3138,7 @@ public class DefaultOpersMM {
 		// StringType.IDENTIFIER, false, "mutex", "", 1, -1, "", "", -1,
 		// "", ""), "mutex#mutex#false#true#true#1#-1#1#1"));
 		//
-		// ia = instVertexCL.getInstAttribute("operationsExpressions");
+		// ia = instVertexCL.getInstAttribute("opersExprs");
 		// ias = (List<InstAttribute>) ia.getValue();
 		//
 		// semanticExpressions = new ArrayList<IntSemanticExpression>();
@@ -3308,7 +3305,7 @@ public class DefaultOpersMM {
 
 		OpersOverTwoRel semSoftDependency = new OpersOverTwoRel(
 				"SoftDependency", null);
-		InstVertex instVertexSD = new InstConcept("SoftDep", metaMetaConcept,
+		InstConcept instVertexSD = new InstConcept("SoftDep", metaMetaConcept,
 				semSoftDependency);
 		refas.getVariabilityVertex().put("SoftDep", instVertexSD);
 
@@ -3453,7 +3450,7 @@ public class DefaultOpersMM {
 		OpersOverTwoRel semHardOverTwoRelation = new OpersOverTwoRel(
 				"SMMOverTwoRelation", hardSemOverTwoRelList);
 
-		InstVertex instVertexHHGR = new InstConcept("GoalOTAsso",
+		InstConcept instVertexHHGR = new InstConcept("GoalOTAsso",
 				metaMetaOverTwoRelation, semHardOverTwoRelation);
 		refas.getVariabilityVertex().put("GoalOTAsso", instVertexHHGR);
 
@@ -3510,7 +3507,7 @@ public class DefaultOpersMM {
 
 		instHchcHHGRGR.createInstAttributes();
 
-		ia = instVertexHHGR.getInstAttribute("relationTypesAttributes");
+		ia = instVertexHHGR.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
@@ -3530,7 +3527,7 @@ public class DefaultOpersMM {
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
 
-		ia = instVertexHHGR.getInstAttribute("operationsExpressions");
+		ia = instVertexHHGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3734,8 +3731,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
 
-		ia = instDirHardHardSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirHardHardSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
@@ -3763,8 +3759,7 @@ public class DefaultOpersMM {
 				"condition", "", 1, -1, "", "", -1, "", ""),
 				"condition#condition#false#true#true#1#-1#1#1"));
 
-		ia = instDirHardHardSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirHardHardSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -3903,8 +3898,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
 
-		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("means_ends", new ElemAttribute("means_ends",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -3916,8 +3910,7 @@ public class DefaultOpersMM {
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
 
-		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4008,8 +4001,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
 
-		ia = instDirFeaFeatVertSemEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirFeaFeatVertSemEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -4021,8 +4013,7 @@ public class DefaultOpersMM {
 				"", 1, -1, "", "", -1, "", ""),
 				"optional#optional#false#true#true#1#-1#1#1"));
 
-		ia = instDirFeaFeatVertSemEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirFeaFeatVertSemEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4112,8 +4103,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
 
-		ia = instDirFeatFeatSideSemEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirFeatFeatSideSemEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
@@ -4126,8 +4116,7 @@ public class DefaultOpersMM {
 				"", 1, -1, "", "", -1, "", ""),
 				"require#require#false#true#true#1#-1#1#1"));
 
-		ia = instDirFeatFeatSideSemEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirFeatFeatSideSemEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4186,7 +4175,7 @@ public class DefaultOpersMM {
 
 		OpersOverTwoRel semFeatOverTwoRelation = new OpersOverTwoRel(
 				"FeatFeatOTAsso", featSemOverTwoRelList);
-		InstVertex instVertexFFGR = new InstConcept("FeatFeatOTAsso",
+		InstConcept instVertexFFGR = new InstConcept("FeatFeatOTAsso",
 				metaMetaOverTwoRelation, semFeatOverTwoRelation);
 		refas.getVariabilityVertex().put("FeatFeatOTAsso", instVertexFFGR);
 
@@ -4207,8 +4196,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
 
-		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("implementation", new ElemAttribute(
@@ -4216,8 +4204,7 @@ public class DefaultOpersMM {
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#false#true#true#1#-1#1#1"));
 
-		ia = instDirStructHardHardSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirStructHardHardSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4283,8 +4270,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
 
-		ia = instSemAssetPairwiseRel
-				.getInstAttribute("relationTypesAttributes");
+		ia = instSemAssetPairwiseRel.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("mandatory", new ElemAttribute("mandatory",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
@@ -4296,7 +4282,7 @@ public class DefaultOpersMM {
 				"", 1, -1, "", "", -1, "", ""),
 				"optional#optional#false#true#true#1#-1#1#1"));
 
-		ia = instSemAssetPairwiseRel.getInstAttribute("operationsExpressions");
+		ia = instSemAssetPairwiseRel.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4387,8 +4373,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
 
-		ia = instSemvarcntxPairwiseRel
-				.getInstAttribute("relationTypesAttributes");
+		ia = instSemvarcntxPairwiseRel.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("Variable Context",
@@ -4397,8 +4382,7 @@ public class DefaultOpersMM {
 						"", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
-		ia = instSemvarcntxPairwiseRel
-				.getInstAttribute("operationsExpressions");
+		ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4714,8 +4698,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
-		ia = instDirSGSGSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirSGSGSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("contribution", new ElemAttribute(
 				"contribution", StringType.IDENTIFIER, AttributeType.OPTION,
@@ -4747,7 +4730,7 @@ public class DefaultOpersMM {
 				false, "implication", "", 1, -1, "", "", -1, "", ""),
 				"implication#implication#false#true#true#1#-1#1#1"));
 
-		ia = instDirSGSGSemanticEdge.getInstAttribute("operationsExpressions");
+		ia = instDirSGSGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -4952,7 +4935,7 @@ public class DefaultOpersMM {
 		OpersOverTwoRel semanticSGSGGroupRelation = new OpersOverTwoRel(
 				"SgSgOTAsso", hardSemOverTwoRelList);
 
-		InstVertex instVertexSGGR = new InstConcept("SgSgOTAsso",
+		InstConcept instVertexSGGR = new InstConcept("SgSgOTAsso",
 				metaMetaOverTwoRelation, semanticSGSGGroupRelation);
 		refas.getVariabilityVertex().put("SgSgOTAsso", instVertexSGGR);
 
@@ -5017,8 +5000,7 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirCVCGSemanticEdge, true);
 
-		ia = instDirCVCGSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirCVCGSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		ias.add(new InstAttribute("Variable Context",
@@ -5027,7 +5009,7 @@ public class DefaultOpersMM {
 						"", ""),
 				"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
-		ia = instDirCVCGSemanticEdge.getInstAttribute("operationsExpressions");
+		ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5060,10 +5042,10 @@ public class DefaultOpersMM {
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semClaim);
 
-		InstVertex instVertexCLGR = new InstConcept("OperCLOTAsso",
+		InstConcept instVertexCLGR = new InstConcept("OperCLOTAsso",
 				metaMetaOverTwoRelation, semanticOperClaimGroupRelation);
 
-		ia = instVertexCLGR.getInstAttribute("relationTypesAttributes");
+		ia = instVertexCLGR.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("and", new ElemAttribute("and",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "and", "",
@@ -5083,7 +5065,7 @@ public class DefaultOpersMM {
 				"", 1, -1, "", "", -1, "", ""),
 				"range#range#false#true#true#1#-1#1#1"));
 
-		ia = instVertexCLGR.getInstAttribute("operationsExpressions");
+		ia = instVertexCLGR.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5241,16 +5223,14 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirOperClaimToSemanticEdge, true);
 
-		ia = instDirOperClaimToSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirOperClaimToSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
-		ia = instDirOperClaimToSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirOperClaimToSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5358,7 +5338,7 @@ public class DefaultOpersMM {
 		OpersOverTwoRel semanticLFClaimGroupRelation = new OpersOverTwoRel(
 				"LFtoClaimOTAsso", hardSemOverTwoRelList);
 
-		InstVertex instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
+		InstConcept instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
 				metaMetaOverTwoRelation, semanticLFClaimGroupRelation);
 
 		refas.getVariabilityVertex().put("LFtoClaimOTAsso", instVertexLFCLGR);
@@ -5377,16 +5357,14 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirFClaimToSemanticEdge, true);
 
-		ia = instDirFClaimToSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirFClaimToSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 				"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
 				"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
-		ia = instDirFClaimToSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5542,16 +5520,14 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirClaimSGSemanticEdge, true);
 
-		ia = instDirClaimSGSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirClaimSGSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("ClaimToSG", new ElemAttribute("ClaimToSG",
 				StringType.IDENTIFIER, AttributeType.OPTION, false,
 				"Claim To SG", "", 1, -1, "", "", -1, "", ""),
 				"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
-		ia = instDirClaimSGSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5678,14 +5654,13 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirSDSGSemanticEdge, true);
 
-		ia = instDirSDSGSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirSDSGSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("SD", new ElemAttribute("SD",
 				StringType.IDENTIFIER, AttributeType.OPTION, false, "SD", "",
 				1, -1, "", "", -1, "", ""), "SD#SD#true#true#true#1#-1#1#1"));
 
-		ia = instDirSDSGSemanticEdge.getInstAttribute("operationsExpressions");
+		ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5787,7 +5762,7 @@ public class DefaultOpersMM {
 		OpersOverTwoRel semanticAssetAssetOvertwoRel = new OpersOverTwoRel(
 				"AssetOperOTAsso", hardSemOverTwoRelList);
 
-		InstVertex instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
+		InstConcept instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
 				metaMetaOverTwoRelation, semanticAssetAssetOvertwoRel);
 
 		refas.getVariabilityVertex().put("AssetAssetOTAsso", instVertexASSETGR);
@@ -5845,7 +5820,7 @@ public class DefaultOpersMM {
 		// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 		// semanticVertices.add(semOperationalization);
 
-		InstVertex instVertexOPERGR = new InstConcept("AssetOperOTAsso",
+		InstConcept instVertexOPERGR = new InstConcept("AssetOperOTAsso",
 				metaMetaOverTwoRelation, semanticAssetOperGroupRelation);
 
 		refas.getVariabilityVertex().put("AssetOperOTAsso", instVertexOPERGR);
@@ -5897,14 +5872,14 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instAssetOperGRAO, true);
 
-		ia = instAssetOperGRAO.getInstAttribute("relationTypesAttributes");
+		ia = instAssetOperGRAO.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("implementation", new ElemAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
-		ia = instAssetOperGRAO.getInstAttribute("operationsExpressions");
+		ia = instAssetOperGRAO.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
@@ -5964,16 +5939,14 @@ public class DefaultOpersMM {
 		instEdge.setTargetRelation(instInfraPair, true);
 		instEdge.setSourceRelation(instDirAssetOperSemanticEdge, true);
 
-		ia = instDirAssetOperSemanticEdge
-				.getInstAttribute("relationTypesAttributes");
+		ia = instDirAssetOperSemanticEdge.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
 		ias.add(new InstAttribute("implementation", new ElemAttribute(
 				"implementation", StringType.IDENTIFIER, AttributeType.OPTION,
 				false, "implementation", "", 1, -1, "", "", -1, "", ""),
 				"implementation#implementation#true#true#true#1#-1#1#1"));
 
-		ia = instDirAssetOperSemanticEdge
-				.getInstAttribute("operationsExpressions");
+		ia = instDirAssetOperSemanticEdge.getInstAttribute("opersExprs");
 		ias = (List<InstAttribute>) ia.getValue();
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();

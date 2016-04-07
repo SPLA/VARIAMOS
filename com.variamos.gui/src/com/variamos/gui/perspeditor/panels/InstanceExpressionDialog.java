@@ -683,7 +683,7 @@ public class InstanceExpressionDialog extends JDialog {
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
 				String variableType = (String) instVertex.getInstAttribute(
-						"value").getValue();
+						"variableType").getValue();
 				switch (variableType) {
 				case "Boolean":
 					combo.addItem(instElementId + "_" + "true");
@@ -739,20 +739,24 @@ public class InstanceExpressionDialog extends JDialog {
 		String instElementId = null, instRelElementId = null;
 		if (displayVariableName) {
 			instElementId = element.getInstAttribute("name").toString();
-			if (element instanceof InstPairwiseRel)
+			if (element instanceof InstPairwiseRel
+					|| element.getTransSupportMetaElement().getType() == 'P')
 				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getInstAttribute("name")
 						.toString();
-			if (element instanceof InstOverTwoRel)
+			if (element instanceof InstOverTwoRel
+					|| element.getTransSupportMetaElement().getType() == 'O')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getInstAttribute("name").toString();
 		} else {
 			instElementId = element.getIdentifier();
-			if (element instanceof InstPairwiseRel)
+			if (element instanceof InstPairwiseRel
+					|| element.getTransSupportMetaElement().getType() == 'P')
 				instRelElementId = ((InstPairwiseRel) element)
 						.getSourceRelations().get(0).getIdentifier();
-			if (element instanceof InstOverTwoRel)
+			if (element instanceof InstOverTwoRel
+					|| element.getTransSupportMetaElement().getType() == 'O')
 				instRelElementId = ((InstPairwiseRel) ((InstOverTwoRel) element)
 						.getTargetRelations().get(0)).getTargetRelations()
 						.get(0).getIdentifier();

@@ -441,7 +441,7 @@ public class SharedActions {
 		}
 		// Remove from original position
 		// parent.remove(index);
-		if (instElement instanceof InstVertex) {
+		if (instElement instanceof InstElement) {
 			String name = null;
 			if (instElement instanceof InstConcept) {
 				InstConcept c = (InstConcept) instElement;
@@ -517,8 +517,7 @@ public class SharedActions {
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
 			}
-			IntOpersElement semElement = instElement
-					.getEdOperEle();
+			IntOpersElement semElement = instElement.getEdOperEle();
 			if (semElement != null) {
 				List<IntMetaExpression> semExp = semElement
 						.getSemanticExpressions();
@@ -606,8 +605,8 @@ public class SharedActions {
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
 			SyntaxElement metaVertex = null;
-			if (refas.getSyntaxModel().getVertex(
-					instVertex.getSupSyntaxEleId()) != null)
+			if (refas.getSyntaxModel()
+					.getVertex(instVertex.getSupSyntaxEleId()) != null)
 				metaVertex = (SyntaxElement) refas.getSyntaxModel()
 						.getVertex(instVertex.getSupSyntaxEleId())
 						.getEdSyntaxEle();
@@ -645,12 +644,12 @@ public class SharedActions {
 								if (instanceExpression != null) {
 									// instVertex = new HashMap<String,
 									// InstVertex>();
-									List<InstVertex> list = getInstElements(ia
+									List<InstElement> list = getInstElements(ia
 											.getAttribute()
 											.getMetaConceptInstanceType(),
 											graph);
 
-									for (InstVertex concept : list) {
+									for (InstElement concept : list) {
 										// instVertex.put(concept.getIdentifier(),
 										// concept);
 										String out = concept.getInstAttribute(
@@ -854,8 +853,8 @@ public class SharedActions {
 		}
 	}
 
-	public static List<InstVertex> getInstElements(String object, mxGraph graph) {
-		List<InstVertex> out = new ArrayList<InstVertex>();
+	public static List<InstElement> getInstElements(String object, mxGraph graph) {
+		List<InstElement> out = new ArrayList<InstElement>();
 		mxIGraphModel refasGraph = graph.getModel();
 		Object o = refasGraph.getRoot(); // Main Root
 		mxCell o1 = (mxCell) refasGraph.getChildAt(o, 0); // Null Root
@@ -909,8 +908,8 @@ public class SharedActions {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId()
-						.equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}

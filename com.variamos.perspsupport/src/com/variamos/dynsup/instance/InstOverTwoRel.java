@@ -2,6 +2,7 @@ package com.variamos.dynsup.instance;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +65,7 @@ public class InstOverTwoRel extends InstVertex {
 	private String semGroupDepOld = "";
 
 	public InstOverTwoRel() {
-		super("");
+		super("", new HashMap<String, InstAttribute>());
 
 		sourcePositiveAttributeNames = new HashSet<String>();
 		sourceNegativeAttributeNames = new HashSet<String>();
@@ -74,7 +75,7 @@ public class InstOverTwoRel extends InstVertex {
 	}
 
 	public InstOverTwoRel(SyntaxElement metaOverTwoRelation) {
-		super("");
+		super("", new HashMap<String, InstAttribute>());
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 				metaOverTwoRelation.getAutoIdentifier());
@@ -90,7 +91,7 @@ public class InstOverTwoRel extends InstVertex {
 	public InstOverTwoRel(String identifier,
 			SyntaxElement supportMetaOvetTwoRelation,
 			SyntaxElement editableMetaElement) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEdSyntaxEle(editableMetaElement);
 		if (supportMetaOvetTwoRelation != null) {
@@ -108,7 +109,7 @@ public class InstOverTwoRel extends InstVertex {
 	public InstOverTwoRel(String identifier,
 			SyntaxElement supportMetaOvetTwoRelation,
 			IntOpersElement semanticElement) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		setEdOperEle(semanticElement);
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
@@ -124,7 +125,7 @@ public class InstOverTwoRel extends InstVertex {
 
 	public InstOverTwoRel(String identifier,
 			SyntaxElement supportMetaOvetTwoRelation) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_METAOVERTWOREL_IDEN,
 				supportMetaOvetTwoRelation.getAutoIdentifier());

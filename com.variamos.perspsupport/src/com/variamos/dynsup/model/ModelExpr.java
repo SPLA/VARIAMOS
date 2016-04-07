@@ -755,7 +755,7 @@ public class ModelExpr implements Serializable, IntModelExpression {
 							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
-						String[] split = ((String) value.getValue()).split("-");
+						String[] split = ((String) value.getValue()).split("#");
 						domain += split[0] + ",";
 					}
 					domain = domain.substring(0, domain.length() - 1);
@@ -944,7 +944,7 @@ public class ModelExpr implements Serializable, IntModelExpression {
 		case "Integer":
 			return Integer.parseInt(value);
 		case "Enumeration":
-			String[] split = value.split("-");
+			String[] split = value.split("#");
 			return Integer.parseInt(split[0]);
 		case "String":
 			return value.hashCode();

@@ -18,18 +18,15 @@ public abstract class InstVertex extends InstElement {
 	private static final long serialVersionUID = -2214656166959965220L;
 
 	public InstVertex() {
-		this(null, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstPairwiseRel>());
+		this(null, new HashMap<String, InstAttribute>());
 	}
 
 	public InstVertex(String identifier) {
-		this(identifier, new HashMap<String, InstAttribute>(),
-				new HashMap<String, InstPairwiseRel>());
+		this(identifier, new HashMap<String, InstAttribute>());
 	}
 
 	public InstVertex(String identifier,
-			Map<String, InstAttribute> instAttributes,
-			Map<String, InstPairwiseRel> instRelations) {
+			Map<String, InstAttribute> instAttributes) {
 		super(identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);

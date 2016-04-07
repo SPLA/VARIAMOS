@@ -493,7 +493,7 @@ public abstract class InstElement implements Serializable, IntInstElement,
 									String outt = "{ ";
 									for (InstAttribute i : ooo) {
 										String values[] = ((String) i
-												.getValue()).split("-");
+												.getValue()).split("#");
 										outt += values[1] + ", ";
 									}
 									outt = outt.substring(0, outt.length() - 2);
@@ -573,8 +573,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
 								getTransSupportMetaElement().getDescription());
-					else if (name.equals("relationTypesAttributes")
-							|| name.equals("operationsExpressions")) {
+					else if (name.equals("relTypesAttr")
+							|| name.equals("opersExprs")) {
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
 								new ArrayList<OpersExpr>());

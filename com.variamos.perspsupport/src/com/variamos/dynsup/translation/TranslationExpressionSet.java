@@ -199,11 +199,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 								.values()) {
 							int attributeValue = 0;
 							if (((OpersSubOperation) operSubAction
-									.getEdOperEle())
-									.validateAttribute(instE
-											.getTransSupportMetaElement()
-											.getTransInstSemanticElement(), var
-											.getAttributeName(), true) == 1) {
+									.getEdOperEle()).validateAttribute(instE
+									.getTransSupportMetaElement()
+									.getTransInstSemanticElement(), var
+									.getAttributeName(), true) == 1) {
 								String type = (String) var.getType();
 								if (type.equals("Integer")
 										|| type.equals("Boolean")) {
@@ -323,8 +322,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction)) {
 				instOperSubAction = subOper;
-				operSubAction = (OpersSubOperation) subOper
-						.getEdOperEle();
+				operSubAction = (OpersSubOperation) subOper.getEdOperEle();
 			}
 		}
 
@@ -352,8 +350,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstElement instE : refas.getElements()) {
 						for (InstAttribute var : instE.getInstAttributes()
 								.values()) {
-							if (((OpersLabeling) operLab
-									.getEdOperEle())
+							if (((OpersLabeling) operLab.getEdOperEle())
 									.validateAttribute(instE
 											.getTransSupportMetaElement()
 											.getTransInstSemanticElement(), var
@@ -378,8 +375,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstAttribute att : instattrs) {
 						laborder.add((LabelingOrder) att.getValue());
 					}
-					List<IntMetaExpression> semExps = operLab
-							.getEdOperEle()
+					List<IntMetaExpression> semExps = operLab.getEdOperEle()
 							.getSemanticExpressions();
 					// FIXME support more models
 					InstElement oper2 = refas.getElement("REFAS1");
@@ -442,7 +438,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				&& (semElement instanceof OpersOverTwoRel || semElement instanceof OpersPairwiseRel)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
-					.getInstAttribute("operationsExpressions");
+					.getInstAttribute("opersExprs");
 			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 			for (InstAttribute attribute : ias) {
 				String att = attribute.getIdentifier();

@@ -23,7 +23,6 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.types.PerspectiveType;
 
 /**
@@ -209,7 +208,7 @@ public class ModelInstance extends AbstractModel {
 		return null;
 	}
 
-	public void putVariabilityInstVertex(InstVertex element) {
+	public void putVariabilityInstVertex(InstElement element) {
 		variabilityInstVertex.put(element.getIdentifier(), element);
 	}
 
@@ -223,7 +222,7 @@ public class ModelInstance extends AbstractModel {
 
 	public String addNewVariabilityInstElement(InstElement element) {
 		String id = getNextVariabilityInstVertextId(element);
-		InstVertex varElement = (InstVertex) element;
+		InstElement varElement = (InstElement) element;
 		varElement.setIdentifier(id);
 		varElement.setInstAttribute("name", id);
 		variabilityInstVertex.put(id, element);
@@ -248,13 +247,13 @@ public class ModelInstance extends AbstractModel {
 	private String getNextVariabilityInstVertextId(InstElement element) {
 		int id = 1;
 		String classId = null;
-		if (element instanceof InstVertex)
-			if (((InstVertex) element).getTransSupportMetaElement()
+		if (element instanceof InstElement)
+			if (((InstElement) element).getTransSupportMetaElement()
 					.getUserIdentifier() == null)
-				classId = ((InstVertex) element).getTransSupportMetaElement()
+				classId = ((InstElement) element).getTransSupportMetaElement()
 						.getAutoIdentifier();
 			else
-				classId = ((InstVertex) element).getTransSupportMetaElement()
+				classId = ((InstElement) element).getTransSupportMetaElement()
 						.getUserIdentifier();
 
 		// if (element instanceof InstConcept)

@@ -78,8 +78,7 @@ public class ElementsOperationAssociationPanel extends
 				"OMOperation");
 
 		for (InstElement operAction : operActions) {
-			combo.addItem(operAction.getEdOperEle()
-					.getIdentifier());
+			combo.addItem(operAction.getEdOperEle().getIdentifier());
 		}
 		combo.setSelectedItem("SimulationOper");
 		JPanel topPanel = new JPanel();
@@ -136,8 +135,7 @@ public class ElementsOperationAssociationPanel extends
 		for (InstElement rel : operAction.getTargetRelations()) {
 			InstElement subOper = rel.getTargetRelations().get(0);
 
-			operSubAction = (OpersSubOperation) subOper
-					.getEdOperEle();
+			operSubAction = (OpersSubOperation) subOper.getEdOperEle();
 			// FIXME complete: include names and objects from suboper
 			/*
 			 * subOperTypesColumnsNames.addAll(operSubAction
@@ -216,8 +214,7 @@ public class ElementsOperationAssociationPanel extends
 			// Add Attributes
 			if (dialog == 0
 					&& el.getEdOperEle() != null
-					&& el.getEdOperEle()
-							.getAllSemanticExpressions(opersParent) != null)
+					&& el.getEdOperEle().getAllSemanticExpressions(opersParent) != null)
 				for (IntMetaExpression v : el.getEdOperEle()
 						.getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
@@ -235,10 +232,9 @@ public class ElementsOperationAssociationPanel extends
 
 				}
 
-			if (dialog == 0
-					&& el.getInstAttribute("operationsExpressions") != null)
+			if (dialog == 0 && el.getInstAttribute("opersExprs") != null)
 				for (InstAttribute v : (List<InstAttribute>) el
-						.getInstAttribute("operationsExpressions").getValue()) {
+						.getInstAttribute("opersExprs").getValue()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 
 					AssociationRow attNode = new AssociationRow(

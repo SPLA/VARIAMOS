@@ -147,15 +147,15 @@ public class InfraSyntaxOpersMMM {
 		// semPairwiseRelation.addPropVisibleAttribute("03#" +
 		// "enumerationType");
 
-		// basicOpersM2PWRel.putSemanticAttribute("relationTypesAttributes",
-		// new ElemAttribute("relationTypesAttributes", "Set",
+		// basicOpersM2PWRel.putSemanticAttribute("relTypesAttr",
+		// new ElemAttribute("relTypesAttr", "Set",
 		// AttributeType.SYNTAX, false, "relationTypes",
 		// InstAttribute.class.getCanonicalName(),
 		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 		// ""));
 		//
-		// basicOpersM2PWRel.putSemanticAttribute("operationsExpressions",
-		// new ElemAttribute("operationsExpressions", "Set",
+		// basicOpersM2PWRel.putSemanticAttribute("opersExprs",
+		// new ElemAttribute("opersExprs", "Set",
 		// AttributeType.SYNTAX, false, "semanticExpressions",
 		// InstAttribute.class.getCanonicalName(),
 		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
@@ -191,15 +191,15 @@ public class InfraSyntaxOpersMMM {
 		// semOverTwoRelation.addPropVisibleAttribute("03#" +
 		// "enumerationType");
 
-		// basicOpersM2OTRel.putSemanticAttribute("relationTypesAttributes",
-		// new ElemAttribute("relationTypesAttributes", "Set",
+		// basicOpersM2OTRel.putSemanticAttribute("relTypesAttr",
+		// new ElemAttribute("relTypesAttr", "Set",
 		// AttributeType.SYNTAX, false, "relationTypes",
 		// InstAttribute.class.getCanonicalName(),
 		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 		// ""));
 		//
-		// basicOpersM2OTRel.putSemanticAttribute("operationsExpressions",
-		// new ElemAttribute("operationsExpressions", "Set",
+		// basicOpersM2OTRel.putSemanticAttribute("opersExprs",
+		// new ElemAttribute("opersExprs", "Set",
 		// AttributeType.SYNTAX, false, "semanticExpressions",
 		// InstAttribute.class.getCanonicalName(),
 		// new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
@@ -509,17 +509,17 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2PWRel.addPanelSpacersAttribute("#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
-		infraSyntaxOpersM2PWRel.addModelingAttribute("relationTypesAttributes",
-				new ElemAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
+		infraSyntaxOpersM2PWRel.addModelingAttribute(
+				"relTypesAttr",
+				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
+						false, "relationTypes", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		infraSyntaxOpersM2PWRel.addModelingAttribute("operationsExpressions",
-				new ElemAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false,
-						"Operations Meta-Model Expressions",
+		infraSyntaxOpersM2PWRel.addModelingAttribute("opersExprs",
+				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
+						false, "Operations Meta-Model Expressions",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -541,17 +541,17 @@ public class InfraSyntaxOpersMMM {
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
 
-		metaMetaPairwiseRel.addModelingAttribute("relationTypesAttributes",
-				new ElemAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
+		metaMetaPairwiseRel.addModelingAttribute(
+				"relTypesAttr",
+				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
+						false, "relationTypes", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		metaMetaPairwiseRel.addModelingAttribute("operationsExpressions",
-				new ElemAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false,
-						"Operations Meta-Model Expressions",
+		metaMetaPairwiseRel.addModelingAttribute("opersExprs",
+				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
+						false, "Operations Meta-Model Expressions",
 						InstAttribute.class.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
@@ -605,18 +605,18 @@ public class InfraSyntaxOpersMMM {
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
-				"relationTypesAttributes",
-				new ElemAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
+				"relTypesAttr",
+				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
+						false, "relationTypes", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
 		infraSyntaxOpersM2InfraOTRel.addModelingAttribute(
-				"operationsExpressions",
-				new ElemAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false, "semanticExpressions",
-						InstAttribute.class.getCanonicalName(),
+				"opersExprs",
+				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
+						false, "semanticExpressions", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
@@ -637,17 +637,19 @@ public class InfraSyntaxOpersMMM {
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
-		infraSyntaxOpersM2OTRel.addModelingAttribute("relationTypesAttributes",
-				new ElemAttribute("relationTypesAttributes", "Set",
-						AttributeType.SYNTAX, false, "relationTypes",
-						InstAttribute.class.getCanonicalName(),
+		infraSyntaxOpersM2OTRel.addModelingAttribute(
+				"relTypesAttr",
+				new ElemAttribute("relTypesAttr", "Set", AttributeType.SYNTAX,
+						false, "relationTypes", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
-		infraSyntaxOpersM2OTRel.addModelingAttribute("operationsExpressions",
-				new ElemAttribute("operationsExpressions", "Set",
-						AttributeType.SYNTAX, false, "semanticExpressions",
-						InstAttribute.class.getCanonicalName(),
+		infraSyntaxOpersM2OTRel.addModelingAttribute(
+				"opersExprs",
+				new ElemAttribute("opersExprs", "Set", AttributeType.SYNTAX,
+						false, "semanticExpressions", InstAttribute.class
+								.getCanonicalName(),
 						new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "",
 						""));
 
