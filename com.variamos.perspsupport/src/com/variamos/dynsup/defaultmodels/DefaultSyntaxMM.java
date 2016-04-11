@@ -2201,7 +2201,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instViewC, true);
 
 		InstConcept semSoftDependency = ((InstConcept) refas
-				.getOperationalModel().getVertex("SoftDep"));
+				.getOperationalModel().getVertex("SoftDependency"));
 		SyntaxConcept syntaxSoftDependency = new SyntaxConcept(
 				'C',
 				"SoftDependency",

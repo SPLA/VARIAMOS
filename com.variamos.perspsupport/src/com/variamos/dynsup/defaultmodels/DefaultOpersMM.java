@@ -103,10 +103,12 @@ public class DefaultOpersMM {
 		// .getEditableMetaElement();
 		SyntaxConcept metaMetaConcept = (SyntaxConcept) ((InstConcept) refas
 				.getSyntaxModel().getVertex("OMConcept")).getEdSyntaxEle();
+		InstConcept metaMetaInstConcept = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMConcept"));
 		SyntaxConcept metaMetaPairwiseRelation = (SyntaxConcept) ((InstConcept) refas
 				.getSyntaxModel().getVertex("OMPWRel")).getEdSyntaxEle();
-		SyntaxConcept metaMetaOverTwoRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMOTRel")).getEdSyntaxEle();
+		InstConcept metaMetaInstOverTwoRel = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMOTRel"));
 
 		SyntaxConcept infraMetaMetaConcept = (SyntaxConcept) ((InstConcept) refas
 				.getSyntaxModel().getVertex("OMInfConcept")).getEdSyntaxEle();
@@ -3036,8 +3038,8 @@ public class DefaultOpersMM {
 
 		OpersOverTwoRel semClaim = new OpersOverTwoRel("Claim",
 				claimSemOverTwoRelList);
-		InstConcept instVertexCL = new InstConcept("Claim",
-				metaMetaOverTwoRelation, semClaim);
+		InstConcept instVertexCL = new InstConcept("Claim", semClaim,
+				metaMetaInstOverTwoRel);
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -3305,9 +3307,9 @@ public class DefaultOpersMM {
 
 		OpersOverTwoRel semSoftDependency = new OpersOverTwoRel(
 				"SoftDependency", null);
-		InstConcept instVertexSD = new InstConcept("SoftDep", metaMetaConcept,
-				semSoftDependency);
-		refas.getVariabilityVertex().put("SoftDep", instVertexSD);
+		InstConcept instVertexSD = new InstConcept("SoftDependency",
+				semSoftDependency, metaMetaInstConcept);
+		refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -3451,7 +3453,7 @@ public class DefaultOpersMM {
 				"SMMOverTwoRelation", hardSemOverTwoRelList);
 
 		InstConcept instVertexHHGR = new InstConcept("GoalOTAsso",
-				metaMetaOverTwoRelation, semHardOverTwoRelation);
+				semHardOverTwoRelation, metaMetaInstOverTwoRel);
 		refas.getVariabilityVertex().put("GoalOTAsso", instVertexHHGR);
 
 		InstConcept instHchcHHGRHC = new InstConcept("GoaltoOTAssoPWAsso",
@@ -4176,7 +4178,7 @@ public class DefaultOpersMM {
 		OpersOverTwoRel semFeatOverTwoRelation = new OpersOverTwoRel(
 				"FeatFeatOTAsso", featSemOverTwoRelList);
 		InstConcept instVertexFFGR = new InstConcept("FeatFeatOTAsso",
-				metaMetaOverTwoRelation, semFeatOverTwoRelation);
+				semFeatOverTwoRelation, metaMetaInstOverTwoRel);
 		refas.getVariabilityVertex().put("FeatFeatOTAsso", instVertexFFGR);
 
 		List<IntOpersRelType> assetoperPairwiseRelList = new ArrayList<IntOpersRelType>();
@@ -4936,7 +4938,7 @@ public class DefaultOpersMM {
 				"SgSgOTAsso", hardSemOverTwoRelList);
 
 		InstConcept instVertexSGGR = new InstConcept("SgSgOTAsso",
-				metaMetaOverTwoRelation, semanticSGSGGroupRelation);
+				semanticSGSGGroupRelation, metaMetaInstOverTwoRel);
 		refas.getVariabilityVertex().put("SgSgOTAsso", instVertexSGGR);
 
 		InstConcept instSgsgSGR = new InstConcept("sgsgOTAssoFromPWAsso",
@@ -5043,7 +5045,7 @@ public class DefaultOpersMM {
 		// semanticVertices.add(semClaim);
 
 		InstConcept instVertexCLGR = new InstConcept("OperCLOTAsso",
-				metaMetaOverTwoRelation, semanticOperClaimGroupRelation);
+				semanticOperClaimGroupRelation, metaMetaInstOverTwoRel);
 
 		ia = instVertexCLGR.getInstAttribute("relTypesAttr");
 		ias = (List<InstAttribute>) ia.getValue();
@@ -5339,7 +5341,7 @@ public class DefaultOpersMM {
 				"LFtoClaimOTAsso", hardSemOverTwoRelList);
 
 		InstConcept instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
-				metaMetaOverTwoRelation, semanticLFClaimGroupRelation);
+				semanticLFClaimGroupRelation, metaMetaInstOverTwoRel);
 
 		refas.getVariabilityVertex().put("LFtoClaimOTAsso", instVertexLFCLGR);
 
@@ -5763,7 +5765,7 @@ public class DefaultOpersMM {
 				"AssetOperOTAsso", hardSemOverTwoRelList);
 
 		InstConcept instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
-				metaMetaOverTwoRelation, semanticAssetAssetOvertwoRel);
+				semanticAssetAssetOvertwoRel, metaMetaInstOverTwoRel);
 
 		refas.getVariabilityVertex().put("AssetAssetOTAsso", instVertexASSETGR);
 
@@ -5821,7 +5823,7 @@ public class DefaultOpersMM {
 		// semanticVertices.add(semOperationalization);
 
 		InstConcept instVertexOPERGR = new InstConcept("AssetOperOTAsso",
-				metaMetaOverTwoRelation, semanticAssetOperGroupRelation);
+				semanticAssetOperGroupRelation, metaMetaInstOverTwoRel);
 
 		refas.getVariabilityVertex().put("AssetOperOTAsso", instVertexOPERGR);
 

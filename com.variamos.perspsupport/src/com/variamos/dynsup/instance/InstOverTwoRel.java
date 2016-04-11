@@ -89,6 +89,12 @@ public class InstOverTwoRel extends InstVertex {
 	}
 
 	public InstOverTwoRel(String identifier,
+			SyntaxElement editableSyntaxElement, InstElement supInstElement) {
+		this(identifier, supInstElement.getEdSyntaxEle(), editableSyntaxElement);
+		setTransSupInstElement(supInstElement);
+	}
+
+	public InstOverTwoRel(String identifier,
 			SyntaxElement supportMetaOvetTwoRelation,
 			SyntaxElement editableMetaElement) {
 		super(identifier, new HashMap<String, InstAttribute>());

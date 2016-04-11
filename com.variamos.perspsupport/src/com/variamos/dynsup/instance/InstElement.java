@@ -55,7 +55,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	private List<IntModelExpression> modExp;
 	private IntOpersElement edOperEle;
 	private SyntaxElement edSyntaxEle;
-	private SyntaxElement supportMetaElement;
+	private SyntaxElement supMetaElement;
+	private InstElement supInstElement;
 
 	/**
 	 * The elements incoming to the element
@@ -69,6 +70,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	private boolean optional = false;
 
 	private String supSyntaxEleId; // AutoIdentifier
+
+	private String supInstEleId; // InstIdentifier
 
 	private Map<String, String> volatileDefects;
 
@@ -246,13 +249,21 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		this.supSyntaxEleId = supportMetaElementIden;
 	}
 
+	public String getSupInstEleId() {
+		return supInstEleId;
+	}
+
+	public void setSupInstEleId(String supInstEleId) {
+		this.supInstEleId = supInstEleId;
+	}
+
 	/**
 	 * Name changed from standard to avoid graph serialization of the object
 	 * 
 	 * @return
 	 */
 	public SyntaxElement getTransSupportMetaElement() {
-		return supportMetaElement;
+		return supMetaElement;
 	}
 
 	/**
@@ -263,7 +274,27 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
 		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
-		this.supportMetaElement = (SyntaxElement) supportMetaElement;
+		this.supMetaElement = (SyntaxElement) supportMetaElement;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+	public InstElement getTransSupInstElement() {
+		return supInstElement;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+
+	public void setTransSupInstElement(InstElement supInstElement) {
+		this.setSupInstEleId(supInstElement.getIdentifier());
+		this.supInstElement = (InstElement) supInstElement;
 	}
 
 	public void setIdentifier(String identifier) {
@@ -275,7 +306,7 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
 		if (getEdSyntaxEle() != null)
 			getEdSyntaxEle().setAutoIdentifier(identifier);
-		if (supportMetaElement != null)
+		if (supMetaElement != null)
 			setDynamicVariable(SyntaxElement.VAR_DESCRIPTION,
 					getTransSupportMetaElement().getDescription());
 	}

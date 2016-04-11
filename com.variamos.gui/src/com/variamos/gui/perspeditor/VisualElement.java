@@ -90,7 +90,7 @@ public class VisualElement implements Comparable<VisualElement> {
 							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
-						String[] split = ((String) value.getValue()).split("-");
+						String[] split = ((String) value.getValue()).split("#");
 						String val = null;
 						if (instElement.getInstAttribute("value").getValue() instanceof Integer)
 							val = ((Integer) instElement.getInstAttribute(

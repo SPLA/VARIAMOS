@@ -807,8 +807,8 @@ public class InfraSyntaxOpersMMM {
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("menuType",
-				new ElemAttribute("menuType", "Integer",
-						AttributeType.OPERATION, "Oper Group Type", 4, false,
+				new ElemAttribute("menuType", "String",
+						AttributeType.OPERATION, "Oper Group Type", "4", false,
 						d, 0, 5, "", "", 5, "", ""));
 		infraSyntaxOpersM2OperGroup
 				.addPropEditableAttribute("05#" + "menuType");

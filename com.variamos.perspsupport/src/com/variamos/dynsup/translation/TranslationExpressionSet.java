@@ -439,23 +439,30 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
 					.getInstAttribute("opersExprs");
-			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
-			for (InstAttribute attribute : ias) {
-				String att = attribute.getIdentifier();
-				String comp = (String) instElement.getInstAttribute(
-						"relationType").getValue();
-				if (att.equals(comp))
-					for (IntMetaExpression semExpression : (List<IntMetaExpression>) attribute
-							.getValue()) {
-						if (semanticElement
-								|| semanticExpressions.contains(semExpression)) {
-							ModelExpr instanceExpression = new ModelExpr(refas,
-									false, (OpersExpr) semExpression);
-							instanceExpression.createFromSemanticExpression(
-									instElement, 0);
-							out.add(instanceExpression);
-						}
+			if (ia != null) {
+				List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+				for (InstAttribute attribute : ias) {
+					String att = attribute.getIdentifier();
+					if (instElement.getInstAttribute("relationType") != null) {
+						String comp = (String) instElement.getInstAttribute(
+								"relationType").getValue();
+						if (att.equals(comp))
+							for (IntMetaExpression semExpression : (List<IntMetaExpression>) attribute
+									.getValue()) {
+								if (semanticElement
+										|| semanticExpressions
+												.contains(semExpression)) {
+									ModelExpr instanceExpression = new ModelExpr(
+											refas, false,
+											(OpersExpr) semExpression);
+									instanceExpression
+											.createFromSemanticExpression(
+													instElement, 0);
+									out.add(instanceExpression);
+								}
+							}
 					}
+				}
 			}
 		}
 		return out;

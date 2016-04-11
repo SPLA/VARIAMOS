@@ -50,6 +50,13 @@ public class InstConcept extends InstVertex {
 		copyValuesToInstAttributes(null);
 	}
 
+	public InstConcept(String identifier,
+			IntOpersElement editableSemanticElement, InstElement supInstElement) {
+		this(identifier, supInstElement.getEdSyntaxEle(),
+				editableSemanticElement);
+		setTransSupInstElement(supInstElement);
+	}
+
 	public InstConcept(String identifier, SyntaxElement supportMetaElement,
 			IntOpersElement editableSemanticElement) {
 		super(identifier, new HashMap<String, InstAttribute>());

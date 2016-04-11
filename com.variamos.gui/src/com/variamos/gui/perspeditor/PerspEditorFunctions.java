@@ -110,6 +110,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 						if (paletteElement.getMetaElement() != null) {
 							SyntaxElement metaVertex = paletteElement
 									.getMetaElement();
+							InstElement instElement = paletteElement
+									.getInstElement();
 							if (metaVertex instanceof SyntaxConcept) {
 								Object o;
 								o = new InstConcept();
@@ -202,19 +204,28 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new OpersConcept());
 									}
 								} else {
+									Constructor<?> c = null;
 									switch (((SyntaxElement) metaVertex)
 											.getType()) {
 									case 'O':
 										o = new InstOverTwoRel();
+										c = o.getClass().getConstructor(
+												String.class,
+												SyntaxElement.class,
+												InstElement.class);
+										obj = (InstElement) c.newInstance("",
+												null, instElement);
 										break;
+									default:
+										c = o.getClass().getConstructor(
+												String.class,
+												SyntaxElement.class,
+												SyntaxElement.class);
+										obj = (InstElement) c.newInstance("",
+												(SyntaxElement) metaVertex,
+												null);
 									}
 
-									Constructor<?> c = o.getClass()
-											.getConstructor(String.class,
-													SyntaxElement.class,
-													SyntaxElement.class);
-									obj = (InstElement) c.newInstance("",
-											(SyntaxElement) metaVertex, null);
 								}
 
 							} /*
