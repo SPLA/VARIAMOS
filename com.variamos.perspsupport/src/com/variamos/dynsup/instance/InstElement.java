@@ -577,7 +577,20 @@ public abstract class InstElement implements Serializable, IntInstElement,
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents),
 							getTransSupportMetaElement().getDescription());
-				else
+				else if (name.equals("relTypesAttr")
+						|| name.equals("opersExprs")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<OpersExpr>());
+				} else if (name.equals("exptype")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<OpersSubOperationExpType>());
+				} else if (name.equals("sortorder")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<LabelingOrder>());
+				} else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents), null);
 			}

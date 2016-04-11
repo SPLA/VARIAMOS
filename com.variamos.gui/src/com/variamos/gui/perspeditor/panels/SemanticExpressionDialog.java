@@ -1038,8 +1038,7 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTCONVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupSyntaxEleId().equals(
-						"OMConcept")
+				if (sourceRelation.getSupSyntaxEleId().equals("OMConcept")
 						|| sourceRelation.getSupSyntaxEleId().equals(
 								"InfraSyntaxOpersM2OTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
@@ -1050,8 +1049,7 @@ public class SemanticExpressionDialog extends JDialog {
 		case LEFTUNIQUEOUTRELVARIABLE:
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
-				if (sourceRelation.getSupSyntaxEleId()
-						.equals("OMPWRel"))
+				if (sourceRelation.getSupSyntaxEleId().equals("OMPWRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
 			break;
 		default:
@@ -1069,12 +1067,15 @@ public class SemanticExpressionDialog extends JDialog {
 		} else {
 			if (instElement != null) {
 
-				List<InstElement> opersParent = instElement
-						.getTransSupportMetaElement()
-						.getTransInstSemanticElement().getParentOpersConcept();
+				List<InstElement> opersParent = null;
+				if (instElement.getTransSupportMetaElement() != null
+						&& instElement.getTransSupportMetaElement()
+								.getTransInstSemanticElement() != null)
+					opersParent = instElement.getTransSupportMetaElement()
+							.getTransInstSemanticElement()
+							.getParentOpersConcept();
 				if (instElement.getEdOperEle() != null)
-					for (ElemAttribute attribute : instElement
-							.getEdOperEle()
+					for (ElemAttribute attribute : instElement.getEdOperEle()
 							.getAllSemanticAttributes(opersParent).values())
 						if (displayVariableName)
 
