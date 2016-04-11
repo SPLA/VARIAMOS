@@ -58,8 +58,8 @@ public class ModelExpressionSet extends ElementExpressionSet {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupportMetaElementIden()
-						.equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}
@@ -112,11 +112,10 @@ public class ModelExpressionSet extends ElementExpressionSet {
 						}
 						if (coreOutExp == null)
 							coreOutExp = new SumNumericExpression(vertex,
-									"Selected", true,
-									new NumberNumericExpression(0));
+									"Sel", true, new NumberNumericExpression(0));
 						else
 							coreOutExp = new SumNumericExpression(vertex,
-									"Selected", true, coreOutExp);
+									"Sel", true, coreOutExp);
 
 						break;
 					case ModelExpr2HLCL.SIMUL_MAPE:
@@ -124,19 +123,19 @@ public class ModelExpressionSet extends ElementExpressionSet {
 					case ModelExpr2HLCL.SIMUL_EXPORT:
 						if (reqOutExp == null)
 							reqOutExp = new SumNumericExpression(vertex,
-									"NextReqSelected", true,
+									"NReqSel", true,
 									new NumberNumericExpression(0));
 						else
 							reqOutExp = new SumNumericExpression(vertex,
-									"NextReqSelected", true, reqOutExp);
+									"NReqSel", true, reqOutExp);
 
 						if (prefOutExp == null)
 							prefOutExp = new SumNumericExpression(vertex,
-									"NextPrefSelected", true,
+									"NPrefSel", true,
 									new NumberNumericExpression(0));
 						else
 							prefOutExp = new SumNumericExpression(vertex,
-									"NextPrefSelected", true, prefOutExp);
+									"NPrefSel", true, prefOutExp);
 					}
 				}
 

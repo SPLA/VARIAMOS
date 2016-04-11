@@ -10,10 +10,9 @@ import java.util.Set;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.SyntaxEnum;
+import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
@@ -197,8 +196,8 @@ public abstract class AbstractExpression {
 		return out;
 	}
 
-	private void updateDomain(ElemAttribute attribute,
-			InstElement instVertex, Identifier identifier) {
+	private void updateDomain(ElemAttribute attribute, InstElement instVertex,
+			Identifier identifier) {
 		if (attribute.getName().equals("SDReqLevel")
 				|| attribute.getName().equals("ClaimExpLevel")) {
 			String configdomain = "";
@@ -206,16 +205,15 @@ public abstract class AbstractExpression {
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				// FIXME implement a dynamic definition for this validation
 				if (((InstPairwiseRel) relation).getInstAttribute("level") != null)
-					values.add(((InstPairwiseRel) relation)
-							.getInstAttribute("level").getAsInteger());
-				if (((InstPairwiseRel) relation)
-						.getInstAttribute("CLSGLevel") != null)
-					values.add(((InstPairwiseRel) relation)
-							.getInstAttribute("CLSGLevel").getAsInteger());
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"level").getAsInteger());
+				if (((InstPairwiseRel) relation).getInstAttribute("CLSGLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"CLSGLevel").getAsInteger());
 				if (((InstPairwiseRel) relation)
 						.getInstAttribute("targetLevel") != null)
-					values.add(((InstPairwiseRel) relation)
-							.getInstAttribute("targetLevel").getAsInteger());
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
 			}
 			if (values.size() == 0) {
 				values.add(new Integer(0)); // TODO use value according to
@@ -246,8 +244,8 @@ public abstract class AbstractExpression {
 				String domain = "";
 				if (object != null) {
 					@SuppressWarnings("unchecked")
-					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstEnum) object)
-							.getInstAttribute(SyntaxEnum.VAR_METAENUMVALUE))
+					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
+							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("-");

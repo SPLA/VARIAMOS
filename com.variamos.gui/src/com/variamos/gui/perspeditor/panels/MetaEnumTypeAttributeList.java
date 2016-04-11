@@ -19,7 +19,6 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
-import com.variamos.dynsup.model.SyntaxAttribute;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.StringType;
@@ -135,9 +134,10 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 		final boolean insert = (instAttribute == null);
 
 		final InstAttribute instName = new InstAttribute("enumName",
-				new SyntaxAttribute("EnumNameValue", "Enumeration",
+				new ElemAttribute("EnumNameValue", "Enumeration",
 						AttributeType.SYNTAX, false, "Value Name",
-						enumCanonicalName, "", 1, -1, "", "", -1, "", ""), "");
+						enumCanonicalName, "", "", 1, -1, "", "", -1, "", ""),
+				"");
 
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
@@ -155,10 +155,10 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 			}
 
 			// Name
-			instAttribute = new InstAttribute("enum" + i,
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""), "");
+			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+					"");
 		} else {
 			if (attributeName.equals("exptype")) {
 				String split[] = ((InstElement) instAttribute.getValue())

@@ -18,7 +18,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.interfaces.IntElemAttribute;
 import com.variamos.dynsup.interfaces.IntOpersElement;
@@ -171,8 +170,7 @@ public class ClassWidget extends WidgetR {
 					txtValue.addItem(out.trim());
 				}
 			}
-			if (aClass.equals(InstEnum.class)
-					|| aClass.equals(InstConcept.class)) {
+			if (aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					List<InstVertex> list = getInstElements(instAttribute

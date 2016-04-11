@@ -57,8 +57,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 	 */
 	public OverTwoElementsExpressionSet(String identifier,
 			Map<String, Identifier> idMap, HlclFactory hlclFactory,
-			InstOverTwoRel instOverTwoRelation, int execType,
-			String element) {
+			InstOverTwoRel instOverTwoRelation, int execType, String element) {
 		super(identifier, mxResources.get("defect-concept") + " " + identifier,
 				idMap, hlclFactory);
 		this.instOverTwoRelation = instOverTwoRelation;
@@ -160,8 +159,8 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					AbstractExpression iterativeExpression1 = null;
 					if (instEdges1.hasNext()) {
 						InstElement left1 = instEdges1.next();
-						while (((InstPairwiseRel) left1)
-								.getSourceRelations().size() != 0
+						while (((InstPairwiseRel) left1).getSourceRelations()
+								.size() != 0
 								&& (boolean) ((InstPairwiseRel) left1)
 										.getSourceRelations().get(0)
 										.getInstAttribute("Active").getValue() == false) {
@@ -356,20 +355,18 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 		// remove this line
 		if (instEdges.hasNext()) {
 			InstElement instEdge = instEdges.next();
-			while ((boolean) ((InstPairwiseRel) instEdge)
-					.getSourceRelations().get(0).getInstAttribute("Active")
-					.getValue() == false) {
+			while ((boolean) ((InstPairwiseRel) instEdge).getSourceRelations()
+					.get(0).getInstAttribute("Active").getValue() == false) {
 				if (instEdges.hasNext())
 					instEdge = instEdges.next();
 				else
 					// TODO define a cleaner way to deal with group relations
 					// with one
 					// element
-					return new AndBooleanExpression(
+					return new AndBooleanExpression(((InstPairwiseRel) left)
+							.getSourceRelations().get(0),
 							((InstPairwiseRel) left).getSourceRelations()
-									.get(0), ((InstPairwiseRel) left)
-									.getSourceRelations().get(0), sourceName,
-							sourceName);
+									.get(0), sourceName, sourceName);
 			}
 			if (instEdges.hasNext()) {
 				try {

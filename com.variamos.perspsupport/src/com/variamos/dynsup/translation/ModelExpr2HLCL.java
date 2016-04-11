@@ -18,7 +18,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntModelExpr2Hlcl;
-import com.variamos.dynsup.model.ExecCurrentStateAttribute;
+import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
@@ -39,6 +39,7 @@ import com.variamos.semantic.staticexpr.ModelExpressionSet;
 import com.variamos.semantic.staticexpr.OverTwoElementsExpressionSet;
 import com.variamos.semantic.staticexpr.PairwiseElementExpressionSet;
 import com.variamos.semantic.staticexpr.SingleElementExpressionSet;
+import com.variamos.semantic.types.AttributeType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
@@ -396,7 +397,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	public List<String> getOutVariables(String operation, String subAction) {
 		List<String> out = new ArrayList<String>();
 		List<InstElement> operActions = refas.getOperationalModel()
-				.getVariabilityVertex("InfraSyntaxOpersM2Operation");
+				.getVariabilityVertex("OMOperation");
 		InstElement operAction = null;
 		for (InstElement oper : operActions) {
 			if (oper.getIdentifier().equals(operation)) {
@@ -408,7 +409,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 			InstElement subOper = rel.getTargetRelations().get(0);
 			if (subOper.getIdentifier().equals(subAction))
 				for (OpersIOAttribute att : ((OpersSubOperation) subOper
-						.getEditableSemanticElement()).getOutAttributes())
+						.getEdOperEle()).getOutAttributes())
 					out.add(att.getAttributeId());
 		}
 		return out;
@@ -579,26 +580,26 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				case ModelExpr2HLCL.SIMUL_EXEC:
 				case ModelExpr2HLCL.SIMUL_EXPORT:
 				case ModelExpr2HLCL.SIMUL_MAPE:
-					if (instVertex.getInstAttribute("ConfigSelected")
-							.getAsBoolean()
-							|| instVertex.getInstAttribute("ConfigNotSelected")
+					if (instVertex.getInstAttribute("ConfSel").getAsBoolean()
+							|| instVertex.getInstAttribute("ConfNotSel")
 									.getAsBoolean())
 						continue;
 					break;
 				case ModelExpr2HLCL.CORE_EXEC:
 					instVertex.getInstAttribute("Core").setValue(false);
 				case ModelExpr2HLCL.DESIGN_EXEC:
-					instVertex.getInstAttribute("ConfigSelected").setValue(
-							false);
-					instVertex.getInstAttribute("ConfigNotSelected").setValue(
-							false);
+					instVertex.getInstAttribute("ConfSel").setValue(false);
+					instVertex.getInstAttribute("ConfNotSel").setValue(false);
 					instVertex.getInstAttribute("Dead").setValue(false);
 				}
 
 				for (InstAttribute instAttribute : instVertex
 						.getInstAttributes().values()) {
 					// System.out.println(vertexId + " " + attribute);
-					if (instAttribute.getAttribute() instanceof ExecCurrentStateAttribute
+					if (instAttribute.getAttribute() instanceof ElemAttribute
+							&& ((ElemAttribute) instAttribute.getAttribute())
+									.getAttributeType().equals(
+											AttributeType.EXECCURRENTSTATE)
 							&& instAttribute.getType().equals("Boolean")
 							&& !instAttribute.getIdentifier().equals(
 									"HasParent")) {
@@ -607,16 +608,15 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 								|| execType == ModelExpr2HLCL.SIMUL_EXEC
 								|| execType == ModelExpr2HLCL.SIMUL_EXPORT
 								|| execType == ModelExpr2HLCL.SIMUL_MAPE
-								|| (!instAttribute.getIdentifier().equals(
-										"Selected") && !instAttribute
-										.getIdentifier().equals("NotAvailable")))
+								|| (!instAttribute.getIdentifier()
+										.equals("Sel") && !instAttribute
+										.getIdentifier().equals("Exclu")))
 							instAttribute.setValue(false);
 					}
 					if (instAttribute.getType().equals("Boolean")
-							&& (instAttribute.getIdentifier().equals(
-									"NextPrefSelected") || instAttribute
-									.getIdentifier().equals(
-											"NextNotPrefSelected")))
+							&& (instAttribute.getIdentifier()
+									.equals("NPrefSel") || instAttribute
+									.getIdentifier().equals("NNotPrefSel")))
 						instAttribute.setValue(false);
 				}
 			}
@@ -704,7 +704,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 							instAttribute
 									.setValue((int) Float.parseFloat(prologOut
 											.get(identifier) + ""));
-					} else if (attribute.equals("Selected"))
+					} else if (attribute.equals("Sel"))
 						for (String attTarget : selectedAttributes) {
 							InstAttribute instTarget = vertex
 									.getInstAttribute(attTarget);
@@ -728,7 +728,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 							}
 						}
-					else if (attribute.equals("NotAvailable"))
+					else if (attribute.equals("Exclu"))
 						for (String attTarget : notAvailableAttributes) {
 							InstAttribute instTarget = vertex
 									.getInstAttribute(attTarget);
@@ -872,8 +872,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 	private void createEdgeExpressions(String identifier, int execType,
 			Map<String, ElementExpressionSet> constraintGroups) {
 		if (identifier == null)
-			for (InstPairwiseRel elm : refas
-					.getConstraintInstEdgesCollection()) {
+			for (InstPairwiseRel elm : refas.getConstraintInstEdgesCollection()) {
 				if (elm.getMetaPairwiseRelation() == null
 						|| !elm.getMetaPairwiseRelation().getAutoIdentifier()
 								.equals("Variable To Context Relation"))
@@ -959,19 +958,19 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
-						.getInstAttribute("NextPrefSelected");
+						.getInstAttribute("NPrefSel");
 				InstAttribute instAttributeConf = instVertex
-						.getInstAttribute("ConfigSelected");
+						.getInstAttribute("ConfSel");
 
 				// System.out.println(vertexId + " " + attribute);
 				if (requiredConceptsNames.contains(instVertex.getIdentifier())
-						|| instVertex.getInstAttribute("ConfigSelected")
+						|| instVertex.getInstAttribute("ConfSel")
 								.getAsBoolean()) {
 					if (test) {
 						instAttributeTest.setValue(true);
 					} else {
 						instAttributeConf.setValue(true);
-						instVertex.getInstAttribute("Selected").setValue(true);
+						instVertex.getInstAttribute("Sel").setValue(true);
 					}
 				} else {
 					// instAttributeConf.setValue(false);
@@ -979,15 +978,13 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						instAttributeTest.setValue(false);
 					} else {
 
-						if (!instVertex.getInstAttribute("ConfigSelected")
+						if (!instVertex.getInstAttribute("ConfSel")
 								.getAsBoolean()
 								&& !instVertex.getInstAttribute("Core")
 										.getAsBoolean()) {
-							instVertex.getInstAttribute("Selected").setValue(
-									false);
+							instVertex.getInstAttribute("Sel").setValue(false);
 						} else
-							instVertex.getInstAttribute("Selected").setValue(
-									true);
+							instVertex.getInstAttribute("Sel").setValue(true);
 					}
 
 				}
@@ -1000,9 +997,9 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		for (InstElement instVertex : refas.getVariabilityVertex().values()) {
 			if (validateConceptType(instVertex, "GeneralElement")) {
 				InstAttribute instAttributeTest = instVertex
-						.getInstAttribute("NextNotPrefSelected");
+						.getInstAttribute("NNotPrefSel");
 				InstAttribute instAttributeConf = instVertex
-						.getInstAttribute("ConfigNotSelected");
+						.getInstAttribute("ConfNotSel");
 
 				// System.out.println(vertexId + " " + attribute);
 				if (requiredConceptsNames.contains(instVertex.getIdentifier())) {
@@ -1010,23 +1007,21 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						instAttributeTest.setValue(true);
 					} else {
 						instAttributeConf.setValue(true);
-						instVertex.getInstAttribute("NotAvailable").setValue(
-								true);
+						instVertex.getInstAttribute("Exclu").setValue(true);
 					}
 				} else {
 					if (test) {
 						instAttributeTest.setValue(false);
 					} else {
 						// instAttributeConf.setValue(false);
-						if (!instVertex.getInstAttribute("ConfigNotSelected")
+						if (!instVertex.getInstAttribute("ConfNotSel")
 								.getAsBoolean()
 								&& !instVertex.getInstAttribute("Dead")
 										.getAsBoolean())
-							instVertex.getInstAttribute("NotAvailable")
+							instVertex.getInstAttribute("Exclu")
 									.setValue(false);
 						else
-							instVertex.getInstAttribute("NotAvailable")
-									.setValue(true);
+							instVertex.getInstAttribute("Exclu").setValue(true);
 					}
 				}
 			}
@@ -1041,7 +1036,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 					&& (elementSubSet == null || elementSubSet
 							.contains(instVertex))) {
 				InstAttribute instAttribute = instVertex
-						.getInstAttribute("ConfigSelected");
+						.getInstAttribute("ConfSel");
 				if (instAttribute.getAsBoolean())
 					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 1);
@@ -1049,8 +1044,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 
 					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 0);
-				instAttribute = instVertex
-						.getInstAttribute("ConfigNotSelected");
+				instAttribute = instVertex.getInstAttribute("ConfNotSel");
 				if (instAttribute.getAsBoolean())
 					out.put(instVertex.getIdentifier() + "_"
 							+ instAttribute.getIdentifier(), 1);
@@ -1071,15 +1065,15 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				InstAttribute instAttribute2 = instVertex
 						.getInstAttribute("Dead");
 				InstAttribute instAttribute3 = instVertex
-						.getInstAttribute("ConfigSelected");
+						.getInstAttribute("ConfSel");
 				InstAttribute instAttribute4 = instVertex
-						.getInstAttribute("ConfigNotSelected");
+						.getInstAttribute("ConfNotSel");
 				if (!instAttribute.getAsBoolean()
 						&& !instAttribute2.getAsBoolean()
 						&& !instAttribute3.getAsBoolean()
 						&& !instAttribute4.getAsBoolean())
 					out.add(f.newIdentifier(instVertex.getIdentifier() + "_"
-							+ "Selected"));
+							+ "Sel"));
 			}
 		}
 		return out;
@@ -1099,14 +1093,13 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 			semElement = null;
 			for (InstElement ele : sEle.getTargetRelations())
 				if (ele instanceof InstPairwiseRel) {
-					if (((InstPairwiseRel) ele)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation")) {
+					if (((InstPairwiseRel) ele).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation")) {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele)
-						.getSupportMetaElementIden().equals("ExtendsRelation")) {
+				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
 				}
@@ -1124,7 +1117,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 				InstAttribute instAttributeDead = instVertex
 						.getInstAttribute("Dead");
 				InstAttribute instAttributeNotAva = instVertex
-						.getInstAttribute("NotAvailable");
+						.getInstAttribute("Exclu");
 				// System.out.println(vertexId + " " + attribute);
 				if (deadIdentifiers != null
 						&& deadIdentifiers.contains(instVertex.getIdentifier())) {
@@ -1148,18 +1141,17 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 		if (progressMonitor.isCanceled())
 			throw (new InterruptedException());
 		if (evaluatedSet.add(target)) {
-			if ((!target.getInstAttribute("Selected").getAsBoolean()
+			if ((!target.getInstAttribute("Sel").getAsBoolean()
 					&& !target.getInstAttribute("Core").getAsBoolean() && !target
-					.getInstAttribute("NotAvailable").getAsBoolean())
+					.getInstAttribute("Exclu").getAsBoolean())
 					|| target.getIdentifier().startsWith("FeatOverTwo")
 					|| target.getIdentifier().startsWith("HardOverTwo")
 					|| target.getIdentifier().startsWith("SoftgoalOverTwo")
 					|| target.getIdentifier().startsWith("OperClaimOverTwo")
 					|| target.getIdentifier().startsWith("AssetOperGroupDep")
 					|| target.getIdentifier().startsWith("AssetFeatGroupDep")) {
-				if (!target.getInstAttribute("Selected").getAsBoolean()
-						&& !target.getInstAttribute("NotAvailable")
-								.getAsBoolean()
+				if (!target.getInstAttribute("Sel").getAsBoolean()
+						&& !target.getInstAttribute("Exclu").getAsBoolean()
 						&& !target.getIdentifier().startsWith("FeatOverTwo"))
 					if (!calc)
 						freeIdentifiers.add(f.newIdentifier(target
@@ -1235,7 +1227,7 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 							newMap.put(instId, o);
 						} else {
 							Boolean o = (Boolean) instVertex.getInstAttribute(
-									"Selected").getValue();
+									"Sel").getValue();
 							Integer integer;
 							if (o.booleanValue())
 								integer = 1;

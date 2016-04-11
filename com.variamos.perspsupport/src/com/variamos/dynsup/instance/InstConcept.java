@@ -1,5 +1,6 @@
 package com.variamos.dynsup.instance;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,31 +31,38 @@ public class InstConcept extends InstVertex {
 	public static final String VAR_METACONCEPT_IDEN = "MetaElementIde";
 
 	public InstConcept() {
-		super("");
+		super("", new HashMap<String, InstAttribute>());
 	}
 
 	public InstConcept(SyntaxElement supportMetaElement) {
-		super("");
+		super("", new HashMap<String, InstAttribute>());
 		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes(null);
 	}
 
 	public InstConcept(String identifier, SyntaxElement supportMetaElement,
 			SyntaxElement editableMetaElement) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);
-		setEditableMetaElement(editableMetaElement);
+		setEdSyntaxEle(editableMetaElement);
 		createInstAttributes(null);
 		copyValuesToInstAttributes(null);
 	}
 
+	public InstConcept(String identifier,
+			IntOpersElement editableSemanticElement, InstElement supInstElement) {
+		this(identifier, supInstElement.getEdSyntaxEle(),
+				editableSemanticElement);
+		setTransSupInstElement(supInstElement);
+	}
+
 	public InstConcept(String identifier, SyntaxElement supportMetaElement,
 			IntOpersElement editableSemanticElement) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);
-		setEditableSemanticElement(editableSemanticElement);
+		setEdOperEle(editableSemanticElement);
 		createInstAttributes(null);
 	}
 
@@ -65,13 +73,13 @@ public class InstConcept extends InstVertex {
 	public InstConcept(String identifier, SyntaxElement supportMetaElement,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRel> relations) {
-		super(identifier, attributes, relations);
+		super(identifier, attributes);
 		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes(null);
 	}
 
 	public InstConcept(String identifier, SyntaxElement supportMetaElement) {
-		super(identifier);
+		super(identifier, new HashMap<String, InstAttribute>());
 		setTransSupportMetaElement(supportMetaElement);
 		createInstAttributes(null);
 	}

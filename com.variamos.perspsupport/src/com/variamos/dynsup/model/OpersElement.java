@@ -47,8 +47,10 @@ public class OpersElement implements Serializable, IntOpersElement {
 	 * ArrayList<String>()); }
 	 */
 
-	public OpersElement(String identifier,
-			List<String> propVisibleAttributes,
+	public OpersElement() {
+	};
+
+	public OpersElement(String identifier, List<String> propVisibleAttributes,
 			List<String> propEditableAttributes,
 			List<String> panelVisibleAttributes,
 			List<String> panelSpacersAttributes) {
@@ -88,7 +90,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPropVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -101,7 +103,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPropVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -132,7 +134,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPropEditableAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
 		return modelingAttributesNames;
@@ -145,7 +147,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPropEditableAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
 		return modelingAttributesNames;
@@ -169,7 +171,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPanelVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -190,7 +192,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
 				modelingAttributesNames.addAll(parent
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getDeclaredPanelSpacersAttributes());
 		modelingAttributesNames.addAll(getDeclaredPanelSpacersAttributes());
 		return modelingAttributesNames;
@@ -206,7 +208,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		properties.addAll(getDeclaredSemanticAttributesNames());
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				properties.addAll(parent.getEditableSemanticElement()
+				properties.addAll(parent.getEdOperEle()
 						.getAllSemanticAttributesNames(null));
 		return properties;
 	}
@@ -218,7 +220,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		abstractAttributes.putAll(semanticAttributes);
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				abstractAttributes.putAll(parent.getEditableSemanticElement()
+				abstractAttributes.putAll(parent.getEdOperEle()
 						.getAllSemanticAttributes(null));
 		return abstractAttributes;
 	}
@@ -239,7 +241,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (semAtt == null && opersParents != null) {
 			ElemAttribute out = null;
 			for (InstElement parent : opersParents) {
-				out = (parent.getEditableSemanticElement()
+				out = (parent.getEdOperEle()
 						.getSemanticAttribute(name, null));
 				if (out != null)
 					return out;
@@ -261,7 +263,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 			semanticAttributes.put(name, semanticAttribute);
 		else if (opersParents != null)
 			for (InstElement parent : opersParents)
-				parent.getEditableSemanticElement().setSemanticAttribute(name,
+				parent.getEdOperEle().setSemanticAttribute(name,
 						semanticAttribute, null);
 	}
 
@@ -292,7 +294,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 			out.addAll(semanticExpressions);
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				out.addAll(parent.getEditableSemanticElement()
+				out.addAll(parent.getEdOperEle()
 						.getAllSemanticExpressions(null));
 		return out;
 	}
@@ -314,10 +316,10 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				modelingAttributesNames.addAll(parentConcept
 						.getTransInstSemanticElement()
-						.getEditableSemanticElement()
+						.getEdOperEle()
 						.getAllSemanticAttributesNames(opersParents));
 				modelingAttributesNames.addAll(parentConcept
 						.getModelingAttributesNames(syntaxParents));

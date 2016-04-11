@@ -72,9 +72,8 @@ public class VariamosDashBoardFrame extends JFrame {
 		elements = new HashMap<String, Map<String, VisualElement>>();
 		for (InstElement instVertex : refasModel
 				.getVariabilityVertexCollection()) {
-			if (instVertex.getInstAttribute("DashBoardVisible") != null
-					&& instVertex.getInstAttribute("DashBoardVisible")
-							.getAsBoolean()) {
+			if (instVertex.getInstAttribute("DBVis") != null
+					&& instVertex.getInstAttribute("DBVis").getAsBoolean()) {
 				String metaId = instVertex.getTransSupportMetaElement()
 						.getAutoIdentifier();
 				String instId = instVertex.getIdentifier();

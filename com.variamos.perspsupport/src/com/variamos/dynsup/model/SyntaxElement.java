@@ -12,6 +12,7 @@ import java.util.TreeMap;
 
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.semantic.types.AttributeType;
 
 /**
@@ -34,7 +35,7 @@ public abstract class SyntaxElement implements Serializable {
 	/**
 			 * 
 			 */
-	VAR_USERIDENTIFIER = "userIdentifier",
+	VAR_USERIDENTIFIER = "userId",
 	/**
 			 * 
 			 */
@@ -176,14 +177,14 @@ public abstract class SyntaxElement implements Serializable {
 	}
 
 	public void createSyntaxAttributes() {
-		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new SyntaxAttribute(
+		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new ElemAttribute(
 				VAR_AUTOIDENTIFIER, "String", AttributeType.SYNTAX, false,
 				"Auto Identifier", null, 0, 1, "", "", -1, "", ""));
-		this.modelingAttributes.put(VAR_USERIDENTIFIER, new SyntaxAttribute(
+		this.modelingAttributes.put(VAR_USERIDENTIFIER, new ElemAttribute(
 				VAR_USERIDENTIFIER, "String", AttributeType.SYNTAX, false,
 				"UserIdentifier", null, 0, 1, "", "", -1, "", ""));
 		/*
-		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new SyntaxAttribute(
+		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new ElemAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
 		 */
 		this.propVisibleAttributes.add("01#" + VAR_AUTOIDENTIFIER);
@@ -251,7 +252,7 @@ public abstract class SyntaxElement implements Serializable {
 
 	public IntOpersElement getTransSemanticConcept() {
 		if (instSemanticElement != null)
-			return this.instSemanticElement.getEditableSemanticElement();
+			return this.instSemanticElement.getEdOperEle();
 		else
 			return null;
 	}
@@ -297,7 +298,7 @@ public abstract class SyntaxElement implements Serializable {
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null) {
 					modelingAttributesNames.addAll(parentConcept
 							.getTransInstSemanticElement()
@@ -338,8 +339,7 @@ public abstract class SyntaxElement implements Serializable {
 		this.modelingAttributes = modelingAttributes;
 	}
 
-	public void setModelingAttributes(
-			HashSet<ElemAttribute> modelingAttributes) {
+	public void setModelingAttributes(HashSet<ElemAttribute> modelingAttributes) {
 		this.modelingAttributes = new TreeMap<String, ElemAttribute>();
 		Iterator<ElemAttribute> iter = modelingAttributes.iterator();
 		while (iter.hasNext()) {
@@ -364,16 +364,16 @@ public abstract class SyntaxElement implements Serializable {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+				&& getTransInstSemanticElement().getEdOperEle() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getPropVisibleAttributes());
 		if (syntaParents != null)
 			for (InstElement parent : syntaParents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
-							.getEditableSemanticElement() != null)
+							.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPropVisibleAttributes());
@@ -390,17 +390,17 @@ public abstract class SyntaxElement implements Serializable {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+				&& getTransInstSemanticElement().getEdOperEle() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getPropEditableAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
-							.getEditableSemanticElement() != null)
+							.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPropEditableAttributes());
@@ -416,17 +416,17 @@ public abstract class SyntaxElement implements Serializable {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+				&& getTransInstSemanticElement().getEdOperEle() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getPanelVisibleAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
-							.getEditableSemanticElement() != null)
+							.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPanelVisibleAttributes());
@@ -442,17 +442,17 @@ public abstract class SyntaxElement implements Serializable {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getTransInstSemanticElement() != null
-				&& getTransInstSemanticElement().getEditableSemanticElement() != null)
+				&& getTransInstSemanticElement().getEdOperEle() != null)
 			modelingAttributesNames.addAll(getTransInstSemanticElement()
 					.getPanelSpacersAttributes());
 
 		if (parents != null)
 			for (InstElement parent : parents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null) {
 					if (parentConcept.getTransInstSemanticElement()
-							.getEditableSemanticElement() != null)
+							.getEdOperEle() != null)
 						modelingAttributesNames.addAll(parentConcept
 								.getTransInstSemanticElement()
 								.getPanelSpacersAttributes());
@@ -522,7 +522,7 @@ public abstract class SyntaxElement implements Serializable {
 		if (parents != null)
 			for (InstElement parent : parents) {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
-						.getEditableMetaElement();
+						.getEdSyntaxEle();
 				if (parentConcept != null)
 					modelingAttributesNames.addAll(parentConcept
 							.getModelingAttributesNames());
@@ -562,7 +562,7 @@ public abstract class SyntaxElement implements Serializable {
 			if (parents != null)
 				for (InstElement parent : parents) {
 					SyntaxConcept parentConcept = (SyntaxConcept) parent
-							.getEditableMetaElement();
+							.getEdSyntaxEle();
 
 					if (parentConcept != null
 							&& parentConcept.getModelingAttribute(name) != null) {
@@ -594,7 +594,7 @@ public abstract class SyntaxElement implements Serializable {
 			String elementDisplayCondition) {
 		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new SyntaxAttribute(name, type,
+			modelingAttributes.put(name, new ElemAttribute(name, type,
 					AttributeType.SYNTAX, affectProperties, displayName,
 					defaultValue, defaultGroup, propTabPosition,
 					propTabEditionCondition, propTabVisualCondition,
@@ -617,7 +617,7 @@ public abstract class SyntaxElement implements Serializable {
 			String elementDisplayCondition) {
 		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
-			modelingAttributes.put(name, new SyntaxAttribute(name, type,
+			modelingAttributes.put(name, new ElemAttribute(name, type,
 					AttributeType.SYNTAX, affectProperties, displayName,
 					enumType, defaultValue, defaultGroup, propTabPosition,
 					propTabEditionCondition, propTabVisualCondition,
@@ -641,5 +641,10 @@ public abstract class SyntaxElement implements Serializable {
 
 	public String getPalette() {
 		return "";
+	}
+
+	public List<IntOpersRelType> getSemanticRelationTypes() {
+		return ((OpersOverTwoRel) getTransInstSemanticElement().getEdOperEle())
+				.getSemanticRelationTypes();
 	}
 }

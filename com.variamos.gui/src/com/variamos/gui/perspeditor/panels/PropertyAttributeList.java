@@ -15,7 +15,6 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntElemAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.SyntaxAttribute;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.StringType;
@@ -121,8 +120,8 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					int index, boolean isSelected, boolean cellHasFocus) {
 				JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 						value, index, isSelected, cellHasFocus);
-				lbl.setText((String) ((ElemAttribute) value).getName()
-						+ ":" + ((ElemAttribute) value).getType());
+				lbl.setText((String) ((ElemAttribute) value).getName() + ":"
+						+ ((ElemAttribute) value).getType());
 				return lbl;
 			}
 		});
@@ -135,7 +134,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			// Name
-			var = new SyntaxAttribute("EnumValue", StringType.IDENTIFIER,
+			var = new ElemAttribute("EnumValue", StringType.IDENTIFIER,
 					AttributeType.SYNTAX, false, "Enumeration Value", "", 1,
 					-1, "", "", -1, "", "");
 
@@ -157,8 +156,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		final IntElemAttribute domain = att.get("Domain");
 		final IntElemAttribute hint = att.get("Hint");
 
-		final IntElemAttribute propTabPosition = att
-				.get("propTabPosition");
+		final IntElemAttribute propTabPosition = att.get("propTabPosition");
 		final IntElemAttribute propTabEditionCondition = att
 				.get("propTabEditionCondition");
 		final IntElemAttribute propTabVisualCondition = att
@@ -221,8 +219,8 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 					((DefaultListModel<ElemAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
 					attributes.put((String) name.getValue(), v);
-					if (instElement.getEditableMetaElement() != null) {
-						SyntaxElement me = instElement.getEditableMetaElement();
+					if (instElement.getEdSyntaxEle() != null) {
+						SyntaxElement me = instElement.getEdSyntaxEle();
 						me.addModelingAttribute((String) name.getValue(), v);
 						me.addPanelVisibleAttribute("99#"
 								+ SyntaxConcept.VAR_USERIDENTIFIER);
@@ -231,9 +229,9 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 						me.addPropEditableAttribute("99#"
 								+ (String) name.getValue());
 					}
-					if (instElement.getEditableSemanticElement() != null) {
+					if (instElement.getEdOperEle() != null) {
 						OpersElement sc = ((OpersElement) instElement
-								.getEditableSemanticElement());
+								.getEdOperEle());
 						sc.putSemanticAttribute((String) name.getValue(), v);
 						sc.addPanelVisibleAttribute("99#"
 								+ SyntaxConcept.VAR_USERIDENTIFIER);

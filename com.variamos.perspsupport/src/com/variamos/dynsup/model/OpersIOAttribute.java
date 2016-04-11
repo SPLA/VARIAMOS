@@ -1,10 +1,21 @@
 package com.variamos.dynsup.model;
 
-public class OpersIOAttribute implements Comparable<OpersIOAttribute> {
+import java.io.Serializable;
 
+public class OpersIOAttribute implements Comparable<OpersIOAttribute>,
+		Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7692216138211081188L;
 	private String conceptId;
 	private String attributeId;
 	private boolean include;
+
+	public OpersIOAttribute() {
+		super();
+	}
 
 	public OpersIOAttribute(String conceptId, String attributeId,
 			boolean include) {

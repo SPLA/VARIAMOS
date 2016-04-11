@@ -338,7 +338,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 
 		List<String> updateList = new ArrayList<String>();
 		updateList.add("Core");
-		updateList.add("Selected");
+		updateList.add("Sel");
 		// updateList.add("Satisfied");
 		// updateList.add("ConfigSatisfied");
 		// updateList.add("");
@@ -772,7 +772,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		List<String> out = new ArrayList<String>();
 		for (String id : currentResult.keySet()) {
 			String[] o = id.split("_");
-			if (o[1].equals("Selected") && currentResult.get(id) == 0)
+			if (o[1].equals("Sel") && currentResult.get(id) == 0)
 				out.add(id);
 
 		}
@@ -784,7 +784,7 @@ public class SemSolverTasks extends SwingWorker<Void, Void> {
 		List<String> out = new ArrayList<String>();
 		for (String id : currentResult.keySet()) {
 			String[] o = id.split("_");
-			if (o[1].equals("Selected") && lastResult.get(id) == 0
+			if (o[1].equals("Sel") && lastResult.get(id) == 0
 					&& currentResult.get(id) == 1)
 				out.add(o[0]);
 

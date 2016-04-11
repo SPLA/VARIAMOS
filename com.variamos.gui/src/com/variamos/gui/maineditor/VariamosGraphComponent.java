@@ -187,7 +187,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					&& ((mxCell) parentCell).getValue() != null) {
 				try {
 					InstConcept instConcept = (InstConcept) val;
-					String backtophint = null, backbottomhint = null;
+					String backtophint = "", backbottomhint = "";
 
 					String sim_core = imagesBasePath + "sim_core.png";
 					String sim_core_req = imagesBasePath + "sim_core_req.png";
@@ -216,29 +216,29 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							&& !(boolean) instConcept.getInstAttribute(
 									"Required").getValue()) {
 						sim_backcolor = sim_core;
-						backtophint = "Element part of the core and required";
+						backtophint = "Required (by an implication)";
 					} else if ((boolean) instConcept.getInstAttribute("Core")
 							.getValue()
 							&& (boolean) instConcept.getInstAttribute(
 									"Required").getValue()) {
 						sim_backcolor = sim_core_req;
-						backtophint = "Element part of the core by relations";
+						backtophint = "Required (by manual selection)";
 					} else if (!(boolean) instConcept
 							.getInstAttribute("Active").getValue()) {
 						sim_backcolor = sim_inactive;
-						backtophint = "Element inactivated by user (black background)";
+						backtophint = "Inactive by user";
 					} else if ((boolean) instConcept.getInstAttribute("Dead")
 							.getValue()) {
 						sim_backcolor = sim_dead;
-						backtophint = "Dead element (red background)";
-					} else if ((boolean) instConcept.getInstAttribute(
-							"NotAvailable").getValue()) {
+						backtophint = "Dead element";
+					} else if ((boolean) instConcept.getInstAttribute("Exclu")
+							.getValue()) {
 						sim_backcolor = sim_notavailable;
-						backtophint = "Not available for this configuration (red background)";
-					} else if ((boolean) instConcept.getInstAttribute(
-							"Selected").getValue()) {
+						backtophint = "Not selected for this solution";
+					} else if ((boolean) instConcept.getInstAttribute("Sel")
+							.getValue()) {
 						sim_backcolor = sim_selected;
-						backtophint = "Element selected for this configuration (green background)";
+						backtophint = "Selected for this solution";
 					}
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
@@ -253,103 +253,92 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green1)),
-								backtophint + "\n Core (First green circle)");
-						backtophint += "\n Core (First green circle)";
+								backtophint);
+						// backtophint += "\n Core (First green circle)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("Selected")
+					if ((boolean) instConcept.getInstAttribute("Sel")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextPrefSelected")
-									.getValue())) {
+									"ConfSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green2)),
-								backtophint
-										+ "; Configuration Selected (Second green circle)");
+								backtophint + "Configuration Selected");
 
-						backtophint += "; Configuration Selected (Second green circle)";
+						backtophint += "Configuration Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if (!(boolean) instConcept.getInstAttribute("Selected")
+					if (!(boolean) instConcept.getInstAttribute("Sel")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextPrefSelected")
-									.getValue())) {
+									"ConfSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green2_tmp)),
 								backtophint
-										+ "; Configuration Selected (Second green circle)");
+										+ "Configuration Selected (Only testing)");
 
-						backtophint += "; Configuration Selected (Second green circle)";
+						backtophint += "Configuration Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute(
-							"NextReqSelected").getValue()) {
+					if ((boolean) instConcept.getInstAttribute("NReqSel")
+							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green3)),
-								backtophint
-										+ "; Config/Simul selected (Third green circle)");
+								backtophint + "Simulation selected");
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if (!(boolean) instConcept.getInstAttribute("NotAvailable")
+					if (!(boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigNotSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextNotPrefSelected")
-									.getValue())) {
+									"ConfNotSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NNotPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_red2_tmp)),
 								backbottomhint
-										+ "; Configuration Not Selected (Second red circle)");
-						backbottomhint += "; Configuration Not Selected (Second red circle)";
+										+ "Configuration Not Selected (Only testing)");
+						backbottomhint += "Configuration Not Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("NotAvailable")
+					if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigNotSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextNotPrefSelected")
-									.getValue())) {
-						mxCellOverlay over3 = new mxCellOverlay(
-								new ImageIcon(
-										mxGraphComponent.class
-												.getResource(sim_red2)),
-								backbottomhint
-										+ "; Configuration Not Selected (Second red circle)");
-						backbottomhint += "; Configuration Not Selected (Second red circle)";
+									"ConfNotSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NNotPrefSel").getValue())) {
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class.getResource(sim_red2)),
+								backbottomhint + "Configuration Not Selected");
+						backbottomhint += "Configuration Not Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
 
-					if ((boolean) instConcept.getInstAttribute(
-							"NextNotSelected").getValue()) {
-						mxCellOverlay over3 = new mxCellOverlay(
-								new ImageIcon(
-										mxGraphComponent.class
-												.getResource(sim_red3)),
-								backbottomhint
-										+ "; Config/Simul not selected (Third red circle)");
+					if ((boolean) instConcept.getInstAttribute("NNotSel")
+							.getValue()) {
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class.getResource(sim_red3)),
+								backbottomhint + "Not selected");
+						backbottomhint += "Not selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -373,18 +362,18 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				try {
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
-						backtophint = "Element is part of the core. Marked as required";
+						backtophint = "Part of the core (by manual selection)";
 						icon = design_required;
 					} else if ((boolean) instConcept.getInstAttribute("Core")
 							.getValue()) {
-						backtophint = "Element is part of the core. Not marked as required";
+						backtophint = "Part of the core (by implicatiom)";
 						icon = design_core;
 					} else if ((boolean) instConcept.getInstAttribute("Dead")
 							.getValue()) {
-						backtophint = "Element is dead. It cannot be selected";
+						backtophint = "Dead element (by implication)";
 						icon = design_dead;
 					} else {
-						backtophint = "Element is not part of the core. Not marked as required";
+						backtophint = "Not part of the core (Variability point)";
 						icon = design_normal;
 					}
 					mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(

@@ -58,13 +58,13 @@ public class AboutDialog extends JDialog {
 			IntElemAttribute... arguments) throws URISyntaxException {
 		super(editor.getFrame(), "About VariaMos", true);
 
-		setBounds(300, 300, 300, 300);
+		setBounds(300, 300, 300, 400);
 		setLayout(new BorderLayout());
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new SpringLayout());
 
-		setPreferredSize(new Dimension(330, 300));
+		setPreferredSize(new Dimension(330, 400));
 
 		panel.add(newButton("                 VariaMos Tool - ",
 				"http://variamos.com/", "http://variamos.com/"));
@@ -107,7 +107,17 @@ public class AboutDialog extends JDialog {
 				"https://iconarchive.com"));
 		panel.add(newButton("(player, dead and false) ", "Icon Finder",
 				"https://www.iconfinder.com"));
-		SpringUtilities.makeCompactGrid(panel, 10, 1, 4, 4, 4, 4);
+		panel.add(newButton("(hand for required) ", "Flat Icon",
+				"http://www.flaticon.com/free-icon/pointer_108787#term=hand&page=1&position=66"));
+		panel.add(newButton(
+				"(Pinion for config) ",
+				"Flat Icon",
+				"http://www.flaticon.com/free-icon/settings_23408#term=configuration&page=1&position=3"));
+		panel.add(new JLabel(
+				"Organization of notification for elements and some icons:"));
+		panel.add(new JLabel("Jose Andrés Moncada"));
+
+		SpringUtilities.makeCompactGrid(panel, 14, 1, 4, 4, 4, 4);
 
 		add(panel, BorderLayout.CENTER);
 

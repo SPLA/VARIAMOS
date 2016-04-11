@@ -13,7 +13,6 @@ import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxOverTwoRel;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 
 /**
@@ -63,7 +62,7 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 	/**
 	 * Name of MetaModel attribute identifier, to recover object after load
 	 */
-	VAR_ATTRIBUTE_IDEN = "attributeIden",
+	VAR_ATTRIBUTE_IDEN = "attId",
 	/**
 	 * Name of the Value for the InstAttribute - indexes in case of JList
 	 */
@@ -99,8 +98,8 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
 	}
 
-	public InstAttribute(String identifier,
-			ElemAttribute modelingAttribute, Object value) {
+	public InstAttribute(String identifier, ElemAttribute modelingAttribute,
+			Object value) {
 		super();
 		this.volatileAttribute = modelingAttribute;
 		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
@@ -110,9 +109,8 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 		instAttributeAttributes.put(VAR_DISPLAYVALUE, null);
 	}
 
-	public InstAttribute(String identifier,
-			ElemAttribute modelingAttribute, Object value,
-			Object valueObject) {
+	public InstAttribute(String identifier, ElemAttribute modelingAttribute,
+			Object value, Object valueObject) {
 		super();
 		this.volatileAttribute = modelingAttribute;
 		instAttributeAttributes.put(VAR_IDENTIFIER, identifier);
@@ -373,18 +371,11 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 			Map<String, SyntaxElement> mapElements) {
 		// FIXME change this validation to use relationTypesAttributes instead
 		// of relationType
-		if (instElement instanceof InstOverTwoRel) {
-			if (this.getAttribute() != null
-					&& getEnumType() != null
-					&& getEnumType().equals(
-							OpersRelType.class.getCanonicalName())) {
-				List<IntOpersRelType> semanticRelationTypes = ((SyntaxOverTwoRel) instElement
-						.getTransSupportMetaElement())
-						.getSemanticRelationTypes();
-				setValidationRelationTypes(semanticRelationTypes);
-			}
-		}
-		if (instElement instanceof InstPairwiseRel) {
+		if (!(instElement instanceof InstPairwiseRel)
+				&& instElement.getTransSupportMetaElement() == null)
+			return;
+		if ((instElement instanceof InstPairwiseRel)
+				|| instElement.getTransSupportMetaElement().getType() == 'P') {
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
@@ -411,7 +402,18 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 					setValidationMEList(metaGD);
 				}
 			}
+		} else if (instElement.getTransSupportMetaElement().getType() == 'O') {
+			if (this.getAttribute() != null
+					&& getEnumType() != null
+					&& getEnumType().equals(
+							OpersRelType.class.getCanonicalName())) {
+				List<IntOpersRelType> semanticRelationTypes = ((SyntaxElement) instElement
+						.getTransSupportMetaElement())
+						.getSemanticRelationTypes();
+				setValidationRelationTypes(semanticRelationTypes);
+			}
 		}
+
 	}
 
 	@SuppressWarnings("unchecked")

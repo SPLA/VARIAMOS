@@ -21,7 +21,6 @@ import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxEnum;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.hlcl.LabelingOrder;
@@ -49,23 +48,15 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	 * instances
 	 */
 	public static final String VAR_AUTOIDENTIFIER = "identifier",
-			VAR_INSTATTRIBUTES = "InstAttribute";
+			VAR_INSTATTRIBUTES = "InstAtt";
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
-	private List<IntModelExpression> instanceExpressions;
-	private IntOpersElement editableSemanticElement;
-
-	public List<IntModelExpression> getInstanceExpressions() {
-		return instanceExpressions;
-	}
-
-	public void setInstanceExpressions(
-			List<IntModelExpression> instanceExpressions) {
-		this.instanceExpressions = instanceExpressions;
-	}
-
-	private SyntaxElement editableMetaElement;
+	private List<IntModelExpression> modExp;
+	private IntOpersElement edOperEle;
+	private SyntaxElement edSyntaxEle;
+	private SyntaxElement supMetaElement;
+	private InstElement supInstElement;
 
 	/**
 	 * The elements incoming to the element
@@ -78,9 +69,34 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	private boolean optional = false;
 
-	private String supportMetaElementIden; // AutoIdentifier
+	private String supSyntaxEleId; // AutoIdentifier
+
+	private String supInstEleId; // InstIdentifier
 
 	private Map<String, String> volatileDefects;
+
+	public InstElement(String identifier) {
+		this(identifier, new HashMap<String, InstAttribute>());
+	}
+
+	public InstElement(String identifier,
+			Map<String, InstAttribute> instAttributes) {
+		volatileSourceRelations = new ArrayList<InstElement>();
+		volatileTargetRelations = new ArrayList<InstElement>();
+		volatileDefects = new TreeMap<String, String>();
+		dynamicAttributes.put(VAR_AUTOIDENTIFIER, identifier);
+		dynamicAttributes.put(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
+		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
+		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
+	}
+
+	public List<IntModelExpression> getModExp() {
+		return modExp;
+	}
+
+	public void setModExp(List<IntModelExpression> instanceExpressions) {
+		this.modExp = instanceExpressions;
+	}
 
 	public Map<String, String> getDefects() {
 		return volatileDefects;
@@ -101,14 +117,6 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	public void removeDefect(String identifier) {
 		this.volatileDefects.remove(identifier);
-	}
-
-	public InstElement(String identifier) {
-		volatileSourceRelations = new ArrayList<InstElement>();
-		volatileTargetRelations = new ArrayList<InstElement>();
-		volatileDefects = new TreeMap<String, String>();
-		dynamicAttributes.put(VAR_AUTOIDENTIFIER, identifier);
-		dynamicAttributes.put(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
 	}
 
 	public boolean isOptional() {
@@ -143,80 +151,72 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	public void copyValuesToInstAttributes(List<InstElement> parents) {
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
-			if (editableMetaElement != null) {
+			if (edSyntaxEle != null) {
 				if (instAttribute.getIdentifier().equals(
 						SyntaxConcept.VAR_AUTOIDENTIFIER))
-					instAttribute.setValue(editableMetaElement
-							.getAutoIdentifier());
+					instAttribute.setValue(edSyntaxEle.getAutoIdentifier());
 				if (instAttribute.getIdentifier().equals(
 						SyntaxConcept.VAR_USERIDENTIFIER))
-					instAttribute.setValue(editableMetaElement
-							.getUserIdentifier());
+					instAttribute.setValue(edSyntaxEle.getUserIdentifier());
 				if (instAttribute.getIdentifier().equals("OperationsMMType")
-						&& editableMetaElement.getTransInstSemanticElement() != null)
-					instAttribute.setValue(editableMetaElement
+						&& edSyntaxEle.getTransInstSemanticElement() != null)
+					instAttribute.setValue(edSyntaxEle
 							.getTransInstSemanticElement().getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
-					instAttribute.setValue(editableMetaElement.getVisible());
+					instAttribute.setValue(edSyntaxEle.getVisible());
 				if (instAttribute.getIdentifier().equals("Name"))
-					instAttribute.setValue(editableMetaElement.getName());
+					instAttribute.setValue(edSyntaxEle.getName());
 				if (instAttribute.getIdentifier().equals("Style"))
-					instAttribute.setValue(editableMetaElement.getStyle());
+					instAttribute.setValue(edSyntaxEle.getStyle());
 				if (instAttribute.getIdentifier().equals("Description"))
-					instAttribute
-							.setValue(editableMetaElement.getDescription());
+					instAttribute.setValue(edSyntaxEle.getDescription());
 				if (instAttribute.getIdentifier().equals("Width"))
-					instAttribute.setValue(editableMetaElement.getWidth());
+					instAttribute.setValue(edSyntaxEle.getWidth());
 				if (instAttribute.getIdentifier().equals("Height"))
-					instAttribute.setValue(editableMetaElement.getHeight());
+					instAttribute.setValue(edSyntaxEle.getHeight());
 				if (instAttribute.getIdentifier().equals("Image"))
-					instAttribute.setValue(editableMetaElement.getImage());
+					instAttribute.setValue(edSyntaxEle.getImage());
 
-				if (editableMetaElement instanceof SyntaxConcept) {
+				if (edSyntaxEle instanceof SyntaxConcept) {
 					if (instAttribute.getIdentifier().equals("TopConcept"))
-						instAttribute
-								.setValue(((SyntaxConcept) editableMetaElement)
-										.isTopConcept());
+						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+								.isTopConcept());
 					if (instAttribute.getIdentifier().equals("BackgroundColor"))
-						instAttribute
-								.setValue(((SyntaxConcept) editableMetaElement)
-										.getBackgroundColor());
+						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+								.getBackgroundColor());
 					if (instAttribute.getIdentifier().equals("Resizable"))
-						instAttribute
-								.setValue(((SyntaxConcept) editableMetaElement)
-										.isResizable());
+						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+								.isResizable());
 				}
-				if (editableMetaElement instanceof SyntaxView) {
+				if (edSyntaxEle instanceof SyntaxView) {
 					if (instAttribute.getIdentifier().equals("Index"))
-						instAttribute.setValue(((SyntaxView) editableMetaElement)
+						instAttribute.setValue(((SyntaxView) edSyntaxEle)
 								.getIndex());
 					if (instAttribute.getIdentifier().equals("PaletteNames"))
-						instAttribute.setValue(((SyntaxView) editableMetaElement)
+						instAttribute.setValue(((SyntaxView) edSyntaxEle)
 								.getPaletteName());
 				}
 
-				if (editableMetaElement instanceof SyntaxPairwiseRel) {
+				if (edSyntaxEle instanceof SyntaxPairwiseRel) {
 					if (instAttribute.getIdentifier().equals("Palette"))
 						instAttribute
-								.setValue(((SyntaxPairwiseRel) editableMetaElement)
+								.setValue(((SyntaxPairwiseRel) edSyntaxEle)
 										.getPalette());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
-					instAttribute.setValue(editableMetaElement
-							.getBorderStroke());
+					instAttribute.setValue(edSyntaxEle.getBorderStroke());
 
 				if (instAttribute.getIdentifier().equals("value")) // TODO
 																	// review
 																	// what to
 																	// associate
-					instAttribute.setValue(editableMetaElement
+					instAttribute.setValue(edSyntaxEle
 							.getModelingAttributesNames(parents));
 			}
-			if (editableSemanticElement != null) {
+			if (edOperEle != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))
-					instAttribute.setValue(editableSemanticElement
-							.getIdentifier());
+					instAttribute.setValue(edOperEle.getIdentifier());
 			}
 		}
 	}
@@ -229,37 +229,93 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		this.dynamicAttributes = dynamicAttributesMap;
 	}
 
-	public IntOpersElement getEditableSemanticElement() {
-		return editableSemanticElement;
+	public IntOpersElement getEdOperEle() {
+		return edOperEle;
 	}
 
-	public void setEditableSemanticElement(
-			IntOpersElement editableSemanticElement) {
-		this.editableSemanticElement = editableSemanticElement;
+	public void setEdOperEle(IntOpersElement editableSemanticElement) {
+		this.edOperEle = editableSemanticElement;
 	}
 
-	public SyntaxElement getEditableMetaElement() {
-		return editableMetaElement;
+	public SyntaxElement getEdSyntaxEle() {
+		return edSyntaxEle;
 	}
 
-	public String getSupportMetaElementIden() {
-		return supportMetaElementIden;
+	public String getSupSyntaxEleId() {
+		return supSyntaxEleId;
 	}
 
-	public void setSupportMetaElementIden(String supportMetaElementIden) {
-		this.supportMetaElementIden = supportMetaElementIden;
+	public void setSupSyntaxEleId(String supportMetaElementIden) {
+		this.supSyntaxEleId = supportMetaElementIden;
 	}
 
-	public abstract SyntaxElement getTransSupportMetaElement();
-
-	public abstract void setTransSupportMetaElement(
-			SyntaxElement supportMetaElement);
-
-	public void setEditableMetaElement(SyntaxElement metaElement) {
-		this.editableMetaElement = metaElement;
+	public String getSupInstEleId() {
+		return supInstEleId;
 	}
 
-	public Object getDynamicVariable(String name) {
+	public void setSupInstEleId(String supInstEleId) {
+		this.supInstEleId = supInstEleId;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+	public SyntaxElement getTransSupportMetaElement() {
+		return supMetaElement;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+
+	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
+		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
+		this.supMetaElement = (SyntaxElement) supportMetaElement;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+	public InstElement getTransSupInstElement() {
+		return supInstElement;
+	}
+
+	/**
+	 * Name changed from standard to avoid graph serialization of the object
+	 * 
+	 * @return
+	 */
+
+	public void setTransSupInstElement(InstElement supInstElement) {
+		this.setSupInstEleId(supInstElement.getIdentifier());
+		this.supInstElement = (InstElement) supInstElement;
+	}
+
+	public void setIdentifier(String identifier) {
+		if (getDynamicAttribute(SyntaxConcept.VAR_USERIDENTIFIER).equals("")) {
+			setDynamicVariable(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
+			setInstAttribute(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
+		}
+		setDynamicVariable(VAR_AUTOIDENTIFIER, identifier);
+		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
+		if (getEdSyntaxEle() != null)
+			getEdSyntaxEle().setAutoIdentifier(identifier);
+		if (supMetaElement != null)
+			setDynamicVariable(SyntaxElement.VAR_DESCRIPTION,
+					getTransSupportMetaElement().getDescription());
+	}
+
+	public void setEdSyntaxEle(SyntaxElement metaElement) {
+		this.edSyntaxEle = metaElement;
+	}
+
+	public Object getDynamicAttribute(String name) {
 		return dynamicAttributes.get(name);
 	}
 
@@ -269,34 +325,52 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	@SuppressWarnings("unchecked")
 	public InstAttribute getInstAttribute(String name) {
-		return ((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
-				.get(name);
+		if (getDynamicAttribute(VAR_INSTATTRIBUTES) != null)
+			return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
+					.get(name);
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<InstAttribute> getInstAttributesList() {
 		List<InstAttribute> out = new ArrayList<InstAttribute>();
-		out.addAll(((Map<String, InstAttribute>) getDynamicVariable(VAR_INSTATTRIBUTES))
+		out.addAll(((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
 				.values());
 		return out;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, InstAttribute> getInstAttributes() {
+		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<InstAttribute> getInstAttributesCollection() {
+		return ((Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES))
+				.values();
+	}
+
 	public String getInstAttributeFullIdentifier(String insAttributeLocalId) {
-		// System.out.println("InstE"+ this.getIdentifier() +
-		// "_"+insAttributeLocalId);
-		if (this.getInstAttribute(insAttributeLocalId) == null)
-			return null;
+		if (this.getInstAttribute(insAttributeLocalId) == null) {
+			this.createInstAttributes(null);
+			if (this.getInstAttribute(insAttributeLocalId) == null) {
+				System.out.println("InstV null:" + this.getIdentifier()
+						+ insAttributeLocalId);
+				return null;
+			}
+		}
 		return this.getIdentifier() + "_"
 				+ this.getInstAttribute(insAttributeLocalId).getIdentifier();
 	}
 
 	public String getIdentifier() {
-		return (String) getDynamicVariable(VAR_AUTOIDENTIFIER);
+		return (String) getDynamicAttribute(VAR_AUTOIDENTIFIER);
 		// return identifier;
 	}
 
 	public String getUserIdentifier() {
-		return (String) getDynamicVariable(SyntaxConcept.VAR_USERIDENTIFIER);
+		return (String) getDynamicAttribute(SyntaxConcept.VAR_USERIDENTIFIER);
 		// return identifier;
 	}
 
@@ -308,21 +382,21 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	public String getText(List<InstElement> syntaxParents) {
 		String out = "";
 		String out2 = "";
-		if (getEditableMetaElement() != null) {
+		if (getEdSyntaxEle() != null) {
 			out2 = "\n";
 			// Set<String> modelingAttributes = this.getEditableMetaElement()
 			// .getAllAttributesNames(parents);
-			Set<String> modelingAttributes = getEditableMetaElement()
+			Set<String> modelingAttributes = getEdSyntaxEle()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxConcept.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description")) {
-					ElemAttribute i = getEditableMetaElement()
-							.getModelingAttribute(attributeName, syntaxParents);
+					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
+							attributeName, syntaxParents);
 					if (i == null)
-						i = getEditableMetaElement().getSemanticAttribute(
-								attributeName);
+						i = getEdSyntaxEle()
+								.getSemanticAttribute(attributeName);
 					String v = "";
 					if (i != null)
 						v = ":" + i.getType();
@@ -331,9 +405,9 @@ public abstract class InstElement implements Serializable, IntInstElement,
 				}
 			}
 		}
-		if (getEditableSemanticElement() != null) {
+		if (getEdOperEle() != null) {
 			out2 = "\n";
-			Set<String> modelingAttributes = getEditableSemanticElement()
+			Set<String> modelingAttributes = getEdOperEle()
 					.getDeclaredSemanticAttributesNames();
 			for (String attributeName : modelingAttributes) {
 				if (!attributeName.equals(SyntaxConcept.VAR_USERIDENTIFIER)
@@ -436,21 +510,21 @@ public abstract class InstElement implements Serializable, IntInstElement,
 									.get(name);
 							if (instAttribute.getEnumType() != null
 									&& instAttribute.getEnumType().equals(
-											InstEnum.class
+											InstConcept.class
 													.getCanonicalName())) {
 								out += (String) instAttribute.getValue();
 								if (instAttribute.getValueObject() != null) {
-									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstEnum) instAttribute
+									Map<String, InstAttribute> o = (Map<String, InstAttribute>) ((InstElement) instAttribute
 											.getValueObject())
-											.getDynamicVariable("InstAttribute");
+											.getDynamicAttribute(VAR_INSTATTRIBUTES);
 									InstAttribute oo = o
-											.get(SyntaxEnum.VAR_METAENUMVALUE);
+											.get(SyntaxConcept.VAR_METAENUMVALUE);
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									String outt = "{ ";
 									for (InstAttribute i : ooo) {
 										String values[] = ((String) i
-												.getValue()).split("-");
+												.getValue()).split("#");
 										outt += values[1] + ", ";
 									}
 									outt = outt.substring(0, outt.length() - 2);
@@ -468,8 +542,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		return out + out2;
 	}
 
-	public void addInstAttribute(String name,
-			ElemAttribute modelingAttribute, Object value) {
+	public void addInstAttribute(String name, ElemAttribute modelingAttribute,
+			Object value) {
 		if (getInstAttribute(name) == null) {
 			InstAttribute instAttribute = new InstAttribute(name,
 					modelingAttribute,
@@ -503,7 +577,20 @@ public abstract class InstElement implements Serializable, IntInstElement,
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents),
 							getTransSupportMetaElement().getDescription());
-				else
+				else if (name.equals("relTypesAttr")
+						|| name.equals("opersExprs")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<OpersExpr>());
+				} else if (name.equals("exptype")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<OpersSubOperationExpType>());
+				} else if (name.equals("sortorder")) {
+					addInstAttribute(name, getTransSupportMetaElement()
+							.getModelingAttribute(name, syntaxParents),
+							new ArrayList<LabelingOrder>());
+				} else
 					addInstAttribute(name, getTransSupportMetaElement()
 							.getModelingAttribute(name, syntaxParents), null);
 			}
@@ -530,8 +617,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
 								getTransSupportMetaElement().getDescription());
-					else if (name.equals("relationTypesAttributes")
-							|| name.equals("operationsExpressions")) {
+					else if (name.equals("relTypesAttr")
+							|| name.equals("opersExprs")) {
 						addInstAttribute(name,
 								instElement.getSemanticAttribute(name),
 								new ArrayList<OpersExpr>());
@@ -552,14 +639,14 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	}
 
 	public ElemAttribute getSemanticAttribute(String name) {
-		return getEditableSemanticElement().getSemanticAttribute(name,
+		return getEdOperEle().getSemanticAttribute(name,
 				getParentOpersConcept());
 	}
 
 	protected Set<String> getAllAttributesNames(List<InstElement> syntaxParents) {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getAllAttributesNames(
-					syntaxParents, getParentOpersConcept());
+		if (getEdOperEle() != null)
+			return getEdOperEle().getAllAttributesNames(syntaxParents,
+					getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
@@ -610,8 +697,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	}
 
 	public void clearEditableMetaVertex() {
-		editableMetaElement = null;
-		editableSemanticElement = null;
+		edSyntaxEle = null;
+		edOperEle = null;
 	};
 
 	public void clearMetaPairwiseRelation(String attribute) {
@@ -651,15 +738,14 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 		for (InstElement rel : this.getTransSupportMetaElement()
 				.getTransInstSemanticElement().getTargetRelations())
-			if (((InstPairwiseRel) rel).getSupportMetaPairwiseRelIden()
-					.equals("ExtendsRelation"))
+			if (((InstPairwiseRel) rel).getSupportMetaPairwiseRelIden().equals(
+					"ExtendsRelation"))
 				return rel.getTargetRelations().get(0).isChild(element);
 
 		for (InstElement rel : this.getTargetRelations())
 			if ((rel instanceof InstPairwiseRel)
-					&& ((InstPairwiseRel) rel)
-							.getSupportMetaPairwiseRelIden().equals(
-									"ExtendsRelation"))
+					&& ((InstPairwiseRel) rel).getSupportMetaPairwiseRelIden()
+							.equals("ExtendsRelation"))
 				return rel.getTargetRelations().get(0).isChild(element);
 
 		return false;
@@ -669,8 +755,7 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = getTargetRelations();
 		for (InstElement element : rel) {
-			if (((InstPairwiseRel) element)
-					.getSupportMetaPairwiseRelIden() != null
+			if (((InstPairwiseRel) element).getSupportMetaPairwiseRelIden() != null
 					&& ((InstPairwiseRel) element)
 							.getSupportMetaPairwiseRelIden().equals(
 									"ExtendsRelation")) {
@@ -685,39 +770,123 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	}
 
 	public Set<String> getPropEditableAttributes() {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getPropEditableAttributesSet(
+		if (getEdOperEle() != null)
+			return getEdOperEle().getPropEditableAttributesSet(
 					getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
 	public Collection<String> getPropVisibleAttributes() {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getPropVisibleAttributesSet(
+		if (getEdOperEle() != null)
+			return getEdOperEle().getPropVisibleAttributesSet(
 					getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
 	public Collection<String> getPanelSpacersAttributes() {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getPanelSpacersAttributes(
+		if (getEdOperEle() != null)
+			return getEdOperEle().getPanelSpacersAttributes(
 					getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
 	public Collection<String> getPanelVisibleAttributes() {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getPanelVisibleAttributes(
+		if (getEdOperEle() != null)
+			return getEdOperEle().getPanelVisibleAttributes(
 					this.getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
 	public Collection<? extends String> getAllSemanticAttributesNames(
 			List<InstElement> syntaxParents) {
-		if (getEditableSemanticElement() != null)
-			return getEditableSemanticElement().getAllAttributesNames(
-					syntaxParents, this.getParentOpersConcept());
+		if (getEdOperEle() != null)
+			return getEdOperEle().getAllAttributesNames(syntaxParents,
+					this.getParentOpersConcept());
 		return new HashSet<String>();
 	}
 
+	public List<InstAttribute> getVisibleVariables(
+			List<InstElement> syntaxParents) { // TODO
+		// move
+		// to
+		// superclass
+		createInstAttributes(syntaxParents);
+		if (getTransSupportMetaElement() == null)
+			return null;
+		Set<String> attributesNames = getTransSupportMetaElement()
+				.getPropVisibleAttributesSet(syntaxParents);
+		return getFilteredInstAttributes(attributesNames, null);
+	}
+
+	public List<InstAttribute> getFilteredInstAttributes(
+			Set<String> attributesNames, List<InstAttribute> instAttributes) {
+		List<String> listEditableAttributes = new ArrayList<String>();
+		listEditableAttributes.addAll(attributesNames);
+		Collections.sort(listEditableAttributes);
+
+		List<String> listEditableAttribNames = new ArrayList<String>();
+		for (String attribute : listEditableAttributes) {
+			int nameEnd = attribute.indexOf("#", 3);
+			int varEnd = attribute.indexOf("#", nameEnd + 1);
+			int condEnd = attribute.indexOf("#", varEnd + 1);
+			int valueEnd = attribute.indexOf("#", condEnd + 1);
+			if (nameEnd != -1) {
+				String name = null;
+				String type = null;
+				String variable = null;
+				String condition = null;
+				String value = null;
+				String defvalue = null;
+				name = attribute.substring(3, nameEnd);
+				variable = attribute.substring(nameEnd + 1, varEnd);
+				condition = attribute.substring(varEnd + 1, condEnd);
+				if (valueEnd != -1) {
+					value = attribute.substring(condEnd + 1, valueEnd);
+					type = getInstAttributes().get(name).getType();
+					defvalue = attribute.substring(valueEnd + 1);
+				} else
+					value = attribute.substring(condEnd + 1);
+				InstAttribute varValue = getInstAttributes().get(variable);
+				if (varValue == null || varValue.getValue() == null) {
+					if (valueEnd != -1)
+						getInstAttributes().get(name).setValue(
+								createValue(type, defvalue));
+					continue;
+				} else if (varValue.getValue().toString().trim()
+						.equals(value.toString())) {
+					if (condition.equals("!=")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				} else {
+					if (condition.equals("==")) {
+						if (valueEnd != -1)
+							getInstAttributes().get(name).setValue(
+									createValue(type, defvalue));
+						continue;
+					}
+				}
+				listEditableAttribNames.add(attribute.substring(3, nameEnd));
+
+			} else
+				listEditableAttribNames.add(attribute.substring(3));
+		}
+
+		List<InstAttribute> editableInstAttributes = new ArrayList<InstAttribute>();
+		for (String attributeName : listEditableAttribNames) {
+			editableInstAttributes.add(getInstAttribute(attributeName));
+		}
+		return editableInstAttributes;
+	}
+
+	private Object createValue(String type, String value) {
+		if (type.equals("Boolean"))
+			return new Boolean(value);
+		if (type.equals("Integer"))
+			return new Integer(value);
+		return value;
+
+	}
 }

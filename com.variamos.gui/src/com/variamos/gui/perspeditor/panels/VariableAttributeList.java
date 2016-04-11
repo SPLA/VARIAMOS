@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 import com.cfm.productline.type.IntegerType;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
+import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.instance.InstEnum;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.partialsorts.EnumerationSort;
 import com.variamos.dynsup.types.BooleanType;
@@ -162,13 +162,12 @@ public class VariableAttributeList extends JList<InstAttribute> {
 				"enumerationType", new ElemAttribute("enumerationType",
 						ClassSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Enumeration",
-						InstEnum.class.getCanonicalName(), "ME", "", "",
-						1, -1, "", "", -1, "", ""), "");
+						InstConcept.class.getCanonicalName(), "ME", "", "", 1,
+						-1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
-				"variableConfigValue", new ElemAttribute(
-						"variableConfigValue", IntegerType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Configured Value", 1, 1,
-						-1, "", "", -1, "", ""), 1);
+				"variableConfigValue", new ElemAttribute("variableConfigValue",
+						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Configured Value", 1, 1, -1, "", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
 				"variableConfigDomain", new ElemAttribute(
 						"variableConfigDomain", StringType.IDENTIFIER,
@@ -190,10 +189,10 @@ public class VariableAttributeList extends JList<InstAttribute> {
 			}
 
 			// Name
-			instAttribute = new InstAttribute("enum" + i,
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""), "");
+			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
+					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
+					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
+					"");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instName.setValue(split[1]);

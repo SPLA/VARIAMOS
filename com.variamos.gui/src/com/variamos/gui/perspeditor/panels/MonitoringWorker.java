@@ -91,10 +91,10 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					Map<String, Integer> config = ConfigurationIO
 							.loadMapFromFile(monitoredFile.getAbsolutePath());
 					List<String> selectedAttributes = new ArrayList<String>();
-					selectedAttributes.add("ConfigSelected");
-					selectedAttributes.add("Selected");
+					selectedAttributes.add("ConfSel");
+					selectedAttributes.add("Sel");
 					List<String> notAvailableAttributes = new ArrayList<String>();
-					// notAvailableAttributes.add("ConfigNotSelected");
+					// notAvailableAttributes.add("ConfNotSel");
 					// notAvailableAttributes.add("NotAvailable");
 					List<String> conceptTypes = new ArrayList<String>();
 
