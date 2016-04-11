@@ -760,7 +760,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instRefasModel,
-				"Selected", 0);
+				"Sel", 0);
 
 		semanticExpressions.add(t1);
 
@@ -1638,26 +1638,26 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("Selected", "Boolean",
+		attribute = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("Selected", attribute);
+		semInfraElement.putSemanticAttribute("Sel", attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
-		attribute = new ElemAttribute("NotAvailable", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
-				false, 2, -1, "", "", -1, "", "");
+		attribute = new ElemAttribute("Exclu", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", false,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("NotAvailable", attribute);
+		semInfraElement.putSemanticAttribute("Exclu", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1684,10 +1684,10 @@ public class DefaultOpersMM {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ElemAttribute("ConfigSelected", "Boolean",
+		attribute = new ElemAttribute("ConfSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
 				false, 2, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("ConfigSelected", attribute);
+		semInfraElement.putSemanticAttribute("ConfSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -1697,10 +1697,10 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("ConfigNotSelected", "Boolean",
+		attribute = new ElemAttribute("ConfNotSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Not Selected",
 				false, 2, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("ConfigNotSelected", attribute);
+		semInfraElement.putSemanticAttribute("ConfNotSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -1757,10 +1757,10 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("NextReqSelected", "Boolean",
+		attribute = new ElemAttribute("NReqSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Selected by simulation", false, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("NextReqSelected", attribute);
+		semInfraElement.putSemanticAttribute("NReqSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -1770,28 +1770,28 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("NextNotSelected", "Boolean",
+		attribute = new ElemAttribute("NNotSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Not selected(inactive)", false, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("NextNotSelected", attribute);
+		semInfraElement.putSemanticAttribute("NNotSel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
-		semInfraElement.addPropVisibleAttribute("01#" + "Selected");
-		semInfraElement.addPropVisibleAttribute("05#" + "NextReqSelected");
+		semInfraElement.addPropVisibleAttribute("01#" + "Sel");
+		semInfraElement.addPropVisibleAttribute("05#" + "NReqSel");
 
-		semInfraElement.addPropVisibleAttribute("02#" + "NotAvailable");
-		semInfraElement.addPropVisibleAttribute("04#" + "NextNotSelected");
+		semInfraElement.addPropVisibleAttribute("02#" + "Exclu");
+		semInfraElement.addPropVisibleAttribute("04#" + "NNotSel");
 
 		semInfraElement.addPropVisibleAttribute("07#" + "Core");
 		semInfraElement.addPropVisibleAttribute("08#" + "Dead");
 		semInfraElement.addPropEditableAttribute("04#" + "Required");
 		semInfraElement.addPropVisibleAttribute("04#" + "Required");
 
-		attribute = new ElemAttribute("DashBoardVisible", "Boolean",
+		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
 				true, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("DashBoardVisible", attribute);
+		semInfraElement.putSemanticAttribute("DBVis", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
@@ -1800,33 +1800,32 @@ public class DefaultOpersMM {
 		semInfraElement.putSemanticAttribute("ExportOnConfig", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semInfraElement.addPropEditableAttribute("15#" + "ConfigSelected" + "#"
+		semInfraElement.addPropEditableAttribute("15#" + "ConfSel" + "#"
 				+ "Core" + "#==#" + "false" + "#" + "false");
-		semInfraElement.addPropEditableAttribute("16#" + "ConfigNotSelected"
-				+ "#" + "Dead" + "#==#" + "false" + "#" + "false");
-		semInfraElement.addPropEditableAttribute("03#" + "DashBoardVisible");
+		semInfraElement.addPropEditableAttribute("16#" + "ConfNotSel" + "#"
+				+ "Dead" + "#==#" + "false" + "#" + "false");
+		semInfraElement.addPropEditableAttribute("03#" + "DBVis");
 		semInfraElement.addPropEditableAttribute("04#" + "ExportOnConfig");
 
 		semInfraElement.addPropVisibleAttribute("01#" + "Active");
 		semInfraElement.addPropVisibleAttribute("02#" + "Visibility");
 
-		semInfraElement.addPropVisibleAttribute("03#" + "DashBoardVisible");
+		semInfraElement.addPropVisibleAttribute("03#" + "DBVis");
 		semInfraElement.addPropVisibleAttribute("04#" + "ExportOnConfig");
-		semInfraElement.addPropVisibleAttribute("15#" + "ConfigSelected" + "#"
+		semInfraElement.addPropVisibleAttribute("15#" + "ConfSel" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
-		semInfraElement.addPropVisibleAttribute("16#" + "ConfigNotSelected"
-				+ "#" + "Active" + "#==#" + "true" + "#" + "false");
+		semInfraElement.addPropVisibleAttribute("16#" + "ConfNotSel" + "#"
+				+ "Active" + "#==#" + "true" + "#" + "false");
 
 		refas.getVariabilityVertex().put("InfraElement", instVertexIE);
 
 		OpersConcept semInfraOTRel = new OpersConcept("InfraOTRel");
 
 		/*
-		 * semGeneralGroup.putSemanticAttribute("Selected", new
-		 * ElemAttribute("Selected", "Boolean", AttributeType.EXECCURRENTSTATE,
-		 * false, "***Selected***", false, 2, -1, "", "", -1, "", ""));
-		 * semGeneralGroup .putSemanticAttribute("NotAvailable", new
-		 * ElemAttribute("NotAvailable", "Boolean",
+		 * semGeneralGroup.putSemanticAttribute("Sel", new ElemAttribute("Sel",
+		 * "Boolean", AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+		 * false, 2, -1, "", "", -1, "", "")); semGeneralGroup
+		 * .putSemanticAttribute("Exclu", new ElemAttribute("Exclu", "Boolean",
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
@@ -1861,14 +1860,14 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("Selected", "Boolean",
+		attribute = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semInfraOTRel
 				.getIdentifier(), attribute.getName(), true));
-		semInfraOTRel.putSemanticAttribute("Selected", attribute);
+		semInfraOTRel.putSemanticAttribute("Sel", attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
@@ -1887,14 +1886,14 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("NotAvailable", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***",
-				false, 2, -1, "", "", -1, "", "");
+		attribute = new ElemAttribute("Exclu", "Boolean",
+				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", false,
+				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semInfraOTRel
 				.getIdentifier(), attribute.getName(), true));
-		semInfraOTRel.putSemanticAttribute("NotAvailable", attribute);
+		semInfraOTRel.putSemanticAttribute("Exclu", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -1957,13 +1956,12 @@ public class DefaultOpersMM {
 		// From refas name depends all the static operations, do not change it
 
 		/*
-		 * semGeneralElement.putSemanticAttribute("Selected", new
-		 * ElemAttribute("Selected", "Boolean", AttributeType.EXECCURRENTSTATE,
+		 * semGeneralElement.putSemanticAttribute("Sel", new
+		 * ElemAttribute("Sel", "Boolean", AttributeType.EXECCURRENTSTATE,
 		 * false, "***Selected***", false, 2, -1, "", "", -1, "", ""));
-		 * semGeneralElement .putSemanticAttribute("NotAvailable", new
-		 * ElemAttribute("NotAvailable", "Boolean",
-		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
-		 * 2, -1, "", "", -1, "", ""));
+		 * semGeneralElement .putSemanticAttribute("Exclu", new
+		 * ElemAttribute("Exclu", "Boolean", AttributeType.EXECCURRENTSTATE,
+		 * false, "***Not Avaliable***", false, 2, -1, "", "", -1, "", ""));
 		 */
 		InstConcept instVertexGE = new InstConcept("GeneralElement",
 				metaMetaConcept, semGeneralElement);
@@ -2079,7 +2077,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("Req Implies Selected", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-				instVertexGE, "Required", "Selected");
+				instVertexGE, "Required", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -2088,7 +2086,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("NextPrefSel_=_0", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"NextPrefSelected", true, 0);
+				"NPrefSel", true, 0);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -2097,7 +2095,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("NextNotPrefSel_=_0", refas
 				.getSemanticExpressionTypes().get("Equals"), instVertexGE,
-				"NextNotPrefSelected", true, 0);
+				"NNotPrefSel", true, 0);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -2106,7 +2104,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("UserReq Implies Req", refas
 				.getSemanticExpressionTypes().get("Implies"), instVertexGE,
-				instVertexGE, "Required", "Selected");
+				instVertexGE, "Required", "Sel");
 
 		updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
 
@@ -2132,17 +2130,16 @@ public class DefaultOpersMM {
 		semanticExpressions.add(t1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, instVertexGE, "NextReqSelected", "ConfigSelected");
+				instVertexGE, instVertexGE, "NReqSel", "ConfSel");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextPrefSelected", true, t1);
+				"Product"), instVertexGE, "NPrefSel", true, t1);
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, instVertexGE, "NextPrefSelected",
-				"ConfigSelected");
+				instVertexGE, instVertexGE, "NPrefSel", "ConfSel");
 
 		t3 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, t3);
+				"Product"), instVertexGE, "NReqSel", true, t3);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, t3);
@@ -2164,7 +2161,7 @@ public class DefaultOpersMM {
 		semanticExpressions.add(t2);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, instVertexGE, "ConfigSelected", "NextReqSelected");
+				instVertexGE, instVertexGE, "ConfSel", "NReqSel");
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Sum"),
 				instVertexGE, "Core", true, t1);
@@ -2178,15 +2175,14 @@ public class DefaultOpersMM {
 		semanticExpressions.add(t1);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Or"),
-				instVertexGE, instVertexGE, "ConfigNotSelected",
-				"NextNotPrefSelected");
+				instVertexGE, instVertexGE, "ConfNotSel", "NNotPrefSel");
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
 				instVertexGE, "Dead", true, t1);
 
 		t1 = new OpersExpr("NotAvail (Dead Or NotSelec)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexGE, "NotAvailable", true, t1);
+				instVertexGE, "Exclu", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -2194,18 +2190,17 @@ public class DefaultOpersMM {
 		semanticExpressions.add(t1);
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
-				instVertexGE, instVertexGE, "NextReqSelected",
-				"NextPrefSelected");
+				instVertexGE, instVertexGE, "NReqSel", "NPrefSel");
 
 		t2 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
-				instVertexGE, instVertexGE, "Core", "ConfigSelected");
+				instVertexGE, instVertexGE, "Core", "ConfSel");
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
 				t1, t2);
 
 		t1 = new OpersExpr("Selected (Core, NextReqSel, NextPrefSel)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
-				instVertexGE, "Selected", true, t1);
+				instVertexGE, "Sel", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -2213,8 +2208,7 @@ public class DefaultOpersMM {
 		semanticExpressions.add(t1);
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, instVertexGE, "Selected",
-				"NotAvailable");
+				"Product"), instVertexGE, instVertexGE, "Sel", "Exclu");
 
 		t1 = new OpersExpr("Selected+NotAvail <=1", refas
 				.getSemanticExpressionTypes().get("Equals"), 0, false, t1);
@@ -2278,32 +2272,31 @@ public class DefaultOpersMM {
 
 		// Configuration attributes: do no change identifiers
 
-		attribute = new ElemAttribute("RequiredLevel", "Integer",
+		attribute = new ElemAttribute("ReqLev", "Integer",
 				AttributeType.OPERATION, "Required Level", 0, false,
 				new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("RequiredLevel", attribute);
+		semGeneralElement.putSemanticAttribute("ReqLev", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 		// TODO define domain or Enum Level
 
-		semGeneralElement.addPropVisibleAttribute("05#" + "RequiredLevel" + "#"
+		semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
 				+ "Core" + "#==#" + "true");
 
 		// Simulation attributes: do not modify identifiers
 
-		attribute = new ElemAttribute("InitialRequiredLevel", "Integer",
+		attribute = new ElemAttribute("IniReqLev", "Integer",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Initial Required Level", 0, new RangeDomain(0, 5), 0, -1, "",
 				"", -1, "", "");
-		semGeneralElement.putSemanticAttribute("InitialRequiredLevel",
-				attribute);
+		semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationOperationAction.addInVariable(attribute);
 
-		attribute = new ElemAttribute("SimRequiredLevel", "Integer",
+		attribute = new ElemAttribute("SimReqLev", "Integer",
 				AttributeType.EXECCURRENTSTATE, false, "Required Level", 0,
 				new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
-		// semGeneralElement.putSemanticAttribute("SimRequiredLevel",
+		// semGeneralElement.putSemanticAttribute("SimReqLev",
 		// attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -2334,10 +2327,10 @@ public class DefaultOpersMM {
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		// simulOperationSubAction.addInVariable(attribute);
 
-		attribute = new ElemAttribute("NextPrefSelected", "Boolean",
+		attribute = new ElemAttribute("NPrefSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Selected by configuration", false, 0, -1, "", "", -1, "", "");
-		semGeneralElement.putSemanticAttribute("NextPrefSelected", attribute);
+		semGeneralElement.putSemanticAttribute("NPrefSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -2347,12 +2340,11 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("NextNotPrefSelected", "Boolean",
+		attribute = new ElemAttribute("NNotPrefSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Not Selected by configuration", false, 0, -1, "", "", -1, "",
 				"");
-		semGeneralElement
-				.putSemanticAttribute("NextNotPrefSelected", attribute);
+		semGeneralElement.putSemanticAttribute("NNotPrefSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -2362,21 +2354,20 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semGeneralElement.getIdentifier(), attribute.getName(), true));
 
-		semGeneralElement
-				.addPropVisibleAttribute("06#" + "NextNotPrefSelected");
-		semGeneralElement.addPropVisibleAttribute("03#" + "NextPrefSelected");
+		semGeneralElement.addPropVisibleAttribute("06#" + "NNotPrefSel");
+		semGeneralElement.addPropVisibleAttribute("03#" + "NPrefSel");
 
 		OpersConcept semHardConcept = new OpersConcept("semHardConcept");
 
-		attribute = new ElemAttribute("satisfactionType", "Enumeration",
-				AttributeType.OPERATION, false, "satisfactionType",
+		attribute = new ElemAttribute("satType", "Enumeration",
+				AttributeType.OPERATION, false, "satType",
 				"com.variamos.semantic.types.SatisfactionType", "achieve", "",
 				0, -1, "", "", -1, "", "");
-		semHardConcept.putSemanticAttribute("satisfactionType", attribute);
+		semHardConcept.putSemanticAttribute("satType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semHardConcept.addPropEditableAttribute("01#" + "satisfactionType");
-		semHardConcept.addPropVisibleAttribute("01#" + "satisfactionType");
+		semHardConcept.addPropEditableAttribute("01#" + "satType");
+		semHardConcept.addPropVisibleAttribute("01#" + "satType");
 
 		InstConcept instVertexHC = new InstConcept("HardConcept",
 				metaMetaConcept, semHardConcept);
@@ -2387,13 +2378,13 @@ public class DefaultOpersMM {
 		semHardConcept.setSemanticExpressions(semanticExpressions);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -2434,13 +2425,13 @@ public class DefaultOpersMM {
 		semFeature.setSemanticExpressions(semanticExpressions);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -2496,7 +2487,7 @@ public class DefaultOpersMM {
 				.get("Equals"), instVertexGE, "IsRootFeature", true, 1);
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "Selected", true, 1);
+				.get("Equals"), instVertexGE, "Sel", true, 1);
 
 		t1 = new OpersExpr("Root Implies Req", refas
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
@@ -2509,7 +2500,7 @@ public class DefaultOpersMM {
 				.get("Equals"), instVertexGE, "IsRootFeature", true, 1);
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexGE, "Selected", true, 1);
+				.get("Equals"), instVertexGE, "Sel", true, 1);
 
 		t1 = new OpersExpr("Root Implies Selected", refas
 				.getSemanticExpressionTypes().get("Implies"), t1, t3);
@@ -2542,8 +2533,8 @@ public class DefaultOpersMM {
 		instEdge.setSourceRelation(instVertexAS, true);
 
 		OpersConcept semGoal = new OpersConcept("Goal");
-		semGoal.addPanelVisibleAttribute("01#" + "satisfactionType");
-		semGoal.addPanelSpacersAttribute("<#" + "satisfactionType" + "#>\n");
+		semGoal.addPanelVisibleAttribute("01#" + "satType");
+		semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
 		InstConcept instVertexG = new InstConcept("Goal", metaMetaConcept,
 				semGoal);
 		refas.getVariabilityVertex().put("Goal", instVertexG);
@@ -2570,10 +2561,10 @@ public class DefaultOpersMM {
 				.addPropEditableAttribute("06#" + "attributeValue");
 
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
-				semOperationalization.getIdentifier(), "Selected", true));
+				semOperationalization.getIdentifier(), "Sel", true));
 
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semOperationalization.getIdentifier(), "Selected", false));
+				semOperationalization.getIdentifier(), "Sel", false));
 
 		InstConcept instVertexOper = new InstConcept("Operationalization",
 				metaMetaConcept, semOperationalization);
@@ -2589,10 +2580,10 @@ public class DefaultOpersMM {
 		OpersConcept semSoftgoal = new OpersConcept("Softgoal");
 
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semSoftgoal
-				.getIdentifier(), "Selected", true));
+				.getIdentifier(), "Sel", true));
 
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semSoftgoal
-				.getIdentifier(), "Selected", false));
+				.getIdentifier(), "Sel", false));
 
 		StringDomain d = new StringDomain();
 		d.add("low");
@@ -2648,19 +2639,19 @@ public class DefaultOpersMM {
 				semSoftgoal);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Subtraction"), instVertexGE, "Selected", false, 1);
+				"Subtraction"), instVertexGE, "Sel", false, 1);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"Product"), 8, true, t1);
 
 		t3 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 				"Product"), t1, t3);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -2675,7 +2666,7 @@ public class DefaultOpersMM {
 				"ClaimExpLevel");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexSG, "satisficingLevel", "high");
@@ -2693,7 +2684,7 @@ public class DefaultOpersMM {
 				"ClaimExpLevel");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexSG, "satisficingLevel", "low");
@@ -2711,7 +2702,7 @@ public class DefaultOpersMM {
 				"ClaimExpLevel");
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"DoubleImplies"), instVertexSG, "Selected", true, t1);
+				"DoubleImplies"), instVertexSG, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), instVertexSG, "satisficingLevel", "close");
@@ -2769,10 +2760,10 @@ public class DefaultOpersMM {
 		OpersVariable semVariable = new OpersVariable("Variable");
 
 		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
-				.getIdentifier(), "NotAvailable", true));
+				.getIdentifier(), "Exclu", true));
 
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
-				.getIdentifier(), "NotAvailable", false));
+				.getIdentifier(), "Exclu", false));
 
 		semanticExpressions = new ArrayList<IntMetaExpression>();
 
@@ -2794,10 +2785,10 @@ public class DefaultOpersMM {
 		// semanticExpressions.add(t1);
 		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
-		attribute = new ElemAttribute("DashBoardVisible", "Boolean",
+		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
 				true, 0, -1, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("DashBoardVisible", attribute);
+		semVariable.putSemanticAttribute("DBVis", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
@@ -2947,9 +2938,9 @@ public class DefaultOpersMM {
 
 		semVariable.addPanelSpacersAttribute("{#" + "variableDomain" + "#} ");
 
-		semVariable.addPropEditableAttribute("03#" + "DashBoardVisible");
+		semVariable.addPropEditableAttribute("03#" + "DBVis");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
-		semVariable.addPropVisibleAttribute("03#" + "DashBoardVisible");
+		semVariable.addPropVisibleAttribute("03#" + "DBVis");
 		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
 
 		semVariable.addPropEditableAttribute("05#" + "Scope");
@@ -3005,13 +2996,13 @@ public class DefaultOpersMM {
 		semAsset.setSemanticExpressions(semanticExpressions);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -3046,13 +3037,13 @@ public class DefaultOpersMM {
 		semClaim.setSemanticExpressions(semanticExpressions);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -3100,12 +3091,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instVertexCL, "Selected", "ConditionalExpression");
+				instVertexCL, "Sel", "ConditionalExpression");
 
 		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
-				"Selected", true, t1);
+				"Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3115,7 +3106,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexOper,
-				instVertexCL, "NotAvailable", "NotAvailable");
+				instVertexCL, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3148,7 +3139,7 @@ public class DefaultOpersMM {
 		// t2 = new SemanticExpression("1",
 		// refas.getSemanticExpressionTypes().get(
 		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-		// instVertexCL, instVertexOper, null, "Selected", "True", true);
+		// instVertexCL, instVertexOper, null, "Sel", "True", true);
 		//
 		// t1 = new SemanticExpression("1",
 		// refas.getSemanticExpressionTypes().get(
@@ -3158,7 +3149,7 @@ public class DefaultOpersMM {
 		// t2 = new SemanticExpression("1",
 		// refas.getSemanticExpressionTypes().get(
 		// "Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-		// instVertexCL, instDirOperClaimSemanticEdge, null, "Selected",
+		// instVertexCL, instDirOperClaimSemanticEdge, null, "Sel",
 		// "True", true);
 		//
 		// t3 = new SemanticExpression("1",
@@ -3172,7 +3163,7 @@ public class DefaultOpersMM {
 		//
 		// t1 = new SemanticExpression("ANDLowRange", refas
 		// .getSemanticExpressionTypes().get("DoubleImplies"),
-		// instVertexCL, "Selected", true, t1);
+		// instVertexCL, "Sel", true, t1);
 		//
 		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		// refas.updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3188,12 +3179,12 @@ public class DefaultOpersMM {
 		// refas.getSemanticExpressionTypes().get(
 		// "And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 		// ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-		// instVertexHC, "Selected", "Selected");
+		// instVertexHC, "Sel", "Sel");
 		//
 		// t3 = new SemanticExpression("3",
 		// refas.getSemanticExpressionTypes().get(
 		// "Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-		// instVertexHC, "Selected");
+		// instVertexHC, "Sel");
 		//
 		// t1 = new SemanticExpression("ORSelected", refas
 		// .getSemanticExpressionTypes().get("And"), t3, t1);
@@ -3212,12 +3203,12 @@ public class DefaultOpersMM {
 		// refas.getSemanticExpressionTypes().get(
 		// "And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 		// ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-		// instVertexHC, "Selected", "Selected");
+		// instVertexHC, "Sel", "Sel");
 		//
 		// t3 = new SemanticExpression("3",
 		// refas.getSemanticExpressionTypes().get(
 		// "Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-		// instVertexHC, "Selected");
+		// instVertexHC, "Sel");
 		//
 		// t1 = new SemanticExpression("MUTEXSelected", refas
 		// .getSemanticExpressionTypes().get("And"), t3, t1);
@@ -3316,13 +3307,13 @@ public class DefaultOpersMM {
 		semSoftDependency.setSemanticExpressions(semanticExpressions);
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
-				"Product"), instVertexGE, "NextReqSelected", true, 4);
+				"Product"), instVertexGE, "NReqSel", true, 4);
 
 		t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get("Sum"),
 				t1, 0);
 
 		t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get("Sum"),
-				instVertexGE, "NextPrefSelected", true, t1);
+				instVertexGE, "NPrefSel", true, t1);
 
 		t1 = new OpersExpr("Order...", refas.getSemanticExpressionTypes().get(
 				"Equals"), instVertexGE, "Order", true, t1);
@@ -3538,7 +3529,7 @@ public class DefaultOpersMM {
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3548,12 +3539,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexHC,
-				"Selected", "True");
+				"Sel", "True");
 
 		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHC, t1, "Selected");
+				instVertexHC, t1, "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3570,7 +3561,7 @@ public class DefaultOpersMM {
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3579,11 +3570,11 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexHC,
-				"Selected", "False");
+				"Sel", "False");
 
 		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexHHGR, instVertexHC, t1, "Selected");
+				instVertexHHGR, instVertexHC, t1, "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3600,7 +3591,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3610,14 +3601,14 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE, instVertexHC,
-				"Selected", 0);
+				"Sel", 0);
 
 		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexHHGR, instVertexHC, t1, 1);
 
 		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"), instVertexHC, "Selected", true, t1);
+				.get("DoubleImplies"), instVertexHC, "Sel", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3633,7 +3624,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3642,7 +3633,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHC, null, "Selected", "True", true);
+				instVertexHC, null, "Sel", "True", true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
@@ -3650,7 +3641,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexHHGR,
-				instVertexHC, null, "Selected", "True", true);
+				instVertexHC, null, "Sel", "True", true);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
@@ -3660,7 +3651,7 @@ public class DefaultOpersMM {
 				t1, t3);
 
 		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexHHGR, "Selected", true, t1);
+				.get("Equals"), instVertexHHGR, "Sel", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3769,7 +3760,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "Selected", "Selected");
+				instVertexHC, "Sel", "Sel");
 
 		t1 = new OpersExpr("CONFSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), 1, false, t1);
@@ -3786,11 +3777,11 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instVertexHC, instVertexHC, null, "Selected", true, 1);
+				instVertexHC, instVertexHC, null, "Sel", true, 1);
 
 		t1 = new OpersExpr("ALTSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+				instVertexHC, "Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3806,11 +3797,11 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "Selected", "Selected");
+				instVertexHC, "Sel", "Sel");
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected");
+				instVertexHC, "Sel");
 
 		t1 = new OpersExpr("PREFSelected", refas.getSemanticExpressionTypes()
 				.get("And"), t3, t1);
@@ -3828,8 +3819,8 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirHardHardSemanticEdge, instVertexHC, null, "Selected",
-				false, 1);
+				instDirHardHardSemanticEdge, instVertexHC, null, "Sel", false,
+				1);
 
 		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
 				.get("GreaterOrEq"), 1, false, t1);
@@ -3848,7 +3839,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("CONDSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "Selected", "Selected");
+				instVertexHC, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3858,7 +3849,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "NotAvailable", "NotAvailable");
+				instVertexHC, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3920,7 +3911,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "Selected", "Selected");
+				instVertexHC, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3929,7 +3920,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexHC,
-				instVertexHC, "NotAvailable", "NotAvailable");
+				instVertexHC, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -3944,12 +3935,12 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
-				instDirStructHardHardSemanticEdge, null, instVertexHC,
-				"Selected", true, 1);
+				instDirStructHardHardSemanticEdge, null, instVertexHC, "Sel",
+				true, 1);
 
-		t1 = new OpersExpr("Selected", refas.getSemanticExpressionTypes().get(
+		t1 = new OpersExpr("Sel", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexHC, "Selected", true, t1);
+				instVertexHC, "Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4023,7 +4014,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("MANSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
-				instVertexF, "Selected", "Selected");
+				instVertexF, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4033,7 +4024,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
-				instVertexF, "NotAvailable", "NotAvailable");
+				instVertexF, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4050,7 +4041,7 @@ public class DefaultOpersMM {
 				.get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
-				instVertexF, "Selected", "Selected");
+				instVertexF, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4060,7 +4051,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("LessOrEquals"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexF,
-				instVertexF, "NotAvailable", "NotAvailable");
+				instVertexF, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4126,7 +4117,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
-				instVertexF, "Selected", "Selected");
+				instVertexF, "Sel", "Sel");
 
 		t1 = new OpersExpr("CONFSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), 1, false, t1);
@@ -4143,8 +4134,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
-				instDirFeatFeatSideSemEdge, null, instVertexF, "Selected",
-				false, 1);
+				instDirFeatFeatSideSemEdge, null, instVertexF, "Sel", false, 1);
 
 		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
 				.get("GreaterOrEq"), 1, false, t1);
@@ -4216,7 +4206,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("IMPLSelected1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexHC, "Selected", "Selected");
+				instVertexAsset, instVertexHC, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4226,7 +4216,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexHC, "NotAvailable", "NotAvailable");
+				instVertexAsset, instVertexHC, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4292,7 +4282,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("DELSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexAsset, "Selected", "Selected");
+				instVertexAsset, instVertexAsset, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4302,8 +4292,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexAsset, "NotAvailable",
-				"NotAvailable");
+				instVertexAsset, instVertexAsset, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4318,7 +4307,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("ASSESelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexAsset, "Selected", "Selected");
+				instVertexAsset, instVertexAsset, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4328,7 +4317,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexF,
-				instVertexF, "NotAvailable", "NotAvailable");
+				instVertexF, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4824,7 +4813,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
-				instVertexSG, "Selected", "Selected");
+				instVertexSG, "Sel", "Sel");
 
 		t1 = new OpersExpr("CONFSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), 1, false, t1);
@@ -4841,12 +4830,11 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirSGSGSemanticEdge, instVertexSG, null, "Selected", true,
-				1);
+				instDirSGSGSemanticEdge, instVertexSG, null, "Sel", true, 1);
 
 		t1 = new OpersExpr("ALTSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+				instVertexSG, "Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -4862,11 +4850,11 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexSG,
-				instVertexSG, "Selected", "Selected");
+				instVertexSG, "Sel", "Sel");
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 				"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected");
+				instVertexSG, "Sel");
 
 		t1 = new OpersExpr("PREFSelected", refas.getSemanticExpressionTypes()
 				.get("And"), t3, t1);
@@ -4884,8 +4872,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"Subtraction"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirSGSGSemanticEdge, instVertexSG, null, "Selected", false,
-				1);
+				instDirSGSGSemanticEdge, instVertexSG, null, "Sel", false, 1);
 
 		t1 = new OpersExpr("REQSelected", refas.getSemanticExpressionTypes()
 				.get("GreaterOrEq"), 1, false, t1);
@@ -4902,12 +4889,11 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
-				instDirSGSGSemanticEdge, instVertexSG, null, "Selected", true,
-				1);
+				instDirSGSGSemanticEdge, instVertexSG, null, "Sel", true, 1);
 
 		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
 				.get("Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSG, "Selected", true, t1);
+				instVertexSG, "Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5076,7 +5062,7 @@ public class DefaultOpersMM {
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5086,12 +5072,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-				instVertexOper, "Selected", "True");
+				instVertexOper, "Sel", "True");
 
 		t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexOper, t1, "Selected");
+				instVertexOper, t1, "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5108,7 +5094,7 @@ public class DefaultOpersMM {
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5117,11 +5103,11 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get("Or"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-				instVertexOper, "Selected", "False");
+				instVertexOper, "Sel", "False");
 
 		t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes().get(
 				"DoubleImplies"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
-				instVertexCLGR, instVertexOper, t1, "Selected");
+				instVertexCLGR, instVertexOper, t1, "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5138,7 +5124,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5148,14 +5134,14 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
-				instVertexOper, "Selected", 0);
+				instVertexOper, "Sel", 0);
 
 		t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
 				"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
 				instVertexCLGR, instVertexOper, t1, 1);
 
 		t1 = new OpersExpr("MUTEXhardRel", refas.getSemanticExpressionTypes()
-				.get("DoubleImplies"), instVertexHC, "Selected", true, t1);
+				.get("DoubleImplies"), instVertexHC, "Sel", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5171,7 +5157,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 				ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexHC,
-				instVertexHHGR, "Selected", "Selected");
+				instVertexHHGR, "Sel", "Sel");
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5180,7 +5166,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexOper, null, "Selected", "True", true);
+				instVertexOper, null, "Sel", "True", true);
 
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"GreaterOrEq"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
@@ -5188,7 +5174,7 @@ public class DefaultOpersMM {
 
 		t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERINCCONVARIABLE, instVertexCLGR,
-				instVertexOper, null, "Selected", "True", true);
+				instVertexOper, null, "Sel", "True", true);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 				"LessOrEquals"), t2, ExpressionVertexType.RIGHTCONCEPTVARIABLE,
@@ -5198,7 +5184,7 @@ public class DefaultOpersMM {
 				t1, t3);
 
 		t1 = new OpersExpr("RANGEHardRel", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexCLGR, "Selected", true, t1);
+				.get("Equals"), instVertexCLGR, "Sel", true, t1);
 
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5240,12 +5226,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexCLGR,
-				instVertexCL, "Selected", "ConditionalExpression");
+				instVertexCL, "Sel", "ConditionalExpression");
 
 		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
-				"Selected", true, t1);
+				"Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5255,7 +5241,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE, instVertexCLGR,
-				instVertexCL, "NotAvailable", "NotAvailable");
+				instVertexCL, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5374,13 +5360,12 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get("And"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexLFCLGR, instVertexCL, "Selected",
-				"ConditionalExpression");
+				instVertexLFCLGR, instVertexCL, "Sel", "ConditionalExpression");
 
 		t1 = new OpersExpr("OPERCLSelected", refas.getSemanticExpressionTypes()
 				.get("DoubleImplies"),
 				ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE, instVertexCL,
-				"Selected", true, t1);
+				"Sel", true, t1);
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5390,7 +5375,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexLFCLGR, instVertexCL, "NotAvailable", "NotAvailable");
+				instVertexLFCLGR, instVertexCL, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5541,7 +5526,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexCL, "Selected", true, t1);
+				instVertexCL, "Sel", true, t1);
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5562,7 +5547,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexCL, "Selected", true, t1);
+				instVertexCL, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5583,7 +5568,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexCL, "Selected", true, t1);
+				instVertexCL, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5674,7 +5659,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSD, "Selected", true, t1);
+				instVertexSD, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5695,7 +5680,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSD, "Selected", true, t1);
+				instVertexSD, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5716,7 +5701,7 @@ public class DefaultOpersMM {
 
 		t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 				"Implies"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
-				instVertexSD, "Selected", true, t1);
+				instVertexSD, "Sel", true, t1);
 
 		t3 = new OpersExpr("1", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
@@ -5733,7 +5718,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("SDSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEINCCONVARIABLE, instVertexCL,
-				instVertexCL, "Selected", "ConditionalExpression");
+				instVertexCL, "Sel", "ConditionalExpression");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5889,7 +5874,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexOPERGR, "Selected", "Selected");
+				instVertexAsset, instVertexOPERGR, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5899,8 +5884,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
-				instVertexAsset, instVertexOPERGR, "NotAvailable",
-				"NotAvailable");
+				instVertexAsset, instVertexOPERGR, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5956,7 +5940,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("IMPSelected", refas.getSemanticExpressionTypes()
 				.get("Equals"), ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
-				instVertexOPERGR, instVertexOper, "Selected", "Selected");
+				instVertexOPERGR, instVertexOper, "Sel", "Sel");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -5966,8 +5950,7 @@ public class DefaultOpersMM {
 				.getSemanticExpressionTypes().get("Equals"),
 				ExpressionVertexType.LEFTUNIQUEINCRELVARIABLE,
 				ExpressionVertexType.RIGHTUNIQUEOUTRELVARIABLE,
-				instVertexOPERGR, instVertexOper, "NotAvailable",
-				"NotAvailable");
+				instVertexOPERGR, instVertexOper, "Exclu", "Exclu");
 
 		semanticExpressions.add(t1);
 		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
@@ -6002,7 +5985,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexGE,
-				"NextPrefSelected", 0);
+				"NPrefSel", 0);
 
 		t1 = new OpersExpr("prefSel <=1", refas.getSemanticExpressionTypes()
 				.get("LessOrEquals"),
@@ -6050,7 +6033,7 @@ public class DefaultOpersMM {
 		t1 = new OpersExpr("sub",
 				refas.getSemanticExpressionTypes().get("Sum"),
 				ExpressionVertexType.LEFTITERCONFIXEDVARIABLE, instVertexSG,
-				"Selected", 0);
+				"Sel", 0);
 
 		// t1 = new SemanticExpression("TotalSG", refas
 		// .getSemanticExpressionTypes().get("Equals"),

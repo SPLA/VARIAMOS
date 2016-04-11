@@ -54,9 +54,8 @@ public class VisualElement implements Comparable<VisualElement> {
 	private void updateValues() {
 		boolean newSelected = false, newNotAvailable = false;
 		String newOtherParameters = "";
-		if (instElement.getInstAttribute("Selected") != null)
-			newSelected = instElement.getInstAttribute("Selected")
-					.getAsBoolean();
+		if (instElement.getInstAttribute("Sel") != null)
+			newSelected = instElement.getInstAttribute("Sel").getAsBoolean();
 		if (instElement.getInstAttribute("NotAvailable") != null)
 			newNotAvailable = instElement.getInstAttribute("NotAvailable")
 					.getAsBoolean();

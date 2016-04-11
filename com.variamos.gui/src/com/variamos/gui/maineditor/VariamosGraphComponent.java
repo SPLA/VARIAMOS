@@ -231,12 +231,12 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_dead;
 						backtophint = "Dead element";
-					} else if ((boolean) instConcept.getInstAttribute(
-							"NotAvailable").getValue()) {
+					} else if ((boolean) instConcept.getInstAttribute("Exclu")
+							.getValue()) {
 						sim_backcolor = sim_notavailable;
 						backtophint = "Not selected for this solution";
-					} else if ((boolean) instConcept.getInstAttribute(
-							"Selected").getValue()) {
+					} else if ((boolean) instConcept.getInstAttribute("Sel")
+							.getValue()) {
 						sim_backcolor = sim_selected;
 						backtophint = "Selected for this solution";
 					}
@@ -259,12 +259,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("Selected")
+					if ((boolean) instConcept.getInstAttribute("Sel")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextPrefSelected")
-									.getValue())) {
+									"ConfSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
@@ -276,12 +275,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if (!(boolean) instConcept.getInstAttribute("Selected")
+					if (!(boolean) instConcept.getInstAttribute("Sel")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextPrefSelected")
-									.getValue())) {
+									"ConfSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
@@ -294,8 +292,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute(
-							"NextReqSelected").getValue()) {
+					if ((boolean) instConcept.getInstAttribute("NReqSel")
+							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
@@ -305,12 +303,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if (!(boolean) instConcept.getInstAttribute("NotAvailable")
+					if (!(boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigNotSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextNotPrefSelected")
-									.getValue())) {
+									"ConfNotSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NNotPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(
 								new ImageIcon(
 										mxGraphComponent.class
@@ -322,12 +319,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
 					}
-					if ((boolean) instConcept.getInstAttribute("NotAvailable")
+					if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()
 							&& ((boolean) instConcept.getInstAttribute(
-									"ConfigNotSelected").getValue() || (boolean) instConcept
-									.getInstAttribute("NextNotPrefSelected")
-									.getValue())) {
+									"ConfNotSel").getValue() || (boolean) instConcept
+									.getInstAttribute("NNotPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
 								backbottomhint + "Configuration Not Selected");
@@ -337,8 +333,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						addCellOverlay(childCell, over3);
 					}
 
-					if ((boolean) instConcept.getInstAttribute(
-							"NextNotSelected").getValue()) {
+					if ((boolean) instConcept.getInstAttribute("NNotSel")
+							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red3)),
 								backbottomhint + "Not selected");

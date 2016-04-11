@@ -62,7 +62,7 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 	/**
 	 * Name of MetaModel attribute identifier, to recover object after load
 	 */
-	VAR_ATTRIBUTE_IDEN = "attributeIden",
+	VAR_ATTRIBUTE_IDEN = "attId",
 	/**
 	 * Name of the Value for the InstAttribute - indexes in case of JList
 	 */

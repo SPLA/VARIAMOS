@@ -123,34 +123,33 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			switch (relationType) {
 
 			case "preferred":
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// ( ( SourceId_Satisfied #/\ targetId_Satisfied ) #/\
 				// ( 1 - SourceId_NotPrefSelected )
 				// ) #==> ( SourceId_NotPrefSelected #= 0)
 				AbstractBooleanExpression transformation1 = new AndBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "Selected");
+						"Sel", "Sel");
 				AbstractBooleanExpression transformation2 = new NotBooleanExpression(
-						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected");
+						instPairwiseRelation.getSourceRelations().get(0), "Sel");
 				AbstractBooleanExpression transformation3 = new AndBooleanExpression(
 						transformation2, transformation1);
 				getElementExpressions().add(transformation3);
 				allList.add(transformation3);
 				break;
 			case "require":
-				sourcePositiveAttributeNames.add("Selected");
-				// sourceNegativeAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				// sourceNegativeAttributeNames.add("Exclu");
 				// sourceAttributeNames.add("Core");
 
 				// (( 1 - SourceId_Selected) + targetId_Selected) #>= 1
 				AbstractNumericExpression transformation6 = new DiffNumericExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", false, getHlclFactory().number(1));
+						"Sel", false, getHlclFactory().number(1));
 				AbstractNumericExpression transformation7 = new SumNumericExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", false, transformation6);
+						"Sel", false, transformation6);
 				AbstractBooleanExpression out10 = new GreaterOrEqualsBooleanExpression(
 						transformation7, new NumberNumericExpression(1));
 				getElementExpressions().add(out10);
@@ -160,26 +159,26 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				 * // ((targetId_NotAvailable) #=> sourceId_Selected) #= 0
 				 * EqualsComparisonExpression transformation73 = new
 				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Selected",
+				 * instPairwiseRelation.getSourceRelations().get(0), "Sel",
 				 * true, new NumberNumericExpression(0));
 				 * AbstractBooleanExpression out90 = new
 				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0),
-				 * "NotAvailable", true, transformation73);
-				 * getElementExpressions().add(out90); allList.add(out90);
+				 * instPairwiseRelation.getTargetRelations().get(0), "Exclu",
+				 * true, transformation73); getElementExpressions().add(out90);
+				 * allList.add(out90);
 				 */
 				break;
 			case "conflict":
 
-				sourcePositiveAttributeNames.add("Selected");
-				// sourceNegativeAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				// sourceNegativeAttributeNames.add("Exclu");
 				// sourceAttributeNames.add("SatisfactionConflict");
 
 				// ((SourceId_Selected) + targetId_Selected) #<= 1
 				AbstractNumericExpression transformation76 = new SumNumericExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "Selected");
+						"Sel", "Sel");
 				AbstractBooleanExpression out9 = new LessOrEqualsBooleanExpression(
 						transformation76, new NumberNumericExpression(1));
 				getElementExpressions().add(out9);
@@ -189,11 +188,11 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				 * // ((SourceId_Selected) #=> targetId_Selected) #= 0
 				 * EqualsComparisonExpression transformation75 = new
 				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0), "Selected",
+				 * instPairwiseRelation.getTargetRelations().get(0), "Sel",
 				 * true, new NumberNumericExpression(0));
 				 * AbstractBooleanExpression out99 = new
 				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0), "Selected",
+				 * instPairwiseRelation.getSourceRelations().get(0), "Sel",
 				 * true, transformation75); getElementExpressions().add(out99);
 				 * allList.add(out99);
 				 */
@@ -201,17 +200,17 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				/*
 				 * EqualsComparisonExpression transformation74 = new
 				 * EqualsComparisonExpression(
-				 * instPairwiseRelation.getSourceRelations().get(0),
-				 * "NotAvailable", true, new NumberNumericExpression(1));
+				 * instPairwiseRelation.getSourceRelations().get(0), "Exclu",
+				 * true, new NumberNumericExpression(1));
 				 * AbstractBooleanExpression out98 = new
 				 * ImplicationBooleanExpression(
-				 * instPairwiseRelation.getTargetRelations().get(0), "Selected",
+				 * instPairwiseRelation.getTargetRelations().get(0), "Sel",
 				 * true, transformation74); getElementExpressions().add(out98);
 				 * allList.add(out98);
 				 */
 				break;
 			case "alternative":
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// sourceAttributeNames.add("ValidationSelected");
 				// sourceAttributeNames.add("AlternativeSelected");
 				// ( ( ( 1 - SourceId_Satisfied ) #/\ targetId_Satisfied ) #/\
@@ -247,37 +246,37 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 
 			case "implication":
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// sourceAttributeNames.add("Core");
 				// SourceId_Selected #==> targetId_Selected #= 1
 				AbstractComparisonExpression transformation161 = new EqualsComparisonExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", getHlclFactory().number(1));
+						"Sel", getHlclFactory().number(1));
 				AbstractBooleanExpression out8 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", true, transformation161);
+						"Sel", true, transformation161);
 				getElementExpressions().add(out8);
 				allList.add(out8);
 
 				break;
 			case "OperToClaim":
-				sourcePositiveAttributeNames.add("Selected");
-				sourceNegativeAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				sourceNegativeAttributeNames.add("Exclu");
 				// SourceId_Selected #= targetId_Selected
 				AndBooleanExpression out43 = new AndBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "CompExp");
+						"Sel", "CompExp");
 				DoubleImplicationBooleanExpression out46 = new DoubleImplicationBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", true, out43);
+						"Sel", true, out43);
 				getElementExpressions().add(out46);
 				// structureList.add(out46);
 				allList.add(out46);
 				EqualsComparisonExpression out44 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NotAvailable", "NotAvailable");
+						"Exclu", "Exclu");
 				getElementExpressions().add(out44);
 				// structureList.add(out44);
 				allList.add(out44);
@@ -286,13 +285,13 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			case "means_ends":
 			case "delegation":
 			case "mandatory":
-				sourcePositiveAttributeNames.add("Selected");
-				// sourcePositiveAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				// sourcePositiveAttributeNames.add("Exclu");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out56 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "Selected");
+						"Sel", "Sel");
 				getElementExpressions().add(out56);
 				structureList.add(out56);
 				allList.add(out56);
@@ -300,19 +299,19 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				EqualsComparisonExpression out54 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NotAvailable", "NotAvailable");
+						"Exclu", "Exclu");
 				getElementExpressions().add(out54);
 				// structureList.add(out54);
 				allList.add(out54);
 				break;
 			case "condition":
-				sourcePositiveAttributeNames.add("Selected");
-				// sourcePositiveAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				// sourcePositiveAttributeNames.add("Exclu");
 				// SourceId_Selected #= targetId_Selected
 				EqualsComparisonExpression out58 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "Selected");
+						"Sel", "Sel");
 				getElementExpressions().add(out58);
 				// structureList.add(out56);
 				allList.add(out58);
@@ -320,20 +319,20 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				EqualsComparisonExpression out57 = new EqualsComparisonExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"NotAvailable", "NotAvailable");
+						"Exclu", "Exclu");
 				getElementExpressions().add(out57);
 				// structureList.add(out54);
 				allList.add(out57);
 				break;
 			case "optional":
-				sourcePositiveAttributeNames.add("Selected");
-				sourceNegativeAttributeNames.add("NotAvailable");
+				sourcePositiveAttributeNames.add("Sel");
+				sourceNegativeAttributeNames.add("Exclu");
 				// sourceNegativeAttributeNames.add("NextNotSatisfied");
 				// SourceId_Selected #<= targetId_Selected
 				LessOrEqualsBooleanExpression out5 = new LessOrEqualsBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getTargetRelations().get(0),
-						"Selected", "Selected");
+						"Sel", "Sel");
 				getElementExpressions().add(out5);
 				structureList.add(out5);
 				allList.add(out5);
@@ -342,7 +341,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				LessOrEqualsBooleanExpression out13 = new LessOrEqualsBooleanExpression(
 						instPairwiseRelation.getTargetRelations().get(0),
 						instPairwiseRelation.getSourceRelations().get(0),
-						"NotAvailable", "NotAvailable");
+						"Exclu", "Exclu");
 				getElementExpressions().add(out13);
 				// structureList.add(out12);
 				allList.add(out13);
@@ -350,7 +349,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 			case "ClaimToSG":
 
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out21 = new EqualsComparisonExpression(
 						instPairwiseRelation, "CLSGLevel", getHlclFactory()
@@ -385,14 +384,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				}
 				AbstractBooleanExpression out23 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", true, out22);
+						"Sel", true, out22);
 				getElementExpressions().add(out23);
 				allList.add(out23);
 
 				break;
 			case "contribution":
 
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// relId_Sourcelevel #= <<Sourcelevel>>
 				EqualsComparisonExpression out21p = new EqualsComparisonExpression(
 						instPairwiseRelation, "sourceLevel", getHlclFactory()
@@ -469,7 +468,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				break;
 			case "SD":
 
-				sourcePositiveAttributeNames.add("Selected");
+				sourcePositiveAttributeNames.add("Sel");
 				// relId_level #= <<level>>
 				EqualsComparisonExpression out24 = new EqualsComparisonExpression(
 						instPairwiseRelation, "level", getHlclFactory().number(
@@ -503,14 +502,14 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				}
 				ImplicationBooleanExpression out26 = new ImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", true, out25);
+						"Sel", true, out25);
 				getElementExpressions().add(out26);
 				allList.add(out26);
 
 				DoubleImplicationBooleanExpression out27 = new DoubleImplicationBooleanExpression(
 						instPairwiseRelation.getSourceRelations().get(0),
 						instPairwiseRelation.getSourceRelations().get(0),
-						"Selected", "CompExp");
+						"Sel", "CompExp");
 				getElementExpressions().add(out27);
 
 				break;

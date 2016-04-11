@@ -427,7 +427,7 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 			String[] split = identifier.split("_");
 			String vertexId = split[0];
 			String attribute = split[1];
-			if ("Selected".equals(attribute)) {
+			if ("Sel".equals(attribute)) {
 				if (configSet.get(identifier) == 1) {// variable seleccionada
 					String var = refas2hlcl.getRefas().getVertex(vertexId)
 							.toString();
@@ -492,12 +492,12 @@ public class ConfiguratorPanel extends AbstractConfigurationPanel {
 					+ var.getInstAttribute("Core").getAsBoolean());
 			if (var.getInstAttribute("Core").getAsBoolean()) {
 				tableModel.addRow(new Object[] { var.toString(),
-						var.getInstAttribute("Selected").getAsBoolean(), 0 });
+						var.getInstAttribute("Sel").getAsBoolean(), 0 });
 				continue;
 			}
 
-			if (!var.getInstAttribute("Selected").isEnabled()
-					&& !var.getInstAttribute("NextNotSelected").isEnabled()) {
+			if (!var.getInstAttribute("Sel").isEnabled()
+					&& !var.getInstAttribute("NNotSel").isEnabled()) {
 				listModel.add(0, variables.get(identifier).toString());
 			}
 		}
