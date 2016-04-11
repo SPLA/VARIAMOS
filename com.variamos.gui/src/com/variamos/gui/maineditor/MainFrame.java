@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20160407-0400";
+	private String variamosBuild = "20160411-2000";
 	private String downloadId = "465";
 	private static boolean solverError = false;
 
@@ -66,10 +66,14 @@ public class MainFrame extends JFrame {
 		this.setSize(1166, 768);
 
 		System.out.println("Loading Syntax and Operations Infrastructure...");
+		ModelInstance InfraBasicSyntax = new ModelInstance(
+				PerspectiveType.INFRASTRUCTUREBASICSYNTAX, metaExpressionTypes);
 		ModelInstance syntaxInfrastructure = new ModelInstance(
-				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes);
+				PerspectiveType.SYNTAXINFRASTRUCTURE, metaExpressionTypes,
+				InfraBasicSyntax, null);
 		ModelInstance operationsInfrastructure = new ModelInstance(
-				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes);
+				PerspectiveType.OPERATIONSINFRASTRUCTURE, metaExpressionTypes,
+				InfraBasicSyntax, null);
 		ModelInstance semanticSuperstructure = null;
 		ModelInstance syntaxSuperstructure = null;
 		ModelInstance abstractModel = null;
@@ -341,8 +345,8 @@ public class MainFrame extends JFrame {
 								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
 										+ " Nevertheless, models created in version Beta 18 and older are not\n"
 										+ " compatible with this version (Beta 19). Also, models created in this\n"
-										+ " version will not be compatible in the version Beta 20. If you already\n"
-										+ " defined models, we suggest you to continue using version Beta 18.",
+										+ " version may have compatibility issues in the version Beta 20. If you \n"
+										+ " already defined models, we suggest you to continue using version Beta 18.",
 								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);
 			input = new URL("http://variamos.com/home/?wpdmdl=" + downloadId)

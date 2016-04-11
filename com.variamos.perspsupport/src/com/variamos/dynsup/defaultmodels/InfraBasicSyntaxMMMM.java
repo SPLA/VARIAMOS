@@ -19,8 +19,8 @@ public class InfraBasicSyntaxMMMM {
 				.getVariabilityVertex();
 
 		SyntaxConcept basicOpersSyntaxM3Concept = new SyntaxConcept('C',
-				"BasicOpersSyntaxM3Concept", true, true,
-				"BasicOpersSyntaxM3Concept", "infrabasicsyntaxm3miniconcept",
+				"OMMConcept", true, true, "OMMConcept",
+				"infrabasicsyntaxm3miniconcept",
 				"Operations Meta Meta Meta Concept", 180, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
 				Color.BLUE.toString(), 3, null, true);

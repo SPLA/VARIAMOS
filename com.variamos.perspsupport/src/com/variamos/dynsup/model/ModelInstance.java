@@ -16,6 +16,7 @@ import com.cfm.productline.Constraint;
 import com.cfm.productline.VariabilityElement;
 import com.variamos.dynsup.defaultmodels.DefaultOpersMM;
 import com.variamos.dynsup.defaultmodels.DefaultSyntaxMM;
+import com.variamos.dynsup.defaultmodels.InfraBasicSyntaxMMMM;
 import com.variamos.dynsup.defaultmodels.InfraSyntaxOpersMMM;
 import com.variamos.dynsup.defaultmodels.InfraSyntaxSyntaxMMM;
 import com.variamos.dynsup.instance.InstAttribute;
@@ -87,6 +88,9 @@ public class ModelInstance extends AbstractModel {
 		name = "";
 
 		switch (perspectiveType) {
+		case INFRASTRUCTUREBASICSYNTAX:
+			createInfraBasicSyntax();
+			break;
 		case OPERATIONSINFRASTRUCTURE:
 			createOperationsInfrastructure();
 			break;
@@ -106,6 +110,10 @@ public class ModelInstance extends AbstractModel {
 		default:
 			break;
 		}
+	}
+
+	private void createInfraBasicSyntax() {
+		InfraBasicSyntaxMMMM.createBasicSyntaxMetaMetaMetaModel(this);
 	}
 
 	/**
