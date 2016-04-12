@@ -208,9 +208,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					String sim_red2 = imagesBasePath + "sim_red2.png";
 					String sim_red2_tmp = imagesBasePath + "sim_red2_tmp.png";
 					String sim_red3 = imagesBasePath + "sim_red3.png";
-					if (simulationStarted)
+					if (simulationStarted) {
 						sim_backcolor = sim_red3;
-
+						backtophint = "Not selected";
+					}
 					if ((boolean) instConcept.getInstAttribute("Core")
 							.getValue()
 							&& !(boolean) instConcept.getInstAttribute(
@@ -238,7 +239,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					} else if ((boolean) instConcept.getInstAttribute("Sel")
 							.getValue()) {
 						sim_backcolor = sim_selected;
-						backtophint = "Selected for this solution";
+						// backtophint = "Selected for this solution";
 					}
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
@@ -268,9 +269,9 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green2)),
-								backtophint + "Configuration Selected");
+								"Configuration Selected");
 
-						backtophint += "Configuration Selected";
+						backtophint = "Configuration Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -280,14 +281,12 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfSel").getValue() || (boolean) instConcept
 									.getInstAttribute("NPrefSel").getValue())) {
-						mxCellOverlay over3 = new mxCellOverlay(
-								new ImageIcon(
-										mxGraphComponent.class
-												.getResource(sim_green2_tmp)),
-								backtophint
-										+ "Configuration Selected (Only testing)");
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_green2_tmp)),
+								"Configuration Selected (Only testing)");
 
-						backtophint += "Configuration Selected (Only testing)";
+						backtophint = "Configuration Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -298,7 +297,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 								new ImageIcon(
 										mxGraphComponent.class
 												.getResource(sim_green3)),
-								backtophint + "Simulation selected");
+								"Simulation selected");
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -308,13 +307,11 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							&& ((boolean) instConcept.getInstAttribute(
 									"ConfNotSel").getValue() || (boolean) instConcept
 									.getInstAttribute("NNotPrefSel").getValue())) {
-						mxCellOverlay over3 = new mxCellOverlay(
-								new ImageIcon(
-										mxGraphComponent.class
-												.getResource(sim_red2_tmp)),
-								backbottomhint
-										+ "Configuration Not Selected (Only testing)");
-						backbottomhint += "Configuration Not Selected (Only testing)";
+						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
+								mxGraphComponent.class
+										.getResource(sim_red2_tmp)),
+								"Configuration Not Selected (Only testing)");
+						backbottomhint = "Configuration Not Selected (Only testing)";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -326,8 +323,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 									.getInstAttribute("NNotPrefSel").getValue())) {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red2)),
-								backbottomhint + "Configuration Not Selected");
-						backbottomhint += "Configuration Not Selected";
+								"Configuration Not Selected");
+						backbottomhint = "Configuration Not Selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
@@ -338,7 +335,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 						mxCellOverlay over3 = new mxCellOverlay(new ImageIcon(
 								mxGraphComponent.class.getResource(sim_red3)),
 								backbottomhint + "Not selected");
-						backbottomhint += "Not selected";
+						backbottomhint = "Not selected";
 						over3.setVerticalAlign(mxConstants.ALIGN_TOP);
 						over3.setAlign(mxConstants.ALIGN_CENTER);
 						addCellOverlay(childCell, over3);
