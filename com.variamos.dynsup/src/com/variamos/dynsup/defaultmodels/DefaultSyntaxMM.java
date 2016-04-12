@@ -1829,6 +1829,7 @@ public class DefaultSyntaxMM {
 
 		SyntaxView syntaxMetaChildView = new SyntaxView("FullContext",
 				"Context with Enumerations", "Context Palette", 0, null);
+		@SuppressWarnings("unused")
 		InstConcept childView = new InstConcept("FullContext", metaView,
 				syntaxMetaChildView);
 		// instView.addChildView(childView);

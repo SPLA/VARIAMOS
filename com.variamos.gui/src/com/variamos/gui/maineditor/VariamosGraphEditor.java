@@ -254,7 +254,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
-					JPanel tabPane = new JPanel();
 					if (instElement.getSupSyntaxEleId().equals("SMMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
@@ -1214,8 +1213,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							 * } }.start(); // clearNotificationBar(); //
 							 * configModel((InstElement) elm, // true); } });
 							 */
-							if (instAttribute.getIdentifier().startsWith(
-									"Config")) {
+							if (instAttribute.getIdentifier()
+									.startsWith("Conf")) {
 								JButton button = new JButton("Test");
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {

@@ -1,7 +1,6 @@
 package com.variamos.gui.perspeditor.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.event.TreeModelEvent;
@@ -37,12 +36,9 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 	protected List<String> captions = null;
 	protected List<Class<?>> types = null;
 
-	private int steps;
 	private ElementsOperationAssociationPanel configurator;
 
 	public static final int COLUMN_NAME = 0, COLUMN_VALUE = 1, COLUMN_STEP = 2;
-
-	private LinkedList<AssociationAction> actions = new LinkedList<>();
 
 	public AssociationDataModel(Object root,
 			ElementsOperationAssociationPanel configurator, List<String> names,
@@ -63,7 +59,7 @@ public class AssociationDataModel extends AbstractTreeTableModel {
 				types.add(ElementVariable.class);
 			}
 		}
-		steps = 0;
+
 		this.configurator = configurator;
 
 		addTreeModelListener(new TreeModelListener() {
