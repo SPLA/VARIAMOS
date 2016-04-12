@@ -217,7 +217,6 @@ public class InstPairwiseRel extends InstElement {
 							.getModelingAttribute(name, null),
 							semanticPairwiseRelType);
 			}
-			SyntaxElement me = getTransSupportMetaElement();
 
 			if (getTransSupportMetaElement() instanceof SyntaxElement
 					&& getTransSupportMetaElement()

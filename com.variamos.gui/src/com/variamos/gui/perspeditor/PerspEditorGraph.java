@@ -199,7 +199,8 @@ public class PerspEditorGraph extends AbstractGraph {
 		// Load views for System Design and simulation
 		int i = 0;
 		if (views != null) {
-			for (InstElement view : views) {
+			for (@SuppressWarnings("unused")
+			InstElement view : views) {
 				mxCell child = new mxCell();
 				child.setValue(new InstCell(null, null, false));
 				child.setId("mv" + i);

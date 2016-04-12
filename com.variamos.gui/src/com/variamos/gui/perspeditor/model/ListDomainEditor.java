@@ -123,7 +123,7 @@ public class ListDomainEditor extends JPanel {
 			JLabel lbl = (JLabel) super.getListCellRendererComponent(list,
 					value, index, isSelected, cellHasFocus);
 
-			DomainListModel model = (DomainListModel) list.getModel();
+			// DomainListModel model = (DomainListModel) list.getModel();
 			// DomainAnnotation da = model.getAnnotationFor((Integer) value);
 			// if (da != null && da.notAvailable()) {
 			// lbl.setForeground(Color.LIGHT_GRAY);

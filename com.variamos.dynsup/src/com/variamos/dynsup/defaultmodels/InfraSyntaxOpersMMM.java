@@ -480,15 +480,15 @@ public class InfraSyntaxOpersMMM {
 
 		variabilityInstVertex.put("OMConcept", instInfraSyntaxOpersM2Concept);
 
-		SyntaxPairwiseRel metaMetaPairwiseRelExtends = new SyntaxPairwiseRel(
-				"ExtendsRelation",
-				false,
-				true,
-				"Extends Relation",
-				"refasextends",
-				"Extends relation: relates to concepts to extend attributes and operation constraints",
-				50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
-				null);
+		// SyntaxPairwiseRel metaMetaPairwiseRelExtends = new SyntaxPairwiseRel(
+		// "ExtendsRelation",
+		// false,
+		// true,
+		// "Extends Relation",
+		// "refasextends",
+		// "Extends relation: relates to concepts to extend attributes and operation constraints",
+		// 50, 50, "/com/variamos/gui/pl/editor/images/plnode.png", 1,
+		// null);
 
 		// InstPairwiseRel rel = new
 		// InstPairwiseRel(basicOpersM2ExtendsRelation);
