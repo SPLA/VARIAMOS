@@ -81,7 +81,7 @@ public class VisualElement implements Comparable<VisualElement> {
 			} else if (instElement.getInstAttribute("variableType").getValue()
 					.equals("Enumeration")) {
 				out += "enum : ";
-				Object object = instElement.getInstAttribute("enumerationType")
+				Object object = instElement.getInstAttribute("enumType")
 						.getValueObject();
 				if (object != null) {
 					@SuppressWarnings("unchecked")

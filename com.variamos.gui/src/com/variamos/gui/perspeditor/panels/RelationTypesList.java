@@ -166,8 +166,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 				"minTargetCardinality", new ElemAttribute(
 						"minTargetCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						"Minimum Target Cardinality", "enumerationType", "ME",
-						"", "", 1, -1, "", "", -1, "", ""), 0);
+						"Minimum Target Cardinality", "enumType", "ME", "", "",
+						1, -1, "", "", -1, "", ""), 0);
 		final InstAttribute instMaxTargetCard = new InstAttribute(
 				"maxTargetCardinality", new ElemAttribute(
 						"maxTargetCardinality", IntegerType.IDENTIFIER,

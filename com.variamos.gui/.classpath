@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre8"/>
-	<classpathentry kind="lib" path="lib/mxgraph.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="/com.variamos.defectAnalyzer/lib/SWIProlog/jpl.jar"/>
@@ -12,5 +11,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
+	<classpathentry kind="lib" path="lib/jgraphx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

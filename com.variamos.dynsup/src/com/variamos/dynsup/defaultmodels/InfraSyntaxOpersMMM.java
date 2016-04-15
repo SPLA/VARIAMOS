@@ -139,17 +139,17 @@ public class InfraSyntaxOpersMMM {
 		// OpersConcept basicOpersM2PWRel = new
 		// OpersConcept("BasicOpersM2PWRel");
 
-		// semPairwiseRelation.putSemanticAttribute("enumerationType",
-		// new SemanticAttribute("enumerationType", "Class",
+		// semPairwiseRelation.putSemanticAttribute("enumType",
+		// new SemanticAttribute("enumType", "Class",
 		// AttributeType.OPERATION, false, "enumerationX",
 		// InstEnumeration.class.getCanonicalName(),
 		// "TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
 		// ""));
 		//
 		// semPairwiseRelation.addPropEditableAttribute("03#" +
-		// "enumerationType");
+		// "enumType");
 		// semPairwiseRelation.addPropVisibleAttribute("03#" +
-		// "enumerationType");
+		// "enumType");
 
 		// basicOpersM2PWRel.putSemanticAttribute("relTypesAttr",
 		// new ElemAttribute("relTypesAttr", "Set",
@@ -183,17 +183,17 @@ public class InfraSyntaxOpersMMM {
 		// OpersConcept basicOpersM2OTRel = new
 		// OpersConcept("basicOpersM2OTRel");
 
-		// semOverTwoRelation.putSemanticAttribute("enumerationType",
-		// new SemanticAttribute("enumerationType", "Class",
+		// semOverTwoRelation.putSemanticAttribute("enumType",
+		// new SemanticAttribute("enumType", "Class",
 		// AttributeType.OPERATION, false, "enumerationX",
 		// InstEnumeration.class.getCanonicalName(),
 		// "TypeEnumeration", "String", "", 0, -1, "", "", -1, "",
 		// ""));
 		//
 		// semOverTwoRelation.addPropEditableAttribute("03#" +
-		// "enumerationType");
+		// "enumType");
 		// semOverTwoRelation.addPropVisibleAttribute("03#" +
-		// "enumerationType");
+		// "enumType");
 
 		// basicOpersM2OTRel.putSemanticAttribute("relTypesAttr",
 		// new ElemAttribute("relTypesAttr", "Set",

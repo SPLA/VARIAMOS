@@ -692,7 +692,7 @@ public class InstanceExpressionDialog extends JDialog {
 					break;
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
-							"variableDomain").getValue();
+							"varDom").getValue();
 
 					Domain dom = (DomainParser.parseDomain(domain));
 					List<Integer> intValues = dom.getPossibleValues();
@@ -711,8 +711,8 @@ public class InstanceExpressionDialog extends JDialog {
 					 */
 					break;
 				case "Enumeration":
-					Object object = instVertex.getInstAttribute(
-							"enumerationType").getValueObject();
+					Object object = instVertex.getInstAttribute("enumType")
+							.getValueObject();
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
