@@ -637,7 +637,7 @@ public class SharedActions {
 								instanceExpression.loadVolatileElements(refas
 										.getVariabilityVertex());
 						}
-						if (ia.getIdentifier().equals("enumerationType")) {
+						if (ia.getIdentifier().equals("enumType")) {
 							Object instanceExpression = ia.getValue();
 							if (ia.getAttribute().getType().equals("Class")) {
 

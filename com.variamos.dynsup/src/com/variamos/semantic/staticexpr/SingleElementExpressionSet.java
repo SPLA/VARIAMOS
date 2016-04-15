@@ -344,14 +344,13 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 														attributeValue)));
 							}
 							if (instAttribute.getIdentifier().equals(
-									"variableConfigDomain")) {
+									"varConfDom")) {
 								if (!((String) instAttribute.getValue())
 										.equals(""))
 									getElementExpressions().add(
 											new EqualsComparisonExpression(
 													instVertex, instVertex,
-													"variableConfigValue",
-													"value"));
+													"varConfValue", "value"));
 							}
 
 							if (instAttribute.getIdentifier().equals("ConfSel")) {

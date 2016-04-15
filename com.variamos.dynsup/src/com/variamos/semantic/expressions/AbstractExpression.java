@@ -225,9 +225,9 @@ public abstract class AbstractExpression {
 			}
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
 			identifier.setDomain(DomainParser.parseDomain(configdomain));
-		} else if (attribute.getName().equals("variableConfigValue")) {
+		} else if (attribute.getName().equals("varConfValue")) {
 			String configdomain = (String) instVertex.getInstAttribute(
-					"variableConfigDomain").getValue();
+					"varConfDom").getValue();
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain));
 		} else if (attribute.getName().equals("value")) {
@@ -235,11 +235,11 @@ public abstract class AbstractExpression {
 					.getValue();
 
 			if (type.equals("Integer")) {
-				String domain = (String) instVertex.getInstAttribute(
-						"variableDomain").getValue();
+				String domain = (String) instVertex.getInstAttribute("varDom")
+						.getValue();
 				identifier.setDomain(DomainParser.parseDomain(domain));
 			} else if (type.equals("Enumeration")) {
-				Object object = instVertex.getInstAttribute("enumerationType")
+				Object object = instVertex.getInstAttribute("enumType")
 						.getValueObject();
 				String domain = "";
 				if (object != null) {

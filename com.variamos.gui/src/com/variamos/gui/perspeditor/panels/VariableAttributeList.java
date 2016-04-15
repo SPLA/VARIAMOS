@@ -154,25 +154,24 @@ public class VariableAttributeList extends JList<InstAttribute> {
 						AttributeType.SYNTAX, false, "Context Defined", false,
 						1, -1, "", "", -1, "", ""), false);
 
-		final InstAttribute instVariableDomain = new InstAttribute(
-				"variableDomain", new ElemAttribute("variableDomain",
-						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Variable Domain", "", 1, -1, "", "", -1, "", ""), "");
-		final InstAttribute instEnumerationType = new InstAttribute(
-				"enumerationType", new ElemAttribute("enumerationType",
+		final InstAttribute instVariableDomain = new InstAttribute("varDom",
+				new ElemAttribute("varDom", StringType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Variable Domain", "", 1,
+						-1, "", "", -1, "", ""), "");
+		final InstAttribute instEnumerationType = new InstAttribute("enumType",
+				new ElemAttribute("enumType",
 						ClassSingleSelectionType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Enumeration",
 						InstConcept.class.getCanonicalName(), "ME", "", "", 1,
 						-1, "", "", -1, "", ""), "");
 		final InstAttribute instVariableConfigValue = new InstAttribute(
-				"variableConfigValue", new ElemAttribute("variableConfigValue",
+				"varConfValue", new ElemAttribute("varConfValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
 						"Configured Value", 1, 1, -1, "", "", -1, "", ""), 1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
-				"variableConfigDomain", new ElemAttribute(
-						"variableConfigDomain", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Configured Domain", "",
-						1, -1, "", "", -1, "", ""), "");
+				"varConfDom", new ElemAttribute("varConfDom",
+						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Configured Domain", "", 1, -1, "", "", -1, "", ""), "");
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")

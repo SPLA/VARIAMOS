@@ -754,25 +754,25 @@ public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
 						}
 					else if (attribute.equals("value"))
 						// for (String attTarget : selectedAttributes) {
-						// if (attTarget.equals("variableConfigValue")) {
+						// if (attTarget.equals("varConfValue")) {
 						if (prologOut.get(identifier) != null) {
 							int val = (int) Float.parseFloat(prologOut
 									.get(identifier) + "");
-							vertex.getInstAttribute("variableConfigDomain")
-									.setValue(val + "");
+							vertex.getInstAttribute("varConfDom").setValue(
+									val + "");
 							vertex.getInstAttribute("value").setValue(val + "");
 						}
 					/*
-					 * else if (attribute.equals("variableConfigDomain")) // for
-					 * (String attTarget : selectedAttributes) { // if
-					 * (attTarget.equals("variableConfigValue")) { if
+					 * else if (attribute.equals("varConfDom")) // for (String
+					 * attTarget : selectedAttributes) { // if
+					 * (attTarget.equals("varConfValue")) { if
 					 * (prologOut.get(identifier) != null) { int val = (int)
 					 * Float.parseFloat(prologOut .get(identifier) + "");
-					 * vertex.getInstAttribute("variableConfigDomain")
-					 * .setValue(val + ""); vertex.getInstAttribute("value")
-					 * .setValue(val + ""); }
+					 * vertex.getInstAttribute("varConfDom") .setValue(val +
+					 * ""); vertex.getInstAttribute("value") .setValue(val +
+					 * ""); }
 					 */// else
-						// vertex.getInstAttribute("variableConfigValue")
+						// vertex.getInstAttribute("varConfValue")
 						// .setValue(null);
 					// }
 					// }

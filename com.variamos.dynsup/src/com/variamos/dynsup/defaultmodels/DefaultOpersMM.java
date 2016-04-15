@@ -2772,12 +2772,19 @@ public class DefaultOpersMM {
 		InstConcept instVertexVAR = new InstConcept("Variable",
 				infraMetaMetaConcept, semVariable);
 
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("ovartovar", instEdge);
+		instEdge.setIdentifier("ovartovar");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+		instEdge.setTargetRelation(instVertexVAR, true);
+		instEdge.setSourceRelation(instVertexF, true);
+
 		t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexVAR, instVertexVAR,
-				"variableConfigValue", "value");
+				.get("Equals"), instVertexVAR, instVertexVAR, "varConfValue",
+				"value");
 
 		t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexVAR, "variableConfigDomain", "");
+				.get("Equals"), instVertexVAR, "varConfDom", "");
 
 		t1 = new OpersExpr("varConfigVal=value=varConfigDomain", refas
 				.getSemanticExpressionTypes().get("Implies"), t3, t1);
@@ -2833,19 +2840,19 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("variableType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("variableDomain", "String",
+		attribute = new ElemAttribute("varDom", "String",
 				AttributeType.OPERATION, false, "Variable Domain", "0,1", 0, 3,
 				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
 						+ "Integer", -1, "", "");
-		semVariable.putSemanticAttribute("variableDomain", attribute);
+		semVariable.putSemanticAttribute("varDom", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("enumerationType", "Class",
+		attribute = new ElemAttribute("enumType", "Class",
 				AttributeType.OPERATION, false, "Enumeration",
 				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
 				"variableType" + "#==#" + "Enumeration", "variableType"
 						+ "#==#" + "Enumeration", -1, "", "");
-		semVariable.putSemanticAttribute("enumerationType", attribute);
+		semVariable.putSemanticAttribute("enumType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		// TODO define domain for enumtype
@@ -2876,18 +2883,18 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("ExtControl", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("variableConfigValue", "Integer",
+		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.GLOBALCONFIG, false, "Configured Value", 0, 0,
 				-1, "", "", -1, "", "");
-		semVariable.putSemanticAttribute("variableConfigValue", attribute);
+		semVariable.putSemanticAttribute("varConfValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("variableConfigDomain", "String",
+		attribute = new ElemAttribute("varConfDom", "String",
 				AttributeType.GLOBALCONFIG, false, "Configured Domain", "", 0,
 				1, "variableType" + "#==#" + "Integer" + "||" + "variableType"
 						+ "#==#" + "Enumeration" + "||" + "variableType"
 						+ "#==#" + "Boolean", "", -1, "", "");
-		semVariable.putSemanticAttribute("variableConfigDomain", attribute);
+		semVariable.putSemanticAttribute("varConfDom", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 		// semVariable.getIdentifier(), attribute.getName(), true));
@@ -2899,20 +2906,20 @@ public class DefaultOpersMM {
 
 		semVariable.addPropEditableAttribute("01#" + "name");
 		semVariable.addPropEditableAttribute("02#" + "variableType");
-		semVariable.addPropEditableAttribute("03#" + "variableDomain");
-		semVariable.addPropEditableAttribute("04#" + "enumerationType");
+		semVariable.addPropEditableAttribute("03#" + "varDom");
+		semVariable.addPropEditableAttribute("04#" + "enumType");
 		semVariable.addPropEditableAttribute("05#" + "isContext");
 
 		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
 		semVariable.addPropEditableAttribute("09#" + "ExtControl");
 
-		semVariable.addPropEditableAttribute("01#" + "variableConfigDomain");
+		semVariable.addPropEditableAttribute("01#" + "varConfDom");
 
 		semVariable.addPropVisibleAttribute("01#" + "name");
 		semVariable.addPropVisibleAttribute("02#" + "variableType");
-		semVariable.addPropVisibleAttribute("03#" + "variableDomain" + "#"
+		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
 				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("04#" + "enumerationType" + "#"
+		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
 				+ "variableType" + "#==#" + "Enumeration");
 		semVariable.addPropVisibleAttribute("05#" + "isContext");
 
@@ -2921,22 +2928,22 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
 		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
 
-		semVariable.addPropVisibleAttribute("01#" + "variableConfigDomain"
-				+ "#" + "variableType" + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("01#" + "variableConfigDomain"
-				+ "#" + "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("01#" + "variableConfigDomain"
-				+ "#" + "variableType" + "#==#" + "Boolean");
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Boolean");
 
 		semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
 				+ "variableType" + "#!=#" + "Enumeration");
-		semVariable.addPanelVisibleAttribute("06#" + "enumerationType" + "#"
+		semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
 				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPanelVisibleAttribute("07#" + "variableDomain" + "#"
+		semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
 				+ "variableType" + "#==#" + "Integer");
 		semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
 
-		semVariable.addPanelSpacersAttribute("{#" + "variableDomain" + "#} ");
+		semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
 
 		semVariable.addPropEditableAttribute("03#" + "DBVis");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
