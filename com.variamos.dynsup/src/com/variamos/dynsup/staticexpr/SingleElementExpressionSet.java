@@ -262,6 +262,25 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												transformation9));
 							}
 
+							if (instAttribute.getIdentifier().equals("Proh")) {
+								coreAndFalseOptList
+										.add(new EqualsComparisonExpression(
+												instVertex, instAttribute
+														.getIdentifier(),
+												getHlclFactory().number(
+														attributeValue)));
+
+								// identifierId_Sel ) *
+								// identifierId_Proh ) #= 0
+								AbstractNumericExpression transformation61 = new ProdNumericExpression(
+										instVertex, instVertex, "Sel", "Proh");
+								EqualsComparisonExpression transformation62 = new EqualsComparisonExpression(
+										transformation61,
+										new NumberNumericExpression(0));
+								coreAndFalseOptList.add(transformation62);
+
+							}
+
 							/*
 							 * if (instAttribute.getIdentifier() .equals("Sel"))
 							 * {
@@ -361,8 +380,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												getHlclFactory().number(
 														attributeValue)));
 							}
-							if (instAttribute.getIdentifier()
-									.equals("Prohibit")) {
+							if (instAttribute.getIdentifier().equals("Proh")) {
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -591,8 +609,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
 									instVertex, "Dead", true, transformation6);
 							transformation7 = new OrBooleanExpression(
-									instVertex, "Prohibit", true,
-									transformation7);
+									instVertex, "Proh", true, transformation7);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "Exclu", true,

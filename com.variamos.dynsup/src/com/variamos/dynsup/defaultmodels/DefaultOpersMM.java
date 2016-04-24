@@ -1708,12 +1708,12 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("Prohibit", "Boolean",
+		attribute = new ElemAttribute("Proh", "Boolean",
 				AttributeType.OPERATION, true, "Prohibited", false, 0, -1, "",
 				"", -1, "", "");
-		semInfraElement.putSemanticAttribute("Prohibit", attribute);
-		semInfraElement.addPropVisibleAttribute("08#" + "Prohibit");
-		semInfraElement.addPropEditableAttribute("08#" + "Prohibit");
+		semInfraElement.putSemanticAttribute("Proh", attribute);
+		semInfraElement.addPropVisibleAttribute("08#" + "Proh");
+		semInfraElement.addPropEditableAttribute("08#" + "Proh");
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
@@ -2187,7 +2187,7 @@ public class DefaultOpersMM {
 				instVertexGE, instVertexGE, "ConfNotSel", "NNotPrefSel");
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
-				instVertexGE, "Prohibit", true, t1);
+				instVertexGE, "Proh", true, t1);
 
 		t1 = new OpersExpr("6", refas.getSemanticExpressionTypes().get("Or"),
 				instVertexGE, "Dead", true, t1);

@@ -234,8 +234,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_dead;
 						backtophint = "Dead element";
-					} else if ((boolean) instConcept.getInstAttribute(
-							"Prohibit").getValue()) {
+					} else if ((boolean) instConcept.getInstAttribute("Proh")
+							.getValue()) {
 						sim_backcolor = sim_prohibit;
 						backtophint = "Prohibit element";
 					} else if ((boolean) instConcept.getInstAttribute("Exclu")
@@ -377,8 +377,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						backtophint = "Dead element (by implication)";
 						icon = design_dead;
-					} else if ((boolean) instConcept.getInstAttribute(
-							"Prohibit").getValue()) {
+					} else if ((boolean) instConcept.getInstAttribute("Proh")
+							.getValue()) {
 						backtophint = "Prohibited element (by manual selection)";
 						icon = design_prohibit;
 					} else {
