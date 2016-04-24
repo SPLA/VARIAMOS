@@ -196,6 +196,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					String sim_normal = imagesBasePath + "sim_normal.png";
 					String sim_notavailable = imagesBasePath
 							+ "sim_notavailable.png";
+					String sim_prohibit = imagesBasePath
+							+ "design_prohibited.png";
 					String sim_selected = imagesBasePath + "sim_selected.png";
 					String sim_backcolor = sim_normal;
 
@@ -232,6 +234,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_dead;
 						backtophint = "Dead element";
+					} else if ((boolean) instConcept.getInstAttribute(
+							"Prohibit").getValue()) {
+						sim_backcolor = sim_prohibit;
+						backtophint = "Prohibit element";
 					} else if ((boolean) instConcept.getInstAttribute("Exclu")
 							.getValue()) {
 						sim_backcolor = sim_notavailable;
@@ -353,6 +359,8 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				String design_required = imagesBasePath + "design_required.png";
 				String design_normal = imagesBasePath + "design_normal.png";
 				String design_dead = imagesBasePath + "design_dead.png";
+				String design_prohibit = imagesBasePath
+						+ "design_prohibited.png";
 				String design_core = imagesBasePath + "design_core.png";
 				String backtophint = "", icon = "";
 				InstConcept instConcept = (InstConcept) val;
@@ -369,6 +377,10 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						backtophint = "Dead element (by implication)";
 						icon = design_dead;
+					} else if ((boolean) instConcept.getInstAttribute(
+							"Prohibit").getValue()) {
+						backtophint = "Prohibited element (by manual selection)";
+						icon = design_prohibit;
 					} else {
 						backtophint = "Not part of the core (Variability point)";
 						icon = design_normal;

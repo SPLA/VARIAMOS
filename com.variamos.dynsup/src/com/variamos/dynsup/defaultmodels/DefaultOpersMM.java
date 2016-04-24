@@ -1656,9 +1656,9 @@ public class DefaultOpersMM {
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		semInfraElement.putSemanticAttribute("Exclu", attribute);
-		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
-		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 		attribute = new ElemAttribute("Description", "String",
 				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
@@ -1708,15 +1708,25 @@ public class DefaultOpersMM {
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 				semInfraElement.getIdentifier(), attribute.getName(), true));
 
-		attribute = new ElemAttribute("IgnoreForSimulation", "Boolean",
-				AttributeType.OPERATION, true, "Ignore for Simulation", false,
-				0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("IgnoreForSimulation", attribute);
-		semInfraElement.addPropVisibleAttribute("08#" + "IgnoreForSimulation");
+		attribute = new ElemAttribute("Prohibit", "Boolean",
+				AttributeType.OPERATION, true, "Prohibited", false, 0, -1, "",
+				"", -1, "", "");
+		semInfraElement.putSemanticAttribute("Prohibit", attribute);
+		semInfraElement.addPropVisibleAttribute("08#" + "Prohibit");
+		semInfraElement.addPropEditableAttribute("08#" + "Prohibit");
+		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semInfraElement.getIdentifier(), attribute.getName(), true));
+		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semInfraElement.getIdentifier(), attribute.getName(), true));
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semInfraElement.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+				semInfraElement.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Required", "Boolean",
 				AttributeType.OPERATION, true, "Is Required", false, 2, -1, "",
 				"", -1, "", "");
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		semInfraElement.putSemanticAttribute("Required", attribute);
@@ -1892,9 +1902,10 @@ public class DefaultOpersMM {
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semInfraOTRel
 				.getIdentifier(), attribute.getName(), true));
 		semInfraOTRel.putSemanticAttribute("Exclu", attribute);
-		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+
+		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
-		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Description", "String",
@@ -2176,9 +2187,12 @@ public class DefaultOpersMM {
 				instVertexGE, instVertexGE, "ConfNotSel", "NNotPrefSel");
 
 		t1 = new OpersExpr("5", refas.getSemanticExpressionTypes().get("Or"),
+				instVertexGE, "Prohibit", true, t1);
+
+		t1 = new OpersExpr("6", refas.getSemanticExpressionTypes().get("Or"),
 				instVertexGE, "Dead", true, t1);
 
-		t1 = new OpersExpr("NotAvail (Dead Or NotSelec)", refas
+		t1 = new OpersExpr("NotAvail (Dead Or Prohibit Or NotSelec)", refas
 				.getSemanticExpressionTypes().get("DoubleImplies"),
 				instVertexGE, "Exclu", true, t1);
 

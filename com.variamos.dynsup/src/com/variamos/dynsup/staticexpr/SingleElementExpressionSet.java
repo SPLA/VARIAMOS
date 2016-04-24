@@ -361,7 +361,8 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												getHlclFactory().number(
 														attributeValue)));
 							}
-							if (instAttribute.getIdentifier().equals("Exclu")) {
+							if (instAttribute.getIdentifier()
+									.equals("Prohibit")) {
 								getElementExpressions().add(
 										new EqualsComparisonExpression(
 												instVertex, instAttribute
@@ -589,6 +590,9 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 									"NNotPrefSel");
 							AbstractBooleanExpression transformation7 = new OrBooleanExpression(
 									instVertex, "Dead", true, transformation6);
+							transformation7 = new OrBooleanExpression(
+									instVertex, "Prohibit", true,
+									transformation7);
 							getElementExpressions().add(
 									new DoubleImplicationBooleanExpression(
 											instVertex, "Exclu", true,
