@@ -7,10 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
-import com.variamos.dynsup.interfaces.IntOpersPairwiseRel;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
@@ -26,7 +25,7 @@ import com.variamos.dynsup.model.SyntaxPairwiseRel;
  * @since 2014-11-24
  * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
-public class InstAttribute implements Serializable, IntElemAttribute,
+public class InstAttribute implements Serializable, IntInstAttribute,
 		Comparable<Object> {
 	/**
 	 * 
@@ -163,25 +162,25 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 		// return identifier;
 	}
 
-	public void setValidationRelationTypes(List<IntOpersRelType> semGD) {
+	public void setValidationRelationTypes(List<OpersRelType> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntOpersRelType> getOverTwoRelValidationList() {
-		return (List<IntOpersRelType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
+	public List<OpersRelType> getOverTwoRelValidationList() {
+		return (List<OpersRelType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
-	public void setValidationDRList(List<IntOpersPairwiseRel> semGD) {
+	public void setValidationDRList(List<OpersPairwiseRel> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IntOpersPairwiseRel> getPairwiseRelValidationList() {
-		return (List<IntOpersPairwiseRel>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
+	public List<OpersPairwiseRel> getPairwiseRelValidationList() {
+		return (List<OpersPairwiseRel>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
@@ -380,7 +379,7 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							OpersRelType.class.getCanonicalName())) {
-				List<IntOpersRelType> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
+				List<OpersRelType> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
 						.getTransSupportMetaElement())
 						.getSemanticRelationTypes();
 				setValidationRelationTypes(semanticRelationTypes);
@@ -407,7 +406,7 @@ public class InstAttribute implements Serializable, IntElemAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							OpersRelType.class.getCanonicalName())) {
-				List<IntOpersRelType> semanticRelationTypes = ((SyntaxElement) instElement
+				List<OpersRelType> semanticRelationTypes = ((SyntaxElement) instElement
 						.getTransSupportMetaElement())
 						.getSemanticRelationTypes();
 				setValidationRelationTypes(semanticRelationTypes);

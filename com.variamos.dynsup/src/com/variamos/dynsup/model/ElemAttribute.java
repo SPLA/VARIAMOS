@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.hlcl.Domain;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to represent semantic and syntax concepts attributes. The attributes
@@ -276,14 +276,14 @@ public class ElemAttribute implements Serializable {
 	/**
 	 * Dynamic storage of attributes
 	 */
-	protected Map<String, IntElemAttribute> dynamicAttributeComponentsMap = new HashMap<>();
+	protected Map<String, IntInstAttribute> dynamicAttributeComponentsMap = new HashMap<>();
 
-	public Map<String, IntElemAttribute> getDynamicAttributeComponentsMap() {
+	public Map<String, IntInstAttribute> getDynamicAttributeComponentsMap() {
 		return dynamicAttributeComponentsMap;
 	}
 
 	public void setDynamicAttributeComponentsMap(
-			Map<String, IntElemAttribute> dynamicAttributesMap) {
+			Map<String, IntInstAttribute> dynamicAttributesMap) {
 		this.dynamicAttributeComponentsMap = dynamicAttributesMap;
 	}
 

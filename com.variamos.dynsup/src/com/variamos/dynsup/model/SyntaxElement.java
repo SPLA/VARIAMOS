@@ -11,9 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntOpersElement;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
-import com.variamos.semantic.types.AttributeType;
+import com.variamos.dynsup.types.AttributeType;
 
 /**
  * @author Juan Carlos Muñoz 2014 part of the PhD work at CRI - Universite Paris
@@ -250,7 +248,7 @@ public abstract class SyntaxElement implements Serializable {
 		this.borderStroke = borderStroke;
 	}
 
-	public IntOpersElement getTransSemanticConcept() {
+	public OpersElement getTransSemanticConcept() {
 		if (instSemanticElement != null)
 			return this.instSemanticElement.getEdOperEle();
 		else
@@ -643,7 +641,7 @@ public abstract class SyntaxElement implements Serializable {
 		return "";
 	}
 
-	public List<IntOpersRelType> getSemanticRelationTypes() {
+	public List<OpersRelType> getSemanticRelationTypes() {
 		return ((OpersOverTwoRel) getTransInstSemanticElement().getEdOperEle())
 				.getSemanticRelationTypes();
 	}

@@ -2,7 +2,7 @@ package com.variamos.dynsup.model;
 
 import java.io.Serializable;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 
 /**
  * A class to represented the component of each AbstractAttribute on VariaMos.
@@ -14,7 +14,7 @@ import com.variamos.dynsup.interfaces.IntElemAttribute;
  * @since 2014-12-29
  * @see com.variamos.syntaxsupport.metamodelsupport.AbtractAttribute
  */
-public class ElemAttribAttribute implements Serializable, IntElemAttribute {
+public class ElemAttribAttribute implements Serializable, IntInstAttribute {
 	/**
 	 * 
 	 */
@@ -166,12 +166,10 @@ public class ElemAttribAttribute implements Serializable, IntElemAttribute {
 		return getIdentifier().hashCode();
 	}
 
-	@Override
 	public boolean isAffectProperties() {
 		return false;
 	}
 
-	@Override
 	public String getDisplayName() {
 		return name;
 	}

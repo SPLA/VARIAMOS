@@ -6,7 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 
 /**
@@ -36,13 +36,13 @@ public class SetWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		comboBox.setSelectedItem(v.getValue());
 		return false;
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		v.setType((String) comboBox.getSelectedItem());
 	}
 
@@ -52,7 +52,7 @@ public class SetWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 	}
 

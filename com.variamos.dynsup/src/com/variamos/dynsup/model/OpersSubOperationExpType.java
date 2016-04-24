@@ -3,27 +3,24 @@ package com.variamos.dynsup.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.variamos.dynsup.interfaces.IntMetaExpression;
-
 public class OpersSubOperationExpType extends OpersElement {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4179971760312524058L;
-	private List<IntMetaExpression> semanticExpressions;
+	private List<OpersExpr> semanticExpressions;
 
 	public OpersSubOperationExpType() {
 		super(null);
-		semanticExpressions = new ArrayList<IntMetaExpression>();
+		semanticExpressions = new ArrayList<OpersExpr>();
 	}
 
-	public List<IntMetaExpression> getSemanticExpressions() {
+	public List<OpersExpr> getSemanticExpressions() {
 		return semanticExpressions;
 	}
 
-	public void setSemanticExpressions(
-			List<IntMetaExpression> semanticExpressions) {
+	public void setSemanticExpressions(List<OpersExpr> semanticExpressions) {
 		this.semanticExpressions = semanticExpressions;
 	}
 
@@ -32,7 +29,7 @@ public class OpersSubOperationExpType extends OpersElement {
 	}
 
 	public boolean hasSemanticExpression(String identifier) {
-		for (IntMetaExpression s : semanticExpressions)
+		for (OpersExpr s : semanticExpressions)
 			if (s.getIdentifier().equals(identifier))
 				return true;
 		return false;

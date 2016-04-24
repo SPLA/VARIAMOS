@@ -39,9 +39,9 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -678,7 +678,7 @@ public class InstanceExpressionDialog extends JDialog {
 
 			}
 
-			IntOpersElement semElement2 = ((SyntaxElement) instVertex
+			OpersElement semElement2 = ((SyntaxElement) instVertex
 					.getTransSupportMetaElement()).getTransSemanticConcept();
 			if (semElement2 != null
 					&& semElement2.getIdentifier().equals("Variable")) {
@@ -767,7 +767,7 @@ public class InstanceExpressionDialog extends JDialog {
 				|| type == ExpressionVertexType.RIGHTVARIABLE) {
 			for (InstElement instVertex : refasModel
 					.getVariabilityVertexCollection()) {
-				IntOpersElement semElement2 = ((SyntaxElement) instVertex
+				OpersElement semElement2 = ((SyntaxElement) instVertex
 						.getTransSupportMetaElement())
 						.getTransSemanticConcept();
 				if (semElement2 != null

@@ -1,6 +1,5 @@
 package com.variamos.dynsup.model;
 
-import com.variamos.dynsup.interfaces.IntOpersConcept;
 
 /**
  * A class to represent the hard concepts at semantic level. Part of PhD work at
@@ -12,7 +11,7 @@ import com.variamos.dynsup.interfaces.IntOpersConcept;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class OpersConcept extends OpersElement implements IntOpersConcept {
+public class OpersConcept extends OpersElement {
 
 	/**
 	 * 

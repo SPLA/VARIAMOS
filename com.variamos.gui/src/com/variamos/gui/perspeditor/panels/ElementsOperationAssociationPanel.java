@@ -19,8 +19,8 @@ import com.cfm.common.AbstractModel;
 import com.cfm.productline.Variable;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
@@ -215,8 +215,7 @@ public class ElementsOperationAssociationPanel extends
 			if (dialog == 0
 					&& el.getEdOperEle() != null
 					&& el.getEdOperEle().getAllSemanticExpressions(opersParent) != null)
-				for (IntMetaExpression v : el.getEdOperEle()
-						.getSemanticExpressions()) {
+				for (OpersExpr v : el.getEdOperEle().getSemanticExpressions()) {
 					List<Integer> valuesOperColumns = new ArrayList<Integer>();
 					for (OpersSubOperationExpType operColumn : subOperTypesColumns)
 						if (operColumn.hasSemanticExpression(v.getIdentifier()))
@@ -242,8 +241,7 @@ public class ElementsOperationAssociationPanel extends
 							false, domainOperColumns, null);
 
 					node.getChildren().add(attNode);
-					for (IntMetaExpression e : (List<IntMetaExpression>) v
-							.getValue()) {
+					for (OpersExpr e : (List<OpersExpr>) v.getValue()) {
 						for (OpersSubOperationExpType operColumn : subOperTypesColumns)
 							if (operColumn.hasSemanticExpression(e
 									.getIdentifier()))

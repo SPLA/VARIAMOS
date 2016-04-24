@@ -12,7 +12,7 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.model.SyntaxView;
-import com.variamos.semantic.types.AttributeType;
+import com.variamos.dynsup.types.AttributeType;
 
 public class DefaultSyntaxMM {
 	public static void createSyntaxMetaModel(ModelInstance refas) {

@@ -15,17 +15,17 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.cfm.productline.type.IntegerType;
+import com.variamos.dynsup.instance.EnumerationSort;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.partialsorts.EnumerationSort;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property list for instance enumerations type on

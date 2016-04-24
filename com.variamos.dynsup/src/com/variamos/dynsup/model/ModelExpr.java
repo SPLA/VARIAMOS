@@ -13,7 +13,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.interfaces.IntModelExpression;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
@@ -35,7 +34,7 @@ import com.variamos.hlcl.RangeDomain;
  * @author jcmunoz
  *
  */
-public class ModelExpr implements Serializable, IntModelExpression {
+public class ModelExpr implements Serializable {
 	/**
 	 * 
 	 */

@@ -9,7 +9,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersPairwiseRel;
@@ -17,10 +16,10 @@ import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.OperationSubActionType;
 import com.variamos.hlcl.IntervalDomain;
-import com.variamos.semantic.types.AttributeType;
 
 public class InfraSyntaxOpersMMM {
 
@@ -666,11 +665,11 @@ public class InfraSyntaxOpersMMM {
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
 		variabilityInstVertex.put("OMOTRel", instInfraSyntaxOpersM2OTRel);
 
-		List<IntOpersRelType> basicOpersM2ExtRelList = new ArrayList<IntOpersRelType>();
+		List<OpersRelType> basicOpersM2ExtRelList = new ArrayList<OpersRelType>();
 		basicOpersM2ExtRelList.add(new OpersRelType("extends", "extends",
 				"extends", false, true, true, 1, -1, 1, 1));
 
-		List<IntOpersRelType> basicOpersM2AsoRellList = new ArrayList<IntOpersRelType>();
+		List<OpersRelType> basicOpersM2AsoRellList = new ArrayList<OpersRelType>();
 		basicOpersM2AsoRellList.add(new OpersRelType("association",
 				"association", "association", false, true, true, 1, -1, 1, 1));
 

@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.dynsup.interfaces.IntOpersElement;
-import com.variamos.dynsup.interfaces.IntOpersPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
-import com.variamos.semantic.types.AttributeType;
+import com.variamos.dynsup.types.AttributeType;
 
 /**
  * Class to store the back end information of relations between two elements
@@ -81,7 +81,7 @@ public class InstPairwiseRel extends InstElement {
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
-	public InstPairwiseRel(IntOpersElement editableSemanticElement) {
+	public InstPairwiseRel(OpersElement editableSemanticElement) {
 		super(null);
 		setEdOperEle(editableSemanticElement);
 		createAttributes(new HashMap<String, InstAttribute>());
@@ -89,7 +89,7 @@ public class InstPairwiseRel extends InstElement {
 
 	public InstPairwiseRel(SyntaxPairwiseRel supportMetaPairwiseRelation,
 			String supportInstPairwiseRelationIden,
-			IntOpersElement editableSemanticElement) {
+			OpersElement editableSemanticElement) {
 		super(null);
 		setSupportMetaPairwiseRelation(supportMetaPairwiseRelation);
 		setEdOperEle(editableSemanticElement);
@@ -287,7 +287,7 @@ public class InstPairwiseRel extends InstElement {
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
 			Object o = getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject();
-			String semGroupDep = (String) ((IntOpersPairwiseRel) o)
+			String semGroupDep = (String) ((OpersPairwiseRel) o)
 					.getIdentifier();
 
 			if (!semPairwiseDepOld.equals(semGroupDep)) {
@@ -392,7 +392,7 @@ public class InstPairwiseRel extends InstElement {
 
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
+			OpersPairwiseRel semanticRelation = (OpersPairwiseRel) getInstAttribute(
 					VAR_OPERSPAIRWISE_OBJ).getValueObject();
 			// FIXME how pass parent to opersconcept
 			editableAttributes.addAll(semanticRelation
@@ -404,10 +404,10 @@ public class InstPairwiseRel extends InstElement {
 		return editableAttributes;
 	}
 
-	public IntOpersPairwiseRel getSemanticEdge() {
+	public OpersPairwiseRel getSemanticEdge() {
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			return (IntOpersPairwiseRel) getInstAttribute(VAR_OPERSPAIRWISE_OBJ)
+			return (OpersPairwiseRel) getInstAttribute(VAR_OPERSPAIRWISE_OBJ)
 					.getValueObject();
 		}
 		return null;
@@ -419,7 +419,7 @@ public class InstPairwiseRel extends InstElement {
 
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
+			OpersPairwiseRel semanticRelation = (OpersPairwiseRel) getInstAttribute(
 					VAR_OPERSPAIRWISE_OBJ).getValueObject();
 			// FIXME how to get the parents for this opersconcept
 			editableAttributes.addAll(semanticRelation
@@ -437,7 +437,7 @@ public class InstPairwiseRel extends InstElement {
 
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
+			OpersPairwiseRel semanticRelation = (OpersPairwiseRel) getInstAttribute(
 					VAR_OPERSPAIRWISE_OBJ).getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getPanelVisibleAttributes(null));
@@ -451,7 +451,7 @@ public class InstPairwiseRel extends InstElement {
 
 		if (getInstAttribute(VAR_OPERSPAIRWISE_OBJ) != null
 				&& getInstAttribute(VAR_OPERSPAIRWISE_OBJ).getValueObject() != null) {
-			IntOpersPairwiseRel semanticRelation = (IntOpersPairwiseRel) getInstAttribute(
+			OpersPairwiseRel semanticRelation = (OpersPairwiseRel) getInstAttribute(
 					VAR_OPERSPAIRWISE_OBJ).getValueObject();
 			editableAttributes.addAll(semanticRelation
 					.getPanelSpacersAttributes(null));
@@ -565,7 +565,7 @@ public class InstPairwiseRel extends InstElement {
 
 	}
 
-	public void setSemanticEdge(IntOpersPairwiseRel semanticEdgeIde2) {
+	public void setSemanticEdge(OpersPairwiseRel semanticEdgeIde2) {
 		getInstAttribute(VAR_OPERSPAIRWISE_OBJ)
 				.setValueObject(semanticEdgeIde2);
 

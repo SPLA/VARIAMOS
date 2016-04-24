@@ -10,16 +10,16 @@ import com.mxgraph.util.mxResources;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
-import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
+import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.hlcl.BooleanExpression;
@@ -30,7 +30,6 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.Labeling;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.semantic.staticexpr.ElementExpressionSet;
 
 /**
  * A class to represent the constraints. Part of PhD work at University of Paris
@@ -143,8 +142,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				}
 			}
 			if (operExpType != null) {
-				List<IntMetaExpression> semExp = operExpType
-						.getSemanticExpressions();
+				List<OpersExpr> semExp = operExpType.getSemanticExpressions();
 
 				if (instElement == null)
 					for (InstElement instE : refas.getElements()) {
@@ -375,7 +373,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					for (InstAttribute att : instattrs) {
 						laborder.add((LabelingOrder) att.getValue());
 					}
-					List<IntMetaExpression> semExps = operLab.getEdOperEle()
+					List<OpersExpr> semExps = operLab.getEdOperEle()
 							.getSemanticExpressions();
 					// FIXME support more models
 					InstElement oper2 = refas.getElement("REFAS1");
@@ -399,9 +397,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	@SuppressWarnings("unchecked")
 	protected List<ModelExpr> createElementInstanceExpressions(
-			InstElement instElement,
-			List<IntMetaExpression> semanticExpressions, boolean semanticElement) {
-		IntOpersElement semElement = null;
+			InstElement instElement, List<OpersExpr> semanticExpressions,
+			boolean semanticElement) {
+		OpersElement semElement = null;
 		/*
 		 * if (semanticElement) semElement =
 		 * instElement.getEditableSemanticElement(); else
@@ -417,13 +415,13 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 					.getTransInstSemanticElement().getParentOpersConcept();
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions(opersParents) != null) {
-			List<IntMetaExpression> semanticExpr = null;
+			List<OpersExpr> semanticExpr = null;
 			if (semanticElement)
 				semanticExpr = semanticExpressions;
 			else
 				semanticExpr = semElement
 						.getAllSemanticExpressions(opersParents);
-			for (IntMetaExpression semExpression : semanticExpr) {
+			for (OpersExpr semExpression : semanticExpr) {
 				if (semanticElement
 						|| semanticExpressions.contains(semExpression)) {
 					ModelExpr instanceExpression = new ModelExpr(refas, false,
@@ -447,7 +445,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 						String comp = (String) instElement.getInstAttribute(
 								"relationType").getValue();
 						if (att.equals(comp))
-							for (IntMetaExpression semExpression : (List<IntMetaExpression>) attribute
+							for (OpersExpr semExpression : (List<OpersExpr>) attribute
 									.getValue()) {
 								if (semanticElement
 										|| semanticExpressions
@@ -470,7 +468,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 
 	protected List<ModelExpr> createElementInstanceExpressions(
 			InstElement instElement) {
-		IntOpersElement semElement = instElement.getTransSupportMetaElement()
+		OpersElement semElement = instElement.getTransSupportMetaElement()
 				.getTransSemanticConcept();
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
 		List<InstElement> opersParents = instElement
@@ -478,7 +476,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				.getParentOpersConcept();
 		if (semElement != null
 				&& semElement.getAllSemanticExpressions(opersParents) != null)
-			for (IntMetaExpression semExpression : semElement
+			for (OpersExpr semExpression : semElement
 					.getAllSemanticExpressions(opersParents)) {
 				ModelExpr instanceExpression = new ModelExpr(refas, false,
 						(OpersExpr) semExpression);
@@ -494,7 +492,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 	// List<InstanceExpression> out = new ArrayList<InstanceExpression>();
 	// if (semElement != null
 	// && semElement.getAllSemanticExpressions() != null)
-	// for (IntMetaExpression semExpression : semElement
+	// for (OpersExpr semExpression : semElement
 	// .getAllSemanticExpressions()) {
 	// InstanceExpression instanceExpression = new InstanceExpression(
 	// refas, false, (SemanticExpression) semExpression);

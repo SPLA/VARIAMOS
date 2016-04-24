@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 
 /**
  * Not a real need founded jet. Copied from RealWidget
@@ -32,7 +32,7 @@ public class RealWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsFloat() ));
 		revalidate();
 		repaint();
@@ -40,7 +40,7 @@ public class RealWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		float val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

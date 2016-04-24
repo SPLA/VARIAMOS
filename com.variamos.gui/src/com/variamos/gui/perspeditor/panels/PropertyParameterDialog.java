@@ -21,8 +21,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -45,7 +44,7 @@ public class PropertyParameterDialog extends JDialog {
 
 	public PropertyParameterDialog(int height, int width,
 			final VariamosGraphEditor editor, final InstElement instElement,
-			IntElemAttribute... arguments) {
+			IntInstAttribute... arguments) {
 		super(editor.getFrame(), "Enumeration Value");
 
 		setLayout(new BorderLayout());
@@ -59,7 +58,7 @@ public class PropertyParameterDialog extends JDialog {
 
 		widgets = new HashMap<String, WidgetR>();
 
-		for (final IntElemAttribute elementAttribute : arguments) {
+		for (final IntInstAttribute elementAttribute : arguments) {
 			panel.add(new JLabel(elementAttribute.getDisplayName() + ": "));
 			if (elementAttribute.getType().equals(
 					OpersExpr.class.getCanonicalName())) {
@@ -67,10 +66,10 @@ public class PropertyParameterDialog extends JDialog {
 				panel.add(jb);
 				jb.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						List<IntMetaExpression> ie = new ArrayList<IntMetaExpression>();
+						List<OpersExpr> ie = new ArrayList<OpersExpr>();
 						;
 						if (elementAttribute.getValue() != null)
-							ie.addAll((List<IntMetaExpression>) elementAttribute
+							ie.addAll((List<OpersExpr>) elementAttribute
 									.getValue());
 
 						final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
@@ -209,11 +208,11 @@ public class PropertyParameterDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public Map<String, IntElemAttribute> getParameters() {
-		Map<String, IntElemAttribute> map = new HashMap<>();
+	public Map<String, IntInstAttribute> getParameters() {
+		Map<String, IntInstAttribute> map = new HashMap<>();
 
 		for (String s : widgets.keySet()) {
-			IntElemAttribute v = widgets.get(s).getInstAttribute();
+			IntInstAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 

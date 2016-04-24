@@ -3,7 +3,6 @@ package com.variamos.dynsup.model;
 import java.util.List;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
 
 /**
  * A class to represented edges of the meta model. Extends from MetaElement
@@ -16,7 +15,7 @@ import com.variamos.dynsup.interfaces.IntOpersRelType;
  * @version 1.1
  * @since 2014-12-10
  * @see com.variamos.dynsup.model.SyntaxElement * @see
- *      com.variamos.semantic.semanticsupport.SemanticPairwiseRelation
+ *      com.variamos.dynsup.model.OpersPairwiseRel
  */
 public class SyntaxPairwiseRel extends SyntaxElement {
 	/**
@@ -57,11 +56,11 @@ public class SyntaxPairwiseRel extends SyntaxElement {
 				height, image, borderStroke, null);
 	}
 
-	public List<IntOpersRelType> getSemanticRelationTypes() {
+	public List<OpersRelType> getSemanticRelationTypes() {
 		if (getTransInstSemanticElement() == null)
 			return null;
-		return ((OpersPairwiseRel) getTransInstSemanticElement()
-				.getEdOperEle()).getSemanticRelationTypes();
+		return ((OpersPairwiseRel) getTransInstSemanticElement().getEdOperEle())
+				.getSemanticRelationTypes();
 	}
 
 	public String toString() {

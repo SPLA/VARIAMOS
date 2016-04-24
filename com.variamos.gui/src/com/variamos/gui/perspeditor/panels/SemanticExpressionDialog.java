@@ -34,7 +34,6 @@ import javax.swing.border.EmptyBorder;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersExpr;
@@ -53,7 +52,7 @@ import com.variamos.gui.perspeditor.SpringUtilities;
  */
 @SuppressWarnings("serial")
 public class SemanticExpressionDialog extends JDialog {
-	private List<IntMetaExpression> semanticExpressions;
+	private List<OpersExpr> semanticExpressions;
 	private SemanticExpressionButtonAction onAccept, onCancel;
 	private OpersExpr selectedExpression;
 	private JPanel solutionPanel;
@@ -69,7 +68,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	public SemanticExpressionDialog(VariamosGraphEditor editor,
-			InstElement instElement, List<IntMetaExpression> semanticExpressions) {
+			InstElement instElement, List<OpersExpr> semanticExpressions) {
 		super(editor.getFrame(), "Semantic Expressions Editor");
 		refasModel = (ModelInstance) editor.getEditedModel();
 		this.semanticExpressions = semanticExpressions;
@@ -78,7 +77,7 @@ public class SemanticExpressionDialog extends JDialog {
 	}
 
 	public void initialize(final InstElement element,
-			final List<IntMetaExpression> semanticExpressions) {
+			final List<OpersExpr> semanticExpressions) {
 		if (initializing)
 			return;
 		initializing = true;
@@ -96,8 +95,8 @@ public class SemanticExpressionDialog extends JDialog {
 
 		if (semanticExpressions != null)
 			this.semanticExpressions = semanticExpressions;
-		final List<IntMetaExpression> finalSemanticExpressions = this.semanticExpressions;
-		for (final IntMetaExpression semanticExpression : this.semanticExpressions) {
+		final List<OpersExpr> finalSemanticExpressions = this.semanticExpressions;
+		for (final OpersExpr semanticExpression : this.semanticExpressions) {
 
 			if (semanticExpressions != null)
 				selectedExpression = (OpersExpr) semanticExpression;
@@ -1294,7 +1293,7 @@ public class SemanticExpressionDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public List<IntMetaExpression> getExpressions() {
+	public List<OpersExpr> getExpressions() {
 		return semanticExpressions;
 	}
 

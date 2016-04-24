@@ -60,16 +60,17 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
-import com.variamos.dynsup.interfaces.IntInstElement;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxView;
+import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
-import com.variamos.dynsup.translation.SemSolverTasks;
+import com.variamos.dynsup.translation.SolverOpersTask;
 import com.variamos.dynsup.translation.SolverTasks;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.DomainRegister;
 import com.variamos.dynsup.types.PerspectiveType;
 import com.variamos.gui.perspeditor.PerspEditorFunctions;
@@ -94,8 +95,6 @@ import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.io.SXFMReader;
-import com.variamos.semantic.staticexpr.ElementExpressionSet;
-import com.variamos.semantic.types.AttributeType;
 import com.variamos.solver.Configuration;
 
 import fm.FeatureModelException;
@@ -132,7 +131,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private ModelInstance refasModel;
 	private ProgressMonitor progressMonitor;
 	private SolverTasks task;
-	private SemSolverTasks semTask;
+	private SolverOpersTask semTask;
 	protected StaticExpressionsPanel expressions;
 	protected JTextArea messagesArea;
 	protected JTextArea expressionsArea;
@@ -1073,7 +1072,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						@Override
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
-							IntElemAttribute v = w.getInstAttribute();
+							IntInstAttribute v = w.getInstAttribute();
 							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
@@ -1090,7 +1089,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						@Override
 						public void focusLost(FocusEvent arg0) {
 							// Makes it pull the values.
-							IntElemAttribute v = w.getInstAttribute();
+							IntInstAttribute v = w.getInstAttribute();
 							if (v.getType().equals("String"))
 								v.setValue(AbstractElement.multiLine(
 										v.toString(), 15));
@@ -1316,7 +1315,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 	}
 
-	public void refreshElement(IntInstElement elm) {
+	public void refreshElement(InstElement elm) {
 		List<InstAttribute> visible = elm.getVisibleVariables(refasModel
 				.getParentSMMSyntaxElement((InstElement) elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
@@ -1348,8 +1347,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void onVariableEdited(IntInstElement editableElement,
-			IntElemAttribute instAttribute) {
+	protected void onVariableEdited(InstElement editableElement,
+			IntInstAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
 			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
 					.getEdSyntaxEle();
@@ -1594,7 +1593,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
-	public SemSolverTasks executeSimulation(boolean firstSimulExecution,
+	public SolverOpersTask executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, String type, boolean update,
 			String operation) {
 
@@ -1609,7 +1608,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			progressMonitor.setMillisToDecideToPopup(5);
 			progressMonitor.setMillisToPopup(5);
 			progressMonitor.setProgress(0);
-			semTask = new SemSolverTasks(progressMonitor, type, refas2hlcl,
+			semTask = new SolverOpersTask(progressMonitor, type, refas2hlcl,
 					configHlclProgram, firstSimulExecution, reloadDashboard,
 					update, operation, lastConfiguration);
 			semTask.addPropertyChangeListener(this);

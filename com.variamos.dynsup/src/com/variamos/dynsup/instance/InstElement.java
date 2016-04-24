@@ -13,10 +13,9 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.cfm.productline.AbstractElement;
-import com.variamos.dynsup.interfaces.IntInstElement;
-import com.variamos.dynsup.interfaces.IntModelExpression;
-import com.variamos.dynsup.interfaces.IntOpersElement;
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxConcept;
@@ -36,7 +35,7 @@ import com.variamos.hlcl.LabelingOrder;
  * @see com.variamos.syntaxsupport.metamodel.InsVertex
  * @see com.variamos.syntaxsupport.metamodel.InsEdge
  */
-public abstract class InstElement implements Serializable, IntInstElement,
+public abstract class InstElement implements Serializable,
 		Comparable<InstElement> {
 	/**
 	 * 
@@ -52,8 +51,8 @@ public abstract class InstElement implements Serializable, IntInstElement,
 
 	private Map<String, Object> dynamicAttributes = new HashMap<>();
 
-	private List<IntModelExpression> modExp;
-	private IntOpersElement edOperEle;
+	private List<ModelExpr> modExp;
+	private OpersElement edOperEle;
 	private SyntaxElement edSyntaxEle;
 	private SyntaxElement supMetaElement;
 	private InstElement supInstElement;
@@ -90,11 +89,11 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 	}
 
-	public List<IntModelExpression> getModExp() {
+	public List<ModelExpr> getModExp() {
 		return modExp;
 	}
 
-	public void setModExp(List<IntModelExpression> instanceExpressions) {
+	public void setModExp(List<ModelExpr> instanceExpressions) {
 		this.modExp = instanceExpressions;
 	}
 
@@ -229,11 +228,11 @@ public abstract class InstElement implements Serializable, IntInstElement,
 		this.dynamicAttributes = dynamicAttributesMap;
 	}
 
-	public IntOpersElement getEdOperEle() {
+	public OpersElement getEdOperEle() {
 		return edOperEle;
 	}
 
-	public void setEdOperEle(IntOpersElement editableSemanticElement) {
+	public void setEdOperEle(OpersElement editableSemanticElement) {
 		this.edOperEle = editableSemanticElement;
 	}
 
@@ -340,10 +339,12 @@ public abstract class InstElement implements Serializable, IntInstElement,
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Map<String, InstAttribute> getInstAttributes() {
 		return (Map<String, InstAttribute>) getDynamicAttribute(VAR_INSTATTRIBUTES);
 	}
+
+	public abstract List<InstAttribute> getEditableVariables(
+			List<InstElement> syntaxParents);
 
 	@SuppressWarnings("unchecked")
 	public Collection<InstAttribute> getInstAttributesCollection() {

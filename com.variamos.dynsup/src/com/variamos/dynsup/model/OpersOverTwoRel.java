@@ -2,9 +2,6 @@ package com.variamos.dynsup.model;
 
 import java.util.List;
 
-import com.variamos.dynsup.interfaces.IntOpersOverTwoRel;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
-
 /**
  * A class to represent relations of more than two concepts at semantic level.
  * Part of PhD work at University of Paris 1
@@ -15,25 +12,24 @@ import com.variamos.dynsup.interfaces.IntOpersRelType;
  * @since 2014-11-23
  * @see com.cfm.productline.
  */
-public class OpersOverTwoRel extends OpersElement implements IntOpersOverTwoRel {
+public class OpersOverTwoRel extends OpersElement {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6309224856276191013L;
-	private List<IntOpersRelType> semanticRelationTypes;
+	private List<OpersRelType> semanticRelationTypes;
 
 	public OpersOverTwoRel() {
 		super(null);
 	}
 
 	public OpersOverTwoRel(String identifier,
-			List<IntOpersRelType> semanticRelationTypes) {
+			List<OpersRelType> semanticRelationTypes) {
 		super(identifier);
 		this.semanticRelationTypes = semanticRelationTypes;
 	}
 
-	@Override
-	public List<IntOpersRelType> getSemanticRelationTypes() {
+	public List<OpersRelType> getSemanticRelationTypes() {
 		return semanticRelationTypes;
 	}
 

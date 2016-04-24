@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
 import com.variamos.dynsup.types.ExpressionVertexType;
 
 /**
@@ -16,7 +15,7 @@ import com.variamos.dynsup.types.ExpressionVertexType;
  * @version 1.1
  * @since 2014-02-05
  */
-public class OpersExpr implements Serializable, IntMetaExpression {
+public class OpersExpr implements Serializable {
 	/**
 	 * 
 	 */
@@ -139,16 +138,14 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType) {
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLEVALUE);
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLEVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement leftSemanticElement, InstElement rightSemanticElement,
 			String leftAttributeName, String rightAttributeName) {
 		this.identifier = identifier;
@@ -161,8 +158,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTVARIABLE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType leftExpressionVertexType,
 			ExpressionVertexType rightExpressionVertexType,
 			InstElement leftSemanticElement, InstElement rightSemanticElement,
@@ -177,8 +173,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(rightExpressionVertexType);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement leftSemanticElement, String attributeName,
 			boolean replaceRight, int number) {
 		this.identifier = identifier;
@@ -197,8 +192,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement leftSemanticElement, String leftAttributeName,
 			int rightNumber) {
@@ -211,8 +205,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement leftSemanticElement, String leftAttributeName,
 			String rightAttributeName) {
@@ -225,8 +218,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
 			InstElement semanticRelElement, String attributeName,
@@ -251,8 +243,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
 			InstElement semanticRelElement, String attributeName1,
@@ -277,8 +268,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
 			OpersExpr semanticExpression, int rightNumber) {
@@ -292,8 +282,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
 			OpersExpr semanticExpression, String rightAttribute) {
@@ -308,9 +297,8 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType, int number,
-			boolean replaceTarget, OpersExpr semanticExpression) {
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
+			int number, boolean replaceTarget, OpersExpr semanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceTarget) {
@@ -326,8 +314,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement leftSemanticElement, String leftAttributeName,
 			String rightString) {
 		this.identifier = identifier;
@@ -339,8 +326,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType leftExpressionVertexType,
 			InstElement semanticElement, InstElement leftSemanticElement,
 			String leftAttributeName, String rightString) {
@@ -354,9 +340,8 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTSTRINGVALUE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType, String string,
-			boolean replaceTarget, OpersExpr semanticExpression) {
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
+			String string, boolean replaceTarget, OpersExpr semanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceTarget) {
@@ -372,8 +357,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, String attributeName,
 			boolean replaceTarget, OpersExpr semanticExpression) {
@@ -394,8 +378,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement semanticElement, String attributeName,
 			boolean replaceTarget, OpersExpr semanticExpression) {
 		this.identifier = identifier;
@@ -415,8 +398,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		}
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			OpersExpr semanticExpression, int rightNumber) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
@@ -426,8 +408,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		this.rightNumber = rightNumber;
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			OpersExpr semanticExpression, String attributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
@@ -437,8 +418,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		this.rightAttributeName = attributeName;
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			OpersExpr semanticExpression,
 			ExpressionVertexType rightExpressionType,
 			InstElement rightSemanticElement, String rightAttribute) {
@@ -451,10 +431,8 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		this.rightAttributeName = rightAttribute;
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
-			OpersExpr leftSemanticExpression,
-			OpersExpr rightSemanticExpression) {
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
+			OpersExpr leftSemanticExpression, OpersExpr rightSemanticExpression) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
 		this.leftSemanticExpression = leftSemanticExpression;
@@ -463,8 +441,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setRightExpressionType(ExpressionVertexType.RIGHTSUBEXPRESSION);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			InstElement leftSemanticElement, String attributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
@@ -473,8 +450,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		setLeftExpressionType(ExpressionVertexType.LEFTVARIABLE);
 	}
 
-	public OpersExpr(String identifier,
-			OpersExprType semanticExpressionType,
+	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType leftExpressionVertexType,
 			InstElement leftSemanticElement, String attributeName) {
 		this.identifier = identifier;
@@ -818,8 +794,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 			this.leftSemanticRelElementId = null;
 	}
 
-	public void setLeftSemanticExpression(
-			OpersExpr leftSemanticExpression) {
+	public void setLeftSemanticExpression(OpersExpr leftSemanticExpression) {
 		this.leftSemanticExpression = leftSemanticExpression;
 	}
 
@@ -836,24 +811,21 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 				|| type == ExpressionVertexType.LEFTITERINCRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITEROUTRELVARIABLE
 				|| type == ExpressionVertexType.LEFTITERANYRELVARIABLE)
-			this.leftSemanticExpression = new OpersExpr(id,
-					volSemElement);
+			this.leftSemanticExpression = new OpersExpr(id, volSemElement);
 		if (type == ExpressionVertexType.LEFTNUMERICVALUE)
 			this.leftSemanticExpression = new OpersExpr(id,
 					semanticExpressionType);
 		setLeftExpressionType(type);
 	}
 
-	public void setRightSemanticExpression(
-			OpersExpr rightSemanticExpression) {
+	public void setRightSemanticExpression(OpersExpr rightSemanticExpression) {
 		this.rightSemanticExpression = rightSemanticExpression;
 	}
 
 	public void setRightSemanticExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.RIGHTSUBEXPRESSION)
-			this.rightSemanticExpression = new OpersExpr(id,
-					volSemElement);
+			this.rightSemanticExpression = new OpersExpr(id, volSemElement);
 		if (type == ExpressionVertexType.RIGHTNUMERICVALUE)
 			this.rightSemanticExpression = new OpersExpr(id,
 					semanticExpressionType);
@@ -876,8 +848,7 @@ public class OpersExpr implements Serializable, IntMetaExpression {
 		return out;
 	}
 
-	public void setSemanticExpressionType(
-			OpersExprType semanticExpressionType) {
+	public void setSemanticExpressionType(OpersExprType semanticExpressionType) {
 		this.semanticExpressionType = semanticExpressionType;
 	}
 

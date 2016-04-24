@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.ClassMultiSelectionType;
@@ -57,7 +57,7 @@ public class RefasWidgetFactory {
 
 	}
 
-	public WidgetR getWidgetFor(IntElemAttribute v) {
+	public WidgetR getWidgetFor(IntInstAttribute v) {
 		// Type d = register.getDomain(v.getType());
 
 		String type = v.getType();

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersVariable;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -18,7 +18,7 @@ import com.variamos.dynsup.model.SyntaxElement;
 public class VisualElement implements Comparable<VisualElement> {
 
 	private InstElement instElement;
-	private IntOpersElement opersElement;
+	private OpersElement opersElement;
 	private boolean selected, notAvailable, updated;
 	private Color green, red, yellow;
 	private String otherParameters = "";

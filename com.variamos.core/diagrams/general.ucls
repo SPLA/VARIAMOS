@@ -233,13 +233,13 @@
     <position height="-1" width="-1" x="2102" y="434"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="45" language="java" name="com.variamos.semantic.expressions" project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/semantic/expressions" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="45" language="java" name="com.variamos.dynsup.expsup" project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/dynsup/expsup" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4802" y="701"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="46" language="java" name="com.variamos.semantic.types" project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/semantic/types" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="46" language="java" name="com.variamos.dynsup.types" project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/dynsup/types" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4946" y="994"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
@@ -248,18 +248,18 @@
     <position height="55" width="170" x="1019" y="702"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="48" language="java" name="com.variamos.perspsupport.instance" project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/instance" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="48" language="java" name="com.variamos.dynsup.instance" project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/dynsup/instance" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4555" y="795"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="49" language="java" name="com.variamos.perspsupport.syntax" project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/syntax" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="49" language="java" name="com.variamos.dynsup.syntax" project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/dynsup/syntax" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4191" y="1012"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="50" language="java" name="com.variamos.perspsupport.types" project="com.variamos.perspsupport" 
-    file="/com.variamos.perspsupport/src/com/variamos/perspsupport/types" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="50" language="java" name="com.variamos.dynsup.types" project="com.variamos.dynsup" 
+    file="/com.variamos.dynsup/src/com/variamos/dynsup/types" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3207" y="538"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  

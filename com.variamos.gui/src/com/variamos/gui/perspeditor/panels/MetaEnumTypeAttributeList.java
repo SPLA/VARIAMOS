@@ -20,12 +20,12 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.PropertyParameterDialog.DialogButtonAction;
 import com.variamos.hlcl.LabelingOrder;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property list of enumeration types on meta-modeling.

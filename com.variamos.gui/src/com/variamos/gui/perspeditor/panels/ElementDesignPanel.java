@@ -32,17 +32,17 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
-import com.variamos.dynsup.interfaces.IntInstElement;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
-import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersElement;
+import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.model.SyntaxView;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -54,7 +54,6 @@ import com.variamos.gui.perspeditor.widgets.RefasWidgetFactory;
 import com.variamos.gui.perspeditor.widgets.WidgetR;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.LabelingOrder;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to draw the first property tab. Part of PhD work at University of
@@ -192,7 +191,7 @@ public class ElementDesignPanel extends JPanel {
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							List<IntMetaExpression> ie = ((InstElement) finalEditElm)
+							List<OpersExpr> ie = ((InstElement) finalEditElm)
 									.getEdOperEle()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
@@ -240,7 +239,7 @@ public class ElementDesignPanel extends JPanel {
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							List<IntMetaExpression> ie = ((InstElement) finalEditElm)
+							List<OpersExpr> ie = ((InstElement) finalEditElm)
 									.getEdOperEle()
 									.getDeclaredSemanticExpressions();
 							final SemanticExpressionDialog dialog = new SemanticExpressionDialog(
@@ -454,7 +453,7 @@ public class ElementDesignPanel extends JPanel {
 											public void focusLost(
 													FocusEvent arg0) {
 												// Makes it pull the values.
-												IntElemAttribute elementAttribute = widget
+												IntInstAttribute elementAttribute = widget
 														.getInstAttribute();
 												if (elementAttribute.getType()
 														.equals("String")
@@ -490,7 +489,7 @@ public class ElementDesignPanel extends JPanel {
 											public void focusLost(
 													FocusEvent arg0) {
 												// Makes it pull the values.
-												IntElemAttribute elementAttribute = widget
+												IntInstAttribute elementAttribute = widget
 														.getInstAttribute();
 												if (elementAttribute.getType()
 														.equals("String")
@@ -971,7 +970,7 @@ public class ElementDesignPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	protected void onVariableEdited(VariamosGraphEditor editor,
-			IntInstElement editableElement, IntElemAttribute instAttribute) {
+			InstElement editableElement, IntInstAttribute instAttribute) {
 		if (editableElement instanceof InstConcept) {
 			SyntaxElement editableMetaElement = ((InstConcept) editableElement)
 					.getEdSyntaxEle();
@@ -1038,7 +1037,7 @@ public class ElementDesignPanel extends JPanel {
 							.setModelingAttributes((HashSet<ElemAttribute>) instAttribute
 									.getValue());
 			}
-			IntOpersElement editableSemanticElement = ((InstConcept) editableElement)
+			OpersElement editableSemanticElement = ((InstConcept) editableElement)
 					.getEdOperEle();
 			if (editableSemanticElement != null) {
 				if (instAttribute.getIdentifier().equals("Identifier"))

@@ -1,6 +1,5 @@
 package com.variamos.dynsup.model;
 
-import com.variamos.dynsup.interfaces.IntOpersRelType;
 
 /**
  * A class to represent types of relations at semantic level. Part of PhD work
@@ -9,11 +8,10 @@ import com.variamos.dynsup.interfaces.IntOpersRelType;
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
  * @version 1.1
- * @since 2015-01-03
- *  *  
+ * @since 2015-01-03 *
  */
 
-public class OpersRelType extends OpersElement implements IntOpersRelType {
+public class OpersRelType extends OpersElement {
 
 	/**
 	 * 
@@ -32,16 +30,16 @@ public class OpersRelType extends OpersElement implements IntOpersRelType {
 	public OpersRelType() {
 		super("");
 	}
-	
+
 	public OpersRelType(String identifier) {
 		super(identifier);
 	}
 
-	public OpersRelType(String identifier, String diplayName,
-			String panelName, boolean relationExclusive,
-			boolean sourceExclusive, boolean targetExclusive,
-			int minSourceCardinality, int maxSourceCardinality,
-			int minTargetCardinality, int maxTargetCardinality) {
+	public OpersRelType(String identifier, String diplayName, String panelName,
+			boolean relationExclusive, boolean sourceExclusive,
+			boolean targetExclusive, int minSourceCardinality,
+			int maxSourceCardinality, int minTargetCardinality,
+			int maxTargetCardinality) {
 		super(identifier);
 		this.diplayName = diplayName;
 		this.panelName = panelName;
@@ -53,6 +51,7 @@ public class OpersRelType extends OpersElement implements IntOpersRelType {
 		this.minTargetCardinality = minTargetCardinality;
 		this.maxTargetCardinality = maxTargetCardinality;
 	}
+
 	public String getDiplayName() {
 		return diplayName;
 	}
@@ -124,6 +123,5 @@ public class OpersRelType extends OpersElement implements IntOpersRelType {
 	public void setMaxTargetCardinality(int maxTargetCardinality) {
 		this.maxTargetCardinality = maxTargetCardinality;
 	}
-
 
 }
