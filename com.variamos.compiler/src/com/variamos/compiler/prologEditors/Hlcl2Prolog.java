@@ -1,4 +1,4 @@
-package com.variamos.prologEditors;
+package com.variamos.compiler.prologEditors;
 
 import java.util.ArrayList;
 import java.util.List;

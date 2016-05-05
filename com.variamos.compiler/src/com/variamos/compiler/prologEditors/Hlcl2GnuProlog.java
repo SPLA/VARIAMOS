@@ -1,22 +1,22 @@
-package com.variamos.prologEditors;
+package com.variamos.compiler.prologEditors;
 
-//import java.util.List;
-//import java.util.Set;
+import java.util.List;
+import java.util.Set;
 
-//import com.cfm.hlcl.Identifier;
-//import com.cfm.hlcl.IntervalDomain;
-//import com.cfm.hlcl.RangeDomain;
 import com.variamos.compiler.solverSymbols.GNUPrologSymbols;
 import com.variamos.hlcl.BooleanOperation;
 import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.SymbolicExpression;
+import com.variamos.hlcl.HlclUtil;
+import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.IntervalDomain;
+import com.variamos.hlcl.RangeDomain;
 
-public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
-										GNUPrologSymbols{
-	
+public class Hlcl2GnuProlog extends Hlcl2Prolog implements
+		GNUPrologSymbols {
+
 	@Override
 	protected void writeFooter(StringBuilder out) {
-		//out.append(END);
+		out.append(END);
 
 	}
 
@@ -47,14 +47,48 @@ public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
 	}
 
 	@Override
+	protected void  writeHeaderWithDefinedDomains(HlclProgram program, List<String>domainList,StringBuilder out){
+		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
+		out.append(HEADER);
+		out.append(makeVariables(ids));
+		out.append("\n");
+		for(String domain: domainList){
+			out.append(domain);
+		}
+		out.append("\n");
+	}
+	
+	
+	private StringBuilder makeVariables(Set<Identifier> ids) {
+		// Se contruye la lista de características y de dominios
+		StringBuilder dommainAndVariables = new StringBuilder("L=[");
+		StringBuilder variablesList = new StringBuilder();
+		String id = "";
+		for (Identifier identifier : ids) {
+			id = identifier.getId();
+			variablesList.append(id);
+			variablesList.append(COMMA);
+
+			
+		}
+		variablesList.append("],");
+		dommainAndVariables.append(variablesList.toString().replace(
+				",]", CLOSE_BRACKET));
+		dommainAndVariables.append(LF);
+	
+		return dommainAndVariables;
+	}
+	
+	
+	@Override
 	protected void writeHeader(HlclProgram program, StringBuilder out) {
-		/*Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
+		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
 
 		out.append(HEADER);
-		out.append(makeDomainsAndVariables(ids));*/
+		out.append(makeDomainsAndVariables(ids));
 	}
 
-/*	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
+	private StringBuilder makeDomainsAndVariables(Set<Identifier> ids) {
 		// Se contruye la lista de características y de dominios
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
 		StringBuilder variablesList = new StringBuilder();
@@ -124,15 +158,4 @@ public class Hlcl2GnuPrologExact extends Hlcl2GnuProlog implements
 		
 		return dommainAndVariables;
 	}
-	*/
-
-	@Override
-	protected void transformSymbolic(SymbolicExpression e, StringBuilder out) {
-		out.append(e.getName()).append(OPEN_PARENTHESIS);
-		writeIdentifiersList(e.getArgs(), out);
-		out.append(CLOSE_PARENHESIS);
-	}
-	
-	
-	
 }
