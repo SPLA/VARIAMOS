@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.variamos.dynsup.interfaces.IntOpersElement;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxElement;
 
 /**
@@ -50,15 +50,15 @@ public class InstConcept extends InstVertex {
 		copyValuesToInstAttributes(null);
 	}
 
-	public InstConcept(String identifier,
-			IntOpersElement editableSemanticElement, InstElement supInstElement) {
+	public InstConcept(String identifier, OpersElement editableSemanticElement,
+			InstElement supInstElement) {
 		this(identifier, supInstElement.getEdSyntaxEle(),
 				editableSemanticElement);
 		setTransSupInstElement(supInstElement);
 	}
 
 	public InstConcept(String identifier, SyntaxElement supportMetaElement,
-			IntOpersElement editableSemanticElement) {
+			OpersElement editableSemanticElement) {
 		super(identifier, new HashMap<String, InstAttribute>());
 		if (supportMetaElement != null)
 			setTransSupportMetaElement(supportMetaElement);

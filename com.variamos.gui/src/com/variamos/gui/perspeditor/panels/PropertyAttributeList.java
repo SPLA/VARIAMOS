@@ -12,15 +12,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.panels.AttributeEditionPanel.DialogButtonAction;
-import com.variamos.semantic.types.AttributeType;
 
 /**
  * A class to support the property of syntax and semantic concepts for modeling.
@@ -142,30 +142,30 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 
 		// HACK for accesing a non-final variable inside of an inner class
 		final ElemAttribute[] buffer = { var };
-		Map<String, IntElemAttribute> att = var
+		Map<String, IntInstAttribute> att = var
 				.getDynamicAttributeComponentsMap();
 
 		// TODO manage dynamically
 
-		final IntElemAttribute name = att.get("Name");
-		final IntElemAttribute type = att.get("Type");
-		final IntElemAttribute ClassCanName = att.get("ClassCanName");
-		final IntElemAttribute MetaCInstType = att.get("MetaCInstType");
-		final IntElemAttribute displayName = att.get("DispName");
-		final IntElemAttribute defaultValue = att.get("DefaultValue");
-		final IntElemAttribute domain = att.get("Domain");
-		final IntElemAttribute hint = att.get("Hint");
+		final IntInstAttribute name = att.get("Name");
+		final IntInstAttribute type = att.get("Type");
+		final IntInstAttribute ClassCanName = att.get("ClassCanName");
+		final IntInstAttribute MetaCInstType = att.get("MetaCInstType");
+		final IntInstAttribute displayName = att.get("DispName");
+		final IntInstAttribute defaultValue = att.get("DefaultValue");
+		final IntInstAttribute domain = att.get("Domain");
+		final IntInstAttribute hint = att.get("Hint");
 
-		final IntElemAttribute propTabPosition = att.get("propTabPosition");
-		final IntElemAttribute propTabEditionCondition = att
+		final IntInstAttribute propTabPosition = att.get("propTabPosition");
+		final IntInstAttribute propTabEditionCondition = att
 				.get("propTabEditionCondition");
-		final IntElemAttribute propTabVisualCondition = att
+		final IntInstAttribute propTabVisualCondition = att
 				.get("propTabVisualCondition");
-		final IntElemAttribute elementDisplayPosition = att
+		final IntInstAttribute elementDisplayPosition = att
 				.get("elementDisplayPosition");
-		final IntElemAttribute elementDisplaySpacers = att
+		final IntInstAttribute elementDisplaySpacers = att
 				.get("elementDisplaySpacers");
-		final IntElemAttribute elementDisplayCondition = att
+		final IntInstAttribute elementDisplayCondition = att
 				.get("elementDisplayCondition");
 
 		// SetDomain metaDomain = new SetDomain();

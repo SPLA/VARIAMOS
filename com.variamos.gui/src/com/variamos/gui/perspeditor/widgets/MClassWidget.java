@@ -21,7 +21,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.SyntaxElement;
@@ -51,7 +51,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = ClassMultiSelectionType.class
@@ -135,7 +135,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		if (v.getValue() instanceof int[]) {
 			@SuppressWarnings("unchecked")
 			List<Integer> values = (List<Integer>) v.getValue();
@@ -152,7 +152,7 @@ public class MClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		List<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = txtValue.getSelectedIndices();
 		for (int i = 0; i < valuesArray.length; i++)

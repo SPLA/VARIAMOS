@@ -5,7 +5,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/jpl.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.defectAnalyzer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.reasoning"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.cfm.jgprolog.gnuprolog"/>

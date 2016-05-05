@@ -19,14 +19,13 @@ import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
-import com.variamos.dynsup.interfaces.IntOpersElement;
-import com.variamos.dynsup.interfaces.IntOpersPairwiseRel;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersOverTwoRel;
+import com.variamos.dynsup.model.OpersPairwiseRel;
+import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
@@ -45,7 +44,7 @@ import com.variamos.dynsup.types.ClassSingleSelectionType;
 public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
-	private Map<String, IntOpersElement> semanticElements;
+	private Map<String, OpersElement> semanticElements;
 	private Map<String, SyntaxElement> syntaxElements;
 	private Map<String, InstElement> instVertex;
 
@@ -59,7 +58,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 
@@ -77,11 +76,11 @@ public class ClassWidget extends WidgetR {
 			e.printStackTrace();
 		}
 		if (instAttribute.getPairwiseRelValidationList() != null) {
-			semanticElements = new HashMap<String, IntOpersElement>();
-			List<IntOpersPairwiseRel> list = instAttribute
+			semanticElements = new HashMap<String, OpersElement>();
+			List<OpersPairwiseRel> list = instAttribute
 					.getPairwiseRelValidationList();
 
-			for (IntOpersPairwiseRel groupDependency : list) {
+			for (OpersPairwiseRel groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						groupDependency);
 				String out = groupDependency.getIdentifier();
@@ -103,11 +102,11 @@ public class ClassWidget extends WidgetR {
 				// txtValue.setSelectedItem(out);
 			}
 		} else if (instAttribute.getOverTwoRelValidationList() != null) {
-			semanticElements = new HashMap<String, IntOpersElement>();
-			List<IntOpersRelType> list = instAttribute
+			semanticElements = new HashMap<String, OpersElement>();
+			List<OpersRelType> list = instAttribute
 					.getOverTwoRelValidationList();
 
-			for (IntOpersRelType groupDependency : list) {
+			for (OpersRelType groupDependency : list) {
 				semanticElements.put(groupDependency.getIdentifier(),
 						(OpersElement) groupDependency);
 				String out = groupDependency.getIdentifier();
@@ -129,7 +128,7 @@ public class ClassWidget extends WidgetR {
 		} else {
 			if (aClass.isInterface()
 					|| aClass.getSuperclass().equals(OpersElement.class)) {
-				semanticElements = new HashMap<String, IntOpersElement>();
+				semanticElements = new HashMap<String, OpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
 				 * Collection<IntSemanticElement> list = semanticSyntaxObject
@@ -282,7 +281,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		boolean out = false;
 
 		InstAttribute instAttribute = (InstAttribute) v;
@@ -334,7 +333,7 @@ public class ClassWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 
 		InstAttribute instAttribute = (InstAttribute) v;
 		v.setValue((String) txtValue.getSelectedItem());

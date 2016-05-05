@@ -8,8 +8,8 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ConceptType;
-import com.variamos.semantic.types.AttributeType;
 
 public class InfraBasicSyntaxMMMM {
 	public static void createBasicSyntaxMetaMetaMetaModel(

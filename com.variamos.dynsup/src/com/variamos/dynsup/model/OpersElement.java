@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.dynsup.instance.InstElement;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
-import com.variamos.dynsup.interfaces.IntOpersElement;
 
 /**
  * A class to represent all elements at semantic level. Part of PhD work at
@@ -21,7 +19,7 @@ import com.variamos.dynsup.interfaces.IntOpersElement;
  * @version 1.1
  * @since 2014-12-07
  */
-public class OpersElement implements Serializable, IntOpersElement {
+public class OpersElement implements Serializable {
 	/**
 	 * 
 	 */
@@ -33,7 +31,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 	private List<String> panelVisibleAttributes; // position(01-99)#variable#conditionalvariable#operator#value
 	private List<String> panelSpacersAttributes; // preSpacer#variable#1Spacer#2Spacer#3Spacer#...
 	private Map<String, ElemAttribute> semanticAttributes = new HashMap<String, ElemAttribute>();
-	private List<IntMetaExpression> semanticExpressions;
+	private List<OpersExpr> semanticExpressions;
 
 	public OpersElement(String identifier) {
 		this(identifier, new ArrayList<String>(), new ArrayList<String>(),
@@ -59,7 +57,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		this.propEditableAttributes = propEditableAttributes;
 		this.panelVisibleAttributes = panelVisibleAttributes;
 		this.panelSpacersAttributes = panelSpacersAttributes;
-		this.semanticExpressions = new ArrayList<IntMetaExpression>();
+		this.semanticExpressions = new ArrayList<OpersExpr>();
 	}
 
 	public void setPropVisibleAttributes(List<String> disPropVisibleAttributes) {
@@ -84,26 +82,22 @@ public class OpersElement implements Serializable, IntOpersElement {
 		return syntaxAttributesNames;
 	}
 
-	@Override
 	public List<String> getPropVisibleAttributes(List<InstElement> opersParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPropVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
 		return modelingAttributesNames;
 	}
 
-	@Override
 	public Set<String> getPropVisibleAttributesSet(
 			List<InstElement> opersParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPropVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropVisibleAttributes());
 		return modelingAttributesNames;
@@ -113,41 +107,35 @@ public class OpersElement implements Serializable, IntOpersElement {
 		propVisibleAttributes.add(visibleAttribute);
 	}
 
-	@Override
 	public List<String> getDeclaredPropEditableAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		modelingAttributesNames.addAll(propEditableAttributes);
 		return modelingAttributesNames;
 	}
 
-	@Override
 	public HashMap<String, ElemAttribute> getDeclaredSemanticAttributes() {
 		HashMap<String, ElemAttribute> properties = new HashMap<String, ElemAttribute>();
 		properties.putAll(semanticAttributes);
 		return properties;
 	}
 
-	@Override
 	public List<String> getPropEditableAttributes(
 			List<InstElement> opersDirectParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPropEditableAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
 		return modelingAttributesNames;
 	}
 
-	@Override
 	public Set<String> getPropEditableAttributesSet(
 			List<InstElement> opersDirectParents) {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPropEditableAttributes());
 		modelingAttributesNames.addAll(getDeclaredPropEditableAttributes());
 		return modelingAttributesNames;
@@ -157,21 +145,18 @@ public class OpersElement implements Serializable, IntOpersElement {
 		propEditableAttributes.add(editableAttribute);
 	}
 
-	@Override
 	public List<String> getDeclaredPanelVisibleAttributes() {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		modelingAttributesNames.addAll(panelVisibleAttributes);
 		return modelingAttributesNames;
 	}
 
-	@Override
 	public List<String> getPanelVisibleAttributes(
 			List<InstElement> opersDirectParents) {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersDirectParents != null)
 			for (InstElement parent : opersDirectParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPanelVisibleAttributes());
 		modelingAttributesNames.addAll(getDeclaredPanelVisibleAttributes());
 		return modelingAttributesNames;
@@ -191,8 +176,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		List<String> modelingAttributesNames = new ArrayList<String>();
 		if (opersParents != null)
 			for (InstElement parent : opersParents)
-				modelingAttributesNames.addAll(parent
-						.getEdOperEle()
+				modelingAttributesNames.addAll(parent.getEdOperEle()
 						.getDeclaredPanelSpacersAttributes());
 		modelingAttributesNames.addAll(getDeclaredPanelSpacersAttributes());
 		return modelingAttributesNames;
@@ -241,8 +225,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 		if (semAtt == null && opersParents != null) {
 			ElemAttribute out = null;
 			for (InstElement parent : opersParents) {
-				out = (parent.getEdOperEle()
-						.getSemanticAttribute(name, null));
+				out = (parent.getEdOperEle().getSemanticAttribute(name, null));
 				if (out != null)
 					return out;
 			}
@@ -255,7 +238,6 @@ public class OpersElement implements Serializable, IntOpersElement {
 		this.semanticAttributes = semanticProperties;
 	}
 
-	@Override
 	public void setSemanticAttribute(String name,
 			ElemAttribute semanticAttribute, List<InstElement> opersParents) {
 		ElemAttribute semAtt = semanticAttributes.get(name);
@@ -280,16 +262,16 @@ public class OpersElement implements Serializable, IntOpersElement {
 		return identifier;
 	}
 
-	public List<IntMetaExpression> getDeclaredSemanticExpressions() {
-		List<IntMetaExpression> out = new ArrayList<IntMetaExpression>();
+	public List<OpersExpr> getDeclaredSemanticExpressions() {
+		List<OpersExpr> out = new ArrayList<OpersExpr>();
 		if (semanticExpressions != null)
 			out.addAll(semanticExpressions);
 		return out;
 	}
 
-	public List<IntMetaExpression> getAllSemanticExpressions(
+	public List<OpersExpr> getAllSemanticExpressions(
 			List<InstElement> opersParents) {
-		List<IntMetaExpression> out = new ArrayList<IntMetaExpression>();
+		List<OpersExpr> out = new ArrayList<OpersExpr>();
 		if (semanticExpressions != null)
 			out.addAll(semanticExpressions);
 		if (opersParents != null)
@@ -299,12 +281,11 @@ public class OpersElement implements Serializable, IntOpersElement {
 		return out;
 	}
 
-	public List<IntMetaExpression> getSemanticExpressions() {
+	public List<OpersExpr> getSemanticExpressions() {
 		return semanticExpressions;
 	}
 
-	public void setSemanticExpressions(
-			List<IntMetaExpression> semanticExpressions) {
+	public void setSemanticExpressions(List<OpersExpr> semanticExpressions) {
 		this.semanticExpressions = semanticExpressions;
 	}
 
@@ -318,8 +299,7 @@ public class OpersElement implements Serializable, IntOpersElement {
 				SyntaxConcept parentConcept = (SyntaxConcept) parent
 						.getEdSyntaxEle();
 				modelingAttributesNames.addAll(parentConcept
-						.getTransInstSemanticElement()
-						.getEdOperEle()
+						.getTransInstSemanticElement().getEdOperEle()
 						.getAllSemanticAttributesNames(opersParents));
 				modelingAttributesNames.addAll(parentConcept
 						.getModelingAttributesNames(syntaxParents));

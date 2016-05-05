@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
 
@@ -38,7 +38,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationSingleSelectionType.class
@@ -76,7 +76,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		txtValue.setSelectedItem((String) v.getValue());
 		group.setText((String) v.getGroup());
 		revalidate();
@@ -85,7 +85,7 @@ public class EnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		v.setValue((String) txtValue.getSelectedItem());
 		v.setGroup(group.getText());
 	}

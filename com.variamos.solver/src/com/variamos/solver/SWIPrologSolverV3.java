@@ -17,14 +17,14 @@ import jpl.Util;
 import jpl.Variable;
 
 import com.cfm.common.AbstractModel;
+import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
+import com.variamos.compiler.prologEditors.PrologTransformParameters;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.core.util.FileUtils;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LiteralBooleanExpression;
-import com.variamos.prologEditors.Hlcl2SWIProlog;
-import com.variamos.prologEditors.PrologTransformParameters;
 @Deprecated
 public class SWIPrologSolverV3 implements Solver {
 

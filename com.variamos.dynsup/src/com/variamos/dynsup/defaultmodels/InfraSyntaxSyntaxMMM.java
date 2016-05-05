@@ -12,8 +12,8 @@ import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ConceptType;
-import com.variamos.semantic.types.AttributeType;
 
 public class InfraSyntaxSyntaxMMM {
 	public static void createSyntaxSyntaxMetaMetaModel(

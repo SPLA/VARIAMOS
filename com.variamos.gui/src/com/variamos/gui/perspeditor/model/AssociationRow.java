@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.cfm.productline.Variable;
 import com.variamos.configurator.DomainAnnotation;
-import com.variamos.dynsup.exprsup.ElementVariable;
-import com.variamos.dynsup.exprsup.IntegerVariable;
+import com.variamos.dynsup.types.ElementVariable;
+import com.variamos.dynsup.types.IntegerVariable;
 import com.variamos.hlcl.BinaryDomain;
 import com.variamos.hlcl.Domain;
 import com.variamos.hlcl.IntervalDomain;

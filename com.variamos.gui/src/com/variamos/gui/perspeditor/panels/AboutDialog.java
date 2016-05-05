@@ -22,7 +22,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
+import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -54,8 +55,8 @@ public class AboutDialog extends JDialog {
 		}
 	}
 
-	public AboutDialog(VariamosGraphEditor editor,
-			IntElemAttribute... arguments) throws URISyntaxException {
+	public AboutDialog(VariamosGraphEditor editor, ElemAttribute... arguments)
+			throws URISyntaxException {
 		super(editor.getFrame(), "About VariaMos", true);
 
 		setBounds(300, 300, 300, 400);
@@ -181,11 +182,11 @@ public class AboutDialog extends JDialog {
 	/**
 	 * @return
 	 */
-	public Map<String, IntElemAttribute> getParameters() {
-		Map<String, IntElemAttribute> map = new HashMap<>();
+	public Map<String, IntInstAttribute> getParameters() {
+		Map<String, IntInstAttribute> map = new HashMap<>();
 
 		for (String s : widgets.keySet()) {
-			IntElemAttribute v = widgets.get(s).getInstAttribute();
+			IntInstAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 

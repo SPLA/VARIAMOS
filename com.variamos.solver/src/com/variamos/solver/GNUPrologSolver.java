@@ -25,14 +25,14 @@ import com.cfm.jgprolog.core.VariableSet;
 import com.cfm.jgprolog.core.VariableTerm;
 import com.cfm.productline.Asset;
 import com.cfm.productline.VariabilityElement;
+import com.variamos.compiler.prologEditors.Hlcl2GnuPrologExact;
+import com.variamos.compiler.prologEditors.PrologTransformParameters;
 import com.variamos.core.exceptions.TechnicalException;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LiteralBooleanExpression;
 import com.variamos.productline.Pl2Hlcl;
-import com.variamos.prologEditors.Hlcl2GnuPrologExact;
-import com.variamos.prologEditors.PrologTransformParameters;
 
 public class GNUPrologSolver implements Solver {
 

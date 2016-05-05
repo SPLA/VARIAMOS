@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 
 /**
  * A class to support boolean widgets on the interface. Copied on BooleanWidget
@@ -43,7 +43,7 @@ public class BooleanWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		chkValue.setText(String.valueOf(v.getIdentifier()));
 		chkValue.setSelected(v.getAsBoolean());
 		group.setText((String) v.getGroup());
@@ -53,7 +53,7 @@ public class BooleanWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		v.setValue(chkValue.isSelected());
 		v.setGroup(group.getText());
 	}

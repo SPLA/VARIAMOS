@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.mxgraph.view.mxGraph;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 
 @SuppressWarnings("serial")
@@ -17,7 +17,7 @@ public abstract class WidgetR extends JPanel {
 	public static final String PROPERTY_VALUE = "WidgetR.Value";
 	private boolean affectProperties = false;
 
-	protected IntElemAttribute edited;
+	protected IntInstAttribute edited;
 	protected JTextField group;
 
 	public WidgetR() {
@@ -26,14 +26,14 @@ public abstract class WidgetR extends JPanel {
 		group.setPreferredSize(new Dimension(20, 30));
 	}
 
-	public boolean editVariable(IntElemAttribute v) {
+	public boolean editVariable(IntInstAttribute v) {
 		edited = v;
 		return pushValue(v);
 	}
 
-	protected abstract boolean pushValue(IntElemAttribute v);
+	protected abstract boolean pushValue(IntInstAttribute v);
 
-	protected abstract void pullValue(IntElemAttribute v);
+	protected abstract void pullValue(IntInstAttribute v);
 
 	public abstract JComponent getGroup();
 
@@ -43,7 +43,7 @@ public abstract class WidgetR extends JPanel {
 		return affectProperties;
 	}
 
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		affectProperties = v.isAffectProperties();
 		if (showSimulationCustomizationBox)
@@ -51,7 +51,7 @@ public abstract class WidgetR extends JPanel {
 		revalidate();
 	}
 
-	public IntElemAttribute getInstAttribute() {
+	public IntInstAttribute getInstAttribute() {
 		pullValue(edited);
 		return edited;
 	}

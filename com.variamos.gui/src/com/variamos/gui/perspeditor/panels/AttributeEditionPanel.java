@@ -15,7 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.SpringUtilities;
@@ -58,11 +58,11 @@ public class AttributeEditionPanel extends JPanel {
 		add(panel, BorderLayout.CENTER);
 	}
 
-	public Map<String, IntElemAttribute> getParameters() {
-		Map<String, IntElemAttribute> map = new HashMap<>();
+	public Map<String, IntInstAttribute> getParameters() {
+		Map<String, IntInstAttribute> map = new HashMap<>();
 
 		for (String s : widgets.keySet()) {
-			IntElemAttribute v = widgets.get(s).getInstAttribute();
+			IntInstAttribute v = widgets.get(s).getInstAttribute();
 			map.put(v.getIdentifier(), v);
 		}
 
@@ -76,14 +76,13 @@ public class AttributeEditionPanel extends JPanel {
 	}
 
 	public void loadElementAttributes(VariamosGraphEditor editor,
-			boolean editable,
-			IntElemAttribute... editableElementAttributes) {
+			boolean editable, IntInstAttribute... editableElementAttributes) {
 		RefasWidgetFactory factory = new RefasWidgetFactory(editor);
 
 		widgets = new HashMap<String, WidgetR>();
 		panel.removeAll();
 		int contEd = 0;
-		for (IntElemAttribute p : editableElementAttributes) {
+		for (IntInstAttribute p : editableElementAttributes) {
 			if (p != null) {
 				WidgetR w = factory.getWidgetFor(p);
 				if (w == null) {

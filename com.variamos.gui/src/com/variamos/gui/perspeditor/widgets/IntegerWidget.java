@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 
 /**
  * A class to support integer widgets on the interface. Copied on BooleanWidget
@@ -32,7 +32,7 @@ public class IntegerWidget extends WidgetR {
 	}
 	
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		txtValue.setText(String.valueOf( v.getAsInteger() ));
 		group.setText((String) v.getGroup());
 		revalidate();
@@ -41,7 +41,7 @@ public class IntegerWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		int val = 0;
 		
 		if( !txtValue.getText().isEmpty() )

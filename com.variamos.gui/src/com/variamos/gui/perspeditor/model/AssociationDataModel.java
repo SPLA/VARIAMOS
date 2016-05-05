@@ -7,8 +7,8 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import com.cfm.productline.Variable;
-import com.variamos.dynsup.exprsup.ElementVariable;
-import com.variamos.dynsup.exprsup.IntegerVariable;
+import com.variamos.dynsup.types.ElementVariable;
+import com.variamos.dynsup.types.IntegerVariable;
 import com.variamos.gui.perspeditor.model.actions.SetIntegerValueAction;
 import com.variamos.gui.perspeditor.model.actions.SetStringValueAction;
 import com.variamos.gui.perspeditor.panels.ElementsOperationAssociationPanel;

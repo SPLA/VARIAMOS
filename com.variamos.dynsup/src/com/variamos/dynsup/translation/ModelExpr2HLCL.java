@@ -17,12 +17,20 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
-import com.variamos.dynsup.interfaces.IntModelExpr2Hlcl;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
+import com.variamos.dynsup.staticexpr.ElementExpressionSet;
+import com.variamos.dynsup.staticexpr.ModelExpressionSet;
+import com.variamos.dynsup.staticexpr.OverTwoElementsExpressionSet;
+import com.variamos.dynsup.staticexpr.PairwiseElementExpressionSet;
+import com.variamos.dynsup.staticexpr.SingleElementExpressionSet;
+import com.variamos.dynsup.staticexprsup.AbstractBooleanExpression;
+import com.variamos.dynsup.staticexprsup.AbstractComparisonExpression;
+import com.variamos.dynsup.staticexprsup.AbstractExpression;
+import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.Expression;
@@ -31,15 +39,6 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
-import com.variamos.semantic.expressions.AbstractBooleanExpression;
-import com.variamos.semantic.expressions.AbstractComparisonExpression;
-import com.variamos.semantic.expressions.AbstractExpression;
-import com.variamos.semantic.staticexpr.ElementExpressionSet;
-import com.variamos.semantic.staticexpr.ModelExpressionSet;
-import com.variamos.semantic.staticexpr.OverTwoElementsExpressionSet;
-import com.variamos.semantic.staticexpr.PairwiseElementExpressionSet;
-import com.variamos.semantic.staticexpr.SingleElementExpressionSet;
-import com.variamos.semantic.types.AttributeType;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
@@ -54,7 +53,7 @@ import com.variamos.solver.Solver;
  * @version 1.1
  * @since 2014-12-13
  */
-public class ModelExpr2HLCL implements IntModelExpr2Hlcl {
+public class ModelExpr2HLCL {
 	private HlclFactory f = new HlclFactory();
 	private String text;
 	private HlclProgram hlclProgram = new HlclProgram();

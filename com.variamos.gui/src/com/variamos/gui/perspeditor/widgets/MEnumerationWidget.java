@@ -11,7 +11,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.mxgraph.view.mxGraph;
 import com.variamos.dynsup.instance.InstAttribute;
-import com.variamos.dynsup.interfaces.IntElemAttribute;
+import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.EnumerationMultiSelectionType;
 
@@ -40,7 +40,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	public void configure(IntElemAttribute v, mxGraph graph,
+	public void configure(IntInstAttribute v, mxGraph graph,
 			ModelInstance semanticModel, boolean showSimulationCustomizationBox) {
 		super.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		ClassLoader classLoader = EnumerationMultiSelectionType.class
@@ -70,7 +70,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected boolean pushValue(IntElemAttribute v) {
+	protected boolean pushValue(IntInstAttribute v) {
 		if (v.getValue() instanceof int[])
 			txtValue.setSelectedIndices((int[]) v.getValue());
 		revalidate();
@@ -79,7 +79,7 @@ public class MEnumerationWidget extends WidgetR {
 	}
 
 	@Override
-	protected void pullValue(IntElemAttribute v) {
+	protected void pullValue(IntInstAttribute v) {
 		v.setValue(txtValue.getSelectedIndices());
 		String out = "";
 		List<String> tmp = txtValue.getSelectedValuesList();

@@ -19,13 +19,12 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
-import com.variamos.dynsup.interfaces.IntMetaExpression;
-import com.variamos.dynsup.interfaces.IntOpersElement;
-import com.variamos.dynsup.interfaces.IntOpersRelType;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
+import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -517,11 +516,10 @@ public class SharedActions {
 						metaElement.getInstSemanticElementId());
 				metaElement.setTransInstSemanticElement(rr);
 			}
-			IntOpersElement semElement = instElement.getEdOperEle();
+			OpersElement semElement = instElement.getEdOperEle();
 			if (semElement != null) {
-				List<IntMetaExpression> semExp = semElement
-						.getSemanticExpressions();
-				for (IntMetaExpression exp : semExp) {
+				List<OpersExpr> semExp = semElement.getSemanticExpressions();
+				for (OpersExpr exp : semExp) {
 					((OpersExpr) exp).loadVolatileElements(refas
 							.getVariabilityVertex());
 				}
@@ -555,7 +553,7 @@ public class SharedActions {
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<IntOpersRelType> semGD = ((SyntaxElement) instOverTwoRelation
+					List<OpersRelType> semGD = ((SyntaxElement) instOverTwoRelation
 							.getTransSupportMetaElement())
 							.getSemanticRelationTypes();
 					ia.setValidationRelationTypes(semGD);
@@ -778,7 +776,7 @@ public class SharedActions {
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<IntOpersRelType> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
+									List<OpersRelType> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
 											.getMetaPairwiseRelation())
 											.getSemanticRelationTypes();
 									instAttribute

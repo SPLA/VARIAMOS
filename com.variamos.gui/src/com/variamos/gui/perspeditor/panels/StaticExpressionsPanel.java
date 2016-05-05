@@ -22,13 +22,13 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ModelInstance;
+import com.variamos.dynsup.staticexpr.ElementExpressionSet;
+import com.variamos.dynsup.staticexprsup.AbstractExpression;
+import com.variamos.dynsup.staticexprsup.NumberNumericExpression;
+import com.variamos.dynsup.statictypes.ExpressionClassType;
 import com.variamos.gui.perspeditor.SpringUtilities;
 import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.NumericIdentifier;
-import com.variamos.semantic.expressions.AbstractExpression;
-import com.variamos.semantic.expressions.NumberNumericExpression;
-import com.variamos.semantic.staticexpr.ElementExpressionSet;
-import com.variamos.semantic.types.ExpressionClassType;
 
 /**
  * A class to support the properties panel to display textual and visual
@@ -280,7 +280,7 @@ public class StaticExpressionsPanel extends JPanel {
 			Class<AbstractExpression> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractExpression>) Class
-						.forName("com.variamos.semantic.expressions."
+						.forName("com.variamos.dynsup.exprsup."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

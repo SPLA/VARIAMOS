@@ -13,8 +13,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import com.cfm.productline.Variable;
-import com.variamos.dynsup.exprsup.ElementVariable;
-import com.variamos.dynsup.exprsup.IntegerVariable;
+import com.variamos.dynsup.types.ElementVariable;
+import com.variamos.dynsup.types.IntegerVariable;
 import com.variamos.gui.treetable.core.AbstractTreeTableModel;
 import com.variamos.gui.treetable.core.TreeTableCellEditor;
 import com.variamos.gui.treetable.core.TreeTableCellRenderer;
