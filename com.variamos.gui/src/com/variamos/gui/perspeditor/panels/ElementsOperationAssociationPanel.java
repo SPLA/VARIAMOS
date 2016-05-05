@@ -124,7 +124,6 @@ public class ElementsOperationAssociationPanel extends
 
 	private AssociationTreeTable createTable(ModelInstance refasModel,
 			InstElement operAction) {
-
 		OpersSubOperation operSubAction = null;
 		List<String> subOperTypesColumnsNames = new ArrayList<String>();
 		List<OpersSubOperationExpType> subOperTypesColumns = new ArrayList<OpersSubOperationExpType>();
@@ -137,12 +136,20 @@ public class ElementsOperationAssociationPanel extends
 
 			operSubAction = (OpersSubOperation) subOper.getEdOperEle();
 			// FIXME complete: include names and objects from suboper
-			/*
-			 * subOperTypesColumnsNames.addAll(operSubAction
-			 * .getOperationSubActionExpTypesNames());
-			 * subOperTypesColumns.addAll(operSubAction
-			 * .getOperationSubActionExpTypes());
-			 */
+			List<InstAttribute> atttypes = ((List<InstAttribute>) subOper
+					.getInstAttributeValue("exptype"));
+			// .getDynamicAttribute("exptype"));
+			List<String> names = new ArrayList<String>();
+			for (InstAttribute instatt : atttypes) {
+				subOperTypesColumnsNames.add(subOper.getIdentifier()
+						+ "-"
+						+ (String) ((InstElement) instatt.getValue())
+								.getInstAttributeValue("suboperexptype"));
+				subOperTypesColumns
+						.add((OpersSubOperationExpType) ((InstElement) instatt
+								.getValue()).getEdOperEle());
+			}
+
 			subOperColumnsNames.add(operSubAction.getIdentifier());
 			subOperColumns.add(operSubAction);
 			// operLabelNames.addAll(operSubAction.getOperLabelNames());
@@ -209,8 +216,10 @@ public class ElementsOperationAssociationPanel extends
 						operLabelNames.size(), false, domainOperLabels, null);
 			// node.setVariable(var);
 
-			List<InstElement> opersParent = el.getTransSupportMetaElement()
-					.getTransInstSemanticElement().getParentOpersConcept();
+			List<InstElement> opersParent = null;
+			if (el.getTransSupportMetaElement().getTransInstSemanticElement() != null)
+				opersParent = el.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
 			// Add Attributes
 			if (dialog == 0
 					&& el.getEdOperEle() != null
