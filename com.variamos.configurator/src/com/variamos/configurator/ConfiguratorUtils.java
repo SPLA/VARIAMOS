@@ -2,6 +2,8 @@ package com.variamos.configurator;
 
 import java.util.Map;
 
+import com.variamos.compiler.prologEditors.Hlcl2GnuPrologExact;
+import com.variamos.compiler.prologEditors.PrologTransformParameters;
 import com.variamos.hlcl.HlclProgram;
 import com.cfm.jgprolog.core.PrologContext;
 import com.cfm.jgprolog.core.PrologEngine;
@@ -10,8 +12,6 @@ import com.cfm.jgprolog.core.PrologException;
 import com.cfm.jgprolog.gnuprolog.GNUPrologContext;
 import com.cfm.productline.ProductLine;
 import com.variamos.productline.Pl2Hlcl;
-import com.variamos.prologEditors.Hlcl2GnuPrologExact;
-import com.variamos.prologEditors.PrologTransformParameters;
 import com.variamos.solver.GNUPrologSolver;
 
 public class ConfiguratorUtils {

@@ -210,8 +210,8 @@ public class DefaultOpersMM {
 				"Sim-Pre-Validation", metaOperationSubAction,
 				operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"SINGLEVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
@@ -420,8 +420,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("Sim-Post-Validation",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"SINGLEVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 		refas.getVariabilityVertex().put("Sim-Post-Validation",
 				instOperationSubAction);
@@ -569,8 +569,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("SimSce-Pre-Validation",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"SINGLEVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 		instOperationSubAction.getInstAttribute("Index").setValue(1);
 
@@ -776,8 +776,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("SimSce-Post-Validation",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"SINGLEVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 		instOperationSubAction.getInstAttribute("Index").setValue(4);
 
@@ -1001,8 +1001,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("VerifyDeadElementsSubOper",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"MUTIVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 
 		refas.getVariabilityVertex().put("VerifyDeadElementsSubOper",
@@ -1111,8 +1111,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("VerifyParentsSubOper",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"MUTIVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 
 		refas.getVariabilityVertex().put("VerifyParentsSubOper",
@@ -1221,8 +1221,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("VerifyRootsSubOper",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"MUTIVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 
 		refas.getVariabilityVertex().put("VerifyRootsSubOper",
@@ -1335,8 +1335,8 @@ public class DefaultOpersMM {
 		instOperationSubAction = new InstConcept("VerifyFalseSubOperations",
 				metaOperationSubAction, operationSubAction);
 
-		instOperationSubAction.getInstAttribute("type")
-				.setValue("VERIFICATION");
+		instOperationSubAction.getInstAttribute("type").setValue(
+				"MUTIVERIFICATION");
 		instOperationSubAction.getInstAttribute("iteration").setValue(false);
 
 		refas.getVariabilityVertex().put("VerifyFalseSubOperations",
@@ -1605,61 +1605,61 @@ public class DefaultOpersMM {
 
 		// FIXED concept's definition
 
-		OpersConcept semInfraElement = new OpersConcept("InfraElement");
+		OpersConcept semInfraMConcept = new OpersConcept("InfraMetaConcept");
 
-		InstConcept instVertexIE = new InstConcept("InfraElement",
-				infraMetaMetaConcept, semInfraElement);
+		InstConcept instVertexIE = new InstConcept("InfraMetaConcept",
+				infraMetaMetaConcept, semInfraMConcept);
 
 		attribute = new ElemAttribute("True", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("True", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("True", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("False", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
 				false, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("False", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("False", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Sel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("Sel", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("Sel", attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		attribute = new ElemAttribute("Exclu", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", false,
 				2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("Exclu", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("Exclu", attribute);
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		attribute = new ElemAttribute("Description", "String",
 				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
 				"", -1, "", "");
@@ -1667,61 +1667,61 @@ public class DefaultOpersMM {
 		attribute = new ElemAttribute("Active", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Is Active", true, 0, -1, "",
 				"", -1, "", "");
-		semInfraElement.putSemanticAttribute("Active", attribute);
+		semInfraMConcept.putSemanticAttribute("Active", attribute);
 
 		attribute = new ElemAttribute("Visibility", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Is Visible", true, 0, -1,
 				"", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("Visibility", attribute);
+		semInfraMConcept.putSemanticAttribute("Visibility", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Allowed", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Is Allowed", true, 0, -1,
 				"", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("Allowed", attribute);
+		semInfraMConcept.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ElemAttribute("ConfSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
 				false, 2, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("ConfSel", attribute);
+		semInfraMConcept.putSemanticAttribute("ConfSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("ConfNotSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Not Selected",
 				false, 2, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("ConfNotSel", attribute);
+		semInfraMConcept.putSemanticAttribute("ConfNotSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Proh", "Boolean",
 				AttributeType.OPERATION, true, "Prohibited", false, 0, -1, "",
 				"", -1, "", "");
-		semInfraElement.putSemanticAttribute("Proh", attribute);
-		semInfraElement.addPropVisibleAttribute("08#" + "Proh");
-		semInfraElement.addPropEditableAttribute("08#" + "Proh");
+		semInfraMConcept.putSemanticAttribute("Proh", attribute);
+		semInfraMConcept.addPropVisibleAttribute("08#" + "Proh");
+		semInfraMConcept.addPropEditableAttribute("08#" + "Proh");
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Required", "Boolean",
 				AttributeType.OPERATION, true, "Is Required", false, 2, -1, "",
@@ -1729,105 +1729,105 @@ public class DefaultOpersMM {
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semInfraElement.putSemanticAttribute("Required", attribute);
+		semInfraMConcept.putSemanticAttribute("Required", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Core", "Boolean",
 				AttributeType.OPERATION, false, "Is a Core Concept", false, 2,
 				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("Core", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("Core", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("Dead", "Boolean",
 				AttributeType.OPERATION, false, "Is a Dead Concept", false, 2,
 				-1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
-		semInfraElement.putSemanticAttribute("Dead", attribute);
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
+		semInfraMConcept.putSemanticAttribute("Dead", attribute);
 		simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("NReqSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Selected by simulation", false, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("NReqSel", attribute);
+		semInfraMConcept.putSemanticAttribute("NReqSel", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simulOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 		simSceOperationSubAction.addOutAttribute(new OpersIOAttribute(
-				semInfraElement.getIdentifier(), attribute.getName(), true));
+				semInfraMConcept.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("NNotSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
 				"Not selected(inactive)", false, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("NNotSel", attribute);
+		semInfraMConcept.putSemanticAttribute("NNotSel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
 
-		semInfraElement.addPropVisibleAttribute("01#" + "Sel");
-		semInfraElement.addPropVisibleAttribute("05#" + "NReqSel");
+		semInfraMConcept.addPropVisibleAttribute("01#" + "Sel");
+		semInfraMConcept.addPropVisibleAttribute("05#" + "NReqSel");
 
-		semInfraElement.addPropVisibleAttribute("02#" + "Exclu");
-		semInfraElement.addPropVisibleAttribute("04#" + "NNotSel");
+		semInfraMConcept.addPropVisibleAttribute("02#" + "Exclu");
+		semInfraMConcept.addPropVisibleAttribute("04#" + "NNotSel");
 
-		semInfraElement.addPropVisibleAttribute("07#" + "Core");
-		semInfraElement.addPropVisibleAttribute("08#" + "Dead");
-		semInfraElement.addPropEditableAttribute("04#" + "Required");
-		semInfraElement.addPropVisibleAttribute("04#" + "Required");
+		semInfraMConcept.addPropVisibleAttribute("07#" + "Core");
+		semInfraMConcept.addPropVisibleAttribute("08#" + "Dead");
+		semInfraMConcept.addPropEditableAttribute("04#" + "Required");
+		semInfraMConcept.addPropVisibleAttribute("04#" + "Required");
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
 				true, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("DBVis", attribute);
+		semInfraMConcept.putSemanticAttribute("DBVis", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
 				true, 0, -1, "", "", -1, "", "");
-		semInfraElement.putSemanticAttribute("ExportOnConfig", attribute);
+		semInfraMConcept.putSemanticAttribute("ExportOnConfig", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		semInfraElement.addPropEditableAttribute("15#" + "ConfSel" + "#"
+		semInfraMConcept.addPropEditableAttribute("15#" + "ConfSel" + "#"
 				+ "Core" + "#==#" + "false" + "#" + "false");
-		semInfraElement.addPropEditableAttribute("16#" + "ConfNotSel" + "#"
+		semInfraMConcept.addPropEditableAttribute("16#" + "ConfNotSel" + "#"
 				+ "Dead" + "#==#" + "false" + "#" + "false");
-		semInfraElement.addPropEditableAttribute("03#" + "DBVis");
-		semInfraElement.addPropEditableAttribute("04#" + "ExportOnConfig");
+		semInfraMConcept.addPropEditableAttribute("03#" + "DBVis");
+		semInfraMConcept.addPropEditableAttribute("04#" + "ExportOnConfig");
 
-		semInfraElement.addPropVisibleAttribute("01#" + "Active");
-		semInfraElement.addPropVisibleAttribute("02#" + "Visibility");
+		semInfraMConcept.addPropVisibleAttribute("01#" + "Active");
+		semInfraMConcept.addPropVisibleAttribute("02#" + "Visibility");
 
-		semInfraElement.addPropVisibleAttribute("03#" + "DBVis");
-		semInfraElement.addPropVisibleAttribute("04#" + "ExportOnConfig");
-		semInfraElement.addPropVisibleAttribute("15#" + "ConfSel" + "#"
+		semInfraMConcept.addPropVisibleAttribute("03#" + "DBVis");
+		semInfraMConcept.addPropVisibleAttribute("04#" + "ExportOnConfig");
+		semInfraMConcept.addPropVisibleAttribute("15#" + "ConfSel" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
-		semInfraElement.addPropVisibleAttribute("16#" + "ConfNotSel" + "#"
+		semInfraMConcept.addPropVisibleAttribute("16#" + "ConfNotSel" + "#"
 				+ "Active" + "#==#" + "true" + "#" + "false");
 
-		refas.getVariabilityVertex().put("InfraElement", instVertexIE);
+		refas.getVariabilityVertex().put("InfraMetaConcept", instVertexIE);
 
-		OpersConcept semInfraOTRel = new OpersConcept("InfraOTRel");
+		OpersConcept semInfraOTRel = new OpersConcept("InfraMetaOTRel");
 
 		/*
 		 * semGeneralGroup.putSemanticAttribute("Sel", new ElemAttribute("Sel",
@@ -1837,10 +1837,10 @@ public class DefaultOpersMM {
 		 * AttributeType.EXECCURRENTSTATE, false, "***Not Avaliable***", false,
 		 * 2, -1, "", "", -1, "", ""));
 		 */
-		InstConcept instVertexGR = new InstConcept("InfraOTRel",
+		InstConcept instVertexGR = new InstConcept("InfraMetaOTRel",
 				infraMetaMetaOverTwoRelation, semInfraOTRel);
 
-		refas.getVariabilityVertex().put("InfraOTRel", instVertexGR);
+		refas.getVariabilityVertex().put("InfraMetaOTRel", instVertexGR);
 
 		attribute = new ElemAttribute("True", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
@@ -1943,8 +1943,8 @@ public class DefaultOpersMM {
 				+ "relationType" + "#==#" + "range");
 		semInfraOTRel.addPanelSpacersAttribute("-#" + "HighRange" + "#]");
 
-		OpersConcept semGeneralPair = new OpersConcept("InfraPairwise");
-		InstConcept instInfraPair = new InstConcept("InfraPairwise",
+		OpersConcept semGeneralPair = new OpersConcept("InfraMPWRel");
+		InstConcept instInfraPair = new InstConcept("InfraMPWRel",
 				infraMetaMetaPairwiseRelation, semGeneralPair);
 
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
@@ -1956,7 +1956,7 @@ public class DefaultOpersMM {
 		semGeneralPair.addPanelVisibleAttribute("06#" + "relationType");
 		semGeneralPair.addPanelSpacersAttribute("#" + "relationType" + "#\n");
 
-		refas.getVariabilityVertex().put("InfraPairwise", instInfraPair);
+		refas.getVariabilityVertex().put("InfraMPWRel", instInfraPair);
 
 		// Start Concept's definition
 		// -------------------------------------------------------

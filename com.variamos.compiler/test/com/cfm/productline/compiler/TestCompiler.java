@@ -3,6 +3,9 @@ package com.cfm.productline.compiler;
 import org.junit.Test;
 
 import com.cfm.productline.ProductLine;
+import com.variamos.compiler.prologEditors.Hlcl2GnuProlog;
+import com.variamos.compiler.prologEditors.Hlcl2GnuPrologExact;
+import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
 import com.variamos.hlcl.ComparisonExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
@@ -11,9 +14,6 @@ import com.variamos.hlcl.NumericExpression;
 import com.variamos.hlcl.NumericIdentifier;
 import com.variamos.io.SXFMReader;
 import com.variamos.productline.Pl2Hlcl;
-import com.variamos.prologEditors.Hlcl2GnuProlog;
-import com.variamos.prologEditors.Hlcl2GnuPrologExact;
-import com.variamos.prologEditors.Hlcl2SWIProlog;
 
 import fm.FeatureModelException;
 
