@@ -502,7 +502,7 @@ public class InfraSyntaxOpersMMM {
 				false,
 				false,
 				"OMInfraPWRel",
-				"infrasyntaxm2concept",
+				"infrasyntaxm2minigrayconcept",
 				"Operations Infrastructure (fixed) MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
@@ -603,7 +603,7 @@ public class InfraSyntaxOpersMMM {
 
 		SyntaxConcept infraSyntaxOpersM2InfraOTRel = new SyntaxConcept('T',
 				"OMInfraOTRel", false, false, "OMInfraOTRel",
-				"infrasyntaxm2concept", "Over Two Relation", 100, 150,
+				"infrasyntaxm2biggrayconcept", "Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 

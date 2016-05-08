@@ -455,6 +455,27 @@ public class PerspEditorGraph extends AbstractGraph {
 
 	// TODO review from here for requirements
 
+	protected void removingVertex(mxCell cell, mxCell parent) {
+		((InstCell) cell.getValue()).setMxCell(cell);
+		InstElement value = ((InstCell) cell.getValue()).getInstElement();
+		if (value instanceof InstVertex) {
+			String id = null;
+			String elementIdentifier = null;
+			ModelInstance pl = getModelInstance();
+			InstElement instElement = ((InstCell) cell.getValue())
+					.getInstElement();
+			if (cell.getGeometry() != null) {
+				if (instElement instanceof InstVertex) {
+					InstElement element = instElement;
+					elementIdentifier = element.getIdentifier();
+					if (element.getTransSupportMetaElement().isEditable() == false)
+						this.addCell(cell, parent);
+				}
+			}
+		}
+
+	}
+
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		((InstCell) cell.getValue()).setMxCell(cell);
 		InstElement value = ((InstCell) cell.getValue()).getInstElement();

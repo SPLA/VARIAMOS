@@ -100,7 +100,7 @@ public class ModelInstance extends AbstractModel {
 		case MODELING:
 			break;
 		case OPERATIONSSUPERSTRUCTURE:
-			createOperationsSuperstructure();
+			createOperationsSuperstructure(false);
 			break;
 		case CONFIG_SIMULATION:
 			break;
@@ -548,8 +548,8 @@ public class ModelInstance extends AbstractModel {
 	 * perspective (associated to concepts).
 	 */
 
-	public void createOperationsSuperstructure() {
-		DefaultOpersMM.createOpersMetaModel(this);
+	public void createOperationsSuperstructure(boolean empty) {
+		DefaultOpersMM.createOpersMetaModel(this, empty);
 	}
 
 	/**

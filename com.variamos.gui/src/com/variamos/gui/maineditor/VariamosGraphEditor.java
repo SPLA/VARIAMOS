@@ -1473,6 +1473,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			SharedActions.beforeGraphOperation(source, false, 0, -1);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
+			target.setCellsDeletable(false);
+			target.setCellsMovable(false);
+			target.setCellsResizable(false);
 			// System.out.println(this.getModelViewIndex() + " "
 			// + this.getModelSubViewIndex());
 			SharedActions.afterOpenCloneGraph(source, this);

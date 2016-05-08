@@ -93,5 +93,6 @@ public class InfraBasicSyntaxMMMM {
 
 		variabilityInstVertex.put("OMMConcept", instInfraSyntaxOpersM2Concept);
 
+		// TODO add OMMRelation
 	}
 }
