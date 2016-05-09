@@ -2124,6 +2124,239 @@ public class DefaultOpersMM {
 
 		refas.getVariabilityVertex().put("InfraMPWRel", instInfraPair);
 
+		OpersVariable semVariable = new OpersVariable("Variable");
+
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), "Exclu", true));
+
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), "Exclu", false));
+
+		ArrayList<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
+
+		semVariable.setSemanticExpressions(semanticExpressions);
+
+		InstConcept instVertexVAR = new InstConcept("Variable",
+				infraMetaMetaConcept, semVariable);
+
+		OpersExpr t1 = new OpersExpr("1", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexVAR, instVertexVAR, "varConfValue",
+				"value");
+
+		OpersExpr t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexVAR, "varConfDom", "");
+
+		t1 = new OpersExpr("varConfigVal=value=varConfigDomain", refas
+				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+		// semanticExpressions.add(t1);
+		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+		attribute = new ElemAttribute("DBVis", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				true, 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("DBVis", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
+				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
+				true, 0, -1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("Scope", "Boolean",
+				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
+				"", -1, "", "");
+		semVariable.putSemanticAttribute("Scope", attribute);
+		if (!empty) {
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semVariable.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					semVariable.getIdentifier(), attribute.getName(), true));
+			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semVariable.getIdentifier(), attribute.getName(), true));
+			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semVariable.getIdentifier(), attribute.getName(), true));
+		}
+		// TODO use scope
+
+		attribute = new ElemAttribute("ConcernLevel", "Class",
+				AttributeType.OPERATION, false, "Concern Level",
+				InstConcept.class.getCanonicalName(), "CG", null, "", 0, -1,
+				"", "", -1, "", "");
+		semVariable.putSemanticAttribute("ConcernLevel", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+		// TODO: use concern level
+
+		attribute = new ElemAttribute("name", "String",
+				AttributeType.OPERATION, false, "Name", "", 0, 1, "", "", -1,
+				"", "");
+		semVariable.putSemanticAttribute("name", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("variableType", "Enumeration",
+				AttributeType.OPERATION, true, "Variable Type",
+				VariableType.class.getCanonicalName(), "String", "", 0, 2, "",
+				"", -1, "", "variableType" + "#!=#" + "Enumeration");
+		semVariable.putSemanticAttribute("variableType", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("varDom", "String",
+				AttributeType.OPERATION, false, "Variable Domain", "0,1", 0, 3,
+				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
+						+ "Integer", -1, "", "");
+		semVariable.putSemanticAttribute("varDom", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("enumType", "Class",
+				AttributeType.OPERATION, false, "Enumeration",
+				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
+				"variableType" + "#==#" + "Enumeration", "variableType"
+						+ "#==#" + "Enumeration", -1, "", "");
+		semVariable.putSemanticAttribute("enumType", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		// TODO define domain for enumtype
+		attribute = new ElemAttribute("value", "Integer",
+				AttributeType.EXECCURRENTSTATE, false, "Value", 0, 1, -1, "",
+				"", -1, "", "");
+		semVariable.putSemanticAttribute("value", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+
+		attribute = new ElemAttribute("isContext", "Boolean",
+				AttributeType.OPERATION, false, "Context Defined", false, 0, 5,
+				"", "", -1, "", "");
+		semVariable.putSemanticAttribute("isContext", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("ExtVisible", "Boolean",
+				AttributeType.OPERATION, false, "Externally Visible", false, 0,
+				8, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("ExtVisible", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("ExtControl", "Boolean",
+				AttributeType.OPERATION, false, "Externally Controlled", false,
+				0, 9, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("ExtControl", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("varConfValue", "Integer",
+				AttributeType.GLOBALCONFIG, false, "Configured Value", 0, 0,
+				-1, "", "", -1, "", "");
+		semVariable.putSemanticAttribute("varConfValue", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+
+		attribute = new ElemAttribute("varConfDom", "String",
+				AttributeType.GLOBALCONFIG, false, "Configured Domain", "", 0,
+				1, "variableType" + "#==#" + "Integer" + "||" + "variableType"
+						+ "#==#" + "Enumeration" + "||" + "variableType"
+						+ "#==#" + "Boolean", "", -1, "", "");
+		semVariable.putSemanticAttribute("varConfDom", attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		// simulationExecOperUniqueLabeling.addAttribute(new
+		// OpersIOAttribute(
+		// semVariable.getIdentifier(), attribute.getName(), true));
+		// simsceExecOperLabeling2.addAttribute(attribute);
+		// simsceExecOperLabeling2.addAttribute(new
+		// OpersIOAttribute(semVariable
+		// .getIdentifier(), attribute.getName(), true));
+		// simsceExecOperLabeling1.addAttribute(attribute);
+		// simulOperationSubAction.addInVariable(attribute);
+
+		semVariable.addPropEditableAttribute("01#" + "name");
+		semVariable.addPropEditableAttribute("02#" + "variableType");
+		semVariable.addPropEditableAttribute("03#" + "varDom");
+		semVariable.addPropEditableAttribute("04#" + "enumType");
+		semVariable.addPropEditableAttribute("05#" + "isContext");
+
+		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
+		semVariable.addPropEditableAttribute("09#" + "ExtControl");
+
+		semVariable.addPropEditableAttribute("01#" + "varConfDom");
+
+		semVariable.addPropVisibleAttribute("01#" + "name");
+		semVariable.addPropVisibleAttribute("02#" + "variableType");
+		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("05#" + "isContext");
+
+		semVariable.addPropVisibleAttribute("06#" + "value");
+		semVariable.addPropVisibleAttribute("07#" + "value");
+		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
+		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
+
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+				+ "variableType" + "#==#" + "Boolean");
+
+		semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
+				+ "variableType" + "#!=#" + "Enumeration");
+		semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
+				+ "variableType" + "#==#" + "Enumeration");
+		semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
+				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
+
+		semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
+
+		semVariable.addPropEditableAttribute("03#" + "DBVis");
+		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
+		semVariable.addPropVisibleAttribute("03#" + "DBVis");
+		semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
+
+		semVariable.addPropEditableAttribute("05#" + "Scope");
+		semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+
+		semVariable.addPropVisibleAttribute("05#" + "Scope");
+		semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false" + "#" + "");
+
+		semVariable.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
+				+ "Scope" + "#==#" + "false");
+		semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel" + "#>>\n");
+
+		refas.getVariabilityVertex().put("Variable", instVertexVAR);
+
+		OpersElement semContextGroup = new OpersElement("ConcernLevel");
+
+		semContextGroup.putSemanticAttribute("name", new ElemAttribute("name",
+				"String", AttributeType.OPERATION, false, "Group Name",
+				"<<new>>", 0, 1, "", "", 1, "", ""));
+		semContextGroup.putSemanticAttribute("instances", new ElemAttribute(
+				"instances", "Integer", AttributeType.OPERATION, false,
+				"Number of Instances", "1", 0, 7, "", "", -1, "", ""));
+		semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
+				"ExtVisible", "Boolean", AttributeType.OPERATION, false,
+				"External Visible", false, 0, 8, "", "", -1, "", ""));
+		semContextGroup.putSemanticAttribute("ExtControl", new ElemAttribute(
+				"ExtControl", "Boolean", AttributeType.OPERATION, false,
+				"Externally Controlled", false, 0, 9, "", "", -1, "", ""));
+
+		semContextGroup.addPropEditableAttribute("01#" + "name");
+		semContextGroup.addPropEditableAttribute("07#" + "instances");
+		semContextGroup.addPropEditableAttribute("08#" + "ExtVisible");
+		semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
+
+		semContextGroup.addPropVisibleAttribute("01#" + "name");
+		semContextGroup.addPropVisibleAttribute("07#" + "instances");
+		semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
+		semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
+
+		InstConcept instVertexCG = new InstConcept("ConcernLevel",
+				infraMetaMetaConcept, semContextGroup);
+		refas.getVariabilityVertex().put("ConcernLevel", instVertexCG);
+
 		// Start Concept's definition
 		// -------------------------------------------------------
 
@@ -2249,11 +2482,11 @@ public class DefaultOpersMM {
 
 			// Semantic Element
 
-			ArrayList<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
+			semanticExpressions = new ArrayList<OpersExpr>();
 
 			semGeneralElement.setSemanticExpressions(semanticExpressions);
 
-			OpersExpr t1 = new OpersExpr("Req Implies Selected", refas
+			t1 = new OpersExpr("Req Implies Selected", refas
 					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
 					instVertexGE, "Required", "Sel");
 
@@ -2295,9 +2528,8 @@ public class DefaultOpersMM {
 					.getSemanticExpressionTypes().get("NotEquals"),
 					instVertexGE, "userId", "GeneralFeature");
 
-			OpersExpr t3 = new OpersExpr("3", refas
-					.getSemanticExpressionTypes().get("NotEquals"),
-					instVertexGE, "userId", "LeafFeature");
+			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+					"NotEquals"), instVertexGE, "userId", "LeafFeature");
 
 			t3 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
 					"And"), t2, t3);
@@ -2721,6 +2953,13 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexF, true);
 
+			instEdge = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("ovartovar", instEdge);
+			instEdge.setIdentifier("ovartovar");
+			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+			instEdge.setTargetRelation(instVertexVAR, true);
+			instEdge.setSourceRelation(instVertexF, true);
+
 			// definition of other concepts
 
 			OpersConcept semAssumption = new OpersConcept("Assumption");
@@ -2964,251 +3203,6 @@ public class DefaultOpersMM {
 			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexSG, true);
-
-			OpersVariable semVariable = new OpersVariable("Variable");
-
-			simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), "Exclu", true));
-
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), "Exclu", false));
-
-			semanticExpressions = new ArrayList<OpersExpr>();
-
-			semVariable.setSemanticExpressions(semanticExpressions);
-
-			InstConcept instVertexVAR = new InstConcept("Variable",
-					infraMetaMetaConcept, semVariable);
-
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ovartovar", instEdge);
-			instEdge.setIdentifier("ovartovar");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexVAR, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
-			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexVAR, instVertexVAR, "varConfValue",
-					"value");
-
-			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Equals"), instVertexVAR, "varConfDom", "");
-
-			t1 = new OpersExpr("varConfigVal=value=varConfigDomain", refas
-					.getSemanticExpressionTypes().get("Implies"), t3, t1);
-
-			// semanticExpressions.add(t1);
-			// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
-
-			attribute = new ElemAttribute("DBVis", "Boolean",
-					AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-					true, 0, -1, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("DBVis", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ExportOnConfig", "Boolean",
-					AttributeType.GLOBALCONFIG, false,
-					"Export on Configuration", true, 0, -1, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("ExportOnConfig", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("Scope", "Boolean",
-					AttributeType.OPERATION, true, "Global Scope", true, 0, -1,
-					"", "", -1, "", "");
-			semVariable.putSemanticAttribute("Scope", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			// TODO use scope
-
-			attribute = new ElemAttribute("ConcernLevel", "Class",
-					AttributeType.OPERATION, false, "Concern Level",
-					InstConcept.class.getCanonicalName(), "CG", null, "", 0,
-					-1, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("ConcernLevel", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addInVariable(attribute);
-			// TODO: use concern level
-
-			attribute = new ElemAttribute("name", "String",
-					AttributeType.OPERATION, false, "Name", "", 0, 1, "", "",
-					-1, "", "");
-			semVariable.putSemanticAttribute("name", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("variableType", "Enumeration",
-					AttributeType.OPERATION, true, "Variable Type",
-					VariableType.class.getCanonicalName(), "String", "", 0, 2,
-					"", "", -1, "", "variableType" + "#!=#" + "Enumeration");
-			semVariable.putSemanticAttribute("variableType", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("varDom", "String",
-					AttributeType.OPERATION, false, "Variable Domain", "0,1",
-					0, 3, "variableType" + "#==#" + "Integer", "variableType"
-							+ "#==#" + "Integer", -1, "", "");
-			semVariable.putSemanticAttribute("varDom", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("enumType", "Class",
-					AttributeType.OPERATION, false, "Enumeration",
-					InstConcept.class.getCanonicalName(), "ME", "String", "",
-					0, 4, "variableType" + "#==#" + "Enumeration",
-					"variableType" + "#==#" + "Enumeration", -1, "", "");
-			semVariable.putSemanticAttribute("enumType", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			// TODO define domain for enumtype
-			attribute = new ElemAttribute("value", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "Value", 0, 1, -1,
-					"", "", -1, "", "");
-			semVariable.putSemanticAttribute("value", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-
-			attribute = new ElemAttribute("isContext", "Boolean",
-					AttributeType.OPERATION, false, "Context Defined", false,
-					0, 5, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("isContext", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ExtVisible", "Boolean",
-					AttributeType.OPERATION, false, "Externally Visible",
-					false, 0, 8, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("ExtVisible", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ExtControl", "Boolean",
-					AttributeType.OPERATION, false, "Externally Controlled",
-					false, 0, 9, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("ExtControl", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("varConfValue", "Integer",
-					AttributeType.GLOBALCONFIG, false, "Configured Value", 0,
-					0, -1, "", "", -1, "", "");
-			semVariable.putSemanticAttribute("varConfValue", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("varConfDom", "String",
-					AttributeType.GLOBALCONFIG, false, "Configured Domain", "",
-					0, 1, "variableType" + "#==#" + "Integer" + "||"
-							+ "variableType" + "#==#" + "Enumeration" + "||"
-							+ "variableType" + "#==#" + "Boolean", "", -1, "",
-					"");
-			semVariable.putSemanticAttribute("varConfDom", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(new
-			// OpersIOAttribute(
-			// semVariable.getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLabeling2.addAttribute(attribute);
-			// simsceExecOperLabeling2.addAttribute(new
-			// OpersIOAttribute(semVariable
-			// .getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLabeling1.addAttribute(attribute);
-			// simulOperationSubAction.addInVariable(attribute);
-
-			semVariable.addPropEditableAttribute("01#" + "name");
-			semVariable.addPropEditableAttribute("02#" + "variableType");
-			semVariable.addPropEditableAttribute("03#" + "varDom");
-			semVariable.addPropEditableAttribute("04#" + "enumType");
-			semVariable.addPropEditableAttribute("05#" + "isContext");
-
-			semVariable.addPropEditableAttribute("08#" + "ExtVisible");
-			semVariable.addPropEditableAttribute("09#" + "ExtControl");
-
-			semVariable.addPropEditableAttribute("01#" + "varConfDom");
-
-			semVariable.addPropVisibleAttribute("01#" + "name");
-			semVariable.addPropVisibleAttribute("02#" + "variableType");
-			semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
-					+ "variableType" + "#==#" + "Integer");
-			semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
-					+ "variableType" + "#==#" + "Enumeration");
-			semVariable.addPropVisibleAttribute("05#" + "isContext");
-
-			semVariable.addPropVisibleAttribute("06#" + "value");
-			semVariable.addPropVisibleAttribute("07#" + "value");
-			semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
-			semVariable.addPropVisibleAttribute("09#" + "ExtControl");
-
-			semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
-					+ "variableType" + "#==#" + "Enumeration");
-			semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
-					+ "variableType" + "#==#" + "Integer");
-			semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
-					+ "variableType" + "#==#" + "Boolean");
-
-			semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
-					+ "variableType" + "#!=#" + "Enumeration");
-			semVariable.addPanelVisibleAttribute("06#" + "enumType" + "#"
-					+ "variableType" + "#==#" + "Enumeration");
-			semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
-					+ "variableType" + "#==#" + "Integer");
-			semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
-
-			semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
-
-			semVariable.addPropEditableAttribute("03#" + "DBVis");
-			semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
-			semVariable.addPropVisibleAttribute("03#" + "DBVis");
-			semVariable.addPropVisibleAttribute("04#" + "ExportOnConfig");
-
-			semVariable.addPropEditableAttribute("05#" + "Scope");
-			semVariable.addPropEditableAttribute("06#" + "ConcernLevel" + "#"
-					+ "Scope" + "#==#" + "false" + "#" + "");
-
-			semVariable.addPropVisibleAttribute("05#" + "Scope");
-			semVariable.addPropVisibleAttribute("06#" + "ConcernLevel" + "#"
-					+ "Scope" + "#==#" + "false" + "#" + "");
-
-			semVariable.addPanelVisibleAttribute("00#" + "ConcernLevel" + "#"
-					+ "Scope" + "#==#" + "false");
-			semVariable.addPanelSpacersAttribute("<<#" + "ConcernLevel"
-					+ "#>>\n");
-
-			refas.getVariabilityVertex().put("Variable", instVertexVAR);
-
-			OpersElement semContextGroup = new OpersElement("ConcernLevel");
-
-			semContextGroup.putSemanticAttribute("name", new ElemAttribute(
-					"name", "String", AttributeType.OPERATION, false,
-					"Group Name", "<<new>>", 0, 1, "", "", 1, "", ""));
-			semContextGroup.putSemanticAttribute("instances",
-					new ElemAttribute("instances", "Integer",
-							AttributeType.OPERATION, false,
-							"Number of Instances", "1", 0, 7, "", "", -1, "",
-							""));
-			semContextGroup.putSemanticAttribute("ExtVisible",
-					new ElemAttribute("ExtVisible", "Boolean",
-							AttributeType.OPERATION, false, "External Visible",
-							false, 0, 8, "", "", -1, "", ""));
-			semContextGroup.putSemanticAttribute("ExtControl",
-					new ElemAttribute("ExtControl", "Boolean",
-							AttributeType.OPERATION, false,
-							"Externally Controlled", false, 0, 9, "", "", -1,
-							"", ""));
-
-			semContextGroup.addPropEditableAttribute("01#" + "name");
-			semContextGroup.addPropEditableAttribute("07#" + "instances");
-			semContextGroup.addPropEditableAttribute("08#" + "ExtVisible");
-			semContextGroup.addPropEditableAttribute("09#" + "ExtControl");
-
-			semContextGroup.addPropVisibleAttribute("01#" + "name");
-			semContextGroup.addPropVisibleAttribute("07#" + "instances");
-			semContextGroup.addPropVisibleAttribute("08#" + "ExtVisible");
-			semContextGroup.addPropVisibleAttribute("09#" + "ExtControl");
-
-			InstConcept instVertexCG = new InstConcept("ConcernLevel",
-					infraMetaMetaConcept, semContextGroup);
-			refas.getVariabilityVertex().put("ConcernLevel", instVertexCG);
 
 			OpersConcept semAsset = new OpersConcept("Asset");
 			InstConcept instVertexAsset = new InstConcept("Asset",

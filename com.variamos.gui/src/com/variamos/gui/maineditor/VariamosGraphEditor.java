@@ -583,11 +583,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		root.insert(new mxCell());
 		graph.getModel().setRoot(root);
 		refasModel.clear();
-		if (perspective == 2) {
-			setGraphEditorFunctions(new PerspEditorFunctions(this));
-			((PerspEditorGraph) graph).defineInitialGraph();
-			System.out.println("");
-		}
+		// if (perspective == 2) {
+		setGraphEditorFunctions(new PerspEditorFunctions(this));
+		((PerspEditorGraph) graph).defineInitialGraph();
+		System.out.println("");
+		// }
 		if (perspective % 2 != 0) {
 			this.graphLayout("organicLayout", true);
 			this.getGraphComponent().zoomAndCenter();
