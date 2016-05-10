@@ -246,14 +246,17 @@ public class VariamosGraphComponent extends mxGraphComponent {
 							.getValue()) {
 						sim_backcolor = sim_selected;
 						// backtophint = "Selected for this solution";
+					} else {
+						backtophint = "Not selected";
 					}
+					// if (!backtophint.equals("")) {
 					mxCellOverlay over2 = new mxCellOverlay(new ImageIcon(
 							mxGraphComponent.class.getResource(sim_backcolor)),
 							backtophint);
 					over2.setVerticalAlign(mxConstants.ALIGN_TOP);
 					over2.setAlign(mxConstants.ALIGN_CENTER);
 					addCellOverlay(childCell, over2);
-
+					// }
 					if ((boolean) instConcept.getInstAttribute("Required")
 							.getValue()) {
 						mxCellOverlay over3 = new mxCellOverlay(
