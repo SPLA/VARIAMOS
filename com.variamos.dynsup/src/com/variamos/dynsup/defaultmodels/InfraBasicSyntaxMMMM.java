@@ -49,6 +49,9 @@ public class InfraBasicSyntaxMMMM {
 		basicOpersSyntaxM3Concept.addModelingAttribute("Visible",
 				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
 						false, "Visible", true, 0, -1, "", "", -1, "", ""));
+		basicOpersSyntaxM3Concept.addModelingAttribute("Editable",
+				new ElemAttribute("Editable", "Boolean", AttributeType.SYNTAX,
+						false, "Editable", true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
 						false, "Concept Name", "", 0, -1, "", "", -1, "", ""));

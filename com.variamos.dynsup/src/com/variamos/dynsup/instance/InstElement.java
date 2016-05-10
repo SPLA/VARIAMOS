@@ -163,6 +163,8 @@ public abstract class InstElement implements Serializable,
 							.getTransInstSemanticElement().getIdentifier());
 				if (instAttribute.getIdentifier().equals("Visible"))
 					instAttribute.setValue(edSyntaxEle.getVisible());
+				if (instAttribute.getIdentifier().equals("Editable"))
+					instAttribute.setValue(edSyntaxEle.isEditable());
 				if (instAttribute.getIdentifier().equals("Name"))
 					instAttribute.setValue(edSyntaxEle.getName());
 				if (instAttribute.getIdentifier().equals("Style"))
