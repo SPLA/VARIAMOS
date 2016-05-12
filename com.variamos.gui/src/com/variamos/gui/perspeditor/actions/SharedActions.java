@@ -137,7 +137,7 @@ public class SharedActions {
 				InstOverTwoRel ic = (InstOverTwoRel) value;
 				String str = null;
 				ic.setSemanticOverTwoRelationIden(str);
-				str = (String) ic.getSupSyntaxEleId();
+				str = (String) ic.getSupInstEleId();
 				ic.setMetaOverTwoRelationIden(str);
 			}
 			if (value instanceof InstPairwiseRel) {
@@ -536,10 +536,7 @@ public class SharedActions {
 								.getSupportMetaElementUserIdentifier());
 				return;
 			} else {
-				SyntaxElement metaOverTwoRelation = (SyntaxElement) instSupportElement
-						.getEdSyntaxEle();
-				instOverTwoRelation
-						.setTransSupportMetaElement(metaOverTwoRelation);
+				instOverTwoRelation.setTransSupInstElement(instSupportElement);
 			}
 			refas.putInstGroupDependency(instOverTwoRelation);
 			Iterator<InstAttribute> ias = instOverTwoRelation
@@ -602,17 +599,17 @@ public class SharedActions {
 			editor.refreshElement(instOverTwoRelation);
 		} else if (instElement instanceof InstVertex) {
 			InstVertex instVertex = (InstVertex) instElement;
+			InstElement instSupVertex = null;
 			SyntaxElement metaVertex = null;
-			if (refas.getSyntaxModel()
-					.getVertex(instVertex.getSupSyntaxEleId()) != null)
-				metaVertex = (SyntaxElement) refas.getSyntaxModel()
-						.getVertex(instVertex.getSupSyntaxEleId())
-						.getEdSyntaxEle();
+			if (refas.getSyntaxModel().getVertex(instVertex.getSupInstEleId()) != null) {
+				instSupVertex = refas.getSyntaxModel().getVertex(
+						instVertex.getSupInstEleId());
+				metaVertex = (SyntaxElement) instSupVertex.getEdSyntaxEle();
+			}
 			if (metaVertex == null)
-				System.err.println("Concept w "
-						+ instVertex.getSupSyntaxEleId());
+				System.err.println("Concept w " + instVertex.getSupInstEleId());
 			else {
-				instVertex.setTransSupportMetaElement(metaVertex);
+				instVertex.setTransSupInstElement(instSupVertex);
 				refas.putVariabilityInstVertex(instVertex);
 				Iterator<InstAttribute> ias = instVertex.getInstAttributes()
 						.values().iterator();
@@ -673,7 +670,7 @@ public class SharedActions {
 			}
 			int semAtt = 0;
 			SyntaxElement supportMetaElement = instVertex
-					.getTransSupportMetaElement();
+					.getTransSupInstElement().getEdSyntaxEle();
 			Set<String> attributeNames = supportMetaElement
 					.getAllAttributesNames(syntaxParents);
 			if (attributeNames != null)
@@ -721,7 +718,7 @@ public class SharedActions {
 					System.out.println("Error load" + source.getId());
 					return;
 				}
-				SyntaxElement metaPairwiseRelation = null;
+				InstElement metaPairwiseRelation = null;
 				try {
 					metaPairwiseRelation = refas.getSyntaxModel()
 							.getValidMetaPairwiseRelation(
@@ -752,7 +749,7 @@ public class SharedActions {
 									.next();
 
 							ElemAttribute absAttribute = metaPairwiseRelation
-									.getAbstractAttribute(
+									.getEdSyntaxEle().getAbstractAttribute(
 											instAttribute.getAttributeName(),
 											syntaxParents, opersParents);
 							if (absAttribute == null)
@@ -906,7 +903,7 @@ public class SharedActions {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+				} else if (((InstPairwiseRel) ele).getSupInstEleId().equals(
 						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;

@@ -1,19 +1,16 @@
 package com.variamos.gui.perspeditor.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.Field;
-import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import com.cfm.common.AbstractModel;
@@ -80,19 +77,19 @@ public class StaticExpressionsPanel extends JPanel {
 
 	public void initialize(InstElement element) {
 		removeAll();
-		setLayout(new BorderLayout());
-		solutionPanel = new JPanel(new SpringLayout());
-		if (expressionSet != null) {
-			List<AbstractExpression> expressions = expressionSet
-					.getElementExpressions();
-			for (AbstractExpression expression : expressions) {
-				showExpression(expression, element, solutionPanel, 255);
-			}
+		// setLayout(new BorderLayout());
+		// solutionPanel = new JPanel(new SpringLayout());
+		// if (expressionSet != null) {
+		// List<AbstractExpression> expressions = expressionSet
+		// .getElementExpressions();
+		// for (AbstractExpression expression : expressions) {
+		// showExpression(expression, element, solutionPanel, 255);
+		// }
 
-			initSolutionPanel(expressions.size());
-			this.repaint();
-			this.revalidate();
-		}
+		// initSolutionPanel(expressions.size());
+		// this.repaint();
+		// this.revalidate();
+		// }
 
 	}
 
@@ -228,13 +225,13 @@ public class StaticExpressionsPanel extends JPanel {
 		if (element instanceof InstPairwiseRel) {
 			for (String attributeName : ((InstPairwiseRel) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getIdentifier()
+				combo.addItem(((InstPairwiseRel) element).getSourceRelations()
+						.get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : ((InstPairwiseRel) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRel) element)
-						.getTargetRelations().get(0).getIdentifier()
+				combo.addItem(((InstPairwiseRel) element).getTargetRelations()
+						.get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);

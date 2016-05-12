@@ -251,7 +251,11 @@ public abstract class InstElement implements Serializable,
 	}
 
 	public String getSupInstEleId() {
-		return supInstEleId;
+		if (supInstEleId != null)
+			return supInstEleId;
+		else
+			// Support old models
+			return supSyntaxEleId;
 	}
 
 	public void setSupInstEleId(String supInstEleId) {
@@ -264,7 +268,10 @@ public abstract class InstElement implements Serializable,
 	 * @return
 	 */
 	public SyntaxElement getTransSupportMetaElement() {
-		return supMetaElement;
+		if (supInstElement != null)
+			return supInstElement.getEdSyntaxEle();
+		else
+			return null;// supMetaElement;
 	}
 
 	/**
@@ -273,9 +280,10 @@ public abstract class InstElement implements Serializable,
 	 * @return
 	 */
 
+	@Deprecated
 	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
 		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
-		this.supMetaElement = (SyntaxElement) supportMetaElement;
+		this.supInstElement = new InstConcept("", null, supportMetaElement);
 	}
 
 	/**
@@ -307,7 +315,7 @@ public abstract class InstElement implements Serializable,
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
 		if (getEdSyntaxEle() != null)
 			getEdSyntaxEle().setAutoIdentifier(identifier);
-		if (supMetaElement != null)
+		if (supInstElement != null)
 			setDynamicVariable(SyntaxElement.VAR_DESCRIPTION,
 					getTransSupportMetaElement().getDescription());
 	}

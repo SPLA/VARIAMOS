@@ -405,23 +405,29 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 						.getSourceRelations().get(0);
 				AbstractExpression out21a = null;
 
-				String sourceSatisficingType = (String) sourceSoftgoal
-						.getInstAttribute("satisficingType").getValue();
+				if (sourceSoftgoal.getSupInstEleId().equals("Softgoal")) {
+					String sourceSatisficingType = (String) sourceSoftgoal
+							.getInstAttribute("satisficingType").getValue();
 
-				// TargetId_SDReqLevel #= relId_SourceLevel
-				if (sourceSatisficingType.contains("low")) {
+					// TargetId_SDReqLevel #= relId_SourceLevel
+					if (sourceSatisficingType.contains("low")) {
 
-					out21a = new LessOrEqualsBooleanExpression(sourceSoftgoal,
-							instPairwiseRelation, "SDReqLevel", "sourceLevel");
-				} else if (sourceSatisficingType.contains("high")) {
+						out21a = new LessOrEqualsBooleanExpression(
+								sourceSoftgoal, instPairwiseRelation,
+								"SDReqLevel", "sourceLevel");
+					} else if (sourceSatisficingType.contains("high")) {
 
-					out21a = new GreaterOrEqualsBooleanExpression(
-							sourceSoftgoal, instPairwiseRelation, "SDReqLevel",
-							"sourceLevel");
-				} else {
+						out21a = new GreaterOrEqualsBooleanExpression(
+								sourceSoftgoal, instPairwiseRelation,
+								"SDReqLevel", "sourceLevel");
+					} else {
+						out21a = new EqualsComparisonExpression(sourceSoftgoal,
+								instPairwiseRelation, "SDReqLevel",
+								"sourceLevel");
+					}
+				} else
 					out21a = new EqualsComparisonExpression(sourceSoftgoal,
-							instPairwiseRelation, "SDReqLevel", "sourceLevel");
-				}
+							"Sel", getHlclFactory().number(1));
 				// getElementExpressions().add(out21a);
 				// allList.add(out21a);
 

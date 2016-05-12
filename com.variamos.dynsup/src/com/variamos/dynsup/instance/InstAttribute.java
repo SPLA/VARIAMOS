@@ -151,14 +151,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		return volatileAttribute.getDisplayName();
 	}
 
-	public void setValidationMEList(List<SyntaxPairwiseRel> metaEdge) {
+	public void setValidationMEList(List<InstElement> metaEdge) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<SyntaxPairwiseRel> getValidationMEList() {
-		return (List<SyntaxPairwiseRel>) getInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION);
+	public List<InstElement> getValidationMEList() {
+		return (List<InstElement>) getInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION);
 		// return identifier;
 	}
 
@@ -367,7 +367,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	public void updateValidationList(InstElement instElement,
-			Map<String, SyntaxElement> mapElements) {
+			Map<String, InstElement> mapElements) {
 		// FIXME change this validation to use relationTypesAttributes instead
 		// of relationType
 		if (!(instElement instanceof InstPairwiseRel)
@@ -391,11 +391,11 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 				if (mapElements != null) {
 					Iterator<String> elementNames = mapElements.keySet()
 							.iterator();
-					List<SyntaxPairwiseRel> metaGD = new ArrayList<SyntaxPairwiseRel>();
+					List<InstElement> metaGD = new ArrayList<InstElement>();
 					while (elementNames.hasNext()) {
 						String elementName = elementNames.next();
-						if (mapElements.get(elementName) instanceof SyntaxPairwiseRel) // TODO
-							metaGD.add((SyntaxPairwiseRel) mapElements
+						if (mapElements.get(elementName) instanceof InstElement) // TODO
+							metaGD.add((InstElement) mapElements
 									.get(elementName));
 					}
 					setValidationMEList(metaGD);

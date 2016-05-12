@@ -91,8 +91,7 @@ public class InfraBasicSyntaxMMMM {
 						"Is Resizable", true, 0, -1, "", "", -1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
-				"OMMConcept", basicOpersSyntaxM3Concept,
-				basicOpersSyntaxM3Concept);
+				"OMMConcept", null, basicOpersSyntaxM3Concept);
 
 		variabilityInstVertex.put("OMMConcept", instInfraSyntaxOpersM2Concept);
 

@@ -74,8 +74,8 @@ public class VariamosDashBoardFrame extends JFrame {
 				.getVariabilityVertexCollection()) {
 			if (instVertex.getInstAttribute("DBVis") != null
 					&& instVertex.getInstAttribute("DBVis").getAsBoolean()) {
-				String metaId = instVertex.getTransSupportMetaElement()
-						.getAutoIdentifier();
+				String metaId = instVertex.getTransSupInstElement()
+						.getEdSyntaxEle().getAutoIdentifier();
 				String instId = instVertex.getIdentifier();
 				if (elements.get(metaId) == null)
 					elements.put(metaId, new TreeMap<String, VisualElement>());

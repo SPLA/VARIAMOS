@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
+import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelExpr;
@@ -20,8 +21,6 @@ import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.OpersVariable;
-import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.statictypes.SatisficingType;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ExpressionVertexType;
@@ -82,49 +81,47 @@ public class DefaultOpersMM {
 
 	@SuppressWarnings("unchecked")
 	public static void createOpersMetaModel(ModelInstance refas, boolean empty) {
-		SyntaxConcept metaMetaModel = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMModel")).getEdSyntaxEle();
-		SyntaxConcept metaOperationMenu = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMOperGroup")).getEdSyntaxEle();
-		SyntaxConcept metaOperationAction = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMOperation")).getEdSyntaxEle();
-		SyntaxConcept metaOperationSubAction = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMSubOper")).getEdSyntaxEle();
-		SyntaxConcept metaLabeling = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMLabeling")).getEdSyntaxEle();
-		SyntaxConcept metaExpType = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMExpType")).getEdSyntaxEle();
+		InstElement metaMetaModel = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMModel"));
+		InstElement metaOperationMenu = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMOperGroup"));
+		InstElement metaOperationAction = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMOperation"));
+		InstElement metaOperationSubAction = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMSubOper"));
+		InstElement metaLabeling = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMLabeling"));
+		InstElement metaExpType = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMExpType"));
 
 		// MetaEnumeration metaEnumeration = (MetaEnumeration) ((InstConcept)
 		// refas
 		// .getSyntaxModel().getVertex("TypeEnumeration"))
 		// .getEditableMetaElement();
-		SyntaxConcept metaMetaConcept = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMConcept")).getEdSyntaxEle();
+		InstElement metaMetaConcept = ((InstConcept) refas.getSyntaxModel()
+				.getVertex("OMConcept"));
 		InstConcept metaMetaInstConcept = ((InstConcept) refas.getSyntaxModel()
 				.getVertex("OMConcept"));
-		SyntaxConcept metaMetaPairwiseRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMPWRel")).getEdSyntaxEle();
+		InstElement metaMetaPairwiseRelation = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMPWRel"));
 		InstConcept metaMetaInstOverTwoRel = ((InstConcept) refas
 				.getSyntaxModel().getVertex("OMOTRel"));
 
-		SyntaxConcept infraMetaMetaConcept = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfConcept")).getEdSyntaxEle();
-		SyntaxConcept infraMetaMetaPairwiseRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfraPWRel")).getEdSyntaxEle();
-		SyntaxConcept infraMetaMetaOverTwoRelation = (SyntaxConcept) ((InstConcept) refas
-				.getSyntaxModel().getVertex("OMInfraOTRel")).getEdSyntaxEle();
+		InstElement infraMetaMetaConcept = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMInfConcept"));
+		InstElement infraMetaMetaPairwiseRelation = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMInfraPWRel"));
+		InstElement infraMetaMetaOverTwoRelation = ((InstConcept) refas
+				.getSyntaxModel().getVertex("OMInfraOTRel"));
 
-		SyntaxPairwiseRel metaPairwRelCCExt = (SyntaxPairwiseRel) ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("ExtendsCCRel"))
-				.getEdSyntaxEle();
-		SyntaxPairwiseRel metaPairwRelOCExt = (SyntaxPairwiseRel) ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("ExtendsOCRel"))
-				.getEdSyntaxEle();
+		InstPairwiseRel metaPairwRelCCExt = ((InstPairwiseRel) refas
+				.getSyntaxModel().getConstraintInstEdge("ExtendsCCRel"));
+		InstPairwiseRel metaPairwRelOCExt = ((InstPairwiseRel) refas
+				.getSyntaxModel().getConstraintInstEdge("ExtendsOCRel"));
 
-		SyntaxPairwiseRel metaPairwRelAso = (SyntaxPairwiseRel) ((InstPairwiseRel) refas
+		InstPairwiseRel metaPairwRelAso = ((InstPairwiseRel) refas
 				.getSyntaxModel().getConstraintInstEdge(
-						"InfraSyntaxOpersM2AsoRel")).getEdSyntaxEle();
+						"InfraSyntaxOpersM2AsoRel"));
 
 		OpersLabeling simulationExecOperUniqueLabeling = null;
 		simulationExecOperUniqueLabeling = new OpersLabeling("unique");
@@ -238,9 +235,10 @@ public class DefaultOpersMM {
 					"exptype", metaExpType,
 					simulationPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -298,9 +296,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPreUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -385,9 +384,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationExecOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -454,9 +454,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPosValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -507,9 +508,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulationPostUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -611,9 +613,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -673,9 +676,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPreValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -734,9 +738,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenExecOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -829,9 +834,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPosValOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -890,9 +896,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, simulScenPostUpdOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -984,9 +991,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, updateCoreOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1067,9 +1075,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1084,9 +1093,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "RELAXABLE");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1101,9 +1111,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifDeadElemOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "VERIFICATION");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1182,9 +1193,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1199,9 +1211,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "RELAXABLE");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1216,9 +1229,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifParentsOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "VERIFICATION");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1296,9 +1310,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1313,9 +1328,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "RELAXABLE");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1330,9 +1346,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifRootOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "VERIFICATION");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1418,9 +1435,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1435,9 +1453,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionRelaxable);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "RELAXABLE");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "RELAXABLE");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1452,9 +1471,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, verifFalseOptOperSubActionVerification);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "VERIFICATION");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "VERIFICATION");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1549,9 +1569,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, configTemporalOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -1632,9 +1653,10 @@ public class DefaultOpersMM {
 			instOperSubOperationExpType = new InstConcept("exptype",
 					metaExpType, configPermanentOptOperSubActionNormal);
 
-			instOperSubOperationExpType.addInstAttribute("suboperexptype",
-					metaExpType.getAbstractAttribute("suboperexptype", null,
-							null), "NORMAL");
+			instOperSubOperationExpType.addInstAttribute(
+					"suboperexptype",
+					metaExpType.getEdSyntaxEle().getAbstractAttribute(
+							"suboperexptype", null, null), "NORMAL");
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
@@ -4969,6 +4991,9 @@ public class DefaultOpersMM {
 			InstConcept instDirSGSGSemanticEdge = new InstConcept("SgSgPWAsso",
 					metaMetaPairwiseRelation, directSGSGSemEdge);
 
+			refas.getVariabilityVertex().put("SgSgPWAsso",
+					instDirSGSGSemanticEdge);
+
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sgsgtoip", instEdge);
 			instEdge.setIdentifier("sgsgtoip");
@@ -5203,9 +5228,6 @@ public class DefaultOpersMM {
 					false, "implication", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
-			refas.getVariabilityVertex().put("SgSgPWAsso",
-					instDirSGSGSemanticEdge);
-
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sgsgPW-sgpwsg", instEdge);
 			instEdge.setIdentifier("sgsgPW-sgpwsg");
@@ -5220,6 +5242,368 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexSG, true);
 			instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
+			OpersPairwiseRel directGRSGSemEdge = new OpersPairwiseRel(
+					"sgsgOTAssoToPWAsso", true, sgPairwiseRelList);
+			attribute = new ElemAttribute("targetLevel", "Integer",
+					AttributeType.OPERATION, "Target Level", 0, false,
+					new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
+			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			attribute = new ElemAttribute("AggregationLow", "Integer",
+					AttributeType.OPERATION, false, "Aggregation Low", 0, 0,
+					-1, "", "", -1, "", "");
+			directGRSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			directGRSGSemEdge
+					.addPanelVisibleAttribute("07#" + "AggregationLow");
+
+			directGRSGSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
+					+ "#..");
+
+			directGRSGSemEdge
+					.addPropEditableAttribute("07#" + "AggregationLow");
+
+			directGRSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
+
+			attribute = new ElemAttribute("AggregationHigh", "Integer",
+					AttributeType.OPERATION, false, "AggregationHigh", 0, 0,
+					-1, "", "", -1, "", "");
+			directGRSGSemEdge
+					.putSemanticAttribute("AggregationHigh", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directGRSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			directGRSGSemEdge.addPanelVisibleAttribute("08#"
+					+ "AggregationHigh");
+
+			directGRSGSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
+					+ "#]\n");
+
+			directGRSGSemEdge.addPropEditableAttribute("08#"
+					+ "AggregationHigh");
+
+			directGRSGSemEdge
+					.addPropVisibleAttribute("08#" + "AggregationHigh");
+
+			directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
+					+ "#");
+			directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
+			directGRSGSemEdge.addPropVisibleAttribute("09#" + "targetLevel");
+			directGRSGSemEdge.addPanelVisibleAttribute("09#" + "targetLevel");
+
+			// FIXME remove, use other
+			InstConcept instSgsgGRSG = new InstConcept("sgsgOTAssoToPWAsso",
+					metaMetaPairwiseRelation, directGRSGSemEdge);
+
+			refas.getVariabilityVertex()
+					.put("sgsgOTAssoToPWAsso", instSgsgGRSG);
+
+			ia = instSgsgGRSG.getInstAttribute("relTypesAttr");
+			ias = (List<InstAttribute>) ia.getValue();
+			ias.add(new InstAttribute("contribution", new ElemAttribute(
+					"contribution", StringType.IDENTIFIER,
+					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
+					"", -1, "", ""),
+					"contribution#contribution#true#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict#conflict#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("alternative", new ElemAttribute(
+					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					"altern.#altern.#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("preferred", new ElemAttribute(
+					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					"preferred#preferred#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("require", new ElemAttribute("require",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"require", "", 1, -1, "", "", -1, "", ""),
+					"require#require#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("implication", new ElemAttribute(
+					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					"implication#implication#false#true#true#1#-1#1#1"));
+
+			ia = instDirSGSGSemanticEdge.getInstAttribute("opersExprs");
+			ias = (List<InstAttribute>) ia.getValue();
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"LessOrEquals"),
+					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"LessOrEquals"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Implies"), t1, t3);
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+					"low");
+
+			t1 = new OpersExpr("low: SGReqLevel", refas
+					.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"GreaterOrEq"),
+					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"GreaterOrEq"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Implies"), t1, t3);
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+					"high");
+
+			t1 = new OpersExpr("high: SGReqLevel", refas
+					.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "sourceLevel");
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTVARIABLE, instVertexSG,
+					instDirSGSGSemanticEdge, "SDReqLevel", "targetLevel");
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Implies"), t1, t3);
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, "satisficingLevel",
+					"close");
+
+			t1 = new OpersExpr("close: SGReqLevel", refas
+					.getSemanticExpressionTypes().get("Implies"), t3, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			// TODO include expressions for contribution with OTRel
+
+			ias.add(new InstAttribute("contribution", new ElemAttribute(
+					"contribution", StringType.IDENTIFIER,
+					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
+					"", -1, "", ""), semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+					instVertexSG, instVertexSG, "Sel", "Sel");
+
+			t1 = new OpersExpr("CONFSelected", refas
+					.getSemanticExpressionTypes().get("Implies"), 1, false, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"conflict", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, null, "Sel", true, 1);
+
+			t1 = new OpersExpr("ALTSelected", refas
+					.getSemanticExpressionTypes().get("Implies"),
+					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexSG, "Sel", true, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("alternative", new ElemAttribute(
+					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"And"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					ExpressionVertexType.RIGHTUNIQUEOUTCONVARIABLE,
+					instVertexSG, instVertexSG, "Sel", "Sel");
+
+			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+					"Negation"), ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexSG, "Sel");
+
+			t1 = new OpersExpr("PREFSelected", refas
+					.getSemanticExpressionTypes().get("And"), t3, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("preferred", new ElemAttribute(
+					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Subtraction"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, null, "Sel", false,
+					1);
+
+			t1 = new OpersExpr("REQSelected", refas
+					.getSemanticExpressionTypes().get("GreaterOrEq"), 1, false,
+					t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("require", new ElemAttribute("require",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"require", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					instDirSGSGSemanticEdge, instVertexSG, null, "Sel", true, 1);
+
+			t1 = new OpersExpr("IMPSelected", refas
+					.getSemanticExpressionTypes().get("Implies"),
+					ExpressionVertexType.LEFTUNIQUEINCCONVARIABLE,
+					instVertexSG, "Sel", true, t1);
+
+			semanticExpressions.add(t1);
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+
+			ias.add(new InstAttribute("implication", new ElemAttribute(
+					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
+					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			OpersPairwiseRel directSGGRSemEdge = new OpersPairwiseRel(
+					"sgsgOTAssoFromPWAsso", true, sgPairwiseRelList);
+			attribute = new ElemAttribute("sourceLevel", "Integer",
+					AttributeType.OPERATION, "Source Level", 0, false,
+					new RangeDomain(0, 5), 0, -1, "", "", -1, "", "");
+			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			attribute = new ElemAttribute("AggregationLow", "Integer",
+					AttributeType.OPERATION, false, "Aggregation Low", 0, 0,
+					-1, "", "", -1, "", "");
+			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			directSGGRSemEdge
+					.addPanelVisibleAttribute("07#" + "AggregationLow");
+
+			directSGGRSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
+					+ "#..");
+
+			directSGGRSemEdge
+					.addPropEditableAttribute("07#" + "AggregationLow");
+
+			directSGGRSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
+
+			attribute = new ElemAttribute("AggregationHigh", "Integer",
+					AttributeType.OPERATION, false, "AggregationHigh", 0, 0,
+					-1, "", "", -1, "", "");
+			directSGGRSemEdge
+					.putSemanticAttribute("AggregationHigh", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+
+			directSGGRSemEdge.addPanelVisibleAttribute("08#"
+					+ "AggregationHigh");
+
+			directSGGRSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
+					+ "#]\n");
+
+			directSGGRSemEdge.addPropEditableAttribute("08#"
+					+ "AggregationHigh");
+
+			directSGGRSemEdge
+					.addPropVisibleAttribute("08#" + "AggregationHigh");
+
+			directSGGRSemEdge.addPropEditableAttribute("08#" + "sourceLevel");
+			directSGGRSemEdge.addPropVisibleAttribute("08#" + "sourceLevel");
+			directSGGRSemEdge.addPanelVisibleAttribute("08#" + "sourceLevel");
+
 			OpersOverTwoRel semanticSGSGGroupRelation = new OpersOverTwoRel(
 					"SgSgOTAsso", hardSemOverTwoRelList);
 
@@ -5228,7 +5612,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("SgSgOTAsso", instVertexSGGR);
 
 			InstConcept instSgsgSGR = new InstConcept("sgsgOTAssoFromPWAsso",
-					metaMetaPairwiseRelation);
+					metaMetaPairwiseRelation, directSGGRSemEdge);
 
 			refas.getVariabilityVertex().put("sgsgOTAssoFromPWAsso",
 					instSgsgSGR);
@@ -5253,12 +5637,6 @@ public class DefaultOpersMM {
 			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdge.setTargetRelation(instVertexSGGR, true);
 			instEdge.setSourceRelation(instSgsgSGR, true);
-
-			InstConcept instSgsgGRSG = new InstConcept("sgsgOTAssoToPWAsso",
-					metaMetaPairwiseRelation);
-
-			refas.getVariabilityVertex()
-					.put("sgsgOTAssoToPWAsso", instSgsgGRSG);
 
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("SGGRtosg-GRsgsgGR", instEdge);

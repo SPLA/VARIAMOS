@@ -570,12 +570,12 @@ public class ModelInstance extends AbstractModel {
 		this.instGroupDependencies = instGroupDependencies;
 	}
 
-	public Map<String, SyntaxElement> getValidPairwiseRelations(
+	public Map<String, InstElement> getValidPairwiseRelations(
 			InstElement instElement, InstElement instElement2) {
 		InstElement instSyntaxElement = this.getVertex(instElement
-				.getSupSyntaxEleId());
+				.getSupInstEleId());
 		InstElement instSyntaxElement2 = this.getVertex(instElement2
-				.getSupSyntaxEleId());
+				.getSupInstEleId());
 		if (instSyntaxElement2 == null) {
 			System.out.println("getValidPairwiseRelations error - "
 					+ instElement2.getIdentifier());
@@ -584,10 +584,12 @@ public class ModelInstance extends AbstractModel {
 				true);
 	}
 
-	private Map<String, SyntaxElement> getValidPairwiseRelations(
+	private Map<String, InstElement> getValidPairwiseRelations(
 			InstElement instElement, InstElement instElement2, boolean first) {
-		SyntaxElement metaElement = instElement.getEdSyntaxEle();
-		Map<String, SyntaxElement> out = new HashMap<String, SyntaxElement>();
+		SyntaxElement metaElement = null;
+		if (instElement != null)
+			metaElement = instElement.getEdSyntaxEle();
+		Map<String, InstElement> out = new HashMap<String, InstElement>();
 		if (instElement2 == null) {
 			return out;
 		}
@@ -607,7 +609,7 @@ public class ModelInstance extends AbstractModel {
 								metaElement2.getAutoIdentifier())
 				// && pwr.getEditableMetaElement().getVisible()
 				)
-					out.put(pwr.getIdentifier(), pwr.getEdSyntaxEle());
+					out.put(pwr.getIdentifier(), pwr);
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 
@@ -637,7 +639,7 @@ public class ModelInstance extends AbstractModel {
 						&& targetMetaElement.getAutoIdentifier().equals(
 								metaElement2.getAutoIdentifier())
 						&& pwr.getEdSyntaxEle().getVisible())
-					out.put(pwr.getIdentifier(), pwr.getEdSyntaxEle());
+					out.put(pwr.getIdentifier(), pwr);
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 			}
@@ -646,10 +648,9 @@ public class ModelInstance extends AbstractModel {
 		if (metaElement instanceof SyntaxConcept && first) {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
-				if (element.getTargetRelations().get(0).getSupSyntaxEleId() != null
+				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupSyntaxEleId()
-								.equals("SMMExtendRelation")) {
+								.getSupInstEleId().equals("SMMExtendRelation")) {
 					out.putAll(getValidPairwiseRelations(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -659,10 +660,9 @@ public class ModelInstance extends AbstractModel {
 		if (metaElement2 instanceof SyntaxConcept) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
-				if (element.getTargetRelations().get(0).getSupSyntaxEleId() != null
+				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupSyntaxEleId()
-								.equals("SMMExtendRelation")) {
+								.getSupInstEleId().equals("SMMExtendRelation")) {
 					out.putAll(getValidPairwiseRelations(instElement, element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), false));
@@ -673,17 +673,17 @@ public class ModelInstance extends AbstractModel {
 		return out;
 	}
 
-	public SyntaxElement getValidMetaPairwiseRelation(InstElement instElement,
+	public InstElement getValidMetaPairwiseRelation(InstElement instElement,
 			InstElement instElement2, String metaPairwiseIden) {
 		InstElement instSyntaxElement = this.getVertex(instElement
-				.getSupSyntaxEleId());
+				.getSupInstEleId());
 		InstElement instSyntaxElement2 = this.getVertex(instElement2
-				.getSupSyntaxEleId());
+				.getSupInstEleId());
 		return getValidMetaPairwiseRelation(instSyntaxElement,
 				instSyntaxElement2, metaPairwiseIden, true);
 	}
 
-	private SyntaxElement getValidMetaPairwiseRelation(InstElement instElement,
+	private InstElement getValidMetaPairwiseRelation(InstElement instElement,
 			InstElement instElement2, String metaPairwiseIden, boolean first) {
 		SyntaxElement metaElement = instElement.getEdSyntaxEle();
 		if (instElement2 == null) {
@@ -706,10 +706,10 @@ public class ModelInstance extends AbstractModel {
 								metaElement2.getAutoIdentifier())
 						&& pwr.getEdSyntaxEle().getAutoIdentifier()
 								.equals(metaPairwiseIden))
-					return (SyntaxPairwiseRel) pwr.getEdSyntaxEle();
+					return pwr;
 			}
 		}
-		SyntaxElement out2 = null;
+		InstElement out2 = null;
 		for (InstElement pwr : this.variabilityInstVertex.values()) {
 			if (pwr.getSourceRelations().size() > 0
 					&& pwr.getTargetRelations().size() > 0) {
@@ -725,7 +725,7 @@ public class ModelInstance extends AbstractModel {
 								metaElement2.getAutoIdentifier())
 						&& pwr.getEdSyntaxEle().getAutoIdentifier()
 								.equals(metaPairwiseIden))
-					out2 = pwr.getEdSyntaxEle();
+					out2 = pwr;
 				// TODO validate the other end when the OTR type has
 				// exclusive connections
 				if (out2 != null)
@@ -736,11 +736,10 @@ public class ModelInstance extends AbstractModel {
 		if (metaElement2 instanceof SyntaxConcept) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
-				if (element.getTargetRelations().get(0).getSupSyntaxEleId() != null
+				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupSyntaxEleId()
-								.equals("SMMExtendRelation")) {
-					SyntaxElement out = (getValidMetaPairwiseRelation(
+								.getSupInstEleId().equals("SMMExtendRelation")) {
+					InstElement out = (getValidMetaPairwiseRelation(
 							instElement, element.getTargetRelations().get(0)
 									.getTargetRelations().get(0)
 									.getTargetRelations().get(0),
@@ -753,10 +752,9 @@ public class ModelInstance extends AbstractModel {
 		if (metaElement instanceof SyntaxConcept && first) {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
-				if (element.getTargetRelations().get(0).getSupSyntaxEleId() != null
+				if (element.getTargetRelations().get(0).getSupInstEleId() != null
 						&& element.getTargetRelations().get(0)
-								.getSupSyntaxEleId()
-								.equals("SMMExtendRelation")) {
+								.getSupInstEleId().equals("SMMExtendRelation")) {
 					return (getValidMetaPairwiseRelation(element
 							.getTargetRelations().get(0).getTargetRelations()
 							.get(0).getTargetRelations().get(0), instElement2,
@@ -770,7 +768,7 @@ public class ModelInstance extends AbstractModel {
 		if (instElement == null)
 			return null;
 		InstElement instSyntaxElement = this.getSyntaxModel().getVertex(
-				instElement.getSupSyntaxEleId());
+				instElement.getSupInstEleId());
 		if (instSyntaxElement != null)
 			return getRecursiveParentSyntaxConcept(instSyntaxElement);
 		else
@@ -782,8 +780,8 @@ public class ModelInstance extends AbstractModel {
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = instElement.getTargetRelations();
 		for (InstElement element : rel) {
-			if (element.getTargetRelations().get(0).getSupSyntaxEleId() != null
-					&& element.getTargetRelations().get(0).getSupSyntaxEleId()
+			if (element.getTargetRelations().get(0).getSupInstEleId() != null
+					&& element.getTargetRelations().get(0).getSupInstEleId()
 							.equals("SMMExtendRelation")) {
 				InstElement parent = element.getTargetRelations().get(0)
 						.getTargetRelations().get(0).getTargetRelations()
@@ -807,9 +805,9 @@ public class ModelInstance extends AbstractModel {
 		if (instTarget == null && instPairwise.getTargetRelations().size() > 0)
 			instTarget = instPairwise.getTargetRelations().get(0);
 		for (InstAttribute v : visible) {
-			Map<String, SyntaxElement> mapElements = null;
+			Map<String, InstElement> mapElements = null;
 			if (elm instanceof InstPairwiseRel && instSource != null
-					&& instSource.getTransSupportMetaElement() != null) {
+					&& instSource.getTransSupInstElement() != null) {
 				mapElements = getSyntaxModel().getValidPairwiseRelations(
 						instSource, instTarget);
 			}
@@ -825,7 +823,7 @@ public class ModelInstance extends AbstractModel {
 		if (modelViewInd < views.size() && modelViewSubInd == -1) {
 			for (InstElement instElement : views.get(modelViewInd)
 					.getTargetRelations()) {
-				if (instElement.getTargetRelations().get(0).getSupSyntaxEleId() != null
+				if (instElement.getTargetRelations().get(0).getSupInstEleId() != null
 						&& instElement.getTargetRelations().get(0)
 								.getTargetRelations().get(0)
 								.getTargetRelations().get(0).getIdentifier()

@@ -19,7 +19,6 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
-import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
 import com.variamos.dynsup.types.StringType;
@@ -56,7 +55,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 	private String enumCanonicalName = null;
 
-	private SyntaxElement infraSyntaxOpersM2Element = null;
+	private InstElement infraSyntaxOpersM2Element = null;
 	/**
 			 * 
 			 */
@@ -73,7 +72,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 	@SuppressWarnings("unchecked")
 	public MetaEnumTypeAttributeList(final VariamosGraphEditor editor,
 			final InstCell instCell, String attributeName,
-			String enumCanonicalName, SyntaxElement infraSyntaxOpersM2Element) {
+			String enumCanonicalName, InstElement infraSyntaxOpersM2Element) {
 		this.editor = editor;
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
