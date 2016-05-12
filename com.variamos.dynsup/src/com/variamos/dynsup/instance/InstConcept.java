@@ -34,17 +34,17 @@ public class InstConcept extends InstVertex {
 		super("", new HashMap<String, InstAttribute>());
 	}
 
-	public InstConcept(SyntaxElement supportMetaElement) {
+	public InstConcept(InstElement supportInstElement) {
 		super("", new HashMap<String, InstAttribute>());
-		setTransSupportMetaElement(supportMetaElement);
+		setTransSupInstElement(supportInstElement);
 		createInstAttributes(null);
 	}
 
-	public InstConcept(String identifier, SyntaxElement supportMetaElement,
+	public InstConcept(String identifier, InstElement supportInstElement,
 			SyntaxElement editableMetaElement) {
 		super(identifier, new HashMap<String, InstAttribute>());
-		if (supportMetaElement != null)
-			setTransSupportMetaElement(supportMetaElement);
+		if (supportInstElement != null)
+			setTransSupInstElement(supportInstElement);
 		setEdSyntaxEle(editableMetaElement);
 		createInstAttributes(null);
 		copyValuesToInstAttributes(null);
@@ -52,16 +52,15 @@ public class InstConcept extends InstVertex {
 
 	public InstConcept(String identifier, OpersElement editableSemanticElement,
 			InstElement supInstElement) {
-		this(identifier, supInstElement.getEdSyntaxEle(),
-				editableSemanticElement);
+		this(identifier, supInstElement, editableSemanticElement);
 		setTransSupInstElement(supInstElement);
 	}
 
-	public InstConcept(String identifier, SyntaxElement supportMetaElement,
+	public InstConcept(String identifier, InstElement supportInstElement,
 			OpersElement editableSemanticElement) {
 		super(identifier, new HashMap<String, InstAttribute>());
-		if (supportMetaElement != null)
-			setTransSupportMetaElement(supportMetaElement);
+		if (supportInstElement != null)
+			setTransSupInstElement(supportInstElement);
 		setEdOperEle(editableSemanticElement);
 		createInstAttributes(null);
 	}
@@ -70,17 +69,17 @@ public class InstConcept extends InstVertex {
 		createInstAttributes(null);
 	}
 
-	public InstConcept(String identifier, SyntaxElement supportMetaElement,
+	public InstConcept(String identifier, InstElement supportMetaElement,
 			Map<String, InstAttribute> attributes,
 			Map<String, InstPairwiseRel> relations) {
 		super(identifier, attributes);
-		setTransSupportMetaElement(supportMetaElement);
+		setTransSupInstElement(supportMetaElement);
 		createInstAttributes(null);
 	}
 
-	public InstConcept(String identifier, SyntaxElement supportMetaElement) {
+	public InstConcept(String identifier, InstElement supportInstElement) {
 		super(identifier, new HashMap<String, InstAttribute>());
-		setTransSupportMetaElement(supportMetaElement);
+		setTransSupInstElement(supportInstElement);
 		createInstAttributes(null);
 	}
 
@@ -94,6 +93,7 @@ public class InstConcept extends InstVertex {
 	}
 
 	@Override
+	@Deprecated
 	public void setTransSupportMetaElement(SyntaxElement metaElement) {
 		super.setTransSupportMetaElement(metaElement);
 

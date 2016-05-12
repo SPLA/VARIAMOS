@@ -404,7 +404,8 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * if (semanticElement) semElement =
 		 * instElement.getEditableSemanticElement(); else
 		 */
-		semElement = instElement.getTransSupportMetaElement()
+		System.out.println(instElement.getIdentifier());
+		semElement = instElement.getTransSupInstElement().getEdSyntaxEle()
 				.getTransSemanticConcept();
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
 		List<InstElement> opersParents = null;

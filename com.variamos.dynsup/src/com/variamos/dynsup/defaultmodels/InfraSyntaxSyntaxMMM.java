@@ -10,7 +10,6 @@ import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ConceptType;
@@ -26,8 +25,8 @@ public class InfraSyntaxSyntaxMMM {
 				.getConstraintInstEdges();
 		// Begin Syntax M3 Model
 
-		SyntaxElement infraBasicSyntaxOpersM3Concept = modelInstance
-				.getSyntaxModel().getVertex("OMMConcept").getEdSyntaxEle();
+		InstElement infraBasicSyntaxOpersM3Concept = modelInstance
+				.getSyntaxModel().getVertex("OMMConcept");
 
 		// SyntaxConcept infraBasicSyntaxOpersM3Concept = new SyntaxConcept('C',
 		// "SMMMConcept", true, true, "SMMMConcept", "refasminiclass",

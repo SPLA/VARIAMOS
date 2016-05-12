@@ -87,7 +87,7 @@ public class InstPairwiseRel extends InstElement {
 		createAttributes(new HashMap<String, InstAttribute>());
 	}
 
-	public InstPairwiseRel(SyntaxPairwiseRel supportMetaPairwiseRelation,
+	public InstPairwiseRel(InstPairwiseRel supportMetaPairwiseRelation,
 			String supportInstPairwiseRelationIden,
 			OpersElement editableSemanticElement) {
 		super(null);
@@ -114,7 +114,7 @@ public class InstPairwiseRel extends InstElement {
 	 * @param editableMetaElement
 	 *            : Only for syntax refas, not for modeling
 	 */
-	public InstPairwiseRel(SyntaxPairwiseRel supportMetaPairwiseRelation,
+	public InstPairwiseRel(InstPairwiseRel supportMetaPairwiseRelation,
 			SyntaxElement editableMetaElement) {
 		super(null);
 		setEdSyntaxEle(editableMetaElement);
@@ -185,12 +185,18 @@ public class InstPairwiseRel extends InstElement {
 		dynamicAttributesMap.put(VAR_OPERSPAIRWISE_OBJ_IDEN, "");
 	}
 
-	public void setSupportMetaPairwiseRelation(SyntaxElement metaEdge) {
-		getInstAttribute(VAR_METAPAIRWISE).setValueObject(metaEdge);
-		supportMetaPairwiseRelIden = metaEdge.getAutoIdentifier();
-		setDynamicVariable("relationType", metaEdge.getAutoIdentifier());
-		setDynamicVariable(SyntaxElement.VAR_DESCRIPTION,
-				metaEdge.getDescription());
+	public void setSupportMetaPairwiseRelation(InstElement metaEdge) {
+		getInstAttribute(VAR_METAPAIRWISE).setValueObject(
+				metaEdge.getEdSyntaxEle());
+		if (metaEdge.getEdSyntaxEle() != null) {
+			supportMetaPairwiseRelIden = metaEdge.getEdSyntaxEle()
+					.getAutoIdentifier();
+			setDynamicVariable("relationType", metaEdge.getEdSyntaxEle()
+					.getAutoIdentifier());
+			setDynamicVariable(SyntaxElement.VAR_DESCRIPTION, metaEdge
+					.getEdSyntaxEle().getDescription());
+		} else
+			System.out.println("no meta element");
 		createInstAttributes(null);
 	}
 
@@ -264,6 +270,10 @@ public class InstPairwiseRel extends InstElement {
 
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
+	}
+
+	public InstElement getTransSupInstElement() {
+		return new InstPairwiseRel(getMetaPairwiseRelation());
 	}
 
 	public SyntaxElement getMetaPairwiseRelation() {
@@ -593,8 +603,9 @@ public class InstPairwiseRel extends InstElement {
 	}
 
 	@Override
-	public void setTransSupportMetaElement(SyntaxElement supportMetaElement) {
-		this.setSupSyntaxEleId(supportMetaElement.getAutoIdentifier());
+	public void setTransSupInstElement(InstElement supportMetaElement) {
+		this.setSupSyntaxEleId(supportMetaElement.getEdSyntaxEle()
+				.getAutoIdentifier());
 		this.clearInstAttributes();
 		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
 		createAttributes(map);

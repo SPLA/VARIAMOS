@@ -71,6 +71,7 @@ import com.mxgraph.util.png.mxPngEncodeParam;
 import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.util.png.mxPngTextDecoder;
 import com.mxgraph.view.mxGraph;
+import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.io.SXFMWriter;
@@ -1287,6 +1288,15 @@ public class EditorActions {
 						|| JOptionPane.showConfirmDialog(editor,
 								mxResources.get("loseChanges")) == JOptionPane.YES_OPTION) {
 					((VariamosGraphEditor) editor).resetView();
+					if (editor.getPerspective() == 1) {
+						((VariamosGraphEditor) editor).getEditedModel()
+								.createOperationsSuperstructure(true);
+
+						((PerspEditorGraph) ((VariamosGraphComponent) editor
+								.getGraphComponent()).getGraph())
+								.setModelInstance(((VariamosGraphEditor) editor)
+										.getEditedModel());
+					}
 				}
 			}
 		}

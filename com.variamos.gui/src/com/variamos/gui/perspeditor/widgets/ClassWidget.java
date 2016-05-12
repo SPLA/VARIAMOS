@@ -88,13 +88,15 @@ public class ClassWidget extends WidgetR {
 			}
 		} else if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, SyntaxElement>();
-			List<SyntaxPairwiseRel> list = instAttribute.getValidationMEList();
+			List<InstElement> list = instAttribute.getValidationMEList();
 
-			for (SyntaxPairwiseRel groupDependency : list) {
+			for (InstElement groupDependency : list) {
 				if (groupDependency != null) {
-					syntaxElements.put(groupDependency.getAutoIdentifier(),
-							(SyntaxPairwiseRel) groupDependency);
-					String out = groupDependency.getAutoIdentifier();
+					syntaxElements.put(groupDependency.getEdSyntaxEle()
+							.getAutoIdentifier(),
+							((InstElement) groupDependency).getEdSyntaxEle());
+					String out = groupDependency.getEdSyntaxEle()
+							.getAutoIdentifier();
 					txtValue.addItem(out);
 				}
 				// if (instAttribute.getValue()!= null &&

@@ -119,21 +119,20 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								if (editor.getPerspective() == 3) {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
-													SyntaxElement.class,
+													InstElement.class,
 													SyntaxElement.class);
 
 									switch (((SyntaxElement) metaVertex)
 											.getType()) {
 									case 'V':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new SyntaxView());
+												instElement, new SyntaxView());
 										break;
 									case 'P':
 									case 'I':
 									case 'X':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
+												instElement,
 												new SyntaxPairwiseRel());
 										break;
 									case 'E':
@@ -148,60 +147,60 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
+												instElement,
 												new SyntaxConcept());
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new SyntaxConcept('C'));
+												instElement, new SyntaxConcept(
+														'C'));
 									}
 								} else if (editor.getPerspective() == 1) {
 									Constructor<?> c = o.getClass()
 											.getConstructor(String.class,
-													SyntaxElement.class,
+													InstElement.class,
 													OpersElement.class);
 									switch (((SyntaxElement) metaVertex)
 											.getType()) {
 									case 'M':
-										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new OpersConcept());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'A':
-										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new OpersConcept());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'S':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
+												instElement,
 												new OpersSubOperation());
 										break;
 									case 'P':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
+												instElement,
 												new OpersPairwiseRel());
 										break;
 									case 'E':
 										o = new InstConcept();
 										c = o.getClass().getConstructor(
 												String.class,
-												SyntaxElement.class,
+												InstElement.class,
 												SyntaxElement.class);
-										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new OpersConcept());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
+												instElement,
 												new OpersOverTwoRel());
 										break;
 									case 'C':
-										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												new OpersConcept());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 									}
 								} else {
 									Constructor<?> c = null;
@@ -219,11 +218,10 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									default:
 										c = o.getClass().getConstructor(
 												String.class,
-												SyntaxElement.class,
+												InstElement.class,
 												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
-												(SyntaxElement) metaVertex,
-												null);
+												instElement, null);
 									}
 
 								}
@@ -287,9 +285,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 								search: for (InstElement relation : relations) {
 									InstConcept pairwiseRelation = (InstConcept) relation
 											.getSourceRelations().get(0);
-									if (pairwiseRelation.getSupSyntaxEleId() == null
+									if (pairwiseRelation.getSupInstEleId() == null
 											|| !pairwiseRelation
-													.getSupSyntaxEleId()
+													.getSupInstEleId()
 													.equals("SMMViewConceptAsso")
 											|| pairwiseRelation
 													.getSourceRelations()

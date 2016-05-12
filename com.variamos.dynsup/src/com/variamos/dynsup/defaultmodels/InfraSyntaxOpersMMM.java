@@ -14,7 +14,6 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
@@ -33,8 +32,8 @@ public class InfraSyntaxOpersMMM {
 				.getConstraintInstEdges();
 
 		// Begin Syntax M3 model
-		SyntaxElement basicOpersSyntaxM3Concept = modelInstance
-				.getSyntaxModel().getVertex("OMMConcept").getEdSyntaxEle();
+		InstElement basicOpersSyntaxM3Concept = modelInstance.getSyntaxModel()
+				.getVertex("OMMConcept");
 
 		// SyntaxConcept basicOpersSyntaxM3Concept = new SyntaxConcept('C',
 		// "BasicOpersSyntaxM3Concept", true, true,
@@ -448,7 +447,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraConcept.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2InfraConcept.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+				+ "\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraConcept = new InstConcept(
 				"OMInfConcept", basicOpersSyntaxM3Concept,
@@ -502,7 +502,7 @@ public class InfraSyntaxOpersMMM {
 				false,
 				false,
 				"OMInfraPWRel",
-				"infrasyntaxm2concept",
+				"infrasyntaxm2minigrayconcept",
 				"Operations Infrastructure (fixed) MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
@@ -510,7 +510,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2PWRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2PWRel.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+				+ "\n\n");
 
 		infraSyntaxOpersM2PWRel.addModelingAttribute(
 				"relTypesAttr",
@@ -539,7 +540,7 @@ public class InfraSyntaxOpersMMM {
 				true,
 				true,
 				"OMPWRel",
-				"refasenumeration",
+				"infrasyntaxopersm2miniconcept",
 				"Operations MMPairWise Relation: Defines a direct relation for the operations meta-model",
 				150, 150, "/com/variamos/gui/perspeditor/images/assump.png",
 				true, Color.BLUE.toString(), 3, null, true);
@@ -603,7 +604,7 @@ public class InfraSyntaxOpersMMM {
 
 		SyntaxConcept infraSyntaxOpersM2InfraOTRel = new SyntaxConcept('T',
 				"OMInfraOTRel", false, false, "OMInfraOTRel",
-				"infrasyntaxm2concept", "Over Two Relation", 100, 150,
+				"infrasyntaxm2biggrayconcept", "Over Two Relation", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -626,7 +627,8 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2InfraOTRel.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);
 		infraSyntaxOpersM2InfraOTRel.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n" + "<<non-editable>>"
+				+ "\n\n");
 
 		InstConcept instInfraSyntaxOpersM2InfraOTRel = new InstConcept(
 				"OMInfraOTRel", basicOpersSyntaxM3Concept,

@@ -45,7 +45,6 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 
@@ -331,7 +330,7 @@ public class PerspEditorGraph extends AbstractGraph {
 					opersParents);
 			InstAttribute ia = directRelation
 					.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
-			List<SyntaxPairwiseRel> pwrList = ia.getValidationMEList();
+			List<InstElement> pwrList = ia.getValidationMEList();
 			if (pwrList == null || pwrList.size() == 0) {
 				directRelation.clearMetaPairwiseRelation();
 				return false;
@@ -376,7 +375,7 @@ public class PerspEditorGraph extends AbstractGraph {
 				refas.getParentSMMSyntaxElement(directRelation), parents);
 		InstAttribute ia = directRelation
 				.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
-		List<SyntaxPairwiseRel> pwrList = ia.getValidationMEList();
+		List<InstElement> pwrList = ia.getValidationMEList();
 		mxGraphModel refasGraph = (mxGraphModel) getModel();
 		refasGraph.getCells().remove(cell.getId());
 		if (pwrList.size() == 0) {
@@ -386,7 +385,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			// relations - fix delete
 			return false;
 		}
-		directRelation.setTransSupportMetaElement(pwrList.get(0));
+		directRelation.setTransSupInstElement(pwrList.get(0));
 		directRelation.createAttributes(map);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
@@ -454,6 +453,27 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	// TODO review from here for requirements
+
+	protected void removingVertex(mxCell cell, mxCell parent) {
+		((InstCell) cell.getValue()).setMxCell(cell);
+		InstElement value = ((InstCell) cell.getValue()).getInstElement();
+		if (value instanceof InstVertex) {
+			String id = null;
+			String elementIdentifier = null;
+			ModelInstance pl = getModelInstance();
+			InstElement instElement = ((InstCell) cell.getValue())
+					.getInstElement();
+			if (cell.getGeometry() != null) {
+				if (instElement instanceof InstVertex) {
+					InstElement element = instElement;
+					elementIdentifier = element.getIdentifier();
+					if (element.getTransSupportMetaElement().isEditable() == false)
+						this.addCell(cell, parent);
+				}
+			}
+		}
+
+	}
 
 	protected boolean addingVertex(mxCell cell, mxCell parent, int index) {
 		((InstCell) cell.getValue()).setMxCell(cell);

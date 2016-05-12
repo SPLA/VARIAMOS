@@ -308,7 +308,7 @@ public class ElementDesignPanel extends JPanel {
 								}
 							}
 							final InstAttribute finalInstAttribute = instAttribute;
-							Map<String, SyntaxElement> mapElements = null;
+							Map<String, InstElement> mapElements = null;
 							if (editElm instanceof InstPairwiseRel) {
 								InstPairwiseRel instPairwise = (InstPairwiseRel) editElm;
 								mapElements = ((ModelInstance) editor
@@ -782,10 +782,10 @@ public class ElementDesignPanel extends JPanel {
 			dummy2.setPreferredSize(new Dimension(200, 100));
 			dummy2.setMaximumSize(new Dimension(200, 100));
 
-			if (((InstElement) editElm).getSupSyntaxEleId() != null
-					&& ((((InstElement) editElm).getSupSyntaxEleId().equals(
+			if (((InstElement) editElm).getSupInstEleId() != null
+					&& ((((InstElement) editElm).getSupInstEleId().equals(
 							"OPER") || (((InstElement) editElm)
-							.getSupSyntaxEleId().equals("ME"))))) {
+							.getSupInstEleId().equals("ME"))))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;
@@ -803,11 +803,11 @@ public class ElementDesignPanel extends JPanel {
 				attPanel.setPreferredSize(new Dimension(150, 150));
 				attPanel.setMaximumSize(new Dimension(150, 180));
 				attPanel.add(new JLabel(mxResources.get("attributesPanel")));
-				if (((InstElement) editElm).getSupSyntaxEleId().equals("ME")) {
+				if (((InstElement) editElm).getSupInstEleId().equals("ME")) {
 					EnumerationAttributeList attList = new EnumerationAttributeList(
 							editor, instCell);
 					attPanel.add(new JScrollPane(attList));
-				} else if (((InstElement) editElm).getSupSyntaxEleId().equals(
+				} else if (((InstElement) editElm).getSupInstEleId().equals(
 						"OPER")) {
 					VariableAttributeList attList = new VariableAttributeList(
 							editor, instCell);
@@ -859,8 +859,7 @@ public class ElementDesignPanel extends JPanel {
 							"exptype",
 							OperationSubActionExecType.class.getCanonicalName(),
 							((ModelInstance) editor.getEditedModel())
-									.getSyntaxModel().getVertex("OMExpType")
-									.getEdSyntaxEle());
+									.getSyntaxModel().getVertex("OMExpType"));
 					attPanel.add(new JLabel(mxResources.get("suboperExpType")));
 					attPanel.add(new JLabel(""));
 				} else if (editElm.getTransSupportMetaElement().getName()
@@ -912,10 +911,10 @@ public class ElementDesignPanel extends JPanel {
 				mainPanel.add(dummy3);
 
 			}
-			if (((InstElement) editElm).getSupSyntaxEleId() != null
-					&& (((InstElement) editElm).getSupSyntaxEleId().equals(
+			if (((InstElement) editElm).getSupInstEleId() != null
+					&& (((InstElement) editElm).getSupInstEleId().equals(
 							"OMPWRel") || ((InstElement) editElm)
-							.getSupSyntaxEleId().equals("OMOTRel"))) {
+							.getSupInstEleId().equals("OMOTRel"))) {
 
 				JPanel attPanel = new JPanel(new SpringLayout());
 				mainPanelWidth += 200;

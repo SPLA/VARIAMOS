@@ -49,6 +49,9 @@ public class InfraBasicSyntaxMMMM {
 		basicOpersSyntaxM3Concept.addModelingAttribute("Visible",
 				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
 						false, "Visible", true, 0, -1, "", "", -1, "", ""));
+		basicOpersSyntaxM3Concept.addModelingAttribute("Editable",
+				new ElemAttribute("Editable", "Boolean", AttributeType.SYNTAX,
+						false, "Editable", true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
 						false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
@@ -88,10 +91,10 @@ public class InfraBasicSyntaxMMMM {
 						"Is Resizable", true, 0, -1, "", "", -1, "", ""));
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
-				"OMMConcept", basicOpersSyntaxM3Concept,
-				basicOpersSyntaxM3Concept);
+				"OMMConcept", null, basicOpersSyntaxM3Concept);
 
 		variabilityInstVertex.put("OMMConcept", instInfraSyntaxOpersM2Concept);
 
+		// TODO add OMMRelation
 	}
 }

@@ -228,13 +228,13 @@ public class StaticExpressionsPanel extends JPanel {
 		if (element instanceof InstPairwiseRel) {
 			for (String attributeName : ((InstPairwiseRel) element)
 					.getSourceRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRel) element)
-						.getSourceRelations().get(0).getIdentifier()
+				combo.addItem(((InstPairwiseRel) element).getSourceRelations()
+						.get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : ((InstPairwiseRel) element)
 					.getTargetRelations().get(0).getInstAttributes().keySet())
-				combo.addItem(((InstPairwiseRel) element)
-						.getTargetRelations().get(0).getIdentifier()
+				combo.addItem(((InstPairwiseRel) element).getTargetRelations()
+						.get(0).getIdentifier()
 						+ "_" + attributeName);
 			for (String attributeName : element.getInstAttributes().keySet())
 				combo.addItem(element.getIdentifier() + "_" + attributeName);
@@ -280,7 +280,7 @@ public class StaticExpressionsPanel extends JPanel {
 			Class<AbstractExpression> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractExpression>) Class
-						.forName("com.variamos.dynsup.exprsup."
+						.forName("com.variamos.dynsup.staticexprsup."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

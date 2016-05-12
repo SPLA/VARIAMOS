@@ -19,30 +19,24 @@ public class DefaultSyntaxMM {
 
 		SyntaxView syntaxMetaView = null;
 
-		SyntaxConcept metaView = (SyntaxConcept) refas.getSyntaxModel()
-				.getVertex("SMMView").getEdSyntaxEle();
+		InstElement metaView = refas.getSyntaxModel().getVertex("SMMView");
 
-		SyntaxConcept supportMetaElementConcept = (SyntaxConcept) refas
-				.getSyntaxModel().getVertex("SMMConcept").getEdSyntaxEle();
-		SyntaxConcept supportMetaElementOverTwo = (SyntaxConcept) refas
-				.getSyntaxModel().getVertex("SMMOverTwoRelation")
-				.getEdSyntaxEle();
+		InstElement supportMetaElementConcept = refas.getSyntaxModel()
+				.getVertex("SMMConcept");
+		InstElement supportMetaElementOverTwo = refas.getSyntaxModel()
+				.getVertex("SMMOverTwoRelation");
 
-		SyntaxConcept supportMetaElementPairwise = (SyntaxConcept) refas
-				.getSyntaxModel().getVertex("SMMPairwiseRelation")
-				.getEdSyntaxEle();
+		InstElement supportMetaElementPairwise = refas.getSyntaxModel()
+				.getVertex("SMMPairwiseRelation");
 
-		SyntaxConcept supportMetaExtendsPairwise = (SyntaxConcept) refas
-				.getSyntaxModel().getVertex("SMMExtendRelation")
-				.getEdSyntaxEle();
+		InstElement supportMetaExtendsPairwise = refas.getSyntaxModel()
+				.getVertex("SMMExtendRelation");
 
-		SyntaxConcept supportMetaViewPairwise = (SyntaxConcept) refas
-				.getSyntaxModel().getVertex("SMMViewConceptAsso")
-				.getEdSyntaxEle();
+		InstElement supportMetaViewPairwise = refas.getSyntaxModel().getVertex(
+				"SMMViewConceptAsso");
 
-		SyntaxPairwiseRel metaPairwiseRelNormal = (SyntaxPairwiseRel) ((InstPairwiseRel) refas
-				.getSyntaxModel().getConstraintInstEdge("SMMNormalRelation"))
-				.getEdSyntaxEle();
+		InstPairwiseRel metaPairwiseRelNormal = ((InstPairwiseRel) refas
+				.getSyntaxModel().getConstraintInstEdge("SMMNormalRelation"));
 
 		// Model concept
 
@@ -1405,20 +1399,26 @@ public class DefaultSyntaxMM {
 		InstElement directSGSGSemEdge = refas.getOperationalModel().getVertex(
 				"SgSgPWAsso");
 
+		InstElement directSGGRSemEdge = refas.getOperationalModel().getVertex(
+				"sgsgOTAssoFromPWAsso");
+
+		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
+				"sgsgOTAssoToPWAsso");
+
 		SyntaxPairwiseRel metaGroupSoftFromPairWiseRel = new SyntaxPairwiseRel(
 				"GroupSoftFromRelation", true, true,
 				"Group Soft From Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				null);
+				directSGGRSemEdge);
 
 		SyntaxPairwiseRel metaGroupSoftToPairWiseRel = new SyntaxPairwiseRel(
 				"GroupSoftToRelation", true, true, "Group Soft To Relation",
 				"", "Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
-				directSGSGSemEdge);
+				directGRSGSemEdge);
 
 		/*
 		 * metaSoftPairWiseRel.addModelingAttribute("SourceLevel", "Integer",
@@ -1530,7 +1530,7 @@ public class DefaultSyntaxMM {
 				"GroupSoftToRelation", supportMetaElementPairwise,
 				metaGroupSoftToPairWiseRel);
 
-		instGrpSoftToPairWiseRel.setInstAttribute("Type", "Default7");
+		instGrpSoftToPairWiseRel.setInstAttribute("Type", "Contribution");
 		instGrpSoftToPairWiseRel
 				.setInstAttribute("SourceCardinality", "[0..*]");
 		instGrpSoftToPairWiseRel

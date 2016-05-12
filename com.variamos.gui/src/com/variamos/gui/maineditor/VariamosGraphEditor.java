@@ -253,7 +253,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
-					if (instElement.getSupSyntaxEleId().equals("SMMView")) {
+					if (instElement.getSupInstEleId().equals("SMMView")) {
 						if (parent.getChildCount() <= i
 								&& parent.getId().equals("1")) {
 							mxCell child = new mxCell(new InstCell(null, null,
@@ -583,11 +583,11 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		root.insert(new mxCell());
 		graph.getModel().setRoot(root);
 		refasModel.clear();
-		if (perspective == 2) {
-			setGraphEditorFunctions(new PerspEditorFunctions(this));
-			((PerspEditorGraph) graph).defineInitialGraph();
-			System.out.println("");
-		}
+		// if (perspective == 2) {
+		setGraphEditorFunctions(new PerspEditorFunctions(this));
+		((PerspEditorGraph) graph).defineInitialGraph();
+		System.out.println("");
+		// }
 		if (perspective % 2 != 0) {
 			this.graphLayout("organicLayout", true);
 			this.getGraphComponent().zoomAndCenter();
@@ -1041,7 +1041,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				// TODO split in two new classes, one for each panel
 				for (InstAttribute instAttribute : visible) {
-					Map<String, SyntaxElement> mapElements = null;
+					Map<String, InstElement> mapElements = null;
 					if (finalEditElm instanceof InstPairwiseRel) {
 						InstPairwiseRel instPairwise = (InstPairwiseRel) finalEditElm;
 						mapElements = refasModel.getSyntaxModel()
@@ -1320,7 +1320,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				.getParentSMMSyntaxElement((InstElement) elm));
 		RefasWidgetFactory factory = new RefasWidgetFactory(this);
 		for (InstAttribute v : visible) {
-			Map<String, SyntaxElement> mapElements = null;
+			Map<String, InstElement> mapElements = null;
 			if (elm instanceof InstPairwiseRel) {
 				InstPairwiseRel instPairwise = (InstPairwiseRel) elm;
 				try {
@@ -1470,9 +1470,15 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
+			target.setCellsDeletable(true);
+			target.setCellsMovable(true);
+			target.setCellsResizable(true);
 			SharedActions.beforeGraphOperation(source, false, 0, -1);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
+			target.setCellsDeletable(false);
+			target.setCellsMovable(false);
+			target.setCellsResizable(false);
 			// System.out.println(this.getModelViewIndex() + " "
 			// + this.getModelSubViewIndex());
 			SharedActions.afterOpenCloneGraph(source, this);
@@ -1582,7 +1588,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void executeOperation(String operation) {
 		// TODO support multiple models selected from the menu
 		InstElement refas = refasModel.getSyntaxModel().getVertex("REFAS");
-		InstConcept element = new InstConcept("REFAS1", refas.getEdSyntaxEle());
+		InstConcept element = new InstConcept("REFAS1", refas);
 		element.createInstAttributes(null);
 		this.refasModel.getVariabilityVertex().put("REFAS1", element);
 		System.out.println(operation);

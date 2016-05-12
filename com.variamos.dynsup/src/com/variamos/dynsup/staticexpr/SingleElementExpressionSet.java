@@ -103,7 +103,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 						semElement = ele.getTargetRelations().get(0);
 						break;
 					}
-				} else if (((InstPairwiseRel) ele).getSupSyntaxEleId().equals(
+				} else if (((InstPairwiseRel) ele).getSupInstEleId().equals(
 						"ExtendsRelation")) {
 					semElement = ele.getTargetRelations().get(0);
 					break;
