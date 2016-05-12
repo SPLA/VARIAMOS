@@ -1,16 +1,19 @@
 package com.variamos.gui.perspeditor.panels;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import com.cfm.common.AbstractModel;
@@ -77,19 +80,19 @@ public class StaticExpressionsPanel extends JPanel {
 
 	public void initialize(InstElement element) {
 		removeAll();
-		// setLayout(new BorderLayout());
-		// solutionPanel = new JPanel(new SpringLayout());
-		// if (expressionSet != null) {
-		// List<AbstractExpression> expressions = expressionSet
-		// .getElementExpressions();
-		// for (AbstractExpression expression : expressions) {
-		// showExpression(expression, element, solutionPanel, 255);
-		// }
+		setLayout(new BorderLayout());
+		solutionPanel = new JPanel(new SpringLayout());
+		if (expressionSet != null) {
+			List<AbstractExpression> expressions = expressionSet
+					.getElementExpressions();
+			for (AbstractExpression expression : expressions) {
+				showExpression(expression, element, solutionPanel, 255);
+			}
 
-		// initSolutionPanel(expressions.size());
-		// this.repaint();
-		// this.revalidate();
-		// }
+			initSolutionPanel(expressions.size());
+			this.repaint();
+			this.revalidate();
+		}
 
 	}
 
@@ -277,7 +280,7 @@ public class StaticExpressionsPanel extends JPanel {
 			Class<AbstractExpression> expressionClass = null;
 			try {
 				expressionClass = (Class<AbstractExpression>) Class
-						.forName("com.variamos.dynsup.exprsup."
+						.forName("com.variamos.dynsup.staticexprsup."
 								+ operatorType.name());
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block

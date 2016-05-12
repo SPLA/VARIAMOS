@@ -216,14 +216,31 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 
 						Constructor<?> constructor1 = null, constructor2 = null;
 						try {
-							constructor1 = abstractTransformation.getClass()
-									.getConstructor(InstElement.class,
-											String.class, Boolean.TYPE,
-											AbstractExpression.class);
-							constructor2 = abstractTransformation.getClass()
-									.getConstructor(InstElement.class,
-											InstElement.class, String.class,
-											String.class);
+
+							if (left1.getSupInstEleId().equals(
+									"GroupSoftFromRelation")) {
+								constructor1 = abstractTransformation
+										.getClass().getConstructor(
+												AbstractExpression.class,
+												AbstractExpression.class);
+								constructor2 = abstractTransformation
+										.getClass().getConstructor(
+												InstElement.class,
+												InstElement.class,
+												String.class, String.class);
+
+							} else {
+								constructor1 = abstractTransformation
+										.getClass().getConstructor(
+												InstElement.class,
+												String.class, Boolean.TYPE,
+												AbstractExpression.class);
+								constructor2 = abstractTransformation
+										.getClass().getConstructor(
+												InstElement.class,
+												InstElement.class,
+												String.class, String.class);
+							}
 						} catch (NoSuchMethodException | SecurityException e) {
 							e.printStackTrace();
 						}
@@ -370,24 +387,100 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 			}
 			if (instEdges.hasNext()) {
 				try {
-					return (AbstractExpression) constructor1.newInstance(
-							((InstPairwiseRel) left).getSourceRelations()
-									.get(0),
-							sourceName,
-							true,
-							transformation(constructor1, constructor2,
-									instEdges, instEdge, sourceName));
+					if (left.getSupInstEleId().equals("GroupSoftFromRelation")) {
+						InstElement softgoal = left.getSourceRelations().get(0);
+						String sourceSatisficingType = (String) softgoal
+								.getInstAttribute("satisficingType").getValue();
+
+						// TargetId_SDReqLevel #= relId_SourceLevel
+						AbstractExpression out21a;
+						if (sourceSatisficingType.contains("low")) {
+
+							out21a = new LessOrEqualsBooleanExpression(
+									softgoal, left, "SDReqLevel", "sourceLevel");
+						} else if (sourceSatisficingType.contains("high")) {
+
+							out21a = new GreaterOrEqualsBooleanExpression(
+									softgoal, left, "SDReqLevel", "sourceLevel");
+						} else {
+							out21a = new EqualsComparisonExpression(softgoal,
+									left, "SDReqLevel", "sourceLevel");
+						}
+						return (AbstractExpression) constructor1.newInstance(
+								out21a,
+								transformation(constructor1, constructor2,
+										instEdges, instEdge, sourceName));
+					} else {
+						return (AbstractExpression) constructor1.newInstance(
+								((InstPairwiseRel) left).getSourceRelations()
+										.get(0),
+								sourceName,
+								true,
+								transformation(constructor1, constructor2,
+										instEdges, instEdge, sourceName));
+					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
 				}
 			} else
 				try {
-					return (AbstractExpression) constructor2.newInstance(
-							((InstPairwiseRel) left).getSourceRelations()
-									.get(0), ((InstPairwiseRel) instEdge)
-									.getSourceRelations().get(0), sourceName,
-							sourceName);
+					if (left.getSupInstEleId().equals("GroupSoftFromRelation")) {
+						InstElement softgoalleft = left.getSourceRelations()
+								.get(0);
+
+						String leftSatisficingType = (String) softgoalleft
+								.getInstAttribute("satisficingType").getValue();
+
+						// TargetId_SDReqLevel #= relId_SourceLevel
+						AbstractExpression out21a;
+						if (leftSatisficingType.contains("low")) {
+
+							out21a = new LessOrEqualsBooleanExpression(
+									softgoalleft, left, "SDReqLevel",
+									"sourceLevel");
+						} else if (leftSatisficingType.contains("high")) {
+
+							out21a = new GreaterOrEqualsBooleanExpression(
+									softgoalleft, left, "SDReqLevel",
+									"sourceLevel");
+						} else {
+							out21a = new EqualsComparisonExpression(
+									softgoalleft, left, "SDReqLevel",
+									"sourceLevel");
+						}
+
+						InstElement softgoalInstEdge = left
+								.getSourceRelations().get(0);
+						String instEdgeSatisficingType = (String) softgoalInstEdge
+								.getInstAttribute("satisficingType").getValue();
+
+						// TargetId_SDReqLevel #= relId_SourceLevel
+						AbstractExpression out22a;
+						if (instEdgeSatisficingType.contains("low")) {
+
+							out22a = new LessOrEqualsBooleanExpression(
+									softgoalInstEdge, instEdge, "SDReqLevel",
+									"sourceLevel");
+						} else if (instEdgeSatisficingType.contains("high")) {
+
+							out22a = new GreaterOrEqualsBooleanExpression(
+									softgoalInstEdge, instEdge, "SDReqLevel",
+									"sourceLevel");
+						} else {
+							out22a = new EqualsComparisonExpression(
+									softgoalInstEdge, instEdge, "SDReqLevel",
+									"sourceLevel");
+						}
+						return (AbstractExpression) constructor1.newInstance(
+								out21a, out22a);
+					} else {
+						return (AbstractExpression) constructor2.newInstance(
+								((InstPairwiseRel) left).getSourceRelations()
+										.get(0), ((InstPairwiseRel) instEdge)
+										.getSourceRelations().get(0),
+								sourceName, sourceName);
+					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();

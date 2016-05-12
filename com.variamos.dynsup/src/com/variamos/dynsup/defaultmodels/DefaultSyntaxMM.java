@@ -1530,7 +1530,7 @@ public class DefaultSyntaxMM {
 				"GroupSoftToRelation", supportMetaElementPairwise,
 				metaGroupSoftToPairWiseRel);
 
-		instGrpSoftToPairWiseRel.setInstAttribute("Type", "Default7");
+		instGrpSoftToPairWiseRel.setInstAttribute("Type", "Contribution");
 		instGrpSoftToPairWiseRel
 				.setInstAttribute("SourceCardinality", "[0..*]");
 		instGrpSoftToPairWiseRel

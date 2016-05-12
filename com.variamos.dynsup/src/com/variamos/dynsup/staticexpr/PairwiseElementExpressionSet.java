@@ -105,6 +105,12 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 		instPairwiseRelation.setOptional(false);
 		if (sourceActiveAttribute && targetActiveAttribute)
 			activeVertex = true;
+		Set<String> sourcePositiveAttributeNames = new HashSet<String>();
+		Set<String> sourceNegativeAttributeNames = new HashSet<String>();
+
+		List<AbstractExpression> structureList = new ArrayList<AbstractExpression>();
+		List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
+
 		if (activeVertex
 				&& metaPairwiseRelation != null
 				&& instPairwiseRelation.getInstAttribute("relationType") != null
@@ -114,11 +120,6 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			relationType = ((String) instPairwiseRelation.getInstAttribute(
 					"relationType").getValue()).trim().replace(" ", "_");
 			setDescription(getDescription() + relationType);
-			Set<String> sourcePositiveAttributeNames = new HashSet<String>();
-			Set<String> sourceNegativeAttributeNames = new HashSet<String>();
-
-			List<AbstractExpression> structureList = new ArrayList<AbstractExpression>();
-			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 
 			switch (relationType) {
 
@@ -393,19 +394,20 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 
 				sourcePositiveAttributeNames.add("Sel");
 				// relId_Sourcelevel #= <<Sourcelevel>>
-				EqualsComparisonExpression out21p = new EqualsComparisonExpression(
-						instPairwiseRelation, "sourceLevel", getHlclFactory()
-								.number((Integer) instPairwiseRelation
-										.getInstAttribute("sourceLevel")
-										.getAsInteger()));
-				getElementExpressions().add(out21p);
-				allList.add(out21p);
 
 				InstElement sourceSoftgoal = instPairwiseRelation
 						.getSourceRelations().get(0);
 				AbstractExpression out21a = null;
 
 				if (sourceSoftgoal.getSupInstEleId().equals("Softgoal")) {
+					EqualsComparisonExpression out21p = new EqualsComparisonExpression(
+							instPairwiseRelation, "sourceLevel",
+							getHlclFactory().number(
+									(Integer) instPairwiseRelation
+											.getInstAttribute("sourceLevel")
+											.getAsInteger()));
+					getElementExpressions().add(out21p);
+					allList.add(out21p);
 					String sourceSatisficingType = (String) sourceSoftgoal
 							.getInstAttribute("satisficingType").getValue();
 
@@ -529,37 +531,46 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			 * parentList.addAll(structureList); else
 			 * this.getCompulsoryExpressions().put("Parent", structureList);
 			 */
-			List<AbstractExpression> coreList = this
-					.getCompulsoryExpressionList("Core");
-			if (coreList != null)
-				coreList.addAll(structureList);
-			else
-				this.getCompulsoryExpressions().put("Core", structureList);
-			List<AbstractExpression> falseList = this
-					.getCompulsoryExpressionList("FalseOpt");
-			if (falseList != null)
-				falseList.addAll(allList);
-			this.getCompulsoryExpressions().put("FalseOpt", allList);
 
-			List<AbstractExpression> falseList2 = this
-					.getCompulsoryExpressionList("FalseOpt2");
-			if (falseList2 != null)
-				falseList2.addAll(allList);
-			this.getCompulsoryExpressions().put("FalseOpt2", allList);
+		}
+		if (instPairwiseRelation.getSourceRelations().get(0).getSupInstEleId()
+				.equals("Softgoal")) {
+			EqualsComparisonExpression out21p = new EqualsComparisonExpression(
+					instPairwiseRelation, "sourceLevel", getHlclFactory()
+							.number((Integer) instPairwiseRelation
+									.getInstAttribute("sourceLevel")
+									.getAsInteger()));
+			getElementExpressions().add(out21p);
+			allList.add(out21p);
 
-			InstElement instVertex = instPairwiseRelation.getSourceRelations()
-					.get(0);
-			if (instVertex instanceof InstOverTwoRel) {
-				((InstOverTwoRel) instVertex)
-						.clearSourcePositiveAttributeNames();
-				((InstOverTwoRel) instVertex)
-						.clearSourceNegativeAttributeNames();
-				((InstOverTwoRel) instVertex)
-						.addSourcePositiveAttributeNames(sourcePositiveAttributeNames);
-				((InstOverTwoRel) instVertex)
-						.addSourceNegativeAttributeNames(sourceNegativeAttributeNames);
-			}
+		}
+		List<AbstractExpression> coreList = this
+				.getCompulsoryExpressionList("Core");
+		if (coreList != null)
+			coreList.addAll(structureList);
+		else
+			this.getCompulsoryExpressions().put("Core", structureList);
+		List<AbstractExpression> falseList = this
+				.getCompulsoryExpressionList("FalseOpt");
+		if (falseList != null)
+			falseList.addAll(allList);
+		this.getCompulsoryExpressions().put("FalseOpt", allList);
 
+		List<AbstractExpression> falseList2 = this
+				.getCompulsoryExpressionList("FalseOpt2");
+		if (falseList2 != null)
+			falseList2.addAll(allList);
+		this.getCompulsoryExpressions().put("FalseOpt2", allList);
+
+		InstElement instVertex = instPairwiseRelation.getSourceRelations().get(
+				0);
+		if (instVertex instanceof InstOverTwoRel) {
+			((InstOverTwoRel) instVertex).clearSourcePositiveAttributeNames();
+			((InstOverTwoRel) instVertex).clearSourceNegativeAttributeNames();
+			((InstOverTwoRel) instVertex)
+					.addSourcePositiveAttributeNames(sourcePositiveAttributeNames);
+			((InstOverTwoRel) instVertex)
+					.addSourceNegativeAttributeNames(sourceNegativeAttributeNames);
 		}
 
 	}

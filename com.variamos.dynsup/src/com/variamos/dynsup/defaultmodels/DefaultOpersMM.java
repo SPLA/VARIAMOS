@@ -5255,52 +5255,6 @@ public class DefaultOpersMM {
 					directGRSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
 
-			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", 0, 0,
-					-1, "", "", -1, "", "");
-			directGRSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directGRSGSemEdge
-					.addPanelVisibleAttribute("07#" + "AggregationLow");
-
-			directGRSGSemEdge.addPanelSpacersAttribute("[#" + "AggregationLow"
-					+ "#..");
-
-			directGRSGSemEdge
-					.addPropEditableAttribute("07#" + "AggregationLow");
-
-			directGRSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
-
-			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", 0, 0,
-					-1, "", "", -1, "", "");
-			directGRSGSemEdge
-					.putSemanticAttribute("AggregationHigh", attribute);
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directGRSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-
-			directGRSGSemEdge.addPanelVisibleAttribute("08#"
-					+ "AggregationHigh");
-
-			directGRSGSemEdge.addPanelSpacersAttribute("#" + "AggregationHigh"
-					+ "#]\n");
-
-			directGRSGSemEdge.addPropEditableAttribute("08#"
-					+ "AggregationHigh");
-
-			directGRSGSemEdge
-					.addPropVisibleAttribute("08#" + "AggregationHigh");
-
 			directGRSGSemEdge.addPanelSpacersAttribute(":#" + "targetLevel"
 					+ "#");
 			directGRSGSemEdge.addPropEditableAttribute("09#" + "targetLevel");
@@ -5616,6 +5570,13 @@ public class DefaultOpersMM {
 
 			refas.getVariabilityVertex().put("sgsgOTAssoFromPWAsso",
 					instSgsgSGR);
+
+			instEdge = new InstPairwiseRel();
+			refas.getConstraintInstEdges().put("sgsggrtoip", instEdge);
+			instEdge.setIdentifier("sgsggrtoip");
+			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+			instEdge.setTargetRelation(instInfraPair, true);
+			instEdge.setSourceRelation(instSgsgGRSG, true);
 
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sggrtogr", instEdge);

@@ -1470,6 +1470,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			this.updateRefasModel(modelEditor.getEditedModel());
 			mxGraph source = modelEditor.getGraphComponent().getGraph();
 			mxGraph target = graphComponent.getGraph();
+			target.setCellsDeletable(true);
+			target.setCellsMovable(true);
+			target.setCellsResizable(true);
 			SharedActions.beforeGraphOperation(source, false, 0, -1);
 			SharedActions.cloneGraph(source, target, this.getModelViewIndex(),
 					this.getModelSubViewIndex());
