@@ -616,7 +616,7 @@ public class SharedActions {
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
 					ElemAttribute attribute = metaVertex.getAbstractAttribute(
-							ia.getAttributeName(), syntaxParents, opersParents);
+							ia.getIdentifier(), syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getType().equals("Boolean")

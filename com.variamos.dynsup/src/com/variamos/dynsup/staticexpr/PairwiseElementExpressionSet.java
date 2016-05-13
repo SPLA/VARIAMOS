@@ -408,25 +408,26 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 											.getAsInteger()));
 					getElementExpressions().add(out21p);
 					allList.add(out21p);
-					String sourceSatisficingType = (String) sourceSoftgoal
-							.getInstAttribute("satisficingType").getValue();
-
-					// TargetId_SDReqLevel #= relId_SourceLevel
-					if (sourceSatisficingType.contains("low")) {
-
-						out21a = new LessOrEqualsBooleanExpression(
-								sourceSoftgoal, instPairwiseRelation,
-								"SDReqLevel", "sourceLevel");
-					} else if (sourceSatisficingType.contains("high")) {
-
-						out21a = new GreaterOrEqualsBooleanExpression(
-								sourceSoftgoal, instPairwiseRelation,
-								"SDReqLevel", "sourceLevel");
-					} else {
-						out21a = new EqualsComparisonExpression(sourceSoftgoal,
-								instPairwiseRelation, "SDReqLevel",
-								"sourceLevel");
-					}
+					/*
+					 * String sourceSatisficingType = (String) sourceSoftgoal
+					 * .getInstAttribute("satisficingType").getValue();
+					 * 
+					 * // TargetId_SDReqLevel #= relId_SourceLevel if
+					 * (sourceSatisficingType.contains("low")) {
+					 * 
+					 * out21a = new LessOrEqualsBooleanExpression(
+					 * sourceSoftgoal, instPairwiseRelation, "ClaimExpLevel",
+					 * "sourceLevel"); } else if
+					 * (sourceSatisficingType.contains("high")) {
+					 * 
+					 * out21a = new GreaterOrEqualsBooleanExpression(
+					 * sourceSoftgoal, instPairwiseRelation, "ClaimExpLevel",
+					 * "sourceLevel"); } else {
+					 */
+					out21a = new EqualsComparisonExpression(sourceSoftgoal,
+							instPairwiseRelation, "ClaimExpLevel",
+							"sourceLevel");
+					// }
 				} else
 					out21a = new EqualsComparisonExpression(sourceSoftgoal,
 							"Sel", getHlclFactory().number(1));
@@ -453,17 +454,17 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 					// TargetId_SDReqLevel #= relId_TargetLevel
 					if (targetSatisficingType.contains("low")) {
 
-						out22a = new LessOrEqualsBooleanExpression(
-								targetSoftgoal, instPairwiseRelation,
-								"SDReqLevel", "targetLevel");
-					} else if (targetSatisficingType.contains("high")) {
-
 						out22a = new GreaterOrEqualsBooleanExpression(
 								targetSoftgoal, instPairwiseRelation,
-								"SDReqLevel", "targetLevel");
+								"ClaimExpLevel", "targetLevel");
+					} else if (targetSatisficingType.contains("high")) {
+
+						out22a = new LessOrEqualsBooleanExpression(
+								targetSoftgoal, instPairwiseRelation,
+								"ClaimExpLevel", "targetLevel");
 					} else {
 						out22a = new EqualsComparisonExpression(targetSoftgoal,
-								instPairwiseRelation, "SDReqLevel",
+								instPairwiseRelation, "ClaimExpLevel",
 								"targetLevel");
 					}
 

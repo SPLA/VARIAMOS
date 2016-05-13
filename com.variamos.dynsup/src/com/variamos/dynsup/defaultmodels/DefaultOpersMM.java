@@ -2975,13 +2975,14 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexF, true);
 
-			instEdge = new InstPairwiseRel();
-			refas.getConstraintInstEdges().put("ovartovar", instEdge);
-			instEdge.setIdentifier("ovartovar");
-			instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
-			instEdge.setTargetRelation(instVertexVAR, true);
-			instEdge.setSourceRelation(instVertexF, true);
-
+			/*
+			 * instEdge = new InstPairwiseRel();
+			 * refas.getConstraintInstEdges().put("ovartovar", instEdge);
+			 * instEdge.setIdentifier("ovartovar");
+			 * instEdge.setSupportMetaPairwiseRelation(metaPairwRelCCExt);
+			 * instEdge.setTargetRelation(instVertexVAR, true);
+			 * instEdge.setSourceRelation(instVertexF, true);
+			 */
 			// definition of other concepts
 
 			OpersConcept semAssumption = new OpersConcept("Assumption");
