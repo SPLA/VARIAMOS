@@ -3180,7 +3180,7 @@ public class DefaultOpersMM {
 					"Product"), instVertexGE, "NReqSel", true, 4);
 
 			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
-					"Product"), t1, t3);
+					"Sum"), t1, t3);
 
 			t1 = new OpersExpr("4", refas.getSemanticExpressionTypes().get(
 					"Sum"), instVertexGE, "NPrefSel", true, t1);
