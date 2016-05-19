@@ -206,8 +206,9 @@ public class OpersExpr implements Serializable {
 	}
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
-			ExpressionVertexType expressionVertexType, InstElement semanticElement,
-			InstElement leftSemanticElement, String leftAttributeName, boolean replaceRight,
+			ExpressionVertexType expressionVertexType,
+			InstElement semanticElement, InstElement leftSemanticElement,
+			String leftAttributeName, boolean replaceRight,
 			String rightAttributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
@@ -800,6 +801,8 @@ public class OpersExpr implements Serializable {
 	public void setLeftSemanticExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION
+				|| type == ExpressionVertexType.LEFTITERINCFIXEDSUBEXP
+				|| type == ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
 				|| type == ExpressionVertexType.LEFTITERCONFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE
