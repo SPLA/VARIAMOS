@@ -451,7 +451,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 								left, "ClaimExpLevel", "sourceLevel");
 						// }
 
-						InstElement softgoalInstEdge = left
+						InstElement softgoalInstEdge = instEdge
 								.getSourceRelations().get(0);
 						AbstractExpression out22a;
 						/*

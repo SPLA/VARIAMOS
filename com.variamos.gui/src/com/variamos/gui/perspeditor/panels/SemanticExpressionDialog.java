@@ -988,6 +988,7 @@ public class SemanticExpressionDialog extends JDialog {
 		InstElement instElement = semanticExpression.getLeftSemanticElement();
 		switch (type) {
 		case RIGHTVARIABLE:
+		case RIGHTCONCEPTVARIABLE:
 			instElement = semanticExpression.getRightSemanticElement();
 			instElement = semanticExpression.getRightSemanticElement();
 			break;
@@ -1038,6 +1039,8 @@ public class SemanticExpressionDialog extends JDialog {
 			for (InstElement sourceRelation : refasModel
 					.getVariabilityVertexCollection())
 				if (sourceRelation.getSupInstEleId().equals("OMConcept")
+						|| sourceRelation.getSupInstEleId().equals(
+								"OMInfConcept")
 						|| sourceRelation.getSupInstEleId().equals(
 								"InfraSyntaxOpersM2OTRel"))
 					instElements.add(sourceRelation);// .getSourceRelations().get(0));
@@ -1092,10 +1095,12 @@ public class SemanticExpressionDialog extends JDialog {
 			}
 			if (instElements != null)
 				for (InstElement instElementT : instElements) {
-					List<InstElement> opersParent = instElementT
-							.getTransSupportMetaElement()
-							.getTransInstSemanticElement()
-							.getParentOpersConcept();
+					List<InstElement> opersParent = null;
+					if (instElementT.getTransSupportMetaElement()
+							.getTransInstSemanticElement() != null)
+						opersParent = instElementT.getTransSupportMetaElement()
+								.getTransInstSemanticElement()
+								.getParentOpersConcept();
 					if (instElementT.getEdOperEle() != null)
 						for (ElemAttribute attribute : instElementT
 								.getEdOperEle()
