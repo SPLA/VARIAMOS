@@ -327,7 +327,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	public String toString() {
-		Object val = this.getDisplayName();
+		Object val = this.getDisplayValue();// .getDisplayName();
 		if (val == null)
 			return "";
 		return val.toString();

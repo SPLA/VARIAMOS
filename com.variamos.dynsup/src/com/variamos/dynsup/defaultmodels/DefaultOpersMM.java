@@ -2179,8 +2179,9 @@ public class DefaultOpersMM {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Scope", "Boolean",
-				AttributeType.OPERATION, true, "Global Scope", "", true, 0, -1,
-				"", "", -1, "", "");
+				AttributeType.OPERATION, true, "Global Scope",
+				"Global or Concern Level scope (Ignored for operations)", true,
+				0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -2273,16 +2274,20 @@ public class DefaultOpersMM {
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
-				AttributeType.GLOBALCONFIG, false, "Configured Value", "", 0,
-				0, -1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Configured Value",
+				"Configured value (positive numbers)"
+						+ " (not used by dynamic operations)", 0, 0, -1, "",
+				"", -1, "", "");
 		semVariable.putSemanticAttribute("varConfValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("varConfDom", "String",
-				AttributeType.GLOBALCONFIG, false, "Configured Domain", "", "",
-				0, 1, "variableType" + "#==#" + "Integer" + "||"
-						+ "variableType" + "#==#" + "Enumeration" + "||"
-						+ "variableType" + "#==#" + "Boolean", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Configured Domain",
+				"Configured domain (positive numbers) {n-m,o,p-r}"
+						+ " (not used by dynamic operations)", "", 0, 1,
+				"variableType" + "#==#" + "Integer" + "||" + "variableType"
+						+ "#==#" + "Enumeration" + "||" + "variableType"
+						+ "#==#" + "Boolean", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
@@ -2362,13 +2367,17 @@ public class DefaultOpersMM {
 				"<<new>>", 0, 1, "", "", 1, "", ""));
 		semContextGroup.putSemanticAttribute("instances", new ElemAttribute(
 				"instances", "Integer", AttributeType.OPERATION, false,
-				"Number of Instances", "", "1", 0, 7, "", "", -1, "", ""));
+				"Number of Instances",
+				"Instances of the concern level (Ignored for operations)", "1",
+				0, 7, "", "", -1, "", ""));
 		semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
 				"ExtVisible", "Boolean", AttributeType.OPERATION, false,
-				"External Visible", "", false, 0, 8, "", "", -1, "", ""));
+				"External Visible", "(Ignored for operations)", false, 0, 8,
+				"", "", -1, "", ""));
 		semContextGroup.putSemanticAttribute("ExtControl", new ElemAttribute(
 				"ExtControl", "Boolean", AttributeType.OPERATION, false,
-				"Externally Controlled", "", false, 0, 9, "", "", -1, "", ""));
+				"Externally Controlled", "(Ignored for operations)", false, 0,
+				9, "", "", -1, "", ""));
 
 		semContextGroup.addPropEditableAttribute("01#" + "name");
 		semContextGroup.addPropEditableAttribute("07#" + "instances");
@@ -2697,8 +2706,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ConcernLevel", "Class",
 					AttributeType.OPERATION, false, "Concern Level",
-					InstConcept.class.getCanonicalName(), "CG", null, "", 2,
-					-1, "", "", -1, "", "");
+					"Concern Level of the element (Ignored for operations)",
+					InstConcept.class.getCanonicalName(), "CG", null, 2, -1,
+					"", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
@@ -2720,31 +2730,32 @@ public class DefaultOpersMM {
 					+ "#>>\n");
 
 			// Configuration attributes: do no change identifiers
-
-			attribute = new ElemAttribute("ReqLev", "Integer",
-					AttributeType.OPERATION, "Required Level", "", 0, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("ReqLev", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addOutVariable(attribute);
-			// TODO define domain or Enum Level
-
-			semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
-					+ "Core" + "#==#" + "true");
-
-			// Simulation attributes: do not modify identifiers
-
-			attribute = new ElemAttribute("IniReqLev", "Integer",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Initial Required Level", "", 0, new RangeDomain(0, 4), 0,
-					-1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
+			/*
+			 * attribute = new ElemAttribute("ReqLev", "Integer",
+			 * AttributeType.OPERATION, "Required Level", "", 0, false, new
+			 * RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 * semGeneralElement.putSemanticAttribute("ReqLev", attribute); //
+			 * simulationExecOperUniqueLabeling.addAttribute(attribute); //
+			 * simulOperationSubAction.addOutVariable(attribute); // TODO define
+			 * domain or Enum Level
+			 * 
+			 * semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
+			 * + "Core" + "#==#" + "true");
+			 * 
+			 * // Simulation attributes: do not modify identifiers
+			 * 
+			 * attribute = new ElemAttribute("IniReqLev", "Integer",
+			 * AttributeType.EXECCURRENTSTATE, false, "Initial Required Level",
+			 * "", 0, new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 * semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
+			 */
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulationOperationAction.addInVariable(attribute);
-
-			attribute = new ElemAttribute("SimReqLev", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "Required Level",
-					"", 0, new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			/*
+			 * attribute = new ElemAttribute("SimReqLev", "Integer",
+			 * AttributeType.EXECCURRENTSTATE, false, "Required Level", "", 0,
+			 * new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 */
 			// semGeneralElement.putSemanticAttribute("SimReqLev",
 			// attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3020,7 +3031,7 @@ public class DefaultOpersMM {
 					"Operationalization");
 
 			attribute = new ElemAttribute("attributeValue", "Set",
-					AttributeType.SYNTAX, false, "values",
+					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
 					new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
@@ -3063,8 +3074,9 @@ public class DefaultOpersMM {
 			d.add("high");
 			d.add("close");
 			attribute = new ElemAttribute("satisficingLevel", "String",
-					AttributeType.OPERATION, "Satisficing Level", "", "high",
-					false, d, 0, 10, "", "", -1, "", "");
+					AttributeType.OPERATION, "Satisficing Level",
+					"Satisficing for dynamic operations (low/high/close)",
+					"high", false, d, 0, 10, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3078,7 +3090,8 @@ public class DefaultOpersMM {
 			semSoftgoal.addPropVisibleAttribute("11#" + "satisficingLevel");
 
 			attribute = new ElemAttribute("satisficingType", "Enumeration",
-					AttributeType.OPERATION, false, "Satisficing Type", "",
+					AttributeType.OPERATION, false, "Satisficing Type",
+					"Satisficing for static operations",
 					SatisficingType.class.getCanonicalName(),
 					"Achieve as close as possible", "", 0, 10, "", "", -1, "",
 					"");
@@ -3086,8 +3099,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ConfigReqLevel", "Integer",
 					AttributeType.OPERATION, "Config Req Level (5=ignored)",
-					"", 5, false, new RangeDomain(0, 5), 0, 5, "Required"
-							+ "#==#" + "true" + "#" + "0", "", -1, "", "");
+					"SG required level (defined: 0..4 ignored: 5) ", 5, false,
+					new RangeDomain(0, 5), 0, 5, "Required" + "#==#" + "true"
+							+ "#" + "0", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3256,8 +3270,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("SDReqLevel", "Integer",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Required Level by SD", "", 0, new RangeDomain(0, 4), 2,
-					-1, "", "", -1, "", "");
+					"Required Level by SD",
+					"Required level (0..4) for the soft dependency relation",
+					0, new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3270,8 +3285,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ClaimExpLevel", "Integer",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Expected Level by Claim", "", 0, new RangeDomain(0, 4), 2,
-					-1, "", "", -1, "", "");
+					"Expected Level by Claim",
+					"Expected level (0..4) for the claim relation", 0,
+					new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3542,10 +3558,14 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexCL, true);
 
-			attribute = new ElemAttribute("ConditionalExpression",
+			attribute = new ElemAttribute(
+					"ConditionalExpression",
 					ModelExpr.class.getCanonicalName(),
-					AttributeType.OPERATION, false, "Conditional Expression",
-					"", null, 0, -1, "", "", -1, "", "");
+					AttributeType.OPERATION,
+					false,
+					"Conditional Expression",
+					"Claim activation expression (in addition to operationalizations/left features)",
+					null, 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semClaim.getIdentifier(), attribute.getName(), true));
@@ -3561,21 +3581,28 @@ public class DefaultOpersMM {
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("ConfidenceLevel", "Integer",
-					AttributeType.OPERATION, "Confidence Level", "", 1, false,
+					AttributeType.OPERATION, "Confidence Level",
+					"(Ignored for operations)", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 
-			attribute = new ElemAttribute("ClaimSelected", "Boolean",
-					AttributeType.GLOBALCONFIG, false, "Claim Selected", "",
-					false, 0, -1, "", "", -1, "", "");
-			semClaim.putSemanticAttribute("ClaimSelected", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ClaimExpression", "String",
-					AttributeType.OPERATION, false, "Claim Expression Text",
-					"", "", 0, -1, "", "", -1, "", "");
+			/*
+			 * attribute = new ElemAttribute("ClaimSelected", "Boolean",
+			 * AttributeType.GLOBALCONFIG, false, "Claim Selected", "", false,
+			 * 0, -1, "", "", -1, "", "");
+			 * semClaim.putSemanticAttribute("ClaimSelected", attribute); //
+			 * simulationExecOperUniqueLabeling.addAttribute(attribute);
+			 */
+			attribute = new ElemAttribute(
+					"ClaimExpression",
+					"String",
+					AttributeType.OPERATION,
+					false,
+					"Claim Expression Text",
+					"Textual representation of the conditional expression (only to display)",
+					"", 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ClaimExpression", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
@@ -3645,7 +3672,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("ConditionalExpression",
 					ModelExpr.class.getCanonicalName(),
 					AttributeType.OPERATION, false, "Conditional Expression",
-					"", null, 0, -1, "", "", -1, "", "");
+					"Soft dependency activation expression", null, 0, -1, "",
+					"", -1, "", "");
 			semSoftDependency.putSemanticAttribute("ConditionalExpression",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -3656,8 +3684,13 @@ public class DefaultOpersMM {
 					true));
 			// simulOperationSubAction.addInVariable(attribute);
 
-			attribute = new ElemAttribute("SDExpression", "String",
-					AttributeType.OPERATION, false, "SD Expression Text", "",
+			attribute = new ElemAttribute(
+					"SDExpression",
+					"String",
+					AttributeType.OPERATION,
+					false,
+					"SD Expression Text",
+					"Textual representation of the conditional expression (only to display)",
 					"", 2, -1, "", "", -1, "", "");
 			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
