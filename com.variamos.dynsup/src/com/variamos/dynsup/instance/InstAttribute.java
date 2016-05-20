@@ -75,6 +75,11 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	 * Initially for List IntSemanticGroupDependency
 	 */
 	VAR_OVERTWOREL_VALIDATION_LIST = "ValidGDList",
+
+	/**
+	 * List InstAttributes of Relation Types
+	 */
+	VAR_OPERS_OVERTWOREL_LIST = "opersOTRelList",
 	/**
 	 * Initially for List IntSemanticDirectRelation
 	 */
@@ -162,14 +167,29 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// return identifier;
 	}
 
+	// Old
 	public void setValidationRelationTypes(List<OpersRelType> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
 	}
 
+	// New
+	public void setOpersOverTwoRelList(List<InstAttribute> semGD) {
+		// this.identifier = identifier;
+		setInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST, semGD);
+	}
+
+	// Old
 	@SuppressWarnings("unchecked")
 	public List<OpersRelType> getOverTwoRelValidationList() {
 		return (List<OpersRelType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
+		// return identifier;
+	}
+
+	// New
+	@SuppressWarnings("unchecked")
+	public List<InstAttribute> getOpersOverTwoRelList() {
+		return (List<InstAttribute>) getInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST);
 		// return identifier;
 	}
 
@@ -379,10 +399,9 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							OpersRelType.class.getCanonicalName())) {
-				List<OpersRelType> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
-						.getTransSupportMetaElement())
-						.getSemanticRelationTypes();
-				setValidationRelationTypes(semanticRelationTypes);
+				List<InstAttribute> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
+						.getTransSupportMetaElement()).getOpersRelationTypes();
+				this.setOpersOverTwoRelList(semanticRelationTypes);
 			}
 			if (this.getAttribute() != null
 					&& getEnumType() != null
@@ -406,10 +425,9 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							OpersRelType.class.getCanonicalName())) {
-				List<OpersRelType> semanticRelationTypes = ((SyntaxElement) instElement
-						.getTransSupportMetaElement())
-						.getSemanticRelationTypes();
-				setValidationRelationTypes(semanticRelationTypes);
+				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
+						.getTransSupportMetaElement()).getOpersRelationTypes();
+				setOpersOverTwoRelList(semanticRelationTypes);
 			}
 		}
 

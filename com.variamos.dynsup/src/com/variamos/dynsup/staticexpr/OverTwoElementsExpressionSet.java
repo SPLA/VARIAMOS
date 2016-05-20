@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
@@ -95,8 +96,17 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getTargetRelations().get(0)).getTargetRelations().get(0)
 					.getInstAttribute("Active").getValue();
 		if (targetActiveAttribute && metaGroupDep != null) {
+			List<InstAttribute> semGD = ((SyntaxElement) instOverTwoRelation
+					.getTransSupportMetaElement()).getOpersRelationTypes();
 			relationType = (String) instOverTwoRelation.getInstAttribute(
 					"relationType").getValue();
+			for (InstAttribute att : semGD) {
+				if (att.getAttribute().getDisplayName().equals(relationType)) {
+					relationType = (String) att
+							.getInstAttributeAttribute("Identifier");
+					break;
+				}
+			}
 			// System.out.println(relationType);
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
@@ -246,7 +256,6 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						}
 
 						switch (relationType) {
-
 						case "and":
 						case "none":
 							// B_Satisfied #<=> ( ( A1_"attribute" #/\
