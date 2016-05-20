@@ -57,8 +57,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add Type ...",
 			new ElemAttribute("Add ...", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Add Type ...", "", 1, -1, "",
-					"", -1, "", ""), "Add Type ...");
+					AttributeType.SYNTAX, false, "Add Type ...", "", "", 1, -1,
+					"", "", -1, "", ""), "Add Type ...");
 
 	public RelationTypesList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,25 +122,25 @@ public class RelationTypesList extends JList<InstAttribute> {
 
 		final InstAttribute instIdentifier = new InstAttribute("identifier",
 				new ElemAttribute("identifier", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Identifier", "", 1, -1,
-						"", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Identifier", "", "", 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute("displayName",
 				new ElemAttribute("displayName", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Display Name", 0, 1, -1,
-						"", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Display Name", "", 0, 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instRelExclusive = new InstAttribute(
-				"relationExclusive",
-				new ElemAttribute("relationExclusive", BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Relation Exclusive",
-						false, 1, -1, "", "", -1, "", ""), false);
+				"relationExclusive", new ElemAttribute("relationExclusive",
+						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
+						"Relation Exclusive", "", false, 1, -1, "", "", -1, "",
+						""), false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
 				"sourceExclusive", new ElemAttribute("sourceExclusive",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Source Exclusive", false, 1, -1, "", "", -1, "", ""),
-				false);
+						"Source Exclusive", "", false, 1, -1, "", "", -1, "",
+						""), false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
 				"targetExclusive", new ElemAttribute("targetExclusive",
@@ -153,15 +153,15 @@ public class RelationTypesList extends JList<InstAttribute> {
 				"minSourceCardinality", new ElemAttribute(
 						"minSourceCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						"Minim Source Cardinality", false, 1, -1, "", "", -1,
-						"", ""), 0);
+						"Minim Source Cardinality", "", false, 1, -1, "", "",
+						-1, "", ""), 0);
 
 		final InstAttribute instMaxSourceCard = new InstAttribute(
 				"maxSourceCardinality", new ElemAttribute(
 						"maxSourceCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						"Maximum Source Cardinality", "", 1, -1, "", "", -1,
-						"", ""), 1);
+						"Maximum Source Cardinality", "", "", 1, -1, "", "",
+						-1, "", ""), 1);
 		final InstAttribute instMinTargetCard = new InstAttribute(
 				"minTargetCardinality", new ElemAttribute(
 						"minTargetCardinality", IntegerType.IDENTIFIER,
@@ -172,13 +172,13 @@ public class RelationTypesList extends JList<InstAttribute> {
 				"maxTargetCardinality", new ElemAttribute(
 						"maxTargetCardinality", IntegerType.IDENTIFIER,
 						AttributeType.SYNTAX, false,
-						"Maximum Target Cardinality", 1, 1, -1, "", "", -1, "",
-						""), 1);
+						"Maximum Target Cardinality", "", 1, 1, -1, "", "", -1,
+						"", ""), 1);
 		final InstAttribute instSemanticExpressions = new InstAttribute(
 				"semanticExpression", new ElemAttribute("semanticExpression",
 						OpersExpr.class.getCanonicalName(),
 						AttributeType.SYNTAX, false, "Semantic Expression", "",
-						1, -1, "", "", -1, "", ""), null);
+						"", 1, -1, "", "", -1, "", ""), null);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -197,8 +197,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
 					"RelTypeValue", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Relation Type Value", "", 1,
-					-1, "", "", -1, "", ""), "");
+					AttributeType.SYNTAX, false, "Relation Type Value", "", "",
+					1, -1, "", "", -1, "", ""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instIdentifier.setValue(split[0]);

@@ -813,22 +813,22 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("menuType",
 				new ElemAttribute("menuType", "String",
-						AttributeType.OPERATION, "Oper Group Type", "4", false,
-						d, 0, 5, "", "", 5, "", ""));
+						AttributeType.OPERATION, "Oper Group Type", "", "4",
+						false, d, 0, 5, "", "", 5, "", ""));
 		infraSyntaxOpersM2OperGroup
 				.addPropEditableAttribute("05#" + "menuType");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("05#" + "menuType");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("visible",
 				new ElemAttribute("visible", "Boolean",
-						AttributeType.OPERATION, false, "Visible", true, 0, 8,
-						"", "", 8, "", ""));
+						AttributeType.OPERATION, false, "Visible", "", true, 0,
+						8, "", "", 8, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("08#" + "visible");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("08#" + "visible");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("06#" + "name");
 		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("06#" + "name");
@@ -837,15 +837,15 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
-						"", "", 7, "", ""));
+						AttributeType.OPERATION, false, "Shortcut", "", null,
+						0, 7, "", "", 7, "", ""));
 		infraSyntaxOpersM2OperGroup
 				.addPropEditableAttribute("07#" + "shortcut");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("07#" + "shortcut");
 
 		infraSyntaxOpersM2OperGroup.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 9, "", "", 9, "", ""));
+						false, "Position", "", 1, 0, 9, "", "", 9, "", ""));
 		infraSyntaxOpersM2OperGroup.addPropEditableAttribute("09#" + "Index");
 		infraSyntaxOpersM2OperGroup.addPropVisibleAttribute("09#" + "Index");
 
@@ -868,7 +868,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2MetaModel.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2MetaModel.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2MetaModel.addPropVisibleAttribute("06#" + "name");
 		infraSyntaxOpersM2MetaModel.addPanelVisibleAttribute("06#" + "name");
@@ -893,26 +893,26 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("shortcut",
 				new ElemAttribute("shortcut", "String",
-						AttributeType.OPERATION, false, "Shortcut", null, 0, 7,
-						"", "", 7, "", ""));
+						AttributeType.OPERATION, false, "Shortcut", "", null,
+						0, 7, "", "", 7, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 8, "", "", 8, "", ""));
+						false, "Position", "", 1, 0, 8, "", "", 8, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iteration",
 				new ElemAttribute("iteration", "Boolean",
-						AttributeType.OPERATION, false, "Iterate Button",
+						AttributeType.OPERATION, false, "Iterate Button", "",
 						false, 0, 9, "", "", 9, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("iterationName",
 				new ElemAttribute("iterationName", "String",
-						AttributeType.OPERATION, false, "Iterate Name", null,
-						0, 6, "", "", 6, "", ""));
+						AttributeType.OPERATION, false, "Iterate Name", "",
+						null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperAction.addModelingAttribute("prevSpacer",
 				new ElemAttribute("prevSpacer", "Boolean",
 						AttributeType.OPERATION, false, "Add Previous Spacer",
-						false, 0, 9, "", "", 9, "", ""));
+						"", false, 0, 9, "", "", 9, "", ""));
 
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
@@ -962,7 +962,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("name",
 				new ElemAttribute("name", "String", AttributeType.OPERATION,
-						false, "Name", null, 0, 6, "", "", 6, "", ""));
+						false, "Name", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
@@ -973,18 +973,17 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
-						false, "Position", 1, 0, 6, "", "", 6, "", ""));
+						false, "Position", "", 1, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("08#"
 				+ "Index");
 		infraSyntaxOpersM2OperSubAction
 				.addPropVisibleAttribute("08#" + "Index");
 
-		infraSyntaxOpersM2OperSubAction
-				.addModelingAttribute("iteration",
-						new ElemAttribute("iteration", "Boolean",
-								AttributeType.OPERATION, false,
-								"Iterate Sub-Operation", false, 0, 6, "", "",
-								6, "", ""));
+		infraSyntaxOpersM2OperSubAction.addModelingAttribute("iteration",
+				new ElemAttribute("iteration", "Boolean",
+						AttributeType.OPERATION, false,
+						"Iterate Sub-Operation", "", false, 0, 6, "", "", 6,
+						"", ""));
 		infraSyntaxOpersM2OperSubAction.addPropEditableAttribute("09#"
 				+ "iteration");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("09#"
@@ -992,7 +991,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("type",
 				new ElemAttribute("type", "Enumeration",
-						AttributeType.OPERATION, false, "Type",
+						AttributeType.OPERATION, false, "Type", "",
 						OperationSubActionType.class.getCanonicalName(),
 						"SINGLEUPDATE", "", 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperSubAction
@@ -1026,14 +1025,14 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
 				new ElemAttribute("labelId", "String", AttributeType.OPERATION,
-						false, "Label ID", null, 0, 6, "", "", 6, "", ""));
+						false, "Label ID", "", null, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("position",
 				new ElemAttribute("position", "Integer",
-						AttributeType.OPERATION, false, "Position", 1, 0, 6,
-						"", "", 6, "", ""));
+						AttributeType.OPERATION, false, "Position", "", 1, 0,
+						6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
-						false, "Once", false, 0, 6, "", "", 6, "", ""));
+						false, "Once", "", false, 0, 6, "", "", 6, "", ""));
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
@@ -1072,7 +1071,7 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2ExpType.addModelingAttribute("suboperexptype",
 				new ElemAttribute("suboperexptype", "Enumeration",
-						AttributeType.OPERATION, false, "Expression Type",
+						AttributeType.OPERATION, false, "Expression Type", "",
 						OperationSubActionExecType.class.getCanonicalName(),
 						"NORMAL", "", 0, 6, "", "", 6, "", ""));
 

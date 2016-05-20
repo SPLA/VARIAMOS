@@ -59,8 +59,8 @@ public class VariableAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
 			new ElemAttribute("Add ...", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Add ...", "", 1, -1, "", "",
-					-1, "", ""), "Add ...");
+					AttributeType.SYNTAX, false, "Add ...", "", "", 1, -1, "",
+					"", -1, "", ""), "Add ...");
 
 	public VariableAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -124,23 +124,23 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("name",
 				new ElemAttribute("name", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Name", "", 1, -1, "", "",
-						-1, "", ""), "");
+						AttributeType.SYNTAX, false, "Name", "", "", 1, -1, "",
+						"", -1, "", ""), "");
 
 		final InstAttribute instValue = new InstAttribute("value",
 				new ElemAttribute("value", IntegerType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Value", 0, 1, -1, "", "",
-						-1, "", ""), 0);
+						AttributeType.SYNTAX, false, "Value", "", 0, 1, -1, "",
+						"", -1, "", ""), 0);
 
 		final InstAttribute instExtVisible = new InstAttribute("ExtVisible",
 				new ElemAttribute("ExtVisible", BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Externally Visible",
+						AttributeType.SYNTAX, false, "Externally Visible", "",
 						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instExtControl = new InstAttribute("ExtControl",
 				new ElemAttribute("ExtControl", BooleanType.IDENTIFIER,
 						AttributeType.SYNTAX, false, "Externally Controlled",
-						false, 1, -1, "", "", -1, "", ""), false);
+						"", false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableType = new InstAttribute(
 				"variableType", new ElemAttribute("variableType",
@@ -151,13 +151,13 @@ public class VariableAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instContext = new InstAttribute("isContext",
 				new ElemAttribute("isContext", BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Context Defined", false,
-						1, -1, "", "", -1, "", ""), false);
+						AttributeType.SYNTAX, false, "Context Defined", "",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instVariableDomain = new InstAttribute("varDom",
 				new ElemAttribute("varDom", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Variable Domain", "", 1,
-						-1, "", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Variable Domain", "", "",
+						1, -1, "", "", -1, "", ""), "");
 		final InstAttribute instEnumerationType = new InstAttribute("enumType",
 				new ElemAttribute("enumType",
 						ClassSingleSelectionType.IDENTIFIER,
@@ -167,11 +167,13 @@ public class VariableAttributeList extends JList<InstAttribute> {
 		final InstAttribute instVariableConfigValue = new InstAttribute(
 				"varConfValue", new ElemAttribute("varConfValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Configured Value", 1, 1, -1, "", "", -1, "", ""), 1);
+						"Configured Value", "", 1, 1, -1, "", "", -1, "", ""),
+				1);
 		final InstAttribute instVariableConfigDomain = new InstAttribute(
-				"varConfDom", new ElemAttribute("varConfDom",
-						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Configured Domain", "", 1, -1, "", "", -1, "", ""), "");
+				"varConfDom",
+				new ElemAttribute("varConfDom", StringType.IDENTIFIER,
+						AttributeType.SYNTAX, false, "Configured Domain", "",
+						"", 1, -1, "", "", -1, "", ""), "");
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -190,8 +192,8 @@ public class VariableAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					"");
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instName.setValue(split[1]);

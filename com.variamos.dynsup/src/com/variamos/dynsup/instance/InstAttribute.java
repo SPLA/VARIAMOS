@@ -91,7 +91,9 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	/**
 	 * Dynamic storage of attributes
 	 */
-	VAR_GROUP = "Group";
+	VAR_GROUP = "Group",
+
+	VAR_TOOLTIPTEXT = "ToolTipText";
 	protected Map<String, Object> instAttributeAttributes = new HashMap<>();
 
 	public InstAttribute() {
@@ -327,7 +329,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	public String toString() {
-		Object val = getDisplayValue();
+		Object val = this.getDisplayName();
 		if (val == null)
 			return "";
 		return val.toString();
@@ -442,5 +444,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					.compareTo((Comparable<?>) ((InstAttribute) o).getValue());
 		}
 		return 0;
+	}
+
+	public String getToolTipText() {
+		return (String) getInstAttributeAttribute(VAR_TOOLTIPTEXT);
+	}
+
+	public String setToolTipText(String out) {
+		setInstAttributeAttribute(VAR_TOOLTIPTEXT, out);
+		return null;
 	}
 }

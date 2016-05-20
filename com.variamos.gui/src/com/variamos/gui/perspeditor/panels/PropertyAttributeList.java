@@ -51,7 +51,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 	// allow the user to define the type
 	private ElemAttribute spoof = new ElemAttribute("Add ...",
 			StringType.IDENTIFIER, AttributeType.SYNTAX, false, "Add ...", "",
-			1, -1, "", "", -1, "", "");
+			"", 1, -1, "", "", -1, "", "");
 
 	private AttributeEditionPanel attributeEdition;
 
@@ -135,8 +135,8 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			// Name
 			var = new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Enumeration Value", "", 1,
-					-1, "", "", -1, "", "");
+					AttributeType.SYNTAX, false, "Enumeration Value", "", "",
+					1, -1, "", "", -1, "", "");
 
 		}
 

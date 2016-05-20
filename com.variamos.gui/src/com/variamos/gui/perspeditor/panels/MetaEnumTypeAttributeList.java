@@ -61,8 +61,8 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 			 */
 	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
 			new ElemAttribute("New Enum Type ...", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "New Enum Type ...", "", 1,
-					-1, "", "", -1, "", ""), "New Enum Type ...");
+					AttributeType.SYNTAX, false, "New Enum Type ...", "", "",
+					1, -1, "", "", -1, "", ""), "New Enum Type ...");
 
 	public MetaEnumTypeAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -134,7 +134,7 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new ElemAttribute("EnumNameValue", "Enumeration",
-						AttributeType.SYNTAX, false, "Value Name",
+						AttributeType.SYNTAX, false, "Value Name", "",
 						enumCanonicalName, "", "", 1, -1, "", "", -1, "", ""),
 				"");
 
@@ -156,8 +156,8 @@ public class MetaEnumTypeAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					"");
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), "");
 		} else {
 			if (attributeName.equals("exptype")) {
 				String split[] = ((InstElement) instAttribute.getValue())

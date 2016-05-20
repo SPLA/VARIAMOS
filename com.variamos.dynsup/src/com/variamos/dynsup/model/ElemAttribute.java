@@ -263,7 +263,9 @@ public class ElemAttribute implements Serializable {
 	 * Name of the Condition to enable visualization of the attribute in the
 	 * property tab- Empty always displays
 	 */
-	VAR_ELEMENTDISPLAYCONDITION_NAME = "Graph Visual Cond.";
+	VAR_ELEMENTDISPLAYCONDITION_NAME = "Graph Visual Cond.",
+
+	VAR_TOOLTIPTEXT = "toolTipText", VAR_TOOLTIPTEXTNAME = "toolTipTextName";
 
 	public String getElementDisplayCondition() {
 		return elementDisplayCondition;
@@ -277,6 +279,7 @@ public class ElemAttribute implements Serializable {
 	 * Dynamic storage of attributes
 	 */
 	protected Map<String, IntInstAttribute> dynamicAttributeComponentsMap = new HashMap<>();
+	private String toolTipText;
 
 	public Map<String, IntInstAttribute> getDynamicAttributeComponentsMap() {
 		return dynamicAttributeComponentsMap;
@@ -314,29 +317,29 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName, null,
-				null, defaultValue, null, null, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
-	}
-
-	public ElemAttribute(String name, String type, AttributeType attributeType,
-			String displayName, Object defaultValue, boolean affectProperties,
-			Domain domain, int defaultGroup, int propTabPosition,
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName,
-				defaultValue, domain, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+				toolTipText, null, null, defaultValue, null, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
+	}
+
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			String displayName, String toolTipText, Object defaultValue,
+			boolean affectProperties, Domain domain, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, defaultValue, domain, defaultGroup,
+				propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -360,16 +363,16 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, Object defaultValue,
-			String hint, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName, null,
-				null, defaultValue, null, hint, defaultGroup, propTabPosition,
-				propTabEditionCondition, propTabVisualCondition,
-				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition);
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, null, null, defaultValue, null, hint,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition);
 	}
 
 	/**
@@ -393,14 +396,14 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, Object defaultValue, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName,
-				enumType, null, defaultValue, null, null, defaultGroup,
-				propTabPosition, propTabEditionCondition,
+				toolTipText, enumType, null, defaultValue, null, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
 	}
@@ -467,14 +470,15 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, String hint, int defaultGroup,
-			int propTabPosition, String propTabEditionCondition,
-			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, Object defaultValue, String hint,
+			int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName,
-				enumType, null, defaultValue, null, hint, defaultGroup,
-				propTabPosition, propTabEditionCondition,
+				toolTipText, enumType, null, defaultValue, null, hint,
+				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
 	}
@@ -505,17 +509,18 @@ public class ElemAttribute implements Serializable {
 	 *            Default defaultGroup for the attribute
 	 */
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, String hint,
-			int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, String metaConceptInstanceType,
+			Object defaultValue, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
 		this(name, type, attributeType, affectProperties, displayName,
-				enumType, metaConceptInstanceType, defaultValue, null, hint,
-				defaultGroup, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
+				toolTipText, enumType, metaConceptInstanceType, defaultValue,
+				null, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition);
 	}
 
 	/**
@@ -539,14 +544,14 @@ public class ElemAttribute implements Serializable {
 	 */
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, Object defaultValue,
-			Domain domain, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
-		this(name, type, attributeType, affectProperties, displayName, null,
-				null, defaultValue, domain, null, defaultGroup,
-				propTabPosition, propTabEditionCondition,
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, Domain domain, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, null, null, defaultValue, domain, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
 				elementDisplaySpacers, elementDisplayCondition);
 	}
@@ -651,18 +656,19 @@ public class ElemAttribute implements Serializable {
 	 */
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
-			boolean affectProperties, String displayName, String enumType,
-			String metaConceptInstanceType, Object defaultValue, Domain domain,
-			String hint, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, String metaConceptInstanceType,
+			Object defaultValue, Domain domain, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.attributeType = attributeType;
 		this.affectProperties = affectProperties;
 		this.displayName = displayName;
+		this.toolTipText = toolTipText;
 		this.classCanonicalName = enumType;
 		this.metaConceptInstanceType = metaConceptInstanceType;
 		this.defaultValue = defaultValue;
@@ -689,6 +695,9 @@ public class ElemAttribute implements Serializable {
 		dynamicAttributeComponentsMap.put(VAR_DISPLAYNAME,
 				new ElemAttribAttribute(VAR_DISPLAYNAME, "String",
 						VAR_DISPLAYNAMENAME, displayName));
+		dynamicAttributeComponentsMap.put(VAR_TOOLTIPTEXT,
+				new ElemAttribAttribute(VAR_TOOLTIPTEXT, "String",
+						VAR_TOOLTIPTEXTNAME, toolTipText));
 		dynamicAttributeComponentsMap.put(VAR_CLASSCANONICALNAME,
 				new ElemAttribAttribute(VAR_CLASSCANONICALNAME, "String",
 						VAR_CLASSCANONICALNAMENAME, enumType));
@@ -817,5 +826,13 @@ public class ElemAttribute implements Serializable {
 
 	public void setAttributeType(AttributeType attributeType) {
 		this.attributeType = attributeType;
+	}
+
+	public String getToolTipText() {
+		return toolTipText;
+	}
+
+	public void setToolTipText(String toolTipText) {
+		this.toolTipText = toolTipText;
 	}
 }

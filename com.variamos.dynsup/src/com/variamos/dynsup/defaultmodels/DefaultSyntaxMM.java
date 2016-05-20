@@ -106,7 +106,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
-				0, 3, "", "", 3, "", "");
+				"", 0, 3, "", "", 3, "", "");
 
 		// syntaxFeature.addPanelVisibleAttribute("03#" + "name");
 
@@ -159,7 +159,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
-				"Name", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, -1, "", "", -1, "", "");
 
 		// syntaxVariabilityArtifact.addPanelVisibleAttribute("03#" + "name");
 
@@ -380,7 +380,7 @@ public class DefaultSyntaxMM {
 		// InstConcept instGroupPairWiseRel = new InstConcept("Group Relation",
 		// supportMetaElementPairwise, metaGroupPairwiseRel);
 		metaGroupPairwiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
 		metaGroupPairwiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaGroupPairwiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -389,7 +389,7 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaGroupPairwiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "Aggregation High", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation High", "", 0, 0, -1, "", "", -1, "", "");
 		metaGroupPairwiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaGroupPairwiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");
@@ -970,7 +970,8 @@ public class DefaultSyntaxMM {
 				directStructHardHardSemanticEdge);
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("Aggregation",
-				"String", false, "Aggregation", "", 0, -1, "", "", -1, "", "");
+				"String", false, "Aggregation", "", "", 0, -1, "", "", -1, "",
+				"");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "Aggregation");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -979,8 +980,8 @@ public class DefaultSyntaxMM {
 				+ "Aggregation");
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -991,8 +992,8 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirStructHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirStructHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1046,8 +1047,8 @@ public class DefaultSyntaxMM {
 				directSideHardHardSemanticEdge);
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("03#"
@@ -1058,8 +1059,8 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirSideHardPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirSideHardPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirSideHardPairwiseRel.addPropVisibleAttribute("04#"
@@ -1248,7 +1249,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
-				"", 0, -1, "", "", -1, "", "");
+				"", "", 0, -1, "", "", -1, "", "");
 		// syntaxSoftGoal.addPanelVisibleAttribute("03#" + "name");
 
 		syntaxSoftGoal.addPropEditableAttribute("03#" + "name");
@@ -1623,7 +1624,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
-				"Name", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, -1, "", "", -1, "", "");
 
 		InstConcept instVertexCG = new InstConcept("CG",
 				supportMetaElementConcept, syntaxContextGroup);
@@ -1671,14 +1672,14 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
-				"", 0, -1, "", "", -1, "", "");
+				"", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("type", "String", false, "Type",
-				"", 0, -1, "", "", -1, "", "");
+				"", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("domain", "String", false,
-				"Domain", "", 0, -1, "", "", -1, "", "");
+				"Domain", "", "", 0, -1, "", "", -1, "", "");
 		syntaxAbsVariable.addModelingAttribute("enumeration",
-				"MetaEnumeration", false, "Enumeration", "", 0, -1, "", "", -1,
-				"", "");
+				"MetaEnumeration", false, "Enumeration", "", "", 0, -1, "", "",
+				-1, "", "");
 		// syntaxAbsVariable.addModelingAttribute("concern", "ConcernLevel",
 		// false, "Concern Level", "", 0, -1, "", "", -1, "", "");
 
@@ -1805,10 +1806,10 @@ public class DefaultSyntaxMM {
 				null, true);
 
 		metaEnumeration.addModelingAttribute(SyntaxConcept.VAR_METAENUMNAME,
-				"String", false, SyntaxConcept.VAR_METAENUMNAMENAME, "", 0, 1,
-				"", "", 1, "#-#\n\n", "");
+				"String", false, SyntaxConcept.VAR_METAENUMNAMENAME, "", "", 0,
+				1, "", "", 1, "#-#\n\n", "");
 		metaEnumeration.addModelingAttribute(SyntaxConcept.VAR_METAENUMVALUE,
-				"Set", false, SyntaxConcept.VAR_METAENUMVALUENAME,
+				"Set", false, SyntaxConcept.VAR_METAENUMVALUENAME, "",
 				SyntaxConcept.VAR_METAENUMVALUECLASS,
 				new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n", "");
 
@@ -1941,7 +1942,7 @@ public class DefaultSyntaxMM {
 				directCVCGSemanticEdge);
 
 		metaContextEdge.addModelingAttribute("cardinality", "String", false,
-				"cardinality", "", 0, -1, "", "", -1, "", "");
+				"cardinality", "", "", "", 0, -1, "", "", -1, "", "");
 		metaContextEdge.addPanelVisibleAttribute("01#cardinality");
 		metaContextEdge.addPropEditableAttribute("01#cardinality");
 		metaContextEdge.addPropVisibleAttribute("01#cardinality");
@@ -2155,12 +2156,12 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
-				0, -1, "", "", -1, "", "");
+				"", 0, -1, "", "", -1, "", "");
 
 		syntaxClaim.addModelingAttribute("conditionalExpression",
 				new ElemAttribute("conditionalExpression", "String",
 						AttributeType.SYNTAX, false, "Cond. Expression Text",
-						"", 0, -1, "", "", -1, "", ""));
+						"", "", 0, -1, "", "", -1, "", ""));
 
 		// syntaxClaim.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
@@ -2225,7 +2226,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
-				"Name", "", 0, -1, "", "", -1, "", "");
+				"Name", "", "", 0, -1, "", "", -1, "", "");
 
 		// syntaxSoftDependency
 		// .addModelingAttribute("conditionalExpression",
@@ -2342,8 +2343,8 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				semClaimPairwiseRel);
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationLow",
-				"Integer", false, "Aggregation Low", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("03#"
 				+ "AggregationLow");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("03#"
@@ -2354,8 +2355,8 @@ public class DefaultSyntaxMM {
 				+ "AggregationLow" + "#..");
 
 		metaDirClaimPairwiseRel.addModelingAttribute("AggregationHigh",
-				"Integer", false, "Aggregation High", 0, 0, -1, "", "", -1, "",
-				"");
+				"Integer", false, "Aggregation High", "", 0, 0, -1, "", "", -1,
+				"", "");
 		metaDirClaimPairwiseRel.addPropEditableAttribute("04#"
 				+ "AggregationHigh");
 		metaDirClaimPairwiseRel.addPropVisibleAttribute("04#"
@@ -2661,7 +2662,7 @@ public class DefaultSyntaxMM {
 				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
-				0, -1, "", "", -1, "", "");
+				"", 0, -1, "", "", -1, "", "");
 		// syntaxAsset.addModelingAttribute("concern", "ConcernLevel", false,
 		// "Concern Level", "", 0, -1, "", "", -1, "", "");
 
@@ -2802,7 +2803,7 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directAssetSemanticEdge);
 		metaAssetPairWiseRel.addModelingAttribute("AggregationLow", "Integer",
-				false, "Aggregation Low", 0, 0, -1, "", "", -1, "", "");
+				false, "Aggregation Low", "", 0, 0, -1, "", "", -1, "", "");
 		metaAssetPairWiseRel.addPropEditableAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPropVisibleAttribute("03#" + "AggregationLow");
 		metaAssetPairWiseRel.addPanelVisibleAttribute("03#" + "AggregationLow"
@@ -2811,7 +2812,7 @@ public class DefaultSyntaxMM {
 				+ "#..");
 
 		metaAssetPairWiseRel.addModelingAttribute("AggregationHigh", "Integer",
-				false, "AggregationHigh", 0, 0, -1, "", "", -1, "", "");
+				false, "AggregationHigh", "", 0, 0, -1, "", "", -1, "", "");
 		metaAssetPairWiseRel
 				.addPropEditableAttribute("04#" + "AggregationHigh");
 		metaAssetPairWiseRel.addPropVisibleAttribute("04#" + "AggregationHigh");

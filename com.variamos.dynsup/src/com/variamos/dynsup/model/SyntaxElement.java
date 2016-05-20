@@ -178,10 +178,10 @@ public abstract class SyntaxElement implements Serializable {
 	public void createSyntaxAttributes() {
 		this.modelingAttributes.put(VAR_AUTOIDENTIFIER, new ElemAttribute(
 				VAR_AUTOIDENTIFIER, "String", AttributeType.SYNTAX, false,
-				"Auto Identifier", null, 0, 1, "", "", -1, "", ""));
+				"Auto Identifier", "", null, 0, 1, "", "", -1, "", ""));
 		this.modelingAttributes.put(VAR_USERIDENTIFIER, new ElemAttribute(
 				VAR_USERIDENTIFIER, "String", AttributeType.SYNTAX, false,
-				"UserIdentifier", null, 0, 1, "", "", -1, "", ""));
+				"UserIdentifier", "", null, 0, 1, "", "", -1, "", ""));
 		/*
 		 * this.syntaxAttributes.put(VAR_DESCRIPTION, new ElemAttribute(
 		 * VAR_DESCRIPTION, "String", false, "description", null));
@@ -586,8 +586,8 @@ public abstract class SyntaxElement implements Serializable {
 	}
 
 	public void addModelingAttribute(String name, String type,
-			boolean affectProperties, String displayName, Object defaultValue,
-			int defaultGroup, int propTabPosition,
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, int defaultGroup, int propTabPosition,
 			String propTabEditionCondition, String propTabVisualCondition,
 			int elementDisplayPosition, String elementDisplaySpacers,
 			String elementDisplayCondition) {
@@ -595,7 +595,7 @@ public abstract class SyntaxElement implements Serializable {
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new ElemAttribute(name, type,
 					AttributeType.SYNTAX, affectProperties, displayName,
-					defaultValue, defaultGroup, propTabPosition,
+					toolTipText, defaultValue, defaultGroup, propTabPosition,
 					propTabEditionCondition, propTabVisualCondition,
 					elementDisplayPosition, elementDisplaySpacers,
 					elementDisplayCondition));
@@ -609,19 +609,19 @@ public abstract class SyntaxElement implements Serializable {
 	}
 
 	public void addModelingAttribute(String name, String type,
-			boolean affectProperties, String displayName, String enumType,
-			Object defaultValue, int defaultGroup, int propTabPosition,
-			String propTabEditionCondition, String propTabVisualCondition,
-			int elementDisplayPosition, String elementDisplaySpacers,
-			String elementDisplayCondition) {
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, Object defaultValue, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
 		if (!name.equals(VAR_AUTOIDENTIFIER)
 				&& modelingAttributes.get(name) == null)
 			modelingAttributes.put(name, new ElemAttribute(name, type,
 					AttributeType.SYNTAX, affectProperties, displayName,
-					enumType, defaultValue, defaultGroup, propTabPosition,
-					propTabEditionCondition, propTabVisualCondition,
-					elementDisplayPosition, elementDisplaySpacers,
-					elementDisplayCondition));
+					toolTipText, enumType, defaultValue, defaultGroup,
+					propTabPosition, propTabEditionCondition,
+					propTabVisualCondition, elementDisplayPosition,
+					elementDisplaySpacers, elementDisplayCondition));
 	}
 
 	public boolean getVisible() {
