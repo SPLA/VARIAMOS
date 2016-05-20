@@ -553,7 +553,9 @@ public class ModelExpr2HLCL {
 			if (configuration != null) {
 				configuration = swiSolver.getSolution();
 				lastExecutionTime += swiSolver.getLastExecutionTime();
-				if (configuration == null)
+				if (configuration == null
+						|| (progressMonitor != null && progressMonitor
+								.isCanceled()))
 					return false;
 			}
 		} else
@@ -1154,7 +1156,7 @@ public class ModelExpr2HLCL {
 						&& !target.getIdentifier().startsWith("FeatOverTwo"))
 					if (!calc)
 						freeIdentifiers.add(f.newIdentifier(target
-								.getIdentifier() + "_Selected"));
+								.getIdentifier() + "_" + "Sel"));
 				for (InstElement element : target.getSourceRelations()) {
 					if (progressMonitor.isCanceled())
 						throw (new InterruptedException());
@@ -1201,7 +1203,7 @@ public class ModelExpr2HLCL {
 			} else
 				result = execute(progressMonitor, element,
 						ModelExpr2HLCL.NEXT_SOLUTION, type);
-			if (result) {
+			if (result && !progressMonitor.isCanceled()) {
 				updateGUIElements(null);
 				Map<String, Integer> newMap = new TreeMap<String, Integer>();
 				for (InstElement instVertex : refas

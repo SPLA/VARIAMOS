@@ -242,13 +242,15 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 													instVertex, instAttribute
 															.getIdentifier(),
 													getHlclFactory().number(1)));
-								} else
+								} else {
 									coreAndFalseOptList
 											.add(new EqualsComparisonExpression(
 													instVertex, instAttribute
 															.getIdentifier(),
 													getHlclFactory().number(
 															attributeValue)));
+
+								}
 
 								// identifierId_Required #==>
 								// identifierId_Selected #= 1
@@ -361,6 +363,52 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 														.getIdentifier(),
 												getHlclFactory().number(
 														attributeValue)));
+							}
+
+							if (instAttribute.getIdentifier()
+									.equals("Required")) {
+								if (instVertex.getTransSupportMetaElement()
+										.getAutoIdentifier().equals("Softgoal")
+										&& attributeValue == 1) {
+									if (instVertex
+											.getInstAttribute("satisficingType") != null) {
+										String targetSatisficingType = (String) instVertex
+												.getInstAttribute(
+														"satisficingType")
+												.getValue();
+
+										int confLevel = (Integer) instVertex
+												.getInstAttribute(
+														"ConfigReqLevel")
+												.getValue();
+										AbstractExpression out22a;
+										// TargetId_SDReqLevel #=
+										// relId_TargetLevel
+										if (targetSatisficingType
+												.contains("low")
+												&& confLevel != 5) {
+
+											out22a = new LessOrEqualsBooleanExpression(
+													instVertex, "SDReqLevel",
+													true, getHlclFactory()
+															.number(confLevel));
+										} else if (targetSatisficingType
+												.contains("high")) {
+
+											out22a = new GreaterOrEqualsBooleanExpression(
+													instVertex, "SDReqLevel",
+													true, getHlclFactory()
+															.number(confLevel));
+										} else {
+											out22a = new EqualsComparisonExpression(
+													instVertex,
+													"ClaimExpLevel", true,
+													getHlclFactory().number(
+															confLevel));
+										}
+										getElementExpressions().add(out22a);
+									}
+								}
 							}
 							if (instAttribute.getIdentifier().equals(
 									"varConfDom")) {

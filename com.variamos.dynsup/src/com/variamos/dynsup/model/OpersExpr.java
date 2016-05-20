@@ -207,13 +207,16 @@ public class OpersExpr implements Serializable {
 
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
-			InstElement leftSemanticElement, String leftAttributeName,
+			InstElement semanticElement, InstElement leftSemanticElement,
+			String leftAttributeName, boolean replaceRight,
 			String rightAttributeName) {
 		this.identifier = identifier;
 		this.semanticExpressionType = semanticExpressionType;
+		this.setSemanticElement(semanticElement);
 		this.setLeftSemanticElement(leftSemanticElement);
 		this.leftAttributeName = leftAttributeName;
 		this.rightAttributeName = rightAttributeName;
+		this.setRightSemanticElement();
 		setLeftExpressionType(expressionVertexType);
 		setRightExpressionType(ExpressionVertexType.RIGHTCONCEPTVARIABLE);
 	}
@@ -221,21 +224,18 @@ public class OpersExpr implements Serializable {
 	public OpersExpr(String identifier, OpersExprType semanticExpressionType,
 			ExpressionVertexType expressionVertexType,
 			InstElement semanticElement, InstElement semanticConElement,
-			InstElement semanticRelElement, String attributeName,
-			boolean replaceRight, int number) {
+			String attributeName, boolean replaceRight, int number) {
 		this.identifier = identifier;
 		this.setSemanticElement(semanticElement);
 		this.semanticExpressionType = semanticExpressionType;
 		if (replaceRight) {
 			this.setLeftSemanticElement(semanticConElement);
-			this.setLeftSemanticRelElement(semanticRelElement);
 			this.leftAttributeName = attributeName;
 			this.rightNumber = number;
 			setLeftExpressionType(expressionVertexType);
 			setRightExpressionType(ExpressionVertexType.RIGHTNUMERICVALUE);
 		} else {
 			this.setRightSemanticElement(semanticConElement);
-			this.setRightSemanticRelElement(semanticRelElement);
 			this.rightAttributeName = attributeName;
 			this.leftNumber = number;
 			setRightExpressionType(expressionVertexType);
@@ -801,6 +801,8 @@ public class OpersExpr implements Serializable {
 	public void setLeftSemanticExpression(ExpressionVertexType type,
 			OpersExprType semanticExpressionType, String id) {
 		if (type == ExpressionVertexType.LEFTSUBEXPRESSION
+				|| type == ExpressionVertexType.LEFTITERINCFIXEDSUBEXP
+				|| type == ExpressionVertexType.LEFTITEROUTFIXEDSUBEXP
 				|| type == ExpressionVertexType.LEFTITERCONCEPTVARIABLE
 				|| type == ExpressionVertexType.LEFTITERCONFIXEDVARIABLE
 				|| type == ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE

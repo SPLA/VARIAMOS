@@ -204,12 +204,27 @@ public abstract class AbstractExpression {
 			Set<Integer> values = new HashSet<Integer>();
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("targetLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
 				if (((InstPairwiseRel) relation).getInstAttribute("level") != null)
 					values.add(((InstPairwiseRel) relation).getInstAttribute(
 							"level").getAsInteger());
 				if (((InstPairwiseRel) relation).getInstAttribute("CLSGLevel") != null)
 					values.add(((InstPairwiseRel) relation).getInstAttribute(
 							"CLSGLevel").getAsInteger());
+			}
+			for (InstElement relation : instVertex.getTargetRelations()) {
+				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
 				if (((InstPairwiseRel) relation)
 						.getInstAttribute("targetLevel") != null)
 					values.add(((InstPairwiseRel) relation).getInstAttribute(

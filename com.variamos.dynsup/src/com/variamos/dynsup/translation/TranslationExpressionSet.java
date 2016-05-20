@@ -404,7 +404,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		 * if (semanticElement) semElement =
 		 * instElement.getEditableSemanticElement(); else
 		 */
-		System.out.println(instElement.getIdentifier());
+		// System.out.println(instElement.getIdentifier());
 		semElement = instElement.getTransSupInstElement().getEdSyntaxEle()
 				.getTransSemanticConcept();
 		List<ModelExpr> out = new ArrayList<ModelExpr>();
@@ -458,6 +458,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											.createFromSemanticExpression(
 													instElement, 0);
 									out.add(instanceExpression);
+									System.out.println("instExppr: "
+											+ instanceExpression
+													.expressionStructure());
 								}
 							}
 					}

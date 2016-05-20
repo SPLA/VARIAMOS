@@ -427,7 +427,9 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					 * System.out.println(modifiedIdentifiers); }
 					 */
 				}
-				if (result) {
+				if (result
+						&& (progressMonitor == null || !progressMonitor
+								.isCanceled())) {
 					lastConfiguration = refas2hlcl.getConfiguration();
 					if (update) {
 						refas2hlcl.updateGUIElements(null);
@@ -437,7 +439,13 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 					}
 					correctExecution = true;
 				} else {
-					if (firstSimulExec || lastConfiguration == null) {
+					if (progressMonitor != null && progressMonitor.isCanceled()) {
+						errorMessage = "Operation sucesfully cancelled.";
+						errorTitle = "Model Execution";
+						correctExecution = false;
+
+						terminated = true;
+					} else if (firstSimulExec || lastConfiguration == null) {
 						switch (type) {
 						case ModelExpr2HLCL.DESIGN_EXEC:
 							errorMessage = "Last changes on the model makes it inconsistent."

@@ -574,11 +574,14 @@ public class ModelInstance extends AbstractModel {
 			InstElement instElement, InstElement instElement2) {
 		InstElement instSyntaxElement = this.getVertex(instElement
 				.getSupInstEleId());
-		InstElement instSyntaxElement2 = this.getVertex(instElement2
-				.getSupInstEleId());
+		InstElement instSyntaxElement2 = null;
+		if (instElement2 != null)
+			instSyntaxElement2 = this.getVertex(instElement2.getSupInstEleId());
 		if (instSyntaxElement2 == null) {
-			System.out.println("getValidPairwiseRelations error - "
-					+ instElement2.getIdentifier());
+			System.out
+					.println("getValidPairwiseRelations error - "
+							+ (instElement2 == null ? "" : instElement2
+									.getIdentifier()));
 		}
 		return getValidPairwiseRelations(instSyntaxElement, instSyntaxElement2,
 				true);

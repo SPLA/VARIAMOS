@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mxgraph.util.mxResources;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.instance.InstPairwiseRel;
@@ -95,8 +96,17 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					.getTargetRelations().get(0)).getTargetRelations().get(0)
 					.getInstAttribute("Active").getValue();
 		if (targetActiveAttribute && metaGroupDep != null) {
+			List<InstAttribute> semGD = ((SyntaxElement) instOverTwoRelation
+					.getTransSupportMetaElement()).getOpersRelationTypes();
 			relationType = (String) instOverTwoRelation.getInstAttribute(
 					"relationType").getValue();
+			for (InstAttribute att : semGD) {
+				if (att.getAttribute().getDisplayName().equals(relationType)) {
+					relationType = (String) att
+							.getInstAttributeAttribute("Identifier");
+					break;
+				}
+			}
 			// System.out.println(relationType);
 			List<AbstractExpression> allList = new ArrayList<AbstractExpression>();
 			List<AbstractExpression> coreList = new ArrayList<AbstractExpression>();
@@ -246,7 +256,6 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 						}
 
 						switch (relationType) {
-
 						case "and":
 						case "none":
 							// B_Satisfied #<=> ( ( A1_"attribute" #/\
@@ -389,23 +398,25 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 				try {
 					if (left.getSupInstEleId().equals("GroupSoftFromRelation")) {
 						InstElement softgoal = left.getSourceRelations().get(0);
-						String sourceSatisficingType = (String) softgoal
-								.getInstAttribute("satisficingType").getValue();
-
-						// TargetId_SDReqLevel #= relId_SourceLevel
 						AbstractExpression out21a;
-						if (sourceSatisficingType.contains("low")) {
-
-							out21a = new LessOrEqualsBooleanExpression(
-									softgoal, left, "SDReqLevel", "sourceLevel");
-						} else if (sourceSatisficingType.contains("high")) {
-
-							out21a = new GreaterOrEqualsBooleanExpression(
-									softgoal, left, "SDReqLevel", "sourceLevel");
-						} else {
-							out21a = new EqualsComparisonExpression(softgoal,
-									left, "SDReqLevel", "sourceLevel");
-						}
+						/*
+						 * String sourceSatisficingType = (String) softgoal
+						 * .getInstAttribute("satisficingType").getValue();
+						 * 
+						 * // TargetId_SDReqLevel #= relId_SourceLevel if
+						 * (sourceSatisficingType.contains("low")) {
+						 * 
+						 * out21a = new LessOrEqualsBooleanExpression( softgoal,
+						 * left, "ClaimExpLevel", "sourceLevel"); } else if
+						 * (sourceSatisficingType.contains("high")) {
+						 * 
+						 * out21a = new GreaterOrEqualsBooleanExpression(
+						 * softgoal, left, "ClaimExpLevel", "sourceLevel"); }
+						 * else {
+						 */
+						out21a = new EqualsComparisonExpression(softgoal, left,
+								"ClaimExpLevel", "sourceLevel");
+						// }
 						return (AbstractExpression) constructor1.newInstance(
 								out21a,
 								transformation(constructor1, constructor2,
@@ -428,50 +439,52 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					if (left.getSupInstEleId().equals("GroupSoftFromRelation")) {
 						InstElement softgoalleft = left.getSourceRelations()
 								.get(0);
-
-						String leftSatisficingType = (String) softgoalleft
-								.getInstAttribute("satisficingType").getValue();
-
-						// TargetId_SDReqLevel #= relId_SourceLevel
 						AbstractExpression out21a;
-						if (leftSatisficingType.contains("low")) {
+						/*
+						 * String leftSatisficingType = (String) softgoalleft
+						 * .getInstAttribute("satisficingType").getValue();
+						 * 
+						 * // TargetId_SDReqLevel #= relId_SourceLevel
+						 * 
+						 * if (leftSatisficingType.contains("low")) {
+						 * 
+						 * out21a = new LessOrEqualsBooleanExpression(
+						 * softgoalleft, left, "ClaimExpLevel", "sourceLevel");
+						 * } else if (leftSatisficingType.contains("high")) {
+						 * 
+						 * out21a = new GreaterOrEqualsBooleanExpression(
+						 * softgoalleft, left, "ClaimExpLevel", "sourceLevel");
+						 * } else {
+						 */
+						out21a = new EqualsComparisonExpression(softgoalleft,
+								left, "ClaimExpLevel", "sourceLevel");
+						// }
 
-							out21a = new LessOrEqualsBooleanExpression(
-									softgoalleft, left, "SDReqLevel",
-									"sourceLevel");
-						} else if (leftSatisficingType.contains("high")) {
-
-							out21a = new GreaterOrEqualsBooleanExpression(
-									softgoalleft, left, "SDReqLevel",
-									"sourceLevel");
-						} else {
-							out21a = new EqualsComparisonExpression(
-									softgoalleft, left, "SDReqLevel",
-									"sourceLevel");
-						}
-
-						InstElement softgoalInstEdge = left
+						InstElement softgoalInstEdge = instEdge
 								.getSourceRelations().get(0);
-						String instEdgeSatisficingType = (String) softgoalInstEdge
-								.getInstAttribute("satisficingType").getValue();
-
-						// TargetId_SDReqLevel #= relId_SourceLevel
 						AbstractExpression out22a;
-						if (instEdgeSatisficingType.contains("low")) {
-
-							out22a = new LessOrEqualsBooleanExpression(
-									softgoalInstEdge, instEdge, "SDReqLevel",
-									"sourceLevel");
-						} else if (instEdgeSatisficingType.contains("high")) {
-
-							out22a = new GreaterOrEqualsBooleanExpression(
-									softgoalInstEdge, instEdge, "SDReqLevel",
-									"sourceLevel");
-						} else {
-							out22a = new EqualsComparisonExpression(
-									softgoalInstEdge, instEdge, "SDReqLevel",
-									"sourceLevel");
-						}
+						/*
+						 * String instEdgeSatisficingType = (String)
+						 * softgoalInstEdge
+						 * .getInstAttribute("satisficingType").getValue();
+						 * 
+						 * // TargetId_SDReqLevel #= relId_SourceLevel
+						 * 
+						 * if (instEdgeSatisficingType.contains("low")) {
+						 * 
+						 * out22a = new LessOrEqualsBooleanExpression(
+						 * softgoalInstEdge, instEdge, "ClaimExpLevel",
+						 * "sourceLevel"); } else if
+						 * (instEdgeSatisficingType.contains("high")) {
+						 * 
+						 * out22a = new GreaterOrEqualsBooleanExpression(
+						 * softgoalInstEdge, instEdge, "ClaimExpLevel",
+						 * "sourceLevel"); } else {
+						 */
+						out22a = new EqualsComparisonExpression(
+								softgoalInstEdge, instEdge, "ClaimExpLevel",
+								"sourceLevel");
+						// }
 						return (AbstractExpression) constructor1.newInstance(
 								out21a, out22a);
 					} else {

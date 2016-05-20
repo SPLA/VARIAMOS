@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.types.AttributeType;
 
@@ -641,8 +642,22 @@ public abstract class SyntaxElement implements Serializable {
 		return "";
 	}
 
+	// Old
 	public List<OpersRelType> getSemanticRelationTypes() {
+		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
+				"relTypesAttr");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+
 		return ((OpersOverTwoRel) getTransInstSemanticElement().getEdOperEle())
 				.getSemanticRelationTypes();
+	}
+
+	// New
+	public List<InstAttribute> getOpersRelationTypes() {
+		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
+				"relTypesAttr");
+		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
+
+		return ias;
 	}
 }

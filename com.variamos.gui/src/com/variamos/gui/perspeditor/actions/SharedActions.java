@@ -24,7 +24,6 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -550,10 +549,10 @@ public class SharedActions {
 				if (attribute != null) {
 					ia.setAttribute(attribute);
 
-					List<OpersRelType> semGD = ((SyntaxElement) instOverTwoRelation
+					List<InstAttribute> semGD = ((SyntaxElement) instOverTwoRelation
 							.getTransSupportMetaElement())
-							.getSemanticRelationTypes();
-					ia.setValidationRelationTypes(semGD);
+							.getOpersRelationTypes();
+					ia.setOpersOverTwoRelList(semGD);
 					if (ia.getType().equals("Boolean")
 							&& ia.getValue() instanceof String)
 						if (((String) ia.getValue()).equals("0"))
@@ -616,7 +615,7 @@ public class SharedActions {
 				while (ias.hasNext()) {
 					InstAttribute ia = (InstAttribute) ias.next();
 					ElemAttribute attribute = metaVertex.getAbstractAttribute(
-							ia.getAttributeName(), syntaxParents, opersParents);
+							ia.getIdentifier(), syntaxParents, opersParents);
 					if (attribute != null) {
 						ia.setAttribute(attribute);
 						if (ia.getType().equals("Boolean")
@@ -773,11 +772,10 @@ public class SharedActions {
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<OpersRelType> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
+									List<InstAttribute> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
 											.getMetaPairwiseRelation())
-											.getSemanticRelationTypes();
-									instAttribute
-											.setValidationRelationTypes(semGD);
+											.getOpersRelationTypes();
+									instAttribute.setOpersOverTwoRelList(semGD);
 								} catch (Exception e) {
 									System.out
 											.println("SharedActions: relation without semantic type "

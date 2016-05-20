@@ -45,6 +45,7 @@ public class ClassWidget extends WidgetR {
 
 	private JComboBox<String> txtValue;
 	private Map<String, OpersElement> semanticElements;
+	private Map<String, InstAttribute> opersElements;
 	private Map<String, SyntaxElement> syntaxElements;
 	private Map<String, InstElement> instVertex;
 
@@ -112,6 +113,29 @@ public class ClassWidget extends WidgetR {
 				semanticElements.put(groupDependency.getIdentifier(),
 						(OpersElement) groupDependency);
 				String out = groupDependency.getIdentifier();
+				txtValue.addItem(out);
+				if (instAttribute.getValue() != null
+						&& out.equals(instAttribute.getValue()))
+					txtValue.setSelectedItem(out);
+				if (instAttribute.getValue() == null
+						&& instAttribute.getAttributeDefaultValue() != null
+						&& out.equals(instAttribute.getAttributeDefaultValue()))
+					txtValue.setSelectedItem(out);
+			}
+			// System.out.println("yr"+txtValue.getSelectedIndex());
+			if (txtValue.getSelectedIndex() == -1
+					&& txtValue.getItemCount() > 0) {
+				txtValue.setSelectedItem(0);
+			}
+
+		} else if (instAttribute.getOpersOverTwoRelList() != null) {
+			opersElements = new HashMap<String, InstAttribute>();
+			List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();
+
+			for (InstAttribute groupDependency : list) {
+				opersElements.put(groupDependency.getIdentifier(),
+						groupDependency);
+				String out = groupDependency.getDisplayName();
 				txtValue.addItem(out);
 				if (instAttribute.getValue() != null
 						&& out.equals(instAttribute.getValue()))

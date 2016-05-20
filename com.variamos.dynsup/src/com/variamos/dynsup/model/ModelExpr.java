@@ -204,8 +204,7 @@ public class ModelExpr implements Serializable {
 	}
 
 	public Expression createSGSExpression() {
-		Expression condition = createExpression(0);
-		return condition;
+		return createExpression(0);
 	}
 
 	public Expression createExpression(int pos) {
@@ -389,6 +388,7 @@ public class ModelExpr implements Serializable {
 		case LEFTITERINCCONVARIABLE:
 		case LEFTITERINCCONFIXEDVARIABLE:
 		case LEFTITERINCRELFIXEDVARIABLE:
+		case LEFTITERINCFIXEDSUBEXP:
 			elements = volatileLeftInstElement.getSourceRelations();
 			out = volatileLeftInstElement.getSourceRelations().size();
 			break;
@@ -396,6 +396,7 @@ public class ModelExpr implements Serializable {
 		case LEFTITEROUTCONVARIABLE:
 		case LEFTITEROUTCONFIXEDVARIABLE:
 		case LEFTITEROUTRELFIXEDVARIABLE:
+		case LEFTITEROUTFIXEDSUBEXP:
 			elements = volatileLeftInstElement.getTargetRelations();
 			out = volatileLeftInstElement.getTargetRelations().size();
 			break;
@@ -484,10 +485,18 @@ public class ModelExpr implements Serializable {
 			elements = volatileLeftInstElement.getSourceRelations();
 			size = volatileLeftInstElement.getSourceRelations().size();
 			break;
+		case LEFTITERINCFIXEDSUBEXP:
+			elements = volatileLeftInstElement.getSourceRelations();
+			size = volatileLeftInstElement.getSourceRelations().size();
+			break;
 		case LEFTITEROUTRELVARIABLE:
 		case LEFTITEROUTRELFIXEDVARIABLE:
 		case LEFTITEROUTCONVARIABLE:
 		case LEFTITEROUTCONFIXEDVARIABLE:
+			elements = volatileLeftInstElement.getTargetRelations();
+			size = volatileLeftInstElement.getTargetRelations().size();
+			break;
+		case LEFTITEROUTFIXEDSUBEXP:
 			elements = volatileLeftInstElement.getTargetRelations();
 			size = volatileLeftInstElement.getTargetRelations().size();
 			break;
@@ -842,6 +851,15 @@ public class ModelExpr implements Serializable {
 				break;
 			case LEFTCONCEPTVARIABLE:
 				out.add(leftInstanceExpression.createExpression(0));
+				break;
+
+			case LEFTITERINCFIXEDSUBEXP:
+			case LEFTITEROUTFIXEDSUBEXP:
+				iter = true;
+				getIdentifier(expressionType, pos);
+				if (pos >= size - 1)
+					iter = false;
+				out.add(leftInstanceExpression.createExpression(pos));
 				break;
 			case LEFTSUBEXPRESSION:
 				out.add(leftInstanceExpression.createExpression(0));
@@ -1308,6 +1326,103 @@ public class ModelExpr implements Serializable {
 				out += "(" + rightInstanceExpression.expressionStructure()
 						+ ")";
 				break;
+			case LEFTBOOLEANEXPRESSION:
+				break;
+			case LEFTCONCEPTVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERANYCONVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERANYFIXEDVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERANYRELVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERCONCEPTVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERCONFIXEDVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERINCCONFIXEDVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERINCCONVARIABLE:
+
+				out += "(" + leftInstanceExpression.expressionStructure() + ")";
+				break;
+			case LEFTITERINCRELFIXEDVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITERINCRELVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITEROUTCONFIXEDVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITEROUTCONVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITEROUTRELFIXEDVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTITEROUTRELVARIABLE:
+
+				out += getLeftAttributeName();
+				break;
+			case LEFTMODELVARS:
+				break;
+			case LEFTNUMERICVALUE:
+				break;
+			case LEFTSTRINGVALUE:
+				break;
+			case LEFTUNIQUEINCCONVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTUNIQUEINCRELVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTUNIQUEOUTCONVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case LEFTUNIQUEOUTRELVARIABLE:
+				out += getLeftAttributeName();
+				break;
+			case RIGHTBOOLEANEXPRESSION:
+				break;
+			case RIGHTCONCEPTVARIABLE:
+				out += getRightAttributeName();
+				break;
+			case RIGHTMODELVARS:
+				break;
+			case RIGHTNUMERICVALUE:
+				break;
+			case RIGHTSTRINGVALUE:
+				break;
+			case RIGHTUNIQUEINCCONVARIABLE:
+
+				out += getRightAttributeName();
+				break;
+			case RIGHTUNIQUEINCRELVARIABLE:
+
+				out += getRightAttributeName();
+				break;
+			case RIGHTUNIQUEOUTCONVARIABLE:
+
+				out += getRightAttributeName();
+				break;
+			case RIGHTUNIQUEOUTRELVARIABLE:
+
+				out += getRightAttributeName();
+				break;
 			default:
 				break;
 			}
@@ -1395,6 +1510,21 @@ public class ModelExpr implements Serializable {
 			if (pos < instElement.getSourceRelations().size()) {
 				leftInstanceExpression = new ModelExpr(refas, false,
 						this.getSemanticExpression());
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			}
+			this.volatileLeftInstElement = instElement;
+			break;
+		case LEFTITERINCFIXEDSUBEXP:
+		case LEFTITEROUTFIXEDSUBEXP:
+			if (pos < instElement.getSourceRelations().size()) {
+				leftInstanceExpression = new ModelExpr(refas, false,
+						volatileSemanticExpression);
+				leftInstanceExpression.createFromSemanticExpression(
+						instElement, pos + 1);
+			} else {
+				leftInstanceExpression = new ModelExpr(refas, false,
+						volatileSemanticExpression.getLeftSemanticExpression());
 				leftInstanceExpression.createFromSemanticExpression(
 						instElement, pos + 1);
 			}
