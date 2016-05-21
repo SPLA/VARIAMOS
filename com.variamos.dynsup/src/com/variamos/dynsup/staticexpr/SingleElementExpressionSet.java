@@ -384,6 +384,7 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 										AbstractExpression out22a;
 										// TargetId_SDReqLevel #=
 										// relId_TargetLevel
+
 										if (confLevel != 5) {
 											if (targetSatisficingType
 													.contains("low")) {
