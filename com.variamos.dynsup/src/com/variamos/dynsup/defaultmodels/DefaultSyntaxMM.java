@@ -969,15 +969,16 @@ public class DefaultSyntaxMM {
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directStructHardHardSemanticEdge);
 
-		metaDirStructHardPairwiseRel.addModelingAttribute("Aggregation",
-				"String", false, "Aggregation", "", "", 0, -1, "", "", -1, "",
-				"");
-		metaDirStructHardPairwiseRel.addPropEditableAttribute("03#"
-				+ "Aggregation");
-		metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#"
-				+ "Aggregation");
-		metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#"
-				+ "Aggregation");
+		/*
+		 * metaDirStructHardPairwiseRel.addModelingAttribute("Aggregation",
+		 * "String", false, "Aggregation", "", "", 0, -1, "", "", -1, "", "");
+		 * metaDirStructHardPairwiseRel.addPropEditableAttribute("03#" +
+		 * "Aggregation");
+		 * metaDirStructHardPairwiseRel.addPropVisibleAttribute("03#" +
+		 * "Aggregation");
+		 * metaDirStructHardPairwiseRel.addPanelVisibleAttribute("03#" +
+		 * "Aggregation");
+		 */
 
 		metaDirStructHardPairwiseRel.addModelingAttribute("AggregationLow",
 				"Integer", false, "Aggregation Low", "", 0, 0, -1, "", "", -1,
@@ -1019,7 +1020,7 @@ public class DefaultSyntaxMM {
 				.getOperationalModel().getVertex("GoalGoalSidePWAsso");
 
 		SyntaxPairwiseRel metaSideHardPairwiseRel = new SyntaxPairwiseRel(
-				"SideHardRelation", true, true, "SideHardRelation", "",
+				"SideRelation", true, true, "SideRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
@@ -1184,6 +1185,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instGroupHardPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexVA, true);
 
+		/*
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("variab-HOTtoVAsi", instEdge);
 		instEdge.setIdentifier("variab-HOTtoVAsi");
@@ -1191,6 +1193,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
 		instEdge.setSourceRelation(instVertexHOTR, true);
+		*/
 
 		InstConcept instViewHOTR = new InstConcept("View Hard Group Relation",
 				supportMetaViewPairwise, metaViewRel);

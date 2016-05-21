@@ -172,7 +172,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 			case "conflict":
 
 				sourcePositiveAttributeNames.add("Sel");
-				// sourceNegativeAttributeNames.add("Exclu");
+				sourceNegativeAttributeNames.add("Exclu");
 				// sourceAttributeNames.add("SatisfactionConflict");
 
 				// ((SourceId_Selected) + targetId_Selected) #<= 1
