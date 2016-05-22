@@ -56,8 +56,8 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("Add ...",
 			new ElemAttribute("Add ...", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "Add ...", "", 1, -1, "", "",
-					-1, "", ""), "Add ...");
+					AttributeType.SYNTAX, false, "Add ...", "", "", 1, -1, "",
+					"", -1, "", ""), "Add ...");
 
 	public EnumerationTypeAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -122,62 +122,61 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new ElemAttribute("EnumIdValue", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Identifier", "", 1, -1,
-						"", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Identifier", "", "", 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instDisplayName = new InstAttribute(
 				"enumDisplayName", new ElemAttribute("EnumDisplayNameValue",
 						StringType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Display Name", "", 1, -1, "", "", -1, "", ""), "");
+						"Display Name", "", "", 1, -1, "", "", -1, "", ""), "");
 
 		final InstAttribute instPanelName = new InstAttribute("enumPanelName",
 				new ElemAttribute("EnumPanelNameValue", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Panel Name", "", 1, -1,
-						"", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Panel Name", "", "", 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instRelationExclusive = new InstAttribute(
-				"enumRelExclusive",
-				new ElemAttribute("EnumRelExclusiveValue",
+				"enumRelExclusive", new ElemAttribute("EnumRelExclusiveValue",
 						BooleanType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Relation Exclusive", false, 1, -1, "", "", -1, "", ""),
-				false);
+						"Relation Exclusive", "", false, 1, -1, "", "", -1, "",
+						""), false);
 
 		final InstAttribute instSourceExclusive = new InstAttribute(
 				"enumSourceExclusive", new ElemAttribute(
 						"EnumSourceExclusiveValue", BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Source Exclusive", false,
-						1, -1, "", "", -1, "", ""), false);
+						AttributeType.SYNTAX, false, "Source Exclusive", "",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instTargetExclusive = new InstAttribute(
 				"enumTargetExclusive", new ElemAttribute(
 						"EnumTargetExclusiveValue", BooleanType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Target Exclusive", false,
-						1, -1, "", "", -1, "", ""), false);
+						AttributeType.SYNTAX, false, "Target Exclusive", "",
+						false, 1, -1, "", "", -1, "", ""), false);
 
 		final InstAttribute instMinSourceCardinality = new InstAttribute(
 				"enumMinSourceCardinality", new ElemAttribute(
 						"EnumMinSourceCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Min Source Cardinality(int)", "", 1, -1, "", "", -1,
-						"", ""), 1);
+						"Min Source Cardinality(int)", "", "", 1, -1, "", "",
+						-1, "", ""), 1);
 		final InstAttribute instSourceCardinality = new InstAttribute(
-				"enumMaxSourceCardinality",
-				new ElemAttribute("EnumMaxSourceCardinalityValue",
+				"enumMaxSourceCardinality", new ElemAttribute(
+						"EnumMaxSourceCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Max Source Cardinality", "", 1, -1, "", "", -1, "", ""),
-				1);
+						"Max Source Cardinality", "", "", 1, -1, "", "", -1,
+						"", ""), 1);
 		final InstAttribute instMinTargetCardinality = new InstAttribute(
-				"enumMinTargetCardinality",
-				new ElemAttribute("EnumMinTargetCardinalityValue",
+				"enumMinTargetCardinality", new ElemAttribute(
+						"EnumMinTargetCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Min Target Cardinality", "", 1, -1, "", "", -1, "", ""),
-				1);
+						"Min Target Cardinality", "", "", 1, -1, "", "", -1,
+						"", ""), 1);
 		final InstAttribute instTargetCardinality = new InstAttribute(
-				"enumMaxTargetCardinality",
-				new ElemAttribute("EnumMaxTargetCardinalityValue",
+				"enumMaxTargetCardinality", new ElemAttribute(
+						"EnumMaxTargetCardinalityValue",
 						IntegerType.IDENTIFIER, AttributeType.SYNTAX, false,
-						"Max Target Cardinality", "", 1, -1, "", "", -1, "", ""),
-				1);
+						"Max Target Cardinality", "", "", 1, -1, "", "", -1,
+						"", ""), 1);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -197,8 +196,8 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					"");
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instIdentifier.setValue(split[0]);

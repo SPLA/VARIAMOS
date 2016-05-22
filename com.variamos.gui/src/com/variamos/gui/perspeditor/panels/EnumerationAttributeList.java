@@ -55,8 +55,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 	 */
 	private InstAttribute spoof = new InstAttribute("New Enum Type ...",
 			new ElemAttribute("New Enum Type ...", StringType.IDENTIFIER,
-					AttributeType.SYNTAX, false, "New Enum Type ...", "", 1,
-					-1, "", "", -1, "", ""), "New Enum Type ...");
+					AttributeType.SYNTAX, false, "New Enum Type ...", "", "",
+					1, -1, "", "", -1, "", ""), "New Enum Type ...");
 
 	public EnumerationAttributeList(VariamosGraphEditor editor) {
 		this.editor = editor;
@@ -120,13 +120,13 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 
 		final InstAttribute instName = new InstAttribute("enumName",
 				new ElemAttribute("EnumNameValue", StringType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Value Name", "", 1, -1,
-						"", "", -1, "", ""), "");
+						AttributeType.SYNTAX, false, "Value Name", "", "", 1,
+						-1, "", "", -1, "", ""), "");
 
 		final InstAttribute instIdentifier = new InstAttribute("enumId",
 				new ElemAttribute("EnumIdValue", IntegerType.IDENTIFIER,
-						AttributeType.SYNTAX, false, "Value Id(int)", "", 1,
-						-1, "", "", -1, "", ""), 0);
+						AttributeType.SYNTAX, false, "Value Id(int)", "", "",
+						1, -1, "", "", -1, "", ""), 0);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -146,8 +146,8 @@ public class EnumerationAttributeList extends JList<InstAttribute> {
 			// Name
 			instAttribute = new InstAttribute("enum" + i, new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					"");
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), "");
 		} else {
 			String split[] = ((String) instAttribute.getValue()).split("#");
 			instIdentifier.setValue(split[0]);

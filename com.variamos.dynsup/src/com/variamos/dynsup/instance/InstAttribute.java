@@ -327,7 +327,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 	}
 
 	public String toString() {
-		Object val = getDisplayValue();
+		Object val = this.getDisplayValue();// .getDisplayName();
 		if (val == null)
 			return "";
 		return val.toString();
@@ -442,5 +442,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					.compareTo((Comparable<?>) ((InstAttribute) o).getValue());
 		}
 		return 0;
+	}
+
+	public String getToolTipText() {
+		return volatileAttribute.getToolTipText();
+	}
+
+	public String setToolTipText(String out) {
+		volatileAttribute.setToolTipText(out);
+		return null;
 	}
 }

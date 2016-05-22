@@ -167,9 +167,9 @@ public class InstPairwiseRel extends InstElement {
 
 	public ElemAttribute getSemanticAttribute() {
 		return new ElemAttribute(VAR_METAPAIRWISE, "Class",
-				AttributeType.OPERATION, true, VAR_METAPAIRWISE_NAME,
-				VAR_METAPAIRWISE_CLASS, new SyntaxPairwiseRel(), "", 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, true, VAR_METAPAIRWISE_NAME, "",
+				VAR_METAPAIRWISE_CLASS, new SyntaxPairwiseRel(), 0, -1, "", "",
+				-1, "", "");
 	}
 
 	public void createAttributes(Map<String, InstAttribute> instAttributes) {

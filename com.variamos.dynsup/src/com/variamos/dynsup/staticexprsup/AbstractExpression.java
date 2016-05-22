@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.dynsup.instance.InstAttribute;
+import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
@@ -202,6 +203,11 @@ public abstract class AbstractExpression {
 				|| attribute.getName().equals("ClaimExpLevel")) {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
+			if (((InstConcept) instVertex).getInstAttribute("ConfigReqLevel") != null
+					&& ((InstConcept) instVertex).getInstAttribute(
+							"ConfigReqLevel").getAsInteger() != 5)
+				values.add(((InstConcept) instVertex).getInstAttribute(
+						"ConfigReqLevel").getAsInteger());
 			for (InstElement relation : instVertex.getSourceRelations()) {
 				// FIXME implement a dynamic definition for this validation
 				if (((InstPairwiseRel) relation)

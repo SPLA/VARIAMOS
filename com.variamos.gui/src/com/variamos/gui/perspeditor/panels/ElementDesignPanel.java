@@ -679,10 +679,12 @@ public class ElementDesignPanel extends JPanel {
 								// variablesPanel.add(new JLabel(v.getName() +
 								// ":: "));
 								{
-
-									elementDesPropSubPanel.add(new JLabel(
+									JLabel label = new JLabel(
 											instAttribute.getDisplayName()
-													+ ": "));
+													+ ": ");
+									label.setToolTipText(instAttribute
+											.getToolTipText());
+									elementDesPropSubPanel.add(label);
 									elementDesPropSubPanel.add(widget);
 
 									if (instAttribute.isAffectProperties()

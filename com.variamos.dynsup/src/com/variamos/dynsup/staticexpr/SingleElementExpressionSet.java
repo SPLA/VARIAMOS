@@ -384,29 +384,36 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 										AbstractExpression out22a;
 										// TargetId_SDReqLevel #=
 										// relId_TargetLevel
-										if (targetSatisficingType
-												.contains("low")
-												&& confLevel != 5) {
 
-											out22a = new LessOrEqualsBooleanExpression(
-													instVertex, "SDReqLevel",
-													true, getHlclFactory()
-															.number(confLevel));
-										} else if (targetSatisficingType
-												.contains("high")) {
+										if (confLevel != 5) {
+											if (targetSatisficingType
+													.contains("low")) {
 
-											out22a = new GreaterOrEqualsBooleanExpression(
-													instVertex, "SDReqLevel",
-													true, getHlclFactory()
-															.number(confLevel));
-										} else {
-											out22a = new EqualsComparisonExpression(
-													instVertex,
-													"ClaimExpLevel", true,
-													getHlclFactory().number(
-															confLevel));
+												out22a = new LessOrEqualsBooleanExpression(
+														instVertex,
+														"SDReqLevel",
+														true,
+														getHlclFactory()
+																.number(confLevel));
+											} else if (targetSatisficingType
+													.contains("high")) {
+
+												out22a = new GreaterOrEqualsBooleanExpression(
+														instVertex,
+														"SDReqLevel",
+														true,
+														getHlclFactory()
+																.number(confLevel));
+											} else {
+												out22a = new EqualsComparisonExpression(
+														instVertex,
+														"ClaimExpLevel",
+														true,
+														getHlclFactory()
+																.number(confLevel));
+											}
+											getElementExpressions().add(out22a);
 										}
-										getElementExpressions().add(out22a);
 									}
 								}
 							}

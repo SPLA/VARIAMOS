@@ -242,11 +242,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			OpersLabeling operationLabeling = new OpersLabeling("unique");
 
@@ -303,11 +302,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -391,11 +389,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			// simulOperationSubAction
 			// .addOperationLabeling(simulationExecOperUniqueLabeling);
@@ -410,12 +407,12 @@ public class DefaultOpersMM {
 					.getInstAttribute("sortorder").getValue();
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					LabelingOrder.MIN));
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrder.MIN));
 			sortatt.add(new InstAttribute("enum2", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					LabelingOrder.MIN));
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrder.MIN));
 
 			refas.getVariabilityVertex().put("Sim-Execution-lab", instLabeling);
 
@@ -461,11 +458,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -515,11 +511,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -620,11 +615,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -683,11 +677,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -745,11 +738,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			// simulOperationSubAction.addOperationLabeling(operationLabeling);
 
@@ -782,8 +774,8 @@ public class DefaultOpersMM {
 					"sortorder").getValue();
 			sortatt.add(new InstAttribute("enum1", new ElemAttribute(
 					"EnumValue", StringType.IDENTIFIER, AttributeType.SYNTAX,
-					false, "Enumeration Value", "", 1, -1, "", "", -1, "", ""),
-					LabelingOrder.MAX));
+					false, "Enumeration Value", "", "", 1, -1, "", "", -1, "",
+					""), LabelingOrder.MAX));
 
 			refas.getVariabilityVertex().put("SimSce-exec-lab2", instLabeling);
 
@@ -841,11 +833,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -903,11 +894,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -998,11 +988,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1082,11 +1071,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifDeadElemOperSubActionRelaxable = new OpersSubOperationExpType();
 
@@ -1100,11 +1088,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifDeadElemOperSubActionVerification = new OpersSubOperationExpType();
 
@@ -1118,11 +1105,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1200,11 +1186,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifParentsOperSubActionRelaxable = new OpersSubOperationExpType();
 
@@ -1218,11 +1203,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifParentsOperSubActionVerification = new OpersSubOperationExpType();
 
@@ -1236,11 +1220,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1317,11 +1300,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifRootOperSubActionRelaxable = new OpersSubOperationExpType();
 
@@ -1335,11 +1317,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifRootOperSubActionVerification = new OpersSubOperationExpType();
 
@@ -1353,11 +1334,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1442,11 +1422,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifFalseOptOperSubActionRelaxable = new OpersSubOperationExpType();
 
@@ -1460,11 +1439,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			verifFalseOptOperSubActionVerification = new OpersSubOperationExpType();
 
@@ -1478,11 +1456,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1576,11 +1553,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1660,11 +1636,10 @@ public class DefaultOpersMM {
 
 			((List<InstAttribute>) instOperationSubAction
 					.getInstAttributeValue("exptype")).add(new InstAttribute(
-					"enum1",
-					new ElemAttribute("EnumValue", StringType.IDENTIFIER,
-							AttributeType.SYNTAX, false, "Enumeration Value",
-							"", 1, -1, "", "", -1, "", ""),
-					instOperSubOperationExpType));
+					"enum1", new ElemAttribute("EnumValue",
+							StringType.IDENTIFIER, AttributeType.SYNTAX, false,
+							"Enumeration Value", "", "", 1, -1, "", "", -1, "",
+							""), instOperSubOperationExpType));
 
 			operationLabeling = new OpersLabeling("unique");
 
@@ -1705,8 +1680,8 @@ public class DefaultOpersMM {
 				infraMetaMetaConcept, semInfraMConcept);
 
 		attribute = new ElemAttribute("True", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
+				true, 2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("True", attribute);
 
 		if (!empty) {
@@ -1724,7 +1699,7 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 		}
 		attribute = new ElemAttribute("False", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
+				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***", "",
 				false, 2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("False", attribute);
 
@@ -1743,8 +1718,8 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 		}
 		attribute = new ElemAttribute("Sel", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
+				false, 2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Sel", attribute);
 
 		if (!empty) {
@@ -1762,8 +1737,8 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 		}
 		attribute = new ElemAttribute("Exclu", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", false,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", "",
+				false, 2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Exclu", attribute);
 
 		if (!empty) {
@@ -1781,30 +1756,31 @@ public class DefaultOpersMM {
 							.getIdentifier(), attribute.getName(), true));
 		}
 		attribute = new ElemAttribute("Description", "String",
-				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, false, "Description", "", "", 0, -1,
+				"", "", -1, "", "");
 
 		attribute = new ElemAttribute("Active", "Boolean",
-				AttributeType.GLOBALCONFIG, true, "Is Active", true, 0, -1, "",
-				"", -1, "", "");
+				AttributeType.GLOBALCONFIG, true, "Is Active",
+				"Ignored for operations", true, 0, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Active", attribute);
 
 		attribute = new ElemAttribute("Visibility", "Boolean",
-				AttributeType.GLOBALCONFIG, false, "Is Visible", true, 0, -1,
-				"", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Is Visible", "", true, 0,
+				-1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Visibility", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Allowed", "Boolean",
-				AttributeType.GLOBALCONFIG, true, "Is Allowed", true, 0, -1,
-				"", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, true, "Is Allowed", "", true, 0,
+				-1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Allowed", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 
 		attribute = new ElemAttribute("ConfSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Selected",
-				false, 2, -1, "", "", -1, "", "");
+				"Manually/Implication selected for this configuration", false,
+				2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("ConfSel", attribute);
 
 		if (!empty) {
@@ -1824,6 +1800,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("ConfNotSel", "Boolean",
 				AttributeType.GLOBALCONFIG, true, "Configuration Not Selected",
+				"Manually/Implication not selected for this configuration",
 				false, 2, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("ConfNotSel", attribute);
 
@@ -1843,7 +1820,8 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Proh", "Boolean",
-				AttributeType.OPERATION, true, "Prohibited", false, 0, -1, "",
+				AttributeType.OPERATION, true, "Prohibited",
+				"Manually prohibited (exluded) by design", false, 0, -1, "",
 				"", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Proh", attribute);
 		semInfraMConcept.addPropVisibleAttribute("08#" + "Proh");
@@ -1865,8 +1843,9 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Required", "Boolean",
-				AttributeType.OPERATION, true, "Is Required", false, 2, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, true, "Is Required",
+				"Manually defined as required", false, 2, -1, "", "", -1, "",
+				"");
 
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -1888,7 +1867,8 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Core", "Boolean",
-				AttributeType.OPERATION, false, "Is a Core Concept", false, 2,
+				AttributeType.OPERATION, false, "Is a Core Concept",
+				"Core element defined by the core update operation", false, 2,
 				-1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Core", attribute);
 
@@ -1908,8 +1888,9 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Dead", "Boolean",
-				AttributeType.OPERATION, false, "Is a Dead Concept", false, 2,
-				-1, "", "", -1, "", "");
+				AttributeType.OPERATION, false, "Is a Dead Concept",
+				"Dead element defined by core update operation", false, 2, -1,
+				"", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("Dead", attribute);
 
 		if (!empty) {
@@ -1929,7 +1910,9 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("NReqSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
-				"Selected by simulation", false, 0, -1, "", "", -1, "", "");
+				"Selected by simulation",
+				"Selected for this solution (with or without constraint)",
+				false, 0, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("NReqSel", attribute);
 
 		if (!empty) {
@@ -1949,7 +1932,7 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("NNotSel", "Boolean",
 				AttributeType.EXECCURRENTSTATE, false,
-				"Not selected(inactive)", false, 0, -1, "", "", -1, "", "");
+				"Not selected(inactive)", "", false, 0, -1, "", "", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("NNotSel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addOutVariable(attribute);
@@ -1967,13 +1950,15 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
-				true, 0, -1, "", "", -1, "", "");
+				"Element displayed on simulation dashboard", true, 0, -1, "",
+				"", -1, "", "");
 		semInfraMConcept.putSemanticAttribute("DBVis", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
-				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
-				true, 0, -1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Include in XLS export",
+				"Element exported in XLS solutions file", true, 0, -1, "", "",
+				-1, "", "");
 		semInfraMConcept.putSemanticAttribute("ExportOnConfig", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -2012,8 +1997,8 @@ public class DefaultOpersMM {
 		refas.getVariabilityVertex().put("InfraMetaOTRel", instVertexGR);
 
 		attribute = new ElemAttribute("True", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Selected***", true,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***", "",
+				true, 2, -1, "", "", -1, "", "");
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semInfraOTRel.getIdentifier(), attribute.getName(), true));
 		semInfraOTRel.putSemanticAttribute("True", attribute);
@@ -2028,7 +2013,7 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("False", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***",
+				AttributeType.EXECCURRENTSTATE, false, "***NotSelected***", "",
 				false, 2, -1, "", "", -1, "", "");
 		semInfraOTRel.putSemanticAttribute("False", attribute);
 
@@ -2044,8 +2029,9 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Sel", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Selected***", false,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Selected***",
+				"Element selected for this solution (green)", false, 2, -1, "",
+				"", -1, "", "");
 
 		semInfraOTRel.putSemanticAttribute("Sel", attribute);
 		if (!empty) {
@@ -2060,7 +2046,8 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Core", "Boolean",
-				AttributeType.OPERATION, false, "Is a Core Concept", false, 2,
+				AttributeType.OPERATION, false, "Is a Core Concept",
+				"Core element defined by the core update operation", false, 2,
 				-1, "", "", -1, "", "");
 
 		if (!empty) {
@@ -2079,8 +2066,9 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Exclu", "Boolean",
-				AttributeType.EXECCURRENTSTATE, false, "***Excluded***", false,
-				2, -1, "", "", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "***Excluded***",
+				"Element excluded for this solution (red)", false, 2, -1, "",
+				"", -1, "", "");
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semInfraOTRel.getIdentifier(), attribute.getName(), true));
@@ -2097,23 +2085,25 @@ public class DefaultOpersMM {
 		}
 
 		attribute = new ElemAttribute("Description", "String",
-				AttributeType.OPERATION, false, "Description", "", 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, false, "Description",
+				"Element description", "", 0, -1, "", "", -1, "", "");
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		semInfraOTRel.putSemanticAttribute("Description", attribute);
 
 		semInfraOTRel.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
-				"Relation Type X", OpersRelType.class.getCanonicalName(), null,
-				null, 0, 6, "", "", 6, "", ""));
+				"Relation Type", "Type of over two relation",
+				OpersRelType.class.getCanonicalName(), null, null, 0, 6, "",
+				"", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
 		semInfraOTRel.addPanelVisibleAttribute("06#" + "relationType");
 		semInfraOTRel.addPanelSpacersAttribute("#" + "relationType" + "#");
 
 		semInfraOTRel.putSemanticAttribute("LowRange", new ElemAttribute(
-				"LowRange", "Integer", AttributeType.OPERATION, "Low Range", 1,
-				false, new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
+				"LowRange", "Integer", AttributeType.OPERATION, "Low Range",
+				"Low value for range relation type", 1, false, new RangeDomain(
+						0, 50), 0, 6, "", "", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("08#" + "LowRange");
 		semInfraOTRel.addPropVisibleAttribute("08#" + "LowRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
@@ -2123,7 +2113,8 @@ public class DefaultOpersMM {
 
 		semInfraOTRel.putSemanticAttribute("HighRange", new ElemAttribute(
 				"HighRange", "Integer", AttributeType.OPERATION, "High Range",
-				1, false, new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
+				"High value for range relation type", 1, false,
+				new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
 		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
@@ -2137,8 +2128,9 @@ public class DefaultOpersMM {
 
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
-				"Relation Type X", OpersRelType.class.getCanonicalName(), null,
-				"", 0, 6, "", "", 6, "#-#\n", ""));
+				"Relation Type", "Type of pairwise relation",
+				OpersRelType.class.getCanonicalName(), null, "", 0, 6, "", "",
+				6, "#-#\n", ""));
 		semGeneralPair.addPropEditableAttribute("06#" + "relationType");
 		semGeneralPair.addPropVisibleAttribute("06#" + "relationType");
 		semGeneralPair.addPanelVisibleAttribute("06#" + "relationType");
@@ -2175,20 +2167,21 @@ public class DefaultOpersMM {
 		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
-				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard",
+				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
 				true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("DBVis", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExportOnConfig", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Export on Configuration",
-				true, 0, -1, "", "", -1, "", "");
+				"", true, 0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExportOnConfig", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("Scope", "Boolean",
-				AttributeType.OPERATION, true, "Global Scope", true, 0, -1, "",
-				"", -1, "", "");
+				AttributeType.OPERATION, true, "Global Scope",
+				"Global or Concern Level scope (Ignored for operations)", true,
+				0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		if (!empty) {
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -2202,30 +2195,41 @@ public class DefaultOpersMM {
 		}
 		// TODO use scope
 
-		attribute = new ElemAttribute("ConcernLevel", "Class",
-				AttributeType.OPERATION, false, "Concern Level",
-				InstConcept.class.getCanonicalName(), "CG", null, "", 0, -1,
-				"", "", -1, "", "");
+		attribute = new ElemAttribute(
+				"ConcernLevel",
+				"Class",
+				AttributeType.OPERATION,
+				false,
+				"Concern Level",
+				"Concern level of this element associated from the context view",
+				InstConcept.class.getCanonicalName(), "CG", null, 0, -1, "",
+				"", -1, "", "");
 		semVariable.putSemanticAttribute("ConcernLevel", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulOperationSubAction.addInVariable(attribute);
 		// TODO: use concern level
 
 		attribute = new ElemAttribute("name", "String",
-				AttributeType.OPERATION, false, "Name", "", 0, 1, "", "", -1,
-				"", "");
+				AttributeType.OPERATION, false, "Name",
+				"Name to identify the variable", "", 0, 1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("name", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute("variableType", "Enumeration",
-				AttributeType.OPERATION, true, "Variable Type",
+		attribute = new ElemAttribute(
+				"variableType",
+				"Enumeration",
+				AttributeType.OPERATION,
+				true,
+				"Variable Type",
+				"Type of variable (Operations support: Boolean, Integer (positive), String and Enumeration)",
 				VariableType.class.getCanonicalName(), "String", "", 0, 2, "",
 				"", -1, "", "variableType" + "#!=#" + "Enumeration");
 		semVariable.putSemanticAttribute("variableType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("varDom", "String",
-				AttributeType.OPERATION, false, "Variable Domain", "0,1", 0, 3,
+				AttributeType.OPERATION, false, "Variable Domain",
+				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
 				"variableType" + "#==#" + "Integer", "variableType" + "#==#"
 						+ "Integer", -1, "", "");
 		semVariable.putSemanticAttribute("varDom", attribute);
@@ -2233,7 +2237,8 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("enumType", "Class",
 				AttributeType.OPERATION, false, "Enumeration",
-				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
+				InstConcept.class.getCanonicalName(), "ME",
+				"Enumeration type from the context view", "String", 0, 4,
 				"variableType" + "#==#" + "Enumeration", "variableType"
 						+ "#==#" + "Enumeration", -1, "", "");
 		semVariable.putSemanticAttribute("enumType", attribute);
@@ -2241,8 +2246,9 @@ public class DefaultOpersMM {
 
 		// TODO define domain for enumtype
 		attribute = new ElemAttribute("value", "Integer",
-				AttributeType.EXECCURRENTSTATE, false, "Value", 0, 1, -1, "",
-				"", -1, "", "");
+				AttributeType.EXECCURRENTSTATE, false, "Value",
+				"Variable current value (defined by an operation execution)",
+				0, 1, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("value", attribute);
 		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 				semVariable.getIdentifier(), attribute.getName(), true));
@@ -2250,32 +2256,36 @@ public class DefaultOpersMM {
 				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("isContext", "Boolean",
-				AttributeType.OPERATION, false, "Context Defined", false, 0, 5,
-				"", "", -1, "", "");
+				AttributeType.OPERATION, false, "Context Defined",
+				"(Ignored for operations)", false, 0, 5, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("isContext", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExtVisible", "Boolean",
-				AttributeType.OPERATION, false, "Externally Visible", false, 0,
-				8, "", "", -1, "", "");
+				AttributeType.OPERATION, false, "Externally Visible",
+				"(Ignored by operations)", false, 0, 8, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExtVisible", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("ExtControl", "Boolean",
-				AttributeType.OPERATION, false, "Externally Controlled", false,
-				0, 9, "", "", -1, "", "");
+				AttributeType.OPERATION, false, "Externally Controlled",
+				"(Ignored by operations)", false, 0, 9, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("ExtControl", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("varConfValue", "Integer",
-				AttributeType.GLOBALCONFIG, false, "Configured Value", 0, 0,
-				-1, "", "", -1, "", "");
+				AttributeType.GLOBALCONFIG, false, "Configured Value",
+				"Configured value (positive numbers)"
+						+ " (not used by dynamic operations)", 0, 0, -1, "",
+				"", -1, "", "");
 		semVariable.putSemanticAttribute("varConfValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 		attribute = new ElemAttribute("varConfDom", "String",
-				AttributeType.GLOBALCONFIG, false, "Configured Domain", "", 0,
-				1, "variableType" + "#==#" + "Integer" + "||" + "variableType"
+				AttributeType.GLOBALCONFIG, false, "Configured Domain",
+				"Configured domain (positive numbers) {n-m,o,p-r}"
+						+ " (not used by dynamic operations)", "", 0, 1,
+				"variableType" + "#==#" + "Integer" + "||" + "variableType"
 						+ "#==#" + "Enumeration" + "||" + "variableType"
 						+ "#==#" + "Boolean", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
@@ -2353,17 +2363,21 @@ public class DefaultOpersMM {
 		OpersElement semContextGroup = new OpersElement("ConcernLevel");
 
 		semContextGroup.putSemanticAttribute("name", new ElemAttribute("name",
-				"String", AttributeType.OPERATION, false, "Group Name",
+				"String", AttributeType.OPERATION, false, "Group Name", "",
 				"<<new>>", 0, 1, "", "", 1, "", ""));
 		semContextGroup.putSemanticAttribute("instances", new ElemAttribute(
 				"instances", "Integer", AttributeType.OPERATION, false,
-				"Number of Instances", "1", 0, 7, "", "", -1, "", ""));
+				"Number of Instances",
+				"Instances of the concern level (Ignored for operations)", "1",
+				0, 7, "", "", -1, "", ""));
 		semContextGroup.putSemanticAttribute("ExtVisible", new ElemAttribute(
 				"ExtVisible", "Boolean", AttributeType.OPERATION, false,
-				"External Visible", false, 0, 8, "", "", -1, "", ""));
+				"External Visible", "(Ignored for operations)", false, 0, 8,
+				"", "", -1, "", ""));
 		semContextGroup.putSemanticAttribute("ExtControl", new ElemAttribute(
 				"ExtControl", "Boolean", AttributeType.OPERATION, false,
-				"Externally Controlled", false, 0, 9, "", "", -1, "", ""));
+				"Externally Controlled", "(Ignored for operations)", false, 0,
+				9, "", "", -1, "", ""));
 
 		semContextGroup.addPropEditableAttribute("01#" + "name");
 		semContextGroup.addPropEditableAttribute("07#" + "instances");
@@ -2673,8 +2687,8 @@ public class DefaultOpersMM {
 			semGeneralElement.putSemanticAttribute("Description", attribute);
 
 			attribute = new ElemAttribute("Scope", "Boolean",
-					AttributeType.OPERATION, true, "Global Scope", true, 0, -1,
-					"", "", -1, "", "");
+					AttributeType.OPERATION, true, "Global Scope", "", true, 0,
+					-1, "", "", -1, "", "");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
 					true));
@@ -2692,8 +2706,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ConcernLevel", "Class",
 					AttributeType.OPERATION, false, "Concern Level",
-					InstConcept.class.getCanonicalName(), "CG", null, "", 2,
-					-1, "", "", -1, "", "");
+					"Concern Level of the element (Ignored for operations)",
+					InstConcept.class.getCanonicalName(), "CG", null, 2, -1,
+					"", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("ConcernLevel", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
@@ -2715,46 +2730,48 @@ public class DefaultOpersMM {
 					+ "#>>\n");
 
 			// Configuration attributes: do no change identifiers
+			/*
+			 * attribute = new ElemAttribute("ReqLev", "Integer",
+			 * AttributeType.OPERATION, "Required Level", "", 0, false, new
+			 * RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 * semGeneralElement.putSemanticAttribute("ReqLev", attribute); //
+			 * simulationExecOperUniqueLabeling.addAttribute(attribute); //
+			 * simulOperationSubAction.addOutVariable(attribute); // TODO define
+			 * domain or Enum Level
+			 * 
+			 * semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
+			 * + "Core" + "#==#" + "true");
+			 * 
+			 * // Simulation attributes: do not modify identifiers
+			 * 
+			 * attribute = new ElemAttribute("IniReqLev", "Integer",
+			 * AttributeType.EXECCURRENTSTATE, false, "Initial Required Level",
+			 * "", 0, new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 * semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
+			 */
 
-			attribute = new ElemAttribute("ReqLev", "Integer",
-					AttributeType.OPERATION, "Required Level", 0, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("ReqLev", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-			// simulOperationSubAction.addOutVariable(attribute);
-			// TODO define domain or Enum Level
-
-			semGeneralElement.addPropVisibleAttribute("05#" + "ReqLev" + "#"
-					+ "Core" + "#==#" + "true");
-
-			// Simulation attributes: do not modify identifiers
-
-			attribute = new ElemAttribute("IniReqLev", "Integer",
-					AttributeType.EXECCURRENTSTATE, false,
-					"Initial Required Level", 0, new RangeDomain(0, 4), 0, -1,
-					"", "", -1, "", "");
-			semGeneralElement.putSemanticAttribute("IniReqLev", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulationOperationAction.addInVariable(attribute);
-
-			attribute = new ElemAttribute("SimReqLev", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "Required Level", 0,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			/*
+			 * attribute = new ElemAttribute("SimReqLev", "Integer",
+			 * AttributeType.EXECCURRENTSTATE, false, "Required Level", "", 0,
+			 * new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+			 */
 			// semGeneralElement.putSemanticAttribute("SimReqLev",
 			// attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("HasParent", "Boolean",
-					AttributeType.EXECCURRENTSTATE, false, "Has Parent", true,
-					0, -1, "", "", -1, "", "");
+					AttributeType.EXECCURRENTSTATE, false, "Has Parent", "",
+					true, 0, -1, "", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("HasParent", attribute);
 			// TODO add to verification
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addOutVariable(attribute);
 
 			attribute = new ElemAttribute("Opt", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "FilterVariable", 0,
-					new RangeDomain(0, 20), 0, -1, "", "", -1, "", "");
+					AttributeType.EXECCURRENTSTATE, false, "FilterVariable",
+					"", 0, new RangeDomain(0, 20), 0, -1, "", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("Opt", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -2764,8 +2781,8 @@ public class DefaultOpersMM {
 					true));
 
 			attribute = new ElemAttribute("Order", "Integer",
-					AttributeType.EXECCURRENTSTATE, false, "SortVariable", 0,
-					new RangeDomain(0, 40), 0, -1, "", "", -1, "", "");
+					AttributeType.EXECCURRENTSTATE, false, "SortVariable", "",
+					0, new RangeDomain(0, 40), 0, -1, "", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("Order", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -2777,8 +2794,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("NPrefSel", "Boolean",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Selected by configuration", false, 0, -1, "", "", -1, "",
-					"");
+					"Selected by configuration", "", false, 0, -1, "", "", -1,
+					"", "");
 			semGeneralElement.putSemanticAttribute("NPrefSel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -2795,8 +2812,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("NNotPrefSel", "Boolean",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Not Selected by configuration", false, 0, -1, "", "", -1,
-					"", "");
+					"Not Selected by configuration", "", false, 0, -1, "", "",
+					-1, "", "");
 			semGeneralElement.putSemanticAttribute("NNotPrefSel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -2817,7 +2834,7 @@ public class DefaultOpersMM {
 			OpersConcept semHardConcept = new OpersConcept("semHardConcept");
 
 			attribute = new ElemAttribute("satType", "Enumeration",
-					AttributeType.OPERATION, false, "satType",
+					AttributeType.OPERATION, false, "satType", "",
 					"com.variamos.dynsup.statictypes.SatisfactionType",
 					"achieve", "", 0, -1, "", "", -1, "", "");
 			semHardConcept.putSemanticAttribute("satType", attribute);
@@ -2866,7 +2883,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("IsRootFeature", "Boolean",
 					AttributeType.OPERATION, true, "Is a Root Feature Concept",
-					false, 2, -1, "", "", -1, "", "");
+					"", false, 2, -1, "", "", -1, "", "");
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semFeature.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -3015,7 +3032,7 @@ public class DefaultOpersMM {
 					"Operationalization");
 
 			attribute = new ElemAttribute("attributeValue", "Set",
-					AttributeType.SYNTAX, false, "values",
+					AttributeType.SYNTAX, false, "values", "",
 					InstAttribute.class.getCanonicalName(),
 					new ArrayList<InstAttribute>(), 0, -1, "", "", -1, "", "");
 			semOperationalization.putSemanticAttribute("attributeValue",
@@ -3058,8 +3075,10 @@ public class DefaultOpersMM {
 			d.add("high");
 			d.add("close");
 			attribute = new ElemAttribute("satisficingLevel", "String",
-					AttributeType.OPERATION, "Satisficing Level", "high",
-					false, d, 0, 10, "", "", -1, "", "");
+					AttributeType.OPERATION, "Satisficing Level",
+					"Satisficing for dynamic operations (low/high/close)",
+					"high", false, d, 0, 10, "", "", -1, "", "");
+
 			semSoftgoal.putSemanticAttribute("satisficingLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3074,15 +3093,17 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("satisficingType", "Enumeration",
 					AttributeType.OPERATION, false, "Satisficing Type",
+					"Satisficing for static operations",
 					SatisficingType.class.getCanonicalName(),
 					"Achieve as close as possible", "", 0, 10, "", "", -1, "",
 					"");
 			semSoftgoal.putSemanticAttribute("satisficingType", attribute);
 
 			attribute = new ElemAttribute("ConfigReqLevel", "Integer",
-					AttributeType.OPERATION, "Config Req Level (5=ignored)", 5,
-					false, new RangeDomain(0, 5), 0, 5, "Required" + "#==#"
-							+ "true" + "#" + "0", "", -1, "", "");
+					AttributeType.OPERATION, "Config Req Level (5=ignored)",
+					"SG required level (defined: 0..4 ignored: 5) ", 5, false,
+					new RangeDomain(0, 5), 0, 5, "Required" + "#==#" + "true"
+							+ "#" + "0", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3251,8 +3272,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("SDReqLevel", "Integer",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Required Level by SD", 0, new RangeDomain(0, 4), 2, -1,
-					"", "", -1, "", "");
+					"Required Level by SD",
+					"Required level (0..4) for the soft dependency relation",
+					0, new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3265,8 +3287,9 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ClaimExpLevel", "Integer",
 					AttributeType.EXECCURRENTSTATE, false,
-					"Expected Level by Claim", 0, new RangeDomain(0, 4), 2, -1,
-					"", "", -1, "", "");
+					"Expected Level by Claim",
+					"Expected level (0..4) for the claim relation", 0,
+					new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3385,7 +3408,7 @@ public class DefaultOpersMM {
 			List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 			ia = instDirOperClaimSemanticEdge.getInstAttribute("opersExprs");
@@ -3420,7 +3443,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			// ia = instVertexCL.getInstAttribute("relTypesAttr");
@@ -3537,9 +3560,13 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexCL, true);
 
-			attribute = new ElemAttribute("ConditionalExpression",
+			attribute = new ElemAttribute(
+					"ConditionalExpression",
 					ModelExpr.class.getCanonicalName(),
-					AttributeType.OPERATION, false, "Conditional Expression",
+					AttributeType.OPERATION,
+					false,
+					"Conditional Expression",
+					"Claim activation expression (in addition to operationalizations/left features)",
 					null, 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConditionalExpression", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -3550,25 +3577,33 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
-					"Boolean Comp. Expression", true, 0, -1, "", "", -1, "", "");
+					"Boolean Comp. Expression", "", true, 0, -1, "", "", -1,
+					"", "");
 			semClaim.putSemanticAttribute("CompExp", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("ConfidenceLevel", "Integer",
-					AttributeType.OPERATION, "Confidence Level", 1, false,
+					AttributeType.OPERATION, "Confidence Level",
+					"(Ignored for operations)", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
 
-			attribute = new ElemAttribute("ClaimSelected", "Boolean",
-					AttributeType.GLOBALCONFIG, false, "Claim Selected", false,
-					0, -1, "", "", -1, "", "");
-			semClaim.putSemanticAttribute("ClaimSelected", attribute);
-			// simulationExecOperUniqueLabeling.addAttribute(attribute);
-
-			attribute = new ElemAttribute("ClaimExpression", "String",
-					AttributeType.OPERATION, false, "Claim Expression Text",
+			/*
+			 * attribute = new ElemAttribute("ClaimSelected", "Boolean",
+			 * AttributeType.GLOBALCONFIG, false, "Claim Selected", "", false,
+			 * 0, -1, "", "", -1, "", "");
+			 * semClaim.putSemanticAttribute("ClaimSelected", attribute); //
+			 * simulationExecOperUniqueLabeling.addAttribute(attribute);
+			 */
+			attribute = new ElemAttribute(
+					"ClaimExpression",
+					"String",
+					AttributeType.OPERATION,
+					false,
+					"Claim Expression Text",
+					"Textual representation of the conditional expression (only to display)",
 					"", 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ClaimExpression", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
@@ -3639,7 +3674,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("ConditionalExpression",
 					ModelExpr.class.getCanonicalName(),
 					AttributeType.OPERATION, false, "Conditional Expression",
-					null, 0, -1, "", "", -1, "", "");
+					"Soft dependency activation expression", null, 0, -1, "",
+					"", -1, "", "");
 			semSoftDependency.putSemanticAttribute("ConditionalExpression",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -3650,21 +3686,27 @@ public class DefaultOpersMM {
 					true));
 			// simulOperationSubAction.addInVariable(attribute);
 
-			attribute = new ElemAttribute("SDExpression", "String",
-					AttributeType.OPERATION, false, "SD Expression Text", "",
-					2, -1, "", "", -1, "", "");
+			attribute = new ElemAttribute(
+					"SDExpression",
+					"String",
+					AttributeType.OPERATION,
+					false,
+					"SD Expression Text",
+					"Textual representation of the conditional expression (only to display)",
+					"", 2, -1, "", "", -1, "", "");
 			semSoftDependency.putSemanticAttribute("SDExpression", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("CompExp", "Boolean",
 					AttributeType.GLOBALCONFIG, false,
-					"Boolean Comp. Expression", true, 2, -1, "", "", -1, "", "");
+					"Boolean Comp. Expression", "", true, 2, -1, "", "", -1,
+					"", "");
 			semSoftDependency.putSemanticAttribute("CompExp", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
 			attribute = new ElemAttribute("SDSelected", "Boolean",
-					AttributeType.GLOBALCONFIG, false, "SD Selected", false, 2,
-					-1, "", "", -1, "", "");
+					AttributeType.GLOBALCONFIG, false, "SD Selected", "",
+					false, 2, -1, "", "", -1, "", "");
 			semSoftDependency.putSemanticAttribute("SDSelected", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -3738,13 +3780,13 @@ public class DefaultOpersMM {
 					1));
 
 			List<OpersRelType> featSemOverTwoRelList = new ArrayList<OpersRelType>();
-			featSemOverTwoRelList.add(new OpersRelType("and", "And", "And",
+			featSemOverTwoRelList.add(new OpersRelType("and", "and", "And",
 					false, false, false, 2, -1, 1, 1));
 			featSemOverTwoRelList.add(new OpersRelType("or", "Or", "Or", false,
 					true, true, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("mutex", "Mutex",
+			featSemOverTwoRelList.add(new OpersRelType("mutex", "mutex",
 					"Mutex.", false, true, true, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("range", "Range",
+			featSemOverTwoRelList.add(new OpersRelType("range", "range",
 					"range", false, true, true, 2, -1, 1, 1));
 			featSemOverTwoRelList.add(new OpersRelType("other", "other",
 					"other", false, true, true, 2, -1, 1, 1));
@@ -3815,22 +3857,22 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"and#and#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"or#or#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					"mutex#mutex#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					"range#range#false#true#true#1#-1#1#1"));
 
 			ia = instVertexHHGR.getInstAttribute("opersExprs");
@@ -3865,7 +3907,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -3896,7 +3938,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -3929,7 +3971,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -3977,7 +4019,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			// List<AbstractSemanticVertex> semanticVertices = new
@@ -4024,7 +4066,7 @@ public class DefaultOpersMM {
 
 			directHardHardSemanticEdge.putSemanticAttribute("relationType",
 					new ElemAttribute("relationType", "Class",
-							AttributeType.OPERATION, true, "Relation Type",
+							AttributeType.OPERATION, true, "Relation Type", "",
 							OpersRelType.class.getCanonicalName(), null, "", 0,
 							6, "", "", 6, "#-#\n", ""));
 			directHardHardSemanticEdge.addPropEditableAttribute("06#"
@@ -4048,27 +4090,27 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					"conflict#conflict#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					"altern.#altern.#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					"preferred#preferred#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					"require#require#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("condition", new ElemAttribute(
 					"condition", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "condition", "", 1, -1, "", "", -1, "", ""),
+					false, "condition", "", "", 1, -1, "", "", -1, "", ""),
 					"condition#condition#false#true#true#1#-1#1#1"));
 
 			ia = instDirHardHardSemanticEdge.getInstAttribute("opersExprs");
@@ -4090,7 +4132,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4110,7 +4152,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4133,7 +4175,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4153,7 +4195,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"condition", "", 1, -1, "", "", -1, "", ""),
+					"condition", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4180,7 +4222,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("condition", new ElemAttribute(
 					"condition", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "condition", "", 1, -1, "", "", -1, "", ""),
+					false, "condition", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("GoalGoalSidePWAsso",
@@ -4221,12 +4263,12 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("means_ends", new ElemAttribute(
 					"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "means_ends", "", 1, -1, "", "", -1, "", ""),
+					false, "means_ends", "", "", 1, -1, "", "", -1, "", ""),
 					"means_ends#means-ends#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					"implication#implication#false#true#true#1#-1#1#1"));
 
 			ia = instDirStructHardHardSemanticEdge
@@ -4255,7 +4297,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("means_ends", new ElemAttribute(
 					"means_ends", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "means_ends", "", 1, -1, "", "", -1, "", ""),
+					false, "means_ends", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4275,7 +4317,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("structHardHardPWAsso",
@@ -4326,12 +4368,12 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", 1, -1, "", "", -1, "", ""),
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
 					"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", 1, -1, "", "", -1, "", ""),
+					"optional", "", "", 1, -1, "", "", -1, "", ""),
 					"optional#optional#false#true#true#1#-1#1#1"));
 
 			ia = instDirFeaFeatVertSemEdge.getInstAttribute("opersExprs");
@@ -4361,7 +4403,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", 1, -1, "", "", -1, "", ""),
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4387,8 +4429,8 @@ public class DefaultOpersMM {
 			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 			attribute = new ElemAttribute("optional", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "optional", "", 1, -1, "", "",
-					-1, "", "");
+					AttributeType.OPTION, false, "optional", "", "", 1, -1, "",
+					"", -1, "", "");
 			ias.add(new InstAttribute("optional", attribute,
 					semanticExpressions));
 			// simulOperationSubAction.addInVariable(attribute);
@@ -4432,12 +4474,12 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					"conflict#conflict#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					"require#require#false#true#true#1#-1#1#1"));
 
 			ia = instDirFeatFeatSideSemEdge.getInstAttribute("opersExprs");
@@ -4459,7 +4501,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4479,7 +4521,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"condition", "", 1, -1, "", "", -1, "", ""),
+					"condition", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("FeatFeatSidePWAsso",
@@ -4511,22 +4553,22 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"and#and#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"or#or#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					"mutex#mutex#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					"range#range#false#true#true#1#-1#1#1"));
 
 			ia = instVertexFFGR.getInstAttribute("opersExprs");
@@ -4561,7 +4603,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -4592,7 +4634,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -4625,7 +4667,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4673,7 +4715,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			List<OpersRelType> assetoperPairwiseRelList = new ArrayList<OpersRelType>();
@@ -4699,8 +4741,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""),
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""),
 					"implementation#implementation#false#true#true#1#-1#1#1"));
 
 			ia = instDirStructHardHardSemanticEdge
@@ -4733,8 +4775,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("varAssetOperPWAsso",
 					instSemAssetOperPairwiseRel);
@@ -4778,12 +4820,12 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("mandatory", new ElemAttribute(
 					"mandatory", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "mandatory", "", 1, -1, "", "", -1, "", ""),
+					false, "mandatory", "", "", 1, -1, "", "", -1, "", ""),
 					"mandatory#mandatory#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("optional", new ElemAttribute("optional",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"optional", "", 1, -1, "", "", -1, "", ""),
+					"optional", "", "", 1, -1, "", "", -1, "", ""),
 					"optional#optional#false#true#true#1#-1#1#1"));
 
 			ia = instSemAssetPairwiseRel.getInstAttribute("opersExprs");
@@ -4813,7 +4855,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("delegation", new ElemAttribute(
 					"delegation", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "delegation", "", 1, -1, "", "", -1, "", ""),
+					false, "delegation", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -4841,7 +4883,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("assembly", new ElemAttribute("assembly",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"assembly", "", 1, -1, "", "", -1, "", ""),
+					"assembly", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("varAssetPWAsso",
@@ -4884,8 +4926,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "", "", 1, -1, "", "", -1, "",
-					""),
+					AttributeType.OPTION, false, "", "", "", 1, -1, "", "", -1,
+					"", ""),
 					"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 			ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
@@ -4895,8 +4937,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "Variable Context", "", "", 1,
+					-1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("varcntxPWAsso",
 					instSemvarcntxPairwiseRel);
@@ -5141,7 +5183,7 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directSGSGSemEdge = new OpersPairwiseRel(
 					"SgSgPWAsso", true, sgPairwiseRelList);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
-					AttributeType.OPERATION, "Source Level", 1, false,
+					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5158,7 +5200,7 @@ public class DefaultOpersMM {
 					true));
 
 			attribute = new ElemAttribute("targetLevel", "Integer",
-					AttributeType.OPERATION, "Target Level", 1, false,
+					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5173,10 +5215,16 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
+			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+					directSGSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+					directSGSGSemEdge.getIdentifier(), attribute.getName(),
+					true));
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", 0, 0,
-					-1, "", "", -1, "", "");
+					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
+					0, -1, "", "", -1, "", "");
 			directSGSGSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5203,8 +5251,8 @@ public class DefaultOpersMM {
 			directSGSGSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", 0, 0,
-					-1, "", "", -1, "", "");
+					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
+					0, -1, "", "", -1, "", "");
 			directSGSGSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5259,33 +5307,33 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
-					"", -1, "", ""),
+					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
+					"", "", -1, "", ""),
 					"contribution#contribution#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					"conflict#conflict#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					"altern.#altern.#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					"preferred#preferred#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					"require#require#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					"implication#implication#false#true#true#1#-1#1#1"));
 
 			ia = instDirSGSGSemanticEdge.getInstAttribute("opersExprs");
@@ -5374,8 +5422,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
-					"", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
+					"", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -5454,7 +5502,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5474,7 +5522,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5497,7 +5545,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5517,7 +5565,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5537,7 +5585,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			instEdge = new InstPairwiseRel();
@@ -5564,7 +5612,7 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directGRSGSemEdge = new OpersPairwiseRel(
 					"sgsgOTAssoToPWAsso", true, sgPairwiseRelList);
 			attribute = new ElemAttribute("targetLevel", "Integer",
-					AttributeType.OPERATION, "Target Level", 1, false,
+					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5597,33 +5645,33 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
-					"", -1, "", ""),
+					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
+					"", "", -1, "", ""),
 					"contribution#contribution#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					"conflict#conflict#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					"altern.#altern.#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					"preferred#preferred#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					"require#require#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					"implication#implication#false#true#true#1#-1#1#1"));
 
 			ia = instSgsgGRSG.getInstAttribute("opersExprs");
@@ -5708,8 +5756,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("contribution", new ElemAttribute(
 					"contribution", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "contribution", "", 1, -1, "",
-					"", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "contribution", "", "", 1, -1,
+					"", "", -1, "", ""), semanticExpressions));
 
 			// FIX me wrong relations or good for conflict
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5785,7 +5833,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("conflict", new ElemAttribute("conflict",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"conflict", "", 1, -1, "", "", -1, "", ""),
+					"conflict", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5805,7 +5853,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("alternative", new ElemAttribute(
 					"alternative", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "alternative", "", 1, -1, "", "", -1, "", ""),
+					false, "alternative", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5828,7 +5876,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("preferred", new ElemAttribute(
 					"preferred", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "preferred", "", 1, -1, "", "", -1, "", ""),
+					false, "preferred", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5848,7 +5896,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("require", new ElemAttribute("require",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"require", "", 1, -1, "", "", -1, "", ""),
+					"require", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -5868,13 +5916,13 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implication", new ElemAttribute(
 					"implication", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "implication", "", 1, -1, "", "", -1, "", ""),
+					false, "implication", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			OpersPairwiseRel directSGGRSemEdge = new OpersPairwiseRel(
 					"sgsgOTAssoFromPWAsso", true, sgPairwiseRelList);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
-					AttributeType.OPERATION, "Source Level", 1, false,
+					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5889,10 +5937,16 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
+			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
+			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+					directSGGRSemEdge.getIdentifier(), attribute.getName(),
+					true));
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
-					AttributeType.OPERATION, false, "Aggregation Low", 0, 0,
-					-1, "", "", -1, "", "");
+					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
+					0, -1, "", "", -1, "", "");
 			directSGGRSemEdge.putSemanticAttribute("AggregationLow", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -5913,8 +5967,8 @@ public class DefaultOpersMM {
 			directSGGRSemEdge.addPropVisibleAttribute("07#" + "AggregationLow");
 
 			attribute = new ElemAttribute("AggregationHigh", "Integer",
-					AttributeType.OPERATION, false, "AggregationHigh", 0, 0,
-					-1, "", "", -1, "", "");
+					AttributeType.OPERATION, false, "AggregationHigh", "", 0,
+					0, -1, "", "", -1, "", "");
 			directSGGRSemEdge
 					.putSemanticAttribute("AggregationHigh", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -5997,12 +6051,12 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"and#and#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"or#or#false#true#true#1#-1#1#1"));
 
 			/*
@@ -6042,7 +6096,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -6067,7 +6121,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 			/*
 			 * semanticExpressions = new ArrayList<OpersExpr>();
 			 * 
@@ -6147,8 +6201,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "", "", 1, -1, "", "", -1, "",
-					""),
+					AttributeType.OPTION, false, "", "", "", 1, -1, "", "", -1,
+					"", ""),
 					"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
 
 			ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
@@ -6158,8 +6212,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "Variable Context", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "Variable Context", "", "", 1,
+					-1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("CVCGPWAsso",
 					instDirCVCGSemanticEdge);
@@ -6192,22 +6246,22 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"and#and#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"or#or#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					"mutex#mutex#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					"range#range#false#true#true#1#-1#1#1"));
 
 			ia = instVertexCLGR.getInstAttribute("opersExprs");
@@ -6242,7 +6296,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -6273,7 +6327,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -6306,7 +6360,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -6354,7 +6408,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("OperCLOTAsso", instVertexCLGR);
@@ -6378,7 +6432,7 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 			ia = instDirOperClaimToSemanticEdge.getInstAttribute("opersExprs");
@@ -6413,7 +6467,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("operToClaim", new ElemAttribute(
 					"operToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "operToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "operToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("OperClaimToPWAsso",
@@ -6518,7 +6572,7 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					"OperToClaim#OperToClaim#true#true#true#1#-1#1#1"));
 
 			ia = instDirFClaimToSemanticEdge.getInstAttribute("opersExprs");
@@ -6553,7 +6607,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("OperToClaim", new ElemAttribute(
 					"OperToClaim", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "OperToClaim", "", 1, -1, "", "", -1, "", ""),
+					false, "OperToClaim", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("FClaimToPWAsso",
@@ -6649,7 +6703,7 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directClaimSGSemanticEdge = new OpersPairwiseRel(
 					"ClaimSGPWAsso", true, claimSGPairwiseRelList);
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
-					AttributeType.OPERATION, "Relation Level", 2, false,
+					AttributeType.OPERATION, "Relation Level", "", 2, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
 					attribute);
@@ -6687,7 +6741,7 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
 					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "Claim To SG", "", 1, -1, "", "", -1, "", ""),
+					false, "Claim To SG", "", "", 1, -1, "", "", -1, "", ""),
 					"ClaimToSG#ClaimToSG#true#true#true#1#-1#1#1"));
 
 			ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
@@ -6762,7 +6816,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
 					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "claim To SG", "", 1, -1, "", "", -1, "", ""),
+					false, "claim To SG", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			refas.getVariabilityVertex().put("ClaimSGPWAsso",
@@ -6790,7 +6844,7 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directSDSGSemanticEdge = new OpersPairwiseRel(
 					"SDSGPWAsso", true, sdPairwiseRelList);
 			attribute = new ElemAttribute("level", "Integer",
-					AttributeType.OPERATION, "Level", 1, false,
+					AttributeType.OPERATION, "Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6823,7 +6877,7 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"SD#SD#true#true#true#1#-1#1#1"));
 
 			ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");
@@ -6908,7 +6962,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("SDSGPWAsso",
 					instDirSDSGSemanticEdge);
@@ -7038,22 +7092,22 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"and#and#true#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""),
+					"", "", 1, -1, "", "", -1, "", ""),
 					"or#or#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "XOR",
-					"", 1, -1, "", "", -1, "", ""),
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					"mutex#mutex#false#true#true#1#-1#1#1"));
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					"range#range#false#true#true#1#-1#1#1"));
 
 			ia = instVertexOPERGR.getInstAttribute("opersExprs");
@@ -7088,7 +7142,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("and", new ElemAttribute("and",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -7119,7 +7173,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("or", new ElemAttribute("or",
 					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
-					"", 1, -1, "", "", -1, "", ""), semanticExpressions));
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -7152,7 +7206,7 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"mutex", "", 1, -1, "", "", -1, "", ""),
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			semanticExpressions = new ArrayList<OpersExpr>();
@@ -7202,7 +7256,178 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("range", new ElemAttribute("range",
 					StringType.IDENTIFIER, AttributeType.OPTION, false,
-					"range", "", 1, -1, "", "", -1, "", ""),
+					"range", "", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			ia = instVertexOPERGR.getInstAttribute("relTypesAttr");
+			ias = (List<InstAttribute>) ia.getValue();
+			ias.add(new InstAttribute("and", new ElemAttribute("and",
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
+					"", "", 1, -1, "", "", -1, "", ""),
+					"and#and#true#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("or", new ElemAttribute("or",
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
+					"", "", 1, -1, "", "", -1, "", ""),
+					"or#or#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "XOR",
+					"", "", 1, -1, "", "", -1, "", ""),
+					"mutex#mutex#false#true#true#1#-1#1#1"));
+
+			ias.add(new InstAttribute("range", new ElemAttribute("range",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"range", "", "", 1, -1, "", "", -1, "", ""),
+					"range#range#false#true#true#1#-1#1#1"));
+
+			ia = instVertexOPERGR.getInstAttribute("opersExprs");
+			ias = (List<InstAttribute>) ia.getValue();
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("ANDhardConcept", refas
+					.getSemanticExpressionTypes().get("DoubleImplies"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexF,
+					instVertexOPERGR, "Sel", "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+					"And"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+					instVertexOPERGR, instVertexAsset, "Sel", true, "True");
+
+			t1 = new OpersExpr("ANDhardRel", refas.getSemanticExpressionTypes()
+					.get("DoubleImplies"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexOPERGR, instVertexOper, t1, "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			ias.add(new InstAttribute("and", new ElemAttribute("and",
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "and",
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("ORhardConcept", refas
+					.getSemanticExpressionTypes().get("DoubleImplies"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+					instVertexOPERGR, "Sel", "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+					"Or"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+					instVertexOPERGR, instVertexAsset, "Sel", true, "False");
+
+			t1 = new OpersExpr("ORhardRel", refas.getSemanticExpressionTypes()
+					.get("DoubleImplies"),
+					ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexOPERGR, instVertexAsset, t1, "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			ias.add(new InstAttribute("or", new ElemAttribute("or",
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "or",
+					"", "", 1, -1, "", "", -1, "", ""), semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("MUTEXhardConcept", refas
+					.getSemanticExpressionTypes().get("DoubleImplies"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+					instVertexOPERGR, "Sel", "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTITERINCCONFIXEDVARIABLE,
+					instVertexAsset, "Sel", 0);
+
+			t1 = new OpersExpr("sub2", refas.getSemanticExpressionTypes().get(
+					"Equals"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexOPERGR, instVertexAsset, t1, 1);
+
+			t1 = new OpersExpr("MUTEXhardRel", refas
+					.getSemanticExpressionTypes().get("DoubleImplies"),
+					instVertexF, "Sel", true, t1);
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			ias.add(new InstAttribute("mutex", new ElemAttribute("mutex",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"mutex", "", "", 1, -1, "", "", -1, "", ""),
+					semanticExpressions));
+
+			semanticExpressions = new ArrayList<OpersExpr>();
+
+			t1 = new OpersExpr("RANGEhardConcept", refas
+					.getSemanticExpressionTypes().get("DoubleImplies"),
+					ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexOper,
+					instVertexOPERGR, "Sel", "Sel");
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexOPERGR, instVertexAsset, null, "Sel", "True",
+					true);
+
+			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"GreaterOrEq"), t2,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsset,
+					"LowRange");
+
+			t2 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"Sum"), ExpressionVertexType.LEFTITERINCCONVARIABLE,
+					instVertexOPERGR, instVertexAsset, null, "Sel", "True",
+					true);
+
+			t3 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
+					"LessOrEquals"), t2,
+					ExpressionVertexType.RIGHTCONCEPTVARIABLE, instVertexAsset,
+					"HighRange");
+
+			t1 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
+					"And"), t1, t3);
+
+			t1 = new OpersExpr("RANGEHardRel", refas
+					.getSemanticExpressionTypes().get("Equals"),
+					instVertexOPERGR, "Sel", true, t1);
+
+			simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+			simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
+			updateCoreOptOperSubActionNormal.addSemanticExpression(t1);
+			semanticExpressions.add(t1);
+
+			ias.add(new InstAttribute("range", new ElemAttribute("range",
+					StringType.IDENTIFIER, AttributeType.OPTION, false,
+					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
 			OpersPairwiseRel groupAssetOperSemanticEdge = new OpersPairwiseRel(
@@ -7223,8 +7448,8 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""),
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""),
 					"implementation#implementation#true#true#true#1#-1#1#1"));
 
 			ia = instAssetOperGRAO.getInstAttribute("opersExprs");
@@ -7254,8 +7479,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("AssetOperFromOTAssoPWAsso",
 					instAssetOperGRAO);
@@ -7291,8 +7516,8 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""),
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""),
 					"implementation#implementation#true#true#true#1#-1#1#1"));
 
 			ia = instDirAssetOperSemanticEdge.getInstAttribute("opersExprs");
@@ -7322,8 +7547,8 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("implementation", new ElemAttribute(
 					"implementation", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "implementation", "", 1, -1,
-					"", "", -1, "", ""), semanticExpressions));
+					AttributeType.OPTION, false, "implementation", "", "", 1,
+					-1, "", "", -1, "", ""), semanticExpressions));
 
 			refas.getVariabilityVertex().put("AssetOperPWAsso",
 					instDirAssetOperSemanticEdge);

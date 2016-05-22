@@ -32,63 +32,66 @@ public class InfraBasicSyntaxMMMM {
 
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
-						false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
+						false, "Concept Name", "", "", 0, -1, "", "", -1, "",
+						""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Description",
 				new ElemAttribute("Description", "String",
-						AttributeType.SYNTAX, false, "Description", "", 0, -1,
-						"", "", -1, "", ""));
+						AttributeType.SYNTAX, false, "Description", "", "", 0,
+						-1, "", "", -1, "", ""));
 
 		basicOpersSyntaxM3Concept.addModelingAttribute("MetaType",
 				new ElemAttribute("MetaType", "Enumeration",
 						AttributeType.SYNTAX, false, "SyntaxConcept Type",
 						ConceptType.class.getCanonicalName(), "SyntaxConcept",
-						"", 0, -1, "", "", -1, "", ""));
+						"", "", 0, -1, "", "", -1, "", ""));
 		// metaBasicConcept.addModelingAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Visible",
 				new ElemAttribute("Visible", "Boolean", AttributeType.SYNTAX,
-						false, "Visible", true, 0, -1, "", "", -1, "", ""));
-		basicOpersSyntaxM3Concept.addModelingAttribute("Editable",
-				new ElemAttribute("Editable", "Boolean", AttributeType.SYNTAX,
-						false, "Editable", true, 0, -1, "", "", -1, "", ""));
+						false, "Visible", "", true, 0, -1, "", "", -1, "", ""));
+		basicOpersSyntaxM3Concept
+				.addModelingAttribute("Editable", new ElemAttribute("Editable",
+						"Boolean", AttributeType.SYNTAX, false, "Editable", "",
+						true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,
-						false, "Concept Name", "", 0, -1, "", "", -1, "", ""));
+						false, "Concept Name", "", "", 0, -1, "", "", -1, "",
+						""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Style",
 				new ElemAttribute("Style", "String", AttributeType.SYNTAX,
-						false, "Drawing Style", "refasclaim", 0, -1, "", "",
-						-1, "", ""));
-		basicOpersSyntaxM3Concept
-				.addModelingAttribute("Width", new ElemAttribute("Width",
-						"Integer", AttributeType.SYNTAX, false,
-						"Initial Width", 100, 0, -1, "", "", -1, "", ""));
-		basicOpersSyntaxM3Concept
-				.addModelingAttribute("Height", new ElemAttribute("Height",
-						"Integer", AttributeType.SYNTAX, false,
-						"Initial Height", 40, 0, -1, "", "", -1, "", ""));
+						false, "Drawing Style", "", "refasclaim", 0, -1, "",
+						"", -1, "", ""));
+		basicOpersSyntaxM3Concept.addModelingAttribute("Width",
+				new ElemAttribute("Width", "Integer", AttributeType.SYNTAX,
+						false, "Initial Width", "", 100, 0, -1, "", "", -1, "",
+						""));
+		basicOpersSyntaxM3Concept.addModelingAttribute("Height",
+				new ElemAttribute("Height", "Integer", AttributeType.SYNTAX,
+						false, "Initial Height", "", 40, 0, -1, "", "", -1, "",
+						""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("Image",
 				new ElemAttribute("Image", "String", AttributeType.SYNTAX,
-						false, "Image File",
+						false, "Image File", "",
 						"/com/variamos/gui/perspeditor/images/claim.png", 0,
 						-1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("TopConcept",
 				new ElemAttribute("TopConcept", "Boolean",
-						AttributeType.SYNTAX, false, "Is Top Concept", true, 0,
-						-1, "", "", -1, "", ""));
+						AttributeType.SYNTAX, false, "Is Top Concept", "",
+						true, 0, -1, "", "", -1, "", ""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("BackgroundColor",
 				new ElemAttribute("BackgroundColor", "String",
-						AttributeType.SYNTAX, false, "Background Color",
+						AttributeType.SYNTAX, false, "Background Color", "",
 						"java.awt.Color[r=0,g=0,b=255]", 0, -1, "", "", -1, "",
 						""));
 		basicOpersSyntaxM3Concept.addModelingAttribute("BorderStroke",
 				new ElemAttribute("BorderStroke", "Integer",
-						AttributeType.SYNTAX, false, "Border Stroke", 1, 0, -1,
-						"", "", -1, "", ""));
-		basicOpersSyntaxM3Concept
-				.addModelingAttribute("Resizable", new ElemAttribute(
-						"Resizable", "Boolean", AttributeType.SYNTAX, false,
-						"Is Resizable", true, 0, -1, "", "", -1, "", ""));
+						AttributeType.SYNTAX, false, "Border Stroke", "", 1, 0,
+						-1, "", "", -1, "", ""));
+		basicOpersSyntaxM3Concept.addModelingAttribute("Resizable",
+				new ElemAttribute("Resizable", "Boolean", AttributeType.SYNTAX,
+						false, "Is Resizable", "", true, 0, -1, "", "", -1, "",
+						""));
 
 		InstConcept instInfraSyntaxOpersM2Concept = new InstConcept(
 				"OMMConcept", null, basicOpersSyntaxM3Concept);

@@ -1149,8 +1149,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							&& ((ElemAttribute) instAttribute.getAttribute())
 									.getAttributeType().equals(
 											AttributeType.EXECCURRENTSTATE)) {
-						elementSimPropSubPanel.add(new JLabel(instAttribute
-								.getDisplayName() + ": "));
+						JLabel label = new JLabel(
+								instAttribute.getDisplayName() + ": ");
+						elementSimPropSubPanel.add(label);
+						label.setToolTipText(instAttribute.getToolTipText());
 						elementSimPropSubPanel.add(w);
 
 						if (instAttribute.isAffectProperties()) {
@@ -1186,8 +1188,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							&& ((ElemAttribute) instAttribute.getAttribute())
 									.getAttributeType().equals(
 											AttributeType.GLOBALCONFIG)) {
-						elementConfPropSubPanel.add(new JLabel(instAttribute
-								.getDisplayName() + ": "));
+						JLabel label = new JLabel(
+								instAttribute.getDisplayName() + ": ");
+						elementConfPropSubPanel.add(label);
+						label.setToolTipText(instAttribute.getToolTipText());
 						elementConfPropSubPanel.add(w);
 
 						if (instAttribute.isAffectProperties()) {
