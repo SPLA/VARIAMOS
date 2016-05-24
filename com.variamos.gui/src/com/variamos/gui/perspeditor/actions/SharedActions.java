@@ -28,6 +28,7 @@ import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
+import com.variamos.io.ConsoleTextArea;
 
 public class SharedActions {
 
@@ -207,7 +208,7 @@ public class SharedActions {
 									loadSupportObjects(editor, mv2.getValue(),
 											mv2, graph);
 								} catch (Exception e) {
-									e.printStackTrace();
+									ConsoleTextArea.addText(e.getStackTrace());
 									System.err.println(mv2.getValue()
 											.toString());
 								}
@@ -217,7 +218,7 @@ public class SharedActions {
 								loadSupportObjects(editor, mv1.getValue(), mv1,
 										graph);
 							} catch (Exception e) {
-								e.printStackTrace();
+								ConsoleTextArea.addText(e.getStackTrace());
 								System.err.println(mv1.getValue().toString());
 							}
 					}
@@ -225,7 +226,7 @@ public class SharedActions {
 					try {
 						loadSupportObjects(editor, mv0.getValue(), mv0, graph);
 					} catch (Exception e) {
-						e.printStackTrace();
+						ConsoleTextArea.addText(e.getStackTrace());
 						System.err.println(mv0.getValue().toString());
 					}
 			}
@@ -294,7 +295,7 @@ public class SharedActions {
 												mv2, graph);
 									}
 								} catch (Exception e) {
-									e.printStackTrace();
+									ConsoleTextArea.addText(e.getStackTrace());
 									System.err.println(mv2.getValue()
 											.toString());
 								}
@@ -308,7 +309,7 @@ public class SharedActions {
 											graph);
 								}
 							} catch (Exception e) {
-								e.printStackTrace();
+								ConsoleTextArea.addText(e.getStackTrace());
 								System.err.println(mv1.getValue().toString());
 							}
 					}
@@ -321,7 +322,7 @@ public class SharedActions {
 
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						ConsoleTextArea.addText(e.getStackTrace());
 						System.err.println(mv0.getValue().toString());
 					}
 			}
@@ -463,7 +464,7 @@ public class SharedActions {
 						c2 = (mxCell) cell.clone();
 					} catch (CloneNotSupportedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						ConsoleTextArea.addText(e.getStackTrace());
 					}
 					if (modelViewSubIndex != -1)
 						c2.setId(modelViewIndex + id + "-" + modelViewSubIndex);
@@ -726,7 +727,7 @@ public class SharedActions {
 									instPairwiseRelation
 											.getSupportMetaPairwiseRelIden());
 				} catch (Exception e) {
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 					// FIXME
 				}
 
@@ -781,7 +782,7 @@ public class SharedActions {
 											.println("SharedActions: relation without semantic type "
 													+ instPairwiseRelation
 															.getIdentifier());
-									// e.printStackTrace();
+									// ConsoleTextArea.addText(e.getStackTrace());
 									// FIXME
 
 								}
@@ -794,7 +795,7 @@ public class SharedActions {
 						} catch (Exception e) {
 							System.err
 									.println("Contained exception PWRel load");
-							e.printStackTrace();
+							ConsoleTextArea.addText(e.getStackTrace());
 						}
 					}
 					if (instPairwiseRelation.getInstAttributes().size() < instPairwiseRelation
@@ -841,7 +842,7 @@ public class SharedActions {
 				editor.refreshElement(instPairwiseRelation);
 			} catch (Exception e) {
 				System.err.println("Contained exception GenPW Rel");
-				e.printStackTrace();
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 	}

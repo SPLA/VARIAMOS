@@ -11,6 +11,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other
@@ -51,7 +52,9 @@ public class EnumerationWidget extends WidgetR {
 					.getClassCanonicalName());
 			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		enumeration = aClass.getEnumConstants();
 		for (int i = 0; i < enumeration.length; i++) {

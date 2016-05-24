@@ -23,6 +23,7 @@ import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
 
 public class MainFrame extends JFrame {
@@ -58,7 +59,7 @@ public class MainFrame extends JFrame {
 	private List<VariamosGraphEditor> graphEditors;
 	private List<PerspEditorMenuBar> editorsMenu;
 
-	public MainFrame(String arg0) {
+	public MainFrame(String[] args) {
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
@@ -161,13 +162,17 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
 		try {
-			if (arg0 == null || !arg0.equals("nosolver"))
+			if (args.length == 0 || !args[0].equals("nosolver"))
 				verifySolver();
-			if (arg0 == null || !arg0.equals("noupdate")) {
+			if (args.length == 0 || !args[0].equals("noupdate")) {
 				this.checkUpdates(false);
 			}
+			if ((args.length > 0 && args[0].equals("debug"))
+					|| (args.length == 2 && args[1].equals("debug"))) {
+				ConsoleTextArea.setDebug(true);
+			}
 		} catch (UnsatisfiedLinkError e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getStackTrace());
 			JOptionPane
 					.showMessageDialog(
 							this,

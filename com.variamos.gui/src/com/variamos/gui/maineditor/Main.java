@@ -1,7 +1,11 @@
 package com.variamos.gui.maineditor;
 
 import java.io.IOException;
+
 import javax.swing.UIManager;
+
+import com.variamos.io.ConsoleTextArea;
+
 import fm.FeatureModelException;
 
 public class Main {
@@ -10,11 +14,11 @@ public class Main {
 			IOException {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		if (ar.length > 0)
-			new MainFrame(ar[0]);
+			new MainFrame(ar);
 		else
 			new MainFrame(null);
 	}

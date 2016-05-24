@@ -26,6 +26,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.perspeditor.actions.SharedActions;
+import com.variamos.io.ConsoleTextArea;
 
 @SuppressWarnings("serial")
 public class VariamosGraphComponent extends mxGraphComponent {
@@ -351,7 +352,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 					}
 				} catch (Exception e) {
 					System.out.println("Cell draw error");
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 			}
 
@@ -397,7 +398,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 
 				} catch (Exception e) {
 					System.out.println("Cell draw error");
-					// e.printStackTrace();
+					// ConsoleTextArea.addText(e.getStackTrace());
 				}
 			}
 		}
@@ -444,7 +445,7 @@ public class VariamosGraphComponent extends mxGraphComponent {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 	}

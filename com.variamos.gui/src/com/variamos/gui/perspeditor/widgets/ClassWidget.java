@@ -29,6 +29,7 @@ import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
@@ -72,9 +73,10 @@ public class ClassWidget extends WidgetR {
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		if (instAttribute.getPairwiseRelValidationList() != null) {
 			semanticElements = new HashMap<String, OpersElement>();

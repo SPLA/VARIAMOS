@@ -59,6 +59,7 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -940,8 +941,8 @@ public class BasicGraphEditor extends JPanel {
 
 				// Needs to assign the key bindings again
 				keyboardHandler = new EditorKeyboardHandler(graphComponent);
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 	}

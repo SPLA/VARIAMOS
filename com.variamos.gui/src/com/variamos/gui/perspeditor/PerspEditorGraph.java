@@ -47,6 +47,7 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
+import com.variamos.io.ConsoleTextArea;
 
 public class PerspEditorGraph extends AbstractGraph {
 
@@ -252,17 +253,9 @@ public class PerspEditorGraph extends AbstractGraph {
 	}
 
 	public void loadStencil() {
-		// try {
 		Document doc;
-		// System.out.println(filename);
-
-		// String s =
-		// getResource("com/variamos/gui/perspeditor/style/shapes.xml");
 		doc = mxXmlUtils
 				.parseXml(getResource("/com/variamos/gui/perspeditor/style/shapes.xml"));
-
-		// doc = mxXmlUtils.parseXml(mxUtils.readFile(filename));
-
 		Element shapes = (Element) doc.getDocumentElement();
 		NodeList list = shapes.getElementsByTagName("shape");
 
@@ -291,10 +284,6 @@ public class PerspEditorGraph extends AbstractGraph {
 						}
 					});
 		}
-		/*
-		 * } catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
 	}
 
 	@Override
@@ -585,8 +574,8 @@ public class PerspEditorGraph extends AbstractGraph {
 										try {
 											c2 = (mxCell) cell.clone();
 										} catch (CloneNotSupportedException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
+											ConsoleTextArea.addText(e
+													.getStackTrace());
 										}
 										c2.setId(i + id + "-" + j);
 
@@ -616,8 +605,8 @@ public class PerspEditorGraph extends AbstractGraph {
 									try {
 										c2 = (mxCell) cell.clone();
 									} catch (CloneNotSupportedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+										ConsoleTextArea.addText(e
+												.getStackTrace());
 									}
 									c2.setId(i + id);
 									c2.setValue(new InstCell(c2,

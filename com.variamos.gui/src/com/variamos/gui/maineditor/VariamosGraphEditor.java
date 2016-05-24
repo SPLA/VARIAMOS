@@ -94,6 +94,7 @@ import com.variamos.gui.pl.editor.ConfiguratorPanel;
 import com.variamos.gui.pl.editor.ProductLineGraph;
 import com.variamos.gui.pl.editor.widgets.WidgetPL;
 import com.variamos.hlcl.HlclProgram;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.SXFMReader;
 import com.variamos.solver.Configuration;
 
@@ -133,8 +134,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	private SolverTasks task;
 	private SolverOpersTask semTask;
 	protected StaticExpressionsPanel expressions;
-	protected JTextArea messagesArea;
-	protected JTextArea expressionsArea;
+	protected JTextArea consoleTextArea;
 	private ElementDesignPanel elementDesignPanel;
 	protected JPanel elementConfigPropPanel;
 	protected JPanel elementExpressionPanel;
@@ -708,8 +708,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		if (extensionTabs != null)
 			return extensionTabs;
 
-		messagesArea = new JTextArea("Output");
-		messagesArea.setEditable(false);
+		ConsoleTextArea.setTextArea(new JTextArea("Output"));
+		// ConsoleTextArea.setTextEditable(false);
 
 		// elementDesPropPanel = new JPanel();
 		// elementDesPropPanel.setLayout(new SpringLayout());
@@ -722,8 +722,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		elementExpressionPanel = new JPanel();
 		// elementExpressionPanel.setLayout(new SpringLayout());
 
-		expressionsArea = new JTextArea("Element Expressions");
-		expressionsArea.setEditable(false);
+		consoleTextArea = new JTextArea("Element Expressions");
+		// consoleTextArea.setEditable(false);
 		// elementExpressionPanel.add(expressionsArea);
 
 		elementSimPropPanel = new JPanel();
@@ -745,7 +745,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		extensionTabs.addTab(mxResources.get("elementExpressionTab"),
 				new JScrollPane(expressions));
 		extensionTabs.addTab(mxResources.get("messagesTab"), new JScrollPane(
-				messagesArea));
+				ConsoleTextArea.getTextArea()));
 		extensionTabs.addTab(mxResources.get("configurationTab"),
 				new JScrollPane(configurator));
 		extensionTabs.setMinimumSize(new Dimension(30, 100));
@@ -836,7 +836,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 			if (perspective == 2 || perspective == 4) {
 				extensionTabs.addTab(mxResources.get("elementExpressionTab"),
-						new JScrollPane(expressionsArea));
+						new JScrollPane(consoleTextArea));
 			}
 			extensionTabs.addTab(mxResources.get("editExpressionsTab"),
 					new JScrollPane(expressions));
@@ -848,7 +848,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		}
 		if (elm == null || elm != null && this.lastEditableElement != elm) {
 			extensionTabs.addTab(mxResources.get("messagesTab"),
-					new JScrollPane(messagesArea));
+					new JScrollPane(ConsoleTextArea.getTextArea()));
 
 			if (perspective == 2 && getMainFrame() != null
 					&& getMainFrame().isAdvancedPerspective()) {
@@ -885,7 +885,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	}
 
 	public JTextArea getMessagesArea() {
-		return messagesArea;
+		return ConsoleTextArea.getTextArea();
 	}
 
 	public ConfiguratorPanel getConfigurator() {
@@ -1022,14 +1022,14 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						// refas2hlcl.validateConceptType(finalEditElm,
 						// "GeneralElement")
 						)
-							expressionsArea.setText(refas2hlcl
+							consoleTextArea.setText(refas2hlcl
 									.getElementTextConstraints(
 											finalEditElm.getIdentifier(),
 											editableElementType,
 											ModelExpr2HLCL.CONF_EXEC));
 				if (this.perspective == 4)
 
-					expressionsArea.setText(refas2hlcl
+					consoleTextArea.setText(refas2hlcl
 							.getElementTextConstraints(
 									finalEditElm.getIdentifier(),
 									editableElementType,
@@ -1058,6 +1058,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							"ConditionalExpression")) {
 						continue;
 					}
+
 					final WidgetR w = factory.getWidgetFor(instAttribute);
 
 					if (w == null) {
@@ -1210,8 +1211,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							 * new Thread() { public void run() { // try { //
 							 * sleep(1000); // } catch // (InterruptedException
 							 * // e) { // TODO // Auto-generated // catch block
-							 * // e.printStackTrace(); // } // synchronized //
-							 * (getEditor()) { // editPropertiesRefas(elm); // }
+							 * // ConsoleTextArea.addText(e.getStackTrace()); //
+							 * } // synchronized // (getEditor()) { //
+							 * editPropertiesRefas(elm); // }
 							 * 
 							 * } }.start(); // clearNotificationBar(); //
 							 * configModel((InstElement) elm, // true); } });
@@ -1286,7 +1288,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			((MainFrame) getFrame()).waitingCursor(false);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getStackTrace());
 		} finally {
 			recursiveCall = false;
 		}
@@ -1312,9 +1314,9 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 						&& lastEditableElement.getInstElement() != null)
 					((PerspEditorGraph) getGraphComponent().getGraph())
 							.refreshVariable(lastEditableElement);
-			} catch (Exception p) {
+			} catch (Exception ex) {
 				System.out.println("VariamosGraphEditor: Update error");
-				p.printStackTrace();
+				ConsoleTextArea.addText(ex.getStackTrace());
 			}
 		}
 	}
@@ -1334,7 +1336,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									instPairwise.getTargetRelations().get(0));
 				} catch (Exception e) {
 					// FIXME
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 			}
 			v.updateValidationList((InstElement) elm, mapElements);
@@ -1690,7 +1692,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 			if (result) {
 				if (update) {
 					refas2hlcl.updateGUIElements(null);
-					messagesArea.setText(refas2hlcl.getText());
+					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 				}
@@ -1743,8 +1745,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					+ refas2hlcl.getLastExecutionTime() / 1000000 + "]"
 					+ " -- ";
 		} catch (Exception e) {
-			e.printStackTrace();
-			this.messagesArea.setText(e.toString());
+			ConsoleTextArea.addText(e.getStackTrace());
+			ConsoleTextArea.addText(e.toString());
 			JOptionPane
 					.showMessageDialog(
 							frame,
@@ -1778,7 +1780,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 								.getExecType() == ModelExpr2HLCL.SIMUL_MAPE)) {
 					refas2hlcl.updateGUIElements(null);
 					updateDashBoard(task.isReloadDashBoard(), task.isUpdate());
-					messagesArea.setText(refas2hlcl.getText());
+					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 
@@ -1796,7 +1798,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					refas2hlcl.updateGUIElements(null, outVariables);
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
-					messagesArea.setText(refas2hlcl.getText());
+					ConsoleTextArea.addText(refas2hlcl.getText());
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 
@@ -1833,7 +1835,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
 					editPropertiesRefas(lastEditableElement);
-					messagesArea.setText(refas2hlcl.getText());
+					ConsoleTextArea.addText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = task.getExecutionTime();
 					switch (task.getExecType()) {
@@ -1888,7 +1890,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					((MainFrame) getFrame()).waitingCursor(false);
 				} else {
 					editPropertiesRefas(lastEditableElement);
-					messagesArea.setText(refas2hlcl.getText());
+					ConsoleTextArea.addText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = semTask.getExecutionTime();
 					// switch (semTask.getExecType()) {
@@ -1929,7 +1931,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	public void updateSimulResults() {
 
-		messagesArea.setText(refas2hlcl.getText());
+		ConsoleTextArea.addText(refas2hlcl.getText());
 		if (task != null && !task.getErrorTitle().equals("")) {
 			JOptionPane
 					.showMessageDialog(frame, task.getErrorMessage(),

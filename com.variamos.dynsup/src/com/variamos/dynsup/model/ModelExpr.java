@@ -20,6 +20,7 @@ import com.variamos.hlcl.Expression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.RangeDomain;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to represent InstanceExpressions. Part of PhD work at University of
@@ -302,7 +303,7 @@ public class ModelExpr implements Serializable {
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		return null;
 	}
@@ -1352,7 +1353,9 @@ public class ModelExpr implements Serializable {
 				break;
 			case LEFTITERINCCONVARIABLE:
 
-				out += "(" + leftInstanceExpression.expressionStructure() + ")";
+				if (leftInstanceExpression != null)
+					out += "(" + leftInstanceExpression.expressionStructure()
+							+ ")";
 				break;
 			case LEFTITERINCRELFIXEDVARIABLE:
 

@@ -26,6 +26,7 @@ import com.variamos.dynsup.staticexprsup.OrBooleanExpression;
 import com.variamos.dynsup.staticexprsup.SumNumericExpression;
 import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.Identifier;
+import com.variamos.io.ConsoleTextArea;
 
 //TODO refactor: OverTwoElementExpressionSet
 /**
@@ -252,7 +253,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 												String.class, String.class);
 							}
 						} catch (NoSuchMethodException | SecurityException e) {
-							e.printStackTrace();
+							ConsoleTextArea.addText(e.getStackTrace());
 						}
 
 						switch (relationType) {
@@ -432,7 +433,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 			} else
 				try {
@@ -496,7 +497,7 @@ public class OverTwoElementsExpressionSet extends ElementExpressionSet {
 					}
 				} catch (InstantiationException | IllegalAccessException
 						| IllegalArgumentException | InvocationTargetException e) {
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 		} else
 		// TODO define a cleaner way to deal with group relations with one

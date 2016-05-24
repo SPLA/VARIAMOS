@@ -385,6 +385,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 							(String) operLab.getInstAttributeValue("labelId"),
 							(int) operLab.getInstAttributeValue("position"),
 							(boolean) operLab.getInstAttributeValue("once"),
+							(boolean) operLab.getInstAttributeValue("order"),
 							laborder, explist);
 					lab.setVariables(ident);
 					out.add(lab);
