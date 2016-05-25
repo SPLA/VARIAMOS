@@ -832,10 +832,11 @@ public class InfraSyntaxSyntaxMMM {
 						AttributeType.SYNTAX, false, "Description", "", "", 0,
 						-1, "", "", -1, "", ""));
 
-		infraSyntaxM2OTRel.addModelingAttribute("MetaType", new ElemAttribute(
-				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaConcept Type", ConceptType.class.getCanonicalName(),
-				"SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
+		// infraSyntaxM2OTRel.addModelingAttribute("MetaType", new
+		// ElemAttribute(
+		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
+		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
+		// "SyntaxConcept", "", 0, -1, "", "", -1, "", ""));
 		// semVertex.putSemanticAttribute("Identifier", new ElemAttribute(
 		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
 		// "", "", -1, "", ""));
@@ -878,7 +879,7 @@ public class InfraSyntaxSyntaxMMM {
 				"value", "Set", AttributeType.SYNTAX, false, "values", "", "",
 				0, -1, "", "", -1, "", ""));
 
-		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
+		// infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
 		// semVertex.addPropEditableAttribute("01#" + "Identifier");
 		// semVertex.addPropVisibleAttribute("01#" + "Identifier");
 		infraSyntaxM2OTRel.addPropEditableAttribute("02#" + "Visible");
@@ -904,17 +905,18 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2OTRel.addPropEditableAttribute("12#" + "Resizable");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("12#" + "Resizable");
 
-		infraSyntaxM2OTRel.addModelingAttribute("MetaType", new ElemAttribute(
-				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaConcept Type", "", ConceptType.class.getCanonicalName(),
-				"SyntaxOverTwoRel", "", 0, -1, "", "", -1, "", ""));
+		// infraSyntaxM2OTRel.addModelingAttribute("MetaType", new
+		// ElemAttribute(
+		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
+		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
+		// "SyntaxOverTwoRel", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
-						OpersConcept.class.getCanonicalName(), "O", null, "",
-						0, -1, "", "", -1, "", ""));
+						"", OpersConcept.class.getCanonicalName(), "O", null,
+						"", 0, -1, "", "", -1, "", ""));
 
-		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
+		// infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "MetaType");
 		infraSyntaxM2OTRel.addPropVisibleAttribute("00#" + "OperationsMMType");
 		infraSyntaxM2OTRel.addPropEditableAttribute("00#" + "OperationsMMType");
 		// semOverTwoRelations.add(semanticAssetOperGroupRelation);
@@ -1031,9 +1033,9 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2ViewConceptAsso.addModelingAttribute("MetaType",
 				new ElemAttribute("MetaType", "Enumeration",
-						AttributeType.SYNTAX, false, "MetaConcept Type",
+						AttributeType.SYNTAX, false, "MetaConcept Type", "",
 						ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
-						"", 0, -1, "", "", -1, "", ""));
+						0, -1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -1134,11 +1136,11 @@ public class InfraSyntaxSyntaxMMM {
 
 		infraSyntaxM2PWRel.addModelingAttribute("MetaType", new ElemAttribute(
 				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
-				"MetaPWAsso Type", ConceptType.class.getCanonicalName(),
-				"SyntaxConcept", "", "", 0, -1, "", "", -1, "", ""));
+				"MetaPWAsso Type", "", ConceptType.class.getCanonicalName(),
+				"SyntaxConcept", "", 0, -1, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
-						AttributeType.SYNTAX, false, "Operations MMType",
+						AttributeType.SYNTAX, false, "Operations MMType", "",
 						OpersConcept.class.getCanonicalName(), "P", null, "",
 						0, -1, "", "", -1, "", ""));
 		infraSyntaxM2PWRel.addModelingAttribute("Identifier",

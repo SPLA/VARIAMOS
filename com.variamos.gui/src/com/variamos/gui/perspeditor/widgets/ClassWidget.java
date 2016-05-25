@@ -154,8 +154,9 @@ public class ClassWidget extends WidgetR {
 			}
 
 		} else {
-			if (aClass.isInterface()
-					|| aClass.getSuperclass().equals(OpersElement.class)) {
+			if (aClass != null
+					&& (aClass.isInterface() || aClass.getSuperclass().equals(
+							OpersElement.class))) {
 				semanticElements = new HashMap<String, OpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
@@ -180,7 +181,7 @@ public class ClassWidget extends WidgetR {
 				 */
 			}
 
-			if (aClass.equals(InstVertex.class)) {
+			if (aClass != null && aClass.equals(InstVertex.class)) {
 				instVertex = new HashMap<String, InstElement>();
 				List<InstVertex> list = getInstElements(instAttribute
 						.getAttribute().getMetaConceptInstanceType(), graph);
@@ -197,7 +198,7 @@ public class ClassWidget extends WidgetR {
 					txtValue.addItem(out.trim());
 				}
 			}
-			if (aClass.equals(InstConcept.class)) {
+			if (aClass != null && aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					List<InstVertex> list = getInstElements(instAttribute
@@ -220,7 +221,7 @@ public class ClassWidget extends WidgetR {
 					}
 				}
 			}
-			if (aClass.equals(OpersConcept.class)) {
+			if (aClass != null && aClass.equals(OpersConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					Collection<InstElement> list = semanticModel
