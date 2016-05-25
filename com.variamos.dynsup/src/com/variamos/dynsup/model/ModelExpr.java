@@ -851,7 +851,8 @@ public class ModelExpr implements Serializable {
 				out.add(hlclFactory.number(getVariableIntValue(expressionType)));
 				break;
 			case LEFTCONCEPTVARIABLE:
-				out.add(leftInstanceExpression.createExpression(0));
+				out.add(getIdentifier(expressionType, 0));
+				// out.add(leftInstanceExpression.createExpression(0));
 				break;
 
 			case LEFTITERINCFIXEDSUBEXP:
