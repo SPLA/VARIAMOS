@@ -7691,7 +7691,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
-			// simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
+			simsceExecOperLabeling2.setSemanticExpressions(semanticExpressions);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,

@@ -57,19 +57,20 @@ public class EnumerationWidget extends WidgetR {
 			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		enumeration = aClass.getEnumConstants();
-		for (int i = 0; i < enumeration.length; i++) {
-			String patternString = "([_])";
-			Pattern p = Pattern.compile(patternString);
+		if (enumeration != null)
+			for (int i = 0; i < enumeration.length; i++) {
+				String patternString = "([_])";
+				Pattern p = Pattern.compile(patternString);
 
-			String[] split = p.split(enumeration[i].toString());
-			String out = split[0] + " ";
-			for (int j = 1; j < split.length; j++)
-				out += split[j].toLowerCase() + " ";
-			txtValue.addItem(out.trim());
-			if (instAttribute.getValue() != null
-					&& out.equals(instAttribute.getValue()))
-				txtValue.setSelectedItem(out);
-		}
+				String[] split = p.split(enumeration[i].toString());
+				String out = split[0] + " ";
+				for (int j = 1; j < split.length; j++)
+					out += split[j].toLowerCase() + " ";
+				txtValue.addItem(out.trim());
+				if (instAttribute.getValue() != null
+						&& out.equals(instAttribute.getValue()))
+					txtValue.setSelectedItem(out);
+			}
 		if (instAttribute.getValue() == null) {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue((String) txtValue.getSelectedItem());
