@@ -168,6 +168,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			correctExecution = false;
 		} catch (InterruptedException ignore) {
 		} catch (Exception e) {
+			ConsoleTextArea.addText(e.getMessage());
 			ConsoleTextArea.addText(e.getStackTrace());
 			errorMessage = "Solver Execution Problem, try again saving and loading the model.";
 			errorTitle = "Verification Error";
@@ -501,6 +502,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					}
 
 				} catch (Exception e) {
+					ConsoleTextArea.addText(e.getMessage());
 					ConsoleTextArea.addText(e.getStackTrace());
 				}
 				if (!firstSimulExec && result == 1)

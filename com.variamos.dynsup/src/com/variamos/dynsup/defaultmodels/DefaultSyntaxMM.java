@@ -941,7 +941,7 @@ public class DefaultSyntaxMM {
 		InstElement directStructHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("structHardHardPWAsso");
 
-		SyntaxPairwiseRel metaStructHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxPairwiseRel metaGrpStructHardPairwiseRel = new SyntaxPairwiseRel(
 				"HardRelation", true, true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
@@ -951,7 +951,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpMeansEndsRelation = new InstConcept(
 				"GrpMeansEndsRelation", supportMetaElementPairwise,
-				metaStructHardPairwiseRel);
+				metaGrpStructHardPairwiseRel);
 
 		instGrpMeansEndsRelation.setInstAttribute("Type", "MeansEnds");
 		instGrpMeansEndsRelation
@@ -1019,9 +1019,9 @@ public class DefaultSyntaxMM {
 		InstElement directSideHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("GoalGoalSidePWAsso");
 
-		SyntaxPairwiseRel metaSideHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxPairwiseRel metaGrpSideHardPairwiseRel = new SyntaxPairwiseRel(
 				"SideRelation", true, true, "SideRelation", "",
-				"Direct relation between two"
+				"Direct relation between more than two"
 						+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -1029,7 +1029,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept instGrpSideHardHardPairWiseRel = new InstConcept(
 				"GrpSideHardRelation", supportMetaElementPairwise,
-				metaSideHardPairwiseRel);
+				metaGrpSideHardPairwiseRel);
 		instGrpSideHardHardPairWiseRel
 				.setInstAttribute("Type", "SideRelations");
 		instGrpSideHardHardPairWiseRel.setInstAttribute("SourceCardinality",
@@ -1144,34 +1144,6 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instGrpMeansEndsRelation, true);
 
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("sidevariab-otr-pwrme", instEdge);
-		instEdge.setIdentifier("sidevariab-otr-pwrme");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instGrpSideHardHardPairWiseRel, true);
-		instEdge.setSourceRelation(instVertexHOTR, true);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("sidevariab-pwrme-va", instEdge);
-		instEdge.setIdentifier("sidevariab-pwrme-va");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instVertexVA, true);
-		instEdge.setSourceRelation(instGrpSideHardHardPairWiseRel, true);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("sidevariab-va-pwrd", instEdge);
-		instEdge.setIdentifier("sidevariab-va-pwrd");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instDirSideHardHardPairWiseRel, true);
-		instEdge.setSourceRelation(instVertexVA, true);
-
-		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("sidevariab-pwrd-va", instEdge);
-		instEdge.setIdentifier("sidevariab-pwrd-va");
-		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
-		instEdge.setTargetRelation(instVertexVA, true);
-		instEdge.setSourceRelation(instDirSideHardHardPairWiseRel, true);
-
-		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("variab-pwrg-otr", instEdge);
 		instEdge.setIdentifier("variab-pwrg-otr");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
@@ -1185,15 +1157,47 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instGroupHardPairWiseRel, true);
 		instEdge.setSourceRelation(instVertexVA, true);
 
-		/*
+		// side hard group
 		instEdge = new InstPairwiseRel();
-		refas.getConstraintInstEdges().put("variab-HOTtoVAsi", instEdge);
-		instEdge.setIdentifier("variab-HOTtoVAsi");
-		instEdge.setEdSyntaxEle(metaSideHardPairwiseRel);
+		refas.getConstraintInstEdges().put("sidevariab-otr-pwrme", instEdge);
+		instEdge.setIdentifier("sidevariab-otr-pwrme");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instGrpSideHardHardPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexHOTR, true);
+
+		// side hard group
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sidevariab-pwrme-va", instEdge);
+		instEdge.setIdentifier("sidevariab-pwrme-va");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
-		instEdge.setSourceRelation(instVertexHOTR, true);
-		*/
+		instEdge.setSourceRelation(instGrpSideHardHardPairWiseRel, true);
+
+		// side hard dir
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sidevariab-va-pwrd", instEdge);
+		instEdge.setIdentifier("sidevariab-va-pwrd");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instDirSideHardHardPairWiseRel, true);
+		instEdge.setSourceRelation(instVertexVA, true);
+
+		// side hard dir
+		instEdge = new InstPairwiseRel();
+		refas.getConstraintInstEdges().put("sidevariab-pwrd-va", instEdge);
+		instEdge.setIdentifier("sidevariab-pwrd-va");
+		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		instEdge.setTargetRelation(instVertexVA, true);
+		instEdge.setSourceRelation(instDirSideHardHardPairWiseRel, true);
+
+		/*
+		 * instEdge = new InstPairwiseRel();
+		 * refas.getConstraintInstEdges().put("variab-HOTtoVAsi", instEdge);
+		 * instEdge.setIdentifier("variab-HOTtoVAsi");
+		 * instEdge.setEdSyntaxEle(metaSideHardPairwiseRel);
+		 * instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
+		 * instEdge.setTargetRelation(instVertexVA, true);
+		 * instEdge.setSourceRelation(instVertexHOTR, true);
+		 */
 
 		InstConcept instViewHOTR = new InstConcept("View Hard Group Relation",
 				supportMetaViewPairwise, metaViewRel);

@@ -2183,14 +2183,15 @@ public class DefaultOpersMM {
 				0, -1, "", "", -1, "", "");
 		semVariable.putSemanticAttribute("Scope", attribute);
 		if (!empty) {
-			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
-			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-					semVariable.getIdentifier(), attribute.getName(), true));
+			// simulationExecOperUniqueLabeling.addAttribute(new
+			// OpersIOAttribute(
+			// semVariable.getIdentifier(), attribute.getName(), true));
+			// simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+			// semVariable.getIdentifier(), attribute.getName(), true));
+			// simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+			// semVariable.getIdentifier(), attribute.getName(), true));
+			// simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+			// semVariable.getIdentifier(), attribute.getName(), true));
 		}
 		// TODO use scope
 
@@ -2236,8 +2237,8 @@ public class DefaultOpersMM {
 
 		attribute = new ElemAttribute("enumType", "Class",
 				AttributeType.OPERATION, false, "Enumeration",
-				InstConcept.class.getCanonicalName(), "ME",
-				"Enumeration type from the context view", "String", 0, 4,
+				"Enumeration type from the context view",
+				InstConcept.class.getCanonicalName(), "ME", "String", "", 0, 4,
 				"variableType" + "#==#" + "Enumeration", "variableType"
 						+ "#==#" + "Enumeration", -1, "", "");
 		semVariable.putSemanticAttribute("enumType", attribute);
@@ -2519,7 +2520,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
-			// semGeneralElement.setSemanticExpressions(semanticExpressions);
+			semGeneralElement.setSemanticExpressions(semanticExpressions);
 
 			t1 = new OpersExpr("Req Implies Selected", refas
 					.getSemanticExpressionTypes().get("Implies"), instVertexGE,
@@ -2848,7 +2849,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
-			// semHardConcept.setSemanticExpressions(semanticExpressions);
+			semHardConcept.setSemanticExpressions(semanticExpressions);
 
 			t1 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
 					"Product"), instVertexGE, "NReqSel", true, 4);
@@ -3116,7 +3117,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
-			// semSoftgoal.setSemanticExpressions(semanticExpressions);
+			semSoftgoal.setSemanticExpressions(semanticExpressions);
 
 			InstConcept instVertexSG = new InstConcept("Softgoal",
 					metaMetaConcept, semSoftgoal);
@@ -7579,7 +7580,7 @@ public class DefaultOpersMM {
 
 			semanticExpressions = new ArrayList<OpersExpr>();
 
-			// refasModel.setSemanticExpressions(semanticExpressions);
+			refasModel.setSemanticExpressions(semanticExpressions);
 
 			t1 = new OpersExpr("sub", refas.getSemanticExpressionTypes().get(
 					"Sum"), ExpressionVertexType.LEFTITERCONFIXEDVARIABLE,

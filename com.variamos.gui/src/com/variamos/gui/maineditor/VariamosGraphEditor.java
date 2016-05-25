@@ -1272,11 +1272,16 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 				SpringUtilities.makeCompactGrid(elementSimPropSubPanel,
 						simulationPanelElements / 2, 6, 4, 4, 4, 4);
+				elementConfPropSubPanel.setMinimumSize(new Dimension(350,
+						configurationPanelElements * 20));
+				elementConfPropSubPanel.setMaximumSize(new Dimension(350,
+						configurationPanelElements * 20));
 
 				SpringUtilities.makeCompactGrid(elementConfPropSubPanel,
 						configurationPanelElements, 4, 4, 4, 4, 4);
-
-				elementConfigPropPanel.add(elementConfPropSubPanel);
+				JScrollPane jj = new JScrollPane(elementConfPropSubPanel);
+				jj.setAutoscrolls(true);
+				elementConfigPropPanel.add(jj);
 				elementSimPropPanel.add(elementSimPropSubPanel);
 				extensionTabs.getSelectedComponent().repaint();
 				elementDesignPanel.revalidate();

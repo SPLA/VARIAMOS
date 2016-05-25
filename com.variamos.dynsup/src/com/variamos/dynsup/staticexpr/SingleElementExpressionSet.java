@@ -376,11 +376,19 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 												.getInstAttribute(
 														"satisficingType")
 												.getValue();
-
-										int confLevel = (Integer) instVertex
-												.getInstAttribute(
-														"ConfigReqLevel")
-												.getValue();
+										int confLevel = 0;
+										if (instVertex.getInstAttribute(
+												"ConfigReqLevel").getValue() instanceof String)
+											confLevel = Integer
+													.parseInt((String) instVertex
+															.getInstAttribute(
+																	"ConfigReqLevel")
+															.getValue());
+										else
+											confLevel = (Integer) instVertex
+													.getInstAttribute(
+															"ConfigReqLevel")
+													.getValue();
 										AbstractExpression out22a;
 										// TargetId_SDReqLevel #=
 										// relId_TargetLevel

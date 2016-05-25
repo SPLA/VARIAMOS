@@ -313,10 +313,11 @@ public class BasicGraphEditor extends JPanel {
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				upperPart, getExtensionsTab());
 		everything.setOneTouchExpandable(false);
-		everything.setDividerLocation(500);
+		everything.setDividerLocation(300);
 		everything.setResizeWeight(1);
 		everything.setDividerSize(6);
 		everything.setBorder(null);
+		upperPart.setPreferredSize(new Dimension(600, 600));
 
 		// Creates the status bar
 		statusBar = createStatusBar();

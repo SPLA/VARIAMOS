@@ -778,10 +778,10 @@ public class SharedActions {
 											.getOpersRelationTypes();
 									instAttribute.setOpersOverTwoRelList(semGD);
 								} catch (Exception e) {
-									System.out
-											.println("SharedActions: relation without semantic type "
-													+ instPairwiseRelation
-															.getIdentifier());
+									// System.out
+									// .println("SharedActions: relation without semantic type "
+									// + instPairwiseRelation
+									// .getIdentifier());
 									// ConsoleTextArea.addText(e.getStackTrace());
 									// FIXME
 
