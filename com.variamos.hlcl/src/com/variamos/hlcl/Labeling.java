@@ -34,6 +34,7 @@ public class Labeling {
 		this.labelingOrderList = labelingOrderList;
 		this.position = position;
 		this.once = once;
+		this.order = order;
 		variables = new ArrayList<Identifier>();
 	}
 
