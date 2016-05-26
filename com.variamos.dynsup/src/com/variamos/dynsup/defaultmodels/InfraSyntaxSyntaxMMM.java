@@ -837,6 +837,7 @@ public class InfraSyntaxSyntaxMMM {
 		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
 		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
 		// "SyntaxConcept", "", 0, -1, "", "", -1, "", ""));
+
 		// semVertex.putSemanticAttribute("Identifier", new ElemAttribute(
 		// "Identifier", "String", false, "Concept Identifier", "", 0, -1,
 		// "", "", -1, "", ""));
@@ -910,6 +911,7 @@ public class InfraSyntaxSyntaxMMM {
 		// "MetaType", "Enumeration", AttributeType.SYNTAX, false,
 		// "MetaConcept Type", "", ConceptType.class.getCanonicalName(),
 		// "SyntaxOverTwoRel", "", 0, -1, "", "", -1, "", ""));
+
 		infraSyntaxM2OTRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.OPERATION, false, "Operations MMType",
@@ -1035,7 +1037,7 @@ public class InfraSyntaxSyntaxMMM {
 				new ElemAttribute("MetaType", "Enumeration",
 						AttributeType.SYNTAX, false, "MetaConcept Type", "",
 						ConceptType.class.getCanonicalName(), "SyntaxEnum", "",
-						0, -1, "", "", -1, "", ""));
+						"", 0, -1, "", "", -1, "", ""));
 		// semElementNoSyntax.putSemanticAttribute("Identifier",
 		// new ElemAttribute("Identifier", "String", false,
 		// "Concept Identifier", "", 0, -1, "", "", -1, "", ""));
@@ -1138,6 +1140,7 @@ public class InfraSyntaxSyntaxMMM {
 				"MetaType", "Enumeration", AttributeType.SYNTAX, false,
 				"MetaPWAsso Type", "", ConceptType.class.getCanonicalName(),
 				"SyntaxConcept", "", 0, -1, "", "", -1, "", ""));
+
 		infraSyntaxM2PWRel.addModelingAttribute("OperationsMMType",
 				new ElemAttribute("OperationsMMType", "Class",
 						AttributeType.SYNTAX, false, "Operations MMType", "",

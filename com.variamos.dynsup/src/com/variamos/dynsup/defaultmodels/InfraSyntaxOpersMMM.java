@@ -1036,7 +1036,6 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
 				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
 						false, "Order", "", false, 0, 6, "", "", 6, "", ""));
-
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
 				new ElemAttribute("sortorder", "Set", AttributeType.SYNTAX,

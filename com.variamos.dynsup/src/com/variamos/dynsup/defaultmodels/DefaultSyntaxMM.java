@@ -1022,7 +1022,8 @@ public class DefaultSyntaxMM {
 		SyntaxPairwiseRel metaGrpSideHardPairwiseRel = new SyntaxPairwiseRel(
 				"SideRelation", true, true, "SideRelation", "",
 				"Direct relation between more than two"
-						+ " hard concepts. Defines different types of"
+
+				+ " hard concepts. Defines different types of"
 						+ " relations and cardinalities", 70, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSideHardHardSemanticEdge);
@@ -1158,6 +1159,7 @@ public class DefaultSyntaxMM {
 		instEdge.setSourceRelation(instVertexVA, true);
 
 		// side hard group
+
 		instEdge = new InstPairwiseRel();
 		refas.getConstraintInstEdges().put("sidevariab-otr-pwrme", instEdge);
 		instEdge.setIdentifier("sidevariab-otr-pwrme");
@@ -1171,6 +1173,7 @@ public class DefaultSyntaxMM {
 		instEdge.setIdentifier("sidevariab-pwrme-va");
 		instEdge.setSupportMetaPairwiseRelation(metaPairwiseRelNormal);
 		instEdge.setTargetRelation(instVertexVA, true);
+
 		instEdge.setSourceRelation(instGrpSideHardHardPairWiseRel, true);
 
 		// side hard dir
