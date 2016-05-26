@@ -121,6 +121,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 					"relationType").getValue()).trim().replace(" ", "_");
 			setDescription(getDescription() + relationType);
 
+			// System.out.print(relationType + " ");
 			switch (relationType) {
 
 			case "preferred":
@@ -348,7 +349,7 @@ public class PairwiseElementExpressionSet extends ElementExpressionSet {
 				allList.add(out13);
 
 				break;
-			case "ClaimToSG":
+			case "Claim_To_SG":
 
 				sourcePositiveAttributeNames.add("Sel");
 				// relId_level #= <<level>>
