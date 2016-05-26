@@ -48,26 +48,28 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 					}
 
 					int idx = 0;
-					for (LabelingOrder labOrder : params.getLabelingOrder()) {
-						if (labOrder.equals(LabelingOrder.MIN)) {
-							insideLabeling.append(MIN);
+					if (params.isOrder())
+						for (LabelingOrder labOrder : params.getLabelingOrder()) {
+							if (labOrder.equals(LabelingOrder.MIN)) {
+								insideLabeling.append(MIN);
 
-						} else {
-							insideLabeling.append(MAX);
+							} else {
+								insideLabeling.append(MAX);
+							}
+							insideLabeling.append(OPEN_PARENTHESIS);
+
+							StringBuilder orderExpression = new StringBuilder();
+							transformNumericExpression(params
+									.getOrderExpressions().get(idx),
+									orderExpression);
+							insideLabeling.append(orderExpression);
+							insideLabeling.append(CLOSE_PARENHESIS);
+							idx++;
+
+							if (idx <= (params.getOrderExpressions().size() - 1)) {
+								insideLabeling.append(COMMA);
+							}
 						}
-						insideLabeling.append(OPEN_PARENTHESIS);
-
-						StringBuilder orderExpression = new StringBuilder();
-						transformNumericExpression(params.getOrderExpressions()
-								.get(idx), orderExpression);
-						insideLabeling.append(orderExpression);
-						insideLabeling.append(CLOSE_PARENHESIS);
-						idx++;
-
-						if (idx <= (params.getOrderExpressions().size() - 1)) {
-							insideLabeling.append(COMMA);
-						}
-					}
 				}
 
 				footerExpression.append(OPEN_PARENTHESIS);

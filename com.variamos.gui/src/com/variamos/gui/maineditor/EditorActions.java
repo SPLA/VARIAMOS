@@ -74,6 +74,7 @@ import com.mxgraph.view.mxGraph;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.gui.perspeditor.actions.FileTasks;
 import com.variamos.gui.pl.editor.ProductLineGraph;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.SXFMWriter;
 
 /**
@@ -745,7 +746,7 @@ public class EditorActions {
 						}
 					}
 				} catch (Throwable ex) {
-					ex.printStackTrace();
+					ConsoleTextArea.addText(ex.getStackTrace());
 					JOptionPane.showMessageDialog(graphComponent,
 							ex.toString(), mxResources.get("error"),
 							JOptionPane.ERROR_MESSAGE);
@@ -986,7 +987,7 @@ public class EditorActions {
 						}
 					}
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					ConsoleTextArea.addText(ex.getStackTrace());
 				}
 			}
 
@@ -1213,7 +1214,7 @@ public class EditorActions {
 								: "<i>") + text + ((bold) ? "</b>" : "</i>"),
 								0, 0, (bold) ? HTML.Tag.B : HTML.Tag.I);
 					} catch (Exception ex) {
-						ex.printStackTrace();
+						ConsoleTextArea.addText(ex.getStackTrace());
 					}
 
 					editorPane.requestFocus();
@@ -1412,7 +1413,7 @@ public class EditorActions {
 											new String[] { name }));
 						}
 					} catch (IOException e1) {
-						e1.printStackTrace();
+						ConsoleTextArea.addText(e1.getStackTrace());
 					}
 				}
 			}
@@ -1623,7 +1624,7 @@ public class EditorActions {
 									resetEditor((VariamosGraphEditor) editor);
 								}
 							} catch (IOException ex) {
-								ex.printStackTrace();
+								ConsoleTextArea.addText(ex.getStackTrace());
 								JOptionPane.showMessageDialog(
 										editor.getGraphComponent(),
 										ex.toString(),

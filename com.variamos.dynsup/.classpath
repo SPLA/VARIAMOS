@@ -8,7 +8,7 @@
 	<classpathentry kind="src" path="/com.variamos.genericModel"/>
 	<classpathentry kind="src" path="/com.variamos.reasoning"/>
 	<classpathentry kind="src" path="/com.variamos.core"/>
-	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry kind="lib" path="/com.variamos.gui/lib/jgraphx.jar"/>
+	<classpathentry kind="src" path="/com.variamos.io"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

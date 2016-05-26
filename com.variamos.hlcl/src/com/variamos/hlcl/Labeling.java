@@ -18,12 +18,12 @@ public class Labeling {
 
 	private String name;
 	private String labelId;
-	private boolean once;
+	private boolean once, order;
 	private int position;
 	private List<Identifier> variables;
 
 	public Labeling(String name, String labelId, int position, boolean once,
-			List<LabelingOrder> labelingOrderList,
+			boolean order, List<LabelingOrder> labelingOrderList,
 			List<NumericExpression> orderExpressionList
 
 	) {
@@ -34,6 +34,7 @@ public class Labeling {
 		this.labelingOrderList = labelingOrderList;
 		this.position = position;
 		this.once = once;
+		this.order = order;
 		variables = new ArrayList<Identifier>();
 	}
 
@@ -103,5 +104,13 @@ public class Labeling {
 
 	public void setLabelId(String labelId) {
 		this.labelId = labelId;
+	}
+
+	public boolean isOrder() {
+		return order;
+	}
+
+	public void setOrder(boolean order) {
+		this.order = order;
 	}
 }

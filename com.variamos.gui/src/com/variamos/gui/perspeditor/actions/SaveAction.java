@@ -33,6 +33,7 @@ import com.variamos.gui.maineditor.BasicGraphEditor;
 import com.variamos.gui.maineditor.DefaultFileFilter;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.SXFMWriter;
 
 import fm.FeatureModel;
@@ -324,7 +325,7 @@ public class SaveAction extends AbstractEditorAction {
 					}
 				}
 			} catch (Throwable ex) {
-				ex.printStackTrace();
+				ConsoleTextArea.addText(ex.getStackTrace());
 				JOptionPane.showMessageDialog(graphComponent, ex.toString(),
 						mxResources.get("error"), JOptionPane.ERROR_MESSAGE);
 			}

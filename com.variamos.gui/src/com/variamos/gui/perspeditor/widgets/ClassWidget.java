@@ -29,6 +29,7 @@ import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to support class widgets on the interface. Inspired on other widgets
@@ -72,9 +73,10 @@ public class ClassWidget extends WidgetR {
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		if (instAttribute.getPairwiseRelValidationList() != null) {
 			semanticElements = new HashMap<String, OpersElement>();
@@ -152,8 +154,9 @@ public class ClassWidget extends WidgetR {
 			}
 
 		} else {
-			if (aClass.isInterface()
-					|| aClass.getSuperclass().equals(OpersElement.class)) {
+			if (aClass != null
+					&& (aClass.isInterface() || aClass.getSuperclass().equals(
+							OpersElement.class))) {
 				semanticElements = new HashMap<String, OpersElement>();
 				System.out.println("ClassWidget old semanticSyntax");
 				/*
@@ -178,7 +181,7 @@ public class ClassWidget extends WidgetR {
 				 */
 			}
 
-			if (aClass.equals(InstVertex.class)) {
+			if (aClass != null && aClass.equals(InstVertex.class)) {
 				instVertex = new HashMap<String, InstElement>();
 				List<InstVertex> list = getInstElements(instAttribute
 						.getAttribute().getMetaConceptInstanceType(), graph);
@@ -195,7 +198,7 @@ public class ClassWidget extends WidgetR {
 					txtValue.addItem(out.trim());
 				}
 			}
-			if (aClass.equals(InstConcept.class)) {
+			if (aClass != null && aClass.equals(InstConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					List<InstVertex> list = getInstElements(instAttribute
@@ -218,7 +221,7 @@ public class ClassWidget extends WidgetR {
 					}
 				}
 			}
-			if (aClass.equals(OpersConcept.class)) {
+			if (aClass != null && aClass.equals(OpersConcept.class)) {
 				if (instAttribute.getAttribute().getType().equals("Class")) {
 					instVertex = new HashMap<String, InstElement>();
 					Collection<InstElement> list = semanticModel

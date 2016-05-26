@@ -11,6 +11,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.EnumerationSingleSelectionType;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to support enumeration widgets on the interface. Inspired on other
@@ -51,22 +52,25 @@ public class EnumerationWidget extends WidgetR {
 					.getClassCanonicalName());
 			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		enumeration = aClass.getEnumConstants();
-		for (int i = 0; i < enumeration.length; i++) {
-			String patternString = "([_])";
-			Pattern p = Pattern.compile(patternString);
+		if (enumeration != null)
+			for (int i = 0; i < enumeration.length; i++) {
+				String patternString = "([_])";
+				Pattern p = Pattern.compile(patternString);
 
-			String[] split = p.split(enumeration[i].toString());
-			String out = split[0] + " ";
-			for (int j = 1; j < split.length; j++)
-				out += split[j].toLowerCase() + " ";
-			txtValue.addItem(out.trim());
-			if (instAttribute.getValue() != null
-					&& out.equals(instAttribute.getValue()))
-				txtValue.setSelectedItem(out);
-		}
+				String[] split = p.split(enumeration[i].toString());
+				String out = split[0] + " ";
+				for (int j = 1; j < split.length; j++)
+					out += split[j].toLowerCase() + " ";
+				txtValue.addItem(out.trim());
+				if (instAttribute.getValue() != null
+						&& out.equals(instAttribute.getValue()))
+					txtValue.setSelectedItem(out);
+			}
 		if (instAttribute.getValue() == null) {
 			txtValue.setSelectedIndex(0);
 			instAttribute.setValue((String) txtValue.getSelectedItem());

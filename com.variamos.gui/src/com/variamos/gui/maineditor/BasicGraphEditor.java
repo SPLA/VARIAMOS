@@ -59,6 +59,7 @@ import com.mxgraph.util.mxUndoableEdit;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraph;
 import com.variamos.gui.perspeditor.PerspEditorMenuBar;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * @author example mxgraph jcmunoz: All this package needs review. Only original
@@ -312,10 +313,11 @@ public class BasicGraphEditor extends JPanel {
 		JSplitPane everything = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				upperPart, getExtensionsTab());
 		everything.setOneTouchExpandable(false);
-		everything.setDividerLocation(500);
+		everything.setDividerLocation(300);
 		everything.setResizeWeight(1);
 		everything.setDividerSize(6);
 		everything.setBorder(null);
+		upperPart.setPreferredSize(new Dimension(600, 600));
 
 		// Creates the status bar
 		statusBar = createStatusBar();
@@ -940,8 +942,8 @@ public class BasicGraphEditor extends JPanel {
 
 				// Needs to assign the key bindings again
 				keyboardHandler = new EditorKeyboardHandler(graphComponent);
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 	}

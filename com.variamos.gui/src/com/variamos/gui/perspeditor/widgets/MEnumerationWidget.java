@@ -14,6 +14,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.types.EnumerationMultiSelectionType;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to support enumeration widgets on the interface with multi-selection.
@@ -51,9 +52,10 @@ public class MEnumerationWidget extends WidgetR {
 		try {
 			aClass = classLoader.loadClass(instAttribute.getAttribute()
 					.getClassCanonicalName());
-			// System.out.println("aClass.getName() = " + aClass.getName());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(instAttribute.getAttribute()
+					.getClassCanonicalName());
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 		enumeration = aClass.getEnumConstants();
 		String[] out = new String[enumeration.length];

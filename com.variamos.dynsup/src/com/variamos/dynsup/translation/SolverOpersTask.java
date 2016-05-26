@@ -22,6 +22,7 @@ import com.variamos.hlcl.HlclFactory;
 import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.HlclUtil;
 import com.variamos.hlcl.Identifier;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.io.configurations.ExportConfiguration;
 import com.variamos.reasoning.defectAnalyzer.CauCosAnayzer;
 import com.variamos.reasoning.defectAnalyzer.DefectsVerifier;
@@ -167,7 +168,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 			correctExecution = false;
 		} catch (InterruptedException ignore) {
 		} catch (Exception e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getMessage());
+			ConsoleTextArea.addText(e.getStackTrace());
 			errorMessage = "Solver Execution Problem, try again saving and loading the model.";
 			errorTitle = "Verification Error";
 			correctExecution = false;
@@ -255,7 +257,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 				}
 			} catch (FunctionalException e) {
-				e.printStackTrace();
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 		}
 		long falseOTime = defectVerifier.getSolverTime() / 1000000;
@@ -280,7 +282,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 
 				}
 			} catch (FunctionalException e) {
-				e.printStackTrace();
+				ConsoleTextArea.addText(e.getStackTrace());
 			}
 
 		}
@@ -408,7 +410,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 				continue;
 			}
@@ -500,7 +502,8 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getMessage());
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 				if (!firstSimulExec && result == 1)
 					// Update GUI after first execution, editor is not notify
@@ -641,7 +644,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 					// refas2hlcl.updateCoreConcepts(outIdentifiers);
 				} catch (FunctionalException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ConsoleTextArea.addText(e.getStackTrace());
 				}
 
 			}

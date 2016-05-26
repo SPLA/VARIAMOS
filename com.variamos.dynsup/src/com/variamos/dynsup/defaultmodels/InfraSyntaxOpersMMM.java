@@ -1033,7 +1033,9 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("once",
 				new ElemAttribute("once", "Boolean", AttributeType.OPERATION,
 						false, "Once", "", false, 0, 6, "", "", 6, "", ""));
-
+		infraSyntaxOpersM2OperLabeling.addModelingAttribute("order",
+				new ElemAttribute("order", "Boolean", AttributeType.OPERATION,
+						false, "Order", "", false, 0, 6, "", "", 6, "", ""));
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute(
 				"sortorder",
 				new ElemAttribute("sortorder", "Set", AttributeType.SYNTAX,
@@ -1051,6 +1053,10 @@ public class InfraSyntaxOpersMMM {
 				+ "position");
 		infraSyntaxOpersM2OperLabeling.addPropEditableAttribute("08#" + "once");
 		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("08#" + "once");
+
+		infraSyntaxOpersM2OperLabeling
+				.addPropEditableAttribute("09#" + "order");
+		infraSyntaxOpersM2OperLabeling.addPropVisibleAttribute("09#" + "order");
 
 		infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
 				+ SyntaxConcept.VAR_USERIDENTIFIER);

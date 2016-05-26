@@ -11,7 +11,7 @@ public class OpersIOAttribute implements Comparable<OpersIOAttribute>,
 	private static final long serialVersionUID = -7692216138211081188L;
 	private String conceptId;
 	private String attributeId;
-	private boolean include;
+	private boolean include; // Include or Exclude the attribute
 
 	public OpersIOAttribute() {
 		super();

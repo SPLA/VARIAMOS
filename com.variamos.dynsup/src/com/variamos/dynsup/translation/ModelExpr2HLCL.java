@@ -39,6 +39,7 @@ import com.variamos.hlcl.HlclProgram;
 import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.LabelingOrder;
 import com.variamos.hlcl.NumericExpression;
+import com.variamos.io.ConsoleTextArea;
 import com.variamos.solver.Configuration;
 import com.variamos.solver.ConfigurationOptions;
 import com.variamos.solver.SWIPrologSolver;
@@ -459,15 +460,14 @@ public class ModelExpr2HLCL {
 							OperationSubActionExecType.NORMAL));
 					configurationOptions.setOrder(true);
 
-					configurationOptions.setOrder(true);
 					configurationOptions.setStartFromZero(true);
 
 					swiSolver.solve(new Configuration(), configurationOptions);
 
 					lastExecutionTime = swiSolver.getLastExecutionTime();
 				} catch (Exception ex) {
-					ex.printStackTrace();
-					System.out.println("No solution");
+					ConsoleTextArea.addText(ex.getStackTrace());
+					ConsoleTextArea.addText("No solution");
 					return -1;
 				}
 			} else
@@ -541,8 +541,8 @@ public class ModelExpr2HLCL {
 				swiSolver.solve(new Configuration(), configurationOptions);
 				lastExecutionTime = swiSolver.getLastExecutionTime();
 			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("No solution");
+				ConsoleTextArea.addText(e.getStackTrace());
+				ConsoleTextArea.addText("No solution");
 				return false;
 			}
 		}

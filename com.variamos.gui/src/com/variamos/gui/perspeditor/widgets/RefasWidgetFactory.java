@@ -15,6 +15,7 @@ import com.variamos.dynsup.types.IntegerType;
 import com.variamos.dynsup.types.SetType;
 import com.variamos.dynsup.types.StringType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
+import com.variamos.io.ConsoleTextArea;
 
 /**
  * A class to dynamically load appropriate widget. Based on WidgetFactory from
@@ -83,9 +84,9 @@ public class RefasWidgetFactory {
 			w = c.newInstance();
 			w.configure(v, graph, semanticModel, showSimulationCustomizationBox);
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getStackTrace());
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			ConsoleTextArea.addText(e.getStackTrace());
 		}
 
 		return w;
