@@ -25,5 +25,9 @@ public class ClearSimulationAction extends AbstractEditorAction {
 				.setSimulationStarted(false);
 		editor.clearQueryMonitor();
 		editor.clearElementState(ModelExpr2HLCL.SIMUL_EXEC);
+
+		// TODO this method brakes the Java Application - In a future JPL
+		// version may be fixed.
+		// Prolog.action_abort();
 	}
 }

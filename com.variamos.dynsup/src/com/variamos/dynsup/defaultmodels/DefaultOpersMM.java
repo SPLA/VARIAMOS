@@ -6737,7 +6737,8 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directClaimSGSemanticEdge = new OpersPairwiseRel(
 					"ClaimSGPWAsso", true, claimSGPairwiseRelList);
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
-					AttributeType.OPERATION, "Relation Level", "", 2, false,
+					AttributeType.OPERATION, "Relation Level",
+					"Required level for the Claim (0..4)", 2, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
 					attribute);
@@ -6878,7 +6879,8 @@ public class DefaultOpersMM {
 			OpersPairwiseRel directSDSGSemanticEdge = new OpersPairwiseRel(
 					"SDSGPWAsso", true, sdPairwiseRelList);
 			attribute = new ElemAttribute("level", "Integer",
-					AttributeType.OPERATION, "Level", "", 1, false,
+					AttributeType.OPERATION, "Level",
+					"Required level for the SD (0..4)", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
 			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(

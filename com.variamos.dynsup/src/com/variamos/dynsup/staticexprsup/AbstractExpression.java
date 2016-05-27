@@ -269,7 +269,7 @@ public abstract class AbstractExpression {
 							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
-						String[] split = ((String) value.getValue()).split("-");
+						String[] split = ((String) value.getValue()).split("#");
 						domain += split[0] + ",";
 					}
 				}
