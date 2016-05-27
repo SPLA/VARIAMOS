@@ -531,9 +531,12 @@ public class InstPairwiseRel extends InstElement {
 											.getValueObject() != null
 									&& getInstAttributes().get(name)
 											.getValueObject() instanceof InstAttribute) {
-								out += ((InstAttribute) getInstAttributes()
-										.get(name).getValueObject())
-										.getDisplayName();
+								InstAttribute att = (InstAttribute) getInstAttributes()
+										.get(name).getValueObject();
+								String[] atts = ((String) att
+										.getInstAttributeAttribute("Value"))
+										.split("#");
+								out += atts[1];
 							} else
 								out += getInstAttributes().get(name).toString()
 										.trim();

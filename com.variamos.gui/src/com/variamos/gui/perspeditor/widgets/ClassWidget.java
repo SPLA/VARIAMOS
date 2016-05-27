@@ -24,7 +24,6 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersOverTwoRel;
-import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
@@ -77,18 +76,7 @@ public class ClassWidget extends WidgetR {
 					.getClassCanonicalName());
 			ConsoleTextArea.addText(e.getStackTrace());
 		}
-		if (instAttribute.getPairwiseRelValidationList() != null) {
-			semanticElements = new HashMap<String, OpersElement>();
-			List<OpersPairwiseRel> list = instAttribute
-					.getPairwiseRelValidationList();
-
-			for (OpersPairwiseRel groupDependency : list) {
-				semanticElements.put(groupDependency.getIdentifier(),
-						groupDependency);
-				String out = groupDependency.getIdentifier();
-				txtValue.addItem(out);
-			}
-		} else if (instAttribute.getValidationMEList() != null) {
+		if (instAttribute.getValidationMEList() != null) {
 			syntaxElements = new HashMap<String, SyntaxElement>();
 			List<InstElement> list = instAttribute.getValidationMEList();
 
@@ -105,32 +93,43 @@ public class ClassWidget extends WidgetR {
 				// out.equals(instAttribute.getValue()))
 				// txtValue.setSelectedItem(out);
 			}
-			// } else if (instAttribute.getOverTwoRelValidationList() != null) {
-			// semanticElements = new HashMap<String, OpersElement>();
-			// List<OpersRelType> list = instAttribute
-			// .getOverTwoRelValidationList();
-			//
-			// for (OpersRelType groupDependency : list) {
-			// semanticElements.put(groupDependency.getIdentifier(),
-			// (OpersElement) groupDependency);
-			// String out = groupDependency.getIdentifier();
-			// txtValue.addItem(out);
-			// if (instAttribute.getValue() != null
-			// && out.equals(instAttribute.getValue()))
-			// txtValue.setSelectedItem(out);
-			// if (instAttribute.getValue() == null
-			// && instAttribute.getAttributeDefaultValue() != null
-			// && out.equals(instAttribute.getAttributeDefaultValue()))
-			// txtValue.setSelectedItem(out);
-			// }
-			// // System.out.println("yr"+txtValue.getSelectedIndex());
-			// if (txtValue.getSelectedIndex() == -1
-			// && txtValue.getItemCount() > 0) {
-			// txtValue.setSelectedItem(0);
-			// }
-			//
-			//
 		} else if (instAttribute.getOpersOverTwoRelList() != null) {
+			opersElements = new HashMap<String, InstAttribute>();
+			List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();
+
+			for (InstAttribute groupDependency : list) {
+				opersElements.put(groupDependency.getIdentifier(),
+						groupDependency);
+				String out = groupDependency.getIdentifier();
+				txtValue.addItem(out);
+			}
+		}
+		// } else if (instAttribute.getOverTwoRelValidationList() != null) {
+		// semanticElements = new HashMap<String, OpersElement>();
+		// List<OpersRelType> list = instAttribute
+		// .getOverTwoRelValidationList();
+		//
+		// for (OpersRelType groupDependency : list) {
+		// semanticElements.put(groupDependency.getIdentifier(),
+		// (OpersElement) groupDependency);
+		// String out = groupDependency.getIdentifier();
+		// txtValue.addItem(out);
+		// if (instAttribute.getValue() != null
+		// && out.equals(instAttribute.getValue()))
+		// txtValue.setSelectedItem(out);
+		// if (instAttribute.getValue() == null
+		// && instAttribute.getAttributeDefaultValue() != null
+		// && out.equals(instAttribute.getAttributeDefaultValue()))
+		// txtValue.setSelectedItem(out);
+		// }
+		// // System.out.println("yr"+txtValue.getSelectedIndex());
+		// if (txtValue.getSelectedIndex() == -1
+		// && txtValue.getItemCount() > 0) {
+		// txtValue.setSelectedItem(0);
+		// }
+		//
+		//
+		else if (instAttribute.getOpersOverTwoRelList() != null) {
 			opersElements = new HashMap<String, InstAttribute>();
 			List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();
 
@@ -331,14 +330,14 @@ public class ClassWidget extends WidgetR {
 				out = true;
 			}
 		}
-		if (semanticElements != null) {
+		if (opersElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
 				if (instAttribute.getValueObject() == null
-						|| semanticElements.get(s) != null
+						|| opersElements.get(s) != null
 						&& (!instAttribute.getValueObject().equals(
-								semanticElements.get(s)))) {
-					instAttribute.setValueObject(semanticElements.get(s));
+								opersElements.get(s)))) {
+					instAttribute.setValueObject(opersElements.get(s));
 					out = true;
 				}
 			}
@@ -369,13 +368,13 @@ public class ClassWidget extends WidgetR {
 		if (instVertex != null)
 			instAttribute.setValueObject(instVertex.get((String) txtValue
 					.getSelectedItem()));
-		if (semanticElements != null && txtValue.getItemCount() > 0) {
+		if (opersElements != null && txtValue.getItemCount() > 0) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				instAttribute.setValueObject(semanticElements.get(s));
+				instAttribute.setValueObject(opersElements.get(s));
 			} else {
 				String s = ((String) txtValue.getItemAt(0)).trim();
-				instAttribute.setValueObject(semanticElements.get(s));
+				instAttribute.setValueObject(opersElements.get(s));
 			}
 		}
 		if (syntaxElements != null && txtValue.getItemCount() > 0) {

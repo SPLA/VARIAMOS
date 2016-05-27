@@ -10,6 +10,7 @@ package com.variamos.dynsup.model;
  * @since 2015-01-03 *
  */
 
+@Deprecated
 public class OpersRelType extends OpersElement {
 
 	/**
