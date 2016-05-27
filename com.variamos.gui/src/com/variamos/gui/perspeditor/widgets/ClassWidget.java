@@ -25,7 +25,6 @@ import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
@@ -106,30 +105,31 @@ public class ClassWidget extends WidgetR {
 				// out.equals(instAttribute.getValue()))
 				// txtValue.setSelectedItem(out);
 			}
-		} else if (instAttribute.getOverTwoRelValidationList() != null) {
-			semanticElements = new HashMap<String, OpersElement>();
-			List<OpersRelType> list = instAttribute
-					.getOverTwoRelValidationList();
-
-			for (OpersRelType groupDependency : list) {
-				semanticElements.put(groupDependency.getIdentifier(),
-						(OpersElement) groupDependency);
-				String out = groupDependency.getIdentifier();
-				txtValue.addItem(out);
-				if (instAttribute.getValue() != null
-						&& out.equals(instAttribute.getValue()))
-					txtValue.setSelectedItem(out);
-				if (instAttribute.getValue() == null
-						&& instAttribute.getAttributeDefaultValue() != null
-						&& out.equals(instAttribute.getAttributeDefaultValue()))
-					txtValue.setSelectedItem(out);
-			}
-			// System.out.println("yr"+txtValue.getSelectedIndex());
-			if (txtValue.getSelectedIndex() == -1
-					&& txtValue.getItemCount() > 0) {
-				txtValue.setSelectedItem(0);
-			}
-
+			// } else if (instAttribute.getOverTwoRelValidationList() != null) {
+			// semanticElements = new HashMap<String, OpersElement>();
+			// List<OpersRelType> list = instAttribute
+			// .getOverTwoRelValidationList();
+			//
+			// for (OpersRelType groupDependency : list) {
+			// semanticElements.put(groupDependency.getIdentifier(),
+			// (OpersElement) groupDependency);
+			// String out = groupDependency.getIdentifier();
+			// txtValue.addItem(out);
+			// if (instAttribute.getValue() != null
+			// && out.equals(instAttribute.getValue()))
+			// txtValue.setSelectedItem(out);
+			// if (instAttribute.getValue() == null
+			// && instAttribute.getAttributeDefaultValue() != null
+			// && out.equals(instAttribute.getAttributeDefaultValue()))
+			// txtValue.setSelectedItem(out);
+			// }
+			// // System.out.println("yr"+txtValue.getSelectedIndex());
+			// if (txtValue.getSelectedIndex() == -1
+			// && txtValue.getItemCount() > 0) {
+			// txtValue.setSelectedItem(0);
+			// }
+			//
+			//
 		} else if (instAttribute.getOpersOverTwoRelList() != null) {
 			opersElements = new HashMap<String, InstAttribute>();
 			List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();

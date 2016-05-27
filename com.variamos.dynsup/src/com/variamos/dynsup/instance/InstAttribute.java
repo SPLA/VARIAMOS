@@ -10,7 +10,6 @@ import java.util.Map;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 
@@ -167,26 +166,12 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// return identifier;
 	}
 
-	// Old
-	public void setValidationRelationTypes(List<OpersRelType> semGD) {
-		// this.identifier = identifier;
-		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
-	}
-
 	// New
 	public void setOpersOverTwoRelList(List<InstAttribute> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST, semGD);
 	}
 
-	// Old
-	@SuppressWarnings("unchecked")
-	public List<OpersRelType> getOverTwoRelValidationList() {
-		return (List<OpersRelType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
-		// return identifier;
-	}
-
-	// New
 	@SuppressWarnings("unchecked")
 	public List<InstAttribute> getOpersOverTwoRelList() {
 		return (List<InstAttribute>) getInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST);
@@ -398,7 +383,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
-							OpersRelType.class.getCanonicalName())) {
+							InstAttribute.class.getCanonicalName())) {
 				List<InstAttribute> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
 						.getTransSupportMetaElement()).getOpersRelationTypes();
 				this.setOpersOverTwoRelList(semanticRelationTypes);
@@ -424,7 +409,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
-							OpersRelType.class.getCanonicalName())) {
+							InstAttribute.class.getCanonicalName())) {
 				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
 						.getTransSupportMetaElement()).getOpersRelationTypes();
 				setOpersOverTwoRelList(semanticRelationTypes);

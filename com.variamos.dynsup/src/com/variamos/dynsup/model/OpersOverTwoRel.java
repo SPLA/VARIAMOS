@@ -1,6 +1,5 @@
 package com.variamos.dynsup.model;
 
-import java.util.List;
 
 /**
  * A class to represent relations of more than two concepts at semantic level.
@@ -17,20 +16,13 @@ public class OpersOverTwoRel extends OpersElement {
 	 * 
 	 */
 	private static final long serialVersionUID = -6309224856276191013L;
-	private List<OpersRelType> semanticRelationTypes;
 
 	public OpersOverTwoRel() {
 		super(null);
 	}
 
-	public OpersOverTwoRel(String identifier,
-			List<OpersRelType> semanticRelationTypes) {
+	public OpersOverTwoRel(String identifier) {
 		super(identifier);
-		this.semanticRelationTypes = semanticRelationTypes;
-	}
-
-	public List<OpersRelType> getSemanticRelationTypes() {
-		return semanticRelationTypes;
 	}
 
 }

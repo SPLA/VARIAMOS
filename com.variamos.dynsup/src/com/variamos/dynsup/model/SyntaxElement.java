@@ -642,17 +642,6 @@ public abstract class SyntaxElement implements Serializable {
 		return "";
 	}
 
-	// Old
-	public List<OpersRelType> getSemanticRelationTypes() {
-		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
-				"relTypesAttr");
-		List<InstAttribute> ias = (List<InstAttribute>) ia.getValue();
-
-		return ((OpersOverTwoRel) getTransInstSemanticElement().getEdOperEle())
-				.getSemanticRelationTypes();
-	}
-
-	// New
 	public List<InstAttribute> getOpersRelationTypes() {
 		InstAttribute ia = getTransInstSemanticElement().getInstAttribute(
 				"relTypesAttr");

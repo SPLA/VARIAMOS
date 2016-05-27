@@ -1,9 +1,8 @@
 package com.variamos.dynsup.model;
 
-
 /**
  * A class to represent types of relations at semantic level. Part of PhD work
- * at University of Paris 1
+ * at University of Paris 1 No longer needed
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 

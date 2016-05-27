@@ -12,7 +12,6 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.AttributeType;
@@ -667,22 +666,14 @@ public class InfraSyntaxOpersMMM {
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
 		variabilityInstVertex.put("OMOTRel", instInfraSyntaxOpersM2OTRel);
 
-		List<OpersRelType> basicOpersM2ExtRelList = new ArrayList<OpersRelType>();
-		basicOpersM2ExtRelList.add(new OpersRelType("extends", "extends",
-				"extends", false, true, true, 1, -1, 1, 1));
-
-		List<OpersRelType> basicOpersM2AsoRellList = new ArrayList<OpersRelType>();
-		basicOpersM2AsoRellList.add(new OpersRelType("association",
-				"association", "association", false, true, true, 1, -1, 1, 1));
-
 		OpersPairwiseRel basicOpersM2ExtRel = new OpersPairwiseRel("ExtRel",
-				false, basicOpersM2ExtRelList);
+				false);
 
 		InstConcept instBasicOpersM2ExtRel = new InstConcept("ExtendsRelation",
 				basicOpersSyntaxM3Concept, basicOpersM2ExtRel);
 
 		OpersPairwiseRel basicOpersM2AsoRel = new OpersPairwiseRel("AsoRel",
-				false, basicOpersM2AsoRellList);
+				false);
 
 		InstConcept instBasicOpersM2AsoRel = new InstConcept(
 				"AssociationRelation", basicOpersSyntaxM3Concept,

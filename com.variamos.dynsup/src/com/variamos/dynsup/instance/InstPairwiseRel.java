@@ -11,7 +11,6 @@ import java.util.Set;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.AttributeType;
@@ -531,9 +530,10 @@ public class InstPairwiseRel extends InstElement {
 									&& getInstAttributes().get(name)
 											.getValueObject() != null
 									&& getInstAttributes().get(name)
-											.getValueObject() instanceof OpersRelType) {
-								out += ((OpersRelType) getInstAttributes().get(
-										name).getValueObject()).getDiplayName();
+											.getValueObject() instanceof InstAttribute) {
+								out += ((InstAttribute) getInstAttributes()
+										.get(name).getValueObject())
+										.getDisplayName();
 							} else
 								out += getInstAttributes().get(name).toString()
 										.trim();

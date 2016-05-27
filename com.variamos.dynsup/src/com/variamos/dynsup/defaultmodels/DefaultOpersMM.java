@@ -17,7 +17,6 @@ import com.variamos.dynsup.model.OpersIOAttribute;
 import com.variamos.dynsup.model.OpersLabeling;
 import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.model.OpersVariable;
@@ -2095,7 +2094,7 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of over two relation",
-				OpersRelType.class.getCanonicalName(), null, null, 0, 6, "",
+				InstAttribute.class.getCanonicalName(), null, null, 0, 6, "",
 				"", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("06#" + "relationType");
 		semInfraOTRel.addPropVisibleAttribute("06#" + "relationType");
@@ -2131,7 +2130,7 @@ public class DefaultOpersMM {
 		semGeneralPair.putSemanticAttribute("relationType", new ElemAttribute(
 				"relationType", "Class", AttributeType.OPERATION, true,
 				"Relation Type", "Type of pairwise relation",
-				OpersRelType.class.getCanonicalName(), null, "", 0, 6, "", "",
+				InstAttribute.class.getCanonicalName(), null, "", 0, 6, "", "",
 				6, "#-#\n", ""));
 		semGeneralPair.addPropEditableAttribute("06#" + "relationType");
 		semGeneralPair.addPropVisibleAttribute("06#" + "relationType");
@@ -3340,16 +3339,7 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexGE, true);
 			instEdge.setSourceRelation(instVertexAsset, true);
 
-			List<OpersRelType> claimSemOverTwoRelList = new ArrayList<OpersRelType>();
-			claimSemOverTwoRelList.add(new OpersRelType("and", "And", "And",
-					false, false, false, 2, -1, 1, 1));
-			claimSemOverTwoRelList.add(new OpersRelType("or", "Or", "Or",
-					false, true, true, 2, -1, 1, 1));
-			claimSemOverTwoRelList.add(new OpersRelType("mutex", "Mutex",
-					"Mutex.", false, true, true, 2, -1, 1, 1));
-
-			OpersOverTwoRel semClaim = new OpersOverTwoRel("Claim",
-					claimSemOverTwoRelList);
+			OpersOverTwoRel semClaim = new OpersOverTwoRel("Claim");
 			InstConcept instVertexCL = new InstConcept("Claim", semClaim,
 					metaMetaInstOverTwoRel);
 
@@ -3374,12 +3364,8 @@ public class DefaultOpersMM {
 
 			semanticExpressions.add(t1);
 
-			List<OpersRelType> operclaimPairwiseRelList = new ArrayList<OpersRelType>();
-			operclaimPairwiseRelList.add(new OpersRelType("OperToClaim", "",
-					"", true, true, true, 1, 1, 1, 1));
-
 			OpersPairwiseRel directOperClaimSemanticEdge = new OpersPairwiseRel(
-					"OperClaimPWAsso", true, operclaimPairwiseRelList);
+					"OperClaimPWAsso", true);
 
 			InstConcept instDirOperClaimSemanticEdge = new InstConcept(
 					"OperClaimPWAsso", metaMetaPairwiseRelation,
@@ -3632,7 +3618,7 @@ public class DefaultOpersMM {
 			// "#\n#");
 
 			OpersOverTwoRel semSoftDependency = new OpersOverTwoRel(
-					"SoftDependency", null);
+					"SoftDependency");
 			InstConcept instVertexSD = new InstConcept("SoftDependency",
 					semSoftDependency, metaMetaInstConcept);
 			refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
@@ -3755,38 +3741,8 @@ public class DefaultOpersMM {
 			// ArrayList<AbstractSemanticVertex>();
 			// semSDElements.add(semSoftDependency);
 
-			// OLD Relations
-			List<OpersRelType> hardSemOverTwoRelList = new ArrayList<OpersRelType>();
-			hardSemOverTwoRelList.add(new OpersRelType("and", "And", "And",
-					false, false, false, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("or", "Or", "Or", false,
-					true, true, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("mutex", "Mutex",
-					"Mutex.", false, true, true, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("range", "Range",
-					"Range", false, true, true, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("none", "None", "None",
-					false, true, true, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("other", "other",
-					"other", false, true, true, 2, -1, 1, 1));
-			hardSemOverTwoRelList.add(new OpersRelType("And/Or/Mutex/[m,n]",
-					"And/Or/Mutex/[m,n]", "AOMR", false, true, true, 2, -1, 1,
-					1));
-
-			List<OpersRelType> featSemOverTwoRelList = new ArrayList<OpersRelType>();
-			featSemOverTwoRelList.add(new OpersRelType("and", "and", "And",
-					false, false, false, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("or", "Or", "Or", false,
-					true, true, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("mutex", "mutex",
-					"Mutex.", false, true, true, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("range", "range",
-					"range", false, true, true, 2, -1, 1, 1));
-			featSemOverTwoRelList.add(new OpersRelType("other", "other",
-					"other", false, true, true, 2, -1, 1, 1));
-
 			OpersOverTwoRel semHardOverTwoRelation = new OpersOverTwoRel(
-					"SMMOverTwoRelation", null);// hardSemOverTwoRelList);
+					"SMMOverTwoRelation");// hardSemOverTwoRelList);
 
 			InstConcept instVertexHHGR = new InstConcept("GoalOTAsso",
 					semHardOverTwoRelation, metaMetaInstOverTwoRel);
@@ -4029,44 +3985,8 @@ public class DefaultOpersMM {
 					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
-			// List<AbstractSemanticVertex> semanticVertices = new
-			// ArrayList<AbstractSemanticVertex>();
-
-			List<OpersRelType> structHardSemPairwiseRelList = new ArrayList<OpersRelType>();
-			structHardSemPairwiseRelList.add(new OpersRelType("means_ends",
-					"means-ends", "means-ends", true, true, true, 1, -1, 1, 1));
-			structHardSemPairwiseRelList.add(new OpersRelType("implication",
-					"impl.", "Impl.", false, true, true, 1, -1, 1, 1));
-
-			List<OpersRelType> sideHardSemPairwiseRelList = new ArrayList<OpersRelType>();
-			sideHardSemPairwiseRelList.add(new OpersRelType("conflict",
-					"conflict", "conflict", false, true, true, 1, -1, 1, 1));
-			sideHardSemPairwiseRelList.add(new OpersRelType("alternative",
-					"altern.", "altern.", false, true, true, 1, -1, 1, 1));
-			sideHardSemPairwiseRelList.add(new OpersRelType("preferred",
-					"pref.", "pref.", false, true, true, 1, -1, 1, 1));
-			sideHardSemPairwiseRelList.add(new OpersRelType("require", "req.",
-					"req.", false, true, true, 1, -1, 1, 1));
-			sideHardSemPairwiseRelList.add(new OpersRelType("condition",
-					"cond.", "cond.", false, true, true, 1, -1, 1, 1));
-
-			List<OpersRelType> sgPairwiseRelList = new ArrayList<OpersRelType>();
-			sgPairwiseRelList.add(new OpersRelType("contribution",
-					"contribution", "contribution", true, true, true, 1, -1, 1,
-					1));
-			sgPairwiseRelList.add(new OpersRelType("conflict", "conflict",
-					"conflict", false, true, true, 1, -1, 1, 1));
-			sgPairwiseRelList.add(new OpersRelType("alternative", "altern.",
-					"altern.", false, true, true, 1, -1, 1, 1));
-			sgPairwiseRelList.add(new OpersRelType("preferred", "pref.",
-					"pref.", false, true, true, 1, -1, 1, 1));
-			sgPairwiseRelList.add(new OpersRelType("implication", "impl.",
-					"Impl.", false, true, true, 1, -1, 1, 1));
-			sgPairwiseRelList.add(new OpersRelType("require", "req.", "req.",
-					false, true, true, 1, -1, 1, 1));
-
 			OpersPairwiseRel directHardHardSemanticEdge = new OpersPairwiseRel(
-					"GoalGoalSidePWAsso", false, sideHardSemPairwiseRelList);
+					"GoalGoalSidePWAsso", false);
 			InstConcept instDirHardHardSemanticEdge = new InstConcept(
 					"GoalGoalSidePWAsso", metaMetaPairwiseRelation,
 					directHardHardSemanticEdge);
@@ -4074,8 +3994,8 @@ public class DefaultOpersMM {
 			directHardHardSemanticEdge.putSemanticAttribute("relationType",
 					new ElemAttribute("relationType", "Class",
 							AttributeType.OPERATION, true, "Relation Type", "",
-							OpersRelType.class.getCanonicalName(), null, "", 0,
-							6, "", "", 6, "#-#\n", ""));
+							InstAttribute.class.getCanonicalName(), null, "",
+							0, 6, "", "", 6, "#-#\n", ""));
 			directHardHardSemanticEdge.addPropEditableAttribute("06#"
 					+ "relationType");
 			directHardHardSemanticEdge.addPropVisibleAttribute("06#"
@@ -4252,7 +4172,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instDirHardHardSemanticEdge, true);
 
 			OpersPairwiseRel directStructHardHardSemanticEdge = new OpersPairwiseRel(
-					"structHardHardPWAsso", false, structHardSemPairwiseRelList);
+					"structHardHardPWAsso", false);
 
 			InstConcept instDirStructHardHardSemanticEdge = new InstConcept(
 					"structHardHardPWAsso", metaMetaPairwiseRelation,
@@ -4346,20 +4266,8 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexHC, true);
 			instEdge.setSourceRelation(instDirStructHardHardSemanticEdge, true);
 
-			List<OpersRelType> featSideSemPairwiseRelList = new ArrayList<OpersRelType>();
-			featSideSemPairwiseRelList.add(new OpersRelType("require",
-					"require", "require", false, true, true, 1, -1, 1, 1));
-			featSideSemPairwiseRelList.add(new OpersRelType("conflict",
-					"excl.", "excl.", false, true, true, 1, -1, 1, 1));
-
-			List<OpersRelType> featVertSemPairwiseRelList = new ArrayList<OpersRelType>();
-			featVertSemPairwiseRelList.add(new OpersRelType("mandatory",
-					"mandatory", "mandatory", true, true, true, 1, -1, 1, 1));
-			featVertSemPairwiseRelList.add(new OpersRelType("optional", "opt.",
-					"opt.", false, true, true, 1, -1, 1, 1));
-
 			OpersPairwiseRel directFeaFeatVertSemEdge = new OpersPairwiseRel(
-					"FeatFeatParentPWAsso", false, featVertSemPairwiseRelList);
+					"FeatFeatParentPWAsso", false);
 			InstConcept instDirFeaFeatVertSemEdge = new InstConcept(
 					"FeatFeatParentPWAsso", metaMetaPairwiseRelation,
 					directFeaFeatVertSemEdge);
@@ -4464,7 +4372,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instDirFeaFeatVertSemEdge, true);
 
 			OpersPairwiseRel directFeatFeatSideSemEdge = new OpersPairwiseRel(
-					"FeatFeatSidePWAsso", false, featSideSemPairwiseRelList);
+					"FeatFeatSidePWAsso", false);
 			InstConcept instDirFeatFeatSideSemEdge = new InstConcept(
 					"FeatFeatSidePWAsso", metaMetaPairwiseRelation,
 					directFeatFeatSideSemEdge);
@@ -4551,7 +4459,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instDirFeatFeatSideSemEdge, true);
 
 			OpersOverTwoRel semFeatOverTwoRelation = new OpersOverTwoRel(
-					"FeatFeatOTAsso", null);// featSemOverTwoRelList);
+					"FeatFeatOTAsso");// featSemOverTwoRelList);
 			InstConcept instVertexFFGR = new InstConcept("FeatFeatOTAsso",
 					semFeatOverTwoRelation, metaMetaInstOverTwoRel);
 			refas.getVariabilityVertex().put("FeatFeatOTAsso", instVertexFFGR);
@@ -4738,12 +4646,8 @@ public class DefaultOpersMM {
 					"range", "", "", 1, -1, "", "", -1, "", ""),
 					semanticExpressions));
 
-			List<OpersRelType> assetoperPairwiseRelList = new ArrayList<OpersRelType>();
-			assetoperPairwiseRelList.add(new OpersRelType("implementation",
-					"implementation", "imp.", true, true, true, 1, 1, 1, 1));
-
 			OpersPairwiseRel semAssetOperPairwiseRel = new OpersPairwiseRel(
-					"varAssetOperPWAsso", false, assetoperPairwiseRelList);
+					"varAssetOperPWAsso", false);
 			InstConcept instSemAssetOperPairwiseRel = new InstConcept(
 					"varAssetOperPWAsso", metaMetaPairwiseRelation,
 					semAssetOperPairwiseRel);
@@ -4817,14 +4721,8 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexOper, true);
 			instEdge.setSourceRelation(instSemAssetOperPairwiseRel, true);
 
-			List<OpersRelType> assetPairwiseRelList = new ArrayList<OpersRelType>();
-			assetPairwiseRelList.add(new OpersRelType("delegation",
-					"delegation", "deleg.", true, true, true, 1, 1, 1, 1));
-			assetPairwiseRelList.add(new OpersRelType("assembly", "assembly",
-					"assembly", true, true, true, 1, 1, 1, 1));
-
 			OpersPairwiseRel semAssetPairwiseRel = new OpersPairwiseRel(
-					"varAssetPWAsso", false, assetPairwiseRelList);
+					"varAssetPWAsso", false);
 			InstConcept instSemAssetPairwiseRel = new InstConcept(
 					"varAssetPWAsso", metaMetaPairwiseRelation,
 					semAssetPairwiseRel);
@@ -4923,12 +4821,8 @@ public class DefaultOpersMM {
 			instEdge.setTargetRelation(instVertexAsset, true);
 			instEdge.setSourceRelation(instSemAssetPairwiseRel, true);
 
-			List<OpersRelType> vcntxPairwiseRelList = new ArrayList<OpersRelType>();
-			vcntxPairwiseRelList.add(new OpersRelType("Variable Context", "",
-					"", true, true, true, 1, 1, 1, 1));
-
 			OpersPairwiseRel semvarcntxPairwiseRel = new OpersPairwiseRel(
-					"varcntxPWAsso", false, vcntxPairwiseRelList);
+					"varcntxPWAsso", false);
 
 			InstConcept instSemvarcntxPairwiseRel = new InstConcept(
 					"varcntxPWAsso", metaMetaPairwiseRelation,
@@ -4976,10 +4870,6 @@ public class DefaultOpersMM {
 			instEdge.setSupportMetaPairwiseRelation(metaPairwRelAso);
 			instEdge.setTargetRelation(instVertexCG, true);
 			instEdge.setSourceRelation(instSemvarcntxPairwiseRel, true);
-
-			List<OpersRelType> sdPairwiseRelList = new ArrayList<OpersRelType>();
-			sdPairwiseRelList.add(new OpersRelType("SD", "", "", true, true,
-					true, 1, 1, 1, 1));
 
 			/*
 			 * SemanticPairwiseRelation semSDPairwiseRel = new
@@ -5030,10 +4920,6 @@ public class DefaultOpersMM {
 			 * instEdge.setSourceRelation(instSemCLPWAsso, true);
 			 */
 
-			List<OpersRelType> claimSGPairwiseRelList = new ArrayList<OpersRelType>();
-			claimSGPairwiseRelList.add(new OpersRelType("ClaimToSG", "", "",
-					true, true, true, 1, 1, 1, 1));
-
 			/*
 			 * SemanticPairwiseRelation semClaimSGPairwiseRel = new
 			 * SemanticPairwiseRelation( "claimSGPWAsso", false,
@@ -5057,9 +4943,7 @@ public class DefaultOpersMM {
 			 * instEdge.setTargetRelation(instVertexSG, true);
 			 * instEdge.setSourceRelation(instSemCLSGPWAsso, true);
 			 */
-			List<OpersRelType> groupPairwiseRelList = new ArrayList<OpersRelType>();
-			groupPairwiseRelList.add(new OpersRelType("Group", "", "", true,
-					true, true, 1, 1, 1, 1));
+
 			/*
 			 * SemanticPairwiseRelation semGroupPairwiseRel = new
 			 * SemanticPairwiseRelation( "groupPWAsso", false,
@@ -5077,9 +4961,6 @@ public class DefaultOpersMM {
 			 * SemanticAttribute("AggregationHigh1", "Integer", false,
 			 * "Aggregation High1", 0, 0, -1, "", "", -1, "", ""));
 			 */
-			List<OpersRelType> nonePairwiseRelList = new ArrayList<OpersRelType>();
-			nonePairwiseRelList.add(new OpersRelType("Group", "", "", true,
-					true, true, 1, 1, 1, 1));
 
 			/*
 			 * SemanticPairwiseRelation nonePairwiseRel = new
@@ -5103,9 +4984,6 @@ public class DefaultOpersMM {
 			 * InstConcept("viewPWAsso", metaPairwiseRelation,
 			 * viewPairwiseRel));
 			 */
-			List<OpersRelType> genconsPairwiseRelList = new ArrayList<OpersRelType>();
-			genconsPairwiseRelList.add(new OpersRelType("GeneralConstraint",
-					"", "", true, true, true, 1, 1, 1, 1));
 
 			// Feature to Feature
 
@@ -5201,7 +5079,7 @@ public class DefaultOpersMM {
 			// semanticVertices.add(semSoftgoal);
 
 			OpersPairwiseRel directSGSGSemEdge = new OpersPairwiseRel(
-					"SgSgPWAsso", true, sgPairwiseRelList);
+					"SgSgPWAsso", true);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
@@ -5623,14 +5501,14 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instDirSGSGSemanticEdge, true);
 
 			OpersOverTwoRel semanticSGSGGroupRelation = new OpersOverTwoRel(
-					"SgSgOTAsso", null);// hardSemOverTwoRelList);
+					"SgSgOTAsso");// hardSemOverTwoRelList);
 
 			InstConcept instVertexSGGR = new InstConcept("SgSgOTAsso",
 					semanticSGSGGroupRelation, metaMetaInstOverTwoRel);
 			refas.getVariabilityVertex().put("SgSgOTAsso", instVertexSGGR);
 
 			OpersPairwiseRel directGRSGSemEdge = new OpersPairwiseRel(
-					"sgsgOTAssoToPWAsso", true, sgPairwiseRelList);
+					"sgsgOTAssoToPWAsso", true);
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
@@ -5940,7 +5818,7 @@ public class DefaultOpersMM {
 					semanticExpressions));
 
 			OpersPairwiseRel directSGGRSemEdge = new OpersPairwiseRel(
-					"sgsgOTAssoFromPWAsso", true, sgPairwiseRelList);
+					"sgsgOTAssoFromPWAsso", true);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
 					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
@@ -6205,7 +6083,7 @@ public class DefaultOpersMM {
 			// semanticVertices.add(semContextGroup);
 
 			OpersPairwiseRel directCVCGSemanticEdge = new OpersPairwiseRel(
-					"CVCGPWAsso", false, vcntxPairwiseRelList);
+					"CVCGPWAsso", false);
 			InstConcept instDirCVCGSemanticEdge = new InstConcept("CVCGPWAsso",
 					metaMetaPairwiseRelation, directCVCGSemanticEdge);
 
@@ -6254,7 +6132,7 @@ public class DefaultOpersMM {
 
 			// Oper to Claim
 			OpersOverTwoRel semanticOperClaimGroupRelation = new OpersOverTwoRel(
-					"OperCLOTAsso", null);// hardSemOverTwoRelList);
+					"OperCLOTAsso");// hardSemOverTwoRelList);
 
 			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 			// semanticVertices.add(semClaim);
@@ -6448,7 +6326,7 @@ public class DefaultOpersMM {
 			refas.getVariabilityVertex().put("OperCLOTAsso", instVertexCLGR);
 
 			OpersPairwiseRel directOperClaimToSemanticEdge = new OpersPairwiseRel(
-					"OperClaimToPWAsso", true, operclaimPairwiseRelList);
+					"OperClaimToPWAsso", true);
 
 			InstConcept instDirOperClaimToSemanticEdge = new InstConcept(
 					"OperClaimToPWAsso", metaMetaPairwiseRelation,
@@ -6531,7 +6409,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexCLGR, true);
 
 			OpersPairwiseRel directOperClaimFromSemanticEdge = new OpersPairwiseRel(
-					"OperClaimFromPWAsso", true, nonePairwiseRelList);
+					"OperClaimFromPWAsso", true);
 
 			InstConcept instDirOperClaimFromSemanticEdge = new InstConcept(
 					"OperClaimFromPWAsso", metaMetaPairwiseRelation,
@@ -6580,7 +6458,7 @@ public class DefaultOpersMM {
 
 			// LFeat to Claim
 			OpersOverTwoRel semanticLFClaimGroupRelation = new OpersOverTwoRel(
-					"LFtoClaimOTAsso", null); // hardSemOverTwoRelList);
+					"LFtoClaimOTAsso"); // hardSemOverTwoRelList);
 
 			InstConcept instVertexLFCLGR = new InstConcept("LFtoClaimOTAsso",
 					semanticLFClaimGroupRelation, metaMetaInstOverTwoRel);
@@ -6589,7 +6467,7 @@ public class DefaultOpersMM {
 					instVertexLFCLGR);
 
 			OpersPairwiseRel directFClaimToSemanticEdge = new OpersPairwiseRel(
-					"FClaimToPWAsso", true, operclaimPairwiseRelList);
+					"FClaimToPWAsso", true);
 
 			InstConcept instDirFClaimToSemanticEdge = new InstConcept(
 					"FClaimToPWAsso", metaMetaPairwiseRelation,
@@ -6669,7 +6547,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexLFCLGR, true);
 
 			OpersPairwiseRel directFClaimFromSemanticEdge = new OpersPairwiseRel(
-					"FClaimFromPWAsso", true, nonePairwiseRelList);
+					"FClaimFromPWAsso", true);
 
 			InstConcept instDirFClaimFromSemanticEdge = new InstConcept(
 					"FClaimFromPWAsso", metaMetaPairwiseRelation,
@@ -6701,7 +6579,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexCL, true);
 
 			OpersPairwiseRel directLFClaimSemanticEdge = new OpersPairwiseRel(
-					"LFClaimPWAsso", true, operclaimPairwiseRelList);
+					"LFClaimPWAsso", true);
 
 			InstConcept instDirLFClaimSemanticEdge = new InstConcept(
 					"LFClaimPWAsso", metaMetaPairwiseRelation,
@@ -6735,7 +6613,7 @@ public class DefaultOpersMM {
 			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 			// semanticVertices.add(semSoftgoal);
 			OpersPairwiseRel directClaimSGSemanticEdge = new OpersPairwiseRel(
-					"ClaimSGPWAsso", true, claimSGPairwiseRelList);
+					"ClaimSGPWAsso", true);
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
 					AttributeType.OPERATION, "Relation Level",
 					"Required level for the Claim (0..4)", 2, false,
@@ -6877,7 +6755,7 @@ public class DefaultOpersMM {
 			// semanticVertices.add(semSoftgoal);
 
 			OpersPairwiseRel directSDSGSemanticEdge = new OpersPairwiseRel(
-					"SDSGPWAsso", true, sdPairwiseRelList);
+					"SDSGPWAsso", true);
 			attribute = new ElemAttribute("level", "Integer",
 					AttributeType.OPERATION, "Level",
 					"Required level for the SD (0..4)", 1, false,
@@ -7020,7 +6898,7 @@ public class DefaultOpersMM {
 			// Asset to Asset
 
 			OpersOverTwoRel semanticAssetAssetOvertwoRel = new OpersOverTwoRel(
-					"AssetAssetOTAsso", null);// hardSemOverTwoRelList);
+					"AssetAssetOTAsso");// hardSemOverTwoRelList);
 
 			InstConcept instVertexASSETGR = new InstConcept("AssetAssetOTAsso",
 					semanticAssetAssetOvertwoRel, metaMetaInstOverTwoRel);
@@ -7079,7 +6957,7 @@ public class DefaultOpersMM {
 			// Asset to Oper
 			// TODO use list of possible relations
 			OpersOverTwoRel semanticAssetOperGroupRelation = new OpersOverTwoRel(
-					"AssetOperOTAsso", null);// hardSemOverTwoRelList);
+					"AssetOperOTAsso");// hardSemOverTwoRelList);
 
 			// semanticVertices = new ArrayList<AbstractSemanticVertex>();
 			// semanticVertices.add(semOperationalization);
@@ -7493,7 +7371,7 @@ public class DefaultOpersMM {
 					semanticExpressions));
 
 			OpersPairwiseRel groupAssetOperSemanticEdge = new OpersPairwiseRel(
-					"AssetOperPWAsso", false, assetoperPairwiseRelList);
+					"AssetOperPWAsso", false);
 
 			InstConcept instAssetOperGRAO = new InstConcept(
 					"AssetOperFromoOTAssoPWAsso", metaMetaPairwiseRelation,
@@ -7562,7 +7440,7 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexOPERGR, true);
 
 			OpersPairwiseRel directAssetOperSemanticEdge = new OpersPairwiseRel(
-					"AssetOperPWAsso", false, assetoperPairwiseRelList);
+					"AssetOperPWAsso", false);
 			InstConcept instDirAssetOperSemanticEdge = new InstConcept(
 					"AssetOperPWAsso", metaMetaPairwiseRelation,
 					directAssetOperSemanticEdge);

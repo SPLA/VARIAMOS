@@ -1,7 +1,5 @@
 package com.variamos.dynsup.model;
 
-import java.util.List;
-
 import com.variamos.dynsup.instance.InstElement;
 
 /**
@@ -54,13 +52,6 @@ public class SyntaxPairwiseRel extends SyntaxElement {
 			int width, int height, String image, int borderStroke) {
 		super(identifier, visible, editable, name, style, description, width,
 				height, image, borderStroke, null);
-	}
-
-	public List<OpersRelType> getSemanticRelationTypes() {
-		if (getTransInstSemanticElement() == null)
-			return null;
-		return ((OpersPairwiseRel) getTransInstSemanticElement().getEdOperEle())
-				.getSemanticRelationTypes();
 	}
 
 	public String toString() {
