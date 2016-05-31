@@ -11,7 +11,7 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
-import com.variamos.dynsup.model.OpersPairwiseRel;
+import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.OperationSubActionExecType;
@@ -665,14 +665,12 @@ public class InfraSyntaxOpersMMM {
 				basicOpersSyntaxM3Concept, infraSyntaxOpersM2OTRel);
 		variabilityInstVertex.put("OMOTRel", instInfraSyntaxOpersM2OTRel);
 
-		OpersPairwiseRel basicOpersM2ExtRel = new OpersPairwiseRel("ExtRel",
-				false);
+		OpersConcept basicOpersM2ExtRel = new OpersConcept("ExtRel");
 
 		InstConcept instBasicOpersM2ExtRel = new InstConcept("ExtendsRelation",
 				basicOpersSyntaxM3Concept, basicOpersM2ExtRel);
 
-		OpersPairwiseRel basicOpersM2AsoRel = new OpersPairwiseRel("AsoRel",
-				false);
+		OpersConcept basicOpersM2AsoRel = new OpersConcept("AsoRel");
 
 		InstConcept instBasicOpersM2AsoRel = new InstConcept(
 				"AssociationRelation", basicOpersSyntaxM3Concept,

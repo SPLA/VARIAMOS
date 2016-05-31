@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.OpersPairwiseRel;
+import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 
 /**
@@ -177,14 +177,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// return identifier;
 	}
 
-	public void setValidationDRList(List<OpersPairwiseRel> semGD) {
+	public void setValidationDRList(List<OpersConcept> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<OpersPairwiseRel> getPairwiseRelValidationList() {
-		return (List<OpersPairwiseRel>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
+	public List<OpersConcept> getPairwiseRelValidationList() {
+		return (List<OpersConcept>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 

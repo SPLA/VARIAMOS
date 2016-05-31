@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.variamos.dynsup.model.ElemAttribute;
+import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.SyntaxElement;
 
 /**
@@ -232,10 +232,10 @@ public class InstOverTwoRel extends InstVertex {
 			if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null) {
 				dynamicAttributesMap.put(
 						VAR_SEMANTICOVERTWOREL_IDEN,
-						((OpersOverTwoRel) getInstAttribute(
+						((OpersConcept) getInstAttribute(
 								VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 								.getIdentifier());
-				return ((OpersOverTwoRel) getInstAttribute(
+				return ((OpersConcept) getInstAttribute(
 						VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 						.getIdentifier();
 			}
@@ -245,10 +245,10 @@ public class InstOverTwoRel extends InstVertex {
 		return (String) dynamicAttributesMap.get(VAR_SEMANTICOVERTWOREL_IDEN);
 	}
 
-	public OpersOverTwoRel getSemanticOverTwoRelation() {
+	public OpersConcept getSemanticOverTwoRelation() {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ).getValueObject() != null)
-			return ((OpersOverTwoRel) getInstAttribute(
-					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject());
+			return ((OpersConcept) getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
+					.getValueObject());
 		else
 			return null;
 	}
@@ -263,7 +263,7 @@ public class InstOverTwoRel extends InstVertex {
 
 	}
 
-	public void setSemanticOverTwoRelation(OpersOverTwoRel sgd) {
+	public void setSemanticOverTwoRelation(OpersConcept sgd) {
 		setDynamicVariable(VAR_SEMANTICOVERTWOREL_IDEN, sgd.getIdentifier());
 		setInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ, sgd);
 
@@ -306,7 +306,7 @@ public class InstOverTwoRel extends InstVertex {
 		Set<String> modelingAttributesNames = new HashSet<String>();
 
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null)
-			modelingAttributesNames.addAll(((OpersOverTwoRel) getInstAttribute(
+			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 					.getPropVisibleAttributes(null));
 		// FIXME how to pass parents to opersconcept
@@ -322,7 +322,7 @@ public class InstOverTwoRel extends InstVertex {
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
 			// FIXME how to pass parents to opersconcept
-			modelingAttributesNames.addAll(((OpersOverTwoRel) getInstAttribute(
+			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 					.getPropEditableAttributes(null));
 
@@ -337,7 +337,7 @@ public class InstOverTwoRel extends InstVertex {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
-			modelingAttributesNames.addAll(((OpersOverTwoRel) getInstAttribute(
+			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 					.getPanelVisibleAttributes(null));
 
@@ -353,7 +353,7 @@ public class InstOverTwoRel extends InstVertex {
 		if (getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ) != null
 				&& getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 						.getValueObject() != null)
-			modelingAttributesNames.addAll(((OpersOverTwoRel) getInstAttribute(
+			modelingAttributesNames.addAll(((OpersConcept) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject())
 					.getPanelSpacersAttributes(null));
 
@@ -369,7 +369,7 @@ public class InstOverTwoRel extends InstVertex {
 						.getValueObject() != null) // TODO simulation attributes
 													// too?
 		{
-			OpersOverTwoRel tmp = (OpersOverTwoRel) getInstAttribute(
+			OpersConcept tmp = (OpersConcept) getInstAttribute(
 					VAR_SEMANTICOVERTWOREL_OBJ).getValueObject();
 			modelingAttributesNames.addAll(tmp
 					.getAllSemanticAttributesNames(opersParents));
@@ -386,7 +386,7 @@ public class InstOverTwoRel extends InstVertex {
 						.getValueObject() != null) {
 			Object o = getInstAttribute(VAR_SEMANTICOVERTWOREL_OBJ)
 					.getValueObject();
-			String semGroupDep = (String) ((OpersOverTwoRel) o).getIdentifier();
+			String semGroupDep = (String) ((OpersConcept) o).getIdentifier();
 
 			if (!semGroupDepOld.equals(semGroupDep)) {
 				semGroupDepOld = semGroupDep;

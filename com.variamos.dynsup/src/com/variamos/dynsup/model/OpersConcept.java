@@ -1,6 +1,5 @@
 package com.variamos.dynsup.model;
 
-
 /**
  * A class to represent the hard concepts at semantic level. Part of PhD work at
  * University of Paris 1

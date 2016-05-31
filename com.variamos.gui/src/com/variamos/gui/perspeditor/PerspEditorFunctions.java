@@ -26,8 +26,6 @@ import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.OpersOverTwoRel;
-import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
@@ -176,9 +174,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new OpersSubOperation());
 										break;
 									case 'P':
-										obj = (InstElement) c.newInstance("",
-												instElement,
-												new OpersPairwiseRel());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'E':
 										o = new InstConcept();
@@ -191,9 +189,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 														new OpersConcept());
 										break;
 									case 'O':
-										obj = (InstElement) c.newInstance("",
-												instElement,
-												new OpersOverTwoRel());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'C':
 										obj = (InstElement) c

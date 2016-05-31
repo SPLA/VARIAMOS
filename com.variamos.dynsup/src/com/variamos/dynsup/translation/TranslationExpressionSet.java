@@ -15,8 +15,6 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersLabeling;
-import com.variamos.dynsup.model.OpersOverTwoRel;
-import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersSubOperation;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
@@ -434,8 +432,7 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 				}
 			}
 		}
-		if (semElement != null
-				&& (semElement instanceof OpersOverTwoRel || semElement instanceof OpersPairwiseRel)) {
+		if (semElement != null && (semElement instanceof OpersElement)) {
 			InstAttribute ia = instElement.getTransSupportMetaElement()
 					.getTransInstSemanticElement()
 					.getInstAttribute("opersExprs");

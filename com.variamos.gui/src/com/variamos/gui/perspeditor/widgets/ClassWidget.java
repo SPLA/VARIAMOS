@@ -23,7 +23,6 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
 import com.variamos.io.ConsoleTextArea;
@@ -312,8 +311,8 @@ public class ClassWidget extends WidgetR {
 
 		InstAttribute instAttribute = (InstAttribute) v;
 		if (instAttribute.getValueObject() != null) {
-			if (instAttribute.getValueObject() instanceof OpersOverTwoRel)
-				txtValue.setSelectedItem((String) ((OpersOverTwoRel) instAttribute
+			if (instAttribute.getValueObject() instanceof OpersElement)
+				txtValue.setSelectedItem((String) ((OpersElement) instAttribute
 						.getValueObject()).getIdentifier());
 			else if (instAttribute.getValueObject() instanceof SyntaxElement)
 				txtValue.setSelectedItem((String) ((SyntaxElement) instAttribute
