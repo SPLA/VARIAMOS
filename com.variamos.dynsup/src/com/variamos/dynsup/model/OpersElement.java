@@ -296,7 +296,7 @@ public class OpersElement implements Serializable {
 				.addAll(getAllSemanticAttributesNames(opersParents));
 		if (syntaxParents != null)
 			for (InstElement parent : syntaxParents) {
-				SyntaxConcept parentConcept = (SyntaxConcept) parent
+				SyntaxElement parentConcept = (SyntaxElement) parent
 						.getEdSyntaxEle();
 				modelingAttributesNames.addAll(parentConcept
 						.getTransInstSemanticElement().getEdOperEle()

@@ -25,7 +25,6 @@ import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersOverTwoRel;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.ClassSingleSelectionType;
 import com.variamos.io.ConsoleTextArea;
 
@@ -316,8 +315,8 @@ public class ClassWidget extends WidgetR {
 			if (instAttribute.getValueObject() instanceof OpersOverTwoRel)
 				txtValue.setSelectedItem((String) ((OpersOverTwoRel) instAttribute
 						.getValueObject()).getIdentifier());
-			else if (instAttribute.getValueObject() instanceof SyntaxPairwiseRel)
-				txtValue.setSelectedItem((String) ((SyntaxPairwiseRel) instAttribute
+			else if (instAttribute.getValueObject() instanceof SyntaxElement)
+				txtValue.setSelectedItem((String) ((SyntaxElement) instAttribute
 						.getValueObject()).getAutoIdentifier());
 		}
 		if (instVertex != null) {

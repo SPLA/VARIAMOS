@@ -12,7 +12,7 @@ public class PaletteElement {
 	private int height;
 	private int width;
 	private String className;
-	//jcmunoz
+	// jcmunoz
 	private SyntaxElement metaElement;
 	private InstElement instElement;
 
@@ -23,14 +23,16 @@ public class PaletteElement {
 	public InstElement getInstElement() {
 		return instElement;
 	}
-	
+
 	public PaletteElement(String id, String elementTitle, String icon,
-			String style, int width, int height, String className) {		
-		this(id, elementTitle, icon, style, height, width, className, null, null);
+			String style, int width, int height, String className) {
+		this(id, elementTitle, icon, style, height, width, className, null,
+				null);
 	}
-	
+
 	public PaletteElement(String id, String elementTitle, String icon,
-			String style, int width, int height, String className, SyntaxElement metaElement, InstElement instElement) {		
+			String style, int width, int height, String className,
+			SyntaxElement metaElement, InstElement instElement) {
 		this.id = id;
 		this.elementTitle = elementTitle;
 		this.icon = icon;

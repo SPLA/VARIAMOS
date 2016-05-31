@@ -13,7 +13,8 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.ModelExpr;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
 import com.variamos.hlcl.DomainParser;
@@ -245,12 +246,12 @@ public abstract class AbstractExpression {
 				configdomain += value.toString() + ",";
 			}
 			configdomain = configdomain.substring(0, configdomain.length() - 1);
-			identifier.setDomain(DomainParser.parseDomain(configdomain));
+			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("varConfValue")) {
 			String configdomain = (String) instVertex.getInstAttribute(
 					"varConfDom").getValue();
 			if (configdomain != null && !configdomain.equals(""))
-				identifier.setDomain(DomainParser.parseDomain(configdomain));
+				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
 					.getValue();
@@ -258,7 +259,15 @@ public abstract class AbstractExpression {
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute("varDom")
 						.getValue();
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
+			} else if (type.equals("Float")) {
+				String domain = ModelExpr.transformDomain((String) instVertex
+						.getInstAttribute("floatDom").getValue(),
+						(Integer) instVertex.getInstAttribute("floatPrec")
+								.getValue());
+				identifier.setDomain(DomainParser.parseDomain(domain,
+						(int) instVertex.getInstAttribute("floatPrec")
+								.getValue()));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumType")
 						.getValueObject();
@@ -266,7 +275,7 @@ public abstract class AbstractExpression {
 				if (object != null) {
 					@SuppressWarnings("unchecked")
 					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -274,13 +283,12 @@ public abstract class AbstractExpression {
 					}
 				}
 				domain = domain.substring(0, domain.length() - 1);
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
 			}
 		} else if (attribute.getType().equals("Integer")
-				|| attribute.getType().equals("Enumeration")) {
-			if (attribute.getDomain() != null)
-				identifier.setDomain(attribute.getDomain());
-		} else if (attribute.getType().equals("String")) {
+				|| attribute.getType().equals("Enumeration")
+				|| attribute.getType().equals("String")
+				|| attribute.getType().equals("Float")) {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
 		}

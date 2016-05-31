@@ -722,7 +722,8 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& instTarget.getType().equals("Integer")) {
+									&& (instTarget.getType().equals("Integer") || instTarget
+											.getType().equals("Float"))) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
@@ -746,7 +747,8 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& instTarget.getType().equals("Integer")) {
+									&& (instTarget.getType().equals("Integer") || instTarget
+											.getType().equals("Float"))) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);

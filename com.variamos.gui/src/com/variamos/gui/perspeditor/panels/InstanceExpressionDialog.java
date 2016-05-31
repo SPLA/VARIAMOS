@@ -43,7 +43,6 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExprType;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -693,22 +692,24 @@ public class InstanceExpressionDialog extends JDialog {
 				case "Integer":
 					String domain = (String) instVertex.getInstAttribute(
 							"varDom").getValue();
-
-					Domain dom = (DomainParser.parseDomain(domain));
+					Domain dom = (DomainParser.parseDomain(domain, 0));
 					List<Integer> intValues = dom.getPossibleValues();
 					for (Integer intValue : intValues) {
 						combo.addItem(instElementId + "_" + intValue.intValue());
-
 					}
-
 					identifiersList.put(instElementId, instVertex);
-					/*
-					 * String split[] = domain.split(","); for (String dom :
-					 * split) { combo.addItem(instVertex.getIdentifier() + "_" +
-					 * dom);
-					 * 
-					 * }
-					 */
+					break;
+				case "Float":
+					domain = (String) instVertex.getInstAttribute("floatDom")
+							.getValue();
+					dom = (DomainParser.parseDomain(domain, (int) instVertex
+							.getInstAttribute("floatPrec").getValue()));
+					List<Float> floatValues = dom.getPossibleFloatValues();
+					for (Float intValue : floatValues) {
+						combo.addItem(instElementId + "_"
+								+ intValue.floatValue());
+					}
+					identifiersList.put(instElementId, instVertex);
 					break;
 				case "Enumeration":
 					Object object = instVertex.getInstAttribute("enumType")
@@ -716,7 +717,7 @@ public class InstanceExpressionDialog extends JDialog {
 					if (object != null) {
 						@SuppressWarnings("unchecked")
 						Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-								.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+								.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
 								.getValue();
 						for (InstAttribute value : values)
 							combo.addItem(instElementId + "_"

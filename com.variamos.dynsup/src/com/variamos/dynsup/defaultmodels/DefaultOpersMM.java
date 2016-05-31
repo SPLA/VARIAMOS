@@ -2104,7 +2104,7 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("LowRange", new ElemAttribute(
 				"LowRange", "Integer", AttributeType.OPERATION, "Low Range",
 				"Low value for range relation type", 1, false, new RangeDomain(
-						0, 50), 0, 6, "", "", 6, "", ""));
+						0, 50, 0), 0, 6, "", "", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("08#" + "LowRange");
 		semInfraOTRel.addPropVisibleAttribute("08#" + "LowRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
@@ -2115,7 +2115,7 @@ public class DefaultOpersMM {
 		semInfraOTRel.putSemanticAttribute("HighRange", new ElemAttribute(
 				"HighRange", "Integer", AttributeType.OPERATION, "High Range",
 				"High value for range relation type", 1, false,
-				new RangeDomain(0, 50), 0, 6, "", "", 6, "", ""));
+				new RangeDomain(0, 50, 0), 0, 6, "", "", 6, "", ""));
 		semInfraOTRel.addPropEditableAttribute("09#" + "HighRange");
 		semInfraOTRel.addPropVisibleAttribute("09#" + "HighRange" + "#"
 				+ "relationType" + "#==#" + "range" + "#" + "1");
@@ -2234,6 +2234,20 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("varDom", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
+		attribute = new ElemAttribute("floatDom", "String",
+				AttributeType.OPERATION, false, "Float Domain",
+				"Defined domain (positive numbers) {n-m,o,p-r}", "0,1", 0, 3,
+				"variableType" + "#==#" + "Float", "variableType" + "#==#"
+						+ "Float", -1, "", "");
+		semVariable.putSemanticAttribute("floatDom", attribute);
+
+		attribute = new ElemAttribute("floatPrec", "Integer",
+				AttributeType.OPERATION, false, "Float Precision",
+				"Number of decimal for float precision", 2, 0, 3,
+				"variableType" + "#==#" + "Float", "variableType" + "#==#"
+						+ "Float", -1, "", "");
+		semVariable.putSemanticAttribute("floatPrec", attribute);
+
 		attribute = new ElemAttribute("enumType", "Class",
 				AttributeType.OPERATION, false, "Enumeration",
 				"Enumeration type from the context view",
@@ -2302,6 +2316,8 @@ public class DefaultOpersMM {
 		semVariable.addPropEditableAttribute("01#" + "name");
 		semVariable.addPropEditableAttribute("02#" + "variableType");
 		semVariable.addPropEditableAttribute("03#" + "varDom");
+		semVariable.addPropEditableAttribute("03#" + "floatDom");
+		semVariable.addPropEditableAttribute("03#" + "floatPrec");
 		semVariable.addPropEditableAttribute("04#" + "enumType");
 		semVariable.addPropEditableAttribute("05#" + "isContext");
 
@@ -2314,6 +2330,10 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("02#" + "variableType");
 		semVariable.addPropVisibleAttribute("03#" + "varDom" + "#"
 				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPropVisibleAttribute("03#" + "floatDom" + "#"
+				+ "variableType" + "#==#" + "Float");
+		semVariable.addPropVisibleAttribute("03#" + "floatPrec" + "#"
+				+ "variableType" + "#==#" + "Float");
 		semVariable.addPropVisibleAttribute("04#" + "enumType" + "#"
 				+ "variableType" + "#==#" + "Enumeration");
 		semVariable.addPropVisibleAttribute("05#" + "isContext");
@@ -2336,9 +2356,14 @@ public class DefaultOpersMM {
 				+ "variableType" + "#==#" + "Enumeration");
 		semVariable.addPanelVisibleAttribute("07#" + "varDom" + "#"
 				+ "variableType" + "#==#" + "Integer");
+		semVariable.addPanelVisibleAttribute("07#" + "floatDom" + "#"
+				+ "variableType" + "#==#" + "Float");
+		semVariable.addPanelVisibleAttribute("07#" + "floatPrec" + "#"
+				+ "variableType" + "#==#" + "Float");
 		semVariable.addPanelSpacersAttribute("{#" + "variableType" + "#} ");
 
 		semVariable.addPanelSpacersAttribute("{#" + "varDom" + "#} ");
+		semVariable.addPanelSpacersAttribute("{#" + "floatDom" + "#} ");
 
 		semVariable.addPropEditableAttribute("03#" + "DBVis");
 		semVariable.addPropEditableAttribute("04#" + "ExportOnConfig");
@@ -2770,7 +2795,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("Opt", "Integer",
 					AttributeType.EXECCURRENTSTATE, false, "FilterVariable",
-					"", 0, new RangeDomain(0, 20), 0, -1, "", "", -1, "", "");
+					"", 0, new RangeDomain(0, 20, 0), 0, -1, "", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("Opt", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -2781,7 +2806,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("Order", "Integer",
 					AttributeType.EXECCURRENTSTATE, false, "SortVariable", "",
-					0, new RangeDomain(0, 40), 0, -1, "", "", -1, "", "");
+					0, new RangeDomain(0, 40, 0), 0, -1, "", "", -1, "", "");
 			semGeneralElement.putSemanticAttribute("Order", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semGeneralElement.getIdentifier(), attribute.getName(),
@@ -3095,8 +3120,8 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("ConfigReqLevel", "Integer",
 					AttributeType.OPERATION, "Config Req Level (5=ignored)",
 					"SG required level (defined: 0..4 ignored: 5) ", 5, false,
-					new RangeDomain(0, 5), 0, 5, "Required" + "#==#" + "true"
-							+ "#" + "0", "", -1, "", "");
+					new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
+							+ "true" + "#" + "0", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3267,7 +3292,7 @@ public class DefaultOpersMM {
 					AttributeType.EXECCURRENTSTATE, false,
 					"Required Level by SD",
 					"Required level (0..4) for the soft dependency relation",
-					0, new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
+					0, new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3282,7 +3307,7 @@ public class DefaultOpersMM {
 					AttributeType.EXECCURRENTSTATE, false,
 					"Expected Level by Claim",
 					"Expected level (0..4) for the claim relation", 0,
-					new RangeDomain(0, 4), 2, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3564,8 +3589,8 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("ConfidenceLevel", "Integer",
 					AttributeType.OPERATION, "Confidence Level",
-					"(Ignored for operations)", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					"(Ignored for operations)", 1, false, new RangeDomain(0, 4,
+							0), 0, -1, "", "", -1, "", "");
 			semClaim.putSemanticAttribute("ConfidenceLevel", attribute);
 			// simulationExecOperUniqueLabeling.addAttribute(attribute);
 			// simulOperationSubAction.addInVariable(attribute);
@@ -5082,7 +5107,7 @@ public class DefaultOpersMM {
 					"SgSgPWAsso", true);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directSGSGSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5099,7 +5124,7 @@ public class DefaultOpersMM {
 
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directSGSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5511,7 +5536,7 @@ public class DefaultOpersMM {
 					"sgsgOTAssoToPWAsso", true);
 			attribute = new ElemAttribute("targetLevel", "Integer",
 					AttributeType.OPERATION, "Target Level", "", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directGRSGSemEdge.putSemanticAttribute("targetLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directGRSGSemEdge.getIdentifier(), attribute.getName(),
@@ -5821,7 +5846,7 @@ public class DefaultOpersMM {
 					"sgsgOTAssoFromPWAsso", true);
 			attribute = new ElemAttribute("sourceLevel", "Integer",
 					AttributeType.OPERATION, "Source Level", "", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directSGGRSemEdge.putSemanticAttribute("sourceLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
@@ -6617,7 +6642,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("CLSGLevel", "Integer",
 					AttributeType.OPERATION, "Relation Level",
 					"Required level for the Claim (0..4)", 2, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directClaimSGSemanticEdge.putSemanticAttribute("CLSGLevel",
 					attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
@@ -6759,7 +6784,7 @@ public class DefaultOpersMM {
 			attribute = new ElemAttribute("level", "Integer",
 					AttributeType.OPERATION, "Level",
 					"Required level for the SD (0..4)", 1, false,
-					new RangeDomain(0, 4), 0, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 0, -1, "", "", -1, "", "");
 			directSDSGSemanticEdge.putSemanticAttribute("level", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					directSDSGSemanticEdge.getIdentifier(),

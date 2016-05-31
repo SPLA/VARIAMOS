@@ -10,13 +10,15 @@ public class RangeDomain implements Domain, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5038777141268738133L;
-	protected int lowerValue;
-	protected int upperValue;
+	protected float lowerValue;
+	protected float upperValue;
+	protected int precision;
 
-	public RangeDomain(int lowerValue, int upperValue) {
+	public RangeDomain(float lowerValue, float upperValue, int precision) {
 		super();
 		this.lowerValue = lowerValue;
 		this.upperValue = upperValue;
+		this.precision = precision;
 	}
 
 	public RangeDomain() {
@@ -28,7 +30,7 @@ public class RangeDomain implements Domain, Serializable {
 	/**
 	 * @return the lowValue
 	 */
-	public int getLowerValue() {
+	public float getLowerValue() {
 		return lowerValue;
 	}
 
@@ -43,7 +45,7 @@ public class RangeDomain implements Domain, Serializable {
 	/**
 	 * @return the upperValue
 	 */
-	public int getUpperValue() {
+	public float getUpperValue() {
 		return upperValue;
 	}
 
@@ -63,10 +65,10 @@ public class RangeDomain implements Domain, Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		float result = 1;
 		result = prime * result + lowerValue;
 		result = prime * result + upperValue;
-		return result;
+		return (int) (result * 1000);
 	}
 
 	/*
@@ -92,7 +94,7 @@ public class RangeDomain implements Domain, Serializable {
 
 	@Override
 	public int size() {
-		return upperValue - lowerValue + 1;
+		return (int) ((upperValue - lowerValue) * Math.pow(10, precision) + 1);
 	}
 
 	@Override
@@ -105,7 +107,18 @@ public class RangeDomain implements Domain, Serializable {
 		List<Integer> list = new ArrayList<>();
 
 		for (int i = 0; i < size(); i++)
-			list.add(lowerValue + i);
+			list.add((int) lowerValue + i);
+
+		return list;
+	}
+
+	@Override
+	public List<Float> getPossibleFloatValues() {
+		List<Float> list = new ArrayList<Float>();
+
+		// FIXME use the precision attribute
+		for (int i = 0; i < size(); i++)
+			list.add(new Float(lowerValue + i));
 
 		return list;
 	}

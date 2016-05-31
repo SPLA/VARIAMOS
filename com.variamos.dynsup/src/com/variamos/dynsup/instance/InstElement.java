@@ -18,10 +18,7 @@ import com.variamos.dynsup.model.ModelExpr;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.OpersSubOperationExpType;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
-import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.hlcl.LabelingOrder;
 
 /**
@@ -84,7 +81,7 @@ public abstract class InstElement implements Serializable,
 		volatileTargetRelations = new ArrayList<InstElement>();
 		volatileDefects = new TreeMap<String, String>();
 		dynamicAttributes.put(VAR_AUTOIDENTIFIER, identifier);
-		dynamicAttributes.put(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
+		dynamicAttributes.put(SyntaxElement.VAR_USERIDENTIFIER, identifier);
 		Map<String, Object> dynamicAttributesMap = this.getDynamicAttributes();
 		dynamicAttributesMap.put(VAR_INSTATTRIBUTES, instAttributes);
 	}
@@ -152,10 +149,10 @@ public abstract class InstElement implements Serializable,
 		for (InstAttribute instAttribute : getInstAttributes().values()) {
 			if (edSyntaxEle != null) {
 				if (instAttribute.getIdentifier().equals(
-						SyntaxConcept.VAR_AUTOIDENTIFIER))
+						SyntaxElement.VAR_AUTOIDENTIFIER))
 					instAttribute.setValue(edSyntaxEle.getAutoIdentifier());
 				if (instAttribute.getIdentifier().equals(
-						SyntaxConcept.VAR_USERIDENTIFIER))
+						SyntaxElement.VAR_USERIDENTIFIER))
 					instAttribute.setValue(edSyntaxEle.getUserIdentifier());
 				if (instAttribute.getIdentifier().equals("OperationsMMType")
 						&& edSyntaxEle.getTransInstSemanticElement() != null)
@@ -178,40 +175,36 @@ public abstract class InstElement implements Serializable,
 				if (instAttribute.getIdentifier().equals("Image"))
 					instAttribute.setValue(edSyntaxEle.getImage());
 
-				if (edSyntaxEle instanceof SyntaxConcept) {
+				if (edSyntaxEle instanceof SyntaxElement) {
 					if (instAttribute.getIdentifier().equals("TopConcept"))
-						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 								.isTopConcept());
 					if (instAttribute.getIdentifier().equals("BackgroundColor"))
-						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 								.getBackgroundColor());
 					if (instAttribute.getIdentifier().equals("Resizable"))
-						instAttribute.setValue(((SyntaxConcept) edSyntaxEle)
+						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 								.isResizable());
 				}
-				if (edSyntaxEle instanceof SyntaxView) {
-					if (instAttribute.getIdentifier().equals("Index"))
-						instAttribute.setValue(((SyntaxView) edSyntaxEle)
-								.getIndex());
+				if (instAttribute.getIdentifier().equals("Index")) {
+					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
+							.getIndex());
 					if (instAttribute.getIdentifier().equals("PaletteNames"))
-						instAttribute.setValue(((SyntaxView) edSyntaxEle)
+						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 								.getPaletteName());
 				}
 
-				if (edSyntaxEle instanceof SyntaxPairwiseRel) {
+				if (instAttribute.getIdentifier().equals("Palette")) {
 					if (instAttribute.getIdentifier().equals("Palette"))
-						instAttribute
-								.setValue(((SyntaxPairwiseRel) edSyntaxEle)
-										.getPalette());
+						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
+								.getPalette());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					instAttribute.setValue(edSyntaxEle.getBorderStroke());
 
-				if (instAttribute.getIdentifier().equals("value")) // TODO
-																	// review
-																	// what to
-																	// associate
+				if (instAttribute.getIdentifier().equals("value"))
+					// TODO review what to associate
 					instAttribute.setValue(edSyntaxEle
 							.getModelingAttributesNames(parents));
 			}
@@ -307,9 +300,9 @@ public abstract class InstElement implements Serializable,
 	}
 
 	public void setIdentifier(String identifier) {
-		if (getDynamicAttribute(SyntaxConcept.VAR_USERIDENTIFIER).equals("")) {
-			setDynamicVariable(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
-			setInstAttribute(SyntaxConcept.VAR_USERIDENTIFIER, identifier);
+		if (getDynamicAttribute(SyntaxElement.VAR_USERIDENTIFIER).equals("")) {
+			setDynamicVariable(SyntaxElement.VAR_USERIDENTIFIER, identifier);
+			setInstAttribute(SyntaxElement.VAR_USERIDENTIFIER, identifier);
 		}
 		setDynamicVariable(VAR_AUTOIDENTIFIER, identifier);
 		setInstAttribute(VAR_AUTOIDENTIFIER, identifier);
@@ -381,7 +374,7 @@ public abstract class InstElement implements Serializable,
 	}
 
 	public String getUserIdentifier() {
-		return (String) getDynamicAttribute(SyntaxConcept.VAR_USERIDENTIFIER);
+		return (String) getDynamicAttribute(SyntaxElement.VAR_USERIDENTIFIER);
 		// return identifier;
 	}
 
@@ -400,7 +393,7 @@ public abstract class InstElement implements Serializable,
 			Set<String> modelingAttributes = getEdSyntaxEle()
 					.getDeclaredModelingAttributesNames();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals(SyntaxConcept.VAR_USERIDENTIFIER)
+				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description")) {
 					ElemAttribute i = getEdSyntaxEle().getModelingAttribute(
@@ -421,7 +414,7 @@ public abstract class InstElement implements Serializable,
 			Set<String> modelingAttributes = getEdOperEle()
 					.getDeclaredSemanticAttributesNames();
 			for (String attributeName : modelingAttributes) {
-				if (!attributeName.equals(SyntaxConcept.VAR_USERIDENTIFIER)
+				if (!attributeName.equals(SyntaxElement.VAR_USERIDENTIFIER)
 						&& !attributeName.equals("identifier")
 						&& !attributeName.equals("Description"))
 					out2 += attributeName + "\n";
@@ -529,7 +522,7 @@ public abstract class InstElement implements Serializable,
 											.getValueObject())
 											.getDynamicAttribute(VAR_INSTATTRIBUTES);
 									InstAttribute oo = o
-											.get(SyntaxConcept.VAR_METAENUMVALUE);
+											.get(SyntaxElement.VAR_METAENUMVALUE);
 									Collection<InstAttribute> ooo = (Collection<InstAttribute>) oo
 											.getInstAttributeAttribute("Value");
 									String outt = "{ ";
@@ -897,6 +890,8 @@ public abstract class InstElement implements Serializable,
 			return new Boolean(value);
 		if (type.equals("Integer"))
 			return new Integer(value);
+		if (type.equals("Float"))
+			return new Float(value);
 		return value;
 
 	}

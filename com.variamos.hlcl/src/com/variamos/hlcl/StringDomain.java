@@ -134,4 +134,10 @@ public class StringDomain implements Domain, Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Float> getPossibleFloatValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

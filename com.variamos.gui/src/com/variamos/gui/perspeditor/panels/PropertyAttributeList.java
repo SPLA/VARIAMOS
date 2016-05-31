@@ -15,7 +15,6 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
@@ -223,7 +222,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 						SyntaxElement me = instElement.getEdSyntaxEle();
 						me.addModelingAttribute((String) name.getValue(), v);
 						me.addPanelVisibleAttribute("99#"
-								+ SyntaxConcept.VAR_USERIDENTIFIER);
+								+ SyntaxElement.VAR_USERIDENTIFIER);
 						me.addPropVisibleAttribute("99#"
 								+ (String) name.getValue());
 						me.addPropEditableAttribute("99#"
@@ -234,7 +233,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 								.getEdOperEle());
 						sc.putSemanticAttribute((String) name.getValue(), v);
 						sc.addPanelVisibleAttribute("99#"
-								+ SyntaxConcept.VAR_USERIDENTIFIER);
+								+ SyntaxElement.VAR_USERIDENTIFIER);
 						sc.addPropVisibleAttribute("19#"
 								+ (String) name.getValue());
 						sc.addPropEditableAttribute("19#"

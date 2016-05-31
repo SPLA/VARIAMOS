@@ -11,8 +11,7 @@ import com.variamos.hlcl.Identifier;
 import com.variamos.hlcl.IntervalDomain;
 import com.variamos.hlcl.RangeDomain;
 
-public class Hlcl2GnuProlog extends Hlcl2Prolog implements
-		GNUPrologSymbols {
+public class Hlcl2GnuProlog extends Hlcl2Prolog implements GNUPrologSymbols {
 
 	@Override
 	protected void writeFooter(StringBuilder out) {
@@ -47,18 +46,18 @@ public class Hlcl2GnuProlog extends Hlcl2Prolog implements
 	}
 
 	@Override
-	protected void  writeHeaderWithDefinedDomains(HlclProgram program, List<String>domainList,StringBuilder out){
+	protected void writeHeaderWithDefinedDomains(HlclProgram program,
+			List<String> domainList, StringBuilder out) {
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
 		out.append(HEADER);
 		out.append(makeVariables(ids));
 		out.append("\n");
-		for(String domain: domainList){
+		for (String domain : domainList) {
 			out.append(domain);
 		}
 		out.append("\n");
 	}
-	
-	
+
 	private StringBuilder makeVariables(Set<Identifier> ids) {
 		// Se contruye la lista de características y de dominios
 		StringBuilder dommainAndVariables = new StringBuilder("L=[");
@@ -69,17 +68,15 @@ public class Hlcl2GnuProlog extends Hlcl2Prolog implements
 			variablesList.append(id);
 			variablesList.append(COMMA);
 
-			
 		}
 		variablesList.append("],");
-		dommainAndVariables.append(variablesList.toString().replace(
-				",]", CLOSE_BRACKET));
+		dommainAndVariables.append(variablesList.toString().replace(",]",
+				CLOSE_BRACKET));
 		dommainAndVariables.append(LF);
-	
+
 		return dommainAndVariables;
 	}
-	
-	
+
 	@Override
 	protected void writeHeader(HlclProgram program, StringBuilder out) {
 		Set<Identifier> ids = HlclUtil.getUsedIdentifiers(program);
@@ -101,11 +98,11 @@ public class Hlcl2GnuProlog extends Hlcl2Prolog implements
 
 			if (identifier.getDomain() instanceof RangeDomain) {
 				// Sample fd_domain(Var_Car, 0, 1),
-				Integer lowerValue = ((RangeDomain) identifier.getDomain())
-						.getLowerValue();
-				Integer upperValue = ((RangeDomain) identifier.getDomain())
-						.getUpperValue();
-			
+				Integer lowerValue = (int) (((RangeDomain) identifier
+						.getDomain()).getLowerValue());
+				Integer upperValue = (int) (((RangeDomain) identifier
+						.getDomain()).getUpperValue());
+
 				domainString.append(FD_DOMAIN);
 				domainString.append(OPEN_PARENTHESIS);
 
@@ -122,7 +119,6 @@ public class Hlcl2GnuProlog extends Hlcl2Prolog implements
 				// 1366]),
 				List<Integer> domains = ((IntervalDomain) identifier
 						.getDomain()).getRangeValues();
-
 
 				domainString.append(FD_DOMAIN);
 				domainString.append(OPEN_PARENTHESIS);
@@ -150,12 +146,12 @@ public class Hlcl2GnuProlog extends Hlcl2Prolog implements
 		variablesList.append("],");
 		domainString.append(LF);
 
-		dommainAndVariables.append(variablesList.toString().replace(
-				",]", CLOSE_BRACKET));
+		dommainAndVariables.append(variablesList.toString().replace(",]",
+				CLOSE_BRACKET));
 		dommainAndVariables.append(LF);
 		// add domain string
 		dommainAndVariables.append(domainString);
-		
+
 		return dommainAndVariables;
 	}
 }

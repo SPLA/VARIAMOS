@@ -63,9 +63,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverOpersTask;
@@ -1365,7 +1363,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					.getEdSyntaxEle();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals(
-						SyntaxConcept.VAR_USERIDENTIFIER))
+						SyntaxElement.VAR_USERIDENTIFIER))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1383,12 +1381,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
-				if (editableMetaElement instanceof SyntaxView) {
-					if (instAttribute.getIdentifier().equals("PaletteName"))
-						((SyntaxView) editableMetaElement)
-								.setPaletteName((String) instAttribute
-										.getValue());
-				}
+				if (instAttribute.getIdentifier().equals("PaletteName"))
+					((SyntaxElement) editableMetaElement)
+							.setPaletteName((String) instAttribute.getValue());
+
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
@@ -1402,17 +1398,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setTopConcept((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement

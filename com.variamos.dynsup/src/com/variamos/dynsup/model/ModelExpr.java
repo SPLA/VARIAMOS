@@ -744,7 +744,7 @@ public class ModelExpr implements Serializable {
 			String configdomain = (String) (instVertex.getInstAttribute(
 					"varConfDom").getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
-				identifier.setDomain(DomainParser.parseDomain(configdomain));
+				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 		}
 		if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
@@ -753,7 +753,15 @@ public class ModelExpr implements Serializable {
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute("varDom")
 						.getValue();
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
+			} else if (type.equals("Float")) {
+				String domain = transformDomain((String) instVertex
+						.getInstAttribute("floatDom").getValue(),
+						(int) instVertex.getInstAttribute("floatPrec")
+								.getValue());
+				identifier.setDomain(DomainParser.parseDomain(domain,
+						(int) instVertex.getInstAttribute("floatPrec")
+								.getValue()));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumType")
 						.getValueObject();
@@ -761,7 +769,7 @@ public class ModelExpr implements Serializable {
 				if (object != null) {
 					@SuppressWarnings("unchecked")
 					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -769,7 +777,7 @@ public class ModelExpr implements Serializable {
 					}
 					domain = domain.substring(0, domain.length() - 1);
 				}
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
 			}
 		} else
 
@@ -777,11 +785,35 @@ public class ModelExpr implements Serializable {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
 			else
-				identifier.setDomain(new RangeDomain(0, 4));
+				identifier.setDomain(new RangeDomain(0, 4, 0));
+		} else if (attribute.getType().equals("Float")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
+			else
+				identifier.setDomain(new RangeDomain(0, 4, 0));
 		} else if (attribute.getType().equals("String")) {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
 		}
+	}
+
+	public static String transformDomain(String value, int value2) {
+		String toSplit = value.replace(',', '-');
+		String[] elem = toSplit.split("-");
+		String[] tmp = new String[elem.length];
+		String out = "";
+
+		for (int i = 0; i < elem.length; i++) {
+			tmp[i] = (int) (Float.parseFloat(elem[i]) * Math.pow(10, value2))
+					+ "";
+		}
+		out = tmp[0];
+		toSplit = value.replace('.', '0');
+		elem = value.split("\\w+");
+		for (int i = 1; i < tmp.length; i++) {
+			out += elem[i] + tmp[i];
+		}
+		return out;
 	}
 
 	private List<Expression> expressionTerms(int pos) {
@@ -930,16 +962,23 @@ public class ModelExpr implements Serializable {
 	private int getVariableIntValue(ExpressionVertexType expressionVertexType) {
 		String value = null;
 		String valueType = null;
+		int floatPrec = 0;
 		switch (expressionVertexType) {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
 			valueType = (String) this.volatileLeftInstElement.getInstAttribute(
 					"variableType").getValue();
+			if (this.volatileLeftInstElement.getInstAttribute("floatPrec") != null)
+				floatPrec = (int) this.volatileLeftInstElement
+						.getInstAttribute("floatPrec").getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
 			valueType = (String) this.volatileRightInstElement
 					.getInstAttribute("variableType").getValue();
+			if (this.volatileRightInstElement.getInstAttribute("floatPrec") != null)
+				floatPrec = (int) this.volatileRightInstElement
+						.getInstAttribute("floatPrec").getValue();
 
 			break;
 		case LEFTSTRINGVALUE:
@@ -962,6 +1001,8 @@ public class ModelExpr implements Serializable {
 				return 0;
 		case "Integer":
 			return Integer.parseInt(value);
+		case "Float":
+			return (int) (Integer.parseInt(value) * Math.pow(10, floatPrec));
 		case "Enumeration":
 			String[] split = value.split("#");
 			return Integer.parseInt(split[0]);

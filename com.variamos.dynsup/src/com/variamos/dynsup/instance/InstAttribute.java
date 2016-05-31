@@ -11,7 +11,6 @@ import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -384,7 +383,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 					&& getEnumType() != null
 					&& getEnumType().equals(
 							InstAttribute.class.getCanonicalName())) {
-				List<InstAttribute> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
+				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
 						.getTransSupportMetaElement()).getOpersRelationTypes();
 				this.setOpersOverTwoRelList(semanticRelationTypes);
 			}

@@ -180,7 +180,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				idMap.putAll(coreOutExp.getIdentifiers(getHlclFactory()));
 				Identifier identifier = this.getHlclFactory().newIdentifier(
 						"amodel_order");
-				identifier.setDomain(new RangeDomain(0, 200));
+				identifier.setDomain(new RangeDomain(0, 200, 0));
 				coreList.add(this.getHlclFactory().equals(identifier,
 						coreOutExp.transform(getHlclFactory(), idMap)));
 				/*
@@ -220,7 +220,7 @@ public class ModelExpressionSet extends ElementExpressionSet {
 				idMap.putAll(prefOutExp.getIdentifiers(getHlclFactory()));
 				Identifier identifier = this.getHlclFactory().newIdentifier(
 						"amodel_pref");
-				identifier.setDomain(new RangeDomain(0, 200));
+				identifier.setDomain(new RangeDomain(0, 200, 0));
 				simulList.add(this.getHlclFactory().equals(
 						this.getHlclFactory().newIdentifier("amodel_pref"),
 						prefOutExp.transform(getHlclFactory(), idMap)));

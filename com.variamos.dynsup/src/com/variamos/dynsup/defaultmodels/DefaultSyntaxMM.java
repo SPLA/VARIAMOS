@@ -9,15 +9,13 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
-import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
-import com.variamos.dynsup.model.SyntaxView;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 
 public class DefaultSyntaxMM {
 	public static void createSyntaxMetaModel(ModelInstance refas) {
 
-		SyntaxView syntaxMetaView = null;
+		SyntaxElement syntaxMetaView = null;
 
 		InstElement metaView = refas.getSyntaxModel().getVertex("SMMView");
 
@@ -43,7 +41,7 @@ public class DefaultSyntaxMM {
 		InstConcept semREFAS = ((InstConcept) refas.getOperationalModel()
 				.getVertex("REFAS"));
 
-		SyntaxConcept syntaxRefas = new SyntaxConcept('C', "REFAS", false,
+		SyntaxElement syntaxRefas = new SyntaxElement('C', "REFAS", false,
 				true, "REFAS", "plnode", "Applies REFAS", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semREFAS, true);
@@ -57,7 +55,7 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// Goals and Variability model
 
-		syntaxMetaView = new SyntaxView("Variability", true, true,
+		syntaxMetaView = new SyntaxElement('V', "Variability", true, true,
 				"Variability View", "plnode", "Defines a feature", 130, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Goals Palette;Feature Palette", 1, null);
@@ -68,14 +66,14 @@ public class DefaultSyntaxMM {
 		InstPairwiseRel directViewSemanticEdge = refas.getOperationalModel()
 				.getConstraintInstEdge("viewPWAsso");
 
-		SyntaxPairwiseRel metaExtendsRel = new SyntaxPairwiseRel(
+		SyntaxElement metaExtendsRel = new SyntaxElement('P',
 				"ExtendsRelation", false, true, "ExtendsRelation", "",
 				"Extends relation between two hard concepts. Extends syntatic and semantic"
 						+ "attributes", 50, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directExtendsSemanticEdge);
 
-		SyntaxPairwiseRel metaViewRel = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewRel = new SyntaxElement('P', "ViewRelation",
 				false, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -95,15 +93,15 @@ public class DefaultSyntaxMM {
 		InstConcept semGoal = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Goal"));
 
-		SyntaxConcept syntaxFeature = new SyntaxConcept('C', "Feature", false,
+		SyntaxElement syntaxFeature = new SyntaxElement('C', "Feature", false,
 				true, "Feature", "plnode", "Defines a feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
 
 		syntaxFeature.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxFeature.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxFeature.addModelingAttribute("name", "String", false, "Name", "",
 				"", 0, 3, "", "", 3, "", "");
@@ -122,8 +120,8 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Feature", instVertexF);
 		// syntaxMetaView.addConcept(syntaxFeature);
 
-		SyntaxPairwiseRel metaViewF = new SyntaxPairwiseRel("ViewFeatRel",
-				true, true, "ViewRelation", "",
+		SyntaxElement metaViewF = new SyntaxElement('P', "ViewFeatRel", true,
+				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -149,14 +147,14 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewF, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxVariabilityArtifact = new SyntaxConcept('C', "VA",
+		SyntaxElement syntaxVariabilityArtifact = new SyntaxElement('C', "VA",
 				false, true, "VariabilityArtifact", null, "", 0, 0, null, true,
 				null, 3, semHardConcept, true);
 
 		syntaxVariabilityArtifact.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxVariabilityArtifact.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxVariabilityArtifact.addModelingAttribute("name", "String", false,
 				"Name", "", "", 0, -1, "", "", -1, "", "");
@@ -175,7 +173,7 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxVariabilityArtifact);
 		refas.getVariabilityVertex().put("VA", instVertexVA);
 
-		SyntaxConcept syntaxRootFeature = new SyntaxConcept('C', "RootFeature",
+		SyntaxElement syntaxRootFeature = new SyntaxElement('C', "RootFeature",
 				true, true, "RootFeature", "plnode", "Defines a root feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
@@ -184,7 +182,7 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxRootFeature);
 		refas.getVariabilityVertex().put("RootFeature", instVertexRF);
 
-		SyntaxConcept syntaxGeneralFeature = new SyntaxConcept('C',
+		SyntaxElement syntaxGeneralFeature = new SyntaxElement('C',
 				"GeneralFeature", true, true, "GeneralFeature", "plnode",
 				"Defines a general feature", 100, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", true,
@@ -194,7 +192,7 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxGeneralFeature);
 		refas.getVariabilityVertex().put("GeneralFeature", instVertexGF);
 
-		SyntaxConcept syntaxVertexLF = new SyntaxConcept('C', "LeafFeature",
+		SyntaxElement syntaxVertexLF = new SyntaxElement('C', "LeafFeature",
 				true, true, "LeafFeature", "plnode", "Defines a leaf feature",
 				100, 50, "/com/variamos/gui/pl/editor/images/plnode.png", true,
 				Color.BLUE.toString(), 3, semFeature, true);
@@ -203,7 +201,7 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxVertexLF);
 		refas.getVariabilityVertex().put("LeafFeature", instVertexLF);
 
-		SyntaxPairwiseRel metaViewRF = new SyntaxPairwiseRel("ViewRootFeaRel",
+		SyntaxElement metaViewRF = new SyntaxElement('P', "ViewRootFeaRel",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 50, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -229,8 +227,8 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewRF, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxPairwiseRel metaViewGF = new SyntaxPairwiseRel("ViewGFeatRel",
-				true, true, "ViewRelation", "",
+		SyntaxElement metaViewGF = new SyntaxElement('P', "ViewGFeatRel", true,
+				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -255,7 +253,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewGF, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxGoal = new SyntaxConcept('C', "Goal", true, true,
+		SyntaxElement syntaxGoal = new SyntaxElement('C', "Goal", true, true,
 				"Goal", "refasgoal", "Defines a goal of the system"
 						+ " from the stakeholder perspective that can be"
 						+ " satisfied with a clear cut condition", 120, 60,
@@ -266,7 +264,7 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxGoal);
 		refas.getVariabilityVertex().put("Goal", instVertexG);
 
-		SyntaxConcept syntaxTopGoal = new SyntaxConcept('C', "TopGoal", false,
+		SyntaxElement syntaxTopGoal = new SyntaxElement('C', "TopGoal", false,
 				true, "Top Goal", "refasgoal",
 				"Defines a top goal of the system"
 						+ " from the stakeholder perspective that can be"
@@ -278,8 +276,8 @@ public class DefaultSyntaxMM {
 				supportMetaElementConcept, syntaxTopGoal);
 		refas.getVariabilityVertex().put("TopGoal", instVertexTG);
 
-		SyntaxPairwiseRel metaViewLF = new SyntaxPairwiseRel("ViewRelation",
-				true, true, "ViewRelation", "",
+		SyntaxElement metaViewLF = new SyntaxElement('P', "ViewRelation", true,
+				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -370,7 +368,7 @@ public class DefaultSyntaxMM {
 		InstElement semGroupPaiwiseRel = refas.getOperationalModel().getVertex(
 				"groupPWAsso");
 
-		SyntaxPairwiseRel metaGroupPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGroupPairwiseRel = new SyntaxElement('P',
 				"Group Relation", true, true, "Group Relation", "",
 				"Direct relation with a over two relation concept."
 						+ " No additional type defined", 60, 40,
@@ -408,7 +406,7 @@ public class DefaultSyntaxMM {
 		InstElement directFeatFeatSideSemEdge = refas.getOperationalModel()
 				.getVertex("FeatFeatSidePWAsso");
 
-		SyntaxPairwiseRel metaFeatVertPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaFeatVertPairwiseRel = new SyntaxElement('P',
 				"Feature Child Relation", true, true, "Feature Child Relation",
 				"", "Direct relation between two"
 						+ " feature concepts. Defines different types of"
@@ -422,7 +420,7 @@ public class DefaultSyntaxMM {
 		// refas.getVariabilityVertex().put("Feature Child Relation",
 		// instFeatVertPairWiseRel);
 
-		SyntaxPairwiseRel metaFeatSidePairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaFeatSidePairwiseRel = new SyntaxElement('P',
 				"DirSideRelation", true, true, "Feature Side Relation", "",
 				"Direct relation between two"
 						+ " feature concepts. Defines different types of"
@@ -565,7 +563,7 @@ public class DefaultSyntaxMM {
 		InstConcept semanticFeatFeatGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("FeatFeatOTAsso"));
 
-		SyntaxConcept featureMetaOverTwoRel = new SyntaxConcept('O',
+		SyntaxElement featureMetaOverTwoRel = new SyntaxElement('O',
 				"FeatOTAsso", true, true, "FeatOTAsso", "plgroup",
 				"Group relation between"
 						+ " Feature concepts. Defines different types of"
@@ -577,8 +575,8 @@ public class DefaultSyntaxMM {
 				supportMetaElementOverTwo, featureMetaOverTwoRel);
 		refas.getVariabilityVertex().put("FeatOTAsso", instVertexFOTR);
 
-		SyntaxPairwiseRel metaViewFG = new SyntaxPairwiseRel("ViewRelation",
-				true, true, "ViewRelation", "",
+		SyntaxElement metaViewFG = new SyntaxElement('P', "ViewRelation", true,
+				true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directViewSemanticEdge);
@@ -769,7 +767,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewTG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxGeneralGoal = new SyntaxConcept('C', "GeneralGoal",
+		SyntaxElement syntaxGeneralGoal = new SyntaxElement('C', "GeneralGoal",
 				false, true, "General Goal", "refasgoal",
 				"Defines a general goal of the"
 						+ " system from the stakeholder perspective that can"
@@ -821,7 +819,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept semOperationalization = ((InstConcept) refas
 				.getOperationalModel().getVertex("Operationalization"));
-		SyntaxConcept sOperationalization = new SyntaxConcept('C', "OPER",
+		SyntaxElement sOperationalization = new SyntaxElement('C', "OPER",
 				true, true, "OPER", "refasoper", "An operationalization allows"
 						+ " the partial or complete satisfaction of a goal or"
 						+ " another operationalization. If"
@@ -832,9 +830,9 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 2, semOperationalization, true);
 
 		sOperationalization.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		sOperationalization.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instVertexOper = new InstConcept("OPER",
 				supportMetaElementConcept, sOperationalization);
@@ -882,7 +880,7 @@ public class DefaultSyntaxMM {
 		InstConcept semAssumption = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Assumption"));
 
-		SyntaxConcept syntaxAssumption = new SyntaxConcept('C', "Assu", true,
+		SyntaxElement syntaxAssumption = new SyntaxElement('C', "Assu", true,
 				true, "Assumption", "refasassump", "An assumption is a"
 						+ " condition that should me truth for the goal or"
 						+ " operationalization to be satisfied", 100, 60,
@@ -890,9 +888,9 @@ public class DefaultSyntaxMM {
 				Color.WHITE.toString(), 1, semAssumption, true);
 
 		syntaxAssumption.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAssumption.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instVertexAssum = new InstConcept("Assu",
 				supportMetaElementConcept, syntaxAssumption);
@@ -941,7 +939,7 @@ public class DefaultSyntaxMM {
 		InstElement directStructHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("structHardHardPWAsso");
 
-		SyntaxPairwiseRel metaGrpStructHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGrpStructHardPairwiseRel = new SyntaxElement('P',
 				"HardRelation", true, true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
@@ -961,7 +959,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpMeansEndsRelation",
 				instGrpMeansEndsRelation);
 
-		SyntaxPairwiseRel metaDirStructHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaDirStructHardPairwiseRel = new SyntaxElement('P',
 				"HardRelation", true, true, "HardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
@@ -1019,7 +1017,7 @@ public class DefaultSyntaxMM {
 		InstElement directSideHardHardSemanticEdge = refas
 				.getOperationalModel().getVertex("GoalGoalSidePWAsso");
 
-		SyntaxPairwiseRel metaGrpSideHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGrpSideHardPairwiseRel = new SyntaxElement('P',
 				"SideRelation", true, true, "SideRelation", "",
 				"Direct relation between more than two"
 
@@ -1040,7 +1038,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpSideHardRelation",
 				instGrpSideHardHardPairWiseRel);
 
-		SyntaxPairwiseRel metaDirSideHardPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaDirSideHardPairwiseRel = new SyntaxElement('P',
 				"SideHardRelation", true, true, "SideHardRelation", "",
 				"Direct relation between two"
 						+ " hard concepts. Defines different types of"
@@ -1104,7 +1102,7 @@ public class DefaultSyntaxMM {
 		InstConcept semanticHardHardGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("GoalOTAsso"));
 
-		SyntaxConcept hardMetaOverTwoRel = new SyntaxConcept('O',
+		SyntaxElement hardMetaOverTwoRel = new SyntaxElement('O',
 				"HardOverTwoRel", true, true, "HardOverTwoRel", "plgroup",
 				"Group relation between"
 						+ " hard concepts. Defines different types of"
@@ -1225,7 +1223,7 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// Softgoals model
 
-		syntaxMetaView = new SyntaxView("SoftGoals", true, true,
+		syntaxMetaView = new SyntaxElement('V', "SoftGoals", true, true,
 				"Soft Goals View", "plnode", "Defines sofgoals", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Soft Goals Palette", 2, null);
@@ -1235,7 +1233,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept semSoftgoal = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Softgoal"));
-		SyntaxConcept syntaxSoftGoal = new SyntaxConcept(
+		SyntaxElement syntaxSoftGoal = new SyntaxElement(
 				'C',
 				"Softgoal",
 				true,
@@ -1254,9 +1252,9 @@ public class DefaultSyntaxMM {
 				Color.WHITE.toString(), 3, semSoftgoal, true);
 
 		syntaxSoftGoal.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxSoftGoal.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxSoftGoal.addModelingAttribute("name", "String", false, "Name",
 				"", "", 0, -1, "", "", -1, "", "");
@@ -1290,7 +1288,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewSG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxTopSoftGoal = new SyntaxConcept(
+		SyntaxElement syntaxTopSoftGoal = new SyntaxElement(
 				'C',
 				"TopSoftgoal",
 				false,
@@ -1347,7 +1345,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewTSG, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxGeneralSoftGoal = new SyntaxConcept(
+		SyntaxElement syntaxGeneralSoftGoal = new SyntaxElement(
 				'C',
 				"GeneralSoftgoal",
 				false,
@@ -1416,7 +1414,7 @@ public class DefaultSyntaxMM {
 		InstElement directGRSGSemEdge = refas.getOperationalModel().getVertex(
 				"sgsgOTAssoToPWAsso");
 
-		SyntaxPairwiseRel metaGroupSoftFromPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGroupSoftFromPairWiseRel = new SyntaxElement('P',
 				"GroupSoftFromRelation", true, true,
 				"Group Soft From Relation", "",
 				"Direct relation between two soft concepts. Defines"
@@ -1424,7 +1422,7 @@ public class DefaultSyntaxMM {
 				50, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directSGGRSemEdge);
 
-		SyntaxPairwiseRel metaGroupSoftToPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGroupSoftToPairWiseRel = new SyntaxElement('P',
 				"GroupSoftToRelation", true, true, "Group Soft To Relation",
 				"", "Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
@@ -1443,7 +1441,7 @@ public class DefaultSyntaxMM {
 		 * metaSoftPairWiseRel.addPropVisibleAttribute("05#" + "TargetLevel");
 		 */
 
-		SyntaxPairwiseRel metaDirSoftPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaDirSoftPairWiseRel = new SyntaxElement('P',
 				"DirSoftRelation", true, true, "Dir Soft Relation", "",
 				"Direct relation between two soft concepts. Defines"
 						+ " different types of relations and cardinalities",
@@ -1515,7 +1513,7 @@ public class DefaultSyntaxMM {
 
 		// Group soft relation
 
-		hardMetaOverTwoRel = new SyntaxConcept('O', "SoftgoalOTAsso", true,
+		hardMetaOverTwoRel = new SyntaxElement('O', "SoftgoalOTAsso", true,
 				true, "SoftgoalOTAsso", "plgroup",
 				"Direct relation between soft"
 						+ " concepts. Defines different types of relations"
@@ -1605,8 +1603,8 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// Context model
 
-		syntaxMetaView = new SyntaxView("Context", true, true, "Context View",
-				"plnode", "Defines a feature", 100, 80,
+		syntaxMetaView = new SyntaxElement('V', "Context", true, true,
+				"Context View", "plnode", "Defines a feature", 100, 80,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Context Palette", 3, null);
 		instViewC = new InstConcept("Context", metaView, syntaxMetaView);
@@ -1614,7 +1612,7 @@ public class DefaultSyntaxMM {
 		// syntaxMetaView.addConcept(syntaxVariable);
 		InstConcept semContextGroup = ((InstConcept) refas
 				.getOperationalModel().getVertex("ConcernLevel"));
-		SyntaxConcept syntaxContextGroup = new SyntaxConcept('C', "CG", true,
+		SyntaxElement syntaxContextGroup = new SyntaxElement('C', "CG", true,
 				true, "ConcernLevel", "refascontextgrp", " A Concern Level"
 						+ " is defined to associate variables with common"
 						+ " characteristics. The type defines if variables"
@@ -1629,9 +1627,9 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 1, semContextGroup, true);
 
 		syntaxContextGroup.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxContextGroup.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxContextGroup.addModelingAttribute("name", "String", false,
 				"Name", "", "", 0, -1, "", "", -1, "", "");
@@ -1660,7 +1658,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept semVariable = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Variable"));
-		SyntaxConcept syntaxAbsVariable = new SyntaxConcept(
+		SyntaxElement syntaxAbsVariable = new SyntaxElement(
 				'C',
 				"Variable",
 				true,
@@ -1677,9 +1675,9 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 1, semVariable, true);
 
 		syntaxAbsVariable.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAbsVariable.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxAbsVariable.addModelingAttribute("name", "String", false, "Name",
 				"", "", 0, -1, "", "", -1, "", "");
@@ -1715,7 +1713,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewVar, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxGlobalVariable = new SyntaxConcept('C',
+		SyntaxElement syntaxGlobalVariable = new SyntaxElement('C',
 				"GlobalVariable", false, true, "Global Variable",
 				"refasglobcnxt", "Old Concept, replaced by Variable Concept",
 				150, 40,
@@ -1762,7 +1760,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewGV, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept syntaxContextVariable = new SyntaxConcept('C',
+		SyntaxElement syntaxContextVariable = new SyntaxElement('C',
 				"ContextVariable", false, true, "Context Variable",
 				"refaslocalcnxt", " Old concept, replaced by Variable", 150,
 				40, "/com/variamos/gui/perspeditor/images/localCnxtVar.png",
@@ -1808,38 +1806,39 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewCV, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxConcept metaEnumeration = new SyntaxConcept('E', "ME", true,
+		SyntaxElement metaEnumeration = new SyntaxElement('E', "ME", true,
 				true, "MetaEnumeration", "refasenumeration", "Allows the"
 						+ " creation of user defined enumerations for"
 						+ " variables", 100, 150,
 				"/com/variamos/gui/perspeditor/images/assump.png", true, "", 1,
 				null, true);
 
-		metaEnumeration.addModelingAttribute(SyntaxConcept.VAR_METAENUMNAME,
-				"String", false, SyntaxConcept.VAR_METAENUMNAMENAME, "", "", 0,
+		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMNAME,
+				"String", false, SyntaxElement.VAR_METAENUMNAMENAME, "", "", 0,
 				1, "", "", 1, "#-#\n\n", "");
-		metaEnumeration.addModelingAttribute(SyntaxConcept.VAR_METAENUMVALUE,
-				"Set", false, SyntaxConcept.VAR_METAENUMVALUENAME, "",
-				SyntaxConcept.VAR_METAENUMVALUECLASS,
+		metaEnumeration.addModelingAttribute(SyntaxElement.VAR_METAENUMVALUE,
+				"Set", false, SyntaxElement.VAR_METAENUMVALUENAME, "",
+				SyntaxElement.VAR_METAENUMVALUECLASS,
 				new ArrayList<InstAttribute>(), 0, 2, "", "", 2, "#\n", "");
 
 		metaEnumeration.addPropEditableAttribute("01#"
-				+ SyntaxConcept.VAR_METAENUMNAME);
+				+ SyntaxElement.VAR_METAENUMNAME);
 
 		metaEnumeration.addPropVisibleAttribute("01#"
-				+ SyntaxConcept.VAR_METAENUMNAME);
+				+ SyntaxElement.VAR_METAENUMNAME);
 		metaEnumeration.addPanelVisibleAttribute("05#"
-				+ SyntaxConcept.VAR_METAENUMVALUE);
+				+ SyntaxElement.VAR_METAENUMVALUE);
 		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_METAENUMVALUE + "#\n");
+				+ SyntaxElement.VAR_METAENUMVALUE + "#\n");
 
 		metaEnumeration.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		metaEnumeration.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
-		SyntaxView syntaxMetaChildView = new SyntaxView("FullContext",
-				"Context with Enumerations", "Context Palette", 0, null);
+		SyntaxElement syntaxMetaChildView = new SyntaxElement('V',
+				"FullContext", "Context with Enumerations", "Context Palette",
+				0, null);
 		@SuppressWarnings("unused")
 		InstConcept childView = new InstConcept("FullContext", metaView,
 				syntaxMetaChildView);
@@ -1867,7 +1866,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewME, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		syntaxMetaChildView = new SyntaxView("VariabContext",
+		syntaxMetaChildView = new SyntaxElement('V', "VariabContext",
 				"Context without Enumerations", "Context Palette", 1, null);
 		childView = new InstConcept("VariabContext", metaView,
 				syntaxMetaChildView);
@@ -1937,14 +1936,14 @@ public class DefaultSyntaxMM {
 		InstElement directCVCGSemanticEdge = refas.getOperationalModel()
 				.getVertex("CVCGPWAsso");
 
-		SyntaxPairwiseRel metaVariableEdge = new SyntaxPairwiseRel(
+		SyntaxElement metaVariableEdge = new SyntaxElement('P',
 				"Variable To Context Relation", true, true,
 				"Variable To Context Relation", "",
 				"Associates a Context Variable" + " with the Context Group",
 				60, 50, "/com/variamos/gui/pl/editor/images/ploptional.png", 1,
 				directCVCGSemanticEdge);
 
-		SyntaxPairwiseRel metaContextEdge = new SyntaxPairwiseRel(
+		SyntaxElement metaContextEdge = new SyntaxElement('P',
 				"Context To Context Relation", true, true,
 				"Context To Context Relation", "", "Associates a Context Group"
 						+ " with other Context Group", 60, 50,
@@ -2007,7 +2006,8 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// SG satisficing Model
 
-		syntaxMetaView = new SyntaxView(
+		syntaxMetaView = new SyntaxElement(
+				'V',
 				"SoftGoalsSatisficing",
 				true,
 				true,
@@ -2121,7 +2121,7 @@ public class DefaultSyntaxMM {
 		instEdge.setTargetRelation(instViewOpers, true);
 		instEdge.setSourceRelation(instViewC, true);
 
-		SyntaxPairwiseRel metaViewLFsg = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewLFsg = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -2149,7 +2149,7 @@ public class DefaultSyntaxMM {
 		InstConcept semClaim = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Claim"));
 
-		SyntaxConcept syntaxClaim = new SyntaxConcept('C', "CL", true, true,
+		SyntaxElement syntaxClaim = new SyntaxElement('C', "CL", true, true,
 				"Claim", "refasclaim", "A claim includes a group of"
 						+ " operationalizations and a logical condition"
 						+ " to evaluate the claim satisfaction."
@@ -2161,9 +2161,9 @@ public class DefaultSyntaxMM {
 				Color.BLUE.toString(), 1, semClaim, true);
 
 		syntaxClaim.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxClaim.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxClaim.addModelingAttribute("name", "String", false, "Name", "",
 				"", 0, -1, "", "", -1, "", "");
@@ -2214,7 +2214,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept semSoftDependency = ((InstConcept) refas
 				.getOperationalModel().getVertex("SoftDependency"));
-		SyntaxConcept syntaxSoftDependency = new SyntaxConcept(
+		SyntaxElement syntaxSoftDependency = new SyntaxElement(
 				'C',
 				"SoftDependency",
 				true,
@@ -2231,9 +2231,9 @@ public class DefaultSyntaxMM {
 				true, Color.BLUE.toString(), 1, semSoftDependency, true);
 
 		syntaxSoftDependency.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxSoftDependency.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		syntaxSoftDependency.addModelingAttribute("name", "String", false,
 				"Name", "", "", 0, -1, "", "", -1, "", "");
@@ -2289,7 +2289,7 @@ public class DefaultSyntaxMM {
 		InstConcept semanticOperClaimGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("OperCLOTAsso"));
 
-		hardMetaOverTwoRel = new SyntaxConcept(
+		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
 				"OperClaimOverTwoRel",
 				true,
@@ -2305,7 +2305,8 @@ public class DefaultSyntaxMM {
 		InstElement semClaimPairwiseRel = refas.getOperationalModel()
 				.getVertex("OperClaimPWAsso");
 
-		SyntaxPairwiseRel metaClaimPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaClaimPairwiseRel = new SyntaxElement(
+				'P',
 				"ClaimRelation",
 				true,
 				true,
@@ -2341,7 +2342,8 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("GrpLFClaimRelation",
 				instGrpLFClaimPairWiseRel);
 
-		SyntaxPairwiseRel metaDirClaimPairwiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaDirClaimPairwiseRel = new SyntaxElement(
+				'P',
 				"ClaimRelation",
 				true,
 				true,
@@ -2429,7 +2431,7 @@ public class DefaultSyntaxMM {
 		InstConcept semanticLFClaimGroupRelation = ((InstConcept) refas
 				.getOperationalModel().getVertex("LFtoClaimOTAsso"));
 
-		hardMetaOverTwoRel = new SyntaxConcept(
+		hardMetaOverTwoRel = new SyntaxElement(
 				'O',
 				"LFClaimOTAsso",
 				true,
@@ -2448,7 +2450,7 @@ public class DefaultSyntaxMM {
 
 		refas.getVariabilityVertex().put("LFClaimOTAsso", instVertexFCOTR);
 
-		SyntaxPairwiseRel metaViewLFCL = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewLFCL = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -2569,7 +2571,8 @@ public class DefaultSyntaxMM {
 		InstElement directSDSGSemanticEdge = refas.getOperationalModel()
 				.getVertex("SDSGPWAsso");
 
-		SyntaxPairwiseRel metaSDSGEdge = new SyntaxPairwiseRel(
+		SyntaxElement metaSDSGEdge = new SyntaxElement(
+				'P',
 				"SDSGRelation",
 				true,
 				true,
@@ -2609,7 +2612,8 @@ public class DefaultSyntaxMM {
 		InstElement directClaimSGSemanticEdge = refas.getOperationalModel()
 				.getVertex("ClaimSGPWAsso");
 
-		SyntaxPairwiseRel metaClaimSGEdge = new SyntaxPairwiseRel(
+		SyntaxElement metaClaimSGEdge = new SyntaxElement(
+				'P',
 				"Claim-Softgoal Relation",
 				true,
 				true,
@@ -2647,8 +2651,8 @@ public class DefaultSyntaxMM {
 		// *************************---------------****************************
 		// Assets model
 
-		syntaxMetaView = new SyntaxView("Assets", true, true, "Assets View",
-				"plnode", "Defines an Asset", 100, 90,
+		syntaxMetaView = new SyntaxElement('V', "Assets", true, true,
+				"Assets View", "plnode", "Defines an Asset", 100, 90,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 3,
 				"Assets Palette - Opers;Assets Palette - Features", 5, null);
 		instViewC = new InstConcept("Assets", metaView, syntaxMetaView);
@@ -2658,7 +2662,7 @@ public class DefaultSyntaxMM {
 
 		InstConcept semAsset = ((InstConcept) refas.getOperationalModel()
 				.getVertex("Asset"));
-		SyntaxConcept syntaxAsset = new SyntaxConcept('C', "Asset", true, true,
+		SyntaxElement syntaxAsset = new SyntaxElement('C', "Asset", true, true,
 				"Asset", "refasasset",
 				"Represents a asset of the system. The most"
 						+ " important assets to represent are those than"
@@ -2667,9 +2671,9 @@ public class DefaultSyntaxMM {
 				Color.WHITE.toString(), 1, semAsset, true);
 
 		syntaxAsset.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		syntaxAsset.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		syntaxAsset.addModelingAttribute("name", "String", false, "Name", "",
 				"", 0, -1, "", "", -1, "", "");
@@ -2694,8 +2698,8 @@ public class DefaultSyntaxMM {
 		// syntaxAsset.addPanelVisibleAttribute("03#" + "name");
 		syntaxAsset.addPropEditableAttribute("03#" + "name");
 		syntaxAsset.addPropVisibleAttribute("03#" + "name");
-		syntaxMetaChildView = new SyntaxView("Assets", "Assets General View",
-				"Assets Palette", 0, null);
+		syntaxMetaChildView = new SyntaxElement('V', "Assets",
+				"Assets General View", "Assets Palette", 0, null);
 		childView = new InstConcept("GeneralAssets", metaView,
 				syntaxMetaChildView);
 		// refas.getVariabilityVertex().put("GeneralAssets", childView);
@@ -2716,7 +2720,7 @@ public class DefaultSyntaxMM {
 		InstElement directAssetSemanticEdge = refas.getOperationalModel()
 				.getVertex("varAssetPWAsso");
 
-		hardMetaOverTwoRel = new SyntaxConcept('O', "AssetOperGroupDep", true,
+		hardMetaOverTwoRel = new SyntaxElement('O', "AssetOperGroupDep", true,
 				true, "AssetOperGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of an operationalization by a group of assets", 20,
@@ -2728,7 +2732,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("AssetOperGroupDep",
 				instVertexAssetOper);
 
-		hardMetaOverTwoRel = new SyntaxConcept('O', "AssetFeatGroupDep", true,
+		hardMetaOverTwoRel = new SyntaxElement('O', "AssetFeatGroupDep", true,
 				true, "AssetFeatGroupDep", "plgroup",
 				"Represents the implementation "
 						+ "of a feautre by a group of assets", 20, 20,
@@ -2740,7 +2744,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("AssetFeatGroupDep",
 				instVertexAssetFeat);
 
-		hardMetaOverTwoRel = new SyntaxConcept('O', "AssetAssetOTAsso", true,
+		hardMetaOverTwoRel = new SyntaxElement('O', "AssetAssetOTAsso", true,
 				true, "AssetAssetOTAsso", "plgroup", "Represents the relation "
 						+ "of an asset with a group of assets", 20, 20,
 				"/com/variamos/gui/pl/editor/images/plgroup.png", false,
@@ -2751,7 +2755,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("AssetAssetOTAsso",
 				instVertexAssetAsset);
 
-		SyntaxPairwiseRel metaOperPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaOperPairWiseRel = new SyntaxElement('P',
 				"Asset To Oper Relation", true, true, "Asset To Oper Relation",
 				"", "Represents the "
 						+ "implementation of an operationzalization by an"
@@ -2789,7 +2793,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Group Asset To LF Relation",
 				instGrpLFPairWiseRel);
 
-		SyntaxPairwiseRel metaFeaturePairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaFeaturePairWiseRel = new SyntaxElement('P',
 				"Asset To Feature Relation", true, true,
 				"Asset To Feature Relation", "", "Represents the "
 						+ "implementation of an feature by an" + " asset", 50,
@@ -2805,7 +2809,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Asset To Feature Relation",
 				instDirFeatPairWiseRel);
 
-		SyntaxPairwiseRel metaAssetPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaAssetPairWiseRel = new SyntaxElement('P',
 				"Asset To Asset Relation", true, true,
 				"Asset To Asset Relation", "",
 				"Represents a " + "type of an operationzalization between "
@@ -2841,7 +2845,7 @@ public class DefaultSyntaxMM {
 		refas.getVariabilityVertex().put("Dir Asset To Asset Relation",
 				instDirAssetPairWiseRel);
 
-		SyntaxPairwiseRel metaGrpAssetPairWiseRel = new SyntaxPairwiseRel(
+		SyntaxElement metaGrpAssetPairWiseRel = new SyntaxElement('P',
 				"Asset To Asset Relation", true, true,
 				"Asset To Asset Relation", "",
 				"Represents a " + "type of an operationzalization between "
@@ -3062,7 +3066,7 @@ public class DefaultSyntaxMM {
 		 * instEdge.setTargetRelation(instViewAOper3, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewLF2 = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewLF2 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -3074,7 +3078,7 @@ public class DefaultSyntaxMM {
 		 * supportMetaViewPairwise, metaViewLF2);
 		 * refas.getVariabilityVertex().put("View LF2 Relation", instViewLF2);
 		 */
-		SyntaxPairwiseRel metaViewLF3 = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewLF3 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -3113,7 +3117,7 @@ public class DefaultSyntaxMM {
 		 * instEdge.setTargetRelation(instViewLF2, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewAsFG2 = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewAsFG2 = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 40,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -3139,7 +3143,7 @@ public class DefaultSyntaxMM {
 		 * instEdge.setTargetRelation(instViewAssetLF2, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		SyntaxPairwiseRel metaViewAsFG = new SyntaxPairwiseRel("ViewRelation",
+		SyntaxElement metaViewAsFG = new SyntaxElement('P', "ViewRelation",
 				true, true, "ViewRelation", "",
 				"View relation between a view and a concepts.", 60, 50,
 				"/com/variamos/gui/pl/editor/images/ploptional.png", 1,
@@ -3205,7 +3209,7 @@ public class DefaultSyntaxMM {
 		 * instEdge.setTargetRelation(instViewAssOper, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		syntaxMetaChildView = new SyntaxView("FunctionalAssets",
+		syntaxMetaChildView = new SyntaxElement('V', "FunctionalAssets",
 				"Functional Assets Relations", "Assets Palette", 1, null);
 		childView = new InstConcept("FunctionalAssets", metaView,
 				syntaxMetaChildView);
@@ -3288,7 +3292,7 @@ public class DefaultSyntaxMM {
 		 * instEdge.setTargetRelation(instViewAOper2, true);
 		 * instEdge.setSourceRelation(childView, true);
 		 */
-		syntaxMetaChildView = new SyntaxView("StructuralAssets",
+		syntaxMetaChildView = new SyntaxElement('V', "StructuralAssets",
 				"Structural Assets Relations", "Assets Palette", 2, null);
 		childView = new InstConcept("StructuralAssets", metaView,
 				syntaxMetaChildView);

@@ -12,7 +12,6 @@ import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.dynsup.types.AttributeType;
 
 /**
@@ -60,7 +59,7 @@ public class InstPairwiseRel extends InstElement {
 	/**
 	 * Canonical class name of MetaPairwiseRelation
 	 */
-	VAR_METAPAIRWISE_CLASS = SyntaxPairwiseRel.class.getCanonicalName(),
+	VAR_METAPAIRWISE_CLASS = SyntaxElement.class.getCanonicalName(),
 	/**
 					 * 
 					 */
@@ -130,8 +129,7 @@ public class InstPairwiseRel extends InstElement {
 		this.supportMetaPairwiseRelIden = supportMetaPairwiseRelIden;
 	}
 
-	public InstPairwiseRel(String identifier,
-			SyntaxPairwiseRel editableMetaElement) {
+	public InstPairwiseRel(String identifier, SyntaxElement editableMetaElement) {
 		super(identifier);
 		setEdSyntaxEle(editableMetaElement);
 		createAttributes(new HashMap<String, InstAttribute>());
@@ -167,7 +165,7 @@ public class InstPairwiseRel extends InstElement {
 	public ElemAttribute getSemanticAttribute() {
 		return new ElemAttribute(VAR_METAPAIRWISE, "Class",
 				AttributeType.OPERATION, true, VAR_METAPAIRWISE_NAME, "",
-				VAR_METAPAIRWISE_CLASS, new SyntaxPairwiseRel(), 0, -1, "", "",
+				VAR_METAPAIRWISE_CLASS, new SyntaxElement('P'), 0, -1, "", "",
 				-1, "", "");
 	}
 
@@ -568,7 +566,7 @@ public class InstPairwiseRel extends InstElement {
 	public void updateIdentifiers() {
 		Object metaEdge = getInstAttribute(VAR_METAPAIRWISE).getValueObject();
 		if (metaEdge != null) {
-			supportMetaPairwiseRelIden = ((SyntaxPairwiseRel) metaEdge)
+			supportMetaPairwiseRelIden = ((SyntaxElement) metaEdge)
 					.getAutoIdentifier();
 		}
 		if (getInstAttribute("relationType") != null

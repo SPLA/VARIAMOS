@@ -459,9 +459,9 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 											.createFromSemanticExpression(
 													instElement, 0);
 									out.add(instanceExpression);
-									System.out.println("instExppr: "
-											+ instanceExpression
-													.expressionStructure());
+									// System.out.println("instExppr: "
+									// + instanceExpression
+									// .expressionStructure());
 								}
 							}
 					}
