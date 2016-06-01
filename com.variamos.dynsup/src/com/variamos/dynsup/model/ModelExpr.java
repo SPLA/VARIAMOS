@@ -1019,17 +1019,19 @@ public class ModelExpr implements Serializable {
 			value = leftValue;
 			valueType = (String) this.volatileLeftInstElement.getInstAttribute(
 					"variableType").getValue();
-			if (this.volatileLeftInstElement.getInstAttribute("floatPrec") != null)
-				floatPrec = (int) this.volatileLeftInstElement
-						.getInstAttribute("floatPrec").getValue();
+			// if (this.volatileLeftInstElement.getInstAttribute("floatPrec")
+			// .getValue() != null)
+			// floatPrec = (int) this.volatileLeftInstElement
+			// .getInstAttribute("floatPrec").getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
 			valueType = (String) this.volatileRightInstElement
 					.getInstAttribute("variableType").getValue();
-			if (this.volatileRightInstElement.getInstAttribute("floatPrec") != null)
-				floatPrec = (int) this.volatileRightInstElement
-						.getInstAttribute("floatPrec").getValue();
+			// if (this.volatileRightInstElement.getInstAttribute("floatPrec")
+			// .getValue() != null)
+			// floatPrec = (int) this.volatileRightInstElement
+			// .getInstAttribute("floatPrec").getValue();
 
 			break;
 		case LEFTSTRINGVALUE:
