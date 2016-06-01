@@ -3290,7 +3290,10 @@ public class DefaultOpersMM {
 					AttributeType.EXECCURRENTSTATE, false,
 					"Required Level by SD",
 					"Required level (0..4) for the soft dependency relation",
-					0, new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "");
+					0, new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "",
+					"ConfigReqLevel",
+					"sourceLevel;targetLevel;level;CLSGLevel",
+					"defaultDomainValue");
 			semSoftgoal.putSemanticAttribute("SDReqLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3305,7 +3308,10 @@ public class DefaultOpersMM {
 					AttributeType.EXECCURRENTSTATE, false,
 					"Expected Level by Claim",
 					"Expected level (0..4) for the claim relation", 0,
-					new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "");
+					new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "",
+					"ConfigReqLevel",
+					"sourceLevel;targetLevel;level;CLSGLevel",
+					"defaultDomainValue");
 			semSoftgoal.putSemanticAttribute("ClaimExpLevel", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
@@ -3317,10 +3323,25 @@ public class DefaultOpersMM {
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
 
 			semSoftgoal.addPropVisibleAttribute("16#" + "SDReqLevel");
-			semSoftgoal.addPropVisibleAttribute("16#" + "ClaimExpLevel");
+			semSoftgoal.addPropVisibleAttribute("18#" + "ClaimExpLevel");
 
-			semSoftgoal.addPropEditableAttribute("18#" + "SDReqLevel");
+			semSoftgoal.addPropEditableAttribute("16#" + "SDReqLevel");
 			semSoftgoal.addPropEditableAttribute("18#" + "ClaimExpLevel");
+
+			attribute = new ElemAttribute(
+					"defaultDomainValue",
+					"Integer",
+					AttributeType.OPERATION,
+					false,
+					"Default Value (Filtered Attributes)",
+					"Default value for ClaimExpLevel/SDReqLevel when no Claim/SD"
+							+ " constraints the domain (e.j. 4 for maximizing SG)",
+					0, new RangeDomain(0, 4, 0), 2, -1, "", "", -1, "", "");
+			semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
+
+			semSoftgoal.addPropVisibleAttribute("19#" + "defaultDomainValue");
+
+			semSoftgoal.addPropEditableAttribute("19#" + "defaultDomainValue");
 
 			instEdge = new InstPairwiseRel();
 			refas.getConstraintInstEdges().put("sgtoge", instEdge);

@@ -735,11 +735,11 @@ public class ElementDesignPanel extends JPanel {
 			// e.setVisible(true);
 			contentPanel1.add(elementDesPropSubPanel);
 			elementDesPropSubPanel.setPreferredSize(new Dimension(350,
-					designPanelElements * 30));
+					designPanelElements * 28));
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
-					designPanelElements * 30));
+					designPanelElements * 28));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 350));
+			contentPanel1.setMaximumSize(new Dimension(200, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);

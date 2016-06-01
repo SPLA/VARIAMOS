@@ -111,7 +111,7 @@ public class ElemAttribute implements Serializable {
 	/**
 	 * Hint to display on the property tab (not currently implemented)
 	 */
-	// TODO use on properties
+	// TODO use on properties: duplicate with ToolTip?
 	private String hint;
 	/**
 	 * defaultGroup for the attribute - for simulation multi-labeling
@@ -145,6 +145,9 @@ public class ElemAttribute implements Serializable {
 	 * always displays
 	 */
 	private String elementDisplayCondition;
+
+	private String domainFiltersOwnFields;
+	private String domainFiltersRelFields;
 	public static final String
 	/**
 	 * Name of element name
@@ -265,7 +268,21 @@ public class ElemAttribute implements Serializable {
 	 */
 	VAR_ELEMENTDISPLAYCONDITION_NAME = "Graph Visual Cond.",
 
-	VAR_TOOLTIPTEXT = "toolTipText", VAR_TOOLTIPTEXTNAME = "toolTipTextName";
+	VAR_TOOLTIPTEXT = "toolTipText",
+
+	VAR_DOMAINFILTERSOWNFIELDS = "domFiltOwnFields",
+
+	VAR_DOMAINFILTERSOWNFIELDS_NAME = "Fields to filter domain (Concept)",
+
+	VAR_DOMAINFILTERSRELFIELDS = "domFilTRelFields",
+
+	VAR_DOMAINFILTERSRELFIELDS_NAME = "Fields to filter domain (Rel)",
+
+	VAR_DEFAULTDOMAINVALUEFIELD = "defDomValueField",
+
+	VAR_DEFAULTDOMAINVALUEFIELD_NAME = "Default Domain Value Field (Filtered)",
+
+	VAR_TOOLTIPTEXTNAME = "toolTipTextName";
 
 	public String getElementDisplayCondition() {
 		return elementDisplayCondition;
@@ -280,6 +297,7 @@ public class ElemAttribute implements Serializable {
 	 */
 	protected Map<String, IntInstAttribute> dynamicAttributeComponentsMap = new HashMap<>();
 	private String toolTipText;
+	private String defaultDomainValueField;
 
 	public Map<String, IntInstAttribute> getDynamicAttributeComponentsMap() {
 		return dynamicAttributeComponentsMap;
@@ -326,7 +344,8 @@ public class ElemAttribute implements Serializable {
 				toolTipText, null, null, defaultValue, null, null,
 				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
+				elementDisplaySpacers, elementDisplayCondition, null, null,
+				null);
 	}
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
@@ -556,6 +575,38 @@ public class ElemAttribute implements Serializable {
 				elementDisplaySpacers, elementDisplayCondition);
 	}
 
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, Domain domain, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition,
+			String domainFiltersOwnFields, String domainFiltersRelFields,
+			String defaultDomainValueField) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, null, null, defaultValue, domain, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition,
+				domainFiltersOwnFields, domainFiltersRelFields,
+				defaultDomainValueField);
+	}
+
+	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String toolTipText,
+			String enumType, String metaConceptInstanceType,
+			Object defaultValue, Domain domain, String hint, int defaultGroup,
+			int propTabPosition, String propTabEditionCondition,
+			String propTabVisualCondition, int elementDisplayPosition,
+			String elementDisplaySpacers, String elementDisplayCondition) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, enumType, metaConceptInstanceType, defaultValue,
+				domain, hint, defaultGroup, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition, null, null, null);
+	}
+
 	/**
 	 * set local attributes not received with null
 	 * 
@@ -661,7 +712,9 @@ public class ElemAttribute implements Serializable {
 			Object defaultValue, Domain domain, String hint, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
 			String propTabVisualCondition, int elementDisplayPosition,
-			String elementDisplaySpacers, String elementDisplayCondition) {
+			String elementDisplaySpacers, String elementDisplayCondition,
+			String domainFiltersOwnFields, String domainFiltersRelFields,
+			String defaultDomainValueField) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -681,6 +734,9 @@ public class ElemAttribute implements Serializable {
 		this.elementDisplayPosition = elementDisplayPosition;
 		this.elementDisplaySpacers = elementDisplaySpacers;
 		this.elementDisplayCondition = elementDisplayCondition;
+		this.setDomainFiltersOwnFields(domainFiltersOwnFields);
+		this.setDomainFiltersRelFields(domainFiltersRelFields);
+		this.setDefaultDomainValueField(defaultDomainValueField);
 
 		if (type.equals("Class") || type.equals("MClass")
 				|| type.equals("Enum") || type.equals("MEnum"))
@@ -736,6 +792,20 @@ public class ElemAttribute implements Serializable {
 				new ElemAttribAttribute(VAR_ELEMENTDISPLAYCONDITION, "String",
 						VAR_ELEMENTDISPLAYCONDITION_NAME,
 						elementDisplayCondition));
+		dynamicAttributeComponentsMap
+				.put(VAR_DOMAINFILTERSOWNFIELDS,
+						new ElemAttribAttribute(VAR_DOMAINFILTERSOWNFIELDS,
+								"String", VAR_DOMAINFILTERSOWNFIELDS_NAME,
+								domainFiltersOwnFields));
+		dynamicAttributeComponentsMap
+				.put(VAR_DOMAINFILTERSRELFIELDS,
+						new ElemAttribAttribute(VAR_DOMAINFILTERSRELFIELDS,
+								"String", VAR_DOMAINFILTERSRELFIELDS_NAME,
+								domainFiltersRelFields));
+		dynamicAttributeComponentsMap.put(VAR_DEFAULTDOMAINVALUEFIELD,
+				new ElemAttribAttribute(VAR_DEFAULTDOMAINVALUEFIELD, "String",
+						VAR_DEFAULTDOMAINVALUEFIELD_NAME,
+						defaultDomainValueField));
 	}
 
 	public int getPropTabPosition() {
@@ -834,5 +904,29 @@ public class ElemAttribute implements Serializable {
 
 	public void setToolTipText(String toolTipText) {
 		this.toolTipText = toolTipText;
+	}
+
+	public String getDomainFiltersOwnFields() {
+		return domainFiltersOwnFields;
+	}
+
+	public void setDomainFiltersOwnFields(String domainFiltersOwnFields) {
+		this.domainFiltersOwnFields = domainFiltersOwnFields;
+	}
+
+	public String getDomainFiltersRelFields() {
+		return domainFiltersRelFields;
+	}
+
+	public void setDomainFiltersRelFields(String domainFiltersRelFields) {
+		this.domainFiltersRelFields = domainFiltersRelFields;
+	}
+
+	public String getDefaultDomainValueField() {
+		return defaultDomainValueField;
+	}
+
+	public void setDefaultDomainValueField(String defaultDomainValueField) {
+		this.defaultDomainValueField = defaultDomainValueField;
 	}
 }
