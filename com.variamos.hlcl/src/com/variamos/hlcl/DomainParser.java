@@ -7,7 +7,7 @@ public class DomainParser {
 		String[] parts = str.split(",", -1);
 
 		String digit = "\\d+";
-		String floatD = "\\d+\\s*.\\s*\\d+";
+		String floatD = "[0-9]*\\.?[0-9]*";
 		String range = "\\d+\\s*-\\s*\\d+";
 
 		ComposedDomain domain = new ComposedDomain();
