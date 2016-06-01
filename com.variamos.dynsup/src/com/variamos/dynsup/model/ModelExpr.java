@@ -6,12 +6,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
@@ -721,7 +724,7 @@ public class ModelExpr implements Serializable {
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
 			if (fullIdentifier == null) {
-				System.out.println("NUll: " + expInstElement.getIdentifier()
+				System.out.println("NUllID: " + expInstElement.getIdentifier()
 						+ " " + expAttributeName);
 				return null;
 			}
@@ -738,15 +741,63 @@ public class ModelExpr implements Serializable {
 		return out;
 	}
 
+	// TODO: remove: replace by dynamic implementation (keep only value
+	// attribute)
 	public static void updateDomain(ElemAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
-		if (attribute.getName().equals("varConfValue")) {
+		if (attribute.getName().equals("SDReqLevel")
+				|| attribute.getName().equals("ClaimExpLevel")) {
+			String configdomain = "";
+			Set<Integer> values = new HashSet<Integer>();
+			if (((InstConcept) instVertex).getInstAttribute("ConfigReqLevel") != null
+					&& ((InstConcept) instVertex).getInstAttribute(
+							"ConfigReqLevel").getAsInteger() != 5)
+				values.add(((InstConcept) instVertex).getInstAttribute(
+						"ConfigReqLevel").getAsInteger());
+			for (InstElement relation : instVertex.getSourceRelations()) {
+				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("targetLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
+				if (((InstPairwiseRel) relation).getInstAttribute("level") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"level").getAsInteger());
+				if (((InstPairwiseRel) relation).getInstAttribute("CLSGLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"CLSGLevel").getAsInteger());
+			}
+			for (InstElement relation : instVertex.getTargetRelations()) {
+				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("targetLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
+			}
+			if (values.size() == 0) {
+				values.add(new Integer(0)); // TODO use value according to
+											// MAX/MIN/As close as possible type
+											// of SG.
+			}
+			for (Integer value : values) {
+				configdomain += value.toString() + ",";
+			}
+			configdomain = configdomain.substring(0, configdomain.length() - 1);
+			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+		} else if (attribute.getName().equals("varConfValue")) {
 			String configdomain = (String) (instVertex.getInstAttribute(
 					"varConfDom").getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
-		}
-		if (attribute.getName().equals("value")) {
+		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
 					.getValue();
 

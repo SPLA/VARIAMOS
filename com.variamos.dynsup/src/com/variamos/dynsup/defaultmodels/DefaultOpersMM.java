@@ -2288,7 +2288,7 @@ public class DefaultOpersMM {
 				AttributeType.GLOBALCONFIG, false, "Configured Value",
 				"Configured value (positive numbers)"
 						+ " (not used by dynamic operations)", 0, 0, -1, "",
-				"", -1, "", "");
+				"", -1, "", "", "varConfDom", "", null);
 		semVariable.putSemanticAttribute("varConfValue", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 

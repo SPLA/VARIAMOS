@@ -540,10 +540,10 @@ public class TranslationExpressionSet extends ElementExpressionSet {
 		return out;
 	}
 
+	// Dynamic call
 	public HlclProgram getHlCLProgramExpressions(String column) {
 		HlclProgram prog = new HlclProgram();
 		for (ModelExpr expression : instanceExpressions.get(column)) {
-			// idMap.putAll(transformation.getIdentifiers(hlclFactory));
 			BooleanExpression newExp = (BooleanExpression) expression
 					.createSGSExpression();
 			if (newExp != null)

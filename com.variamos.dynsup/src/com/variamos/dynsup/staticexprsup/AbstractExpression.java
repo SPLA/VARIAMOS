@@ -158,6 +158,7 @@ public abstract class AbstractExpression {
 		this.expressionVertexTypes.add(ExpressionVertexType.LEFTVARIABLE);
 	}
 
+	// Static call
 	public Map<String, Identifier> getIdentifiers(HlclFactory f) {
 		Map<String, Identifier> out = new HashMap<String, Identifier>();
 		if (leftVertex != null) {

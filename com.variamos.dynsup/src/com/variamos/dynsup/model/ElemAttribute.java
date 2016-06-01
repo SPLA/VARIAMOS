@@ -349,6 +349,22 @@ public class ElemAttribute implements Serializable {
 	}
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
+			boolean affectProperties, String displayName, String toolTipText,
+			Object defaultValue, int defaultGroup, int propTabPosition,
+			String propTabEditionCondition, String propTabVisualCondition,
+			int elementDisplayPosition, String elementDisplaySpacers,
+			String elementDisplayCondition, String domainFiltersOwnFields,
+			String domainFiltersRelFields, String defaultDomainValueField) {
+		this(name, type, attributeType, affectProperties, displayName,
+				toolTipText, null, null, defaultValue, null, null,
+				defaultGroup, propTabPosition, propTabEditionCondition,
+				propTabVisualCondition, elementDisplayPosition,
+				elementDisplaySpacers, elementDisplayCondition,
+				domainFiltersOwnFields, domainFiltersRelFields,
+				defaultDomainValueField);
+	}
+
+	public ElemAttribute(String name, String type, AttributeType attributeType,
 			String displayName, String toolTipText, Object defaultValue,
 			boolean affectProperties, Domain domain, int defaultGroup,
 			int propTabPosition, String propTabEditionCondition,
