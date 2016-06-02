@@ -111,76 +111,74 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					if (includeAssets || lastConfig == null) {
 						conceptTypes.add("Assets");
 					}
-					if (lastConfig != null && !lastConfig.equals(config)) {
-						// If no change, not continue
-						lastConfig = config;
-						editor.getRefas2hlcl().cleanGUIElements(
-								ModelExpr2HLCL.DESIGN_EXEC);
-						editor.getRefas2hlcl().updateGUIElements(
-								selectedAttributes, notAvailableAttributes,
-								conceptTypes, null, config);
-						// editor.editPropertiesRefas();
-						if (mapeAP) {
-							try {
-								SolverTasks task = editor.executeSimulation(
-										true, false, ModelExpr2HLCL.SIMUL_MAPE,
-										true, "Simul");
-								while (task.getProgress() != 100) {
-									Thread.sleep(100);
-									if (isCancelled())
-										return null;
-								}
-
-								task.setTerminated(true);
-								if (!task.isCorrectExecution()
-										&& includeVariables) {
-									results += "No solution for actual configuration... alternative proposed\n";
-									this.firePropertyChange(
-											"results",
-											results,
-											results
-													+ "No solution for actual configuration... alternative proposed\n");
-
-									Thread.sleep((int) (waitAfterNoSolution * 1000) + 10);
-									if (canceled)
-										return null;
-									conceptTypes = new ArrayList<String>();
-									conceptTypes.add("GlobalVariable"); // TODO
-																		// only
-																		// external
-																		// variables
-									conceptTypes.add("ContextVariable");
-									conceptTypes.add("Variable");
-									editor.getRefas2hlcl().cleanGUIElements(
-											ModelExpr2HLCL.DESIGN_EXEC);
-									editor.getRefas2hlcl().updateGUIElements(
-											selectedAttributes,
-											notAvailableAttributes,
-											conceptTypes, null, config);
-									task = editor.executeSimulation(true,
-											false, ModelExpr2HLCL.SIMUL_MAPE,
-											true, "Simul");
-									while (task.getProgress() != 100) {
-										Thread.sleep(100);
-										if (canceled)
-											return null;
-									}
-									task.setTerminated(true);
-								}
-							} catch (Exception e) {
-
+					// If no change, not continue
+					lastConfig = config;
+					editor.getRefas2hlcl().cleanGUIElements(
+							ModelExpr2HLCL.DESIGN_EXEC);
+					editor.getRefas2hlcl().updateGUIElements(
+							selectedAttributes, notAvailableAttributes,
+							conceptTypes, null, config);
+					// editor.editPropertiesRefas();
+					if (mapeAP) {
+						try {
+							SolverTasks task = editor.executeSimulation(true,
+									false, ModelExpr2HLCL.SIMUL_MAPE, true,
+									"Simul");
+							while (task.getProgress() != 100) {
+								Thread.sleep(100);
+								if (isCancelled())
+									return null;
 							}
 
-						} else {
-							editor.updateDashBoard(false, true);
-							editor.editPropertiesRefas();
+							task.setTerminated(true);
+							if (!task.isCorrectExecution() && includeVariables) {
+								results += "No solution for actual configuration... alternative proposed\n";
+								this.firePropertyChange(
+										"results",
+										results,
+										results
+												+ "No solution for actual configuration... alternative proposed\n");
+
+								Thread.sleep((int) (waitAfterNoSolution * 1000) + 10);
+								if (canceled)
+									return null;
+								conceptTypes = new ArrayList<String>();
+								conceptTypes.add("GlobalVariable"); // TODO
+																	// only
+																	// external
+																	// variables
+								conceptTypes.add("ContextVariable");
+								conceptTypes.add("Variable");
+								editor.getRefas2hlcl().cleanGUIElements(
+										ModelExpr2HLCL.DESIGN_EXEC);
+								editor.getRefas2hlcl().updateGUIElements(
+										selectedAttributes,
+										notAvailableAttributes, conceptTypes,
+										null, config);
+								task = editor.executeSimulation(true, false,
+										ModelExpr2HLCL.SIMUL_MAPE, true,
+										"Simul");
+								while (task.getProgress() != 100) {
+									Thread.sleep(100);
+									if (canceled)
+										return null;
+								}
+								task.setTerminated(true);
+							}
+						} catch (Exception e) {
+
 						}
 
-						ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
-								.getConfiguration().getConfiguration(),
-								outputDirectoryFile + "/solution" + solIndex
-										+ ".conf");
+					} else {
+						editor.updateDashBoard(false, true);
+						editor.editPropertiesRefas();
 					}
+
+					ConfigurationIO.saveMapToFile(editor.getRefas2hlcl()
+							.getConfiguration().getConfiguration(),
+							outputDirectoryFile + "/solution" + solIndex
+									+ ".conf");
+
 				}
 				filePosition++;
 				solIndex++;
