@@ -797,6 +797,9 @@ public class ModelExpr implements Serializable {
 					"varConfDom").getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+			else
+
+				identifier.setDomain(DomainParser.parseDomain("0", 0));
 		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
 					.getValue();

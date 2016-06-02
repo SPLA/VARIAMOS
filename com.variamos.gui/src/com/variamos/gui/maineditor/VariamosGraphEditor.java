@@ -1237,27 +1237,38 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									}
 								});
 								elementConfPropSubPanel.add(button);
-							} else
-								elementConfPropSubPanel.add(new JPanel());
-							JButton button = new JButton("Configure");
-							button.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									// new Thread() {
-									// public void run() {
-									// synchronized (getEditor()) {
-									clearNotificationBar();
-									configModel(finalEditElm, false);
-									// executeSimulation(true,
-									// Refas2Hlcl.CONF_EXEC);
-									editPropertiesRefas(instCell);
-									updateExpressions = true;
-									// }
+								button = new JButton("Configure");
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										// new Thread() {
+										// public void run() {
+										// synchronized (getEditor()) {
+										clearNotificationBar();
+										configModel(finalEditElm, false);
+										// executeSimulation(true,
+										// Refas2Hlcl.CONF_EXEC);
+										editPropertiesRefas(instCell);
+										updateExpressions = true;
+										// }
 
-									// }
-									// }.start();
-								}
-							});
-							elementConfPropSubPanel.add(button);
+										// }
+										// }.start();
+									}
+								});
+								elementConfPropSubPanel.add(button);
+							} else {
+								JButton button = new JButton("Validate");
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										modelEditor.clearNotificationBar();
+										editPropertiesRefas(instCell);
+									}
+								});
+								elementConfPropSubPanel.add(button);
+
+								elementConfPropSubPanel.add(new JPanel());
+							}
+
 						} else {
 							elementConfPropSubPanel.add(new JPanel());
 							elementConfPropSubPanel.add(new JPanel());

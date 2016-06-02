@@ -2153,14 +2153,16 @@ public class DefaultOpersMM {
 				.get("Equals"), instVertexVAR, instVertexVAR, "varConfValue",
 				"value");
 
-		OpersExpr t3 = new OpersExpr("3", refas.getSemanticExpressionTypes()
-				.get("Equals"), instVertexVAR, "varConfDom", "");
+		OpersExpr t3 = null;
+		OpersExpr t2 = new OpersExpr("3", refas.getSemanticExpressionTypes()
+				.get("Equals"), instVertexVAR, "isConfDom", true, 1);
 
 		t1 = new OpersExpr("varConfigVal=value=varConfigDomain", refas
-				.getSemanticExpressionTypes().get("Implies"), t3, t1);
+				.getSemanticExpressionTypes().get("Implies"), t2, t1);
 
-		// semanticExpressions.add(t1);
-		// simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		semanticExpressions.add(t1);
+		simulationExecOptOperSubActionNormal.addSemanticExpression(t1);
+		simulScenExecOptOperSubActionNormal.addSemanticExpression(t1);
 
 		attribute = new ElemAttribute("DBVis", "Boolean",
 				AttributeType.GLOBALCONFIG, false, "Visible on Dashboard", "",
@@ -2284,13 +2286,29 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("ExtControl", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
+		attribute = new ElemAttribute("isConfDom", "Boolean",
+				AttributeType.GLOBALCONFIG, true, "Configure Domain",
+				"Configured value (positive numbers)", 0, 0, -1, "", "", -1,
+				"", "", "varConfDom", "", null);
+		semVariable.putSemanticAttribute("isConfDom", attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		simulOperationSubAction.addInAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
+		simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+
 		attribute = new ElemAttribute("varConfValue", "Integer",
 				AttributeType.GLOBALCONFIG, false, "Configured Value",
-				"Configured value (positive numbers)"
-						+ " (not used by dynamic operations)", 0, 0, -1, "",
-				"", -1, "", "", "varConfDom", "", null);
+				"Configured value (positive numbers)", 0, 0, -1, "", "", -1,
+				"", "", "varConfDom", "", null);
 		semVariable.putSemanticAttribute("varConfValue", attribute);
-		// simulationExecOperUniqueLabeling.addAttribute(attribute);
+		simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+				semVariable.getIdentifier(), attribute.getName(), true));
+		simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semVariable
+				.getIdentifier(), attribute.getName(), true));
 
 		attribute = new ElemAttribute("varConfDom", "String",
 				AttributeType.GLOBALCONFIG, false, "Configured Domain",
@@ -2322,7 +2340,8 @@ public class DefaultOpersMM {
 		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
 		semVariable.addPropEditableAttribute("09#" + "ExtControl");
 
-		semVariable.addPropEditableAttribute("01#" + "varConfDom");
+		semVariable.addPropEditableAttribute("01#" + "isConfDom");
+		semVariable.addPropEditableAttribute("02#" + "varConfDom");
 
 		semVariable.addPropVisibleAttribute("01#" + "name");
 		semVariable.addPropVisibleAttribute("02#" + "variableType");
@@ -2341,12 +2360,17 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
 		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
 
-		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Enumeration");
-		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Integer");
-		semVariable.addPropVisibleAttribute("01#" + "varConfDom" + "#"
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Boolean");
+		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
+				+ "variableType" + "#==#" + "Float");
+
+		semVariable.addPropVisibleAttribute("02#" + "varConfDom" + "#"
+				+ "isConfDom" + "#==#" + "true");
 
 		semVariable.addPanelVisibleAttribute("05#" + "variableType" + "#"
 				+ "variableType" + "#!=#" + "Enumeration");
@@ -2582,9 +2606,8 @@ public class DefaultOpersMM {
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
 					"Equals"), instVertexGE, "HasParent", true, 1);
 
-			OpersExpr t2 = new OpersExpr("2", refas
-					.getSemanticExpressionTypes().get("NotEquals"),
-					instVertexGE, "userId", "GeneralFeature");
+			t2 = new OpersExpr("2", refas.getSemanticExpressionTypes().get(
+					"NotEquals"), instVertexGE, "userId", "GeneralFeature");
 
 			t3 = new OpersExpr("3", refas.getSemanticExpressionTypes().get(
 					"NotEquals"), instVertexGE, "userId", "LeafFeature");
