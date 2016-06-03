@@ -63,9 +63,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.dynsup.staticexpr.ElementExpressionSet;
 import com.variamos.dynsup.translation.ModelExpr2HLCL;
 import com.variamos.dynsup.translation.SolverOpersTask;
@@ -1239,27 +1237,38 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 									}
 								});
 								elementConfPropSubPanel.add(button);
-							} else
-								elementConfPropSubPanel.add(new JPanel());
-							JButton button = new JButton("Configure");
-							button.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									// new Thread() {
-									// public void run() {
-									// synchronized (getEditor()) {
-									clearNotificationBar();
-									configModel(finalEditElm, false);
-									// executeSimulation(true,
-									// Refas2Hlcl.CONF_EXEC);
-									editPropertiesRefas(instCell);
-									updateExpressions = true;
-									// }
+								button = new JButton("Configure");
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										// new Thread() {
+										// public void run() {
+										// synchronized (getEditor()) {
+										clearNotificationBar();
+										configModel(finalEditElm, false);
+										// executeSimulation(true,
+										// Refas2Hlcl.CONF_EXEC);
+										editPropertiesRefas(instCell);
+										updateExpressions = true;
+										// }
 
-									// }
-									// }.start();
-								}
-							});
-							elementConfPropSubPanel.add(button);
+										// }
+										// }.start();
+									}
+								});
+								elementConfPropSubPanel.add(button);
+							} else {
+								JButton button = new JButton("Validate");
+								button.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										modelEditor.clearNotificationBar();
+										editPropertiesRefas(instCell);
+									}
+								});
+								elementConfPropSubPanel.add(button);
+
+								elementConfPropSubPanel.add(new JPanel());
+							}
+
 						} else {
 							elementConfPropSubPanel.add(new JPanel());
 							elementConfPropSubPanel.add(new JPanel());
@@ -1365,7 +1374,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					.getEdSyntaxEle();
 			if (editableMetaElement != null) {
 				if (instAttribute.getIdentifier().equals(
-						SyntaxConcept.VAR_USERIDENTIFIER))
+						SyntaxElement.VAR_USERIDENTIFIER))
 					editableMetaElement
 							.setUserIdentifier((String) instAttribute
 									.getValue());
@@ -1383,12 +1392,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				if (instAttribute.getIdentifier().equals("Style"))
 					editableMetaElement.setStyle((String) instAttribute
 							.getValue());
-				if (editableMetaElement instanceof SyntaxView) {
-					if (instAttribute.getIdentifier().equals("PaletteName"))
-						((SyntaxView) editableMetaElement)
-								.setPaletteName((String) instAttribute
-										.getValue());
-				}
+				if (instAttribute.getIdentifier().equals("PaletteName"))
+					((SyntaxElement) editableMetaElement)
+							.setPaletteName((String) instAttribute.getValue());
+
 				if (instAttribute.getIdentifier().equals("Description"))
 					editableMetaElement.setDescription((String) instAttribute
 							.getValue());
@@ -1402,17 +1409,17 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					editableMetaElement.setImage((String) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("TopConcept"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setTopConcept((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("BackgroundColor"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setBackgroundColor((String) instAttribute
 									.getValue());
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
 					editableMetaElement.setBorderStroke((int) instAttribute
 							.getValue());
 				if (instAttribute.getIdentifier().equals("Resizable"))
-					((SyntaxConcept) editableMetaElement)
+					((SyntaxElement) editableMetaElement)
 							.setResizable((boolean) instAttribute.getValue());
 				if (instAttribute.getIdentifier().equals("value"))
 					editableMetaElement
@@ -1610,6 +1617,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	// Dynamic operation's definition
 	public SolverOpersTask executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, String type, boolean update,
 			String operation) {
@@ -1804,6 +1812,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
 					ConsoleTextArea.addText(refas2hlcl.getText());
+					updateSimulResults();
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 
@@ -1879,16 +1888,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					|| (semTask != null && semTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
 					semTask.cancel(true);
-					// if (false//task.getExecType() ==
-					// ModelExpr2HLCL.SIMUL_EXPORT
-					// ) {
-					// JOptionPane
-					// .showMessageDialog(
-					// frame,
-					// "Execution incomplete, partial solution file saved",
-					// "Task Notification",
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					// } else
 					JOptionPane.showMessageDialog(frame, "Execution cancelled",
 							"Task Notification",
 							JOptionPane.INFORMATION_MESSAGE, null);
@@ -1898,37 +1897,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = semTask.getExecutionTime();
-					// switch (semTask.getExecType()) {
-					// case ModelExpr2HLCL.CONF_EXEC:
-					// invalidConfigHlclProgram = task
-					// .isInvalidConfigHlclProgram();
-					// break;
-					// case ModelExpr2HLCL.DESIGN_EXEC:
-					// if (!semTask.getErrorTitle().equals("")) {
-					// JOptionPane.showMessageDialog(frame,
-					// semTask.getErrorMessage(),
-					// semTask.getErrorTitle(),
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					//
-					// }
-					// refresh();
-					// break;
-					// case ModelExpr2HLCL.SIMUL_EXEC:
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
-					// case ModelExpr2HLCL.SIMUL_EXPORT:
-					// refresh();
-					// lastConfiguration = task.getLastConfiguration();
-					// if (!task.getErrorTitle().equals("")) {
-					// JOptionPane.showMessageDialog(frame,
-					// task.getErrorMessage(),
-					// task.getErrorTitle(),
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					// }
-					//
-					// break;
-					// }
-
 				}
 			}
 		}

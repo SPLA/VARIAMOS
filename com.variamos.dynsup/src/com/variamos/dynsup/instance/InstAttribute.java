@@ -9,10 +9,8 @@ import java.util.Map;
 
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.OpersPairwiseRel;
-import com.variamos.dynsup.model.OpersRelType;
+import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 
 /**
  * A class to represented modeling instances of attributes from meta model and
@@ -167,40 +165,26 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		// return identifier;
 	}
 
-	// Old
-	public void setValidationRelationTypes(List<OpersRelType> semGD) {
-		// this.identifier = identifier;
-		setInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST, semGD);
-	}
-
 	// New
 	public void setOpersOverTwoRelList(List<InstAttribute> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST, semGD);
 	}
 
-	// Old
-	@SuppressWarnings("unchecked")
-	public List<OpersRelType> getOverTwoRelValidationList() {
-		return (List<OpersRelType>) getInstAttributeAttribute(VAR_OVERTWOREL_VALIDATION_LIST);
-		// return identifier;
-	}
-
-	// New
 	@SuppressWarnings("unchecked")
 	public List<InstAttribute> getOpersOverTwoRelList() {
 		return (List<InstAttribute>) getInstAttributeAttribute(VAR_OPERS_OVERTWOREL_LIST);
 		// return identifier;
 	}
 
-	public void setValidationDRList(List<OpersPairwiseRel> semGD) {
+	public void setValidationDRList(List<OpersConcept> semGD) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST, semGD);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<OpersPairwiseRel> getPairwiseRelValidationList() {
-		return (List<OpersPairwiseRel>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
+	public List<OpersConcept> getPairwiseRelValidationList() {
+		return (List<OpersConcept>) getInstAttributeAttribute(VAR_PAIRWISEREL_VALIDATION_LIST);
 		// return identifier;
 	}
 
@@ -398,8 +382,8 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
-							OpersRelType.class.getCanonicalName())) {
-				List<InstAttribute> semanticRelationTypes = ((SyntaxPairwiseRel) instElement
+							InstAttribute.class.getCanonicalName())) {
+				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
 						.getTransSupportMetaElement()).getOpersRelationTypes();
 				this.setOpersOverTwoRelList(semanticRelationTypes);
 			}
@@ -424,7 +408,7 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 			if (this.getAttribute() != null
 					&& getEnumType() != null
 					&& getEnumType().equals(
-							OpersRelType.class.getCanonicalName())) {
+							InstAttribute.class.getCanonicalName())) {
 				List<InstAttribute> semanticRelationTypes = ((SyntaxElement) instElement
 						.getTransSupportMetaElement()).getOpersRelationTypes();
 				setOpersOverTwoRelList(semanticRelationTypes);

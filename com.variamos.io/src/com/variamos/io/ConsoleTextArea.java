@@ -23,8 +23,11 @@ public class ConsoleTextArea {
 	}
 
 	public static void addText(String text) {
-		ConsoleTextArea.textArea.setText(ConsoleTextArea.textArea.getText()
-				+ '\n' + text);
+		if (debug)
+			System.err.println(text);
+		else
+			ConsoleTextArea.textArea.setText(ConsoleTextArea.textArea.getText()
+					+ '\n' + text);
 	}
 
 	public static void addText(StackTraceElement[] text) {

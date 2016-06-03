@@ -20,7 +20,7 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
-import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.BooleanType;
 import com.variamos.dynsup.types.StringType;
@@ -71,7 +71,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 		this.instCell = instCell;
 		this.element = instCell.getInstElement();
 		InstAttribute o = element.getInstAttributes().get(
-				SyntaxConcept.VAR_METAENUMVALUE);
+				SyntaxElement.VAR_METAENUMVALUE);
 		if (o != null)
 			init((Collection<InstAttribute>) o.getValue());
 	}
@@ -181,7 +181,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
 			Collection<InstAttribute> instAttributes = (Collection<InstAttribute>) element
-					.getInstAttributes().get(SyntaxConcept.VAR_METAENUMVALUE)
+					.getInstAttributes().get(SyntaxElement.VAR_METAENUMVALUE)
 					.getValue();
 			int i = 1;
 			/*
@@ -293,7 +293,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(SyntaxConcept.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
 				if (insert) {
 					((DefaultListModel<InstAttribute>) getModel())
 							.insertElementAt(v, getModel().getSize() - 1);
@@ -315,7 +315,7 @@ public class EnumerationTypeAttributeList extends JList<InstAttribute> {
 				InstAttribute v = buffer[0];
 				List<InstAttribute> attributes = ((List<InstAttribute>) element
 						.getInstAttributes()
-						.get(SyntaxConcept.VAR_METAENUMVALUE).getValue());
+						.get(SyntaxElement.VAR_METAENUMVALUE).getValue());
 
 				attributes.remove(v);
 

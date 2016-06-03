@@ -35,8 +35,8 @@ import com.variamos.reasoning.defectAnalyzer.model.enums.DefectType;
 import com.variamos.solver.Configuration;
 
 /**
- * A class to support SwingWorkers for solver execution tasks. Part of PhD work
- * at University of Paris 1
+ * A class to support SwingWorkers for solver execution tasks for static
+ * operations. Part of PhD work at University of Paris 1
  * 
  * @author Juan C. Muñoz Fernández <jcmunoz@gmail.com>
  * 
@@ -397,6 +397,7 @@ public class SolverTasks extends SwingWorker<Void, Void> {
 		return true;
 	}
 
+	// Static call implementation
 	public void executeSimulation(int type, boolean update, String element) {
 
 		long iniTime = System.currentTimeMillis();

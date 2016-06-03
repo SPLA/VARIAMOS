@@ -242,10 +242,12 @@ public class ModelExpr2HLCL {
 	 * relations and calls SWIProlog to return a solution or all solutions
 	 */
 
+	// Static call without TranslationExpressionSet
 	public HlclProgram getHlclProgram(String element, int execType) {
 		return getHlclProgram(element, execType, null);
 	}
 
+	// Dynamic call with TranslationExpressionSet
 	public HlclProgram getHlclProgram(String element, String operation,
 			String subOperation, OperationSubActionExecType operExecType,
 			TranslationExpressionSet transExpSet) {
@@ -304,6 +306,8 @@ public class ModelExpr2HLCL {
 			Map<String, ElementExpressionSet> constraintGroups) {
 		List<AbstractExpression> transformations = new ArrayList<AbstractExpression>();
 		List<BooleanExpression> modelExpressions = new ArrayList<BooleanExpression>();
+
+		// Static call without TranslationExpressionSet
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof SingleElementExpressionSet) {
 				if (((SingleElementExpressionSet) constraintGroup)
@@ -339,6 +343,8 @@ public class ModelExpr2HLCL {
 		for (BooleanExpression transformation : modelExpressions) {
 			hlclProgram.add(transformation);
 		}
+
+		// Dynamic call with TranslationExpressionSet
 		for (ElementExpressionSet constraintGroup : constraintGroups.values()) {
 			if (constraintGroup instanceof TranslationExpressionSet) {
 				HlclProgram ts = ((TranslationExpressionSet) constraintGroup)
@@ -722,7 +728,8 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& instTarget.getType().equals("Integer")) {
+									&& (instTarget.getType().equals("Integer") || instTarget
+											.getType().equals("Float"))) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);
@@ -746,7 +753,8 @@ public class ModelExpr2HLCL {
 											.get(identifier));
 							}
 							if (instTarget != null
-									&& instTarget.getType().equals("Integer")) {
+									&& (instTarget.getType().equals("Integer") || instTarget
+											.getType().equals("Float"))) {
 								int val = (int) Float.parseFloat(prologOut
 										.get(identifier) + "");
 								instTarget.setValue(val);

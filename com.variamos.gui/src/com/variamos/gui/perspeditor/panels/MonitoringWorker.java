@@ -111,11 +111,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 					if (includeAssets || lastConfig == null) {
 						conceptTypes.add("Assets");
 					}
-					if (lastConfig != null && lastConfig.equals(config))
-						// If no change, not continue
-						continue;
-					else
-						lastConfig = config;
+					// If no change, not continue
+					lastConfig = config;
 					editor.getRefas2hlcl().cleanGUIElements(
 							ModelExpr2HLCL.DESIGN_EXEC);
 					editor.getRefas2hlcl().updateGUIElements(
@@ -146,7 +143,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 								if (canceled)
 									return null;
 								conceptTypes = new ArrayList<String>();
-								conceptTypes.add("GlobalVariable"); // TODO only
+								conceptTypes.add("GlobalVariable"); // TODO
+																	// only
 																	// external
 																	// variables
 								conceptTypes.add("ContextVariable");
@@ -180,8 +178,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 							.getConfiguration().getConfiguration(),
 							outputDirectoryFile + "/solution" + solIndex
 									+ ".conf");
-				}
 
+				}
 				filePosition++;
 				solIndex++;
 				if (!iterative) {
@@ -202,8 +200,8 @@ public class MonitoringWorker extends SwingWorker<Void, Void> {
 								this.firePropertyChange("results", results,
 										results + "New context file found...\n");
 							}
-						if (!includeVariables)
-							noNewFile = false;
+						// if (!includeVariables)
+						// noNewFile = false;
 						Thread.sleep(100);
 						if (canceled)
 							return null;

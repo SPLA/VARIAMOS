@@ -146,6 +146,21 @@ public class SingleElementExpressionSet extends ElementExpressionSet {
 								attributeValue = (Integer) instAttribute
 										.getValue();
 						}
+						if (type.equals("Float")) {
+							if (instAttribute.getValue() instanceof String)
+								attributeValue = (int) (Float
+										.valueOf((String) instAttribute
+												.getValue()) * Math.pow(10,
+										Integer.valueOf((String) instVertex
+												.getInstAttribute("floatPrec")
+												.getValue())));
+							else
+								attributeValue = (int) ((Float) instAttribute
+										.getValue() * Math.pow(10, Integer
+										.valueOf((String) instVertex
+												.getInstAttribute("floatPrec")
+												.getValue())));
+						}
 
 						// Init Validation Only
 						// ///////////////////////////////////////////////////////////////////////////////////////////////////////

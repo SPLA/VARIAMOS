@@ -15,7 +15,6 @@ import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.interfaces.IntInstAttribute;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.StringType;
@@ -155,6 +154,10 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		final IntInstAttribute defaultValue = att.get("DefaultValue");
 		final IntInstAttribute domain = att.get("Domain");
 		final IntInstAttribute hint = att.get("Hint");
+		final IntInstAttribute toolTip = att.get("toolTipText");
+		final IntInstAttribute domFiltOwn = att.get("domFiltOwnFields");
+		final IntInstAttribute domFiltRel = att.get("domFilTRelFields");
+		final IntInstAttribute domDefVal = att.get("defDomValueField");
 
 		final IntInstAttribute propTabPosition = att.get("propTabPosition");
 		final IntInstAttribute propTabEditionCondition = att
@@ -181,10 +184,11 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 		// = var.getDomain().getStringRepresentation();
 
 		attributeEdition.loadElementAttributes(editor, editable, name,
-				displayName, type, ClassCanName, MetaCInstType, defaultValue,
-				domain, hint, propTabPosition, propTabEditionCondition,
-				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition);
+				displayName, toolTip, type, ClassCanName, MetaCInstType,
+				defaultValue, domain, hint, propTabPosition,
+				propTabEditionCondition, propTabVisualCondition,
+				elementDisplayPosition, elementDisplaySpacers,
+				elementDisplayCondition, domFiltOwn, domFiltRel, domDefVal);
 		attributeEdition.revalidate();
 		attributeEdition.repaint();
 		attributeEdition.setOnAccept(new DialogButtonAction() {
@@ -198,6 +202,10 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 				v.setDisplayName((String) displayName.getValue());
 				// v.setDomain((Domain)domain.getValue());
 				v.setHint((String) hint.getValue());
+				v.setToolTipText((String) toolTip.getValue());
+				v.setDomainFiltersOwnFields((String) domFiltOwn.getValue());
+				v.setDomainFiltersRelFields((String) domFiltRel.getValue());
+				v.setDefaultDomainValueField((String) domDefVal.getValue());
 				v.setPropTabPosition((int) propTabPosition.getValue());
 				v.setPropTabEditionCondition((String) propTabEditionCondition
 						.getValue());
@@ -223,7 +231,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 						SyntaxElement me = instElement.getEdSyntaxEle();
 						me.addModelingAttribute((String) name.getValue(), v);
 						me.addPanelVisibleAttribute("99#"
-								+ SyntaxConcept.VAR_USERIDENTIFIER);
+								+ SyntaxElement.VAR_USERIDENTIFIER);
 						me.addPropVisibleAttribute("99#"
 								+ (String) name.getValue());
 						me.addPropEditableAttribute("99#"
@@ -234,7 +242,7 @@ public class PropertyAttributeList extends JList<ElemAttribute> {
 								.getEdOperEle());
 						sc.putSemanticAttribute((String) name.getValue(), v);
 						sc.addPanelVisibleAttribute("99#"
-								+ SyntaxConcept.VAR_USERIDENTIFIER);
+								+ SyntaxElement.VAR_USERIDENTIFIER);
 						sc.addPropVisibleAttribute("19#"
 								+ (String) name.getValue());
 						sc.addPropEditableAttribute("19#"

@@ -127,6 +127,23 @@ public class IntervalDomain implements Domain, Serializable {
 	}
 
 	@Override
+	public List<Float> getPossibleFloatValues() {
+		List<Float> list = new ArrayList<Float>();
+
+		for (Object obj : rangeValues) {
+			if (obj instanceof Float) {
+				list.add((Float) obj);
+				continue;
+			}
+			if (obj instanceof String) {
+				list.add(Float.parseFloat((String) obj));
+				continue;
+			}
+		}
+		return list;
+	}
+
+	@Override
 	public List<String> getPossibleStringValues() {
 		List<String> vals = new ArrayList<String>();
 		// Do I have to check if they are actually Integers ?

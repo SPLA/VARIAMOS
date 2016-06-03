@@ -12,7 +12,7 @@ import java.util.Map;
  * 
  * @version 1.1
  * @since 2014-11-24 *
- * @see com.variamos.dynsup.model.SyntaxConcept
+ * @see com.variamos.dynsup.model.SyntaxElement
  */
 public abstract class InstVertex extends InstElement {
 	private static final long serialVersionUID = -2214656166959965220L;

@@ -291,8 +291,8 @@ public class Hlcl2SWIProlog extends Hlcl2Prolog implements SWIPrologSymbols {
 	 */
 	private StringBuffer getRangeDomain(Domain domain, String id) {
 		StringBuffer domainString = new StringBuffer();
-		Integer lowerValue = ((RangeDomain) domain).getLowerValue();
-		Integer upperValue = ((RangeDomain) domain).getUpperValue();
+		Integer lowerValue = (int) ((RangeDomain) domain).getLowerValue();
+		Integer upperValue = (int) ((RangeDomain) domain).getUpperValue();
 		if (id != null) {
 			domainString.append(id);
 			domainString.append(IN);

@@ -9,8 +9,7 @@ import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
-import com.variamos.dynsup.model.SyntaxConcept;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ConceptType;
 
@@ -292,7 +291,7 @@ public class InfraSyntaxSyntaxMMM {
 		// InstConcept instInfraOpersM2Concept = new InstConcept("SMMConcept",
 		// null, infraOpersM2Concept);
 
-		SyntaxConcept infraSyntaxM2Concept = new SyntaxConcept('C',
+		SyntaxElement infraSyntaxM2Concept = new SyntaxElement('C',
 				"SMMConcept", true, true, "SMMConcept",
 				"infrasyntaxm2miniconcept", "Syntax Meta Concept", 150, 180,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
@@ -388,9 +387,9 @@ public class InfraSyntaxSyntaxMMM {
 						0, -1, "", "", -1, "", ""));
 
 		infraSyntaxM2Concept.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		infraSyntaxM2Concept.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		infraSyntaxM2Concept.addPanelVisibleAttribute("00#"
 				+ "OperationsMMType");
@@ -728,7 +727,7 @@ public class InfraSyntaxSyntaxMMM {
 
 		// Begin Syntax M2 Model
 
-		SyntaxConcept infraSyntaxM2View = new SyntaxConcept('V', "SMMView",
+		SyntaxElement infraSyntaxM2View = new SyntaxElement('V', "SMMView",
 				true, true, "SMMView", "infrasyntaxm2view",
 				"MM View/MM SubView Concept", 100, 30,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
@@ -810,15 +809,15 @@ public class InfraSyntaxSyntaxMMM {
 		infraSyntaxM2View.addPropVisibleAttribute("11#" + "BorderStroke");
 
 		infraSyntaxM2View.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		infraSyntaxM2View.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		InstConcept instInfraSyntaxM2View = new InstConcept("SMMView",
 				infraBasicSyntaxOpersM3Concept, infraSyntaxM2View);
 		variabilityInstVertex.put("SMMView", instInfraSyntaxM2View);
 
-		SyntaxConcept infraSyntaxM2OTRel = new SyntaxConcept('O',
+		SyntaxElement infraSyntaxM2OTRel = new SyntaxElement('O',
 				"SMMOverTwoRelation", true, true, "SMMOverTwoRelation",
 				"infrasyntaxm2miniconcept", "SyntaxOverTwoRel", 180, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
@@ -946,7 +945,7 @@ public class InfraSyntaxSyntaxMMM {
 				infraSyntaxM2OTRel);
 		variabilityInstVertex.put("SMMOverTwoRelation", instInfraSyntaxM2OTRel);
 
-		SyntaxPairwiseRel infraSyntaxM2NormalRelation = new SyntaxPairwiseRel(
+		SyntaxElement infraSyntaxM2NormalRelation = new SyntaxElement('P',
 				"SMMNormalRelation", false, true, "Normal Relation",
 				"defaultAsso", "View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
@@ -954,7 +953,7 @@ public class InfraSyntaxSyntaxMMM {
 		constraintInstEdges.put("SMMNormalRelation", new InstPairwiseRel(
 				"SMMNormalRelation", infraSyntaxM2NormalRelation));
 
-		SyntaxConcept infraSyntaxM2ExtendsRelation = new SyntaxConcept('X',
+		SyntaxElement infraSyntaxM2ExtendsRelation = new SyntaxElement('X',
 				"SMMExtendRelation", true, true, "SMMExtendRelation",
 				"infrasyntaxm2miniconcept", "Extend relation", 150, 70,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,
@@ -1019,7 +1018,7 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setTargetRelation(instInfraSyntaxM2ExtendsRelation, true);
 		instEdge.setSourceRelation(instInfraSyntaxOpersM2Concept, true);
 
-		SyntaxPairwiseRel metaPairwiseRelExtends = new SyntaxPairwiseRel(
+		SyntaxElement metaPairwiseRelExtends = new SyntaxElement('P',
 				"ExtendsRelation", false, true, "Extends Relation",
 				"refasextends", "Extends relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
@@ -1027,7 +1026,7 @@ public class InfraSyntaxSyntaxMMM {
 		constraintInstEdges.put("ExtendsRelation", new InstPairwiseRel(
 				"ExtendsRelation", metaPairwiseRelExtends));
 
-		SyntaxConcept infraSyntaxM2ViewConceptAsso = new SyntaxConcept('I',
+		SyntaxElement infraSyntaxM2ViewConceptAsso = new SyntaxElement('I',
 				"SMMViewConceptAsso", true, true, "SMMViewConceptAsso",
 				"infrasyntaxm2miniconcept", "View-Concept Association", 150,
 				70, "/com/variamos/gui/perspeditor/images/concept.png", true,
@@ -1112,7 +1111,7 @@ public class InfraSyntaxSyntaxMMM {
 		instEdge.setTargetRelation(instInfraSyntaxM2OTRel, true);
 		instEdge.setSourceRelation(instInfraSyntaxM2ViewConceptAsso, true);
 
-		SyntaxPairwiseRel metaPairwiseRelFromView = new SyntaxPairwiseRel(
+		SyntaxElement metaPairwiseRelFromView = new SyntaxElement('P',
 				"ViewRelation", false, true, "View Relation",
 				"infrasyntaxm2viewrel", "View-Concept relation", 50, 50,
 				"/com/variamos/gui/pl/editor/images/plnode.png", 1, null);
@@ -1122,7 +1121,7 @@ public class InfraSyntaxSyntaxMMM {
 
 		constraintInstEdges.put("ViewRelation", instViewRelation);
 
-		SyntaxConcept infraSyntaxM2PWRel = new SyntaxConcept('P',
+		SyntaxElement infraSyntaxM2PWRel = new SyntaxElement('P',
 				"SMMPairwiseRelation", true, true, "SMMPairwiseRelation",
 				"infrasyntaxm2miniconcept", "SyntaxPairwiseRel", 150, 200,
 				"/com/variamos/gui/perspeditor/images/concept.png", true,

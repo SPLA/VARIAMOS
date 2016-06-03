@@ -12,7 +12,6 @@ import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersVariable;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
 
 public class VisualElement implements Comparable<VisualElement> {
@@ -79,6 +78,11 @@ public class VisualElement implements Comparable<VisualElement> {
 						+ instElement.getInstAttribute("value").getAsInteger()
 						+ "";
 			} else if (instElement.getInstAttribute("variableType").getValue()
+					.equals("Float")) {
+				out += "float : "
+						+ instElement.getInstAttribute("value").getAsFloat()
+						+ "";
+			} else if (instElement.getInstAttribute("variableType").getValue()
 					.equals("Enumeration")) {
 				out += "enum : ";
 				Object object = instElement.getInstAttribute("enumType")
@@ -86,7 +90,7 @@ public class VisualElement implements Comparable<VisualElement> {
 				if (object != null) {
 					@SuppressWarnings("unchecked")
 					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");

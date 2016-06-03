@@ -179,6 +179,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return null;
 	}
 
+	// TODO Modify for dynamic operations
 	public boolean saveConfiguration(String file) throws InterruptedException {
 		setProgress(1);
 		progressMonitor.setNote("Solutions processed: 0");
@@ -198,6 +199,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return true;
 	}
 
+	// TODO Modify for dynamic operations
 	public void configModel() throws InterruptedException {
 		// this.clearNotificationBar();
 		refas2hlcl.cleanGUIElements(ModelExpr2HLCL.CONF_EXEC);
@@ -303,6 +305,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return operationIdentifier;
 	}
 
+	// TODO Modify for dynamic operations
 	public boolean verify(List<String> defect) throws InterruptedException {
 
 		executionTime = "";
@@ -426,8 +429,11 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 				instsuboperations.put(suboper.getIdentifier(), suboper);
 				suboperations.add(suboper);
 			}
+			result = 0;
 			for (InstElement suboper : suboperations) {
-				result = 0;
+				if (result == -1)
+					break;
+
 				try {
 					if (lastConfiguration == null) {
 						result = refas2hlcl.execute(progressMonitor, operation,
@@ -442,13 +448,6 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 											.getIdentifier())); // type
 						} else
 							continue;
-						// Configuration currentConfiguration = refas2hlcl
-						// .getConfiguration();
-						// if (result) {
-						// List<String> modifiedIdentifiers = compareSolutions(
-						// lastConfiguration, currentConfiguration);
-						// System.out.println(modifiedIdentifiers);
-						// }
 					}
 					if (result == 1) {
 						outVariables = refas2hlcl.getOutVariables(operation,
@@ -486,6 +485,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									correctExecution = false;
 									break;
 								case "d":
+								case "SimulationScenarios":
 									errorMessage = "No solution found for this model configuration."
 											+ " \n Please review the restrictions defined and "
 											+ "try again.";
@@ -493,7 +493,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 									correctExecution = false;
 									break;
 								}
-								// terminated = true;
+								terminated = true;
 							} else {
 								errorMessage = "No more solutions found";
 								errorTitle = "Simulation Message";
@@ -544,6 +544,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 	 * currentConfig.get(solution)) out.add(solution); return out; }
 	 */
 
+	// TODO Modify for dynamic operations
 	public List<String> updateModel(String element, String verifMessage,
 			String verifHint, List<String> attributes, List<String> defect)
 			throws InterruptedException {
@@ -695,6 +696,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 		return out;
 	}
 
+	// TODO Modify for dynamic operations
 	private String verifyDefects(String verifElement, String verifMessage,
 			String verifHint) throws InterruptedException {
 		String outMessage = null;

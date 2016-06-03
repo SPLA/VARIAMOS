@@ -25,7 +25,6 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersElement;
 import com.variamos.dynsup.model.OpersExpr;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
 import com.variamos.gui.perspeditor.PerspEditorGraph;
 import com.variamos.io.ConsoleTextArea;
@@ -773,7 +772,7 @@ public class SharedActions {
 									instAttribute.setValue(instPairwiseRelation
 											.getSemanticPairwiseRelType());
 								try {
-									List<InstAttribute> semGD = ((SyntaxPairwiseRel) instPairwiseRelation
+									List<InstAttribute> semGD = ((SyntaxElement) instPairwiseRelation
 											.getMetaPairwiseRelation())
 											.getOpersRelationTypes();
 									instAttribute.setOpersOverTwoRelList(semGD);

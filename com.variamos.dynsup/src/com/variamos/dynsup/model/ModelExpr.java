@@ -6,12 +6,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
+import com.variamos.dynsup.instance.InstPairwiseRel;
 import com.variamos.dynsup.instance.InstVertex;
 import com.variamos.dynsup.types.ExpressionVertexType;
 import com.variamos.hlcl.BooleanExpression;
@@ -721,7 +724,7 @@ public class ModelExpr implements Serializable {
 			String fullIdentifier = expInstElement
 					.getInstAttributeFullIdentifier(expAttributeName);
 			if (fullIdentifier == null) {
-				System.out.println("NUll: " + expInstElement.getIdentifier()
+				System.out.println("NUllID: " + expInstElement.getIdentifier()
 						+ " " + expAttributeName);
 				return null;
 			}
@@ -738,22 +741,122 @@ public class ModelExpr implements Serializable {
 		return out;
 	}
 
+	// TODO: remove: replace by dynamic implementation (keep only value
+	// attribute)
 	public static void updateDomain(ElemAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
-		if (attribute.getName().equals("varConfValue")) {
+		if (!attribute.getDomainFiltersOwnFields().equals("")
+				|| !attribute.getDomainFiltersRelFields().equals("")) {
+			String configdomain = "";
+			Set<Integer> values = new HashSet<Integer>();
+			String[] filters = attribute.getDomainFiltersOwnFields().split(";");
+			for (String filter : filters) {
+				if (((InstConcept) instVertex).getInstAttribute(filter)
+						.toString().length() != 0) {
+					values.add(((InstConcept) instVertex).getInstAttribute(
+							filter).getAsInteger());
+				}
+			}
+
+			filters = attribute.getDomainFiltersRelFields().split(";");
+			for (String filter : filters) {
+				for (InstElement relation : instVertex.getSourceRelations()) {
+					if (((InstPairwiseRel) relation).getInstAttribute(filter) != null)
+						values.add(((InstPairwiseRel) relation)
+								.getInstAttribute(filter).getAsInteger());
+				}
+				for (InstElement relation : instVertex.getTargetRelations()) {
+					if (((InstPairwiseRel) relation).getInstAttribute(filter) != null)
+						values.add(((InstPairwiseRel) relation)
+								.getInstAttribute(filter).getAsInteger());
+				}
+			}
+
+			if (values.size() == 0) {
+				if (attribute.getDefaultDomainValueField() != null)
+					values.add(((InstConcept) instVertex).getInstAttribute(
+							attribute.getDefaultDomainValueField())
+							.getAsInteger());
+				else
+					// FIXME remove me
+					values.add(new Integer(0));
+			}
+
+			for (Integer value : values) {
+				configdomain += value.toString() + ",";
+			}
+			configdomain = configdomain.substring(0, configdomain.length() - 1);
+			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+		} else if (attribute.getName().equals("SDReqLevel")
+				|| attribute.getName().equals("ClaimExpLevel")) {
+			String configdomain = "";
+			Set<Integer> values = new HashSet<Integer>();
+			if (((InstConcept) instVertex).getInstAttribute("ConfigReqLevel") != null
+					&& ((InstConcept) instVertex).getInstAttribute(
+							"ConfigReqLevel").getAsInteger() != 5)
+				values.add(((InstConcept) instVertex).getInstAttribute(
+						"ConfigReqLevel").getAsInteger());
+			for (InstElement relation : instVertex.getSourceRelations()) {
+				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("targetLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
+				if (((InstPairwiseRel) relation).getInstAttribute("level") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"level").getAsInteger());
+				if (((InstPairwiseRel) relation).getInstAttribute("CLSGLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"CLSGLevel").getAsInteger());
+			}
+			for (InstElement relation : instVertex.getTargetRelations()) {
+				// FIXME implement a dynamic definition for this validation
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("sourceLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"sourceLevel").getAsInteger());
+				if (((InstPairwiseRel) relation)
+						.getInstAttribute("targetLevel") != null)
+					values.add(((InstPairwiseRel) relation).getInstAttribute(
+							"targetLevel").getAsInteger());
+			}
+			if (values.size() == 0) {
+				values.add(new Integer(0)); // TODO use value according to
+											// MAX/MIN/As close as possible type
+											// of SG.
+			}
+			for (Integer value : values) {
+				configdomain += value.toString() + ",";
+			}
+			configdomain = configdomain.substring(0, configdomain.length() - 1);
+			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+		} else if (attribute.getName().equals("varConfValue")) {
 			String configdomain = (String) (instVertex.getInstAttribute(
 					"varConfDom").getValue() + "");
 			if (configdomain != null && !configdomain.equals(""))
-				identifier.setDomain(DomainParser.parseDomain(configdomain));
-		}
-		if (attribute.getName().equals("value")) {
+				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+			else
+				identifier.setDomain(DomainParser.parseDomain("0", 0));
+		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")
 					.getValue();
 
 			if (type.equals("Integer")) {
 				String domain = (String) instVertex.getInstAttribute("varDom")
 						.getValue();
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
+			} else if (type.equals("Float")) {
+				String domain = transformDomain((String) instVertex
+						.getInstAttribute("floatDom").getValue(),
+						(int) instVertex.getInstAttribute("floatPrec")
+								.getValue());
+				identifier.setDomain(DomainParser.parseDomain(domain,
+						(int) instVertex.getInstAttribute("floatPrec")
+								.getValue()));
 			} else if (type.equals("Enumeration")) {
 				Object object = instVertex.getInstAttribute("enumType")
 						.getValueObject();
@@ -761,7 +864,7 @@ public class ModelExpr implements Serializable {
 				if (object != null) {
 					@SuppressWarnings("unchecked")
 					Collection<InstAttribute> values = (Collection<InstAttribute>) ((InstAttribute) ((InstElement) object)
-							.getInstAttribute(SyntaxConcept.VAR_METAENUMVALUE))
+							.getInstAttribute(SyntaxElement.VAR_METAENUMVALUE))
 							.getValue();
 					for (InstAttribute value : values) {
 						String[] split = ((String) value.getValue()).split("#");
@@ -769,7 +872,7 @@ public class ModelExpr implements Serializable {
 					}
 					domain = domain.substring(0, domain.length() - 1);
 				}
-				identifier.setDomain(DomainParser.parseDomain(domain));
+				identifier.setDomain(DomainParser.parseDomain(domain, 0));
 			}
 		} else
 
@@ -777,11 +880,35 @@ public class ModelExpr implements Serializable {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
 			else
-				identifier.setDomain(new RangeDomain(0, 4));
+				identifier.setDomain(new RangeDomain(0, 4, 0));
+		} else if (attribute.getType().equals("Float")) {
+			if (attribute.getDomain() != null)
+				identifier.setDomain(attribute.getDomain());
+			else
+				identifier.setDomain(new RangeDomain(0, 4, 0));
 		} else if (attribute.getType().equals("String")) {
 			if (attribute.getDomain() != null)
 				identifier.setDomain(attribute.getDomain());
 		}
+	}
+
+	public static String transformDomain(String value, int value2) {
+		String toSplit = value.replace(',', '-');
+		String[] elem = toSplit.split("-");
+		String[] tmp = new String[elem.length];
+		String out = "";
+
+		for (int i = 0; i < elem.length; i++) {
+			tmp[i] = (int) (Float.parseFloat(elem[i]) * Math.pow(10, value2))
+					+ "";
+		}
+		out = tmp[0];
+		toSplit = value.replace('.', '0');
+		elem = value.split("\\w+");
+		for (int i = 1; i < tmp.length; i++) {
+			out += elem[i] + tmp[i];
+		}
+		return out;
 	}
 
 	private List<Expression> expressionTerms(int pos) {
@@ -930,16 +1057,25 @@ public class ModelExpr implements Serializable {
 	private int getVariableIntValue(ExpressionVertexType expressionVertexType) {
 		String value = null;
 		String valueType = null;
+		int floatPrec = 0;
 		switch (expressionVertexType) {
 		case LEFTVARIABLEVALUE:
 			value = leftValue;
 			valueType = (String) this.volatileLeftInstElement.getInstAttribute(
 					"variableType").getValue();
+			// if (this.volatileLeftInstElement.getInstAttribute("floatPrec")
+			// .getValue() != null)
+			// floatPrec = (int) this.volatileLeftInstElement
+			// .getInstAttribute("floatPrec").getValue();
 			break;
 		case RIGHTVARIABLEVALUE:
 			value = rightValue;
 			valueType = (String) this.volatileRightInstElement
 					.getInstAttribute("variableType").getValue();
+			// if (this.volatileRightInstElement.getInstAttribute("floatPrec")
+			// .getValue() != null)
+			// floatPrec = (int) this.volatileRightInstElement
+			// .getInstAttribute("floatPrec").getValue();
 
 			break;
 		case LEFTSTRINGVALUE:
@@ -962,6 +1098,8 @@ public class ModelExpr implements Serializable {
 				return 0;
 		case "Integer":
 			return Integer.parseInt(value);
+		case "Float":
+			return (int) (Integer.parseInt(value) * Math.pow(10, floatPrec));
 		case "Enumeration":
 			String[] split = value.split("#");
 			return Integer.parseInt(split[0]);

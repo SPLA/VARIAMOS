@@ -54,6 +54,18 @@ public class ComposedDomain implements Domain {
 	}
 
 	@Override
+	public List<Float> getPossibleFloatValues() {
+		List<Float> list = new ArrayList<Float>();
+
+		for (Domain d : domains)
+			for (Float i : d.getPossibleFloatValues())
+				if (!list.contains(i))
+					list.add(i);
+
+		return list;
+	}
+
+	@Override
 	public List<String> getPossibleStringValues() {
 		List<String> list = new ArrayList<>();
 

@@ -7,7 +7,7 @@ import com.variamos.dynsup.instance.InstConcept;
 import com.variamos.dynsup.instance.InstElement;
 import com.variamos.dynsup.model.ElemAttribute;
 import com.variamos.dynsup.model.ModelInstance;
-import com.variamos.dynsup.model.SyntaxConcept;
+import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.dynsup.types.AttributeType;
 import com.variamos.dynsup.types.ConceptType;
 
@@ -18,7 +18,7 @@ public class InfraBasicSyntaxMMMM {
 		Map<String, InstElement> variabilityInstVertex = modelInstance
 				.getVariabilityVertex();
 
-		SyntaxConcept basicOpersSyntaxM3Concept = new SyntaxConcept('C',
+		SyntaxElement basicOpersSyntaxM3Concept = new SyntaxElement('C',
 				"OMMConcept", true, true, "OMMConcept",
 				"infrabasicsyntaxm3miniconcept",
 				"Operations Meta Meta Meta Concept", 180, 180,
@@ -26,9 +26,9 @@ public class InfraBasicSyntaxMMMM {
 				Color.BLUE.toString(), 3, null, true);
 
 		basicOpersSyntaxM3Concept.addPanelVisibleAttribute("04#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER);
+				+ SyntaxElement.VAR_USERIDENTIFIER);
 		basicOpersSyntaxM3Concept.addPanelSpacersAttribute("#"
-				+ SyntaxConcept.VAR_USERIDENTIFIER + "#\n\n");
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
 
 		basicOpersSyntaxM3Concept.addModelingAttribute("Name",
 				new ElemAttribute("Name", "String", AttributeType.SYNTAX,

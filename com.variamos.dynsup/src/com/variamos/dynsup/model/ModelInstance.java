@@ -136,13 +136,13 @@ public class ModelInstance extends AbstractModel {
 				.getVariabilityVertex("SMMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
-				return ((SyntaxView) instViews.get(0).getEdSyntaxEle())
+				return ((SyntaxElement) instViews.get(0).getEdSyntaxEle())
 						.getAutoIdentifier();
 			else
 				return "";
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1)
-			return ((SyntaxView) instViews.get(modelViewInd).getEdSyntaxEle())
-					.getAutoIdentifier();
+			return ((SyntaxElement) instViews.get(modelViewInd)
+					.getEdSyntaxEle()).getAutoIdentifier();
 
 		if (modelViewInd != -1 && modelViewInd < instViews.size()
 				&& modelViewSubInd != -1)
@@ -160,13 +160,13 @@ public class ModelInstance extends AbstractModel {
 				.getVariabilityVertex("SMMView");
 		if (modelViewInd == -1)
 			if (instViews.size() > 0)
-				return ((SyntaxView) instViews.get(0).getEdSyntaxEle())
+				return ((SyntaxElement) instViews.get(0).getEdSyntaxEle())
 						.getPaletteName();
 			else
 				return "";
 		if (modelViewInd < instViews.size() && modelViewSubInd == -1)
-			return ((SyntaxView) instViews.get(modelViewInd).getEdSyntaxEle())
-					.getPaletteName();
+			return ((SyntaxElement) instViews.get(modelViewInd)
+					.getEdSyntaxEle()).getPaletteName();
 
 		if (modelViewInd != -1 && modelViewInd < instViews.size()
 				&& modelViewSubInd != -1)
@@ -315,7 +315,7 @@ public class ModelInstance extends AbstractModel {
 
 		int id = 1;
 		String classId = null;
-		classId = SyntaxPairwiseRel.getClassId();
+		classId = "E";
 
 		while (constraintInstEdges.containsKey(classId + id)) {
 			id++;
@@ -648,7 +648,7 @@ public class ModelInstance extends AbstractModel {
 			}
 		}
 
-		if (metaElement instanceof SyntaxConcept && first) {
+		if (metaElement instanceof SyntaxElement && first) {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
@@ -660,7 +660,7 @@ public class ModelInstance extends AbstractModel {
 							true));
 				}
 		}
-		if (metaElement2 instanceof SyntaxConcept) {
+		if (metaElement2 instanceof SyntaxElement) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
@@ -736,7 +736,7 @@ public class ModelInstance extends AbstractModel {
 			}
 		}
 
-		if (metaElement2 instanceof SyntaxConcept) {
+		if (metaElement2 instanceof SyntaxElement) {
 			List<InstElement> rel = instElement2.getTargetRelations();
 			for (InstElement element : rel) {
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null
@@ -752,7 +752,7 @@ public class ModelInstance extends AbstractModel {
 				}
 			}
 		}
-		if (metaElement instanceof SyntaxConcept && first) {
+		if (metaElement instanceof SyntaxElement && first) {
 			List<InstElement> rel = instElement.getTargetRelations();
 			for (InstElement element : rel)
 				if (element.getTargetRelations().get(0).getSupInstEleId() != null

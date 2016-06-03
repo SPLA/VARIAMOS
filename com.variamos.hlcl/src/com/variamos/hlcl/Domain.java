@@ -9,5 +9,7 @@ public interface Domain {
 
 	public List<Integer> getPossibleValues();
 
+	public List<Float> getPossibleFloatValues();
+
 	public List<String> getPossibleStringValues();
 }

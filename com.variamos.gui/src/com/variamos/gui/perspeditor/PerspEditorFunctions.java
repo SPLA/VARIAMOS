@@ -26,13 +26,8 @@ import com.variamos.dynsup.instance.InstOverTwoRel;
 import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.OpersConcept;
 import com.variamos.dynsup.model.OpersElement;
-import com.variamos.dynsup.model.OpersOverTwoRel;
-import com.variamos.dynsup.model.OpersPairwiseRel;
 import com.variamos.dynsup.model.OpersSubOperation;
-import com.variamos.dynsup.model.SyntaxConcept;
 import com.variamos.dynsup.model.SyntaxElement;
-import com.variamos.dynsup.model.SyntaxPairwiseRel;
-import com.variamos.dynsup.model.SyntaxView;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.AbstractGraphEditorFunctions;
@@ -112,7 +107,7 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 									.getMetaElement();
 							InstElement instElement = paletteElement
 									.getInstElement();
-							if (metaVertex instanceof SyntaxConcept) {
+							if (metaVertex instanceof SyntaxElement) {
 								Object o;
 								o = new InstConcept();
 
@@ -126,14 +121,15 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 											.getType()) {
 									case 'V':
 										obj = (InstElement) c.newInstance("",
-												instElement, new SyntaxView());
+												instElement, new SyntaxElement(
+														'V'));
 										break;
 									case 'P':
 									case 'I':
 									case 'X':
 										obj = (InstElement) c.newInstance("",
-												instElement,
-												new SyntaxPairwiseRel());
+												instElement, new SyntaxElement(
+														'P'));
 										break;
 									case 'E':
 										o = new InstConcept();
@@ -143,16 +139,16 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												SyntaxElement.class);
 										obj = (InstElement) c.newInstance("",
 												(SyntaxElement) metaVertex,
-												new SyntaxConcept());
+												new SyntaxElement());
 										break;
 									case 'O':
 										obj = (InstElement) c.newInstance("",
-												instElement,
-												new SyntaxConcept());
+												instElement, new SyntaxElement(
+														'O'));
 										break;
 									case 'C':
 										obj = (InstElement) c.newInstance("",
-												instElement, new SyntaxConcept(
+												instElement, new SyntaxElement(
 														'C'));
 									}
 								} else if (editor.getPerspective() == 1) {
@@ -178,9 +174,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 												new OpersSubOperation());
 										break;
 									case 'P':
-										obj = (InstElement) c.newInstance("",
-												instElement,
-												new OpersPairwiseRel());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'E':
 										o = new InstConcept();
@@ -193,9 +189,9 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 														new OpersConcept());
 										break;
 									case 'O':
-										obj = (InstElement) c.newInstance("",
-												instElement,
-												new OpersOverTwoRel());
+										obj = (InstElement) c
+												.newInstance("", instElement,
+														new OpersConcept());
 										break;
 									case 'C':
 										obj = (InstElement) c
@@ -238,9 +234,8 @@ public class PerspEditorFunctions extends AbstractGraphEditorFunctions {
 							 * 
 							 * obj = (InstElement) c .newInstance( "",
 							 * (SyntaxOverTwoRel) metaVertex, null); }
-							 */else if (metaVertex instanceof SyntaxPairwiseRel) {
-								// Not shown on palette
-							} /*
+							 */
+							/*
 							 * else if (metaVertex instanceof SyntaxEnum) { //
 							 * MetaElement metaElement = new //
 							 * MetaEnumeration(); Object o = new InstEnum();
