@@ -1744,9 +1744,9 @@ public class DefaultOpersMM {
 			simulationExecOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// simsceExecOperLabeling2
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			simulOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -1786,9 +1786,9 @@ public class DefaultOpersMM {
 			simulationExecOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			simsceExecOperLabeling2
-					.addAttribute(new OpersIOAttribute(semInfraMConcept
-							.getIdentifier(), attribute.getName(), true));
+			// simsceExecOperLabeling2
+			// .addAttribute(new OpersIOAttribute(semInfraMConcept
+			// .getIdentifier(), attribute.getName(), true));
 			simulOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
