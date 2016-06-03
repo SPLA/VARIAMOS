@@ -1617,6 +1617,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 
 	}
 
+	// Dynamic operation's definition
 	public SolverOpersTask executeSimulation(boolean firstSimulExecution,
 			boolean reloadDashboard, String type, boolean update,
 			String operation) {
@@ -1811,6 +1812,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
 					ConsoleTextArea.addText(refas2hlcl.getText());
+					updateSimulResults();
 					// bringUpTab(mxResources.get("elementSimPropTab"));
 					editPropertiesRefas(lastEditableElement);
 
@@ -1886,16 +1888,6 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					|| (semTask != null && semTask.isDone())) {
 				if (progressMonitor.isCanceled()) {
 					semTask.cancel(true);
-					// if (false//task.getExecType() ==
-					// ModelExpr2HLCL.SIMUL_EXPORT
-					// ) {
-					// JOptionPane
-					// .showMessageDialog(
-					// frame,
-					// "Execution incomplete, partial solution file saved",
-					// "Task Notification",
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					// } else
 					JOptionPane.showMessageDialog(frame, "Execution cancelled",
 							"Task Notification",
 							JOptionPane.INFORMATION_MESSAGE, null);
@@ -1905,37 +1897,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					ConsoleTextArea.addText(refas2hlcl.getText());
 					((MainFrame) getFrame()).waitingCursor(false);
 					lastSolverInvocations = semTask.getExecutionTime();
-					// switch (semTask.getExecType()) {
-					// case ModelExpr2HLCL.CONF_EXEC:
-					// invalidConfigHlclProgram = task
-					// .isInvalidConfigHlclProgram();
-					// break;
-					// case ModelExpr2HLCL.DESIGN_EXEC:
-					// if (!semTask.getErrorTitle().equals("")) {
-					// JOptionPane.showMessageDialog(frame,
-					// semTask.getErrorMessage(),
-					// semTask.getErrorTitle(),
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					//
-					// }
-					// refresh();
-					// break;
-					// case ModelExpr2HLCL.SIMUL_EXEC:
 					updateDashBoard(semTask.isReloadDashBoard(),
 							semTask.isUpdate());
-					// case ModelExpr2HLCL.SIMUL_EXPORT:
-					// refresh();
-					// lastConfiguration = task.getLastConfiguration();
-					// if (!task.getErrorTitle().equals("")) {
-					// JOptionPane.showMessageDialog(frame,
-					// task.getErrorMessage(),
-					// task.getErrorTitle(),
-					// JOptionPane.INFORMATION_MESSAGE, null);
-					// }
-					//
-					// break;
-					// }
-
 				}
 			}
 		}
