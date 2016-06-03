@@ -344,8 +344,7 @@ public class ElemAttribute implements Serializable {
 				toolTipText, null, null, defaultValue, null, null,
 				defaultGroup, propTabPosition, propTabEditionCondition,
 				propTabVisualCondition, elementDisplayPosition,
-				elementDisplaySpacers, elementDisplayCondition, null, null,
-				null);
+				elementDisplaySpacers, elementDisplayCondition, "", "", "");
 	}
 
 	public ElemAttribute(String name, String type, AttributeType attributeType,
@@ -620,7 +619,7 @@ public class ElemAttribute implements Serializable {
 				domain, hint, defaultGroup, propTabPosition,
 				propTabEditionCondition, propTabVisualCondition,
 				elementDisplayPosition, elementDisplaySpacers,
-				elementDisplayCondition, null, null, null);
+				elementDisplayCondition, "", "", "");
 	}
 
 	/**

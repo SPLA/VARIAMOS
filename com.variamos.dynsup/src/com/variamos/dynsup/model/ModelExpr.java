@@ -745,7 +745,49 @@ public class ModelExpr implements Serializable {
 	// attribute)
 	public static void updateDomain(ElemAttribute attribute,
 			InstElement instVertex, Identifier identifier) {
-		if (attribute.getName().equals("SDReqLevel")
+		if (!attribute.getDomainFiltersOwnFields().equals("")
+				|| !attribute.getDomainFiltersRelFields().equals("")) {
+			String configdomain = "";
+			Set<Integer> values = new HashSet<Integer>();
+			String[] filters = attribute.getDomainFiltersOwnFields().split(";");
+			for (String filter : filters) {
+				if (((InstConcept) instVertex).getInstAttribute(filter)
+						.toString().length() != 0) {
+					values.add(((InstConcept) instVertex).getInstAttribute(
+							filter).getAsInteger());
+				}
+			}
+
+			filters = attribute.getDomainFiltersRelFields().split(";");
+			for (String filter : filters) {
+				for (InstElement relation : instVertex.getSourceRelations()) {
+					if (((InstPairwiseRel) relation).getInstAttribute(filter) != null)
+						values.add(((InstPairwiseRel) relation)
+								.getInstAttribute(filter).getAsInteger());
+				}
+				for (InstElement relation : instVertex.getTargetRelations()) {
+					if (((InstPairwiseRel) relation).getInstAttribute(filter) != null)
+						values.add(((InstPairwiseRel) relation)
+								.getInstAttribute(filter).getAsInteger());
+				}
+			}
+
+			if (values.size() == 0) {
+				if (attribute.getDefaultDomainValueField() != null)
+					values.add(((InstConcept) instVertex).getInstAttribute(
+							attribute.getDefaultDomainValueField())
+							.getAsInteger());
+				else
+					// FIXME remove me
+					values.add(new Integer(0));
+			}
+
+			for (Integer value : values) {
+				configdomain += value.toString() + ",";
+			}
+			configdomain = configdomain.substring(0, configdomain.length() - 1);
+			identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
+		} else if (attribute.getName().equals("SDReqLevel")
 				|| attribute.getName().equals("ClaimExpLevel")) {
 			String configdomain = "";
 			Set<Integer> values = new HashSet<Integer>();
@@ -798,7 +840,6 @@ public class ModelExpr implements Serializable {
 			if (configdomain != null && !configdomain.equals(""))
 				identifier.setDomain(DomainParser.parseDomain(configdomain, 0));
 			else
-
 				identifier.setDomain(DomainParser.parseDomain("0", 0));
 		} else if (attribute.getName().equals("value")) {
 			String type = (String) instVertex.getInstAttribute("variableType")

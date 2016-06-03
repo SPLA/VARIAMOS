@@ -1744,9 +1744,9 @@ public class DefaultOpersMM {
 			simulationExecOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLabeling2
-			// .addAttribute(new OpersIOAttribute(semInfraMConcept
-			// .getIdentifier(), attribute.getName(), true));
+			simsceExecOperLabeling2
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulOperationSubAction
 					.addOutAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -1786,9 +1786,9 @@ public class DefaultOpersMM {
 			simulationExecOperUniqueLabeling
 					.addAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
-			// simsceExecOperLabeling2
-			// .addAttribute(new OpersIOAttribute(semInfraMConcept
-			// .getIdentifier(), attribute.getName(), true));
+			simsceExecOperLabeling2
+					.addAttribute(new OpersIOAttribute(semInfraMConcept
+							.getIdentifier(), attribute.getName(), true));
 			simulOperationSubAction
 					.addInAttribute(new OpersIOAttribute(semInfraMConcept
 							.getIdentifier(), attribute.getName(), true));
@@ -2139,8 +2139,8 @@ public class DefaultOpersMM {
 
 		OpersVariable semVariable = new OpersVariable("Variable");
 
-		simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
-				.getIdentifier(), "Exclu", true));
+		// simsceExecOperLabeling1.addAttribute(new OpersIOAttribute(semVariable
+		// .getIdentifier(), "Exclu", true));
 
 		ArrayList<OpersExpr> semanticExpressions = new ArrayList<OpersExpr>();
 
@@ -2923,6 +2923,9 @@ public class DefaultOpersMM {
 			// Feature concepts
 
 			OpersConcept semFeature = new OpersConcept("Feature");
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					semFeature.getIdentifier(), "Sel", true));
+
 			InstConcept instVertexF = new InstConcept("Feature",
 					metaMetaConcept, semFeature);
 
@@ -3048,6 +3051,9 @@ public class DefaultOpersMM {
 			// definition of other concepts
 
 			OpersConcept semAssumption = new OpersConcept("Assumption");
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					semAssumption.getIdentifier(), "Sel", true));
+
 			InstConcept instVertexAS = new InstConcept("Assumption",
 					metaMetaConcept, semAssumption);
 			refas.getVariabilityVertex().put("Assumption", instVertexAS);
@@ -3060,6 +3066,9 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexAS, true);
 
 			OpersConcept semGoal = new OpersConcept("Goal");
+
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semGoal
+					.getIdentifier(), "Sel", true));
 			semGoal.addPanelVisibleAttribute("01#" + "satType");
 			semGoal.addPanelSpacersAttribute("<#" + "satType" + "#>\n");
 			InstConcept instVertexG = new InstConcept("Goal", metaMetaConcept,
@@ -3107,7 +3116,7 @@ public class DefaultOpersMM {
 			OpersConcept semSoftgoal = new OpersConcept("Softgoal");
 
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					semSoftgoal.getIdentifier(), "Sel", false));
+					semSoftgoal.getIdentifier(), "Sel", true));
 
 			StringDomain d = new StringDomain();
 			d.add("low");
@@ -3144,6 +3153,21 @@ public class DefaultOpersMM {
 					new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
 							+ "true" + "#" + "0", "", -1, "", "");
 			semSoftgoal.putSemanticAttribute("ConfigReqLevel", attribute);
+			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
+					semSoftgoal.getIdentifier(), attribute.getName(), true));
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					semSoftgoal.getIdentifier(), attribute.getName(), true));
+			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semSoftgoal.getIdentifier(), attribute.getName(), true));
+			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
+					semSoftgoal.getIdentifier(), attribute.getName(), true));
+
+			attribute = new ElemAttribute("defaultDomainValue", "Integer",
+					AttributeType.OPERATION, "Default Domain Value",
+					"Default value for the domain when no relation exists", 5,
+					false, new RangeDomain(0, 5, 0), 0, 5, "Required" + "#==#"
+							+ "true" + "#" + "0", "", -1, "", "");
+			semSoftgoal.putSemanticAttribute("defaultDomainValue", attribute);
 			simulationExecOperUniqueLabeling.addAttribute(new OpersIOAttribute(
 					semSoftgoal.getIdentifier(), attribute.getName(), true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
@@ -3374,6 +3398,9 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexSG, true);
 
 			OpersConcept semAsset = new OpersConcept("Asset");
+
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semAsset
+					.getIdentifier(), "Sel", true));
 			InstConcept instVertexAsset = new InstConcept("Asset",
 					metaMetaConcept, semAsset);
 			refas.getVariabilityVertex().put("Asset", instVertexAsset);
@@ -3407,6 +3434,9 @@ public class DefaultOpersMM {
 			instEdge.setSourceRelation(instVertexAsset, true);
 
 			OpersConcept semClaim = new OpersConcept("Claim");
+
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(semClaim
+					.getIdentifier(), "Sel", true));
 			InstConcept instVertexCL = new InstConcept("Claim", semClaim,
 					metaMetaInstOverTwoRel);
 
@@ -3685,6 +3715,9 @@ public class DefaultOpersMM {
 			// "#\n#");
 
 			OpersConcept semSoftDependency = new OpersConcept("SoftDependency");
+
+			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
+					semSoftDependency.getIdentifier(), "Sel", true));
 			InstConcept instVertexSD = new InstConcept("SoftDependency",
 					semSoftDependency, metaMetaInstConcept);
 			refas.getVariabilityVertex().put("SoftDependency", instVertexSD);
@@ -5178,12 +5211,6 @@ public class DefaultOpersMM {
 			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGSGSemEdge.getIdentifier(), attribute.getName(),
 					true));
-			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGSGSemEdge.getIdentifier(), attribute.getName(),
-					true));
 
 			attribute = new ElemAttribute("AggregationLow", "Integer",
 					AttributeType.OPERATION, false, "Aggregation Low", "", 0,
@@ -5892,12 +5919,6 @@ public class DefaultOpersMM {
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
 			simsceExecOperLabeling2.addAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
-					directSGGRSemEdge.getIdentifier(), attribute.getName(),
-					true));
-			simSceOperationSubAction.addInAttribute(new OpersIOAttribute(
 					directSGGRSemEdge.getIdentifier(), attribute.getName(),
 					true));
 			simulOperationSubAction.addInAttribute(new OpersIOAttribute(
