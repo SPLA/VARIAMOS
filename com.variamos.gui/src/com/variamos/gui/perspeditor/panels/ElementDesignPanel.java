@@ -82,20 +82,21 @@ public class ElementDesignPanel extends JPanel {
 		rootPanel1.add(contentPanel1);
 		JPanel dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(0, 0));
-		dummyP.setMaximumSize(new Dimension(500, 300));
+		dummyP.setMaximumSize(new Dimension(300, 300));
 		// rootPanel1.add(dummyP);
 		// SpringUtilities.makeCompactGrid(rootPanel1, 2, 1, 4, 4, 4, 4);
 
 		rootPanel2.add(contentPanel2);
 		dummyP = new JPanel();
 		dummyP.setMinimumSize(new Dimension(300, 300));
-		dummyP.setMaximumSize(new Dimension(500, 300));
+		dummyP.setMaximumSize(new Dimension(300, 300));
 		rootPanel2.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel2, 2, 1, 4, 4, 4, 4);
 
 		rootPanel3.add(contentPanel3);
 		dummyP = new JPanel();
-		dummyP.setMinimumSize(new Dimension(0, 0));
+		dummyP.setMinimumSize(new Dimension(200, 0));
+		dummyP.setPreferredSize(new Dimension(200, 0));
 		dummyP.setMaximumSize(new Dimension(500, 300));
 		rootPanel3.add(dummyP);
 		SpringUtilities.makeCompactGrid(rootPanel3, 2, 1, 4, 4, 4, 4);
@@ -740,7 +741,9 @@ public class ElementDesignPanel extends JPanel {
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 28));
 
-			contentPanel1.setMaximumSize(new Dimension(200, 450));
+			contentPanel1.setMaximumSize(new Dimension(350, 450));
+			contentPanel1.setPreferredSize(new Dimension(350, 450));
+			contentPanel1.setMinimumSize(new Dimension(350, 450));
 			mainPanel.add(rootPanel1);
 
 			SpringUtilities.makeCompactGrid(contentPanel1, 1, 1, 4, 4, 4, 4);
@@ -763,15 +766,15 @@ public class ElementDesignPanel extends JPanel {
 				ta.setRows(5);
 				ta.setColumns(40);
 				ta.setWrapStyleWord(true);
-				sca.setPreferredSize(new Dimension(350, 150));
-				sca.setMaximumSize(new Dimension(350, 150));
+				sca.setPreferredSize(new Dimension(250, 150));
+				sca.setMaximumSize(new Dimension(250, 150));
 
 				// dummy2.setPreferredSize(new Dimension(300, 150));
 				// dummy2.setMaximumSize(new Dimension(300, 150));
 				// contentPanel2.add(dummy2);
 				//
-				contentPanel2.setPreferredSize(new Dimension(300, 150));
-				contentPanel2.setMaximumSize(new Dimension(300, 150));
+				contentPanel2.setPreferredSize(new Dimension(200, 150));
+				contentPanel2.setMaximumSize(new Dimension(200, 150));
 				mainPanel.add(rootPanel2);
 
 				SpringUtilities
@@ -906,7 +909,7 @@ public class ElementDesignPanel extends JPanel {
 			} else {
 				JPanel dummy3 = new JPanel();
 				dummy3.setMinimumSize(new Dimension(300, 250));
-				dummy3.setPreferredSize(new Dimension(500, 250));
+				dummy3.setPreferredSize(new Dimension(300, 250));
 				dummy3.setMaximumSize(new Dimension(650, 250));
 				mainPanel.add(dummy3);
 
