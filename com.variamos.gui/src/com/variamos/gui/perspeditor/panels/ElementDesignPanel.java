@@ -740,7 +740,6 @@ public class ElementDesignPanel extends JPanel {
 					designPanelElements * 28));
 			elementDesPropSubPanel.setMaximumSize(new Dimension(350,
 					designPanelElements * 28));
-
 			contentPanel1.setMaximumSize(new Dimension(350, 450));
 			contentPanel1.setPreferredSize(new Dimension(350, 450));
 			contentPanel1.setMinimumSize(new Dimension(350, 450));
