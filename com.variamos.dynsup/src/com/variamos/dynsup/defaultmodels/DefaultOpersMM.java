@@ -187,7 +187,7 @@ public class DefaultOpersMM {
 					instOperationAction);
 
 			instOperationAction.getInstAttribute("name").setValue(
-					"Start Simulation");
+					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(true);
 			instOperationAction.getInstAttribute("iterationName").setValue(
@@ -551,7 +551,7 @@ public class DefaultOpersMM {
 			instOperationGroup.getInstAttribute("visible").setValue(true);
 			instOperationGroup.getInstAttribute("menuType").setValue("4");
 			instOperationGroup.getInstAttribute("name").setValue(
-					"Simulation Scenarios");
+					"Simulation Scenarios  (Dynamic)");
 			instOperationGroup.getInstAttribute("shortcut").setValue("C");
 			instOperationGroup.getInstAttribute("Index").setValue(1);
 
@@ -570,7 +570,7 @@ public class DefaultOpersMM {
 					instOperationAction);
 
 			instOperationAction.getInstAttribute("name").setValue(
-					"Simulation Scenarios  (For V.19)");
+					"Start Simulation (Dynamic)");
 			instOperationAction.getInstAttribute("shortcut").setValue("S");
 			instOperationAction.getInstAttribute("iteration").setValue(true);
 			instOperationAction.getInstAttribute("prevSpacer").setValue(true);
