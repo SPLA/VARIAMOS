@@ -91,16 +91,18 @@ public class ClassWidget extends WidgetR {
 				// out.equals(instAttribute.getValue()))
 				// txtValue.setSelectedItem(out);
 			}
-	} 
-		  else if (instAttribute.getOpersOverTwoRelList() != null) {
-		  opersElements = new HashMap<String, InstAttribute>();
-		  List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();
-		  
-		  for (InstAttribute groupDependency : list) {
-		  opersElements.put(groupDependency.getIdentifier(), groupDependency);
-		  String out = groupDependency.getIdentifier(); txtValue.addItem(out);
-		  } }
-		 
+		}
+		/*
+		 * else if (instAttribute.getOpersOverTwoRelList() != null) {
+		 * opersElements = new HashMap<String, InstAttribute>();
+		 * List<InstAttribute> list = instAttribute.getOpersOverTwoRelList();
+		 * 
+		 * for (InstAttribute groupDependency : list) {
+		 * opersElements.put(groupDependency.getIdentifier(), groupDependency);
+		 * String out = groupDependency.getIdentifier(); txtValue.addItem(out);
+		 * } }
+		 */
+
 		// } else if (instAttribute.getOverTwoRelValidationList() != null) {
 		// semanticElements = new HashMap<String, OpersElement>();
 		// List<OpersRelType> list = instAttribute
