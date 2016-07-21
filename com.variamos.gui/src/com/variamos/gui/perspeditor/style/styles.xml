@@ -309,7 +309,14 @@
 		<add as="fillColor" value="white"/>		
 		<add as="strokeColor" value="black"/>
 	</add>	
-
+	<add as="whitebox">
+		<add as="shape" value="rect-str" />
+		<add as="fontSize" value="11" />
+		<add as="align" value="center" />
+		<add as="verticalAlign" value="middle" />
+		<add as="strokeColor" value="black" />
+		<add as="fillColor" value="white"/>		
+	</add>	
 
 	
 	<!-- Begin not in use -->
@@ -321,7 +328,9 @@
 		<add as="align" value="center"/>
 		<add as="verticalAlign" value="middle"/>
 		<add as="strokeColor" value="black"/>
-	</add>	
+	</add>
+		
+
 	<add as="defaultVertex">
 		<add as="shape" value="label" />
 		<add as="perimeter" value="rectanglePerimeter" />

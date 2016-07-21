@@ -795,8 +795,8 @@ public class InfraSyntaxOpersMMM {
 		constraintInstEdges.put("AssoPWCORel", rel);
 
 		SyntaxElement infraSyntaxOpersM2OperGroup = new SyntaxElement('M',
-				"OMOperGroup", true, true, "OMOperGroup",
-				"infrasyntaxopersm2miniconcept", "Operation Group", 100, 150,
+				"OMOperGroup", true, true, "OMOperGroup", "whitebox",
+				"Operation Group", 100, 75,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -840,8 +840,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperGroup.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperGroup.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OperGroup
+				.addPanelSpacersAttribute("<<OMOperGroup>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperGroup = new InstConcept(
 				"OMOperGroup", basicOpersSyntaxM3Concept,
@@ -875,8 +876,8 @@ public class InfraSyntaxOpersMMM {
 		variabilityInstVertex.put("OMModel", instInfraSyntaxOpersM2MetaModel);
 
 		SyntaxElement infraSyntaxOpersM2OperAction = new SyntaxElement('A',
-				"OMOperation", true, true, "OMOperation",
-				"infrasyntaxopersm2miniconcept", "Operation Action", 100, 150,
+				"OMOperation", true, true, "OMOperation", "whitebox",
+				"Operation Action", 100, 75,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -905,7 +906,6 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperAction.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperAction.addPropVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("06#" + "name");
 		infraSyntaxOpersM2OperAction.addPanelSpacersAttribute("#" + "name"
 				+ "#");
 
@@ -934,8 +934,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperAction.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperAction.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OperAction
+				.addPanelSpacersAttribute("<<OMOperation>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperAction = new InstConcept(
 				"OMOperation", basicOpersSyntaxM3Concept,
@@ -944,8 +945,8 @@ public class InfraSyntaxOpersMMM {
 				instInfraSyntaxOpersM2OperAction);
 
 		SyntaxElement infraSyntaxOpersM2OperSubAction = new SyntaxElement('S',
-				"OMSubOper", true, true, "OMSubOper",
-				"infrasyntaxopersm2miniconcept", "Operation Action", 100, 150,
+				"OMSubOper", true, true, "OMSubOper", "whitebox",
+				"Operation Action", 100, 75,
 				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
@@ -955,11 +956,6 @@ public class InfraSyntaxOpersMMM {
 		infraSyntaxOpersM2OperSubAction
 				.addPropEditableAttribute("06#" + "name");
 		infraSyntaxOpersM2OperSubAction.addPropVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperSubAction
-				.addPanelVisibleAttribute("06#" + "name");
-		infraSyntaxOpersM2OperSubAction.addPanelSpacersAttribute("#" + "name"
-				+ "#");
-
 		infraSyntaxOpersM2OperSubAction.addModelingAttribute("Index",
 				new ElemAttribute("Index", "Integer", AttributeType.OPERATION,
 						false, "Position", "", 1, 0, 6, "", "", 6, "", ""));
@@ -997,8 +993,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperSubAction.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperSubAction.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OperSubAction
+				.addPanelSpacersAttribute("<<OMSubOper>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperSubAction = new InstConcept(
 				"OMSubOper", basicOpersSyntaxM3Concept,
@@ -1007,9 +1004,9 @@ public class InfraSyntaxOpersMMM {
 				instInfraSyntaxOpersM2OperSubAction);
 
 		SyntaxElement infraSyntaxOpersM2OperLabeling = new SyntaxElement('S',
-				"OMLabeling", true, true, "OMLabeling",
-				"infrasyntaxopersm2miniconcept", "Operation Labeling", 100,
-				150, "/com/variamos/gui/perspeditor/images/assump.png", true,
+				"OMLabeling", true, true, "OMLabeling", "whitebox",
+				"Operation Labeling", 100, 75,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
 				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2OperLabeling.addModelingAttribute("labelId",
@@ -1049,8 +1046,9 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2OperLabeling.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2OperLabeling.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2OperLabeling
+				.addPanelSpacersAttribute("<<OMLabeling>>\n#"
+						+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2OperLabeling = new InstConcept(
 				"OMLabeling", basicOpersSyntaxM3Concept,
@@ -1059,10 +1057,10 @@ public class InfraSyntaxOpersMMM {
 				instInfraSyntaxOpersM2OperLabeling);
 
 		SyntaxElement infraSyntaxOpersM2ExpType = new SyntaxElement('S',
-				"OMExpType", false, true, "OMExpType",
-				"infrasyntaxopersm2miniconcept", "Operation Expression Type",
-				100, 150, "/com/variamos/gui/perspeditor/images/assump.png",
-				true, Color.BLUE.toString(), 3, null, true);
+				"OMExpType", false, true, "OMExpType", "whitebox",
+				"Operation Expression Type", 100, 75,
+				"/com/variamos/gui/perspeditor/images/assump.png", true,
+				Color.BLUE.toString(), 3, null, true);
 
 		infraSyntaxOpersM2ExpType.addModelingAttribute("suboperexptype",
 				new ElemAttribute("suboperexptype", "Enumeration",
@@ -1072,8 +1070,8 @@ public class InfraSyntaxOpersMMM {
 
 		infraSyntaxOpersM2ExpType.addPanelVisibleAttribute("04#"
 				+ SyntaxElement.VAR_USERIDENTIFIER);
-		infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("#"
-				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n\n");
+		infraSyntaxOpersM2ExpType.addPanelSpacersAttribute("<<OMExpType>>\n#"
+				+ SyntaxElement.VAR_USERIDENTIFIER + "#\n");
 
 		InstConcept instInfraSyntaxOpersM2ExpType = new InstConcept(
 				"OMLabeling", basicOpersSyntaxM3Concept,
