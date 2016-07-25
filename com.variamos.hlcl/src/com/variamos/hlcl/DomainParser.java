@@ -8,7 +8,8 @@ public class DomainParser {
 
 		String digit = "\\d+";
 		String floatD = "[0-9]*\\.?[0-9]*";
-		String range = "\\d+\\s*-\\s*\\d+";
+		String range = "\\-?\\d+\\s*..\\s*\\-?\\d+";
+		// "\\d\\s*..\\s*\\d";
 
 		ComposedDomain domain = new ComposedDomain();
 
@@ -35,10 +36,10 @@ public class DomainParser {
 			}
 
 			if (part.matches(range)) {
-				int sym = part.indexOf('-');
+				int sym = part.indexOf("..");
 				int lowerValue = Integer
 						.parseInt(part.substring(0, sym).trim());
-				int upperValue = Integer.parseInt(part.substring(sym + 1)
+				int upperValue = Integer.parseInt(part.substring(sym + 2)
 						.trim());
 
 				rd = new RangeDomain(lowerValue, upperValue, precision);

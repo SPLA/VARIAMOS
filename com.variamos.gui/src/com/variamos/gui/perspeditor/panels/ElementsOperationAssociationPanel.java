@@ -203,7 +203,13 @@ public class ElementsOperationAssociationPanel extends
 					domainOperLabels, null);
 
 		for (InstElement el : refasModel.getVariabilityVertexCollection()) {
+			InstElement et = el.getTransSupInstElement();
+			if (et.getIdentifier().equals("OMSubOper")
+					|| et.getIdentifier().equals("OMLabeling")
+					|| et.getIdentifier().equals("OMOperation"))
+				continue;
 			AssociationRow node = null;
+
 			if (dialog == 0)
 				node = new AssociationRow(el.getIdentifier(),
 						subOperTypesColumns.size(), false, domainOperColumns,
