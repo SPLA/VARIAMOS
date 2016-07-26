@@ -182,9 +182,9 @@ public class ElementDesignPanel extends JPanel {
 								.getTransSupportMetaElement().getName()
 								.equals("OMLabeling")) {
 					elementDesPropSubPanel.add(new JLabel(
-							"Semantic Expressions"));
+							"Meta-Model-Expressions"));
 					JButton button = new JButton(
-							"Open Semantic Expressions Editor");
+							"Open Meta-Model-Expressions Editor");
 					if (editor.getPerspective() == 4)
 						button.setEnabled(false);
 					button.addActionListener(new ActionListener() {
@@ -324,7 +324,8 @@ public class ElementDesignPanel extends JPanel {
 
 							if (instAttribute.getIdentifier().equals(
 									"ConditionalExpression")) {
-								JButton button = new JButton("Edit Expression");
+								JButton button = new JButton(
+										"Edit Model-Expression");
 
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {

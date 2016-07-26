@@ -4940,9 +4940,9 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "", "", "", 1, -1, "", "", -1,
-					"", ""),
-					"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
+					AttributeType.OPTION, false, "Variable Context", "", "", 1,
+					-1, "", "", -1, "", ""),
+					"Variable Context##false#true#true#1#-1#1#1"));
 
 			ia = instSemvarcntxPairwiseRel.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
@@ -6185,9 +6185,9 @@ public class DefaultOpersMM {
 
 			ias.add(new InstAttribute("Variable Context", new ElemAttribute(
 					"Variable Context", StringType.IDENTIFIER,
-					AttributeType.OPTION, false, "", "", "", 1, -1, "", "", -1,
-					"", ""),
-					"Variable Context#Variable Context#false#true#true#1#-1#1#1"));
+					AttributeType.OPTION, false, "Variable Context", "", "", 1,
+					-1, "", "", -1, "", ""),
+					"Variable Context##false#true#true#1#-1#1#1"));
 
 			ia = instDirCVCGSemanticEdge.getInstAttribute("opersExprs");
 			ias = (List<InstAttribute>) ia.getValue();
@@ -6740,7 +6740,7 @@ public class DefaultOpersMM {
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("ClaimToSG", new ElemAttribute(
 					"ClaimToSG", StringType.IDENTIFIER, AttributeType.OPTION,
-					false, "", "", "", 1, -1, "", "", -1, "", ""),
+					false, "ClaimToSG", "", "", 1, -1, "", "", -1, "", ""),
 					"ClaimToSG##true#true#true#1#-1#1#1"));
 
 			ia = instDirClaimSGSemanticEdge.getInstAttribute("opersExprs");
@@ -6875,8 +6875,8 @@ public class DefaultOpersMM {
 			ia = instDirSDSGSemanticEdge.getInstAttribute("relTypesAttr");
 			ias = (List<InstAttribute>) ia.getValue();
 			ias.add(new InstAttribute("SD", new ElemAttribute("SD",
-					StringType.IDENTIFIER, AttributeType.OPTION, false, "", "",
-					"", 1, -1, "", "", -1, "", ""),
+					StringType.IDENTIFIER, AttributeType.OPTION, false, "SD",
+					"", "", 1, -1, "", "", -1, "", ""),
 					"SD##true#true#true#1#-1#1#1"));
 
 			ia = instDirSDSGSemanticEdge.getInstAttribute("opersExprs");

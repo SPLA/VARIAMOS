@@ -272,6 +272,9 @@ public class RelationTypesList extends JList<InstAttribute> {
 				// return false;
 				// }
 				InstAttribute v = buffer[0];
+				v.setAttributeName(v.getIdentifier());
+				v.setElemAttributeName((String) instIdentifier.getValue());
+				v.setDisplayName((String) instIdentifier.getValue());
 				v.setValue(instIdentifier.getValue() + "#"
 						+ instDisplayName.getValue() + "#"
 						+ (Boolean) instRelExclusive.getValue() + "#"
