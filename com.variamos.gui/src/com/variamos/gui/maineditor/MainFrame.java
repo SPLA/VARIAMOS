@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	private boolean showSimulationCustomizationBox = false;
 	private String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
-	private String variamosBuild = "20160725-1800";
+	private String variamosBuild = "20160726-1830";
 	private String downloadId = "465";
 	private static boolean solverError = false;
 
@@ -162,12 +162,12 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(editorsMenu.get(1));
 		this.setVisible(true);
 		try {
-			if (args.length == 0 || !args[0].equals("nosolver"))
+			if (args == null || args.length == 0 || !args[0].equals("nosolver"))
 				verifySolver();
-			if (args.length == 0 || !args[0].equals("noupdate")) {
+			if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 				this.checkUpdates(false);
 			}
-			if ((args.length > 0 && args[0].equals("debug"))
+			if (args != null && (args.length > 0 && args[0].equals("debug"))
 					|| (args.length == 2 && args[1].equals("debug"))) {
 				ConsoleTextArea.setDebug(true);
 			}
@@ -349,8 +349,8 @@ public class MainFrame extends JFrame {
 								this,
 								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
 										+ " Nevertheless, models created in version Beta 18 and older are not\n"
-										+ " compatible with this version (Beta 19). Also, models created in this\n"
-										+ " version may have compatibility issues in the version Beta 20. If you \n"
+										+ " compatible with this alfa Beta 19. Also, models created in this\n"
+										+ " version may have small compatibility issues in the stable Beta 19. If you \n"
 										+ " already defined models, we suggest you to continue using version Beta 18.",
 								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);

@@ -154,6 +154,14 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 		return volatileAttribute.getDisplayName();
 	}
 
+	public void setElemAttributeName(String name) {
+		volatileAttribute.setName(name);
+	}
+
+	public String getElemAttributeName() {
+		return volatileAttribute.getName();
+	}
+
 	public void setValidationMEList(List<InstElement> metaEdge) {
 		// this.identifier = identifier;
 		setInstAttributeAttribute(VAR_METAEDGE_LIST_VALIDATION, metaEdge);
@@ -206,6 +214,10 @@ public class InstAttribute implements Serializable, IntInstAttribute,
 
 	public String getAttributeName() {
 		return (String) getInstAttributeAttribute(VAR_ATTRIBUTE_IDEN);
+	}
+
+	public void setAttributeName(String name) {
+		setInstAttributeAttribute(VAR_ATTRIBUTE_IDEN, name);
 	}
 
 	public Object getValue() {
