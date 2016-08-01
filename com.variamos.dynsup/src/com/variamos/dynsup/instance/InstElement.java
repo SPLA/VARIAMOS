@@ -755,6 +755,8 @@ public abstract class InstElement implements Serializable,
 		return false;
 	}
 
+	//FIXME include a check for circular extends relations, requires a parameter
+	// with the related concept to compare to
 	public List<InstElement> getParentOpersConcept() {
 		List<InstElement> out = new ArrayList<InstElement>();
 		List<InstElement> rel = getTargetRelations();
@@ -766,8 +768,13 @@ public abstract class InstElement implements Serializable,
 				InstElement parent = element.getTargetRelations().get(0);
 				// parent.createInstAttributes(parents);
 				out.add(parent);
-				out.addAll(element.getTargetRelations().get(0)
-						.getParentOpersConcept());
+				if (element.getTargetRelations().get(0) != null) {
+					List<InstElement> outt = element.getTargetRelations()
+							.get(0).getParentOpersConcept();
+					if (outt != null)
+						out.addAll(outt);
+
+				}
 			}
 		}
 		return out;

@@ -4330,7 +4330,7 @@ public class DefaultOpersMM {
 			semanticExpressions = new ArrayList<OpersExpr>();
 
 			t1 = new OpersExpr("1", refas.getSemanticExpressionTypes().get(
-					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTRELVARIABLE,
+					"Equals"), ExpressionVertexType.LEFTUNIQUEOUTCONVARIABLE,
 					instDirStructHardHardSemanticEdge, instVertexHC, "Sel",
 					true, 1);
 
