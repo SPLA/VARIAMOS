@@ -656,8 +656,8 @@ public class ElementDesignPanel extends JPanel {
 								if (widget.editVariable(instAttribute)) {
 									widget.editVariable(instAttribute);
 									count = 0;
-									System.out.println(instAttribute
-											.getIdentifier());
+									System.out.println("REE "
+											+ instAttribute.getIdentifier());
 								}
 								List<InstAttribute> editables = editElm
 										.getEditableVariables(syntaxParent);

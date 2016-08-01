@@ -545,7 +545,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
 				vge2.updateEditor();
 				mxCell root = new mxCell();
-				root.insert(new mxCell());
+				mxCell parent = new mxCell();
+				root.insert(parent);
+				InstAttribute att = new InstAttribute();
+				att.setInstAttributeAttribute("versionNumber",
+						MainFrame.getVariamosVersionNumber());
+				parent.setValue(att);
 				refasGraph.getModel().setRoot(root);
 				System.out
 						.println("Syntax Meta-Model perspective initialized.");
@@ -578,7 +583,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		mxGraph graph = getGraphComponent().getGraph();
 		// Check modified flag and display save dialog
 		mxCell root = new mxCell();
-		root.insert(new mxCell());
+		mxCell parent = new mxCell();
+		root.insert(parent);
+		InstAttribute att = new InstAttribute();
+		att.setInstAttributeAttribute("versionNumber",
+				MainFrame.getVariamosVersionNumber());
+		parent.setValue(att);
 		graph.getModel().setRoot(root);
 		refasModel.clear();
 		// if (perspective == 2) {
