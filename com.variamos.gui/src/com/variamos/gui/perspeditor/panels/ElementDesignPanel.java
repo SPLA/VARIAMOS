@@ -322,10 +322,11 @@ public class ElementDesignPanel extends JPanel {
 							instAttribute.updateValidationList(
 									((InstElement) editElm), mapElements);
 
-							if (instAttribute.getIdentifier().equals(
-									"ConditionalExpression")) {
+							if (instAttribute.getType().equals(
+									"com.variamos.dynsup.model.ModelExpr")) {
 								JButton button = new JButton(
-										"Edit Model-Expression");
+										instAttribute.getDisplayName()
+												+ " Editor");
 
 								button.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
@@ -431,7 +432,7 @@ public class ElementDesignPanel extends JPanel {
 									}
 								});
 								elementDesPropSubPanel.add(new JLabel(
-										"Conditional Expression"));
+										instAttribute.getDisplayName()));
 								elementDesPropSubPanel.add(button);
 								elementDesPropSubPanel.add(new JPanel());
 							} else {

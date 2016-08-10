@@ -2215,15 +2215,11 @@ public class DefaultOpersMM {
 		semVariable.putSemanticAttribute("name", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
-		attribute = new ElemAttribute(
-				"variableType",
-				"Enumeration",
-				AttributeType.OPERATION,
-				true,
-				"Variable Type",
-				"Type of variable (Operations support: Boolean, Integer (positive), String and Enumeration)",
-				VariableType.class.getCanonicalName(), "String", "", 0, 2, "",
-				"", -1, "", "variableType" + "#!=#" + "Enumeration");
+		attribute = new ElemAttribute("variableType", "Enumeration",
+				AttributeType.OPERATION, true, "Variable Type",
+				"Type of variable", VariableType.class.getCanonicalName(),
+				"String", "", 0, 2, "", "", -1, "", "variableType" + "#!=#"
+						+ "Enumeration");
 		semVariable.putSemanticAttribute("variableType", attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 
@@ -2319,6 +2315,15 @@ public class DefaultOpersMM {
 						+ "#==#" + "Enumeration" + "||" + "variableType"
 						+ "#==#" + "Boolean", "", -1, "", "");
 		semVariable.putSemanticAttribute("varConfDom", attribute);
+
+		attribute = new ElemAttribute("LowLevelExpression",
+				ModelExpr.class.getCanonicalName(), AttributeType.OPERATION,
+				false, "Low-Level Expression",
+				"Expression at the solver level (language independent)", null,
+				0, -1, "variableType" + "#==#" + "LowLevel_Expression", "", -1,
+				"", "");
+		semVariable.putSemanticAttribute("LowLevelExpression", attribute);
+
 		// simulationExecOperUniqueLabeling.addAttribute(attribute);
 		// simulationExecOperUniqueLabeling.addAttribute(new
 		// OpersIOAttribute(
@@ -2339,6 +2344,7 @@ public class DefaultOpersMM {
 		semVariable.addPropEditableAttribute("05#" + "isContext");
 
 		semVariable.addPropEditableAttribute("08#" + "ExtVisible");
+		semVariable.addPropEditableAttribute("03#" + "LowLevelExpression");
 		semVariable.addPropEditableAttribute("09#" + "ExtControl");
 
 		semVariable.addPropEditableAttribute("01#" + "isConfDom");
@@ -2360,6 +2366,8 @@ public class DefaultOpersMM {
 		semVariable.addPropVisibleAttribute("07#" + "value");
 		semVariable.addPropVisibleAttribute("08#" + "ExtVisible");
 		semVariable.addPropVisibleAttribute("09#" + "ExtControl");
+		semVariable.addPropVisibleAttribute("03#" + "LowLevelExpression" + "#"
+				+ "variableType" + "#==#" + "LowLevel expression");
 
 		semVariable.addPropVisibleAttribute("01#" + "isConfDom" + "#"
 				+ "variableType" + "#==#" + "Enumeration");

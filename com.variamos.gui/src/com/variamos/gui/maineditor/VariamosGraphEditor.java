@@ -1062,8 +1062,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					instAttribute.updateValidationList(finalEditElm,
 							mapElements);
 
-					if (instAttribute.getIdentifier().equals(
-							"ConditionalExpression")) {
+					if (instAttribute.getType().equals(
+							"com.variamos.dynsup.model.ModelExpr")) {
 						continue;
 					}
 

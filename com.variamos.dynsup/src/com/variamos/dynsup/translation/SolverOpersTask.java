@@ -471,6 +471,7 @@ public class SolverOpersTask extends SwingWorker<Void, Void> {
 							if (firstSimulExec && lastConfiguration == null) {
 								switch (operationIdentifier) {
 								case "simulation":
+								case "SimulationOper":
 									errorMessage = "Last changes on the model makes it inconsistent."
 											+ " \n Please review the restrictions defined and "
 											+ "try again. \nModel visual representation was not updated.";
