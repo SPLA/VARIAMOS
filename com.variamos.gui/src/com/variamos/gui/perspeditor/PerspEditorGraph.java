@@ -249,11 +249,15 @@ public class PerspEditorGraph extends AbstractGraph {
 	protected void init() {
 		super.init();
 		// Loads the defalt stylesheet from an external file
+		loadStyles();
+		loadStencil();
+	}
+
+	public void loadStyles() {
 		mxCodec codec = new mxCodec();
 		Document doc = mxUtils.loadDocument(MainFrame.getFilesUrl()
 				+ "styles.xml");
 		codec.decode(doc.getDocumentElement(), stylesheet);
-		loadStencil();
 	}
 
 	public void loadStencil() {
