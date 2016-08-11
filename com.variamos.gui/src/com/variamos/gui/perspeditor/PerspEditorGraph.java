@@ -35,7 +35,6 @@ import com.mxgraph.shape.mxStencil;
 import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
-import com.mxgraph.util.mxXmlUtils;
 import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.dynsup.instance.InstCell;
 import com.variamos.dynsup.instance.InstConcept;
@@ -47,6 +46,7 @@ import com.variamos.dynsup.model.ModelInstance;
 import com.variamos.dynsup.model.SyntaxElement;
 import com.variamos.editor.logic.ConstraintMode;
 import com.variamos.gui.maineditor.AbstractGraph;
+import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.io.ConsoleTextArea;
 
 public class PerspEditorGraph extends AbstractGraph {
@@ -99,6 +99,10 @@ public class PerspEditorGraph extends AbstractGraph {
 		mxCell root = new mxCell();
 		mxCell parent = new mxCell();
 		root.insert(parent);
+		InstAttribute att = new InstAttribute();
+		att.setInstAttributeAttribute("versionNumber",
+				MainFrame.getVariamosVersionNumber());
+		parent.setValue(att);
 		getModel().setRoot(root);
 		List<InstElement> views = null;
 		if (modelInstance.getSyntaxModel() != null)
@@ -245,17 +249,20 @@ public class PerspEditorGraph extends AbstractGraph {
 	protected void init() {
 		super.init();
 		// Loads the defalt stylesheet from an external file
-		mxCodec codec = new mxCodec();
-		Document doc = mxUtils.loadDocument(PerspEditorGraph.class.getResource(
-				"/com/variamos/gui/perspeditor/style/styles.xml").toString());
-		codec.decode(doc.getDocumentElement(), stylesheet);
+		loadStyles();
 		loadStencil();
+	}
+
+	public void loadStyles() {
+		mxCodec codec = new mxCodec();
+		Document doc = mxUtils.loadDocument(MainFrame.getFilesUrl()
+				+ "styles.xml");
+		codec.decode(doc.getDocumentElement(), stylesheet);
 	}
 
 	public void loadStencil() {
 		Document doc;
-		doc = mxXmlUtils
-				.parseXml(getResource("/com/variamos/gui/perspeditor/style/shapes.xml"));
+		doc = mxUtils.loadDocument(MainFrame.getFilesUrl() + "shapes.xml");
 		Element shapes = (Element) doc.getDocumentElement();
 		NodeList list = shapes.getElementsByTagName("shape");
 
@@ -355,11 +362,14 @@ public class PerspEditorGraph extends AbstractGraph {
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
 		List<InstElement> parents = null;
-		if (directRelation.getTransSupportMetaElement() != null
-				&& directRelation.getTransSupportMetaElement()
-						.getTransInstSemanticElement() != null)
-			parents = directRelation.getTransSupportMetaElement()
-					.getTransInstSemanticElement().getParentOpersConcept();
+		if (directRelation.getTransSupportMetaElement() != null) {
+			cell.setStyle(directRelation.getTransSupportMetaElement()
+					.getStyle());
+			if (directRelation.getTransSupportMetaElement()
+					.getTransInstSemanticElement() != null)
+				parents = directRelation.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+		}
 		refas.updateValidationLists(directRelation, source, target,
 				refas.getParentSMMSyntaxElement(directRelation), parents);
 		InstAttribute ia = directRelation
@@ -375,6 +385,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			return false;
 		}
 		directRelation.setTransSupInstElement(pwrList.get(0));
+		cell.setStyle(directRelation.getTransSupportMetaElement().getStyle());
 		directRelation.createAttributes(map);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(

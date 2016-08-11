@@ -1,6 +1,9 @@
 package com.variamos.gui.perspeditor.actions;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,10 +12,12 @@ import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
 import com.mxgraph.io.mxCodec;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 import com.variamos.configurator.io.PLGReader;
+import com.variamos.dynsup.instance.InstAttribute;
 import com.variamos.gui.maineditor.AbstractGraph;
 import com.variamos.gui.maineditor.MainFrame;
 import com.variamos.gui.maineditor.VariamosGraphEditor;
@@ -107,7 +112,85 @@ public class FileTasks extends SwingWorker<Void, Void> {
 		}
 		setProgress(30);
 		progressMonitor.setNote("Loading File...");
+
+		long iniTime = 0;
+		long endTime = 0;
+		iniTime = System.currentTimeMillis();
+		BufferedReader reader = null;
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			reader = new BufferedReader(new FileReader(file));
+
+			String line = null;
+			String ls = System.getProperty("line.separator");
+
+			while ((line = reader.readLine()) != null) {
+				stringBuilder.append(line);
+				stringBuilder.append(ls);
+				break;
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		String version = (stringBuilder.toString().split(
+				"<add as=\"versionNumber\" value=\"")[1].split("\"/></Array>"))[0];
+
+		String currentVersion = MainFrame.getVariamosVersionNumber();
+
+		// TODO: to convert an old version model to a new version (file before
+		// loading), validate modelVersion and currentVersion to evaluate the
+		// correct: modelVersion.equals("1.0.1.19") &&
+		// currentVersion.equals("1.0.1.20")
+
+		// validation example
+		if (version.equals("1.0.1.19") && currentVersion.equals("1.0.1.20")) {
+			setProgress(50);
+			progressMonitor.setNote("Converting Model File...");
+			// Include your edition of the text file here, update the file
+			// object with the new file
+		}
+		// System.out.println(stringBuilder.toString());
+		// endTime = System.currentTimeMillis();
+		// System.out.println("read version " + (endTime - iniTime));
+
+		// Read file version
 		PLGReader.loadPLG(file, graph, variamosEditor);
+		InstAttribute rootAttributes = (InstAttribute) ((mxCell) graph
+				.getModel().getRoot()).getChildAt(0).getValue();
+
+		String modelVersion = (String) rootAttributes
+				.getInstAttributeAttribute("versionNumber");
+
+		// TODO: to convert an old version model to a new version (edit xml),
+		// validate modelVersion and currentVersion to evaluate the
+		// correct: modelVersion.equals("1.0.1.19") &&
+		// currentVersion.equals("1.0.1.20")
+
+		// validation example
+		if (modelVersion.equals("1.0.1.19")
+				&& currentVersion.equals("1.0.1.20")) {
+
+			setProgress(50);
+			progressMonitor.setNote("Converting DataModel...");
+			// Include your of the graph object conversion here
+		}
+
+		// System.out.println("load version "
+		// + (System.currentTimeMillis() - endTime));
+
 		variamosEditor.setCurrentFile(file);
 		if (progressMonitor.isCanceled()) {
 			throw (new InterruptedException());

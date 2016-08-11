@@ -232,8 +232,10 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 	public void defineViewTabs() {
 		while (modelsTabPane.getTabCount() > 0)
 			modelsTabPane.removeTabAt(0);
-		PerspEditorGraph refasGraph = ((PerspEditorGraph) graphComponent
+		PerspEditorGraph perspEditorGraph = ((PerspEditorGraph) graphComponent
 				.getGraph());
+		perspEditorGraph.loadStyles();
+		perspEditorGraph.loadStencil();
 		List<InstElement> instViews = null;
 		if (refasModel.getSyntaxModel() != null)
 			instViews = refasModel.getSyntaxModel().getVariabilityVertex(
@@ -247,7 +249,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				updateView();
 			} else {
 				int i = 0;
-				mxCell root = (mxCell) refasGraph.getModel().getRoot();
+				mxCell root = (mxCell) perspEditorGraph.getModel().getRoot();
 				mxCell parent = (mxCell) root.getChildAt(0);
 				for (InstElement instElement : instViews) {
 
@@ -257,7 +259,7 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 							mxCell child = new mxCell(new InstCell(null, null,
 									false));
 							child.setId("mv" + i);
-							refasGraph.addCell(child, parent);
+							perspEditorGraph.addCell(child, parent);
 						}
 					}
 					i++;
@@ -545,7 +547,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 				vge2.setGraphEditorFunctions(new PerspEditorFunctions(vge2));
 				vge2.updateEditor();
 				mxCell root = new mxCell();
-				root.insert(new mxCell());
+				mxCell parent = new mxCell();
+				root.insert(parent);
+				InstAttribute att = new InstAttribute();
+				att.setInstAttributeAttribute("versionNumber",
+						MainFrame.getVariamosVersionNumber());
+				parent.setValue(att);
 				refasGraph.getModel().setRoot(root);
 				System.out
 						.println("Syntax Meta-Model perspective initialized.");
@@ -578,7 +585,12 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 		mxGraph graph = getGraphComponent().getGraph();
 		// Check modified flag and display save dialog
 		mxCell root = new mxCell();
-		root.insert(new mxCell());
+		mxCell parent = new mxCell();
+		root.insert(parent);
+		InstAttribute att = new InstAttribute();
+		att.setInstAttributeAttribute("versionNumber",
+				MainFrame.getVariamosVersionNumber());
+		parent.setValue(att);
 		graph.getModel().setRoot(root);
 		refasModel.clear();
 		// if (perspective == 2) {
@@ -1052,8 +1064,8 @@ public class VariamosGraphEditor extends BasicGraphEditor implements
 					instAttribute.updateValidationList(finalEditElm,
 							mapElements);
 
-					if (instAttribute.getIdentifier().equals(
-							"ConditionalExpression")) {
+					if (instAttribute.getType().equals(
+							"com.variamos.dynsup.model.ModelExpr")) {
 						continue;
 					}
 

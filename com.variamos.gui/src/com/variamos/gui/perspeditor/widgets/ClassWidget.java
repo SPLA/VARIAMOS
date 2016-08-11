@@ -332,10 +332,11 @@ public class ClassWidget extends WidgetR {
 		if (opersElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				if (instAttribute.getValueObject() == null
+				if ((instAttribute.getValueObject() == null && opersElements
+						.get(s) != null)
 						|| opersElements.get(s) != null
-						&& (!instAttribute.getValueObject().equals(
-								opersElements.get(s)))) {
+						&& (instAttribute.getValueObject() != null && !instAttribute
+								.getValueObject().equals(opersElements.get(s)))) {
 					instAttribute.setValueObject(opersElements.get(s));
 					out = true;
 				}
@@ -344,8 +345,10 @@ public class ClassWidget extends WidgetR {
 		if (syntaxElements != null) {
 			if (txtValue.getSelectedItem() != null) {
 				String s = ((String) txtValue.getSelectedItem()).trim();
-				if (instAttribute.getValueObject() == null
-						|| !instAttribute.getValueObject().equals(
+				if ((instAttribute.getValueObject() == null && syntaxElements
+						.get(s) != null)
+						|| instAttribute.getValueObject() != null
+						&& !instAttribute.getValueObject().equals(
 								syntaxElements.get(s))) {
 					instAttribute.setValueObject(syntaxElements.get(s));
 					out = true;

@@ -69,7 +69,7 @@ public class SemanticExpressionDialog extends JDialog {
 
 	public SemanticExpressionDialog(VariamosGraphEditor editor,
 			InstElement instElement, List<OpersExpr> semanticExpressions) {
-		super(editor.getFrame(), "Semantic Expressions Editor");
+		super(editor.getFrame(), "Meta-Model-Expression's Editor");
 		refasModel = (ModelInstance) editor.getEditedModel();
 		this.semanticExpressions = semanticExpressions;
 		setPreferredSize(new Dimension(width, height));
@@ -180,7 +180,7 @@ public class SemanticExpressionDialog extends JDialog {
 				repaint();
 			}
 		});
-		JButton addButton = new JButton("Add new Semantic Expression");
+		JButton addButton = new JButton("Add new Meta-Model-Expression");
 		addButton.addActionListener(new ActionListener() {
 
 			@Override

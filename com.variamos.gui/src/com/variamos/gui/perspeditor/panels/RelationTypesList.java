@@ -177,8 +177,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 		final InstAttribute instSemanticExpressions = new InstAttribute(
 				"semanticExpression", new ElemAttribute("semanticExpression",
 						OpersExpr.class.getCanonicalName(),
-						AttributeType.SYNTAX, false, "Semantic Expression", "",
-						"", 1, -1, "", "", -1, "", ""), null);
+						AttributeType.SYNTAX, false, "Meta-Model-Expressions",
+						"", "", 1, -1, "", "", -1, "", ""), null);
 		if (insert) {
 			// TODO move validation to a method on InstEnumeration
 			@SuppressWarnings("unchecked")
@@ -272,7 +272,8 @@ public class RelationTypesList extends JList<InstAttribute> {
 				// return false;
 				// }
 				InstAttribute v = buffer[0];
-				v.setAttributeName(v.getIdentifier());
+				v.setAttributeName((String) instIdentifier.getValue());
+				v.setIdentifier((String) instIdentifier.getValue());
 				v.setElemAttributeName((String) instIdentifier.getValue());
 				v.setDisplayName((String) instIdentifier.getValue());
 				v.setValue(instIdentifier.getValue() + "#"

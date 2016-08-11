@@ -2,8 +2,11 @@ package com.variamos.gui.maineditor;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,11 +45,16 @@ public class MainFrame extends JFrame {
 	private Cursor waitCursor, defaultCursor;
 	private boolean showPerspectiveButton = false;
 	private boolean showSimulationCustomizationBox = false;
-	private String variamosVersionNumber = "1.0.1.19";
+	private static String variamosVersionNumber = "1.0.1.19";
 	private String variamosVersionName = "1.0 Beta 19";
 	private String variamosBuild = "20160726-1830";
 	private String downloadId = "465";
 	private static boolean solverError = false;
+	private static String filesUrl = "";
+
+	public static String getFilesUrl() {
+		return filesUrl + "/VariaMos-" + variamosVersionNumber + "-Resources/";
+	}
 
 	public int getPerspective() {
 		return perspective;
@@ -60,6 +68,12 @@ public class MainFrame extends JFrame {
 	private List<PerspEditorMenuBar> editorsMenu;
 
 	public MainFrame(String[] args) {
+		try {
+			System.out.println(createResources());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		graphEditors = new ArrayList<VariamosGraphEditor>();
 		editorsMenu = new ArrayList<PerspEditorMenuBar>();
 		Map<String, OpersExprType> metaExpressionTypes = createMetaExpressionTypes();
@@ -167,8 +181,11 @@ public class MainFrame extends JFrame {
 			if (args == null || args.length == 0 || !args[0].equals("noupdate")) {
 				this.checkUpdates(false);
 			}
-			if (args != null && (args.length > 0 && args[0].equals("debug"))
-					|| (args.length == 2 && args[1].equals("debug"))) {
+
+			if (args != null
+					&& (args.length > 0 && args[0].equals("debug") || (args.length == 2 && args[1]
+							.equals("debug")))) {
+
 				ConsoleTextArea.setDebug(true);
 			}
 		} catch (UnsatisfiedLinkError e) {
@@ -305,7 +322,7 @@ public class MainFrame extends JFrame {
 		return showSimulationCustomizationBox;
 	}
 
-	public String getVariamosVersionNumber() {
+	public static String getVariamosVersionNumber() {
 		return variamosVersionNumber;
 	}
 
@@ -364,5 +381,51 @@ public class MainFrame extends JFrame {
 		} catch (IOException e) {
 			System.out.println("Error on updates verification.");
 		}
+	}
+
+	// based on
+	// http://stackoverflow.com/questions/10308221/how-to-copy-file-inside-jar-to-outside-the-jar
+	private String createResources() throws Exception {
+		filesUrl = new File(MainFrame.class.getProtectionDomain()
+				.getCodeSource().getLocation().toURI().getPath())
+				.getParentFile().getPath().replace('\\', '/');
+
+		File directory = new File(getFilesUrl());
+		directory.mkdir();
+		InputStream stream = null;
+		OutputStream resStreamOut = null;
+		String[] resourceNames = {
+				"/com/variamos/gui/perspeditor/style/styles.xml",
+				"/com/variamos/gui/perspeditor/style/shapes.xml" };
+		try {
+			for (String resourceName : resourceNames) {
+				stream = MainFrame.class.getResourceAsStream(resourceName);
+				if (stream == null) {
+					throw new Exception("Cannot get resource \"" + resourceName
+							+ "\" from Jar file.");
+				}
+				String fileName = resourceName.substring(resourceName
+						.lastIndexOf("/") + 1);
+
+				System.out.println(fileName);
+				File file = new File(getFilesUrl() + fileName);
+
+				int readBytes;
+				byte[] buffer = new byte[4096];
+				if (!file.exists()) {
+					resStreamOut = new FileOutputStream(getFilesUrl()
+							+ fileName);
+					while ((readBytes = stream.read(buffer)) > 0) {
+						resStreamOut.write(buffer, 0, readBytes);
+					}
+					resStreamOut.close();
+				}
+				stream.close();
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.toString());
+		}
+
+		return getFilesUrl();
 	}
 }
