@@ -362,11 +362,14 @@ public class PerspEditorGraph extends AbstractGraph {
 		source.addTargetRelation(directRelation, true);
 		target.addSourceRelation(directRelation, true);
 		List<InstElement> parents = null;
-		if (directRelation.getTransSupportMetaElement() != null
-				&& directRelation.getTransSupportMetaElement()
-						.getTransInstSemanticElement() != null)
-			parents = directRelation.getTransSupportMetaElement()
-					.getTransInstSemanticElement().getParentOpersConcept();
+		if (directRelation.getTransSupportMetaElement() != null) {
+			cell.setStyle(directRelation.getTransSupportMetaElement()
+					.getStyle());
+			if (directRelation.getTransSupportMetaElement()
+					.getTransInstSemanticElement() != null)
+				parents = directRelation.getTransSupportMetaElement()
+						.getTransInstSemanticElement().getParentOpersConcept();
+		}
 		refas.updateValidationLists(directRelation, source, target,
 				refas.getParentSMMSyntaxElement(directRelation), parents);
 		InstAttribute ia = directRelation
@@ -382,6 +385,7 @@ public class PerspEditorGraph extends AbstractGraph {
 			return false;
 		}
 		directRelation.setTransSupInstElement(pwrList.get(0));
+		cell.setStyle(directRelation.getTransSupportMetaElement().getStyle());
 		directRelation.createAttributes(map);
 		if (modelViewSubIndex != -1) {
 			refasGraph.getCells().put(
