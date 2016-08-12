@@ -71,6 +71,28 @@ public abstract class AbstractGraph extends mxGraph {
 
 		});
 
+		addListener(mxEvent.CELL_CONNECTED, new mxIEventListener() {
+			public void invoke(Object sender, mxEventObject evt) {
+				Object edge = ((mxCell) evt.getProperty("terminal"))
+						.getEdgeAt(0);
+				mxCell parentCell = (mxCell) evt.getProperty("parent");
+				int indexCell = 0;
+				Object obj = edge;
+				mxCell cell = (mxCell) obj;
+				if (cell == null)
+					return;
+
+				if (cell.isEdge())
+					if (!connectingEdge(cell, parentCell, indexCell)) {
+						System.out
+								.println("Relation not supported by the MetaModel"
+										+ cell.getId());
+
+					}
+			}
+
+		});
+
 		addListener(mxEvent.CELLS_ADDED, new mxIEventListener() {
 
 			public void invoke(Object sender, mxEventObject evt) {
@@ -107,6 +129,10 @@ public abstract class AbstractGraph extends mxGraph {
 	}
 
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
+		return false;
+	}
+
+	protected boolean connectingEdge(mxCell cell, mxCell parent, int index) {
 		return false;
 	}
 

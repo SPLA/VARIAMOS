@@ -366,8 +366,8 @@ public class MainFrame extends JFrame {
 								this,
 								"VariaMos keeped the compatibility of models until Version Beta 18. \n"
 										+ " Nevertheless, models created in version Beta 18 and older are not\n"
-										+ " compatible with this alfa Beta 19. Also, models created in this\n"
-										+ " version may have small compatibility issues in the stable Beta 19. If you \n"
+										+ " compatible with this unstable compilation of Beta 19. Also, models created in this\n"
+										+ " compilation may have small compatibility issues in the stable compilation of Beta 19. If you \n"
 										+ " already defined models, we suggest you to continue using version Beta 18.",
 								"Update Message",
 								JOptionPane.INFORMATION_MESSAGE, null);

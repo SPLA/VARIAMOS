@@ -337,6 +337,59 @@ public class PerspEditorGraph extends AbstractGraph {
 		return true;
 	}
 
+	protected boolean connectingEdge(mxCell cell, mxCell parent, int index) {
+		InstElement source = ((InstCell) cell.getSource().getValue())
+				.getInstElement();
+
+		Object targetO = cell.getTarget();
+		if (targetO == null)
+			return false;
+		InstElement target = ((InstCell) cell.getTarget().getValue())
+				.getInstElement();
+		Object value = cell.getValue();
+		String id = null;
+		HashMap<String, InstAttribute> map = new HashMap<String, InstAttribute>();
+		// TODO fill the map with allowed relation types
+		if (value instanceof InstCell) {
+			InstPairwiseRel directRelation = (InstPairwiseRel) ((InstCell) value)
+					.getInstElement();
+			ModelInstance refas = getModelInstance();
+			directRelation.clearRelations();
+			directRelation.clearMetaPairwiseRelation();
+			source.addTargetRelation(directRelation, true);
+			target.addSourceRelation(directRelation, true);
+			List<InstElement> parents = null;
+			if (directRelation.getTransSupportMetaElement() != null) {
+				cell.setStyle(directRelation.getTransSupportMetaElement()
+						.getStyle());
+				if (directRelation.getTransSupportMetaElement()
+						.getTransInstSemanticElement() != null)
+					parents = directRelation.getTransSupportMetaElement()
+							.getTransInstSemanticElement()
+							.getParentOpersConcept();
+			}
+			refas.updateValidationLists(directRelation, source, target,
+					refas.getParentSMMSyntaxElement(directRelation), parents);
+			InstAttribute ia = directRelation
+					.getInstAttribute(InstPairwiseRel.VAR_METAPAIRWISE);
+			List<InstElement> pwrList = ia.getValidationMEList();
+			mxGraphModel refasGraph = (mxGraphModel) getModel();
+			refasGraph.getCells().remove(cell.getId());
+
+			// cell.setVisible(false); // TODO workaround to hide non
+			// allowed
+			// relations - fix delete
+			if (pwrList.size() == 0) {
+				return false;
+			}
+			directRelation.setTransSupInstElement(pwrList.get(0));
+			cell.setStyle(directRelation.getTransSupportMetaElement()
+					.getStyle());
+			directRelation.createAttributes(map);
+		}
+		return true;
+	}
+
 	protected boolean addingEdge(mxCell cell, mxCell parent, int index) {
 		InstElement source = ((InstCell) cell.getSource().getValue())
 				.getInstElement();

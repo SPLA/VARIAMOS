@@ -186,18 +186,16 @@ public abstract class InstElement implements Serializable,
 						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 								.isResizable());
 				}
-				if (instAttribute.getIdentifier().equals("Index")) {
+				if (instAttribute.getIdentifier().equals("Index"))
 					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
 							.getIndex());
-					if (instAttribute.getIdentifier().equals("PaletteNames"))
-						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-								.getPaletteName());
-				}
+				if (instAttribute.getIdentifier().equals("PaletteNames"))
+					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
+							.getPaletteName());
 
 				if (instAttribute.getIdentifier().equals("Palette")) {
-					if (instAttribute.getIdentifier().equals("Palette"))
-						instAttribute.setValue(((SyntaxElement) edSyntaxEle)
-								.getPalette());
+					instAttribute.setValue(((SyntaxElement) edSyntaxEle)
+							.getPalette());
 				}
 
 				if (instAttribute.getIdentifier().equals("BorderStroke"))
